@@ -46,11 +46,15 @@ The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical a
 
 {% tabs %}
 {% tab title="Current" %}
-`RESET REPLICA` resets the Master/Slave\_last\_event\_time values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
+`RESET REPLICA` resets the `Master`/`Slave_last_event_time` and `Connects_Tried` values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
+{% endtab %}
+
+{% tab title="< 12.0" %}
+`RESET REPLICA` resets the `Master`/`Slave_last_event_time` values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
 {% endtab %}
 
 {% tab title="< 11.6" %}
-`RESET REPLICA` does not reset the Master/Slave\_last\_event\_time values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
+`RESET REPLICA` does not reset the `Master`/`Slave_last_event_time` values (see [SHOW REPLICA STATUS](../show/show-replica-status.md)).
 {% endtab %}
 {% endtabs %}
 

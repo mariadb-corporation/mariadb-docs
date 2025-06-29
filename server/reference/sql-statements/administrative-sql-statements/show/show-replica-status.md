@@ -102,16 +102,6 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 **Slave\_SQL\_Running:** Whether or not the SQL thread is running.
 
-{% tabs %}
-{% tab title="Current" %}
-**Replicate\_Rewrite\_DB:** Databases specified for replicating and rewriting with the [replicate\_rewrite\_db](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) option.
-{% endtab %}
-
-{% tab title="< 10.11" %}
-**Replica\_Rewrite\_DB** is not available.
-{% endtab %}
-{% endtabs %}
-
 **Replicate\_Do\_DB:** Databases specified for replicating with the [replicate\_do\_db](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) option.
 
 **Replicate\_Ignore\_DB:** Databases specified for ignoring with the [replicate\_ignore\_db](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) option.
@@ -126,7 +116,7 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 **Last\_Errno:** Alias for Last\_SQL\_Errno (see below)
 
-**Last Error:** Alias for Last\_SQL\_Error (see below)
+**Last\_Error:** Alias for Last\_SQL\_Error (see below)
 
 **Skip\_Counter:** Number of events that a replica skips from the master, as recorded in the [sql\_slave\_skip\_counter](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable.
 
@@ -198,17 +188,11 @@ Additional behavior to be aware of:
 
 **Gtid\_IO\_Pos:** Current [global transaction ID](../../../../ha-and-performance/standard-replication/gtid.md) value.
 
-**Retried\_transactions:** Number of retried transactions for this connection. Returned with `SHOW ALL SLAVES STATUS` only.
+**Replicate\_Do\_Domain\_Ids:** List of [domain\_ids](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) that are currently being recognized for replication purposes, or an empty string for none, as specified in the `DO_DOMAIN_IDS` option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md#do_domain_ids) statement.
 
-**Max\_relay\_log\_size:** Max [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) size for this connection. Returned with `SHOW ALL SLAVES STATUS` only.
+**Replicate\_Ignore\_Domain\_Ids:** List of [domain\_ids](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) that are currently being ignored for replication purposes, or an empty string for none, as specified in the `IGNORE_DOMAIN_IDS` option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md#ignore_domain_ids) statement.
 
-**Executed\_log\_entries:** How many log entries the replica has executed. Returned with `SHOW ALL SLAVES STATUS` only.
-
-**Slave\_received\_heartbeats:** How many heartbeats we have got from the master. Returned with `SHOW ALL SLAVES STATUS` only.
-
-**Slave\_heartbeat\_period:** How often to request a heartbeat packet from the master (in seconds). Returned with `SHOW ALL SLAVES STATUS` only.
-
-**Gtid\_Slave\_Pos:** GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
+**Parallel\_Mode:** The [in-order parallel replication mode](../../../../ha-and-performance/standard-replication/parallel-replication.md#in-order-parallel-replication) as configured by the [`slave_parallel_mode`](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable.
 
 **SQL\_Delay:** Value specified by MASTER\_DELAY in [CHANGE MASTER](../replication-statements/change-master-to.md) (or 0 if none).
 
@@ -222,19 +206,27 @@ Additional behavior to be aware of:
 
 **Slave\_Transactional\_Groups:** This status variable counts the occurrence of transactional event groups. This is a replica-side counter for optimistic parallel replication.
 
-**Replicate\_Rewrite\_DB:** Value of configured [replicate\_rewrite\_db](../../../../ha-and-performance/standard-replication/replication-filters.md#replicate_rewrite_db) system variable/option.
+{% tabs %}
+{% tab title="Current" %}
+**Replicate\_Rewrite\_DB:** Databases specified for replicating and [rewriting](../../../../ha-and-performance/standard-replication/replication-filters.md#replicate_rewrite_db) with the [`replicate_rewrite_db`](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable/option.
+{% endtab %}
 
-**Retried\_transactions:** The number of times that replicating transactions have been retried due to temporary errors (e.g. deadlocks in parallel replication).
+{% tab title="< 10.11" %}
+**Replica\_Rewrite\_DB** is not available.
+{% endtab %}
+{% endtabs %}
 
-**Max\_relay\_log\_size:** Maximum size of the relay log (configured by variable [max\_relay\_log\_size](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_relay_log_size)).
+**Retried\_transactions:** The number of times that replicating transactions have been retried due to temporary errors (e.g. deadlocks in parallel replication). Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Executed\_log\_entries:** Number of binary log events that have been executed, irrespective of error outcome (i.e. if the event execution results in an error, this number will still increase).
+**Max\_relay\_log\_size:** Max [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) size for this connection. Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Slave\_received\_heartbeats:** Number of [Heartbeat Log Events](../../../../clients-and-utilities/server-client-software/client-libraries/clientserver-protocol/replication-protocol/heartbeat_log_event.md) that the slave has received. Note this counter does not reset when the slave is restarted; only when a new [CHANGE MASTER](../replication-statements/change-master-to.md) command has executed.
+**Executed\_log\_entries:** Number of binary log events that have been executed, irrespective of error outcome (i.e. if the event execution results in an error, this number will still increase). Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Slave\_heartbeat\_period:** Configured (by [CHANGE MASTER TO MASTER\_HEARTBEAT\_PERIOD](../replication-statements/change-master-to.md#master_heartbeat_period)) interval in seconds between replication heartbeats.
+**Slave\_received\_heartbeats:** Number of [Heartbeat Log Events](../../../../clients-and-utilities/server-client-software/client-libraries/clientserver-protocol/replication-protocol/heartbeat_log_event.md) that the slave has received. Note this counter does not reset when the slave is restarted; only when a new [CHANGE MASTER](../replication-statements/change-master-to.md) command has executed. Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos), i.e. the GTID of the last transaction applied to the database by the server's [replica threads](../../../../ha-and-performance/standard-replication/replication-threads.md#threads-on-the-slave) for each replication domain.
+**Slave\_heartbeat\_period:** Configured (by [CHANGE MASTER TO MASTER\_HEARTBEAT\_PERIOD](../replication-statements/change-master-to.md#master_heartbeat_period)) interval in seconds between replication heartbeats. Returned with `SHOW ALL SLAVES STATUS` only.
+
+**Gtid\_Slave\_Pos:** The value of the global variable [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos), i.e. the GTID of the last event group replicated on a replica server, for each replication domain, as stored in the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md) system variable. Returned with `SHOW ALL SLAVES STATUS` only.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -247,6 +239,21 @@ Additional behavior to be aware of:
 
 {% tab title="< 11.6" %}
 **Master\_last\_event\_time**, **Slave\_last\_event\_time**, and **Master\_Slave\_time\_diff** are not available.
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
+{% tab title="Current" %}
+**Connects\_Tried:** The number of attempts done to connect to the primary. It starts from 0 with [*START* REPLICA](../replication-statements/start-replica.md) (but not [STOP REPLICA](../replication-statements/stop-replica.md)), [RESET REPLICA](../replication-statements/reset-replica.md) or [`CHANGE MASTER TO MASTER_RETRY_COUNT`][], and increments after each connection attempt until one succeeds or, after this reaches `Master_Retry_Count`, aborts the connection.
+
+**Master\_Retry\_Count:** The limit to `Connects_Tried` as configured by [`CHANGE MASTER TO MASTER_RETRY_COUNT`][].
+
+[`CHANGE MASTER TO MASTER_RETRY_COUNT`]: ../replication-statements/change-master-to.md#master_retry_count
+{% endtab %}
+
+{% tab title="< 12.0" %}
+**Connects\_Tried:** and **Master\_Retry\_Count:** are not available.
+If the Performance Schema is enabled, [`replication\_connection\_configuration`](../system-tables/performance-schema/performance-schema-tables/performance-schema-replication_connection_configuration-table.md) has `CONNECTION_RETRY_COUNT` available as an older alternative to `Master_Retry_Count`.
 {% endtab %}
 {% endtabs %}
 

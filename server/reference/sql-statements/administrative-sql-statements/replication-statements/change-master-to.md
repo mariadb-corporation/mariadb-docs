@@ -37,6 +37,7 @@ master_def:
   | IGNORE_SERVER_IDS = (server_id_list)
   | DO_DOMAIN_IDS = ([N,..])
   | IGNORE_DOMAIN_IDS = ([N,..])
+  | MASTER_RETRY_COUNT = long
 ```
 
 ## Description
@@ -216,13 +217,43 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-The number of connection attempts is limited by the [master\_retry\_count](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option. It can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
+#### MASTER\_RETRY\_COUNT
+
+{% tabs %}
+{% tab title="Current" %}
+The `MASTER_RETRY_COUNT` option limits the number of connection attempts (i.e., `Connects_Tried` in [SHOW REPLICA STATUS][]). For example:
+
+```sql
+STOP SLAVE;
+CHANGE MASTER TO
+  MASTER_RETRY_COUNT=1; # attempt only once; do not retry if it fails
+START SLAVE;
+```
+
+Setting this option resets the `Connects_Tried` statistic in [SHOW REPLICA STATUS][] to 0.
+
+The default is the [`--master-retry-count`][] option, which be set either on the command-line or in a server [option group][] in an [option file][] prior to starting up the server. For example:
+
+[SHOW REPLICA STATUS]: ../show/show-replica-status.md
+{% endtab %}
+
+{% tabs %}
+{% tab title="< 12.0" %}
+
+The `MASTER_RETRY_COUNT` option for `CHANGE MASTER` is only supported by MariaDB 12.0.1 and later and by MySQL. Please use the [`--master-retry-count`][] option instead, which be set either on the command-line or in a server [option group][] in an [option file][] prior to starting up the server. For example:
+
+{% endtab %}
+{% endtabs %}
 
 ```ini
 [mariadb]
 ...
 master_retry_count=4294967295
 ```
+
+[`--master-retry-count`]: ../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count
+[option group]: ../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups
+[option file]: ../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md
 
 #### MASTER\_BIND
 
