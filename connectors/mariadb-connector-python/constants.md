@@ -2,17 +2,12 @@
 
 > Constants are declared in mariadb.constants module.
 
-> For using constants of various types they have to be imported first:
+> For using constants of various types, they have to be imported first:
 ```python
 from mariadb.constants import *
 ```
 
 ## CAPABILITY
-
-#### Versionadded
-Added in version 1.1.4.
-
-<a id="module-mariadb.constants.CAPABILITY"></a>
 
 MariaDB capability flags.
 
@@ -20,6 +15,8 @@ These flags are used to check the capabilities both of a MariaDB server
 or the client applicaion.
 
 Capability flags are defined in module *mariadb.constants.CAPABILIY*
+
+*Since version 1.1.4*
 
 ```python
 import mariadb
@@ -32,12 +29,10 @@ conn_params= {
     "host" : "localhost"
 }
 
-# Establish a connection
-connection= mariadb.connect(**conn_params)
-
-# test if LOAD DATA LOCAL INFILE is supported
-if connection.server_capabilities & CAPABILITY.LOCAL_FILES:
-    print("Server supports LOCAL INFILE")
+with mariadb.connect(**conn_params) as connection:
+    # test if LOAD DATA LOCAL INFILE is supported
+    if connection.server_capabilities & CAPABILITY.LOCAL_FILES:
+        print("Server supports LOCAL INFILE")
 ```
 
 *Output*:
@@ -48,11 +43,6 @@ Server supports LOCAL INFILE
 
 ## CLIENT
 
-#### Versionadded
-Added in version 1.1.0.
-
-<a id="module-mariadb.constants.CLIENT"></a>
-
 MariaDB capability flags.
 
 These flags are used to check the capabilities both of a MariaDB server
@@ -60,20 +50,16 @@ or the client applicaion.
 
 Capability flags are defined in module *mariadb.constants.CLIENT*
 
-#### Deprecated
-Deprecated since version 1.1.4: Use CAPABILITY constants instead
+*Since version 1.1.0, deprecated in 1.1.4*
 
 ## CURSOR
-
-#### Versionadded
-Added in version 1.1.0.
-
-<a id="module-mariadb.constants.CURSOR"></a>
 
 Cursor constants are used for server side cursors.
 Currently only read only cursor is supported.
 
 Cursor constants are defined in module *mariadb.constants.CURSOR*.
+
+*Since version 1.1.0*
 
 #### CURSOR.NONE
 
@@ -86,11 +72,10 @@ means it is not possible to scroll back.
 
 ## ERR (Error)
 
-#### Versionadded
-Added in version 1.1.2.
-
 Using ERR constants instead of error numbers make the code more readable. Error constants
 are defined in constants.ERR module
+
+*Since version 1.1.2*
 
 ```python
 import mariadb
@@ -119,11 +104,6 @@ Access denied. Wrong password!
 
 ## FIELD_FLAG
 
-#### Versionadded
-Added in version 1.1.0.
-
-<a id="module-mariadb.constants.FIELD_FLAG"></a>
-
 MariaDB FIELD_FLAG Constants
 
 These constants represent the various field flags. As an addition
@@ -131,6 +111,8 @@ to the DBAPI 2.0 standard (PEP-249) these flags are returned as
 eighth element of the cursor description attribute.
 
 Field flags are defined in module *mariadb.constants.FIELD_FLAG*
+
+*Since version 1.1.0*
 
 #### FIELD_FLAG.NOT_NULL
 
@@ -301,7 +283,7 @@ column type is VARCHAR (variable length)
 
 #### FIELD_TYPE.STRING
 
-column tyoe is CHAR (fixed length)
+column type is CHAR (fixed length)
 
 #### FIELD_TYPE.GEOMETRY
 
@@ -331,25 +313,17 @@ indicates not to update the entire row.
 
 ## INFO
 
-#### Versionadded
-Added in version 1.1.0.
-
 For internal use only
 
 ## TPC_STATE
-
-#### Versionadded
-Added in version 1.1.0.
 
 For internal use only
 
 ## STATUS
 
-#### Versionadded
-Added in version 1.1.0.
+The STATUS constants are used to check the server status of the current connection.
 
-The STATUS constants are used to check the server status of
-the current connection.
+*Since version 1.1.0*
 
 > Example:
 
