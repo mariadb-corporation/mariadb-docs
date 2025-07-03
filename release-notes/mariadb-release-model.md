@@ -21,9 +21,9 @@ The release schedule looks about the same every year:
 
 References:
 
-*
-*
-*
+* https://mariadb.org/challenges-visions/
+* https://mariadb.org/preview-releases/
+* https://mariadb.org/new-innovation-release-model/ 
 
 ## Historical MariaDB Release Models
 
