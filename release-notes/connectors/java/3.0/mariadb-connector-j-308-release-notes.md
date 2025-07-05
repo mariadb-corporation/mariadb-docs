@@ -12,7 +12,7 @@ MariaDB Connector/J 3.0.8 is a [_**Stable**_](../../../mariadb-release-criteria.
 
 ### Notable Changes
 
-* [CONJ-1010](https://jira.mariadb.org/browse/CONJ-1010) improve client side prepared parameter parameter substitution
+* [CONJ-1010](https://jira.mariadb.org/browse/CONJ-1010) improve client side prepared parameter substitution
 
 ### Bugs Fixed
 

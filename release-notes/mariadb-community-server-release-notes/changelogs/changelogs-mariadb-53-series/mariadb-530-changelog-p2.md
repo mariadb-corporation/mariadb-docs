@@ -24,7 +24,7 @@
       over materialized derived tables with IN subquery predicates in the\
       where clause. If for such a query the optimizer chose to use duplicate\
       weed-out with duplicates in a materialized derived table and chose to\
-      employ join cache the the execution could cause a crash of the server.\
+      employ join cache the execution could cause a crash of the server.\
       It happened because the JOIN\_CACHE::init method assumed that the value\
       of TABLE::file::ref is set at the moment when the method was called\
       for the employed join cache. It's true for regular tables, but it's\
@@ -79,7 +79,7 @@
         Mon 2011-06-27 19:07:24 +0300
         * New status variables: Rows\_tmp\_read, Handler\_tmp\_update and Handler\_tmp\_write\
           Split status variable Rows\_read to Rows\_read and Rows\_tmp\_read so that one can see how much real data is read.\
-          Same was done with with Handler\_update and Handler\_write.\
+          Same was done with Handler\_update and Handler\_write.\
           Fixed bug in MEMORY tables where some variables was counted twice.\
           Added new internal handler call 'ha\_close()' to have one place to gather statistics.\
           Fixed bug where thd->open\_options was set to wrong value when doing admin\_recreate\_table()

@@ -132,7 +132,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * dbug: correct trace for DBUG\_RETURN(func()); -- gcc only
 * [Revision #8f60656](https://github.com/MariaDB/server/commit/8f60656)\
   2015-11-06 16:43:40 +0100
-  * [MDEV-9039](https://jira.mariadb.org/browse/MDEV-9039) Can't upgrade MariaDB to to 10.1.8 version from 10.0.21
+  * [MDEV-9039](https://jira.mariadb.org/browse/MDEV-9039) Can't upgrade MariaDB to 10.1.8 version from 10.0.21
 * [Revision #a716433](https://github.com/MariaDB/server/commit/a716433)\
   2015-11-03 20:59:36 +0100
   * [MDEV-7298](https://jira.mariadb.org/browse/MDEV-7298) plugins.cracklib\_password\_check test fails

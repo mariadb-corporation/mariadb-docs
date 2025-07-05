@@ -212,7 +212,7 @@ Everything is similar to using "compound", except for the addition of "Using ind
   Answer: The order of ANDed things does not matter.
 * What would happen if you shuffled the fields in the INDEX?\
   Answer: It may make a huge difference. More in a minute.
-* What if there are extra fields on the the end?\
+* What if there are extra fields on the end?\
   Answer: Minimal harm; possibly a lot of good (eg, 'covering').
 * Reduncancy? That is, what if you have both of these: INDEX(a), INDEX(a,b)?\
   Answer: Reduncy costs something on INSERTs; it is rarely useful for SELECTs.

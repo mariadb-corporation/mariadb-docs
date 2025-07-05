@@ -818,7 +818,7 @@ The possible values for this parameter are:
   could cause non-causal reads to occur. Starting with MaxScale 2.5.15, this\
   was fixed and all the GTID coordinates are passed alongside all requests\
   which makes multi-domain GTIDs safe to use. However, this does mean that the\
-  GTID coordinates will never be reset: if replication is reset and and GTID\
+  GTID coordinates will never be reset: if replication is reset and GTID\
   coordinates go "backwards", readwritesplit will not consider these as being\
   newer than the ones already stored. To reset the stored GTID coordinates in\
   readwritesplit, MaxScale must be restarted.\
@@ -951,7 +951,7 @@ the synchronization query before routing the execution of the prepared\
 statement. This keeps the performance of causal\_reads for prepared statements\
 the same as it is for normal SQL queries.
 
-As a result of this, each time the the synchronization query times out, the\
+As a result of this, each time the synchronization query times out, the\
 connection will be killed by the `KILL` statement and readwritesplit will retry\
 the query on the master. This is done to prevent the execution of the prepared\
 statement that follows the synchronization query from being processed by the\

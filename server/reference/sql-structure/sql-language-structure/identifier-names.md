@@ -47,7 +47,7 @@ The backtick character can be used as part of an identifier. In that case the id
 * Aliases have a maximum length of 256 characters, except for column aliases in [CREATE VIEW](../../../server-usage/views/create-view.md) statements, which are checked against the maximum column length of 64 characters (not the maximum alias length of 256 characters).
 * Users have a maximum length of 80 characters.
 * [Roles](../../../security/user-account-management/roles/) have a maximum length of 128 characters.
-* Multi-byte characters do not count extra towards towards the character limit.
+* Multi-byte characters do not count extra towards the character limit.
 
 ### Multiple Identifiers
 

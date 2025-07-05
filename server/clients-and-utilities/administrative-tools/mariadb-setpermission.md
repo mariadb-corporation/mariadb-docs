@@ -58,7 +58,7 @@ What would you like to do:
      LOCK TABLES,CREATE TEMPORARY TABLES)
   6. Create/append full privileges for an existing database
      and host combination (user has FULL privilege)
-  7. Remove all privileges for for an existing database and
+  7. Remove all privileges for an existing database and
      host combination.
      (user will have all permission fields set to N)
   0. exit this program

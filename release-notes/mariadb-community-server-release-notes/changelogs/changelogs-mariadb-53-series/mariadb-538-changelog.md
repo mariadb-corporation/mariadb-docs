@@ -187,7 +187,7 @@ modified in that revision.
       Mon 2012-06-11 22:12:47 -0700
       * Fixed [Bug #1008293](https://bugs.launchpad.net/bugs/1008293).
         * One of the reported problems manifested itself in the scenario when one\
-          thread tried to to get statistics on a key cache while the second thread\
+          thread tried to get statistics on a key cache while the second thread\
           had not finished initialization of the key cache structure yet.\
           The problem was resolved by forcing serialization of such operations\
           on key caches.

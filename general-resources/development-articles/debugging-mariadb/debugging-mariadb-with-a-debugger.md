@@ -1,7 +1,7 @@
 # Debugging MariaDB With a Debugger
 
 If you have MariaDB [compiled for debugging](compiling-mariadb-for-debugging.md) you can both use it in a\
-debugger, like ddd or gdb, and get comprehensive trace files of the execution of MariaDB. The trace files allow you to both see the flow of the code and to see the differences in execution by by comparing two trace files.
+debugger, like ddd or gdb, and get comprehensive trace files of the execution of MariaDB. The trace files allow you to both see the flow of the code and to see the differences in execution by comparing two trace files.
 
 Core dumps are also much easier to investigate if they come from a debug binary.
 

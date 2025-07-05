@@ -51,7 +51,7 @@ modified in that revision.
   * Fix test case
 * [Revision #488](https://bazaar.launchpad.net/~maria-captains/mariadb-java-client/trunk/revision/488)\
   Fri 2013-09-20 16:55:18 +0200
-  * [CONJ-66](https://jira.mariadb.org/browse/CONJ-66) : Extra rows (index parts that are not not parts of primary keys) may be returned by DatabaseMetaData.getPrimaryKeys()
+  * [CONJ-66](https://jira.mariadb.org/browse/CONJ-66) : Extra rows (index parts that are not parts of primary keys) may be returned by DatabaseMetaData.getPrimaryKeys()
 * [Revision #487](https://bazaar.launchpad.net/~maria-captains/mariadb-java-client/trunk/revision/487)\
   Fri 2013-09-20 14:07:24 +0200
   * [CONJ-65](https://jira.mariadb.org/browse/CONJ-65) : add new connection parameter serverTimezone, compatible to Connector/J

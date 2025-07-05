@@ -95,7 +95,7 @@ details of the revision and view diffs of the code modified in that revision.
   * bump the VERSION
 * [Revision #6b4a4a85a7](https://github.com/MariaDB/server/commit/6b4a4a85a7)\
   2018-01-30 11:28:21 +0400
-  * [MDEV-14696](https://jira.mariadb.org/browse/MDEV-14696) Server crashes in in prep\_alter\_part\_table on 2nd execution of PS.
+  * [MDEV-14696](https://jira.mariadb.org/browse/MDEV-14696) Server crashes in prep\_alter\_part\_table on 2nd execution of PS.
 * [Revision #c4a908cb56](https://github.com/MariaDB/server/commit/c4a908cb56)\
   2018-01-30 11:35:27 +0400
   * [MDEV-13790](https://jira.mariadb.org/browse/MDEV-13790) UNHEX() of a somewhat complicated CONCAT() returns NULL

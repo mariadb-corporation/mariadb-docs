@@ -157,7 +157,7 @@ Where:
 * `new-service`: The name of the service using the Diff router, to be\
   created.
 * `existing-service`: The name of an existing service in whose context\
-  the the new server is to be evaluated.
+  the new server is to be evaluated.
 * `used-server`: A server used by `existing-service`
 * `new-server`: The server that should be compared to `used-server`.
 
@@ -243,7 +243,7 @@ to `MariaDB_112`.
 When the sessions are resumed, client requests will again be\
 processed, but they will now be routed via `DiffMyService`.
 
-With maxctrl we can can check that MyServer has been rewired.
+With maxctrl we can check that MyServer has been rewired.
 
 ```
 maxctrl list services

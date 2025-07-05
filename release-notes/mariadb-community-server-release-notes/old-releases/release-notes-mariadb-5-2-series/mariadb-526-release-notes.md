@@ -30,7 +30,7 @@ page.
 
 ## Includes Updates from MySQL 5.1
 
-MariaDB includes a merge from from MySQL 5.1 bazaar trunk. This merge does\
+MariaDB includes a merge from MySQL 5.1 bazaar trunk. This merge does\
 not correspond to a particular version of MySQL, but includes part of MySQL\
 5.1.57 and part of 5.1.58. The actual revision merged is`revid:nirbhay.choubey@oracle.com-20110427115410-vpeshiv6u5snkvzi` and the changes can be found in the source at [Revision #2643.124.2](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.124.2) .
 

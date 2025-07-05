@@ -246,7 +246,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
         * Cassandra Storage Engine: Address review feedback part 2 - Register counters directly in the array passed to maria\_declare\_plugin. As a consequence, FLUSH TABLES will reset the counters. - Update test results accordingly.
   * [Revision #3413.25.50](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.25.50)\
     Thu 2012-12-20 13:10:09 +0400
-    * Cassandra Storage Engine: - Partially address review feedback. - Update cassandra.test result result - make cassandra.test timezone-agnostic
+    * Cassandra Storage Engine: - Partially address review feedback. - Update cassandra.test result - make cassandra.test timezone-agnostic
   * [Revision #3413.25.49](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.25.49)\
     Sun 2012-09-30 07:58:01 +0300
     * Check of deleting whole dynamic columns.
@@ -691,8 +691,8 @@ Fri 2012-08-17 21:13:20 +0400
           * Performed re-factoring and re-structuring of the code for [MWL#248](https://askmonty.org/worklog/?tid=248):
             * Moved the definitions of the classes to store data from persistent statistical tables into statistics.h, leaving in other internal data structures only references to the corresponding objects.
             * Defined class Column\_statistics\_collected derived from the class Column\_statistics. This is a helper class to collect statistics on columns.
-            * Moved references to read statistics to TABLE SHARE, leaving the the reference to the collected statistics in TABLE.
-            * Added a new clone method for the class Field allowing to clone fields attached to table shares. It was was used to create fields for min/max values in the memory of the table share.
+            * Moved references to read statistics to TABLE SHARE, leaving the reference to the collected statistics in TABLE.
+            * Added a new clone method for the class Field allowing to clone fields attached to table shares. It was used to create fields for min/max values in the memory of the table share.
           * Also:
             * Added procedures to allocate memory for statistical data in the table share memory and in table memory.
           * Also:

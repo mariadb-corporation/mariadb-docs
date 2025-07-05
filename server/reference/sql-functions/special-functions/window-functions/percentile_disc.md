@@ -15,7 +15,7 @@ Essentially, the following process is followed to find the value to return:
 
 
 * Get the number of rows in the partition.
-* Walk through the partition, in order, until finding the the first row with [CUME_DIST()](cume_dist.md) >= function_argument.
+* Walk through the partition, in order, until finding the first row with [CUME_DIST()](cume_dist.md) >= function_argument.
 
 
 ## Examples

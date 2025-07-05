@@ -91,7 +91,7 @@ The assisted discovery API is pretty much independent from the automatic discove
 
 #### handlerton::discover\_table\_structure()
 
-Much like the `discover_table()` method, the **discover\_table\_structure()** handlerton method gets a partially initialized `TABLE_SHARE` with the table name, database name, and a path to table files filled in, but without a table structure. Unlike `discover_table()`, here the `TABLE_SHARE` has all the [engine-defined table attributes](engine-defined-new-tablefieldindex-attributes.md) in the the `TABLE_SHARE::option_struct` structure. Based on the values of these attributes the `discover_table_structure()` method should initialize the `TABLE_SHARE` with the desired set of fields and keys. It can use `TABLE_SHARE` helper methods `init_from_binary_frm_image()` and `init_from_sql_statement_string()` for that.
+Much like the `discover_table()` method, the **discover\_table\_structure()** handlerton method gets a partially initialized `TABLE_SHARE` with the table name, database name, and a path to table files filled in, but without a table structure. Unlike `discover_table()`, here the `TABLE_SHARE` has all the [engine-defined table attributes](engine-defined-new-tablefieldindex-attributes.md) in the `TABLE_SHARE::option_struct` structure. Based on the values of these attributes the `discover_table_structure()` method should initialize the `TABLE_SHARE` with the desired set of fields and keys. It can use `TABLE_SHARE` helper methods `init_from_binary_frm_image()` and `init_from_sql_statement_string()` for that.
 
 ### The role of `.frm` files
 

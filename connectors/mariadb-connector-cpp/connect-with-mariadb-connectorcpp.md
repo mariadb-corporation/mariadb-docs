@@ -136,7 +136,7 @@ MariaDB Connector/C++ supports several optional connection parameters:
 
 ## Connection Methods
 
-Two categories of methods are available to to establish a connection.
+Two categories of methods are available to establish a connection.
 
 ### sql::Driver::connect()
 

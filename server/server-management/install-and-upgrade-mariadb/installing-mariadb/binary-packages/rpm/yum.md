@@ -52,7 +52,7 @@ gpgcheck=1
 ```
 
 The example file above includes a `gpgkey` line to automatically fetch the\
-GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the the `yum`, `dnf`, and `rpm` utilities to verify the integrity of the packages that they install.
+GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the `yum`, `dnf`, and `rpm` utilities to verify the integrity of the packages that they install.
 
 ### Pinning the MariaDB Repository to a Specific Minor Release
 

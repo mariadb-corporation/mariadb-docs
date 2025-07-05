@@ -27,7 +27,7 @@ The effect is similar to setting the [time\_zone](https://app.gitbook.com/s/Ssme
 
 Some of the bugs fixed include:
 
-* Index parts that are not not parts of primary keys may be returned by `DatabaseMetaData.getPrimaryKeys()` ([CONJ-66](https://jira.mariadb.org/browse/CONJ-66))
+* Index parts that are not parts of primary keys may be returned by `DatabaseMetaData.getPrimaryKeys()` ([CONJ-66](https://jira.mariadb.org/browse/CONJ-66))
 * Fixed UTF8 length calculation ([CONJ-73](https://jira.mariadb.org/browse/CONJ-73))
 * Prevent batch execution if the batchlist for statements and prepared statements is null. ([CONJ-74](https://jira.mariadb.org/browse/CONJ-74))
 * MySQLDatabaseMetaData fix: `GetColumns` now returns type.BIT instead of type.TINYINT if tinyInt1IsBit option is set ([CONJ-72](https://jira.mariadb.org/browse/CONJ-72))

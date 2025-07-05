@@ -278,7 +278,7 @@ The `mariadb-backup` SST method uses the `mariadb-backup` utility for performing
 
 ### Binary logs
 
-`mariadb-backup` can store the the binary log position in the backup. See [--binlog-info](mariadb-backup-options.md#binlog-info). This can be used for point-in-time recovery and to use the backup to setup a slave with the correct binlog position.
+`mariadb-backup` can store the binary log position in the backup. See [--binlog-info](mariadb-backup-options.md#binlog-info). This can be used for point-in-time recovery and to use the backup to setup a slave with the correct binlog position.
 
 ## Known Issues
 

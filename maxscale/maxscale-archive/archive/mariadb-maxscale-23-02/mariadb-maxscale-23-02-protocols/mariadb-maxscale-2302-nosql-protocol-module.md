@@ -635,7 +635,7 @@ are translated into:
 * the privileges themselves, e.g. `SELECT`, `DELETE`, etc.
 
 In NoSQL, every user resides in a specific database. Note that\
-this does **not** mean that that database would have to exist\
+this does **not** mean that database would have to exist\
 in MariaDB.
 
 When it comes to users, the database effectively means a scope,\
@@ -2822,7 +2822,7 @@ quite convenient in case the MongoDB® command does not behave as expected.
 
 ### MongoDB® Node.JS Driver
 
-As all client libraries implement and depend on the the MongoDB® wire protocol,\
+As all client libraries implement and depend on the MongoDB® wire protocol,\
 all client libraries should work with _nosqlprotocol_. However, the\
 only client library that has been used and that has been verified to work\
 is version 3.6 of the _MongoDB Node.JS Driver_.

@@ -112,7 +112,7 @@ Parsing row result optimisation to avoid creating byte array to the maximum for 
 ### Remaining JDBC 4.2 missing implementation :
 
 * [CONJ-414](https://jira.mariadb.org/browse/CONJ-414) - support for large update count \[[CONJ-414](https://jira.mariadb.org/browse/CONJ-414)]
-* [CONJ-409](https://jira.mariadb.org/browse/CONJ-409) - PrepareStatement.setObject(...) support for with java 8 temporal temporal object.
+* [CONJ-409](https://jira.mariadb.org/browse/CONJ-409) - PrepareStatement.setObject(...) support for with java 8 temporal object.
 * [CONJ-411](https://jira.mariadb.org/browse/CONJ-411) - support for Statement maxFieldSize
 
 ### Misc

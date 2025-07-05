@@ -20,7 +20,7 @@ The temporary space includes:
 
 There are two system variables used for controlling this feature:
 
-* [max\_tmp\_session\_space\_usage](max_tmp_session_space_usage-system-variable.md): Limits the the temporary space allowance per user
+* [max\_tmp\_session\_space\_usage](max_tmp_session_space_usage-system-variable.md): Limits the temporary space allowance per user
 * [max\_tmp\_total\_space\_usage](max_tmp_total_space_usage-system-variable.md): Limits the temporary space allowance for all users.
 
 ## Status Variables

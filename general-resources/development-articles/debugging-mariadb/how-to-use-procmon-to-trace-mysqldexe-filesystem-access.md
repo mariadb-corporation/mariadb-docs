@@ -49,7 +49,7 @@ It is also possible to see stacktraces corresponding to the events. For this to 
    C:\Program Files\Debugging Tools for Windows (x64)\dbghelp.dll
 4. In "symbol path" input field, add\
    sr&#x76;_&#x43;:\symbols_[symbols;\<path\to\your\installation\bin](https://msdl.microsoft.com/download/symbols;%3Cpath/to/your/installation/bin)>\
-   (substitute last last path element with real path to your installation)
+   (substitute last path element with real path to your installation)
 
 This is how it looks on my machine:
 
@@ -59,7 +59,7 @@ Once symbols are configured, you'll get a stack trace corresponding to a filesys
 
 ![Callstack](../../.gitbook/assets/Callstack.png)
 
-It is also possible to save the the whole trace with callstacks as text (File/Save, choose XML, include callstack + resolve callstack).
+It is also possible to save the whole trace with callstacks as text (File/Save, choose XML, include callstack + resolve callstack).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

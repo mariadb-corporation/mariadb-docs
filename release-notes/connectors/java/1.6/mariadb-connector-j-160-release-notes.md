@@ -15,7 +15,7 @@ release.
 
 ## Notable Changes
 
-This release contains the 2.0.0/2.0.1 evolutions, without Java 8 temporal temporal objects ([CONJ-409](https://jira.mariadb.org/browse/CONJ-409)) and support for large updates ([CONJ-414](https://jira.mariadb.org/browse/CONJ-414)).
+This release contains the 2.0.0/2.0.1 evolutions, without Java 8 temporal objects ([CONJ-409](https://jira.mariadb.org/browse/CONJ-409)) and support for large updates ([CONJ-414](https://jira.mariadb.org/browse/CONJ-414)).
 
 See [2.0.1 changelog](../2.0/mariadb-connector-j-201-release-notes.md) to know more.
 

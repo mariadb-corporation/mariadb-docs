@@ -211,7 +211,7 @@ This string contains the following special characters: \\,\"
 This function is used to ask the server to kill a database connection
 specified by the processid parameter.
 
-The connection id can be be retrieved by SHOW PROCESSLIST sql command.
+The connection id can be retrieved by SHOW PROCESSLIST sql command.
 
 #### NOTE
 A thread_id from other connections can be determined by executing the SQL statement `SHOW PROCESSLIST`

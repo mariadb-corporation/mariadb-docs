@@ -55,7 +55,7 @@ To disable a threshold alarm, set it to 0.
 
 ### Memory utilization
 
-A couple of mcsadmin commands provide convenience functions for monitoring memory utilization across nodes. _getSystemMemory_ returns server level memory statistics and _getSystemMemoryUsers_ shows the the top 5 processes by server. The following examples are for a 2 server combined setup:
+A couple of mcsadmin commands provide convenience functions for monitoring memory utilization across nodes. _getSystemMemory_ returns server level memory statistics and _getSystemMemoryUsers_ shows the top 5 processes by server. The following examples are for a 2 server combined setup:
 
 ```
 mcsadmin> getSystemMemory

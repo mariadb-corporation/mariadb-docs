@@ -66,7 +66,7 @@ sudo semanage fcontext -a -t mysqld_db_t "/mariadb/data(/.*)?"
 sudo restorecon -Rv /mariadb/data
 ```
 
-If you would like to check the current file context, you can do so by by executing `ls` with the `--context` or `--scontext` options. For example:
+If you would like to check the current file context, you can do so by executing `ls` with the `--context` or `--scontext` options. For example:
 
 ```bash
 ls --directory --scontext /mariadb/data
@@ -87,7 +87,7 @@ sudo semanage fcontext -a -t mysqld_log_t "/var/log/mysql(/.*)?"
 sudo restorecon -Rv /var/log/mysql
 ```
 
-If you would like to check the current file context, you can do so by by executing `ls` with the `--context` or `--scontext` options. For example:
+If you would like to check the current file context, you can do so by executing `ls` with the `--context` or `--scontext` options. For example:
 
 ```bash
 ls --directory --scontext /var/log/mysql
@@ -108,7 +108,7 @@ sudo semanage fcontext -a -t mysqld_etc_t "/etc/mariadb(/.*)?"
 sudo restorecon -Rv /etc/mariadb
 ```
 
-If you would like to check the current file context, you can do so by by executing `ls` with the `--context` or `--scontext` options. For example:
+If you would like to check the current file context, you can do so by executing `ls` with the `--context` or `--scontext` options. For example:
 
 ```bash
 ls --directory --scontext /etc/mariadb

@@ -69,7 +69,7 @@ It is called when the summary results need to be reset, that is at the beginning
 
 _is\_null_ is set to point to CHAR(0) before calling x\_clear().
 
-In the case of an error, you can store the value to which the error argument points (a single-byte variable, not a string string buffer) in the variable.
+In the case of an error, you can store the value to which the error argument points (a single-byte variable, not a string buffer) in the variable.
 
 ### x\_reset()
 

@@ -36,7 +36,7 @@ The following statements are regarded as unsafe:
 * When a table has an [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) column and a [trigger](../../server-usage/triggers-events/triggers/) or [stored procedure](../../server-usage/stored-routines/) executes an [UPDATE](../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statement against the table.
 * [UPDATE](../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statements that use [LIMIT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#limit), since the order of the returned rows is unspecified. This applies even to statements using an ORDER BY clause, which are deterministic (a known bug). However, `LIMIT 0` is an exception to this rule (see [MDEV-6170](https://jira.mariadb.org/browse/MDEV-6170)), and these statements are safe for replication.
 * When using a [user-defined function](../../server-usage/user-defined-functions/).
-* Statements using using any of the following functions, which can return different results on the replica:
+* Statements using any of the following functions, which can return different results on the replica:
   * [CURRENT\_ROLE()](../../reference/sql-functions/secondary-functions/information-functions/current_role.md)
   * [CURRENT\_USER()](../../reference/sql-functions/secondary-functions/information-functions/current_user.md)
   * [FOUND\_ROWS()](../../reference/sql-functions/secondary-functions/information-functions/found_rows.md)

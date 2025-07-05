@@ -90,7 +90,7 @@ After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.co
 
 ## Importing the MariaDB GPG Public Key
 
-Before MariaDB can be installed, you also have to import the GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the the `zypper` and `rpm` utilities to verify the integrity of the packages that they install.
+Before MariaDB can be installed, you also have to import the GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the `zypper` and `rpm` utilities to verify the integrity of the packages that they install.
 
 The id of our GPG public key is `0xcbcb082a1bb943db`. The short form of the id\
 is `0x1BB943DB`. The full key fingerprint is:

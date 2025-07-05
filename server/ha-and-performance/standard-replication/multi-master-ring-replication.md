@@ -148,7 +148,7 @@ Here follows a step by step description of how to do this.
 
 The new slave that will be added to replace slave1 place will below be called slave3.\
 The new master will be called master3 (to simplify explanations).\
-Note that in some cases, the failed master can be re-used as the new slave if it it did recover properly. If this is the case, reset all replications setups on the failed master.
+Note that in some cases, the failed master can be re-used as the new slave if it did recover properly. If this is the case, reset all replications setups on the failed master.
 
 Note that when one sets up a master->slave replication, all configurations are done only on the slave!
 

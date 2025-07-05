@@ -36,7 +36,7 @@ If you installed the plugin by providing the [--plugin-load](../../../server-man
 
 ## Creating Users
 
-You can create a user account by executing the [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statement and providing the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause followied by the the name of the plugin, which is `ed25519`, and providing the the `USING` clause followed by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function with the plain-text password as an argument. For example:
+You can create a user account by executing the [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md) statement and providing the [IDENTIFIED VIA](../../sql-statements/account-management-sql-statements/create-user.md#identified-viawith-authentication_plugin) clause followied by the name of the plugin, which is `ed25519`, and providing the `USING` clause followed by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function with the plain-text password as an argument. For example:
 
 ```
 CREATE USER username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');

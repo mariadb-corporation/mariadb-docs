@@ -222,7 +222,7 @@ Don't read default options from any option file. Must be given as the first opti
 
 **`-o, --one-database`**
 
-Ignore statements except those those that occur while the default database is the one named on the command line. This filtering is limited, and based only on [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statements. This is useful for skipping updates to other databases in the binary log.
+Ignore statements except those that occur while the default database is the one named on the command line. This filtering is limited, and based only on [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statements. This is useful for skipping updates to other databases in the binary log.
 
 **`--pager[=name]`**
 

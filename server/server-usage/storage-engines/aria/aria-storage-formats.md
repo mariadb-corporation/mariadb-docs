@@ -39,7 +39,7 @@ Page format is the default format for Aria tables, and is the only format that c
 Page tables have a number of characteristics:
 
 * It's cached by the page cache, which gives better random performance as it uses fewer system calls.
-* Does not fragment as easily easily as the DYNAMIC format during UPDATES. The maximum number of fragments are very low.
+* Does not fragment as easily as the DYNAMIC format during UPDATES. The maximum number of fragments are very low.
 * Updates more quickly than dynamic tables.
 * Has a slight storage overhead, mainly notable on very small rows
 * Slower to perform a full table scan

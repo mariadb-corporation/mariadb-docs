@@ -347,7 +347,7 @@ modified in that revision.
   * [Revision #3393.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3393.1.1)\
     Fri 2012-01-27 19:01:26 -0800
     * Back-ported test cases for [MySQL Bug #59919](https://bugs.mysql.com/bug.php?id=59919) of mysql-5.6 code line. The bug could\
-      not be reproduced in the latest release of mariadb-5.3 as it was was fixed\
+      not be reproduced in the latest release of mariadb-5.3 as it was fixed\
       by Sergey Petrunia when working on the problems concerning outer joins within\
       in subqueries converted to semi-joins.
 * [Revision #3398](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3398)\

@@ -16,7 +16,7 @@ The most important data not available in the regular tabular `ANALYZE` statement
 * `r_loops` field. This shows how many times the node was executed. Most query plan elements have this field.
 * `r_total_time_ms` field. It shows how much time in total, in milliseconds, was spent executing this node. If the node has subnodes, their execution time is included.
   * For UPDATE and DELETE statements, top-level `query_block.r_total_time_ms` does include the time to make row deletions/updates but does NOT include the time to commit the changes.
-* `r_buffer_size` field. Query plan nodes that make use of buffers report the size of buffer that was was used.
+* `r_buffer_size` field. Query plan nodes that make use of buffers report the size of buffer that was used.
 
 ### InnoDB engine statistics
 

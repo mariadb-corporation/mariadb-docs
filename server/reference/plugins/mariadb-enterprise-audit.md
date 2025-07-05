@@ -1370,7 +1370,7 @@ If you are upgrading from the MariaDB Audit Plugin to MariaDB Enterprise Audit, 
 
 2. For any user account previously mentioned in the [server\_audit\_incl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_incl_users) system variable, determine if the user account can use the [Default Audit Filter](mariadb-enterprise-audit.md#default-audit-filter) or if the user account requires a [Named Audit Filter](mariadb-enterprise-audit.md#named-audit-filters).
 
-Insert the relevant Audit Filters into the the mysql.server\_audit\_filters system table, and insert the user assignments into the mysql.server\_audit\_users system table:
+Insert the relevant Audit Filters into the mysql.server\_audit\_filters system table, and insert the user assignments into the mysql.server\_audit\_users system table:
 
 ```
 INSERT INTO mysql.server_audit_filters
@@ -1402,7 +1402,7 @@ The example passes the JSON object to the [JSON\_COMPACT()](../sql-functions/spe
 
 3. For any user account previously mentioned in the [server\_audit\_excl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_excl_users) system variable, create a [Named Audit Filter](mariadb-enterprise-audit.md#named-audit-filters) that acts as an exclusion filter.
 
-Insert the relevant Audit Filters into the the mysql.server\_audit\_filters system table, and insert the user assignments into the mysql.server\_audit\_users system table:
+Insert the relevant Audit Filters into the mysql.server\_audit\_filters system table, and insert the user assignments into the mysql.server\_audit\_users system table:
 
 ```
 INSERT INTO mysql.server_audit_filters

@@ -146,7 +146,7 @@ If you configured `apt` to install from MariaDB Foundation's MariaDB Repository 
 
 **Updating a Repository with add-apt-repository**
 
-If you added the `apt` repository by using the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command, then you can update the major release that the repository uses by using the the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command again.
+If you added the `apt` repository by using the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command, then you can update the major release that the repository uses by using the [add-apt-repository](https://manpages.ubuntu.com/manpages/bionic/man1/add-apt-repository.1.html) command again.
 
 First, look for the repository string for the old version in `/etc/apt/sources.list`.
 

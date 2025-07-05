@@ -202,7 +202,7 @@ SET GLOBAL innodb.OPTIMIZER_DISK_READ_RATIO=0.20;
 
 ### Examples of Changing Costs
 
-* `OPTIMIZER_WHERE_COST` is added as a cost for for all 'accepted rows'. Increasing this variable will cause the optimizer to choose plans with less estimated rows.
+* `OPTIMIZER_WHERE_COST` is added as a cost for all 'accepted rows'. Increasing this variable will cause the optimizer to choose plans with less estimated rows.
 * One can specify the kind of disk used by the system by changing `OPTIMIZER_DISK_READ_COST`. This should be the time to do a random read of a 4096 byte block.
 * The cost of a potential disk read is calculated as `OPTIMIZER_DISK_READ_COST * OPTIMIZER_DISK_READ_RATIO`. Increasing `OPTIMIZER_DISK_READ_RATIO` will inform the optimizer that not all data is cached.
 * `OPTIMIZER_SCAN_SETUP_COST` will increase the cost of a table scan. One can increase this to avoid using table scans.

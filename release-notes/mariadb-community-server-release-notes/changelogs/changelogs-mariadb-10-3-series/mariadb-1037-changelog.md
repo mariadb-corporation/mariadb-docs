@@ -862,7 +862,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-15902](https://jira.mariadb.org/browse/MDEV-15902) Assertion \`n < m\_size' failed, sql\_array.h:64: Element\_type& Bounds\_checked\_array\<Element\_type>::operator\[] (size\_t) \[with Element\_type = Item\*; size\_t = long unsigned int]
 * [Revision #cd8b8169b6](https://github.com/MariaDB/server/commit/cd8b8169b6)\
   2018-04-19 22:11:41 +0530
-  * [MDEV-15167](https://jira.mariadb.org/browse/MDEV-15167) Server crashes in in bitmap\_bits\_set upon REPAIR PARTITION... after rebuilding under test\_pseudo\_invisible
+  * [MDEV-15167](https://jira.mariadb.org/browse/MDEV-15167) Server crashes in bitmap\_bits\_set upon REPAIR PARTITION... after rebuilding under test\_pseudo\_invisible
 * Merge [Revision #d71a8855ee](https://github.com/MariaDB/server/commit/d71a8855ee) 2018-04-19 15:23:21 +0300 - Merge 10.2 to 10.3
 * [Revision #419385dbf1](https://github.com/MariaDB/server/commit/419385dbf1)\
   2018-04-19 14:31:20 +0530

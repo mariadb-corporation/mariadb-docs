@@ -16,7 +16,7 @@ details of the revision and view diffs of the code modified in that revision.
 * [Revision #506ab967](https://github.com/mariadb-corporation/mariadb-connector-j/commit/506ab967) - \[misc] javadoc addition
 * [Revision #57a5f067](https://github.com/mariadb-corporation/mariadb-connector-j/commit/57a5f067) - \[misc] client side prepare parameter setting avoiding null check for primitive parameter
 * [Revision #7b9458c0](https://github.com/mariadb-corporation/mariadb-connector-j/commit/7b9458c0) - \[misc] update mysql connector version
-* [Revision #0e4dbecb](https://github.com/mariadb-corporation/mariadb-connector-j/commit/0e4dbecb) - \[[CONJ-1010](https://jira.mariadb.org/browse/CONJ-1010)] improve client side prepared parameter parameter substitution
+* [Revision #0e4dbecb](https://github.com/mariadb-corporation/mariadb-connector-j/commit/0e4dbecb) - \[[CONJ-1010](https://jira.mariadb.org/browse/CONJ-1010)] improve client side prepared parameter substitution
 * [Revision #be083fe1](https://github.com/mariadb-corporation/mariadb-connector-j/commit/be083fe1) - \[misc] test correction for NULL geometry value
 * [Revision #1e5f510d](https://github.com/mariadb-corporation/mariadb-connector-j/commit/1e5f510d) - \[misc] socket flushing correction
 * [Revision #9a972b12](https://github.com/mariadb-corporation/mariadb-connector-j/commit/9a972b12) - \[misc] small performance enhancement using fastpath

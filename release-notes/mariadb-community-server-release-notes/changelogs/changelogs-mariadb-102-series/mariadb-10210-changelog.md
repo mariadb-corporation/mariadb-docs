@@ -230,7 +230,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * [MDEV-9208](https://jira.mariadb.org/browse/MDEV-9208): Function->Function->View = Mysqld segfault (Server crashes in Dependency\_marker::visit\_field on 2nd execution with merged subquery)
 * [Revision #991b9ee735](https://github.com/MariaDB/server/commit/991b9ee735)\
   2017-10-13 07:06:09 +0400
-  * [MDEV-13530](https://jira.mariadb.org/browse/MDEV-13530) VARBINARY doesn't convert to to BLOB for sizes 65533, 65534 and 65535
+  * [MDEV-13530](https://jira.mariadb.org/browse/MDEV-13530) VARBINARY doesn't convert to BLOB for sizes 65533, 65534 and 65535
 * [Revision #93aadda513](https://github.com/MariaDB/server/commit/93aadda513)\
   2017-10-08 22:15:00 +0300
   * [MDEV-13149](https://jira.mariadb.org/browse/MDEV-13149) -- show function status now works with PAD\_CHAR\_TO\_FULL\_LENGTH
@@ -266,7 +266,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * [MDEV-13051](https://jira.mariadb.org/browse/MDEV-13051) MySQL#86607 InnoDB crash after failed ADD INDEX and table\_definition\_cache eviction
 * [Revision #b9418ed333](https://github.com/MariaDB/server/commit/b9418ed333)\
   2017-10-09 13:32:40 +0300
-  * [MDEV-13676](https://jira.mariadb.org/browse/MDEV-13676): Field "create Procedure" is NULL, even if the the user has role which is the definer. (SHOW CREATE PROCEDURE)
+  * [MDEV-13676](https://jira.mariadb.org/browse/MDEV-13676): Field "create Procedure" is NULL, even if the user has role which is the definer. (SHOW CREATE PROCEDURE)
 * [Revision #fc9ff69578](https://github.com/MariaDB/server/commit/fc9ff69578)\
   2017-10-10 10:19:10 +0300
   * [MDEV-13838](https://jira.mariadb.org/browse/MDEV-13838): Wrong result after altering a partitioned table

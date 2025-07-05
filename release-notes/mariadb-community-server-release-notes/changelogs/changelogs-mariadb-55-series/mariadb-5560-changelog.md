@@ -85,7 +85,7 @@ of the revision and view diffs of the code modified in that revision.
   * fix plugins.server\_audit test for --ps
 * [Revision #03de234baf](https://github.com/MariaDB/server/commit/03de234baf)\
   2018-02-14 19:12:23 +0100
-  * [MDEV-13982](https://jira.mariadb.org/browse/MDEV-13982) Server crashes in in ha\_partition::engine\_name
+  * [MDEV-13982](https://jira.mariadb.org/browse/MDEV-13982) Server crashes in ha\_partition::engine\_name
 * [Revision #2709380587](https://github.com/MariaDB/server/commit/2709380587)\
   2018-02-14 18:14:24 +0100
   * [MDEV-13748](https://jira.mariadb.org/browse/MDEV-13748) Assertion \`status\_var.local\_memory\_used == 0 || !debug\_assert\_on\_not\_freed\_memory' failed in virtual THD::THD after query with INTERSECT

@@ -156,7 +156,7 @@ See:
 
 ### Why do you use the `TRANSACTIONAL` keyword now when Aria is not yet transactional?
 
-In the current development phase Aria tables created with `TRANSACTIONAL=1` are crash safe and atomic but not transactional because changes in Aria tables can't be rolled back with the `ROLLBACK` command. As we planned to make Aria tables fully transactional, we decided it was better to use the `TRANSACTIONAL` keyword from the start so so that applications don't need to be changed later.
+In the current development phase Aria tables created with `TRANSACTIONAL=1` are crash safe and atomic but not transactional because changes in Aria tables can't be rolled back with the `ROLLBACK` command. As we planned to make Aria tables fully transactional, we decided it was better to use the `TRANSACTIONAL` keyword from the start so that applications don't need to be changed later.
 
 ### What are the known problems with the MySQL-5.1-Maria release?
 
@@ -226,7 +226,7 @@ The MyISAM-like `DYNAMIC` and `FIXED` format are extremely simple and have very 
 The advantages of the `PAGE` format (compared to `DYNAMIC` or `FIXED`) for non-transactional tables are:
 
 * It's cached by the Page Cache, which gives better random performance (as it uses less system calls).
-* Does not fragment as easily easily as the `DYNAMIC` format during `UPDATE` statements. The maximum number of fragments are very low.
+* Does not fragment as easily as the `DYNAMIC` format during `UPDATE` statements. The maximum number of fragments are very low.
 * Code can easily be extended to only read the accessed columns (for example to skip reading blobs).
 * Faster updates (compared to `DYNAMIC`).
 

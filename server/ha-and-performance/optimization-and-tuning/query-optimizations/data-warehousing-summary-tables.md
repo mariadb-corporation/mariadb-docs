@@ -290,7 +290,7 @@ To look at what a report needs, look at the WHERE clause that would provide the 
 3. WHERE service\_type = ? GROUP BY make, model, service\_date
 4. WHERE service\_date between ? and ? GROUP BY make, model, model\_year
 
-You need to allow for 'ad hoc' queries? Well, look at all the ad hoc queries -- they all have a date range, plus nail down one or two other things. (I rarely see something as ugly as '%CL%' for nailing down another dimension.) So, start by thinking of date plus one or two other dimensions as the 'key' into a new summary table. Then comes the question of what data might be desired -- counts, sums, etc. Eventually you have a small set of summary tables. Then build a front end to allow them to pick only from those possibilities. It should encourage use of the existing summary tables, not not be truly 'open ended'.
+You need to allow for 'ad hoc' queries? Well, look at all the ad hoc queries -- they all have a date range, plus nail down one or two other things. (I rarely see something as ugly as '%CL%' for nailing down another dimension.) So, start by thinking of date plus one or two other dimensions as the 'key' into a new summary table. Then comes the question of what data might be desired -- counts, sums, etc. Eventually you have a small set of summary tables. Then build a front end to allow them to pick only from those possibilities. It should encourage use of the existing summary tables, not be truly 'open ended'.
 
 Later, another 'requirement' may surface. So, build another summary table. Of course, it may take a day to initially populate it.
 

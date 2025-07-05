@@ -177,7 +177,7 @@ ldapmodify -a -x -D cn=Manager,dc=support,dc=mariadb,dc=com -W -f ~/setupDirecto
 
 Let's go ahead and create the LDAP users and groups that we are using for this hypothetical scenario.
 
-First, let's create the the `foo` user:
+First, let's create the `foo` user:
 
 ```
 tee ~/createFooUser.ldif <<EOF

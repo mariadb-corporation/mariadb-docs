@@ -138,13 +138,13 @@ sudo apt-get install unixodbc odbcinst
 
 If you plan to compile an application from source against MariaDB Connector/ODBC and UnixODBC, then you also need the development header files that define the ODBC API function prototypes, ODBC data types, etc. In most Linux distributions, you can install these UnixODBC development files by using your Linux distribution's package manager.
 
-For example, the following command would install the `unixODBC-devel` package on on RHEL, CentOS, and similar Linux distributions:
+For example, the following command would install the `unixODBC-devel` package on RHEL, CentOS, and similar Linux distributions:
 
 ```bash
 sudo yum install unixODBC-devel
 ```
 
-And the following command would install the `unixodbc-dev` package on on Debian, Ubuntu, and similar Linux distributions:
+And the following command would install the `unixodbc-dev` package on Debian, Ubuntu, and similar Linux distributions:
 
 ```bash
 sudo apt-get update

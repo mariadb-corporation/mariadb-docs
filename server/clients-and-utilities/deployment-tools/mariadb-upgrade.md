@@ -106,7 +106,7 @@ One effect of not being able to create the `mysql_upgrade_info` file was that ev
 
 `mariadb-upgrade` 2.0 fixes the following issues:
 
-* The `datadir/mysql_upgrade_info` is now created at the start of the upgrade process and locked. This ensures that two `mariadb-upgrade` processes cannot be run in parallel, which can cause deadlocks ([MDEV-27068](https://jira.mariadb.org/browse/MDEV-27068)). One side-effect of this is that `mariadb-upgrade` has to have write access to `datadir`, which means it has to be run as as the user that installed MariaDB, normally 'mysql' or 'root' .
+* The `datadir/mysql_upgrade_info` is now created at the start of the upgrade process and locked. This ensures that two `mariadb-upgrade` processes cannot be run in parallel, which can cause deadlocks ([MDEV-27068](https://jira.mariadb.org/browse/MDEV-27068)). One side-effect of this is that `mariadb-upgrade` has to have write access to `datadir`, which means it has to be run as the user that installed MariaDB, normally 'mysql' or 'root' .
 * One can use `mariadb-upgrade --force --force` to force the upgrade to be run, even if there was no version change or if one doesn't have write access to `datadir`. Note that if this option is used, the next `mariadb-upgrade` run will assume that there is a major version change and the upgrade must be done (again).
 * The upgrade will only be done if there is a major server version change (10.4.X -> 10.5.X). This will avoid unnecessary upgrades.
 * New option added: `--check-if-upgrade-is-needed`. If this is used, `mariadb-upgrade` will return 0 if there has been a major version change and one should run `mariadb-upgrade`. If not upgrade is need, 1 will be returned.

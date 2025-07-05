@@ -37,7 +37,7 @@ innodb_temp_data_file_path=ibtmp1:32M:autoextend
 
 This system variable's syntax is the same as the [innodb\_data\_file\_path](../innodb-system-variables.md#innodb_data_file_path) system variable. That is, a file name, size and option. By default, it writes a 12MB autoextending file to `ibtmp1` in the data directory.
 
-To increase the size of the temporary tablespace, you can add a path to an additional tablespace file to the value of the the [innodb\_temp\_data\_file\_path](../innodb-system-variables.md#innodb_temp_data_file_path) system variable. Providing additional paths allows you to spread the temporary tablespace between multiple tablespace files. The last file can have the `autoextend` attribute, which ensures that you won't run out of space. For example:
+To increase the size of the temporary tablespace, you can add a path to an additional tablespace file to the value of the [innodb\_temp\_data\_file\_path](../innodb-system-variables.md#innodb_temp_data_file_path) system variable. Providing additional paths allows you to spread the temporary tablespace between multiple tablespace files. The last file can have the `autoextend` attribute, which ensures that you won't run out of space. For example:
 
 ```
 [mariadb]

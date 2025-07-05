@@ -6,7 +6,7 @@ The most recent release in the [MariaDB 10.0](changes-improvements-in-mariadb-10
 
 **Release date:** 16 Aug 2013
 
-[MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) is the current development version of MariaDB. It is built on the the [MariaDB 5.5 series](../release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) with backported and reimplemented\
+[MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) is the current development version of MariaDB. It is built on the [MariaDB 5.5 series](../release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) with backported and reimplemented\
 features from MySQL 5.6 and entirely new features not found anywhere else.
 
 [MariaDB 10.0.4](mariadb-1004-release-notes.md) is an [_**Alpha**_](../../../mariadb-release-criteria.md) release.\

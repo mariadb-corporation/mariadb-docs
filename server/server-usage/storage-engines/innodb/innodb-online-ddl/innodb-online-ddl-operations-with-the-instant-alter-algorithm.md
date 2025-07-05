@@ -831,7 +831,7 @@ This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statem
 
 ### `OPTIMIZE TABLE ...`
 
-InnoDB does **not** support optimizing a table with with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table.md#algorithm) set to `INSTANT`.
+InnoDB does **not** support optimizing a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table.md#algorithm) set to `INSTANT`.
 
 For example:
 

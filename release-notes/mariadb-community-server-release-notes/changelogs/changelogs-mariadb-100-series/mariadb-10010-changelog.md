@@ -431,7 +431,7 @@ modified in that revision.
   * [MDEV-5173](https://jira.mariadb.org/browse/MDEV-5173) Cppcheck report
 * [Revision #4087](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4087)\
   Wed 2014-03-19 09:57:57 +0100
-  * [MDEV-5787](https://jira.mariadb.org/browse/MDEV-5787) Server crashes in in row\_mysql\_convert\_row\_to\_innobase on CREATE .. SELECT
+  * [MDEV-5787](https://jira.mariadb.org/browse/MDEV-5787) Server crashes in row\_mysql\_convert\_row\_to\_innobase on CREATE .. SELECT
 * [Revision #4086](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4086)\
   Wed 2014-03-19 09:57:45 +0100
   * [MDEV-5771](https://jira.mariadb.org/browse/MDEV-5771) Privileges acquired via roles depend on the order of granting

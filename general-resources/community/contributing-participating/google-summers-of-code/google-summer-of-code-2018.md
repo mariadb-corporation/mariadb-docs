@@ -47,7 +47,7 @@ This will likely take the form of:
 
 Although ExeMgr can already receive messages with an execution plan the format is very complex and ABI breaks easily (we often send whole C++ objects).
 
-We should look at other ORM frameworks for inspiration as the the API design.
+We should look at other ORM frameworks for inspiration as the API design.
 
 This task to do the design for this API.
 

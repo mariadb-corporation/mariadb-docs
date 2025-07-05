@@ -36,7 +36,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * [MDEV-11697](https://jira.mariadb.org/browse/MDEV-11697): Lead Window Function Returns Incorrect Results
 * [Revision #d474642254](https://github.com/MariaDB/server/commit/d474642254)\
   2017-02-14 18:31:30 +0200
-  * [MDEV-10092](https://jira.mariadb.org/browse/MDEV-10092): Server crashes in in ha\_heap::rnd\_pos / Table\_read\_cursor::get\_next
+  * [MDEV-10092](https://jira.mariadb.org/browse/MDEV-10092): Server crashes in ha\_heap::rnd\_pos / Table\_read\_cursor::get\_next
 * [Revision #9fe9fb68ac](https://github.com/MariaDB/server/commit/9fe9fb68ac)\
   2017-02-14 14:02:29 +0200
   * [MDEV-10859](https://jira.mariadb.org/browse/MDEV-10859): Wrong result of aggregate window function in query with HAVING and no ORDER BY

@@ -573,7 +573,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_commit_concurrency`
 
-* Description: Limit to the number of transaction threads that can can commit simultaneously. 0, the default, imposes no limit. While you can change from one positive limit to another at runtime, you cannot set this variable to 0, or change it from 0, while the server is running. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/mariadb-1055-release-notes).
+* Description: Limit to the number of transaction threads that can commit simultaneously. 0, the default, imposes no limit. While you can change from one positive limit to another at runtime, you cannot set this variable to 0, or change it from 0, while the server is running. Deprecated and ignored from [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/mariadb-1055-release-notes).
 * Commandline: `--innodb-commit-concurrency=#`
 * Scope: Global
 * Dynamic: Yes
@@ -986,7 +986,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_encryption_threads`
 
-* Description: Number of background encryption threads threads performing background key rotation and [scrubbing](innodb-data-scrubbing.md). When setting up encryption, this variable must be set to a non-zero value. Otherwise, when you enable encryption through [innodb\_encrypt\_tables](innodb-system-variables.md#innodb_encrypt_tables) MariaDB won't be able to automatically encrypt any unencrypted tables. Recommended never be set higher than 255.
+* Description: Number of background encryption threads performing background key rotation and [scrubbing](innodb-data-scrubbing.md). When setting up encryption, this variable must be set to a non-zero value. Otherwise, when you enable encryption through [innodb\_encrypt\_tables](innodb-system-variables.md#innodb_encrypt_tables) MariaDB won't be able to automatically encrypt any unencrypted tables. Recommended never be set higher than 255.
   * See [Data-at-Rest Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) and [InnoDB Background Encryption Threads](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/innodb-encryption/innodb-background-encryption-threads.md) for more information.
 * Commandline: `--innodb-encryption-threads=#`
 * Scope: Global
@@ -1080,7 +1080,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_file_format_check`
 
-* Description: If set to `1`, the default, [InnoDB](./) checks the shared tablespace file format tag. If this is higher than the current version supported by XtraDB/InnoDB (for example Barracuda when only Antelope is supported), XtraDB/InnoDB will will not start. If it the value is not higher, XtraDB/InnoDB starts correctly and the [innodb\_file\_format\_max](innodb-system-variables.md#innodb_file_format_max) value is set to this value. If innodb\_file\_format\_check is set to `0`, no checking is performed. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
+* Description: If set to `1`, the default, [InnoDB](./) checks the shared tablespace file format tag. If this is higher than the current version supported by XtraDB/InnoDB (for example Barracuda when only Antelope is supported), XtraDB/InnoDB will not start. If it the value is not higher, XtraDB/InnoDB starts correctly and the [innodb\_file\_format\_max](innodb-system-variables.md#innodb_file_format_max) value is set to this value. If innodb\_file\_format\_check is set to `0`, no checking is performed. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
 * Commandline: `--innodb-file-format-check={0|1}`
 * Scope: Global
 * Dynamic: No
@@ -2039,7 +2039,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_page_cleaners`
 
-* Description: Number of page cleaner threads. The default is `4`, but the value will be set to the number of [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) if this is lower. If set to `1`, only a single cleaner thread is used, as was the case until [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series/mariadb-1021-release-notes). Cleaner threads flush dirty pages from the [buffer pool](innodb-buffer-pool.md), performing flush list and least-recently used (LRU) flushing. Deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/mariadb-1051-release-notes), as the original reasons for for splitting the buffer pool have mostly gone away.
+* Description: Number of page cleaner threads. The default is `4`, but the value will be set to the number of [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) if this is lower. If set to `1`, only a single cleaner thread is used, as was the case until [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series/mariadb-1021-release-notes). Cleaner threads flush dirty pages from the [buffer pool](innodb-buffer-pool.md), performing flush list and least-recently used (LRU) flushing. Deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/mariadb-1051-release-notes), as the original reasons for splitting the buffer pool have mostly gone away.
   * See [InnoDB Page Flushing: Page Flushing with Multiple InnoDB Page Cleaner Threads](innodb-page-flushing.md#page-flushing-with-multiple-innodb-page-cleaner-threads) for more information.
 * Commandline: `--innodb-page-cleaners=#`
 * Scope: Global
@@ -2544,7 +2544,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_table_locks`
 
-* Description: If [autocommit](innodb-system-variables.md#autocommit) is set to to `0` (`1` is default), setting innodb\_table\_locks to `1`, the default, will cause InnoDB to lock a table internally upon a [LOCK TABLE](../../../reference/sql-statements/transactions/lock-tables.md).
+* Description: If [autocommit](innodb-system-variables.md#autocommit) is set to `0` (`1` is default), setting innodb\_table\_locks to `1`, the default, will cause InnoDB to lock a table internally upon a [LOCK TABLE](../../../reference/sql-statements/transactions/lock-tables.md).
 * Commandline: `--innodb-table-locks`
 * Scope: Global, Session
 * Dynamic: Yes

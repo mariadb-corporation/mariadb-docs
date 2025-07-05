@@ -22,7 +22,7 @@ report on [our Jira](https://jira.mariadb.org/projects/MXS).
 
 The Columnstore monitor that in this release only supports Columnstore\
 version 1.5, is now capable of adjusting itself automatically to any\
-changes in the the cluster. In the configuration it is only specified\
+changes in the cluster. In the configuration it is only specified\
 a node using which the monitor get in contact with the cluster, but\
 after that the monitor autonomously figures out the cluster configuration\
 and automatically adapts to any changes in the configuration. For more\

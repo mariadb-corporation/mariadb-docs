@@ -129,7 +129,7 @@ aws_secret_access_key = o7CEf7KhZfsVF9cS0a2roqqZNmuzXtIR869zpSBT
 region = us-east-1
 ```
 
-1. Change the permissions of the file so that it it is owned by, and can only be read by, the `mysql` user:
+1. Change the permissions of the file so that it is owned by, and can only be read by, the `mysql` user:
 
 ```bash
 chown mysql /var/lib/mysql/.aws/credentials

@@ -12,7 +12,7 @@
 
 ### log\_slow\_verbosity
 
-You can set the verbosity of what's logged to the slow query log by setting the the [log\_slow\_verbosity](../../system-variables/server-system-variables.md#log_slow_verbosity) variable to a combination of the following values:
+You can set the verbosity of what's logged to the slow query log by setting the [log\_slow\_verbosity](../../system-variables/server-system-variables.md#log_slow_verbosity) variable to a combination of the following values:
 
 * `All` (From [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-6-series/mariadb-10-6-16-release-notes))
   * Enable all verbosity options.

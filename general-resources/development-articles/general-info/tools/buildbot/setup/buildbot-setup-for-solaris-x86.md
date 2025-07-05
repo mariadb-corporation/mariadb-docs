@@ -187,7 +187,7 @@ server 1.us.pool.ntp.org
 server 2.us.pool.ntp.org
 server 3.us.pool.ntp.org
 
-# save the file and quit back the the command prompt
+# save the file and quit back the command prompt
 
 sudo touch /var/ntp/ntp.drift
 sudo ntpdate 0.us.pool.ntp.org

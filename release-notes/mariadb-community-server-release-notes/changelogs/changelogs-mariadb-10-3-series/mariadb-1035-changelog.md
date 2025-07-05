@@ -142,7 +142,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-14789](https://jira.mariadb.org/browse/MDEV-14789) Creating federated table on versioned table fails
 * [Revision #5f6b3f9c07](https://github.com/MariaDB/server/commit/5f6b3f9c07)\
   2018-02-14 19:15:05 +0100
-  * [MDEV-13982](https://jira.mariadb.org/browse/MDEV-13982) Server crashes in in ha\_partition::engine\_name
+  * [MDEV-13982](https://jira.mariadb.org/browse/MDEV-13982) Server crashes in ha\_partition::engine\_name
 * [Revision #ce0e2c82af](https://github.com/MariaDB/server/commit/ce0e2c82af)\
   2018-02-13 17:17:35 +0100
   * Fix a typo
@@ -159,7 +159,7 @@ details of the revision and view diffs of the code modified in that revision.
   * fix plugins.server\_audit test for --ps
 * [Revision #03de234baf](https://github.com/MariaDB/server/commit/03de234baf)\
   2018-02-14 19:12:23 +0100
-  * [MDEV-13982](https://jira.mariadb.org/browse/MDEV-13982) Server crashes in in ha\_partition::engine\_name
+  * [MDEV-13982](https://jira.mariadb.org/browse/MDEV-13982) Server crashes in ha\_partition::engine\_name
 * [Revision #2709380587](https://github.com/MariaDB/server/commit/2709380587)\
   2018-02-14 18:14:24 +0100
   * [MDEV-13748](https://jira.mariadb.org/browse/MDEV-13748) Assertion \`status\_var.local\_memory\_used == 0 || !debug\_assert\_on\_not\_freed\_memory' failed in virtual THD::THD after query with INTERSECT
@@ -838,7 +838,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Fixed failing tests
 * [Revision #775aa5542d](https://github.com/MariaDB/server/commit/775aa5542d)\
   2018-01-29 23:51:04 -0800
-  * Fixed [MDEV-15017](https://jira.mariadb.org/browse/MDEV-15017) Server crashes in in st\_join\_table::fix\_splitting
+  * Fixed [MDEV-15017](https://jira.mariadb.org/browse/MDEV-15017) Server crashes in st\_join\_table::fix\_splitting
 * [Revision #4808996b12](https://github.com/MariaDB/server/commit/4808996b12)\
   2018-01-29 23:07:26 +0000
   * Fix result file

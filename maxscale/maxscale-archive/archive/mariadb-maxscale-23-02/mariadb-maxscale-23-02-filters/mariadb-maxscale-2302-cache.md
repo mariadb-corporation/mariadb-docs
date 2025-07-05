@@ -1012,7 +1012,7 @@ cache entries.
 Note that if a column has been specified in a rule, then a statement\
 will match _irrespective_ of where that particular column appears.\
 For instance, if a rule specifies that the result of statements referring\
-to the the column _a_ should be cached, then the following statement will\
+to the column _a_ should be cached, then the following statement will\
 match
 
 ```
@@ -1119,7 +1119,7 @@ Cache all queries containing a WHERE clause
 }
 ```
 
-Note that that will actually cause all queries that contain WHERE anywhere,\
+Note that will actually cause all queries that contain WHERE anywhere,\
 to be cached.
 
 #### When to Use
@@ -1715,7 +1715,7 @@ only indicative.
 | verify\_cacheable | regexp match | 80  |
 | verify\_cacheable | exact match  | 80  |
 
-For comparison, without caching, the the qps is `33`.
+For comparison, without caching, the qps is `33`.
 
 As can be seen, due to the query classifier cache there is\
 no difference between exact and regex based matching.

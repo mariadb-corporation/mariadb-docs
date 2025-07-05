@@ -15,7 +15,7 @@ MariaDB Connector/ODBC 3.1.16 is built on top of[MariaDB Connector/C v.3.3.1](..
 * The failover feature has been added ([ODBC-366](https://jira.mariadb.org/browse/ODBC-366)) - it’s possible to provide a comma separated list of hosts as a server name, for simple failover in case one or more hosts are not available. The following syntax is required:
   * hostname and port must be separated by a colon (:)
   * IPv6 addresses must be enclosed within square brackets
-  * hostname:port pairs must be be separated by a comma (,)
+  * hostname:port pairs must be separated by a comma (,)
   * if only one host:port was specified, the host string needs to end with a comma.
   * if no port was specified, the default port will be used.
   * Examples for failover host string:\
@@ -23,7 +23,7 @@ MariaDB Connector/ODBC 3.1.16 is built on top of[MariaDB Connector/C v.3.3.1](..
     * 127.0.0.1:3307,
 * MariaDB Connector/ODBC 3.1.16 is statically linked for Windows and MacOS with MariaDB Connector/C 3.3.1\
   MariaDB Connector/ODBC 3.1.16 is dynamically linked for Linux with MariaDB Connector/C, version 3.2 and 3.3 can be used, but 3.3 is required for the failover feature
-* NULLISCURRENT connection string option has been added. It allows to force NULL catalog name value to be treated as currently selected schema in SQLTables. Otherwise, that that is the default behavior, it’s treated as “any” schema([ODBC-298](https://jira.mariadb.org/browse/ODBC-298))
+* NULLISCURRENT connection string option has been added. It allows to force NULL catalog name value to be treated as currently selected schema in SQLTables. Otherwise, that is the default behavior, it’s treated as “any” schema([ODBC-298](https://jira.mariadb.org/browse/ODBC-298))
 * NOLOCALINFILE connection string option has been added. Non-zero value disables LOAD DATA LOCAL INFILE execution, zero value enables it. By default it's enabled([ODBC-347](https://jira.mariadb.org/browse/ODBC-347))\
   Tarball layout has been fixed. Now only the lib subdirectory is present, but not lib64 or even both. That subdirectory contains both C/ODBC and C/C library files, as well as plugin library files in the plugin subdirectory of it. Also files belonging to Connector/C installation package have been removed([ODBC-352](https://jira.mariadb.org/browse/ODBC-352))
 

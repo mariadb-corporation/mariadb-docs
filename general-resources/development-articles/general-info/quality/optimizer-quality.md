@@ -40,7 +40,7 @@ As of Nov 2010, the RQG has two primary modes for validating the results:
   by diffing the original and the downgraded execution plan.
 
 In addition to result set validation, there is a module which executes each\
-generated `SELECT` in various contexts, such as as part of a union, stored\
+generated `SELECT` in various contexts, such as part of a union, stored\
 procedure, trigger, etc. and makes sure that the query returns a correct\
 result. This is most often used for testing subselects.
 

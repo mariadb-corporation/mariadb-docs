@@ -43,7 +43,7 @@ You can read more about [SecurityContextConstraints in the OpenShift documentati
 
 ## Installation in all namespaces
 
-To install the operator watching resources on all namespaces, you need to to create a `Subscription` object for `mariadb-enterprise-operator` using the `stable` channel in the `openshift-operators` namespace:
+To install the operator watching resources on all namespaces, you need to create a `Subscription` object for `mariadb-enterprise-operator` using the `stable` channel in the `openshift-operators` namespace:
 
 ```yaml
 apiVersion: operators.coreos.com/v1alpha1

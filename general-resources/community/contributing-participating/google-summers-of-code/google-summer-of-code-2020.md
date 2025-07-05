@@ -400,7 +400,7 @@ This will likely take the form of:
 1. A reader in ExeMgr which will convert messages from mcsapi into jobs
 2. Code in mcsapi to send/receive the messages\
    Although ExeMgr can already receive messages with an execution plan the format is very complex and ABI breaks easily (we often send whole C++ objects).\
-   We should look at other ORM frameworks for inspiration as the the API design.\
+   We should look at other ORM frameworks for inspiration as the API design.\
    This task to do the design for this API.
 
 | Details: | Mentor:                                                |
@@ -438,7 +438,7 @@ We expect to have both unit and regression tests but this is optional.
 
 #### Histograms: use JSON as on-disk format
 
-Currently, histograms are stored as array of 1-byte bucket bounds (SINGLE\_PREC\_HB) or or 2-byte bucket bounds (DOUBLE\_PREC\_HB).\
+Currently, histograms are stored as array of 1-byte bucket bounds (SINGLE\_PREC\_HB) or 2-byte bucket bounds (DOUBLE\_PREC\_HB).\
 The table storing the histograms supports different histogram formats but limits them to 256 bytes (hist\_size is tinyint).
 
 ```

@@ -260,7 +260,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 The [replicate\_wild\_do\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to apply statements and transactions that affect tables that match a specified wildcard pattern.
 
-The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator. This means that the the following characters have a special meaning:
+The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator. This means that the following characters have a special meaning:
 
 * `_` - The `_` character matches any single character.
 * `%` - The `%` character matches zero or more characters.
@@ -307,7 +307,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 The [replicate\_wild\_ignore\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to ignore statements and transactions that affect tables that match a specified wildcard pattern.
 
-The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator. This means that the the following characters have a special meaning:
+The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator. This means that the following characters have a special meaning:
 
 * `_` - The `_` character matches any single character.
 * `%` - The `%` character matches zero or more characters.
@@ -443,7 +443,7 @@ If you need to be able to support cross-database updates with replication filter
 
 When an event is logged in its row-based format, many replication filters that affect a database will test the filter against the database that is actually affected by the event.
 
-Similarly, when an event is logged in its row-based format, many replication filters that affect a table will test the filter against the table in the the database that is actually affected by the event.
+Similarly, when an event is logged in its row-based format, many replication filters that affect a table will test the filter against the table in the database that is actually affected by the event.
 
 This means that cross-database updates work with replication filters and statement-based binary logging.
 

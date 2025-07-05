@@ -17,7 +17,7 @@ MariaDB Connector/Node.js 3.0.1 is a [_**Stable**_](../../../mariadb-release-cri
 ### Error description improvement
 
 * Pool might return a common error ‘retrieve connection from pool timeout after XXXms’ in place of real error.\[[CONJS-200](https://jira.mariadb.org/browse/CONJS-200)]
-* Trace option now works when using pool/cluster. It is recommended to activate the trace option in development Since driver is asynchronous, enabling this option to save initial stack when calling any driver methods. This allows having the caller method and line in the error stack, permitting error easy debugging. The problem is this error stack is created using Error.captureStackTrace that is very very slow. To give an idea, this slows down by 10% a query like 'select \* from mysql.user LIMIT 1', so not recommended in production. \[[CONJS-209](https://jira.mariadb.org/browse/CONJS-209)]
+* Trace option now works when using pool/cluster. It is recommended to activate the trace option in development Since driver is asynchronous, enabling this option to save initial stack when calling any driver methods. This allows having the caller method and line in the error stack, permitting error easy debugging. The problem is this error stack is created using Error.captureStackTrace that is very slow. To give an idea, this slows down by 10% a query like 'select \* from mysql.user LIMIT 1', so not recommended in production. \[[CONJS-209](https://jira.mariadb.org/browse/CONJS-209)]
 
 ```js
 const pool = mariadb.createPool({

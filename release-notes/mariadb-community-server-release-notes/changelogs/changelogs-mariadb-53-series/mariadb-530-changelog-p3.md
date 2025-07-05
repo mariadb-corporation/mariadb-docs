@@ -235,7 +235,7 @@
       * Test case of the [Bug #717577](https://bugs.launchpad.net/bugs/717577) produces wrong result sets because best\
         equal fields of the multiple equalities built for different OR levels\
         of the WHERE condition differs. The subsitution for the best equal field\
-        in the second OR branch overwrites the the substitution made for the\
+        in the second OR branch overwrites the substitution made for the\
         first branch.
       * To avoid such conflicts we have to substitute for the references\
         to the view columns rather than for the underlying field items.\

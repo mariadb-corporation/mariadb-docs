@@ -186,7 +186,7 @@
 * [Revision #2801](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2801)\
   Thu 2010-07-15 16:59:10 +0300
   * Fixed an error in the creation of REF access method for materialized\
-    subquery execution, where the the REF buffer format was mistaken to\
+    subquery execution, where the REF buffer format was mistaken to\
     be in record format instead of key format. The error was that the null\
     byte for all fields of the record was in the front of the buffer,\
     and not before each field data.
@@ -447,7 +447,7 @@
     it's working on the WHERE clause.
 * [Revision #2769](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2769)\
   Wed 2010-02-24 12:33:42 +0100
-  * [MySQL Bug #49198](https://bugs.mysql.com/bug.php?id=49198) Wrong result for second call of of procedure with view in subselect.
+  * [MySQL Bug #49198](https://bugs.mysql.com/bug.php?id=49198) Wrong result for second call of procedure with view in subselect.
   * Re-worked fix of Tor Didriksen:
     * The problem was that fix\_after\_pullout() after semijoin conversion\
       wasn't propagated from the view to the underlying table.

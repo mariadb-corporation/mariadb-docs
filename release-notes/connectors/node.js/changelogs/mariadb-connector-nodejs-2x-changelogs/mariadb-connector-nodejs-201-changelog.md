@@ -67,7 +67,7 @@ details of the revision and view diffs of the code modified in that revision.
 * [Revision #3fbf6a5](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/3fbf6a5) - \[[CONJS-41](https://jira.mariadb.org/browse/CONJS-41)] update cluster promise documentation
 * [Revision #8a0a865](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/8a0a865) - Update package.json
 * [Revision #9989078](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/9989078) - lil dependency bump
-* [Revision #d146ce5](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/d146ce5) - \[[CONJS-41](https://jira.mariadb.org/browse/CONJS-41)] cluster promise promise documentation
+* [Revision #d146ce5](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/d146ce5) - \[[CONJS-41](https://jira.mariadb.org/browse/CONJS-41)] cluster promise documentation
 * [Revision #6769da5](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/6769da5) - \[[CONJS-41](https://jira.mariadb.org/browse/CONJS-41)] cluster promise implementation - part 2 - implementation of PoolCluster.of - failover handling
 * [Revision #c0115d8](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/c0115d8) - \[misc] correct logo/documentation link
 * [Revision #337e50d](https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/337e50d) - \[[CONJS-41](https://jira.mariadb.org/browse/CONJS-41)] cluster promise implementation - part 1

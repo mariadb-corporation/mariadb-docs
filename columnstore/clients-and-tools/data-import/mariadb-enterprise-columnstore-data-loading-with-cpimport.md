@@ -273,7 +273,7 @@ The cpimport tool writes logs to different directories, depending on the Enterpr
 
 ### Column Order
 
-The cpimport tool requires column values to be be in the same order in the input file as the columns in the table definition.
+The cpimport tool requires column values to be in the same order in the input file as the columns in the table definition.
 
 ### Date Format
 

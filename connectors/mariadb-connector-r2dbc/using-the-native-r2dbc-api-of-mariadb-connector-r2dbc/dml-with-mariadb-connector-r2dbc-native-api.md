@@ -101,7 +101,7 @@ Alternatively, the bind(String name, Object value) method could be used to bind 
 
 The `execute()` method executes the statement, and returns the results as a `Publisher<? extends Result>` instance.
 
-Result instances must be fully consumed to ensure full execution of the the corresponding Statement instance.
+Result instances must be fully consumed to ensure full execution of the corresponding Statement instance.
 
 Confirm the data was properly inserted by using MariaDB Client to execute a SELECT statement:
 

@@ -1332,7 +1332,7 @@ Prints the binary log position and the name of the primary server.
 
 If the server is a replica, then this option causes mariadb-backup to print the hostname of the replica's replication primary and the binary log file and position of the replica's SQL thread to `stdout`.
 
-This option also causes mariadb-backup to record this information as a CHANGE MASTER command that can be used to set up a new server as a replica of the original server's primary after the backup has been restored. This information will be written to to the xtrabackup\_slave\_info file.
+This option also causes mariadb-backup to record this information as a CHANGE MASTER command that can be used to set up a new server as a replica of the original server's primary after the backup has been restored. This information will be written to the xtrabackup\_slave\_info file.
 
 mariadb-backup does **not** check if GTIDs are being used in replication. It takes a shortcut and assumes that if the gtid\_slave\_pos system variable is non-empty, then it writes the CHANGE MASTER command with the MASTER\_USE\_GTID option set to `slave_pos`. Otherwise, it writes the CHANGE MASTER command with the MASTER\_LOG\_FILE and MASTER\_LOG\_POS options using the primary's binary log file and position. See [MDEV-19264](https://jira.mariadb.org/browse/MDEV-19264) for more information.
 
@@ -1357,7 +1357,7 @@ mariadb-backup --backup \
 
 ### `--ssl`
 
-Enables TLS. By using this option, you can explicitly configure mariadb-backup to to encrypt its connection with TLS when communicating with the server. You may find this useful when performing backups in environments where security is extra important or when operating over an insecure network.
+Enables TLS. By using this option, you can explicitly configure mariadb-backup to encrypt its connection with TLS when communicating with the server. You may find this useful when performing backups in environments where security is extra important or when operating over an insecure network.
 
 TLS is also enabled even without setting this option when certain other TLS options are set. For example, see the descriptions of the following options:
 

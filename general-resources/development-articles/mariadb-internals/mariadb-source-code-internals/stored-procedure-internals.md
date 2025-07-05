@@ -100,7 +100,7 @@ straightforward:
 * Declared local variables:\
   Same as parameters (mode is then IN)
 * Local Variable references:\
-  If an identifier is found in in `spcont`, an `Item_splocal` is created\
+  If an identifier is found in `spcont`, an `Item_splocal` is created\
   with the variable's frame index, otherwise an `Item_field` or `Item_ref`\
   is created (as before).
 * Statements:\

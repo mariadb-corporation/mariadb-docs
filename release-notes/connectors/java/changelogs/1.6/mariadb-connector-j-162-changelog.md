@@ -33,8 +33,8 @@ details of the revision and view diffs of the code modified in that revision.
 * [Revision #c60cb780](https://github.com/mariadb-corporation/mariadb-connector-j/commit/c60cb780) - \[misc] corrected documentation
 * [Revision #044c1b5b](https://github.com/mariadb-corporation/mariadb-connector-j/commit/044c1b5b) - \[misc] ensure stability if option "enablePacketDebug" is set and IOException occur in when establishing socket
 * [Revision #496da260](https://github.com/mariadb-corporation/mariadb-connector-j/commit/496da260) - \[misc] ensure stability if option "enablePacketDebug" is set and IOException occur in when establishing socket
-* [Revision #50737577](https://github.com/mariadb-corporation/mariadb-connector-j/commit/50737577) - \[misc] permit having debug trace when option "enablePacketDebug" for for authentication packet IOException
-* [Revision #64ca2365](https://github.com/mariadb-corporation/mariadb-connector-j/commit/64ca2365) - \[misc] permit having debug trace when option "enablePacketDebug" for for authentication packet IOException
+* [Revision #50737577](https://github.com/mariadb-corporation/mariadb-connector-j/commit/50737577) - \[misc] permit having debug trace when option "enablePacketDebug" for authentication packet IOException
+* [Revision #64ca2365](https://github.com/mariadb-corporation/mariadb-connector-j/commit/64ca2365) - \[misc] permit having debug trace when option "enablePacketDebug" for authentication packet IOException
 * [Revision #95bfc8c1](https://github.com/mariadb-corporation/mariadb-connector-j/commit/95bfc8c1) - \[misc] improve tests if connection failed to have the initial error code
 * [Revision #0302e1c0](https://github.com/mariadb-corporation/mariadb-connector-j/commit/0302e1c0) - \[misc] improve testing
 * [Revision #c85626b9](https://github.com/mariadb-corporation/mariadb-connector-j/commit/c85626b9) - \[misc] checkstyle correction

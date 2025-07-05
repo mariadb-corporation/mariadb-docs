@@ -58,7 +58,7 @@ modified in that revision.
   * Bumped patch number
 * [Revision #a272706](https://github.com/mariadb-corporation/mariadb-connector-c/commit/a272706)\
   2015-10-08 13:36:22 +0300
-  * Fix for mariadb\_convert\_string function. Fix of the the charset name in case of Utf16 - iconv digests UTF-16, and not UTF16, as destination charset. Also we always use either BE or LE for utf16, to avoid BOM in the result string.
+  * Fix for mariadb\_convert\_string function. Fix of the charset name in case of Utf16 - iconv digests UTF-16, and not UTF16, as destination charset. Also we always use either BE or LE for utf16, to avoid BOM in the result string.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
 

@@ -458,7 +458,7 @@ modified in that revision.
     ones prefixed with .\ or ./
     * Add my\_basename() to mysys.
     * Do not compile files that are not needed on Windows (my\_addr\_resolve, and\
-      safemalloc related stuff it it is not used)
+      safemalloc related stuff it is not used)
     * Avoids linker warnings about compilation of essentially empty files.
 * [Revision #3224](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3224)\
   Fri 2012-01-20 01:57:34 +0100
@@ -786,7 +786,7 @@ modified in that revision.
       * do not deliver perl scripts (mysql\_install\_db.pl & friends) -they do not work, are not documented, and we\
         have native executables for this functionality. do not pack echo.exe, replace.exe into MSI, they\
         are not needed. Do not build resolveip on Windows, it is not used.
-      * precache results of of system checks in cmake/os/WindowsCache.cmake (like it is alreay done for majority of tests\
+      * precache results of system checks in cmake/os/WindowsCache.cmake (like it is alreay done for majority of tests\
         to speed up cmake run with VS)
       * make feedback plugin DEFAULT on Windows (so MSI works if user enables plugin),\
         fix null pointer access in PSI\_register

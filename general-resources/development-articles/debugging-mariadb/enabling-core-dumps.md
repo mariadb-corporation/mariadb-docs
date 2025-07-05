@@ -97,7 +97,7 @@ Also see [Container with Debug Symbols](how-to-produce-a-full-stack-trace-for-ma
 
 #### Changing the System-Wide Limit
 
-If you want to change the system-wide limit to allow for unlimited size core files for for the `mysql` user account, then you can do so by adding the following lines to a file in [/etc/security/limits.d/](https://linux.die.net/man/5/limits.conf). For example:
+If you want to change the system-wide limit to allow for unlimited size core files for the `mysql` user account, then you can do so by adding the following lines to a file in [/etc/security/limits.d/](https://linux.die.net/man/5/limits.conf). For example:
 
 ```
 sudo tee /etc/security/limits.d/mariadb_core.conf <<EOF

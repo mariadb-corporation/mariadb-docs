@@ -17,7 +17,7 @@ details of the revision and view diffs of the code modified in that revision.
   * List of unstable tests for 10.3.21 release
 * [Revision #be92dce613](https://github.com/MariaDB/server/commit/be92dce613)\
   2019-12-05 23:45:57 +0300
-  * [MDEV-21234](https://jira.mariadb.org/browse/MDEV-21234) Server crashes in in setup\_on\_expr upon 3rd execution of SP
+  * [MDEV-21234](https://jira.mariadb.org/browse/MDEV-21234) Server crashes in setup\_on\_expr upon 3rd execution of SP
 * [Revision #1fbd9bb2c5](https://github.com/MariaDB/server/commit/1fbd9bb2c5)\
   2019-12-05 18:26:52 +0200
   * Merge pull request #1261 from robertbindar/[MDEV-17978](https://jira.mariadb.org/browse/MDEV-17978)

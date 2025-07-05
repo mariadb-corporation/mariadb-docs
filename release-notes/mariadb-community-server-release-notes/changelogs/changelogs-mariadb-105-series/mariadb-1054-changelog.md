@@ -692,7 +692,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-21282](https://jira.mariadb.org/browse/MDEV-21282) Assertion 'mariadb\_table' failed in gcol.innodb\_virtual\_debug\_purge
 * [Revision #d88870e6cc](https://github.com/MariaDB/server/commit/d88870e6cc)\
   2020-05-28 19:50:35 +0900
-  * MENT-805 ODBC login fails with with Spider from bb-10.5-MENT-30 if password contains a semicolon
+  * MENT-805 ODBC login fails with Spider from bb-10.5-MENT-30 if password contains a semicolon
 * [Revision #b3250ab3b2](https://github.com/MariaDB/server/commit/b3250ab3b2)\
   2020-05-15 23:53:12 +0900
   * MENT-787 Server from bb-10.5-MENT-30 crashes upon Spider installation

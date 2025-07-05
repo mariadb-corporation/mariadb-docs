@@ -50,7 +50,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-12290](https://jira.mariadb.org/browse/MDEV-12290) Wrong timestamps in binary log causes replication issues
 * [Revision #378beed0a6](https://github.com/MariaDB/server/commit/378beed0a6)\
   2017-09-20 20:02:01 +0200
-  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
+  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
 * [Revision #b7434bacbd](https://github.com/MariaDB/server/commit/b7434bacbd)\
   2017-09-20 17:51:43 +0200
   * include/master-slave.inc must always be included last
@@ -67,7 +67,7 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #20d4cac6db](https://github.com/MariaDB/server/commit/20d4cac6db) 2017-09-20 10:24:31 +0300 - Merge branch 'bb-10.0-vicentiu' into 10.0
 * [Revision #97c2a7354b](https://github.com/MariaDB/server/commit/97c2a7354b)\
   2017-09-19 15:55:59 +0200
-  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
+  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
 * [Revision #389f7cdf3c](https://github.com/MariaDB/server/commit/389f7cdf3c)\
   2017-09-19 13:08:24 +0400
   * [MDEV-13137](https://jira.mariadb.org/browse/MDEV-13137) MySQL 5.6.23 Crashes when SET GLOBAL server\_audit\_logging=OFF;

@@ -88,7 +88,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     Fixed some bugs in the Maria storage engine
     * Changed default recovery mode from OFF to NORMAL to get automatic repair of not properly closed tables.
     * Fixed a rase condition when two threads calls external\_lock and thr\_lock() in different order. When this happend the transaction that called external lock first\
-      and thr\_lock() last did not see see the rows from the other transaction, even if if it had to wait in thr\_lock() for other to complete.
+      and thr\_lock() last did not see the rows from the other transaction, even if it had to wait in thr\_lock() for other to complete.
     * Fixed that one can run maria\_chk on an automatcally recovered tables without warnings about too small transaction id
     * Don't give warning that crashed table could not be repaired if repair was disabled (and thus not run)
     * Fixed a error result from flush\_key\_cache() which caused a DBUG\_ASSERT() when one was using concurrent reads on non transactional tables that was updated.

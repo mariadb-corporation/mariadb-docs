@@ -58,7 +58,7 @@ The new[trace\_file\_dir](../mariadb-maxscale-25-01-getting-started/mariadb-maxs
 parameters can be used to enable a trace log that writes messages from all log\
 levels to a set of rotating log files.
 
-This feature is an alternative to enabling[log\_info](../mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) which is is not\
+This feature is an alternative to enabling[log\_info](../mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) which is not\
 always feasible in a production system due to the high volume of log data that\
 it creates. This overhead of writing large amounts of trace logging data could\
 be mitigated by placing the log directory on a volatile in-memory filesystem but\

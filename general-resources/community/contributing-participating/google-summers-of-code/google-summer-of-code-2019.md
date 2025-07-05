@@ -483,7 +483,7 @@ This will likely take the form of:
 1. A reader in ExeMgr which will convert messages from mcsapi into jobs
 2. Code in mcsapi to send/receive the messages\
    Although ExeMgr can already receive messages with an execution plan the format is very complex and ABI breaks easily (we often send whole C++ objects).\
-   We should look at other ORM frameworks for inspiration as the the API design.\
+   We should look at other ORM frameworks for inspiration as the API design.\
    This task to do the design for this API.
 
 | Details: | Mentor:                                                |

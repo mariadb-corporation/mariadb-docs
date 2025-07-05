@@ -118,7 +118,7 @@ sudo ./mariadb_repo_setup
 
 ## Repositories
 
-The script will will set up different repositories in a single repository configuration file. The primary two are the [MariaDB Server Repository](mariadb-package-repository-setup-and-usage.md#mariadb-server-repository), and the [MariaDB MaxScale Repository](mariadb-package-repository-setup-and-usage.md#mariadb-maxscale-repository).
+The script will set up different repositories in a single repository configuration file. The primary two are the [MariaDB Server Repository](mariadb-package-repository-setup-and-usage.md#mariadb-server-repository), and the [MariaDB MaxScale Repository](mariadb-package-repository-setup-and-usage.md#mariadb-maxscale-repository).
 
 The default repositories setup by `mariadb_es_repo_setup` are:
 

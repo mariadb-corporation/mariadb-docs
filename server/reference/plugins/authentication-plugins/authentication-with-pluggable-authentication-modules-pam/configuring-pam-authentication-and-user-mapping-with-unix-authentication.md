@@ -13,7 +13,7 @@ In this walkthrough, we are going to assume the following hypothetical requireme
 
 Let's go ahead and create the Unix users and groups that we are using for this hypothetical scenario.
 
-First, let's create the the `foo` user and a couple users to go into the `dba` group. Note that each of these users needs a password.
+First, let's create the `foo` user and a couple users to go into the `dba` group. Note that each of these users needs a password.
 
 ```
 sudo useradd foo

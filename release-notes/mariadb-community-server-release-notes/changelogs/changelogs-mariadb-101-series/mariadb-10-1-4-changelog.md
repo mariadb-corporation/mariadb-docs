@@ -231,7 +231,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * my\_aes\* functions: support for different key lengths
 * [Revision #2b475b5](https://github.com/MariaDB/server/commit/2b475b5)\
   2015-04-08 03:33:48 +0300
-  * [MDEV-7927](https://jira.mariadb.org/browse/MDEV-7927): Server crashes in in Time\_and\_counter\_tracker::incr\_loops
+  * [MDEV-7927](https://jira.mariadb.org/browse/MDEV-7927): Server crashes in Time\_and\_counter\_tracker::incr\_loops
 * [Revision #d2b8780](https://github.com/MariaDB/server/commit/d2b8780)\
   2015-04-02 16:52:30 +0300
   * Fix test failure on these scrub tests.
@@ -501,7 +501,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * [MDEV-6650](https://jira.mariadb.org/browse/MDEV-6650) - LINT\_INIT emits code in non-debug builds
 * [Revision #e7b1d73](https://github.com/MariaDB/server/commit/e7b1d73)\
   2015-03-16 12:47:32 +0200
-  * Introduce only one combinations file and and rule for aes\_ctr to suite.pm so that it is not used if not available.
+  * Introduce only one combinations file and rule for aes\_ctr to suite.pm so that it is not used if not available.
 * [Revision #10554ca](https://github.com/MariaDB/server/commit/10554ca)\
   2015-03-16 12:02:21 +0400
   * Test results fixed.

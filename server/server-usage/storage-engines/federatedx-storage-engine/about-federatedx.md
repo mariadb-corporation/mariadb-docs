@@ -220,7 +220,7 @@ ha_federatedx::reset
 * There is no way for the handler to know if the foreign database or table has changed. The reason for this is that this database has to work like a data file that would never be written to by anything other than the database. The integrity of the data in the local table could be breached if there was any change to the foreign database.
 * Support for SELECT, INSERT, UPDATE, DELETE indexes.
 * No ALTER TABLE, DROP TABLE or any other Data Definition Language calls.
-* Prepared statements will not be used in the first implementation, it remains to to be seen whether the limited subset of the client API for the server supports this.
+* Prepared statements will not be used in the first implementation, it remains to be seen whether the limited subset of the client API for the server supports this.
 * This uses SELECT, INSERT, UPDATE, DELETE and not HANDLER for its implementation.
 * This will not work with the query cache.
 * FederatedX does not support [GEOMETRY](../../../reference/sql-structure/geometry/geometry-types.md) types. Such tables cannot be created explicitly, nor discovered.

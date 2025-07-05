@@ -433,7 +433,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * [MDEV-13351](https://jira.mariadb.org/browse/MDEV-13351): Server crashes in st\_select\_lex::set\_explain\_type upon UNION with window function
 * [Revision #e2afdb1ee4](https://github.com/MariaDB/server/commit/e2afdb1ee4)\
   2017-07-21 19:06:01 +0300
-  * [MDEV-13344](https://jira.mariadb.org/browse/MDEV-13344): Server crashes in in AGGR\_OP::put\_record on subquery
+  * [MDEV-13344](https://jira.mariadb.org/browse/MDEV-13344): Server crashes in AGGR\_OP::put\_record on subquery
 * [Revision #17fc288b30](https://github.com/MariaDB/server/commit/17fc288b30)\
   2017-07-21 13:53:58 +0300
   * [MDEV-13352](https://jira.mariadb.org/browse/MDEV-13352): Server crashes in st\_join\_table::remove\_duplicates

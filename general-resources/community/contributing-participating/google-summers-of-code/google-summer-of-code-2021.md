@@ -242,7 +242,7 @@ Extra: in MySQL, the function is called JSON\_PRETTY. We should add ability to u
 
 #### Histograms: use JSON as on-disk format
 
-Currently, histograms are stored as array of 1-byte bucket bounds (SINGLE\_PREC\_HB) or or 2-byte bucket bounds (DOUBLE\_PREC\_HB).\
+Currently, histograms are stored as array of 1-byte bucket bounds (SINGLE\_PREC\_HB) or 2-byte bucket bounds (DOUBLE\_PREC\_HB).\
 The table storing the histograms supports different histogram formats but limits them to 256 bytes (hist\_size is tinyint).
 
 ```

@@ -89,7 +89,7 @@ RANGE/ROWS:
 * Defines the windowing clause for calculating the set of rows that the function applies to for calculating a given rows window function result.
 * Requires an ORDER BY clause to define the row order for the window.
 * ROWS specify the window in physical units, i.e. result set rows and must be a constant or expression evaluating to a positive numeric value.
-* RANGE specifies the window as a logical offset. If the the expression evaluates to a numeric value then the ORDER BY expression must be a numeric or DATE type. If the expression evaluates to an interval value then the ORDER BY expression must be a DATE data type.
+* RANGE specifies the window as a logical offset. If the expression evaluates to a numeric value then the ORDER BY expression must be a numeric or DATE type. If the expression evaluates to an interval value then the ORDER BY expression must be a DATE data type.
 * UNBOUNDED PRECEDING indicates the window starts at the first row of the partition.
 * UNBOUNDED FOLLOWING indicates the window ends at the last row of the partition.
 * CURRENT ROW specifies the window start or ends at the current row or value.

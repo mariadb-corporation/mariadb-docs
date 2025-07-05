@@ -68,7 +68,7 @@ The Windows implementation of the thread pool uses a native thread pool created 
 
 On Windows, if you would like to use the thread pool, then you do not need to do anything, because the default for the [thread\_handling](thread-pool-system-status-variables.md) system variable is already preset to `pool-of-threads`.
 
-However, if you would like to use the old one thread per-connection behavior on Windows, then you can use use that by setting the [thread\_handling](thread-pool-system-status-variables.md) system variable to `one-thread-per-connection` in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
+However, if you would like to use the old one thread per-connection behavior on Windows, then you can use that by setting the [thread\_handling](thread-pool-system-status-variables.md) system variable to `one-thread-per-connection` in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
 ```
 [mariadb]

@@ -6,7 +6,7 @@ When multiple MaxScale instances are used in a highly available deployment, Mari
 
 ## How MariaDB Monitor uses Cooperative Locks
 
-When cooperative locking is enabled for MariaDB Monitor, it tries to acquire locks on the back-end servers with with [GET\_LOCK()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/get_lock) function. If a specific MaxScale instance is able to acquire the lock on a majority of servers, then it is considered the primary MaxScale instance, which means that it can handle [automatic failover](using-automatic-failover-with-maxscales-mariadb-monitor.md).
+When cooperative locking is enabled for MariaDB Monitor, it tries to acquire locks on the back-end servers with [GET\_LOCK()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/get_lock) function. If a specific MaxScale instance is able to acquire the lock on a majority of servers, then it is considered the primary MaxScale instance, which means that it can handle [automatic failover](using-automatic-failover-with-maxscales-mariadb-monitor.md).
 
 ## Configuring Cooperative Locking
 

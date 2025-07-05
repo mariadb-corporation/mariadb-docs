@@ -39,7 +39,7 @@ MariaDB Enterprise Server 10.5.27-21 was released on 2024-12-10.
 
 * When a user runs mariadb-binlog with `--stop-position`, they would expect the output to contain events up to that event. If the output did not contain events up to that event, this may result in various unexpected behaviors, e.g., an incomplete database state if they piped the output to the mariadb client and expected certain transactions to have executed in the database, yet never were run ([MDEV-27037](https://jira.mariadb.org/browse/MDEV-27037))
 * Changing a data type of a field used in a foreign key constraint fails with Error "Cannot change column '...': used in a foreign key constraint '...'" ([MDEV-34392](https://jira.mariadb.org/browse/MDEV-34392))
-  * This ALTER only fails if the type of field is changed in a multi-ALTER statement, where types of of other fields are changed with the ALTER
+  * This ALTER only fails if the type of field is changed in a multi-ALTER statement, where types of other fields are changed with the ALTER
 * Creation of a view with UNION and SELECT ... FOR UPDATE in the definition fails with error "ER\_PARSE\_ERROR (1064): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near..." ([MDEV-29537](https://jira.mariadb.org/browse/MDEV-29537))
 * INSERT...SELECT on MyISAM or ARIA tables are replicated by MariaDB Enterprise Cluster (Galera) ([MDEV-34647](https://jira.mariadb.org/browse/MDEV-34647))
 * SELECT MIN on Spider table returns more rows than expected ([MDEV-26345](https://jira.mariadb.org/browse/MDEV-26345))

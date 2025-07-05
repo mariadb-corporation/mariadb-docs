@@ -201,7 +201,7 @@ db-1  | 2023-02-26 13:03:29 0 [Note] InnoDB: File system buffers for log disable
 db-1  | 2023-02-26 13:03:29 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=193796878816
 ```
 
-Container runtimes are assume to start and stop very quickly. Check the the shutdown logs. They may be a log like:
+Container runtimes are assume to start and stop very quickly. Check the shutdown logs. They may be a log like:
 
 ```
 db-1  | 2023-02-26 13:03:17 0 [Note] InnoDB: Starting shutdown...                                                                                                                                                                                                               

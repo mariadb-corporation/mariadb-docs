@@ -6,7 +6,7 @@ Just like MariaDB Server and libmysqlclient, MariaDB Connector/C can also read c
 
 MariaDB Connector/C reads option files from many different directories by default. See the sections below to find out which directories are checked for which system.
 
-MariaDB Connector/C allows application developers to read options from the default option files by calling the the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_FILE](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments. For example:
+MariaDB Connector/C allows application developers to read options from the default option files by calling the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_FILE](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments. For example:
 
 ```c
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_FILE, NULL);
@@ -71,7 +71,7 @@ MariaDB Connector/C will look in all of the above locations, in order, even if h
 
 ### Custom Option File Locations
 
-MariaDB Connector/C allows application developers to read option files from a custom option file by calling the the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_FILE](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and an option file path as arguments. For example:
+MariaDB Connector/C allows application developers to read option files from a custom option file by calling the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_FILE](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and an option file path as arguments. For example:
 
 ```c
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_FILE, (void *)"./my_conf.cnf");
@@ -117,7 +117,7 @@ MariaDB Connector/C reads client options from the following [option groups](http
 | \[client-server]  | Options read by all MariaDB [client programs](https://github.com/mariadb-corporation/docs-connectors/blob/test/kb/en/clients-utilities/README.md) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
 | \[client-mariadb] | Options read by all MariaDB [client programs](https://github.com/mariadb-corporation/docs-connectors/blob/test/kb/en/clients-utilities/README.md).                                                                                                                             |
 
-MariaDB Connector/C allows application developers to read options from these option groups by calling the the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_GROUP](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments. For example:
+MariaDB Connector/C allows application developers to read options from these option groups by calling the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_GROUP](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments. For example:
 
 ```c
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, NULL);
@@ -125,7 +125,7 @@ mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, NULL);
 
 #### Custom Option Groups
 
-MariaDB Connector/C allows application developers to read options from a custom option group by calling the the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_GROUP](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and the name of the custom option group as arguments. For example:
+MariaDB Connector/C allows application developers to read options from a custom option group by calling the [mysql_optionsv](mariadb-connectorc-api-functions/mysql_optionsv.md) function and providing the [MYSQL_READ_DEFAULT_GROUP](mariadb-connectorc-api-functions/mysql_optionsv.md#options) option name and the name of the custom option group as arguments. For example:
 
 ```c
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, (void *)"my_section");

@@ -52,14 +52,14 @@ third packet will be
 
 The client must be aware of the [max\_allowed\_packet](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) variable value. The server will have a buffer to store the body with a maximum size corresponding to this max\_allowed\_packet value. If the client sends more data than max\_allowed\_packet size, the socket will be closed.
 
-Note that data of exact size size 2^24 -1 byte must be sent in 2 packets, the first one with length prefix 0xffffff, and the second one with length 0 (length byte 0x000000, seqno incremented). Generally, if data length is an exact multiple of 2^24-1, it must always be followed by an empty packet.
+Note that data of exact size 2^24 -1 byte must be sent in 2 packets, the first one with length prefix 0xffffff, and the second one with length 0 (length byte 0x000000, seqno incremented). Generally, if data length is an exact multiple of 2^24-1, it must always be followed by an empty packet.
 
 ## Compressed packet
 
 For slow connections, the packet can be compressed.\
 This is activated after the [handshake-response-packet](1-connecting/connection.md) when the client indicates \[\[1-connecting-connecting#capabilities|COMPRESS] capability with the server having this functionality too.
 
-When activated, packets will be composed of 7 bytes a compress header + data. The compression algorithm used is is ZLIB, widely available and supported by many languages and runtimes.
+When activated, packets will be composed of 7 bytes a compress header + data. The compression algorithm used is ZLIB, widely available and supported by many languages and runtimes.
 
 * [int<3>](protocol-data-types.md#fixed-length-integers) compressed packet length
 * [int<1>](protocol-data-types.md#fixed-length-integers) compression protocol sequence number

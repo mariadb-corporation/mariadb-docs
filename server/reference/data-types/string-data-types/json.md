@@ -4,7 +4,7 @@ The JSON alias was added to make it possible to use JSON columns in [statement b
 
 JSON is an alias for `LONGTEXT COLLATE utf8mb4_bin` introduced for compatibility reasons with MySQL's JSON data type. MariaDB implements this as a [LONGTEXT](longtext.md) rather, as the JSON data type contradicts the SQL:2016 standard, and MariaDB's benchmarks indicate that performance is at least equivalent.
 
-In order to ensure that a a valid json document is inserted, the [JSON\_VALID](../../sql-functions/special-functions/json-functions/json_valid.md) function can be used as a [CHECK constraint](../../sql-statements/data-definition/constraint.md#check-constraint-expressions). This constraint is automatically included for types using the JSON alias.
+In order to ensure that a valid json document is inserted, the [JSON\_VALID](../../sql-functions/special-functions/json-functions/json_valid.md) function can be used as a [CHECK constraint](../../sql-statements/data-definition/constraint.md#check-constraint-expressions). This constraint is automatically included for types using the JSON alias.
 
 The assigned text value is retained verbatim. If a value fails JSON\_VALID(), an error is raised. This CHECK constraint can also be manually added to any LONGTEXT field. When a JSON object contains duplicate keys, only the first key-value pair is accessible via functions like JSON\_EXTRACT()
 
@@ -108,7 +108,7 @@ ERROR 4025 (23000): CONSTRAINT `json_example.example` failed for `test`.`json_ex
 The JSON type in MySQL stores the JSON object in a compact form, not as [LONGTEXT](longtext.md) as in MariaDB.\
 This means that row based replication will not work for JSON types from MySQL to MariaDB.
 
-There are a a few different ways to solve this:
+There are a few different ways to solve this:
 
 * Use statement based replication.
 * Change the JSON column to type TEXT in MySQL
@@ -118,7 +118,7 @@ There are a a few different ways to solve this:
 
 MariaDB can't directly access MySQL's JSON format.
 
-There are a a few different ways to move the table to MariaDB:
+There are a few different ways to move the table to MariaDB:
 
 * From [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/mariadb-10-5-series/mariadb-1057-release-notes), see the you can use the [mysql\_json](../../plugins/other-plugins/mysql_json.md) plugin. See [Making MariaDB understand MySQL JSON](https://mariadb.org/making-mariadb-understand-mysql-json/).
 * Change the JSON column to type TEXT in MySQL. After this, MariaDB can directly use the table without any need for a dump and restore.

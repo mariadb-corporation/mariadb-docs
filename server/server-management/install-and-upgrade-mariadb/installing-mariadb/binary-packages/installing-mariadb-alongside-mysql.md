@@ -149,7 +149,7 @@ Starting MySQL...                                          [  OK  ]
 
 ## What about MariaDB Upgrades ?
 
-By having the **mariadb.socket**, **my.cnf** file and **databases** in **/opt/mariadb-data** if you want to upgrade the MariaDB version you will will only need to:
+By having the **mariadb.socket**, **my.cnf** file and **databases** in **/opt/mariadb-data** if you want to upgrade the MariaDB version you will only need to:
 
 * extract the new version from the archive in /opt near the current version
 * stop MariaDB

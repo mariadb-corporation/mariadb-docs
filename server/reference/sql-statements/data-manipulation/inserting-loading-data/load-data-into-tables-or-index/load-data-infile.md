@@ -123,7 +123,7 @@ In cases where the storage engine supports [ALTER TABLE... DISABLE KEYS](../../.
 
 ## Examples
 
-You have a file with this content (note the the separator is ',', not tab, which is the default):
+You have a file with this content (note the separator is ',', not tab, which is the default):
 
 ```
 2,2

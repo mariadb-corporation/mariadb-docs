@@ -106,7 +106,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * The implementation of the template bubble\_sort assumed that the call-back comparison function returns a positive number when arg1 < arg2, and a negative number when arg1 > arg2. This is not in line with other implementation of sorting algorithm. Changed bubble\_sort: now a negative result from the comparison function means that arg1 < arg2, and positive result means that arg1 > arg2. Changed accordingly all call-back functions that are used as parameters in the call of bubble\_sort.
 * [Revision #c9ff5cf](https://github.com/MariaDB/server/commit/c9ff5cf)\
   2016-03-30 12:43:57 -0700
-  * Fixed a crash in compare\_window\_frames(). The function did not take into account the case when only one of of the pointers to the compared frames is NULL.
+  * Fixed a crash in compare\_window\_frames(). The function did not take into account the case when only one of the pointers to the compared frames is NULL.
 * [Revision #2078392](https://github.com/MariaDB/server/commit/2078392)\
   2016-03-30 18:39:10 +0300
   * Make EXPLAIN FORMAT=JSON be able to show the key that's used for sorting.

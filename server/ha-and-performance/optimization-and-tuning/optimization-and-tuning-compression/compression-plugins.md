@@ -6,7 +6,7 @@ Compressions plugins were added in a [MariaDB 10.7.0](https://app.gitbook.com/s/
 
 The various MariaDB storage engines, such as [InnoDB](../../../server-usage/storage-engines/innodb/), [RocksDB](../../../server-usage/storage-engines/myrocks/), [Mroonga](../../../server-usage/storage-engines/mroonga/), can use different compression libraries.
 
-Before [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes), each separate library would have to be compiled in in order to be available for use, resulting in numerous runtime/rpm/deb dependencies, most of which would never be used by users.
+Before [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes), each separate library would have to be compiled in order to be available for use, resulting in numerous runtime/rpm/deb dependencies, most of which would never be used by users.
 
 From [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes), five additional MariaDB compression libraries (besides the default zlib) are available as plugins (note that these affect InnoDB and Mroonga only; RocksDB still uses the compression algorithms from its own library):
 

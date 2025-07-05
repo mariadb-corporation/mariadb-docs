@@ -110,10 +110,10 @@ in that revision.
   * [MDEV-14375](https://jira.mariadb.org/browse/MDEV-14375): rocksdb.bulk\_load\_unsorted fails
 * [Revision #7e7592ade5](https://github.com/MariaDB/server/commit/7e7592ade5)\
   2018-05-14 15:59:51 +0300
-  * [MDEV-16154](https://jira.mariadb.org/browse/MDEV-16154): Server crashes in in myrocks::ha\_rocksdb::load\_auto\_incr\_value\_from\_index
+  * [MDEV-16154](https://jira.mariadb.org/browse/MDEV-16154): Server crashes in myrocks::ha\_rocksdb::load\_auto\_incr\_value\_from\_index
 * [Revision #6c0f3dd341](https://github.com/MariaDB/server/commit/6c0f3dd341)\
   2018-05-12 20:32:16 +0200
-  * [MDEV-16090](https://jira.mariadb.org/browse/MDEV-16090): Server crash in in Item\_func\_in::val\_int or assertion \`in\_item' failure upon SELECT with impossible condition
+  * [MDEV-16090](https://jira.mariadb.org/browse/MDEV-16090): Server crash in Item\_func\_in::val\_int or assertion \`in\_item' failure upon SELECT with impossible condition
 * [Revision #8b26fea835](https://github.com/MariaDB/server/commit/8b26fea835)\
   2018-05-10 23:01:41 +0200
   * [MDEV-16088](https://jira.mariadb.org/browse/MDEV-16088): Pushdown into materialized views/derived tables doesn't work in the IN subqueries

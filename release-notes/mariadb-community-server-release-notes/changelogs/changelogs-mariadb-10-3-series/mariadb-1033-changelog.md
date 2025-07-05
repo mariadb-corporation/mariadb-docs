@@ -427,7 +427,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-14573](https://jira.mariadb.org/browse/MDEV-14573): Upgrade from previous versions is broken for procedures
 * [Revision #70d6c944cb](https://github.com/MariaDB/server/commit/70d6c944cb)\
   2017-12-04 18:53:19 +0000
-  * [MDEV-14113](https://jira.mariadb.org/browse/MDEV-14113) Use abortive TCP close, in case server closes the connection first, and we do not not care whether client has received all data.
+  * [MDEV-14113](https://jira.mariadb.org/browse/MDEV-14113) Use abortive TCP close, in case server closes the connection first, and we do not care whether client has received all data.
 * [Revision #8f581e8bf1](https://github.com/MariaDB/server/commit/8f581e8bf1)\
   2017-12-10 23:10:43 +0530
   * Removing files sql/item\_sum.cc.orig and sql/item\_sum.h.orig added by commit 6d63a03490298a8b7246e7f4516eb383534f8e8c [MDEV-11297](https://jira.mariadb.org/browse/MDEV-11297): Add support for LIMIT clause in GROUP\_CONCAT()
@@ -965,7 +965,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Val\_str function added for the percentile\_disc function, as it can have result type as STRING\_RESULT
 * [Revision #3393005e95](https://github.com/MariaDB/server/commit/3393005e95)\
   2017-07-10 01:12:56 +0530
-  * Ensured that the the element in the order by clause should have a numerical time, if not throw an error
+  * Ensured that the element in the order by clause should have a numerical time, if not throw an error
 * [Revision #275ce39f05](https://github.com/MariaDB/server/commit/275ce39f05)\
   2017-07-07 17:37:06 +0530
   * Percentile class implemented, most of the functions have the same functionalite as the percentile cont class

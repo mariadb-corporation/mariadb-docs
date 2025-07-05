@@ -700,7 +700,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * [MDEV-5725](https://jira.mariadb.org/browse/MDEV-5725): Don't install private mysql header files
 * [Revision #691214a](https://github.com/MariaDB/server/commit/691214a)\
   2016-11-16 22:16:20 -0800
-  * Fixed bug [MDEV-11103](https://jira.mariadb.org/browse/MDEV-11103). The class Item\_func\_nop\_all missed an implementation of the virtual method get\_copy. As a result if the condition that can be pushed into into a materialized view / derived table contained an ANY subselect then the pushdown condition was built incorrectly.
+  * Fixed bug [MDEV-11103](https://jira.mariadb.org/browse/MDEV-11103). The class Item\_func\_nop\_all missed an implementation of the virtual method get\_copy. As a result if the condition that can be pushed into a materialized view / derived table contained an ANY subselect then the pushdown condition was built incorrectly.
 * [Revision #ebe5a38](https://github.com/MariaDB/server/commit/ebe5a38)\
   2016-11-16 15:06:19 -0800
   * Correction for the patch for [MDEV-11102](https://jira.mariadb.org/browse/MDEV-11102).

@@ -53,7 +53,7 @@ If partition is listed as DISABLED:
 +-------------------------------+----------+--------------------+---------+---------+
 ```
 
-MariaDB has either been built without partitioning support, or has been started with the the [--skip-partition](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, or one of its variants:
+MariaDB has either been built without partitioning support, or has been started with the [--skip-partition](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, or one of its variants:
 
 ```sql
 --skip-partition

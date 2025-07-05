@@ -87,10 +87,10 @@ modified in that revision.
   * Merge with [MariaDB 5.5.34](../../release-notes-mariadb-5-5-series/mariadb-5534-release-notes.md)
 * [Revision #3433](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3433)\
   Mon 2013-11-25 14:04:49 +0200
-  * Merged revisions 3931-3942 from from lp:codership/codership-mysql/5.5-23.
+  * Merged revisions 3931-3942 from lp:codership/codership-mysql/5.5-23.
 * [Revision #3432](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3432)\
   Mon 2013-11-25 11:09:48 +0200
-  * Merged revisions 2925-3929 from from lp:codership/codership-mysql/5.5-23
+  * Merged revisions 2925-3929 from lp:codership/codership-mysql/5.5-23
 * [Revision #3431](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3431)\
   Fri 2013-11-22 14:30:00 -0500
   * [MDEV-3895](https://jira.mariadb.org/browse/MDEV-3895) Version naming for MariaDB-Galera builds

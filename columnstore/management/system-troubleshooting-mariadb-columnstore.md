@@ -70,7 +70,7 @@ Add this line to the my.cnf file
 password='root-password'
 ```
 
-Here is an example of it getting run the the report that is generated:
+Here is an example of it getting run the report that is generated:
 
 ```
 /usr/local/mariadb/columnstore/bin/columnstoreSupport -a
@@ -204,7 +204,7 @@ Temporary Directory for non-root installs is located in $HOME/.tmp
 
 #### MariaDB ColumnStore log files and how to setup
 
-The MariaDB ColumnStore log files setup is done as part of the post-install/postConfigure installation process. If some some reason the MariaDB ColumnStore log files aren't being generated or the log-rotation is not working, then there might have been some install/setup error that occurred.
+The MariaDB ColumnStore log files setup is done as part of the post-install/postConfigure installation process. If some reason the MariaDB ColumnStore log files aren't being generated or the log-rotation is not working, then there might have been some install/setup error that occurred.
 
 Run the following command to get the logging setup:
 

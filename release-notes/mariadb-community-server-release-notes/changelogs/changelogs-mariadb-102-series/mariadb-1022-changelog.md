@@ -717,7 +717,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * pass openssl config to C/C
 * [Revision #0aa6817](https://github.com/MariaDB/server/commit/0aa6817)\
   2016-09-07 19:16:43 +0200
-  * name clash with gnutls on on base64\_encode
+  * name clash with gnutls on base64\_encode
 * [Revision #5ea5a7f](https://github.com/MariaDB/server/commit/5ea5a7f)\
   2016-09-05 08:09:16 +0200
   * auto-clone C/C, if possible

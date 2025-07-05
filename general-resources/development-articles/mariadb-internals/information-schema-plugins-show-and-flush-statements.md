@@ -25,7 +25,7 @@ static ST_FIELD_INFO locale_info_locale_fields_info[]=
 };
 ```
 
-While the the [INFORMATION\_SCHEMA.LOCALES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-locales-table) table has 8 columns, the [SHOW LOCALES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-locales) statement will only display 4 of them:
+While the [INFORMATION\_SCHEMA.LOCALES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-locales-table) table has 8 columns, the [SHOW LOCALES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-locales) statement will only display 4 of them:
 
 ```
 MariaDB [test]> show locales;

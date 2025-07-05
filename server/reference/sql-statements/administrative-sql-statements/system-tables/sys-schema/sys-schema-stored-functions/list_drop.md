@@ -10,7 +10,7 @@ sys.list_drop(list,value)
 
 `list_drop` is a [stored function](../../../../../../server-usage/stored-routines/stored-functions/) available with the [Sys Schema](../).
 
-It takes a _list_ to be be modified and a _value_ to be dropped from the list, returning the resulting value. This can be used, for example, to remove a value from a system variable taking a comma-delimited list of options, such as [sql\_mode](../../../../../../server-management/variables-and-modes/sql-mode.md).
+It takes a _list_ to be modified and a _value_ to be dropped from the list, returning the resulting value. This can be used, for example, to remove a value from a system variable taking a comma-delimited list of options, such as [sql\_mode](../../../../../../server-management/variables-and-modes/sql-mode.md).
 
 The related function [list\_add](list_add.md) can be used to add a value to a list.
 

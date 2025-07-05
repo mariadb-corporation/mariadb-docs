@@ -29,7 +29,7 @@ details of the revision and view diffs of the code modified in that revision.
 * [Revision #11897e66](https://github.com/mariadb-corporation/mariadb-connector-j/commit/11897e66) - \[[CONJ-494](https://jira.mariadb.org/browse/CONJ-494)] Handle PrepareStatement.getParameterMetaData() if query cannot be PREPAREd
 * [Revision #c60cb780](https://github.com/mariadb-corporation/mariadb-connector-j/commit/c60cb780) - \[misc] corrected documentation
 * [Revision #496da260](https://github.com/mariadb-corporation/mariadb-connector-j/commit/496da260) - \[misc] ensure stability if option "enablePacketDebug" is set and IOException occur in when establishing socket
-* [Revision #64ca2365](https://github.com/mariadb-corporation/mariadb-connector-j/commit/64ca2365) - \[misc] permit having debug trace when option "enablePacketDebug" for for authentication packet IOException
+* [Revision #64ca2365](https://github.com/mariadb-corporation/mariadb-connector-j/commit/64ca2365) - \[misc] permit having debug trace when option "enablePacketDebug" for authentication packet IOException
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

@@ -382,7 +382,7 @@ This can be configured for [Active Directory](https://en.wikipedia.org/wiki/Acti
 
 ### pam\_google\_authenticator
 
-The `pam_google_authenticator` PAM module provides two-factor identification with Google Authenticator. It is from Google's [google-authenticator-libpam](https://github.com/google/google-authenticator-libpam) open-source project. The PAM module should work with the open-source mobile apps built by Google's [google-authenticator](https://github.com/google/google-authenticator) and [google-authenticator-android](https://github.com/google/google-authenticator-android) projects as well as the the closed source Google Authenticator mobile apps that are present in each mobile app store.
+The `pam_google_authenticator` PAM module provides two-factor identification with Google Authenticator. It is from Google's [google-authenticator-libpam](https://github.com/google/google-authenticator-libpam) open-source project. The PAM module should work with the open-source mobile apps built by Google's [google-authenticator](https://github.com/google/google-authenticator) and [google-authenticator-android](https://github.com/google/google-authenticator-android) projects as well as the closed source Google Authenticator mobile apps that are present in each mobile app store.
 
 For an example of how to use this PAM module, see the blog post: [MariaDB: Improve Security with Two-Step Verification](https://mariadb.org/improve-security-with-two-step-verification/).
 

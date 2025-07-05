@@ -542,7 +542,7 @@ details of the revision and view diffs of the code modified in that revision.
   * cleanup: set HA\_PART\_KEY\_SEG properly
 * [Revision #593e869742](https://github.com/MariaDB/server/commit/593e869742)\
   2019-02-22 19:38:43 +0100
-  * cleanup: reserve one keypart for for LONG\_UNIQUE\_HASH\_FIELD
+  * cleanup: reserve one keypart for LONG\_UNIQUE\_HASH\_FIELD
 * [Revision #387b690eab](https://github.com/MariaDB/server/commit/387b690eab)\
   2019-02-22 18:58:14 +0100
   * cleanup: cosmetic fixes

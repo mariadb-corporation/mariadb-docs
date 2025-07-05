@@ -58,7 +58,7 @@ me@mybox:~$ dpkg -S /usr/lib/libmysqlclient.so.16
 libmariadbclient16: /usr/lib/libmysqlclient.so.16
 ```
 
-The above shows that the mysql command-line client is using the library`/usr/lib/libmysqlclient.so.16` and that that library is part of\
+The above shows that the mysql command-line client is using the library`/usr/lib/libmysqlclient.so.16` and that library is part of\
 the `libmariadbclient16` Ubuntu package. Unsurprisingly, the\
 mysql command-line client works perfectly on this system.
 

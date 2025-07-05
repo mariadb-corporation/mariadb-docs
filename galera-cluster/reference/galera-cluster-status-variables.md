@@ -66,7 +66,7 @@ MariaDB Galera Cluster has the following status variables:
 
 #### `wsrep_cluster_weight`
 
-* Description: The total weight of the current members in the cluster. The value is counted as a sum of of pc.weight of the nodes in the current Primary Component.
+* Description: The total weight of the current members in the cluster. The value is counted as a sum of pc.weight of the nodes in the current Primary Component.
 
 #### `wsrep_commit_oooe`
 

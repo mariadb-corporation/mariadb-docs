@@ -113,10 +113,10 @@
   Sun 2010-12-26 16:31:03 -0800
   * Fixed [Bug #694443](https://bugs.launchpad.net/bugs/694443)\
     One of the hash functions employed by the BNLH join algorithm\
-    calculates the the value of hash index for key value utilizing\
+    calculates the value of hash index for key value utilizing\
     every byte of the key buffer. To make this calculation valid\
     one has to ensure that for any key value unused bytes of the\
-    buffer are filled with with a certain filler. We choose 0 as\
+    buffer are filled with a certain filler. We choose 0 as\
     a filler for these bytes.
   * Added an optional boolean parameter with\_zerofill to the function\
     key\_copy. If the value of the parameter is TRUE all unused bytes\

@@ -172,7 +172,7 @@ MariaDB:
 ## Links
 
 
-* [MDEV-6115](https://jira.mariadb.org/browse/MDEV-6115) is the main jira task for window functions development. Other tasks are are attached as sub-tasks
+* [MDEV-6115](https://jira.mariadb.org/browse/MDEV-6115) is the main jira task for window functions development. Other tasks are attached as sub-tasks
 * [bb-10.2-mdev9543](https://github.com/MariaDB/server/commits/bb-10.2-mdev9543) is the feature tree for window functions. Development is ongoing, and this tree has the newest changes.
 * Testcases are in `mysql-test/t/win*.test`
 

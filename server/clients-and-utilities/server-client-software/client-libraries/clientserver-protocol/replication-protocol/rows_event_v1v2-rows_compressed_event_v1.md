@@ -100,7 +100,7 @@ The field metadata is stored in the metadata block of the [TABLE\_MAP\_EVENT](ta
   * MYSQL\_TYPE\_FLOAT
   * MYSQL\_TYPE\_DOUBLE
 
-The types that aren't listed here do not store data in the the metadata block.
+The types that aren't listed here do not store data in the metadata block.
 
 #### Simple Types
 

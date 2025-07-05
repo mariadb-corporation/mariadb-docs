@@ -97,7 +97,7 @@ ALTER EVENT test_event ON SCHEDULE EVERY '2:3' DAY_HOUR;
 
 ## Dropping Events
 
-Events are dropped with the [DROP EVENT](../../../reference/sql-statements/data-definition/drop/drop-event.md) statement. Events are also also automatically dropped once they have run for the final time according to their schedule, unless the ON COMPLETION PRESERVE clause has been specified.
+Events are dropped with the [DROP EVENT](../../../reference/sql-statements/data-definition/drop/drop-event.md) statement. Events are also automatically dropped once they have run for the final time according to their schedule, unless the ON COMPLETION PRESERVE clause has been specified.
 
 ### Example
 

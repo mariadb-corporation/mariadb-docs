@@ -17,7 +17,7 @@ MariaDB Enterprise Server enables a predictable development and operations exper
 ## Notable Changes
 
 * The [information\_schema.INNODB\_SYS\_TABLESPACES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_sys_tablespaces-table) view shows details about the InnoDB temporary tablespace, which is the tablespace where InnoDB temporary tables are stored. ([MDEV-29479](https://jira.mariadb.org/browse/MDEV-29479))
-  * Starting with this release, the details details about the InnoDB temporary tablespace can be shown by querying for the name `innodb_temporary`:
+  * Starting with this release, the details about the InnoDB temporary tablespace can be shown by querying for the name `innodb_temporary`:
 
 ```sql
 SELECT * FROM information_schema.INNODB_SYS_TABLESPACES

@@ -208,7 +208,7 @@ id FOR ORDINALITY )) AS jt;
     **Related to performance**
 
     * Slower query performance on some Linux systems because of a performance difference of the system call ftruncate'() to truncate data files, as ftruncate() causes a flush. MariaDB used "ftruncate" to periodically empty its temporary tables. Query plans with Split Materialized optimization are affected the most. (MENT-2125)
-    * `ALTER TABLE ... IMPORT TABLESPACE` can take unnecessarily long if a database uses a large number of tablespaces and and the value inndb\_open\_files is lower than the number of existing table\_spaces ([MDEV-34670](https://jira.mariadb.org/browse/MDEV-34670))
+    * `ALTER TABLE ... IMPORT TABLESPACE` can take unnecessarily long if a database uses a large number of tablespaces and the value inndb\_open\_files is lower than the number of existing table\_spaces ([MDEV-34670](https://jira.mariadb.org/browse/MDEV-34670))
     * Rowid Filter optimization cannot work with backward index scans. An attempt to run such a query plan will make the query perform very slowly. Fixed by disabling use of Rowid Filter if the optimizer decides to use a backward index scan. ([MDEV-33875](https://jira.mariadb.org/browse/MDEV-33875))
 
     #### Changelog

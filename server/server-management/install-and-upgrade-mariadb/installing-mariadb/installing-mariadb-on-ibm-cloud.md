@@ -190,7 +190,7 @@ $ kubectl exec --stdin --tty PODNAME -n NAMESPACE -- /bin/bash
 
 ![bash](<../../../.gitbook/assets/bash (1).png>)
 
-* After you are in your pod please enter enter Mariadb and enter your root password after the prompt
+* After you are in your pod please enter Mariadb and enter your root password after the prompt
 
 ```
 $ mysql -u root -p

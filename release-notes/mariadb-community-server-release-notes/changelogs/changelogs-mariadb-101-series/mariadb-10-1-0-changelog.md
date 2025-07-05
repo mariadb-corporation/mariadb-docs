@@ -318,7 +318,7 @@ The revision number links will take you to the revision's page on GitHub. On[Git
   * Merge lp:maria/10.0 up to revision 4032 (10.0.9).
 * [Revision #3a4b887](https://github.com/MariaDB/server/commit/3a4b887)\
   2014-03-04 20:12:32 +0200
-  * Set index page page compression on by default and remove innodb\_trim\_pct as it is not used/implemented.
+  * Set index page compression on by default and remove innodb\_trim\_pct as it is not used/implemented.
 * [Revision #d64fa1d](https://github.com/MariaDB/server/commit/d64fa1d)\
   2014-03-04 18:56:18 +0200
   * Additional merge to lp:maria/10.0

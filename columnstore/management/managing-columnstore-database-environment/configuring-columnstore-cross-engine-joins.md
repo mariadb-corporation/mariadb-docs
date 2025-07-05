@@ -21,7 +21,7 @@ The following is an example entry in the Columnstore.XML configuration file to g
 
 For a Multi-Node MariaDB Columnstore Installation, the Host needs to be the IP Address of the User-Module #1 or the Combination User/Performance Module #1.
 
-If the MariaDB Client is is running on an external Server, then it would be the IP Address of that server.
+If the MariaDB Client is running on an external Server, then it would be the IP Address of that server.
 
 For version 1.2.0 onwards the additional options in the section are supported to add SSL/TLS encryption to the connections:
 

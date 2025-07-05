@@ -177,7 +177,7 @@ modified in that revision.
   * Merge pull request #41 from MariaDB/5.5-[MDEV-7820](https://jira.mariadb.org/browse/MDEV-7820)
 * [Revision #eb47b22](https://github.com/MariaDB/server/commit/eb47b22)\
   2015-04-15 16:23:43 +0300
-  * [MDEV-7820](https://jira.mariadb.org/browse/MDEV-7820) Server crashes in in my\_strcasecmp\_utf8 on subquery in ORDER BY clause of GROUP\_CONCAT
+  * [MDEV-7820](https://jira.mariadb.org/browse/MDEV-7820) Server crashes in my\_strcasecmp\_utf8 on subquery in ORDER BY clause of GROUP\_CONCAT
 * [Revision #59d847b](https://github.com/MariaDB/server/commit/59d847b)\
   2015-04-15 12:08:37 +0400
   * [MDEV-7814](https://jira.mariadb.org/browse/MDEV-7814) Assertion \`args\[0]->fixed' fails in Item\_func\_conv\_charset::Item\_func\_conv\_charset Removing a wrong assertion.

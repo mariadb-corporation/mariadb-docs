@@ -29,7 +29,7 @@ For additional information, see "[MariaDB Enterprise ColumnStore Query Evaluatio
 
 ## Batch Primitive Step (BPS)
 
-Enterprise ColumnStore defines a **batch primitive** step to handle many types of tasks, such as scanning/filtering columns, JOIN operations, aggregation, functional filtering, and and projecting (putting values into a `SELECT` list).
+Enterprise ColumnStore defines a **batch primitive** step to handle many types of tasks, such as scanning/filtering columns, JOIN operations, aggregation, functional filtering, and projecting (putting values into a `SELECT` list).
 
 In `calGetTrace()` output, a batch primitive step is abbreviated BPS.
 

@@ -61,7 +61,7 @@ spec:
     antiAffinityEnabled: true
 ```
 
-Anti-affinity may also be enabled in the the resources that have a reference to `MariaDB`, resulting in their `Pods` being scheduled in `Nodes` where `MariaDB` is not running. For instance, the `Backup` and `Restore` processes can run in different `Nodes`:
+Anti-affinity may also be enabled in the resources that have a reference to `MariaDB`, resulting in their `Pods` being scheduled in `Nodes` where `MariaDB` is not running. For instance, the `Backup` and `Restore` processes can run in different `Nodes`:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1

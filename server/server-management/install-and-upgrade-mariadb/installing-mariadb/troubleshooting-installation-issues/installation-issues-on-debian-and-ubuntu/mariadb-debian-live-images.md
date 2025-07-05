@@ -24,7 +24,7 @@ text-based live images can be used for testing or server off-line\
 installations. The two gui types, LXDE and Gnome, can be used for\
 testing/learning in live mode or for off-line desktop installations. Debian\
 live images with LXDE (gnome, KDE or awesome) are pretty comfortable for daily\
-work as a replacement for whatever desktop OS is installed on on the system.
+work as a replacement for whatever desktop OS is installed on the system.
 
 There are three iso images for each type, one for 32-bit (i386) systems, one\
 for 64-bit (amd64) systems, and one with both.

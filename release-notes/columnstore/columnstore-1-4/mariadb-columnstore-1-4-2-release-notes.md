@@ -65,7 +65,7 @@ Statement-based replication into ColumnStore tables is supported by setting `col
 ### Performance Enhancements
 
 * The performance of BRM (Block Resolution Manager) snapshots has been increased for improved performance when committing data to ColumnStore.
-* To reduce SSD wear and and increase write performance for large data sets containing many columns, ColumnStore now allocates disk as-needed, writing only real data and padding to fill the remainder of an 8KB block. ColumnStore previously wrote twice -- once to pre-allocate an empty file for each new extent (8 million item file for a column), and a second time to fill the file with real data.
+* To reduce SSD wear and increase write performance for large data sets containing many columns, ColumnStore now allocates disk as-needed, writing only real data and padding to fill the remainder of an 8KB block. ColumnStore previously wrote twice -- once to pre-allocate an empty file for each new extent (8 million item file for a column), and a second time to fill the file with real data.
 * The outer "ORDER BY" of a query is now processed using ColumnStore's engine instead of MariaDB server. This uses a faster sorting algorithm for higher performance with larger result sets.
 * Joins use a new hash algorithm which is significantly faster and requires significantly less initial memory to execute.
 * Memory cleanup after query execution now occurs in a separate thread. This previously occurred in the main ExeMgr thread, which could delay execution of new queries.

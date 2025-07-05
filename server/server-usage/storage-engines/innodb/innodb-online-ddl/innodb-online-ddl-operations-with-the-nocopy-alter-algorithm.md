@@ -487,7 +487,7 @@ This applies to [ALTER TABLE ... ENGINE=InnoDB](../../../../reference/sql-statem
 
 ### `OPTIMIZE TABLE ...`
 
-InnoDB does **not** support optimizing a table with with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table.md#algorithm) set to `NOCOPY`.
+InnoDB does **not** support optimizing a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table.md#algorithm) set to `NOCOPY`.
 
 For example:
 

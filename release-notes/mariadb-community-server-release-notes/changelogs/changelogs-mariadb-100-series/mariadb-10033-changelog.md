@@ -78,7 +78,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-13051](https://jira.mariadb.org/browse/MDEV-13051) MySQL#86607 InnoDB crash after failed ADD INDEX and table\_definition\_cache eviction
 * [Revision #b9418ed333](https://github.com/MariaDB/server/commit/b9418ed333)\
   2017-10-09 13:32:40 +0300
-  * [MDEV-13676](https://jira.mariadb.org/browse/MDEV-13676): Field "create Procedure" is NULL, even if the the user has role which is the definer. (SHOW CREATE PROCEDURE)
+  * [MDEV-13676](https://jira.mariadb.org/browse/MDEV-13676): Field "create Procedure" is NULL, even if the user has role which is the definer. (SHOW CREATE PROCEDURE)
 * [Revision #fc9ff69578](https://github.com/MariaDB/server/commit/fc9ff69578)\
   2017-10-10 10:19:10 +0300
   * [MDEV-13838](https://jira.mariadb.org/browse/MDEV-13838): Wrong result after altering a partitioned table
@@ -142,7 +142,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-12290](https://jira.mariadb.org/browse/MDEV-12290) Wrong timestamps in binary log causes replication issues
 * [Revision #378beed0a6](https://github.com/MariaDB/server/commit/378beed0a6)\
   2017-09-20 20:02:01 +0200
-  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
+  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
 * [Revision #b7434bacbd](https://github.com/MariaDB/server/commit/b7434bacbd)\
   2017-09-20 17:51:43 +0200
   * include/master-slave.inc must always be included last
@@ -182,7 +182,7 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #d6a7de2022](https://github.com/MariaDB/server/commit/d6a7de2022) 2017-09-19 01:02:01 +0300 - Merge branch '5.5' into 10.0
 * [Revision #97c2a7354b](https://github.com/MariaDB/server/commit/97c2a7354b)\
   2017-09-19 15:55:59 +0200
-  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
+  * [MDEV-13290](https://jira.mariadb.org/browse/MDEV-13290): Assertion `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())' or` ! is\_set()' failed
 * [Revision #389f7cdf3c](https://github.com/MariaDB/server/commit/389f7cdf3c)\
   2017-09-19 13:08:24 +0400
   * [MDEV-13137](https://jira.mariadb.org/browse/MDEV-13137) MySQL 5.6.23 Crashes when SET GLOBAL server\_audit\_logging=OFF;

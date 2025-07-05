@@ -4,7 +4,7 @@ This page contains links to Ansible modules and roles that can be used to automa
 
 ## Modules
 
-At the time time of writing, there are no MariaDB-specific modules in Ansible Galaxy. MySQL modules can be used. Trying to use MySQL-specific features may result in errors or unexpected behavior. However, the same applies when trying to use a feature not supported by the MySQL version in use.
+At the time of writing, there are no MariaDB-specific modules in Ansible Galaxy. MySQL modules can be used. Trying to use MySQL-specific features may result in errors or unexpected behavior. However, the same applies when trying to use a feature not supported by the MySQL version in use.
 
 Currently, the [MySQL collection](https://galaxy.ansible.com/community/mysql?extIdCarryOver=true\&sc_cid=701f2000001OH7YAAW) in Ansible Galaxy contains at least the following modules:
 

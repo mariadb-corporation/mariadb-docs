@@ -346,7 +346,7 @@ Some of these options can also be set as arguments to the [mysql_real_connect](m
 These options work together, according to the following rules:
 
 * if both are set to `NULL`, then no option files are read.
-* if `MYSQL_READ_DEFAULT_FILE` is set to an an empty string (or `NULL` and `MYSQL_READ_DEFAULT_GROUP` is set) then all [default option files](../configuring-mariadb-connectorc-with-option-files.md#default-option-file-locations) are read.
+* if `MYSQL_READ_DEFAULT_FILE` is set to an empty string (or `NULL` and `MYSQL_READ_DEFAULT_GROUP` is set) then all [default option files](../configuring-mariadb-connectorc-with-option-files.md#default-option-file-locations) are read.
 * if `MYSQL_READ_DEFAULT_FILE` is set to a non-empty string, then it is interpreted as a path to a [custom option file](../configuring-mariadb-connectorc-with-option-files.md#custom-option-file-locations), and only that option file is read.
 * if `MYSQL_READ_DEFAULT_GROUP` is an empty string (or `NULL` and `MYSQL_READ_DEFAULT_FILE` is set) then only default groups — `[client]`, `[client-server]`, `[client-mariadb]` are read.
 * if `MYSQL_READ_DEFAULT_GROUP` is a non-empty string, then it is interpreted as a custom option group, and that custom option group is read in addition to default groups from above.

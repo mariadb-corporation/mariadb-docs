@@ -1420,7 +1420,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Handler_icp_match`
 
-* Description: Number of times pushed index condition was matched. The smaller the ratio of [Handler\_icp\_attempts](server-status-variables.md#handler_icp_attempts) to Handler\_icp\_match the better the filtering. See See [Index Condition Pushdown](../query-optimizations/index-condition-pushdown.md).
+* Description: Number of times pushed index condition was matched. The smaller the ratio of [Handler\_icp\_attempts](server-status-variables.md#handler_icp_attempts) to Handler\_icp\_match the better the filtering. See [Index Condition Pushdown](../query-optimizations/index-condition-pushdown.md).
 * Scope: Global, Session
 * Data Type: `numeric`
 

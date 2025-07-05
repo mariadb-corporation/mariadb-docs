@@ -81,7 +81,7 @@ EXPLAIN SELECT * FROM t1,t2 WHERE t2.key1=t1.col1;
 2 rows in set (0.00 sec)
 ```
 
-Execution of this query will cause table `t2` to be hit in random locations by lookups made through `t2.key1=t1.col`. If you enable Multi Range and and Batched Key Access, you will get table `t2` to be accessed using a `Rowid-ordered scan`:
+Execution of this query will cause table `t2` to be hit in random locations by lookups made through `t2.key1=t1.col`. If you enable Multi Range and Batched Key Access, you will get table `t2` to be accessed using a `Rowid-ordered scan`:
 
 ```sql
 SET optimizer_switch='mrr=ON';

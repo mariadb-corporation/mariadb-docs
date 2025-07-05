@@ -40,7 +40,7 @@ Any field value of a flexible length type is not padded by 0 up to the maximal f
 
 ### Incremental Join Buffers
 
-If we have a query with a join of three tables t1, t2, t3 such that table t1 is joined with table t2 and the result of this join operation is joined with table t3 then two join buffers can be used to execute the query. The first join buffer B1 is used to store the records comprising interesting fields of table t1, while the second join buffer B2 contains the records with fields from the partial join of t1 and t2. The interesting fields of any record r1 from B1 are copied into B2 for any record record r1,r2 from the partial join of t1 and t2.\
+If we have a query with a join of three tables t1, t2, t3 such that table t1 is joined with table t2 and the result of this join operation is joined with table t3 then two join buffers can be used to execute the query. The first join buffer B1 is used to store the records comprising interesting fields of table t1, while the second join buffer B2 contains the records with fields from the partial join of t1 and t2. The interesting fields of any record r1 from B1 are copied into B2 for any record r1,r2 from the partial join of t1 and t2.\
 One could suggest storing in B2 just a pointer to the position of the r1 fields in B1 together with the interesting fields from t2. So for any record r2 matching the record r1 the buffer B2 would contain a reference to the fields of r1 in B1 and the fields of r2. In this case the buffer B2 is called incremental.\
 Incremental buffers allow to avoid copying field values from one buffer into another. They also allow to save a significant amount of buffer space if for a record from t1 several matches from t2 are expected.
 

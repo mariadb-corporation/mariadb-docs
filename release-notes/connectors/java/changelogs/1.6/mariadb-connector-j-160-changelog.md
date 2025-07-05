@@ -16,7 +16,7 @@ details of the revision and view diffs of the code modified in that revision.
 * [Revision #aa95347](https://github.com/mariadb-corporation/mariadb-connector-j/commit/aa95347) - \[misc] bump 1.6.0 version
 * [Revision #61a69ad](https://github.com/mariadb-corporation/mariadb-connector-j/commit/61a69ad) - \[misc] jre7 compatibility
 
-As indicated in release notes, this version contain 2.0.0/2.0.1 evolutions, without java 8 temporal temporal objects ([CONJ-409](https://jira.mariadb.org/browse/CONJ-409)) and support for large updates ([CONJ-414](https://jira.mariadb.org/browse/CONJ-414)).
+As indicated in release notes, this version contain 2.0.0/2.0.1 evolutions, without java 8 temporal objects ([CONJ-409](https://jira.mariadb.org/browse/CONJ-409)) and support for large updates ([CONJ-414](https://jira.mariadb.org/browse/CONJ-414)).
 
 see [2.0.1 changelog](../2.0/mariadb-connector-j-201-changelog.md) to see corresponding changelog
 

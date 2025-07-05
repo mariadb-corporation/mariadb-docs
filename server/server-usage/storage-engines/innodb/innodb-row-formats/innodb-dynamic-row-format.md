@@ -114,7 +114,7 @@ WHERE NAME='hq_sales/invoices';
 
 ### Create an InnoDB Table with the Dynamic Row Format using `ROW_FORMAT`
 
-An InnoDB table that uses the Dynamic row format can be created using the the `ROW_FORMAT` table option.
+An InnoDB table that uses the Dynamic row format can be created using the `ROW_FORMAT` table option.
 
 Let's create an InnoDB table after confirming that the default storage engine is InnoDB and that InnoDB's default row format is not Dynamic:
 

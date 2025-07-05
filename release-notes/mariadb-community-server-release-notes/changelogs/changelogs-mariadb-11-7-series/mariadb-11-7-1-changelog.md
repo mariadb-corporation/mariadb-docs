@@ -502,7 +502,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-35229](https://jira.mariadb.org/browse/MDEV-35229) fix the test for --view
 * [Revision #947de4b1db](https://github.com/MariaDB/server/commit/947de4b1db)\
   2024-09-11 22:55:14 +0200
-  * print more digits for floating point options in in mariadbd --help
+  * print more digits for floating point options in mariadbd --help
 * [Revision #40810baffe](https://github.com/MariaDB/server/commit/40810baffe)\
   2023-12-31 12:41:25 +0200
   * [MDEV-33144](https://jira.mariadb.org/browse/MDEV-33144) Implement the Percona variable slow\_query\_log\_always\_write\_time

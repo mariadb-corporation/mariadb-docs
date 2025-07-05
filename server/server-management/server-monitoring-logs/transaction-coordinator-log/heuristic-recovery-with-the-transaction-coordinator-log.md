@@ -59,7 +59,7 @@ After the recovery process is complete, MariaDB will create a new empty [binary 
 
 ### Manual Heuristic Recovery with the Memory-Mapped File-Based Transaction Coordinator Log
 
-If [--tc-heuristic-recover](../../getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) is set to some value other than `OFF` and if the [binary log](../binary-log/) is **not** enabled, then MariaDB will ignore information about transactions in the the memory-mapped file defined by the [--log-tc](../../getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) option during the recovery process. Prepared transactions that are encountered during the recovery process will either be rolled back or committed, depending on the value of [--tc-heuristic-recover](../../getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md).
+If [--tc-heuristic-recover](../../getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) is set to some value other than `OFF` and if the [binary log](../binary-log/) is **not** enabled, then MariaDB will ignore information about transactions in the memory-mapped file defined by the [--log-tc](../../getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) option during the recovery process. Prepared transactions that are encountered during the recovery process will either be rolled back or committed, depending on the value of [--tc-heuristic-recover](../../getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

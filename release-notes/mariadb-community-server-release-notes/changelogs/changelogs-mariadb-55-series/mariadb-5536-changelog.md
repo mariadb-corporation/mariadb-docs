@@ -17,7 +17,7 @@ modified in that revision.
   * 5.3 merge
   * [Revision #2502.567.209](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.209)\
     Thu 2014-02-20 21:27:33 -0800
-    * After constant row substitution the optimizer should call the method update\_used\_tables for the the where condition to update cached indicators of constant subexpressions. It should be done before further possible simplification of the where condition.
+    * After constant row substitution the optimizer should call the method update\_used\_tables for the where condition to update cached indicators of constant subexpressions. It should be done before further possible simplification of the where condition.
   * [Revision #2502.567.208](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.208)\
     Wed 2014-02-19 18:34:12 +0400
     * Backport the following from 5.5 to 5.3: [MDEV-4556](https://jira.mariadb.org/browse/MDEV-4556) Server crashes in SEL\_ARG::rb\_insert with index\_merge+index\_merge\_sort\_union, FORCE INDEX - merge\_same\_index\_scans() may put the same SEL\_ARG tree in multiple result plans. make it call incr\_refs() on the SEL\_ARG trees that it does key\_or() on, because key\_or(sel\_arg\_tree\_1, sel\_arg\_tree\_2) call may invalidate SEL\_ARG trees pointed by sel\_arg\_tree\_1 and sel\_arg\_tree\_2.
@@ -41,7 +41,7 @@ modified in that revision.
     * Merge
     * [Revision #2502.585.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.585.1)\
       Sat 2014-02-15 01:21:46 +0400
-      * [MDEV-5581](https://jira.mariadb.org/browse/MDEV-5581): Server crashes in in JOIN::prepare on 2nd execution of PS with materialization+semijoin - The problem was that JOIN::prepare() tried to set TABLE::maybe\_null for a table in join. Non-merged semi-join tables 1) are present as join's base tables on second EXECUTE, but 2) do not yet have a TABLE object. Worked around the problem by putting mixed\_implicit\_grouping into JOIN object, and then passing it to JTBM tables in setup\_jtbm\_semi\_joins().
+      * [MDEV-5581](https://jira.mariadb.org/browse/MDEV-5581): Server crashes in JOIN::prepare on 2nd execution of PS with materialization+semijoin - The problem was that JOIN::prepare() tried to set TABLE::maybe\_null for a table in join. Non-merged semi-join tables 1) are present as join's base tables on second EXECUTE, but 2) do not yet have a TABLE object. Worked around the problem by putting mixed\_implicit\_grouping into JOIN object, and then passing it to JTBM tables in setup\_jtbm\_semi\_joins().
 * [Revision #4094](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4094)\
   Fri 2014-02-21 23:42:29 +0100
   * Fix "cmake . && cmake -DWITHOUT\_TOKUDB=1" to disable tokudb

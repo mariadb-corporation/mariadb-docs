@@ -233,7 +233,7 @@ same node for writes.
 
 If the `root_node_as_master` option is disabled for galeramon, the node with the
 lowest index will always be chosen as the primary. If it is enabled, only the
-node with a a *wsrep_local_index* value of 0 can be chosen as the primary.
+node with a *wsrep_local_index* value of 0 can be chosen as the primary.
 
 
 This parameter can work with `disable_master_failback` but using them together

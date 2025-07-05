@@ -50,7 +50,7 @@ of the revision and view diffs of the code modified in that revision.
   * [MDEV-9208](https://jira.mariadb.org/browse/MDEV-9208): Function->Function->View = Mysqld segfault (Server crashes in Dependency\_marker::visit\_field on 2nd execution with merged subquery)
 * [Revision #991b9ee735](https://github.com/MariaDB/server/commit/991b9ee735)\
   2017-10-13 07:06:09 +0400
-  * [MDEV-13530](https://jira.mariadb.org/browse/MDEV-13530) VARBINARY doesn't convert to to BLOB for sizes 65533, 65534 and 65535
+  * [MDEV-13530](https://jira.mariadb.org/browse/MDEV-13530) VARBINARY doesn't convert to BLOB for sizes 65533, 65534 and 65535
 * [Revision #93aadda513](https://github.com/MariaDB/server/commit/93aadda513)\
   2017-10-08 22:15:00 +0300
   * [MDEV-13149](https://jira.mariadb.org/browse/MDEV-13149) -- show function status now works with PAD\_CHAR\_TO\_FULL\_LENGTH

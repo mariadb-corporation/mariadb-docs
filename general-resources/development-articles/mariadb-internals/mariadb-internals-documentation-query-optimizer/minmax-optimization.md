@@ -8,7 +8,7 @@ MariaDB and MySQL can optimize the [MIN()](https://github.com/mariadb-corporatio
 * You only have constants, `MIN()` and `MAX()` in the `SELECT` part.
 * The argument to `MIN()` and `MAX()` is a simple column reference that is part of a key.
 * There is no `WHERE` clause or the `WHERE` is used with a constant for all prefix parts of the key before the argument to `MIN()`/`MAX()`.
-* If the argument is used in the `WHERE` clause, it can be be compared to a constant with `<` or `<=` in case of `MAX()` and with `>` or `>=` in case of `MIN()`.
+* If the argument is used in the `WHERE` clause, it can be compared to a constant with `<` or `<=` in case of `MAX()` and with `>` or `>=` in case of `MIN()`.
 
 Here are some examples to clarify this.\
 In this case we assume there is an index on columns `(a,b,c)`

@@ -47,7 +47,7 @@ Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/
   This makes everything that wasn't included by the unit\
   itself be available across the precompiled set.\
   There are the alternative ways of unit precompiling:\
-  clang modules and gcc .gch files. We want want to prefer\
+  clang modules and gcc .gch files. We want to prefer\
   it on the per-comiler header.
   * Expected outcomes:\
     You will make a strong practical impact of a high need\

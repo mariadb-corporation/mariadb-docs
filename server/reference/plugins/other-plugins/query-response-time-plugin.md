@@ -2,7 +2,7 @@
 
 The `query_response_time` plugin creates the [QUERY\_RESPONSE\_TIME](../../sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-query_response_time-table.md) table in the [INFORMATION\_SCHEMA](../../sql-statements/administrative-sql-statements/system-tables/information-schema/) database. The plugin also adds the [SHOW QUERY\_RESPONSE\_TIME](../../sql-statements/administrative-sql-statements/show/show-query_response_time.md) and [FLUSH QUERY\_RESPONSE\_TIME\*](query-response-time-plugin.md#flushing-plugin-data) statements.
 
-The [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) provides exact information about queries that take a long time to execute. However, sometimes there are a large number of queries that each take a very short amount of time to execute. This feature provides a tool for analyzing that information by counting and displaying the number of queries according to the the length of time they took to execute.
+The [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) provides exact information about queries that take a long time to execute. However, sometimes there are a large number of queries that each take a very short amount of time to execute. This feature provides a tool for analyzing that information by counting and displaying the number of queries according to the length of time they took to execute.
 
 This feature is based on Percona's [Response Time Distribution](https://www.percona.com/doc/percona-server/5.5/diagnostics/response_time_distribution.html).
 
@@ -152,7 +152,7 @@ This means there were:
 
 ### Using the Information Schema Table
 
-You can get the distribution by querying the the [QUERY\_RESPONSE\_TIME](../../sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-query_response_time-table.md) table in the [INFORMATION\_SCHEMA](../../sql-statements/administrative-sql-statements/system-tables/information-schema/) database. For example:
+You can get the distribution by querying the [QUERY\_RESPONSE\_TIME](../../sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-query_response_time-table.md) table in the [INFORMATION\_SCHEMA](../../sql-statements/administrative-sql-statements/system-tables/information-schema/) database. For example:
 
 ```
 SELECT * FROM INFORMATION_SCHEMA.QUERY_RESPONSE_TIME;
