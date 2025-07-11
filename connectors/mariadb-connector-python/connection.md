@@ -11,53 +11,6 @@ Connections are created using the method mariadb.connect()
 
 ## Connection constructors
 
-#### Connection.cursor(cursorclass=<class 'mariadb.cursors.Cursor'>, \*\*kwargs)
-
-Returns a new cursor object for the current connection.
-
-If no cursorclass was specified, a cursor with default mariadb.Cursor
-class will be created.
-
-Optional keyword parameters:
-
-- buffered = True
-  If set to False the result will be unbuffered, which means before
-  executing another statement with the same connection the entire
-  result set must be fetched.
-  Please note that the default was False for MariaDB Connector/Python
-  versions < 1.1.0.
-- dictionary = False
-  Return fetch values as dictionary.
-- named_tuple = False
-  Return fetch values as named tuple. This feature exists for
-  compatibility reasons and should be avoided due to possible
-  inconsistency.
-- cursor_type = CURSOR.NONE
-  If cursor_type is set to CURSOR.READ_ONLY, a cursor is opened
-  for the statement invoked with cursors execute() method.
-- prepared = False
-  When set to True cursor will remain in prepared state after the first
-  execute() method was called. Further calls to execute() method will
-  ignore the sql statement.
-- binary = False
-  Always execute statement in MariaDB client/server binary protocol.
-
-In versions prior to 1.1.0 results were unbuffered by default,
-which means before executing another statement with the same
-connection the entire result set must be fetched.
-
-fetch\* methods of the cursor class by default return result set values
-as a tuple, unless dictionary or named_tuple was specified.
-The latter one exists for compatibility reasons and should be avoided
-due to possible inconsistency in case two or more fields in a result
-set have the same name.
-
-If cursor_type is set to CURSOR.READ_ONLY, a cursor is opened for
-the statement invoked with cursors execute() method.
-
-#### Versionadded
-Added in version 1.0.1.
-
 #### Connection.xid(format_id: int, global_transaction_id: str, branch_qualifier: str)
 
 Creates a transaction ID object suitable for passing to the .tpc_\*()
@@ -65,7 +18,7 @@ methods of this connection.
 
 Parameters:
 
-- format_id: Format id. If not set default value 0 will be used.
+- format_id: Format id. Default to value 0.
 - global_transaction_id: Global transaction qualifier, which must be
   unique. The maximum length of the global transaction id is
   limited to 64 characters.
@@ -73,21 +26,22 @@ Parameters:
   transaction identifier. The maximum length of the branch qualifier
   is limited to 64 characters.
 
-## Connection methods
+*Since version 1.0.1.*
 
-#### Versionadded
-Added in version 1.1.0.
+## Connection methods
 
 #### Connection.begin()
 
 Start a new transaction which can be committed by .commit() method,
-or cancelled by .rollback() method.
+or canceled by .rollback() method.
+
+*Since version 1.1.0.*
 
 #### Connection.commit()
 
 Commit any pending transaction to the database.
 
-#### Connection.change_user(user, password, database)
+#### Connection.change_user()
 
 Changes the user and default database of the current connection
 
@@ -118,48 +72,22 @@ will cause an implicit rollback to be performed.
 
 Returns a new cursor object for the current connection.
 
-If no cursorclass was specified, a cursor with default mariadb.Cursor
-class will be created.
+If no cursorclass was specified, a cursor with default mariadb.Cursor class will be created.
 
 Optional keyword parameters:
 
-- buffered = True
-  If set to False the result will be unbuffered, which means before
-  executing another statement with the same connection the entire
-  result set must be fetched.
-  Please note that the default was False for MariaDB Connector/Python
-  versions < 1.1.0.
-- dictionary = False
-  Return fetch values as dictionary.
-- named_tuple = False
-  Return fetch values as named tuple. This feature exists for
-  compatibility reasons and should be avoided due to possible
-  inconsistency.
-- cursor_type = CURSOR.NONE
-  If cursor_type is set to CURSOR.READ_ONLY, a cursor is opened
-  for the statement invoked with cursors execute() method.
-- prepared = False
-  When set to True cursor will remain in prepared state after the first
-  execute() method was called. Further calls to execute() method will
-  ignore the sql statement.
-- binary = False
-  Always execute statement in MariaDB client/server binary protocol.
+- **buffered** (default: `True`) - If disabled, the result will be unbuffered, which means before executing another statement with the same connection, the entire result set must be fetched. Please note that the default was False for MariaDB Connector/Python versions < 1.1.0.
+- **dictionary** (default: `False`) - Return fetch values as dictionary when enabled.
+- **named_tuple** (default: `False`) - Return fetch values as named tuple. This feature exists for compatibility reasons and should be avoided due to possible inconsistency.
+- **cursor_type** (default: `CURSOR.NONE`) - If cursor_type is set to CURSOR.READ_ONLY, a cursor is opened for the statement invoked with cursors execute() method.
+- **prepared** (default: `False`) - When enabled, the cursor will remain in prepared state after the first execute() method was called. Further calls to execute() method will ignore the SQL statement.
+- **binary** (default: `False`) - Always execute statement in MariaDB client/server binary protocol.
 
-In versions prior to 1.1.0 results were unbuffered by default,
-which means before executing another statement with the same
-connection the entire result set must be fetched.
+In versions prior to 1.1.0 results were unbuffered by default, which means before executing another statement with the same connection, the entire result set must be fetched.
 
-fetch\* methods of the cursor class by default return result set values
-as a tuple, unless dictionary or named_tuple was specified.
-The latter one exists for compatibility reasons and should be avoided
-due to possible inconsistency in case two or more fields in a result
-set have the same name.
+fetch\* methods of the cursor class by default return result set values as a tuple, unless dictionary or named_tuple was specified. The latter one exists for compatibility reasons and should be avoided due to possible inconsistency in case two or more fields in a result set have the same name.
 
-If cursor_type is set to CURSOR.READ_ONLY, a cursor is opened for
-the statement invoked with cursors execute() method.
-
-#### Versionadded
-Added in version 1.1.2.
+If cursor_type is set to CURSOR.READ_ONLY, a cursor is opened for the statement invoked with cursors execute() method.
 
 #### Connection.dump_debug_info()
 
@@ -167,13 +95,12 @@ This function is designed to be executed by an user with the SUPER privilege
 and is used to dump server status information into the log for the MariaDB
 Server relating to the connection.
 
+*Since version 1.1.2.*
+
 #### Connection.get_server_version()
 
 Returns a tuple representing the version of the connected server in
 the following format: (MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION)
-
-#### Versionadded
-Added in version 1.0.5.
 
 #### Connection.escape_string()
 
@@ -183,9 +110,9 @@ statement: string
 This function is used to create a legal SQL string that you can use in
 an SQL statement. The given string is encoded to an escaped SQL string.
 
-```python
-import mariadb
+*Since version 1.0.5.*
 
+```python
 # connection parameters
 conn_params= {
     "user" : "example_user",
@@ -193,14 +120,12 @@ conn_params= {
     "host" : "localhost"
 }
 
-# Establish a connection
-connection= mariadb.connect(**conn_params)
-
-string= 'This string contains the following special characters: \,"'
-print(connection.escape_string(string))
+with mariadb.connect(**conn_params) as connection:
+    string = 'This string contains the following special characters: \\,"'
+    print(connection.escape_string(string))
 ```
 
-*Output*:
+**Output:**
 
 ```none
 This string contains the following special characters: \\,\"
@@ -211,11 +136,11 @@ This string contains the following special characters: \\,\"
 This function is used to ask the server to kill a database connection
 specified by the processid parameter.
 
-The connection id can be retrieved by SHOW PROCESSLIST sql command.
+The connection id can be retrieved by SHOW PROCESSLIST SQL command.
 
 #### NOTE
-A thread_id from other connections can be determined by executing the SQL statement `SHOW PROCESSLIST`
-The thread_id of the current connection the current connection is stored in [`connection_id`](#mariadb.connections.Connection.connection_id) attribute.
+A thread_id from other connections can be determined by executing the SQL statement `SHOW PROCESSLIST`.
+The thread_id of the current connection is stored in the `connection_id` attribute.
 
 #### Connection.ping()
 
@@ -248,15 +173,14 @@ cause an implicit rollback to be performed.
 Note that rollback() will not work as expected if autocommit mode
 was set to True or the storage engine does not support transactions.”
 
-#### Versionadded
-Added in version 1.1.0.
-
 #### Connection.select_db(new_db: str)
 
 Gets the default database for the current connection.
 
 The default database can also be obtained or changed by database
 attribute.
+
+*Since version 1.1.0.*
 
 #### Connection.show_warnings()
 
@@ -270,17 +194,19 @@ Parameter:
 
 Begins a TPC transaction with the given transaction ID xid.
 
-This method should be called outside of a transaction
-(i.e. nothing may have executed since the last .commit()
+This method should be called outside a transaction
+(i.e., nothing may have been executed since the last .commit()
 or .rollback()).
 Furthermore, it is an error to call .commit() or .rollback() within
-the TPC transaction. A ProgrammingError is raised, if the application
+the TPC transaction. A ProgrammingError is raised if the application
 calls .commit() or .rollback() during an active TPC transaction.
 
 #### Connection.tpc_commit(xid=None)
 
-Optional parameter:”
-xid: xid object which was created by .xid() method of connection class.
+Optional parameter:
+
+- xid
+  : xid object which was created by .xid() method of connection class.
 
 When called with no arguments, .tpc_commit() commits a TPC transaction
 previously prepared with .tpc_prepare().
@@ -291,13 +217,13 @@ only a single resource is participating in the global transaction.
 When called with a transaction ID xid, the database commits the given
 transaction. If an invalid transaction ID is provided,
 a ProgrammingError will be raised.
-This form should be called outside of a transaction, and
-is intended for use in recovery.”
+This form should be called outside a transaction, and
+is intended for use in recovery.
 
 #### Connection.tpc_prepare()
 
 Performs the first phase of a transaction started with .tpc_begin().
-A ProgrammingError will be raised if this method was called outside of
+A ProgrammingError will be raised if this method was called outside
 a TPC transaction.
 
 After calling .tpc_prepare(), no statements can be executed until
@@ -315,7 +241,7 @@ Parameter:
   : class
 
 Performs the first phase of a transaction started with .tpc_begin().
-A ProgrammingError will be raised if this method outside of a TPC
+A ProgrammingError will be raised if this method outside a TPC
 transaction.
 
 After calling .tpc_prepare(), no statements can be executed until
@@ -338,23 +264,22 @@ the connection to a database server died due to timeout or other errors.
 Toggles autocommit mode on or off for the current database connection.
 
 Autocommit mode only affects operations on transactional table types.
-Be aware that rollback() will not work, if autocommit mode was switched
+Be aware that rollback() will not work if autocommit mode was switched
 on.
 
-By default autocommit mode is set to False.”
+By default, autocommit mode is set to False.
 
 #### Connection.character_set
 
 Client character set.
 
-For MariaDB Connector/Python it is always utf8mb4.
-
-#### Versionadded
-Added in version 1.1.0:.
+For MariaDB Connector/Python, it is always utf8mb4.
 
 #### Connection.client_capabilities
 
 Client capability flags.
+
+*Since version 1.1.0.*
 
 #### Connection.collation
 
@@ -366,33 +291,30 @@ Id of current connection
 
 #### Connection.database
 
-Get default database for connection.
-
-#### Versionadded
-Added in version 1.1.0.
+Get the current database of the connection.
 
 #### Connection.open
 
 Returns true if the connection is alive.
 
-A ping command will be send to the server for this purpose,
+A ping command will be sent to the server for this purpose,
 which means this function might fail if there are still
-non processed pending result sets.
+non-processed pending result sets.
 
-#### Versionadded
-Added in version 1.1.0.
+*Since version 1.1.0.*
 
 #### Connection.server_capabilities
 
 Server capability flags.
 
-#### Versionadded
-Added in version 1.1.0.
+*Since version 1.1.0.*
 
 #### Connection.extended_server_capabilities
 
 Extended server capability flags (only for MariaDB
 database servers).
+
+*Since version 1.1.0.*
 
 #### Connection.server_info
 
@@ -404,15 +326,14 @@ Name or IP address of database server.
 
 #### Connection.server_port
 
-Database server TCP/IP port. This value will be 0 in case of a unix
+Database server TCP/IP port. This value will be 0 in case of an unix
 socket connection.
-
-#### Versionadded
-Added in version 1.1.0.
 
 #### Connection.server_status
 
 Return server status flags
+
+*Since version 1.1.0.*
 
 #### Connection.server_version
 
@@ -425,23 +346,21 @@ VERSION_MAJOR \* 10000 + VERSION_MINOR \* 100 + VERSION_PATCH
 
 Returns numeric version of connected database server in tuple format.
 
-#### Versionadded
-Added in version 1.0.5.
-
 #### Connection.tls_cipher
 
 TLS cipher suite if a secure connection is used.
+
+*Since version 1.0.5.*
 
 #### Connection.tls_version
 
 TLS protocol version if a secure connection is used.
 
-#### Versionadded
-Added in version 1.1.11.
-
 #### Connection.tls_peer_cert_info
 
 Get peer certificate information.
+
+*Since version 1.1.11.*
 
 #### Connection.unix_socket
 
@@ -449,8 +368,8 @@ Unix socket name.
 
 #### Connection.user
 
-Returns the user name for the current connection or empty
-string if it can’t be determined, e.g. when using socket
+Returns the username for the current connection or empty
+string if it can’t be determined, e.g., when using socket
 authentication.
 
 #### Connection.warnings

@@ -22,14 +22,10 @@ When creating a connection pool, the following parameters have to be provided:
 
 1. Connection pool specific parameters
 
-- pool_name: The name of the pool, if not specified MariaDB Connector/Python will raise an exception.
-- pool_size: The size of the pool, if not specified a default of 5 will be set.
-- pool_reset_session: If set to True, the connection will be resetted before returned to the pool
-
-#### Versionadded
-Added in version 1.1.0.
-
-- pool_invalidation_interval: specifies the validation interval in milliseconds after which the status of a connection requested from the pool is checked. The default values is 500 milliseconds, a value of 0 means that the status will always be checked.
+- **\`pool_name\`**: The name of the pool, if not specified MariaDB Connector/Python will raise an exception.
+- **\`pool_size\`**: The size of the pool, if not specified a default of 5 will be set.
+- **\`pool_reset_session\`**: If set to True, the connection will be reset before returned to the pool
+- **\`pool_invalidation_interval\`**: specifies the validation interval in milliseconds after which the status of a connection requested from the pool is checked. The default values is 500 milliseconds, a value of 0 means that the status will always be checked. Since 1.1.0
 
 1. Connection parameters
 
@@ -48,17 +44,14 @@ conn_params= {
 }
 
 # create new pool
-pool= mariadb.ConnectionPool(pool_name="myfirstpool", pool_size=5, **conn_params)
-print("Pool size of '%s': %s" % (pool.pool_name, pool.pool_size))
+with mariadb.ConnectionPool(pool_name="myfirstpool", pool_size=5, **conn_params) as pool:
+    print("Pool size of '%s': %s" % (pool.pool_name, pool.pool_size))
 
-# get a connection from pool
-conn= pool.get_connection()
+    # get a connection from pool
+    with pool.get_connection() as conn:
 
-# print the default database for connection
-print("Current database: %s" % conn.database)
-
-# close connection and return it to pool
-conn.close()
+        # print the default database for connection
+        print("Current database: %s" % conn.database)
 ```
 
 *Output*:
