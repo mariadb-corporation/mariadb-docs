@@ -8,7 +8,9 @@ Also see the [Full list of MariaDB options, system and status variables](https:/
 
 #### `wsrep_allowlist`
 
-* Description: Allowed IP addresses, comma delimited.
+* Description:
+    * Allowed IP addresses, comma delimited.
+    * Note that setting `gmcast.listen_addr=tcp://[::]:4567` on a dual-stack system (eg. Linux with `net.ipv6.bindv6only = 0`), IPv4 addresses need to allowlisted using the IPv4-mapped IPv6 address (eg. `::ffff:1.2.3.4`).
 * Commandline: `--wsrep-allowlist=value1[,value2...]`
 * Scope: Global
 * Dynamic: No
