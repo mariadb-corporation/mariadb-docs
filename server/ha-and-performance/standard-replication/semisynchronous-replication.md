@@ -212,8 +212,8 @@ The effects of the `AFTER_COMMIT` wait point are:
 
 #### `rpl_semi_sync_master_wait_no_slave`
 
-* Description: If set to `ON`, the default, the replica count (recorded by [Rpl\_semi\_sync\_master\_clients](../optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md#rpl_semi_sync_master_clients)) may drop to zero, and the primary will still wait for the timeout period. If set to `OFF`, the primary will revert to asynchronous replication as soon as the replica count drops to zero.
-* Commandline: `--rpl-semi-sync-master-wait-no-slave[={0|1}]`
+* Description: If all replicas have disconnected from the primary (i.e. [Rpl\_semi\_sync\_master\_clients](../optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md#rpl_semi_sync_master_clients) is 0), this variable controls whether or not the primary will still suspend the next transaction's (and any others that commit within [Rpl\_semi\_sync\_master\_timeout](../optimization-and-tuning/system-variables/semisynchronous-replication-plugin-status-variables.md#rpl_semi_sync_master_timeout) duration) commit phase to wait for a replica to connect or reconnect, and send an ACK. If set to `ON`, the default, the replica count may drop to zero, and the primary will still wait for the timeout period for the next transaction, and any more that commit after this transaction within the semi-sync timeout duration. If no ACK is received in this time, the primary will revert to asynchronous replication. If set to `OFF`, the primary will revert to asynchronous replication as soon as the replica count drops to zero.
+* Command line: `--rpl-semi-sync-master-wait-no-slave[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `boolean`
@@ -242,17 +242,6 @@ The effects of the `AFTER_COMMIT` wait point are:
 * Data Type: `enum`
 * Default Value: `AFTER_COMMIT`
 * Valid Values: `AFTER_SYNC`, `AFTER_COMMIT`
-
-#### `rpl_semi_sync_master_wait_for_slave_count`
-
-* Description: The number of replicas that need to acknowledge that they have received a transaction before the transaction can complete on the primary.
-* Commandline: `--rpl-semi-sync-master-wait-for-slave-count=#`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `numeric`
-* Default Value: `1`
-* Range: `0` to `65535`
-* Introduced: MariaDB 12.1
 
 #### `rpl_semi_sync_slave_delay_master`
 
