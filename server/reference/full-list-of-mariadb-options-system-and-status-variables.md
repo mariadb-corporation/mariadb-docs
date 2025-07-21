@@ -367,7 +367,6 @@
 * [Cpu\_time](../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#cpu_time)
 * \--[cracklib-password-check](plugins/password-validation-plugins/cracklib-password-check-plugin.md)
 * [cracklib\_password\_check-dictionary](plugins/password-validation-plugins/cracklib-password-check-plugin.md)
-* [create\_tmp\_table\_binlog\_formats](../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#create_tmp_table_binlog_formats)
 * [Created\_tmp\_disk\_tables](../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#created_tmp_disk_tables)
 * [Created\_tmp\_files](../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#created_tmp_files)
 * [Created\_tmp\_tables](../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#created_tmp_tables)

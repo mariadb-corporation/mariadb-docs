@@ -10,7 +10,7 @@ This is a list of [status variables](../server-status-variables.md) that were ad
 ## See Also
 
 * [System variables added in MariaDB 10.6](system-variables-added-in-mariadb-10-6.md)
-* [Status variables added in MariaDB 10.5](system-and-status-variables-added-by-major-unmaintained-release/status-variables-added-in-mariadb-105.md)
+* [Status variables added in MariaDB 10.5](status-variables-added-in-mariadb-105.md)
 * [Status variables added in MariaDB 10.4](system-and-status-variables-added-by-major-unmaintained-release/status-variables-added-in-mariadb-104.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

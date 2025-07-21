@@ -14,7 +14,7 @@ This is a list of [status variables](../../server-status-variables.md) that were
 ## See Also
 
 * [System Variables Added in MariaDB 10.4](system-variables-added-in-mariadb-10-4.md)
-* [Status Variables Added in MariaDB 10.5](status-variables-added-in-mariadb-105.md)
+* [Status Variables Added in MariaDB 10.5](../status-variables-added-in-mariadb-105.md)
 * [Status Variables Added in MariaDB 10.3](status-variables-added-in-mariadb-103.md)
 * [Status Variables Added in MariaDB 10.2](status-variables-added-in-mariadb-102.md)
 
