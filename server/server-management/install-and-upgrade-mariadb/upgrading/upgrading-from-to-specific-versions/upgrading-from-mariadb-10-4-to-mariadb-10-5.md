@@ -120,7 +120,7 @@ You might consider using the following major new features in [MariaDB 10.5](http
 
 * The [S3 storage engine](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/s3-storage-engine/README.md) allows one to archive MariaDB tables in Amazon S3, or any third-party public or private cloud that implements S3 API.
 * [ColumnStore](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-columnstore/README.md) columnar storage engine.
-* See also [System Variables Added in MariaDB 10.5](../../../../ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-10-5.md).
+* See also [System Variables Added in MariaDB 10.5](../../../../ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/system-variables-added-in-mariadb-10-5.md).
 
 ### See Also
 
