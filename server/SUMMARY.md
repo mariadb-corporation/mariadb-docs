@@ -870,7 +870,7 @@
     * [Client Libraries](clients-and-utilities/server-client-software/client-libraries/README.md)
       * [Connect and Query](clients-and-utilities/server-client-software/client-libraries/connect-and-query.md)
       * [Proxy Protocol Support](clients-and-utilities/server-client-software/client-libraries/proxy-protocol-support.md)
-      * [Client/Server Protocol](reference/clientserver-protocol/README.md)
+      * [Client/Server Protocol](clients-and-utilities/server-client-software/client-libraries/clientserver-protocol/README.md)
     * [Downloads](clients-and-utilities/server-client-software/download/README.md)
       * [MariaDB Source Code](clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md)
       * [MariaDB RPM Packages](clients-and-utilities/server-client-software/download/mariadb-rpm-packages.md)
