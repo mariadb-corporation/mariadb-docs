@@ -221,15 +221,11 @@ maxctrl call command wcar stop CAPTURE_FLTR
 
 #### Installation
 
-Install the required packages on the MaxScale server where the replay is to be\
-done. An additional dependency that must be manually installed is Python,\
-version 3.7 or newer. On most linux distributions a new enough version is\
-available as the default Python interpreter.
+Install the required packages on the MaxScale server where the replay is to be done. An additional dependency that must be manually installed is Python, version 3.9 or newer. On most linux distributions a new enough version is available as the default Python interpreter. You may also need to install the development packages for Python, `python3-devel` on RHEL based systems or `python3-dev` on Debian based systems.
 
-The replay consists of restoring the database to the point in time where the\
-capture was started. Start by restoring the replay database to this state. Once\
-the database has been restored from the backup, copy the capture files over to\
-the replay MaxScale server.
+For RHEL 8, Rocky Linux 8 and Alma Linux 8, a newer version of Python must be installed with `dnf install python39 python39-devel` and it must be set as the default python implementation with `alternatives --set python3 /usr/bin/python3.9`. 
+
+The replay consists of restoring the database to the point in time where the capture was started. Start by restoring the replay database to this state. Once the database has been restored from the backup, copy the capture files over to the replay MaxScale server.
 
 #### Preparing the Replay MariaDB Database
 
@@ -303,29 +299,29 @@ After both replays have been completed, the results can be post-processed and vi
 
 ### Visualizing
 
-The results of the captured replay must first be post-processed into summaries that\
-the visualization will then use. First, the `canonicals.csv` file must be\
-generated that is needed in the post-processing:
+The results of the captured replay must first be post-processed into summaries that the visualization will then use. First, the `canonicals.csv` file must be generated that is needed in the post-processing:
 
 ```
 maxplayer canonicals /path/to/capture.cx > canonicals.csv
 ```
 
-After that, the baseline and comparison replay results can be post-processed\
-into summaries using the `maxpostprocess` command:
+After that, the baseline and comparison replay results can be post-processed into summaries using the `maxpostprocess` command:
 
 ```
 maxpostprocess canonicals.csv baseline-result.csv -o baseline-summary.json
 maxpostprocess canonicals.csv comparison-result.csv -o comparison-summary.json
 ```
 
-The visualization itself is done with the `maxvisualize` program. The\
-visualization will open up a browser window to show the visualization. If no\
-browser opens up, the visualization URL is also printed into the command line\
-which by default should be `http://localhost:8866/`.
+The visualization itself is done with the `maxvisualize` program. The visualization will open up a browser window to show the visualization. If no browser opens up, the visualization URL is also printed into the command line which by default should be `http://localhost:8866/`.
 
 ```
 maxvisualize baseline-summary.json comparison-summary.json
+```
+
+To listen on all network interfaces, use `--Voila.ip='0.0.0.0'` as the last argument.
+
+```
+maxvisualize baseline-summary.json comparison-summary.json --Voila.ip='0.0.0.0'
 ```
 
 ### Settings
