@@ -2,13 +2,20 @@
 
 ## Overview
 
-If you are looking to set up MariaDB Server, it is often easiest to use a repository. The MariaDB Foundation has a repository configuration tool and MariaDB Corporation provides two convenient\
-shell scripts to configure access to their MariaDB Package Repositories:
+If you are looking to set up MariaDB Server, it is often easiest to use a repository. The MariaDB Foundation has a repository configuration tool and MariaDB Corporation provides two convenient shell scripts to configure access to their MariaDB Package Repositories:
 
 * `mariadb_es_repo_setup` for MariaDB Enterprise Server, which can be downloaded from:
   * [https://dlm.mariadb.com/enterprise-release-helpers/mariadb\_es\_repo\_setup](https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup)
 * `mariadb_repo_setup` for MariaDB Community Server, which can be downloaded from:
   * [https://r.mariadb.com/downloads/mariadb\_repo\_setup](https://r.mariadb.com/downloads/mariadb_repo_setup)
+
+## Using the repository configuration tool
+
+It's an online tool, visit https://mariadb.org/download/?t=repo-config and follow instructions from there. It will ask for your linux distribution, desired MariaDB version, and the mirror to use and will show what files to edit and what commands to run to configure a repository.
+
+## Using a repository setup script
+
+Alternatively, you can run a convenient shell script that will automatically configure a repository for you.
 
 ### Download and Verify the script
 
