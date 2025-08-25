@@ -45,15 +45,20 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 * Query and Connection-Based Routing with MaxScale: MaxScale provides query routing and connection load balancing for improved application performance.
 * Cluster-Aware Rolling Updates: Perform rolling updates on MariaDB and MaxScale clusters, ensuring zero-downtime upgrades with no disruptions to your applications.
 * Flexible Storage Configuration and Volume Expansion: Easily configure storage for MariaDB instances, including the ability to expand volumes as needed.
-* Backup Management: Take, restore, and schedule backups with multiple storage types supported: S3, PVCs, and Kubernetes volumes.
+* Physical Backups based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/). By leveraging the [BACKUP STAGE](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) feature, backups are taken without long read locks or service interruptions.
+* Logical Backups based on [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
+* Backup Management: Take, restore, and schedule backups with multiple storage types supported: S3, PVCs, Kubernetes volumes and VolumeSnapshots..
 * Policy-Driven Backup Retention: Implement backup retention policies with bzip2 and gzip compression.
 * Target Recovery Time: Restore your database to the closest available backup based on a specified recovery time.
-* Bootstrap New Instances: Initialize new MariaDB instances from backups, S3, or PVCs to quickly spin up new clusters.
+* Bootstrap New Instances: Initialize new MariaDB instances from backups, S3, PVCs or VolumeSnapshots to quickly spin up new clusters.
 * TLS Certificate Management: Issue, configure, and rotate TLS certificates and Certificate Authorities (CAs) for secure connections.
+* Advanced TLS Support: customize certificate lifetime, private key algorithm and TLS version.
 * Native Integration with cert-manager: Leverage [cert-manager](https://cert-manager.io/docs/), the de-facto standard for managing certificates in Kubernetes, to enable issuance with private CAs, public CAs and HashiCorp Vault.
 * Prometheus Metrics: Expose metrics using the MariaDB and MaxScale Prometheus exporters.
 * Native Integration with prometheus-operator: Leverage [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) to scrape metrics from MariaDB and MaxScale instances.
 * Declarative User and Database Management: Manage users, grants, and logical databases in a declarative manner using Kubernetes resources.
+* Secure, immutable and lightweight images based on Red Hat UBI, available for multiple architectires (amd64, arm64 and ppc64le).
+* [Operator certified ](https://catalog.redhat.com/en/software/container-stacks/detail/65789bcbe17f1b31944acb1d#overview) by Red Hat.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

@@ -1,10 +1,10 @@
 
 # Migrate external MariaDB into Kubernetes
 
-In this guide, we will be migrating an external MariaDB into a new `MariaDB` instance running in Kubernetes and managed by MariaDB Enterprise Operator. We will be using [logical backups](../backup-and-restore.md) for achieving this migration.
+In this guide, we will be migrating an external MariaDB into a new `MariaDB` instance running in Kubernetes and managed by MariaDB Enterprise Operator. We will be using [logical backups](../backup-and-restore/logical_backup.md) for achieving this migration.
 
 {% hint style="info" %}
-Ensure you understand the [key considerations and limitations of the Backup and Restore resources](../backup-and-restore.md) in the MariaDB Enterprise Operator.
+Ensure you understand the [key considerations and limitations of the Backup and Restore resources](../backup-and-restore/logical_backup.md#important-considerations-and-limitations) in the MariaDB Enterprise Operator.
 {% endhint %}
 
 **1.** Take a logical backup of your external MariaDB using one of the commands below:
@@ -21,9 +21,9 @@ mariadb-dump --user=${MARIADB_USER} --password=${MARIADB_PASSWORD} --host=${MARI
 
 **2.** Ensure that your backup file matches the following format: `backup.2024-08-26T12:24:34Z.sql`. If the file name does not follow this format, it will be ignored by the operator.
 
-**3.** Upload the backup file to one of the supported [storage types](../backup-and-restore.md). We recommend using S3.
+**3.** Upload the backup file to one of the supported [storage types](../backup-and-restore/logical_backup.md#storage-types). We recommend using S3.
 
-**4.** Create your `MariaDB` resource declaring that you want to [bootstrap from the previous backup](../backup-and-restore.md) and providing a [root password Secret](../backup-and-restore.md) that matches the backup:
+**4.** Create your `MariaDB` resource declaring that you want to [bootstrap from the previous backup](../backup-and-restore/logical_backup.md#bootstrap-new-mariadb-instances) and providing a [root password Secret](../backup-and-restore/logical_backup.md#root-credentials) that matches the backup:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1

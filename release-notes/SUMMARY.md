@@ -2462,6 +2462,7 @@
     * [Connector/R2DBC 1.0.0 Release Notes](connectors/r2dbc/mariadb-connector-r2dbc-1-0-0-release-notes.md)
 * [Enterprise Operator Release Notes](enterprise-operator/README.md)
   * [MariaDB Enterprise Operator 1.0.0](enterprise-operator/mariadb-enterprise-operator-1-0-0.md)
+  * [MariaDB Enterprise Operator 25.08](enterprise-operator/mariadb-enterprise-operator-25-08.md)
 * [Test Page](test-page.md)
 * [Fusion-io](fusion-io/README.md)
   * [Fusion-io Introduction](fusion-io/fusion-io-introduction.md)
