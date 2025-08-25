@@ -544,7 +544,7 @@ spec:
 
 ### Migrating to a `MariaDB` with different topology
 
-Databa mobility between `MariaDB` instances with different topologies is possible with logical backups. However, there are a couple of technical details that you need to be aware of in the following scenarios:
+Database mobility between `MariaDB` instances with different topologies is possible with logical backups. However, there are a couple of technical details that you need to be aware of in the following scenarios:
 
 #### Migrating between standalone and replicated `MariaDBs`
 
