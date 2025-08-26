@@ -4,6 +4,8 @@
 
 We are excited to announce release of **MariaDB Enterprise Operator 25.08** - delivering enterprise-grade automation for managing MariaDB Enterprise workloads on Kubernetes and Red Hat OpenShift.
 
+If you're upgrading from previous versions, please refer to the [upgrade guide](https://mariadb.com/docs/tools/mariadb-enterprise-operator/migrations/migrate-25.08) to ensure a smooth transition.
+
 This enterprise version is based on the [25.8.3 Community release](https://github.com/mariadb-operator/mariadb-operator/releases/tag/25.8.3), adding support for non-blocking Physical Backups and the IBM Power (ppc64le) architecture among other enterprise-grade enhancements.
 
 ### Non-Blocking Physical Backups
