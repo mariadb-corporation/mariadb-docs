@@ -125,8 +125,9 @@ mariadb-galera   True    Running   mariadb-galera-0   ReplicasFirstPrimaryLast  
 
 To conclude, let's connect to the MariaDB Enterprise Cluster through MaxScale using the initial user and database we initially defined in the `MariaDB` CR:
 
+
 ```sh
-❯ kubectl run mariadb-connect --rm -it --image=docker.mariadb.com/enterprise-server:11.4.4-2 -- bash -c "mariadb -u mariadb -p'MariaDB11!' --ssl=false -h maxscale-galera"
+❯ kubectl run mariadb-connect --rm -it --image=mariadb:11.4 -- bash -c "mariadb -u mariadb -p'MariaDB11!' --ssl=false -h maxscale-galera"
 If you don't see a command prompt, try pressing enter.
 MariaDB [(none)]> SHOW DATABASES;
 +--------------------+

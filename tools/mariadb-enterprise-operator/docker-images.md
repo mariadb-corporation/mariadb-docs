@@ -30,6 +30,7 @@ MariaDB Enterprise Operator is compatible with the following Docker images:
 | MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.0.0 <br>  |  amd64 <br>  arm64 <br>  |
 | MaxScale Prometheus Exporter (ppc64le support) | mariadb/maxscale-prometheus-exporter-ubi |  1.1.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  1.0.0 <br>  |  amd64 <br>  arm64 <br>  |
+| MariaDB Enterprise nslcd sidecar | docker.mariadb.com/nslcd-sidecar |  0.9.10-13 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 
 Refer to the registry documentation to [access docker.mariadb.com with your customer credentials](customer-access-to-docker-mariadb-com.md).
 
