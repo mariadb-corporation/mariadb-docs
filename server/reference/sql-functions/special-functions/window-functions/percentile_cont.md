@@ -10,8 +10,8 @@ Essentially, the following process is followed to find the value to return:
 
 * Get the number of rows in the partition, denoted by N
 * RN = p\*(N-1), where p denotes the argument to the PERCENTILE\_CONT function
-* calculate the FRN(floor row number) and CRN(column row number for the group( FRN= floor(RN) and CRN = ceil(RN))
-* look up rows FRN and CRN
+* Calculate FRN as FRN=floor(RN) and CRN as CRN=ceil(RN)
+* Look up rows FRN and CRN
 * If (CRN = FRN = RN) then the result is (value of expression from row at RN)
 * Otherwise the result is
 * (CRN - RN) \* (value of expression for row at FRN) +
