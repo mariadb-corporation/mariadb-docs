@@ -78,12 +78,7 @@ This method is ideal for a "bastion" or "jump" host that has network access to *
 
 Many modern container registries can be configured to function as a pull-through cache or proxy for public registries. When an internal client requests an image, your registry pulls it from the public source, stores a local copy, and then serves it. This automates the process after initial setup.
 
-Common artifactories with this capability include:
-* [JFrog Artifactory](https://jfrog.com/help/r/jfrog-artifactory-documentation/docker-repositories)
-* [Sonatype Nexus](https://help.sonatype.com/en/docker-registry.html)
-* [Azure DevOps Artifacts](https://learn.microsoft.com/en-us/azure/devops/pipelines/release/artifacts?view=azure-devops)
-* [ProGet](https://docs.inedo.com/docs/proget/docker/private-registries)
-* [Harbor](https://goharbor.io/docs/2.10.0/administration/configuring-replication/create-replication-rules/)
+You can use [Harbor](https://goharbor.io/docs/2.10.0/administration/configuring-replication/create-replication-rules/) as a pull-through cache (Harbor calls this Replication Rules).
 
 ### Option 3: Offline Transfer using `docker save` and `docker push`
 
