@@ -38,29 +38,44 @@ Both of these configuration files will be attached later on in the example given
 
 The `/etc/nslcd.conf` is the configuration file for LDAP nameservice daemon.
 
-```conf
+```ini
 # /etc/nslcd.conf: Configuration file for nslcd(8)
 # The user/group nslcd will run as. Note that these should not be LDAP users.
 uid mysql # required to be `mysql`
 gid mysql # required to be `mysql`
 
 # The location of the LDAP server.
-uri ldap://IP-OR-DNS-REPLACE-ME:389
+uri ldap://openldap-service.default.svc.cluster.local:389
 
 # The search base that will be used for all queries.
-base dc=mariadb,dc=com
+base dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
 
 # The distinguished name with which to bind to the directory server for lookups.
 # This is a service account used by the daemon.
-binddn cn=admin,dc=mariadb,dc=com
+binddn cn=admin,dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
 bindpw PASSWORD_REPLACE-ME
+```
+
+In a production environment it is recommended to use LDAPS (LDAP secure), which uses traditional TLS encryption to secure data in transit.
+To do so, you need to add the following to your `nslcd.conf` file:
+
+
+```diff
+# Change the protocol to `ldaps`
++uri ldaps://openldap-service.default.svc.cluster.local:636
+-uri ldap://openldap-service.default.svc.cluster.local:389
+
+# ...
+
++tls_reqcert demand # Look at: https://linux.die.net/man/5/ldap.conf then search for TLS_REQCERT
++tls_cacertfile /etc/openldap/certs/tls.crt # You will need to mount this certificate (from a secret) later
 ```
 
 #### nsswitch.conf
 
 The Name Service Switch (NSS) configuration file, located at `/etc/nsswitch.conf`. It is used by the GNU C Library and certain other applications to determine the sources from which to obtain name-service information in a range of categories, and in what order. Each category of information is identified by a database name.
 
-```conf
+```ini
 passwd:     files ldap
 group:      files ldap
 shadow:     files ldap
@@ -284,6 +299,61 @@ Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 MariaDB [(none)]>
+```
+
+#### LDAPS
+
+If you followed the instructions for setting up a basic MariaDB instance with ldap, you need to fetch the public certificate that your LDAP server
+is set up with and add it to a [secret](https://kubernetes.io/docs/concepts/configuration/secret/#use-case-dotfiles-in-a-secret-volume) called `mariadb-ldap-tls`. 
+
+If you have the certificate locally in a file called `cert.pem` you can run:
+
+```sh
+kubectl create secret generic mariadb-ldap-tls --from-file=./cert.pem
+```
+
+```diff
+  volumes: # Attach `nslcd.conf`, `nsswitch.conf` and `mariadb` (pam). Also add an emptyDir volume for `nslcd` socket
+    - name: nslcd
+      secret:
+        secretName: mariadb-nslcd-secret
+        defaultMode: 0600
+    - name: nsswitch
+      configMap:
+        name: mariadb-nsswitch-configmap
+        defaultMode: 0600
+    - name: mariadb-pam
+      configMap:
+        name: mariadb-pam-configmap
+        defaultMode: 0600
+    - name: nslcd-run
+      emptyDir: {}
++    - name: ldap-tls
++      secret:
++        secretName: mariadb-ldap-tls
++        defaultMode: 0600
+
+  sidecarContainers:
+    # The `nslcd` daemon is ran as a sidecar container
+    - name: nslcd
+      image: docker.mariadb.com/nslcd:0.9.10-13
+      volumeMounts:
+        - name: nslcd
+          mountPath: /etc/nslcd.conf
+          subPath: nslcd.conf
+        - name: nsswitch
+          mountPath: /etc/nsswitch.conf
+          subPath: nsswitch.conf
++        - name: ldap-tls
++          mountPath: /etc/openldap/certs/
+      # nslcd-run is missing because volumeMounts from main container are shared with sidecar
+
+  volumeMounts:
+    - name: mariadb-pam
+      mountPath: /etc/pam.d/mariadb
+      subPath: mariadb
+    - name: nslcd-run
+      mountPath: /var/run/nslcd
 ```
 
 ### Known Issues
