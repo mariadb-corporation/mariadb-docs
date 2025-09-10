@@ -42,7 +42,7 @@ This section outlines several methods for pulling official MariaDB container ima
 This method is ideal for a "bastion" or "jump" host that has network access to **both** the public internet (specifically `docker.mariadb.com`) and your internal private registry.
 
 1.  **Log in to both registries.**
-    You will need a MariaDB token for the public registry and your credentials for the private one.
+    You will need a MariaDB token for the public registry and your credentials for the private one. Refer to the [official documentation](https://mariadb.com/docs/tools/mariadb-enterprise-operator/customer-access-to-docker-mariadb-com#customer-credentials).
 
     ```bash
     # Log in to the official MariaDB registry
@@ -85,14 +85,9 @@ Common artifactories with this capability include:
 * [ProGet](https://docs.inedo.com/docs/proget/docker/private-registries)
 * [Harbor](https://goharbor.io/docs/2.10.0/administration/configuring-replication/create-replication-rules/)
 
-{% hint style="warning" %}
-External links may break without warning! If so, then simply searching for `<Artifactory Name> Pull-Throuh Cache` should be sufficient in most cases.
-{% endhint %}
-
-
 ### Option 3: Offline Transfer using `docker save` and `docker push`
 
-This "sneakernet" method is designed for fully air-gapped environments where no single machine has simultaneous access to the internet and the private registry.
+This method is designed for fully air-gapped environments where no single machine has simultaneous access to the internet and the private registry.
 
 #### On the Internet-Connected Machine
 
@@ -110,7 +105,7 @@ This "sneakernet" method is designed for fully air-gapped environments where no 
     docker save [docker.mariadb.com/mariadb-enterprise-operator:25.8.0 -o mariadb-enterprise-operator_25.8.0.tar
     ```
 
-3.  **Transfer the `.tar` file** to a machine within the disconnected environment that has access to the private registry.
+    Use a tool like `scp` or `sftp` or a USB drive to copy the generated `.tar` archives from the internet-connected machine to your isolated systems.
 
 #### On the Machine with Private Registry Access
 
@@ -176,7 +171,7 @@ Use a tool like `scp` or `sftp` or a USB drive to copy the generated `.tar` arch
 
 #### 3. On the Isolated Host
 
-Finally, on the isolated system, you will import the archives into `containerd`.
+Finally, on the isolated system, you will import the archives into `containerd`. [Official Docs](https://github.com/containerd/containerd/blob/main/docs/cri/crictl.md?plain=1)
 
 1.  **Importing for Kubernetes (Important!)** ⚙️
     If the images need to be available to **Kubernetes**, you **must** import them into the `k8s.io` namespace by adding the `-n=k8s.io` flag.
