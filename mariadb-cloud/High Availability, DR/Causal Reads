@@ -1,0 +1,30 @@
+# Causal Reads
+
+Achieving global read consistency can be difficult without performance/load balancing implications. Here are our guidelines.
+
+Settings related to causal reads can be changed within the [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under Maxscale Variables:
+
+![causal.png](docs/High Availability, DR/causal.png)
+
+NOTE:
+We do not advise adjusting `causal_reads` unless absolutely necessary.
+Adjust the `max_slave_replication_lag` to manage stale reads. By default, this is unbounded.
+Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
+
+In general, if the application is not performing large transactions or batch writes, given our default semi-sync replication, the replica SQL threads will keep up - i.e. getting an inconsistent read is unlikely.
+
+Our replication model is fast as it is configured to be parallel and optimistic - on the replica multiple SQL threads process incoming writes concurrently. It is designed to detect conflicts and revert to proper sequencing, thus being transparent to the app and ensuring consistency.
+
+## Local
+
+We recommend first exploring to see if `causal_reads` set to `local` will suffice. This is quite fast (minimal to no tradeoff) and ensures read consistency at a connection/session level. If the app is using a connection pool, it is important to understand how it is being used.
+
+## Global
+
+If global read consistency is a must, first try `global`.
+To use this, you will also need to tune the `causal_read_timeout`. Reads will be load balanced, and a reader will wait a max of this timeout before giving up and retrying on the primary node. That is, if the replica is lagging, it will wait for this time to see if the replica catches up.
+
+## Fast Global
+
+If and only if your application is very read heavy, you should consider `fast_global`.
+This relies on `monitor_interval` (Maxscale tracks each replica once in this interval) to know if the replicas have caught up or are behind. This will likely need to be configured in milliseconds.

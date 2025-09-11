@@ -9,11 +9,11 @@ If you are looking to set up MariaDB Server, it is often easiest to use a reposi
 * `mariadb_repo_setup` for MariaDB Community Server, which can be downloaded from:
   * [https://r.mariadb.com/downloads/mariadb\_repo\_setup](https://r.mariadb.com/downloads/mariadb_repo_setup)
 
-## Using the repository configuration tool
+## Using the MariaDB Foundation's repository configuration tool
 
 Visit [https://mariadb.org/download/?t=repo-config](https://mariadb.org/download/?t=repo-config) and follow the instructions from there. It will ask for your Linux distribution, desired MariaDB version, and the mirror to use, and will show what files to edit and what commands to run to configure a repository.
 
-## Using a repository setup script
+## Using the MariaDB Corporation's repository setup scripts
 
 Alternatively, you can run a convenient shell script that will automatically configure a repository for you.
 
@@ -52,7 +52,7 @@ echo "${checksum} mariadb_repo_setup" | sha256sum -c -
 {% endtabs %}
 
 {% hint style="info" %}
-Checksums of the various releases of the `mariadb_repo_setup` script can be found in the Versions section at the bottom of this page. Substitute `${checksum}` in the example above with the latest checksum.
+Checksums of the various releases of the MariaDB Corporation's repository setup scripts can be found in the [Versions](mariadb-package-repository-setup-and-usage.md#versions) section at the bottom of this page. Substitute `${checksum}` in the example above with the checksum of the version of the script you are using.
 {% endhint %}
 
 ### Prerequisites
@@ -90,18 +90,16 @@ After the script is downloaded you need to run it with `root` user permissions. 
 {% tab title="mariadb_es_repo_setup" %}
 Retrieve your customer downloads token:
 
-1. Navigate to [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/)
-2. Log in
-3. Copy the Customer Download Token
-4. Substitute your token for `${token}` when running the `mariadb_es_repo_setup` script, below
-
-Set the script to be executable:
+1. Navigate to [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and log in
+2. Copy the Customer Download Token
+3. Substitute your token for `${token}` when running the `mariadb_es_repo_setup` script, below
+4. Set the script to be executable:
 
 ```bash
 chmod +x mariadb_es_repo_setup
 ```
 
-Run the script:
+5. Run the script:
 
 ```bash
 sudo ./mariadb_es_repo_setup --token="${token}" --apply
@@ -109,13 +107,13 @@ sudo ./mariadb_es_repo_setup --token="${token}" --apply
 {% endtab %}
 
 {% tab title="mariadb_repo_setup" %}
-Set the script to be executable:
+1. Set the script to be executable:
 
 ```bash
 chmod +x mariadb_repo_setup
 ```
 
-Run the script:
+2. Run the script:
 
 ```bash
 sudo ./mariadb_repo_setup
@@ -125,7 +123,7 @@ sudo ./mariadb_repo_setup
 
 ## Repositories
 
-The script will set up different repositories in a single repository configuration file. The primary two are the [MariaDB Server Repository](mariadb-package-repository-setup-and-usage.md#mariadb-server-repository), and the [MariaDB MaxScale Repository](mariadb-package-repository-setup-and-usage.md#mariadb-maxscale-repository).
+The script will set up different repositories in a single repository configuration file. The primary two are the [MariaDB Community Server Repository](mariadb-package-repository-setup-and-usage.md#mariadb-community-server-repository), and the [MariaDB MaxScale Repository](mariadb-package-repository-setup-and-usage.md#mariadb-maxscale-repository).
 
 The default repositories setup by `mariadb_es_repo_setup` are:
 
@@ -145,15 +143,15 @@ The default repositories set up by `mariadb_repo_setup` are:
 Ubuntu needs a separate debug repository for MariaDB Server debug packages. Other Linux distributions include the debug packages in the main repository. Debug packages should normally only be installed for specific purposes under the direction of a qualified support engineer.
 {% endhint %}
 
-### MariaDB Server Repository
+### MariaDB Community Server Repository
 
-The **MariaDB Repository** contains software packages related to MariaDB Server, including the server itself, [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md), [client libraries](../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../reference/plugins/), and [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md).
+The **MariaDB Community Server Repository** contains software packages related to MariaDB Server, including the server itself, [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md), [client libraries](../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../reference/plugins/), and [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md).
 
-The binaries in MariaDB Corporation's **MariaDB Repository** are currently identical to the binaries in MariaDB Foundation's MariaDB Repository that is configured with the [MariaDB Repository Configuration Tool](https://mariadb.org/download/?t=repo-config).
+The binaries in MariaDB Corporation's **MariaDB Repository** are identical to the binaries in MariaDB Foundation's MariaDB Repository that is configured with the [MariaDB Foundation's Repository Configuration Tool](https://mariadb.org/download/?t=repo-config).
 
-By default, the `mariadb_repo_setup` script will configure your system to install from the 11.rolling repository, which contains the latest stable version of MariaDB Community server.
+By default, the `mariadb_repo_setup` script will configure your system to install from the `12.rolling` repository, which contains the latest stable version of MariaDB Community server.
 
-The `mariadb_es_repo_setup` script will set up whatever is the current stable version of MariaDB Enterprise Server.
+The `mariadb_es_repo_setup` script will set up the current latest stable version of MariaDB Enterprise Server.
 
 If you would like to stick to a specific release series, then you will need to either manually edit the repository configuration file to point to that specific version or series, or run the MariaDB Package Repository setup script again using the `--mariadb-server-version` option. For example, if you wanted to specifically use the 11.4 series you would do: `--mariadb-server-version=11.4`.
 
@@ -177,9 +175,9 @@ The script supports Linux distributions that are officially supported by MariaDB
 
 The distributions currently supported by the script include:
 
-* Red Hat Enterprise Linux (RHEL) 8, and 9
-* Debian 10 (Buster), 11 (Bullseye), 12 (Bookworm)
-* Ubuntu 20.04 LTS (Focal), 22.04 LTS (Jammy), and 24.04 LTS (Noble)
+* Red Hat Enterprise Linux (RHEL and equivalents) 8, 9, and 10
+* Debian 11 (Bullseye), 12 (Bookworm), and 13 (Trixie, community server only)&#x20;
+* Ubuntu 22.04 LTS (Jammy), and 24.04 LTS (Noble)
 * SUSE Linux Enterprise Server (SLES) 12 and 15
 
 To install MariaDB on distributions not supported by the MariaDB Package Repository setup script, please consider using MariaDB Foundation's [MariaDB Repository Configuration Tool](https://mariadb.org/download/?t=repo-config). Some Linux distributions also include MariaDB [in their own repositories](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb).
@@ -223,14 +221,15 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- -
 
 The following MariaDB versions are currently supported:
 
-* `mariadb-10.5`
 * `mariadb-10.6`
 * `mariadb-10.11`
 * `mariadb-11.4`
-* `mariadb-11.7`
 * `mariadb-11.8`
 * `mariadb-11.rolling`
 * `mariadb-11.rc`
+* `mariadb-12.1`
+* `mariadb-12.rolling`
+* `mariadb-12.rc`
 
 If you want to pin the repository of a specific minor release, such as [MariaDB 10.6.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-14-release-notes), then you can also specify the minor release. For example,`mariadb-10.6.14`. This may be helpful if you want to avoid upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may\
 contain important bug fixes and fixes for security vulnerabilities.
@@ -250,15 +249,11 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- -
 
 The following MariaDB MaxScale versions are currently supported:
 
-* MaxScale 1.4
-* MaxScale 2.0
-* MaxScale 2.1
-* MaxScale 2.2
-* MaxScale 2.3
-* MaxScale 2.4
-* MaxScale 2.5
-* MaxScale 6.1
-* MaxScale 6.2
+* MaxScale 25.01
+* MaxScale 24.02
+* MaxScale 23.08
+* MaxScale 23.02
+* MaxScale 22.08
 
 The special identifiers `latest` (for the latest GA release) and `beta` (for the latest beta release) are also supported. By default the`mariadb_repo_setup` script uses `latest` as the version.
 
@@ -277,7 +272,7 @@ If you use a non-supported value, then the script will fail, just as it would fa
 
 The supported values for `--os-version` are entirely dependent on the OS type.
 
-For Red Hat Enterprise Linux (RHEL) and CentOS, `7` and `8` are valid options.
+For Red Hat Enterprise Linux (RHEL): `8`, `9`, and `10` are valid options.
 
 For Debian and Ubuntu, the version must be specified as the codename of the specific release. For example, Debian 9 must be specified as `stretch`, and Ubuntu 18.04 must be specified as `bionic`.
 
@@ -386,61 +381,62 @@ sudo zypper install maxscale
 {% tab title="mariadb_es_repo_setup" %}
 **mariadb\_es\_repo\_setup Versions**
 
-| **Version** | **sha256sum**                                                      |
-| ----------- | ------------------------------------------------------------------ |
-| 2025-06-04  | `4d483b4df193831a0101d3dfa7fb3e17411dda7fc06c31be4f9e089c325403c0` |
-| 2025-01-16  | `99ea6c55dbf32bfc42cdcd05c892aebc5e51b06f4c72ec209031639d6e7db9fe` |
-| 2025-01-07  | `b98c6436e01ff33d7e88513edd7b77a965c4500d6d52ee3f106a198a558927af` |
-| 2024-11-19  | `97e5ef25b4c4a4bd70b30da46b1eae0b57db2f755ef820a28d254e902ab5a879` |
-| 2024-11-13  | `0c181ada4e7a4cd1d7688435c478893502675b880be2b918af7d998e239eb325` |
-| 2024-09-20  | `c12da6a9baa57eab7fa685aa24bf76e6929a8c67f4cd244835520c0181007753` |
-| 2024-09-09  | `733f247c626d965304b678b62a4b86eb4bb8bf956f98a241b6578dedc6ca4020` |
-| 2024-06-12  | `b96fcd684a84bbe1080b6276f424537fc9d9c11ebe243ad8b9a45dd459f6ee4f` |
-| 2023-07-27  | `f8eb9c1b59ccfd979d27e39798d2f2a98447dd29e2149ce92bf606aab4493ad9` |
-| 2023-03-13  | `8dfef0ec98eb03a4455df07b33107a6d4601425c9df0ab5749b8f10bf3abdcbb` |
-| 2022-10-26  | `3f4a9d1c507a846a598e95d6223871aade69a9955276455324e7cc5f54a87021` |
-| 2022-09-12  | `713a8f78ea7bab3eccfb46dc14e61cd54c5cf5a08acb5c320ef5370d375e48bd` |
-| 2022-06-14  | `cfcd35671125d657a212d92b93be7b1f4ad2fda58dfa8b5ab4b601bf3afa4eae` |
-| 2022-03-11  | `53efddb84ea12efa7d521499a7474065bd4a60c721492d0e72b4336192f4033f` |
-| 2021-12-13  | `5feb2aac767c512cc9e2af674d1aef42df0b775ba2968fffa8700eb42702bd44` |
-| 2021-10-13  | `4f266ff758fe15eeb9b8b448a003eb53e93f3064baf1acb789dd39de4f534b1d` |
-| 2021-09-14  | `b741361ea3a0a9fcaa30888a63ff3a8a4021882f126cf4ef26cf616493a29315` |
-| 2021-08-26  | `a49347a4e36f99c5b248403ed9fb9b33a2f07f5e24605a694b1b1e24d7199f28` |
-| 2021-06-29  | `99e768b24ae430b37dec7cb69cdd625396630dba18f5e1588ee24d3d8bb97064` |
-| 2021-06-14  | `ec08f8ede524f568b3766795ad8ca1a0d0ac4db355a18c3d85681d7f9c0f8c09` |
-| 2021-05-04  | `bf67a231c477fba0060996a83b197c29617b6193e1167f6f062216ae13c716c7` |
-| 2021-03-15  | `99c7f4a3473a397d824d5f591274c2a4f5ebf6dc292eea154800bbaca04ddc7e` |
-| 2021-02-12  | `c78db828709d94876406a0ea346f13fbc38e73996795903f40e3c21385857dd4` |
-| 2020-12-16  | `c01fa97aed71ca0cd37cba7036ff80ab40efed4cc261c890aa2aa11cd8ab4e2f` |
-| 2020-12-15  | `e42f1f16f2c78a3de0e73dcc2a9081e2f771b3161f4f4ceecb13ea788d84673b` |
-| 2020-12-14  | `4aaf495606633a47c55ea602829e67e702aec0a5c6ff6b1af90709c19ee9f322` |
-| 2020-10-07  | `93fa0df3d6491a791f5d699158dcfe3e6ce20c45ddc2f534ed2f5eac6468ff0a` |
-| 2020-09-08  | `eeebe9e08dffb8a4e820cc0f673afe437621060129169ea3db0790eb649dbe9b` |
-| 2020-07-16  | `957bc29576e8fd320fa18e35fa49b5733f3c8eeb4ca06792fb1f05e089c810ff` |
+| Version    | sha256sum                                                          |
+| ---------- | ------------------------------------------------------------------ |
+| 2025-09-08 | `c33b022c2cc325fa50be62eae070ea0bdcaf85367f840accac7acaeea1e8a972` |
+| 2025-06-04 | `4d483b4df193831a0101d3dfa7fb3e17411dda7fc06c31be4f9e089c325403c0` |
+| 2025-01-16 | `99ea6c55dbf32bfc42cdcd05c892aebc5e51b06f4c72ec209031639d6e7db9fe` |
+| 2025-01-07 | `b98c6436e01ff33d7e88513edd7b77a965c4500d6d52ee3f106a198a558927af` |
+| 2024-11-19 | `97e5ef25b4c4a4bd70b30da46b1eae0b57db2f755ef820a28d254e902ab5a879` |
+| 2024-11-13 | `0c181ada4e7a4cd1d7688435c478893502675b880be2b918af7d998e239eb325` |
+| 2024-09-20 | `c12da6a9baa57eab7fa685aa24bf76e6929a8c67f4cd244835520c0181007753` |
+| 2024-09-09 | `733f247c626d965304b678b62a4b86eb4bb8bf956f98a241b6578dedc6ca4020` |
+| 2024-06-12 | `b96fcd684a84bbe1080b6276f424537fc9d9c11ebe243ad8b9a45dd459f6ee4f` |
+| 2023-07-27 | `f8eb9c1b59ccfd979d27e39798d2f2a98447dd29e2149ce92bf606aab4493ad9` |
+| 2023-03-13 | `8dfef0ec98eb03a4455df07b33107a6d4601425c9df0ab5749b8f10bf3abdcbb` |
+| 2022-10-26 | `3f4a9d1c507a846a598e95d6223871aade69a9955276455324e7cc5f54a87021` |
+| 2022-09-12 | `713a8f78ea7bab3eccfb46dc14e61cd54c5cf5a08acb5c320ef5370d375e48bd` |
+| 2022-06-14 | `cfcd35671125d657a212d92b93be7b1f4ad2fda58dfa8b5ab4b601bf3afa4eae` |
+| 2022-03-11 | `53efddb84ea12efa7d521499a7474065bd4a60c721492d0e72b4336192f4033f` |
+| 2021-12-13 | `5feb2aac767c512cc9e2af674d1aef42df0b775ba2968fffa8700eb42702bd44` |
+| 2021-10-13 | `4f266ff758fe15eeb9b8b448a003eb53e93f3064baf1acb789dd39de4f534b1d` |
+| 2021-09-14 | `b741361ea3a0a9fcaa30888a63ff3a8a4021882f126cf4ef26cf616493a29315` |
+| 2021-08-26 | `a49347a4e36f99c5b248403ed9fb9b33a2f07f5e24605a694b1b1e24d7199f28` |
+| 2021-06-29 | `99e768b24ae430b37dec7cb69cdd625396630dba18f5e1588ee24d3d8bb97064` |
+| 2021-06-14 | `ec08f8ede524f568b3766795ad8ca1a0d0ac4db355a18c3d85681d7f9c0f8c09` |
+| 2021-05-04 | `bf67a231c477fba0060996a83b197c29617b6193e1167f6f062216ae13c716c7` |
+| 2021-03-15 | `99c7f4a3473a397d824d5f591274c2a4f5ebf6dc292eea154800bbaca04ddc7e` |
+| 2021-02-12 | `c78db828709d94876406a0ea346f13fbc38e73996795903f40e3c21385857dd4` |
+| 2020-12-16 | `c01fa97aed71ca0cd37cba7036ff80ab40efed4cc261c890aa2aa11cd8ab4e2f` |
+| 2020-12-15 | `e42f1f16f2c78a3de0e73dcc2a9081e2f771b3161f4f4ceecb13ea788d84673b` |
+| 2020-12-14 | `4aaf495606633a47c55ea602829e67e702aec0a5c6ff6b1af90709c19ee9f322` |
+| 2020-10-07 | `93fa0df3d6491a791f5d699158dcfe3e6ce20c45ddc2f534ed2f5eac6468ff0a` |
+| 2020-09-08 | `eeebe9e08dffb8a4e820cc0f673afe437621060129169ea3db0790eb649dbe9b` |
+| 2020-07-16 | `957bc29576e8fd320fa18e35fa49b5733f3c8eeb4ca06792fb1f05e089c810ff` |
 {% endtab %}
 
 {% tab title="mariadb_repo_setup" %}
 **mariadb\_repo\_setup Versions**
 
-| **Version** | **sha256sum**                                                      |
-| ----------- | ------------------------------------------------------------------ |
-| 2025-08-07  | `923eea378be2c129adb4d191f01162c1fe5473f1114d7586f096b5f6b9874efe` |
-| 2025-02-13  | `c4a0f3dade02c51a6a28ca3609a13d7a0f8910cccbb90935a2f218454d3a914a` |
-| 2024-11-14  | `ceaa5bd124c4d10a892c384e201bb6e0910d370ebce235306d2e4b860ed36560` |
-| 2024-08-14  | `6083ef1974d11f49d42ae668fb9d513f7dc2c6276ffa47caed488c4b47268593` |
-| 2024-05-30  | `26e5bf36846003c4fe455713777a4e4a613da0df3b7f74b6dad1cb901f324a84` |
-| 2024-02-16  | `30d2a05509d1c129dd7dd8430507e6a7729a4854ea10c9dcf6be88964f3fdc25` |
-| 2023-11-21  | `2d7291993f1b71b5dc84cc1d23a65a5e01e783aa765c2bf5ff4ab62814bb5da1` |
-| 2023-08-21  | `935944a2ab2b2a48a47f68711b43ad2d698c97f1c3a7d074b34058060c2ad21b` |
-| 2023-08-14  | `f5ba8677ad888cf1562df647d3ee843c8c1529ed63a896bede79d01b2ecc3c1d` |
-| 2023-06-09  | `3a562a8861fc6362229314772c33c289d9096bafb0865ba4ea108847b78768d2` |
-| 2023-02-16  | `ad125f01bada12a1ba2f9986a21c59d2cccbe8d584e7f55079ecbeb7f43a4da4` |
-| 2022-11-17  | `367a80b01083c34899958cdd62525104a3de6069161d309039e84048d89ee98b` |
-| 2022-08-22  | `733cf126b03f73050e242102592658913d10829a5bf056ab77e7f864b3f8de1f` |
-| 2022-08-15  | `f99e1d560bd72a3a23f64eaede8982d5494407cafa8f995de45fb9a7274ebc5c` |
-| 2022-06-14  | `d4e4635eeb79b0e96483bd70703209c63da55a236eadd7397f769ee434d92ca8` |
-| 2022-02-08  | `b9e90cde27affc2a44f9fc60e302ccfcacf71f4ae02071f30d570e6048c28597` |
-| 2022-01-18  | `c330d2755e18e48c3bba300a2898b0fc8ad2d3326d50b64e02fe65c67b454599` |
+| Version    | sha256sum                                                          |
+| ---------- | ------------------------------------------------------------------ |
+| 2025-08-07 | `923eea378be2c129adb4d191f01162c1fe5473f1114d7586f096b5f6b9874efe` |
+| 2025-02-13 | `c4a0f3dade02c51a6a28ca3609a13d7a0f8910cccbb90935a2f218454d3a914a` |
+| 2024-11-14 | `ceaa5bd124c4d10a892c384e201bb6e0910d370ebce235306d2e4b860ed36560` |
+| 2024-08-14 | `6083ef1974d11f49d42ae668fb9d513f7dc2c6276ffa47caed488c4b47268593` |
+| 2024-05-30 | `26e5bf36846003c4fe455713777a4e4a613da0df3b7f74b6dad1cb901f324a84` |
+| 2024-02-16 | `30d2a05509d1c129dd7dd8430507e6a7729a4854ea10c9dcf6be88964f3fdc25` |
+| 2023-11-21 | `2d7291993f1b71b5dc84cc1d23a65a5e01e783aa765c2bf5ff4ab62814bb5da1` |
+| 2023-08-21 | `935944a2ab2b2a48a47f68711b43ad2d698c97f1c3a7d074b34058060c2ad21b` |
+| 2023-08-14 | `f5ba8677ad888cf1562df647d3ee843c8c1529ed63a896bede79d01b2ecc3c1d` |
+| 2023-06-09 | `3a562a8861fc6362229314772c33c289d9096bafb0865ba4ea108847b78768d2` |
+| 2023-02-16 | `ad125f01bada12a1ba2f9986a21c59d2cccbe8d584e7f55079ecbeb7f43a4da4` |
+| 2022-11-17 | `367a80b01083c34899958cdd62525104a3de6069161d309039e84048d89ee98b` |
+| 2022-08-22 | `733cf126b03f73050e242102592658913d10829a5bf056ab77e7f864b3f8de1f` |
+| 2022-08-15 | `f99e1d560bd72a3a23f64eaede8982d5494407cafa8f995de45fb9a7274ebc5c` |
+| 2022-06-14 | `d4e4635eeb79b0e96483bd70703209c63da55a236eadd7397f769ee434d92ca8` |
+| 2022-02-08 | `b9e90cde27affc2a44f9fc60e302ccfcacf71f4ae02071f30d570e6048c28597` |
+| 2022-01-18 | `c330d2755e18e48c3bba300a2898b0fc8ad2d3326d50b64e02fe65c67b454599` |
 {% endtab %}
 {% endtabs %}
 

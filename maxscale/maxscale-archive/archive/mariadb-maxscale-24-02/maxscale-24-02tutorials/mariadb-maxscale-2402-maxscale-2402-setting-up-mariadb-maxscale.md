@@ -5,7 +5,7 @@ This document is designed as a quick introduction to setting up MariaDB MaxScale
 The installation and configuration of the MariaDB Server is not covered in this document.\
 See the following MariaDB documentation articles for more information on setting up a\
 primary-replica-cluster or a Galera-cluster:[Setting Up Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/setting-up-replication)\
-and [Getting Started With MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/getting-started-with-mariadb-galera-cluster)\
+and [Getting Started With MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster)\
 .
 
 This tutorial assumes that one of the standard MaxScale binary distributions is used and\

@@ -7,14 +7,12 @@ The current [versions](../../readme/mariadb-galera-cluster-guide.md#galera-versi
 Currently, MariaDB Galera Cluster only supports the [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) storage engine (although there is\
 experimental support for [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) and, from [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), [Aria](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria)).
 
-A great resource for Galera users is the mailing list run by the developers at Codership. It can be found at [Codership on Google Groups](https://groups.google.com/forum/?fromgroups#!forum/codership-team). If you use Galera, then it is recommended you subscribe.
-
 ## Galera Cluster Support in MariaDB Server
 
 MariaDB Galera Cluster is powered by:
 
 * MariaDB Server.
-* The [MySQL-wsrep](https://github.com/codership/mysql-wsrep) patch for MySQL Server and MariaDB Server developed by [Codership](https://www.codership.com). The patch currently supports only Unix-like operating systems.
+* The [MySQL-wsrep](https://github.com/codership/mysql-wsrep) patch for MySQL Server and MariaDB Server. The patch currently supports only Unix-like operating systems.
 * The [Galera wsrep provider library](https://github.com/codership/galera/).
 
 The [MySQL-wsrep](https://github.com/codership/mysql-wsrep) patch has been merged into MariaDB Server. This means that the functionality of MariaDB Galera Cluster can be obtained by installing the standard MariaDB Server packages and the [Galera wsrep provider library](https://github.com/codership/galera/) package. The following [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) version corresponds to each MariaDB Server version:
@@ -237,9 +235,7 @@ The cluster nodes can be configured to invoke a command when cluster membership 
 * [What is MariaDB Galera Cluster?](../../readme/mariadb-galera-cluster-guide.md)
 * [About Galera Replication](../../readme/about-galera-replication.md)
 * [Galera Use Cases](../../galera-use-cases.md)
-* [Codership on Google Groups](https://groups.google.com/forum/?fromgroups#!forum/codership-team)
-* [Galera Cluster documentation](https://galeracluster.com/library/documentation/)
-* [Galera Cluster documentation: Notification Command](https://galeracluster.com/documentation-webpages/notificationcmd.html)
+* [Galera Cluster documentation: Notification Command](../configuration/using-the-notification-command-wsrep_notify_cmd.md)
 * [Introducing the “Safe-To-Bootstrap” feature in Galera Cluster](https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/)
 * [Github - galera](https://github.com/codership/galera/)
 * [Github - mysql-wsrep](https://github.com/codership/mysql-wsrep/)

@@ -8,7 +8,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 
 [MariaDB Galera 5.5.29](mariadb-galera-5529-release-notes.md) is a [_**Stable**_](../../../about/release-criteria.md) (GA) release. In general this means that there are no known serious bugs, except for those marked as feature requests, that no bugs were fixed since last release that caused a notable code changes, and that we believe the code is ready for general usage (based on bug inflow). It is a merge of [MariaDB 5.5.29](../../release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with some additional bug fixes.
 
-Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/getting-started-with-mariadb-galera-cluster) are\
+Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
 available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/galera/README.md) section of the Knowledgebase.
 
 For a list of changes made in [MariaDB Galera 5.5.29](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-galera-cluster-5529-release-notes/README.md), with links to detailed\

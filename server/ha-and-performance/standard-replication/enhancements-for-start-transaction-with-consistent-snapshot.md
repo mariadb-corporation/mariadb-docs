@@ -5,104 +5,77 @@ description: >-
   replication in highly active environments.
 ---
 
-# Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT
+# START TRANSACTION ... WITH CONSISTENT SNAPSHOT
 
-With the introduction of [group commit](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md), MariaDB also introduced an enhanced storage engine API for COMMIT that allows engines to coordinate commit ordering and visibility with each other and with the [binary log](../../server-management/server-monitoring-logs/binary-log/).
+The `START TRANSACTION WITH CONSISTENT SNAPSHOT` statement begins a new transaction and, for the InnoDB storage engine, immediately establishes a consistent read view of the database.
 
-With these improvements, the `START TRANSACTION WITH CONSISTENT SNAPSHOT` statement was enhanced to ensure consistency between storage engines that support the new\
-API. At the time of writing, the supporting engines are [XtraDB](../../server-usage/storage-engines/innodb/) and [PBXT](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/pbxt-storage-engine/README.md). In\
-addition, the binary log, while not a storage engine as such, also supports\
-the new API and can provide a binlog position consistent with storage engine\
-transaction snapshots.
+This differs from a standard `START TRANSACTION` or `BEGIN` statement, which creates its read view _lazily_ only when the first read operation is performed. Using `WITH CONSISTENT SNAPSHOT` is essential for transactions where the snapshot's timing must be precisely aligned with the start of the transaction itself, not a later read query.
 
-This means that with transaction isolation level at least [REPEATABLE READ](../../reference/sql-statements/transactions/set-transaction.md#repeatable-read), the`START TRANSACTION WITH CONSISTENT SNAPSHOT` statement can be used to ensure\
-that queries will see a transaction-consistent view of the database also\
-between storage engines. It is then not possible for a query to see the\
-changes from some transaction T in XtraDB tables without also seeing the\
-changes T makes to PBXT tables. (Within a single transactional storage engine\
-like XtraDB or PBXT, consistency is always guaranteed even without using `START TRANSACTION WITH CONSISTENT SNAPSHOT`).
+## Syntax
 
-For example, suppose the following two transactions run in parallel:
-
-Transaction T1:
+`START TRANSACTION` and its alias `BEGIN` can be modified with one or more characteristics.
 
 ```sql
-BEGIN;
-    SET @t = NOW();
-    UPDATE xtradb_table SET a= @t WHERE id = 5;
-    UPDATE pbxt_table SET b= @t WHERE id = 5;
-    COMMIT;
+START TRANSACTION [transaction_characteristic [, transaction_characteristic] ...]
+
+transaction_characteristic:
+    WITH CONSISTENT SNAPSHOT
+  | READ WRITE | READ ONLY
+  | [NOT] CHAIN
 ```
 
-Transaction T2:
+For example:
+
+`BEGIN WITH CONSISTENT SNAPSHOT;`\
+`START TRANSACTION READ ONLY, WITH CONSISTENT SNAPSH`OT;
+
+## **The InnoDB Read View**
+
+MariaDB's InnoDB storage engine uses a mechanism called MVCC (Multi-Version Concurrency Control) to handle concurrent data access. A core component of MVCC is the read view.
+
+A read view can be thought of as an instantaneous snapshot of the database. When a transaction uses a read view, it sees only the data that was committed at the moment the "snapshot" was taken. It ignores any changes made by transactions that had not yet committed, as well as any changes from transactions that started after the read view was created.
+
+The key difference addressed by this command is the timing of this snapshot:
+
+<table><thead><tr><th width="203.71484375">Transaction Type</th><th width="200.11328125">Creation of Read View</th><th>Time of Read View Creation</th></tr></thead><tbody><tr><td><code>START TRANSACTION</code></td><td>Created lazily</td><td>At the first read operation (e.g., a <code>SELECT</code>)</td></tr><tr><td><code>START TRANSACTION WITH CONSISTENT SNAPSHOT</code></td><td>Created immediately</td><td>At the moment the statement is executed, before other actions</td></tr></tbody></table>
+
+## **Behavior with Transaction Isolation Levels**
+
+The behavior of `WITH CONSISTENT SNAPSHOT` is dependent on the transaction isolation level.
+
+<table><thead><tr><th width="144.5390625">Isolation Level</th><th width="241.09375">Default Read View Behavior</th><th>Effect of WITH CONSISTENT SNAPSHOT</th></tr></thead><tbody><tr><td>REPEATABLE READ</td><td>A single, stable read view is created and used for the entire transaction.</td><td>Guarantees the read view is established immediately at the start of the transaction.</td></tr><tr><td>SERIALIZABLE</td><td>Same as REPEATABLE READ</td><td>Provides a predictable snapshot for all subsequent reads. This is its most common use case.</td></tr><tr><td>READ COMMITTED</td><td>A new read view is created for each individual <code>SELECT</code> statement.</td><td>Affects the first read statement only, ensuring its snapshot is taken at the transaction's start time.</td></tr><tr><td>READ UNCOMMITTED</td><td>Does not use read views. Reads include uncommitted data ("dirty reads").</td><td>Not permitted and has no effect.</td></tr></tbody></table>
+
+### With Default Read View Behavior
+
+#### Checking an Account Balance with a Transaction Delay
+
+In this situation, there is a delay in the application logic after initiating a transaction to check an account balance.
+
+#### Setup
 
 ```sql
-SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
-    START TRANSACTION WITH CONSISTENT SNAPSHOT;
-    SELECT t1.a, t2.b
-      FROM xtradb_table t1 INNER JOIN pbxt_table t2 ON t1.id=t2.id
-     WHERE t1.id = 5;
+CREATE TABLE accounts (
+    id INT PRIMARY KEY,
+    balance DECIMAL(10, 2)
+) ENGINE=InnoDB;
+
+INSERT INTO accounts VALUES (1, 1000.00);
 ```
 
-Then transaction T2 will always see the same value for `xtradb_table.a` and`pbxt_table.b`.
+#### Scenario: Two sessions are running concurrently.
 
-(In [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2) and earlier, and MySQL at least up to 5.5, `START TRANSACTION WITH CONSISTENT SNAPSHOT` did not give any guarantees of consistency between\
-different storage engines. So it is possible, even with a "consistent"\
-snapshot, to see the changes in a transaction only to InnoDB/XtraDB tables, not\
-PBXT tables, for example.)
+<table><thead><tr><th width="111.34375">Timeline</th><th>Session 1 (Application checking balance)</th><th>Session 2 (An external deposit)</th></tr></thead><tbody><tr><td>T1</td><td><code>START TRANSACTION;</code></td><td></td></tr><tr><td>T2</td><td><code>-- Application logic causes a 2-second delay</code>  <code>DO SLEEP(2);</code></td><td><code>START TRANSACTION;</code></td></tr><tr><td>T3</td><td></td><td><code>UPDATE accounts SET balance = 1500.00 WHERE id = 1;</code></td></tr><tr><td>T4</td><td></td><td><code>COMMIT;</code></td></tr><tr><td>T5</td><td><code>SELECT balance FROM accounts WHERE id = 1;</code></td><td></td></tr><tr><td>T6</td><td><code>COMMIT;</code></td><td></td></tr></tbody></table>
 
-## Status Variables
+In the scenario above, the read view for Session 1 is created at T5. Since Session 2's `COMMIT` happened at T4, the `SELECT` in Session 1 will see the new balance: `$1500.00`. This might not be the desired behavior if the goal was to see the balance as it was at T1.
 
-Another use for these enhancements is to obtain\
-a binary log position that is consistent\
-with a particular transactional state of the storage engine(s) in the\
-database. This is done with two status variables for the binary log: [binlog\_snapshot\_file](replication-and-binary-log-status-variables.md#binlog_snapshot_file) and [binlog\_snapshot\_position](replication-and-binary-log-status-variables.md#binlog_snapshot_position)
+### With CONSISTENT SNAPSHOT
 
-These variables give the binary log file and position like `SHOW MASTER STATUS`\
-does. But they can be queried in a transactionally consistent way. After\
-starting a transaction using `START TRANSACTION WITH CONSISTENT SNAPSHOT`, the\
-two variables will give the binlog position corresponding to the state of the\
-database of the consistent snapshot so taken, irrespectively of which other\
-transactions have been committed since the snapshot was taken (`SHOW MASTER STATUS` always shows the position of the last committed transaction). This works for\
-MVCC storage engines that implement the commit ordering part of the storage\
-engine API, which at the time of writing is XtraDB and PBXT.
+<table><thead><tr><th width="104.4765625">Timeline</th><th>Session 1 (Application checking balance)</th><th>Session 2 (An external deposit)</th></tr></thead><tbody><tr><td>T1</td><td><code>START TRANSACTION WITH CONSISTENT SNAPSHOT;</code></td><td></td></tr><tr><td>T2</td><td><code>-- Application logic causes a 2-second delay</code> <code>DO SLEEP(2);</code></td><td><code>START TRANSACTION;</code></td></tr><tr><td>T3</td><td></td><td><code>UPDATE accounts SET balance = 1500.00 WHERE id = 1;</code></td></tr><tr><td>T4</td><td></td><td><code>COMMIT;</code></td></tr><tr><td>T5</td><td><code>SELECT balance FROM accounts WHERE id = 1;</code></td><td></td></tr><tr><td>T6</td><td><code>COMMIT;</code></td><td></td></tr></tbody></table>
 
-This is useful to obtain a logical dump/backup with a matching binlog position\
-that can be used to provision a new slave with the original server as the\
-master. First `START TRANSACTION WITH CONSISTENT SNAPSHOT` is executed. Then a\
-consistent state of the database is obtained with queries, and the matching\
-binlog position is obtained with `SHOW STATUS LIKE 'binlog_snapshot%'`. When\
-this is loaded on a new slave server, the binlog position is used in a `CHANGE MASTER TO` statement to set the slave replicating from the correct position.
+In this second scenario, the read view for Session 1 is created immediately at T1. Even though Session 2 commits a change at T4, the `SELECT` at T5 uses the original snapshot. It will see the old balance: `$1000.00`, reflecting the state of the database when the transaction began.
 
-With the variables binlog\_snapshot\_file and binlog\_snapshot\_position, such\
-provisioning can be done fully non-blocking on the master. Without them, it is\
-necessary to get the binlog position under `FLUSH TABLES WITH READ LOCK`;\
-this can potentially stall the server for a long time, as it blocks new\
-queries until all updates that have already started have finished.
+## **Related System Variables**
 
-### mariadb-dump
+### `innodb_snapshot_isolation`
 
-The [mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) program was extended to use these status\
-variables. This means that a backup suitable for provisioning a replica can be\
-obtained as normal like this:
-
-```
-mariadb-dump --single-transaction --master-data ...
-```
-
-The dump will be fully non-blocking if both the mariadb-dump program and the\
-queried server include the necessary feature (eg. both are from [MariaDB\
-5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2)-rpl, 5.3, or higher). In other cases, it will fall back to the old\
-blocking method using `FLUSH TABLES WITH READ LOCK`.
-
-For more information on the design and implementation of this feature, see [MWL#136](https://askmonty.org/worklog/?tid=136).
-
-## See Also
-
-* [START TRANSACTION](../../reference/sql-statements/transactions/start-transaction.md)
-* [What is MariaDB 5.3](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md)
-* [MyRocks and START TRANSACTION WITH CONSISTENT SNAPSHOT](../../server-usage/storage-engines/myrocks/myrocks-and-start-transaction-with-consistent-snapshot.md)
-
-<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
-
-{% @marketo/form formId="4316" %}
+This system variable influences the behavior of locking reads (e.g., `SELECT ... FOR UPDATE`). When [innodb\_snapshot\_isolation](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is enabled (ON), locking reads will reference the transaction's read view. If a transaction tries to lock a row modified by another transaction not visible in the current read view, MariaDB returns an `ER_CHECKREAD` error instead of waiting for a lock. This enforces stricter snapshot consistency, even for locking operations.

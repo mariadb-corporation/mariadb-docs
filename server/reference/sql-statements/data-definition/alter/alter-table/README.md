@@ -40,7 +40,7 @@ alter_specification:
   | ADD PERIOD FOR [time_period_name|SYSTEM_TIME] (start_column_name, end_column_name)
   | ALTER [COLUMN] col_name SET DEFAULT literal | (expression)
   | ALTER [COLUMN] col_name DROP DEFAULT
-  | ALTER {INDEX|KEY} index_name [NOT] INVISIBLE
+  | ALTER {INDEX|KEY} [IF EXISTS] index_name [NOT] IGNORED
   | CHANGE [COLUMN] [IF EXISTS] old_col_name new_col_name column_definition
         [FIRST|AFTER col_name]
   | MODIFY [COLUMN] [IF EXISTS] col_name column_definition
@@ -54,7 +54,7 @@ alter_specification:
   | ENABLE KEYS
   | RENAME [TO] new_tbl_name
   | ORDER BY col_name [, col_name] ...
-  | RENAME COLUMN old_col_name TO new_col_name
+  | RENAME COLUMN [IF EXISTS] old_col_name TO new_col_name
   | RENAME {INDEX|KEY} old_index_name TO new_index_name
   | CONVERT TO CHARACTER SET charset_name [COLLATE collation_name]
   | [DEFAULT] CHARACTER SET [=] charset_name

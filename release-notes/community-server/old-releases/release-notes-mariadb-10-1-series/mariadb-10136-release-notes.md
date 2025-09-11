@@ -20,7 +20,7 @@ Thanks, and enjoy MariaDB!
 
 * [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) updated to 5.6.41-84.1
 * [TokuDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/tokudb) updated to 5.6.41-84.1
-* if available, stunnel can be used during [Galera rsync SST](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/getting-started-with-mariadb-galera-cluster#rsync) - [MDEV-15511](https://jira.mariadb.org/browse/MDEV-15511)
+* if available, stunnel can be used during [Galera rsync SST](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#rsync) - [MDEV-15511](https://jira.mariadb.org/browse/MDEV-15511)
 * fix of regression introduced in 10.1.32: [MDEV-13333](https://jira.mariadb.org/browse/MDEV-13333)
 * fix of regression affecting 10.1.35 only: [MDEV-16647](https://jira.mariadb.org/browse/MDEV-16647) InnoDB fails to drop large temporary table on disconnect
 * Galera: [MDEV-10754](https://jira.mariadb.org/browse/MDEV-10754) wsrep\_sst\_rsync does not support innodb\_data\_home\_dir

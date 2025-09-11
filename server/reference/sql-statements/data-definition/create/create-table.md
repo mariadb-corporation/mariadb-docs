@@ -2,18 +2,17 @@
 
 ## Syntax
 
-```bnf
-CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
+<pre><code>CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
     (<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...) [<a data-footnote-ref href="#user-content-fn-2">table_options</a>    ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
-    [(<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-2">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
+    [(<a data-footnote-ref href="#user-content-fn-2">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-4">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
     select_statement
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
    { LIKE old_table_name | (LIKE old_table_name) }
 
 select_statement:
     [IGNORE | REPLACE] [AS] SELECT ...   (Some legal select statement)
-```
+</code></pre>
 
 ## Description
 
@@ -173,17 +172,17 @@ To insert rows from a query into an existing table, [INSERT ... SELECT](../../da
 ## Column Definitions
 
 <pre class="language-bnf"><code class="lang-bnf">create_definition:
-  { col_name column_definition | <a data-footnote-ref href="#user-content-fn-1">index_definition</a> | <a data-footnote-ref href="#user-content-fn-2">period_definition</a> | CHECK (expr) }
+  { col_name column_definition | <a data-footnote-ref href="#user-content-fn-5">index_definition</a> | <a data-footnote-ref href="#user-content-fn-4">period_definition</a> | CHECK (expr) }
 
 column_definition:
-  <a data-footnote-ref href="#user-content-fn-3">data_type</a>
+  <a data-footnote-ref href="#user-content-fn-6">data_type</a>
     [NOT NULL | NULL] [DEFAULT default_value | (expression)]
     [ON UPDATE [NOW | CURRENT_TIMESTAMP] [(precision)]]
     [AUTO_INCREMENT] [ZEROFILL] [UNIQUE [KEY] | [PRIMARY] KEY]
     [INVISIBLE] [{WITH|WITHOUT} SYSTEM VERSIONING]
     [COMMENT 'string'] [REF_SYSTEM_ID = value]
-    [<a data-footnote-ref href="#user-content-fn-1">reference_definition</a>]
-  | <a data-footnote-ref href="#user-content-fn-3">data_type</a> [GENERATED ALWAYS] 
+    [<a data-footnote-ref href="#user-content-fn-5">reference_definition</a>]
+  | <a data-footnote-ref href="#user-content-fn-6">data_type</a> [GENERATED ALWAYS] 
   AS [ ROW {START|END} [NOT NULL ENABLE] [[PRIMARY] KEY]
         | (expression) [VIRTUAL | PERSISTENT | STORED] ]
       [INVISIBLE] [UNIQUE [KEY]] [COMMENT 'string']
@@ -235,7 +234,7 @@ The default value will be used if you [INSERT](../../data-manipulation/inserting
 
 [CURRENT\_TIMESTAMP](../../../sql-functions/date-time-functions/now.md) may also be used as the default value for a [DATETIME](../../../data-types/date-and-time-data-types/datetime.md)
 
-You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-definition/create/broken-reference/README.md) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
+You can use most functions in `DEFAULT`. Expressions should have parentheses around them. If you use a non deterministic function in `DEFAULT` then all inserts to the table will be [replicated](../../../../ha-and-performance/standard-replication/) in [row mode](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based). You can even refer to earlier columns in the `DEFAULT` expression (excluding `AUTO_INCREMENT` columns):
 
 ```sql
 CREATE TABLE t1 (a INT DEFAULT (1+1), b INT DEFAULT (a+1));
@@ -966,8 +965,14 @@ CREATE TABLE t1(
 
 {% @marketo/form formId="4316" %}
 
-[^1]: [#index-definitions](create-table.md#index-definitions "mention")
+[^1]: [#column-definitions](create-table.md#column-definitions "mention")
 
-[^2]: [#periods](create-table.md#periods "mention")
+[^2]: [#table-options](create-table.md#table-options "mention")
 
-[^3]: [data-types](../../../data-types/ "mention")
+[^3]: [#partitions](create-table.md#partitions "mention")
+
+[^4]: [#periods](create-table.md#periods "mention")
+
+[^5]: [#index-definitions](create-table.md#index-definitions "mention")
+
+[^6]: [data-types](../../../data-types/ "mention")

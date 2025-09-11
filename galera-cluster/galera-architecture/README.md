@@ -1,7 +1,6 @@
 ---
-hidden: true
 icon: webhook
 ---
 
-# Architecture
+# Galera Architecture
 

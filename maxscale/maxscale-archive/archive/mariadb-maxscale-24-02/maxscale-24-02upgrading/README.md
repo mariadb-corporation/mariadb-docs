@@ -7,3 +7,4 @@ description: >-
 
 # MaxScale 24.02 Upgrading
 
+This page has moved [here](mariadb-maxscale-2402-maxscale-2402-upgrading-mariadb-maxscale.md).

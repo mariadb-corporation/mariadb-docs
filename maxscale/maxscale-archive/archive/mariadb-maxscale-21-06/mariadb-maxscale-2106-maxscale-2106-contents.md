@@ -9,7 +9,7 @@ Anything referring to MaxScale 6 applies to MaxScale 21.06.
 ### About MariaDB MaxScale
 
 * [About MariaDB MaxScale](mariadb-maxscale-21-06-about/mariadb-maxscale-2106-maxscale-2106-about-mariadb-maxscale.md)
-* [Changelog](mariadb-maxscale-2106-maxscale-2106-changelog.md)
+* [Changelog](broken-reference)
 * [Limitations](mariadb-maxscale-21-06-about/mariadb-maxscale-2106-maxscale-2106-limitations-and-known-issues-within-mariadb-maxscale.md)
 
 ### Getting Started
