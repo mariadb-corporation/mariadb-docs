@@ -4,6 +4,6 @@ Java developers can use MariaDB Connector/R2DBC to connect to SkySQL using the R
 
 Visit [MariaDB R2DBC Connector](https://mariadb.com/docs/server/connect/programming-languages/java-r2dbc/) page.
 
-# Resources
+## Resources
 
-- [Release notes](https://mariadb.com/docs/server/release-notes/mariadb-connector-r2dbc/)
+* [Release notes](https://mariadb.com/docs/server/release-notes/mariadb-connector-r2dbc/)

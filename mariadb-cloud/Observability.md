@@ -2,32 +2,34 @@
 
 This page provides a high-level overview of the Observability functionality in SkySQL.
 
-In order to interact with our Observability APIs, an [API KEY](https://skysqlinc.github.io/skysql-docs/Security/Managing%20API%20keys/) must be generated.
-Throughout this document, we will refer to it as `{{SKYSQL_API_KEY}}`.
+In order to interact with our Observability APIs, an [API KEY](https://skysqlinc.github.io/skysql-docs/Security/Managing%20API%20keys/) must be generated. Throughout this document, we will refer to it as `{{SKYSQL_API_KEY}}`.
 
-Additionally, you will need the SkySQL Database ID, available by clicking on any of your existing services from the [SkySQL Console](https://app.skysql.com/), and navigating to the Details page.
-We will Refer to the Database ID as `{{SKYSQL_DATABASE_ID}}` throughout this document.
+Additionally, you will need the SkySQL Database ID, available by clicking on any of your existing services from the [SkySQL Console](https://app.skysql.com/), and navigating to the Details page. We will Refer to the Database ID as `{{SKYSQL_DATABASE_ID}}` throughout this document.
 
-For the impatient reader, we jump right to the [Integrations section](#integrations), then for ones who are building custom
-instrumentation, we provide a detailed list of [APIs](#apis) and their relevant documentation.
+For the impatient reader, we jump right to the [Integrations section](Observability.md#integrations), then for ones who are building custom instrumentation, we provide a detailed list of [APIs](Observability.md#apis) and their relevant documentation.
 
-# Integrations
+## Integrations
 
-## Datadog
-Using the [Datadog](https://www.datadoghq.com/) integration, you can instrument Observability metrics from SkySQL into your Datadog account. 
-This integration allows you to monitor and visualize SkySQL metrics alongside other services in your Datadog dashboard.
+### Datadog
 
-### Requirements.
-You will need your Datadog API key to set up the integration.  We will refer to it as `{{DD_API_KEY}}` throughout this document.
+Using the [Datadog](https://www.datadoghq.com/) integration, you can instrument Observability metrics from SkySQL into your Datadog account. This integration allows you to monitor and visualize SkySQL metrics alongside other services in your Datadog dashboard.
 
-### Agent Setup.
-You will need to configure the Datadog Agent to pull metrics from us.  Here is an example of how you can setup the [DataDog Agent](https://docs.datadoghq.com/agent/):
+#### Requirements.
+
+You will need your Datadog API key to set up the integration. We will refer to it as `{{DD_API_KEY}}` throughout this document.
+
+#### Agent Setup.
+
+You will need to configure the Datadog Agent to pull metrics from us. Here is an example of how you can setup the [DataDog Agent](https://docs.datadoghq.com/agent/):
 
 1. Create a local directory for configuration to be mapped to the Docker Container:
+
 ```shell
 mkdir -p /home/datadog-agent/openmetrics
 ```
+
 2. Create a `conf.yaml` file in your `openmetrics` directory with:
+
 ```yaml
 init_config:
 
@@ -39,43 +41,50 @@ instances:
     metrics:
       - '.*'
 ```
-3. Send the metrics to the correct DataDog Site.
-You should refer to [DataDog Site documentation](https://docs.datadoghq.com/getting_started/site/) to determine the correct `SITE PARAMETER` for your account.
-This resource provides a comprehensive list of Datadog sites and their corresponding `SITE PARAMETER` values, ensuring that your data is sent to the correct regional Datadog instance.
-We will refer to it as `{{DD_SITE_PARAMETER}}` throughout this document.
 
+3. Send the metrics to the correct DataDog Site. You should refer to [DataDog Site documentation](https://docs.datadoghq.com/getting_started/site/) to determine the correct `SITE PARAMETER` for your account. This resource provides a comprehensive list of Datadog sites and their corresponding `SITE PARAMETER` values, ensuring that your data is sent to the correct regional Datadog instance. We will refer to it as `{{DD_SITE_PARAMETER}}` throughout this document.
 4. Run the Datadog Agent Docker Container with the following command:
+
 ```shell
 docker run -v /home/datadog-agent/openmetrics:/etc/datadog-agent/conf.d/openmetrics.d:ro \
   -e DD_API_KEY={{DD_API_KEY}} -e DD_HOSTNAME="my-agent" -e DD_SITE="{{DD_SITE_PARAMETER}}" \ 
   -e DD_LOG_LEVEL="info" gcr.io/datadoghq/agent:7
 ```
-5. You should see the metrics soon to be available in [DataDog Metrics Explorer](https://app.datadoghq.com/metric/explorer) 
 
-### Testing [SkySQL APIs](#apis)
+5. You should see the metrics soon to be available in [DataDog Metrics Explorer](https://app.datadoghq.com/metric/explorer)
+
+#### Testing [SkySQL APIs](Observability.md#apis)
+
 If you can always check if the Observability API is working successfully by calling it directly:
+
 ```shell
 curl --location 'https://api.skysql.com/observability/v2/metrics' \
 --header 'X-API-KEY: {{SKYSQL_API_KEY}}'
 ```
-Detailed documentation on how to interact with our [APIs](#apis) follows:
 
-# APIs
+Detailed documentation on how to interact with our [APIs](Observability.md#apis) follows:
+
+## APIs
+
 To build instrumentation around our [Observability APIs](https://apidocs.skysql.com/#/Observability), we expose the following endpoints:
 
-### Logs
+#### Logs
+
 SkySQL exposes a set of log-related endpoints under `observability/v2/logs`, allowing you to:
-- Retrieve logs within a specified date range
-- Download log archives
-- Query log types and servers
-- Manage log retention settings
+
+* Retrieve logs within a specified date range
+* Download log archives
+* Query log types and servers
+* Manage log retention settings
 
 Refer to the [Observability section of the SkySQL API docs](https://apidocs.skysql.com/#/Observability) for the full list of parameters and responses.
 
-### Metrics
+#### Metrics
+
 You can retrieve metrics (in Prometheus-compatible format) from SkySQL using the `observability/v2/metrics` endpoint. To learn more about query parameters and usage, see:
 
 Example:
+
 ```shell
 curl --location 'https://api.skysql.com/observability/v2/metrics' \
 --header 'X-API-KEY: {{SKYSQL_API_KEY}}'
@@ -83,177 +92,178 @@ curl --location 'https://api.skysql.com/observability/v2/metrics' \
 
 Refer to the [Observability section of the SkySQL API docs](https://apidocs.skysql.com/#/Observability) for the full list of parameters and responses.
 
-## API Documentation
+### API Documentation
+
 For the complete, detailed API reference (including request/response formats, error codes, etc.), please see the official SkySQL API docs here:
 
-- [SkySQL Observability (Logs + Metrics) Endpoints](https://apidocs.skysql.com/#/Observability).
-- [Prometheus HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/).
+* [SkySQL Observability (Logs + Metrics) Endpoints](https://apidocs.skysql.com/#/Observability).
+* [Prometheus HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/).
 
-## Appendix
+### Appendix
 
-### Table A. Key Observability Metric Series
-We export the folowing metrics as part of the [metrics](#metrics) endpoint:
+#### Table A. Key Observability Metric Series
 
+We export the folowing metrics as part of the [metrics](Observability.md#metrics) endpoint:
 
-| Metric                                              |
-|-----------------------------------------------------|
-| mariadb_galera_evs_repl_latency_avg_seconds         |
-| mariadb_galera_evs_repl_latency_max_seconds         |
-| mariadb_galera_evs_repl_latency_min_seconds         |
-| mariadb_galera_status_info                          |
-| mariadb_global_status_aborted_clients               |
-| mariadb_global_status_aborted_connects              |
-| mariadb_global_status_buffer_pool_pages             |
-| mariadb_global_status_bytes_received                |
-| mariadb_global_status_bytes_sent                    |
-| mariadb_global_status_commands_total                |
-| mariadb_global_status_created_tmp_disk_tables       |
-| mariadb_global_status_created_tmp_files             |
-| mariadb_global_status_created_tmp_tables            |
-| mariadb_global_status_handlers_total                |
-| mariadb_global_status_innodb_data_read              |
-| mariadb_global_status_innodb_data_written           |
-| mariadb_global_status_innodb_num_open_files         |
-| mariadb_global_status_innodb_page_size              |
-| mariadb_global_status_open_files                    |
-| mariadb_global_status_open_table_definitions        |
-| mariadb_global_status_open_tables                   |
-| mariadb_global_status_opened_files                  |
-| mariadb_global_status_opened_table_definitions      |
-| mariadb_global_status_opened_tables                 |
-| mariadb_global_status_queries                       |
-| mariadb_global_status_questions                     |
-| mariadb_global_status_rows_read                     |
-| mariadb_global_status_rows_sent                     |
-| mariadb_global_status_select_full_join              |
-| mariadb_global_status_select_full_range_join        |
-| mariadb_global_status_select_range                  |
-| mariadb_global_status_select_range_check            |
-| mariadb_global_status_select_scan                   |
-| mariadb_global_status_slave_running                 |
-| mariadb_global_status_slow_queries                  |
-| mariadb_global_status_sort_merge_passes             |
-| mariadb_global_status_sort_range                    |
-| mariadb_global_status_sort_rows                     |
-| mariadb_global_status_sort_scan                     |
-| mariadb_global_status_table_locks_immediate         |
-| mariadb_global_status_table_locks_waited            |
-| mariadb_global_status_table_open_cache_hits         |
-| mariadb_global_status_table_open_cache_misses       |
-| mariadb_global_status_table_open_cache_overflows    |
-| mariadb_global_status_threads_cached                |
-| mariadb_global_status_threads_connected             |
-| mariadb_global_status_threads_created               |
-| mariadb_global_status_threads_running               |
-| mariadb_global_status_uptime                        |
-| mariadb_global_status_wsrep_cert_deps_distance      |
-| mariadb_global_status_wsrep_cluster_conf_id         |
-| mariadb_global_status_wsrep_cluster_size            |
-| mariadb_global_status_wsrep_cluster_status          |
-| mariadb_global_status_wsrep_connected               |
-| mariadb_global_status_wsrep_flow_control_paused     |
-| mariadb_global_status_wsrep_last_committed          |
-| mariadb_global_status_wsrep_local_recv_queue        |
-| mariadb_global_status_wsrep_local_recv_queue_avg    |
-| mariadb_global_status_wsrep_local_recv_queue_max    |
-| mariadb_global_status_wsrep_local_recv_queue_min    |
-| mariadb_global_status_wsrep_local_send_queue        |
-| mariadb_global_status_wsrep_local_send_queue_avg    |
-| mariadb_global_status_wsrep_local_send_queue_max    |
-| mariadb_global_status_wsrep_local_send_queue_min    |
-| mariadb_global_status_wsrep_local_state             |
-| mariadb_global_status_wsrep_ready                   |
-| mariadb_global_status_wsrep_replicated              |
-| mariadb_global_status_wsrep_replicated_bytes        |
-| mariadb_global_variables_gtid_current_pos           |
-| mariadb_global_variables_innodb_buffer_pool_size    |
-| mariadb_global_variables_innodb_log_buffer_size     |
-| mariadb_global_variables_key_buffer_size            |
-| mariadb_global_variables_max_connections            |
-| mariadb_global_variables_open_files_limit           |
-| mariadb_global_variables_query_cache_size           |
-| mariadb_global_variables_read_only                  |
-| mariadb_global_variables_table_open_cache           |
-| mariadb_info_schema_engine_table_count_total        |
-| mariadb_info_schema_table_size                      |
-| mariadb_security_users_without_passwords            |
-| mariadb_slave_status_exec_master_log_pos            |
-| mariadb_slave_status_last_io_errno                  |
-| mariadb_slave_status_last_sql_errno                 |
-| mariadb_slave_status_read_master_log_pos            |
-| mariadb_slave_status_relay_log_pos                  |
-| mariadb_slave_status_seconds_behind_master          |
-| mariadb_slave_status_slave_io_running               |
-| mariadb_slave_status_slave_sql_running              |
-| mariadb_up                                          |
-| mariadb_xpand_activity_core0                        |
-| mariadb_xpand_activity_til                          |
-| mariadb_xpand_capacity_disk_system_avail_bytes      |
-| mariadb_xpand_capacity_disk_system_max_bytes        |
-| mariadb_xpand_capacity_disk_system_usage_ratio      |
-| mariadb_xpand_capacity_disk_total_usage_percent     |
-| mariadb_xpand_cluster_nodes_in_quorum               |
-| mariadb_xpand_cluster_total_nodes                   |
-| mariadb_xpand_cluster_uptime_seconds                |
-| mariadb_xpand_containers_rows                       |
-| mariadb_xpand_cpu_load                              |
-| mariadb_xpand_io_disk_latency_seconds               |
-| mariadb_xpand_io_network_bytes                      |
-| mariadb_xpand_io_network_latency_seconds            |
-| mariadb_xpand_memory_bm_bytes                       |
-| mariadb_xpand_memory_reserved_bytes                 |
-| mariadb_xpand_memory_total_bytes                    |
-| mariadb_xpand_memory_working_bytes                  |
-| mariadb_xpand_qps                                   |
-| mariadb_xpand_rebalancer_jobs_queued                |
-| mariadb_xpand_rebalancer_rebalancer_rebalance       |
-| mariadb_xpand_rebalancer_rebalancer_reprotects      |
-| mariadb_xpand_rebalancer_rebalancer_reranks         |
-| mariadb_xpand_rebalancer_rebalancer_softfail_reprotects |
-| mariadb_xpand_rebalancer_rebalancer_splits          |
-| mariadb_xpand_rebalancer_underprotected_slices      |
-| mariadb_xpand_response_time_seconds                 |
-| mariadb_xpand_sessions                              |
-| mariadb_xpand_sessions_time_in_state                |
-| mariadb_xpand_sessions_trx_age                      |
-| mariadb_xpand_stats_Com_alter_cluster               |
-| mariadb_xpand_stats_Com_delete                      |
-| mariadb_xpand_stats_Com_delete_seconds              |
-| mariadb_xpand_stats_Com_insert                      |
-| mariadb_xpand_stats_Com_insert_seconds              |
-| mariadb_xpand_stats_Com_select                      |
-| mariadb_xpand_stats_Com_select_seconds              |
-| mariadb_xpand_stats_Com_set_option                  |
-| mariadb_xpand_stats_Com_show_slave_status           |
-| mariadb_xpand_stats_Com_show_status                 |
-| mariadb_xpand_stats_Com_show_variables              |
-| mariadb_xpand_stats_Com_update                      |
-| mariadb_xpand_stats_Com_update_seconds              |
-| mariadb_xpand_stats_connections                     |
-| mariadb_xpand_tps                                   |
-| mariadb_xpand_wals_avg_sync_time_seconds            |
-| maxscale_modules                                    |
-| maxscale_server_active_operations                   |
-| maxscale_server_adaptive_avg_select_time            |
-| maxscale_server_connection_pool_empty               |
-| maxscale_server_connections                         |
-| maxscale_server_max_connections                     |
-| maxscale_server_max_pool_size                       |
-| maxscale_server_persistent_connections              |
-| maxscale_server_reused_connections                  |
-| maxscale_server_routed_packets                      |
-| maxscale_server_total_connections                   |
-| maxscale_service_connections                        |
-| maxscale_threads_count                              |
-| maxscale_threads_current_descriptors                |
-| maxscale_threads_errors                             |
-| maxscale_threads_event_queue_length                 |
-| maxscale_threads_hangups                            |
-| maxscale_threads_max_queue_time                     |
-| maxscale_threads_reads                              |
-| maxscale_threads_stack_size                         |
-| maxscale_threads_total_descriptors                  |
-| maxscale_threads_writes                             |
-| maxscale_up                                         |
-| maxscale_uptime_seconds                             |
-| process_resident_memory_bytes                       |
+| Metric                                                       |
+| ------------------------------------------------------------ |
+| mariadb\_galera\_evs\_repl\_latency\_avg\_seconds            |
+| mariadb\_galera\_evs\_repl\_latency\_max\_seconds            |
+| mariadb\_galera\_evs\_repl\_latency\_min\_seconds            |
+| mariadb\_galera\_status\_info                                |
+| mariadb\_global\_status\_aborted\_clients                    |
+| mariadb\_global\_status\_aborted\_connects                   |
+| mariadb\_global\_status\_buffer\_pool\_pages                 |
+| mariadb\_global\_status\_bytes\_received                     |
+| mariadb\_global\_status\_bytes\_sent                         |
+| mariadb\_global\_status\_commands\_total                     |
+| mariadb\_global\_status\_created\_tmp\_disk\_tables          |
+| mariadb\_global\_status\_created\_tmp\_files                 |
+| mariadb\_global\_status\_created\_tmp\_tables                |
+| mariadb\_global\_status\_handlers\_total                     |
+| mariadb\_global\_status\_innodb\_data\_read                  |
+| mariadb\_global\_status\_innodb\_data\_written               |
+| mariadb\_global\_status\_innodb\_num\_open\_files            |
+| mariadb\_global\_status\_innodb\_page\_size                  |
+| mariadb\_global\_status\_open\_files                         |
+| mariadb\_global\_status\_open\_table\_definitions            |
+| mariadb\_global\_status\_open\_tables                        |
+| mariadb\_global\_status\_opened\_files                       |
+| mariadb\_global\_status\_opened\_table\_definitions          |
+| mariadb\_global\_status\_opened\_tables                      |
+| mariadb\_global\_status\_queries                             |
+| mariadb\_global\_status\_questions                           |
+| mariadb\_global\_status\_rows\_read                          |
+| mariadb\_global\_status\_rows\_sent                          |
+| mariadb\_global\_status\_select\_full\_join                  |
+| mariadb\_global\_status\_select\_full\_range\_join           |
+| mariadb\_global\_status\_select\_range                       |
+| mariadb\_global\_status\_select\_range\_check                |
+| mariadb\_global\_status\_select\_scan                        |
+| mariadb\_global\_status\_slave\_running                      |
+| mariadb\_global\_status\_slow\_queries                       |
+| mariadb\_global\_status\_sort\_merge\_passes                 |
+| mariadb\_global\_status\_sort\_range                         |
+| mariadb\_global\_status\_sort\_rows                          |
+| mariadb\_global\_status\_sort\_scan                          |
+| mariadb\_global\_status\_table\_locks\_immediate             |
+| mariadb\_global\_status\_table\_locks\_waited                |
+| mariadb\_global\_status\_table\_open\_cache\_hits            |
+| mariadb\_global\_status\_table\_open\_cache\_misses          |
+| mariadb\_global\_status\_table\_open\_cache\_overflows       |
+| mariadb\_global\_status\_threads\_cached                     |
+| mariadb\_global\_status\_threads\_connected                  |
+| mariadb\_global\_status\_threads\_created                    |
+| mariadb\_global\_status\_threads\_running                    |
+| mariadb\_global\_status\_uptime                              |
+| mariadb\_global\_status\_wsrep\_cert\_deps\_distance         |
+| mariadb\_global\_status\_wsrep\_cluster\_conf\_id            |
+| mariadb\_global\_status\_wsrep\_cluster\_size                |
+| mariadb\_global\_status\_wsrep\_cluster\_status              |
+| mariadb\_global\_status\_wsrep\_connected                    |
+| mariadb\_global\_status\_wsrep\_flow\_control\_paused        |
+| mariadb\_global\_status\_wsrep\_last\_committed              |
+| mariadb\_global\_status\_wsrep\_local\_recv\_queue           |
+| mariadb\_global\_status\_wsrep\_local\_recv\_queue\_avg      |
+| mariadb\_global\_status\_wsrep\_local\_recv\_queue\_max      |
+| mariadb\_global\_status\_wsrep\_local\_recv\_queue\_min      |
+| mariadb\_global\_status\_wsrep\_local\_send\_queue           |
+| mariadb\_global\_status\_wsrep\_local\_send\_queue\_avg      |
+| mariadb\_global\_status\_wsrep\_local\_send\_queue\_max      |
+| mariadb\_global\_status\_wsrep\_local\_send\_queue\_min      |
+| mariadb\_global\_status\_wsrep\_local\_state                 |
+| mariadb\_global\_status\_wsrep\_ready                        |
+| mariadb\_global\_status\_wsrep\_replicated                   |
+| mariadb\_global\_status\_wsrep\_replicated\_bytes            |
+| mariadb\_global\_variables\_gtid\_current\_pos               |
+| mariadb\_global\_variables\_innodb\_buffer\_pool\_size       |
+| mariadb\_global\_variables\_innodb\_log\_buffer\_size        |
+| mariadb\_global\_variables\_key\_buffer\_size                |
+| mariadb\_global\_variables\_max\_connections                 |
+| mariadb\_global\_variables\_open\_files\_limit               |
+| mariadb\_global\_variables\_query\_cache\_size               |
+| mariadb\_global\_variables\_read\_only                       |
+| mariadb\_global\_variables\_table\_open\_cache               |
+| mariadb\_info\_schema\_engine\_table\_count\_total           |
+| mariadb\_info\_schema\_table\_size                           |
+| mariadb\_security\_users\_without\_passwords                 |
+| mariadb\_slave\_status\_exec\_master\_log\_pos               |
+| mariadb\_slave\_status\_last\_io\_errno                      |
+| mariadb\_slave\_status\_last\_sql\_errno                     |
+| mariadb\_slave\_status\_read\_master\_log\_pos               |
+| mariadb\_slave\_status\_relay\_log\_pos                      |
+| mariadb\_slave\_status\_seconds\_behind\_master              |
+| mariadb\_slave\_status\_slave\_io\_running                   |
+| mariadb\_slave\_status\_slave\_sql\_running                  |
+| mariadb\_up                                                  |
+| mariadb\_xpand\_activity\_core0                              |
+| mariadb\_xpand\_activity\_til                                |
+| mariadb\_xpand\_capacity\_disk\_system\_avail\_bytes         |
+| mariadb\_xpand\_capacity\_disk\_system\_max\_bytes           |
+| mariadb\_xpand\_capacity\_disk\_system\_usage\_ratio         |
+| mariadb\_xpand\_capacity\_disk\_total\_usage\_percent        |
+| mariadb\_xpand\_cluster\_nodes\_in\_quorum                   |
+| mariadb\_xpand\_cluster\_total\_nodes                        |
+| mariadb\_xpand\_cluster\_uptime\_seconds                     |
+| mariadb\_xpand\_containers\_rows                             |
+| mariadb\_xpand\_cpu\_load                                    |
+| mariadb\_xpand\_io\_disk\_latency\_seconds                   |
+| mariadb\_xpand\_io\_network\_bytes                           |
+| mariadb\_xpand\_io\_network\_latency\_seconds                |
+| mariadb\_xpand\_memory\_bm\_bytes                            |
+| mariadb\_xpand\_memory\_reserved\_bytes                      |
+| mariadb\_xpand\_memory\_total\_bytes                         |
+| mariadb\_xpand\_memory\_working\_bytes                       |
+| mariadb\_xpand\_qps                                          |
+| mariadb\_xpand\_rebalancer\_jobs\_queued                     |
+| mariadb\_xpand\_rebalancer\_rebalancer\_rebalance            |
+| mariadb\_xpand\_rebalancer\_rebalancer\_reprotects           |
+| mariadb\_xpand\_rebalancer\_rebalancer\_reranks              |
+| mariadb\_xpand\_rebalancer\_rebalancer\_softfail\_reprotects |
+| mariadb\_xpand\_rebalancer\_rebalancer\_splits               |
+| mariadb\_xpand\_rebalancer\_underprotected\_slices           |
+| mariadb\_xpand\_response\_time\_seconds                      |
+| mariadb\_xpand\_sessions                                     |
+| mariadb\_xpand\_sessions\_time\_in\_state                    |
+| mariadb\_xpand\_sessions\_trx\_age                           |
+| mariadb\_xpand\_stats\_Com\_alter\_cluster                   |
+| mariadb\_xpand\_stats\_Com\_delete                           |
+| mariadb\_xpand\_stats\_Com\_delete\_seconds                  |
+| mariadb\_xpand\_stats\_Com\_insert                           |
+| mariadb\_xpand\_stats\_Com\_insert\_seconds                  |
+| mariadb\_xpand\_stats\_Com\_select                           |
+| mariadb\_xpand\_stats\_Com\_select\_seconds                  |
+| mariadb\_xpand\_stats\_Com\_set\_option                      |
+| mariadb\_xpand\_stats\_Com\_show\_slave\_status              |
+| mariadb\_xpand\_stats\_Com\_show\_status                     |
+| mariadb\_xpand\_stats\_Com\_show\_variables                  |
+| mariadb\_xpand\_stats\_Com\_update                           |
+| mariadb\_xpand\_stats\_Com\_update\_seconds                  |
+| mariadb\_xpand\_stats\_connections                           |
+| mariadb\_xpand\_tps                                          |
+| mariadb\_xpand\_wals\_avg\_sync\_time\_seconds               |
+| maxscale\_modules                                            |
+| maxscale\_server\_active\_operations                         |
+| maxscale\_server\_adaptive\_avg\_select\_time                |
+| maxscale\_server\_connection\_pool\_empty                    |
+| maxscale\_server\_connections                                |
+| maxscale\_server\_max\_connections                           |
+| maxscale\_server\_max\_pool\_size                            |
+| maxscale\_server\_persistent\_connections                    |
+| maxscale\_server\_reused\_connections                        |
+| maxscale\_server\_routed\_packets                            |
+| maxscale\_server\_total\_connections                         |
+| maxscale\_service\_connections                               |
+| maxscale\_threads\_count                                     |
+| maxscale\_threads\_current\_descriptors                      |
+| maxscale\_threads\_errors                                    |
+| maxscale\_threads\_event\_queue\_length                      |
+| maxscale\_threads\_hangups                                   |
+| maxscale\_threads\_max\_queue\_time                          |
+| maxscale\_threads\_reads                                     |
+| maxscale\_threads\_stack\_size                               |
+| maxscale\_threads\_total\_descriptors                        |
+| maxscale\_threads\_writes                                    |
+| maxscale\_up                                                 |
+| maxscale\_uptime\_seconds                                    |
+| process\_resident\_memory\_bytes                             |

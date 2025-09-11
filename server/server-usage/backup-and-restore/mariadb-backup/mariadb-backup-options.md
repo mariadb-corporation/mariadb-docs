@@ -436,7 +436,7 @@ mariadb-backup --backup \
 
 ### `--ftwrl-wait-timeout`
 
-Defines the timeout to wait for queries before trying to acquire the global lock. The global lock refers to BACKUP STAGE BLOCK\_COMMIT. The global lock refers to FLUSH TABLES WITH READ LOCK (FTWRL).
+Defines the timeout to wait for queries before trying to acquire the global lock. The global lock refers to `BACKUP STAGE BLOCK_COMMIT`. The global lock refers to `FLUSH TABLES WITH READ LOCK` (FTWRL).
 
 ```bash
 --ftwrl-wait-timeout=#
@@ -455,6 +455,58 @@ mariadb-backup --backup \
       --ftwrl-wait-query-type=UPDATE \
       --ftwrl-wait-timeout=5
 ```
+
+The `--ftwrl-wait-timeout` option specifies the maximum time that `mariadb-backup` will wait to obtain the global lock required to begin a consistent backup.
+
+{% tabs %}
+{% tab title="From MariaDB 10.4" %}
+&#x20;this lock is acquired with **`BACKUP STAGE BLOCK_COMMIT`**.
+{% endtab %}
+
+{% tab title="Before 10.4" %}
+&#x20;this lock is acquired with **`FLUSH TABLES WITH READ LOCK (FTWRL)`**.
+{% endtab %}
+{% endtabs %}
+
+If the lock cannot be obtained within the configured timeout, the backup process fails.
+
+This option helps avoid failures caused by long running MariaDBueries that block backup locks.
+
+**Example Errors**
+
+When the timeout is not set appropriately, backups may fail with messages such as:
+
+```vbnet
+Unable to obtain lock. Please try again later.
+```
+
+or
+
+```vbnet
+FATAL ERROR: failed to execute query BACKUP STAGE START:
+Lock wait timeout exceeded; try restarting transaction
+```
+
+Example Log Excerpt
+
+```vbnet
+[00] 2022-02-08 15:43:25 Unable to obtain lock. Please try again later.
+[00] 2022-02-08 15:43:25 Error on BACKUP STAGE START query execution
+mariabackup: Stopping log copying thread.
+```
+
+Originally, mariadb backup could wait indefinitely for the lock. Starting with the fix for MDEV-20230:
+
+* The `--ftwrl-wait-timeout` option also ensures mariadb backup exits gracefully if the lock cannot be obtained within the timeout period.
+* This prevents backups from hanging when lock acquisition is blocked by long-running queries.
+
+**When to Use**
+
+Use `--ftwrl-wait-timeout` when:
+
+* Your workload includes long-running queries (for example, `ALTER TABLE` or large `INSERT` batches).
+* Backups sometimes fail with lock wait timeout errors.
+* You want mariadb backup to either wait longer for the lock or exit cleanly if it cannot be obtained.
 
 ### `--galera-info`
 
