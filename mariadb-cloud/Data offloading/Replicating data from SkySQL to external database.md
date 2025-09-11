@@ -1,4 +1,4 @@
-# Replicating data from SkySQL to external database
+# Replicating data from MariaDB Cloud to external database
 
 SkySQL customers can configure outbound replication from a Replicated Transactions service to a compatible MariaDB Server running elsewhere - could be your data center, self-managed MariaDB DB on the cloud or even other managed services like AWS RDS.
 
@@ -36,10 +36,6 @@ GRANT REPLICATION SLAVE ON *.* TO ‘external_replication’@'hostname';
 
 ```sql
 SHOW GRANTS FOR 'external_replication'@'%';
-
-```
-
-```
 +-------------+
 | Grants for external_replication@%                                                                                                              |
 +-------------+
@@ -53,7 +49,9 @@ SHOW GRANTS FOR 'external_replication'@'%';
 
 * Click ‘Manage’→ ‘Manage Allowlist’ to add the IP address to the allowed list.
 
-💡 Note that if your ‘external replica server’ is also running on SkySQL (say for DR), you can find the outbound IP address from the ‘Details’ tab (Select on the Service name on the dashboard, then click ‘Details’)
+{% hint style="info" %}
+If your ‘external replica server’ is also running on SkySQL (say, for DR), you can find the outbound IP address from the ‘Details’ tab (select on the Service name on the dashboard, then click ‘Details’).
+{% endhint %}
 
 ## Obtain GTID Position
 
@@ -64,32 +62,28 @@ When you want to start replication from the most recent transaction, the current
 ```sql
 SHOW GLOBAL VARIABLES
    LIKE 'gtid_current_pos';
-```
-
-```
-`+------------------+-------------------+
++------------------+-------------------+
 | Variable_name    | Value             |
 +------------------+-------------------+
 | gtid_current_pos | 435700-435700-124 |
-+------------------+-------------------+`
++------------------+-------------------+
 ```
 
 ## Configure GTID Position
 
 **On the external replica server**, configure the GTID position from which to start replication.
 
-The GTID position can be configured by setting the 'gtid\_slave\_pos':
+The GTID position can be configured by setting the `gtid_slave_pos` variable:
 
 ```sql
 SET GLOBAL gtid_slave_pos='435700-435700-124';
-
 ```
 
 ## Configure Replication
 
 **On the external replica server**, configure replication using the connection parameters for your SkySQL service.
 
-Replication can be configured using the 'CHANGE MASTER TO' SQL statement:
+Replication can be configured using the `CHANGE MASTER TO` SQL statement:
 
 ```sql
 CHANGE MASTER TO
@@ -102,28 +96,27 @@ CHANGE MASTER TO
    MASTER_USE_GTID=slave_pos;
 ```
 
-* Replace `FULLY_QUALIFIED_DOMAIN_NAME` with the Fully Qualified Domain Name of your service
-* Replace `TCP_PORT` with the read-write or read-only port of your service
-* Replace `~/PATH_TO_PEM_FILE` with the path to the certificate authority chain (.pem) file
+* Replace `FULLY_QUALIFIED_DOMAIN_NAME` with the Fully Qualified Domain Name of your service.
+* Replace `TCP_PORT` with the read-write or read-only port of your service.
+* Replace `~/PATH_TO_PEM_FILE` with the path to the certificate authority chain (.pem) file.
 
 ## Start Replication
 
 **On the external replica server**, start replication.
 
-Replication can be started using the 'START REPLICA' SQL statement:
+Replication can be started using the `START REPLICA` SQL statement:
 
 ```sql
 START REPLICA;
-
 ```
 
 ## Finally, Check Replication Status
 
 **On the external replica server**, check replication status.
 
-Replication status can be checked using the 'SHOW REPLICA STATUS' SQL statement:
+Replication status can be checked using the `SHOW REPLICA STATUS` SQL statement:
 
-```
+```sql
 SHOW REPLICA STATUS \G
 
 *************************** 1. row ***************************

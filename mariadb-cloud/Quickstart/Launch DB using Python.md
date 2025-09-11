@@ -1,28 +1,23 @@
 # Launch DB using Python
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1j8sdpIZQ0J-E4fvGuhaXJTsVN6s5ZecW?usp=sharing) --> Easy Launch on Google Colab
-<!-- TODO: Publish notebook to a public SkySQL git repo and change above URL -->
+The Python example below shows how to launch a DB service and connect to it using the SkySQL DBaaS API.
 
-The Python example below shows how to launch a DB service and connect to it using the SkySQL DBaaS API. 
-
-You need to configure the following environment variables:
-    * `API_KEY`
-    * `SKYSQL_CLIENT_IP`
+You need to configure the following environment variables: \* `API_KEY` \* `SKYSQL_CLIENT_IP`
 
 ### **Step 1: Generate API Key**
 
 1. Go to [SkySQL API Key management page](https://app.skysql.com/user-profile/api-keys) and generate an API key.
-
-2. Export the value from the token field to an environment variable API_KEY:
+2.  Export the value from the token field to an environment variable API\_KEY:
 
     ```bash
     export API_KEY='... key data ...'
     ```
-    
-    The `API_KEY` environment variable will be used in the subsequent steps.
+
+    The `API_KEY` environment variable will be used in the subsequent steps.
 
 Check any existing services:
-```bash 
+
+```bash
  curl --request GET 'https://api.skysql.com/provisioning/v1/services' \
     --header "X-API-Key: $API_KEY"
 ```
@@ -31,9 +26,9 @@ Check any existing services:
 
 When your new service is created, your client can only connect through the service's firewall if the client IP address is in the service's IP allowlist.
 
-Before creating the new service, determine the public IP address of your client host and save it to the `SKYSQL_CLIENT_IP` environment variable.
+Before creating the new service, determine the public IP address of your client host and save it to the `SKYSQL_CLIENT_IP` environment variable.
 
-If you are not sure of your public IP address, you can use a lookup service, such as `checkip.amazonaws.com`:
+If you are not sure of your public IP address, you can use a lookup service, such as `checkip.amazonaws.com`:
 
 ```bash
 export SKYSQL_CLIENT_IP=`curl -sS checkip.amazonaws.com`
@@ -200,4 +195,3 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-

@@ -1,6 +1,10 @@
-# Fusion-io Introduction
+---
+description: >-
+  Fusion-io develops PCIe based NAND flash memory cards and related software
+  that can be used to speed up MariaDB databases.
+---
 
-Fusion-io develops PCIe based NAND flash memory cards and related software that can be used to speed up MariaDB databases.
+# Fusion-io Introduction
 
 The ioDrive branded products can be used as block devices (super-fast disks) or to extend basic DRAM memory. ioDrive is deployed by installing it on an x86 server and then installing the card driver under the operating system. All main line 64-bit operating systems and hypervisors are supported: RHEL, CentOS, SuSe, Debian, OEL etc. and VMware, Microsoft Windows/Server etc. Drivers and their features are constantly developed further.
 
@@ -43,7 +47,7 @@ For the pitbull machine where I have run such tests, ext4 was faster than xfs fo
 * at 16 threads it was a draw (2036 tps vs. 2070 tps).
 * at 32 threads ext4 was 28% faster (2345 tps vs. 1829 tps).
 * at 64 threads ext4 was even 47% faster (2362 tps vs. 1601 tps).
-* at higher concurrency ext4 lost it’s bite, but was still constantly better than xfs.
+* at higher concurrency ext4 lost its bite, but was still constantly better than xfs.
 
 Those numbers are for spinning disks. I guess for Fusion-io memory the XFS numbers will be even worse.
 

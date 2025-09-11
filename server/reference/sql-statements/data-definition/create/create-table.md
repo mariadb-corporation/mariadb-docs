@@ -2,7 +2,7 @@
 
 ## Syntax
 
-<pre><code>CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
+<pre class="language-sql"><code class="lang-sql">CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
     (<a data-footnote-ref href="#user-content-fn-1">create_definition</a>,...) [<a data-footnote-ref href="#user-content-fn-2">table_options</a>    ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
     [(<a data-footnote-ref href="#user-content-fn-2">create_definition</a>,...)] [<a data-footnote-ref href="#user-content-fn-4">table_options</a>   ]... [<a data-footnote-ref href="#user-content-fn-3">partition_options</a>]
@@ -10,15 +10,15 @@ CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
 CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
    { LIKE old_table_name | (LIKE old_table_name) }
 
-select_statement:
-    [IGNORE | REPLACE] [AS] SELECT ...   (Some legal select statement)
+<strong>select_statement:
+</strong>    [IGNORE | REPLACE] [AS] SELECT ...   (Some legal select statement)
 </code></pre>
 
 ## Description
 
 Use the `CREATE TABLE` statement to create a table with the given name.
 
-In its most basic form, the `CREATE TABLE` statement provides a table name followed by a list of columns, indexes, and constraints. By default, the table is created in the default database. Specify a database with `db_name.tbl_name`. If you quote the table name, you must quote the database name and table name separately as ``db_name`.`tbl_name``. This is particularly useful for [CREATE TABLE ... SELECT](create-table.md#create-table-select), because it allows to create a table into a database, which contains data from other databases. See [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md).
+In its most basic form, the `CREATE TABLE` statement provides a table name followed by a list of columns, indexes, and constraints. By default, the table is created in the default database. Specify a database with `db_name.tbl_name`. If you quote the table name, you must quote the database name and table name separately as `` `db_name`.`tbl_name` ``. This is particularly useful for [CREATE TABLE ... SELECT](create-table.md#create-table-select), because it allows to create a table into a database, which contains data from other databases. See [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md).
 
 If a table with the same name exists, error 1050 results. Use [IF NOT EXISTS](create-table.md#create-table-if-not-exists) to suppress this error and issue a note instead. Use [SHOW WARNINGS](../../administrative-sql-statements/show/show-warnings.md) to see notes.
 
@@ -267,6 +267,20 @@ Specifying a column as a unique key creates a unique index on that column. See t
 Use `UNIQUE KEY` (or just `UNIQUE`) to specify that all values in the column must be distinct from each other. Unless the column is `NOT NULL`, there may be multiple rows with `NULL` in the column.
 
 {% code overflow="wrap" %}
+```
+```
+{% endcode %}
+
+When any inserts or updates occur in the table, reading the binlog shows the hidden column (@3). it causes confusion for the user; we can document these behaviours.
+
+```
+### INSERT INTO `securedb`.`t_long_keys`
+### SET
+###   @1=1 /* INT meta=0 nullable=0 is_null=0 */
+###   @2='a' /* VARSTRING(4073) meta=4073 nullable=1 is_null=0 */
+###   @3=580 /* LONGINT meta=0 nullable=1 is_null=0 */
+```
+
 ```sql
 CREATE TABLE t_long_keys (   a INT PRIMARY KEY,   b  VARCHAR(4073),   UNIQUE KEY `uk_b` (b) ) ENGINE=InnoDB;
 Query OK, 0 rows affected (0.022 sec)
@@ -301,19 +315,6 @@ select * from information_schema.INNODB_SYS_COLUMNS where TABLE_ID=64;
 |       64 | DB_ROW_HASH_1 | 65538 |     6 |   9736 |    8 |
 +----------+---------------+-------+-------+--------+------+
 
-```
-{% endcode %}
-
-Specifying a column as a unique key creates a unique index on that column.
-
-When any inserts or updates occur in the table, reading the binlog shows the hidden column (@3). it causes confusion for the user; we can document these behaviors.
-
-```sql
-### INSERT INTO `securedb`.`t_long_keys`
-### SET
-###   @1=1 /* INT meta=0 nullable=0 is_null=0 */
-###   @2='a' /* VARSTRING(4073) meta=4073 nullable=1 is_null=0 */
-###   @3=580 /* LONGINT meta=0 nullable=1 is_null=0 */
 ```
 
 See the [Index Definitions](create-table.md#index-definitions) section below for more information.

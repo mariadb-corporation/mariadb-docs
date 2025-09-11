@@ -1,32 +1,16 @@
+# Other Backup API Examples
+
 <details>
-<summary>
-Authentication
-</summary>
-<h3>
-<ol>
-<li>
-Go to the SkySQL <a href="https://app.skysql.com/user-profile/api-keys">API Key management page</a>  and generate an API key
-</li>
-<li>
-Export the value from the token field to an environment variable $API_KEY
 
-  ```
-  export API_KEY='... key data ...'
-  ```
-</li>
-<li>
-Use it on subsequent request, e.g:
+<summary>Authentication</summary>
 
-        ```bash
-        curl --request GET 'https://api.skysql.com/skybackup/v1/backups/schedules' --header "X-API-Key: ${API_KEY}"
-        ```
-</li>
-</ol>
-</details>  
+#### Go to the SkySQL [API Key management page](https://app.skysql.com/user-profile/api-keys) and generate an API keyExport the value from the token field to an environment variable $API\_KEYexport API\_KEY='... key data ...'Use it on subsequent request, e.g:    \`\`\`bash    curl --request GET 'https://api.skysql.com/skybackup/v1/backups/schedules' --header "X-API-Key: ${API\_KEY}"    \`\`\`
 
-## Working with Backup Schedules
+</details>
 
-### Get backup schedules inside the Organization :
+### Working with Backup Schedules
+
+#### Get backup schedules inside the Organization :
 
 ```bash
 curl --location '<https://api.skysql.com/skybackup/v1/backups/schedules>' \
@@ -34,9 +18,9 @@ curl --location '<https://api.skysql.com/skybackup/v1/backups/schedules>' \
 --header 'X-API-Key: ${API_KEY}'
 ```
 
-- API_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
+* API\_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
 
-#### Get all Backup Schedules per service
+**Get all Backup Schedules per service**
 
 To get backup schedules for specific service :
 
@@ -45,9 +29,10 @@ curl --location '<https://api.skysql.com/skybackup/v1/backups/schedules?service_
 --header 'Accept: application/json' \
 --header 'X-API-Key: ${API_KEY}'
 ```
-- API_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
 
-#### Get Backup Schedule by ID
+* API\_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
+
+**Get Backup Schedule by ID**
 
 To get specific backup schedule by id :
 
@@ -57,13 +42,11 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups/schedules/200' \
 --header 'X-API-Key: ${API_KEY}'
 ```
 
-- API_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
+* API\_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
 
+**Update Backup Schedule**
 
-#### Update Backup Schedule
-
-In the following example, we update the backup schedule to 9 AM UTC. Remember, you cannot change the schedules for one-time backups.
-To update specific backup schedule you need to make the following API call:
+In the following example, we update the backup schedule to 9 AM UTC. Remember, you cannot change the schedules for one-time backups. To update specific backup schedule you need to make the following API call:
 
 ```bash
 curl --location --request PATCH '<https://api.skysql.com/skybackup/v1/backups/schedules/215>' \
@@ -74,10 +57,11 @@ curl --location --request PATCH '<https://api.skysql.com/skybackup/v1/backups/sc
   "schedule": "0 9 ** *"
 }'
 ```
-- API_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
-- SCHEDULE : Cron schedule, see [Cron](https://en.wikipedia.org/wiki/Cron)
-  
-#### Delete Backup Schedule
+
+* API\_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
+* SCHEDULE : Cron schedule, see [Cron](https://en.wikipedia.org/wiki/Cron)
+
+**Delete Backup Schedule**
 
 To delete a backup schedule you need to provide the backup schedule id. Example of the api call below:
 
@@ -87,14 +71,13 @@ curl --location --request DELETE 'https://api.skysql.com/skybackup/v1/backups/sc
 --header 'X-API-Key: ${API_KEY}'
 ```
 
-- API_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
+* API\_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
 
-
-## Backup Status 
+### Backup Status
 
 The following API illustrates how to get the available backups and status of backup jobs .
 
-### List all backups inside the organization
+#### List all backups inside the organization
 
 Here is an example to fetch all the available Backups in your org:
 
@@ -103,9 +86,10 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups' \
 --header 'Accept: application/json' \
 --header 'X-API-Key: ${API_KEY}'
 ```
-- API_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
 
-### List all backups by service
+* API\_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
+
+#### List all backups by service
 
 To list all backups available for your service :
 
@@ -114,8 +98,8 @@ curl --location 'https://api.skysql.com/skybackup/v1/backups?service_id=dbtgf282
 --header 'Accept: application/json' \
 --header 'X-API-Key: ${API_KEY}'
 ```
-- API_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
 
+* API\_KEY : SKYSQL API KEY, see [SkySQL API Keys](https://app.skysql.com/user-profile/api-keys/)
 
 The typical response of either of two calls should look like:
 
@@ -141,4 +125,4 @@ The typical response of either of two calls should look like:
 }
 ```
 
-> The ** Backup id is the most important part of this data as you need to provide it in the restore api call** to schedule restore execution.
+> The \*\* Backup id is the most important part of this data as you need to provide it in the restore api call\*\* to schedule restore execution.

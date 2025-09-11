@@ -41,7 +41,7 @@ SkySQL is primarily designed for online applications and offers two topologies -
 
 ### What options are available for scaling and right-sizing SkySQL?
 
-You can choose [topologies to match your workload requirements, cloud regions to match your latency and operating requirements, instance sizes](../Portal%20features/Launch%20page/), and [support plan](Support.md).
+You can choose [topologies to match your workload requirements, cloud regions to match your latency and operating requirements, instance sizes](../Portal%20features/Launch%20page/), and [support plan](broken-reference).
 
 Our platform features:
 
@@ -49,7 +49,7 @@ Our platform features:
 * Availability from multiple AWS (Amazon Web Services), GCP (Google Cloud Platform), and Azure (Cloud Computing Services) [regions](../Reference%20Guide/Region%20Choices/).
 * Load Balancing features included with Replicated Transactions topologies allow for read-scaling through read-write splitting.
 * Custom instance sizes (for [Power Tier](../Billing%20and%20Power%20Tier/) customers)
-* Range of [support options](Support.md)
+* Range of [support options](broken-reference)
 
 ### What reliability features are available on SkySQL?
 
@@ -106,7 +106,7 @@ No additional licenses are necessary to use SkySQL.
 Add-ons are available to optimize your SkySQL experience:
 
 * [SkySQL Power Tier](../Billing%20and%20Power%20Tier/) is a premium service offering for SkySQL customers who have the most critical requirements for uptime, availability, performance, and support.
-* While all Foundation Tier services include Standard Support, Power Tier customers are offered the  [Enterprise support plan](Support.md).
+* While all Foundation Tier services include Standard Support, Power Tier customers are offered the  [Enterprise support plan](broken-reference).
 * An optional add-on, [SkyDBA](../FractionalDBA/), further extends the premium support experience and the capabilities of your in-house DBAs with the backing from a global team of expert MariaDB DBAs, available 24/7 for the most severe (P1) issues. SkySQL's SkyDBAs manage your SkySQL databases both proactively and reactively so you can focus on your core business.
 
 ### Is discounted pricing available for a longer-term commitment?
@@ -193,11 +193,11 @@ You can contact Support using the [Support Portal](https://support.skysql.com/) 
 
 ### What support options are available for SkySQL?
 
-All customers with a valid payment profile receive Standard Support which includes 24x5, 2-hours response for P1 incidents. Standard Support is available at no extra charge. Enterprise Support provides 24x7, 30-min response for P1 incidents and is suitable for mission-critical workloads. [SkyDBA](FractionalDBA.md) is our premiere fractional DBA service that gives you direct access to our highly skilled DBA team who can provide technical expertise, guidance, and troubleshooting assistance when needed. See the [Support](Support.md) page for full details on our support options.
+All customers with a valid payment profile receive Standard Support which includes 24x5, 2-hours response for P1 incidents. Standard Support is available at no extra charge. Enterprise Support provides 24x7, 30-min response for P1 incidents and is suitable for mission-critical workloads. [SkyDBA](FractionalDBA.md) is our premiere fractional DBA service that gives you direct access to our highly skilled DBA team who can provide technical expertise, guidance, and troubleshooting assistance when needed. See the [Support](broken-reference) page for full details on our support options.
 
 ### Is 24x7x365 support available for mission-critical applications?
 
-Yes. [Enterprise Support](Support.md) levels are available for customers requiring 24x7x365 support (24 hours per day, 7 days per week, 365 (or 366) days per year).
+Yes. [Enterprise Support](broken-reference) levels are available for customers requiring 24x7x365 support (24 hours per day, 7 days per week, 365 (or 366) days per year).
 
 ### **What professional services are available for SkySQL?**
 
