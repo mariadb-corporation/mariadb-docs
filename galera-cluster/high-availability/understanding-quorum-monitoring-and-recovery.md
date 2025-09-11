@@ -1,98 +1,87 @@
----
-hidden: true
----
-
 # Understanding Quorum, Monitoring, and Recovery
 
-Quorum is essential for maintaining data consistency in a MariaDB Galera Cluster by safeguarding against network partitions or node failures. It ensures that the cluster processes database queries and transactions only when a majority of nodes are operational, healthy, and in communication.
+Quorum is essential for maintaining data consistency in a MariaDB Galera Cluster by safeguarding against network partitions or [node failures](recovering-a-primary-component.md#recovering-the-primary-component-after-a-full-cluster-outage). It ensures that the cluster processes database queries and transactions only when a majority of [nodes](monitoring-mariadb-galera-cluster.md#checking-individual-node-status) are operational, healthy, and in communication.
 
-This majority group is known as the Primary Component. Nodes not in this group switch to a non-primary state, halting queries and entering a read-only "safe mode" to prevent data discrepancies.
+## Primary Component
 
-The primary function of Quorum is to avoid "split-brain" scenarios. A split-brain occurs when network partitions lead to parts of the cluster operating independently and accepting writes, resulting in conflicting data. By ensuring only the partition with a majority of nodes becomes the Primary Component, Quorum effectively prevents these inconsistencies.
+This majority group is known as the Primary Component. Nodes not in this group switch to a non-primary state, halting queries and entering a read-only "safe mode" to prevent data discrepancies. The primary function of Quorum is to avoid "[split-brain](understanding-quorum-monitoring-and-recovery.md#understanding-and-recovering-from-a-split-brain)" scenarios, which occur when network partitions lead to parts of the cluster operating independently and accepting writes. By ensuring only the partition with a majority of nodes becomes the Primary Component, Quorum effectively prevents these inconsistencies.
 
-### Quorum Calculation
+## Quorum Calculation
 
 Quorum is achieved when more than 50% of the total nodes in the last known membership are in communication.
 
-* Odd Number of Nodes (Recommended): In a 3-node cluster, a majority is 2. The cluster can tolerate the failure of 1 node and remain operational. In a 5-node cluster, a majority is 3, and it can tolerate 2 node failures. This is the ideal and most resilient configuration.
-* Even Number of Nodes: In a 2-node cluster, a majority is also 2. If one node fails, the remaining node represents only 50% of the cluster, which is not a majority. It will lose Quorum and stop functioning. This is why a 2-node cluster has no fault tolerance without an external voting member.
+* Odd Number of Nodes (Recommended): In a 3-node cluster, a majority is 2. The cluster can tolerate the failure of 1 node and remain operational.
 
-### The Galera Arbitrator (`garbd`)
+<div align="left"><figure><img src="../.gitbook/assets/Gemini_Generated_Image_kn2atfkn2atfkn2a (1).jpeg" alt="" width="375"><figcaption></figcaption></figure></div>
 
-The Galera Arbitrator (`garbd`) is the standard solution for clusters with an even number of nodes. It is a lightweight, stateless daemon that can be run on a separate, minimal server.
+* Even Number of Nodes: In a 2-node cluster, a majority is also 2. If one node fails, the remaining node represents only 50% of the cluster, which is not a majority, and it will lose Quorum. This is why a 2-node cluster has no fault tolerance without an external [voting member](understanding-quorum-monitoring-and-recovery.md#the-galera-arbitrator-garbd).
 
-`garbd` acts as a voting member in the cluster without being a full database node. It participates in Quorum calculations, effectively turning an even-numbered cluster into an odd-numbered one. For example, in a 2-node cluster, adding `garbd` makes the total number of voting members 3. If one database node fails, the remaining database node and `garbd` still form a majority (2 out of 3), allowing the cluster to maintain Quorum and stay online.
+<div align="left"><figure><img src="../.gitbook/assets/Gemini_Generated_Image_z62hssz62hssz62h.png" alt="" width="375"><figcaption></figcaption></figure></div>
 
-### Understanding and Recovering from a Split-Brain
+## The Galera Arbitrator (`garbd`)
 
-A split-brain occurs when a network partition divides the cluster and no resulting group of nodes has a majority. The most common cause is a 4-node or 6-node cluster being split into two equal-sized halves.
+The Galera Arbitrator (`garbd`) is the standard solution for clusters with an even number of nodes. It is a lightweight, stateless daemon that acts as a voting member in the cluster without being a full database node. It participates in Quorum calculations, effectively turning an even-numbered cluster into an odd-numbered one. In the diagram, in a 2-node cluster, adding `garbd` makes the total number of voting members 3, allowing the cluster to maintain Quorum if one database node fails.
 
-By design, Galera's quorum mechanism prevents data corruption in this scenario. Both halves of the cluster will fail to achieve a majority, and all nodes will enter a non-Primary state, refusing to serve queries.
+<div align="left"><figure><img src="../.gitbook/assets/Gemini_Generated_Image_kn2atfkn2atfkn2a (2).jpeg" alt="" width="375"><figcaption></figcaption></figure></div>
+
+## Understanding and Recovering from a Split-Brain
+
+A split-brain occurs when a network partition divides the cluster and no resulting group of nodes has a majority (e.g., a 4-node cluster splitting into two groups of 2). By design, both halves of the cluster will fail to achieve a majority, and all nodes will enter a non-Primary state.
 
 If you need to restore service before the network issue is fixed, you must manually intervene:
 
 1. Choose ONE side of the partition to become the new Primary Component.
-2.  On a single node within that chosen group, execute the following command to force it to bootstrap a new component:
+2.  On a single node within that chosen group, execute the following command:
 
-    SQL
-
-    ```
+    ```sql
     SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
     ```
-3. The nodes in this group will now form a new Primary Component and become operational. When network connectivity is restored, the nodes from the other partition will automatically detect this Primary Component and rejoin the cluster.
 
-> Warning: Never execute the bootstrap command on both sides of a partition. This will create two independent, active clusters with diverging data, leading to severe data inconsistency that is very difficult to repair.
+The nodes in this group will now form a new Primary Component. When network connectivity is restored, the nodes from the other partition will automatically rejoin.
 
-### 5. Advanced Quorum Control
+{% hint style="danger" %}
+Never execute the [bootstrap command](resetting-the-quorum-cluster-bootstrap.md#manual-bootstrap) on both sides of a partition, as this will create two independent, active clusters with diverging data.
+{% endhint %}
+
+## Advanced Quorum Control
 
 As a more advanced alternative to `garbd` for fine-grained control, nodes can also be assigned a specific voting weight.
 
-> _For a detailed guide on this feature, see our advanced page: Configuring Advanced Quorum with Weighted Votes (`pc.weight`)._
+{% hint style="info" %}
+_For a detailed guide on this feature, see_ [_Configuring Advanced Quorum with Weighted Votes (`pc.weight`)._](../galera-architecture/quorum-control-with-weighted-votes.md)
+{% endhint %}
 
-### 6. Monitoring Quorum and Cluster Membership
+## Monitoring Quorum and Cluster Membership
 
-You can check the health of the cluster and its Quorum status at any time by querying the following status variables. These should be run on all nodes to ensure you get a consistent picture.
+You can check the health of the cluster and its Quorum status at any time by querying the following [status variables](../reference/galera-cluster-status-variables.md).
 
-*   `wsrep_cluster_status`: The most important variable for Quorum.
+| Variable                                                                                                | Description                                  | Healthy Value          |
+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ---------------------- |
+| [wsrep\_cluster\_status](../reference/galera-cluster-status-variables.md#wsrep_cluster_status)          | Status of the component the node belongs to. | `Primary`              |
+| [wsrep\_cluster\_size](../reference/galera-cluster-status-variables.md#wsrep_cluster_status)            | Number of nodes in the current component.    | Matches expected total |
+| [wsrep\_cluster\_state\_uuid](../reference/galera-cluster-status-variables.md#wsrep_cluster_state_uuid) | Unique identifier for the cluster's state.   | Same on all nodes      |
+| [wsrep\_cluster\_conf\_id](../reference/galera-cluster-status-variables.md#wsrep_cluster_conf_id)       | Identifier for the cluster membership group. | Same on all nodes      |
 
-    * Healthy Value: `Primary`
-    * Unhealthy Value: Any other value (e.g., `non-Primary`, `Disconnected`) means the node is not part of a functional cluster component that has Quorum.
+## Recovering from a Full Cluster Shutdown
 
-    SQL
+If the entire cluster loses Quorum (e.g., from a simultaneous crash or shutdown), you must [manually bootstrap](resetting-the-quorum-cluster-bootstrap.md#manual-bootstrap) a new Primary Component to restore service. This must be done from the node that contains the most recent data to avoid any data loss.
 
-    ```
-    SHOW GLOBAL STATUS LIKE 'wsrep_cluster_status';
-    ```
-* `wsrep_cluster_size`: Shows the number of nodes in the component this node is currently connected to.
-  * Healthy Value: Should match the number of nodes you expect in your cluster.
-  *   SQL
+### Identifying the Most Advanced Node
 
-      ```
-        SHOW GLOBAL STATUS LIKE 'wsrep_cluster_size';
-      ```
-*   `wsrep_cluster_conf_id` and `wsrep_cluster_state_uuid`: These are identifiers for the cluster membership group.
+MariaDB Galera Cluster provides a `safe_to_bootstrap` flag in the `/var/lib/mysql/grastate.dat` file to make this process safer and easier.
 
-    * Healthy Value: The values for both variables must be identical on every single node in the cluster.
-    * Unhealthy Value: If any node reports a different value, it means it has been partitioned from the Primary Component.
+#### After a Graceful Shutdown
 
-    SQL
+The last node to shut down will be the most up-to-date and will have `safe_to_bootstrap: 1` set in its [`grastate.dat` file](resetting-the-quorum-cluster-bootstrap.md#find-the-most-advanced-node). You should always look for and bootstrap from this node.
 
-    ```
-    SHOW GLOBAL STATUS LIKE 'wsrep_cluster_conf_id';
-    SHOW GLOBAL STATUS LIKE 'wsrep_cluster_state_uuid';
-    ```
+#### After a Cluster-wide Crash
 
-### 7. Recovering from a Full Cluster Shutdown
+If all nodes crashed, they will all likely have `safe_to_bootstrap: 0`. In this case, you must manually determine the most advanced node by finding the one with the highest `seqno` in its `grastate.dat` file or by using the `--wsrep-recover` utility.
 
-If the entire cluster shuts down or fails in a way that Quorum is lost on all nodes, you must manually bootstrap the cluster to re-establish a Primary Component.
+### Bootstrapping and Restarting
 
-1. Stop all remaining MariaDB nodes in the cluster to ensure a clean start.
-2. Identify the most advanced node. This is the node that contains the most recent data. You can find this by checking the `seqno` value in the `/var/lib/mysql/grastate.dat` file on each node. The node with the highest `seqno` is the most advanced.
-3.  Bootstrap the Primary Component from the most advanced node. You can do this by using a dedicated bootstrap script:
+Once you have identified the correct node, you will start the MariaDB service on that node only using a special bootstrap command (e.g., `galera_new_cluster`). After it comes online and forms a new Primary Component, you can start the other nodes normally, and they will [rejoin the cluster](state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md).
 
-    Bash
+_For detailed, step-by-step instructions on this critical procedure, see_ [_`Resetting the Quorum (Cluster Bootstrap)`_](resetting-the-quorum-cluster-bootstrap.md)&#x20;
 
-    ```
-    galera_new_cluster
-    ```
-4. Start the other nodes normally. They will detect the new Primary Component and rejoin the cluster.
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

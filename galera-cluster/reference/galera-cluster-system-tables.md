@@ -1,10 +1,6 @@
----
-hidden: true
----
-
 # Galera Cluster System Tables
 
-Starting with Galera 4 (used in MariaDB 10.4 and later), several system tables related to replication are available in the `mysql` database. These tables can be queried by administrators to get a real-time view of the cluster's layout, membership, and current operations.
+Starting with Galera 4 (used in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later), several system tables related to replication are available in the `mysql` database. These tables can be queried by administrators to get a real-time view of the cluster's layout, membership, and current operations.
 
 You can view these tables with the following query:
 
@@ -164,3 +160,5 @@ FROM mysql.wsrep_streaming_log;
 | a006244a-7ed8-11e9-bf00-867215999c7c |     26 |     4 |     1 |
 +--------------------------------------+--------+-------+-------+
 ```
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

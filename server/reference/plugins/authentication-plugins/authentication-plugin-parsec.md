@@ -42,15 +42,23 @@ The first two fields together are called _ext-salt_, extended salt.
 
 ### Installing
 
+If you run into the error `ERROR 1524 (HY000): Plugin 'parsec' is not loaded` it means you need to install the authentication plugin first. You can do it on a running server with:
+
 ```sql
 INSTALL SONAME 'auth_parsec';
 ```
+
+There is no need to pass additional command-line options or have config files to keep the PARSEC authentication method available. Running the `INSTALL SONAME` once is enough and the MariaDB Server will remember it even if server is restarted or upgraded.
 
 ### Example
 
 ```sql
 CREATE USER test1@'%' IDENTIFIED VIA parsec USING PASSWORD('pwd');
 ```
+
+## Future
+
+PARSEC is currently available in latest MariaDB versions, but [not installed or used by default yet](https://lists.mariadb.org/hyperkitty/list/developers@lists.mariadb.org/thread/SGQUUHRSSPAURX5JZAGXYXRIBMCKK52F/). Once [MDEV-12320](https://jira.mariadb.org/browse/MDEV-12320) is implemented, MariaDB plans to start using PARSEC as the default password authentication method.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

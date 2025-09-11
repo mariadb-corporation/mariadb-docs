@@ -214,12 +214,12 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 
 ## What's new in older release series <a href="#whats-new-in-older-release-series" id="whats-new-in-older-release-series"></a>
 
-* [What's New in MariaDB Enterprise Server 11.4](../11-4/whats-new-in-mariadb-enterprise-server-11-4.md)
-* [What's New in MariaDB Enterprise Server 10.6](../10-6/whats-new-in-mariadb-enterprise-server-10-6.md)
-* [What's New in MariaDB Enterprise Server 10.5](../10-5/whats-new-in-mariadb-enterprise-server-10-5.md)
-* [What's New in MariaDB Enterprise Server 10.4](../10-4/whats-new-in-mariadb-enterprise-server-10-4.md)
-* [What's New in MariaDB Enterprise Server 10.3](../10-3/whats-new-in-mariadb-enterprise-server-10-3.md)
-* [What's New in MariaDB Enterprise Server 10.2](../10-2/whats-new-in-mariadb-enterprise-server-10-2.md)
+* [What's New in MariaDB Enterprise Server 11.4](../11.4/whats-new.md)
+* [What's New in MariaDB Enterprise Server 10.6](../10.6/whats-new.md)
+* [What's New in MariaDB Enterprise Server 10.5](../old-releases/10-5/whats-new-in-mariadb-enterprise-server-10-5.md)
+* [What's New in MariaDB Enterprise Server 10.4](../old-releases/10-4/whats-new-in-mariadb-enterprise-server-10-4.md)
+* [What's New in MariaDB Enterprise Server 10.3](../old-releases/10-3/whats-new-in-mariadb-enterprise-server-10-3.md)
+* [What's New in MariaDB Enterprise Server 10.2](../old-releases/10-2/whats-new-in-mariadb-enterprise-server-10-2.md)
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

@@ -1,5 +1,5 @@
 ---
-icon: hand-wave
+icon: cloud-sun
 layout:
   width: default
   title:
@@ -18,4 +18,3 @@ layout:
 
 # MariaDB Cloud
 
-Welcome to MariaDB Cloud!

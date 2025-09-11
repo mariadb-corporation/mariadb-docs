@@ -146,125 +146,130 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
 
 ### Install via YUM (RHEL, AlmaLinux, CentOS, Rocky Linux) <a href="#install-via-yum-rhel-almalinux-centos-rocky-linux" id="install-via-yum-rhel-almalinux-centos-rocky-linux"></a>
 
-1\. Retrieve your Customer Download Token atand substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
+1. Retrieve your Customer Download Token atand substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 
-2\. Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, 10.6, 10.5, 10.4, and 10.3.` Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
+2. Configure the YUM package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, 10.6, 10.5, 10.4, and 10.3.` Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
 
-To configure YUM package repositories:
+    To configure YUM package repositories:
 
-```bash
-sudo yum install curl 
-```
+    ```bash
+    sudo yum install curl 
+    ```
 
-```bash
-curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
-```
+    ```bash
+    curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
+    ```
 
-```bash
-echo "4d483b4df193831a0101d3dfa7fb3e17411dda7fc06c31be4f9e089c325403c0  mariadb_es_repo_setup" \
-    | sha256sum -c -
-```
+    ```bash
+    echo "${checksum}  mariadb_es_repo_setup" \
+        | sha256sum -c -
+    ```
 
-```bash
-chmod +x mariadb_es_repo_setup
-```
+    ```bash
+    chmod +x mariadb_es_repo_setup
+    ```
 
-```bash
-sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
-   --mariadb-server-version="11.4"
-```
+    ```bash
+    sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
+       --mariadb-server-version="11.4"
+    ```
+    * _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 
-3\. Install MariaDB Enterprise Server and package dependencies:
+3. Install MariaDB Enterprise Server and package dependencies:
 
-```bash
-sudo yum install MariaDB-server MariaDB-backup
-```
+    ```bash
+    sudo yum install MariaDB-server MariaDB-backup
+    ```
 
-Installation of additional packages may be required for some plugins.
+4. Installation of additional packages may be required for some plugins.
 
-4\. Configure MariaDB. Installation only loads MariaDB Enterprise Server onto the system. MariaDB Enterprise Server requires configuration before the database server is ready for use.
+5. Configure MariaDB. Installation only loads MariaDB Enterprise Server onto the system. MariaDB Enterprise Server requires configuration before the database server is ready for use.
 
 ### Install via APT (Debian, Ubuntu) <a href="#install-via-apt-debian-ubuntu" id="install-via-apt-debian-ubuntu"></a>
 
-1\. Retrieve your Customer Download Token atand substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
+1. Retrieve your Customer Download Token atand substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 
-2\. Configure the APT package repository. Installable versions of MariaDB Enterprise Server are `11.8 11.4, 10.6, 10.5, 10.4, and 10.3.` Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
+2. Configure the APT package repository. Installable versions of MariaDB Enterprise Server are `11.8 11.4, 10.6, 10.5, 10.4, and 10.3.` Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
 
-To configure APT package repositories:
+    To configure APT package repositories:
 
-```bash
-sudo apt install curl
-```
+    ```bash
+    sudo apt install curl
+    ```
 
-```bash
-curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
-```
+    ```bash
+    curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
+    ```
 
-```bash
-echo "4d483b4df193831a0101d3dfa7fb3e17411dda7fc06c31be4f9e089c325403c0  mariadb_es_repo_setup" \
-    | sha256sum -c -
-```
+    ```bash
+    echo "${checksum}  mariadb_es_repo_setup" \
+        | sha256sum -c -
+    ```
 
-```bash
-chmod +x mariadb_es_repo_setup
-```
+    ```bash
+    chmod +x mariadb_es_repo_setup
+    ```
 
-```bash
-sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
-   --mariadb-server-version="11.4"
-```
+    ```bash
+    sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
+       --mariadb-server-version="11.4"
+    ```
 
-```bash
-sudo apt update
-```
+    ```bash
+    sudo apt update
+    ```
+    * _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 
-3\. Install MariaDB Enterprise Server and package dependencies:
+3. Install MariaDB Enterprise Server and package dependencies:
 
-```
-$ sudo apt install mariadb-server mariadb-backup
-```
+    ```
+    $ sudo apt install mariadb-server mariadb-backup
+    ```
 
-4\. Installation of additional packages may be required for some plugins. Configure MariaDB. Installation only loads MariaDB Enterprise Server to the system. MariaDB Enterprise Server requires configuration before the database server is ready for use.
+4. Installation of additional packages may be required for some plugins
+
+5. Configure MariaDB. Installation only loads MariaDB Enterprise Server to the system. MariaDB Enterprise Server requires configuration before the database server is ready for use.
 
 ### Install via ZYpp (SLES) <a href="#install-via-zypp-sles" id="install-via-zypp-sles"></a>
 
-1\. Retrieve your Customer Download Token atand substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
+1. Retrieve your Customer Download Token atand substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 
-2\. Configure the ZYpp package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, 10.6, 10.5, 10.4, and 10.3.` Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
+2. Configure the ZYpp package repository. Installable versions of MariaDB Enterprise Server are `11.8, 11.4, 10.6, 10.5, 10.4, and 10.3.` Pass the version to install using the `--mariadb-server-version` flag to `mariadb_es_repo_setup`. The following directions reference 11.8.
 
-To configure ZYpp package repositories:
+    To configure ZYpp package repositories:
 
-```bash
-sudo zypper install curl
-```
+    ```bash
+    sudo zypper install curl
+    ```
 
-```bash
-curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
-```
+    ```bash
+    curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_setup
+    ```
 
-```bash
-echo "4d483b4df193831a0101d3dfa7fb3e17411dda7fc06c31be4f9e089c325403c0  mariadb_es_repo_setup" \
-    | sha256sum -c -
-```
+    ```bash
+    echo "${checksum}  mariadb_es_repo_setup" \
+        | sha256sum -c -
+    ```
 
-```bash
-chmod +x mariadb_es_repo_setup
-```
+    ```bash
+    chmod +x mariadb_es_repo_setup
+    ```
 
-```bash
-sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
-   --mariadb-server-version="11.4"
-```
+    ```bash
+    sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
+       --mariadb-server-version="11.4"
+    ```
+    * _Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 
-3\. Install MariaDB Enterprise Server and package dependencies:
+3. Install MariaDB Enterprise Server and package dependencies:
 
-```bash
-sudo zypper install MariaDB-server MariaDB-backup
-```
+    ```bash
+    sudo zypper install MariaDB-server MariaDB-backup
+    ```
 
-Installation of additional packages may be required for some plugins.
+4. Installation of additional packages may be required for some plugins.
 
-4\. Configure MariaDB. Installation only loads MariaDB Enterprise Server onto the system. MariaDB Enterprise Server requires configuration before the database server is ready for use.
+5. Configure MariaDB. Installation only loads MariaDB Enterprise Server onto the system. MariaDB Enterprise Server requires configuration before the database server is ready for use.
 
 ## Configuration <a href="#configuration" id="configuration"></a>
 

@@ -20,7 +20,7 @@ Thanks, and enjoy MariaDB!
 
 ## Notable Changes
 
-* [MDEV-15511](https://jira.mariadb.org/browse/MDEV-15511) - if available, stunnel can be used during [Galera rsync SST](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/getting-started-with-mariadb-galera-cluster#rsync)
+* [MDEV-15511](https://jira.mariadb.org/browse/MDEV-15511) - if available, stunnel can be used during [Galera rsync SST](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#rsync)
 * [MDEV-15088](https://jira.mariadb.org/browse/MDEV-15088) - Remove debuginfo files from Windows .zip files and put in optional supplemental .zip file
 * [MDEV-16791](https://jira.mariadb.org/browse/MDEV-16791) - [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup): Support DDL commands during backup
 * [MDEV-13564](https://jira.mariadb.org/browse/MDEV-13564) - Refuse MLOG\_TRUNCATE in mariadb-backup

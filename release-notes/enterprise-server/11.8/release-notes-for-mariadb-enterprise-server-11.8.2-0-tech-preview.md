@@ -6,7 +6,7 @@ MariaDB Enterprise Server 11.8.2-0 was released on 4 Jun 2025
 
 ## Changes in Storage Engines <a href="#changes-in-storage-engines" id="changes-in-storage-engines"></a>
 
-* This release incorporates MariaDB ColumnStore engine version 23.10.3.
+* This release incorporates MariaDB ColumnStore engine version [23.10.3](../../columnstore/23.10/23.10.3.md).
 
 ## Notable changes <a href="#notable-changes" id="notable-changes"></a>
 

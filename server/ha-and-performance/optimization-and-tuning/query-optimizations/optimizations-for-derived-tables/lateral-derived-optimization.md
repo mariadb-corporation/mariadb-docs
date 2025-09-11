@@ -92,13 +92,111 @@ Note the `"lateral": 1` member.
 
 ## Controlling the Optimization
 
-Lateral Derived is enabled by default, the optimizer will make a cost-based decision whether the optimization should be used.
+Lateral Derived is enabled by default. The optimizer will make a cost-based decision whether the optimization should be used.
 
 If you need to disable the optimization, it has an [optimizer\_switch](../optimizer-switch.md) flag. It can be disabled like so:
 
 ```sql
 SET optimizer_switch='split_materialized=off'
 ```
+
+{% tabs %}
+{% tab title="Current" %}
+From MariaDB 12.1, it is possible to enable or disable the optimization with an optimizer hint, [SPLIT\_MATERLIZED or NO\_SPLIT\_MATERIALIZED](../../../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md#split_materialized-x-and-no_split_materialized-x).
+
+For example, by default, this table and query makes use of the optimization:
+
+`CREATE TABLE t1 ( n1 INT(10) NOT NULL, n2 INT(10) NOT NULL, c1 CHAR(1) NOT NULL, KEY c1 (c1), KEY n1_c1_n2 (n1,c1,n2) ) ENGINE=innodb CHARSET=latin1;`
+
+`INSERT INTO t1 VALUES (0, 2, 'a'), (1, 3, 'a');`
+
+`INSERT INTO t1 SELECT seq+1,seq+2,'c' FROM seq_1_to_1000;`
+
+`ANALYZE TABLE t1;`
+
+`EXPLAIN SELECT t1.n1 FROM t1, (SELECT n1, n2 FROM t1 WHERE c1 = 'a' GROUP BY n1) AS t WHERE t.n1 = t1.n1 AND t.n2 = t1.n2 AND c1 = 'a' GROUP BY n1\G`
+
+```
+*************************** 1. row ***************************
+           id: 1
+  select_type: PRIMARY
+        table: t1
+         type: ref
+possible_keys: c1,n1_c1_n2
+          key: c1
+      key_len: 1
+          ref: const
+         rows: 2
+        Extra: Using index condition; Using where; Using temporary; Using filesort
+*************************** 2. row ***************************
+           id: 1
+  select_type: PRIMARY
+        table: <derived2>
+         type: ref
+possible_keys: key0
+          key: key0
+      key_len: 8
+          ref: test.t1.n1,test.t1.n2
+         rows: 1
+        Extra: 
+*************************** 3. row ***************************
+           id: 2
+  select_type: LATERAL DERIVED
+        table: t1
+         type: ref
+possible_keys: c1,n1_c1_n2
+          key: n1_c1_n2
+      key_len: 4
+          ref: test.t1.n1
+         rows: 1
+        Extra: Using where; Using index
+
+```
+
+The optimization can be disabled as follows:
+
+`EXPLAIN SELECT /*+ NO_SPLIT_MATERIALIZED(t) */ t1.n1 FROM t1, (SELECT n1, n2 FROM t1 WHERE c1 = 'a' GROUP BY n1) AS t WHERE t.n1 = t1.n1 AND t.n2 = t1.n2 AND c1 = 'a' GROUP BY n1\G`
+
+<pre><code><strong>*************************** 1. row ***************************
+</strong>           id: 1
+  select_type: PRIMARY
+        table: t1
+         type: ref
+possible_keys: c1,n1_c1_n2
+          key: c1
+      key_len: 1
+          ref: const
+         rows: 2
+        Extra: Using index condition; Using where; Using temporary; Using filesort
+*************************** 2. row ***************************
+           id: 1
+  select_type: PRIMARY
+        table: &#x3C;derived2>
+         type: ref
+possible_keys: key0
+          key: key0
+      key_len: 8
+          ref: test.t1.n1,test.t1.n2
+         rows: 1
+        Extra: 
+*************************** 3. row ***************************
+           id: 2
+  select_type: DERIVED
+        table: t1
+         type: ref
+possible_keys: c1
+          key: c1
+      key_len: 1
+          ref: const
+         rows: 2
+        Extra: Using index condition; Using where; Using temporary; Using filesort
+</code></pre>
+{% endtab %}
+
+{% tab title="<12.1" %}
+No [optimizer hint](../../../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md) is available.
+{% endtab %}
+{% endtabs %}
 
 ## References
 

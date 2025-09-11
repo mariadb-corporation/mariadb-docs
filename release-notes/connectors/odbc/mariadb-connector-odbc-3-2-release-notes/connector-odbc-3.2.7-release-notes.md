@@ -14,13 +14,14 @@ This is a [Stable (GA)](../../../community-server/about/release-criteria.md) rel
 
 MariaDB Connector/ODBC 3.2.7 is built on top of [MariaDB Connector/C v.3.4.5](../../c/3.4/3.4.5.md).
 
-## New Features
-
-*
-
 ## Bug Fixes
 
-*
+* ODBC-469 - SSLVERIFY=0, still getting The certificate's CN name does not match the passed value on Windows
+* ODBC-470 - Dropping statement handle could break protocol if other statement hasn't finished fetching results
+* ODBC-471 - Fetching of stored procedure out parameters could fail in case of result-set streaming
+* ODBC-472 - Some internal classes destructors called functions that can throw in some conditions
+* ODBC-473 - SQLGetData could write data of the wrong length in case of resultset streaming and cached resultset
+* ODBC-474 - Bulk operations with parameter callbacks could not respect NULL value indicators
 
 ## Changelog
 

@@ -8,7 +8,7 @@
 
 In many versions of MariaDB Server, the GCache used by [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) does not support data-at-rest encryption.
 
-However, [MariaDB Enterprise Server 10.4](../../10-4/) and later support an enterprise version of Galera 4, which adds support for encrypting the GCache.
+However, [MariaDB Enterprise Server 10.4](../../old-releases/10-4/) and later support an enterprise version of Galera 4, which adds support for encrypting the GCache.
 
 In those versions, the GCache supports the following data-at-rest encryption features:
 

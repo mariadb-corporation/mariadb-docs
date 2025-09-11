@@ -226,6 +226,14 @@ SELECT /*+ MAX_EXECUTION_TIME(milliseconds) */ ...  ;
 A query that doesn't finish in the time specified will be aborted with an error.\
 If `@@max_statement_time` is set, the hint will be ignored and a warning produced. Note that this contradicts the stated principle that "new-style hints are more specific than server variable settings, so they override the server variable settings".
 
+#### SPLIT\_MATERIALIZED(X) and NO\_SPLIT\_MATERIALIZED(X)
+
+Enables or disables the use of the Split Materialized Optimization (also called the[ Lateral Derived Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimizations-for-derived-tables/lateral-derived-optimization.md)).
+
+#### DERIVED\_CONDITION\_PUSHDOWN and NO\_DERIVED\_CONDITION\_PUSHDOWN&#x20;
+
+Enables or disables the use of [condition pushdown for derived tables](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimizations-for-derived-tables/condition-pushdown-into-derived-table-optimization.md).
+
 **Subquery Hints**
 
 **SUBQUERY Hint**

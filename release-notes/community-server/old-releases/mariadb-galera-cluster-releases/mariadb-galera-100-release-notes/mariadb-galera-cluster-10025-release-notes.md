@@ -9,7 +9,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 MariaDB Galera Cluster 10.0.25 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
 release. It is a merge of [MariaDB 10.0.25](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/mariadb-galera-cluster-releases/mariadb-galera-100-release-notes/mariadb-galera-cluster-10025-release-notes) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with additional bug fixes.
 
-Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/getting-started-with-mariadb-galera-cluster) are available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) section of the documentation.
+Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are available in the [**Galera**](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/galera/README.md) section of the documentation.
 
 For a list of changes made in MariaDB Galera Cluster 10.0.25, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.25 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10025-changelog.md).
