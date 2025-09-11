@@ -359,7 +359,18 @@ kubectl create secret generic mariadb-ldap-tls --from-file=./cert.pem
 ### Known Issues
 
 **Slow Start On KIND**
-This is a known problem and there is an [open issue](https://github.com/kubernetes-sigs/kind/issues/4001) with the kind team.
+
+This may be a problem with the maximum number of file-handles a process can allocate. Some systems have this value set to really high, which causes an issue.
+To remedy this, you need to delete your kind cluster and run:
+
+```sh
+sudo sysctl -w fs.nr_open=1048576
+kind create cluster
+```
+
+At this point, the problem should be fixed.
+
+For more information, check [this comment](https://github.com/kubernetes-sigs/kind/issues/4001#issuecomment-3279083954).
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
