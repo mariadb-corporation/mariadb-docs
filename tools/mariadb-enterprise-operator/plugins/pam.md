@@ -306,10 +306,10 @@ MariaDB [(none)]>
 If you followed the instructions for setting up a basic MariaDB instance with ldap, you need to fetch the public certificate that your LDAP server
 is set up with and add it to a [secret](https://kubernetes.io/docs/concepts/configuration/secret/#use-case-dotfiles-in-a-secret-volume) called `mariadb-ldap-tls`. 
 
-If you have the certificate locally in a file called `cert.pem` you can run:
+If you have the certificate locally in a file called `tls.crt` you can run:
 
 ```sh
-kubectl create secret generic mariadb-ldap-tls --from-file=./cert.pem
+kubectl create secret generic mariadb-ldap-tls --from-file=./tls.crt
 ```
 
 ```diff
