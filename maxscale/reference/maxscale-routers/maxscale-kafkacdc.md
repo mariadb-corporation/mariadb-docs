@@ -96,7 +96,7 @@ format (example created by `INSERT INTO test.t1 VALUES (1)`):
   "timestamp": 1580485945,
   "event_type": "insert",
   "id": 1,
-  "table_name": "t2",
+  "table_name": "t1",
   "table_schema": "test"
 }
 ```
