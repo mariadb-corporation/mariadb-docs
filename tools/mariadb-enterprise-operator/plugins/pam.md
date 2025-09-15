@@ -23,7 +23,7 @@ To enable LDAP authentication for MariaDB through PAM, several components work i
 - **nslcd (Name Service Lookup Daemon)**: This daemon acts as an intermediary service. The pam_ldap.so module does not communicate directly with the LDAP server. Instead, it forwards authentication requests to the nslcd daemon, which manages the connection and communication with the LDAP directory. This design allows for connection caching and a more robust separation of concerns. 
 
 {% hint style="info" %}
-The `nslcd` daemon is ran as a sidecar container and communication happens through the shared socket, following container best practices of keeping a single process per container.
+The `nslcd` daemon is ran as a sidecar container and communication happens through the shared unix socket, following container best practices of keeping a single process per container.
 {% endhint %}
 
 ### What is needed for LDAP Auth?
