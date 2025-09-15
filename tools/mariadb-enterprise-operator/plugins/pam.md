@@ -115,7 +115,21 @@ metadata:
     enterprise.mariadb.com/watch: ""
 stringData:
   nslcd.conf: |
-    # Our Config Here
+    # /etc/nslcd.conf: Configuration file for nslcd(8)
+    # The user/group nslcd will run as. Note that these should not be LDAP users.
+    uid mysql # required to be `mysql`
+    gid mysql # required to be `mysql`
+
+    # The location of the LDAP server.
+    uri ldap://openldap-service.default.svc.cluster.local:389
+
+    # The search base that will be used for all queries.
+    base dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+
+    # The distinguished name with which to bind to the directory server for lookups.
+    # This is a service account used by the daemon.
+    binddn cn=admin,dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+    bindpw PASSWORD_REPLACE-ME
 ---
 apiVersion: v1
 kind: ConfigMap
