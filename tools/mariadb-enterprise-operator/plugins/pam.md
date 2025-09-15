@@ -97,7 +97,7 @@ See below for a complete example.
 
 ### Combining It All Together
 
-Fistly, we need to create our ConfigMaps and Secrets, that will store the `nsswitch.conf`, `nslcd.conf` and the `mariadb` pam module.
+Fistly, we need to create our `ConfigMaps` and `Secrets`, that will store the `nsswitch.conf`, `nslcd.conf` and the `mariadb` pam module.
 
 {% hint style="warn" %}
 **Make sure to adapt the `nslcd-conf` as per your ldap server configuration.**
