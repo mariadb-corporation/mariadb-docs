@@ -28,7 +28,7 @@ The `nslcd` daemon is ran as a sidecar container and communication happens throu
 
 ### What is needed for LDAP Auth?
 
-`nslcd` is configured with 2 files. `nslcd.conf` which tells the daemon about the ldap server and `nsswitch.conf`, determine the sources from which to obtain name-service information.
+`nslcd` is configured with 2 files. `nslcd.conf` which tells the daemon about the LDAP server and `nsswitch.conf`, determine the sources from which to obtain name-service information.
 
 `nslcd` can be configured to run as a specific user based on the `uid` and `gid` props specified in the config file, however that user should have sufficient permissions to read/write to `/var/run/nslcd`, should own both `nslcd.conf` and `nsswitch.conf` and they should not be too open (0600).
 
