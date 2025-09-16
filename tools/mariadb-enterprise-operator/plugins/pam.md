@@ -179,11 +179,11 @@ metadata:
 spec:
   rootPasswordSecretKeyRef:
     name: mariadb
-    key: password
+    key: root-password
 
   username: mariadb
   passwordSecretKeyRef:
-    name: mariadb-password
+    name: mariadb
     key: password
     generate: true
   database: mariadb
