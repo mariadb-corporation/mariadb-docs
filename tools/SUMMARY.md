@@ -27,6 +27,7 @@
   * [Plugins](mariadb-enterprise-operator/plugins/README.md)
     * [Supported Docker Images](mariadb-enterprise-operator/plugins/supported-docker-images.md)
     * [PAM](mariadb-enterprise-operator/plugins/pam.md)
+    * [Hashicorp Key Management](mariadb-enterprise-operator/plugins/hashicorp-key-management.md)
   * [API Reference](mariadb-enterprise-operator/api-reference.md)
   * [Examples Catalog](mariadb-enterprise-operator/examples-catalog.md)
   * [Migrations](mariadb-enterprise-operator/migrations/README.md)
