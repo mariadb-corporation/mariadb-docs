@@ -1,7 +1,5 @@
 # Authentication Modules
 
-## Authentication Modules
-
 This document describes general MySQL protocol authentication in MaxScale. For
 REST-api authentication, see the [configuration guide](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) and the [REST-api guide](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-rest-api.md).
 
@@ -14,7 +12,7 @@ Most of the authentication processing is performed on the protocol level, before
 handing it over to one of the plugins. This shared part is described in this
 document. For information on an individual plugin, see its documentation.
 
-### User account management
+## User account management
 
 Every MaxScale service with a MariaDB protocol listener requires knowledge of
 the user accounts defined on the backend databases. The service maintains this
@@ -36,10 +34,14 @@ communicating the first failure to the client. This transparent user data update
 does not always work, in which case the client should try to log in again.
 
 As the UAM is shared between all listeners of a service, its settings are
-defined in the service configuration. For more information, search the [configuration guide](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
-for _users\_refresh\_time_, _users\_refresh\_interval_ an&#x64;_&#x61;uth\_all\_servers_. Other settings which affect how the UAM connects to backends are the global settings _auth\_connect\_timeout_ and _local\_address_, and the various server-level ssl-settings.
+defined in the service configuration. For more information, search the
+[configuration guide](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+for _users\_refresh\_time_, _users\_refresh\_interval_ and
+_auth\_all\_servers_. Other settings which affect how the UAM connects to backends
+are the global settings _auth\_connect\_timeout_ and _local\_address_, and
+the various server-level ssl-settings.
 
-#### Required grants
+### Required grants
 
 To properly fetch user account information, the MaxScale service user must be
 able to read from various tables in the _mysql_-database: _user_, _db_,_tables\_priv_, _columns\_priv_, _procs\_priv_, _proxies\_priv_ and _roles\_mapping_.
@@ -63,7 +65,7 @@ If using MariaDB ColumnStore, the following grant is required:
 GRANT ALL ON infinidb_vtable.* TO 'maxscale'@'maxscalehost';
 ```
 
-### Limitations and troubleshooting
+## Limitations and troubleshooting
 
 When a client logs in to MaxScale, MaxScale sees the client's IP address. When
 MaxScale then connects the client to backends (using the client's username and
@@ -85,18 +87,22 @@ MaxScale-to-backend user account. Option 2 requires server support.
 See [MaxScale Troubleshooting](../maxscale-management/maxscale-troubleshooting.md)
 for additional information on how to solve authentication issues.
 
-#### Wildcard database grants
+### Wildcard database grants
 
 MaxScale supports wildcards `_` and `%` for database-level grants. As with
-MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access t&#x6F;_&#x74;est\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the
-wildcard (`grant select on` test\_`.* to 'alice'@'%';`) both MaxScale and the
+MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access to
+_test\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the
+wildcard (`grant select on \`test\_\`.* to 'alice'@'%';`) both MaxScale and the
 MariaDB Server interpret it as only allowing access to _test\__. `_` and `%`
-are only interpreted as wildcards when the grant is to a database:`grant select on` test\_`.t1 to 'alice'@'%';` only grants access to th&#x65;_&#x74;est\_.t1_-table, not to _test1.t1_.
+are only interpreted as wildcards when the grant is to a database:
+`grant select on \`test\_\`.t1 to 'alice'@'%';` only grants access to
+the _test\_.t1_-table, not to _test1.t1_.
 
-### Settings
+## Settings
 
 The listener configuration defines authentication options which only affect the
-listener. _authenticator_ defines the authentication plugins to use._authenticator\_options_ sets various options. These options may affect an
+listener. _authenticator_ defines the authentication plugins to use.
+_authenticator\_options_ sets various options. These options may affect an
 individual authentication plugin or the authentication as a whole. The latter
 are explained below. Multiple options can be given as a comma-separated list.
 
@@ -104,7 +110,7 @@ are explained below. Multiple options can be given as a comma-separated list.
 authenticator_options=skip_authentication=true,lower_case_table_names=1
 ```
 
-#### `skip_authentication`
+### `skip_authentication`
 
 * Type: [boolean](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -131,7 +137,7 @@ backend servers using standard authentication.
 authenticator_options=skip_authentication=true
 ```
 
-#### `match_host`
+### `match_host`
 
 * Type: [boolean](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -152,7 +158,7 @@ forced to go through MaxScale.
 authenticator_options=match_host=false
 ```
 
-#### `lower_case_table_names`
+### `lower_case_table_names`
 
 * Type: number
 * Mandatory: No
@@ -180,7 +186,8 @@ non-ASCII characters will retain their case-sensitivity.
 Starting with MaxScale versions 2.5.25, 6.4.6, 22.08.5 and 23.02.2, the behavior
 of `lower_case_table_names=1` is identical with how the MariaDB server
 behaves. In older releases the comparisons were done in a case-sensitive manner
-after the requested database name was converted into lowercase. Using`lower_case_table_names=2` will behave identically in all versions which makes
+after the requested database name was converted into lowercase. Using
+`lower_case_table_names=2` will behave identically in all versions which makes
 it a safe alternative to use when a mix of older and newer MaxScale versions is
 being used.
 
