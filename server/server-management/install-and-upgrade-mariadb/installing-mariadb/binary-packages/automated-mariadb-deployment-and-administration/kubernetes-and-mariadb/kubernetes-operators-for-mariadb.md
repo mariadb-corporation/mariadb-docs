@@ -48,6 +48,7 @@ It's available in both [Artifact Hub](https://artifacthub.io/packages/helm/maria
 * [Prometheus metrics](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/metrics.md) via [mysqld-exporter](https://github.com/prometheus/mysqld_exporter) and maxscale-exporter.
 * Native integration with [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator). Automatically create `ServiceMonitor` resources.
 * Declaratively manage [SQL resources](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/sql_resources.md): [users](https://github.com/mariadb-operator/mariadb-operator/blob/main/examples/manifests/user.yaml), [grants](https://github.com/mariadb-operator/mariadb-operator/blob/main/examples/manifests/grant.yaml) and logical [databases](https://github.com/mariadb-operator/mariadb-operator/blob/main/examples/manifests/database.yaml).
+* Declaratively manage resources in [external MariaDB instances](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/external_mariadb.md).
 * Configure [connections](https://github.com/mariadb-operator/mariadb-operator/blob/main/examples/manifests/connection.yaml) for your applications.
 * Orchestrate and schedule [sql scripts](https://github.com/mariadb-operator/mariadb-operator/blob/main/examples/manifests/sqljobs).
 * Validation webhooks to provide CRD immutability.
