@@ -44,8 +44,17 @@ the various server-level ssl-settings.
 ### Required grants
 
 To properly fetch user account information, the MaxScale service user must be
-able to read from various tables in the _mysql_-database: _user_, _db_,_tables\_priv_, _columns\_priv_, _procs\_priv_, _proxies\_priv_ and _roles\_mapping_.
+able to read from various tables in the _mysql_-database: _user_, _db_,_tables\_priv_,
+_columns\_priv_, _procs\_priv_, _proxies\_priv_ and _roles\_mapping_.
 The user should also have the _SHOW DATABASES_-grant.
+
+The *SET USER* grant is optional but recommended if MaxScale is used with
+MariaDB version 12 or newer. Granting it to the service user allows the backend
+authentication to use the service credentials to log in after which the final
+user account is selected using the `SET SESSION AUTHORIZATION` command. For more
+information, refer to the documentation of the
+[use_service_credentials](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#use_service_credentials)
+setting.
 
 ```sql
 CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
@@ -55,8 +64,10 @@ GRANT SELECT ON mysql.tables_priv TO 'maxscale'@'maxscalehost';
 GRANT SELECT ON mysql.columns_priv TO 'maxscale'@'maxscalehost';
 GRANT SELECT ON mysql.procs_priv TO 'maxscale'@'maxscalehost';
 GRANT SELECT ON mysql.proxies_priv TO 'maxscale'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
 GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'maxscalehost';
 GRANT SHOW DATABASES ON *.* TO 'maxscale'@'maxscalehost';
+GRANT SET USER ON *.* TO 'maxscale'@'maxscalehost';
 ```
 
 If using MariaDB ColumnStore, the following grant is required:
