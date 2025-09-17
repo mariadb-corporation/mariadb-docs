@@ -138,7 +138,8 @@ allow for controlled node replacement.
 * Default: false
 * Dynamic: Yes
 
-This option controls whether the write primary Galera node requires &#x61;_&#x77;srep\_local\_index_ value of 0. This option was introduced in MaxScale 2.1.0 and
+This option controls whether the write primary Galera node requires
+_wsrep\_local\_index_ value of 0. This option was introduced in MaxScale 2.1.0 and
 it is disabled by default in versions 2.1.5 and newer. In versions 2.1.4 and
 older, the option was enabled by default.
 
@@ -236,7 +237,8 @@ In this example `node-1` is always used as the primary if available. If `node-1`
 is not available, then the next node with the highest priority rank is used. In
 this case it would be `node-3`. If both `node-1` and `node-3` were down, then`node-2` would be used. Because `node-4` has a value of -1 in _priority_, it
 will never be the primary. Nodes without _priority_ parameter are considered as
-having a priority of 0 and will be used only if all nodes with a positiv&#x65;_&#x70;riority_ value are not available.
+having a priority of 0 and will be used only if all nodes with a positive
+_priority_ value are not available.
 
 With priority ranks you can control the order in which MaxScale chooses the
 primary node. This will allow for a controlled failure and replacement of nodes.
