@@ -34,6 +34,24 @@ the `monitorpw` parameter, that value will be used instead.
 **Note:** In older versions of MaxScale this parameter was called `passwd`. The
 use of `passwd` was deprecated in MaxScale 2.3.0.
 
+### `role`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+
+[Role](https://mariadb.com/docs/server/security/user-account-management/roles/roles_overview)
+the monitor should activate
+right after connecting to a server. If empty, no role is set. This setting may
+be useful if the same username is used for both monitors and services.
+As monitors and services require different privileges, these privileges can
+be granted to the monitor and the service roles separately instead of
+granting them all to the same user. MariaDB Monitor and Galera Monitor
+currently use this setting. If the monitor is configured to use a role, the role
+is taken into use even if the server uses a
+[custom monitor username](../../maxscale-management/deployment/maxscale-configuration-guide.md#monitoruser).
+
 ### `servers`
 
 * Type: string
@@ -48,7 +66,7 @@ servers=MyServer1,MyServer2
 
 ### `monitor_interval`
 
-* Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `2s`
@@ -62,23 +80,41 @@ the effective update rate is reduced.
 monitor_interval=2s
 ```
 
-The interval is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
-is provided, the value is interpreted as milliseconds in MaxScale 2.4. In subsequent
-versions a value without a unit may be rejected.
+If no explicit unit is provided, the value is interpreted as milliseconds in
+MaxScale 2.4. In subsequent versions a value without a unit may be rejected.
+
+### `backend_timeout`
+
+- **Type**: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+- **Mandatory**: No
+- **Dynamic**: Yes
+- **Default**: `3s`
+
+Controls the timeout for communicating with a monitored server. The parameter
+sets the timeout for connecting, writing and reading from a server.
+
+The timeout is specified as documented
+[here](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations).
+A value without a unit is rejected. The minimum value is 1 second.
+
+```
+backend_timeout=3s
+```
 
 ### `backend_connect_timeout`
 
-* Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3s`
 
 This parameter controls the timeout for connecting to a monitored server.
-The interval is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
-is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
-versions a value without a unit may be rejected. Note that since the granularity
-of the timeout is seconds, a timeout specified in milliseconds will be rejected,
-even if the duration is longer than a second. The minimum value is 1 second.
+The timeout is specified as documented
+[here](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+A value without a unit is rejected. The minimum value is 1 second.
+
+This parameter has been deprecated since MaxScale 25.10.0 and is an alias of
+`backend_timeout`.
 
 ```
 backend_connect_timeout=3s
@@ -86,35 +122,27 @@ backend_connect_timeout=3s
 
 ### `backend_write_timeout`
 
-* Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3s`
 
-This parameter controls the timeout for writing to a monitored server.
-The timeout is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
-is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
-versions a value without a unit may be rejected. Note that since the granularity
-of the timeout is seconds, a timeout specified in milliseconds will be rejected,
-even if the duration is longer than a second. The minimum value is 1 seconds.
-
-```
-backend_write_timeout=3s
-```
+Deprecated and ignored since MaxScale 25.10.0.
 
 ### `backend_read_timeout`
 
-* Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3s`
 
-This parameter controls the timeout for reading from a monitored server.
-The timeout is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
-is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
-versions a value without a unit may be rejected. Note that since the granularity
-of the timeout is seconds, a timeout specified in milliseconds will be rejected,
-even if the duration is longer than a second. The minimum value is 1 second.
+Deprecated and ignored since MaxScale 25.08.0.
+
+This parameter controls the timeout for reading a query result from a
+monitored server. The timeout is specified as documented
+[here](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+A value without a unit is rejected, as are values specified in
+milliseconds. The minimum value is 1 second.
 
 ```
 backend_read_timeout=3s
@@ -237,21 +265,23 @@ at `/DbData` while both `server2` and `server3` have it mounted on`/data` and th
 
 ### `disk_space_check_interval`
 
-* Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0s`
 
 With this parameter it can be specified the minimum amount of time
-between disk space checks. The interval is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
-is provided, the value is interpreted as milliseconds in MaxScale 2.4. In subsequent
-versions a value without a unit may be rejected.
+between disk space checks.
+If no explicit unit is provided, the value is interpreted as milliseconds in MaxScale 2.4.
+In subsequent versions a value without a unit may be rejected.
 The default value is 0, which means that by default the disk space
 will not be checked.
 
 Note that as the checking is made as part of the regular monitor interval
-cycle, the disk space check interval is affected by the value of`monitor_interval`. In particular, even if the value of`disk_space_check_interval` is smaller than that of `monitor_interval`,
-the checking will still take place at `monitor_interval` intervals.
+cycle, the disk space check interval is affected by the value of`monitor_interval`.
+In particular, even if the value of`disk_space_check_interval` is smaller than
+that of `monitor_interval`, the checking will still take place at `monitor_interval`
+intervals.
 
 ### `script`
 
@@ -318,12 +348,12 @@ calls as they cause a deadlock:
 
 ### `script_timeout`
 
-* Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
 
-The timeout for the executed script. The interval is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
+The timeout for the executed script. If no explicit unit
 is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
 versions a value without a unit may be rejected. Note that since the granularity
 of the timeout is seconds, a timeout specified in milliseconds will be rejected,
@@ -367,12 +397,12 @@ descriptions.
 
 ### `journal_max_age`
 
-* Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `28800s`
 
-The maximum journal file age. The interval is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). If no explicit unit
+The maximum journal file age. If no explicit unit
 is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent
 versions a value without a unit may be rejected. Note that since the granularity
 of the max age is seconds, a max age specified in milliseconds will be rejected,
@@ -381,6 +411,45 @@ even if the duration is longer than a second.
 When the monitor starts, it reads any stored journal files. If the journal file
 is older than the value of _journal\_max\_age_, it will be removed and the monitor
 starts with no prior knowledge of the servers.
+
+### `primary_state_sql`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+
+Defines custom SQL that is run on a primary server, i.e. a server with
+*Master*-status. The SQL is run on the primary when:
+1. Monitor starts
+2. Server gains *Master*-status
+3. Server gained *Master*-status on a previous monitor tick but running the SQL
+   failed due to a network failure
+
+Use this setting to e.g. change global MariaDB Server settings depending on the
+server role. Multiple SQL queries can be set by combining them to a multiquery.
+If the query string spans multiple lines, each line after the first must start
+with empty space.
+```
+primary_state_sql="set global binlog_commit_wait_count=10;
+    set global binlog_commit_wait_usec=1000;"
+```
+When testing this feature to see exactly when the queries are run, look for
+a log message like `Monitor MyMonitor ran the SQL defined in primary_state_sql
+on MyServer1.`
+
+### `replica_state_sql`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+
+Similar to `primary_state_sql`, but for replica servers, i.e. servers with *Slave*-status.
+```
+replica_state_sql="set global binlog_commit_wait_count=0;
+    set global binlog_commit_wait_usec=0;"
+```
 
 ## Monitor Crash Safety
 
