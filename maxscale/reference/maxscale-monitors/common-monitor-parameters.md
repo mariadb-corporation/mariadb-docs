@@ -1,10 +1,11 @@
 # Common Monitor Parameters
 
-This document settings supported by all monitors. These should be defined in the monitor section of the configuration file.
+This document settings supported by all monitors. These should be defined
+in the monitor section of the configuration file.
 
-### Settings
+## Settings
 
-#### `module`
+### `module`
 
 * Type: string
 * Mandatory: Yes
@@ -12,7 +13,7 @@ This document settings supported by all monitors. These should be defined in the
 
 The monitor module this monitor should use. Typically `mariadbmon` or`galeramon`.
 
-#### `user`
+### `user`
 
 * Type: string
 * Mandatory: Yes
@@ -21,7 +22,7 @@ The monitor module this monitor should use. Typically `mariadbmon` or`galeramon`
 Username used by the monitor to connect to the backend servers. If a server defines
 the `monitoruser` parameter, that value will be used instead.
 
-#### `password`
+### `password`
 
 * Type: string
 * Mandatory: Yes
@@ -33,7 +34,7 @@ the `monitorpw` parameter, that value will be used instead.
 **Note:** In older versions of MaxScale this parameter was called `passwd`. The
 use of `passwd` was deprecated in MaxScale 2.3.0.
 
-#### `servers`
+### `servers`
 
 * Type: string
 * Mandatory: Yes
@@ -45,7 +46,7 @@ A comma-separated list of servers the monitor should monitor.
 servers=MyServer1,MyServer2
 ```
 
-#### `monitor_interval`
+### `monitor_interval`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -65,7 +66,7 @@ The interval is specified as documented [here](../../maxscale-archive/archive/ma
 is provided, the value is interpreted as milliseconds in MaxScale 2.4. In subsequent
 versions a value without a unit may be rejected.
 
-#### `backend_connect_timeout`
+### `backend_connect_timeout`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -83,7 +84,7 @@ even if the duration is longer than a second. The minimum value is 1 second.
 backend_connect_timeout=3s
 ```
 
-#### `backend_write_timeout`
+### `backend_write_timeout`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -101,7 +102,7 @@ even if the duration is longer than a second. The minimum value is 1 seconds.
 backend_write_timeout=3s
 ```
 
-#### `backend_read_timeout`
+### `backend_read_timeout`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -119,7 +120,7 @@ even if the duration is longer than a second. The minimum value is 1 second.
 backend_read_timeout=3s
 ```
 
-#### `backend_connect_attempts`
+### `backend_connect_attempts`
 
 * Type: number
 * Mandatory: No
@@ -135,7 +136,7 @@ be unreachable and down.
 backend_connect_attempts=1
 ```
 
-#### `disk_space_threshold`
+### `disk_space_threshold`
 
 * Type: string
 * Mandatory: No
@@ -234,7 +235,7 @@ disk_space_threshold=/data:80
 Above, `server1` has the disk used for the data directory mounted
 at `/DbData` while both `server2` and `server3` have it mounted on`/data` and thus the setting in the monitor covers them both.
 
-#### `disk_space_check_interval`
+### `disk_space_check_interval`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -252,7 +253,7 @@ Note that as the checking is made as part of the regular monitor interval
 cycle, the disk space check interval is affected by the value of`monitor_interval`. In particular, even if the value of`disk_space_check_interval` is smaller than that of `monitor_interval`,
 the checking will still take place at `monitor_interval` intervals.
 
-#### `script`
+### `script`
 
 * Type: string
 * Mandatory: No
@@ -315,7 +316,7 @@ calls as they cause a deadlock:
 * `stop monitor` to the monitor executing the script
 * `call command` to a MariaDB-Monitor that is executing the script
 
-#### `script_timeout`
+### `script_timeout`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -332,7 +333,7 @@ If the script execution exceeds the configured timeout, it is stopped by sending
 a SIGTERM signal to it. If the process does not stop, a SIGKILL signal will be
 sent to it once the execution time is greater than twice the configured timeout.
 
-#### `events`
+### `events`
 
 * Type: enum
 * Mandatory: No
@@ -364,7 +365,7 @@ descriptions.
 | new\_master  | A new Primary was detected                   |
 | new\_slave   | A new Replica was detected                   |
 
-#### `journal_max_age`
+### `journal_max_age`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -381,7 +382,7 @@ When the monitor starts, it reads any stored journal files. If the journal file
 is older than the value of _journal\_max\_age_, it will be removed and the monitor
 starts with no prior knowledge of the servers.
 
-### Monitor Crash Safety
+## Monitor Crash Safety
 
 Starting with MaxScale 2.2.0, the monitor modules keep an on-disk journal of the
 latest server states. This change makes the monitors crash-safe when options
@@ -399,7 +400,7 @@ shut down in an uncontrolled fashion, the journal will be read when MaxScale is
 started. To skip the recovery process, manually delete the journal file before
 starting MaxScale.
 
-### Script example
+## Script example
 
 Below is an example monitor configuration which launches a script with all
 supported substitutions. The example script reads the results and prints it to
