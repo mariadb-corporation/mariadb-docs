@@ -12,11 +12,9 @@ MariaDB can be configured to encrypt all of it's components
 
 ### Requirements
 
-- Running and accessible Vault KMS setup. 
-  - (Optional) Valid SSl certificates.
-- Local installation of `vault` the Vault KMS cli. [Download](https://developer.hashicorp.com/vault/install)
+- Running and accessible Vault KMS setup with a valid SSL certificate.
 - Vault is unsealed and you've logged in to it with `vault login $AUTH_TOKEN`, where $AUTH_TOKEN is an authentication token given to you by an administrator
-- (Optional) `openssl` for generating secrets
+- `openssl` for generating secrets
 
 ### Steps 
 
@@ -55,33 +53,27 @@ MariaDB can be configured to encrypt all of it's components
     ```
     Your new token is: `EXAMPLE_TOKEN`.
 
-4. **Create A `ConfigMap` For my.cnf**
-    Now, because we will store a Vault authentication token in `my.cnf`, to facilitate encryption and gitops, we will put the `my.cnf` configuration in a separate `ConfigMap` instead of having it directly as
-    part of the spec. This way, you can encrypt the `ConfigMap` only and store it in git, or even create the `ConfigMap` with an external tool.
+4. **Create A `Secret` For my.cnf**
+    Now, because we will store a Vault authentication token in `my.cnf`, to facilitate encryption and gitops, we will put the `my.cnf` configuration in a separate `Secret` instead of having it directly as
+    part of the spec. This way, you can encrypt the `Secret` and store it in git, or even create the `Secret` with an external tool.
+    Note the `hashicorp-key-management-vault-ca`. We will configure that later on as a volumeMount.
 
-    **mariadb-vault-config.yaml**
+    **mariadb-vault.yaml**
     ```yaml
     apiVersion: v1
-    kind: ConfigMap
+    kind: Secret
     metadata:
       name: mariadb-vault
       labels:
         enterprise.mariadb.com/watch: ""
-    data:
+    stringData:
       my.cnf: |
         [mariadb]
-        bind-address=*
-        default_storage_engine=InnoDB
-        binlog_format=row
-        innodb_autoinc_lock_mode=2
-        innodb_buffer_pool_size=800M
-        max_allowed_packet=256M
-
         plugin_load_add = hashicorp_key_management
-        hashicorp-key-management-vault-url=http://vault-0.vault-internal.vault.svc.cluster.local:8200/v1/mariadb # Change to your Vault URL.
-        hashicorp-key-management-token=EXAMPLE_TOKEN # This needs to be changed to your token
-
+        hashicorp-key-management-vault-url=https://vault-0.vault-internal.default.svc.cluster.local:8200/v1/mariadb
+        hashicorp-key-management-token=REPLACE_ME
         hashicorp-key-management-caching-enabled=ON
+        hashicorp-key-management-vault-ca=/etc/vault/certs/ca.crt
 
         innodb_encrypt_tables = FORCE
         innodb_encrypt_log = ON
@@ -93,8 +85,12 @@ MariaDB can be configured to encrypt all of it's components
 
         innodb_encryption_threads = 4
         innodb_encryption_rotation_iops = 2000
+
     ```
-    `kubectl apply -f mariadb-vault-config.yaml`
+    `kubectl apply -f mariadb-vault.yaml`
+
+5. **Create a Secret for the tls certificate.**
+    @TODO
 
 5. **Create A MariaDB Custom Resource.**
     The final step is creating a new MariaDB instance.
@@ -134,9 +130,14 @@ MariaDB can be configured to encrypt all of it's components
       storage:
         size: 1Gi
 
-      myCnfConfigMapKeyRef: # Points to configmap created in previous steps.
-        name: mariadb-vault
-        key: my.cnf
+      myCnf: |
+        [mariadb]
+        bind-address=*
+        default_storage_engine=InnoDB
+        binlog_format=row
+        innodb_autoinc_lock_mode=2
+        innodb_buffer_pool_size=800M
+        max_allowed_packet=256M
 
       resources:
         requests:
@@ -147,6 +148,21 @@ MariaDB can be configured to encrypt all of it's components
 
       metrics:
         enabled: true
+
+      volumes:
+        - name: mariadb-vault
+          secret:
+            secretName: mariadb-vault
+            defaultMode: 0600
+        - name: vault-certificates
+          secret:
+            secretName: vault-tls
+            defaultMode: 0600
+      volumeMounts:
+        - name: vault-certificates
+          mountPath: /etc/vault/certs/
+        - name: mariadb-vault
+          mountPath: /etc/mysql/mariadb.conf.d/
     ```
     `kubectl apply -f mariadb-vault.yaml`
 
@@ -177,9 +193,9 @@ MariaDB can be configured to encrypt all of it's components
 
     If you create a new database and then table, the above query should return additional information about them.
 
-## Day-2 Ops
+## Day-2 Operations
 
-### Rotating Secrets.
+### Rotating Secrets
 
 1. **Put A New Secret In Vault.**
     After logging in to vault, you can run again:
