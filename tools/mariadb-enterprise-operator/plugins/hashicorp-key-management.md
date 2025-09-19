@@ -34,63 +34,54 @@ MariaDB can be configured to encrypt all of it's components
     vault kv put /mariadb/2 data="$(openssl rand -hex 32)"
     ```
 
-3. **(Optional) Create An Authentication Token.**
-    This step can be skipped if you want to use your own token. Consult with a Vault administrator regarding this. If you want to create a new one:
+3. **(Optional) Create An Authentication Token With Policy.**
+    This step can be skipped if you want to use your own token. Consult with a Vault administrator regarding this.
+    Policies are Vault's way to restrict access to what you are allowed to do. The following is a policy that should be used by the token following the least permission principle.
     ```sh
-    vault token create
+    cat <<'EOF' | vault policy write -non-interactive mariadb -
+    # Allow access to MariaDB secrets
+    path "mariadb/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+
+    # Allow reading the mount configuration
+    path "sys/mounts/mariadb/tune" {
+      capabilities = ["read"]
+    }
+    EOF
+    ```
+    After which, we can create a new token with the given policy.
+    ```sh
+    vault token create -policy mariadb
     ```
     You will see output similar to:
     ```
     Key                  Value
     ---                  -----
     token                EXAMPLE_TOKEN
-    token_accessor       9sHvwKiddpCT2PaplcHHRAnv
-    token_duration       ∞
-    token_renewable      false
-    token_policies       ["root"]
+    token_accessor       utFtmh98YAAJyYdxEVN3SFQA
+    token_duration       768h
+    token_renewable      true
+    token_policies       ["default" "mariadb"]
     identity_policies    []
-    policies             ["root"]
+    policies             ["default" "mariadb"]
     ```
     Your new token is: `EXAMPLE_TOKEN`.
 
-4. **Create A `Secret` For my.cnf**
-    Now, because we will store a Vault authentication token in `my.cnf`, to facilitate encryption and gitops, we will put the `my.cnf` configuration in a separate `Secret` instead of having it directly as
-    part of the spec. This way, you can encrypt the `Secret` and store it in git, or even create the `Secret` with an external tool.
-    Note the `hashicorp-key-management-vault-ca`. We will configure that later on as a volumeMount.
-
-    **mariadb-vault.yaml**
-    ```yaml
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: mariadb-vault
-      labels:
-        enterprise.mariadb.com/watch: ""
-    stringData:
-      my.cnf: |
-        [mariadb]
-        plugin_load_add = hashicorp_key_management
-        hashicorp-key-management-vault-url=https://vault-0.vault-internal.default.svc.cluster.local:8200/v1/mariadb
-        hashicorp-key-management-token=REPLACE_ME
-        hashicorp-key-management-caching-enabled=ON
-        hashicorp-key-management-vault-ca=/etc/vault/certs/ca.crt
-
-        innodb_encrypt_tables = FORCE
-        innodb_encrypt_log = ON
-        innodb_encrypt_temporary_tables = ON
-        encrypt_tmp_disk_tables = ON
-        encrypt_tmp_files = ON
-        encrypt_binlog = ON
-        aria_encrypt_tables = ON
-
-        innodb_encryption_threads = 4
-        innodb_encryption_rotation_iops = 2000
-
+4. **Create A `Secret` For the vault token.**
+    Now that you've either created a new token, or are using an existing one, we need to create a secret with it.
+    ```sh
+    export TOKEN="EXAMPLE_TOKEN"
+    kubeclt create secret generic mariadb-vault-token --from-literal=token="$TOKEN"
     ```
-    `kubectl apply -f mariadb-vault.yaml`
 
-5. **Create a Secret for the tls certificate.**
-    @TODO
+5. **Create a Secret for the ca.**
+    For which certificate is needed, consult [the docs](../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md#hashicorp-key-management-vault-ca)
+    If you have the certificate locally in a file called `ca.crt` you can run:
+
+    ```sh
+    kubectl create secret generic vault-tls --from-file=./ca.crt
+    ```
 
 5. **Create A MariaDB Custom Resource.**
     The final step is creating a new MariaDB instance.
@@ -116,11 +107,11 @@ MariaDB can be configured to encrypt all of it's components
       image: docker.mariadb.com/enterprise-server:11.4.7-4.3
       rootPasswordSecretKeyRef:
         name: mariadb
-        key: root-password
+        key: password
 
       username: mariadb
       passwordSecretKeyRef:
-        name: mariadb
+        name: mariadb-password
         key: password
         generate: true
       database: mariadb
@@ -129,6 +120,7 @@ MariaDB can be configured to encrypt all of it's components
 
       storage:
         size: 1Gi
+        # storageClassName: csi-hostpath-sc
 
       myCnf: |
         [mariadb]
@@ -138,6 +130,29 @@ MariaDB can be configured to encrypt all of it's components
         innodb_autoinc_lock_mode=2
         innodb_buffer_pool_size=800M
         max_allowed_packet=256M
+
+        plugin_load_add = hashicorp_key_management
+        hashicorp-key-management-vault-url=https://vault-0.vault-internal.default.svc.cluster.local:8200/v1/mariadb
+        hashicorp-key-management-caching-enabled=ON
+        hashicorp-key-management-vault-ca=/etc/vault/certs/ca.crt
+
+        innodb_encrypt_tables = FORCE
+        innodb_encrypt_log = ON
+        innodb_encrypt_temporary_tables = ON
+        encrypt_tmp_disk_tables = ON
+        encrypt_tmp_files = ON
+        encrypt_binlog = ON
+        aria_encrypt_tables = ON
+
+        innodb_encryption_threads = 4
+        innodb_encryption_rotation_iops = 2000
+
+      env:
+        - name: VAULT_TOKEN # This is where our token is defined!
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-vault-token
+              key: token
 
       resources:
         requests:
@@ -150,10 +165,6 @@ MariaDB can be configured to encrypt all of it's components
         enabled: true
 
       volumes:
-        - name: mariadb-vault
-          secret:
-            secretName: mariadb-vault
-            defaultMode: 0600
         - name: vault-certificates
           secret:
             secretName: vault-tls
@@ -161,8 +172,6 @@ MariaDB can be configured to encrypt all of it's components
       volumeMounts:
         - name: vault-certificates
           mountPath: /etc/vault/certs/
-        - name: mariadb-vault
-          mountPath: /etc/mysql/mariadb.conf.d/
     ```
     `kubectl apply -f mariadb-vault.yaml`
 
@@ -191,7 +200,24 @@ MariaDB can be configured to encrypt all of it's components
     SELECT * from information_schema.INNODB_TABLESPACES_ENCRYPTION;
     ```
 
-    If you create a new database and then table, the above query should return additional information about them.
+    If you create a new database and then table, the above query should return additional information about them. Something like:
+    ```sql
+    MariaDB [my_db]> SELECT * from information_schema.INNODB_TABLESPACES_ENCRYPTION;
+    +-----------------+-------------------+-----------------+---------------------+----------------+----------------------+
+    | NAME            | ENCRYPTION_SCHEME | MIN_KEY_VERSION | CURRENT_KEY_VERSION | CURRENT_KEY_ID | ROTATING_OR_FLUSHING |
+    +-----------------+-------------------+-----------------+---------------------+----------------+----------------------+
+    | innodb_system   |                 1 |               1 |                   1 |              1 |                    0 |
+    | innodb_undo001  |                 1 |               1 |                   1 |              1 |                    0 |
+    | innodb_undo002  |                 1 |               1 |                   1 |              1 |                    0 |
+    | innodb_undo003  |                 1 |               1 |                   1 |              1 |                    0 |
+    | mysql/innodb_ta |                 1 |               1 |                   1 |              1 |                    0 |
+    | mysql/innodb_in |                 1 |               1 |                   1 |              1 |                    0 |
+    | mysql/gtid_slav |                 1 |               1 |                   1 |              1 |                    0 |
+    | mysql/transacti |                 1 |               1 |                   1 |              1 |                    0 |
+    | my_db/people    |                 1 |               1 |                   1 |              1 |                    0 |
+    +-----------------+-------------------+-----------------+---------------------+----------------+----------------------+
+    ```
+    Note: The above query is truncated, so it will be readable in the docs. In reality, you will see a few more columns.
 
 ## Day-2 Operations
 
@@ -214,6 +240,38 @@ MariaDB can be configured to encrypt all of it's components
     SELECT * from information_schema.INNODB_TABLESPACES_ENCRYPTION;
     ```
     You should see `CURRENT_KEY_VERSION` column start getting updated to point to the new key version.
+    ```sql
+    MariaDB [my_db]> SELECT * from information_schema.INNODB_TABLESPACES_ENCRYPTION;
+    +-----------------+-------------------+-----------------+---------------------+----------------+----------------------+
+    | NAME            | ENCRYPTION_SCHEME | MIN_KEY_VERSION | CURRENT_KEY_VERSION | CURRENT_KEY_ID | ROTATING_OR_FLUSHING |
+    +-----------------+-------------------+-----------------+---------------------+----------------+----------------------+
+    | innodb_system   |                 1 |               1 |                   2 |              1 |                    0 |
+    | innodb_undo001  |                 1 |               1 |                   2 |              1 |                    0 |
+    | innodb_undo002  |                 1 |               1 |                   2 |              1 |                    0 |
+    | innodb_undo003  |                 1 |               1 |                   2 |              1 |                    0 |
+    | mysql/innodb_ta |                 1 |               1 |                   2 |              1 |                    0 |
+    | mysql/innodb_in |                 1 |               1 |                   2 |              1 |                    0 |
+    | mysql/gtid_slav |                 1 |               1 |                   2 |              1 |                    0 |
+    | mysql/transacti |                 1 |               1 |                   2 |              1 |                    0 |
+    | my_db/people    |                 1 |               1 |                   2 |              1 |                    0 |
+    +-----------------+-------------------+-----------------+---------------------+----------------+----------------------+
+    ```
+
+### Rotating Token
+Make sure when rotating the token, to do so in advance of the token expiring.
+
+1. **Acquire a new token and update the secret.**
+
+    ```sh
+    export TOKEN="EXAMPLE_TOKEN"
+    kubeclt create secret generic mariadb-vault-token --from-literal=token="$TOKEN"
+    ```
+
+2. **Restart The MariaDB StatefullSet.**
+    MariaDB will continue using the old token until the statefulset is restart. If the name of the database CRD is `mariadb` (as per the example above), then:
+    ```sh
+    kubectl rollout restart statefulset mariadb
+    ```
 
 ## Known Issues/Limitations
 

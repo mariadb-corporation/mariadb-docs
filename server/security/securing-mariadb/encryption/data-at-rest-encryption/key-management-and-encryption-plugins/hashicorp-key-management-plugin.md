@@ -74,7 +74,7 @@ The plugin supports the following parameters, which must be set in advance and c
 
 #### `hashicorp-key-management-token`
 
-* Description: Authentication token that passed to the Hashicorp Vault in the request header. By default, this parameter contains an empty string, so you must specify the correct value for it, otherwise the Hashicorp Vault server will refuse authorization.
+* Description: Authentication token that passed to the Hashicorp Vault in the request header. By default, this parameter contains an empty string, so you must specify the correct value for it, otherwise the Hashicorp Vault server will refuse authorization. Alternatively, you can define an environment variable `VAULT_TOKEN` and store the token there.
 * Commandline: `--[loose-]hashicorp-key-management-token="<token>"`
 
 #### `hashicorp-key-management-vault-ca`
