@@ -8,7 +8,7 @@ For more information about configuring the plugin as well as different capabilit
 
 ## Configuring TDE in MariaDB Using Hashicorp Key Management Plugin
 
-MariaDB can be configured to encrypt all of it's components 
+Transparent Data Encryption (TDE) can be configured in MariaDB leveraging the Hashicorp Key Management Plugin.
 
 ### Requirements
 
