@@ -6,7 +6,7 @@ The [Hashicorp Key Management Pugin](../../../server/security/securing-mariadb/e
 For more information about configuring the plugin as well as different capabilities, please check the [documentation](../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md). This guide will cover a minimal example for configuring the plugin with the operator.
 {% endhint %}
 
-## Configuring MariaDB To Use Vault Secrets For Full Encryption.
+## Configuring TDE in MariaDB Using Hashicorp Key Management Plugin
 
 MariaDB can be configured to encrypt all of it's components 
 
