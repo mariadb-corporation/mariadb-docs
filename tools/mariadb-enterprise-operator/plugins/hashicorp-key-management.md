@@ -267,7 +267,7 @@ Make sure when rotating the token, to do so in advance of the token expiring.
     kubeclt create secret generic mariadb-vault-token --from-literal=token="$TOKEN"
     ```
 
-2. **Restart The MariaDB StatefullSet.**
+2. **Restart The MariaDB StatefulSet.**
     MariaDB will continue using the old token until the statefulset is restart. If the name of the database CRD is `mariadb` (as per the example above), then:
     ```sh
     kubectl rollout restart statefulset mariadb
