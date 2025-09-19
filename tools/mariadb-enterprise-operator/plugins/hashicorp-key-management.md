@@ -217,7 +217,7 @@ Transparent Data Encryption (TDE) can be configured in MariaDB leveraging the Ha
     | my_db/people    |                 1 |               1 |                   1 |              1 |                    0 |
     +-----------------+-------------------+-----------------+---------------------+----------------+----------------------+
     ```
-    Note: The above query is truncated, so it will be readable in the docs. In reality, you will see a few more columns.
+    Note: The above query is truncated. In reality, you will see a few more columns.
 
 ## Day-2 Operations
 
