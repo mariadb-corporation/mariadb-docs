@@ -75,7 +75,7 @@ Transparent Data Encryption (TDE) can be configured in MariaDB leveraging the Ha
     kubeclt create secret generic mariadb-vault-token --from-literal=token="$TOKEN"
     ```
 
-5. **Create a Secret for the ca.**
+5. **Create a Secret for the Certificate Authority (CA) used to issue the Vault certificate.**
     For which certificate is needed, consult [the docs](../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md#hashicorp-key-management-vault-ca)
     If you have the certificate locally in a file called `ca.crt` you can run:
 
