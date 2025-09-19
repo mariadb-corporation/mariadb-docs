@@ -2,14 +2,14 @@
 
 ## MaxCtrl
 
-MaxCtrl is a command line administrative client for MaxScale which uses\
-the MaxScale REST API for communication. It has replaced the legacy MaxAdmin\
+MaxCtrl is a command line administrative client for MaxScale which uses
+the MaxScale REST API for communication. It has replaced the legacy MaxAdmin
 command line client that is no longer supported or included.
 
-By default, the MaxScale REST API listens on port 8989 on the local host. The\
-default credentials for the REST API are `admin:mariadb`. The users used by the\
-REST API are the same that are used by the MaxAdmin network interface. This\
-means that any users created for the MaxAdmin network interface should work with\
+By default, the MaxScale REST API listens on port 8989 on the local host. The
+default credentials for the REST API are `admin:mariadb`. The users used by the
+REST API are the same that are used by the MaxAdmin network interface. This
+means that any users created for the MaxAdmin network interface should work with
 the MaxScale REST API and MaxCtrl.
 
 For more information about the MaxScale REST API, refer to the [REST API documentation](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-rest-api.md) and the [Configuration Guide](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md).
@@ -20,10 +20,10 @@ For more information about the MaxScale REST API, refer to the [REST API documen
 
 ## .maxctrl.cnf
 
-If the file `~/.maxctrl.cnf` exists, maxctrl will use any values in the\
-section `[maxctrl]` as defaults for command line arguments. For instance,\
-to avoid having to specify the user and password on the command line,\
-create the file `.maxctrl.cnf` in your home directory, with the following\
+If the file `~/.maxctrl.cnf` exists, maxctrl will use any values in the
+section `[maxctrl]` as defaults for command line arguments. For instance,
+to avoid having to specify the user and password on the command line,
+create the file `.maxctrl.cnf` in your home directory, with the following
 content:
 
 ```
@@ -32,11 +32,11 @@ u = my-name
 p = my-password
 ```
 
-Note that all access rights to the file must be removed from everybody else\
-but the owner. MaxCtrl refuses to use the file unless the rights have been\
+Note that all access rights to the file must be removed from everybody else
+but the owner. MaxCtrl refuses to use the file unless the rights have been
 removed.
 
-Another file from which to read the defaults can be specified with the `-c`\
+Another file from which to read the defaults can be specified with the `-c`
 flag.
 
 ## Commands

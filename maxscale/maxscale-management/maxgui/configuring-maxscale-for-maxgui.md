@@ -8,7 +8,7 @@
 
 ## Enabling MaxGUI
 
-1. If you want to use MaxGUI remotely, [configure the REST API](../configuring-maxscales-rest-api.md#configuring-maxscales-rest-api-for-remote-connections) for remote connections.\
+1. If you want to use MaxGUI remotely, [configure the REST API](../configuring-maxscales-rest-api.md#configuring-maxscales-rest-api-for-remote-connections) for remote connections.
    Several global parameters must be configured in maxscale.cnf.
 
 | Parameter                                                                                                                                                                            | Description                                                                                                 |
@@ -25,7 +25,7 @@ admin_host            = 0.0.0.0
 admin_port            = 8443
 ```
 
-2. MaxGUI requires TLS, so you must [enable TLS for MaxScale's REST API](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server).\
+2. MaxGUI requires TLS, so you must [enable TLS for MaxScale's REST API](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server).
    Several global parameters must be configured in maxscale.cnf.
 
 | Parameter                                                                                                                                                                                            | Description                                                                         |
@@ -54,13 +54,13 @@ $ sudo systemctl restart maxscale
 5. [Create a new admin REST API](../administrative-tools-for-mariadb-maxscale-maxctrl/creating-a-rest-api-user-for-maxscale-with-maxctrl.md#creating-an-admin-user) user with MaxCtrl:
 
 ```
-$ maxctrl --secure \
-   --user=admin \
-   --password=mariadb \
+$ maxctrl --secure 
+   --user=admin 
+   --password=mariadb 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
-   --tls-ca-cert=/certs/ca.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
+   --tls-ca-cert=/certs/ca.pem 
    create user "maxscale_rest_admin" "maxscale_rest_admin_password" --type=admin
 ```
 
@@ -69,13 +69,13 @@ Replace maxscale\_rest\_admin and maxscale\_rest\_admin\_password with the desir
 6. [Delete the default REST API](../administrative-tools-for-mariadb-maxscale-maxctrl/deleting-a-rest-api-user-for-maxscale-with-maxctrl.md#deleting-a-user) named admin with MaxCtrl:
 
 ```
-$ maxctrl --secure \
-   --user=maxscale_rest_admin \
-   --password=maxscale_rest_admin_password \
+$ maxctrl --secure 
+   --user=maxscale_rest_admin 
+   --password=maxscale_rest_admin_password 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
-   --tls-ca-cert=/certs/ca.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
+   --tls-ca-cert=/certs/ca.pem 
    destroy user "admin"
 ```
 

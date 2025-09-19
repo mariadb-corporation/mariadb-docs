@@ -1366,42 +1366,42 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 * Description: Determines which additional warnings are logged. Setting to `0` disables additional warning logging. Note that this does not prevent all warnings, there is a core set of warnings that will always be written to the error log. The additional warnings are as follows:
   * log\_warnings >= 1
-* [Event scheduler](../../../server-usage/triggers-events/event-scheduler/) information.
-* System signals
-* Wrong usage of `--user`
-* Failed setrlimit() and mlockall()
-* Changed limits
-* Wrong values of lower\_case\_table\_names and stack\_size
-* Wrong values for command line options
-* Start log position and some master information when starting slaves
-* Slave reconnects
-* Killed slaves
-* Error reading relay logs
-* [Unsafe statements for statement-based replication](../../standard-replication/unsafe-statements-for-statement-based-replication.md). If this warning occurs frequently, it is throttled to prevent flooding the log.
-* Disabled [plugins](../../../reference/plugins/) that one tried to enable or use.
-* UDF files that didn't include the required init functions.
-* DNS lookup failures.
-* log\_warnings >= 2
-* Access denied errors.
-* Connections aborted or closed due to errors or timeouts.
-* Table handler errors
-* Messages related to the files used to [persist replication state](../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence):
-* Either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-info-file) option.
-* Either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
-* Information about a master's [binary log dump thread](../../standard-replication/replication-threads.md#binary-log-dump-thread).
-* log\_warnings >= 3
-* All errors and warnings during [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) repair and auto recover.
-* Information about old-style language options.
-* Information about [progress of InnoDB online DDL](../../../server-usage/storage-engines/innodb/innodb-online-ddl/).
-* log\_warnings >=4
-* Connections aborted due to "Too many connections" errors.
-* Connections closed normally without authentication.
-* Connections aborted due to [KILL](../../../reference/sql-statements/administrative-sql-statements/kill.md).
-* Connections closed due to released connections, such as when [completion\_type](server-system-variables.md#completion_type) is set to `RELEASE`.
-* Could not read packet: (a lot more information)
-* All read/write errors for a connection are logged to the error log.
-* log\_warnings >=9
-* Information about initializing plugins.
+    * [Event scheduler](../../../server-usage/triggers-events/event-scheduler/) information.
+    * System signals.
+    * Wrong usage of `--user`.
+    * Failed setrlimit() and mlockall().
+    * Changed limits.
+    * Wrong values of lower\_case\_table\_names and stack\_size.
+    * Wrong values for command line options.
+    * Start log position and some master information when starting slaves.
+    * Slave reconnects.
+    * Killed slaves.
+    * Error reading relay logs.
+    * [Unsafe statements for statement-based replication](../../standard-replication/unsafe-statements-for-statement-based-replication.md). If this warning occurs frequently, it is throttled to prevent flooding the log.
+    * Disabled [plugins](../../../reference/plugins/) that one tried to enable or use.
+    * UDF files that didn't include the required init functions.
+    * DNS lookup failures.
+  * log\_warnings >= 2
+    * Access denied errors.
+    * Connections aborted or closed due to errors or timeouts.
+    * Table handler errors.
+    * Messages related to the files used to [persist replication state](../../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence):
+      * Either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-info-file) option.
+      * Either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
+    * Information about a master's [binary log dump thread](../../standard-replication/replication-threads.md#binary-log-dump-thread).
+  * log\_warnings >= 3
+    * All errors and warnings during [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) repair and auto recover.
+    * Information about old-style language options.
+    * Information about [progress of InnoDB online DDL](../../../server-usage/storage-engines/innodb/innodb-online-ddl/).
+  * log\_warnings >=4
+    * Connections aborted due to "Too many connections" errors.
+    * Connections closed normally without authentication.
+    * Connections aborted due to [KILL](../../../reference/sql-statements/administrative-sql-statements/kill.md).
+    * Connections closed due to released connections, such as when [completion\_type](server-system-variables.md#completion_type) is set to `RELEASE`.
+    * Could not read packet: (a lot more information)
+    * All read/write errors for a connection are logged to the error log.
+  * log\_warnings >=9
+    * Information about initializing plugins.
 * Command line: `-W [level]` or `--log-warnings[=level]`
 * Scope: Global, Session
 * Dynamic: Yes

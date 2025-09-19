@@ -8,7 +8,7 @@ To prevent this, the Read/Write Split Router can be configured to enable "causal
 
 Starting with MaxScale 22.08, the Read/Write Split Router's causal reads functionality can be used with multiple MaxScale nodes.
 
-Example of a Causal Read\
+Example of a Causal Read
 Let's say that a client does the following:
 
 1. The client executes an [INSERT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-manipulation/inserting-loading-data/insert) statement:
@@ -44,7 +44,7 @@ Causal reads requires configuration changes on both the back-end MariaDB Servers
 
 Perform the following procedure on all MariaDB Servers used by MaxScale:
 
-1. Choose a configuration file in which to configure your system variables and options.\
+1. Choose a configuration file in which to configure your system variables and options.
    It is not recommended to make custom changes to one of the bundled configuration files. Instead, it is recommended to create a custom configuration file in one of the included directories. Configuration files in included directories are read in alphabetical order. If you want your custom configuration file to override the bundled configuration files, then it is a good idea to prefix the custom configuration file's name with a string that will be sorted last, such as z-.
 
 * On RHEL, CentOS, Rocky Linux, and SLES, a good custom configuration file would be: `/etc/my.cnf.d/z-custom-my.cnf`
@@ -70,7 +70,7 @@ $ sudo systemctl restart mariadb
 
 ## Enabling Causal Reads on MaxScale 2.5
 
-1. Set the causal\_reads and `causal_reads_timeout` parameters for the Read/Write Split Router in `maxscale.cnf`.\
+1. Set the causal\_reads and `causal_reads_timeout` parameters for the Read/Write Split Router in `maxscale.cnf`.
    The `causal_reads` parameter can be set to the following values:
 
 | Value  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |

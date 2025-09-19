@@ -34,7 +34,7 @@ servers=server1,server2,server3,server4
 
 ## Manual Failover
 
-If everything is in order, the state of the cluster will look something\
+If everything is in order, the state of the cluster will look something
 like this:
 
 ```bash
@@ -52,7 +52,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If the primary now for any reason goes down, then the cluster state will\
+If the primary now for any reason goes down, then the cluster state will
 look like this:
 
 ```bash
@@ -72,7 +72,7 @@ $ maxctrl list servers
 
 Note that the status for `server1` is _Down_.
 
-Since failover is by default _not_ enabled, the failover mechanism must be\
+Since failover is by default _not_ enabled, the failover mechanism must be
 invoked manually:
 
 ```bash
@@ -80,16 +80,16 @@ $ maxctrl call command mariadbmon failover TheMonitor
 OK
 ```
 
-There are quite a few arguments, so let's look at each one separatel&#x79;_`call command` indicates that it is a module command that is to be_\
-\&#xNAN;_invoked,_ `mariadbmon` indicates the module whose command we want to invoke (that\
-is the MariaDB Monitor),_`failover` is the command we want to invoke, and_ `TheMonitor` is the first and only argument to that command, the name of\
+There are quite a few arguments, so let's look at each one separatel&#x79;_`call command` indicates that it is a module command that is to be_
+\&#xNAN;_invoked,_ `mariadbmon` indicates the module whose command we want to invoke (that
+is the MariaDB Monitor),_`failover` is the command we want to invoke, and_ `TheMonitor` is the first and only argument to that command, the name of
 the monitor as specified in the configuration file.
 
-The MariaDB Monitor will now autonomously deduce which replica is the most\
-appropriate one to be promoted to primary, promote it to primary and modify\
+The MariaDB Monitor will now autonomously deduce which replica is the most
+appropriate one to be promoted to primary, promote it to primary and modify
 the other replicas accordingly.
 
-If we now check the cluster state we will see that one of the remaining\
+If we now check the cluster state we will see that one of the remaining
 replicas has been made into primary.
 
 ```bash
@@ -107,7 +107,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If `server1` now reappears, it will not be rejoined to the cluster, as\
+If `server1` now reappears, it will not be rejoined to the cluster, as
 shown by the following output:
 
 ```bash
@@ -125,15 +125,15 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-Had `auto_rejoin=true` been specified in the monitor section, then an\
+Had `auto_rejoin=true` been specified in the monitor section, then an
 attempt to rejoin `server1` would have been made.
 
-In MaxScale 2.2.1, rejoining cannot be initiated manually, but in a\
+In MaxScale 2.2.1, rejoining cannot be initiated manually, but in a
 subsequent version a command to that effect will be provided.
 
 ## Automatic Failover
 
-To enable automatic failover, simply add `auto_failover=true` to the\
+To enable automatic failover, simply add `auto_failover=true` to the
 monitor section in the configuration file.
 
 ```ini
@@ -162,7 +162,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If `server1` now goes down, failover will automatically be performed and\
+If `server1` now goes down, failover will automatically be performed and
 an existing replica promoted to new primary.
 
 ```bash
@@ -180,12 +180,12 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴────────────────────────┘
 ```
 
-If you are continuously monitoring the server states, you may notice for a\
+If you are continuously monitoring the server states, you may notice for a
 brief period that the state of `server1` is _Down_ and the state of`server2` is still _Slave, Running_.
 
 ## Rejoin
 
-To enable automatic rejoin, simply add `auto_rejoin=true` to the\
+To enable automatic rejoin, simply add `auto_rejoin=true` to the
 monitor section in the configuration file.
 
 ```
@@ -197,7 +197,7 @@ auto_rejoin=true
 ...
 ```
 
-When automatic rejoin is enabled, the MariaDB Monitor will attempt to\
+When automatic rejoin is enabled, the MariaDB Monitor will attempt to
 rejoin a failed primary as a replica, if it reappears.
 
 When everything is running fine, the cluster state looks like follows:
@@ -217,8 +217,8 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-Assuming `auto_failover=true` has been specified in the configuration\
-file, when `server1` goes down for some reason, failover will be performed\
+Assuming `auto_failover=true` has been specified in the configuration
+file, when `server1` goes down for some reason, failover will be performed
 and we end up with the following cluster state:
 
 ```bash
@@ -236,15 +236,15 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If `server1` now reappears, the MariaDB Monitor will detect that and\
+If `server1` now reappears, the MariaDB Monitor will detect that and
 attempt to rejoin the old primary as a replica.
 
-Whether rejoining will succeed depends upon the actual state of the old\
-primary. For instance, if the old primary was modified and the changes had\
-not been replicated to the new primary, before the old primary went down,\
+Whether rejoining will succeed depends upon the actual state of the old
+primary. For instance, if the old primary was modified and the changes had
+not been replicated to the new primary, before the old primary went down,
 then automatic rejoin will not be possible.
 
-If rejoining can be performed, then the cluster state will end up looking\
+If rejoining can be performed, then the cluster state will end up looking
 like:
 
 ```bash
@@ -264,11 +264,11 @@ $ maxctrl list servers
 
 ## Switchover
 
-Switchover is for cases when you explicitly want to move the primary\
+Switchover is for cases when you explicitly want to move the primary
 role from one server to another.
 
-If we continue from the cluster state at the end of the previous example\
-and want to make `server1` primary again, then we must issue the following\
+If we continue from the cluster state at the end of the previous example
+and want to make `server1` primary again, then we must issue the following
 command:
 
 ```bash
@@ -276,12 +276,12 @@ $ maxctrl call command mariadbmon switchover TheMonitor server1 server2
 OK
 ```
 
-There are quite a few arguments, so let's look at each one separatel&#x79;_`call command` indicates that it is a module command that is to be_\
-\&#xNAN;_invoked,_ `mariadbmon` indicates the module whose command we want to invoke,_`switchover` is the command we want to invoke, and_ `TheMonitor` is the first argument to the command, the name of the monitor\
-as specified in the configuration file,_`server1` is the second argument to the command, the name of the server we_\
+There are quite a few arguments, so let's look at each one separatel&#x79;_`call command` indicates that it is a module command that is to be_
+\&#xNAN;_invoked,_ `mariadbmon` indicates the module whose command we want to invoke,_`switchover` is the command we want to invoke, and_ `TheMonitor` is the first argument to the command, the name of the monitor
+as specified in the configuration file,_`server1` is the second argument to the command, the name of the server we_
 \&#xNAN;_want to make into primary, and_ `server2` is the third argument to the command, the name of the _currentprimary_.
 
-If the command executes successfully, we will end up with the following\
+If the command executes successfully, we will end up with the following
 cluster state:
 
 ```bash

@@ -2,7 +2,7 @@
 
 ## Monitor Resource
 
-A monitor resource represents a monitor inside MaxScale that monitors one or\
+A monitor resource represents a monitor inside MaxScale that monitors one or
 more servers.
 
 ### Resource Operations
@@ -349,7 +349,7 @@ Get all monitors.
 POST /v1/monitors
 ```
 
-Create a new monitor. The request body must define at least the following\
+Create a new monitor. The request body must define at least the following
 fields.
 
 * `data.id`
@@ -365,8 +365,8 @@ fields.
 
 All monitor parameters can be defined at creation time.
 
-The following example defines a request body which creates a new monitor and\
-assigns two servers to be monitored by it. It also defines a custom value for\
+The following example defines a request body which creates a new monitor and
+assigns two servers to be monitored by it. It also defines a custom value for
 the _monitor\_interval_ parameter.
 
 ```
@@ -412,7 +412,7 @@ Monitor is created:
 PATCH /v1/monitors/:name
 ```
 
-The request body must be a valid JSON document representing the modified\
+The request body must be a valid JSON document representing the modified
 monitor.
 
 #### Modifiable Fields
@@ -427,8 +427,8 @@ The following standard server parameter can be modified.
 * [backend\_read\_timeout](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
 * [backend\_connect\_attempts](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
 
-In addition to these standard parameters, the monitor specific parameters can\
-also be modified. Refer to the monitor module documentation for details on these\
+In addition to these standard parameters, the monitor specific parameters can
+also be modified. Refer to the monitor module documentation for details on these
 parameters.
 
 **Response**
@@ -447,12 +447,12 @@ Invalid request body:
 PATCH /v1/monitors/:name/relationships/servers
 ```
 
-The request body must be a JSON object that defines only the _data_ field. The\
-value of the _data_ field must be an array of relationship objects that define\
-the _id_ and _type_ fields of the relationship. This object will replace the\
+The request body must be a JSON object that defines only the _data_ field. The
+value of the _data_ field must be an array of relationship objects that define
+the _id_ and _type_ fields of the relationship. This object will replace the
 existing relationships of the monitor.
 
-The following is an example request and request body that defines a single\
+The following is an example request and request body that defines a single
 server relationship for a monitor.
 
 ```
@@ -491,10 +491,10 @@ Invalid JSON body:
 DELETE /v1/monitors/:name
 ```
 
-Destroy a created monitor. The monitor must not have relationships to any\
+Destroy a created monitor. The monitor must not have relationships to any
 servers in order to be destroyed.
 
-This endpoint also supports the `force=yes` parameter that will unconditionally\
+This endpoint also supports the `force=yes` parameter that will unconditionally
 delete the monitor by first unlinking it from all servers that it uses.
 
 **Response**

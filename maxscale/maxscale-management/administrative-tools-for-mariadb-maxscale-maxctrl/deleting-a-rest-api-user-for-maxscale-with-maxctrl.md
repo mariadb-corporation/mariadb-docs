@@ -12,13 +12,13 @@ MaxScale has a [REST API](../../reference/maxscale-rest-api/), which can be conf
 2. Use [MaxCtrl](./) to execute the [destroy user](../../maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md#destroy-user) command:
 
 ```bash
-$ maxctrl --secure \
-   --user=maxscale_rest_admin \
-   --password=maxscale_rest_admin_password \
+$ maxctrl --secure 
+   --user=maxscale_rest_admin 
+   --password=maxscale_rest_admin_password 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
-   --tls-ca-cert=/certs/ca.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
+   --tls-ca-cert=/certs/ca.pem 
    destroy user "admin"
 ```
 

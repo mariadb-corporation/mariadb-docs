@@ -14,7 +14,7 @@ $ maxctrl create user "maxscale_rest_admin" "maxscale_rest_admin_password" --typ
 
 Replace maxscale\_rest\_admin and maxscale\_rest\_admin\_password with the desired user and password.
 
-2. If you want to use MaxCtrl remotely, [configure the REST API for remote connections](../configuring-maxscales-rest-api.md#configuring-maxscales-rest-api-for-remote-connections).\
+2. If you want to use MaxCtrl remotely, [configure the REST API for remote connections](../configuring-maxscales-rest-api.md#configuring-maxscales-rest-api-for-remote-connections).
    Several global parameters must be configured in maxscale.cnf.
 
 | Parameter                                                                                                                                                                            | Description                                                                                                 |
@@ -31,7 +31,7 @@ admin_host            = 0.0.0.0
 admin_port            = 8443
 ```
 
-3. [Enable TLS for MaxScale's REST API](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server).\
+3. [Enable TLS for MaxScale's REST API](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server).
    Several global parameters must be configured in maxscale.cnf.
 
 | Parameter                                                                                                                                                                                            | Description                                                                         |
@@ -54,12 +54,12 @@ admin_ssl_ca_cert=/certs/ca-cert.pem
 5. Use [MaxCtrl](./) to connect with TLS:
 
 ```ini
-$ maxctrl --secure \
-   --user=maxscale_rest_admin \
-   --password=maxscale_rest_admin_password \
+$ maxctrl --secure 
+   --user=maxscale_rest_admin 
+   --password=maxscale_rest_admin_password 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
    --tls-ca-cert=/certs/ca.pem
 ```
 

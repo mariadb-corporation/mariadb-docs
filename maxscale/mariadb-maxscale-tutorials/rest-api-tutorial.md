@@ -4,7 +4,7 @@ This tutorial is a quick overview of what the MaxScale REST API offers, how it c
 
 ### Configuration and Hardening
 
-The MaxScale REST API listens on port 8989 on the local host. The `admin_port`\
+The MaxScale REST API listens on port 8989 on the local host. The `admin_port`
 and `admin_host` parameters control which port and address the REST API listens on. Note that for security reasons the API only listens for local connections with the default configuration. It is critical that the default credentials are changed and TLS/SSL encryption is configured before exposing the REST API to a network.
 
 The default user for the REST API is `admin` and the password is `mariadb`. The easiest way to secure the REST API is to use the `maxctrl` command line client to create a new admin user and delete the default one. To do this, run the following commands:
@@ -49,9 +49,9 @@ ETag: "0"
 Date: Mon, 04 Mar 19 08:29:41 GMT
 ```
 
-To query a resource collection endpoint, append it to the URL. The `/v1/filters/`\
-endpoint shows the list of filters configured in MaxScale. This is a _resource_\
-\&#xNAN;_collection_ endpoint: it contains the list of all resources of a particular\
+To query a resource collection endpoint, append it to the URL. The `/v1/filters/`
+endpoint shows the list of filters configured in MaxScale. This is a _resource_
+\&#xNAN;_collection_ endpoint: it contains the list of all resources of a particular
 type.
 
 `curl 127.0.0.1:8989/v1/filters`

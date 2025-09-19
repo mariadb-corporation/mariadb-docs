@@ -2045,6 +2045,7 @@
         * [Regular Expressions Overview](reference/sql-functions/string-functions/regular-expressions-functions/regular-expressions-overview.md)
         * [PCRE - Perl Compatible Regular Expressions](reference/sql-functions/string-functions/regular-expressions-functions/pcre.md)
         * [REGEXP](reference/sql-functions/string-functions/regular-expressions-functions/regexp.md)
+        * [NOT REGEXP](reference/sql-functions/string-functions/not-regexp.md)
         * [REGEXP\_INSTR](reference/sql-functions/string-functions/regular-expressions-functions/regexp_instr.md)
         * [REGEXP\_REPLACE](reference/sql-functions/string-functions/regular-expressions-functions/regexp_replace.md)
         * [REGEXP\_SUBSTR](reference/sql-functions/string-functions/regular-expressions-functions/regexp_substr.md)

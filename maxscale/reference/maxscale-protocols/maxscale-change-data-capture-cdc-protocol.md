@@ -2,15 +2,15 @@
 
 ## Change Data Capture (CDC) Protocol
 
-The CDC protocol was deprecated in MaxScale 24.08 and will be removed\
-in the next major release. [KafkaCDC](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-kafkacdc.md) can be\
+The CDC protocol was deprecated in MaxScale 24.08 and will be removed
+in the next major release. [KafkaCDC](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-kafkacdc.md) can be
 used instead.
 
-CDC is a new protocol that allows compatible clients to authenticate and\
-register for Change Data Capture events. The new protocol must be use in\
-conjunction with AVRO router which currently converts MariaDB binlog events into\
-AVRO records. Change Data Capture protocol is used by clients in order to\
-interact with stored AVRO file and also allows registered clients to be notified\
+CDC is a new protocol that allows compatible clients to authenticate and
+register for Change Data Capture events. The new protocol must be use in
+conjunction with AVRO router which currently converts MariaDB binlog events into
+AVRO records. Change Data Capture protocol is used by clients in order to
+interact with stored AVRO file and also allows registered clients to be notified
 with the new events coming from MariaDB 10.0/10.1 database.
 
 ### Creating Users
@@ -53,12 +53,12 @@ In the future, optional flags could be implemented.
 
 #### Authentication
 
-The authentication starts when the client sends the hexadecimal representation\
+The authentication starts when the client sends the hexadecimal representation
 of the username concatenated with a colon (`:`) and the SHA1 of the password.
 
 `bin2hex(username + ':' + SHA1(password))`
 
-For example the user _foobar_ with a password of _foopasswd_ should send the\
+For example the user _foobar_ with a password of _foopasswd_ should send the
 following hexadecimal string
 
 ```
@@ -89,9 +89,9 @@ Server returns `OK` on success and `ERR` on failure.
 
 `REQUEST-DATA DATABASE.TABLE[.VERSION] [GTID]`
 
-This command fetches data from specified table in a database and returns the\
-output in the requested format (AVRO or JSON). Data records are sent to clients\
-and if new AVRO versions are found (e.g. _mydb.mytable.0000002.avro_) the new\
+This command fetches data from specified table in a database and returns the
+output in the requested format (AVRO or JSON). Data records are sent to clients
+and if new AVRO versions are found (e.g. _mydb.mytable.0000002.avro_) the new
 schema and data will be sent as well.
 
 The data will be streamed until the client closes the connection.
@@ -108,7 +108,7 @@ REQUEST-DATA db2.table4 0-11-345
 
 ### Example Client
 
-MaxScale includes an example CDC client application written in Python 3. You can\
+MaxScale includes an example CDC client application written in Python 3. You can
 find the source code for it [in the MaxScale repository](https://github.com/mariadb-corporation/MaxScale/tree/2.0/server/modules/protocol/examples/cdc.py).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

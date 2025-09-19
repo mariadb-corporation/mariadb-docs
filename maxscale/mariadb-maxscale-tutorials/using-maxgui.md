@@ -34,7 +34,7 @@ Clicking on the _Create New_ button (Annotation 2) to open a dialog for creating
 
 ### View Replication Status
 
-The replication status of a server monitored by [MariaDB-Monitor](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md) can be viewed by mousing over the server name. A tooltip will be displayed with the following information:\
+The replication status of a server monitored by [MariaDB-Monitor](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md) can be viewed by mousing over the server name. A tooltip will be displayed with the following information:
 replication\_state, seconds\_behind\_master, slave\_io\_running, slave\_sql\_running.
 
 ### How to kill a session
@@ -58,7 +58,7 @@ Sessions created by the "Workspace", such as via the Query Editor can be found i
 
 **Annotation**
 
-1. A session with an icon next to the "CLIENT" column indicates a connection created\
+1. A session with an icon next to the "CLIENT" column indicates a connection created
    by the "Workspace".
 
 #### Query Editor "Processlist"
@@ -114,7 +114,7 @@ This page visualizes MaxScale configuration as shown in the figure below.
 
 ### Clusters
 
-This page shows all monitor clusters using [mariadbmon](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md) module in a card-like view.\
+This page shows all monitor clusters using [mariadbmon](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-mariadb-monitor.md) module in a card-like view.
 Clicking on the card will visualize the cluster into a tree graph as shown in the following figure.
 
 ![](<../.gitbook/assets/MaxGUI-cluster-visualization.png (3).png>)
@@ -357,10 +357,10 @@ For quickly editing or viewing the table definitions, double-clicking on the ent
 
 * Edit Foreign Key, this opens an editor for viewing/editing foreign keys.
 * Remove Foreign Key.
-* `Change to One To One` or `Change to One To Many`. Toggling the uniqueness\
+* `Change to One To One` or `Change to One To Many`. Toggling the uniqueness
   of the foreign key column.
 * `Set FK Column Mandatory` or `Set FK Column Optional`. Toggling the`NOT NULL` option of the foreign key column.
-* `Set Referenced Column Mandatory` or `Set Referenced Column Optional`\
+* `Set Referenced Column Mandatory` or `Set Referenced Column Optional`
   Toggling the `NOT NULL` option of the referenced column.
 
 To show the above foreign key common options, perform a right-click on the link within the diagram.

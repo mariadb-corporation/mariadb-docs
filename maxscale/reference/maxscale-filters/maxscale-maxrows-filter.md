@@ -4,11 +4,11 @@
 
 ### Overview
 
-The Maxrows filter is capable of restricting the amount of rows that a SELECT,\
+The Maxrows filter is capable of restricting the amount of rows that a SELECT,
 a prepared statement or stored procedure could return to the client application.
 
-If a resultset from a backend server has more rows than the configured limit\
-or the resultset size exceeds the configured size,\
+If a resultset from a backend server has more rows than the configured limit
+or the resultset size exceeds the configured size,
 an empty result will be sent to the client.
 
 ### Configuration
@@ -28,7 +28,7 @@ filters=MaxRows
 
 ### Settings
 
-The Maxrows filter has no mandatory parameters.\
+The Maxrows filter has no mandatory parameters.
 Optional parameters are:
 
 #### `max_resultset_rows`
@@ -38,7 +38,7 @@ Optional parameters are:
 * Dynamic: Yes
 * Default: (no limit)
 
-Specifies the maximum number of rows a resultset can have in order to be\
+Specifies the maximum number of rows a resultset can have in order to be
 returned to the user.
 
 If a resultset is larger than this an empty result will be sent instead.
@@ -54,8 +54,8 @@ max_resultset_rows=1000
 * Dynamic: Yes
 * Default: `64Ki`
 
-Specifies the maximum size a resultset can have in order\
-to be sent to the client. A resultset larger than this, will\
+Specifies the maximum size a resultset can have in order
+to be sent to the client. A resultset larger than this, will
 not be sent: an empty resultset will be sent instead.
 
 ```
@@ -70,7 +70,7 @@ max_resultset_size=128Ki
 * Values: `empty`, `error`, `ok`
 * Default: `empty`
 
-Specifies what the filter sends to the client when the\
+Specifies what the filter sends to the client when the
 rows or size limit is hit, possible values:
 
 * an empty result set
@@ -91,8 +91,8 @@ ERROR 1415 (0A000): Row limit/size exceeded for query: select * from test.t4
 * Dynamic: Yes
 * Default: `0`
 
-An integer value, using which the level of debug logging made by the Maxrows\
-filter can be controlled. The value is actually a bitfield with different bits\
+An integer value, using which the level of debug logging made by the Maxrows
+filter can be controlled. The value is actually a bitfield with different bits
 denoting different logging.
 
 * `0` (`0b00000`) No logging is made.
@@ -107,7 +107,7 @@ debug=2
 
 ### Example Configuration
 
-Here is an example of filter configuration where the maximum number of returned\
+Here is an example of filter configuration where the maximum number of returned
 rows is 10000 and maximum allowed resultset size is 256KB
 
 ```

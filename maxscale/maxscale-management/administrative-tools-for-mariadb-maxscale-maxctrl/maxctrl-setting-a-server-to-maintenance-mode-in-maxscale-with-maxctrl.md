@@ -14,13 +14,13 @@ MaxCtrl is a command-line utility that can perform administrative tasks using Ma
 2. Use MaxCtrl to execute the set server command with the maintenance option:
 
 ```bash
-$ maxctrl --secure \
-   --user=maxscale_rest_admin \
-   --password=maxscale_rest_admin_password \
+$ maxctrl --secure 
+   --user=maxscale_rest_admin 
+   --password=maxscale_rest_admin_password 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
-   --tls-ca-cert=/certs/ca.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
+   --tls-ca-cert=/certs/ca.pem 
    set server server1 maintenance
 ```
 
@@ -33,13 +33,13 @@ Replace `server1` with the name of the specific server.
 1. Use MaxCtrl to execute the set server command with the `maintenance --force` option:
 
 ```bash
-$ maxctrl --secure \
-   --user=maxscale_rest_admin \
-   --password=maxscale_rest_admin_password \
+$ maxctrl --secure 
+   --user=maxscale_rest_admin 
+   --password=maxscale_rest_admin_password 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
-   --tls-ca-cert=/certs/ca.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
+   --tls-ca-cert=/certs/ca.pem 
 ```
 
 2. Replace `server1` with the specific server name. When `--force` is used, MaxScale immediately closes all connections, even if the server is a primary server with open transactions.

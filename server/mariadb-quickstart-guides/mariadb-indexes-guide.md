@@ -167,7 +167,7 @@ CREATE TABLE Table_1 (
 
 **Trailing Pad Characters:** If a unique index is on a column where trailing pad characters are stripped or ignored (e.g., `CHAR` vs `VARCHAR` behavior), inserts where values differ only by the number of trailing pad characters can result in duplicate-key errors.
 
-**Long Keys and HASH Indexes (MariaDB 10.5+):** For engines like InnoDB, `UNIQUE` can be used with various column types and numbers. If a key's length exceeds the engine's maximum, a HASH key may be created.
+**Long Keys and HASH Indexes (MariaDB 10.4+):** For engines like InnoDB, `UNIQUE` can be used with various column types and numbers. If a key's length exceeds the engine's maximum, a HASH key may be created.
 
 ```sql
 -- Example table definition (simplified for brevity)

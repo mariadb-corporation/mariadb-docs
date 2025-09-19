@@ -21,13 +21,13 @@ There are two types of users:
 2. Use [MaxCtrl](./) to execute the create user command:
 
 ```bash
-$ maxctrl --secure \
-   --user=admin \
-   --password=mariadb \
+$ maxctrl --secure 
+   --user=admin 
+   --password=mariadb 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
-   --tls-ca-cert=/certs/ca.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
+   --tls-ca-cert=/certs/ca.pem 
    create user "maxscale_rest" "maxscale_rest_password"
 ```
 
@@ -39,13 +39,13 @@ Replace maxscale\_rest and maxscale\_rest\_password with the desired user and pa
 2. Use [MaxCtrl](./) to execute the create user command with the --type=admin option:
 
 ```bash
-$ maxctrl --secure \
-   --user=admin \
-   --password=mariadb \
+$ maxctrl --secure 
+   --user=admin 
+   --password=mariadb 
    --hosts=192.0.2.100:8443
-   --tls-key=/certs/client-key.pem \
-   --tls-cert=/certs/client-cert.pem \
-   --tls-ca-cert=/certs/ca.pem \
+   --tls-key=/certs/client-key.pem 
+   --tls-cert=/certs/client-cert.pem 
+   --tls-ca-cert=/certs/ca.pem 
    create user "maxscale_rest_admin" "maxscale_rest_admin_password" --type=admin
 ```
 

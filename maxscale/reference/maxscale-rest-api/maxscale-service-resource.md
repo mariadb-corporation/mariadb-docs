@@ -2,7 +2,7 @@
 
 ## Service Resource
 
-A service resource represents a service inside MaxScale. A service is a\
+A service resource represents a service inside MaxScale. A service is a
 collection of network listeners, filters, a router and a set of backend servers.
 
 ### Resource Operations
@@ -778,7 +778,7 @@ Get all services.
 POST /v1/services
 ```
 
-Create a new service by defining the resource. The posted object must define at\
+Create a new service by defining the resource. The posted object must define at
 least the following fields.
 
 * `data.id`
@@ -792,24 +792,24 @@ least the following fields.
 * `data.attributes.parameters.password`
 * The [password](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
 
-The `data.attributes.parameters` object is used to define router and service\
-parameters. All configuration parameters that can be defined in the\
-configuration file can also be added to the parameters object. The exceptions to\
-this are the `type`, `router`, `servers` and `filters` parameters which must not\
+The `data.attributes.parameters` object is used to define router and service
+parameters. All configuration parameters that can be defined in the
+configuration file can also be added to the parameters object. The exceptions to
+this are the `type`, `router`, `servers` and `filters` parameters which must not
 be defined.
 
-As with other REST API resources, the `data.relationships` field defines the\
-relationships of the service to other resources. Services can have two types of\
+As with other REST API resources, the `data.relationships` field defines the
+relationships of the service to other resources. Services can have two types of
 relationships: `servers` and `filters` relationships.
 
-If the request body defines a valid `relationships` object, the service is\
-linked to those resources. For servers, this is equivalent to adding the list of\
-server names into the [servers](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) parameter. For\
-filters, this is equivalent to adding the filters in the`data.relationships.filters.data` array to the [filters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) parameter in the\
-order they appear. For other services, this is equivalent to adding the list of\
+If the request body defines a valid `relationships` object, the service is
+linked to those resources. For servers, this is equivalent to adding the list of
+server names into the [servers](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) parameter. For
+filters, this is equivalent to adding the filters in the`data.relationships.filters.data` array to the [filters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) parameter in the
+order they appear. For other services, this is equivalent to adding the list of
 server names into the [targets](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) parameter.
 
-The following example defines a new service with both a server and a filter\
+The following example defines a new service with both a server and a filter
 relationship.
 
 ```
@@ -858,21 +858,21 @@ Service is created:
 DELETE /v1/services/:name
 ```
 
-A service can only be destroyed if the service uses no servers or filters and\
-all the listeners pointing to the service have been destroyed. This means that\
-the `data.relationships` must be an empty object and `data.attributes.listeners`\
+A service can only be destroyed if the service uses no servers or filters and
+all the listeners pointing to the service have been destroyed. This means that
+the `data.relationships` must be an empty object and `data.attributes.listeners`
 must be an empty array in order for the service to qualify for destruction.
 
-If there are open client connections that use the service when it is destroyed,\
-they are allowed to gracefully close before the service is destroyed. This means\
-that the destruction of a service can be acknowledged via the REST API before\
+If there are open client connections that use the service when it is destroyed,
+they are allowed to gracefully close before the service is destroyed. This means
+that the destruction of a service can be acknowledged via the REST API before
 the destruction process has fully completed.
 
-To find out whether a service is still in use after it has been destroyed, the [sessions](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-session-resource.md) resource should be used. If a session for\
+To find out whether a service is still in use after it has been destroyed, the [sessions](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-session-resource.md) resource should be used. If a session for
 the service is still open, it has not yet been destroyed.
 
-This endpoint also supports the `force=yes` parameter that will unconditionally\
-delete the service by first unlinking it from all servers and filters that it\
+This endpoint also supports the `force=yes` parameter that will unconditionally
+delete the service by first unlinking it from all servers and filters that it
 uses.
 
 **Response**
@@ -887,15 +887,15 @@ Service is destroyed:
 PATCH /v1/services/:name
 ```
 
-The request body must be a JSON object which represents a set of new definitions\
+The request body must be a JSON object which represents a set of new definitions
 for the service.
 
-All standard service parameters can be modified. Refer to the [service](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) documentation on\
+All standard service parameters can be modified. Refer to the [service](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) documentation on
 the details of these parameters.
 
-In addition to the standard service parameters, router parameters can be updated\
-at runtime if the router module supports it. Refer to the individual router\
-documentation for more details on whether the router supports it and which\
+In addition to the standard service parameters, router parameters can be updated
+at runtime if the router module supports it. Refer to the individual router
+documentation for more details on whether the router supports it and which
 parameters can be updated at runtime.
 
 The following example modifies a service by changing the `user` parameter to `admin`.
@@ -924,22 +924,22 @@ Service is modified:
 PATCH /v1/services/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be either _servers_, _services_ or _filters_,\
+The _:type_ in the URI must be either _servers_, _services_ or _filters_,
 depending on which relationship is being modified.
 
-The request body must be a JSON object that defines only the _data_ field. The\
-value of the _data_ field must be an array of relationship objects that define\
-the _id_ and _type_ fields of the relationship. This object will replace the\
+The request body must be a JSON object that defines only the _data_ field. The
+value of the _data_ field must be an array of relationship objects that define
+the _id_ and _type_ fields of the relationship. This object will replace the
 existing relationships of this type for the service.
 
-_Note:_ The order of the values in the `filters` relationship will define the\
-order the filters are set up in. The order in which the filters appear in the\
-array will be the order in which the filters are applied to each query. Refer\
-to the [filters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) parameter\
+_Note:_ The order of the values in the `filters` relationship will define the
+order the filters are set up in. The order in which the filters appear in the
+array will be the order in which the filters are applied to each query. Refer
+to the [filters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) parameter
 for more details.
 
-The following is an example request and request body that defines a single\
-server relationship for a service that is equivalent to a `servers=my-server`\
+The following is an example request and request body that defines a single
+server relationship for a service that is equivalent to a `servers=my-server`
 parameter.
 
 ```
@@ -1035,7 +1035,7 @@ This endpoint is deprecated, use the [this](../../maxscale-archive/archive/maria
 GET /v1/services/:name/listeners/:listener
 ```
 
-This endpoint is deprecated, use the [this](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-listener-resource.md)\
+This endpoint is deprecated, use the [this](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-listener-resource.md)
 listeners endpoint instead.
 
 #### Create a new listener

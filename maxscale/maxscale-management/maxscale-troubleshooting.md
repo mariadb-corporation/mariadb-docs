@@ -127,7 +127,7 @@ MaxScale 22.08 no longer uses pipes for internal communication. This means that 
 
 **MaxScale starting with 6.4.5**
 
-Older MaxScale versions suffer from a bug ([MXS-4474](https://jira.mariadb.org/browse/MXS-4474)) that caused messages in the queue to take up 4096 bytes of memory per message instead of the intended 24 bytes which translates to a maximum of 256 messages instead of the expected 43690 messages with a 1MiB pipe size.\
+Older MaxScale versions suffer from a bug ([MXS-4474](https://jira.mariadb.org/browse/MXS-4474)) that caused messages in the queue to take up 4096 bytes of memory per message instead of the intended 24 bytes which translates to a maximum of 256 messages instead of the expected 43690 messages with a 1MiB pipe size.
 Starting with MaxScale 6.4.5 and 2.5.25, the size is 24 bytes as expected which causes the maximum limit to be the expected 43690 messages. The problem still theoretically exists under extreme workloads where there are more than 43k concurrent clients but in practice the problem should almost never occur.
 
 The MaxScale can log the `Failed to write message: 11, Resource temporarily unavailable` message under extremely intensive workloads (see [MXS-1983](https://jira.mariadb.org/browse/MXS-1983) and [MXS-4474](https://jira.mariadb.org/browse/MXS-4474)).

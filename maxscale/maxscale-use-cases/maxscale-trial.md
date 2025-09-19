@@ -145,6 +145,6 @@ Although the uninstallation of MaxScale Trial will not cause the configuration f
 
 It is not possible to have MaxScale Trial and MaxScale installed simultaneously on the same machine.
 
-MaxScale configurations are not guaranteed to work in MaxScale Trial as MaxScale Trial has restrictions based on the documented limitations above which would block startup.\\
+MaxScale configurations are not guaranteed to work in MaxScale Trial as MaxScale Trial has restrictions based on the documented limitations above which would block startup.\
 
 {% @marketo/form formId="4316" %}

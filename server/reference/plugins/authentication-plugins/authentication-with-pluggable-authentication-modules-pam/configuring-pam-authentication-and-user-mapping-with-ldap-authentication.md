@@ -408,6 +408,10 @@ INSTALL SONAME 'auth_pam';
 
 ### Configuring the PAM Service
 
+{% hint style="info" %}
+For modern Linux distributions (like RHEL 8 and newer) that use SSSD (System Security Services Daemon) to connect to an LDAP provider, the `pam_sss.so` module is the modern equivalent of `pam_ldap.so`. In such a configuration, `pam_sss.so` replaces `pam_ldap.so`. For more information, please see the [Red Hat Enterprise Linux documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/configuring_authentication_and_authorization_in_rhel/understanding-sssd-and-its-benefits_configuring-authentication-and-authorization-in-rhel#how-SSSD-works_understanding-SSSD-and-its-benefits).
+{% endhint %}
+
 Next, let's [configure the PAM service](authentication-plugin-pam.md#configuring-the-pam-service). We will call our service `mariadb`, so our PAM service configuration file will be located at `/etc/pam.d/mariadb` on most systems.
 
 #### Configuring PAM to Allow Only LDAP Authentication
@@ -600,6 +604,12 @@ MariaDB [(none)]> SELECT USER(), CURRENT_USER();
 ```
 
 We can verify that our `alice` Unix user was properly mapped to the `dba` MariaDB user by looking at the return values of [CURRENT\_USER()](../../../sql-functions/secondary-functions/information-functions/current_user.md).
+
+## Integrating with MariaDB MaxScale
+
+If you are connecting to MariaDB Server through MariaDB MaxScale, it is also recommended to configure the proxy to authenticate users via [MaxScale PAM Authenticator](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-authenticators/maxscale-pam-authenticator).
+
+
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -53,7 +53,7 @@ When a connection is being created and the candidate server is being chosen, the
 * Dynamic: Yes
 * Default: true
 
-This option can be used to prevent queries from being sent to the current primary.\
+This option can be used to prevent queries from being sent to the current primary.
 If `router_options` does not contain `master`, the readconnroute instance is usually meant for reading. Setting `master_accept_reads=false` excludes the primary from server selection (and thus from receiving reads).
 
 If `router_options` contains `master`, the setting of `master_accept_reads` has no effect.

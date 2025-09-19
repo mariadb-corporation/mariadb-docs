@@ -34,7 +34,7 @@ Alternatively, you may download the MariaDB MaxScale source and build your own b
 
 MaxScale assumes that memory allocations always succeed and in general does not check for memory allocation failures. This assumption is compatible with the Linux kernel parameter [vm.overcommit\_memory](https://www.kernel.org/doc/Documentation/vm/overcommit-accounting) having the value `0`, which is also the default on most systems.
 
-With `vm.overcommit_memory` being `0`, memory _allocations_ made by an application never fail, but instead the application may be killed by the so-called OOM (out-of-memory) killer if, by the time the application\
+With `vm.overcommit_memory` being `0`, memory _allocations_ made by an application never fail, but instead the application may be killed by the so-called OOM (out-of-memory) killer if, by the time the application
 actually attempts to _use_ the allocated memory, there is not available free memory on the system.
 
 If the value is `2`, then a memory allocation made by an application may fail and unless the application is prepared for that possibility, it will likely crash with a SIGSEGV. As MaxScale is not prepared to handle memory allocation failures, it will crash in this situation.
@@ -59,7 +59,7 @@ For a detailed list of all configuration parameters, refer to the [Configuration
 
 ### Encrypting Passwords
 
-Read the [Encrypting Passwords](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) section of the configuration guide to set up password encryption for the\
+Read the [Encrypting Passwords](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) section of the configuration guide to set up password encryption for the
 configuration file.
 
 ### Administration Of MariaDB MaxScale

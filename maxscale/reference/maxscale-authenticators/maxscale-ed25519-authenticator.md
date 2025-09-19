@@ -6,7 +6,7 @@ Ed25519 is a highly secure authentication method based on public key cryptograph
 
 When a client authenticates via ed25519, MaxScale first sends them a random message. The client signs the message using their password as private key and sends the signature back. MaxScale then checks the signature using the public key fetched from the `mysql.user` table. The client password or an equivalent token is never exposed. For more information, see [server documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519).
 
-The security of this authentication scheme presents a problem for a proxy such as MaxScale since MaxScale needs to log in to backend servers on behalf of the client. Since each server will generate their own random messages, MaxScale cannot simply forward the original signature. Either the real password is required, or a different authentication scheme must be used between MaxScale and backends. The MaxScale `ed25519auth` plugin supports both alternatives.
+The security of this authentication scheme presents a problem for a proxy such as MaxScale since MaxScale needs to log in to backend servers on behalf of the client. Since each server generates their own random messages, MaxScale cannot simply forward the original signature. Either the real password is required, or a different authentication scheme must be used between MaxScale and backends. The MaxScale `ed25519auth` plugin supports both alternatives.
 
 ### Configuration
 
@@ -20,7 +20,7 @@ service=Read-Write-Service
 authenticator=ed25519auth
 ```
 
-MaxScale will now authenticate incoming clients with ed25519 if their user account has _plugin_ set to `ed25519` in the `mysql.user` table. However, routing queries will fail since MaxScale cannot authenticate to backends. To continue, either use a mapping file or enable sha256 mode. Sha256 mode is enabled with the following settings.
+MaxScale now authenticates incoming clients with ed25519 if their user account has _plugin_ set to `ed25519` in the `mysql.user` table. However, routing queries will fail since MaxScale cannot authenticate to backends. To continue, either use a mapping file or enable sha256 mode. Sha256 mode is enabled with the following settings.
 
 #### `ed_mode`
 
@@ -43,7 +43,7 @@ authenticator_options=ed_mode=sha256,
  ed_rsa_pubkey_path=/tmp/sha_public_key.pem
 ```
 
-### Using a mapping file
+### Using a Mapping File
 
 To enable MaxScale to authenticate to backends,[user mapping](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) can be used. The mapping and backend passwords are given in a JSON file. The client can map to an identical username or to another user, and the backend authentication scheme can be something else than `ed25519`.
 

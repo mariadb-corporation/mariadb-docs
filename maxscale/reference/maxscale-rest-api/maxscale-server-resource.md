@@ -769,7 +769,7 @@ Response contains a resource collection with all servers.
 POST /v1/servers
 ```
 
-Create a new server by defining the resource. The posted object must define at\
+Create a new server by defining the resource. The posted object must define at
 least the following fields.
 
 * `data.id`
@@ -777,10 +777,10 @@ least the following fields.
 * `data.type`
 * Type of the object, must be `servers`
 * `data.attributes.parameters.address` OR `data.attributes.parameters.socket`
-* The [address](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) or [socket](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use. Only\
+* The [address](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) or [socket](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use. Only
   one of the fields can be defined.
 * `data.attributes.parameters.port`
-* The [port](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use. Needs\
+* The [port](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use. Needs
   to be defined if the `address` field is defined.
 
 The following is the minimal required JSON object for defining a new server.
@@ -800,7 +800,7 @@ The following is the minimal required JSON object for defining a new server.
 }
 ```
 
-The relationships of a server can also be defined at creation time. This allows\
+The relationships of a server can also be defined at creation time. This allows
 new servers to be created and immediately taken into use.
 
 ```
@@ -840,7 +840,7 @@ new servers to be created and immediately taken into use.
 }
 ```
 
-Refer to the [Configuration Guide](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)\
+Refer to the [Configuration Guide](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 for a full list of server parameters.
 
 **Response**
@@ -859,19 +859,19 @@ Invalid JSON body:
 PATCH /v1/servers/:name
 ```
 
-The request body must be a valid JSON document representing the modified\
+The request body must be a valid JSON document representing the modified
 server.
 
 #### Modifiable Fields
 
-In addition to the server [parameters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md), the _services_\
-and _monitors_ fields of the _relationships_ object can be modified. Removal,\
-addition and modification of the links will change which service and monitors\
+In addition to the server [parameters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md), the _services_
+and _monitors_ fields of the _relationships_ object can be modified. Removal,
+addition and modification of the links will change which service and monitors
 use this server.
 
 For example, removing the first value in the _services_ list in th&#x65;_&#x72;elationships_ object from the following JSON document will remove th&#x65;_&#x73;erver1_ from the service _RW-Split-Router_.
 
-Removing a service from a server is analogous to removing the server from the\
+Removing a service from a server is analogous to removing the server from the
 service. Both unlink the two objects from each other.
 
 Request for `PATCH /v1/servers/server1` that modifies the address of the server:
@@ -909,9 +909,9 @@ Request for `PATCH /v1/servers/server1` that modifies the server relationships:
 }
 ```
 
-If parts of the resource are not defined (e.g. the `attributes` field in the\
-above example), those parts of the resource are not modified. All parts that are\
-defined are interpreted as the new definition of those part of the resource. In\
+If parts of the resource are not defined (e.g. the `attributes` field in the
+above example), those parts of the resource are not modified. All parts that are
+defined are interpreted as the new definition of those part of the resource. In
 the above example, the `relationships` of the resource are completely redefined.
 
 **Response**
@@ -930,15 +930,15 @@ Invalid JSON body:
 PATCH /v1/servers/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be either _services_, for service\
+The _:type_ in the URI must be either _services_, for service
 relationships, or _monitors_, for monitor relationships.
 
-The request body must be a JSON object that defines only the _data_ field. The\
-value of the _data_ field must be an array of relationship objects that define\
-the _id_ and _type_ fields of the relationship. This object will replace the\
+The request body must be a JSON object that defines only the _data_ field. The
+value of the _data_ field must be an array of relationship objects that define
+the _id_ and _type_ fields of the relationship. This object will replace the
 existing relationships of the particular type from the server.
 
-The following is an example request and request body that defines a single\
+The following is an example request and request body that defines a single
 service relationship for a server.
 
 ```
@@ -977,11 +977,11 @@ Invalid JSON body:
 DELETE /v1/servers/:name
 ```
 
-A server can only be deleted if it is not used by any services or\
+A server can only be deleted if it is not used by any services or
 monitors.
 
-This endpoint also supports the `force=yes` parameter that will unconditionally\
-delete the server by first unlinking it from all services and monitors that use\
+This endpoint also supports the `force=yes` parameter that will unconditionally
+delete the server by first unlinking it from all services and monitors that use
 it.
 
 **Response**
@@ -1000,7 +1000,7 @@ Server is in use:
 PUT /v1/servers/:name/set
 ```
 
-This endpoint requires that the `state` parameter is passed with the\
+This endpoint requires that the `state` parameter is passed with the
 request. The value of `state` must be one of the following values.
 
 | Value       | State Description                |
@@ -1012,19 +1012,19 @@ request. The value of `state` must be one of the following values.
 | synced      | Server is a Galera node          |
 | drain       | Server is drained of connections |
 
-For example, to set the server _db-server-1_ into maintenance mode, a request to\
+For example, to set the server _db-server-1_ into maintenance mode, a request to
 the following URL must be made:
 
 ```
 PUT /v1/servers/db-server-1/set?state=maintenance
 ```
 
-This endpoint also supports the `force=yes` parameter that will cause all\
-connections to the server to be closed if `state=maintenance` is also set. By\
-default setting a server into maintenance mode will cause connections to be\
+This endpoint also supports the `force=yes` parameter that will cause all
+connections to the server to be closed if `state=maintenance` is also set. By
+default setting a server into maintenance mode will cause connections to be
 closed only after the next request is sent.
 
-The following example forcefully closes all connections to server _db-server-1_\
+The following example forcefully closes all connections to server _db-server-1_
 and sets it into maintenance mode:
 
 ```
@@ -1047,7 +1047,7 @@ Missing or invalid parameter:
 PUT /v1/servers/:name/clear
 ```
 
-This endpoint requires that the `state` parameter is passed with the\
+This endpoint requires that the `state` parameter is passed with the
 request. The value of `state` must be one of the values defined in th&#x65;_&#x73;et_ endpoint documentation.
 
 **Response**

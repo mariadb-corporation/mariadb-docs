@@ -20,11 +20,11 @@
 
 ### Overview
 
-The top filter is a filter module for MariaDB MaxScale that monitors every SQL\
-statement that passes through the filter. It measures the duration of that\
-statement, the time between the statement being sent and the first result being\
-returned. The top N times are kept, along with the SQL text itself and a list\
-sorted on the execution times of the query is written to a file upon closure of\
+The top filter is a filter module for MariaDB MaxScale that monitors every SQL
+statement that passes through the filter. It measures the duration of that
+statement, the time between the statement being sent and the first result being
+returned. The top N times are kept, along with the SQL text itself and a list
+sorted on the execution times of the query is written to a file upon closure of
 the client session.
 
 ### Configuration
@@ -47,7 +47,7 @@ filters=MyLogFilter
 
 ### Settings
 
-The top filter has one mandatory parameter, `filebase`, and a number of optional\
+The top filter has one mandatory parameter, `filebase`, and a number of optional
 parameters.
 
 #### `filebase`
@@ -56,15 +56,15 @@ parameters.
 * Mandatory: Yes
 * Dynamic: Yes
 
-The basename of the output file created for each session. The session ID is\
+The basename of the output file created for each session. The session ID is
 added to the filename for each file written. This is a mandatory parameter.
 
 ```
 filebase=/tmp/SqlQueryLog
 ```
 
-The filebase may also be set as the filter, the mechanism to set the filebase\
-via the filter option is superseded by the parameter. If both are set the\
+The filebase may also be set as the filter, the mechanism to set the filebase
+via the filter option is superseded by the parameter. If both are set the
 parameter setting will be used and the filter option ignored.
 
 #### `count`
@@ -87,7 +87,7 @@ count=30
 * Dynamic: Yes
 * Default: None
 
-[Limits](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)\
+[Limits](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 the queries logged by the filter.
 
 ```
@@ -103,7 +103,7 @@ options=case,extended
 * Dynamic: Yes
 * Default: None
 
-[Limits](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)\
+[Limits](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 the queries logged by the filter.
 
 #### `options`
@@ -114,7 +114,7 @@ the queries logged by the filter.
 * Values: `ignorecase`, `case`, `extended`
 * Default: `case`
 
-[Regular expression options](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)\
+[Regular expression options](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 for `match` and `exclude`.
 
 #### `source`
@@ -124,8 +124,8 @@ for `match` and `exclude`.
 * Dynamic: Yes
 * Default: None
 
-Defines an address that is used to match against\
-the address from which the client connection to MariaDB MaxScale originates.\
+Defines an address that is used to match against
+the address from which the client connection to MariaDB MaxScale originates.
 Only sessions that originate from this address will be logged.
 
 ```
@@ -139,9 +139,9 @@ source=127.0.0.1
 * Dynamic: Yes
 * Default: None
 
-Defines a username that is used to match against\
-the user from which the client connection to MariaDB MaxScale originates. Only\
-sessions that are connected using this username will result in results being\
+Defines a username that is used to match against
+the user from which the client connection to MariaDB MaxScale originates. Only
+sessions that are connected using this username will result in results being
 generated.
 
 ```
@@ -152,8 +152,8 @@ user=john
 
 #### Example 1 - Heavily Contended Table
 
-You have an order system and believe the updates of the PRODUCTS table is\
-causing some performance issues for the rest of your application. You would like\
+You have an order system and believe the updates of the PRODUCTS table is
+causing some performance issues for the rest of your application. You would like
 to know which of the many updates in your application is causing the issue.
 
 Add a filter with the following definition:
@@ -168,12 +168,12 @@ exclude=UPDATE.*PRODUCTS_STOCK.*WHERE
 filebase=/var/logs/top/ProductsUpdate
 ```
 
-Note the exclude entry, this is to prevent updates to the PRODUCTS\_STOCK table\
+Note the exclude entry, this is to prevent updates to the PRODUCTS\_STOCK table
 from being included in the report.
 
 #### Example 2 - One Application Server is Slow
 
-One of your applications servers is slower than the rest, you believe it is\
+One of your applications servers is slower than the rest, you believe it is
 related to database access but you are not sure what is taking the time.
 
 Add a filter with the following definition:
@@ -187,7 +187,7 @@ source=192.168.0.32
 filebase=/var/logs/top/SlowAppServer
 ```
 
-In order to produce a comparison with an unaffected application server you can\
+In order to produce a comparison with an unaffected application server you can
 also add a second filter as a control.
 
 ```
@@ -212,14 +212,14 @@ password=mypasswd
 filters=SlowAppServer | ControlAppServer
 ```
 
-You will then have two sets of logs files written, one which profiles the top 20\
-queries of the slow application server and another that gives you the top 20\
-queries of your control application server. These two sets of files can then be\
+You will then have two sets of logs files written, one which profiles the top 20
+queries of the slow application server and another that gives you the top 20
+queries of your control application server. These two sets of files can then be
 compared to determine what if anything is different between the two.
 
 ### Output Report
 
-The following is an example report for a number of fictitious queries executed\
+The following is an example report for a number of fictitious queries executed
 against the employees example database available for MySQL.
 
 ```

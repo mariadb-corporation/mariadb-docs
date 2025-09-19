@@ -1,12 +1,12 @@
 # Read-Write Splitting
 
-The goal of this tutorial is to configure a system that appears to the client as a single\
-database. MariaDB MaxScale will split the statements such that write statements are sent\
+The goal of this tutorial is to configure a system that appears to the client as a single
+database. MariaDB MaxScale will split the statements such that write statements are sent
 to the primary server and read statements are balanced across the replica servers.
 
 ### Setting up MariaDB MaxScale
 
-This tutorial is a part of [MariaDB MaxScale Tutorial](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-tutorials/mariadb-maxscale-2501-maxscale-2501-setting-up-mariadb-maxscale.md).\
+This tutorial is a part of [MariaDB MaxScale Tutorial](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-tutorials/mariadb-maxscale-2501-maxscale-2501-setting-up-mariadb-maxscale.md).
 Please read it and follow the instructions. Return here once basic setup is complete.
 
 ### Configuring the service
@@ -24,11 +24,11 @@ password=maxscale_pw
 
 _router_ defines the routing module used. Here we use _readwritesplit_ for query-level read-write-splitting.
 
-A service needs a list of servers where queries will be routed to. The server names must\
-match the names of server sections in the configuration file and not the hostnames or\
+A service needs a list of servers where queries will be routed to. The server names must
+match the names of server sections in the configuration file and not the hostnames or
 addresses of the servers.
 
-The _user_ and _password_ parameters define the credentials the service uses to populate\
+The _user_ and _password_ parameters define the credentials the service uses to populate
 user authentication data. These users were created at the start of the [MaxScale Tutorial](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-tutorials/mariadb-maxscale-2501-maxscale-2501-setting-up-mariadb-maxscale.md).
 
 For increased security, see [password encryption](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-tutorials/mariadb-maxscale-2501-maxscale-2501-encrypting-passwords.md).

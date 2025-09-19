@@ -14,7 +14,7 @@ The following statements are routed to the primary server:
   * [REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-manipulation/changing-deleting-data/replace)
   * [REPLACE ... RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-manipulation/changing-deleting-data/replacereturning)
   * [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile)
-* Queries that modify the database (DDL)\
+* Queries that modify the database (DDL)
   For example, this includes, but is not limited to, the following statements:
   * [CREATE DATABASE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-definition/create/create-database)
   * [ALTER DATABASE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-database)
@@ -41,8 +41,8 @@ The following statements are routed to the primary server:
   * [DROP USER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/account-management-sql-commands/drop-user)
   * [CREATE ROLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/account-management-sql-commands/create-role)
   * [DROP ROLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/account-management-sql-commands/drop-role)
-* Queries within open transactions\
-  If the application uses explicit transactions, then all queries within the transaction will be routed to the primary server.\
+* Queries within open transactions
+  If the application uses explicit transactions, then all queries within the transaction will be routed to the primary server.
   Explicit transactions are used in the following cases:
   * When [autocommit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#autocommit) is set to OFF.
   * When [BEGIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/transactions/start-transaction) is executed.
@@ -82,10 +82,10 @@ COMMIT;
 
 The following statements are routed to a replica server:
 
-* Queries that are read-only\
+* Queries that are read-only
   For example, this includes, but is not limited to, the following statements:
   * [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-manipulation/selecting-data/select)
-* Queries that read system or user-defined variables\
+* Queries that read system or user-defined variables
   For example, this includes, but is not limited to, the following statements:
   * [SHOW CHARACTER SET](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/show/show-character-set)
   * [SHOW COLLATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/show/show-collation)

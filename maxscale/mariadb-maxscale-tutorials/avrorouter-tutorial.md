@@ -1,6 +1,6 @@
 # Avrorouter Tutorial
 
-This tutorial is a short introduction to the [Avrorouter](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-avrorouter.md), how to set it up and how it interacts\
+This tutorial is a short introduction to the [Avrorouter](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-avrorouter.md), how to set it up and how it interacts
 with the binlogrouter.
 
 The first part configures the services and sets them up for the binary log to Avro file conversion. The second part of this tutorial uses the client listener interface for the avrorouter and shows how to communicate with the service over the network.
@@ -11,7 +11,7 @@ The first part configures the services and sets them up for the binary log to Av
 
 ### Preparing the primary server
 
-The primary server where we will be replicating from needs to have binary logging\
+The primary server where we will be replicating from needs to have binary logging
 enabled, `binlog_format` set to `row` and `binlog_row_image` set to`full`. These can be enabled by adding the two following lines to the _my.cnf_ file of the primary.
 
 ```ini
@@ -23,9 +23,9 @@ _You can find out more about replication formats from the_[_MariaDB documentatio
 
 ### Configuring MaxScale
 
-We start by adding two new services into the configuration file. The first\
-service is the binlogrouter service which will read the binary logs from the\
-primary server. The second service will read the binlogs as they are streamed\
+We start by adding two new services into the configuration file. The first
+service is the binlogrouter service which will read the binary logs from the
+primary server. The second service will read the binlogs as they are streamed
 from the primary and convert them into Avro format files.
 
 ```ini
@@ -61,45 +61,45 @@ protocol=CDC
 port=4001
 ```
 
-The `source` parameter in the _avro-service_ points to the _replication-service_\
-we defined before. This service will be the data source for the avrorouter. Th&#x65;_&#x66;ilestem_ is the prefix in the binlog files and _start\_index_ is the binlog\
-number to start from. With these parameters, the avrorouter will start reading\
+The `source` parameter in the _avro-service_ points to the _replication-service_
+we defined before. This service will be the data source for the avrorouter. Th&#x65;_&#x66;ilestem_ is the prefix in the binlog files and _start\_index_ is the binlog
+number to start from. With these parameters, the avrorouter will start reading
 events from binlog `binlog.000015`.
 
-Note that the _filestem_ and _start\_index_ must point to the file that is the\
-first binlog that the binlogrouter will replicate. For example, if the first\
+Note that the _filestem_ and _start\_index_ must point to the file that is the
+first binlog that the binlogrouter will replicate. For example, if the first
 file you are replicating is `my-binlog-file.001234`, set the parameters to`filestem=my-binlog-file` and `start_index=1234`.
 
-For more information on the avrorouter options, read the [Avrorouter\
+For more information on the avrorouter options, read the [Avrorouter
 Documentation](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-avrorouter.md).
 
 ## Preparing the data in the primary server
 
-Before starting the MaxScale process, we need to make sure that the binary logs\
-of the primary server contain the DDL statements that define the table\
-layouts. What this means is that the `CREATE TABLE` statements need to be in the\
+Before starting the MaxScale process, we need to make sure that the binary logs
+of the primary server contain the DDL statements that define the table
+layouts. What this means is that the `CREATE TABLE` statements need to be in the
 binary logs before the conversion process is started.
 
-If the binary logs contain data modification events for tables that aren't\
-created in the binary logs, the Avro schema of the table needs to be manually\
+If the binary logs contain data modification events for tables that aren't
+created in the binary logs, the Avro schema of the table needs to be manually
 created. There are multiple ways to do this:
 
-* Dump the database to a replica, configure it to replicate from the primary and\
-  point MaxScale to this replica (this is the recommended method as it requires no\
+* Dump the database to a replica, configure it to replicate from the primary and
+  point MaxScale to this replica (this is the recommended method as it requires no
   extra steps)
-* Use the [cdc\_schema Go utility](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-avrorouter.md)\
+* Use the [cdc\_schema Go utility](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-avrorouter.md)
   and copy the generated .avsc files to the avrodir
-* Use the [Python version of the schema generator](https://mariadb.com/server/modules/protocol/examples/cdc_schema.py)\
+* Use the [Python version of the schema generator](https://mariadb.com/server/modules/protocol/examples/cdc_schema.py)
   and copy the generated .avsc files to the avrodir
 
-If you used the schema generator scripts, all Avro schema files for tables that\
-are not created in the binary logs need to be in the location pointed to by th&#x65;_&#x61;vrodir_ parameter. The files use the following naming:`<database>.<table>.<schema_version>.avsc`. For example, the schema file name of\
+If you used the schema generator scripts, all Avro schema files for tables that
+are not created in the binary logs need to be in the location pointed to by th&#x65;_&#x61;vrodir_ parameter. The files use the following naming:`<database>.<table>.<schema_version>.avsc`. For example, the schema file name of
 the _test.t1_ table would be `test.t1.0000001.avsc`.
 
 ## Starting MariaDB MaxScale
 
-The next step is to start MariaDB MaxScale and set up the binlogrouter. We do\
-that by connecting to the MySQL listener of the _replication\_router_ service and\
+The next step is to start MariaDB MaxScale and set up the binlogrouter. We do
+that by connecting to the MySQL listener of the _replication\_router_ service and
 executing a few commands.
 
 ```sql
@@ -113,22 +113,22 @@ CHANGE MASTER TO MASTER_HOST='172.18.0.1',
 START SLAVE;
 ```
 
-**NOTE:** GTID replication is not currently supported and file-and-position\
+**NOTE:** GTID replication is not currently supported and file-and-position
 replication must be used.
 
-This will start the replication of binary logs from the primary server at\
-172.18.0.1 listening on port 3000. The first file that the binlogrouter\
-replicates is `binlog.000015`. This is the same file that was configured as the\
+This will start the replication of binary logs from the primary server at
+172.18.0.1 listening on port 3000. The first file that the binlogrouter
+replicates is `binlog.000015`. This is the same file that was configured as the
 starting file in the avrorouter.
 
 For more details about the SQL commands, refer to the [Binlogrouter](../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-binlogrouter.md) documentation.
 
-After the binary log streaming has started, the avrorouter will automatically\
+After the binary log streaming has started, the avrorouter will automatically
 start processing the binlogs.
 
 ## Creating and Processing Data
 
-Next, create a simple test table and populated it with some data by executing\
+Next, create a simple test table and populated it with some data by executing
 the following statements.
 
 ```sql
@@ -136,21 +136,21 @@ CREATE TABLE test.t1 (id INT);
 INSERT INTO test.t1 VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
 ```
 
-To use the _cdc.py_ command line client to connect to the CDC service, we must first\
+To use the _cdc.py_ command line client to connect to the CDC service, we must first
 create a user. This can be done via maxctrl by executing the following command.
 
 ```bash
 maxctrl call command cdc add_user avro-service maxuser maxpwd
 ```
 
-This will create the _maxuser:maxpwd_ credentials which can then be used to\
+This will create the _maxuser:maxpwd_ credentials which can then be used to
 request a JSON data stream of the `test.t1` table that was created earlier.
 
 ```bash
 cdc.py -u maxuser -p maxpwd -h 127.0.0.1 -P 4001 test.t1
 ```
 
-The output is a stream of JSON events describing the changes done to the\
+The output is a stream of JSON events describing the changes done to the
 database.
 
 ```json
@@ -167,8 +167,8 @@ database.
 {"domain": 0, "server_id": 3000, "sequence": 11, "event_number": 10, "timestamp": 1537429419, "event_type": "insert", "id": 10}
 ```
 
-The first record is always the JSON format schema for the table describing the\
-types and names of the fields. All records that follow it represent the changes\
+The first record is always the JSON format schema for the table describing the
+types and names of the fields. All records that follow it represent the changes
 that have happened on the database.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
