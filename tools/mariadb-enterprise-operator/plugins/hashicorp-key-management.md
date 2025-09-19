@@ -268,7 +268,7 @@ Make sure when rotating the token, to do so in advance of the token expiring.
     ```
 
 2. **Restart The MariaDB StatefulSet.**
-    MariaDB will continue using the old token until the statefulset is restart. If the name of the database CRD is `mariadb` (as per the example above), then:
+    MariaDB will continue using the old token until the StatefulSet is restarted. If the name of the `MariaDB` CR  is `mariadb` (as per the example above), then:
     ```sh
     kubectl rollout restart statefulset mariadb
     ```
