@@ -277,10 +277,7 @@ Make sure when rotating the token, to do so in advance of the token expiring.
 
 ### **Vault Not Being Accessible Will Result In MariaDB Not Working**
 
-As MariaDB uses vault to fetch it's decryption key, in the case where vault is not accessible due to it being down, network issues, secret
-not existing, will result in MariaDB not being able to fetch the decryption key and hence stop working. While the Hashicorp plugin has a
-configurable cache, that should be set and will result in MariaDB still working for a few seconds to minutes, depending on configuration,
-the cache is not reliable as it's ephemeral and short lived.
+As MariaDB uses Vault to fetch it's decryption key, in case that Vault becomes unavailable, it will result in MariaDB not being able to fetch the decryption key and hence stop working. While the Hashicorp plugin has a configurable cache, that should be set and will result in MariaDB still working for a few seconds to minutes, depending on configuration, the cache is not reliable as it's ephemeral and short lived.
 
 ### **Deleting The Decryption Key Will Make Your Data Inaccessible.**
 
