@@ -10,7 +10,7 @@ The readconnroute router provides simple and lightweight load balancing across
 a set of servers. The router can also be configured to balance connections
 based on a weighting parameter defined in the server's section.
 
-Note that \*_readconnroute_ balances _connections_ and not_statements_. When a
+Note that _readconnroute_ balances _connections_ and not _statements_. When a
 client connects, the router selects a server based upon the router
 configuration and current server load, but the single created connection is
 fixed and will not be changed for the duration of the session. If the
@@ -18,14 +18,16 @@ connection between MaxScale and the server breaks, the connection cannot be
 re-established and the session will be closed. The fact that the server is
 fixed when the client connects also means that routing hints are ignored.
 
-**Warning:** `readconnroute` will not prevent writes from being done even if
-  you define `router_options=slave`. The client application is responsible for
-  making sure that it only performs read-only queries in such
-  cases. `readconnroute` is simple by design: it selects a server for each
-  client connection and routes all queries there. If something more complex is
-  required, the
-  [readwritesplit](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-readwritesplit.md)
-  router is usually the right choice.
+**Warning:** By default `readconnroute` will not prevent writes from being done
+  even if you define `router_options=slave`. To prevent writes, add
+  `filters=readonly` to the service to load the
+  [ReadOnly](../maxcale-filters/maxscale-filters/maxscale-readonly.md)
+  module that will block all writes.
+  Otherwise, the client application is responsible for making sure that it only
+  performs read-only queries in such cases. `readconnroute` is simple by design:
+  it selects a server for each client connection and routes all queries
+  there. If something more complex is required, the
+  [readwritesplit](maxscale-readwritesplit.md) router is usually the right choice.
 
 ## Settings
 
@@ -101,6 +103,29 @@ The default value is `0s`, which means that the lag is ignored.
 The replication lag of a server must be less than the configured value in order
 for it to be used for routing. To configure the router to not allow any lag,
 use the smallest duration larger than 0, that is, `max_replication_lag=1s`.
+
+### `preferred_labels`
+
+- **Type**: string list
+- **Mandatory**: No
+- **Dynamic**: Yes
+- **Default**: None
+
+Comma-separated list of labels that defines the preference of servers.
+
+If defined, servers with these labels are preferred over those that do not have
+them. This allows different readconnroute services to prefer different servers
+based on user-configurable labels in the servers and services. This also makes
+it possible to have a separate readconnroute service for example reporting or
+logical backups that prefers a specific set of servers and another readconnroute
+service for the production client workload, all while still allowing both of
+them to use the same server in case of an outage.
+
+Multiple label values can be given and the servers are grouped based on
+that. For example with `preferred_labels=banana,mango,kiwi`, servers with the
+`banana` label are used first after which the `mango`ones are used and then the
+`kiwi` ones. If no servers with these labels are found, any server that is valid
+based on `router_options` is used.
 
 ## Examples
 
