@@ -1,13 +1,11 @@
 # MaxScale Readwritesplit
 
-## Readwritesplit
+## Overview
 
 This document provides a short overview of the **readwritesplit** router module
 and its intended use case scenarios. It also displays all router configuration
 parameters with their descriptions. A list of current limitations of the module
 is included and use examples are provided.
-
-### Overview
 
 The **readwritesplit** router is designed to increase the read-only processing
 capability of a cluster while maintaining consistency. This is achieved by
@@ -22,7 +20,7 @@ resilient setup and easy primary failover by using one of the Galera nodes as a
 Write-Primary node, where all write queries are routed, and spreading the read
 load over all the nodes.
 
-### Interaction with servers in `Maintenance` and `Draining` state
+## Interaction with servers in `Maintenance` and `Draining` state
 
 When a server that readwritesplit uses is put into maintenance mode, any ongoing
 requests are allowed to finish before the connection is closed. If the server
@@ -40,7 +38,7 @@ connection will be used normally. Whenever a new connection needs to be created,
 whether that be due to a network error or when a new session being opened, only
 servers that are neither `Draining` nor `Drained` will be used.
 
-### Configuration
+## Configuration
 
 Readwritesplit router-specific settings are specified in the configuration file
 of MariaDB MaxScale in its specific section. The section can be freely named but
@@ -51,13 +49,15 @@ For more details about the standard service parameters, refer to the [Configurat
 Starting with 2.3, all router parameters can be configured at runtime. Use`maxctrl alter service` to modify them. The changed configuration will only be
 taken into use by new sessions.
 
-### Settings
+## Settings
 
-#### `max_slave_connections`
+### `max_slave_connections`
 
 * Type: integer
 * Mandatory: No
 * Dynamic: Yes
+* Min: 0
+* Max: 255
 * Default: 255
 
 `max_slave_connections` sets the maximum number of replicas a router session uses
@@ -82,10 +82,14 @@ balancing is then done between these two replicas and writes are sent to the
 primary.
 
 By tuning this parameter, you can control how dynamic the load balancing is at
-the cost of extra created connections. With a lower value of`max_slave_connections`, less connections per session are created and the set of
-possible replica servers is smaller. With a higher value in`max_slave_connections`, more connections are created which requires more
+the cost of extra created connections. With a lower value
+of`max_slave_connections`, less connections per session are created and the set
+of possible replica servers is smaller. With a higher value
+in `max_slave_connections`, more connections are created which requires more
 resources but load balancing will almost always give the best single query
-response time and performance. Longer sessions are less affected by a high`max_slave_connections` as the relative cost of opening a connection is lower.
+response time and performance. Longer sessions are less affected by a
+high`max_slave_connections` as the relative cost of opening a connection is
+lower.
 
 **Behavior of `max_slave_connections=0`**
 
@@ -101,7 +105,7 @@ no other `Master` server available, the connection will be closed. This is done
 to prevent an extra slave connection from being opened that would not be closed
 if a new `Master` server would arrive.
 
-#### `slave_connections`
+### `slave_connections`
 
 * Type: integer
 * Mandatory: No
@@ -121,7 +125,7 @@ resource usage due to the smaller amount of initial backend
 connections. It is recommended to use `slave_connections=1` when the
 lifetime of the client connections is short.
 
-#### `max_replication_lag`
+### `max_replication_lag`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -143,9 +147,10 @@ Note that this feature does not guarantee that writes done on the primary are
 visible for reads done on the replica. This is mainly due to the method of
 replication lag measurement. For a feature that guarantees this, refer to [causal\_reads](maxscale-readwritesplit.md#causal_reads).
 
-The lag is specified as documented [here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md). Note that since
-the granularity of the lag is seconds, a lag specified in milliseconds will be
-rejected, even if the duration is longer than a second.
+The lag is specified as documented
+[here](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md).
+Note that since the granularity of the lag is seconds, a lag specified in
+milliseconds will be rejected, even if the duration is longer than a second.
 
 The Readwritesplit-router does not detect the replication lag itself. A monitor
 such as the MariaDB-monitor for a Primary-Replica cluster is required. This option
@@ -162,7 +167,7 @@ connection will be discarded if a server is lagging behind by more than twice
 the amount of `max_replication_lag` and the server is behind by more than 300
 seconds (`replication lag > MAX(300, 2 * max_replication_lag)`).
 
-#### `use_sql_variables_in`
+### `use_sql_variables_in`
 
 * Type: [enum](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -212,16 +217,18 @@ INSERT INTO test.t1 VALUES (@myid := @myid + 1);
 SELECT @myid; -- Might return 1 or 0
 ```
 
-#### `master_reconnection`
+### `master_reconnection`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
 * Dynamic: Yes
 * Default: true (>= MaxScale 24.02), false(<= MaxScale 23.08)
 
-Allow the primary server to change mid-session. This feature requires that`disable_sescmd_history` is not used.
+Allow the primary server to change mid-session. This feature requires
+that`disable_sescmd_history` is not used.
 
-Starting with MaxScale 24.02, if `disable_sescmd_history` is enabled,`master_reconnection` will be automatically disabled.
+Starting with MaxScale 24.02, if `disable_sescmd_history` is
+enabled,`master_reconnection` will be automatically disabled.
 
 When a readwritesplit session starts, it will pick a primary server as the
 current primary server of that session. When `master_reconnection` is disabled,
@@ -229,7 +236,8 @@ when this primary server is lost or changes to another server, the connection
 will be closed.
 
 When `master_reconnection` is enabled, readwritesplit can sometimes recover a
-lost connection to the primary server. This largely depends on the value of`master_failure_mode`.
+lost connection to the primary server. This largely depends on the value
+of`master_failure_mode`.
 
 With `master_failure_mode=fail_instantly`, the primary server is only allowed to
 change to another server. This change must happen without a loss of the primary
@@ -240,13 +248,15 @@ longer a fatal error: if a replacement primary server appears before any write
 queries are received, readwritesplit will transparently reconnect to the new
 primary server.
 
-In both cases the change in the primary server can only take place if`prune_sescmd_history` is enabled or `max_sescmd_history` has not yet
-been exceeded and the session does not have an open transaction.
+In both cases the change in the primary server can only take place
+if`prune_sescmd_history` is enabled or `max_sescmd_history` has not yet been
+exceeded and the session does not have an open transaction.
 
-The recommended configuration is to use `master_reconnection=true` and`master_failure_mode=fail_on_write`. This provides improved fault tolerance
+The recommended configuration is to use `master_reconnection=true`
+and`master_failure_mode=fail_on_write`. This provides improved fault tolerance
 without any risk to the consistency of the database.
 
-#### `slave_selection_criteria`
+### `slave_selection_criteria`
 
 * Type: [enum](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -256,7 +266,8 @@ without any risk to the consistency of the database.
 
 This option controls how the readwritesplit router chooses the replicas it
 connects to and how the load balancing is done. The default behavior is to route
-read queries to the replica server with the lowest amount of ongoing queries i.e.`least_current_operations`.
+read queries to the replica server with the lowest amount of ongoing queries
+i.e. `least_current_operations`.
 
 The option syntax:
 
@@ -292,7 +303,9 @@ metric. This means that servers that are more up-to-date are favored which
 increases the likelihood of the data being read being up-to-date. However, this
 is not as effective as `causal_reads` would be as there's no guarantee that
 writes done by the same connection will be routed to a server that has
-replicated those changes. The recommended approach is to use`LEAST_CURRENT_OPERATIONS` or `ADAPTIVE_ROUTING` in combination with`causal_reads`
+replicated those changes. The recommended approach is to
+use`LEAST_CURRENT_OPERATIONS` or `ADAPTIVE_ROUTING` in combination
+with`causal_reads`.
 
 **NOTE**: `least_global_connections` and `least_router_connections` should not
 be used, they are legacy options that exist only for backwards
@@ -305,7 +318,9 @@ connections from MariaDB MaxScale to the server, not the amount of connections
 reported by the server itself.
 
 Starting with MaxScale versions 2.5.29, 6.4.11, 22.08.9, 23.02.5 and 23.08.1,
-lowercase versions of the values are also accepted. For example,`slave_selection_criteria=LEAST_CURRENT_OPERATIONS` and`slave_selection_criteria=least_current_operations` are both accepted as valid
+lowercase versions of the values are also accepted. For example,
+`slave_selection_criteria=LEAST_CURRENT_OPERATIONS` and
+`slave_selection_criteria=least_current_operations` are both accepted as valid
 values.
 
 Starting with MaxScale 23.08.1, the legacy uppercase values have been
@@ -313,7 +328,7 @@ deprecated. All runtime modifications of the parameter will now be persisted in
 lowercase. The uppercase values are still accepted but will be removed in a
 future MaxScale release.
 
-#### `master_accept_reads`
+### `master_accept_reads`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -334,7 +349,7 @@ regardless of the value of `master_accept_reads`.
 master_accept_reads=true
 ```
 
-#### `strict_multi_stmt`
+### `strict_multi_stmt`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -357,7 +372,7 @@ statements that cause inconsistencies in the session state.
 strict_multi_stmt=true
 ```
 
-#### `strict_sp_calls`
+### `strict_sp_calls`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -369,7 +384,7 @@ operation on a stored procedure to be routed to the primary.
 
 All warnings and restrictions that apply to `strict_multi_stmt` also apply to`strict_sp_calls`.
 
-#### `strict_tmp_tables`
+### `strict_tmp_tables`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -387,7 +402,7 @@ table exist, the session is closed. If a session creates temporary tables but
 does not drop them, this behavior will effectively disable reconnections until
 the session is closed.
 
-#### `master_failure_mode`
+### `master_failure_mode`
 
 * Type: [enum](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -424,7 +439,7 @@ queries without reconnecting to MariaDB MaxScale once a new primary is
 available. If [master\_reconnection](maxscale-readwritesplit.md#master_reconnection) is enabled, the
 session can recover if one of the replicas is promoted as the primary.
 
-#### `retry_failed_reads`
+### `retry_failed_reads`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -442,7 +457,7 @@ If a part of the result was already delivered to the client, the query will not
 be retried. The retrying of queries with partially delivered results is only
 possible when `transaction_replay` is enabled.
 
-#### `delayed_retry`
+### `delayed_retry`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -478,7 +493,7 @@ reason, it is recommended to only enable `delayed_retry` for older versions of
 MaxScale when the possibility of duplicate statement execution is an acceptable
 risk.
 
-#### `delayed_retry_timeout`
+### `delayed_retry_timeout`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -493,7 +508,7 @@ versions a value without a unit may be rejected. Note that since the granularity
 of the timeout is seconds, a timeout specified in milliseconds will be rejected,
 even if the duration is longer than a second.
 
-#### `transaction_replay`
+### `transaction_replay`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -514,11 +529,13 @@ If no replacement node becomes available, the client connection is closed.
 
 To control how long a transaction replay can take, use`transaction_replay_timeout`.
 
-Please refer to the [Transaction Replay Limitations](maxscale-readwritesplit.md#transaction-replay-limitations) section for
-a more detailed explanation of what should and should not be done with
-transaction replay.
+Please refer to the
+[Transaction Replay
+Limitations](maxscale-readwritesplit.md#transaction-replay-limitations)
+section for a more detailed explanation of what should and should not be done
+with transaction replay.
 
-#### `transaction_replay_max_size`
+### `transaction_replay_max_size`
 
 * Type: [size](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -535,12 +552,13 @@ The amount of memory needed to store a particular transaction will be slightly
 larger than the length in bytes of the SQL used in the transaction. If the limit
 is ever exceeded, a message will be logged at the info level.
 
-The number of times that this limit has been exceeded is shown in`maxctrl show service` as `trx_max_size_exceeded`.
+The number of times that this limit has been exceeded is shown in`maxctrl show
+service` as `trx_max_size_exceeded`.
 
 Read [the configuration guide](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 for more details on size type parameters in MaxScale.
 
-#### `transaction_replay_attempts`
+### `transaction_replay_attempts`
 
 * Type: integer
 * Mandatory: No
@@ -556,7 +574,7 @@ controls how many server and network failures a single transaction replay
 tolerates. If a transaction is replayed successfully, the counter for failed
 attempts is reset.
 
-#### `transaction_replay_timeout`
+### `transaction_replay_timeout`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -578,16 +596,19 @@ If `delayed_retry_timeout` is less than `transaction_replay_timeout`, it is set
 to the same value.
 
 Without `transaction_replay_timeout` the time how long a transaction can be
-retried is controlled by `delayed_retry_timeout` and`transaction_replay_attempts`. This can result in a maximum replay time limit of`delayed_retry_timeout` multiplied by `transaction_replay_attempts`, by default
-this is 50 seconds. The minimum replay time limit can be as low as`transaction_replay_attempts` seconds (5 seconds by default) in cases where the
-connection fails after it was created. Usually this happens due to problems like
-the max\_connections limit being hit on the database server.
+retried is controlled by `delayed_retry_timeout`
+and`transaction_replay_attempts`. This can result in a maximum replay time
+limit of`delayed_retry_timeout` multiplied by `transaction_replay_attempts`, by
+default this is 50 seconds. The minimum replay time limit can be as low
+as`transaction_replay_attempts` seconds (5 seconds by default) in cases where
+the connection fails after it was created. Usually this happens due to problems
+like the max\_connections limit being hit on the database server.
 
 `transaction_replay_timeout` is the recommended method of controlling the
 timeouts for transaction replay and is by default set to 30 seconds in MaxScale
 24.02.
 
-#### `transaction_replay_retry_on_deadlock`
+### `transaction_replay_retry_on_deadlock`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -602,7 +623,7 @@ the transaction is automatically retried. If the retrying of the transaction
 results in another deadlock error, it is retried until it either succeeds or a
 transaction checksum error is encountered.
 
-#### `transaction_replay_safe_commit`
+### `transaction_replay_safe_commit`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -623,16 +644,21 @@ DML statements that `delayed_retry` enabled. The result of this was that only
 statements done inside of an explicit transactions or with autocommit disabled
 were replayed and writes done with autocommit enabled were never replayed.
 
-In MaxScale 25.01.1 and newer versions, where `delayed_retry no longer attempts to retry a query if it was already sent to the database, write queries outside of transactions are delayed if no valid target is found but they are never retried. Thus`transaction\_replay\_safe\_commit`again only affects how the`COMMIT\` of a transaction is handled.
+In MaxScale 25.01.1 and newer versions, where `delayed_retry no longer attempts
+to retry a query if it was already sent to the database, write queries outside
+of transactions are delayed if no valid target is found but they are never
+retried. Thus`transaction\_replay\_safe\_commit`again only affects how
+the`COMMIT\` of a transaction is handled.
 
 If the data that is about to be modified is read before it is modified and it is
-locked in an appropriate manner (e.g. with `SELECT ... FOR UPDATE` or with the`SERIALIZABLE` isolation level), it is safe to replay a transaction that was
+locked in an appropriate manner (e.g. with `SELECT ... FOR UPDATE` or with
+the `SERIALIZABLE` isolation level), it is safe to replay a transaction that was
 about to commit. This is because the checksum of the transaction will mismatch
 if the original transaction ended up committing on the server. Disabling this
 feature can enable more robust delivery of transactions but it requires that the
 SQL is correctly formed and compatible with this behavior.
 
-#### `transaction_replay_retry_on_mismatch`
+### `transaction_replay_retry_on_mismatch`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -643,9 +669,10 @@ Retry transactions that end in checksum mismatch.
 
 When enabled, any replayed transactions that end with a checksum mismatch are
 retried until they either succeeds or one of the transaction replay limits is
-reached (`delayed_retry_timeout`, `transaction_replay_timeout` or`transaction_replay_attempts`).
+reached (`delayed_retry_timeout`, `transaction_replay_timeout`
+or`transaction_replay_attempts`).
 
-#### `transaction_replay_checksum`
+### `transaction_replay_checksum`
 
 * Type: [enum](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -675,16 +702,17 @@ Possible values are:
   by any following queries. An example of such behavior would be a transaction
   that ends with an `INSERT` into a table with an `AUTO_INCREMENT` field.
 * `no_insert_id`
-* The same as `result_only` but results from queries that use`LAST_INSERT_ID()` are also ignored. This mode is safe to use only if the
-  result of the query is not used by any subsequent statement in the
-  transaction.
+* The same as `result_only` but results from queries that use`LAST_INSERT_ID()`
+  are also ignored. This mode is safe to use only if the result of the query is
+  not used by any subsequent statement in the transaction.
 
-#### `optimistic_trx`
+### `optimistic_trx`
 
-This feature has been moved into the [OptimisticTrx](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-filters/mariadb-maxscale-2501-maxscale-2501-optimistic-transaction-execution-filter.md) filter in MaxScale 25.01 and the
-parameter has been removed from readwritesplit.
+This feature has been moved into the
+[OptimisticTrx](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-filters/mariadb-maxscale-2501-maxscale-2501-optimistic-transaction-execution-filter.md)
+filter in MaxScale 25.01 and the parameter has been removed from readwritesplit.
 
-#### `causal_reads`
+### `causal_reads`
 
 * Type: [enum](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -698,9 +726,10 @@ If a client connection modifies the database and `causal_reads` is enabled, any
 subsequent reads performed on replica servers will be done in a manner that
 prevents replication lag from affecting the results.
 
-The following table contains a comparison of the modes. Read the [implementation of causal\_reads](maxscale-readwritesplit.md#implementation-of-causal_reads) for more
-information on what a sync consists of and why minimizing the number of them is
-important.
+The following table contains a comparison of the modes. Read the
+[implementation of causal\_reads](maxscale-readwritesplit.md#implementation-of-causal_reads)
+for more information on what a sync consists of and why minimizing the number
+of them is important.
 
 | Mode            | Level of Causality | Latency                                                  |
 | --------------- | ------------------ | -------------------------------------------------------- |
@@ -749,23 +778,28 @@ The possible values for this parameter are:
   newer than the ones already stored. To reset the stored GTID coordinates in
   readwritesplit, MaxScale must be restarted.
   MaxScale 6.4.11 added the new `reset-gtid` module command to
-  readwritesplit. This allows the global GTID state used by`causal_reads=global` to be reset without having to restart MaxScale.
+  readwritesplit. This allows the global GTID state used
+  by`causal_reads=global` to be reset without having to restart MaxScale.
 * `fast`
 * This mode is similar to the `local` mode where it will only affect the
   connection that does the write but where the `local` mode waits for a replica
   server to catch up, the `fast` mode will only use servers that are known to
   have replicated the write. This means that if no replica has replicated the
-  write, the primary where the write was done will be used. The value of`causal_reads_timeout` is ignored in this mode. Currently the replication
+  write, the primary where the write was done will be used. The value of
+  `causal_reads_timeout` is ignored in this mode. Currently the replication
   state is only updated by the mariadbmon monitor whenever the servers are
   monitored. This means that a smaller `monitor_interval` provides faster
   replication state updates and possibly better overall usage of servers.
   This mode is the inverse of the `local` mode in the sense that it improves
   read latency at the cost of read scalability while still retaining the
   causality guarantees for reads. This functionality can also be considered an
-  improved version of the functionality that the [CCRFilter](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-filters/mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md) module provides.
+  improved version of the functionality that the
+  [CCRFilter](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-filters/mariadb-maxscale-2501-maxscale-2501-consistent-critical-read-filter.md)
+  module provides.
 * `fast_global`
 * This mode is identical to the `fast` mode except that it uses the global
-  GTID instead of the session local one. This is similar to how `local` and`global` modes differ from each other. The value of `causal_reads_timeout`
+  GTID instead of the session local one. This is similar to how `local` and
+  `global` modes differ from each other. The value of `causal_reads_timeout`
   is ignored in this mode. Currently the replication state is only updated by
   the mariadbmon monitor whenever the servers are monitored. This means that a
   smaller `monitor_interval` provides faster replication state updates and
@@ -786,7 +820,8 @@ The possible values for this parameter are:
   primary which places some load on the server.
 * `fast_universal`
 * A mix of `fast` and `universal`. This mode that guarantees that all SELECT
-  statements always see the latest observable transaction state but unlike the`universal` mode that waits on the server to catch up, this mode behaves
+  statements always see the latest observable transaction state but unlike
+  the `universal` mode that waits on the server to catch up, this mode behaves
   like `fast` and routes the query to the current primary if no replicas are
   available that have caught up.
   This mode provides the same consistency guarantees of `universal` with a
@@ -795,8 +830,8 @@ The possible values for this parameter are:
   the GTIDs of replicas to lag too far behind.
 
 Before MaxScale 2.5.0, the `causal_reads` parameter was a boolean
-parameter. False values translated to `none` and true values translated to`local`. The use of boolean parameters is deprecated but still accepted in
-MaxScale 2.5.0.
+parameter. False values translated to `none` and true values translated to `local`.
+The use of boolean parameters is deprecated but still accepted in MaxScale 2.5.0.
 
 **Implementation of `causal_reads`**
 
@@ -806,8 +841,9 @@ generates, readwritesplit can then perform a synchronization operation with the
 help of the `MASTER_GTID_WAIT` function.
 
 If the replica has not caught up to the primary within the configured time, as
-specified by [causal\_reads\_timeout](maxscale-readwritesplit.md#causal_reads_timeout), it will
-be retried on the primary.
+specified by
+[causal\_reads\_timeout](maxscale-readwritesplit.md#causal_reads_timeout),
+it will be retried on the primary.
 
 The exception to this rule is the `fast` mode which does not do any
 synchronization at all. This can be done as any reads that would go to
@@ -848,9 +884,10 @@ SET @maxscale_secret_variable=(
 ```
 
 The `SET` command will synchronize the replica to a certain logical point in the
-replication stream (see [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait) for more
-details). If the synchronization fails, the query will not run and it will be
-retried on the server where the transaction was originally done.
+replication stream (see
+[MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait)
+for more details). If the synchronization fails, the query will not run and it
+will be retried on the server where the transaction was originally done.
 
 **Prepared Statements**
 
@@ -892,7 +929,8 @@ It is recommend that the session command history is enabled whenever prepared
 statements are used with `causal_reads`. This allows new connections to be
 created whenever a causal read times out.
 
-A failed causal read inside of a read-only transaction started with`START TRANSACTION READ ONLY` will return the following error:
+A failed causal read inside of a read-only transaction started with
+`START TRANSACTION READ ONLY` will return the following error:
 
 ```
 Error:    1792
@@ -905,7 +943,10 @@ server which would cause the connection to be closed and a warning to be logged.
 
 **Limitations of Causal Reads**
 
-* Starting with MaxScale 24.02.5, the fast modes `fast`, `fast_global` and`fast_universal` work with Galera clusters. In older versions, none of the`causal_reads` modes worked with Galera. The non-fast modes that rely on the [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait)
+* Starting with MaxScale 24.02.5, the fast modes `fast`, `fast_global` and`fast_universal`
+  work with Galera clusters. In older versions, none of the`causal_reads` modes worked
+  with Galera. The non-fast modes that rely on the
+  [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait)
   function still do not work with Galera. This is because Galera does not
   implement a mechanism that allows a client to wait for a particular GTID.
 * If the combination of the original SQL statement and the modifications
@@ -927,7 +968,7 @@ server which would cause the connection to be closed and a warning to be logged.
 | Connector/C++     | No        | 1.1.5   |
 | Connector/ODBC    | No        | 3.2.5   |
 
-#### `causal_reads_timeout`
+### `causal_reads_timeout`
 
 * Type: [duration](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -942,7 +983,7 @@ versions a value without a unit may be rejected. Note that since the granularity
 of the timeout is seconds, a timeout specified in milliseconds will be rejected,
 even if the duration is longer than a second.
 
-#### `lazy_connect`
+### `lazy_connect`
 
 * Type: [boolean](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -960,21 +1001,155 @@ initial connection creation is skipped. If the client executes only read
 queries, no connection to the primary is made. If only write queries are made,
 only the primary connection is used.
 
-In MaxScale 23.08.2, if a [session command](maxscale-readwritesplit.md#routing-to-every-session-backend)
+In MaxScale 23.08.2, if a
+[session command](maxscale-readwritesplit.md#routing-to-every-session-backend)
 is received as the first command, the default behavior is to execute it on a
-replica. If [master\_accept\_reads](maxscale-readwritesplit.md#master_accept_reads) is enabled, the query is
-executed on the primary server, if one is available. In practice this means that
-workloads which are mostly reads with infrequent writes should disable`master_accept_reads` if they also use `lazy_connect`.
+replica. If [master\_accept\_reads](maxscale-readwritesplit.md#master_accept_reads)
+is enabled, the query is executed on the primary server, if one is available.
+In practice this means that workloads which are mostly reads with infrequent
+writes should disable`master_accept_reads` if they also use `lazy_connect`.
 
 Older versions of MaxScale always tried to execute all session commands on the
 primary node if one was available.
 
-#### `reuse_prepared_statements`
+### `reuse_prepared_statements`
 
-This feature has been moved into the [PsReuse](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-filters/mariadb-maxscale-2501-maxscale-2501-psreuse.md) filter in
-MaxScale 25.01 and the parameter has been removed from readwritesplit.
+This feature has been moved into the
+[PsReuse](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-filters/mariadb-maxscale-2501-maxscale-2501-psreuse.md)
+filter in MaxScale 25.01 and the parameter has been removed from readwritesplit.
 
-### Router Diagnostics
+### `sync_transaction`
+
+* Type: [enum](../Getting-Started/Configuration-Guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `none`, `soft`, `hard`
+* Default: `none`
+
+Synchronize transactions on one or more replicas.
+
+This feature synchronizes all committed transactions on one or more replicas by
+waiting for the transaction to be replicated. It has two modes of operation: the
+`soft` mode synchronizes the transactions but fails silently if a
+synchronization timeout occurs whereas the `hard` mode will close the client
+session if synchronization times out.
+
+The `soft` mode can be used to limit the amount of replication lag that the
+cluster will see. In this mode, the `sync_transaction_timeout` setting controls
+the maximum amount of time that a client will wait for a transaction to be
+synchronized. If the timeout is exceeded, the processing of client requests
+proceeds normally. This throttles the rate at which transactions arrive while
+still allowing new transactions to be committed even if there is a network
+outage or the replication is lagging behind too much.
+
+The `hard` mode behaves in a similar manner to that of the `soft` mode except
+that if a timeout occurs, the client connection is closed. In this mode, if a
+client receives the OK for the commit of a transaction, it means that it has
+been replicated and processed by at least one server in the cluster. The `hard`
+mode provides a mode of operation that is a synchronous form of
+replication. However it does come with the downside that if no server manages to
+replicate a transaction, no new transactions are successfully committed until a
+server becomes available and replication catches up.
+
+Transaction synchronization in the `hard` mode can be used as an alternative for
+the semi-synchronous replication in MariaDB. In this mode, the transaction
+synchronization can provide a stronger guarantee of durability by requiring more
+servers to be fully synchronized. This use-case is for those situations where
+losing a minority of the cluster in one go is a possibility and that the
+survival of transactions is of utmost importance.
+
+In the `soft` mode, it is still beneficial to have semi-synchronous replication
+enabled if automatic failover is used in `mariadbmon`. In this kind of a
+configuration, the transaction synchronization acts more as a replication lag
+avoidance mechanism rather than a replication synchronization mechanism.
+
+#### Limitations of transaction synchronization
+
+* This feature does not work with Galera or MySQL.
+
+* If a SQL statement produces multiple commits (i.e. generates more than one
+  GTID), only the first transaction will be synchronized.
+
+### `sync_transaction_count`
+
+* Type: integer
+* Mandatory: No
+* Dynamic: Yes
+* Min: 1
+* Max: 255
+* Default: 1
+
+The minimum number of backend servers to synchronize with.
+
+The synchronization request is sent to all backends to which there are open
+connections. Once enough backend servers have been successfully synchronized,
+the response to the committing of the transaction is routed to the client. By
+default, this happens once the fastest backend has executed the transaction.
+
+By increasing the value of `sync_transaction_count`, the synchronization can be
+done on more servers. In the `soft` mode, this reduces replication lag on
+multiple servers while in the `hard` mode it makes the transactions durable on
+more servers.
+
+When the `hard` mode is combined with the automatic failover and cooperative
+replication of `mariadbmon`, a disaster tolerant synchronous replication cluster
+is be formed.
+
+If the value of `max_slave_connections` is lower than the value of
+`sync_transaction_count`, it is raised to match it so that a successful
+synchronization is possible.
+
+### `sync_transaction_timeout`
+
+* Type: [duration](../Getting-Started/Configuration-Guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 10s
+
+Timeout for the transaction synchronization. The timeout values can be given in
+milliseconds.
+
+This is the maximum time that a transaction will wait for synchronization. In
+the `soft` mode, the result is returned if the synchronization times out and in
+the `hard` mode, the connection is closed.
+
+For example, with `sync_transaction=soft` and `sync_transaction_timeout=3s`, the
+synchronization of a `COMMIT` will take at most 3 seconds after which the result
+is always returned to the client, regardless of whether it was synchronized or
+not.
+
+### `sync_transaction_max_lag`
+
+* Type: [duration](../Getting-Started/Configuration-Guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: 0s
+
+Upper limit of allowed synchronization lag. This setting only affects the `soft`
+mode of transaction synchronization. If `sync_transaction=hard` is used, this
+setting is ignored.
+
+If this setting is set to zero (the default), all transactions are always
+synchronized and the replication self-regulates the rate of transaction
+execution. The downside of this approach is that all transactions fully
+synchronize with at least one node which causes all commits to suffer the
+latency penalty. When replication is not the performance bottleneck, this
+overhead is unnecessary.
+
+When `sync_transaction_max_lag` is configured, a single transaction is used to
+probe the synchronization lag while other transactions are allowed to execute in
+parallel without synchronization. Once the measured synchronization lag exceeds
+the configured limit, all transactions will be synchronized.
+
+When the value of `sync_transaction_max_lag` is higher than the value of
+`sync_transaction_timeout`, the replication lag as reported by the monitor is
+used to determine when to start synchronizing all transactions.
+
+Very high values of `sync_transaction_max_lag` combined with high values of
+`sync_transaction_timeout` may cause oscillations in the commit times of
+transactions and thus it's recommended to keep the maximum lag relatively low.
+
+## Router Diagnostics
 
 The `router_diagnostics` output for a readwritesplit service contains the
 following fields.
@@ -995,7 +1170,7 @@ following fields.
 * `avg_sess_active_pct`: Average percentage of time client sessions were active. 0% means connections were opened but never used.
 * `avg_selects_per_session`: Average number of selects per session.
 
-### Server Ranks
+## Server Ranks
 
 The general rule with server ranks is that primary servers will be used before
 secondary servers. Readwritesplit is an exception to this rule. The following
@@ -1015,7 +1190,7 @@ rules govern how readwritesplit behaves with servers that have different ranks.
   they will remain in use.
 * If no open connections exist, the servers with the best rank will used.
 
-### Routing hints
+## Routing hints
 
 The readwritesplit router supports routing hints. For a detailed guide on hint
 syntax and functionality, please read [this](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-reference/mariadb-maxscale-2501-maxscale-2501-hint-syntax.md)
@@ -1033,7 +1208,7 @@ done inside a re-playable transaction from affecting servers outside of the
 transaction. This behavior was added in MaxScale 6.1.4. Older versions allowed
 routing hints to override the transaction logic.
 
-#### Known Limitations of Routing Hints
+### Known Limitations of Routing Hints
 
 * If a `SELECT` statement with a `maxscale route to slave` hint is received
   while autocommit is disabled, the query will be routed to a replica server. This
@@ -1041,13 +1216,14 @@ routing hints to override the transaction logic.
   will block DDL statements on the server until either the connection is closed
   or autocommit is enabled again.
 
-### Module Commands
+## Module Commands
 
 The readwritesplit router implements the following module commands.
 
-#### `reset-gtid`
+### `reset-gtid`
 
-The command resets the global GTID state in the router. It can be used with`causal_reads=global` to reset the state. This can be useful when the cluster is
+The command resets the global GTID state in the router. It can be used with
+`causal_reads=global` to reset the state. This can be useful when the cluster is
 reverted to an earlier state and the GTIDs recorded in MaxScale are no longer
 valid.
 
@@ -1059,16 +1235,16 @@ MaxCtrl command should be used:
 maxctrl call command readwritesplit reset-gtid My-RW-Router
 ```
 
-### Examples
+## Examples
 
 Examples of the readwritesplit router in use can be found in the [Tutorials](../../mariadb-maxscale-tutorials/) folder.
 
-### Readwritesplit routing decisions
+## Readwritesplit routing decisions
 
 Here is a small explanation which shows what kinds of queries are routed to
 which type of server.
 
-#### Routing to Primary
+### Routing to Primary
 
 Routing to primary is important for data consistency and because majority of
 writes are written to binlog and thus become replicated to replicas.
@@ -1091,14 +1267,16 @@ The following operations are routed to primary:
 * `@@last_insert_id`
 * `@@identity`
 
-In addition to these, if the **readwritesplit** service is configured with the`max_replication_lag` parameter, and if all replicas suffer from too much
+In addition to these, if the **readwritesplit** service is configured with the
+`max_replication_lag` parameter, and if all replicas suffer from too much
 replication lag, then statements will be routed to the primary. (There might be
 other similar configuration parameters in the future which limit the number of
 statements that will be routed to replicas.)
 
 **Transaction Isolation Level Tracking**
 
-If either `session_track_transaction_info=CHARACTERISTICS` or`session_track_system_variables=tx_isolation` is configured for the MariaDB
+If either `session_track_transaction_info=CHARACTERISTICS` or
+`session_track_system_variables=tx_isolation` is configured for the MariaDB
 server, readwritesplit will track the transaction isolation level and lock the
 session to the primary when the isolation level is set to serializable. This
 retains the correctness of the isolation level which can otherwise cause
@@ -1110,7 +1288,7 @@ primary and returns to its normal state. Older versions of MaxScale remain
 locked to the primary even if the session goes out of the `SERIALIZABLE`
 isolation level.
 
-#### Routing to Replicas
+### Routing to Replicas
 
 The ability to route some statements to replicas is important because it also
 decreases the load targeted to _primary_. Moreover, it is possible to have multiple
@@ -1123,9 +1301,10 @@ of the following group:
 * All statements within an explicit read-only transaction (`START TRANSACTION READ ONLY`)
 * `SHOW` statements except `SHOW MASTER STATUS`
 
-The list of supported built-in functions can be found [here](https://github.com/mariadb-corporation/MaxScale/blob/23.02/query_classifier/qc_sqlite/builtin_functions.cc).
+The list of supported built-in functions can be found
+[here](https://github.com/mariadb-corporation/MaxScale/blob/23.02/query_classifier/qc_sqlite/builtin_functions.cc).
 
-#### Routing to every session backend
+### Routing to every session backend
 
 A third class of statements includes those which modify session data, such as
 session system variables, user-defined variables, the default database, etc. We
@@ -1152,7 +1331,7 @@ long-running sessions might cause MariaDB MaxScale to consume a growing amount
 of memory unless the sessions are closed. This can be solved by adjusting the
 value of `max_sescmd_history`.
 
-#### Routing to previous target
+### Routing to previous target
 
 In the following cases, a query is routed to the same server where the previous
 query was executed. If no previous target is found, the query is routed to the
@@ -1164,7 +1343,14 @@ current primary.
 * COM\_STMT\_FETCH\_ROWS will always be routed to the same server where the
   COM\_STMT\_EXECUTE was routed.
 
-### Limitations
+## Limitations
+
+### Maximum Number of Targets
+
+Starting with MaxScale 25.08, readwritesplit has a hard limit of 256 targets. If
+more than 256 targets are used in a service, only the first 256 are used.
+
+### Routing of Read Queries to the Primary Server
 
 Read queries are routed to the primary server in the following situations:
 
@@ -1172,13 +1358,13 @@ Read queries are routed to the primary server in the following situations:
 * Statement includes a stored procedure or an UDF call
 * If there are multiple statements inside one query e.g.`INSERT INTO ... ; SELECT LAST_INSERT_ID();`
 
-#### Prepared Statement Limitations
+### Prepared Statement Limitations
 
 If a prepared statement targets a temporary table on the primary, the replica
 servers will fail to execute it. This will cause all replica connections to be
 closed (MXS-1816).
 
-#### Transaction Replay Limitations
+### Transaction Replay Limitations
 
 When transaction replay is enabled, readwritesplit calculates a checksum of the
 server responses for each transaction. This is used to determine whether a
