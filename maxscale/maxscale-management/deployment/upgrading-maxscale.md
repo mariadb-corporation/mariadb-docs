@@ -2,11 +2,38 @@
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/DobjxO0sqF3MWCEIIL8Z/" %}
 
-Before upgrading to MariaDB MaxScale, it is critical to review the changes. This guide outlines new features, altered parameters, and deprecated functionality to ensure a smooth transition.
+Before upgrading to MariaDB MaxScale, it is critical to review the changes.
+This guide outlines new features, altered parameters, and deprecated functionality
+to ensure a smooth transition.
 
-For more information about what has changed, please refer to the [ChangeLog](../installation-and-configuration/broken-reference/) and to the release notes.
+For more information about what has changed, please refer to the
+[ChangeLog](../installation-and-configuration/broken-reference/) and
+to the release notes.
 
 Before starting the upgrade, any existing configuration files should be backed up.
+
+## Upgrading MariaDB MaxScale from 25.01 to 25.08
+
+### Service User Grants
+
+The service users now require a `SELECT` grant on the `mysql.global_priv` table
+in order to be able to support authentication of users with multiple
+authentication mechanisms. If this grant is not given to the service users, a
+warning is logged. The following SQL shows how the grant is given to a user:
+
+```
+GRANT SELECT ON mysql.global_priv TO 'maxscale_user'@'%';
+```
+
+### Monitor timeouts
+
+In MaxScale 25.08, only one monitor backend timeout remains:
+[backend_timeout](../Monitors/Monitor-Common.md#backend_timeout). This replaces
+the old `backend_connect_timeout`, `backend_write_timeout` and
+`backend_read_timeout`, using the same value for all underlying timeouts.
+`backend_connect_timeout` is still supported as an alias for `backend_timeout`,
+but any values given to `backend_write_timeout` and `backend_read_timeout` are
+ignored.
 
 ## Upgrading MariaDB MaxScale from 24.02 to 25.01
 
