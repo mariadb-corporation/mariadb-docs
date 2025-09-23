@@ -1155,6 +1155,108 @@ one.
 To reduce the risk for confusion, the recommendation is to use a specific
 database for tables that contain documents.
 
+## Indexes
+
+_Nosqlprotocol_ supports indexes but there are some limitations.
+
+In MongoDB®, a query like
+```
+db.runCommand({find: "toys", filter: { color: "red" }});
+```
+will return objects like
+```
+{
+  ...
+  "color": "red"
+}
+```
+as well as objects like
+```
+{
+  ...
+  "color": [ "red", "blue" ]
+}
+```
+_Nosqlprotocol_ translates that query into something like
+```
+... WHERE JSON_VALUE(doc, "$.color") = "red" OR JSON_CONTAINS(doc, "$.color", "red")
+```
+The former condition picks out objects whose `color` field contains
+a literal value `"red"` while the latter picks out objects whose
+`color` field contains an array containing the value `"color"`.
+
+In MariaDB Server it is currently not possible to create an index
+that would be appropritate for that use-case. It is also not possible
+to create an index that would work predictably, if the data types
+of the values of a field are different.
+
+Currently, an index is created with the assumption that the field
+is a literal text-value.
+
+When an index is created like
+```
+db.runCommand({createIndexes: "cars", indexes: [{keys: { color:1 }, name "color"}]});
+```
+the generated SQL will basically be like
+```
+ALTER TABLE `test`.`cars`
+ADD COLUMN `color` VARCHAR(255) COLLATE utf8mb3_general_ci
+    AS (JSON_UNQUOTE(JSON_EXTRACT(doc, '$.color'))),
+ADD INDEX `color`(`color`);
+```
+The index expression - `JSON_UNQUOTE(JSON_EXTRACT(doc, '$.color'))` -
+does not match the `WHERE` clause shown above, but even if it would
+match the first part, the second part would still require a table scan,
+so the index would not be used.
+
+Therefore, it is necessary to provide a hint that an index is present,
+so that different code can be generated. The hint need not specify the
+index to be used; it is sufficient that the field is present.
+
+For instance,
+```
+db.runCommand({find: "cars", filter: {color: "red"}, hint: undefined});
+```
+will cause the following `WHERE` clause to be generated
+```
+... WHERE JSON_UNQUOTE(JSON_EXTRACT(doc, '$.color')) = "red"
+```
+which will cause the index to be used.
+
+Due to the way JSON values are handled, the index will work correctly
+for exact match searches also when the value is an array or a document.
+
+For instance, with a collection and documents like
+```
+docs = db.docs;
+docs.createIndexes([{f:1}]);
+docs.save({f: 1});
+docs.save({f: "hello"});
+docs.save({f: [1, 2, 3]});
+docs.save({f: {g:3}});
+```
+the following indexed queries will return the correct documents.
+```
+docs.find({f: "hello"}).hint();
+docs.find({f: [1, 2, 3]}).hint();
+docs.find({f: {g:3}}).hint();
+```
+Even integer values can be sought after using the index, but the index
+will not be used unless the the value is enclosed in quotes and the
+conversion is correct. For instance,
+```
+docs.find({f: "1"}).hint();
+```
+will return nothing, but
+```
+docs.find({f: "1.0"}).hint();
+```
+will. Without quotes
+```
+docs.find({f: 1}).hint();
+```
+the document will be found, but the index will not be used.
+
 ## Operators
 
 The following operators are currently supported.
@@ -1255,6 +1357,7 @@ As arguments, only the operators `$eq` and `$ne` are supported.
 * $add
 * $and
 * $arrayElemAt
+* $binarySize
 * $bsonSize
 * $ceil
 * $cmp
@@ -1269,6 +1372,8 @@ As arguments, only the operators `$eq` and `$ne` are supported.
 * $gt
 * $gte
 * $ifNull
+* $indexOfBytes
+* $indexOfCP
 * $isArray
 * $isNumber
 * $last
@@ -1278,14 +1383,25 @@ As arguments, only the operators `$eq` and `$ne` are supported.
 * $log10
 * $lt
 * $lte
+* $ltrim
 * $mod
 * $multiply
 * $ne
 * $not
 * $or
 * $pow
+* $reverseArray
+* $rtrim
 * $size
+* $slice
+* $split
 * $sqrt
+* $strCaseCmp
+* $strLenBytes
+* $strLenCP
+* $substr
+* $substrBytes
+* $substrCP
 * $subtract
 * $switch
 * $toBool
@@ -1294,11 +1410,15 @@ As arguments, only the operators `$eq` and `$ne` are supported.
 * $toDouble
 * $toInt
 * $toLong
+* $toLower
 * $toObjectId
 * $toString
+* $toUpper
+* $trim
+* $trunc
 * $type
 
-**Accumulators ($group)**
+#### Accumulators ($group)
 
 * $avg
 * $first
@@ -1386,6 +1506,7 @@ The following fields are relevant.
 | limit       | Non-negative integer | Optional. The maximum number of documents to return. If unspecified, then defaults to no limit. A limit of 0 is equivalent to setting no limit.                                                    |
 | batchSize   | Non-negative integer | Optional. The number of documents to return in the first batch. Defaults to 101. A batchSize of 0 means that the cursor will be established, but no documents will be returned in the first batch. |
 | singleBatch | boolean              | Optional. Determines whether to close the cursor after the first batch. Defaults to false.                                                                                                         |
+| hint        | any                  | Optional. The value is ignored, but if the `hint` field is present, _nosqlprotocol_ will generate code with the assumption that there is an index for every field referred to in `filter`.         |
 
 All other fields are ignored.
 
@@ -1850,16 +1971,33 @@ view on another collection, will cause the command to fail.
 
 #### createIndexes
 
-The following fields are relevant.
+Field | Type | Description
+------|------|------------
+createIndexes| string | The collection for which to create indexes.
+indexes| array | Specifies the indexes to create.
 
-| Field         | Type   | Description                                 |
-| ------------- | ------ | ------------------------------------------- |
-| createIndexes | string | The collection for which to create indexes. |
+The following fields are relevant for each document in the `indexes` array.
 
-**NOTE** Currently it is not possible to create indexes, but the command
-will nonetheless return success, provide the index specification passes
-some rudimentary sanity checks. Note also that the collection will be
-created if it does not exist.
+Field | Type | Description
+------|------|------------
+key | document | Contains key/value pairs, where the key is the name of the field to index and value the index direction or the index type. Currently the direction is ignored and a specific type cannot be specified.
+name | string | The name of the index.
+unique | boolean | Optional. If true, a unique index will be created.
+sparse | boolean | Optional and has no effect.
+
+For instance, the following command
+```
+db.runCommand({createIndexes: "cars", indexes: [{keys: { make: 1}, name: "make"}]});
+```
+results in the following SQL:
+```
+ALTER TABLE `test`.`cars`
+ADD COLUMN IF NOT EXISTS `make` VARCHAR(255) COLLATE utf8mb4_bin AS (JSON_VALUE(doc, '$.make')),
+ADD INDEX IF NOT EXISTS `make`(`make`) COMMENT 'Regular';
+```
+The value of the comment is either `Regular` or `Sparse`, depending on the value of `sparse`
+at creation time. The only purpose is for `listIndexes` to be able to report whether the
+index was supposed to be sparse or not.
 
 #### drop
 
@@ -1881,14 +2019,10 @@ The following fields are relevant.
 
 The following fields are relevant.
 
-| Field       | Type | Description |
-| ----------- | ---- | ----------- |
-| dropIndexes | any  | Ignored.    |
-
-**NOTE** Currently it is not possible to create indexes and thus there
-will never be any indexes that could be dropped. However, provided the
-specified collection exists, dropping indexes will always succeed except
-for an attempt to drop the built-in `_id_` index.
+Field | Type | Description
+------|------|------------
+dropIndexes | string | The name of the collection whose indexes should be dropped.
+index | string|document|array-of-strings | Indexes to be dropped.
 
 #### fsync
 
