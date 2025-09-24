@@ -1,15 +1,15 @@
 # MaxScale Monitor Resource
 
-## Monitor Resource
+## Overview
 
 A monitor resource represents a monitor inside MaxScale that monitors one or
 more servers.
 
-### Resource Operations
+## Resource Operations
 
 The _:name_ in all of the URIs must be the name of a monitor in MaxScale.
 
-#### Get a monitor
+### Get a monitor
 
 ```
 GET /v1/monitors/:name
@@ -17,7 +17,7 @@ GET /v1/monitors/:name
 
 Get a single monitor.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -175,7 +175,7 @@ Get a single monitor.
 }
 ```
 
-#### Get all monitors
+### Get all monitors
 
 ```
 GET /v1/monitors
@@ -183,7 +183,7 @@ GET /v1/monitors
 
 Get all monitors.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -343,7 +343,7 @@ Get all monitors.
 }
 ```
 
-#### Create a monitor
+### Create a monitor
 
 ```
 POST /v1/monitors
@@ -400,13 +400,13 @@ the _monitor\_interval_ parameter.
 }
 ```
 
-**Response**
+#### Response
 
 Monitor is created:
 
 `Status: 204 No Content`
 
-#### Update a monitor
+### Update a monitor
 
 ```
 PATCH /v1/monitors/:name
@@ -415,7 +415,7 @@ PATCH /v1/monitors/:name
 The request body must be a valid JSON document representing the modified
 monitor.
 
-#### Modifiable Fields
+### Modifiable Fields
 
 The following standard server parameter can be modified.
 
@@ -431,7 +431,7 @@ In addition to these standard parameters, the monitor specific parameters can
 also be modified. Refer to the monitor module documentation for details on these
 parameters.
 
-**Response**
+#### Response
 
 Monitor is modified:
 
@@ -441,7 +441,7 @@ Invalid request body:
 
 `Status: 400 Bad Request`
 
-#### Update monitor relationships
+### Update monitor relationships
 
 ```
 PATCH /v1/monitors/:name/relationships/servers
@@ -475,7 +475,7 @@ PATCH /v1/monitors/my-monitor/relationships/servers
 }
 ```
 
-**Response**
+#### Response
 
 Monitor relationships modified:
 
@@ -485,7 +485,7 @@ Invalid JSON body:
 
 `Status: 400 Bad Request`
 
-#### Destroy a monitor
+### Destroy a monitor
 
 ```
 DELETE /v1/monitors/:name
@@ -497,7 +497,7 @@ servers in order to be destroyed.
 This endpoint also supports the `force=yes` parameter that will unconditionally
 delete the monitor by first unlinking it from all servers that it uses.
 
-**Response**
+#### Response
 
 Monitor is deleted:
 
@@ -507,7 +507,7 @@ Monitor could not be deleted:
 
 `Status: 400 Bad Request`
 
-#### Stop a monitor
+### Stop a monitor
 
 ```
 PUT /v1/monitors/:name/stop
@@ -515,13 +515,13 @@ PUT /v1/monitors/:name/stop
 
 Stops a started monitor.
 
-**Response**
+#### Response
 
 Monitor is stopped:
 
 `Status: 204 No Content`
 
-#### Start a monitor
+### Start a monitor
 
 ```
 PUT /v1/monitors/:name/start
@@ -529,7 +529,7 @@ PUT /v1/monitors/:name/start
 
 Starts a stopped monitor.
 
-**Response**
+#### Response
 
 Monitor is started:
 

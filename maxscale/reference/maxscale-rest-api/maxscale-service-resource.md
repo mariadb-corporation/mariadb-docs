@@ -1,15 +1,15 @@
 # MaxScale Service Resource
 
-## Service Resource
+## Overview
 
 A service resource represents a service inside MaxScale. A service is a
 collection of network listeners, filters, a router and a set of backend servers.
 
-### Resource Operations
+## Resource Operations
 
 The _:name_ in all of the URIs must be the name of a service in MaxScale.
 
-#### Get a service
+### Get a service
 
 ```
 GET /v1/services/:name
@@ -17,7 +17,7 @@ GET /v1/services/:name
 
 Get a single service.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -260,7 +260,7 @@ Get a single service.
 }
 ```
 
-#### Get all services
+### Get all services
 
 ```
 GET /v1/services
@@ -268,7 +268,7 @@ GET /v1/services
 
 Get all services.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -772,7 +772,7 @@ Get all services.
 }
 ```
 
-#### Create a service
+### Create a service
 
 ```
 POST /v1/services
@@ -782,15 +782,19 @@ Create a new service by defining the resource. The posted object must define at
 least the following fields.
 
 * `data.id`
-* Name of the service
+  * Name of the service
+
 * `data.type`
-* Type of the object, must be `services`
+  * Type of the object, must be `services`
+
 * `data.attributes.router`
-* The router module to use
+  * The router module to use
+
 * `data.attributes.parameters.user`
-* The [user](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
+  * The [user](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
+
 * `data.attributes.parameters.password`
-* The [password](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
+  * The [password](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
 
 The `data.attributes.parameters` object is used to define router and service
 parameters. All configuration parameters that can be defined in the
@@ -846,13 +850,13 @@ relationship.
 }
 ```
 
-**Response**
+#### Response
 
 Service is created:
 
 `Status: 204 No Content`
 
-#### Destroy a service
+### Destroy a service
 
 ```
 DELETE /v1/services/:name
@@ -875,13 +879,13 @@ This endpoint also supports the `force=yes` parameter that will unconditionally
 delete the service by first unlinking it from all servers and filters that it
 uses.
 
-**Response**
+#### Response
 
 Service is destroyed:
 
 `Status: 204 No Content`
 
-#### Update a service
+### Update a service
 
 ```
 PATCH /v1/services/:name
@@ -912,13 +916,13 @@ The following example modifies a service by changing the `user` parameter to `ad
 }
 ```
 
-**Response**
+#### Response
 
 Service is modified:
 
 `Status: 204 No Content`
 
-#### Update service relationships
+### Update service relationships
 
 ```
 PATCH /v1/services/:name/relationships/:type
@@ -962,7 +966,7 @@ PATCH /v1/services/my-rw-service/relationships/servers
 }
 ```
 
-**Response**
+#### Response
 
 Service relationships modified:
 
@@ -972,7 +976,7 @@ Invalid JSON body:
 
 `Status: 400 Bad Request`
 
-#### Stop a service
+### Stop a service
 
 ```
 PUT /v1/services/:name/stop
@@ -987,13 +991,13 @@ This endpoint supports the following parameters:
 * `force=yes`
 * Close all existing connections that were created through this listener.
 
-**Response**
+#### Response
 
 Service is stopped:
 
 `Status: 204 No Content`
 
-#### Start a service
+### Start a service
 
 ```
 PUT /v1/services/:name/start
@@ -1001,13 +1005,13 @@ PUT /v1/services/:name/start
 
 Starts a stopped service.
 
-**Response**
+#### Response
 
 Service is started:
 
 `Status: 204 No Content`
 
-#### Reload users of a service
+### Reload users of a service
 
 ```
 POST /v1/services/:name/reload
@@ -1015,13 +1019,13 @@ POST /v1/services/:name/reload
 
 Reloads the list of database users used for authentication.
 
-**Response**
+#### Response
 
 Users are reloaded:
 
 `Status: 204 No Content`
 
-#### Get service listeners
+### Get service listeners
 
 ```
 GET /v1/services/:name/listeners
@@ -1029,7 +1033,7 @@ GET /v1/services/:name/listeners
 
 This endpoint is deprecated, use the [this](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-listener-resource.md) listeners endpoint instead.
 
-#### Get a single service listener
+### Get a single service listener
 
 ```
 GET /v1/services/:name/listeners/:listener
@@ -1038,7 +1042,7 @@ GET /v1/services/:name/listeners/:listener
 This endpoint is deprecated, use the [this](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-listener-resource.md)
 listeners endpoint instead.
 
-#### Create a new listener
+### Create a new listener
 
 ```
 POST /v1/services/:name/listeners
@@ -1046,7 +1050,7 @@ POST /v1/services/:name/listeners
 
 This endpoint is deprecated, use the [this](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-listener-resource.md) listeners endpoint instead.
 
-#### Destroy a listener
+### Destroy a listener
 
 ```
 DELETE /v1/services/:service/listeners/:name

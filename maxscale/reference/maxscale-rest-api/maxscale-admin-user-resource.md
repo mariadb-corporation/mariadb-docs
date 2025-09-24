@@ -1,13 +1,13 @@
 # MaxScale Admin User Resource
 
-## Admin User Resource
+## Overview
 
 Admin users represent administrative users that are able to query and change
 MaxScale's configuration.
 
-### Resource Operations
+## Resource Operations
 
-#### Get network user
+### Get network user
 
 ```
 GET /v1/users/inet/:name
@@ -16,7 +16,7 @@ GET /v1/users/inet/:name
 Get a single network user. The _:name_ in the URI must be a valid network
 user name.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -42,7 +42,7 @@ user name.
 }
 ```
 
-#### Get all network users
+### Get all network users
 
 ```
 GET /v1/users/inet
@@ -50,7 +50,7 @@ GET /v1/users/inet
 
 Get all network users.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -78,7 +78,7 @@ Get all network users.
 }
 ```
 
-#### Get enabled UNIX account
+### Get enabled UNIX account
 
 ```
 GET /v1/users/unix/:name
@@ -86,7 +86,7 @@ GET /v1/users/unix/:name
 
 **Note:** This endpoint has been deprecated and does nothing.
 
-#### Get all enabled UNIX accounts
+### Get all enabled UNIX accounts
 
 ```
 GET /v1/users/unix
@@ -94,7 +94,7 @@ GET /v1/users/unix
 
 **Note:** This endpoint has been deprecated and does nothing.
 
-#### Get all users
+### Get all users
 
 ```
 GET /v1/users
@@ -102,7 +102,7 @@ GET /v1/users
 
 Get all administrative users.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -130,7 +130,7 @@ Get all administrative users.
 }
 ```
 
-#### Create a network user
+### Create a network user
 
 ```
 POST /v1/users/inet
@@ -168,13 +168,13 @@ password _my-password_ that is allowed to execute only read-only operations.
 }
 ```
 
-**Response**
+#### Response
 
 ```
 Status: 204 No Content
 ```
 
-#### Enable a UNIX account
+### Enable a UNIX account
 
 ```
 POST /v1/users/unix
@@ -204,13 +204,13 @@ Here is an example request body enabling the UNIX account _jdoe_ for read-only o
 }
 ```
 
-**Response**
+#### Response
 
 ```
 Status: 204 No Content
 ```
 
-#### Delete a network user
+### Delete a network user
 
 ```
 DELETE /v1/users/inet/:name
@@ -218,13 +218,13 @@ DELETE /v1/users/inet/:name
 
 The _:name_ part of the URI must be a valid user name.
 
-**Response**
+#### Response
 
 ```
 Status: 204 No Content
 ```
 
-#### Disable a UNIX account
+### Disable a UNIX account
 
 ```
 DELETE /v1/users/unix/:name
@@ -232,13 +232,13 @@ DELETE /v1/users/unix/:name
 
 The _:name_ part of the URI must be a valid user name.
 
-**Response**
+#### Response
 
 ```
 Status: 204 No Content
 ```
 
-#### Update a network user
+### Update a network user
 
 ```
 PATCH /v1/users/inet/:name
@@ -260,7 +260,7 @@ Here is an example request body that updates the password.
 }
 ```
 
-**Response**
+#### Response
 
 ```
 Status: 204 No Content

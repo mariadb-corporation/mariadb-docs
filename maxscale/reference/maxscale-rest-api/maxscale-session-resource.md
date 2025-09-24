@@ -1,14 +1,14 @@
 # MaxScale Session Resource
 
-## Session Resource
+## Overview
 
 A session is an abstraction of a client connection, any number of related backend
 connections, a router module session and possibly filter module sessions. Each
 session is created on a service and each service can have multiple sessions.
 
-### Resource Operations
+## Resource Operations
 
-#### Get a session
+### Get a session
 
 ```
 GET /v1/sessions/:id
@@ -21,7 +21,7 @@ This endpoint also supports the `rdns=true` parameter, which instructs MaxScale 
 perform reverse DNS on the client IP address. As this requires communicating with
 an external server, the operation may be expensive.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -119,7 +119,7 @@ an external server, the operation may be expensive.
 }
 ```
 
-#### Get all sessions
+### Get all sessions
 
 ```
 GET /v1/sessions
@@ -127,7 +127,7 @@ GET /v1/sessions
 
 Get all sessions.
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -227,7 +227,7 @@ Get all sessions.
 }
 ```
 
-#### Update a Session
+### Update a Session
 
 ```
 PATCH /v1/sessions/:id
@@ -275,13 +275,13 @@ similar to how the filter relationship for services behaves.
 }
 ```
 
-**Response**
+#### Response
 
 Session is modified:
 
 `Status: 204 No Content`
 
-#### Restart a Session
+### Restart a Session
 
 ```
 POST /v1/sessions/:id/restart
@@ -297,13 +297,13 @@ This endpoint can be used to apply configuration changes that were done after
 the session was started. This can be useful for situations where the client
 connections live for a long time and connections are not recycled often enough.
 
-**Response**
+#### Response
 
 Session is was restarted:
 
 `Status: 204 No Content`
 
-#### Restart all Sessions
+### Restart all Sessions
 
 ```
 POST /v1/sessions/restart
@@ -312,13 +312,13 @@ POST /v1/sessions/restart
 This endpoint does the same thing as the `/v1/sessions/:id/restart` endpoint
 except that it applies to all sessions.
 
-**Response**
+#### Response
 
 Session is was restarted:
 
 `Status: 204 No Content`
 
-#### Kill a Session
+### Kill a Session
 
 ```
 DELETE /v1/sessions/:id
@@ -326,7 +326,7 @@ DELETE /v1/sessions/:id
 
 This endpoint causes the session to be forcefully closed.
 
-**Request Parameters**
+#### Request Parameters
 
 This endpoint supports the following request parameters.
 
@@ -335,7 +335,7 @@ This endpoint supports the following request parameters.
   the session is killed immediately. This can be used to give the session time
   to finish the work it is performing before the connection is closed.
 
-**Response**
+#### Response
 
 Session was killed:
 

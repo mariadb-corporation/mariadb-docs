@@ -1,15 +1,15 @@
 # MaxScale Filter Resource
 
-## Filter Resource
+## Overview Resource
 
 A filter resource represents an instance of a filter inside MaxScale. Multiple
 services can use the same filter and a single service can use multiple filters.
 
-### Resource Operations
+## Resource Operations
 
 The _:name_ in all of the URIs must be the name of a filter in MaxScale.
 
-#### Get a filter
+### Get a filter
 
 Get a single filter.
 
@@ -17,11 +17,11 @@ Get a single filter.
 GET /v1/filters/:name
 ```
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
@@ -79,7 +79,7 @@ GET /v1/filters/:name
 }
 ```
 
-#### Get all filters
+### Get all filters
 
 Get all filters.
 
@@ -87,7 +87,7 @@ Get all filters.
 GET /v1/filters
 ```
 
-**Response**
+#### Response
 
 `Status: 200 OK`
 
@@ -182,7 +182,7 @@ GET /v1/filters
 }
 ```
 
-#### Create a filter
+### Create a filter
 
 ```
 POST /v1/filters
@@ -221,13 +221,13 @@ The following example defines a request body which creates a new filter.
 }
 ```
 
-**Response**
+#### Response
 
 Filter is created:
 
 `Status: 204 No Content`
 
-#### Update a filter
+### Update a filter
 
 ```
 PATCH /v1/filters/:name
@@ -251,13 +251,13 @@ The following example modifies a filter by changing the `match` parameter to`.*u
 }
 ```
 
-**Response**
+#### Response
 
 Filter is modified:
 
 `Status: 204 No Content`
 
-#### Destroy a filter
+### Destroy a filter
 
 ```
 DELETE /v1/filters/:filter
@@ -272,7 +272,7 @@ done via the services resource.
 This endpoint also supports the `force=yes` parameter that will unconditionally
 delete the filter by first removing it from all services that it uses.
 
-**Response**
+#### Response
 
 Filter is destroyed:
 
