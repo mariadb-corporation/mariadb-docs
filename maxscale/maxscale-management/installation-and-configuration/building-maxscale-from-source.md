@@ -7,7 +7,7 @@ requirements are as follows:
 
 * CMake version 3.16 or later (Packaging requires CMake 3.25.1 or later)
 * GCC version 4.9 or later
-* OpenSSL version 1.0.1 or later
+* OpenSSL version 1.1.1 or later
 * GNUTLS
 * Node.js 14 or newer for building MaxCtrl and the GUI (webpack), Node.js 10 or newer for running MaxCtrl
 * PAM
