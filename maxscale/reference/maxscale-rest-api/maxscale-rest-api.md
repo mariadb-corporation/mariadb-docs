@@ -12,7 +12,7 @@ of the comment and extend to the end of the current line.
 
 ## Configuration
 
-Read the [REST API](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+Read the [REST API](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#rest-api-configuration)
 section of the configuration guide for more details on how to configure the REST API.
 
 ## Authentication
@@ -24,16 +24,17 @@ user is `admin:mariadb`.
 It is highly recommended to enable HTTPS on the MaxScale REST API to make the
 communication between the client and MaxScale secure. Without it, the passwords
 can be intercepted from the network traffic. Refer to the
-[Configuration Guide](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) for more
+[Configuration Guide](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#admin_ssl_key) for more
 details on how to enable HTTPS for the MaxScale REST API.
 
 For more details on how administrative interface users are created and managed,
-refer to the [MaxCtrl](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-reference/mariadb-maxscale-2501-maxscale-2501-maxctrl.md) documentation as well as the
-documentation of the [users](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md) resource.
+refer to the [MaxCtrl](../maxscale-maxctrl.md) documentation as well as the
+documentation of the [users](maxscale-admin-user-resource.md) resource.
 
 ### JSON Web Tokens
 
-MaxScale supports authentication via [JSON Web Tokens](https://tools.ietf.org/html/rfc7519).
+MaxScale supports authentication via
+[JSON Web Tokens](https://tools.ietf.org/html/rfc7519).
 
 ```
 GET /v1/auth
@@ -42,17 +43,18 @@ GET /v1/auth
 The `/v1/auth` endpoint can be used to generate new tokens which are returned in
 the following form.
 
-```
+```javascript
 {
     "meta": {
-        "token": "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50IjoiYWRtaW4iLCJhdWQiOiJhZG1pbiIsImV4cCI6MTY4OTk1MDgwNCwiaWF0IjoxNjg5OTIyMDA0LCJpc3MiOiJtYXhzY2FsZSIsInN1YiI6ImFkbWluIn0.LRFeXaFAhYNBm7kLIosUpR2nOgd5H-gv3MpuLaCpPvk"
+        "token": "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50IjoiYWRtaW4iLCJhdWQiOiJhZG1pbiIsImV4cCI6MTc1MzQ4NzAzNywiaWF0IjoxNzUzNDU4MjM3LCJpc3MiOiJtYXhzY2FsZSIsImp0aSI6ImJjMGEwNDBmLWU2NGUtNDVlNC1hZTY3LWJkNjZjZGUzYTU3OSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiZWRpdCIsInNxbCIsInZpZXciXSwic3ViIjoiYWRtaW4ifQ.B1NjRHduQENNpJLFozfgim7xWAbqTSAPztcZOS9oCeU"
     }
 }
 ```
 
 Note that by default the `/auth` endpoint requires the connection to be
 encrypted (HTTPS) and attempts to use it without encryption will be treated as
-an error. To allow use of the `/auth` endpoint without encryption, use`admin_secure_gui=false`.
+an error. To allow use of the `/auth` endpoint without encryption, use
+`admin_secure_gui=false`.
 
 If the token is used to authenticate users in a web browser, the token can be
 optionally stored in cookies. This can be enabled with the `persist=yes`
@@ -62,10 +64,17 @@ parameter in the request:
 GET /v1/auth?persist=yes
 ```
 
-When the token is stored in the cookies, it will be stored in the `token_sig`
+When the token is stored in the cookies, it will be stored in the `maxscale_token`
 cookie using the `SameSite=Strict` and `HttpOnly` cookie options. This means the
 JavaScript context of the browser will not have access to it. This is done to
 prevent CSRF attacks.
+
+To log out and clear the `HttpOnly` cookies from a browser, the same `/v1/auth`
+endpoint can be used with the `logout=true` parameter:
+
+```
+GET /v1/auth?logout=yes
+```
 
 By default, the generated tokens are valid for 8 hours. The token validity
 period can be set with the `max-age` request parameter:
@@ -105,30 +114,121 @@ given in the HTTP query string.
     or a non-integer value is found, the parameter is ignored.
 
 - `persist`
+
   - Store the generated token in cookies instead of returning it as the response body.
 
     This parameter expects only one value, `yes`, as its argument. When
-    `persist=yes` is set, the token is stored in the `token_sig` cookie and the
+    `persist=yes` is set, the token is stored in the `maxscale_token` cookie and the
     response is 204 No Content instead of 200 OK.
 
-    The `token_sig` cookie contains the JWT and is stored as a HttpOnly cookie
+    The `maxscale_token` cookie contains the JWT and is stored as a HttpOnly cookie
     which prevents access to from JavaScript. This is done to mitigate any
     attacks that might leak the token.
+
+### The `/whoami` Endpoint
+
+The `/whoami` endpoint can be used to request the JSON description of the JWT
+payload contents. This is useful when used in the web browser which does not
+have access to the token itself but may still find the information in the
+payload to be useful.
+
+```javascript
+{
+    "account": "admin",
+    "aud": "admin",
+    "exp": 1753487037,
+    "iat": 1753458237,
+    "iss": "maxscale",
+    "jti": "d036a4dc-512d-4916-9ee7-12773e31eb87",
+    "permissions": [
+        "admin",
+        "edit",
+        "sql",
+        "view"
+    ],
+    "sub": "admin"
+}
+```
+
+### OpenID Connect
+
+MaxScale implements a limited set of OpenID Connect compatible endpoints and
+supports the use of the Implicit Flow for authentication of REST-API
+clients. These endpoints are intended to be used when MaxScale is configured
+with `admin_oidc_url` that points to another MaxScale to whom the authentication
+and authorization is delegated to. The only workflow from OpenID Connect that
+MaxScale implements and uses is the Implicit Flow which returns tokens in the
+redirection URL.
+
+Other OpenID Connect providers that implement the Implict Flow can be
+used with MaxScale to implement SSO for the REST-API and the MaxScale
+GUI.
+
+MaxScale uses the `admin_jwt_issuer` as the `client_id` in all OpenID Connect
+requests.
+
+#### `/login`
+
+If MaxScale is configured with `admin_oidc_url`, the `/login/` endpoint
+will redirect to the `authorization_endpoint` of the OpenID Connect
+server, otherwise it'll redirect to the `/auth` endpoint.
+
+#### `/logout`
+
+The `/logout` endpoint redirects to the `end_session_endpoint` of the OpenID
+Connect server which is used to sign out the user from all services. If
+`admin_oidc_url` has not been configured, the endpoint simply clears all
+authentication cookies and returns a 200 OK response.
+
+#### `/.well-defined/openid-configuration`
+
+The `/.well-defined/openid-configuration` endpoint retrieves the OpenID Connect
+configuration which has links to the authorization endpoint `/authorize`, the
+end session endpoint `/logout` and the JWKS endpoint `/jwks`. The `have_sso`
+field in the response is a custom value that MaxScale exposes to indicate
+whether the `/login` and `/logout` endpoints cause a redirect, i.e. whether
+`admin_oidc_url` has been configured.
+
+#### `/authorize`
+
+The `/authorize` endpoint implements the OAuth 2 endpoint for
+authorization. MaxScale does not implement the token endpoint as it only
+supports Implicit Flow authentication and thus all responses will contain the
+id_token value.
+
+The only suppored `scope` value is `open_id` and the `response_type` must be
+`id_token`. If a `nonce` value is provided, it is added to the generated JWT
+under the `nonce` claim.
+
+In the redirect response, `id_token` contains the generated JWT and `token_type`
+is always set to `bearer. The `expires_in` value contains the lifetime of the
+generated JWT. If a `state` value was given, it is included in the redirect
+response.
+
+Any tokens generated from the `/authorize` endpoint will have their lifetime set
+to 8 hours or the value of `admin_jwt_max_age` if it is lower than 8 hours.
+
+#### `/jwks`
+
+The `/jwks` endpoint returns the REST-API public keys in JWKS form, as specified
+by OpenID Connect.
 
 ## Resources
 
 The MaxScale REST API provides the following resources. All resources conform to
-the [JSON API](https://jsonapi.org/format/) specification.
+the [JSON API](http://jsonapi.org/format/) specification.
 
-- [maxscale](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-maxscale-resource.md)
-- [services](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-service-resource.md)
-- [servers](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-server-resource.md)
-- [listeners](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-listener-resource.md)
-- [filters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-filter-resource.md)
-- [monitors](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-monitor-resource.md)
-- [sessions](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-session-resource.md)
-- [users](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-admin-user-resource.md)
-- [sql](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-sql-resource.md)
+- [maxscale](maxscale-maxscale-resource.md)
+- [objects](maxscale-object-resource.md)
+- [services](maxscale-service-resource.md)
+- [servers](maxscale-service-resource.md)
+- [listeners](maxscale-listener-resource.md)
+- [filters](maxscale-filter-resource.md)
+- [monitors](maxscale-monitor-resource.md)
+- [sessions](maxscale-session-resource.md)
+- [users](maxscale-admin-user-resource.md)
+- [roles](Resources-Role.md)
+- [sql](maxscale-sql-resource.md)
 
 In addition to the named resources, the REST API will respond with a HTTP 200 OK
 response to GET requests on the root resource (`/`) as well as the namespace
@@ -182,22 +282,22 @@ the resource documentation.
 
     List of services used by the service
 
-- `filters`
+  - `filters`
 
-  List of filters used by the service
+    List of filters used by the service
 
-  **NOTE**: This is an ordered relationship where the order of the filters
-  defines the order in which they process queries.
+    **NOTE:** This is an ordered relationship where the order of the filters
+      defines the order in which they process queries.
 
-- `listeners`
+  - `listeners`
 
-   List of listeners used by the service
+    List of listeners used by the service
 
 - `monitors` - Monitor resource
 
-   - `servers`
+  - `servers`
 
-     List of servers used by the monitor
+    List of servers used by the monitor
 
 - `filters` - Filter resource
 
@@ -205,7 +305,8 @@ the resource documentation.
 
     List of services that use this filter
 
-    *NOTE*: This is a one-way relationship that can only be modified from the`services` resource.
+    **NOTE:** This is a one-way relationship that can only be modified from the
+    `services` resource.
 
 - `servers` - Server resource
 
@@ -226,12 +327,13 @@ the resource documentation.
 ## Common Request Parameters
 
 All parameters that use boolean values use the same rules that are used for the
-[boolean values](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) in the
+[boolean values](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#booleans) in the
 MaxScale configuration. For example, both `pretty=off` and `pretty=false`
 disable the `pretty` option.
 
 All the resources that return JSON content also support the following
-parameters. Parameters are given in the HTTP query string:`https://localhost:8989/v1/servers?pretty=true&fields[servers]=state`.
+parameters. Parameters are given in the HTTP query string:
+`https://localhost:8989/v1/servers?pretty=true&fields[servers]=state`.
 
 - `pretty`
 
@@ -239,7 +341,7 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
 
     If this parameter is set to `true` then the returned objects are formatted
     in a more human readable format. If the parameter is set to `false` then the
-    returned objects are formatted in a compact format. All resources support
+    returned objects are formatted in a compact format.  All resources support
     this parameter. The default value for this parameter is `true`.
 
 - `fields[TYPE]=field1,field2...`
@@ -248,8 +350,8 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
 
     This parameter controls which fields are returned in the REST API
     response. The `TYPE` value in the `fields` parameter must be the resource
-    type that is being retrieved (i.e. the `servers` in `/v1/servers` and`/v1/server/server1`).
-    The value of the parameter must be a comma-separated
+    type that is being retrieved (i.e. the `servers` in `/v1/servers` and
+    `/v1/server/server1`). The value of the parameter must be a comma-separated
     list of [JSON Pointers](https://tools.ietf.org/html/rfc6901) that mark which
     fields of the object to return. Only fields in objects in the `attributes`
     and `relationships` objects are inspected. This means that if the path
@@ -260,7 +362,7 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
     endpoint, the `fields[servers]=state` parameter can be used. This would
     return only the `data.attributes.state` part of the resource. To return the
     nested value `data.attributes.statistics.connections`, the corresponding
-     parameter would be `fields[servers]=statistics/connections`.
+    parameter would be `fields[servers]=statistics/connections`.
 
 - `filter=json_ptr=expr`
 
@@ -273,7 +375,7 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
     The argument to the filter parameter must be a key-value pair with a valid
     [JSON Pointer](https://tools.ietf.org/html/rfc6901) as the key and either a
     valid JSON type as the value or a
-    [filter-expression](maxscale-rest-api.md#filter-expressions). The comparison is done for each
+    [filter-expression](#filter-expressions). The comparison is done for each
     individual object in the `data` array of the result. If given only a JSON
     value, the stored value is compared for equality. If an expression is used,
     the expression is evaluated and only rows that match are returned.
@@ -281,9 +383,11 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
     For example, if the object stored in `data[0]` has a value pointed by the
     given JSON pointer and that value compares equal to the given JSON value,
     the array row is kept in the result. Examples for filtering expression can
-    be found [here](maxscale-rest-api.md#filter-expression-examples).
+    be found [here](#filter-expression-examples).
+
     A practical use for this parameter is to return only sessions for a
-    particular service. For example, to return sessions for the`RW-Split-Router` service, the
+    particular service. For example, to return sessions for the
+    `RW-Split-Router` service, the
     `filter=/relationships/services/data/0/id="RW-Split-Router"` parameter can
     be used. Note the double quotes around the `"RW-Split-Router"`, they are
     required to correctly convert strings into JSON values.
@@ -312,7 +416,7 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
     that MaxScale implements.
 
     The `expr` value must be a
-    [filter-expression](maxscale-rest-api.md#filter-expressions). Similarly to the other `filter`
+    [filter-expression](#filter-expressions). Similarly to the other `filter`
     parameter, the comparison is done for each individual object in the `data`
     array of the result.
 
@@ -324,7 +428,8 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
     all returned values must match all of them. In other words, the filter
     parameters are all combined into an AND expression. For example, the
     following filter will only return all values whose `id` field is `"srv1` and
-    the `attributes.parameters.port` field is 3306:`filter[id]=eq("srv1")&filter[attributes.parameters.port]=eq(3306)`
+    the `attributes.parameters.port` field is 3306:
+    `filter[id]=eq("srv1")&filter[attributes.parameters.port]=eq(3306)`
 
 - `page[size]`
 
@@ -337,14 +442,15 @@ parameters. Parameters are given in the HTTP query string:`https://localhost:898
 - `page[number]`
 
   - How many pages of results to skip. The first page of results starts from 0
-    and each page has no more than `page[size]` elements. If defined,`page[size]`
-    must also be defined, otherwise this parameter is ignored. This
+    and each page has no more than `page[size]` elements. If defined,
+    `page[size]` must also be defined, otherwise this parameter is ignored. This
     should be considered pseudo-pagination as the results are not guaranteed to
     be consistent between requests.
 
 - `sync`
 
   - Control configuration synchronization.
+
     If this parameter is set to `false` then the configuration synchronization
     is disabled for this request. This can be used to perform configuration
     changes when MaxScale is unable to reach the cluster used to synchronize the
@@ -365,24 +471,25 @@ sub-expressions.
 
 The following table lists the supported operations in the filter expressions. In
 it, the stored value is marked as `S` and the literal JSON value in the
-expression as `V`. For the logical operators, the sub-expression is marked as`expr`.
+expression as `V`. For the logical operators, the sub-expression is marked as
+`expr`.
 
-| Expression   | Logic          | Types               |
-| ------------ | -------------- | ------------------- |
-| eq(json)     | S == V         | All JSON types      |
-| ne(json)     | S != V         | All JSON types      |
-| lt(json)     | S < V          | Numbers and strings |
-| le(json)     | S <= V         | Numbers and strings |
-| ge(json)     | S >= V         | Numbers and strings |
-| gt(json)     | S > V          | Numbers and strings |
-| and(expr...) | expr && expr   | Expressions         |
-| or(expr...)  | expr \|\| expr | Expressions         |
-| not(expr...) | !expr          | Expressions         |
+|Expression    | Logic            | Types               |
+|--------------|------------------|---------------------|
+|`eq(json)`    | `S == V`         | All JSON types      |
+|`ne(json)`    | `S != V`         | All JSON types      |
+|`lt(json)`    | `S < V`          | Numbers and strings |
+|`le(json)`    | `S <= V`         | Numbers and strings |
+|`ge(json)`    | `S >= V`         | Numbers and strings |
+|`gt(json)`    | `S > V`          | Numbers and strings |
+|`and(expr...)`| `expr && expr`   | Expressions         |
+|`or(expr...)` | `expr \|\| expr` | Expressions         |
+|`not(expr...)`| `!expr`          | Expressions         |
 
 #### Filter Expression Examples
 
 Ranges of values can be defined using an `and()` expression with the range
-limits defined with the ordering operators `ge()` and `le()`. To filter the
+limits defined with the ordering operators `ge()` and `le()`.  To filter the
 sessions in MaxScale to ones that have an ID between 50 and 100, the following
 filtering expression can be used.
 
@@ -444,15 +551,16 @@ the same resource at an earlier point in time.
 
 #### If-Modified-Since
 
-If the content has not changed the server responds with a 304 status code. If
+If the content has not changed the server responds with a 304 status code.  If
 the content has changed the server responds with a 200 status code and the
 requested resource.
 
-The value of this header must be a date value in the ["HTTP-date"](https://www.ietf.org/rfc/rfc2822.txt) format.
+The value of this header must be a date value in the
+["HTTP-date"](https://www.ietf.org/rfc/rfc2822.txt) format.
 
 #### If-None-Match
 
-If the content has not changed the server responds with a 304 status code. If
+If the content has not changed the server responds with a 304 status code.  If
 the content has changed the server responds with a 200 status code and the
 requested resource.
 
@@ -464,7 +572,8 @@ the same resource at an earlier point in time.
 The request is performed only if the requested resource has not been modified
 since the provided date.
 
-The value of this header must be a date value in the ["HTTP-date"](https://www.ietf.org/rfc/rfc2822.txt) format.
+The value of this header must be a date value in the
+["HTTP-date"](https://www.ietf.org/rfc/rfc2822.txt) format.
 
 #### X-HTTP-Method-Override
 
@@ -591,10 +700,10 @@ complete the request.
 ### 4xx Client Error
 
 The 4xx class of status code is when the client seems to have erred. Except when
-responding to a HEAD request, the body of the response _MAY_ contains a JSON
+responding to a HEAD request, the body of the response *MAY* contains a JSON
 representation of the error.
 
-```
+```javascript
 {
     "error": {
         "detail" : "The new `/servers/` resource is missing the `port` parameter"

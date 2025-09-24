@@ -20,12 +20,12 @@ file locations, configuration options and version information.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
-            "activated_at": "Fri, 05 Jan 2024 07:23:54 GMT",
-            "commit": "af392f1a43e72e5538e1956aa500d77aca4d4456",
+            "activated_at": "Fri, 25 Jul 2025 15:43:46 GMT",
+            "commit": "7e45151e58ee1ec2b35d7953af9d8830e1c57621",
             "config_sync": null,
             "parameters": {
                 "admin_audit": false,
@@ -40,15 +40,19 @@ file locations, configuration options and version information.
                 "admin_jwt_key": null,
                 "admin_jwt_max_age": "86400000ms",
                 "admin_log_auth_failures": true,
+                "admin_oidc_client_id": "maxscale",
+                "admin_oidc_client_secret": null,
+                "admin_oidc_flow": "auto",
                 "admin_oidc_url": null,
                 "admin_pam_readonly_service": null,
                 "admin_pam_readwrite_service": null,
                 "admin_port": 8989,
-                "admin_readonly_hosts": "*",
-                "admin_readwrite_hosts": "*",
+                "admin_readonly_hosts": "%",
+                "admin_readwrite_hosts": "%",
                 "admin_secure_gui": false,
                 "admin_ssl_ca": null,
                 "admin_ssl_cert": null,
+                "admin_ssl_cipher": null,
                 "admin_ssl_key": null,
                 "admin_ssl_version": "MAX",
                 "admin_verify_url": null,
@@ -56,7 +60,6 @@ file locations, configuration options and version information.
                 "auth_read_timeout": "10000ms",
                 "auth_write_timeout": "10000ms",
                 "auto_tune": [],
-                "cachedir": "/var/cache/maxscale",
                 "config_sync_cluster": null,
                 "config_sync_db": "mysql",
                 "config_sync_interval": "5000ms",
@@ -64,12 +67,16 @@ file locations, configuration options and version information.
                 "config_sync_timeout": "10000ms",
                 "config_sync_user": null,
                 "connector_plugindir": "/usr/lib64/maxscale/plugin",
+                "core_file": true,
                 "datadir": "/var/lib/maxscale",
                 "debug": null,
                 "dump_last_statements": "never",
-                "execdir": "/usr/bin",
+                "event_authentication_failure_facility": "LOG_USER",
+                "event_authentication_failure_level": "LOG_WARNING",
+                "event_firewall_incident_facility": "LOG_USER",
+                "event_firewall_incident_level": "LOG_WARNING",
+                "host_cache_size": 128,
                 "key_manager": "none",
-                "language": "/var/lib/maxscale",
                 "libdir": "/usr/lib64/maxscale",
                 "load_persisted_configs": true,
                 "local_address": null,
@@ -85,57 +92,58 @@ file locations, configuration options and version information.
                 "log_warning": true,
                 "logdir": "/var/log/maxscale",
                 "max_auth_errors_until_block": 10,
-                "max_read_amount": 0,
                 "maxlog": true,
                 "module_configdir": "/etc/maxscale.modules.d",
                 "ms_timestamp": false,
                 "passive": false,
                 "persist_runtime_changes": true,
                 "persistdir": "/var/lib/maxscale/maxscale.cnf.d",
-                "piddir": "/var/run/maxscale",
-                "query_classifier_cache_size": 5003753472,
-                "query_retries": 1,
-                "query_retry_timeout": "5000ms",
+                "piddir": "/run/maxscale",
+                "query_classifier_cache_size": 5002190438,
                 "rebalance_period": "0ms",
                 "rebalance_threshold": 20,
                 "rebalance_window": 10,
+                "require_secure_transport": false,
                 "retain_last_statements": 0,
+                "secretsdir": null,
                 "session_trace": 0,
                 "session_trace_match": null,
                 "skip_name_resolve": false,
                 "sql_mode": "default",
                 "syslog": false,
+                "telemetry": false,
                 "threads": 3,
                 "threads_max": 256,
+                "trace_file_dir": null,
+                "trace_file_size": 0,
                 "users_refresh_interval": "0ms",
                 "users_refresh_time": "0ms",
                 "writeq_high_water": 65536,
                 "writeq_low_water": 1024
             },
-            "process_datadir": "/var/lib/maxscale/data1",
-            "started_at": "Fri, 05 Jan 2024 07:23:54 GMT",
+            "started_at": "Fri, 25 Jul 2025 15:43:46 GMT",
             "system": {
                 "machine": {
                     "cores_available": 8,
                     "cores_physical": 8,
                     "cores_virtual": 8.0,
-                    "memory_available": 33358356480,
-                    "memory_physical": 33358356480
+                    "memory_available": 33347936256,
+                    "memory_physical": 33347936256
                 },
                 "maxscale": {
-                    "query_classifier_cache_size": 5003753472,
+                    "query_classifier_cache_size": 5002190438,
                     "threads": 3
                 },
                 "os": {
                     "machine": "x86_64",
                     "nodename": "monolith",
-                    "release": "6.6.4-100.fc38.x86_64",
+                    "release": "6.15.7-100.fc41.x86_64",
                     "sysname": "Linux",
-                    "version": "#1 SMP PREEMPT_DYNAMIC Sun Dec  3 18:11:27 UTC 2023"
+                    "version": "#1 SMP PREEMPT_DYNAMIC Thu Jul 17 16:56:15 UTC 2025"
                 }
             },
-            "uptime": 12,
-            "version": "24.02.0"
+            "uptime": 11,
+            "version": "99.99.99"
         },
         "id": "maxscale",
         "type": "maxscale"
@@ -152,7 +160,8 @@ file locations, configuration options and version information.
 PATCH /v1/maxscale
 ```
 
-Update MaxScale parameters. The request body must define updated values for the`data.attributes.parameters` object. The parameters that can be modified are
+Update MaxScale parameters. The request body must define updated values for the
+`data.attributes.parameters` object. The parameters that can be modified are
 listed in the `/v1/maxscale/modules/maxscale` endpoint and have the `modifiable`
 value set to `true`.
 
@@ -180,43 +189,34 @@ value of `threads`.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
             "stats": {
-                "accepts": 0,
-                "avg_event_queue_length": 1,
-                "current_descriptors": 5,
-                "errors": 0,
-                "hangups": 0,
+                "current_descriptors": 8,
                 "listening": true,
                 "load": {
                     "last_hour": 0,
                     "last_minute": 0,
                     "last_second": 0
                 },
-                "max_event_queue_length": 1,
-                "max_exec_time": 0,
-                "max_queue_time": 0,
                 "memory": {
-                    "query_classifier": 0,
-                    "sessions": 0,
-                    "total": 0,
+                    "query_classifier": 1601,
+                    "sessions": 265831,
+                    "total": 267432,
                     "zombies": 0
                 },
                 "query_classifier_cache": {
                     "evictions": 0,
                     "hits": 0,
-                    "inserts": 0,
-                    "misses": 0,
-                    "size": 0
+                    "inserts": 3,
+                    "misses": 4,
+                    "size": 1601
                 },
-                "reads": 20,
-                "sessions": 0,
+                "sessions": 1,
                 "state": "Active",
-                "total_descriptors": 5,
-                "writes": 0,
+                "total_descriptors": 8,
                 "zombies": 0
             }
         },
@@ -244,44 +244,35 @@ Get the information for all threads. Returns a collection of threads resources.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": [
         {
             "attributes": {
                 "stats": {
-                    "accepts": 0,
-                    "avg_event_queue_length": 1,
-                    "current_descriptors": 5,
-                    "errors": 0,
-                    "hangups": 0,
+                    "current_descriptors": 8,
                     "listening": true,
                     "load": {
                         "last_hour": 0,
                         "last_minute": 0,
                         "last_second": 0
                     },
-                    "max_event_queue_length": 1,
-                    "max_exec_time": 0,
-                    "max_queue_time": 0,
                     "memory": {
-                        "query_classifier": 0,
-                        "sessions": 0,
-                        "total": 0,
+                        "query_classifier": 1601,
+                        "sessions": 265831,
+                        "total": 267432,
                         "zombies": 0
                     },
                     "query_classifier_cache": {
                         "evictions": 0,
                         "hits": 0,
-                        "inserts": 0,
-                        "misses": 0,
-                        "size": 0
+                        "inserts": 3,
+                        "misses": 4,
+                        "size": 1601
                     },
-                    "reads": 21,
-                    "sessions": 0,
+                    "sessions": 1,
                     "state": "Active",
-                    "total_descriptors": 5,
-                    "writes": 0,
+                    "total_descriptors": 8,
                     "zombies": 0
                 }
             },
@@ -294,64 +285,13 @@ Get the information for all threads. Returns a collection of threads resources.
         {
             "attributes": {
                 "stats": {
-                    "accepts": 1,
-                    "avg_event_queue_length": 1,
-                    "current_descriptors": 8,
-                    "errors": 0,
-                    "hangups": 0,
-                    "listening": true,
-                    "load": {
-                        "last_hour": 0,
-                        "last_minute": 0,
-                        "last_second": 0
-                    },
-                    "max_event_queue_length": 2,
-                    "max_exec_time": 1,
-                    "max_queue_time": 0,
-                    "memory": {
-                        "query_classifier": 1481,
-                        "sessions": 70221,
-                        "total": 71702,
-                        "zombies": 0
-                    },
-                    "query_classifier_cache": {
-                        "evictions": 0,
-                        "hits": 0,
-                        "inserts": 3,
-                        "misses": 4,
-                        "size": 1481
-                    },
-                    "reads": 35,
-                    "sessions": 1,
-                    "state": "Active",
-                    "total_descriptors": 8,
-                    "writes": 15,
-                    "zombies": 0
-                }
-            },
-            "id": "1",
-            "links": {
-                "self": "http://localhost:8989/v1/threads/1/"
-            },
-            "type": "threads"
-        },
-        {
-            "attributes": {
-                "stats": {
-                    "accepts": 0,
-                    "avg_event_queue_length": 1,
                     "current_descriptors": 5,
-                    "errors": 0,
-                    "hangups": 0,
                     "listening": true,
                     "load": {
                         "last_hour": 0,
                         "last_minute": 0,
                         "last_second": 0
                     },
-                    "max_event_queue_length": 1,
-                    "max_exec_time": 0,
-                    "max_queue_time": 0,
                     "memory": {
                         "query_classifier": 0,
                         "sessions": 0,
@@ -365,11 +305,44 @@ Get the information for all threads. Returns a collection of threads resources.
                         "misses": 0,
                         "size": 0
                     },
-                    "reads": 20,
                     "sessions": 0,
                     "state": "Active",
                     "total_descriptors": 5,
-                    "writes": 0,
+                    "zombies": 0
+                }
+            },
+            "id": "1",
+            "links": {
+                "self": "http://localhost:8989/v1/threads/1/"
+            },
+            "type": "threads"
+        },
+        {
+            "attributes": {
+                "stats": {
+                    "current_descriptors": 5,
+                    "listening": true,
+                    "load": {
+                        "last_hour": 0,
+                        "last_minute": 0,
+                        "last_second": 0
+                    },
+                    "memory": {
+                        "query_classifier": 0,
+                        "sessions": 0,
+                        "total": 0,
+                        "zombies": 0
+                    },
+                    "query_classifier_cache": {
+                        "evictions": 0,
+                        "hits": 0,
+                        "inserts": 0,
+                        "misses": 0,
+                        "size": 0
+                    },
+                    "sessions": 0,
+                    "state": "Active",
+                    "total_descriptors": 5,
                     "zombies": 0
                 }
             },
@@ -395,19 +368,20 @@ GET /v1/maxscale/logs
 Get information about the current state of logging, enabled log files and the
 location where the log files are stored.
 
-**Note:** The parameters in this endpoint are a subset of the parameters in the`/v1/maxscale` endpoint. Because of this, the parameters in this endpoint are
-deprecated as of MaxScale 6.0.
+**Note:** The parameters in this endpoint are a subset of the parameters in the
+  `/v1/maxscale` endpoint. Because of this, the parameters in this endpoint are
+  deprecated as of MaxScale 6.0.
 
 **Note:** In MaxScale 2.5 the `log_throttling` and `ms_timestamp` parameters
-were incorrectly named as `throttling` and `highprecision`. In MaxScale 6,
-the parameter names are now correct which means the parameters declared here
-aren't fully backwards compatible.
+  were incorrectly named as `throttling` and `highprecision`. In MaxScale 6,
+  the parameter names are now correct which means the parameters declared here
+  aren't fully backwards compatible.
 
 #### Response
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
@@ -457,56 +431,66 @@ The entries are sorted in ascending order by the time they were logged. This
 means that with the default parameters, the latest logged event is the last
 element in the returned array.
 
-### Parameters
+#### Parameters
 
 This endpoint supports the following parameters:
 
-* `page[size]`
-* Set number of rows of data to read. By default, 50 rows of data are read
-  from the log.
-* `page[cursor]`
-* Set position from where the log data is retrieved. The default position to
-  retrieve the log data is the end of the log.
-  This value should not be modified by the user and the values returned in the`links` object should be used instead. This way the navigation will provide
-  a consistent view of the log that does not overlap.
-  Optionally, the `id` values in the returned data can be used as the values
-  for this parameter to read data from a known point in the file.
-* `priority`
-* Include messages only from these log levels. The default is to include all
-  messages.
-  The value given should be a comma-separated list of log priorities. The
-  priorities are `alert`, `error`, `warning`, `notice`, `info` and`debug`. Note that the `debug` log level is only used in debug builds of
-  MaxScale.
+- `page[size]`
+
+  - Set number of rows of data to read. By default, 50 rows of data are read
+    from the log.
+
+- `page[cursor]`
+
+  - Set position from where the log data is retrieved. The default position to
+    retrieve the log data is the end of the log.
+
+    This value should not be modified by the user and the values returned in the
+    `links` object should be used instead. This way the navigation will provide
+    a consistent view of the log that does not overlap.
+
+    Optionally, the `id` values in the returned data can be used as the values
+    for this parameter to read data from a known point in the file.
+
+- `priority`
+
+  - Include messages only from these log levels. The default is to include all
+    messages.
+
+    The value given should be a comma-separated list of log priorities. The
+    priorities are `alert`, `error`, `warning`, `notice`, `info` and
+    `debug`. Note that the `debug` log level is only used in debug builds of
+    MaxScale.
 
 #### Response
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
             "log": [
                 {
-                    "id": "37",
-                    "message": "MaxScale started with 3 worker threads.",
-                    "priority": "notice",
-                    "timestamp": "2024-01-05 07:23:54",
-                    "unix_timestamp": 1704439434
-                },
-                {
                     "id": "38",
-                    "message": "Read 8 user@host entries from 'server1' for service 'RW-Split-Router'.",
+                    "message": "Server changed state: server2[127.0.0.1:3001]: slave_up. [Down] -> [Slave, Running]",
                     "priority": "notice",
-                    "timestamp": "2024-01-05 07:23:55",
-                    "unix_timestamp": 1704439435
+                    "timestamp": "2025-07-25 15:43:48",
+                    "unix_timestamp": 1753458228
                 },
                 {
                     "id": "39",
+                    "message": "Read 8 user@host entries from 'server1' for service 'RW-Split-Router'.",
+                    "priority": "notice",
+                    "timestamp": "2025-07-25 15:43:49",
+                    "unix_timestamp": 1753458229
+                },
+                {
+                    "id": "40",
                     "message": "Read 8 user@host entries from 'server1' for service 'Read-Connection-Router'.",
                     "priority": "notice",
-                    "timestamp": "2024-01-05 07:23:55",
-                    "unix_timestamp": 1704439435
+                    "timestamp": "2025-07-25 15:43:49",
+                    "unix_timestamp": 1753458229
                 }
             ],
             "log_source": "maxlog"
@@ -516,8 +500,8 @@ This endpoint supports the following parameters:
     },
     "links": {
         "last": "http://localhost:8989/v1/maxscale/logs/data/?page%5Bsize%5D=3",
-        "prev": "http://localhost:8989/v1/maxscale/logs/data/?page%5Bcursor%5D=34&page%5Bsize%5D=3",
-        "self": "http://localhost:8989/v1/maxscale/logs/data/?page%5Bcursor%5D=40&page%5Bsize%5D=3"
+        "prev": "http://localhost:8989/v1/maxscale/logs/data/?page%5Bcursor%5D=35&page%5Bsize%5D=3",
+        "self": "http://localhost:8989/v1/maxscale/logs/data/?page%5Bcursor%5D=38&page%5Bsize%5D=3"
     }
 }
 ```
@@ -529,38 +513,28 @@ GET /v1/maxscale/logs/entries
 ```
 
 Get the contents of the MaxScale logs as separate entries. This endpoint was
-added in MaxScale 24.02. This endpoint is nearly identical to the`/v1/maxscale/logs/data` endpoint except that this is a resource collection
+added in MaxScale 24.02. This endpoint is nearly identical to the
+`/v1/maxscale/logs/data` endpoint except that this is a resource collection
 where each log line is a separate resource.
 
 #### Parameters
 
-This endpoint supports the same parameters as [/maxscale/logs/data](maxscale-maxscale-resource.md#get-log-data).
+This endpoint supports the same parameters as [/maxscale/logs/data](#get-log-data).
 
 #### Response
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": [
         {
             "attributes": {
                 "log_source": "maxlog",
-                "message": "MaxScale started with 3 worker threads.",
+                "message": "Server changed state: server2[127.0.0.1:3001]: slave_up. [Down] -> [Slave, Running]",
                 "priority": "notice",
-                "timestamp": "2024-01-05 07:23:54",
-                "unix_timestamp": 1704439434
-            },
-            "id": "37",
-            "type": "log_entry"
-        },
-        {
-            "attributes": {
-                "log_source": "maxlog",
-                "message": "Read 8 user@host entries from 'server1' for service 'RW-Split-Router'.",
-                "priority": "notice",
-                "timestamp": "2024-01-05 07:23:55",
-                "unix_timestamp": 1704439435
+                "timestamp": "2025-07-25 15:43:48",
+                "unix_timestamp": 1753458228
             },
             "id": "38",
             "type": "log_entry"
@@ -568,19 +542,30 @@ This endpoint supports the same parameters as [/maxscale/logs/data](maxscale-max
         {
             "attributes": {
                 "log_source": "maxlog",
-                "message": "Read 8 user@host entries from 'server1' for service 'Read-Connection-Router'.",
+                "message": "Read 8 user@host entries from 'server1' for service 'RW-Split-Router'.",
                 "priority": "notice",
-                "timestamp": "2024-01-05 07:23:55",
-                "unix_timestamp": 1704439435
+                "timestamp": "2025-07-25 15:43:49",
+                "unix_timestamp": 1753458229
             },
             "id": "39",
+            "type": "log_entry"
+        },
+        {
+            "attributes": {
+                "log_source": "maxlog",
+                "message": "Read 8 user@host entries from 'server1' for service 'Read-Connection-Router'.",
+                "priority": "notice",
+                "timestamp": "2025-07-25 15:43:49",
+                "unix_timestamp": 1753458229
+            },
+            "id": "40",
             "type": "log_entry"
         }
     ],
     "links": {
         "last": "http://localhost:8989/v1/maxscale/logs/entries/?page%5Bsize%5D=3",
-        "prev": "http://localhost:8989/v1/maxscale/logs/entries/?page%5Bcursor%5D=34&page%5Bsize%5D=3",
-        "self": "http://localhost:8989/v1/maxscale/logs/entries/?page%5Bcursor%5D=40&page%5Bsize%5D=3"
+        "prev": "http://localhost:8989/v1/maxscale/logs/entries/?page%5Bcursor%5D=35&page%5Bsize%5D=3",
+        "self": "http://localhost:8989/v1/maxscale/logs/entries/?page%5Bcursor%5D=38&page%5Bsize%5D=3"
     },
     "meta": {
         "total": 3
@@ -602,7 +587,7 @@ will contain the JSON representation of the log message. The JSON is formatted
 in the same way as the values in the `log` array of the `/v1/maxscale/logs/data`
 endpoint:
 
-```
+```javascript
 {
     "id": "572",
     "message": "MaxScale started with 8 worker threads, each with a stack size of 8388608 bytes.",
@@ -615,8 +600,10 @@ endpoint:
 
 * If the client writes any data to the open socket, it will be treated as
   an error and the stream is closed.
+
 * The WebSocket ping and close commands are not yet supported and will be
   treated as errors.
+
 * When `maxlog` is used as source of log data, any log messages logged after log
   rotation will not be sent if the file was moved or truncated. To fetch new
   events after log rotation, reopen the WebSocket connection.
@@ -625,17 +612,24 @@ endpoint:
 
 This endpoint supports the following parameters:
 
-* `page[cursor]`
-* Set position from where the log data is retrieved. The default position to
-  retrieve the log data is the end of the log.
-  To stream data from a known point, first read the data via the`/v1/maxscale/logs/data` endpoint and then use the `id` value of the newest
-  log message (i.e. the first value in the `log` array) to start the stream.
-* `priority`
-* Include messages only from these log levels. The default is to include all
-  messages.
-  The value given should be a comma-separated list of log priorities. The
-  priorities are `alert`, `error`, `warning`, `notice`, `info` and`debug`. Note that the `debug` log level is only used in debug builds of
-  MaxScale.
+- `page[cursor]`
+
+  - Set position from where the log data is retrieved. The default position to
+    retrieve the log data is the end of the log.
+
+    To stream data from a known point, first read the data via the
+    `/v1/maxscale/logs/data` endpoint and then use the `id` value of the newest
+    log message (i.e. the first value in the `log` array) to start the stream.
+
+- `priority`
+
+  - Include messages only from these log levels. The default is to include all
+    messages.
+
+    The value given should be a comma-separated list of log priorities. The
+    priorities are `alert`, `error`, `warning`, `notice`, `info` and
+    `debug`. Note that the `debug` log level is only used in debug builds of
+    MaxScale.
 
 #### Response
 
@@ -650,15 +644,19 @@ Client didn't request a WebSocket upgrade:
 ## Update logging parameters
 
 **Note:** The modification of logging parameters via this endpoint has
-deprecated in MaxScale 6.0. The parameters should be modified with the`/v1/maxscale` endpoint instead.
+  deprecated in MaxScale 6.0. The parameters should be modified with the
+  `/v1/maxscale` endpoint instead.
 
-Any PATCH requests done to this endpoint will be redirected to the`/v1/maxscale` endpoint. Due to the misspelling of the `ms_timestamp` and`log_throttling` parameters, this is not fully backwards compatible.
+  Any PATCH requests done to this endpoint will be redirected to the
+  `/v1/maxscale` endpoint. Due to the misspelling of the `ms_timestamp` and
+  `log_throttling` parameters, this is not fully backwards compatible.
 
 ```
 PATCH /v1/maxscale/logs
 ```
 
-Update logging parameters. The request body must define updated values for the`data.attributes.parameters` object. All logging parameters can be altered at runtime.
+Update logging parameters. The request body must define updated values for the
+`data.attributes.parameters` object. All logging parameters can be altered at runtime.
 
 #### Response
 
@@ -726,7 +724,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
@@ -754,7 +752,68 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 }
             ],
             "description": "A Read/Write splitting router for enhancement read scalability",
-            "maturity": "GA",
+            "groups": [
+                {
+                    "description": "Settings that control how queries are routed",
+                    "members": [
+                        "use_sql_variables_in",
+                        "slave_selection_criteria",
+                        "max_replication_lag",
+                        "max_slave_replication_lag",
+                        "strict_multi_stmt",
+                        "strict_sp_calls",
+                        "strict_tmp_tables",
+                        "master_accept_reads",
+                        "max_slave_connections",
+                        "slave_connections",
+                        "lazy_connect"
+                    ],
+                    "name": "Routing"
+                },
+                {
+                    "description": "Settings that control how node failures are handled",
+                    "members": [
+                        "master_failure_mode",
+                        "retry_failed_reads",
+                        "master_reconnection",
+                        "delayed_retry",
+                        "delayed_retry_timeout"
+                    ],
+                    "name": "Error Handling"
+                },
+                {
+                    "description": "Settings that control the causal reads feature",
+                    "members": [
+                        "causal_reads",
+                        "causal_reads_timeout"
+                    ],
+                    "name": "Causal Reads"
+                },
+                {
+                    "description": "Settings that control the transaction replay feature",
+                    "members": [
+                        "transaction_replay",
+                        "transaction_replay_max_size",
+                        "transaction_replay_timeout",
+                        "transaction_replay_attempts",
+                        "transaction_replay_retry_on_deadlock",
+                        "transaction_replay_retry_on_mismatch",
+                        "transaction_replay_safe_commit",
+                        "transaction_replay_checksum"
+                    ],
+                    "name": "Transaction Replay"
+                },
+                {
+                    "description": "Settings that control the synchronous transaction feature",
+                    "members": [
+                        "sync_transaction",
+                        "sync_transaction_count",
+                        "sync_transaction_timeout",
+                        "sync_transaction_max_lag"
+                    ],
+                    "name": "Synchronous Transaction"
+                }
+            ],
             "module_type": "Router",
             "parameters": [
                 {
@@ -775,6 +834,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                         "on",
                         "1"
                     ],
+                    "group": "Causal Reads",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "causal_reads",
@@ -783,15 +843,17 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": "10000ms",
                     "description": "Timeout for the slave synchronization",
+                    "group": "Causal Reads",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "causal_reads_timeout",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 },
                 {
                     "default_value": false,
                     "description": "Retry failed writes outside of transactions",
+                    "group": "Error Handling",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "delayed_retry",
@@ -800,15 +862,17 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": "10000ms",
                     "description": "Timeout for delayed_retry",
+                    "group": "Error Handling",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "delayed_retry_timeout",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 },
                 {
                     "default_value": false,
                     "description": "Create connections only when needed",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "lazy_connect",
@@ -817,6 +881,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": false,
                     "description": "Use master for reads",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "master_accept_reads",
@@ -830,6 +895,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                         "fail_on_write",
                         "error_on_write"
                     ],
+                    "group": "Error Handling",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "master_failure_mode",
@@ -838,6 +904,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": true,
                     "description": "Reconnect to master",
+                    "group": "Error Handling",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "master_reconnection",
@@ -846,15 +913,17 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": "0ms",
                     "description": "Maximum replication lag",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "max_replication_lag",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 },
                 {
                     "default_value": 255,
                     "description": "Maximum number of slave connections",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "max_slave_connections",
@@ -863,38 +932,25 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "deprecated": true,
                     "description": "Alias for 'max_replication_lag'",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "max_slave_replication_lag",
                     "type": "duration"
                 },
                 {
-                    "default_value": false,
-                    "description": "Optimistically offload transactions to slaves",
-                    "mandatory": false,
-                    "modifiable": true,
-                    "name": "optimistic_trx",
-                    "type": "bool"
-                },
-                {
                     "default_value": true,
                     "description": "Automatically retry failed reads outside of transactions",
+                    "group": "Error Handling",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "retry_failed_reads",
                     "type": "bool"
                 },
                 {
-                    "default_value": false,
-                    "description": "Reuse identical prepared statements inside the same connection",
-                    "mandatory": false,
-                    "modifiable": true,
-                    "name": "reuse_prepared_statements",
-                    "type": "bool"
-                },
-                {
                     "default_value": 255,
                     "description": "Starting number of slave connections",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "slave_connections",
@@ -915,6 +971,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                         "LEAST_CURRENT_OPERATIONS",
                         "ADAPTIVE_ROUTING"
                     ],
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "slave_selection_criteria",
@@ -923,6 +980,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": false,
                     "description": "Lock connection to master after multi-statement query",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "strict_multi_stmt",
@@ -931,6 +989,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": false,
                     "description": "Lock connection to master after a stored procedure is executed",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "strict_sp_calls",
@@ -939,14 +998,59 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": true,
                     "description": "Prevent reconnections if temporary tables exist",
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "strict_tmp_tables",
                     "type": "bool"
                 },
                 {
+                    "default_value": "none",
+                    "description": "Synchronize transactions with one or more replicas.",
+                    "enum_values": [
+                        "none",
+                        "soft",
+                        "hard"
+                    ],
+                    "group": "Synchronous Transaction",
+                    "mandatory": false,
+                    "modifiable": true,
+                    "name": "sync_transaction",
+                    "type": "enum"
+                },
+                {
+                    "default_value": 1,
+                    "description": "Number of acknowledgements required for each transaction.",
+                    "group": "Synchronous Transaction",
+                    "mandatory": false,
+                    "modifiable": true,
+                    "name": "sync_transaction_count",
+                    "type": "count"
+                },
+                {
+                    "default_value": "0ms",
+                    "description": "Maximum allowed replication lag before synchronization starts.",
+                    "group": "Synchronous Transaction",
+                    "mandatory": false,
+                    "modifiable": true,
+                    "name": "sync_transaction_max_lag",
+                    "type": "duration",
+                    "unit": "ms"
+                },
+                {
+                    "default_value": "10000ms",
+                    "description": "Timeout for transaction synchronization.",
+                    "group": "Synchronous Transaction",
+                    "mandatory": false,
+                    "modifiable": true,
+                    "name": "sync_transaction_timeout",
+                    "type": "duration",
+                    "unit": "ms"
+                },
+                {
                     "default_value": false,
                     "description": "Retry failed transactions",
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay",
@@ -955,6 +1059,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": 5,
                     "description": "Maximum number of times to retry a transaction",
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay_attempts",
@@ -968,6 +1073,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                         "result_only",
                         "no_insert_id"
                     ],
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay_checksum",
@@ -976,6 +1082,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": 1048576,
                     "description": "Maximum size of transaction to retry",
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay_max_size",
@@ -984,6 +1091,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": false,
                     "description": "Retry transaction on deadlock",
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay_retry_on_deadlock",
@@ -992,6 +1100,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": false,
                     "description": "Retry transaction on checksum mismatch",
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay_retry_on_mismatch",
@@ -1000,6 +1109,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": true,
                     "description": "Prevent replaying of about-to-commit transaction",
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay_safe_commit",
@@ -1008,11 +1118,12 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 {
                     "default_value": "30000ms",
                     "description": "Timeout for transaction replay",
+                    "group": "Transaction Replay",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "transaction_replay_timeout",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 },
                 {
                     "default_value": "all",
@@ -1021,6 +1132,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                         "all",
                         "master"
                     ],
+                    "group": "Routing",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "use_sql_variables_in",
@@ -1028,7 +1140,6 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 },
                 {
                     "default_value": false,
-                    "deprecated": true,
                     "description": "Retrieve users from all backend servers instead of only one",
                     "mandatory": false,
                     "modifiable": true,
@@ -1037,12 +1148,12 @@ at runtime using a PATCH command on the corresponding object endpoint.
                 },
                 {
                     "default_value": "300000ms",
-                    "description": "How often idle connections are pinged",
+                    "description": "How ofted idle connections are pinged",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "connection_keepalive",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 },
                 {
                     "deprecated": true,
@@ -1156,7 +1267,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                     "modifiable": true,
                     "name": "multiplex_timeout",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 },
                 {
                     "default_value": "0ms",
@@ -1165,7 +1276,7 @@ at runtime using a PATCH command on the corresponding object endpoint.
                     "modifiable": true,
                     "name": "net_write_timeout",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 },
                 {
                     "description": "Password for the user used to retrieve database users",
@@ -1203,12 +1314,11 @@ at runtime using a PATCH command on the corresponding object endpoint.
                     "type": "int"
                 },
                 {
-                    "default_value": false,
-                    "description": "Enable session tracing for this service",
+                    "description": "Role used for retrieving database users",
                     "mandatory": false,
                     "modifiable": true,
-                    "name": "session_trace",
-                    "type": "bool"
+                    "name": "role",
+                    "type": "string"
                 },
                 {
                     "default_value": false,
@@ -1262,16 +1372,15 @@ at runtime using a PATCH command on the corresponding object endpoint.
                     "type": "string"
                 },
                 {
-                    "default_value": "0ms",
+                    "default_value": "28800000ms",
                     "description": "Connection idle timeout",
                     "mandatory": false,
                     "modifiable": true,
                     "name": "wait_timeout",
                     "type": "duration",
-                    "unit": "ms"
+                    "unit": "s"
                 }
-            ],
-            "version": "V1.1.0"
+            ]
         },
         "id": "readwritesplit",
         "links": {
@@ -1301,7 +1410,7 @@ one to see the parameters of a module before the object is created.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": [
         {
@@ -1339,7 +1448,7 @@ one to see the parameters of a module before the object is created.
                         "type": "enum list"
                     },
                     {
-                        "default_value": "/var/log/maxscale/admin_audit.csv",
+                        "default_value": "admin_audit.csv",
                         "description": "Full path to admin audit file",
                         "mandatory": false,
                         "modifiable": true,
@@ -1425,7 +1534,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "admin_jwt_max_age",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": true,
@@ -1434,6 +1543,33 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "admin_log_auth_failures",
                         "type": "bool"
+                    },
+                    {
+                        "description": "Client ID used for OIDC authentication",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "admin_oidc_client_id",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Client secret used for OIDC authentication",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "admin_oidc_client_secret",
+                        "type": "password"
+                    },
+                    {
+                        "default_value": "auto",
+                        "description": "OIDC authentication flow",
+                        "enum_values": [
+                            "auto",
+                            "implicit",
+                            "code"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "admin_oidc_flow",
+                        "type": "enum"
                     },
                     {
                         "description": "Extra public certificates used to validate externally signed JWTs",
@@ -1465,7 +1601,7 @@ one to see the parameters of a module before the object is created.
                         "type": "int"
                     },
                     {
-                        "default_value": "*",
+                        "default_value": "%",
                         "description": "Allowed hosts for read-only rest-api users.",
                         "mandatory": false,
                         "modifiable": false,
@@ -1473,7 +1609,7 @@ one to see the parameters of a module before the object is created.
                         "type": "host pattern list"
                     },
                     {
-                        "default_value": "*",
+                        "default_value": "%",
                         "description": "Allowed hosts for read-only rest-api users.",
                         "mandatory": false,
                         "modifiable": false,
@@ -1511,6 +1647,13 @@ one to see the parameters of a module before the object is created.
                         "type": "path"
                     },
                     {
+                        "description": "Additional SSL cipher priorities for admin connections.",
+                        "mandatory": false,
+                        "modifiable": false,
+                        "name": "admin_ssl_cipher",
+                        "type": "string"
+                    },
+                    {
                         "description": "Admin SSL key",
                         "mandatory": false,
                         "modifiable": true,
@@ -1519,18 +1662,22 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": "MAX",
-                        "description": "Minimum required TLS protocol version for the REST API",
+                        "description": "Enabled TLS protocol versions for the REST API",
                         "enum_values": [
                             "MAX",
                             "TLSv10",
                             "TLSv11",
                             "TLSv12",
-                            "TLSv13"
+                            "TLSv13",
+                            "TLSv1.0",
+                            "TLSv1.1",
+                            "TLSv1.2",
+                            "TLSv1.3"
                         ],
                         "mandatory": false,
                         "modifiable": false,
                         "name": "admin_ssl_version",
-                        "type": "enum"
+                        "type": "enum_mask"
                     },
                     {
                         "description": "URL for third-party verification of client tokens",
@@ -1546,7 +1693,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "auth_connect_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "10000ms",
@@ -1555,16 +1702,16 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "auth_read_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "10000ms",
-                        "description": "Write timeout for fetching user accounts (deprecated).",
+                        "description": "Write timeout for for fetching user accounts (deprecated).",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "auth_write_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": [],
@@ -1612,7 +1759,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "config_sync_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "description": "User account used for configuration synchronization.",
@@ -1620,6 +1767,14 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "config_sync_user",
                         "type": "string"
+                    },
+                    {
+                        "default_value": true,
+                        "description": "Write a core-file if MaxScale crashes.",
+                        "mandatory": false,
+                        "modifiable": false,
+                        "name": "core_file",
+                        "type": "bool"
                     },
                     {
                         "description": "Debug options",
@@ -1640,6 +1795,110 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "dump_last_statements",
                         "type": "enum"
+                    },
+                    {
+                        "default_value": "LOG_USER",
+                        "description": "The facility using which authentication failures should be logged.",
+                        "enum_values": [
+                            "LOG_AUTH",
+                            "LOG_AUTHPRIV",
+                            "LOG_CRON",
+                            "LOG_DAEMON",
+                            "LOG_FTP",
+                            "LOG_KERN",
+                            "LOG_LOCAL0",
+                            "LOG_LOCAL1",
+                            "LOG_LOCAL2",
+                            "LOG_LOCAL3",
+                            "LOG_LOCAL4",
+                            "LOG_LOCAL5",
+                            "LOG_LOCAL6",
+                            "LOG_LOCAL7",
+                            "LOG_LPR",
+                            "LOG_MAIL",
+                            "LOG_NEWS",
+                            "LOG_SYSLOG",
+                            "LOG_USER",
+                            "LOG_UUCP"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "event_authentication_failure_facility",
+                        "type": "enum"
+                    },
+                    {
+                        "default_value": "LOG_WARNING",
+                        "description": "The level/priority using which authentication failures should be logged.",
+                        "enum_values": [
+                            "LOG_ALERT",
+                            "LOG_CRIT",
+                            "LOG_DEBUG",
+                            "LOG_EMERG",
+                            "LOG_ERR",
+                            "LOG_INFO",
+                            "LOG_NOTICE",
+                            "LOG_WARNING"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "event_authentication_failure_level",
+                        "type": "enum"
+                    },
+                    {
+                        "default_value": "LOG_USER",
+                        "description": "The facility using which firewall incidents should be logged.",
+                        "enum_values": [
+                            "LOG_AUTH",
+                            "LOG_AUTHPRIV",
+                            "LOG_CRON",
+                            "LOG_DAEMON",
+                            "LOG_FTP",
+                            "LOG_KERN",
+                            "LOG_LOCAL0",
+                            "LOG_LOCAL1",
+                            "LOG_LOCAL2",
+                            "LOG_LOCAL3",
+                            "LOG_LOCAL4",
+                            "LOG_LOCAL5",
+                            "LOG_LOCAL6",
+                            "LOG_LOCAL7",
+                            "LOG_LPR",
+                            "LOG_MAIL",
+                            "LOG_NEWS",
+                            "LOG_SYSLOG",
+                            "LOG_USER",
+                            "LOG_UUCP"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "event_firewall_incident_facility",
+                        "type": "enum"
+                    },
+                    {
+                        "default_value": "LOG_WARNING",
+                        "description": "The level/priority using which firewall incidents should be logged.",
+                        "enum_values": [
+                            "LOG_ALERT",
+                            "LOG_CRIT",
+                            "LOG_DEBUG",
+                            "LOG_EMERG",
+                            "LOG_ERR",
+                            "LOG_INFO",
+                            "LOG_NOTICE",
+                            "LOG_WARNING"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "event_firewall_incident_level",
+                        "type": "enum"
+                    },
+                    {
+                        "default_value": 128,
+                        "description": "Size of the reverse hostname resolution cache",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "host_cache_size",
+                        "type": "count"
                     },
                     {
                         "default_value": "none",
@@ -1731,14 +1990,6 @@ one to see the parameters of a module before the object is created.
                         "type": "int"
                     },
                     {
-                        "default_value": 0,
-                        "description": "Maximum amount of data read before return to epoll_wait.",
-                        "mandatory": false,
-                        "modifiable": false,
-                        "name": "max_read_amount",
-                        "type": "size"
-                    },
-                    {
                         "default_value": true,
                         "description": "Log to MaxScale's own log.",
                         "mandatory": false,
@@ -1756,6 +2007,7 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": false,
+                        "deprecated": true,
                         "description": "True if MaxScale is in passive mode.",
                         "mandatory": false,
                         "modifiable": true,
@@ -1788,7 +2040,7 @@ one to see the parameters of a module before the object is created.
                         "type": "string"
                     },
                     {
-                        "default_value": 5003753472,
+                        "default_value": 5002190438,
                         "description": "Maximum amount of memory used by query classifier cache.",
                         "mandatory": false,
                         "modifiable": true,
@@ -1797,6 +2049,7 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": 1,
+                        "deprecated": true,
                         "description": "Number of times an interrupted query is retried.",
                         "mandatory": false,
                         "modifiable": false,
@@ -1805,12 +2058,13 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": "5000ms",
+                        "deprecated": true,
                         "description": "The total timeout in seconds for any retried queries.",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "query_retry_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "0ms",
@@ -1838,12 +2092,27 @@ one to see the parameters of a module before the object is created.
                         "type": "count"
                     },
                     {
+                        "default_value": false,
+                        "description": "All connections must use SSL.",
+                        "mandatory": false,
+                        "modifiable": false,
+                        "name": "require_secure_transport",
+                        "type": "bool"
+                    },
+                    {
                         "default_value": 0,
                         "description": "How many statements should be retained for each session for debugging purposes.",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "retain_last_statements",
                         "type": "count"
+                    },
+                    {
+                        "description": "Directory where the .secrets encryption key is located in.",
+                        "mandatory": false,
+                        "modifiable": false,
+                        "name": "secretsdir",
+                        "type": "path"
                     },
                     {
                         "default_value": 0,
@@ -1898,6 +2167,14 @@ one to see the parameters of a module before the object is created.
                         "type": "bool"
                     },
                     {
+                        "default_value": false,
+                        "description": "When enabled maxscale sends telemetry to the default otel Collector",
+                        "mandatory": false,
+                        "modifiable": false,
+                        "name": "telemetry",
+                        "type": "bool"
+                    },
+                    {
                         "default_value": 8,
                         "description": "This parameter specifies how many threads will be used for handling the routing.",
                         "mandatory": false,
@@ -1914,13 +2191,28 @@ one to see the parameters of a module before the object is created.
                         "type": "count"
                     },
                     {
+                        "description": "Directory where trace files are stored at",
+                        "mandatory": false,
+                        "modifiable": false,
+                        "name": "trace_file_dir",
+                        "type": "path"
+                    },
+                    {
+                        "default_value": 0,
+                        "description": "How many bytes of the trace log is retained",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "trace_file_size",
+                        "type": "size"
+                    },
+                    {
                         "default_value": "0ms",
                         "description": "How often the users will be refreshed.",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "users_refresh_interval",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "30000ms",
@@ -1929,7 +2221,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "users_refresh_time",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": 65536,
@@ -1948,7 +2240,7 @@ one to see the parameters of a module before the object is created.
                         "type": "size"
                     }
                 ],
-                "version": "24.02.0"
+                "version": "99.99.99"
             },
             "id": "maxscale",
             "links": {
@@ -1978,6 +2270,7 @@ one to see the parameters of a module before the object is created.
                         "type": "string"
                     },
                     {
+                        "default_value": "",
                         "description": "Server disk space threshold",
                         "mandatory": false,
                         "modifiable": true,
@@ -1991,6 +2284,20 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "extra_port",
                         "type": "count"
+                    },
+                    {
+                        "default_value": "down",
+                        "description": "Initial server status",
+                        "enum_values": [
+                            "down",
+                            "up",
+                            "write",
+                            "read"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "initial_status",
+                        "type": "enum"
                     },
                     {
                         "default_value": 0,
@@ -2021,7 +2328,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "persistmaxtime",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": 0,
@@ -2148,6 +2455,14 @@ one to see the parameters of a module before the object is created.
                         "type": "path"
                     },
                     {
+                        "default_value": "",
+                        "description": "Passphrase for TLS key",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "ssl_passphrase",
+                        "type": "sslpassphrase"
+                    },
+                    {
                         "default_value": false,
                         "description": "Verify TLS peer certificate",
                         "mandatory": false,
@@ -2165,18 +2480,22 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": "MAX",
-                        "description": "Minimum TLS protocol version",
+                        "description": "Enabled TLS protocol versions",
                         "enum_values": [
                             "MAX",
                             "TLSv10",
                             "TLSv11",
                             "TLSv12",
-                            "TLSv13"
+                            "TLSv13",
+                            "TLSv1.0",
+                            "TLSv1.1",
+                            "TLSv1.2",
+                            "TLSv1.3"
                         ],
                         "mandatory": false,
                         "modifiable": true,
                         "name": "ssl_version",
-                        "type": "enum"
+                        "type": "enum_mask"
                     },
                     {
                         "default_value": "server",
@@ -2185,9 +2504,17 @@ one to see the parameters of a module before the object is created.
                         "modifiable": false,
                         "name": "type",
                         "type": "string"
+                    },
+                    {
+                        "default_value": true,
+                        "description": "Use the service credentials to log in and then switch to the client user. This feature is only used with MariaDB version 12 or newer.",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "use_service_credentials",
+                        "type": "bool"
                     }
                 ],
-                "version": "24.02.0"
+                "version": "99.99.99"
             },
             "id": "servers",
             "links": {
@@ -2200,10 +2527,9 @@ one to see the parameters of a module before the object is created.
                 "api": "filter",
                 "commands": [],
                 "description": "A hint parsing filter",
-                "maturity": "Alpha",
+                "groups": [],
                 "module_type": "Filter",
-                "parameters": [],
-                "version": "V1.0.0"
+                "parameters": []
             },
             "id": "hintfilter",
             "links": {
@@ -2216,10 +2542,9 @@ one to see the parameters of a module before the object is created.
                 "api": "authenticator",
                 "commands": [],
                 "description": "Standard MySQL/MariaDB authentication (mysql_native_password)",
-                "maturity": "GA",
+                "groups": [],
                 "module_type": "Authenticator",
-                "parameters": null,
-                "version": "V2.1.0"
+                "parameters": []
             },
             "id": "MariaDBAuth",
             "links": {
@@ -2231,6 +2556,596 @@ one to see the parameters of a module before the object is created.
             "attributes": {
                 "api": "monitor",
                 "commands": [
+                    {
+                        "attributes": {
+                            "arg_max": 3,
+                            "arg_min": 3,
+                            "description": "Create a backup with Mariabackup. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Source server",
+                                    "required": true,
+                                    "type": "SERVER"
+                                },
+                                {
+                                    "description": "Backup name",
+                                    "required": true,
+                                    "type": "STRING"
+                                }
+                            ]
+                        },
+                        "id": "async-create-backup",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-create-backup/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 3,
+                            "arg_min": 3,
+                            "description": "Add a node to a ColumnStore cluster. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Hostname/IP of node to add to ColumnStore cluster",
+                                    "required": true,
+                                    "type": "STRING"
+                                },
+                                {
+                                    "description": "Timeout",
+                                    "required": true,
+                                    "type": "STRING"
+                                }
+                            ]
+                        },
+                        "id": "async-cs-add-node",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-add-node/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Get ColumnStore cluster status. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "async-cs-get-status",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-get-status/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 3,
+                            "arg_min": 3,
+                            "description": "Remove a node from a ColumnStore cluster. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Hostname/IP of node to remove from ColumnStore cluster",
+                                    "required": true,
+                                    "type": "STRING"
+                                },
+                                {
+                                    "description": "Timeout",
+                                    "required": true,
+                                    "type": "STRING"
+                                }
+                            ]
+                        },
+                        "id": "async-cs-remove-node",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-remove-node/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 2,
+                            "description": "Set ColumnStore cluster read-only. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Timeout",
+                                    "required": true,
+                                    "type": "STRING"
+                                }
+                            ]
+                        },
+                        "id": "async-cs-set-readonly",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-set-readonly/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 2,
+                            "description": "Set ColumnStore cluster readwrite. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Timeout",
+                                    "required": true,
+                                    "type": "STRING"
+                                }
+                            ]
+                        },
+                        "id": "async-cs-set-readwrite",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-set-readwrite/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 2,
+                            "description": "Start ColumnStore cluster. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Timeout",
+                                    "required": true,
+                                    "type": "STRING"
+                                }
+                            ]
+                        },
+                        "id": "async-cs-start-cluster",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-start-cluster/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 2,
+                            "description": "Stop ColumnStore cluster. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Timeout",
+                                    "required": true,
+                                    "type": "STRING"
+                                }
+                            ]
+                        },
+                        "id": "async-cs-stop-cluster",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-stop-cluster/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Schedule primary failover. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "async-failover",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-failover/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Schedule primary failover if no detected trx loss. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "async-failover-safe",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-failover-safe/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 4,
+                            "arg_min": 2,
+                            "description": "Rebuild a server with Mariabackup. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Target server",
+                                    "required": true,
+                                    "type": "SERVER"
+                                },
+                                {
+                                    "description": "Source server (optional)",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                },
+                                {
+                                    "description": "Target data directory (optional)",
+                                    "required": false,
+                                    "type": "[STRING]"
+                                }
+                            ]
+                        },
+                        "id": "async-rebuild-server",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-rebuild-server/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 2,
+                            "description": "Rejoin server to a cluster. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Joining server",
+                                    "required": true,
+                                    "type": "SERVER"
+                                }
+                            ]
+                        },
+                        "id": "async-rejoin",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-rejoin/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Release any held server locks for 1 minute. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "async-release-locks",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-release-locks/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 1,
+                            "description": "Delete replica connections, delete binary logs and set up replication (dangerous). Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Primary server (optional)",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                }
+                            ]
+                        },
+                        "id": "async-reset-replication",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-reset-replication/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 4,
+                            "arg_min": 3,
+                            "description": "Restore a server from a backup. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Target server",
+                                    "required": true,
+                                    "type": "SERVER"
+                                },
+                                {
+                                    "description": "Backup name",
+                                    "required": true,
+                                    "type": "STRING"
+                                },
+                                {
+                                    "description": "Target data directory (optional)",
+                                    "required": false,
+                                    "type": "[STRING]"
+                                }
+                            ]
+                        },
+                        "id": "async-restore-from-backup",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-restore-from-backup/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 3,
+                            "arg_min": 1,
+                            "description": "Schedule primary switchover. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "New primary (optional)",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                },
+                                {
+                                    "description": "Current primary (optional)",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                }
+                            ]
+                        },
+                        "id": "async-switchover",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-switchover/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Cancel the last scheduled command.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "cancel-cmd",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/cancel-cmd/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Get ColumnStore cluster status.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "cs-get-status",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/cs-get-status/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Perform primary failover",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "failover",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/failover/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Perform primary failover if no detected trx loss",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "failover-safe",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/failover-safe/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Fetch result of the last scheduled command.",
+                            "method": "GET",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "fetch-cmd-result",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/fetch-cmd-result/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 2,
+                            "description": "Rejoin server to a cluster",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Joining server",
+                                    "required": true,
+                                    "type": "SERVER"
+                                }
+                            ]
+                        },
+                        "id": "rejoin",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/rejoin/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 1,
+                            "arg_min": 1,
+                            "description": "Release any held server locks for 1 minute.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "release-locks",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/release-locks/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "arg_max": 2,
+                            "arg_min": 1,
+                            "description": "Delete replica connections, delete binary logs and set up replication (dangerous)",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Primary server (optional)",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                }
+                            ]
+                        },
+                        "id": "reset-replication",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/reset-replication/"
+                        },
+                        "type": "module_command"
+                    },
                     {
                         "attributes": {
                             "arg_max": 3,
@@ -2293,510 +3208,32 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "attributes": {
-                            "arg_max": 3,
-                            "arg_min": 1,
-                            "description": "Schedule primary switchover. Does not wait for completion.",
+                            "description": "Create a backup with Mariabackup. Does not wait for completion.",
                             "method": "POST",
                             "parameters": [
                                 {
                                     "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "New primary (optional)",
-                                    "required": false,
-                                    "type": "[SERVER]"
-                                },
-                                {
-                                    "description": "Current primary (optional)",
-                                    "required": false,
-                                    "type": "[SERVER]"
-                                }
-                            ]
-                        },
-                        "id": "async-switchover",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-switchover/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Perform primary failover",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "failover",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/failover/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Schedule primary failover. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "async-failover",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-failover/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 2,
-                            "description": "Rejoin server to a cluster",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Joining server",
-                                    "required": true,
-                                    "type": "SERVER"
-                                }
-                            ]
-                        },
-                        "id": "rejoin",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/rejoin/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 2,
-                            "description": "Rejoin server to a cluster. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Joining server",
-                                    "required": true,
-                                    "type": "SERVER"
-                                }
-                            ]
-                        },
-                        "id": "async-rejoin",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-rejoin/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 1,
-                            "description": "Delete replica connections, delete binary logs and set up replication (dangerous)",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Primary server (optional)",
-                                    "required": false,
-                                    "type": "[SERVER]"
-                                }
-                            ]
-                        },
-                        "id": "reset-replication",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/reset-replication/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 1,
-                            "description": "Delete replica connections, delete binary logs and set up replication (dangerous). Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Primary server (optional)",
-                                    "required": false,
-                                    "type": "[SERVER]"
-                                }
-                            ]
-                        },
-                        "id": "async-reset-replication",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-reset-replication/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Release any held server locks for 1 minute.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "release-locks",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/release-locks/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Release any held server locks for 1 minute. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "async-release-locks",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-release-locks/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Fetch result of the last scheduled command.",
-                            "method": "GET",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "fetch-cmd-result",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/fetch-cmd-result/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Cancel the last scheduled command.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "cancel-cmd",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/cancel-cmd/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 3,
-                            "arg_min": 3,
-                            "description": "Add a node to a ColumnStore cluster. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Hostname/IP of node to add to ColumnStore cluster",
-                                    "required": true,
-                                    "type": "STRING"
-                                },
-                                {
-                                    "description": "Timeout",
-                                    "required": true,
-                                    "type": "STRING"
-                                }
-                            ]
-                        },
-                        "id": "async-cs-add-node",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-add-node/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 3,
-                            "arg_min": 3,
-                            "description": "Remove a node from a ColumnStore cluster. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Hostname/IP of node to remove from ColumnStore cluster",
-                                    "required": true,
-                                    "type": "STRING"
-                                },
-                                {
-                                    "description": "Timeout",
-                                    "required": true,
-                                    "type": "STRING"
-                                }
-                            ]
-                        },
-                        "id": "async-cs-remove-node",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-remove-node/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Get ColumnStore cluster status.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "cs-get-status",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/cs-get-status/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 1,
-                            "arg_min": 1,
-                            "description": "Get ColumnStore cluster status. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                }
-                            ]
-                        },
-                        "id": "async-cs-get-status",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-get-status/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 2,
-                            "description": "Start ColumnStore cluster. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Timeout",
-                                    "required": true,
-                                    "type": "STRING"
-                                }
-                            ]
-                        },
-                        "id": "async-cs-start-cluster",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-start-cluster/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 2,
-                            "description": "Stop ColumnStore cluster. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Timeout",
-                                    "required": true,
-                                    "type": "STRING"
-                                }
-                            ]
-                        },
-                        "id": "async-cs-stop-cluster",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-stop-cluster/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 2,
-                            "description": "Set ColumnStore cluster read-only. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Timeout",
-                                    "required": true,
-                                    "type": "STRING"
-                                }
-                            ]
-                        },
-                        "id": "async-cs-set-readonly",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-set-readonly/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 2,
-                            "arg_min": 2,
-                            "description": "Set ColumnStore cluster readwrite. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Timeout",
-                                    "required": true,
-                                    "type": "STRING"
-                                }
-                            ]
-                        },
-                        "id": "async-cs-set-readwrite",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-cs-set-readwrite/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 4,
-                            "arg_min": 2,
-                            "description": "Rebuild a server with mariadb-backup. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
-                                    "required": true,
-                                    "type": "MONITOR"
-                                },
-                                {
-                                    "description": "Target server",
-                                    "required": true,
-                                    "type": "SERVER"
-                                },
-                                {
-                                    "description": "Source server (optional)",
-                                    "required": false,
-                                    "type": "[SERVER]"
-                                },
-                                {
-                                    "description": "Target data directory (optional)",
-                                    "required": false,
-                                    "type": "[STRING]"
-                                }
-                            ]
-                        },
-                        "id": "async-rebuild-server",
-                        "links": {
-                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-rebuild-server/"
-                        },
-                        "type": "module_command"
-                    },
-                    {
-                        "attributes": {
-                            "arg_max": 3,
-                            "arg_min": 3,
-                            "description": "Create a backup with mariadb-backup. Does not wait for completion.",
-                            "method": "POST",
-                            "parameters": [
-                                {
-                                    "description": "Monitor name",
+                                    "name": "monitor",
                                     "required": true,
                                     "type": "MONITOR"
                                 },
                                 {
                                     "description": "Source server",
+                                    "name": "source",
                                     "required": true,
                                     "type": "SERVER"
                                 },
                                 {
                                     "description": "Backup name",
+                                    "name": "bu_name",
                                     "required": true,
                                     "type": "STRING"
+                                },
+                                {
+                                    "description": "Dry-run, only test preconditions",
+                                    "name": "dry_run",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
                                 }
                             ]
                         },
@@ -2808,30 +3245,81 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "attributes": {
-                            "arg_max": 4,
-                            "arg_min": 3,
-                            "description": "Restore a server from a backup. Does not wait for completion.",
+                            "description": "Rebuild a server with Mariabackup. Does not wait for completion.",
                             "method": "POST",
                             "parameters": [
                                 {
                                     "description": "Monitor name",
+                                    "name": "monitor",
                                     "required": true,
                                     "type": "MONITOR"
                                 },
                                 {
                                     "description": "Target server",
+                                    "name": "target",
+                                    "required": true,
+                                    "type": "SERVER"
+                                },
+                                {
+                                    "description": "Source server",
+                                    "name": "source",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                },
+                                {
+                                    "description": "Target data directory",
+                                    "name": "datadir",
+                                    "required": false,
+                                    "type": "[STRING]"
+                                },
+                                {
+                                    "description": "Dry-run, only test preconditions",
+                                    "name": "dry_run",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                }
+                            ]
+                        },
+                        "id": "async-rebuild-server",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/async-rebuild-server/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "Restore a server from a backup. Does not wait for completion.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Target server",
+                                    "name": "target",
                                     "required": true,
                                     "type": "SERVER"
                                 },
                                 {
                                     "description": "Backup name",
+                                    "name": "bu_name",
                                     "required": true,
                                     "type": "STRING"
                                 },
                                 {
-                                    "description": "Target data directory (optional)",
+                                    "description": "Target data directory",
+                                    "name": "datadir",
                                     "required": false,
                                     "type": "[STRING]"
+                                },
+                                {
+                                    "description": "Dry-run, only test preconditions",
+                                    "name": "dry_run",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
                                 }
                             ]
                         },
@@ -2840,10 +3328,239 @@ one to see the parameters of a module before the object is created.
                             "self": "http://localhost:8989/v1/modules/mariadbmon/async-restore-from-backup/"
                         },
                         "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "Bootstrap an empty monitor.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Run command asynchronously",
+                                    "name": "async",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                },
+                                {
+                                    "description": "server template",
+                                    "name": "template",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                },
+                                {
+                                    "description": "starting address",
+                                    "name": "address",
+                                    "required": true,
+                                    "type": "STRING"
+                                },
+                                {
+                                    "description": "starting port",
+                                    "name": "port",
+                                    "required": false,
+                                    "type": "[STRING]"
+                                }
+                            ]
+                        },
+                        "id": "bootstrap",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/bootstrap/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "Discover replica servers and add them to MaxScale.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Run command asynchronously",
+                                    "name": "async",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                },
+                                {
+                                    "description": "Remove shut down or non-replicating servers",
+                                    "name": "remove",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                }
+                            ]
+                        },
+                        "id": "discover-replicas",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/discover-replicas/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "Fetch json status information on most recent asynchronous manual command.",
+                            "method": "GET",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "fetch-cmd-status",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/fetch-cmd-status/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "List available backups.",
+                            "method": "GET",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                }
+                            ]
+                        },
+                        "id": "list-backups",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/list-backups/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "Alter server replication.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Replica to redirect",
+                                    "name": "replica",
+                                    "required": true,
+                                    "type": "SERVER"
+                                },
+                                {
+                                    "description": "New primary for the replica",
+                                    "name": "new_primary",
+                                    "required": true,
+                                    "type": "SERVER"
+                                },
+                                {
+                                    "description": "Replica connection name",
+                                    "name": "conn_name",
+                                    "required": false,
+                                    "type": "[STRING]"
+                                },
+                                {
+                                    "description": "Run command asynchronously",
+                                    "name": "async",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                }
+                            ]
+                        },
+                        "id": "redirect",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/redirect/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "Scan replication topology.",
+                            "method": "GET",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "Run command asynchronously",
+                                    "name": "async",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                }
+                            ]
+                        },
+                        "id": "scan-topology",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/scan-topology/"
+                        },
+                        "type": "module_command"
+                    },
+                    {
+                        "attributes": {
+                            "description": "Switch primary server with replica.",
+                            "method": "POST",
+                            "parameters": [
+                                {
+                                    "description": "Monitor name",
+                                    "name": "monitor",
+                                    "required": true,
+                                    "type": "MONITOR"
+                                },
+                                {
+                                    "description": "New primary",
+                                    "name": "new_primary",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                },
+                                {
+                                    "description": "Current primary",
+                                    "name": "old_primary",
+                                    "required": false,
+                                    "type": "[SERVER]"
+                                },
+                                {
+                                    "description": "Run command asynchronously",
+                                    "name": "async",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                },
+                                {
+                                    "description": "Ignore most errors",
+                                    "name": "force",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                },
+                                {
+                                    "description": "Set old primary to maintenance instead of redirecting it.",
+                                    "name": "old_primary_maint",
+                                    "required": false,
+                                    "type": "[BOOLEAN]"
+                                }
+                            ]
+                        },
+                        "id": "switchover",
+                        "links": {
+                            "self": "http://localhost:8989/v1/modules/mariadbmon/switchover/"
+                        },
+                        "type": "module_command"
                     }
                 ],
                 "description": "A MariaDB Primary/Replica replication monitor",
-                "maturity": "GA",
+                "groups": [],
                 "module_type": "Monitor",
                 "parameters": [
                     {
@@ -2856,11 +3573,30 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": false,
-                        "description": "Enable automatic server failover",
+                        "description": "Switchover back to old primary server when it returns to the cluster",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "auto_failback_switchover",
+                        "type": "bool"
+                    },
+                    {
+                        "default_value": "false",
+                        "description": "Enable automatic primary server failover",
+                        "enum_values": [
+                            "false",
+                            "off",
+                            "no",
+                            "0",
+                            "true",
+                            "on",
+                            "yes",
+                            "1",
+                            "safe"
+                        ],
                         "mandatory": false,
                         "modifiable": true,
                         "name": "auto_failover",
-                        "type": "bool"
+                        "type": "enum"
                     },
                     {
                         "default_value": false,
@@ -2900,7 +3636,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "description": "The API key used in communication with the ColumnStore admin daemon.",
                         "mandatory": false,
-                        "modifiable": false,
+                        "modifiable": true,
                         "name": "cs_admin_api_key",
                         "type": "string"
                     },
@@ -2908,7 +3644,7 @@ one to see the parameters of a module before the object is created.
                         "default_value": "/cmapi/0.4.0",
                         "description": "The base path to be used when accessing the ColumnStore administrative daemon. If, for instance, a daemon URL is https://localhost:8640/cmapi/0.4.0/node/start then the admin_base_path is \"/cmapi/0.4.0\".",
                         "mandatory": false,
-                        "modifiable": false,
+                        "modifiable": true,
                         "name": "cs_admin_base_path",
                         "type": "string"
                     },
@@ -2916,7 +3652,7 @@ one to see the parameters of a module before the object is created.
                         "default_value": 8640,
                         "description": "Port of the ColumnStore administrative daemon.",
                         "mandatory": false,
-                        "modifiable": false,
+                        "modifiable": true,
                         "name": "cs_admin_port",
                         "type": "count"
                     },
@@ -2926,6 +3662,14 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "demotion_sql_file",
                         "type": "path"
+                    },
+                    {
+                        "default_value": false,
+                        "description": "Enable read_only on all non-primary servers",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "enforce_read_only_servers",
+                        "type": "bool"
                     },
                     {
                         "default_value": false,
@@ -2966,7 +3710,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "failover_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": true,
@@ -2986,29 +3730,30 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": 1,
-                        "description": "mariadb-backup thread count.",
+                        "description": "Mariabackup thread count.",
                         "mandatory": false,
                         "modifiable": true,
-                        "name": "mariadb-backup_parallel",
+                        "name": "mariabackup_parallel",
                         "type": "int"
                     },
                     {
                         "default_value": "1G",
-                        "description": "mariadb-backup buffer pool size.",
+                        "description": "Mariabackup buffer pool size.",
                         "mandatory": false,
                         "modifiable": true,
-                        "name": "mariadb-backup_use_memory",
+                        "name": "mariabackup_use_memory",
                         "type": "string"
                     },
                     {
-                        "default_value": "primary_monitor_master",
+                        "default_value": "primary_monitor_master,disk_space_ok",
                         "description": "Conditions that the master servers must meet",
                         "enum_values": [
                             "none",
                             "connecting_slave",
                             "connected_slave",
                             "running_slave",
-                            "primary_monitor_master"
+                            "primary_monitor_master",
+                            "disk_space_ok"
                         ],
                         "mandatory": false,
                         "modifiable": true,
@@ -3022,7 +3767,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "master_failure_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "description": "Path to SQL file that is executed during node promotion",
@@ -3077,6 +3822,13 @@ one to see the parameters of a module before the object is created.
                         "type": "int"
                     },
                     {
+                        "description": "List of servers that are omitted from cooperative monitoring locks.",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "servers_no_cooperative_monitoring_locks",
+                        "type": "serverlist"
+                    },
+                    {
                         "description": "List of servers that are never promoted",
                         "mandatory": false,
                         "modifiable": true,
@@ -3087,11 +3839,12 @@ one to see the parameters of a module before the object is created.
                         "default_value": "",
                         "description": "Conditions that the slave servers must meet",
                         "enum_values": [
+                            "none",
                             "linked_master",
                             "running_master",
                             "writable_master",
                             "primary_monitor_master",
-                            "none"
+                            "disk_space_ok"
                         ],
                         "mandatory": false,
                         "modifiable": true,
@@ -3109,7 +3862,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "description": "SSH keyfile. Used for running remote commands on servers.",
                         "mandatory": false,
-                        "modifiable": false,
+                        "modifiable": true,
                         "name": "ssh_keyfile",
                         "type": "path"
                     },
@@ -3128,12 +3881,12 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "ssh_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "description": "SSH username. Used for running remote commands on servers.",
                         "mandatory": false,
-                        "modifiable": false,
+                        "modifiable": true,
                         "name": "ssh_user",
                         "type": "string"
                     },
@@ -3152,7 +3905,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "switchover_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": true,
@@ -3163,6 +3916,35 @@ one to see the parameters of a module before the object is created.
                         "type": "bool"
                     },
                     {
+                        "default_value": "log",
+                        "description": "Action to take on write test failure.",
+                        "enum_values": [
+                            "log",
+                            "failover"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "write_test_fail_action",
+                        "type": "enum"
+                    },
+                    {
+                        "default_value": "0ms",
+                        "description": "Primary server write test interval.",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "write_test_interval",
+                        "type": "duration",
+                        "unit": "s"
+                    },
+                    {
+                        "default_value": "mxs.maxscale_write_test",
+                        "description": "Primary server write test table.",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "write_test_table",
+                        "type": "string"
+                    },
+                    {
                         "default_value": 1,
                         "description": "Number of connection attempts to make to a server",
                         "mandatory": false,
@@ -3171,31 +3953,41 @@ one to see the parameters of a module before the object is created.
                         "type": "count"
                     },
                     {
-                        "default_value": "3000ms",
-                        "description": "Connection timeout for monitor connections",
+                        "deprecated": true,
+                        "description": "Alias for 'backend_timeout'",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "backend_connect_timeout",
-                        "type": "duration",
-                        "unit": "ms"
+                        "type": "duration"
                     },
                     {
                         "default_value": "3000ms",
+                        "deprecated": true,
                         "description": "Read timeout for monitor connections",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "backend_read_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "3000ms",
+                        "description": "Monitor backend connection timeout",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "backend_timeout",
+                        "type": "duration",
+                        "unit": "s"
+                    },
+                    {
+                        "default_value": "3000ms",
+                        "deprecated": true,
                         "description": "Write timeout for monitor connections",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "backend_write_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "0ms",
@@ -3249,7 +4041,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "journal_max_age",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "2000ms",
@@ -3268,6 +4060,27 @@ one to see the parameters of a module before the object is created.
                         "type": "password"
                     },
                     {
+                        "description": "SQL queries run when a server gains Master-status",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "primary_state_sql",
+                        "type": "string"
+                    },
+                    {
+                        "description": "SQL queries run when a server gains Slave-status",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "replica_state_sql",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Role used for monitoring the servers",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "role",
+                        "type": "string"
+                    },
+                    {
                         "description": "Script to run whenever an event occurs",
                         "mandatory": false,
                         "modifiable": true,
@@ -3281,7 +4094,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "script_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "description": "List of servers to use",
@@ -3297,8 +4110,7 @@ one to see the parameters of a module before the object is created.
                         "name": "user",
                         "type": "string"
                     }
-                ],
-                "version": "V1.5.0"
+                ]
             },
             "id": "mariadbmon",
             "links": {
@@ -3311,7 +4123,7 @@ one to see the parameters of a module before the object is created.
                 "api": "protocol",
                 "commands": [],
                 "description": "The client to MaxScale MySQL protocol implementation",
-                "maturity": "GA",
+                "groups": [],
                 "module_type": "Protocol",
                 "parameters": [
                     {
@@ -3321,6 +4133,27 @@ one to see the parameters of a module before the object is created.
                         "modifiable": false,
                         "name": "allow_replication",
                         "type": "bool"
+                    },
+                    {
+                        "default_value": "zlib,zstd",
+                        "description": "Supported compression algorithms",
+                        "enum_values": [
+                            "none",
+                            "zlib",
+                            "zstd"
+                        ],
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "compression",
+                        "type": "enum_mask"
+                    },
+                    {
+                        "default_value": 50,
+                        "description": "Upper limit for payloads that are sent uncompressed",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "compression_threshold",
+                        "type": "size"
                     },
                     {
                         "default_value": "::",
@@ -3389,6 +4222,13 @@ one to see the parameters of a module before the object is created.
                         "mandatory": false,
                         "modifiable": true,
                         "name": "proxy_protocol_networks",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Redirect clients to this URL",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "redirect_url",
                         "type": "string"
                     },
                     {
@@ -3477,6 +4317,14 @@ one to see the parameters of a module before the object is created.
                         "type": "path"
                     },
                     {
+                        "default_value": "",
+                        "description": "Passphrase for TLS key",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "ssl_passphrase",
+                        "type": "sslpassphrase"
+                    },
+                    {
                         "default_value": false,
                         "description": "Verify TLS peer certificate",
                         "mandatory": false,
@@ -3494,18 +4342,22 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": "MAX",
-                        "description": "Minimum TLS protocol version",
+                        "description": "Enabled TLS protocol versions",
                         "enum_values": [
                             "MAX",
                             "TLSv10",
                             "TLSv11",
                             "TLSv12",
-                            "TLSv13"
+                            "TLSv13",
+                            "TLSv1.0",
+                            "TLSv1.1",
+                            "TLSv1.2",
+                            "TLSv1.3"
                         ],
                         "mandatory": false,
                         "modifiable": true,
                         "name": "ssl_version",
-                        "type": "enum"
+                        "type": "enum_mask"
                     },
                     {
                         "description": "Path to user and group mapping file",
@@ -3514,8 +4366,7 @@ one to see the parameters of a module before the object is created.
                         "name": "user_mapping_file",
                         "type": "path"
                     }
-                ],
-                "version": "V1.1.0"
+                ]
             },
             "id": "MariaDBProtocol",
             "links": {
@@ -3528,10 +4379,9 @@ one to see the parameters of a module before the object is created.
                 "api": "parser",
                 "commands": [],
                 "description": "MariaDB SQL parser using sqlite3.",
-                "maturity": "GA",
+                "groups": [],
                 "module_type": "Parser",
-                "parameters": null,
-                "version": "V1.0.0"
+                "parameters": []
             },
             "id": "pp_sqlite",
             "links": {
@@ -3575,7 +4425,7 @@ one to see the parameters of a module before the object is created.
                     }
                 ],
                 "description": "A simple query logging filter",
-                "maturity": "GA",
+                "groups": [],
                 "module_type": "Filter",
                 "parameters": [
                     {
@@ -3747,8 +4597,7 @@ one to see the parameters of a module before the object is created.
                         "name": "user_match",
                         "type": "regex"
                     }
-                ],
-                "version": "V1.1.1"
+                ]
             },
             "id": "qlafilter",
             "links": {
@@ -3761,7 +4610,7 @@ one to see the parameters of a module before the object is created.
                 "api": "router",
                 "commands": [],
                 "description": "A connection based router to load balance based on connections",
-                "maturity": "GA",
+                "groups": [],
                 "module_type": "Router",
                 "parameters": [
                     {
@@ -3779,7 +4628,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "max_replication_lag",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "running",
@@ -3797,7 +4646,6 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": false,
-                        "deprecated": true,
                         "description": "Retrieve users from all backend servers instead of only one",
                         "mandatory": false,
                         "modifiable": true,
@@ -3806,12 +4654,12 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": "300000ms",
-                        "description": "How often idle connections are pinged",
+                        "description": "How ofted idle connections are pinged",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "connection_keepalive",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "deprecated": true,
@@ -3925,7 +4773,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "multiplex_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "0ms",
@@ -3934,7 +4782,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "net_write_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "description": "Password for the user used to retrieve database users",
@@ -3972,12 +4820,11 @@ one to see the parameters of a module before the object is created.
                         "type": "int"
                     },
                     {
-                        "default_value": false,
-                        "description": "Enable session tracing for this service",
+                        "description": "Role used for retrieving database users",
                         "mandatory": false,
                         "modifiable": true,
-                        "name": "session_trace",
-                        "type": "bool"
+                        "name": "role",
+                        "type": "string"
                     },
                     {
                         "default_value": false,
@@ -4031,16 +4878,15 @@ one to see the parameters of a module before the object is created.
                         "type": "string"
                     },
                     {
-                        "default_value": "0ms",
+                        "default_value": "28800000ms",
                         "description": "Connection idle timeout",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "wait_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     }
-                ],
-                "version": "V2.0.0"
+                ]
             },
             "id": "readconnroute",
             "links": {
@@ -4074,7 +4920,68 @@ one to see the parameters of a module before the object is created.
                     }
                 ],
                 "description": "A Read/Write splitting router for enhancement read scalability",
-                "maturity": "GA",
+                "groups": [
+                    {
+                        "description": "Settings that control how queries are routed",
+                        "members": [
+                            "use_sql_variables_in",
+                            "slave_selection_criteria",
+                            "max_replication_lag",
+                            "max_slave_replication_lag",
+                            "strict_multi_stmt",
+                            "strict_sp_calls",
+                            "strict_tmp_tables",
+                            "master_accept_reads",
+                            "max_slave_connections",
+                            "slave_connections",
+                            "lazy_connect"
+                        ],
+                        "name": "Routing"
+                    },
+                    {
+                        "description": "Settings that control how node failures are handled",
+                        "members": [
+                            "master_failure_mode",
+                            "retry_failed_reads",
+                            "master_reconnection",
+                            "delayed_retry",
+                            "delayed_retry_timeout"
+                        ],
+                        "name": "Error Handling"
+                    },
+                    {
+                        "description": "Settings that control the causal reads feature",
+                        "members": [
+                            "causal_reads",
+                            "causal_reads_timeout"
+                        ],
+                        "name": "Causal Reads"
+                    },
+                    {
+                        "description": "Settings that control the transaction replay feature",
+                        "members": [
+                            "transaction_replay",
+                            "transaction_replay_max_size",
+                            "transaction_replay_timeout",
+                            "transaction_replay_attempts",
+                            "transaction_replay_retry_on_deadlock",
+                            "transaction_replay_retry_on_mismatch",
+                            "transaction_replay_safe_commit",
+                            "transaction_replay_checksum"
+                        ],
+                        "name": "Transaction Replay"
+                    },
+                    {
+                        "description": "Settings that control the synchronous transaction feature",
+                        "members": [
+                            "sync_transaction",
+                            "sync_transaction_count",
+                            "sync_transaction_timeout",
+                            "sync_transaction_max_lag"
+                        ],
+                        "name": "Synchronous Transaction"
+                    }
+                ],
                 "module_type": "Router",
                 "parameters": [
                     {
@@ -4095,6 +5002,7 @@ one to see the parameters of a module before the object is created.
                             "on",
                             "1"
                         ],
+                        "group": "Causal Reads",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "causal_reads",
@@ -4103,15 +5011,17 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": "10000ms",
                         "description": "Timeout for the slave synchronization",
+                        "group": "Causal Reads",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "causal_reads_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": false,
                         "description": "Retry failed writes outside of transactions",
+                        "group": "Error Handling",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "delayed_retry",
@@ -4120,15 +5030,17 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": "10000ms",
                         "description": "Timeout for delayed_retry",
+                        "group": "Error Handling",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "delayed_retry_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": false,
                         "description": "Create connections only when needed",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "lazy_connect",
@@ -4137,6 +5049,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": false,
                         "description": "Use master for reads",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "master_accept_reads",
@@ -4150,6 +5063,7 @@ one to see the parameters of a module before the object is created.
                             "fail_on_write",
                             "error_on_write"
                         ],
+                        "group": "Error Handling",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "master_failure_mode",
@@ -4158,6 +5072,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": true,
                         "description": "Reconnect to master",
+                        "group": "Error Handling",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "master_reconnection",
@@ -4166,15 +5081,17 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": "0ms",
                         "description": "Maximum replication lag",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "max_replication_lag",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": 255,
                         "description": "Maximum number of slave connections",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "max_slave_connections",
@@ -4183,38 +5100,25 @@ one to see the parameters of a module before the object is created.
                     {
                         "deprecated": true,
                         "description": "Alias for 'max_replication_lag'",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "max_slave_replication_lag",
                         "type": "duration"
                     },
                     {
-                        "default_value": false,
-                        "description": "Optimistically offload transactions to slaves",
-                        "mandatory": false,
-                        "modifiable": true,
-                        "name": "optimistic_trx",
-                        "type": "bool"
-                    },
-                    {
                         "default_value": true,
                         "description": "Automatically retry failed reads outside of transactions",
+                        "group": "Error Handling",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "retry_failed_reads",
                         "type": "bool"
                     },
                     {
-                        "default_value": false,
-                        "description": "Reuse identical prepared statements inside the same connection",
-                        "mandatory": false,
-                        "modifiable": true,
-                        "name": "reuse_prepared_statements",
-                        "type": "bool"
-                    },
-                    {
                         "default_value": 255,
                         "description": "Starting number of slave connections",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "slave_connections",
@@ -4235,6 +5139,7 @@ one to see the parameters of a module before the object is created.
                             "LEAST_CURRENT_OPERATIONS",
                             "ADAPTIVE_ROUTING"
                         ],
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "slave_selection_criteria",
@@ -4243,6 +5148,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": false,
                         "description": "Lock connection to master after multi-statement query",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "strict_multi_stmt",
@@ -4251,6 +5157,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": false,
                         "description": "Lock connection to master after a stored procedure is executed",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "strict_sp_calls",
@@ -4259,14 +5166,59 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": true,
                         "description": "Prevent reconnections if temporary tables exist",
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "strict_tmp_tables",
                         "type": "bool"
                     },
                     {
+                        "default_value": "none",
+                        "description": "Synchronize transactions with one or more replicas.",
+                        "enum_values": [
+                            "none",
+                            "soft",
+                            "hard"
+                        ],
+                        "group": "Synchronous Transaction",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "sync_transaction",
+                        "type": "enum"
+                    },
+                    {
+                        "default_value": 1,
+                        "description": "Number of acknowledgements required for each transaction.",
+                        "group": "Synchronous Transaction",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "sync_transaction_count",
+                        "type": "count"
+                    },
+                    {
+                        "default_value": "0ms",
+                        "description": "Maximum allowed replication lag before synchronization starts.",
+                        "group": "Synchronous Transaction",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "sync_transaction_max_lag",
+                        "type": "duration",
+                        "unit": "ms"
+                    },
+                    {
+                        "default_value": "10000ms",
+                        "description": "Timeout for transaction synchronization.",
+                        "group": "Synchronous Transaction",
+                        "mandatory": false,
+                        "modifiable": true,
+                        "name": "sync_transaction_timeout",
+                        "type": "duration",
+                        "unit": "ms"
+                    },
+                    {
                         "default_value": false,
                         "description": "Retry failed transactions",
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay",
@@ -4275,6 +5227,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": 5,
                         "description": "Maximum number of times to retry a transaction",
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay_attempts",
@@ -4288,6 +5241,7 @@ one to see the parameters of a module before the object is created.
                             "result_only",
                             "no_insert_id"
                         ],
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay_checksum",
@@ -4296,6 +5250,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": 1048576,
                         "description": "Maximum size of transaction to retry",
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay_max_size",
@@ -4304,6 +5259,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": false,
                         "description": "Retry transaction on deadlock",
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay_retry_on_deadlock",
@@ -4312,6 +5268,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": false,
                         "description": "Retry transaction on checksum mismatch",
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay_retry_on_mismatch",
@@ -4320,6 +5277,7 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": true,
                         "description": "Prevent replaying of about-to-commit transaction",
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay_safe_commit",
@@ -4328,11 +5286,12 @@ one to see the parameters of a module before the object is created.
                     {
                         "default_value": "30000ms",
                         "description": "Timeout for transaction replay",
+                        "group": "Transaction Replay",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "transaction_replay_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "all",
@@ -4341,6 +5300,7 @@ one to see the parameters of a module before the object is created.
                             "all",
                             "master"
                         ],
+                        "group": "Routing",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "use_sql_variables_in",
@@ -4348,7 +5308,6 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": false,
-                        "deprecated": true,
                         "description": "Retrieve users from all backend servers instead of only one",
                         "mandatory": false,
                         "modifiable": true,
@@ -4357,12 +5316,12 @@ one to see the parameters of a module before the object is created.
                     },
                     {
                         "default_value": "300000ms",
-                        "description": "How often idle connections are pinged",
+                        "description": "How ofted idle connections are pinged",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "connection_keepalive",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "deprecated": true,
@@ -4476,7 +5435,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "multiplex_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "default_value": "0ms",
@@ -4485,7 +5444,7 @@ one to see the parameters of a module before the object is created.
                         "modifiable": true,
                         "name": "net_write_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     },
                     {
                         "description": "Password for the user used to retrieve database users",
@@ -4523,12 +5482,11 @@ one to see the parameters of a module before the object is created.
                         "type": "int"
                     },
                     {
-                        "default_value": false,
-                        "description": "Enable session tracing for this service",
+                        "description": "Role used for retrieving database users",
                         "mandatory": false,
                         "modifiable": true,
-                        "name": "session_trace",
-                        "type": "bool"
+                        "name": "role",
+                        "type": "string"
                     },
                     {
                         "default_value": false,
@@ -4582,16 +5540,15 @@ one to see the parameters of a module before the object is created.
                         "type": "string"
                     },
                     {
-                        "default_value": "0ms",
+                        "default_value": "28800000ms",
                         "description": "Connection idle timeout",
                         "mandatory": false,
                         "modifiable": true,
                         "name": "wait_timeout",
                         "type": "duration",
-                        "unit": "ms"
+                        "unit": "s"
                     }
-                ],
-                "version": "V1.1.0"
+                ]
             },
             "id": "readwritesplit",
             "links": {
@@ -4642,7 +5599,7 @@ Command with output:
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "links": {
         "self": "http://localhost:8989/v1/maxscale/modules/mariadbmon/reset-replication"
@@ -4679,7 +5636,7 @@ Classify provided statement and return the result.
 GET /v1/maxscale/query_classifier/classify?sql=SELECT+1
 ```
 
-```
+```javascript
 {
     "data": {
         "attributes": {
@@ -4698,6 +5655,50 @@ GET /v1/maxscale/query_classifier/classify?sql=SELECT+1
     }
 }
 ```
+
+## Dump query classifier cache
+
+```
+POST /v1/maxscale/query_classifier/dump
+```
+
+Initiates the dumping of the query classifier cache. The request body
+must be a JSON object consisting of the following fields:
+
+* `path`
+    * The path of the directory where the dump should be saved. This is a mandatory field.
+
+* `format`
+  * Specifies the format of the dump. Allowed values are `json`, `pretty_json` and `json_lines`. This is an optional field and the default is 'json'.
+
+Here is an example request body:
+```
+{
+    "path": "/tmp",
+    "format": "pretty_json"
+}
+```
+#### Response
+
+The dumping is successfully initiated:
+
+`Status: 200 OK`
+```
+{
+  data: {
+    attributes: { path: '/tmp/qc_dump-2024-09-23_11-50-02.jsonl' },
+    id: 'qc_dump'
+  },
+  links: {
+    self: 'http://127.0.0.1:8989/v1/maxscale/query_classifier/cache/dump/'
+  }
+}
+```
+The dump is written to a temporary file in the specified directory.
+At the end the file is renamed to the name returned in the response.
+Thus, if the file is immediately checked for, it may not yet be
+present.
+
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,21 +1,20 @@
-# MaxScale Service Resource
+# MaxScale Object Resource
 
-## Overview
-
-A service resource represents a service inside MaxScale. A service is a
-collection of network listeners, filters, a router and a set of backend servers.
+The objects resource collection contains all of the objects that are in
+MaxScale: listeners, services, filters, servers and monitors. This is a "view"
+on top of the other resource collection endpoints.
 
 ## Resource Operations
 
-The _:name_ in all of the URIs must be the name of a service in MaxScale.
+The _:name_ in all of the URIs must be the name of an object in MaxScale.
 
-### Get a service
+### Get an object
 
 ```
-GET /v1/services/:name
+GET /v1/objects/:name
 ```
 
-Get a single service.
+Get a single object.
 
 #### Response
 
@@ -338,10 +337,10 @@ Get a single service.
 }
 ```
 
-### Get all services
+### Get all objects
 
 ```
-GET /v1/services
+GET /v1/objects
 ```
 
 Get all services.
@@ -990,341 +989,884 @@ Get all services.
                 }
             },
             "type": "services"
-        }
-    ],
-    "links": {
-        "self": "http://localhost:8989/v1/services/"
-    }
-}
-```
-
-### Get service relationships
-
-```
-GET /v1/services/:name/relationships/:type
-```
-
-The _:type_ in the URI must be either _servers_, _services_ or _filters_,
-depending on which relationship is being retrieved.
-
-#### Response
-
-`Status: 200 OK`
-
-```javascript
-{
-    "data": [
-        {
-            "id": "server1",
-            "type": "servers"
         },
         {
-            "id": "server2",
-            "type": "servers"
-        }
-    ],
-    "links": {
-        "related": "http://localhost:8989/v1/servers/",
-        "self": "http://localhost:8989/v1/services/Read-Connection-Router/relationships/servers/"
-    }
-}
-```
-
-### Create a service
-
-```
-POST /v1/services
-```
-
-Create a new service by defining the resource. The posted object must define at
-least the following fields.
-
-* `data.id`
-  * Name of the service
-
-* `data.type`
-  * Type of the object, must be `services`
-
-* `data.attributes.router`
-  * The router module to use
-
-* `data.attributes.parameters.user`
-  * The [`user`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#user) to use
-
-* `data.attributes.parameters.password`
-  * The [`password`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#password) to use
-
-The `data.attributes.parameters` object is used to define router and service
-parameters. All configuration parameters that can be defined in the
-configuration file can also be added to the parameters object. The exceptions to
-this are the `type`, `router`, `servers` and `filters` parameters which must not
-be defined.
-
-As with other REST API resources, the `data.relationships` field defines the
-relationships of the service to other resources. Services can have two types of
-relationships: `servers` and `filters` relationships.
-
-If the request body defines a valid `relationships` object, the service is
-linked to those resources. For servers, this is equivalent to adding the list of
-server names into the
-[`servers`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#servers) parameter. For
-filters, this is equivalent to adding the filters in the
-`data.relationships.filters.data` array to the
-[`filters`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#filters) parameter in the
-order they appear. For other services, this is equivalent to adding the list of
-server names into the
-[`targets`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#targets) parameter.
-
-The following example defines a new service with both a server and a filter
-relationship.
-
-```javascript
-{
-    "data": {
-        "id": "my-service",
-        "type": "services",
-        "attributes": {
-            "router": "readwritesplit",
-            "parameters": {
-                "user": "maxuser",
-                "password": "maxpwd"
-            }
-        },
-        "relationships": {
-            "filters": {
-                "data": [
-                    {
-                        "id": "QLA",
-                        "type": "filters"
-                    }
-                ]
+            "attributes": {
+                "gtid_binlog_pos": "0-3000-5",
+                "gtid_current_pos": "0-3000-5",
+                "last_event": "master_up",
+                "lock_held": null,
+                "master_group": null,
+                "master_id": -1,
+                "name": "server1",
+                "node_id": 3000,
+                "parameters": {
+                    "address": "127.0.0.1",
+                    "disk_space_threshold": "",
+                    "extra_port": 0,
+                    "initial_status": "down",
+                    "max_routing_connections": 0,
+                    "monitorpw": null,
+                    "monitoruser": null,
+                    "persistmaxtime": "0ms",
+                    "persistpoolmax": 0,
+                    "port": 3000,
+                    "priority": 0,
+                    "private_address": null,
+                    "proxy_protocol": false,
+                    "rank": "primary",
+                    "replication_custom_options": null,
+                    "socket": null,
+                    "ssl": false,
+                    "ssl_ca": null,
+                    "ssl_cert": null,
+                    "ssl_cert_verify_depth": 9,
+                    "ssl_cipher": null,
+                    "ssl_key": null,
+                    "ssl_passphrase": "",
+                    "ssl_verify_peer_certificate": false,
+                    "ssl_verify_peer_host": false,
+                    "ssl_version": "MAX",
+                    "use_service_credentials": true
+                },
+                "read_only": false,
+                "replication_lag": 0,
+                "server_id": 3000,
+                "slave_connections": [],
+                "source": {
+                    "file": "/etc/maxscale.cnf",
+                    "type": "static"
+                },
+                "state": "Master, Running",
+                "statistics": {
+                    "active_operations": 0,
+                    "adaptive_avg_select_time": "0ns",
+                    "connection_pool_empty": 0,
+                    "connections": 1,
+                    "failed_auths": 0,
+                    "max_connections": 1,
+                    "max_pool_size": 0,
+                    "persistent_connections": 0,
+                    "response_time_distribution": {
+                        "read": {
+                            "distribution": [
+                                {
+                                    "count": 0,
+                                    "time": "0.000001",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000010",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000100",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.001000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.010000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.100000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100000.000000",
+                                    "total": 0.0
+                                }
+                            ],
+                            "operation": "read",
+                            "range_base": 10
+                        },
+                        "write": {
+                            "distribution": [
+                                {
+                                    "count": 0,
+                                    "time": "0.000001",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000010",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000100",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 4,
+                                    "time": "0.001000",
+                                    "total": 0.001319181
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.010000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.100000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100000.000000",
+                                    "total": 0.0
+                                }
+                            ],
+                            "operation": "write",
+                            "range_base": 10
+                        }
+                    },
+                    "reused_connections": 0,
+                    "routed_packets": 4,
+                    "routed_reads": 0,
+                    "routed_writes": 4,
+                    "total_connections": 1
+                },
+                "status": {
+                    "extra": "",
+                    "mode": "Normal",
+                    "reason": [
+                        "Primary"
+                    ],
+                    "state": "Write"
+                },
+                "triggered_at": "Fri, 25 Jul 2025 15:43:48 GMT",
+                "uptime": 10,
+                "version_string": "10.11.9-MariaDB-ubu2204-log"
             },
-            "servers": {
-                "data": [
-                    {
-                        "id": "server1",
-                        "type": "servers"
+            "id": "server1",
+            "links": {
+                "self": "http://localhost:8989/v1/servers/server1/"
+            },
+            "relationships": {
+                "monitors": {
+                    "data": [
+                        {
+                            "id": "MariaDB-Monitor",
+                            "type": "monitors"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/monitors/",
+                        "self": "http://localhost:8989/v1/servers/server1/relationships/monitors/"
                     }
-                ]
-            }
+                },
+                "services": {
+                    "data": [
+                        {
+                            "id": "RW-Split-Router",
+                            "type": "services"
+                        },
+                        {
+                            "id": "Read-Connection-Router",
+                            "type": "services"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/services/",
+                        "self": "http://localhost:8989/v1/servers/server1/relationships/services/"
+                    }
+                }
+            },
+            "type": "servers"
+        },
+        {
+            "attributes": {
+                "gtid_binlog_pos": "0-3000-5",
+                "gtid_current_pos": "0-3000-5",
+                "last_event": "slave_up",
+                "lock_held": null,
+                "master_group": null,
+                "master_id": 3000,
+                "name": "server2",
+                "node_id": 3001,
+                "parameters": {
+                    "address": "127.0.0.1",
+                    "disk_space_threshold": "",
+                    "extra_port": 0,
+                    "initial_status": "down",
+                    "max_routing_connections": 0,
+                    "monitorpw": null,
+                    "monitoruser": null,
+                    "persistmaxtime": "0ms",
+                    "persistpoolmax": 0,
+                    "port": 3001,
+                    "priority": 0,
+                    "private_address": null,
+                    "proxy_protocol": false,
+                    "rank": "primary",
+                    "replication_custom_options": null,
+                    "socket": null,
+                    "ssl": false,
+                    "ssl_ca": null,
+                    "ssl_cert": null,
+                    "ssl_cert_verify_depth": 9,
+                    "ssl_cipher": null,
+                    "ssl_key": null,
+                    "ssl_passphrase": "",
+                    "ssl_verify_peer_certificate": false,
+                    "ssl_verify_peer_host": false,
+                    "ssl_version": "MAX",
+                    "use_service_credentials": true
+                },
+                "read_only": false,
+                "replication_lag": 0,
+                "server_id": 3001,
+                "slave_connections": [
+                    {
+                        "connection_name": "",
+                        "gtid_io_pos": "",
+                        "last_io_error": "",
+                        "last_sql_error": "",
+                        "master_host": "127.0.0.1",
+                        "master_port": 3000,
+                        "master_server_id": 3000,
+                        "master_server_name": "server1",
+                        "seconds_behind_master": 0,
+                        "slave_io_running": "Yes",
+                        "slave_sql_running": "Yes",
+                        "using_gtid": "No"
+                    }
+                ],
+                "source": {
+                    "file": "/etc/maxscale.cnf",
+                    "type": "static"
+                },
+                "state": "Slave, Running",
+                "statistics": {
+                    "active_operations": 0,
+                    "adaptive_avg_select_time": "0ns",
+                    "connection_pool_empty": 0,
+                    "connections": 1,
+                    "failed_auths": 0,
+                    "max_connections": 1,
+                    "max_pool_size": 0,
+                    "persistent_connections": 0,
+                    "response_time_distribution": {
+                        "read": {
+                            "distribution": [
+                                {
+                                    "count": 0,
+                                    "time": "0.000001",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000010",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000100",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 1,
+                                    "time": "0.001000",
+                                    "total": 0.00066959099999999998
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.010000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.100000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100000.000000",
+                                    "total": 0.0
+                                }
+                            ],
+                            "operation": "read",
+                            "range_base": 10
+                        },
+                        "write": {
+                            "distribution": [
+                                {
+                                    "count": 0,
+                                    "time": "0.000001",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000010",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.000100",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.001000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.010000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "0.100000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "1000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "10000.000000",
+                                    "total": 0.0
+                                },
+                                {
+                                    "count": 0,
+                                    "time": "100000.000000",
+                                    "total": 0.0
+                                }
+                            ],
+                            "operation": "write",
+                            "range_base": 10
+                        }
+                    },
+                    "reused_connections": 0,
+                    "routed_packets": 1,
+                    "routed_reads": 1,
+                    "routed_writes": 0,
+                    "total_connections": 1
+                },
+                "status": {
+                    "extra": "",
+                    "mode": "Normal",
+                    "reason": [
+                        "Replica"
+                    ],
+                    "state": "Read"
+                },
+                "triggered_at": "Fri, 25 Jul 2025 15:43:48 GMT",
+                "uptime": 9,
+                "version_string": "10.11.9-MariaDB-ubu2204-log"
+            },
+            "id": "server2",
+            "links": {
+                "self": "http://localhost:8989/v1/servers/server2/"
+            },
+            "relationships": {
+                "monitors": {
+                    "data": [
+                        {
+                            "id": "MariaDB-Monitor",
+                            "type": "monitors"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/monitors/",
+                        "self": "http://localhost:8989/v1/servers/server2/relationships/monitors/"
+                    }
+                },
+                "services": {
+                    "data": [
+                        {
+                            "id": "RW-Split-Router",
+                            "type": "services"
+                        },
+                        {
+                            "id": "Read-Connection-Router",
+                            "type": "services"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/services/",
+                        "self": "http://localhost:8989/v1/servers/server2/relationships/services/"
+                    }
+                }
+            },
+            "type": "servers"
+        },
+        {
+            "attributes": {
+                "module": "mariadbmon",
+                "monitor_diagnostics": {
+                    "failback_master": null,
+                    "master": "server1",
+                    "master_gtid_domain_id": 0,
+                    "primary": null,
+                    "server_info": [
+                        {
+                            "gtid_binlog_pos": "0-3000-5",
+                            "gtid_current_pos": "0-3000-5",
+                            "lock_held": null,
+                            "master_group": null,
+                            "name": "server1",
+                            "read_only": false,
+                            "server_id": 3000,
+                            "slave_connections": []
+                        },
+                        {
+                            "gtid_binlog_pos": "0-3000-5",
+                            "gtid_current_pos": "0-3000-5",
+                            "lock_held": null,
+                            "master_group": null,
+                            "name": "server2",
+                            "read_only": false,
+                            "server_id": 3001,
+                            "slave_connections": [
+                                {
+                                    "connection_name": "",
+                                    "gtid_io_pos": "",
+                                    "last_io_error": "",
+                                    "last_sql_error": "",
+                                    "master_host": "127.0.0.1",
+                                    "master_port": 3000,
+                                    "master_server_id": 3000,
+                                    "master_server_name": "server1",
+                                    "seconds_behind_master": 0,
+                                    "slave_io_running": "Yes",
+                                    "slave_sql_running": "Yes",
+                                    "using_gtid": "No"
+                                }
+                            ]
+                        }
+                    ],
+                    "state": "Idle"
+                },
+                "parameters": {
+                    "assume_unique_hostnames": true,
+                    "auto_failback_switchover": false,
+                    "auto_failover": "false",
+                    "auto_rejoin": false,
+                    "backend_connect_attempts": 1,
+                    "backend_timeout": "3000ms",
+                    "backup_storage_address": null,
+                    "backup_storage_path": null,
+                    "cooperative_monitoring_locks": "none",
+                    "cs_admin_api_key": null,
+                    "cs_admin_base_path": "/cmapi/0.4.0",
+                    "cs_admin_port": 8640,
+                    "demotion_sql_file": null,
+                    "disk_space_check_interval": "0ms",
+                    "disk_space_threshold": null,
+                    "enforce_read_only_servers": false,
+                    "enforce_read_only_slaves": false,
+                    "enforce_simple_topology": false,
+                    "enforce_writable_master": false,
+                    "events": "all,master_down,master_up,slave_down,slave_up,server_down,server_up,synced_down,synced_up,donor_down,donor_up,lost_master,lost_slave,lost_synced,lost_donor,new_master,new_slave,new_synced,new_donor",
+                    "failcount": 5,
+                    "failover_timeout": "90000ms",
+                    "handle_events": true,
+                    "journal_max_age": "28800000ms",
+                    "maintenance_on_low_disk_space": true,
+                    "mariabackup_parallel": 1,
+                    "mariabackup_use_memory": "1G",
+                    "master_conditions": "primary_monitor_master,disk_space_ok",
+                    "master_failure_timeout": "10000ms",
+                    "module": "mariadbmon",
+                    "monitor_interval": "1000ms",
+                    "password": "*****",
+                    "primary_state_sql": null,
+                    "promotion_sql_file": null,
+                    "rebuild_port": 4444,
+                    "replica_state_sql": null,
+                    "replication_custom_options": null,
+                    "replication_master_ssl": false,
+                    "replication_password": "*****",
+                    "replication_user": "maxuser",
+                    "role": null,
+                    "script": null,
+                    "script_max_replication_lag": -1,
+                    "script_timeout": "90000ms",
+                    "servers_no_cooperative_monitoring_locks": null,
+                    "servers_no_promotion": null,
+                    "slave_conditions": "",
+                    "ssh_check_host_key": true,
+                    "ssh_keyfile": null,
+                    "ssh_port": 22,
+                    "ssh_timeout": "10000ms",
+                    "ssh_user": null,
+                    "switchover_on_low_disk_space": false,
+                    "switchover_timeout": "90000ms",
+                    "type": "monitor",
+                    "user": "maxuser",
+                    "verify_master_failure": true,
+                    "write_test_fail_action": "log",
+                    "write_test_interval": "0ms",
+                    "write_test_table": "mxs.maxscale_write_test"
+                },
+                "source": {
+                    "file": "/etc/maxscale.cnf",
+                    "type": "static"
+                },
+                "state": "Running",
+                "ticks": 12
+            },
+            "id": "MariaDB-Monitor",
+            "links": {
+                "self": "http://localhost:8989/v1/monitors/MariaDB-Monitor/"
+            },
+            "relationships": {
+                "servers": {
+                    "data": [
+                        {
+                            "id": "server1",
+                            "type": "servers"
+                        },
+                        {
+                            "id": "server2",
+                            "type": "servers"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/servers/",
+                        "self": "http://localhost:8989/v1/monitors/MariaDB-Monitor/relationships/servers/"
+                    }
+                },
+                "services": {
+                    "data": [
+                        {
+                            "id": "RW-Split-Router",
+                            "type": "services"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/services/",
+                        "self": "http://localhost:8989/v1/monitors/MariaDB-Monitor/relationships/services/"
+                    }
+                }
+            },
+            "type": "monitors"
+        },
+        {
+            "attributes": {
+                "module": "qlafilter",
+                "parameters": {
+                    "append": false,
+                    "duration_unit": "ms",
+                    "exclude": null,
+                    "filebase": "/tmp/qla.log",
+                    "flush": true,
+                    "log_data": "date,user,query",
+                    "log_type": "unified",
+                    "match": null,
+                    "module": "qlafilter",
+                    "newline_replacement": " ",
+                    "options": "",
+                    "separator": ",",
+                    "source": null,
+                    "source_exclude": null,
+                    "source_match": null,
+                    "use_canonical_form": false,
+                    "user": null,
+                    "user_exclude": null,
+                    "user_match": null
+                },
+                "source": {
+                    "file": "/etc/maxscale.cnf",
+                    "type": "static"
+                }
+            },
+            "id": "QLA",
+            "links": {
+                "self": "http://localhost:8989/v1/filters/QLA/"
+            },
+            "relationships": {
+                "services": {
+                    "data": [
+                        {
+                            "id": "Read-Connection-Router",
+                            "type": "services"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/services/",
+                        "self": "http://localhost:8989/v1/filters/QLA/relationships/services/"
+                    }
+                }
+            },
+            "type": "filters"
+        },
+        {
+            "attributes": {
+                "module": "hintfilter",
+                "parameters": {
+                    "module": "hintfilter"
+                },
+                "source": {
+                    "file": "/etc/maxscale.cnf",
+                    "type": "static"
+                }
+            },
+            "id": "Hint",
+            "links": {
+                "self": "http://localhost:8989/v1/filters/Hint/"
+            },
+            "relationships": {
+                "services": {
+                    "data": [
+                        {
+                            "id": "Read-Connection-Router",
+                            "type": "services"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/services/",
+                        "self": "http://localhost:8989/v1/filters/Hint/relationships/services/"
+                    }
+                }
+            },
+            "type": "filters"
+        },
+        {
+            "attributes": {
+                "module": "MariaDBProtocol",
+                "parameters": {
+                    "MariaDBProtocol": {
+                        "allow_replication": true,
+                        "compression": "zlib,zstd",
+                        "compression_threshold": 50
+                    },
+                    "address": "::",
+                    "authenticator": null,
+                    "authenticator_options": null,
+                    "connection_init_sql_file": null,
+                    "connection_metadata": [
+                        "character_set_client=auto",
+                        "character_set_connection=auto",
+                        "character_set_results=auto",
+                        "max_allowed_packet=auto",
+                        "system_time_zone=auto",
+                        "time_zone=auto",
+                        "tx_isolation=auto",
+                        "maxscale=auto"
+                    ],
+                    "port": 4006,
+                    "protocol": "MariaDBProtocol",
+                    "proxy_protocol_networks": null,
+                    "redirect_url": null,
+                    "service": "RW-Split-Router",
+                    "socket": null,
+                    "sql_mode": "default",
+                    "ssl": false,
+                    "ssl_ca": null,
+                    "ssl_cert": null,
+                    "ssl_cert_verify_depth": 9,
+                    "ssl_cipher": null,
+                    "ssl_crl": null,
+                    "ssl_key": null,
+                    "ssl_passphrase": "",
+                    "ssl_verify_peer_certificate": false,
+                    "ssl_verify_peer_host": false,
+                    "ssl_version": "MAX",
+                    "type": "listener",
+                    "user_mapping_file": null
+                },
+                "source": {
+                    "file": "/etc/maxscale.cnf",
+                    "type": "static"
+                },
+                "state": "Running"
+            },
+            "id": "RW-Split-Listener",
+            "relationships": {
+                "services": {
+                    "data": [
+                        {
+                            "id": "RW-Split-Router",
+                            "type": "services"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/services/",
+                        "self": "http://localhost:8989/v1/listeners/RW-Split-Listener/relationships/services/"
+                    }
+                }
+            },
+            "type": "listeners"
+        },
+        {
+            "attributes": {
+                "module": "MariaDBProtocol",
+                "parameters": {
+                    "MariaDBProtocol": {
+                        "allow_replication": true,
+                        "compression": "zlib,zstd",
+                        "compression_threshold": 50
+                    },
+                    "address": "::",
+                    "authenticator": null,
+                    "authenticator_options": null,
+                    "connection_init_sql_file": null,
+                    "connection_metadata": [
+                        "character_set_client=auto",
+                        "character_set_connection=auto",
+                        "character_set_results=auto",
+                        "max_allowed_packet=auto",
+                        "system_time_zone=auto",
+                        "time_zone=auto",
+                        "tx_isolation=auto",
+                        "maxscale=auto"
+                    ],
+                    "port": 4008,
+                    "protocol": "MariaDBProtocol",
+                    "proxy_protocol_networks": null,
+                    "redirect_url": null,
+                    "service": "Read-Connection-Router",
+                    "socket": null,
+                    "sql_mode": "default",
+                    "ssl": false,
+                    "ssl_ca": null,
+                    "ssl_cert": null,
+                    "ssl_cert_verify_depth": 9,
+                    "ssl_cipher": null,
+                    "ssl_crl": null,
+                    "ssl_key": null,
+                    "ssl_passphrase": "",
+                    "ssl_verify_peer_certificate": false,
+                    "ssl_verify_peer_host": false,
+                    "ssl_version": "MAX",
+                    "type": "listener",
+                    "user_mapping_file": null
+                },
+                "source": {
+                    "file": "/etc/maxscale.cnf",
+                    "type": "static"
+                },
+                "state": "Running"
+            },
+            "id": "Read-Connection-Listener",
+            "relationships": {
+                "services": {
+                    "data": [
+                        {
+                            "id": "Read-Connection-Router",
+                            "type": "services"
+                        }
+                    ],
+                    "links": {
+                        "related": "http://localhost:8989/v1/services/",
+                        "self": "http://localhost:8989/v1/listeners/Read-Connection-Listener/relationships/services/"
+                    }
+                }
+            },
+            "type": "listeners"
         }
+    ],
+    "links": {
+        "self": "http://localhost:8989/v1/objects/"
     }
 }
 ```
-
-#### Response
-
-Service is created:
-
-`Status: 204 No Content`
-
-### Destroy a service
-
-```
-DELETE /v1/services/:name
-```
-
-A service can only be destroyed if the service uses no servers or filters and
-all the listeners pointing to the service have been destroyed. This means that
-the `data.relationships` must be an empty object and `data.attributes.listeners`
-must be an empty array in order for the service to qualify for destruction.
-
-If there are open client connections that use the service when it is destroyed,
-they are allowed to gracefully close before the service is destroyed. This means
-that the destruction of a service can be acknowledged via the REST API before
-the destruction process has fully completed.
-
-To find out whether a service is still in use after it has been destroyed, the
-[`sessions`](./Resources-Session.md) resource should be used. If a session for
-the service is still open, it has not yet been destroyed.
-
-This endpoint also supports the `force=yes` parameter that will unconditionally
-delete the service by first unlinking it from all servers and filters that it
-uses.
-
-#### Response
-
-Service is destroyed:
-
-`Status: 204 No Content`
-
-### Update a service
-
-```
-PATCH /v1/services/:name
-```
-
-The request body must be a JSON object which represents a set of new definitions
-for the service.
-
-All standard service parameters can be modified. Refer to the
-[service](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#service) documentation on
-the details of these parameters.
-
-In addition to the standard service parameters, router parameters can be updated
-at runtime if the router module supports it. Refer to the individual router
-documentation for more details on whether the router supports it and which
-parameters can be updated at runtime.
-
-The following example modifies a service by changing the `user` parameter to `admin`.
-
-```javascript
-{
-    "data": {
-        "attributes": {
-            "parameters": {
-                "user": "admin"
-            }
-        }
-    }
-}
-```
-
-#### Response
-
-Service is modified:
-
-`Status: 204 No Content`
-
-### Update service relationships
-
-```
-PATCH /v1/services/:name/relationships/:type
-```
-
-The _:type_ in the URI must be either _servers_, _services_ or _filters_,
-depending on which relationship is being modified.
-
-The request body must be a JSON object that defines only the _data_ field. The
-value of the _data_ field must be an array of relationship objects that define
-the _id_ and _type_ fields of the relationship. This object will replace the
-existing relationships of this type for the service.
-
-*Note:* The order of the values in the `filters` relationship will define the
- order the filters are set up in. The order in which the filters appear in the
- array will be the order in which the filters are applied to each query. Refer
- to the [`filters`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#filters) parameter
- for more details.
-
-The following is an example request and request body that defines a single
-server relationship for a service that is equivalent to a `servers=my-server`
-parameter.
-
-```
-PATCH /v1/services/my-rw-service/relationships/servers
-
-{
-    data: [
-          { "id": "my-server", "type": "servers" }
-    ]
-}
-```
-
-All relationships for a service can be deleted by sending an empty array as the
-_data_ field value. The following example removes all servers from a service.
-
-```
-PATCH /v1/services/my-rw-service/relationships/servers
-
-{
-    data: []
-}
-```
-
-#### Response
-
-Service relationships modified:
-
-`Status: 204 No Content`
-
-Invalid JSON body:
-
-`Status: 400 Bad Request`
-
-### Stop a service
-
-```
-PUT /v1/services/:name/stop
-```
-
-Stops a started service.
-
-#### Parameters
-
-This endpoint supports the following parameters:
-
-- `force=yes`
-
-  - Close all existing connections that were created through this listener.
-
-#### Response
-
-Service is stopped:
-
-`Status: 204 No Content`
-
-### Start a service
-
-```
-PUT /v1/services/:name/start
-```
-
-Starts a stopped service.
-
-#### Response
-
-Service is started:
-
-`Status: 204 No Content`
-
-### Reload users of a service
-
-```
-POST /v1/services/:name/reload
-```
-
-Reloads the list of database users used for authentication.
-
-#### Response
-
-Users are reloaded:
-
-`Status: 204 No Content`
-
-### Get service listeners
-```
-GET /v1/services/:name/listeners
-```
-
-This endpoint is deprecated, use the
-[this](Resources-Listener.md#get-all-listeners) listeners endpoint instead.
-
-### Get a single service listener
-
-```
-GET /v1/services/:name/listeners/:listener
-```
-
-This endpoint is deprecated, use the [this](Resources-Listener.md#get-a-listener)
-listeners endpoint instead.
-
-### Create a new listener
-
-```
-POST /v1/services/:name/listeners
-```
-
-This endpoint is deprecated, use the
-[this](Resources-Listener.md#create-a-new-listener) listeners endpoint instead.
-
-### Destroy a listener
-
-```
-DELETE /v1/services/:service/listeners/:name
-```
-
-This endpoint is deprecated, use the
-[this](Resources-Listener.md#destroy-a-listener) listeners endpoint instead.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -21,12 +21,13 @@ Get a single monitor.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
             "module": "mariadbmon",
             "monitor_diagnostics": {
+                "failback_master": null,
                 "master": "server1",
                 "master_gtid_domain_id": 0,
                 "primary": null,
@@ -39,8 +40,7 @@ Get a single monitor.
                         "name": "server1",
                         "read_only": false,
                         "server_id": 3000,
-                        "slave_connections": [],
-                        "state_details": null
+                        "slave_connections": []
                     },
                     {
                         "gtid_binlog_pos": "0-3000-5",
@@ -65,20 +65,18 @@ Get a single monitor.
                                 "slave_sql_running": "Yes",
                                 "using_gtid": "No"
                             }
-                        ],
-                        "state_details": null
+                        ]
                     }
                 ],
                 "state": "Idle"
             },
             "parameters": {
                 "assume_unique_hostnames": true,
-                "auto_failover": false,
+                "auto_failback_switchover": false,
+                "auto_failover": "false",
                 "auto_rejoin": false,
                 "backend_connect_attempts": 1,
-                "backend_connect_timeout": "3000ms",
-                "backend_read_timeout": "3000ms",
-                "backend_write_timeout": "3000ms",
+                "backend_timeout": "3000ms",
                 "backup_storage_address": null,
                 "backup_storage_path": null,
                 "cooperative_monitoring_locks": "none",
@@ -88,6 +86,7 @@ Get a single monitor.
                 "demotion_sql_file": null,
                 "disk_space_check_interval": "0ms",
                 "disk_space_threshold": null,
+                "enforce_read_only_servers": false,
                 "enforce_read_only_slaves": false,
                 "enforce_simple_topology": false,
                 "enforce_writable_master": false,
@@ -97,22 +96,26 @@ Get a single monitor.
                 "handle_events": true,
                 "journal_max_age": "28800000ms",
                 "maintenance_on_low_disk_space": true,
-                "mariadb-backup_parallel": 1,
-                "mariadb-backup_use_memory": "1G",
-                "master_conditions": "primary_monitor_master",
+                "mariabackup_parallel": 1,
+                "mariabackup_use_memory": "1G",
+                "master_conditions": "primary_monitor_master,disk_space_ok",
                 "master_failure_timeout": "10000ms",
                 "module": "mariadbmon",
                 "monitor_interval": "1000ms",
                 "password": "*****",
+                "primary_state_sql": null,
                 "promotion_sql_file": null,
                 "rebuild_port": 4444,
+                "replica_state_sql": null,
                 "replication_custom_options": null,
                 "replication_master_ssl": false,
                 "replication_password": "*****",
                 "replication_user": "maxuser",
+                "role": null,
                 "script": null,
                 "script_max_replication_lag": -1,
                 "script_timeout": "90000ms",
+                "servers_no_cooperative_monitoring_locks": null,
                 "servers_no_promotion": null,
                 "slave_conditions": "",
                 "ssh_check_host_key": true,
@@ -124,7 +127,10 @@ Get a single monitor.
                 "switchover_timeout": "90000ms",
                 "type": "monitor",
                 "user": "maxuser",
-                "verify_master_failure": true
+                "verify_master_failure": true,
+                "write_test_fail_action": "log",
+                "write_test_interval": "0ms",
+                "write_test_table": "mxs.maxscale_write_test"
             },
             "source": {
                 "file": "/etc/maxscale.cnf",
@@ -187,13 +193,14 @@ Get all monitors.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": [
         {
             "attributes": {
                 "module": "mariadbmon",
                 "monitor_diagnostics": {
+                    "failback_master": null,
                     "master": "server1",
                     "master_gtid_domain_id": 0,
                     "primary": null,
@@ -206,8 +213,7 @@ Get all monitors.
                             "name": "server1",
                             "read_only": false,
                             "server_id": 3000,
-                            "slave_connections": [],
-                            "state_details": null
+                            "slave_connections": []
                         },
                         {
                             "gtid_binlog_pos": "0-3000-5",
@@ -232,20 +238,18 @@ Get all monitors.
                                     "slave_sql_running": "Yes",
                                     "using_gtid": "No"
                                 }
-                            ],
-                            "state_details": null
+                            ]
                         }
                     ],
                     "state": "Idle"
                 },
                 "parameters": {
                     "assume_unique_hostnames": true,
-                    "auto_failover": false,
+                    "auto_failback_switchover": false,
+                    "auto_failover": "false",
                     "auto_rejoin": false,
                     "backend_connect_attempts": 1,
-                    "backend_connect_timeout": "3000ms",
-                    "backend_read_timeout": "3000ms",
-                    "backend_write_timeout": "3000ms",
+                    "backend_timeout": "3000ms",
                     "backup_storage_address": null,
                     "backup_storage_path": null,
                     "cooperative_monitoring_locks": "none",
@@ -255,6 +259,7 @@ Get all monitors.
                     "demotion_sql_file": null,
                     "disk_space_check_interval": "0ms",
                     "disk_space_threshold": null,
+                    "enforce_read_only_servers": false,
                     "enforce_read_only_slaves": false,
                     "enforce_simple_topology": false,
                     "enforce_writable_master": false,
@@ -264,22 +269,26 @@ Get all monitors.
                     "handle_events": true,
                     "journal_max_age": "28800000ms",
                     "maintenance_on_low_disk_space": true,
-                    "mariadb-backup_parallel": 1,
-                    "mariadb-backup_use_memory": "1G",
-                    "master_conditions": "primary_monitor_master",
+                    "mariabackup_parallel": 1,
+                    "mariabackup_use_memory": "1G",
+                    "master_conditions": "primary_monitor_master,disk_space_ok",
                     "master_failure_timeout": "10000ms",
                     "module": "mariadbmon",
                     "monitor_interval": "1000ms",
                     "password": "*****",
+                    "primary_state_sql": null,
                     "promotion_sql_file": null,
                     "rebuild_port": 4444,
+                    "replica_state_sql": null,
                     "replication_custom_options": null,
                     "replication_master_ssl": false,
                     "replication_password": "*****",
                     "replication_user": "maxuser",
+                    "role": null,
                     "script": null,
                     "script_max_replication_lag": -1,
                     "script_timeout": "90000ms",
+                    "servers_no_cooperative_monitoring_locks": null,
                     "servers_no_promotion": null,
                     "slave_conditions": "",
                     "ssh_check_host_key": true,
@@ -291,7 +300,10 @@ Get all monitors.
                     "switchover_timeout": "90000ms",
                     "type": "monitor",
                     "user": "maxuser",
-                    "verify_master_failure": true
+                    "verify_master_failure": true,
+                    "write_test_fail_action": "log",
+                    "write_test_interval": "0ms",
+                    "write_test_table": "mxs.maxscale_write_test"
                 },
                 "source": {
                     "file": "/etc/maxscale.cnf",
@@ -343,6 +355,38 @@ Get all monitors.
 }
 ```
 
+### Get monitor relationships
+
+```
+GET /v1/monitors/:name/relationships/servers
+```
+
+The _:type_ in the URI must be either _services_, for service
+relationships, or _servers_, for server relationships.
+
+#### Response
+
+`Status: 200 OK`
+
+```javascript
+{
+    "data": [
+        {
+            "id": "server1",
+            "type": "servers"
+        },
+        {
+            "id": "server2",
+            "type": "servers"
+        }
+    ],
+    "links": {
+        "related": "http://localhost:8989/v1/servers/",
+        "self": "http://localhost:8989/v1/monitors/MariaDB-Monitor/relationships/servers/"
+    }
+}
+```
+
 ### Create a monitor
 
 ```
@@ -353,23 +397,28 @@ Create a new monitor. The request body must define at least the following
 fields.
 
 * `data.id`
-* Name of the monitor
+  * Name of the monitor
+
 * `data.type`
-* Type of the object, must be `monitors`
+  * Type of the object, must be `monitors`
+
 * `data.attributes.module`
-* The monitor module to use
+  * The monitor module to use
+
 * `data.attributes.parameters.user`
-* The [user](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
+ * The [`user`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariad
+b-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
+
 * `data.attributes.parameters.password`
-* The [password](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
+  * The [password](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use
 
 All monitor parameters can be defined at creation time.
 
 The following example defines a request body which creates a new monitor and
 assigns two servers to be monitored by it. It also defines a custom value for
-the _monitor\_interval_ parameter.
+the _monitor_interval_ parameter.
 
-```
+```javascript
 {
     data: {
         "id": "test-monitor", // Name of the monitor
@@ -419,13 +468,13 @@ monitor.
 
 The following standard server parameter can be modified.
 
-* [user](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
-* [password](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
-* [monitor\_interval](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
-* [backend\_connect\_timeout](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
-* [backend\_write\_timeout](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
-* [backend\_read\_timeout](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
-* [backend\_connect\_attempts](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md)
+- [user](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md#user)
+- [password](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md#password)
+- [monitor_interval](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md#monitor_interval)
+- [backend_connect_timeout](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md#backend_connect_timeout)
+- [backend_write_timeout](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md#backend_write_timeout)
+- [backend_read_timeout](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md#backend_read_timeout)
+- [backend_connect_attempts](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-common-monitor-parameters.md#backend_connect_attempts)
 
 In addition to these standard parameters, the monitor specific parameters can
 also be modified. Refer to the monitor module documentation for details on these
@@ -444,8 +493,11 @@ Invalid request body:
 ### Update monitor relationships
 
 ```
-PATCH /v1/monitors/:name/relationships/servers
+PATCH /v1/monitors/:name/relationships/:type
 ```
+
+The _:type_ in the URI must be either _services_, for service
+relationships, or _servers_, for server relationships.
 
 The request body must be a JSON object that defines only the _data_ field. The
 value of the _data_ field must be an array of relationship objects that define
@@ -465,7 +517,8 @@ PATCH /v1/monitors/my-monitor/relationships/servers
 }
 ```
 
-All relationships for a monitor can be deleted by sending an empty array as th&#x65;_&#x64;ata_ field value. The following example removes all servers from a monitor.
+All relationships for a monitor can be deleted by sending an empty array as the
+_data_ field value. The following example removes all servers from a monitor.
 
 ```
 PATCH /v1/monitors/my-monitor/relationships/servers

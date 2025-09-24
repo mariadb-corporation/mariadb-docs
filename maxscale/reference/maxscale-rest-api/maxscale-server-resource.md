@@ -20,7 +20,7 @@ Get a single server.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": {
         "attributes": {
@@ -34,8 +34,9 @@ Get a single server.
             "node_id": 3000,
             "parameters": {
                 "address": "127.0.0.1",
-                "disk_space_threshold": null,
+                "disk_space_threshold": "",
                 "extra_port": 0,
+                "initial_status": "down",
                 "max_routing_connections": 0,
                 "monitorpw": null,
                 "monitoruser": null,
@@ -54,9 +55,11 @@ Get a single server.
                 "ssl_cert_verify_depth": 9,
                 "ssl_cipher": null,
                 "ssl_key": null,
+                "ssl_passphrase": "",
                 "ssl_verify_peer_certificate": false,
                 "ssl_verify_peer_host": false,
-                "ssl_version": "MAX"
+                "ssl_version": "MAX",
+                "use_service_credentials": true
             },
             "read_only": false,
             "replication_lag": 0,
@@ -67,7 +70,6 @@ Get a single server.
                 "type": "static"
             },
             "state": "Master, Running",
-            "state_details": null,
             "statistics": {
                 "active_operations": 0,
                 "adaptive_avg_select_time": "0ns",
@@ -157,14 +159,14 @@ Get a single server.
                                 "total": 0.0
                             },
                             {
-                                "count": 1,
+                                "count": 0,
                                 "time": "0.000100",
-                                "total": 9.0147000000000003e-5
+                                "total": 0.0
                             },
                             {
-                                "count": 3,
+                                "count": 4,
                                 "time": "0.001000",
-                                "total": 0.00131908
+                                "total": 0.001319181
                             },
                             {
                                 "count": 0,
@@ -213,11 +215,21 @@ Get a single server.
                 },
                 "reused_connections": 0,
                 "routed_packets": 4,
+                "routed_reads": 0,
+                "routed_writes": 4,
                 "total_connections": 1
             },
-            "triggered_at": "Fri, 05 Jan 2024 07:23:54 GMT",
-            "uptime": 2372,
-            "version_string": "10.6.15-MariaDB-1:10.6.15+maria~ubu2004-log"
+            "status": {
+                "extra": "",
+                "mode": "Normal",
+                "reason": [
+                    "Primary"
+                ],
+                "state": "Write"
+            },
+            "triggered_at": "Fri, 25 Jul 2025 15:43:48 GMT",
+            "uptime": 15,
+            "version_string": "10.11.9-MariaDB-ubu2204-log"
         },
         "id": "server1",
         "links": {
@@ -273,7 +285,7 @@ Response contains a resource collection with all servers.
 
 `Status: 200 OK`
 
-```
+```javascript
 {
     "data": [
         {
@@ -288,8 +300,9 @@ Response contains a resource collection with all servers.
                 "node_id": 3000,
                 "parameters": {
                     "address": "127.0.0.1",
-                    "disk_space_threshold": null,
+                    "disk_space_threshold": "",
                     "extra_port": 0,
+                    "initial_status": "down",
                     "max_routing_connections": 0,
                     "monitorpw": null,
                     "monitoruser": null,
@@ -308,9 +321,11 @@ Response contains a resource collection with all servers.
                     "ssl_cert_verify_depth": 9,
                     "ssl_cipher": null,
                     "ssl_key": null,
+                    "ssl_passphrase": "",
                     "ssl_verify_peer_certificate": false,
                     "ssl_verify_peer_host": false,
-                    "ssl_version": "MAX"
+                    "ssl_version": "MAX",
+                    "use_service_credentials": true
                 },
                 "read_only": false,
                 "replication_lag": 0,
@@ -321,7 +336,6 @@ Response contains a resource collection with all servers.
                     "type": "static"
                 },
                 "state": "Master, Running",
-                "state_details": null,
                 "statistics": {
                     "active_operations": 0,
                     "adaptive_avg_select_time": "0ns",
@@ -411,14 +425,14 @@ Response contains a resource collection with all servers.
                                     "total": 0.0
                                 },
                                 {
-                                    "count": 1,
+                                    "count": 0,
                                     "time": "0.000100",
-                                    "total": 9.0147000000000003e-5
+                                    "total": 0.0
                                 },
                                 {
-                                    "count": 3,
+                                    "count": 4,
                                     "time": "0.001000",
-                                    "total": 0.00131908
+                                    "total": 0.001319181
                                 },
                                 {
                                     "count": 0,
@@ -467,11 +481,21 @@ Response contains a resource collection with all servers.
                     },
                     "reused_connections": 0,
                     "routed_packets": 4,
+                    "routed_reads": 0,
+                    "routed_writes": 4,
                     "total_connections": 1
                 },
-                "triggered_at": "Fri, 05 Jan 2024 07:23:54 GMT",
-                "uptime": 2372,
-                "version_string": "10.6.15-MariaDB-1:10.6.15+maria~ubu2004-log"
+                "status": {
+                    "extra": "",
+                    "mode": "Normal",
+                    "reason": [
+                        "Primary"
+                    ],
+                    "state": "Write"
+                },
+                "triggered_at": "Fri, 25 Jul 2025 15:43:48 GMT",
+                "uptime": 15,
+                "version_string": "10.11.9-MariaDB-ubu2204-log"
             },
             "id": "server1",
             "links": {
@@ -521,8 +545,9 @@ Response contains a resource collection with all servers.
                 "node_id": 3001,
                 "parameters": {
                     "address": "127.0.0.1",
-                    "disk_space_threshold": null,
+                    "disk_space_threshold": "",
                     "extra_port": 0,
+                    "initial_status": "down",
                     "max_routing_connections": 0,
                     "monitorpw": null,
                     "monitoruser": null,
@@ -541,9 +566,11 @@ Response contains a resource collection with all servers.
                     "ssl_cert_verify_depth": 9,
                     "ssl_cipher": null,
                     "ssl_key": null,
+                    "ssl_passphrase": "",
                     "ssl_verify_peer_certificate": false,
                     "ssl_verify_peer_host": false,
-                    "ssl_version": "MAX"
+                    "ssl_version": "MAX",
+                    "use_service_credentials": true
                 },
                 "read_only": false,
                 "replication_lag": -1,
@@ -568,7 +595,6 @@ Response contains a resource collection with all servers.
                     "type": "static"
                 },
                 "state": "Running",
-                "state_details": null,
                 "statistics": {
                     "active_operations": 0,
                     "adaptive_avg_select_time": "0ns",
@@ -599,7 +625,7 @@ Response contains a resource collection with all servers.
                                 {
                                     "count": 1,
                                     "time": "0.001000",
-                                    "total": 0.00037632399999999998
+                                    "total": 0.00066959099999999998
                                 },
                                 {
                                     "count": 0,
@@ -714,11 +740,19 @@ Response contains a resource collection with all servers.
                     },
                     "reused_connections": 0,
                     "routed_packets": 1,
+                    "routed_reads": 1,
+                    "routed_writes": 0,
                     "total_connections": 1
                 },
-                "triggered_at": "Fri, 05 Jan 2024 07:24:07 GMT",
-                "uptime": 2372,
-                "version_string": "10.6.15-MariaDB-1:10.6.15+maria~ubu2004-log"
+                "status": {
+                    "extra": "",
+                    "mode": "Normal",
+                    "reason": [],
+                    "state": "Up"
+                },
+                "triggered_at": "Fri, 25 Jul 2025 15:43:59 GMT",
+                "uptime": 14,
+                "version_string": "10.11.9-MariaDB-ubu2204-log"
             },
             "id": "server2",
             "links": {
@@ -763,6 +797,34 @@ Response contains a resource collection with all servers.
 }
 ```
 
+### Get server relationships
+
+```
+GET /v1/servers/:name/relationships/:type
+```
+
+The _:type_ in the URI must be either _services_, for service
+relationships, or _monitors_, for monitor relationships.
+
+#### Response
+
+`Status: 200 OK`
+
+```javascript
+{
+    "data": [
+        {
+            "id": "MariaDB-Monitor",
+            "type": "monitors"
+        }
+    ],
+    "links": {
+        "related": "http://localhost:8989/v1/monitors/",
+        "self": "http://localhost:8989/v1/servers/server1/relationships/monitors/"
+    }
+}
+```
+
 ### Create a server
 
 ```
@@ -779,16 +841,17 @@ least the following fields.
   * Type of the object, must be `servers`
 
 * `data.attributes.parameters.address` OR `data.attributes.parameters.socket`
-  * The [address](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) or
-    [socket](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use. Only
+  * The [`address`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#address) or
+    [`socket`](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#socket) to use. Only
     one of the fields can be defined.
+
 * `data.attributes.parameters.port`
-  * The [port](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md) to use. Needs
+  * The [`port`](../../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#port) to use. Needs
     to be defined if the `address` field is defined.
 
 The following is the minimal required JSON object for defining a new server.
 
-```
+```javascript
 {
     "data": {
         "id": "server3",
@@ -806,7 +869,7 @@ The following is the minimal required JSON object for defining a new server.
 The relationships of a server can also be defined at creation time. This allows
 new servers to be created and immediately taken into use.
 
-```
+```javascript
 {
     "data": {
         "id": "server4",
@@ -843,7 +906,7 @@ new servers to be created and immediately taken into use.
 }
 ```
 
-Refer to the [Configuration Guide](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md)
+Refer to the [Configuration Guide](../Getting-Started/Configuration-Guide.md)
 for a full list of server parameters.
 
 #### Response
@@ -867,19 +930,22 @@ server.
 
 ### Modifiable Fields
 
-In addition to the server [parameters](../../maxscale-archive/archive/mariadb-maxscale-25-01/mariadb-maxscale-25-01-getting-started/mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md), the _services_
+In addition to the server
+[parameters](../Getting-Started/Configuration-Guide.md#server-1), the _services_
 and _monitors_ fields of the _relationships_ object can be modified. Removal,
 addition and modification of the links will change which service and monitors
 use this server.
 
-For example, removing the first value in the _services_ list in th&#x65;_&#x72;elationships_ object from the following JSON document will remove th&#x65;_&#x73;erver1_ from the service _RW-Split-Router_.
+For example, removing the first value in the _services_ list in the
+_relationships_ object from the following JSON document will remove the
+_server1_ from the service _RW-Split-Router_.
 
 Removing a service from a server is analogous to removing the server from the
 service. Both unlink the two objects from each other.
 
 Request for `PATCH /v1/servers/server1` that modifies the address of the server:
 
-```
+```javascript
 {
     "data": {
         "attributes": {
@@ -893,7 +959,7 @@ Request for `PATCH /v1/servers/server1` that modifies the address of the server:
 
 Request for `PATCH /v1/servers/server1` that modifies the server relationships:
 
-```
+```javascript
 {
     "data": {
         "relationships": {
@@ -1007,14 +1073,14 @@ PUT /v1/servers/:name/set
 This endpoint requires that the `state` parameter is passed with the
 request. The value of `state` must be one of the following values.
 
-| Value       | State Description                |
-| ----------- | -------------------------------- |
-| master      | Server is a Master               |
-| slave       | Server is a Slave                |
-| maintenance | Server is put into maintenance   |
-| running     | Server is up and running         |
-| synced      | Server is a Galera node          |
-| drain       | Server is drained of connections |
+|Value      | State Description                |
+|-----------|----------------------------------|
+|master     | Server is a Master               |
+|slave      | Server is a Slave                |
+|maintenance| Server is put into maintenance   |
+|running    | Server is up and running         |
+|synced     | Server is a Galera node          |
+|drain      | Server is drained of connections |
 
 For example, to set the server _db-server-1_ into maintenance mode, a request to
 the following URL must be made:
@@ -1052,7 +1118,8 @@ PUT /v1/servers/:name/clear
 ```
 
 This endpoint requires that the `state` parameter is passed with the
-request. The value of `state` must be one of the values defined in th&#x65;_&#x73;et_ endpoint documentation.
+request. The value of `state` must be one of the values defined in the
+_set_ endpoint documentation.
 
 #### Response
 
