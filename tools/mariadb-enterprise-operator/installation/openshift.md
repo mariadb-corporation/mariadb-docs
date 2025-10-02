@@ -57,7 +57,6 @@ spec:
   name: mariadb-enterprise-operator
   source: certified-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: mariadb-enterprise-operator.v1.0.0
 ```
 
 This will use the `global-operators` `OperatorGroup` that is created by default in the `openshift-operators` namespace. This `OperatorGroup` will watch all namespaces in the cluster, and the operator will be able to manage resources across all namespaces.
@@ -98,12 +97,32 @@ spec:
   name: mariadb-enterprise-operator
   source: certified-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: mariadb-enterprise-operator.v1.0.0
 ```
 
 ## Release channels
 
-Currently, the only release channel available to install the operator is `stable`, which contains supported releases of the operator. This is controlled by the `channel` field in the `Subscription` object.
+We maintain support across a variety of OpenShift channels to ensure compatibility with different release schedules and stability requirements. Below, you will find an overview of the specific OpenShift channels we support.
+
+| Channel | Supported OpenShift Versions | Description | Latest Image |
+|---------|------------------------------|-------------|--------------|
+| `stable` | 4.19, 4.18, 4.17, 4.16 | Points to the latest stable version of the operator. This channel may span multiple major versions. **This is the recommended option.** | `mariadb-enterprise-operator:25.8.1-1` |
+| `stable-v25.10` | 4.19, 4.18, 4.17, 4.16 | v25.10.x is an LTS release. This channel points to the latest **patch** release of 25.10. Use this if you require version pinning to a stable version of the operator without necessarily looking for newer features. | `mariadb-enterprise-operator:25.10.0` |
+
+An example Subscription would look like this:
+
+```yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: mariadb-enterprise-operator
+  namespace: openshift-operators
+spec:
+  channel: stable # Change this  to the actual channel you want
+  installPlanApproval: Automatic
+  name: mariadb-enterprise-operator
+  source: certified-operators
+  sourceNamespace: openshift-marketplace
+```
 
 ## Updates
 
