@@ -2247,6 +2247,7 @@
         * [Connector/J 1.1.0 Changelog](connectors/java/changelogs/1.1/1.1.0.md)
   * [Connector/Node.js](connectors/node.js/README.md)
     * [Connector/Node.js 3.x Release Notes](connectors/node.js/mariadb-connector-nodejs-3x-release-notes/README.md)
+      * [Connector/Node.js 3.5.0-rc Release Notes](connectors/node.js/mariadb-connector-nodejs-3x-release-notes/mariadb-connector-node-js-3-5-0-rc-release-notes.md)
       * [Connector/Node.js 3.4.5 Release Notes](connectors/node.js/mariadb-connector-nodejs-3x-release-notes/mariadb-connector-node-js-3-4-5-release-notes.md)
       * [Connector/Node.js 3.4.4 Release Notes](connectors/node.js/mariadb-connector-nodejs-3x-release-notes/mariadb-connector-node-js-3-4-4-release-notes.md)
       * [Connector/Node.js 3.4.3 Release Notes](connectors/node.js/mariadb-connector-nodejs-3x-release-notes/mariadb-connector-node-js-3-4-3-release-notes.md)
