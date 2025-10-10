@@ -1,11 +1,34 @@
-# Basic Usage
+# Basic usage
 
 ## Connecting
 
-The basic usage of MariaDB Connector/Python is similar to other database drivers which implement DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)).
+The basic usage of MariaDB Connector/Python is similar to other database drivers which
+implement DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)).
 
 Below is a simple example of a typical use of MariaDB Connector/Python
 
+<!-- import mariadb
+
+# connection parameters
+conn_params= {
+   "user" : "example_user",
+   "password" : "GHbe_Su3B8",
+   "host" : "localhost",
+   "database" : "test"
+}
+
+# Establish a connection
+with mariadb.connect(**conn_params) as conn:
+   with conn.cursor() as cursor:
+      cursor.execute("CREATE OR REPLACE TABLE `countries` ("
+                "`id` int(10) unsigned NOT NULL AUTO_INCREMENT,"
+                "`name` varchar(50) NOT NULL,"
+                "`country_code` char(3) NOT NULL,"
+                "`capital` varchar(50) DEFAULT NULL,"
+                "PRIMARY KEY (`id`),"
+                "KEY `name` (`name`),"
+                "KEY `capital` (`capital`)"
+                ") ENGINE=InnoDB DEFAULT CHARSET=latin1") -->
 ```python
 import mariadb
 
@@ -32,19 +55,26 @@ with mariadb.connect(**conn_params) as conn:
         print(*row, sep=' ')
 ```
 
-_Output_:
+*Output*:
 
 ```none
 Germany GER Berlin
 ```
 
-Before MariaDB Connector/Python can be used, the MariaDB Connector/Python module must be imported. Once the mariadb module is loaded, a connection to a database server will be established using the method [`connect()`](module.md#mariadb.connect).
+Before MariaDB Connector/Python can be used, the MariaDB Connector/Python module must be
+imported.
+Once the mariadb module is loaded, a connection to a database server will be established
+using the method [`connect()`](module.md#mariadb.connect).
 
-In order to be able to communicate with the database server in the form of SQL statements, a cursor object must be created first.
+In order to be able to communicate with the database server in the form of SQL statements,
+a cursor object must be created first.
 
-The method name cursor may be a little misleading: unlike a cursor in MariaDB that can only read and return data, a cursor in Python can be used for all types of SQL statements.
+The method name cursor may be a little misleading: unlike a cursor in MariaDB that can only
+read and return data, a cursor in Python can be used for all types of SQL statements.
 
-After creating the table mytest, everything is ready to insert some data: Column values that are to be inserted in the database are identified by place holders, the data is then passed in the form of a tuple as a second parameter.
+After creating the table mytest, everything is ready to insert some data: Column values
+that are to be inserted in the database are identified by place holders, the data is then passed in
+the form of a tuple as a second parameter.
 
 After creating and populating the table mytest the cursor will be used to retrieve the data.
 
@@ -52,7 +82,9 @@ At the end we free resources and close cursor and connection.
 
 ## Passing parameters to SQL statements
 
-As shown in previous example, passing parameters to SQL statements happens by using placeholders in the statement. By default MariaDB Connector/Python uses a question mark as a placeholder, for compatibility reason also %s placeholders are supported. Passing parameters is supported in methods `execute()` and `executemany()` of the cursor class.
+As shown in previous example, passing parameters to SQL statements happens by using placeholders in the statement. By default
+MariaDB Connector/Python uses a question mark as a placeholder, for compatibility reason also %s placeholders are supported.
+Passing parameters is supported in methods `execute()` and `executemany()` of the cursor class.
 
 Since MariaDB Connector/Python uses binary protocol, escaping strings or binary data like in other database drivers is not required.
 
@@ -84,7 +116,8 @@ with mariadb.connect(**conn_params) as conn:
         conn.commit()
 ```
 
-Often there is a requirement to update, delete or insert multiple records. This could be done be using `execute()` in a loop, but much more effective is using the `executemany()` method, especially when using a MariaDB database server 10.2 and above, which supports a special “bulk” protocol. The executemany() works similar to execute(), but accepts data as a list of tuples:
+Often there is a requirement to update, delete or insert multiple records. This could be done be using `execute()` in
+a loop, but much more effective is using the `executemany()` method, especially when using a MariaDB database server 10.2 and above, which supports a special “bulk” protocol. The executemany() works similar to execute(), but accepts data as a list of tuples:
 
 ```python
 import mariadb
@@ -137,9 +170,8 @@ with mariadb.connect(**conn_params) as connection:
 ```
 
 When using executemany(), there are a few restrictions:
-
-* All tuples must have the same types as in first tuple. E.g. the parameter \[(1),(1.0)] or \[(1),(None)] are invalid.
-* Special values like None or column default value needs to be indicated by an indicator.
+- All tuples must have the same types as in first tuple. E.g. the parameter [(1),(1.0)] or [(1),(None)] are invalid.
+- Special values like None or column default value needs to be indicated by an indicator.
 
 ### Using indicators
 
@@ -170,13 +202,12 @@ with mariadb.connect(**conn_params) as connection:
         cursor.executemany(sql, data)
 ```
 
-Beside the default indicator which inserts the default value of 1.99, the following indicators are supported: : \* INDICATOR.IGNORE: Ignores the value (only update commands)
-
-* INDICATOR.NULL: Value is NULL
-* INDICATOR.IGNORE\_ROW: Don’t update or insert row
+Beside the default indicator which inserts the default value of 1.99, the following indicators are supported:
+: * INDICATOR.IGNORE: Ignores the value (only update commands)
+  * INDICATOR.NULL: Value is NULL
+  * INDICATOR.IGNORE_ROW: Don’t update or insert row
 
 #### NOTE
-
 * Mixing different parameter styles is not supported and will raise an exception
 * The Python string operator % must not be used. The `execute()` method accepts a tuple or list as second parameter.
 * Placeholders between quotation marks are interpreted as a string.
@@ -190,7 +221,7 @@ Several standard python types are converted into SQL types and returned as Pytho
 #### Supported Data Types
 
 | Python type      | SQL type                             |
-| ---------------- | ------------------------------------ |
+|------------------|--------------------------------------|
 | None             | NULL                                 |
 | Bool             | TINYINT                              |
 | Float, Double    | DOUBLE                               |
@@ -202,7 +233,5 @@ Several standard python types are converted into SQL types and returned as Pytho
 | Date             | DATE                                 |
 | Time             | TIME                                 |
 | Timestamp        | TIMESTAMP                            |
-
-<sub>_This page is_</sub> [<sub>_covered_</sub>](license.md) <sub>_by the_</sub> [<sub>_Creative Commons Attribution 3.0 license_</sub>](https://creativecommons.org/licenses/by/3.0/legalcode)<sub>_._</sub>
 
 {% @marketo/form formId="4316" %}

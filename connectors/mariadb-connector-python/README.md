@@ -1,16 +1,23 @@
----
-icon: link
----
+# MariaDB Connector/Python
 
-# Connector/Python
+<!-- import mariadb
+conn_params= {
+   "host" : "localhost",
+   "database" : "test"
+}
+with mariadb.connect(**conn_params) as conn:
+   with conn.cursor() as cursor:
+      cursor.execute("CREATE USER IF NOT EXISTS example_user@localhost identified by 'GHbe_Su3B8'")
+      cursor.execute("grant all on test.* to example_user@localhost")
+      cursor.execute("DROP TABLE IF EXISTS book") -->
 
-## MariaDB Connector/Python
+MariaDB Connector/Python enables python programs to access MariaDB and MySQL databases, using an API
+which is compliant with the Python DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)). It is written in C and Python and uses
+MariaDB Connector/C client library for client server communication.
 
-MariaDB Connector/Python enables python programs to access MariaDB and MySQL databases, using an API which is compliant with the Python DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)). It is written in C and Python and uses MariaDB Connector/C client library for client server communication.
+### Contents
 
-#### Contents
-
-## Contents:
+# Contents:
 
 * [Installation](install.md)
   * [Prerequisites](install.md#prerequisites)

@@ -3,7 +3,6 @@
 > Constants are declared in mariadb.constants module.
 
 > For using constants of various types, they have to be imported first:
-
 ```python
 from mariadb.constants import *
 ```
@@ -12,11 +11,12 @@ from mariadb.constants import *
 
 MariaDB capability flags.
 
-These flags are used to check the capabilities both of a MariaDB server or the client applicaion.
+These flags are used to check the capabilities both of a MariaDB server
+or the client applicaion.
 
-Capability flags are defined in module _mariadb.constants.CAPABILIY_
+Capability flags are defined in module *mariadb.constants.CAPABILIY*
 
-_Since version 1.1.4_
+*Since version 1.1.4*
 
 ```python
 import mariadb
@@ -35,7 +35,7 @@ with mariadb.connect(**conn_params) as connection:
         print("Server supports LOCAL INFILE")
 ```
 
-_Output_:
+*Output*:
 
 ```none
 Server supports LOCAL INFILE
@@ -45,33 +45,37 @@ Server supports LOCAL INFILE
 
 MariaDB capability flags.
 
-These flags are used to check the capabilities both of a MariaDB server or the client applicaion.
+These flags are used to check the capabilities both of a MariaDB server
+or the client applicaion.
 
-Capability flags are defined in module _mariadb.constants.CLIENT_
+Capability flags are defined in module *mariadb.constants.CLIENT*
 
-_Since version 1.1.0, deprecated in 1.1.4_
+*Since version 1.1.0, deprecated in 1.1.4*
 
 ## CURSOR
 
-Cursor constants are used for server side cursors. Currently only read only cursor is supported.
+Cursor constants are used for server side cursors.
+Currently only read only cursor is supported.
 
-Cursor constants are defined in module _mariadb.constants.CURSOR_.
+Cursor constants are defined in module *mariadb.constants.CURSOR*.
 
-_Since version 1.1.0_
+*Since version 1.1.0*
 
 #### CURSOR.NONE
 
 This is the default setting (no cursor)
 
-#### CURSOR.READ\_ONLY
+#### CURSOR.READ_ONLY
 
-Will create a server side read only cursor. The cursor is a forward cursor, which means it is not possible to scroll back.
+Will create a server side read only cursor. The cursor is a forward cursor, which
+means it is not possible to scroll back.
 
 ## ERR (Error)
 
-Using ERR constants instead of error numbers make the code more readable. Error constants are defined in constants.ERR module
+Using ERR constants instead of error numbers make the code more readable. Error constants
+are defined in constants.ERR module
 
-_Since version 1.1.2_
+*Since version 1.1.2*
 
 ```python
 import mariadb
@@ -92,199 +96,203 @@ except mariadb.OperationalError as Err:
         print("Access denied. Wrong password!")
 ```
 
-_Output_:
+*Output*:
 
 ```none
 Access denied. Wrong password!
 ```
 
-## FIELD\_FLAG
+## FIELD_FLAG
 
-MariaDB FIELD\_FLAG Constants
+MariaDB FIELD_FLAG Constants
 
-These constants represent the various field flags. As an addition to the DBAPI 2.0 standard (PEP-249) these flags are returned as eighth element of the cursor description attribute.
+These constants represent the various field flags. As an addition
+to the DBAPI 2.0 standard (PEP-249) these flags are returned as
+eighth element of the cursor description attribute.
 
-Field flags are defined in module _mariadb.constants.FIELD\_FLAG_
+Field flags are defined in module *mariadb.constants.FIELD_FLAG*
 
-_Since version 1.1.0_
+*Since version 1.1.0*
 
-#### FIELD\_FLAG.NOT\_NULL
+#### FIELD_FLAG.NOT_NULL
 
 column is defined as not NULL
 
-#### FIELD\_FLAG.PRIMARY\_KEY
+#### FIELD_FLAG.PRIMARY_KEY
 
 column is (part of) a primary key
 
-#### FIELD\_FLAG.UNIQUE\_KEY
+#### FIELD_FLAG.UNIQUE_KEY
 
 column is (part of) a unique key
 
-#### FIELD\_FLAG.MULTIPLE\_KEY
+#### FIELD_FLAG.MULTIPLE_KEY
 
 column is (part of) a key
 
-#### FIELD\_FLAG.BLOB
+#### FIELD_FLAG.BLOB
 
 column contains a binary object
 
-#### FIELD\_FLAG.UNSIGNED
+#### FIELD_FLAG.UNSIGNED
 
 numeric column is defined as unsigned
 
-#### FIELD\_FLAG.ZEROFILL
+#### FIELD_FLAG.ZEROFILL
 
 column has zerofill attribute
 
-#### FIELD\_FLAG.BINARY
+#### FIELD_FLAG.BINARY
 
 column is a binary
 
-#### FIELD\_FLAG.ENUM
+#### FIELD_FLAG.ENUM
 
 column is defined as enum
 
-#### FIELD\_FLAG.AUTO\_INCREMENT
+#### FIELD_FLAG.AUTO_INCREMENT
 
-column is an auto\_increment column
+column is an auto_increment column
 
-#### FIELD\_FLAG.TIMESTAMP
+#### FIELD_FLAG.TIMESTAMP
 
 column is defined as time stamp
 
-#### FIELD\_FLAG.SET
+#### FIELD_FLAG.SET
 
 column is defined as SET
 
-#### FIELD\_FLAG.NO\_DEFAULT
+#### FIELD_FLAG.NO_DEFAULT
 
 column hasn’t a default value
 
-#### FIELD\_FLAG.ON\_UPDATE\_NOW
+#### FIELD_FLAG.ON_UPDATE_NOW
 
 column will be set to current timestamp on UPDATE
 
-#### FIELD\_FLAG.NUMERIC
+#### FIELD_FLAG.NUMERIC
 
 column contains numeric value
 
-#### FIELD\_FLAG.PART\_OF\_KEY
+#### FIELD_FLAG.PART_OF_KEY
 
 column is part of a key
 
-## FIELD\_TYPE
+## FIELD_TYPE
 
-MariaDB FIELD\_TYPE Constants
+MariaDB FIELD_TYPE Constants
 
-These constants represent the field types supported by MariaDB. The field type is returned as second element of cursor description attribute.
+These constants represent the field types supported by MariaDB.
+The field type is returned as second element of cursor description attribute.
 
-Field types are defined in module _mariadb.constants.FIELD\_TYPE_
+Field types are defined in module *mariadb.constants.FIELD_TYPE*
 
-#### FIELD\_TYPE.TINY
+#### FIELD_TYPE.TINY
 
-column type is TINYINT (1-byte integer)
+column type is TINYINT  (1-byte integer)
 
-#### FIELD\_TYPE.SHORT
+#### FIELD_TYPE.SHORT
 
 column type is SMALLINT (2-byte integer)
 
-#### FIELD\_TYPE.LONG
+#### FIELD_TYPE.LONG
 
 column tyoe is INT (4-byte integer)
 
-#### FIELD\_TYPE.FLOAT
+#### FIELD_TYPE.FLOAT
 
 column type is FLOAT (4-byte single precision)
 
-#### FIELD\_TYPE.DOUBLE
+#### FIELD_TYPE.DOUBLE
 
 column type is DOUBLE (8-byte double precision)
 
-#### FIELD\_TYPE.NULL
+#### FIELD_TYPE.NULL
 
 column type is NULL
 
-#### FIELD\_TYPE.TIMESTAMP
+#### FIELD_TYPE.TIMESTAMP
 
 column tyoe is TIMESTAMP
 
-#### FIELD\_TYPE.LONGLONG
+#### FIELD_TYPE.LONGLONG
 
 column tyoe is BIGINT (8-byte Integer)
 
-#### FIELD\_TYPE.INT24
+#### FIELD_TYPE.INT24
 
 column type is MEDIUMINT (3-byte Integer)
 
-#### FIELD\_TYPE.DATE
+#### FIELD_TYPE.DATE
 
 column type is DATE
 
-#### FIELD\_TYPE.TIME
+#### FIELD_TYPE.TIME
 
 column type is TIME
 
-#### FIELD\_TYPE.DATETIME
+#### FIELD_TYPE.DATETIME
 
 column type is YEAR
 
-#### FIELD\_TYPE.YEAR
+#### FIELD_TYPE.YEAR
 
-#### FIELD\_TYPE.VARCHAR
+#### FIELD_TYPE.VARCHAR
 
 column type is YEAR
 
-#### FIELD\_TYPE.BIT
+#### FIELD_TYPE.BIT
 
 column type is BIT
 
-#### FIELD\_TYPE.JSON
+#### FIELD_TYPE.JSON
 
 column type is JSON
 
-#### FIELD\_TYPE.NEWDECIMAL
+#### FIELD_TYPE.NEWDECIMAL
 
 column type is DECIMAL
 
-#### FIELD\_TYPE.ENUM
+#### FIELD_TYPE.ENUM
 
 column type is ENUM
 
-#### FIELD\_TYPE.SET
+#### FIELD_TYPE.SET
 
 column type is SET
 
-#### FIELD\_TYPE.TINY\_BLOB
+#### FIELD_TYPE.TINY_BLOB
 
 column type is TINYBLOB (max. length of 255 bytes)
 
-#### FIELD\_TYPE.MEDIUM\_BLOB
+#### FIELD_TYPE.MEDIUM_BLOB
 
 column type is MEDIUMBLOB (max. length of 16,777,215 bytes)
 
-#### FIELD\_TYPE.LONG\_BLOB
+#### FIELD_TYPE.LONG_BLOB
 
 column type is LONGBLOB (max. length 4GB bytes)
 
-#### FIELD\_TYPE.BLOB
+#### FIELD_TYPE.BLOB
 
 column type is BLOB (max. length of 65.535 bytes)
 
-#### FIELD\_TYPE.VAR\_STRING
+#### FIELD_TYPE.VAR_STRING
 
 column type is VARCHAR (variable length)
 
-#### FIELD\_TYPE.STRING
+#### FIELD_TYPE.STRING
 
 column type is CHAR (fixed length)
 
-#### FIELD\_TYPE.GEOMETRY
+#### FIELD_TYPE.GEOMETRY
 
 column type is GEOMETRY
 
 ## INDICATORS
 
-Indicator values are used in executemany() method of cursor class to indicate special values when connected to a MariaDB server 10.2 or newer.
+Indicator values are used in executemany() method of cursor class to
+indicate special values when connected to a MariaDB server 10.2 or newer.
 
 #### INDICATOR.NULL
 
@@ -296,9 +304,10 @@ indicates to use default value of column
 
 #### INDICATOR.IGNORE
 
-indicates to ignore value for column for UPDATE statements. If set, the column will not be updated.
+indicates to ignore value for column for UPDATE statements.
+If set, the column will not be updated.
 
-#### INDICATOR.IGNORE\_ROW
+#### INDICATOR.IGNORE_ROW
 
 indicates not to update the entire row.
 
@@ -306,7 +315,7 @@ indicates not to update the entire row.
 
 For internal use only
 
-## TPC\_STATE
+## TPC_STATE
 
 For internal use only
 
@@ -314,20 +323,22 @@ For internal use only
 
 The STATUS constants are used to check the server status of the current connection.
 
-_Since version 1.1.0_
+*Since version 1.1.0*
 
 > Example:
 
 > ```python
 > cursor.callproc("my_storedprocedure", (1,"foo"))
+
+> if (connection.server_status & STATUS.SP_OUT_PARAMS):
+>     print("retrieving output parameters from store procedure")
+>     ...
+> else:
+>     print("retrieving data from stored procedure")
+>     ....
 > ```
 
-> if (connection.server\_status & STATUS.SP\_OUT\_PARAMS): print("retrieving output parameters from store procedure") ... else: print("retrieving data from stored procedure") ....
->
-> ```
-> ```
-
-#### STATUS.IN\_TRANS
+#### STATUS.IN_TRANS
 
 Pending transaction
 
@@ -335,50 +346,51 @@ Pending transaction
 
 Server operates in autocommit mode
 
-#### STATUS.MORE\_RESULTS\_EXIST
+#### STATUS.MORE_RESULTS_EXIST
 
-The result from last executed statement contained two or more result sets which can be retrieved by cursors nextset() method.
+The result from last executed statement contained two or more result
+sets which can be retrieved by cursors nextset() method.
 
-#### STATUS.QUERY\_NO\_GOOD\_INDEX\_USED
+#### STATUS.QUERY_NO_GOOD_INDEX_USED
 
 The last executed statement didn’t use a good index.
 
-#### STATUS.QUERY\_NO\_INDEX\_USED
+#### STATUS.QUERY_NO_INDEX_USED
 
 The last executed statement didn’t use an index.
 
-#### STATUS.CURSOR\_EXISTS
+#### STATUS.CURSOR_EXISTS
 
 The last executed statement opened a server side cursor.
 
-#### STATUS.LAST\_ROW\_SENT
+#### STATUS.LAST_ROW_SENT
 
 For server side cursors this flag indicates end of a result set.
 
-#### STATUS.DB\_DROPPED
+#### STATUS.DB_DROPPED
 
-The current database in use was dropped and there is no default database for the connection anymore.
+The current database in use was dropped and there is no default
+database for the connection anymore.
 
-#### STATUS.NO\_BACKSLASH\_ESCAPES
+#### STATUS.NO_BACKSLASH_ESCAPES
 
-Indicates that SQL mode NO\_BACKSLASH\_ESCAPE is active, which means that the backslash character ‘' becomes an ordinary character.
+Indicates that SQL mode NO_BACKSLASH_ESCAPE is active, which means
+that the backslash character ‘' becomes an ordinary character.
 
-#### STATUS.QUERY\_WAS\_SLOW
+#### STATUS.QUERY_WAS_SLOW
 
 The previously executed statement was slow (and needs to be optimized).
 
-#### STATUS.PS\_OUT\_PARAMS
+#### STATUS.PS_OUT_PARAMS
 
 The current result set contains output parameters of a stored procedure.
 
-#### STATUS.SESSION\_STATE\_CHANGED
+#### STATUS.SESSION_STATE_CHANGED
 
 The session status has been changed.
 
-#### STATUS.ANSI\_QUOTES
+#### STATUS.ANSI_QUOTES
 
-SQL mode ANSI\_QUOTES is active,
-
-<sub>_This page is_</sub> [<sub>_covered_</sub>](license.md) <sub>_by the_</sub> [<sub>_Creative Commons Attribution 3.0 license_</sub>](https://creativecommons.org/licenses/by/3.0/legalcode)<sub>_._</sub>
+SQL mode ANSI_QUOTES is active,
 
 {% @marketo/form formId="4316" %}

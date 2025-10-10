@@ -1,6 +1,7 @@
-# Bug Reports
+# Bug reports
 
-If you think that you have found a bug in MariaDB Software, please report it at [Jira issue tracker](https://jira.mariadb.org) and file it under Project CONPY (abbreviation for Connector/Python).
+If you think that you have found a bug in MariaDB Software, please report it at
+[Jira issue tracker](https://jira.mariadb.org) and file it under Project CONPY (abbreviation for Connector/Python).
 
 ## How to report a bug?
 
@@ -10,15 +11,20 @@ Always search the bug database first. Especially if you are using an older versi
 
 ### What?
 
-We need to know what you did, what happened and what you wanted to happen. A report stating that method xyz() hangs, will not allow us to provide you with an advice or fix, since we just don’t know what the method is doing. Beside versions, a good bug report contains a short script which reproduces the problem. Sometimes it is also necessary to provide the definition (and data) of used tables.
+We need to know what you did, what happened and what you wanted to happen. A report stating that method xyz() hangs, will not allow us to provide you with an advice or fix, since we just don’t know what the method is doing.
+Beside versions, a good bug report contains a short script which reproduces the problem. Sometimes it is also necessary to
+provide the definition (and data) of used tables.
 
 ### Versions of components
 
-MariaDB Connector/Python interacts with two other components: The database server and MariaDB Connector/C. The latter one is responsible for client/server communication. An error does not necessarily have to exist in Connector / Python; it can also be an error in the database server or in Connector/C. In this case, we will reclassify the bug (MDEV or CONC).
+MariaDB Connector/Python interacts with two other components: The database server and MariaDB Connector/C. The latter one is responsible for client/server communication.
+An error does not necessarily have to exist in Connector / Python; it can also be an error in the database server or in Connector/C.
+In this case, we will reclassify the bug (MDEV or CONC).
 
 ### Avoid screenshots!
 
-Use copy and paste instead. Screenshots create a lot more data volume and are often difficult to read on mobile devices. Typing program code from a screenshot is also an unnecessary effort.
+Use copy and paste instead. Screenshots create a lot more data volume and are often difficult to
+read on mobile devices. Typing program code from a screenshot is also an unnecessary effort.
 
 ### Keep it simple!
 
@@ -35,7 +41,5 @@ If you have encountered two or more bugs which are not related, please file an i
 If your application crashes, please also provide if possible a backtrace and output of the exception.
 
 ### Report bugs in English only!
-
-<sub>_This page is_</sub> [<sub>_covered_</sub>](license.md) <sub>_by the_</sub> [<sub>_Creative Commons Attribution 3.0 license_</sub>](https://creativecommons.org/licenses/by/3.0/legalcode)<sub>_._</sub>
 
 {% @marketo/form formId="4316" %}
