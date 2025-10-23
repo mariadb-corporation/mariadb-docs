@@ -27,10 +27,11 @@ Find the [documentation here](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mar
 
 It's available in both [Artifact Hub](https://artifacthub.io/packages/helm/mariadb-operator/mariadb-operator) and [Operator Hub](https://operatorhub.io/operator/mariadb-operator) and supports the following features:
 
-* [Easily provision](https://github.com/mariadb-operator/mariadb-operator/blob/main/examples/manifests/mariadb_minimal.yaml) and [configure](https://github.com/mariadb-operator/mariadb-operator/blob/main/examples/manifests/mariadb_full.yaml) MariaDB servers in Kubernetes.
-* Multiple [HA modes](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/high_availability.md): Galera Cluster or MariaDB Replication.
-* Automated Galera [primary failover](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/high_availability.md) and [cluster recovery](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/galera.md#galera-cluster-recovery).
-* Advanced HA with [MaxScale](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maxscale.md): a sophisticated database proxy, router, and load balancer for MariaDB.
+* Easily provision [standalone MariaDB servers](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/standalone.md) in Kubernetes.
+* Multiple [highly available](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/high_availability.md) topologies supported:
+  * [Asynchronous replication](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/replication.md)
+  * [Synchronous multi-master via Galera](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/galera.md)
+  * [MaxScale](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maxscale.md) as database proxy to load balance requests and perform  failover/switchover operations
 * Flexible [storage](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md) configuration. [Volume expansion](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md#volume-resize).
 * [Physical backups](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md) based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/).
 * [Logical backups](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/logical_backup.md) based on [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
