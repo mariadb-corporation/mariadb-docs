@@ -24,12 +24,12 @@ A server defines the backend database servers that MaxScale forwards traffic to.
 
 #### Monitors
 
-A monitor is an agent that queries the state of the servers and makes it available to the services in order to route traffic based on it. For more detailed information, please consult the [monitor reference](broken-reference/).
+A monitor is an agent that queries the state of the servers and makes it available to the services in order to route traffic based on it. For more detailed information, please consult the [monitor reference](https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide/#monitor).
 
 Depending on which highly available configuration your servers have, you will need to choose betweeen the following modules:
 
-* [Galera Monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-galera-monitor): Detects whether servers are part of the cluster, ensuring synchronization among them, and assigning primary and replica roles as needed.
-* [MariaDB Monitor](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-2501-maxscale-25-01-monitors/mariadb-maxscale-2501-maxscale-2501-mariadb-monitor): Probes the state of the cluster, assigns roles to the servers, and executes failover, switchover, and rejoin operations as necessary.
+* [Galera Monitor](https://mariadb.com/kb/en/mariadb-maxscale-2308-galera-monitor/): Detects whether servers are part of the cluster, ensuring synchronization among them, and assigning primary and replica roles as needed.
+* [MariaDB Monitor](https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-monitor/): Probes the state of the cluster, assigns roles to the servers, and executes failover, switchover, and rejoin operations as necessary.
 
 #### Services
 
@@ -37,8 +37,8 @@ A service defines how the traffic is routed to the servers based on a routing al
 
 Depending on your requirements to route traffic, you may choose between the following routers:
 
-* [Readwritesplit](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-readwritesplit): Route write queries to the primary server and read queries to the replica servers.
-* [Readconnroute](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-readconnroute): Load balance connections between multiple servers.
+* [Readwritesplit](https://mariadb.com/kb/en/mariadb-maxscale-2308-readwritesplit/): Route write queries to the primary server and read queries to the replica servers.
+* [Readconnroute](https://mariadb.com/kb/en/mariadb-maxscale-2308-readconnroute/): Load balance connections between multiple servers.
 
 #### Listeners
 
@@ -58,9 +58,9 @@ spec:
     name: mariadb-galera
 ```
 
-This will provision a new `StatefulSet` for running MaxScale and configure the servers specified by the `MariaDB` resource. Refer to the [Server configuration](maxscale-database-proxy.md#server-configuration) section if you want to manually configure the MariaDB servers.
+This will provision a new `StatefulSet` for running MaxScale and configure the servers specified by the `MariaDB` resource. Refer to the [Server configuration](#server-configuration) section if you want to manually configure the MariaDB servers.
 
-The rest of the configuration uses reasonable [defaults](maxscale-database-proxy.md#defaults) set automatically by the operator. If you need a more fine grained configuration, you can provide this values yourself:
+The rest of the configuration uses reasonable [defaults](#defaults) set automatically by the operator. If you need a more fine grained configuration, you can provide this values yourself:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -93,11 +93,69 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 172.18.0.224
 ```
 
-As you can see, the [MaxScale resources](maxscale-database-proxy.md#maxscale-resources) we previously mentioned have a counterpart resource in the `MaxScale` CR.
+As you can see, the [MaxScale resources](#maxscale-resources) we previously mentioned have a counterpart resource in the `MaxScale` CR.
 
-You also need to set a reference in the `MariaDB` resource to make it `MaxScale`-aware. This is explained in the [MariaDB CR](maxscale-database-proxy.md#mariadb-cr) section.
+The previous example configured a `MaxScale` for a Galera cluster, but you may also configure `MaxScale` with a `MariaDB` that uses replication. It is important to note that the monitor module is automatically inferred by the operator based on the `MariaDB` reference you provided, however, its parameters are specific to each monitor module:
 
-Refer to the [API reference](api-reference.md) for further detail.
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MaxScale
+metadata:
+  name: maxscale-repl
+spec:
+...
+  mariaDbRef:
+    name: mariadb-repl
+
+  services:
+    - name: rw-router
+      router: readwritesplit
+      params:
+        transaction_replay: "true"
+        transaction_replay_attempts: "10"
+        transaction_replay_timeout: "5s"
+        max_slave_connections: "255"
+        max_replication_lag: "3s"
+        master_accept_reads: "true"
+      listener:
+        port: 3306
+        protocol: MariaDBProtocol
+        params:
+          connection_metadata: "tx_isolation=auto"
+    - name: rconn-master-router
+      router: readconnroute
+      params:
+        router_options: "master"
+        max_replication_lag: "3s"
+        master_accept_reads: "true"
+      listener:
+        port: 3307
+    - name: rconn-slave-router
+      router: readconnroute
+      params:
+        router_options: "slave"
+        max_replication_lag: "3s"
+      listener:
+        port: 3308
+
+  monitor:
+    interval: 2s
+    cooperativeMonitoring: majority_of_all
+    params:
+      auto_failover: "true"
+      auto_rejoin: "true"
+      switchover_on_low_disk_space: "true"
+
+  kubernetesService:
+    type: LoadBalancer
+    metadata:
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 172.18.0.214
+```
+
+You also need to set a reference in the `MariaDB` resource to make it `MaxScale`-aware. This is explained in the [MariaDB CR](#mariadb-cr) section.
+
+Refer to the [API reference](../api-reference.md) for further detail.
 
 ## `MariaDB` CR
 
@@ -117,11 +175,11 @@ spec:
     enabled: true
 ```
 
-Refer to the [API reference](api-reference.md) for further detail.
+Refer to the [API reference](../api-reference.md) for further detail.
 
 ## `MaxScale` embedded in `MariaDB`
 
-To streamline the setup outlined in the [MaxScale CR](maxscale-database-proxy.md#mariadb-cr) and [MariaDB CR](maxscale-database-proxy.md#mariadb-cr) sections, you can provision a `MaxScale` to be used with `MariaDB` in just one resource:
+To streamline the setup outlined in the [MaxScale CR](#maxscale-cr) and [MariaDB CR](#mariadb-cr) sections, you can provision a `MaxScale` to be used with `MariaDB` in just one resource:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -142,12 +200,11 @@ spec:
   galera:
     enabled: true
 ```
+This will automatically set the references between `MariaDB` and `MaxScale` and [default](#defaults) the rest of the fields.
 
-This will automatically set the references between `MariaDB` and `MaxScale` and [default](maxscale-database-proxy.md#defaults) the rest of the fields.
+It is important to note that, this is intended for simple use cases that only require a single replica and where no further modifications are done on the `spec.maxscale` field. If you need a more fine grained configuration and perform further updates to the `MaxScale` resource, please use a dedicated `MaxScale` as described in the [MaxScale CR](#maxscale-cr) section.
 
-It is important to note that, this is intended for simple use cases that only require a single replica and where no further modifications are done on the `spec.maxscale` field. If you need a more fine grained configuration and perform further updates to the `MaxScale` resource, please use a dedicated `MaxScale` as described in the [MaxScale CR](maxscale-database-proxy.md#mariadb-cr) section.
-
-Refer to the [API reference](api-reference.md) for further detail.
+Refer to the [API reference](../api-reference.md) for further detail.
 
 ## Defaults
 
@@ -155,7 +212,7 @@ MariaDB Enterprise Kubernetes Operator aims to provide highly configurable CRs, 
 
 * `spec.servers` are inferred from `spec.mariaDbRef`.
 * `spec.monitor.module` is inferred from the `spec.mariaDbRef`.
-* `spec.monitor.cooperativeMonitoring` is set if [high availability](maxscale-database-proxy.md#high-availability) is enabled.
+* `spec.monitor.cooperativeMonitoring` is set if [high availability](#high-availability) is enabled.
 * If `spec.services` is not provided, a `readwritesplit` service is configured on port `3306` by default.
 
 ## Server configuration
@@ -229,14 +286,43 @@ spec:
       key: password
 ```
 
-Pointing to external MariaDBs has a some limitations: Since the operator doesn't have a reference to a `MariaDB` resource (`spec.mariaDbRef`), it will be unable to perform the following actions:
+Pointing to external MariaDBs has some limitations: Since the operator doesn't have a reference to a `MariaDB` resource (`spec.mariaDbRef`), it will be unable to perform the following actions:
 
 * Infer the monitor module (`spec.monitor.module`), so it will need to be provided by the user.
-* Autogenerate authentication credentials (`spec.auth`), so they will need to be provided by the user. See [Authentication](maxscale-database-proxy.md#authentication) section.
+* Autogenerate authentication credentials (`spec.auth`), so they will need to be provided by the user. See [Authentication](#authentication) section.
+
+## Primary server switchover
+
+{% hint style="info" %}
+Only the MariaDB Monitor, to be used with MariaDB replication, supports the primary switchover operation.
+{% endhint %}
+
+You can declaratively select the primary server by setting `spec.primaryServer=<server>`:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MaxScale
+metadata:
+  name: maxscale-repl
+spec:
+  primaryServer: mariadb-repl-1
+```
+
+This will trigger a switchover operation and MaxScale will promote the specified server to be the new primary server.
+
+```bash
+kubectl patch maxscale maxscale-repl \
+  --type='merge' \
+  -p '{"spec":{"primaryServer":"mariadb-repl-1"}}'
+  
+kubectl get maxscale
+NAME            READY   STATUS                                  PRIMARY          AGE
+maxscale-repl   False   Switching primary to 'mariadb-repl-1'   mariadb-repl-0   2m15s
+```
 
 ## Server maintenance
 
-You can put servers in maintenance mode by setting `maintenance = true`:
+You can put servers in maintenance mode by setting the server field `maintenance=true`:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -244,7 +330,6 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
   servers:
     - name: mariadb-0
       address: mariadb-galera-0.mariadb-galera-internal.default.svc.cluster.local
@@ -252,8 +337,6 @@ spec:
       protocol: MariaDBBackend
       maintenance: true
 ```
-
-Maintenance mode prevents MaxScale from routing traffic to the server and also excludes it from being elected as the new primary during failover events.
 
 ## Configuration
 
@@ -277,7 +360,7 @@ spec:
         - ReadWriteOnce
 ```
 
-Both this global configuration and the resources created by the operator using the [MaxScale API](maxscale-database-proxy.md#maxscale-api) are stored under a volume provisioned by the `spec.config.volumeClaimTemplate`.
+Both this global configuration and the resources created by the operator using the [MaxScale API](#maxscale-api) are stored under a volume provisioned by the `spec.config.volumeClaimTemplate`. Refer to the [troubleshooting](#troubleshooting) if you are getting errors writing on this volume.
 
 Refer to the [MaxScale reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-2501-maxscale-2501-configuration-settings) for more details about the supported parameters.
 
@@ -285,11 +368,15 @@ Refer to the [MaxScale reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX
 
 MaxScale requires authentication with differents levels of permissions for the following components/actors:
 
+<<<<<<< HEAD:tools/mariadb-enterprise-operator/maxscale-database-proxy.md
 * [MaxScale API](maxscale-database-proxy.md#maxscale-api) consumed by MariaDB Enterprise Kubernetes Operator.
+=======
+* [MaxScale API](#maxscale-api) consumed by MariaDB Enterprise Operator.
+>>>>>>> a3966ad5f (docs: Applied changes from mariadb-operator):tools/mariadb-enterprise-operator/topologies/maxscale.md
 * Clients connecting to MaxScale.
 * MaxScale connecting to MariaDB servers.
 * MaxScale monitor connecting to MariaDB servers.
-* MaxScale configuration syncer to connect to MariaDB servers. See [high availability](maxscale-database-proxy.md#high-availability) section.
+* MaxScale configuration syncer to connect to MariaDB servers. See [high availability](#high-availability) section.
 
 By default, the operator generates this credentials when `spec.mariaDbRef` is set and `spec.auth.generate = true`, but you are still able to provide your own:
 
@@ -329,7 +416,7 @@ spec:
     syncMaxConnections: 90
 ```
 
-As you could see, you are also able to limit the number of connections for each component/actor. Bear in mind that, when running in [high availability](maxscale-database-proxy.md#high-availability), you may need to increase this number, as more MaxScale instances implies more connections.
+As you could see, you are also able to limit the number of connections for each component/actor. Bear in mind that, when running in [high availability](#high-availability), you may need to increase this number, as more MaxScale instances implies more connections.
 
 ## Kubernetes `Services`
 
@@ -373,7 +460,7 @@ spec:
   type: LoadBalancer
 ```
 
-There is also another Kubernetes `Service` to access the GUI, please refer to the [MaxScale GUI](maxscale-database-proxy.md#maxscale-gui) section for further detail.
+There is also another Kubernetes `Service` to access the GUI, please refer to the [MaxScale GUI](#maxscale-gui) section for further detail.
 
 ## Connection
 
@@ -409,7 +496,7 @@ spec:
     port: 3306
 ```
 
-Note that, the `Connection` uses the `Service` described in the [Kubernetes Service](maxscale-database-proxy.md#kubernetes-service) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
+Note that, the `Connection` uses the `Service` described in the [Kubernetes Service](#kubernetes-service) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
 
 ## High availability
 
@@ -457,7 +544,7 @@ In order to enable this feature, you must set the `--feature-maxscale-suspend` f
 helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --set extraArgs={--feature-maxscale-suspend}
 ```
 
-Then you will be able to suspend any [MaxScale resources](maxscale-database-proxy.md#maxscale-resources), for instance, you can suspend a monitor:
+Then you will be able to suspend any [MaxScale resources](#maxscale-resources), for instance, you can suspend a monitor:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -480,7 +567,7 @@ spec:
 
 ## MaxScale GUI
 
-MaxScale offers a great user interface that provides very useful information about the [MaxScale resources](maxscale-database-proxy.md#maxscale-resources). You can enable it by providing the following configuration:
+MaxScale offers a great user interface that provides very useful information about the [MaxScale resources](#maxscale-resources). You can enable it by providing the following configuration:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -500,17 +587,19 @@ spec:
           metallb.universe.tf/loadBalancerIPs: 172.18.0.231
 ```
 
-The GUI is exposed via a dedicated Kubernetes `Service` in the same port as the [MaxScale API](maxscale-database-proxy.md#maxscale-api). Once you access, you will need to enter the [MaxScale API](maxscale-database-proxy.md#maxscale-api) credentials configured by the operator in a `Secret`. See the [Authentication](maxscale-database-proxy.md#authentication) section for more details.
+The GUI is exposed via a dedicated Kubernetes `Service` in the same port as the [MaxScale API](#maxscale-api). Once you access, you will need to enter the [MaxScale API](maxscale.md#maxscale-api) credentials configured by the operator in a `Secret`. See the [Authentication](maxscale.md#authentication) section for more details.
 
-![](../.gitbook/assets/maxscale-gui.png)
+![](../../.gitbook/assets/maxscale-gui.png)
 
 ## MaxScale API
 
 MariaDB Enterprise Kubernetes Operator interacts with the [MaxScale REST API](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-25-01/maxscale-25-01-rest-api) to reconcile the specification provided by the user, considering both the MaxScale status retrieved from the API and the provided spec.
 
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998%26entityType%3Dcollection%26workspaceId%3Da184b7e4-b1f7-405e-b9ec-ec62ed36dd27)
+
 ## Troubleshooting
 
-The operator tracks both the `MaxScale` status in regards to Kubernetes resources as well as the status of the [MaxScale API](maxscale-database-proxy.md#maxscale-api) resources. This information is available on the status field of the `MaxScale` resource, it may be very useful for debugging purposes:
+The operator tracks both the `MaxScale` status in regards to Kubernetes resources as well as the status of the [MaxScale API](#maxscale-api) resources. This information is available on the status field of the `MaxScale` resource, it may be very useful for debugging purposes:
 
 ```yaml
 status:
@@ -552,7 +641,7 @@ LAST SEEN   TYPE      REASON                         OBJECT                     
 24s         Normal    MaxScalePrimaryServerChanged   maxscale/mariadb-repl-maxscale   MaxScale primary server changed from 'mariadb-repl-0' to 'mariadb-repl-1'
 ```
 
-The operator logs can also be a good source of information for troubleshooting. You can increase its verbosity and enable [MaxScale API](maxscale-database-proxy.md#maxscale-api) request logs by running:
+The operator logs can also be a good source of information for troubleshooting. You can increase its verbosity and enable [MaxScale API](#maxscale-api) request logs by running:
 
 ```sh
 helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --set logLevel=debug --set extraArgs={--log-maxscale}

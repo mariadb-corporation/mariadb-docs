@@ -869,7 +869,7 @@ If you are willing to increase the enforcement level in an existing instance, ma
 
 ## Secure application connections with TLS
 
-In this guide, we will configure TLS for an application running in the `app` namespace to connect with `MariaDB` and `MaxScale` instances deployed in the `default` namespace. We assume that the following resources are already present in the `default` namespace:
+In this guide, we will configure TLS for an application running in the `app` namespace to connect with `MariaDB` and `MaxScale` instances deployed in the `default` namespace. We assume that the following resources are already present in the `default` namespace with TLS enabled:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1

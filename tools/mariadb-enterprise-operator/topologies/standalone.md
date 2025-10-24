@@ -1,6 +1,6 @@
 # Standalone MariaDB
 
-MariaDB Enterprise Kubernetes Operator allows you to configure standalone MariaDB Enterprise Server instances. To achieve this, you can either omit the `replicas` field or set it to `1`:
+This operator allows you to configure standalone MariaDB Enterprise Server instances. To achieve this, you can either omit the `replicas` field or set it to `1`:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -45,7 +45,8 @@ Whilst this can be useful for development and testing, it is not recommended for
 * Upgrades require downtime
 * Only vertical scaling is possible
 
-For achieving high availability, we recommend deploying a Galera cluster. Refer to the [Galera](galera-cluster.md) and [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) sections for more information.
+For achieving high availability, we recommend deploying a highly available topology as described in the [high availability guide](./high_availability.md).
+
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

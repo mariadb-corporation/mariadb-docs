@@ -78,7 +78,7 @@ spec:
     waitForVolumeResize: true
 ```
 
-Depending on your storage provider, this operation might take a while, and you can decide to wait for this operation before the `MariaDB` becomes ready by setting `waitForVolumeResize = true`. Operations such as [Galera cluster recovery](galera-cluster.md#galera-cluster-recovery) and [primary switchover](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) will not be performed if the `MariaDB` resource is not ready.
+Depending on your storage provider, this operation might take a while, and you can decide to wait for this operation before the `MariaDB` becomes ready by setting `waitForVolumeResize = true`. Operations such as [Galera cluster recovery](./topologies/galera.md#galera-cluster-recovery) and [primary switchover](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) will not be performed if the `MariaDB` resource is not ready.
 
 ## Ephemeral storage
 
