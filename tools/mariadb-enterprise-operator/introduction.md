@@ -59,6 +59,21 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 * Declarative User and Database Management: Manage users, grants, and logical databases in a declarative manner using Kubernetes resources.
 * Secure, immutable and lightweight images based on Red Hat UBI, available for multiple architectires (amd64, arm64 and ppc64le).
 * [Operator certified ](https://catalog.redhat.com/en/software/container-stacks/detail/65789bcbe17f1b31944acb1d#overview) by Red Hat.
+* Manual Update Strategies: Supplementing our automated methods, you can choose `OnDelete` or `Never` to retain full manual control over Galera data plane updates.
+* Automated Data Plane Updates: The operator automatically handles updates for the Galera data plane, ensuring consistency and reducing administrative burden.
+* Automatic Updates On my.cnf changes: The operator automatically detects and acts on configuration changes, performing a database restart when a change in my.cnf is observed.
+* Maintenance Mode: Provides the ability to suspend operator reconciliation, enabling you to perform maintenance operations without interference.
+* Prometheus Integration: Native integration with the [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator). Automatic creation of `ServiceMonitor` resources.
+* External MariaDB Instances: Declarative management of external MariaDB instances with the operator.
+* Connections: Ability to configure connections for your applications.
+* SQL job scheduling: Declaratively schedule SQL scripts.
+* Validation: Utilizes validation webhooks to enforce CRD immutability, ensuring configuration stability and preventing unintended changes.
+* Multiple Deployment Modes: Supports flexible installation across cluster-wide and single-namespace modes.
+* Asynchronous Replication: Supports asynchronous primary-replica replication for improved reading performance and high availability configurations.
+* Automatic Replica Recovery: The operator includes mechanisms for the automatic recovery and re-synchronization of replica nodes following an unexpected halt or failure.
+* Scale Out: Enables seamless scaling of read capacity by adding and managing new replica nodes declaratively.
+* Installation: Easily deployable using Helm or through the certified operators catalog on OpenShift.
+* GitOps Friendly: Designed to integrate smoothly with GitOps workflows and tools for declarative infrastructure management.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
