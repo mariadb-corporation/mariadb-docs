@@ -182,13 +182,15 @@ When using `PhysicalBackup` with the `mariadb-backup` strategy, the GTID will be
 
 When using `PhysicalBackup` with the `VolumeSnapshot` strategy, the GTID position will be kept in a `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, which later on the operator will read when restoring the backup.
 
-> [!WARNING]
-> Refrain from removing the `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, as it is required for configuring the replica when restoring the backup.
+{% hint style="warning" %}
+Refrain from removing the `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, as it is required for configuring the replica when restoring the backup.
+{% endhint %}
 
 ## Primary switchover
 
-> [!IMPORTANT]  
-> Our recommendation for production environments is to rely on [MaxScale](./maxscale.md) for the [switchover operation](./maxscale.md#primary-server-switchover), as it provides [several advantages](./high_availability.md#maxscale).
+{% hint style="info" %}
+Our recommendation for production environments is to rely on [MaxScale](./maxscale.md) for the [switchover operation](./maxscale.md#primary-server-switchover), as it provides [several advantages](./high_availability.md#maxscale).
+{% endhint %}
 
 You can declaratively trigger a primary switchover by updating the `spec.replication.primary.podIndex` field in the `MariaDB` CR to the index of the replica you want to promote as the new primary. For example, to promote the replica at index `1`:
 
@@ -233,8 +235,9 @@ If the switchover operation is stuck waiting for replicas to be in sync, you can
 
 ## Primary failover
 
-> [!IMPORTANT]  
-> Our recommendation for production environments is to rely on [MaxScale](./maxscale.md) for the failover process, as it provides [several advantages](./high_availability.md#maxscale).
+{% hint style="info" %}
+Our recommendation for production environments is to rely on [MaxScale](./maxscale.md) for the failover process, as it provides [several advantages](./high_availability.md#maxscale).
+{% endhint %}
 
 You can configure the operator to automatically perform a primary failover whenever the current primary becomes unavailable:
 
@@ -456,8 +459,9 @@ The `errorDurationThreshold` option defines the duration after which, a replica 
 
 We will be simulating a `1236` error in a replica to demostrate how the recovery process works:
 
-> [!CAUTION]
-> Do not perform the following steps in a production environment.
+{% hint style="warning" %}
+Do not perform the following steps in a production environment.
+{% endhint %}
 
 -  Purge the binary logs in the primary:
 ```bash
