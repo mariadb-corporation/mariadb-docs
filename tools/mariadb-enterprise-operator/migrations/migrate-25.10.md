@@ -3,10 +3,7 @@
 This guide illustrates, step by step, how to migrate to `25.10.0` from previous versions. 
 
 
-- The Galera data-plane must be updated to the `25.10.0` version. 
-
-
-If you want the operator to automatically update the data-plane (i.e. init and agent containers), you can set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources:
+- The Galera data-plane must be updated to the `25.10.0` version. You must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also be updating the data-plane based on its version:
 ```diff
 apiVersion: enterprise.mariadb.com/v1alpha1
 kind: MariaDB
@@ -15,23 +12,6 @@ metadata:
 spec:
   updateStrategy:
 +   autoUpdateDataPlane: true
-```
-
-Alternatively, you can also do this manually:
-
-```diff
-apiVersion: enterprise.mariadb.com/v1alpha1
-kind: MariaDB
-metadata:
-  name: mariadb-galera
-spec:
-  galera:
-    agent:
--      image: docker.mariadb.com/mariadb-enterprise-operator:1.0.0
-+      image: docker.mariadb.com/mariadb-enterprise-operator:25.10.0
-    initContainer:
--      image: docker.mariadb.com/mariadb-enterprise-operator:1.0.0
-+      image: docker.mariadb.com/mariadb-enterprise-operator:25.10.0
 ```
 
 - Then, you may proceeed to update the operator. If you are using __Helm__:
@@ -85,7 +65,7 @@ spec:
   sourceNamespace: openshift-marketplace
 ``` 
 
-- If you previously set `updateStrategy.autoUpdateDataPlane=true`, you may consider reverting the changes once the upgrades have finished to avoid unexpected updates:
+- Consider reverting `updateStrategy.autoUpdateDataPlane` back to `false` to avoid unexpected updates:
 
 ```diff
 apiVersion: enterprise.mariadb.com/v1alpha1
