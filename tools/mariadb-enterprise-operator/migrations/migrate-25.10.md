@@ -48,6 +48,8 @@ helm repo update mariadb-enterprise-operator
 helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --version 25.10.0 
 ```
 
+As part of the 25.10 LTS release, we have introduced support for LTS versions. Refer to the [Helm docs](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/helm#long-term-support-versions) for sticking to LTS versions.
+
 - If you are on __OpenShift__:
 
 

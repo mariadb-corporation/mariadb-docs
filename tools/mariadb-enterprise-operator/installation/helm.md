@@ -13,15 +13,6 @@ MariaDB Enterprise Kubernetes Operator is splitted into two different helm chart
 * `mariadb-enterprise-operator-crds`: Bundles the [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) required by the operator.
 * `mariadb-enterprise-operator`: Contains all the template manifests required to install the operator. Refer to the [operator helm values](helm.md#operator-helm-values) section for detailed information about the supported values.
 
-## Long-Term Support Versions
-
-MariaDB Enterprise Kubernetes Operator provides stable Long-Term Support (LTS) versions.
-
-| Version | Supported Kubernetes Versions | Description | Latest Version |
-|---------|------------------------------|-------------|--------------|
-| `latest` | `>=1.26.0-0` | The latest cutting-edge version of the MariaDB Enterprise Kubernetes Operator. | `25.10.0` |
-| `25.10` | `>=1.26.0-0 <= 1.34.0-0` | LTS 25.10. It was tested to work up to kubernetes v1.34 but newer versions may also be supported. | `25.10.0` |
-
 ## Control-plane
 
 The operator extends the Kubernetes control plane and consists of the following components deployed via Helm:
@@ -40,14 +31,6 @@ CRDs can be installed in your cluster by running the following commands
 helm repo add mariadb-enterprise-operator https://operator.mariadb.com
 helm install mariadb-enterprise-operator-crds mariadb-enterprise-operator/mariadb-enterprise-operator-crds
 ```
-
-If you instead wish to install a specific LTS release, you can do:
-
-```sh
-helm install --version "25.10.*" mariadb-enterprise-operator-crds mariadb-enterprise-operator/mariadb-enterprise-operator-crds
-```
-
-Where: `--version "25.10.*"` installs the most recent available release within the 25.10 series.
 
 ## Installing the operator
 
@@ -82,19 +65,26 @@ helm install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-ent
   -f values.yaml \
   --set metrics.enabled=true --set webhook.cert.certManager.enabled=true
 ```
+Refer to the [operator helm values](helm.md#operator-helm-values) section for detailed information about the supported values.
+
+## Long-Term Support Versions
+
+MariaDB Enterprise Kubernetes Operator provides stable Long-Term Support (LTS) versions.
+
+| Version | Supported Kubernetes Versions | Description | Latest Version |
+|---------|------------------------------|-------------|--------------|
+| `25.10` | `>=1.32.0-0 <= 1.34.0-0` | LTS 25.10. It was tested to work up to kubernetes v1.34. | `25.10.0` |
 
 If you instead wish to install a specific LTS release, you can do:
 
-```diff
+```sh
+helm install --version "25.10.*" mariadb-enterprise-operator-crds mariadb-enterprise-operator/mariadb-enterprise-operator-crds
 helm install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator \
   -f values.yaml \
-  --set metrics.enabled=true --set webhook.cert.certManager.enabled=true
   --version "25.10.*"
 ```
 
 Where: `--version "25.10.*"` installs the most recent available release within the 25.10 series.
-
-Refer to the [operator helm values](helm.md#operator-helm-values) section for detailed information about the supported values.
 
 ## Deployment modes
 
