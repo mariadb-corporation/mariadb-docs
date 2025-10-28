@@ -103,10 +103,10 @@ spec:
 
 We maintain support across a variety of OpenShift channels to ensure compatibility with different release schedules and stability requirements. Below, you will find an overview of the specific OpenShift channels we support.
 
-| Channel | Supported OpenShift Versions | Description | Latest Image |
-|---------|------------------------------|-------------|--------------|
-| `stable` | 4.19, 4.18, 4.17, 4.16 | Points to the latest stable version of the operator. This channel may span multiple major versions. **This is the recommended option.** | `mariadb-enterprise-operator:25.8.1-1` |
-| `stable-v25.10` | 4.19, 4.18, 4.17, 4.16 | v25.10.x is an LTS release. This channel points to the latest **patch** release of 25.10. Use this if you require version pinning to a stable version of the operator without necessarily looking for newer features. | `mariadb-enterprise-operator:25.10.0` |
+| Channel | Supported OpenShift Versions | Description |
+|---------|------------------------------|-------------|
+| `stable` | 4.18, 4.16 | Points to the latest stable version of the operator. This channel may span multiple major versions. | `mariadb-enterprise-operator:25.8.1-1` |
+| `stable-v25.10` | 4.18, 4.16 | v25.10.x is an LTS release. This channel points to the latest **patch** release of 25.10. Use this if you require version pinning to a stable version of the operator without necessarily looking for newer features. |
 
 An example Subscription would look like this:
 

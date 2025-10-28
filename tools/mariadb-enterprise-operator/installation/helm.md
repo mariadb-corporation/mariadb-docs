@@ -71,9 +71,9 @@ Refer to the [operator helm values](helm.md#operator-helm-values) section for de
 
 MariaDB Enterprise Kubernetes Operator provides stable Long-Term Support (LTS) versions.
 
-| Version | Supported Kubernetes Versions | Description | Latest Version |
-|---------|------------------------------|-------------|--------------|
-| `25.10` | `>=1.32.0-0 <= 1.34.0-0` | LTS 25.10. It was tested to work up to kubernetes v1.34. | `25.10.0` |
+| Version | Supported Kubernetes Versions | Description |
+|---------|------------------------------|-------------|
+| `25.10` | `>=1.32.0-0 <= 1.34.0-0` | LTS 25.10. It was tested to work up to kubernetes v1.34. |
 
 If you instead wish to install a specific LTS release, you can do:
 
@@ -119,7 +119,7 @@ Make sure you read and understand the [updates documentation](../updates.md) bef
 {% endhint %}
 
 {% hint style="warning" %}
-To install a Long-Term Support (LTS) version instead, replace `<new-version>` with your desired LTS release.
+To install a [Long-Term Support (LTS)](#long-term-support-versions) version instead, replace `<new-version>` with your desired LTS release.
 For example: `--version "25.10.*"` will automatically install the latest available patch within that LTS series.
 {% endhint %}
 
