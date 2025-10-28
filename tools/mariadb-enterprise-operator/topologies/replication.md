@@ -101,6 +101,7 @@ spec:
     semiSyncAckTimeout: 10s
     semiSyncWaitPoint: AfterCommit
     syncBinlog: 1
+    standaloneProbes: false
 ```
 
 - `gtidStrictMode`: Enables GTID strict mode. It is recommended and enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/gtid#gtid_strict_mode).
@@ -108,6 +109,7 @@ spec:
 - `semiSyncAckTimeout`: ACK timeout for the replicas to acknowledge transactions to the primary. It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
 - `semiSyncWaitPoint`: Determines whether the transaction should wait for an ACK after having synced the binlog (`AfterSync`) or after having committed to the storage engine (`AfterCommit`, the default). It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point).
 - `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
+- `standaloneProbes`: Determines whether to use regular non-HA startup and liveness probes. It is disabled by default.
 
 
 These options are used by the operator to create a replication configuration file that is applied to all nodes in the cluster. When updating any of these options, an [update of the cluster](#updates) will be triggered in order to apply the new configuration.
@@ -145,13 +147,15 @@ spec:
 
 ## Probes
 
-Kubernetes probes are resolved by the agent (see [data-plane](./data_plane.md) documentation) in the replication topology, taking into account both the MariaDB and replication status. Additionally, as described in the [configuration documentation](../configuration.md#probes), probe thresholds may be tuned accordinly for a better reliability based on your environment.
+Kubernetes probes are resolved by the agent (see [data-plane](./data_plane.md) documentation) in the replication topology, taking into account both the MariaDB and replication status. Additionally, as described in the [configuration documentation](../configuration.md#probes), probe thresholds may be tuned accordingly for a better reliability based on your environment.
 
 In the following sub-sections we will be covering specifics about the replication topology.
 
 #### Liveness probe
 
 As part of the liveness probe, the agent checks that the MariaDB server is running and that the replication threads (`Slave_IO_Running` and `Slave_SQL_Running`) are both running on replicas. If any of these checks fail, the liveness probe will fail.
+
+If such a behaviour is undesirable, it is possible to opt in for regular standalone startup/liveness probes (default `SELECT 1` query). See `standaloneProbes` in the [configuration](#configuration) section.
 
 #### Readiness probe
 
@@ -254,7 +258,7 @@ spec:
       autoFailover: true
       autoFailoverDelay: 0s
 ```
-Optionally, you may also specify a `autoFailoverDelay`, which will add a delay before triggering the failover operation. By default, the failover is immediate, but introducing a delay may be useful to avoid failovers due to transient issues.
+Optionally, you may also specify a `autoFailoverDelay`, which will add a delay before triggering the failover operation. By default, the failover is immediate, but introducing a delay may be useful to avoid failovers due to transient issues. But note that the delay should be lower than the readiness probe failure threshold (e.g. 20 seconds delay when readiness threshold is 30 seconds), otherwise all the replicas will be marked as not ready and the automatic failover will not be able to proceed.
 
 Whenever the primary becomes unavailable, the following status will be reported in the `MariaDB` CR:
 
@@ -636,6 +640,16 @@ This is a something the operator is able to recover from, please refer to the [r
 These operations rely on a `PhysicalBackup` for setting up the new replicas. If this `PhysicalBackup` does not become ready, the operation will not progress. In order to debug this please refer to the [`PhysicalBackup` troubleshooting section](../backup-and-restore/physical_backup.md#troubleshooting).
 
 One of the reasons could be that there are not replicas in ready state at the time of creating the `PhysicalBackup`, for instance, all the replicas are lagging behind the primary. Please verify that this is the case by checking the status of your `MariaDB` resource and your `Pods`.
+
+##### MaxScale switchover stucked during update
+
+When using MaxScale, after having updated all the replica Pods, it could happen that MaxScale refuses to perform the switchover, as it considers the Pod chosen by the operator to be unsafe:
+
+```bash
+2025-10-27 15:17:11   error  : [mariadbmon] 'mariadb-repl-1' is not a valid demotion target for switchover: it does not have a 'gtid_binlog_pos'.
+``` 
+
+For this case, you can manually update the `primaryServer` field in the `MaxScale` resource to a safe Pod, and restart the operator. If the new primary server is the right Pod, MaxScale will start the switchover and the update will continue after it completes.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

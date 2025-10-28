@@ -41,8 +41,10 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 ## MariaDB Enterprise Kubernetes Operator Features
 
 * Provision and Configure MariaDB and MaxScale Declaratively: Define MariaDB Enterprise Server and MaxScale clusters in YAML manifests and deploy them with ease in Kubernetes.
-* High Availability with Galera: Ensure availability with MariaDB Enterprise Cluster, providing synchronous multi-master replication.
-* Query and Connection-Based Routing with MaxScale: MaxScale provides query routing and connection load balancing for improved application performance.
+* Multiple [Highly Available](./topologies/high-availability.md) Topologies supported:
+  * [Asynchronous Replication](./topologies/replication.md)
+  * [Synchronous Multi-Master with MariaDb Enterprise Cluster](./topologies/galera.md)
+  * [MaxScale](./topologies/maxscale.md) as a Database proxy to load balance requests and perform failover/switchover operations.
 * Cluster-Aware Rolling Updates: Perform rolling updates on MariaDB and MaxScale clusters, ensuring zero-downtime upgrades with no disruptions to your applications.
 * Flexible Storage Configuration and Volume Expansion: Easily configure storage for MariaDB instances, including the ability to expand volumes as needed.
 * Physical Backups based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/). By leveraging the [BACKUP STAGE](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) feature, backups are taken without long read locks or service interruptions.
@@ -59,21 +61,6 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 * Declarative User and Database Management: Manage users, grants, and logical databases in a declarative manner using Kubernetes resources.
 * Secure, immutable and lightweight images based on Red Hat UBI, available for multiple architectires (amd64, arm64 and ppc64le).
 * [Operator certified ](https://catalog.redhat.com/en/software/container-stacks/detail/65789bcbe17f1b31944acb1d#overview) by Red Hat.
-* Manual Update Strategies: Supplementing our automated methods, you can choose `OnDelete` or `Never` to retain full manual control over Galera data plane updates.
-* Automated Data Plane Updates: The operator automatically handles updates for the Galera data plane, ensuring consistency and reducing administrative burden.
-* Automatic Updates On my.cnf changes: The operator automatically detects and acts on configuration changes, performing a database restart when a change in my.cnf is observed.
-* Maintenance Mode: Provides the ability to suspend operator reconciliation, enabling you to perform maintenance operations without interference.
-* Prometheus Integration: Native integration with the [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator). Automatic creation of `ServiceMonitor` resources.
-* External MariaDB Instances: Declarative management of external MariaDB instances with the operator.
-* Connections: Ability to configure connections for your applications.
-* SQL job scheduling: Declaratively schedule SQL scripts.
-* Validation: Utilizes validation webhooks to enforce CRD immutability, ensuring configuration stability and preventing unintended changes.
-* Multiple Deployment Modes: Supports flexible installation across cluster-wide and single-namespace modes.
-* Asynchronous Replication: Supports asynchronous primary-replica replication for improved reading performance and high availability configurations.
-* Automatic Replica Recovery: The operator includes mechanisms for the automatic recovery and re-synchronization of replica nodes following an unexpected halt or failure.
-* Scale Out: Enables seamless scaling of read capacity by adding and managing new replica nodes declaratively.
-* Installation: Easily deployable using Helm or through the certified operators catalog on OpenShift.
-* GitOps Friendly: Designed to integrate smoothly with GitOps workflows and tools for declarative infrastructure management.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

@@ -28,8 +28,8 @@ A monitor is an agent that queries the state of the servers and makes it availab
 
 Depending on which highly available configuration your servers have, you will need to choose betweeen the following modules:
 
-* [Galera Monitor](https://mariadb.com/kb/en/mariadb-maxscale-2308-galera-monitor/): Detects whether servers are part of the cluster, ensuring synchronization among them, and assigning primary and replica roles as needed.
-* [MariaDB Monitor](https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-monitor/): Probes the state of the cluster, assigns roles to the servers, and executes failover, switchover, and rejoin operations as necessary.
+* [Galera Monitor](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor): Detects whether servers are part of the cluster, ensuring synchronization among them, and assigning primary and replica roles as needed.
+* [MariaDB Monitor](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/mariadb-monitor): Probes the state of the cluster, assigns roles to the servers, and executes failover, switchover, and rejoin operations as necessary.
 
 #### Services
 
@@ -37,8 +37,8 @@ A service defines how the traffic is routed to the servers based on a routing al
 
 Depending on your requirements to route traffic, you may choose between the following routers:
 
-* [Readwritesplit](https://mariadb.com/kb/en/mariadb-maxscale-2308-readwritesplit/): Route write queries to the primary server and read queries to the replica servers.
-* [Readconnroute](https://mariadb.com/kb/en/mariadb-maxscale-2308-readconnroute/): Load balance connections between multiple servers.
+* [Readwritesplit](https://mariadb.com/docs/maxscale/reference/maxscale-routers/maxscale-readwritesplit): Route write queries to the primary server and read queries to the replica servers.
+* [Readconnroute](https://mariadb.com/docs/maxscale/reference/maxscale-routers/maxscale-readconnroute): Load balance connections between multiple servers.
 
 #### Listeners
 
@@ -368,11 +368,7 @@ Refer to the [MaxScale reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX
 
 MaxScale requires authentication with differents levels of permissions for the following components/actors:
 
-<<<<<<< HEAD:tools/mariadb-enterprise-operator/maxscale-database-proxy.md
-* [MaxScale API](maxscale-database-proxy.md#maxscale-api) consumed by MariaDB Enterprise Kubernetes Operator.
-=======
-* [MaxScale API](#maxscale-api) consumed by MariaDB Enterprise Operator.
->>>>>>> a3966ad5f (docs: Applied changes from mariadb-operator):tools/mariadb-enterprise-operator/topologies/maxscale.md
+* [MaxScale API](#maxscale-api) consumed by MariaDB Enterprise Kubernetes Operator.
 * Clients connecting to MaxScale.
 * MaxScale connecting to MariaDB servers.
 * MaxScale monitor connecting to MariaDB servers.

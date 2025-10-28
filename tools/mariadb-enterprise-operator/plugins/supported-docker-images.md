@@ -23,7 +23,8 @@ Each supported plugin will have a section on how to install it.
 
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
-| MariaDB Enterprise Server (ppc64le support) | docker.mariadb.com/enterprise-server |  11.4.7-4.3 <br>  11.4 <br> |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (ppc64le support) | docker.mariadb.com/enterprise-server |  11.8.3-1 <br>  11.4.8-5 <br>  11.4.7-4.3 <br>  11.4.7-4.2 <br>  11.4.7-4.1 <br>  11.4 <br>  10.6.23-19 <br>  10.6.22-18.1 <br>  10.6 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

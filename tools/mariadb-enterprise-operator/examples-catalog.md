@@ -35,7 +35,9 @@ Some examples rely on external dependencies for specific tasks, make sure to ins
 It is recommended to complement the examples with the [API reference](api-reference.md) documentation to understand the full range of configuration options available.
 
 
-If you are looking for production-grade examples, you can check the `mariadb_galera_production.yaml` and `maxscale_galera_production.yaml` examples.
+If you are looking for production-grade examples, you can check the following manifests:
+- `mariadb_replication_production.yaml` and `maxscale_replication_production.yaml` for [asynchronous replication](./topologies/replication.md)
+- `mariadb_galera_production.yaml` and `maxscale_galera_production.yaml` for [Galera](./topologies/galera.md)
 
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}

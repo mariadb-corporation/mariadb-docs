@@ -117,7 +117,7 @@ metadata:
   name: mariadb-enterprise-operator
   namespace: openshift-operators
 spec:
-  channel: stable # Change this  to the actual channel you want
+  channel: stable # Change this to the actual channel you want
   installPlanApproval: Automatic
   name: mariadb-enterprise-operator
   source: certified-operators
