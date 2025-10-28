@@ -75,6 +75,7 @@
     * [Migrate Community operator to Enterprise operator](mariadb-enterprise-operator/migrations/migrate-community-operator-to-enterprise-operator.md)
     * [Migrate external MariaDB into Kubernetes](mariadb-enterprise-operator/migrations/migrate-external-mariadb-into-kubernetes.md)
     * [Migrate to Enterprise Operator 25.08](mariadb-enterprise-operator/migrations/migrate-25.08.md)
+    * [Migrate to Enterprise Operator 25.10](mariadb-enterprise-operator/migrations/migrate-25.10.md)
 * [MariaDB Enterprise MCP Server](mariadb-enterprise-mcp-server/README.md)
   * [Overview](mariadb-enterprise-mcp-server/introduction/README.md)
   * [Features](mariadb-enterprise-mcp-server/features/README.md)
