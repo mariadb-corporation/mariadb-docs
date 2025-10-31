@@ -87,10 +87,10 @@ The plugin supports the following parameters, which must be set in advance and c
 * Description: Set the duration (in seconds) for the Hashicorp Vault server connection timeout. The default value is 15 seconds. The allowed range is from 1 to 86400 seconds. The user can also specify a zero value, which means the default timeout value set by the libcurl library (currently 300 seconds).
 * Commandline: `--[loose-]hashicorp-key-management-timeout=<timeout>`
 
-#### `hashicorp-key-management-retries`
+#### `hashicorp-key-management-max-retries`
 
 * Description: Number of server request retries in case of timeout. Default is three retries.
-* Commandline: `----[loose-]hashicorp-key-management-retries=<retries>`
+* Commandline: `----[loose-]hashicorp-key-management-max-retries=<retries>`
 
 #### `hashicorp-key-management-caching-enabled`
 
