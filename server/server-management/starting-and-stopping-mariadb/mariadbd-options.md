@@ -95,6 +95,7 @@ other MariaDB and MySQL versions. Options that are also system variables are lis
 
 ### Compatibility Options and System Variables
 
+* [--new-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#new_mode)
 * [--old](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old)
 * [--old-alter-table](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table)
 * [--old-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode)

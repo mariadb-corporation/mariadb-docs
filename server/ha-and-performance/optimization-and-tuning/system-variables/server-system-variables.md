@@ -1818,6 +1818,17 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Default Value: `60`
 * Range: `1` upwards
 
+#### `new_mode`
+
+* Description: Used to enable new behavior in otherwise stable versions. See [NEW Mode](../../../server-management/variables-and-modes/new-mode.md).  Non-default NEW\_MODE options are by design deprecated and will eventually be removed.
+* Command line: `--new-mode`
+* Scope: Global, Session
+* Dynamic: Yes
+* Data Type: `string`
+* Default Value: `(empty string)`
+* Valid Values: See [NEW Mode](../../../server-management/variables-and-modes/new-mode.md) for the full list.
+
+
 #### `note_verbosity`
 
 * Description: Verbosity level for note-warnings given to the user. Options are added in a comma-delimited string, except for `all`, which sets all options. Be aware that if the old [sql\_notes](server-system-variables.md#sql_notes) variable is 0, one will not get any notes. Setting `note_verbosity` to "" is the recommended way to disable notes.
