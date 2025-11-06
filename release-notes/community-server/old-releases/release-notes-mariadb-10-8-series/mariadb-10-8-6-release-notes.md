@@ -2,7 +2,7 @@
 
 The most recent release of [MariaDB 10.8](what-is-mariadb-108.md) is:[**MariaDB 10.8.8**](mariadb-10-8-8-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.8.8/)
 
-[Download 10.8.6](https://downloads.mariadb.org/mariadb/10.8.6/) | [Release Notes](mariadb-10-8-6-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-10-8-series/mariadb-10-8-6-changelog.md) | [Overview of 10.8](what-is-mariadb-108.md)
+[Download 10.8.6](https://downloads.mariadb.org/mariadb/10.8.6/) | [Release Notes](mariadb-10-8-6-release-notes.md) | [Changelog](../../changelogs/10.8/10.8.6.md) | [Overview of 10.8](what-is-mariadb-108.md)
 
 **Release date:** 7 Nov 2022
 
@@ -76,7 +76,7 @@ The following changes have been made to the `docker.io/library/mariadb` containe
 ## Changelog
 
 For a complete list of changes made in [MariaDB 10.8.6](mariadb-10-8-6-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-10-8-series/mariadb-10-8-6-changelog.md).
+information on each push, see the [changelog](../../changelogs/10.8/10.8.6.md).
 
 ## Contributors
 

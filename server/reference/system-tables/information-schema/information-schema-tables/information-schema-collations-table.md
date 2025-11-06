@@ -90,9 +90,7 @@ SELECT 'a ' = 'a';
 
 ## PAD SPACE Collations
 
-`SPACE PAD` collations disregard trailing spaces.
-
-In comparisons, `SPACE PAD` collations evaluate to `1` (`TRUE`). Example:
+&#x20;`PAD SPACE` collations pad strings to equal lengths in comparisons, so that the comparison evaluates to `1` (`TRUE`). Example:
 
 ```sql
 SELECT 'a ' = 'a'; 

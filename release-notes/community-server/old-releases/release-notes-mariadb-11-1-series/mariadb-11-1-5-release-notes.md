@@ -2,7 +2,7 @@
 
 The most recent release of [MariaDB 11.1](what-is-mariadb-111.md) is:[**MariaDB 11.1.6**](mariadb-11-1-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.1.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.1.6/)
 
-[Download 11.1.5](https://downloads.mariadb.org/mariadb/11.1.5/) | [Release Notes](mariadb-11-1-5-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-1-series/mariadb-11-1-5-changelog.md) | [Overview of 11.1](what-is-mariadb-111.md)
+[Download 11.1.5](https://downloads.mariadb.org/mariadb/11.1.5/) | [Release Notes](mariadb-11-1-5-release-notes.md) | [Changelog](../../changelogs/11.1/mariadb-11-1-5-changelog.md) | [Overview of 11.1](what-is-mariadb-111.md)
 
 **Release date:** 16 May 2024
 
@@ -68,7 +68,7 @@ From this version, the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTy
 * Fix spider plugin init failure with no\_zero\_date sql\_mode ([MDEV-33494](https://jira.mariadb.org/browse/MDEV-33494))
 * Fix sql plugin init failure with traditional sql\_mode ([MDEV-33584](https://jira.mariadb.org/browse/MDEV-33584))
 * Fix parsing failure on valid left join select by translating the on expression to () ([MDEV-33679](https://jira.mariadb.org/browse/MDEV-33679))
-* Fix Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../mariadb-10-5-series/what-is-mariadb-105.md) local and [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md) remote ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777))
+* Fix Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../mariadb-10-5-series/what-is-mariadb-105.md) local and [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) remote ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777))
 * Fix bug where [Spider variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables) were not available if Spider was loaded upon server startup ([MDEV-33441](https://jira.mariadb.org/browse/MDEV-33441))
 
 ### Backup
@@ -184,7 +184,7 @@ From this version, the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTy
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.1.5](mariadb-11-1-5-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-1-series/mariadb-11-1-5-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.1/mariadb-11-1-5-changelog.md).
 
 ## Contributors
 

@@ -2,13 +2,13 @@
 
 {% include "../../../.gitbook/includes/latest-11-5.md" %}
 
-<a href="https://downloads.mariadb.org/mariadb/11.5.1/" class="button primary">Download</a> <a href="mariadb-11-5-1-release-notes.md" class="button secondary">Release Notes</a> <a href="../../changelogs/changelogs-mariadb-11-5-series/mariadb-11-5-1-changelog.md" class="button secondary">Changelog</a> <a href="what-is-mariadb-115.md" class="button secondary">Overview of 11.5</a>
+<a href="https://downloads.mariadb.org/mariadb/11.5.1/" class="button primary">Download</a> <a href="mariadb-11-5-1-release-notes.md" class="button secondary">Release Notes</a> <a href="../../changelogs/11.5/mariadb-11-5-1-changelog.md" class="button secondary">Changelog</a> <a href="what-is-mariadb-115.md" class="button secondary">Overview of 11.5</a>
 
 **Release date:** 30 May 2024
 
 {% include "../../../.gitbook/includes/non-stable.md" %}
 
-[MariaDB 11.5](what-is-mariadb-115.md) is a development version of the MariaDB rolling release. It is an evolution of [MariaDB 11.4](../../mariadb-11-4-series/what-is-mariadb-114.md) with several entirely new features.
+[MariaDB 11.5](what-is-mariadb-115.md) is a development version of the MariaDB rolling release. It is an evolution of [MariaDB 11.4](../../11.4/what-is-mariadb-114.md) with several entirely new features.
 
 [MariaDB 11.5.1](mariadb-11-5-1-release-notes.md) is a [_**Release Candidate (RC)**_](../../about/release-criteria.md) release.
 
@@ -71,7 +71,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.5.1](mariadb-11-5-1-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-5-series/mariadb-11-5-1-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.5/mariadb-11-5-1-changelog.md).
 
 ## Contributors
 

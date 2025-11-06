@@ -26,7 +26,7 @@ The function supports an initialization vector, and control of the block encrypt
 
 For modes that require it, the initialization\_vector _iv_ should be 16 bytes (it can be longer, but the extra bytes are ignored). A shorter _iv_, where one is required, results in the function returning `NULL`. Calling [RANDOM\_BYTES(16)](random_bytes.md) will generate a random series of bytes that can be used for the _iv_.
 
-### Examples
+#### Examples
 
 ```sql
 SELECT HEX(AES_ENCRYPT('foo', 'bar', '0123456789abcdef', 'aes-128-ctr')) AS x; 

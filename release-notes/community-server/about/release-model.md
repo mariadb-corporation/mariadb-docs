@@ -35,13 +35,13 @@ Almost the same as above, except that
 * Approximately every eighth innovation release (+-1, aligned around Debian release schedules) is a long-term support (LTS) release, maintained for five years after its first GA release.
 * An LTS release concludes a major release series, the next innovation release will have a new major version number
 
-### From [MariaDB 10.2](../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) to [MariaDB 10.6](../mariadb-10-6-series/what-is-mariadb-106.md)
+### From [MariaDB 10.2](../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) to [MariaDB 10.6](../10.6/what-is-mariadb-106.md)
 
 * There is a new release series every year
 * It's maintained for five years after the first GA release
 * A release is going through conventional alpha, beta, RC maturity phases until reaching GA
 * The first GA is planned to happen in May
-  * it didn't quite work, [10.2](../../enterprise-server/old-releases/10-2/) and [10.3](../../enterprise-server/old-releases/10-3/) were in May, [10.4](../../enterprise-server/old-releases/10-4/) and [10.5](../../enterprise-server/old-releases/10-5/) — in June, [10.6](../../enterprise-server/10.6/) — in July.
+  * it didn't quite work, [10.2](../../enterprise-server/old-releases/10-2/) and [10.3](../../enterprise-server/old-releases/10-3/) were in May, [10.4](../../enterprise-server/old-releases/10-4/) and [10.5](../../enterprise-server/old-releases/10-5/) — in June, [10.6](../../enterprise-server/10.6) — in July.
 
 ### From [MariaDB 10.0](../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) to [MariaDB 10.1](../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
 

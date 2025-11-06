@@ -27,7 +27,7 @@ Follow these steps to set up MariaDB replication:
 
 {% stepper %}
 {% step %}
-### Configure the Master
+#### Configure the Master
 
 * Enable binary logging if it's not already enabled. See [Activating the Binary Log](../../server-management/server-monitoring-logs/binary-log/activating-the-binary-log.md) and [Binary log formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) for details.
 * Give the master a unique [server\_id](replication-and-binary-log-system-variables.md#server_id). All slaves must also be given a server\_id. This can be a number from 1 to 232-1, and must be unique for each server in the replicating group.
@@ -71,7 +71,7 @@ Replication from MySQL 8.0 to MariaDB [requires more configuration](https://app.
 {% endstep %}
 
 {% step %}
-### Check Settings
+#### Check Settings
 
 There are a number of options that may impact or break replication. Check the following settings to avoid problems.
 
@@ -80,13 +80,13 @@ There are a number of options that may impact or break replication. Check the fo
 {% endstep %}
 
 {% step %}
-### Configure the Replica
+#### Configure the Replica
 
 Give the replica a unique [server\_id](replication-and-binary-log-system-variables.md). All servers, whether masters or replicas, are given a server\_id. This can be a number from `1` to `232-1`, and must be unique for each server in the replicating group. The server will need to be restarted in order for a change in this option to take effect.
 {% endstep %}
 
 {% step %}
-### Get the Master's Binary Log Coordinates
+#### Get the Master's Binary Log Coordinates
 
 Now you need prevent any changes to the data while you view the binary log position. You'll use this to tell the replica at exactly which point it should start replicating from.
 
@@ -113,7 +113,7 @@ UNLOCK TABLES;
 {% endstep %}
 
 {% step %}
-### Start the Replica
+#### Start the Replica
 
 * Once the data has been imported, you are ready to start replicating. Begin by running a [CHANGE MASTER TO](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md), making sure that `MASTER_LOG_FILE` matches the file and `MASTER_LOG_POS` the position returned by the earlier `SHOW MASTER STATUS`:
 
@@ -130,7 +130,7 @@ CHANGE MASTER TO
 
 If you are starting a replica against a fresh master that was configured for replication from the start, then you don't have to specify `MASTER_LOG_FILE` and `MASTER_LOG_POS`.
 
-#### Use Global Transaction ID (GTID)
+**Use Global Transaction ID (GTID)**
 
 It is generally recommended to use (GTIDs), as it has a number of benefits. All that is needed is to add the `MASTER_USE_GTID` option to the `CHANGE MASTER` statement:
 
@@ -159,7 +159,7 @@ Slave_IO_Running: Yes
 Slave_SQL_Running: Yes
 ```
 
-#### Replicating from MySQL Master to MariaDB Replica
+**Replicating from MySQL Master to MariaDB Replica**
 
 * Replicating from MySQL 5.5 to MariaDB should just work. When using a MariaDB as a replica, it may be necessary to set [binlog\_checksum](replication-and-binary-log-system-variables.md) to `NONE`.
 * Replicating from MySQL 5.6 without GTID to MariaDB 10+ should work.

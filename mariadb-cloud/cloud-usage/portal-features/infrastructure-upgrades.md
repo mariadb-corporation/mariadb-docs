@@ -12,7 +12,7 @@ Infrastructure upgrades are a critical component of maintaining a secure, perfor
 
 ## Service Impact During Upgrades
 
-**MariaDB Server with Replicas** experience a brief service interruption while connections are cycled on the Load Balancer.
+**MariaDB Server with Replicas** experiences a brief service interruption while connections are cycled on the Load Balancer.
 
 **MariaDB Server Single Node** will experience a brief downtime during the database restart, typically lasting 2-5 minutes.
 

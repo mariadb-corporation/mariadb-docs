@@ -2,7 +2,7 @@
 
 The most recent release of [MariaDB 11.2](what-is-mariadb-112.md) is:[**MariaDB 11.2.6**](mariadb-11-2-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.2.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.2.6/)
 
-[Download 11.2.0](https://downloads.mariadb.org/mariadb/11.2.0) | [Release Notes](mariadb-11-2-0-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-2-series/) | [Overview of 11.2](what-is-mariadb-112.md)
+[Download 11.2.0](https://downloads.mariadb.org/mariadb/11.2.0) | [Release Notes](mariadb-11-2-0-release-notes.md) | [Changelog](../../changelogs/11.2/) | [Overview of 11.2](what-is-mariadb-112.md)
 
 **Release date:** 20 Jun 2023
 

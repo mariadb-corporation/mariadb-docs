@@ -2,11 +2,11 @@
 
 The most recent release of [MariaDB 10.7](what-is-mariadb-107.md) is:[**MariaDB 10.7.8**](mariadb-10-7-8-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.7.8/)
 
-[Download 10.7.7](https://downloads.mariadb.org/mariadb/10.7.7/) | [Release Notes](mariadb-10-7-7-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-10-7-series/mariadb-10-7-7-changelog.md) | [Overview of 10.7](what-is-mariadb-107.md)
+[Download 10.7.7](https://downloads.mariadb.org/mariadb/10.7.7/) | [Release Notes](mariadb-10-7-7-release-notes.md) | [Changelog](../../changelogs/10.7/10.7.7.md) | [Overview of 10.7](what-is-mariadb-107.md)
 
 **Release date:** 7 Nov 2022
 
-[MariaDB 10.7](what-is-mariadb-107.md) is a previous short-term maintenance stable series of MariaDB, maintained until February 2023. It is an evolution of [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md) with several entirely new features.
+[MariaDB 10.7](what-is-mariadb-107.md) is a previous short-term maintenance stable series of MariaDB, maintained until February 2023. It is an evolution of [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) with several entirely new features.
 
 [MariaDB 10.7.7](mariadb-10-7-7-release-notes.md) is a [_**Stable (GA)**_](../../about/release-criteria.md) release.
 
@@ -75,7 +75,7 @@ The following changes have been made to the `docker.io/library/mariadb` containe
 ## Changelog
 
 For a complete list of changes made in [MariaDB 10.7.7](mariadb-10-7-7-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-10-7-series/mariadb-10-7-7-changelog.md).
+information on each push, see the [changelog](../../changelogs/10.7/10.7.7.md).
 
 ## Contributors
 

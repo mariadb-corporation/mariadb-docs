@@ -22,7 +22,7 @@ From the MariaDB Cloud Portal, you can launch, monitor, and manage your MariaDB 
 
 ## Access the Portal
 
-You can access the Portal [here](https://app.skysql.com/dashboard)
+You can access the Portal [here](https://app.skysql.com/dashboard).
 
 ## Dashboard
 
@@ -72,7 +72,7 @@ From the Dashboard, the "MANAGE" button for a service provides access to:
 
 The Dashboard includes a Spending gauge to indicate current charges. More detailed billing information can be accessed by clicking on the Spending gauge.
 
-Alternatively, you can access detailed billing and invoice information by clicking on your name in the upper-right corner of the interface, then select "Billing" from the menu.
+Alternatively, you can access detailed billing and invoice information by clicking on your name in the upper-right corner of the interface, then selecting "Billing" from the menu.
 
 See "[Billing](billing.md)" for additional details.
 
@@ -101,7 +101,7 @@ These settings can be accessed by clicking the "Settings" link in the main menu 
 * [User Management](<../../Security/Managing Portal Users.md>)
 * [Configuration Manager](../../cloud-management/config/)
 * [Firewall](<../../Security/Configuring Firewall.md>)
-* [Notification Channels](notifications.md) for delivery of monitoring alerts by email
+* [Notification Channels](notifications.md) for the delivery of monitoring alerts by email
 * Policies for monitoring alerts
 
 ## Notifications

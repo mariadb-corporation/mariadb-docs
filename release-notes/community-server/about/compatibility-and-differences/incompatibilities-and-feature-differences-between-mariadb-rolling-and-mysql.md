@@ -1,6 +1,6 @@
 # Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0
 
-MariaDB maintains high levels of compatibility with MySQL, and most applications that use MySQL will work seamlessly with MariaDB. However, take note of the following incompatibilities and feature differences between MariaDB Rolling Release and MySQL 8.0. It is based on the versions MySQL 8.0.36 and [MariaDB 12.1.1](../../release-notes-mariadb-12.1-rolling-releases/mariadb-12.1.1-release-notes.md). Note that MySQL 8 is an 'evergreen' release, so features may be added or removed in later releases.
+MariaDB maintains high levels of compatibility with MySQL, and most applications that use MySQL will work seamlessly with MariaDB. However, take note of the following incompatibilities and feature differences between MariaDB Rolling Release and MySQL 8.0. It is based on the versions MySQL 8.0.36 and [MariaDB 12.1.1](../../12.1/12.1.1.md). Note that MySQL 8 is an 'evergreen' release, so features may be added or removed in later releases.
 
 ## Storage Engines
 

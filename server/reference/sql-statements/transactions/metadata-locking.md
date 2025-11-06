@@ -16,7 +16,7 @@ If the [metadata\_lock\_info](../../plugins/other-plugins/metadata-lock-info-plu
 {% tab title="Current" %}
 The [Performance Schema metadata\_locks](../../system-tables/performance-schema/performance-schema-tables/performance-schema-metadata_locks-table.md) table contains metadata lock information.
 
-### Example
+#### Example
 
 Let's use the following MEMORY (non-transactional) table:
 

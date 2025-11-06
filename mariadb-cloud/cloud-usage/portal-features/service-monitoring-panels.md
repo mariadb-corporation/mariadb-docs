@@ -18,7 +18,7 @@ This panel shows the queries per second (QPS) executed by the server node during
 
 ## Connections (service)
 
-This panel shows the number of used and aborted connections for each ES node along with the max\_connections value.
+This panel shows the number of used and aborted connections for each ES node, along with the max\_connections value.
 
 ## Replicas status
 
@@ -66,11 +66,11 @@ This panel shows the top 30 statement types that were most frequently executed b
 
 ## Top Command Counters Hourly (service)
 
-This panel shows the top 30 statement types that were most frequently executed by all ES and Xpand nodes in 1 hour intervals over the past 24 hours.
+This panel shows the top 30 statement types that were most frequently executed by all ES and Xpand nodes in 1-hour intervals over the past 24 hours.
 
 ## Top Command Counters Hourly (server)
 
-This panel shows the top 30 statement types that were most frequently executed by the ES node in 1 hour intervals over the past 24 hours.
+This panel shows the top 30 statement types that were most frequently executed by the ES node in 1-hour intervals over the past 24 hours.
 
 ## MariaDB QPS
 
@@ -212,11 +212,11 @@ This panel shows the number of network packets dropped by all ES nodes during th
 
 This panel shows the number of network packets dropped by the ES node during the selected time interval.
 
-## CPU (server,status,gauge)
+## CPU (server, status, gauge)
 
 This panel shows the current CPU usage for the ES or Xpand node.
 
-## RAM (server,status)
+## RAM (server, status)
 
 This panel shows the current memory usage details for the ES or Xpand node.
 
@@ -300,7 +300,7 @@ This panel lists the modules installed on the MaxScale node.
 
 This panel shows the number of client connections closed by the MaxScale node during the selected time interval.
 
-## Errors (server,performance)
+## Errors (server, performance)
 
 This panel shows the number of errors encountered by threads on the MaxScale node during the selected time interval.
 

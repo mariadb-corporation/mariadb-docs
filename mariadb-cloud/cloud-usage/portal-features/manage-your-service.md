@@ -97,7 +97,7 @@ To expand block storage capacity:
 5. Use the slider to select the desired amount of storage.
 6. Click the "Apply Changes" button.
 
-Storage scaling is subject to a 6 hour cooldown period.
+Storage scaling is subject to a 6-hour cooldown period.
 
 Storage upgrades are not reversible.
 

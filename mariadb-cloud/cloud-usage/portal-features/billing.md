@@ -2,7 +2,7 @@
 
 Billing is associated with a MariaDB Cloud ID.
 
-For pricing information see "[Pricing](../../Billing%20and%20Power%20Tier/Pricing.md)" .
+For pricing information, see "[Pricing](../../Billing%20and%20Power%20Tier/Pricing.md)".
 
 ## **Usage Information**
 
@@ -10,7 +10,7 @@ From the [Portal](https://app.skysql.com/dashboard), you can access a current bi
 
 1. Log in to the [Portal](https://app.skysql.com/dashboard).
 2. Click your name in the upper-right corner of the interface, then select "Billing" from the menu.
-3. The "Current Usage" tab (the default) shows current billing and usage summary.
+3. The "Current Usage" tab (the default) shows the current billing and usage summary.
 
 Current charges, prior billing date, and next invoice date are shown.
 

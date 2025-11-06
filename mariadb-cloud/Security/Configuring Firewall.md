@@ -8,7 +8,7 @@ IPv4 addresses and IPv4 netblocks can be added to the allowlist to enable servic
 
 ## **Default**
 
-By default, when a service is launched its allowlist is empty. All external traffic to the service is blocked.
+By default, when a service is launched, its allowlist is empty. All external traffic to the service is blocked.
 
 ## **Secure Access Configuration**
 
@@ -22,7 +22,7 @@ To modify Secure Access settings:
 
 _Secure Access Settings_
 
-Alternatively, you can access firewall settings for a specific service by clicking on the "MANAGE" button for the desired service, then choose "Manage allowlist" from the menu.
+Alternatively, you can access firewall settings for a specific service by clicking on the "MANAGE" button for the desired service, then choosing "Manage allowlist" from the menu.
 
 <figure><img src="allow-list-dialog.png" alt=""><figcaption></figcaption></figure>
 

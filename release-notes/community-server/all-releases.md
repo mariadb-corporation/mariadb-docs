@@ -8,27 +8,27 @@
 
 ## MariaDB Community Server 12.1
 
-| Name                                                                                  | Release date | Release status |
-| ------------------------------------------------------------------------------------- | ------------ | -------------- |
-| [12.1.1](release-notes-mariadb-12.1-rolling-releases/mariadb-12.1.1-release-notes.md) | 2025-08-07   | RC             |
-| 12.1.0                                                                                | 2025-06-26   | Preview        |
+| Name                     | Release date | Release status |
+| ------------------------ | ------------ | -------------- |
+| [12.1.1](12.1/12.1.1.md) | 2025-08-07   | RC             |
+| 12.1.0                   | 2025-06-26   | Preview        |
 
 ## MariaDB Community Server 12.0
 
-| Name                                                                                  | Release date | Release status |
-| ------------------------------------------------------------------------------------- | ------------ | -------------- |
-| [12.0.2](release-notes-mariadb-12.0-rolling-releases/mariadb-12.0.2-release-notes.md) | 2025-08-07   | Stable         |
-| [12.0.1](release-notes-mariadb-12.0-rolling-releases/mariadb-12.0.1-release-notes.md) | 2025-06-05   | RC             |
-| 12.0.0                                                                                | 2025-03-26   | Preview        |
+| Name                     | Release date | Release status |
+| ------------------------ | ------------ | -------------- |
+| [12.0.2](12.0/12.0.2.md) | 2025-08-07   | Stable         |
+| [12.0.1](12.0/12.0.1.md) | 2025-06-05   | RC             |
+| 12.0.0                   | 2025-03-26   | Preview        |
 
 ## MariaDB Community Server 11.8
 
-| Name                                                          | Release date | Release status |
-| ------------------------------------------------------------- | ------------ | -------------- |
-| [11.8.3](mariadb-11-8-series/mariadb-11.8.3-release-notes.md) | 2025-08-01   | Stable         |
-| [11.8.2](mariadb-11-8-series/mariadb-11-8-2-release-notes.md) | 2025-06-05   | Stable         |
-| [11.8.1](mariadb-11-8-series/mariadb-11-8-1-release-notes.md) | 2025-02-13   | RC             |
-| [11.8.0](mariadb-11-8-series/mariadb-11-8-0-release-notes.md) | 2024-12-18   | Preview        |
+| Name                     | Release date | Release status |
+| ------------------------ | ------------ | -------------- |
+| [11.8.3](11.8/11.8.3.md) | 2025-08-01   | Stable         |
+| [11.8.2](11.8/11.8.2.md) | 2025-06-05   | Stable         |
+| [11.8.1](11.8/11.8.1.md) | 2025-02-13   | RC             |
+| [11.8.0](11.8/11.8.0.md) | 2024-12-18   | Preview        |
 
 ## MariaDB Community Server 11.7
 
@@ -36,7 +36,7 @@
 | ------------------------------------------------------------------------------------ | ------------ | -------------- |
 | [11.7.2](old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-2-release-notes.md) | 2025-02-13   | Stable         |
 | [11.7.1](old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-1-release-notes.md) | 2024-11-22   | RC             |
-| [11.7.0](mariadb-11-8-series/mariadb-11-8-0-release-notes.md)                        | 2024-09-19   | Preview        |
+| [11.7.0](11.8/11.8.0.md)                                                             | 2024-09-19   | Preview        |
 
 ## MariaDB Community Server 11.6
 
@@ -57,16 +57,16 @@
 
 ## MariaDB Community Server 11.4
 
-| Name                                                                            | Release date | Release status |
-| ------------------------------------------------------------------------------- | ------------ | -------------- |
-| [11.4.8](mariadb-11-4-series/mariadb-11.4.8-release-notes.md)                   | 2025-08-01   | Stable         |
-| [11.4.7](mariadb-11-4-series/mariadb-11.4.8-release-notes.md)                   | 2025-05-23   | Stable         |
-| [11.4.5](mariadb-11-4-series/mariadb-11-4-5-release-notes.md)                   | 2025-02-05   | Stable         |
-| [11.4.4](mariadb-11-4-series/mariadb-11-4-4-release-notes.md)                   | 2024-11-04   | Stable         |
-| [11.4.3](mariadb-11-4-series/mariadb-11-4-3-release-notes.md)                   | 2024-08-14   | Stable         |
-| [11.4.2](mariadb-11-4-series/mariadb-11-4-2-release-notes.md)                   | 2024-05-30   | Stable         |
-| [11.4.1](mariadb-11-4-series/mariadb-11-4-1-release-notes.md)                   | 2024-02-19   | RC             |
-| [11.4.0](changelogs/changelogs-mariadb-11-4-series/mariadb-11-4-3-changelog.md) | 2023-12-24   | Alpha          |
+| Name                                | Release date | Release status |
+| ----------------------------------- | ------------ | -------------- |
+| [11.4.8](11.4/11.4.8.md)            | 2025-08-01   | Stable         |
+| [11.4.7](11.4/11.4.8.md)            | 2025-05-23   | Stable         |
+| [11.4.5](11.4/11.4.5.md)            | 2025-02-05   | Stable         |
+| [11.4.4](11.4/11.4.4.md)            | 2024-11-04   | Stable         |
+| [11.4.3](11.4/11.4.3.md)            | 2024-08-14   | Stable         |
+| [11.4.2](11.4/11.4.2.md)            | 2024-05-30   | Stable         |
+| [11.4.1](11.4/11.4.1.md)            | 2024-02-19   | RC             |
+| [11.4.0](changelogs/11.4/11.4.3.md) | 2023-12-24   | Alpha          |
 
 ## MariaDB Community Server 11.3
 
@@ -109,27 +109,27 @@
 | [11.0.4](old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-4-release-notes.md) | 2023-11-14   | Stable         |
 | [11.0.3](old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-3-release-notes.md) | 2023-08-14   | Stable         |
 | [11.0.2](old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-2-release-notes.md) | 2023-06-07   | Stable         |
-| [11.0.1](changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-1-changelog.md)          | 2023-02-22   | RC             |
+| [11.0.1](changelogs/11.0/mariadb-11-0-1-changelog.md)                                    | 2023-02-22   | RC             |
 | [11.0.0](old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-0-release-notes.md) | 2022-12-27   | Alpha          |
 
 ## MariaDB Community Server 10.11
 
-| Name                                                               | Release date | Release status |
-| ------------------------------------------------------------------ | ------------ | -------------- |
-| [10.11.14](mariadb-10-11-series/mariadb-10.11.14-release-notes.md) | 2025-08-06   | Stable         |
-| [10.11.13](mariadb-10-11-series/mariadb-10.11.13-release-notes.md) | 2025-05-23   | Stable         |
-| [10.11.11](mariadb-10-11-series/mariadb-10-11-11-release-notes.md) | 2025-02-05   | Stable         |
-| [10.11.10](mariadb-10-11-series/mariadb-10-11-10-release-notes.md) | 2024-11-04   | Stable         |
-| [10.11.9](mariadb-10-11-series/mariadb-10-11-9-release-notes.md)   | 2024-08-14   | Stable         |
-| [10.11.8](mariadb-10-11-series/mariadb-10-11-8-release-notes.md)   | 2024-05-17   | Stable         |
-| [10.11.7](mariadb-10-11-series/mariadb-10-11-7-release-notes.md)   | 2024-02-08   | Stable         |
-| [10.11.6](mariadb-10-11-series/mariadb-10-11-6-release-notes.md)   | 2023-11-14   | Stable         |
-| [10.11.5](mariadb-10-11-series/mariadb-10-11-5-release-notes.md)   | 2023-08-14   | Stable         |
-| [10.11.4](mariadb-10-11-series/mariadb-10-11-4-release-notes.md)   | 2023-06-07   | Stable         |
-| [10.11.3](mariadb-10-11-series/mariadb-10-11-3-release-notes.md)   | 2023-05-10   | Stable         |
-| [10.11.2](mariadb-10-11-series/mariadb-10-11-2-release-notes.md)   | 2023-02-16   | Stable         |
-| [10.11.1](mariadb-10-11-series/mariadb-10-11-1-release-notes.md)   | 2022-11-17   | RC             |
-| [10.11.0](mariadb-10-11-series/mariadb-10-11-0-release-notes.md)   | 2022-09-26   | Alpha          |
+| Name                          | Release date | Release status |
+| ----------------------------- | ------------ | -------------- |
+| [10.11.14](10.11/10.11.14.md) | 2025-08-06   | Stable         |
+| [10.11.13](10.11/10.11.13.md) | 2025-05-23   | Stable         |
+| [10.11.11](10.11/10.11.11.md) | 2025-02-05   | Stable         |
+| [10.11.10](10.11/10.11.10.md) | 2024-11-04   | Stable         |
+| [10.11.9](10.11/10.11.9.md)   | 2024-08-14   | Stable         |
+| [10.11.8](10.11/10.11.8.md)   | 2024-05-17   | Stable         |
+| [10.11.7](10.11/10.11.7.md)   | 2024-02-08   | Stable         |
+| [10.11.6](10.11/10.11.6.md)   | 2023-11-14   | Stable         |
+| [10.11.5](10.11/10.11.5.md)   | 2023-08-14   | Stable         |
+| [10.11.4](10.11/10.11.4.md)   | 2023-06-07   | Stable         |
+| [10.11.3](10.11/10.11.3.md)   | 2023-05-10   | Stable         |
+| [10.11.2](10.11/10.11.2.md)   | 2023-02-16   | Stable         |
+| [10.11.1](10.11/10.11.1.md)   | 2022-11-17   | RC             |
+| [10.11.0](10.11/10.11.0.md)   | 2022-09-26   | Alpha          |
 
 ## MariaDB Community Server 10.10
 
@@ -165,11 +165,11 @@
 | [10.8.8](old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-8-release-notes.md) | 2023-05-10   | Stable         |
 | [10.8.7](old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-7-release-notes.md) | 2023-02-06   | Stable         |
 | [10.8.6](old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-6-release-notes.md) | 2022-11-08   | Stable         |
-| [10.8.5](changelogs/changelogs-mariadb-109-series/mariadb-10-9-5-changelog.md)           | 2022-09-19   | Stable         |
+| [10.8.5](changelogs/10.9/10.9.5.md)                                                      | 2022-09-19   | Stable         |
 | [10.8.4](old-releases/release-notes-mariadb-10-8-series/mariadb-1084-release-notes.md)   | 2022-08-15   | Stable         |
 | [10.8.3](old-releases/release-notes-mariadb-10-8-series/mariadb-1083-release-notes.md)   | 2022-05-21   | Stable         |
 | [10.8.2](old-releases/release-notes-mariadb-10-8-series/mariadb-1082-release-notes.md)   | 2022-02-14   | RC             |
-| [10.8.0](changelogs/changelogs-mariadb-10-8-series/mariadb-10-8-7-changelog.md)          | 2021-12-21   | Alpha          |
+| [10.8.0](changelogs/10.8/10.8.7.md)                                                      | 2021-12-21   | Alpha          |
 
 ## MariaDB Community Server 10.7
 
@@ -186,31 +186,31 @@
 
 ## MariaDB Community Server 10.6
 
-| Name                                                                            | Release date | Release status |
-| ------------------------------------------------------------------------------- | ------------ | -------------- |
-| [10.6.23](mariadb-10-6-series/mariadb-10.6.23-release-notes.md)                 | 2025-08-06   | Stable         |
-| [10.6.22](mariadb-10-6-series/mariadb-10-6-22-release-notes.md)                 | 2025-05-08   | Stable         |
-| [10.6.21](mariadb-10-6-series/mariadb-10-6-21-release-notes.md)                 | 2025-02-05   | Stable         |
-| [10.6.20](mariadb-10-6-series/mariadb-10-6-20-release-notes.md)                 | 2024-11-04   | Stable         |
-| [10.6.19](mariadb-10-6-series/mariadb-10-6-19-release-notes.md)                 | 2024-08-14   | Stable         |
-| [10.6.18](mariadb-10-6-series/mariadb-10-6-18-release-notes.md)                 | 2024-05-17   | Stable         |
-| [10.6.17](mariadb-10-6-series/mariadb-10-6-17-release-notes.md)                 | 2024-02-08   | Stable         |
-| [10.6.16](mariadb-10-6-series/mariadb-10-6-16-release-notes.md)                 | 2023-11-13   | Stable         |
-| [10.6.15](mariadb-10-6-series/mariadb-10-6-15-release-notes.md)                 | 2023-08-14   | Stable         |
-| [10.6.14](mariadb-10-6-series/mariadb-10-6-14-release-notes.md)                 | 2023-06-07   | Stable         |
-| [10.6.13](mariadb-10-6-series/mariadb-10-6-13-release-notes.md)                 | 2023-05-10   | Stable         |
-| [10.6.12](mariadb-10-6-series/mariadb-10-6-12-release-notes.md)                 | 2023-02-06   | Stable         |
-| [10.6.11](mariadb-10-6-series/mariadb-10-6-11-release-notes.md)                 | 2022-11-08   | Stable         |
-| [10.6.10](mariadb-10-6-series/mariadb-10610-release-notes.md)                   | 2022-09-19   | Stable         |
-| [10.6.9](mariadb-10-6-series/mariadb-1069-release-notes.md)                     | 2022-08-15   | Stable         |
-| [10.6.8](changelogs/changelogs-mariadb-106-series/mariadb-10-6-11-changelog.md) | 2022-05-21   | Stable         |
-| [10.6.7](mariadb-10-6-series/mariadb-1067-release-notes.md)                     | 2022-02-14   | Stable         |
-| [10.6.5](mariadb-10-6-series/mariadb-1065-release-notes.md)                     | 2021-11-08   | Stable         |
-| [10.6.4](mariadb-10-6-series/mariadb-1064-release-notes.md)                     | 2021-08-06   | Stable         |
-| [10.6.3](mariadb-10-6-series/mariadb-1063-release-notes.md)                     | 2021-07-06   | Stable         |
-| [10.6.2](mariadb-10-6-series/mariadb-1062-release-notes.md)                     | 2021-06-18   | RC             |
-| [10.6.1](mariadb-10-6-series/mariadb-1061-release-notes.md)                     | 2021-05-21   | Beta           |
-| [10.6.0](mariadb-10-6-series/mariadb-1060-release-notes.md)                     | 2021-04-26   | Alpha          |
+| Name                                 | Release date | Release status |
+| ------------------------------------ | ------------ | -------------- |
+| [10.6.23](10.6/10.6.23.md)           | 2025-08-06   | Stable         |
+| [10.6.22](10.6/10.6.22.md)           | 2025-05-08   | Stable         |
+| [10.6.21](10.6/10.6.21.md)           | 2025-02-05   | Stable         |
+| [10.6.20](10.6/10.6.20.md)           | 2024-11-04   | Stable         |
+| [10.6.19](10.6/10.6.19.md)           | 2024-08-14   | Stable         |
+| [10.6.18](10.6/10.6.18.md)           | 2024-05-17   | Stable         |
+| [10.6.17](10.6/10.6.17.md)           | 2024-02-08   | Stable         |
+| [10.6.16](10.6/10.6.16.md)           | 2023-11-13   | Stable         |
+| [10.6.15](10.6/10.6.15.md)           | 2023-08-14   | Stable         |
+| [10.6.14](10.6/10.6.14.md)           | 2023-06-07   | Stable         |
+| [10.6.13](10.6/10.6.13.md)           | 2023-05-10   | Stable         |
+| [10.6.12](10.6/10.6.12.md)           | 2023-02-06   | Stable         |
+| [10.6.11](10.6/10.6.11.md)           | 2022-11-08   | Stable         |
+| [10.6.10](10.6/10.6.10.md)           | 2022-09-19   | Stable         |
+| [10.6.9](10.6/10.6.9.md)             | 2022-08-15   | Stable         |
+| [10.6.8](changelogs/10.6/10.6.11.md) | 2022-05-21   | Stable         |
+| [10.6.7](10.6/10.6.7.md)             | 2022-02-14   | Stable         |
+| [10.6.5](10.6/10.6.5.md)             | 2021-11-08   | Stable         |
+| [10.6.4](10.6/10.6.4.md)             | 2021-08-06   | Stable         |
+| [10.6.3](10.6/10.6.3.md)             | 2021-07-06   | Stable         |
+| [10.6.2](10.6/10.6.2.md)             | 2021-06-18   | RC             |
+| [10.6.1](10.6/10.6.1.md)             | 2021-05-21   | Beta           |
+| [10.6.0](10.6/10.6.0.md)             | 2021-04-26   | Alpha          |
 
 ## MariaDB Community Server 10.5
 
@@ -281,7 +281,7 @@
 | [10.4.4](old-releases/release-notes-mariadb-10-4-series/mariadb-1044-release-notes.md)     | 2019-04-07   | RC             |
 | [10.4.3](old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes.md)     | 2019-02-25   | RC             |
 | [10.4.2](old-releases/release-notes-mariadb-10-4-series/mariadb-1042-release-notes.md)     | 2019-01-29   | Beta           |
-| [10.4.1](changelogs/changelogs-mariadb-11-4-series/mariadb-11-4-1-changelog.md)            | 2018-12-20   | Beta           |
+| [10.4.1](changelogs/11.4/11.4.1.md)                                                        | 2018-12-20   | Beta           |
 | [10.4.0](old-releases/release-notes-mariadb-10-4-series/mariadb-1040-release-notes.md)     | 2018-11-09   | Alpha          |
 
 ## MariaDB Community Server 10.3
@@ -357,7 +357,7 @@
 | [10.2.19](old-releases/release-notes-mariadb-10-2-series/mariadb-10219-release-notes.md) | 2018-11-13   | Stable         |
 | [10.2.18](old-releases/release-notes-mariadb-10-2-series/mariadb-10218-release-notes.md) | 2018-09-25   | Stable         |
 | [10.2.17](changelogs/changelogs-mariadb-105-series/mariadb-10517-changelog.md)           | 2018-08-14   | Stable         |
-| [10.2.16](changelogs/changelogs-mariadb-106-series/mariadb-10-6-16-changelog.md)         | 2018-06-26   | Stable         |
+| [10.2.16](changelogs/10.6/10.6.16.md)                                                    | 2018-06-26   | Stable         |
 | [10.2.15](changelogs/changelogs-mariadb-102-series/mariadb-10215-changelog.md)           | 2018-05-18   | Stable         |
 | [10.2.14](old-releases/release-notes-mariadb-10-2-series/mariadb-10214-release-notes.md) | 2018-03-27   | Stable         |
 | [10.2.13](old-releases/release-notes-mariadb-10-2-series/mariadb-10213-release-notes.md) | 2018-02-13   | Stable         |

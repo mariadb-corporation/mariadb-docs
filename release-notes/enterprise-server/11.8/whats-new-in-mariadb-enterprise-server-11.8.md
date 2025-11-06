@@ -71,7 +71,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
     ```sql
     CREATE OR REPLACE PROCEDURE p1(param1 INT, param2 INT DEFAULT 1)
     ```
-* Associative arrays: `DECLARE TYPE .. TABLE OF .. INDEX BY`&#x20;
+* Associative arrays: `DECLARE TYPE .. TABLE OF .. INDEX BY`
 * Added `caching_sha2_password` plugin, see [Authentication Plugin - SHA-256](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-sha-256) for more information
 
 ## Enhancements to System Versioned Tables <a href="#enhancements-to-system-versioned-tables" id="enhancements-to-system-versioned-tables"></a>
@@ -150,7 +150,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
     ```
 * **New Option – `--slave-abort-blocking-timeout`**: Kills blocking non-replication queries after a timeout.
 * **Galera SST Automation**: SST user is now auto-created and managed internally.
-* **Backported** [MDEV-35304](https://jira.mariadb.org/browse/MDEV-35304) : Add `{{Connects_Tried}}` & `{{Master_Retry_Count}}` from [CS-12.0](../../community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120.md)
+* **Backported** [MDEV-35304](https://jira.mariadb.org/browse/MDEV-35304) : Add `{{Connects_Tried}}` & `{{Master_Retry_Count}}` from [CS-12.0](../../community-server/12.0/what-is-mariadb-120.md)
 
 ## Key Management <a href="#key-management" id="key-management"></a>
 
@@ -193,7 +193,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 
 ## PL/SQL <a href="#tool-improvements" id="tool-improvements"></a>
 
-Support for Oracle-stype `INDEX BY` tables (associative arrays) was backported from [MariaDB 12.1](../../community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1.md) in stored routines and anonymous blocks, with this declaration syntax:
+Support for Oracle-stype `INDEX BY` tables (associative arrays) was backported from [MariaDB 12.1](../../community-server/12.1/changes-and-improvements-in-mariadb-12.1.md) in stored routines and anonymous blocks, with this declaration syntax:
 
 ```sql
 TYPE type_name TABLE OF rec_type_name INDEX BY idx_type_name;
