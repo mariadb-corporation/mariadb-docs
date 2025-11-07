@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 11.8 and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 11.8](../../../mariadb-11-8-series/what-is-mariadb-118.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.43 and the [MariaDB 11.8.3](../../../mariadb-11-8-series/mariadb-11.8.3-release-notes.md) releases.
+The following is a list of all function differences between [MariaDB 11.8](../../../11.8/what-is-mariadb-118.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.43 and the [MariaDB 11.8.3](../../../11.8/11.8.3.md) releases.
 
 ## Present in MariaDB Only
 

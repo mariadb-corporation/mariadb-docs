@@ -32,7 +32,7 @@ Go to [app.skysql.com](https://app.skysql.com) to sign up. You can sign up using
 
 
 
-    For additional information on available selections, see "[Service Launch](../cloud-usage/portal-features/launch-page.md)".
+    For additional information on available selections, see "[Service Launch](../cloud-usage/launch-page.md)".
 
     <figure><img src="../Quickstart/launch-service.png" alt=""><figcaption></figcaption></figure>
 3. After launching, you will then be redirected to the Dashboard. If you choose a Serverless deployment, your service will be in a 'Healthy' state and ready for use. For other deployment types, the service will initially be in a 'Creating' state. Please wait until it transitions to a 'Healthy' state before proceeding to the next step. Typically, launching a new Provisioned database takes about 5 minutes or less.
@@ -67,7 +67,7 @@ With automatic scaling, node count (horizontal) and node size (vertical) changes
 
 _Autonomous_
 
-With manual scaling, you can perform horizontal scaling (In/Out), vertical scaling (Up/Down), and storage expansion on-demand using Self-Service Operations. For additional information, see "[Self-Service Operations](../cloud-usage/portal-features/manage-your-service.md)".
+With manual scaling, you can perform horizontal scaling (In/Out), vertical scaling (Up/Down), and storage expansion on-demand using Self-Service Operations. For additional information, see "[Self-Service Operations](../cloud-usage/manage-your-service.md)".
 
 <figure><img src="../Quickstart/scaling.png" alt=""><figcaption></figcaption></figure>
 
@@ -83,7 +83,7 @@ Stopping, starting, and deleting a service are examples of Self-Service Operatio
 
 ## See Also
 
-[Self-Service Operations](../cloud-usage/portal-features/manage-your-service.md)
+[Self-Service Operations](../cloud-usage/manage-your-service.md)
 
 [Launch DB using the REST API](<../Quickstart/Launch DB using the REST API.md>)
 

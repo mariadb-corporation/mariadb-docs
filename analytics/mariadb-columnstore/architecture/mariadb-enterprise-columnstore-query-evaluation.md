@@ -30,7 +30,7 @@ When the PrimProc process on a node receives work, it executes the job step on a
 
 ## Extent Elimination
 
-![ECStore-QueryExecutionExtentElimination](<../../.gitbook/assets/ecstore-queryexecutionextentelimination (1) (1).png>)
+![ECStore-QueryExecutionExtentElimination](<../../.gitbook/assets/ecstore-queryexecutionextentelimination (1).png>)
 
 MariaDB Enterprise ColumnStore uses extent elimination to scale query evaluation as table size increases.
 
@@ -173,7 +173,7 @@ ExeMgr performs multiple tasks:
 
 ## Query Evaluation Process
 
-![ECStore-QueryExecutionwith-S3-FlowChart](<../../.gitbook/assets/ecstore-queryexecutionwith-s3-flowchart (1) (1).png>)
+![ECStore-QueryExecutionwith-S3-FlowChart](<../../.gitbook/assets/ecstore-queryexecutionwith-s3-flowchart (1).png>)
 
 When Enterprise ColumnStore executes a query, it goes through the following process:
 

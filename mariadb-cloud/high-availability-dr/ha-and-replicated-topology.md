@@ -1,20 +1,20 @@
 # HA & Replicated Topology
 
 {% hint style="info" %}
-MariaDB Cloud provides High Availability (HA) using semi-synchronous replicas. Unlike hyperscalers, these replicas are not standby database servers, but actively used for Reads. When the primary crashes, our intelligent proxy allows to failover nearly instantly to an alternate replica. Or, failback when the original primary recovers. This ensures data consistency even when replicas have a replication lag through “causal reads”, or transaction replay.
+MariaDB Cloud provides High Availability (HA) using semi-synchronous replicas. Unlike hyperscalers, these replicas are not standby database servers but are actively used for Reads. When the primary crashes, our intelligent proxy allows for a failover nearly instantly to an alternate replica. Or failback when the original primary recovers. This ensures data consistency even when replicas have a replication lag through “causal reads”, or transaction replay.
 {% endhint %}
 
 ## **Use Replicated Topology for HA**
 
-For High Availability (HA) and Load balancing client requests, there is no configuration required. Just launch a `replicated topology` DB service. MariaDB Cloud automatically starts an intelligent proxy that does all the heavy lifting. Detecting failures and replaying transactions, awareness of who the primary is at all times, balancing load and much more.
+For High Availability (HA) and load balancing client requests, there is no configuration required. Just launch a `replicated topology` DB service. MariaDB Cloud automatically starts an intelligent proxy that does all the heavy lifting. Detecting failures and replaying transactions, awareness of who the primary is at all times, balancing load, and much more.
 
 You should be aware of the `causal_reads` configuration as outlined below. The sections below provide a more detailed description of how MariaDB Cloud delivers on HA and scaling across replicas.
 
 ## **Level 1 Resiliency - Container Health Checks, Compute-Storage Isolation**
 
-To provide high resiliency we try to protect every layer of the stack – disks, compute, Zones/cloud regions, network and even the load balancer accepting incoming DB connections. The graphic below depicts this architecture. Letʼs peel the onion a bit.
+To provide high resiliency, we try to protect every layer of the stack – disks, compute, Zones/cloud regions, network, and even the load balancer accepting incoming DB connections. The graphic below depicts this architecture. Letʼs peel the onion a bit.
 
-All Cloud databases configured for HA replicate the data across multiple availability zones (AZ). Ensuring your data is protected against data center failures. This is necessary, but not sufficient. In MariaDB Cloud, data is always isolated from compute on the underlying block storage device of each AZ. This device keeps a copy of each block on multiple servers providing the first layer of protection against component failures or corruption.
+All Cloud databases configured for HA replicate the data across multiple availability zones (AZ). Ensuring your data is protected against data center failures. This is necessary, but not sufficient. In MariaDB Cloud, data is always isolated from compute on the underlying block storage device of each AZ. This device keeps a copy of each block on multiple servers, providing the first layer of protection against component failures or corruption.
 
 The deployment of DB servers occurs within containers orchestrated by Kubernetes (k8s). In the event of cloud instance failures, MariaDB Cloud’s health monitoring prompts k8s to revive the container in an alternate instance, seamlessly reconnecting to the same storage volume. AWS RDS, for example, runs MariaDB on VMs requiring a replicated setup for any protection against node failures.
 
@@ -30,7 +30,7 @@ _HA in a single region_
 
 ## **Scaling Concurrent Users Without Compromising Consistency**
 
-Cloud offerings of open source relational databases often achieve scalability by distributing data across a cluster of nodes, often relying on a replication model where ‘writes’ to the primary node are asynchronously transmitted to one or more replicas. Typically, the onus is on the customer to manage the distribution of traffic across the cluster, either through client application logic or by configuring a proxy service. Several customers have told us that this is simply too big a challenge, effectively capping the scalability of these cloud solutions. Even when customers successfully navigate this challenge, with this approach data consistency might not be uniform across the entire cluster at any given moment.
+Cloud offerings of open-source relational databases often achieve scalability by distributing data across a cluster of nodes, often relying on a replication model where ‘writes’ to the primary node are asynchronously transmitted to one or more replicas. Typically, the onus is on the customer to manage the distribution of traffic across the cluster, either through client application logic or by configuring a proxy service. Several customers have told us that this is simply too big a challenge, effectively capping the scalability of these cloud solutions. Even when customers successfully navigate this challenge, with this approach, data consistency might not be uniform across the entire cluster at any given moment.
 
 When application client connections are evenly load balanced across these replicas for ‘reads,’ the application must either tolerate potentially stale reads or consistently direct all requests to the primary, severely limiting scalability. Replicas are relegated to offline tasks like reporting — a common scenario from our observations in AWS RDS.
 
@@ -47,12 +47,12 @@ Causal consistency is configured in the MariaDB Cloud [Configuration Manager](ht
 <figure><img src="../High Availability, DR/causal.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only routes to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
+We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
 {% endhint %}
 
-In general, if the application is not performing large transactions or batch writes, given our default semi-sync replication, the replica SQL threads will keep up - i.e. getting an inconsistent read is unlikely.
+In general, if the application is not performing large transactions or batch writes, given our default semi-sync replication, the replica SQL threads will keep up - i.e., getting an inconsistent read is unlikely.
 
-Our replication model is fast as it is configured to be parallel and optimistic - on the replica multiple SQL threads process incoming writes concurrently. It is designed to detect conflicts and revert to proper sequencing, thus being transparent to the app and ensuring consistency.
+Our replication model is as fast as it is configured to be parallel and optimistic - on the replica, multiple SQL threads process incoming writes concurrently. It is designed to detect conflicts and revert to proper sequencing, thus being transparent to the app and ensuring consistency.
 
 * Set [causal\_reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-use-cases/readwrite-split-router-usage/ensuring-causal-consistency-with-maxscales-readwrite-split-router) to 'local' to achieve consistency at a connection/session level.
   * We recommend first exploring to see if `causal_reads` set to `local` will suffice. This is quite fast (minimal to no tradeoff) and ensures read consistency at a connection/session level. If the app is using a connection pool, it is important to understand how it is being used.
@@ -72,9 +72,9 @@ A notable feature enhancing performance is the ‘Read-Write Splitting,’ allow
 
 The implementation of these routing strategies is straightforward, primarily through the use of “Hint Filters.” Standard SQL comments are utilized to customize routing to the appropriate server. Additional details on Hint Filters and Read-Write Splitting can be found in the MariaDB documentation.
 
-In MariaDB Cloud you can control routing using 2 strategies:
+In MariaDB Cloud, you can control routing using 2 strategies:
 
-* Using the `read port` for the service: Typically this will be port 3307. When using this port the request (read\_only) will be load balanced only across the available replicas.
+* Using the `read port` for the service: Typically, this will be port 3307. When using this port, the request (read\_only) will be load balanced only across the available replicas.
 * Using the [Hintfilter](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-filters/mariadb-maxscale-2302-hintfilter)
 
 ## **Level 3 Resiliency - Disaster Recovery – Across Regions, Cloud Providers, or “Self-managed” Environments**
@@ -83,13 +83,13 @@ In MariaDB Cloud you can control routing using 2 strategies:
 Please refer to [this](<../High Availability, DR/Setup Global Replication.md>) document for the steps to setup a distant replica for DR.
 {% endhint %}
 
-The major cloud providers tout disaster recover across regions, ensuring resilience against natural disasters impacting an entire geographical region. But in reality, such disasters are exceedingly rare. Whatʼs far more common are technical issues impacting an entire region for a specific cloud provider. For instance, we’ve encountered DNS-level failures in GCP regions, rendering all services dependent on DNS, including MariaDB Cloud, inaccessible.
+The major cloud providers tout disaster recovery across regions, ensuring resilience against natural disasters impacting an entire geographical region. But in reality, such disasters are exceedingly rare. Whatʼs far more common are technical issues impacting an entire region for a specific cloud provider. For instance, we’ve encountered DNS-level failures in GCP regions, rendering all services dependent on DNS, including MariaDB Cloud, inaccessible.
 
-One effective strategy to mitigate such risks is to replicate data to a data center owned by a different cloud provider within the same geographical area, minimizing network latencies. Disaster recovery across cloud providers is of course something an individual provider such as AWS or GCP simply donʼt support. Alternatively, customers can maintain their own “standby” database for emergencies—an environment entirely under their control, ensuring a near-real time copy of the data at all times.
+One effective strategy to mitigate such risks is to replicate data to a data center owned by a different cloud provider within the same geographical area, minimizing network latencies. Disaster recovery across cloud providers is, of course, something an individual provider such as AWS or GCP simply don't support. Alternatively, customers can maintain their own “standby” database for emergencies—an environment entirely under their control, ensuring a near-real time copy of the data at all times.
 
 <figure><img src="../High Availability, DR/Failover_to_another_region.drawio.png" alt=""><figcaption></figcaption></figure>
 
-_Failover when entire region becomes unavailable_
+_Failover when the entire region becomes unavailable_
 
 MariaDB Cloud empowers users to configure “external” replicas that can run anywhere, offering flexibility and resilience.
 

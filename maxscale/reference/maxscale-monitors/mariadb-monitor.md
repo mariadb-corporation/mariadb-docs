@@ -979,11 +979,11 @@ The lock-setting defines how many locks are required for primary status. Setting
 
 Even without a network split, `cooperative_monitoring_locks=majority_of_all` will lead to neither monitor claiming lock majority once too many servers go down. This scenario is depicted in the image below. Only two out of four servers are running when three are needed for majority. Although both MaxScales see both running servers, neither is certain they have majority and the cluster stays in read-only mode. If the primary server is down, no failover is performed either.
 
-![](<../../.gitbook/assets/coop_lock_no_majority.png (4).png>)
+![](<../../.gitbook/assets/coop_lock_no_majority.png (1).png>)
 
 Setting `cooperative_monitoring_locks=majority_of_running` changes the way _n\_servers_ is calculated. Instead of using the total number of servers, only servers currently \[Running] are considered. This scheme adapts to multiple servers going down, ensuring that claiming lock majority is always possible. However, it can lead to multiple monitors claiming primary status in a split-brain situation. As an example, consider a cluster with servers 1 to 4 with MaxScales A and B, as in the image below. MaxScale A can connect to servers 1 and 2 (and claim their locks) but not to servers 3 and 4 due to a network split. MaxScale A thus assumes servers 3 and 4 are down. MaxScale B does the opposite, claiming servers 3 and 4 and assuming 1 and 2 are down. Both MaxScales claim two locks out of two available and assume that they have lock majority. Both MaxScales may then promote their own primaries and route writes to different servers.
 
-![](<../../.gitbook/assets/coop_lock_split_brain.png (4).png>)
+![](<../../.gitbook/assets/coop_lock_split_brain.png (1).png>)
 
 The recommended strategy depends on which failure scenario is more likely and/or more destructive. If it's unlikely that multiple servers are ever down simultaneously, then _majority\_of\_all_ is likely the safer choice. On the other hand, if split-brain is unlikely but multiple servers may be down simultaneously, then _majority\_of\_running_ would keep the cluster operational.
 
@@ -993,7 +993,7 @@ If a MaxScale instance tries to acquire the locks but fails to get majority (per
 
 The flowchart below illustrates the lock handling logic.
 
-![](<../../.gitbook/assets/coop_lock_flowchart.svg (4).svg>)
+![](<../../.gitbook/assets/coop_lock_flowchart.svg (1).svg>)
 
 ### Releasing locks
 

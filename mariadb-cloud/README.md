@@ -42,7 +42,7 @@ It has:
 
 * Sensible defaults
 * Consistent configuration
-* MariaDB Cloud DBA
+* MariaDB Remote DBA
 
 So you can:
 

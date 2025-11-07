@@ -12,7 +12,7 @@ For problems with the InnoDB Data Dictionary, see [InnoDB Data Dictionary Troubl
 
 * [InnoDB Data Dictionary Troubleshooting](innodb-data-dictionary-troubleshooting.md)
 * [InnoDB Recovery Modes](innodb-recovery-modes.md)
-* [Error Codes](broken-reference)
+* [Error Codes](../../../../reference/error-codes/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

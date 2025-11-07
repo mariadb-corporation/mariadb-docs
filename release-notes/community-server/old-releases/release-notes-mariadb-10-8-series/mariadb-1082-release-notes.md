@@ -2,7 +2,7 @@
 
 The most recent release of [MariaDB 10.8](what-is-mariadb-108.md) is:[**MariaDB 10.8.8**](mariadb-10-8-8-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.8.8/)
 
-[Download 10.8.2](https://downloads.mariadb.org/mariadb/10.8.2/) | [Release Notes](mariadb-1082-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-10-8-series/mariadb-1082-changelog.md) | [Overview of 10.8](what-is-mariadb-108.md)
+[Download 10.8.2](https://downloads.mariadb.org/mariadb/10.8.2/) | [Release Notes](mariadb-1082-release-notes.md) | [Changelog](../../changelogs/10.8/10.8.2.md) | [Overview of 10.8](what-is-mariadb-108.md)
 
 **Release date:** 12 Feb 2022
 
@@ -38,7 +38,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 10.8.2](mariadb-1082-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-10-8-series/mariadb-1082-changelog.md).
+information on each push, see the [changelog](../../changelogs/10.8/10.8.2.md).
 
 ## Contributors
 

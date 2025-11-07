@@ -235,7 +235,7 @@ This page show real-time MaxScale logs with filter options.
 On this page, you may add numerous worksheets, each of which can be used for\
 "Run queries", "Data migration" or "Create an ERD" task.
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace.png (1).png>)
+![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-workspace.png.png)
 
 ### Run Queries
 
@@ -395,7 +395,7 @@ everything after migration, click the `Manage` button, then select`Delete`.
 There are various features in the ERD worksheet, the most notable ones are\
 listed below.
 
-![](../../../../.gitbook/assets/MaxGUI-workspace-erd.png.png)
+![](<../../../../.gitbook/assets/MaxGUI-workspace-erd.png (1).png>)
 
 #### ERD worksheet
 
@@ -433,7 +433,7 @@ entity. The entity editor will be shown at the bottom of the worksheet.
 
 **Foreign keys quick common options**
 
-![](../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png.png)
+![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png (1).png>)
 
 * Edit Foreign Key, this opens an editor for viewing/editing foreign keys.
 * Remove Foreign Key.
@@ -453,7 +453,7 @@ be shown in a tooltip.
 
 **Quickly draw a foreign key link**
 
-![](../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png.png)
+![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png (1).png>)
 
 As shown in the screenshot, a foreign key can be quickly established by\
 performing the following actions:
@@ -464,7 +464,7 @@ performing the following actions:
 
 **Entity editor**
 
-![](../../../../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png.png)
+![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png (1).png>)
 
 Table columns, foreign keys and indexes can be modified via\
 the entity editor which can be accessed quickly by double-clicking\
@@ -487,7 +487,7 @@ editor within the dialog.
 
 **Visual Enhancement options**
 
-![](../../../../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png.png)
+![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png (1).png>)
 
 The first section of the top toolbar, there are options to improve the visual of\
 the diagram as follows:

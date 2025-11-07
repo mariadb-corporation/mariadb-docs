@@ -47,5 +47,5 @@ To perform a Point-in-Time Restore through the MariaDB Cloud Portal:
 
 * Cross-cloud restore is not supported. Your restore target service must be in the same cloud provider as your backup source service.
 * Only MariaDB Cloud native snapshots can be used as restore source. External backups are not supported for Point-in-Time Restore.
-* Point-in-Time Restore requires [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-8-series/mariadb-10-8-6-changelog) or later, which introduced the binary log search functionality needed for this feature.
+* Point-in-Time Restore requires [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/10.8/10.8.6) or later, which introduced the binary log search functionality needed for this feature.
 * Support for Serverless databases as Point-in-Time Restore sources is coming soon.

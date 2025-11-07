@@ -1206,7 +1206,7 @@ are running when three are needed for majority. Although both MaxScales see both
 running servers, neither is certain they have majority and the cluster stays in\
 read-only mode. If the primary server is down, no failover is performed either.
 
-![](../../../../.gitbook/assets/coop_lock_no_majority.png.png)
+![](<../../../../.gitbook/assets/coop_lock_no_majority.png (1).png>)
 
 Setting `cooperative_monitoring_locks=majority_of_running` changes the wa&#x79;_&#x6E;\_servers_ is calculated. Instead of using the total number of servers, only\
 servers currently \[Running] are considered. This scheme adapts to multiple\
@@ -1221,7 +1221,7 @@ Both MaxScales claim two locks out of two available and assume that they have\
 lock majority. Both MaxScales may then promote their own primaries and route\
 writes to different servers.
 
-![](../../../../.gitbook/assets/coop_lock_split_brain.png.png)
+![](<../../../../.gitbook/assets/coop_lock_split_brain.png (1).png>)
 
 The recommended strategy depends on which failure scenario is more likely and/or\
 more destructive. If it's unlikely that multiple servers are ever down\
@@ -1244,7 +1244,7 @@ can be further decreased by configuring each monitor with a differen&#x74;_&#x6D
 
 The flowchart below illustrates the lock handling logic.
 
-![](../../../../.gitbook/assets/coop_lock_flowchart.svg.svg)
+![](<../../../../.gitbook/assets/coop_lock_flowchart.svg (1).svg>)
 
 #### Releasing locks
 

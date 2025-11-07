@@ -2,7 +2,7 @@
 
 {% hint style="warning" %}
 MariaDB Query Accelerator is an **Alpha release**. Do not use it in production environments.\
-Query Accelerator works only in **ColumnStore 25.10.0** and with **MariaDB Enterprise Server**.
+Query Accelerator works only in **ColumnStore 25.10.0** and with **MariaDB Enterprise Server 11.8.3+**.
 {% endhint %}
 
 ## What is Query Accelerator
@@ -101,7 +101,7 @@ ANALYZE TABLE table_name PERSISTENT FOR COLUMNS (column_name) indexes();
 * `columnstore_unstable_optimizer`\
   \
   enables unstable optimizer that is required for Query Accelerator RBO[^1] rule.
-* `columnstore_select_handler` \
+* `columnstore_select_handler`\
   enables/disables ColumnStore processing for InnoDB tables.
 * `columnstore_query_accel_parallel_factor`\
   controls the number of parallel ranges to be used for Query Accelerator.
@@ -116,6 +116,140 @@ There are two ways to verify Query Accelerator is being used:
 
 1. Use `select mcs_get_plan('rules')` to get a list of the rules that were applied to the query.
 2. Look for patterns like `derived table - $added_sub_#db_name_#table_name_X` in the optimized plan using `select mcs_get_plan('optimized')`.
+
+## Query Accelerator Quick Start
+
+This example shows a `SUM(x) GROUP BY y` query which runs \~2.6s in InnoDB with indexes, and 3x faster via ColumnStore query acceleration ( \~0.7s ), provided there's enough CPU and a high enough `parallel_factor`.
+
+{% stepper %}
+{% step %}
+In mariadb (MariaDB command-line client), run these statements:
+
+{% code overflow="wrap" %}
+```sql
+CREATE DATABASE IF NOT EXISTS test; USE test;
+CREATE TABLE IF NOT EXISTS test.customer_indexed (  `c_d_id` int(2) NOT NULL, `c_w_id` int(6) NOT NULL, `c_first` varchar(16) , `c_middle` char(2) , `c_last` varchar(16) , `c_street_1` varchar(20) , `c_street_2` varchar(20) , `c_city` varchar(20) , `c_state` char(2) , `c_zip` int(5) , `c_phone` char(16) , `c_since` datetime DEFAULT NULL, `c_credit` char(2) , `c_credit_lim` decimal(12,2) DEFAULT NULL, `c_discount` decimal(4,4) DEFAULT NULL, `c_balance` decimal(12,2) DEFAULT NULL, `c_ytd_payment` decimal(12,2) DEFAULT NULL, `c_payment_cnt` int(8) DEFAULT NULL, `c_delivery_cnt` int(8) DEFAULT NULL, `c_data` varchar(500)) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO test.customer_indexed  SELECT  ROUND(RAND() * 42000, 0), ROUND(RAND() * 42000, 0), substring(MD5(RAND()*1000000000),1,16), substring(MD5(RAND()),1,2), substring(MD5(RAND()*1000000000),1,16), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()),1,2), ROUND(RAND() * 42000, 0), substring(MD5(RAND()),1,16), CURRENT_TIMESTAMP - INTERVAL FLOOR(RAND() * 365 * 24 * 60 *60) SECOND, substring(MD5(RAND()),1,2), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 0, 4), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 42000, 0), ROUND(RAND() * 42000, 0), substring(MD5(RAND()*1000000000),1,500) FROM seq_1_to_8000000; -- 3.5 min
+ALTER TABLE test.customer_indexed ADD INDEX idx_fast (`c_zip`, `c_payment_cnt`); -- ~1.5 min
+-- baseline 
+SELECT c_zip, sum(c_payment_cnt)  FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ;  --2.6s 
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Turn on Query Accelerator - On CLI:
+
+{% code overflow="wrap" %}
+```bash
+sed -i 's/^#columnstore_innodb_queries_use_mcs = on/columnstore_innodb_queries_use_mcs = on/' /etc/my.cnf.d/columnstore.cnf
+systemctl restart mariadb
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+In mariadb (MariaDB command-line client), run these statements:
+
+{% code overflow="wrap" %}
+```sql
+# In mariadb (MariaDB command-line client)
+USE test;
+ANALYZE table test.customer_indexed PERSISTENT FOR COLUMNS (c_zip,c_payment_cnt) indexes(); --8s
+SELECT table_name, column_name, hist_type FROM mysql.column_stats WHERE table_name="customer_indexed"; 
+SHOW VARIABLES LIKE "%columnstore_innodb_queries_use_mcs%";
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Log out of mariadb (MariaDB command-line client), and log in again.
+
+
+{% endstep %}
+
+{% step %}
+In mariadb (MariaDB command-line client), run these statements:
+
+{% code overflow="wrap" %}
+```sql
+SET columnstore_unstable_optimizer=ON;
+SET optimizer_switch='index_merge=off,index_merge_union=off,index_merge_sort_union=off,index_merge_intersection=off,index_merge_sort_intersection=off,index_condition_pushdown=off,derived_merge=off,derived_with_keys=off,firstmatch=off,loosescan=off,materialization=on,in_to_exists=off,semijoin=off,partial_match_rowid_merge=off,partial_match_table_scan=off,subquery_cache=off,mrr=off,mrr_cost_based=off,mrr_sort_keys=off,outer_join_with_cache=off,semijoin_with_cache=off,join_cache_incremental=off,join_cache_hashed=off,join_cache_bka=off,optimize_join_buffer_size=off,table_elimination=off,extended_keys=off,exists_to_in=off,orderby_uses_equalities=off,condition_pushdown_for_derived=on,split_materialized=off,condition_pushdown_for_subquery=off,rowid_filter=off,condition_pushdown_from_having=on,not_null_range_scan=off,hash_join_cardinality=off,cset_narrowing=off,sargable_casefold=off';
+SELECT c_zip, sum(c_payment_cnt)  FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ; -- 0.7s
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Turn off Query Accelerator - On CLI:
+
+{% code overflow="wrap" %}
+```bash
+sed -i 's/^columnstore_innodb_queries_use_mcs = on/#columnstore_innodb_queries_use_mcs = on/' /etc/my.cnf.d/columnstore.cnf
+systemctl restart mariadb
+```
+{% endcode %}
+{% endstep %}
+{% endstepper %}
+
+## Quick Verifications
+
+{% stepper %}
+{% step %}
+Tail the ColumnStore log `debug.log`, and confirm parallel access to InnoDB:
+
+```bash
+tail -f /var/log/mariadb/columnstore/debug.log
+```
+
+Increase or decrease parallelism with `columnstore_ces_optimization_parallel_factor`. Keep in mind you need enough max\_connections in MariaDB server:
+
+```sql
+SET columnstore_ces_optimization_parallel_factor=100;
+```
+{% endstep %}
+
+{% step %}
+Check the execution plan via `EXPLAIN FORMAT=JSON`. It should say <kbd>Pushed select</kbd>:
+
+{% code overflow="wrap" %}
+```sql
+EXPLAIN FORMAT=JSON SELECT c_zip, SUM(c_payment_cnt) FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ;
+...
+| {
+  "query_block": {
+    "select_id": 1,
+    "table": {
+      "message": "Pushed select"
+    }
+  }
+} |
+...
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Verify that `mcs_get_plan` shows `parallel_ces`, and that the detailed ColumnStore execution plan shows <kbd>derived table</kbd>:
+
+```sql
+SELECT mcs_get_plan('rules');
++-----------------------+
+| mcs_get_plan('rules') |
++-----------------------+
+| parallel_ces          |
++-----------------------+
+
+SELECT mcs_get_plan('optimized');
++-----------------------+
+| mcs_get_plan('rules') |
++-----------------------+
+...
+>>From Tables
+  derived table - $added_sub_test_customer_indexed_0
+```
+{% endstep %}
+{% endstepper %}
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

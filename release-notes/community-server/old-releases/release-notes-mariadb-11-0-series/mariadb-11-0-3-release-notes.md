@@ -2,11 +2,11 @@
 
 The most recent release of [MariaDB 11.0](what-is-mariadb-110.md) is:[**MariaDB 11.0.6**](mariadb-11-0-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.0.6/)
 
-[Download 11.0.3](https://downloads.mariadb.org/mariadb/11.0.3/) | [Release Notes](mariadb-11-0-3-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-3-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
+[Download 11.0.3](https://downloads.mariadb.org/mariadb/11.0.3/) | [Release Notes](mariadb-11-0-3-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-3-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
 
 **Release date:** 14 Aug 2023
 
-[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../mariadb-10-11-series/what-is-mariadb-1011.md) with several entirely new features.
+[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../10.11/what-is-mariadb-1011.md) with several entirely new features.
 
 [MariaDB 11.0.3](mariadb-11-0-3-release-notes.md) is a [_**Stable (GA)**_](../../about/release-criteria.md) release.
 
@@ -137,7 +137,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.0.3](mariadb-11-0-3-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-3-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.0/mariadb-11-0-3-changelog.md).
 
 ## Contributors
 

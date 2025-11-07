@@ -2,7 +2,7 @@
 
 The most recent release of [MariaDB 10.10](what-is-mariadb-1010.md) is:[**MariaDB 10.10.7**](mariadb-10-10-7-release-notes.md) **Stable (GA)** [Download Now](https://downloads.mariadb.org/mariadb/10.10.7)
 
-[Download 10.10.0](https://downloads.mariadb.org/mariadb/10.10.0)[Release Notes](mariadb-10100-release-notes.md)[Changelog](../../changelogs/changelogs-mariadb-10-10-series/)[Overview of 10.10](what-is-mariadb-1010.md)
+[Download 10.10.0](https://downloads.mariadb.org/mariadb/10.10.0)[Release Notes](mariadb-10100-release-notes.md)[Changelog](../../changelogs/10.10/)[Overview of 10.10](what-is-mariadb-1010.md)
 
 **Release date:** 23 Jun 2022
 

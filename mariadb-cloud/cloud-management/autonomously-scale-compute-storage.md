@@ -13,7 +13,7 @@ Auto-scale of nodes enables scaling based on load:
 
 Auto-scale of storage enables expansion of capacity based on usage.
 
-Autonomous features can be enabled at the time of [service launch](../cloud-usage/portal-features/launch-page.md). Autonomous features can be enabled or disabled after launch.
+Autonomous features can be enabled at the time of [service launch](../cloud-usage/launch-page.md). Autonomous features can be enabled or disabled after launch.
 
 <figure><img src="../Autonomously scale Compute, Storage/autonomous.png" alt=""><figcaption></figcaption></figure>
 
@@ -21,7 +21,7 @@ Autonomous features can be enabled at the time of [service launch](../cloud-usag
 
 Auto-scaling of nodes can be enabled either at the time of service launch or after service launch.
 
-During [service launch](../cloud-usage/portal-features/launch-page.md):
+During [service launch](../cloud-usage/launch-page.md):
 
 * Check the "Enable auto-scale nodes" checkbox and set the desired scaling parameters.
 
@@ -31,7 +31,7 @@ After service launch, [manage Autonomous settings](autonomously-scale-compute-st
 
 Auto-scaling of storage can be enabled either at the time of service launch or after service launch.
 
-During [Service Launch](../cloud-usage/portal-features/launch-page.md):
+During [Service Launch](../cloud-usage/launch-page.md):
 
 * Check the "Enable auto-scale storage" checkbox and set the desired maximum transactional data storage.
 

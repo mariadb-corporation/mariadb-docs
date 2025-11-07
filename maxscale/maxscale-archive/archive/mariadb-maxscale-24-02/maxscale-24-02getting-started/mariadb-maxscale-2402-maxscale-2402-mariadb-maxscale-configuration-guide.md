@@ -4372,7 +4372,7 @@ API. **Only do this if you know what you are doing.**
 
 ### Filter Modules
 
-![](<../../../../.gitbook/assets/filter_example.png (2).png>)
+![](<../../../../.gitbook/assets/image_10.png (1).png>)
 
 Filters provide a means to manipulate or process requests as they pass through\
 MariaDB MaxScale between the client side protocol and the query router. A full\

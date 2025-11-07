@@ -10,7 +10,7 @@ The feature is supported by MaxScale, the advanced proxy for MariaDB. MaxScale s
 
 ## Enable Support for NoSQL
 
-1. When [launching](../cloud-usage/portal-features/launch-page.md) Mariadb Server With Replica(s), after defining the service name, expand the "Additional options" section.
+1. When [launching](../cloud-usage/launch-page.md) Mariadb Server With Replica(s), after defining the service name, expand the "Additional options" section.
 2. Check the "Enable support for NoSQL" checkbox.
 
 ## Available Clients

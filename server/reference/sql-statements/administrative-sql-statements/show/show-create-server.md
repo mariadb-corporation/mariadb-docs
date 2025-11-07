@@ -2,17 +2,17 @@
 
 {% tabs %}
 {% tab title="Current" %}
-### Syntax
+#### Syntax
 
 ```sql
 SHOW CREATE SERVER server_name
 ```
 
-### Description
+#### Description
 
 Shows the [CREATE SERVER](../../data-definition/create/create-server.md) statement that created the given server definition.
 
-### Example
+#### Example
 
 ```sql
 SHOW CREATE SERVER srv1\G

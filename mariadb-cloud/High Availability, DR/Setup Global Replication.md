@@ -1,12 +1,12 @@
-# Setup of Global Replication
+# Global Replication
 
 ## Overview
 
-MariaDB Cloud offers a robust platform for managing databases in the cloud and supports Global Replication for various use cases including disaster recovery, cross-region failover and global distribution of data. In this guide, we’ll explore how to automate the creation, restoration and replication of MariaDB Cloud database services for global availability using the MariaDB Cloud API. We will use the following MariaDB Cloud resources for the setup:
+MariaDB Cloud offers a robust platform for managing databases in the cloud and supports Global Replication for various use cases, including disaster recovery, cross-region failover, and global distribution of data. In this guide, we’ll explore how to automate the creation, restoration, and replication of MariaDB Cloud database services for global availability using the MariaDB Cloud API. We will use the following MariaDB Cloud resources for the setup:
 
 * Provisioning APIs: To launch primary and secondary MariaDB Cloud services.
-* Backup APIs: To backup the primary service and restore the data to the secondary service.
-* Replication Procedures: To setup active replication between the primary and the secondary services.
+* Backup APIs: To back up the primary service and restore the data to the secondary service.
+* Replication Procedures: To set up active replication between the primary and the secondary services.
 
 ## Steps
 
@@ -29,10 +29,10 @@ The `API_KEY` environment variable will be used in the subsequent steps.
 Launch two MariaDB Cloud services - a Primary that your application(s) will connect to and a Secondary that will act as a globally available service. If you already have your Primary service running, you simply need to create a new Secondary service.
 
 {% hint style="info" %}
-You can launch these services using the [Portal](https://app.skysql.com) or [Using the REST API](../High%20Availability,%20DR/Launch%20DB%20using%20the%20REST%20API/) as shown below. Launching a new service will take about 5 minutes.
+You can launch these services using the [Portal](https://app.skysql.com) or [Using the REST API](../High%20Availability,%20DR/Launch%20DB%20using%20the%20REST%20API/), as shown below. Launching a new service will take about 5 minutes.
 {% endhint %}
 
-Following API requests will create two services in Google Cloud - 'skysql-primary' in the Virginia region and 'skysql-secondary' in the Oregon region.
+The following API requests will create two services in Google Cloud - 'skysql-primary' in the Virginia region and 'skysql-secondary' in the Oregon region.
 
 ```bash
 curl --location --request POST https://api.skysql.com/provisioning/v1/services \
@@ -74,15 +74,15 @@ Each MariaDB Cloud service has a unique identifier. Please make note of the iden
 {% step %}
 ### **Back up the Primary and Restore to the Secondary Service**
 
-In a real world scenario, the Primary service will contain data which will need to be restored to the Standby service before the replication can be set up. MariaDB Cloud performs full backup of your services every night. You can either use an existing nightly backup or create a schedule to perform a new full backup.
+In a real-world scenario, the Primary service will contain data, which will need to be restored to the Standby service before the replication can be set up. MariaDB Cloud performs a full backup of your services every night. You can either use an existing nightly backup or create a schedule to perform a new full backup.
 
 {% hint style="info" %}
-Depending on the size of your databases, backing up a service can take substantial time. Creating a new backup is not necessary if you already have an existing full backup of your service. If you have a recent backup (usually available) you can skip the step. After we restore from the backup we have to replay all the subsequent DB changes from the Source DB 'binlog'. Binlogs expire in 4 days, by default. So, you cannot use a backup older than 4 days.
+Depending on the size of your databases, backing up a service can take substantial time. Creating a new backup is not necessary if you already have an existing full backup of your service. If you have a recent backup (usually available) you can skip the step. After we restore from the backup, we have to replay all the subsequent DB changes from the Source DB 'binlog'. Binlogs expire in 4 days, by default. So, you cannot use a backup older than 4 days.
 {% endhint %}
 
 1\. Use the following API to list backups associated with the Primary service. Replace {id} with the database id of the Primary service. Look for a "FULL" backup or "snapshot".
 
-You can also look for recent "FULL" backups from the [Portal](https://app.skysql.com/backups/service-backups). If not available you can also initiate a backup from the Portal or using the API below.
+You can also look for recent "FULL" backups from the [Portal](https://app.skysql.com/backups/service-backups). If not available, you can also initiate a backup from the Portal or using the API below.
 
 1\. Use the following API to create a one-time schedule to perform a new full backup. Replace {id} with the id of the Primary service.
 
@@ -114,7 +114,7 @@ curl --location --request POST https://api.skysql.com/skybackup/v1/restores \
 ```
 
 {% hint style="warning" %}
-As of July 2024, you can only restore from Backups within the same Cloud provider. To restore to a different provider, you would need to explicitly Backup to your own S3/GCS bucket, copy the folder over to the other provider's bucket and initiate a Restore. Please refer to the [Backup Service](../cloud-data-handling/backup-and-restore/) docs.
+As of July 2024, you can only restore from Backups within the same Cloud provider. To restore to a different provider, you would need to explicitly back up to your own S3/GCS bucket, copy the folder over to the other provider's bucket, and initiate a Restore. Please refer to the [Backup Service](../cloud-data-handling/backup-and-restore/) docs.
 {% endhint %}
 
 {% hint style="danger" %}
@@ -163,15 +163,15 @@ If successful, you should see an output similar to below.
 +-----------------------------------------------------------------------------------------------------------------------------------------+
 ```
 
-Please copy the "GRANT REPLICATION..." command from the output and run in the primary service.
+Please copy the "GRANT REPLICATION..." command from the output and run it in the primary service.
 
-4\. Start replication and check status on the Secondary service using the following procedures:
+4\. Start replication and check the status on the Secondary service using the following procedures:
 
 ```bash
 CALL sky.start_replication();
 CALL sky.replication_status();
 ```
 
-5\. Once the replication is setup, verify the status of the new database service in the MariaDB Cloud console. Ensure that the service is replicating for your use case for global replication.
+5\. Once the replication is set up, verify the status of the new database service in the MariaDB Cloud console. Ensure that the service is replicating for your use case for global replication.
 {% endstep %}
 {% endstepper %}

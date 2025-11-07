@@ -8,7 +8,7 @@ IPv4 addresses and IPv4 netblocks can be added to the allowlist to enable servic
 
 ## **Default**
 
-By default, when a service is launched its allowlist is empty. All external traffic to the service is blocked.
+By default, when a service is launched, its allowlist is empty. All external traffic to the service is blocked.
 
 ## **Secure Access Configuration**
 
@@ -22,7 +22,7 @@ To modify Secure Access settings:
 
 _Secure Access Settings_
 
-Alternatively, you can access firewall settings for a specific service by clicking on the "MANAGE" button for the desired service, then choose "Manage allowlist" from the menu.
+Alternatively, you can access firewall settings for a specific service by clicking on the "MANAGE" button for the desired service, then choosing "Manage allowlist" from the menu.
 
 <figure><img src="allow-list-dialog.png" alt=""><figcaption></figcaption></figure>
 
@@ -36,7 +36,7 @@ IP addresses can be added to the allowlist from the Firewall settings interface 
 2. Optionally enter an alias for this address. An alias provides a way to remember why an address was added to the allowlist.
 3. Click the "Save" button.
 
-After saving the change, a [notification](../cloud-usage/portal-features/notifications.md) will be provided when the change has been applied.
+After saving the change, a [notification](../cloud-usage/notifications.md) will be provided when the change has been applied.
 
 ## **Remove From the Allowlist**
 
@@ -45,7 +45,7 @@ IP addresses can be removed from the allowlist from the Firewall settings interf
 1. Click the "X" button to the right of the entry to remove.
 2. Click the "Save" button.
 
-After saving the change, a [notification](../cloud-usage/portal-features/notifications.md) will be provided when the change has been applied.
+After saving the change, a [notification](../cloud-usage/notifications.md) will be provided when the change has been applied.
 
 ## **Edit an Allowlist Entry**
 
@@ -54,7 +54,7 @@ An allowlist entry can be edited from the Firewall settings interface or a servi
 1. Modify the IP address or alias of the desired allowlist entry.
 2. Click the "Save" button.
 
-After saving the change, a [notification](../cloud-usage/portal-features/notifications.md) will be provided when the change has been applied.
+After saving the change, a [notification](../cloud-usage/notifications.md) will be provided when the change has been applied.
 
 ## **IP Allowlist Limitations**
 

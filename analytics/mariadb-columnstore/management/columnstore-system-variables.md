@@ -2,25 +2,165 @@
 
 ## Variables
 
-| Name                                                                                                              | Cmd-Line | Scope | Data type   | Default Value | Range   |
-| ----------------------------------------------------------------------------------------------------------------- | -------- | ----- | ----------- | ------------- | ------- |
-| [infinidb\_compression\_type](columnstore-system-variables.md#compression-mode)                                   | Yes      | Both  | enumeration | 2             | 0,2     |
-| [infinidb\_decimal\_scale](columnstore-system-variables.md#columnstore-decimal-scale)                             | Yes      | Both  | numeric     | 8             |         |
-| [infinidb\_diskjoin\_bucketsize](columnstore-system-variables.md#disk-based-joins)                                | Yes      | Both  | numeric     | 100           |         |
-| [infinidb\_diskjoin\_largesidelimit](columnstore-system-variables.md#disk-based-joins)                            | Yes      | Both  | numeric     | 0             |         |
-| [infinidb\_diskjoin\_smallsidelimit](columnstore-system-variables.md#disk-based-joins)                            | Yes      | Both  | numeric     | 0             |         |
-| [infinidb\_double\_for\_decimal\_math](columnstore-system-variables.md#columnstore-decimal-to-double-math)        | Yes      | Both  | enumeration | OFF           | OFF, ON |
-| [infinidb\_import\_for\_batchinsert\_delimiter](columnstore-system-variables.md#batch-insert-mode-for-inserts)    | Yes      | Both  | numeric     | 7             |         |
-| [infinidb\_import\_for\_batchinsert\_enclosed\_by](columnstore-system-variables.md#batch-insert-mode-for-inserts) | Yes      | Both  | numeric     | 17            |         |
-| [infinidb\_local\_query](columnstore-system-variables.md#local-pm-query-mode)                                     | Yes      | Both  | enumeration | 0             | 0,1     |
-| infinidb\_ordered\_only                                                                                           | Yes      | Both  | enumeration | OFF           | OFF, ON |
-| infinidb\_string\_scan\_threshold                                                                                 | Yes      | Both  | numeric     | 10            |         |
-| infinidb\_stringtable\_threshold                                                                                  | Yes      | Both  | numeric     | 20            |         |
-| [infinidb\_um\_mem\_limit](columnstore-system-variables.md#disk-based-joins)                                      | Yes      | Both  | numeric     | 0             |         |
-| [infinidb\_use\_decimal\_scale](columnstore-system-variables.md#columnstore-decimal-scale)                        | Yes      | Both  | enumeration | OFF           | OFF, ON |
-| [infinidb\_use\_import\_for\_batchinsert](columnstore-system-variables.md#batch-insert-mode-for-inserts)          | Yes      | Both  | enumeration | ON            | OFF, ON |
-| infinidb\_varbin\_always\_hex                                                                                     | Yes      | Both  | enumeration | ON            | OFF, ON |
-| [infinidb\_vtable\_mode](columnstore-system-variables.md#operating-mode)                                          | Yes      | Both  | enumeration | 1             | 0,1,2   |
+#### columnstore\_diskjoin\_force\_run
+
+* Controls whether disk joins are forced to run even if they are not estimated to be the most efficient execution plan. This can be useful for debugging purposes or for situations where the optimizer's estimates are not accurate.
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: OFF
+* Range: ON, OFF
+* Introduced in: MariaDB Enterprise Server 10.6
+
+#### columnstore\_diskjoin\_max\_partition\_tree\_depth
+
+* Sets the maximum depth of the partition tree that can be used for disk joins. A higher value allows for more complex joins, but may also increase the memory usage and execution time.
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 10
+* Introduced in: MariaDB Enterprise Server 10.6
+
+#### columnstore\_max\_allowed\_in\_values
+
+* Sets the maximum number of values that can be used in an IN predicate on a Columnstore table. This limit helps to prevent performance issues caused by queries with a large number of IN values.
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 10000
+* Introduced in: MariaDB Enterprise Server 10.6
+
+#### columnstore\_max\_pm\_join\_result\_count
+
+* Sets the maximum number of rows that can be returned by a parallel merge join on a Columnstore table. This limit helps to prevent memory issues caused by joins that return a large number of rows.
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 1000000
+* Introduced in: MariaDB Enterprise Server 10.6
+
+#### [infinidb\_compression\_type](columnstore-system-variables.md#compression-mode)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 2
+* Range: 0,2
+
+#### [infinidb\_decimal\_scale](columnstore-system-variables.md#columnstore-decimal-scale)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 8
+
+#### [infinidb\_diskjoin\_bucketsize](columnstore-system-variables.md#disk-based-joins)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 100
+
+#### [infinidb\_diskjoin\_largesidelimit](columnstore-system-variables.md#disk-based-joins)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 0
+
+#### [infinidb\_diskjoin\_smallsidelimit](columnstore-system-variables.md#disk-based-joins)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 0
+
+#### [infinidb\_double\_for\_decimal\_math](columnstore-system-variables.md#columnstore-decimal-to-double-math)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: OFF
+* Range: OFF, ON
+
+#### [infinidb\_import\_for\_batchinsert\_delimiter](columnstore-system-variables.md#batch-insert-mode-for-inserts)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 7
+
+#### [infinidb\_import\_for\_batchinsert\_enclosed\_by](columnstore-system-variables.md#batch-insert-mode-for-inserts)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 17
+
+#### [infinidb\_local\_query](columnstore-system-variables.md#local-pm-query-mode)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: 0
+* Range: 0,1
+
+#### infinidb\_ordered\_only
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: OFF
+* Range: OFF, ON
+
+#### infinidb\_string\_scan\_threshold
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 10
+
+#### infinidb\_stringtable\_threshold
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 20
+
+#### [infinidb\_um\_mem\_limit](columnstore-system-variables.md#disk-based-joins)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [numeric](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/numeric)
+* Default value: 0
+
+#### [infinidb\_use\_decimal\_scale](columnstore-system-variables.md#columnstore-decimal-scale)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: OFF
+* Range: OFF, ON
+
+#### [infinidb\_use\_import\_for\_batchinsert](columnstore-system-variables.md#batch-insert-mode-for-inserts)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: ON
+* Range: OFF, ON
+
+#### infinidb\_varbin\_always\_hex
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: ON
+* Range: OFF, ON
+
+#### [infinidb\_vtable\_mode](columnstore-system-variables.md#operating-mode)
+
+* Command line: Yes
+* Scope: global, session
+* Data type: [enumeration](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/enum)
+* Default value: 1
+* Range: 0,1,2
 
 ## Compression Mode
 
@@ -39,7 +179,6 @@ where n is:
 
 ## ColumnStore Decimal-to-Double Math
 
-`<<toc title='' layout=standalone>>`\
 MariaDB ColumnStore has the ability to change intermediate decimal mathematical results from decimal type to double. The decimal type has approximately 17-18 digits of precision, but a smaller maximum range. Whereas the double type has approximately 15-16 digits of precision, but a much larger maximum range.
 
 In typical mathematical and scientific applications, the ability to avoid overflow in intermediate results with double math is likely more beneficial than the additional two digits of precisions. In banking applications, however, it may be more appropriate to leave in the default decimal setting to ensure accuracy to the least significant digit.
@@ -63,7 +202,7 @@ where n is:
 
 ColumnStore has the ability to support varied internal precision on decimal calculations. `infinidb_decimal_scale` is used internally by the ColumnStore engine to control how many significant digits to the right of the decimal point are carried through in suboperations on calculated columns. If, while running a query, you receive the message ‘aggregate overflow’, try reducing `infinidb_decimal_scale` and running the query again.
 
-Note that, as you decrease `infinidb_decimal_scale`, you may see reduced accuracy in the least significant digit(s) of a returned calculated column. \_`infinidb_use_decimal_scale` is used internally by the ColumnStore engine to turn the use of this internal precision on and off. These two system variables can be set as a default for the instance or at session level.
+Note that, as you decrease `infinidb_decimal_scale`, you may see reduced accuracy in the least significant digit(s) of a returned calculated column. `infinidb_use_decimal_scale` is used internally by the ColumnStore engine to turn the use of this internal precision on and off. These two system variables can be set as a default for the instance or at session level.
 
 #### Enable/Disable Decimal Scale
 

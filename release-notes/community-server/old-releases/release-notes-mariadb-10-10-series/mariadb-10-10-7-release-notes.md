@@ -1,6 +1,6 @@
 # MariaDB 10.10.7 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/10.10.7/)[Release Notes](mariadb-10-10-7-release-notes.md)[Changelog](../../changelogs/changelogs-mariadb-10-10-series/mariadb-10-10-7-changelog.md)[Overview of 10.10](what-is-mariadb-1010.md)
+[Download](https://downloads.mariadb.org/mariadb/10.10.7/)[Release Notes](mariadb-10-10-7-release-notes.md)[Changelog](../../changelogs/10.10/10.10.7.md)[Overview of 10.10](what-is-mariadb-1010.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.10.7/)
 
@@ -216,7 +216,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 10.10.7](mariadb-10-10-7-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-10-10-series/mariadb-10-10-7-changelog.md).
+information on each push, see the [changelog](../../changelogs/10.10/10.10.7.md).
 
 ## Contributors
 
