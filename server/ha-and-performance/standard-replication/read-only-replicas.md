@@ -18,12 +18,6 @@ Attempting to set the `read_only` variable to 1 will fail if the current session
 
 The statement will wait for other sessions that hold table locks. While the attempt to set read\_only is waiting, other requests for table locks or transactions will also wait until read\_only has been set.
 
-From [MariaDB 10.3.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10319-release-notes), some issues related to read only replicas are fixed:
-
-* [CREATE](../../reference/sql-statements/data-definition/create/create-table.md), [DROP](../../reference/sql-statements/data-definition/drop/drop-table.md), [ALTER](../../reference/sql-statements/data-definition/alter/alter-table/), [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) and [DELETE](../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) of temporary tables are not logged to binary log, even in [statement](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) or [mixed](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#mixed-logging) mode. With earlier MariaDB versions, one can avoid the problem with temporary tables by using [binlog\_format=ROW](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging) in which cases temporary tables are never logged.
-* Changes to temporary tables created during `read_only` will not be logged even after `read_only` mode is disabled (for example if the replica is promoted to a primary).
-* The admin statements [ANALYZE](../../reference/sql-statements/table-statements/analyze-table.md), [CHECK](../../reference/sql-statements/table-statements/check-table.md), [OPTIMIZE](../optimization-and-tuning/optimizing-tables/optimize-table.md) and [REPAIR](../../reference/sql-statements/table-statements/repair-table.md) will not be logged to the binary log under read-only.
-
 ### Older MariaDB Versions
 
 If you are using an older MariaDB version with read-only replicas and binary logging enabled on the replica, and you need to do some changes but don't want to have them logged to the binary log, the easiest way to avoid the logging is to [disable binary logging](../../server-management/server-monitoring-logs/binary-log/activating-the-binary-log.md) while running as root during maintenance:
