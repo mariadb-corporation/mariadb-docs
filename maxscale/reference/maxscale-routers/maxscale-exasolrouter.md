@@ -7,10 +7,10 @@ cluster. It is primarily intended to be used together with
 [SmartRouter](maxscale-maxscale-smartrouter.md), with _writes_ being directed
 to a regular MariaDB cluster and _reads_ to Exasol.
 
-The Exasol router differs from other routers in that its servers are not specified
-by creating in the configuration file server entries that are referred to
-using `servers`, `targets`, or `cluster`. Instead, the Exasol servers are
-specified using the `connection_string` setting.
+Unlike the other routers or MaxScale, the Exasol router does not use `servers`,
+`targets`, or `cluster` entries in the configuration file to define servers.
+Instead, Exasol database nodes are specified directly via the `connection_string`
+setting.
 
 ## Users
 
