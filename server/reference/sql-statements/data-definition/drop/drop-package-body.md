@@ -8,7 +8,7 @@ DROP PACKAGE BODY [IF EXISTS]  [ db_name . ] package_name
 
 ## Description
 
-The `DROP PACKAGE BODY` statement can be used when [Oracle SQL\_MODE](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-definition/drop/broken-reference/README.md) is set.
+The `DROP PACKAGE BODY` statement can be used when [Oracle SQL\_MODE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.
 
 The `DROP PACKAGE BODY` statement drops the package body (that is, the implementation) which was created using the [CREATE PACKAGE BODY](../create/create-package-body.md) statement.
 

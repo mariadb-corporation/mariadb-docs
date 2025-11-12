@@ -6,11 +6,11 @@ If a subquery is used in this way, you must also use an AS clause to name the re
 
 ## ORACLE mode
 
-**MariaDB starting with** [**10.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes)
+**MariaDB starting with** [**10.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 {% tabs %}
 {% tab title="Current" %}
-[Anonymous subqueries in a FROM clause](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/broken-reference/README.md) (no AS clause) are permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
+[Anonymous subqueries in a FROM clause](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#simple-syntax-compatibility) (no AS clause) are permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
 {% endtab %}
 
 {% tab title="< 10.6" %}
@@ -20,7 +20,7 @@ If a subquery is used in this way, you must also use an AS clause to name the re
 
 ## Correlation Column List
 
-**MariaDB starting with** [**11.7.0**](https://mariadb.com/kb/en/mariadb-1170-release-notes/)
+**MariaDB starting with** [**11.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-0-release-notes)
 
 {% tabs %}
 {% tab title="Current" %}

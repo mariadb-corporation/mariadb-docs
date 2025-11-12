@@ -2,17 +2,15 @@
 
 ## Syntax
 
-```
+```sql
 DROP PROCEDURE [IF EXISTS] sp_name
 ```
 
 ## Description
 
-This statement is used to drop a [stored procedure](./). That is, the\
-specified routine is removed from the server along with all privileges specific to the [procedure](../../../reference/sql-statements/account-management-sql-statements/grant.md). You must have the `ALTER ROUTINE` privilege for the routine. If the [automatic\_sp\_privileges](../../../reference/sql-statements/account-management-sql-statements/grant.md) server system variable is set, that privilege and `EXECUTE` are granted automatically to the routine creator - see [Stored Routine Privileges](../stored-functions/stored-routine-privileges.md).
+This statement is used to drop a [stored procedure](./). That is, the specified routine is removed from the server along with all privileges specific to the [procedure](../../../reference/sql-statements/account-management-sql-statements/grant.md). You must have the `ALTER ROUTINE` privilege for the routine. If the [automatic\_sp\_privileges](../../../reference/sql-statements/account-management-sql-statements/grant.md) server system variable is set, that privilege and `EXECUTE` are granted automatically to the routine creator - see [Stored Routine Privileges](../stored-functions/stored-routine-privileges.md).
 
-The `IF EXISTS` clause is a MySQL/MariaDB extension. It\
-prevents an error from occurring if the procedure or function does not exist. A`NOTE` is produced that can be viewed with [SHOW WARNINGS](../../../reference/sql-statements/administrative-sql-statements/show/show-warnings.md).
+The `IF EXISTS` clause is a MySQL/MariaDB extension. It prevents an error from occurring if the procedure or function does not exist. A`NOTE` is produced that can be viewed with [SHOW WARNINGS](../../../reference/sql-statements/administrative-sql-statements/show/show-warnings.md).
 
 While this statement takes effect immediately, threads which are executing a procedure can continue execution.
 

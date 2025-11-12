@@ -1,6 +1,6 @@
 # LINEAR KEY Partitioning Type
 
-### Syntax
+## Syntax
 
 ```sql
 LINEAR PARTITION BY KEY ([column_names])
@@ -9,12 +9,11 @@ LINEAR PARTITION BY KEY ([column_names])
 
 ## Description
 
-LINEAR KEY partitioning is a form of [partitioning](../), similar to [KEY partitioning](key-partitioning-type.md).
+`LINEAR KEY` partitioning is a form of [partitioning](../), similar to [KEY partitioning](key-partitioning-type.md).
 
-LINEAR KEY partitioning makes use of a powers-of-two algorithm, while KEY partitioning\
-uses modulo arithmetic, to determine the partition number.
+`LINEAR KEY` partitioning makes use of a powers-of-two algorithm, while `KEY` partitioning uses modulo arithmetic to determine the partition number.
 
-Adding, dropping, merging and splitting partitions is much faster than with the [KEY partitioning type](key-partitioning-type.md), however, data is less likely to be evenly distributed over the partitions.
+Adding, dropping, merging and splitting partitions is much faster than with the [KEY partitioning type](key-partitioning-type.md); however, data is less likely to be evenly distributed over the partitions.
 
 ## Example
 

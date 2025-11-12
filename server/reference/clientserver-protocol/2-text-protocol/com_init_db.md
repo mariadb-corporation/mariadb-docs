@@ -5,7 +5,7 @@
 ## Fields
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) `0x02` : `COM_INIT_DB` Header.
-* [string](../protocol-data-types.md#null-terminated-strings) schema name.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) schema name.
 
 ## Response
 

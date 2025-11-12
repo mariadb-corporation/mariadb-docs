@@ -41,14 +41,14 @@ MariaDB Cloud is primarily designed for online applications and offers two topol
 
 ### What options are available for scaling and right-sizing MariaDB Cloud?
 
-You can choose [topologies](../high-availability-dr/ha-and-replicated-topology.md) to match your workload requirements, cloud regions to match your latency and operating requirements, instance sizes, and [support plan](service-tiers/).
+You can choose [topologies](../high-availability-dr/ha-and-replicated-topology.md) to match your workload requirements, cloud regions to match your latency and operating requirements, instance sizes, and [support plan](broken-reference).
 
 Our platform features:
 
 * Availability in a range of database instance sizes and storage sizes
 * Availability from multiple AWS (Amazon Web Services), GCP (Google Cloud Platform), and Azure (Cloud Computing Services) [regions](region-choices.md).
 * Load Balancing features included with Replicated Transactions topologies allow for read-scaling through read-write splitting.
-* Custom instance sizes (for [Power Tier](service-tiers/) customers)
+* Custom instance sizes (for [Power Tier](broken-reference) customers)
 * Range of [support options](mariadb-server-versions.md)
 
 ### What reliability features are available on MariaDB Cloud?
@@ -95,7 +95,7 @@ When you [launch a database service](../cloud-usage/launch-page.md), MariaDB Clo
 
 If you stop a service, you will continue to be charged for storage, since your data is not deleted. Instance and egress charges will stop until the instance is started again.
 
-Your database service cost includes Standard support and nightly backups. See the [Pricing](service-tiers/pricing.md) page for additional details on pricing.
+Your database service cost includes Standard support and nightly backups. See the [Pricing](../reference/pricing.md) page for additional details on pricing.
 
 ### Do I need to purchase a separate MariaDB license or subscription to use MariaDB Cloud?
 
@@ -105,7 +105,7 @@ No additional licenses are necessary to use MariaDB Cloud.
 
 Add-ons are available to optimize your MariaDB Cloud experience:
 
-* [MariaDB Cloud Power Tier](service-tiers/) is a premium service offering for MariaDB Cloud customers who have the most critical requirements for uptime, availability, performance, and support.
+* [MariaDB Cloud Power Tier](broken-reference) is a premium service offering for MariaDB Cloud customers who have the most critical requirements for uptime, availability, performance, and support.
 * While all Foundation Tier services include Standard Support, Power Tier customers are offered the [Enterprise support plan](../broken-reference/).
 * An optional add-on, [CloudDBA](fractionaldba.md), further extends the premium support experience and the capabilities of your in-house DBAs with the backing from a global team of expert MariaDB DBAs, available 24/7 for the most severe (P1) issues. SkySQL's SkyDBAs manage your MariaDB Cloud databases both proactively and reactively so you can focus on your core business.
 

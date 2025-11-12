@@ -1975,7 +1975,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_max_undo_log_size`
 
-* Description: If an undo tablespace is larger than this, it are marked for truncation if [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
+* Description: If an undo tablespace is larger than this, it is marked for truncation if [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
 * Command line: `--innodb-max-undo-log-size=#`
 * Scope: Global
 * Dynamic: Yes

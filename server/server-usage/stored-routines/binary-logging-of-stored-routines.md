@@ -9,7 +9,7 @@ Stored routines are particularly prone to this, for two main reasons:
 
 The problems with replication will only occur with statement-based logging. If row-based logging is used, since changes are made to rows based on the master's rows, there is no possibility of the slave and master getting out of sync.
 
-By default, with row-based replication, triggers run on the master, and the effects of their executions are replicated to the slaves. However, starting from [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes), it is possible to run triggers on the slaves. See [Running triggers on the slave for Row-based events](../../ha-and-performance/standard-replication/running-triggers-on-the-replica-for-row-based-events.md).
+By default, with row-based replication, triggers run on the master, and the effects of their executions are replicated to the slaves. However, it is possible to run triggers on the slaves. See [Running triggers on the slave for Row-based events](../../ha-and-performance/standard-replication/running-triggers-on-the-replica-for-row-based-events.md).
 
 ## How MariaDB Handles Statement-Based Binary Logging of Routines
 

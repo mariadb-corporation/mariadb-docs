@@ -234,7 +234,7 @@ The `[NOT] DETERMINISTIC` clause also affects [binary logging](../../../../serve
 
 ### Oracle Mode
 
-A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-definition/create/broken-reference/README.md) for details on changes when running Oracle mode.
+A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#stored-procedures-and-stored-functions) for details on changes when running Oracle mode.
 
 ## Security
 
@@ -287,7 +287,7 @@ SELECT hello('world');
 +----------------+
 ```
 
-You can use a compound statement in a function to manipulate data with statements like `INSERT` and `UPDATE`. The following example creates a counter function that uses a temporary table to store the current value. Because the compound statement contains statements terminated with semicolons, you have to first change the statement delimiter with the `DELIMITER` statement to allow the semicolon to be used in the function body. See [Delimiters in the mariadb client](broken-reference/) for more.
+You can use a compound statement in a function to manipulate data with statements like `INSERT` and `UPDATE`. The following example creates a counter function that uses a temporary table to store the current value. Because the compound statement contains statements terminated with semicolons, you have to first change the statement delimiter with the `DELIMITER` statement to allow the semicolon to be used in the function body. See [Delimiters in the mariadb client](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) for more.
 
 ```sql
 CREATE TEMPORARY TABLE counter (c INT);
