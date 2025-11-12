@@ -5,7 +5,7 @@ With the `COM_QUERY` command, the client sends the server an SQL statement to be
 ## Fields
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) 0x03 : COM\_QUERY header.
-* [string](../protocol-data-types.md#end-of-file-length-strings) SQL statement.
+* [string<eof>](../protocol-data-types.md#end-of-file-length-strings) SQL statement.
 
 The SQL statement should be properly escaped. The escape character is usually a backslash '' = `0x5c`. However, if the status flag returned by the last [OK Packet](../4-server-response-packets/ok_packet.md#status-flag) had the `NO_BACKSLASH_ESCAPES` bit set, the escape character is a single quote (`'` = `0x60`).
 
