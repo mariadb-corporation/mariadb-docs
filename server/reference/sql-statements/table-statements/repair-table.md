@@ -70,7 +70,7 @@ For use only when the index file is missing or its header corrupted. MariaDB the
 
 {% tabs %}
 {% tab title="Current" %}
-The `FORCE` argument allows to first run internal repair to fix damaged blocks, and then follow it up with `ALTER TABLE` ([MDEV-33449](https://jira.mariadb.org/browse/MDEV-33449)).
+The `FORCE` argument allows to first run internal repair to fix damaged blocks and then follow it up with `ALTER TABLE` ([MDEV-33449](https://jira.mariadb.org/browse/MDEV-33449)).
 {% endtab %}
 
 {% tab title="< 11.5" %}
@@ -84,7 +84,7 @@ The `FORCE` option is not available.
 
 ### Progress Reporting
 
-The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/table-statements/broken-reference/README.md) for this statement.
+The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for this statement.
 
 ## See Also
 

@@ -93,10 +93,6 @@
 * [Reference](reference/README.md)
   * [FAQs](reference-guide/faqs.md)
   * [MariaDB Cloud Uptime SLA](reference-guide/uptime-sla.md)
-  * [Service Tiers](reference-guide/service-tiers/README.md)
-    * [Pricing](reference-guide/service-tiers/pricing.md)
-    * [Maintenance Windows](reference-guide/service-tiers/maintenance-windows.md)
-    * [MaxScale Redundancy](reference-guide/service-tiers/maxscale-redundancy.md)
   * [Fractional DBA Service: Remote DBA](reference-guide/fractionaldba.md)
   * [MariaDB Server Version Support](reference-guide/mariadb-server-versions.md)
   * [Supported Backup Types](reference-guide/backup-support.md)
@@ -186,3 +182,6 @@
             kind: openapi
             spec: mariadb-api
       ```
+  * [Pricing](reference/pricing.md)
+  * [Maintenance Windows](reference/maintenance-windows.md)
+  * [MaxScale Redundancy](reference/maxscale-redundancy.md)

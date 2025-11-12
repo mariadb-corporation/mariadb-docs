@@ -52,11 +52,11 @@ This function takes an argument, `price` which is defined as a DECIMAL, and retu
 
 Take a look at the [CREATE FUNCTION](../../../reference/sql-statements/data-definition/create/create-function.md) page for more details.
 
-From [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes), it is also possible to create [stored aggregate functions](stored-aggregate-functions.md).
+It is also possible to create [stored aggregate functions](stored-aggregate-functions.md).
 
-## Stored Function listings and definitions
+## Stored Function Listings and Definitions
 
-To find which stored functions are running on the server, use [SHOW FUNCTION STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-function-status.md).
+To find which stored functions are running on the server, use [SHOW FUNCTION STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-function-status.md):
 
 ```sql
 SHOW FUNCTION STATUS\G
@@ -75,7 +75,7 @@ collation_connection: utf8_general_ci
 1 row in set (0.00 sec)
 ```
 
-or query the [routines table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-routines-table.md) in the INFORMATION\_SCHEMA database directly:
+Alternatively, query the [routines table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-routines-table.md) in the `INFORMATION_SCHEMA` database directly:
 
 ```sql
 SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES WHERE
@@ -87,7 +87,7 @@ SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES WHERE
 +--------------+
 ```
 
-To find out what the stored function does, use [SHOW CREATE FUNCTION](../../../reference/sql-statements/administrative-sql-statements/show/show-create-function.md).
+To find out what the stored function does, use [SHOW CREATE FUNCTION](../../../reference/sql-statements/administrative-sql-statements/show/show-create-function.md):
 
 ```sql
 SHOW CREATE FUNCTION VatCents\G
@@ -110,11 +110,11 @@ collation_connection: utf8_general_ci
 
 To drop a stored function, use the [DROP FUNCTION](drop-function.md) statement.
 
-```
+```sql
 DROP FUNCTION FortyTwo;
 ```
 
-To change the characteristics of a stored function, use [ALTER FUNCTION](../../../reference/sql-statements/data-definition/alter/alter-function.md). Note that you cannot change the parameters or body of a stored function using this statement; to make such changes, you must drop and re-create the function using DROP FUNCTION and CREATE FUNCTION.
+To change the characteristics of a stored function, use [ALTER FUNCTION](../../../reference/sql-statements/data-definition/alter/alter-function.md). Note that you cannot change the parameters or body of a stored function using this statement; to make such changes, you must drop and re-create the function using `DROP FUNCTION` and `CREATE FUNCTION`.
 
 ## Permissions in Stored Functions
 

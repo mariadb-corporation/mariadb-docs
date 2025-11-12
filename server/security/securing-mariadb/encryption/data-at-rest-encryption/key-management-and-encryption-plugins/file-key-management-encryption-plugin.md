@@ -280,7 +280,7 @@ The File Key Management plugin does not support [key rotation](../../../securing
 * Scope: Global
 * Dynamic: No
 * Data type: enumerated
-* Default value: ?
+* Default value: sha1
 * Valid values: sha1, sha224, sha256, sha384, sha512
 * Available from MariaDB 12.0
 
@@ -314,7 +314,7 @@ The File Key Management plugin does not support [key rotation](../../../securing
 * Dynamic: No
 * Data type: `numeric`
 * Default value: 0
-* Valid values: integers ≥ 0
+* Valid values: integers ≥ 0 (reasonable value: 600000 for sha256, less for sha512)
 * Available from MariaDB 12.0
 
 ## Options

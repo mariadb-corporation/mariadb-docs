@@ -35,7 +35,7 @@ MariaDB allows packed sort keys and values of non-sorted fields in the sort buff
 {% endtab %}
 
 {% tab title="< 10.5" %}
-MariaDB does not allow packed sort keys and values of non-sorted fields in the sort buffer.&#x20;
+MariaDB does not allow packed sort keys and values of non-sorted fields in the sort buffer.
 {% endtab %}
 {% endtabs %}
 
@@ -132,7 +132,7 @@ SELECT * FROM store;
 
 ## See Also
 
-* [Why is ORDER BY in a FROM subquery ignored?](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-manipulation/selecting-data/broken-reference/README.md)
+* [Why is ORDER BY in a FROM subquery ignored?](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/developer-questions/why-is-order-by-in-a-from-subquery-ignored)
 * [SELECT](select.md)
 * [UPDATE](../changing-deleting-data/update.md)
 * [DELETE](../changing-deleting-data/delete.md)

@@ -29,7 +29,7 @@ If a listed table is a view, an error like the following will be produced:
 ERROR 1347 (HY000): 'test.v' is not BASE TABLE
 ```
 
-By default, `FLUSH` statements are written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/administrative-sql-statements/flush-commands/broken-reference/README.md). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
+By default, `FLUSH` statements are written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../../../ha-and-performance/standard-replication/). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
 
 The different flush options are:
 
@@ -188,7 +188,7 @@ Not all global status variables support being reset by `FLUSH STATUS`. Currently
 
 ## FLUSH TABLES
 
-**MariaDB starting with** [**10.11.12**](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-101112-release-notes/README.md)
+**MariaDB starting with** [**10.11.12**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12)
 
 {% tabs %}
 {% tab title="Current" %}

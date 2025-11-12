@@ -119,7 +119,7 @@ You can work around this by using REORGANIZE PARTITION to split the partition in
 COALESCE PARTITION number
 ```
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... COALESCE PARTITION` is used to reduce the number of HASH or KEY partitions by the specified number. For example, given the following table with 5 partitions:
+[ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/) is used to reduce the number of `HASH` or `KEY` partitions by the specified number. For example, given the following table with 5 partitions:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (v1 INT)
@@ -127,7 +127,7 @@ CREATE OR REPLACE TABLE t1 (v1 INT)
   PARTITIONS 5;
 ```
 
-The following statement will reduce the number of partitions by 2, leaving the table with 3 partitions:
+The following statement reduces the number of partitions by 2, leaving the table with 3 partitions:
 
 ```sql
 ALTER TABLE t1 COALESCE PARTITION 2;
@@ -135,14 +135,16 @@ ALTER TABLE t1 COALESCE PARTITION 2;
 
 ### Converting Partitions to/from Tables
 
-**MariaDB starting with** [**10.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107)
+{% hint style="info" %}
+This feature is available from MariaDB 10.7.
+{% endhint %}
 
 ```sql
 CONVERT PARTITION partition_name TO TABLE tbl_name
 CONVERT TABLE normal_table TO partition_definition
 ```
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... CONVERT PARTITION` can, from [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107), be used to convert partitions in an existing table to a standalone table:
+[ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/) can be used to convert partitions in an existing table to a standalone table:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -237,10 +239,11 @@ CREATE TABLE: CREATE TABLE `t1` (
 
 #### CONVERT TABLE ... WITH / WITHOUT VALIDATION
 
-**MariaDB starting with** [**11.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)
+{% hint style="info" %}
+This feature is available from MariaDB 11.4.
+{% endhint %}
 
-When converting tables to a partition, validation is performed on each row to ensure it meets the partition requirements. This can be very slow in the case of larger tables.\
-From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), it is possible to disable this validation by specifying the `WITHOUT VALIDATION` option.
+When converting tables to a partition, validation is performed on each row to ensure it meets the partition requirements. This can be very slow in the case of larger tables. It is possible to disable this validation by specifying the `WITHOUT VALIDATION` option.
 
 ```sql
 CONVERT TABLE normal_table TO partition_definition [{WITH | WITHOUT} VALIDATION]
@@ -248,11 +251,11 @@ CONVERT TABLE normal_table TO partition_definition [{WITH | WITHOUT} VALIDATION]
 
 `WITH VALIDATION` will result in the validation being performed, and is the default behaviour.
 
-An alternative (and the only method prior to [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107)) to convert partitions to tables is to use `[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... EXCHANGE PARTITION`. This requires having to manually do the following steps:
+An alternative to convert partitions to tables is to use [ALTER TABLE EXCHANGE PARTITION](../../reference/sql-statements/data-definition/alter/alter-table/#exchange-partition). This requires having to manually do the following steps:
 
-* create an empty table with the same structure as the partition
-* exchange the table with the partition
-* drop the empty partition
+1. Create an empty table with the same structure as the partition.
+2. Exchange the table with the partition.
+3. Drop the empty partition.
 
 For example:
 
@@ -365,7 +368,7 @@ CREATE TABLE: CREATE TABLE `t1` (
 DROP PARTITION [IF EXISTS] partition_names
 ```
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... DROP PARTITION` can be used to drop specific partitions (and discard all data within the specified partitions) for [RANGE](partitioning-types/range-partitioning-type.md) and [LIST](partitioning-types/list-partitioning-type.md) partitions. It cannot be used on [HASH](partitioning-types/hash-partitioning-type.md) or [KEY](partitioning-types/key-partitioning-type.md) partitions. To rather remove all partitioning, while leaving the data unaffected, see [Removing Partitioning](partitioning-overview.md#removing-partitioning).
+[ALTER TABLE DROP PARTITION ](../../reference/sql-statements/data-definition/alter/alter-table/#drop-partition)can be used to drop specific partitions (and discard all data within the specified partitions) for [RANGE](partitioning-types/range-partitioning-type.md) and [LIST](partitioning-types/list-partitioning-type.md) partitions. It cannot be used on [HASH](partitioning-types/hash-partitioning-type.md) or [KEY](partitioning-types/key-partitioning-type.md) partitions. To rather remove all partitioning, while leaving the data unaffected, see [Removing Partitioning](partitioning-overview.md#removing-partitioning).
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -396,19 +399,23 @@ Empty set (0.002 sec)
 
 ### Exchanging Partitions
 
-<= [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113)
-
-```sql
-EXCHANGE PARTITION partition_name WITH TABLE tbl_name
-```
-
-> \= [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)
-
+{% tabs %}
+{% tab title="Current" %}
+{% code overflow="wrap" %}
 ```sql
 EXCHANGE PARTITION partition_name WITH TABLE tbl_name [{WITH | WITHOUT} VALIDATION]
 ```
+{% endcode %}
+{% endtab %}
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) t1 EXCHANGE PARTITION p1 WITH TABLE t2` permits one to exchange a partition or subpartition with another table.
+{% tab title="< 11.4" %}
+```sql
+EXCHANGE PARTITION partition_name WITH TABLE tbl_name
+```
+{% endtab %}
+{% endtabs %}
+
+`ALTER TABLE t1 EXCHANGE PARTITION p1 WITH TABLE t2` allows to exchange a partition or subpartition with another table.
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -464,14 +471,14 @@ SELECT * FROM t2;
 
 The following requirements must be met:
 
-* Table t1 must be partitioned, and table t2 cannot be partitioned
-* Table t2 cannot be a temporary table
-* Table t1 and t2 must otherwise be identica
+* Table t1 must be partitioned, and table t2 cannot be partitioned.
+* Table t2 cannot be a temporary table.
+* Table t1 and t2 must otherwise be identical.
 * Any existing row in t2 must match the conditions for storage in the exchanged partition p1 unless, from [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), the `WITHOUT VALIDATION` option is specified.
 
-MariaDB will by default perform the validation to see that each row meets the partition requirements, and the statement will fail if a row does not fit.
+By default, MariaDB performs the validation to see that each row meets the partition requirements, and the statement fails if a row does not fit.
 
-This attempted exchange fails, as the value already in t2, `2015-05-05` is outside of the partition conditions:
+This attempted exchange fails, as the value is already in t2, and `2015-05-05` is outside of the partition conditions:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -501,10 +508,11 @@ ERROR 1526 (HY000): Table has no partition for value 0
 
 #### WITH / WITHOUT VALIDATION
 
-**MariaDB starting with** [**11.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)
+{% hint style="info" %}
+This feature is available from MariaDB 11.4.
+{% endhint %}
 
-This validation is performed for each row, and can be very slow in the case of larger tables.\
-From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), it is possible to disable this validation by specifying the `WITHOUT VALIDATION` option.
+This validation is performed for each row, and can be very slow in the case of larger tables. It is possible to disable this validation by specifying the `WITHOUT VALIDATION` option:
 
 ```sql
 ALTER TABLE t1 EXCHANGE PARTITION p1 WITH TABLE t2 WITHOUT VALIDATION;
@@ -514,7 +522,7 @@ ALTER TABLE t1 EXCHANGE PARTITION p1 WITH TABLE t2 WITHOUT VALIDATION;
 Query OK, 0 rows affected (0.048 sec)
 ```
 
-`WITH VALIDATION` will result in the validation being performed, and is the default behaviour.
+`WITH VALIDATION` results in the validation being performed, and is the default behavior.
 
 ### Removing Partitioning
 
@@ -522,7 +530,7 @@ Query OK, 0 rows affected (0.048 sec)
 REMOVE PARTITIONING
 ```
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... REMOVE PARTITIONING` will remove all partitioning from the table, while leaving the data unaffected. To rather drop a particular partition (and discard all of its data), see [Dropping Partitions](partitioning-overview.md#dropping-partitions).
+[ALTER TABLE REMOVE PARTITIONING](../../reference/sql-statements/data-definition/alter/alter-table/#remove-partitioning) removes all partitioning from the table, while leaving the data unaffected. To rather drop a particular partition (and discard all of its data), see [Dropping Partitions](partitioning-overview.md#dropping-partitions).
 
 ```sql
 ALTER TABLE t1 REMOVE PARTITIONING;
@@ -536,13 +544,13 @@ REORGANIZE PARTITION [partition_names INTO (partition_definitions)]
 
 Reorganizing partitions allows one to adjust existing partitions, without losing data. Specifically, the statement can be used for:
 
-* Splitting an existing partition into multiple partitions
-* Merging a number of existing partitions into a new, single, partition
-* Changing the ranges for a subset of existing partitions defined using VALUES LESS THAN
-* Changing the value lists for a subset of partitions defined using VALUES I.
-* Renaming partitions
+* Splitting an existing partition into multiple partitions.
+* Merging a number of existing partitions into a new, single, partition.
+* Changing the ranges for a subset of existing partitions defined using `VALUES LESS THAN`.
+* Changing the value lists for a subset of partitions defined using `VALUES I`.
+* Renaming partitions.
 
-#### Splitting Partitions
+### Splitting Partitions
 
 An existing partition can be split into multiple partitions. This can also be used to add a new partition at the low end of a [RANGE](partitioning-types/range-partitioning-type.md) partition (which is not possible by [Adding Partitions](partitioning-overview.md#adding-partitions)).
 
@@ -565,7 +573,7 @@ ALTER TABLE t1 REORGANIZE PARTITION p0 INTO (
 );
 ```
 
-Similarly, if MAXVALUE binds the high end:
+Similarly, if `MAXVALUE` binds the high end:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -587,7 +595,7 @@ ALTER TABLE t1 REORGANIZE PARTITION p4 INTO (
 );
 ```
 
-#### Merging Partitions
+### Merging Partitions
 
 A number of existing partitions can be merged into a new partition, for example:
 
@@ -609,7 +617,7 @@ ALTER TABLE t1 REORGANIZE PARTITION p2,p3 INTO (
 );
 ```
 
-#### Changing Ranges
+### Changing Ranges
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -629,9 +637,9 @@ ALTER TABLE t1 REORGANIZE PARTITION p3 INTO (
 );
 ```
 
-#### Renaming Partitions
+### Renaming Partitions
 
-The REORGANIZE PARTITION statement can also be used for renaming partitions. Note that this creates a copy of the partition:
+The [ALTER TABLE REORGANIZE PARTITION](../../reference/sql-statements/data-definition/alter/alter-table/#reorganize-partition) statement can also be used for renaming partitions. Note that this creates a copy of the partition:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -653,11 +661,13 @@ ALTER TABLE t1 REORGANIZE PARTITION p3 INTO (
 
 ### Truncating Partitions
 
-```
+```sql
 TRUNCATE PARTITION partition_names
 ```
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... TRUNCATE PARTITION` will remove all data from the specified partition/s, leaving the table and partition structure unchanged. Partitions don't need to be contiguous.
+`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... TRUNCATE PARTITION`&#x20;
+
+[ALTER TABLE TRUNCATE PARTITION](../../reference/sql-statements/data-definition/alter/alter-table/#truncate-partition) removes all data from the specified partition/s, leaving the table and partition structure unchanged. Partitions don't need to be contiguous:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -729,11 +739,11 @@ The `ALL` keyword can be used in place of the list of partition names, and the c
 
 ### Repairing Partitions
 
-```
+```sql
 REPAIR PARTITION {ALL | partition [,partition2 ...]} [QUICK] [EXTENDED]
 ```
 
-Similar to [REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md), specific partitions can be repaired, for example:
+Similar to [REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md), specific partitions can be repaired:
 
 ```sql
 ALTER TABLE t1 REPAIR PARTITION p0,p3;
@@ -746,7 +756,7 @@ ALTER TABLE t1 REPAIR PARTITION p0,p3;
 
 As with [REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md), the `QUICK` and `EXTENDED` options are available. However, the `USE_FRM` option cannot be used with this statement on a partitioned table.
 
-`REPAIR PARTITION` will fail if there are duplicate key errors. `ALTER IGNORE TABLE ... REPAIR PARTITION` can be used in this case.
+`REPAIR PARTITION` fails if there are duplicate key errors. `ALTER IGNORE TABLE ... REPAIR PARTITION` can be used in this case.
 
 The `ALL` keyword can be used in place of the list of partition names, and the repair operation are performed on all partitions.
 
@@ -756,7 +766,7 @@ The `ALL` keyword can be used in place of the list of partition names, and the r
 OPTIMIZE PARTITION {ALL | PARTITION [,partition2 ...]}
 ```
 
-Similar to [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md), specific partitions can be checked for errors, for example:
+Similar to [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md), specific partitions can be checked for errors:
 
 ```sql
 ALTER TABLE t1 OPTIMIZE PARTITION p0,p3;
@@ -778,12 +788,12 @@ Some MariaDB [storage engines](../storage-engines/) allow more interesting uses 
 The [MERGE](../storage-engines/merge.md) storage engine allows one to:
 
 * Treat a set of identical defined [MyISAM](../storage-engines/myisam-storage-engine/) tables as one.
-* A MyISAM table can be in many different MERGE sets and also used separately.
+* A MyISAM table can be in many different `MERGE` sets and also used separately.
 
 [SPIDER](../storage-engines/spider/) allows one to:
 
 * Move partitions of the same table on different servers. In this way, the workload can be distributed on more physical or virtual machines (data sharding).
-* All partitions of a SPIDER table can also live on the same machine. In this case there are a small overhead (SPIDER will use connections to localhost), but queries that read multiple partitions will use parallel threads.
+* All partitions of a `SPIDER` table can also live on the same machine. In this case there are a small overhead (`SPIDER` uses connections to localhost), but queries that read multiple partitions will use parallel threads.
 
 [CONNECT](../storage-engines/connect/) allows one to:
 

@@ -8,7 +8,7 @@ SET GLOBAL sql_slave_skip_counter = N
 
 ## Description
 
-This statement skips the next `N` events from the primary. This is useful for recovering from [replication](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/administrative-sql-statements/replication-statements/broken-reference/README.md) stops caused by a statement.
+This statement skips the next `N` events from the primary. This is useful for recovering from [replication](../../../../ha-and-performance/standard-replication/) stops caused by a statement.
 
 If multi-source replication is used, this statement applies to the default connection. It could be necessary to change the value of the [default\_master\_connection](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable.
 

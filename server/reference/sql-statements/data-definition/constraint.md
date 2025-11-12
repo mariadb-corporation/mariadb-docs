@@ -89,7 +89,7 @@ One can disable all constraint expression checks by setting the [check\_constrai
 
 ### Replication
 
-In [row-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based) [replication](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-definition/broken-reference/README.md), only the master checks constraints, and failed statements will not be replicated. In [statement-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) replication, the slaves will also check constraints. Constraints should therefore be identical, as well as deterministic, in a replication environment.
+In [row-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based) [replication](../../../ha-and-performance/standard-replication/), only the master checks constraints, and failed statements will not be replicated. In [statement-based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) replication, the slaves will also check constraints. Constraints should therefore be identical, as well as deterministic, in a replication environment.
 
 ### Auto\_increment
 
