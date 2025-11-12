@@ -15,6 +15,10 @@ Connection is done by many exchanges:
   * Server sends either:
     * An `OK` packet in case of success [OK\_Packet](../4-server-response-packets/ok_packet.md).
     * An error packet in case of error [ERR\_Packet](../4-server-response-packets/err_packet.md).
+    * Further authentication data, if requested by the authentication plugin.
+      * The content of this authentication data is defined by the authentication plugin.
+      * The server _may_ send `0x01` byte first to escape the authentication data, particularly if the data starts with the `0x00` or `0xFF` or `0XFF` byte.
+      * This optional first `0x01` byte must always be skipped by the client.
     * Authentication switch:
       * If the client or server doesn't have `PLUGIN_AUTH` capability:
         * Server sends `0xFE` byte.
@@ -67,7 +71,7 @@ If the client requests a TLS/SSL connection, the first response is an SSL connec
 * Else:
   * [string<4>](../protocol-data-types.md#fixed-length-strings) reserved.
 
-### ZERO-CONFIGURATION SSL ENCRYPTION
+### Zero-Configuration SSL Eencryption
 
 Automatic Encrypted Connections ([MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)+):
 
@@ -136,6 +140,8 @@ If the calculated shared secret matches the received one, the SSL connection is 
     * [string](../protocol-data-types.md#length-encoded-strings) value.
 
 ## Server Response to Handshake Response Packet
+
+If the authentication plugin needs further rounds of data exchange (like `parsec`), the server sends additional plugin authentication data (optionally prefixed with `0x01`) to which the client sends an additional response. This can be repeated in multiple rounds. It ends with one of the following:
 
 The server responds with an [OK\_packet](../4-server-response-packets/ok_packet.md), an [ERR\_packet](../4-server-response-packets/err_packet.md), or an Authentication Switch Request packet.
 
