@@ -5,21 +5,21 @@
 ## Fields
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) `0x11` : `COM_CHANGE_USER` header.
-* [string](../protocol-data-types.md#null-terminated-strings) username.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) username.
 * If (`server_capabilities` & `CLIENT_SECURE_CONNECTION`):
   * [int<1>](../protocol-data-types.md#fixed-length-integers) length of authentication response.
   * string authentication response.
 * Else:
-  * [string](../protocol-data-types.md#null-terminated-strings) authentication response.
-* [string](../protocol-data-types.md#null-terminated-strings) default schema name.
+  * [string<nul>](../protocol-data-types.md#null-terminated-strings) authentication response.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) default schema name.
 * [int<2>](../protocol-data-types.md#fixed-length-integers) client character collation.
 * If (`server_capabilities` & `CLIENT_PLUGIN_AUTH`):
-  * [string](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
+  * [string<nul>](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
 * If (`server_capabilities` & `CLIENT_CONNECT_ATTRS`):
   * [int](../protocol-data-types.md#length-encoded-integers) size of connection attributes.
   * Loop:
-    * [string](../protocol-data-types.md#length-encoded-strings) key.
-    * [string](../protocol-data-types.md#length-encoded-strings) value.
+    * [string<len>](../protocol-data-types.md#length-encoded-strings) key.
+    * [string<len>](../protocol-data-types.md#length-encoded-strings) value.
 
 ## Response
 
