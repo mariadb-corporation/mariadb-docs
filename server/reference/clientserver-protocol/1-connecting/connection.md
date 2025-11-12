@@ -17,7 +17,7 @@ Connection is done by many exchanges:
     * An error packet in case of error [ERR\_Packet](../4-server-response-packets/err_packet.md).
     * Further authentication data, if requested by the authentication plugin.
       * The content of this authentication data is defined by the authentication plugin.
-      * The server _may_ send `0x01` byte first to escape the authentication data, particularly if the data starts with the `0x00` or `0xFF` or `0XFF` byte.
+      * The server _may_ send `0x01` byte first to escape the authentication data, particularly if the data starts with the `0x00` or `0xFE` or `0XFF` byte.
       * This optional first `0x01` byte must always be skipped by the client.
     * Authentication switch:
       * If the client or server doesn't have `PLUGIN_AUTH` capability:
