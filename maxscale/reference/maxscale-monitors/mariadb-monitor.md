@@ -1392,18 +1392,25 @@ backup_storage_path=/home/maxscale_ssh_user/backup_storage
 
 ### sudoers.d configuration
 
-If giving MaxScale general sudo-access is out of the question, MaxScale must be allowed to run the specific commands required by the backup operations. This can be achieved by creating a file with the commands in the`/etc/sudoers.d`-directory. In the example below, the user _johnny_ is given the power to run commands as root. The contents of the file may need to be tweaked due to changes in install locations.
+If giving MaxScale general sudo-access is out of the question, MaxScale must be allowed to run the
+specific commands required by the backup operations. This can be achieved by creating a file with
+the commands in the`/etc/sudoers.d`-directory. In the example below, the user _johnny_ is given the
+power to run commands as root. The contents of the file may need to be tweaked due to changes in
+install locations.
 
 ```
 johnny ALL= NOPASSWD: /bin/systemctl stop mariadb
 johnny ALL= NOPASSWD: /bin/systemctl start mariadb
 johnny ALL= NOPASSWD: /usr/sbin/lsof
 johnny ALL= NOPASSWD: /bin/kill
+johnny ALL= NOPASSWD: /bin/du
+johnny ALL= NOPASSWD: /usr/bin/mariabackup
 johnny ALL= NOPASSWD: /usr/bin/mariadb-backup
 johnny ALL= NOPASSWD: /bin/mbstream
 johnny ALL= NOPASSWD: /bin/rm -rf /var/lib/mysql/*
 johnny ALL= NOPASSWD: /bin/chown -R mysql\:mysql /var/lib/mysql
 johnny ALL= NOPASSWD: /bin/cat /var/lib/mysql/xtrabackup_binlog_info
+johnny ALL= NOPASSWD: /bin/cat /var/lib/mysql/mariadb_backup_binlog_info
 johnny ALL= NOPASSWD: /bin/tar -xz -C /var/lib/mysql/
 ```
 
