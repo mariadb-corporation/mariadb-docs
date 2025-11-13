@@ -30,7 +30,7 @@ The `CASE` statement cannot have an `ELSE NULL` clause, and it is terminated wit
 
 If no when\_value or search\_condition matches the value tested and the `CASE` statement contains no `ELSE` clause, a Case not found for `CASE` statement error results.
 
-Each statement\_list consists of one or more statements; an empty`statement_list` is not allowed. To handle situations where no value is matched by any `WHEN` clause, use an `ELSE` containing an empty [BEGIN ... END](begin-end.md) block, as shown in this example:
+Each statement\_list consists of one or more statements; an empty `statement_list` is not allowed. To handle situations where no value is matched by any `WHEN` clause, use an `ELSE` containing an empty [BEGIN ... END](begin-end.md) block, as shown in this example:
 
 ```sql
 DELIMITER |
@@ -46,7 +46,7 @@ END;
 |
 ```
 
-The indentation used here in the `ELSE` clause is for purposes of clarity only, and is not otherwise significant. See [Delimiters in the mariadb client](broken-reference) for more on the use of the delimiter command.
+The indentation used here in the `ELSE` clause is for purposes of clarity only and is not otherwise significant. See [Delimiters in the mariadb client](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) for more on the use of the delimiter command.
 
 **Note:** The syntax of the `CASE` statement used inside stored programs differs slightly from that of the SQL CASE expression described in [CASE OPERATOR](../../sql-functions/control-flow-functions/case-operator.md). The `CASE` statement cannot have an `ELSE NULL` clause, and it is terminated with `END CASE` instead of `END`.
 
@@ -58,3 +58,4 @@ The indentation used here in the `ELSE` clause is for purposes of clarity only, 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
+
