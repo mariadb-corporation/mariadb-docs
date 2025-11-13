@@ -43,7 +43,6 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
   * `CONNECT`, `QUERY`, `TABLE`, `QUERY_DDL`, `QUERY_DML` (MariaDB Audit Plugin >= 1.2.0)
   * `CONNECT`, `QUERY`, `TABLE`, `QUERY_DDL`, `QUERY_DML`, `QUERY_DCL` (MariaDB Audit Plugin >=1.3.0)
   * `CONNECT`, `QUERY`, `TABLE`, `QUERY_DDL`, `QUERY_DML`, `QUERY_DCL`, `QUERY_DML_NO_SELECT` (MariaDB Audit Plugin >= 1.4.4)
-  * `CONNECT`, `QUERY`, `TABLE`, `QUERY_DDL`, `QUERY_DML`, `QUERY_DCL`, `QUERY_DML_NO_SELECT` , `TLS_VERSION`, `TLS_VERSION_LENGTH` (from MariaDB 12.0)
   * Consult [MariaDB Audit Plugin - Versions](mariadb-audit-plugin-versions.md) for a list of MariaDB releases and their corresponding Audit Plugin versions.
 
 #### `server_audit_excl_users`
@@ -213,21 +212,7 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Dynamic: Yes
 * Data type: `enum`
 * Default value: `LOG_INFO`
-* Valid values:`LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG`&#x20;
-
-#### `tls_version`
-
-* Description: Exposes the TLS version of the connection. Useful to help identify suspicious or malformed connections attempting to use unsupported TLS versions. A log containing this information allows to detect and block malicious connection attempts.
-* Command line: `--tls-version`
-* Scope: Global
-* Dynamic: Yes
-
-#### `tls_version_length`
-
-* Description: Exposes the TLS version length of the connection. Useful to help identify suspicious or malformed connections attempting to use unsupported TLS versions. A log containing this information allows to detect and block malicious connection attempts.
-* Command line: `--tls-version-length`
-* Scope: Global
-* Dynamic: Yes
+* Valid values:`LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG`
 
 ## Notes on System Variables
 
