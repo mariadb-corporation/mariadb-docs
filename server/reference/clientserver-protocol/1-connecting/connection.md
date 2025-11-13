@@ -71,7 +71,7 @@ If the client requests a TLS/SSL connection, the first response is an SSL connec
 * Else:
   * [string<4>](../protocol-data-types.md#fixed-length-strings) reserved.
 
-### Zero-Configuration SSL Eencryption
+### Zero-Configuration SSL Encryption
 
 Automatic Encrypted Connections ([MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)+):
 
@@ -244,6 +244,7 @@ Authentication plugin data format:
 
 Client has to send an empty packet to request "ext-salt".
 
+
 Format of ext-salt is:
 
 * [string<1>](../protocol-data-types.md#fixed-length-strings) 'P' (denotes KDF algorithm = PBKDF2).
@@ -291,7 +292,7 @@ client with capabilities CLIENT\_MYSQL + CONNECT\_WITH\_DB will have a value of 
 | CLIENT\_OPTIONAL\_RESULTSET\_METADATA   | 1 << 25 | Not in use for MariaDB.                                                                                                                                                              |
 | CLIENT\_ZSTD\_COMPRESSION\_ALGORITHM    | 1 << 26 | Support `zstd` protocol compression.                                                                                                                                                 |
 | CLIENT\_CAPABILITY\_EXTENSION           | 1 << 29 | Reserved for future use.                                                                                                                                                             |
-| CLIENT\_SSL\_VERIFY\_SERVER\_CERT       | 1 << 30 | Client verify server certificate. Deprecated, client has options to indicate if server certifiate must be verified.                                                                  |
+| CLIENT\_SSL\_VERIFY\_SERVER\_CERT       | 1 << 30 | Client verify server certificate. Deprecated, client has options to indicate if server certificate must be verified.                                                                  |
 | CLIENT\_REMEMBER\_OPTIONS               | 1 << 31 |                                                                                                                                                                                      |
 | MARIADB\_CLIENT\_PROGRESS               | 1 << 32 | Client support progress indicator.                                                                                                                                                   |
 | MARIADB\_CLIENT\_COM\_MULTI             | 1 << 33 | Permit `COM_MULTI` protocol.                                                                                                                                                         |
