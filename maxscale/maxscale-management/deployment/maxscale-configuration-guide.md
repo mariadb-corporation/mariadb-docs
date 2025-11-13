@@ -1332,6 +1332,8 @@ See [admin\_pam\_readwrite\_service](maxscale-configuration-guide.md#admin_pam_r
 
 Limit REST-API logins to specific source addresses/hosts. Supports a comma-separated list of addresses and hostnames. Addresses can be given in CIDR-notation. Admin clients still need to supply credentials as usual. By default, all source addresses are allowed. `admin_readwrite_hosts` lists the hosts from which any operation is allowed.
 
+This setting was added in MaxScale 24.02.0.
+
 ```
 admin_readwrite_hosts=192.168.1.1,127.0.0.1/21
 ```
@@ -1345,6 +1347,8 @@ When checking the source host of the incoming REST-API client, MaxScale first co
 #### `admin_readonly_hosts`
 
 Works similar to `admin_readwrite_hosts`. Lists the hosts from which only read operations are allowed. An admin client can do a read operation if their source address matches either `admin_readwrite_hosts` or `admin_readonly_hosts`.
+
+This setting was added in MaxScale 24.02.0.
 
 ```
 admin_readonly_hosts=mydomain%.com
