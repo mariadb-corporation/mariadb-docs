@@ -105,7 +105,7 @@ We maintain support across a variety of OpenShift channels to ensure compatibili
 
 | Channel | Supported OpenShift Versions | Description |
 |---------|------------------------------|-------------|
-| `stable` | 4.18, 4.16 | Points to the latest stable version of the operator. This channel may span multiple major versions. | `mariadb-enterprise-operator:25.8.1-1` |
+| `stable` | 4.18, 4.16 | Points to the latest stable version of the operator. This channel may span multiple major versions. |
 | `stable-v25.10` | 4.18, 4.16 | v25.10.x is an LTS release. This channel points to the latest **patch** release of 25.10. Use this if you require version pinning to a stable version of the operator without necessarily looking for newer features. |
 
 An example Subscription would look like this:
