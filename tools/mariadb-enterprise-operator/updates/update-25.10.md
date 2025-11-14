@@ -13,7 +13,7 @@ spec:
 +   autoUpdateDataPlane: true
 ```
 
-- Once set, you may proceeed to update the operator. If you are using __Helm__:
+- Once set, you may proceed to update the operator. If you are using __Helm__:
 
 Upgrade the `mariadb-enterprise-operator-crds` helm chart to `25.10.2`:
 ```bash
