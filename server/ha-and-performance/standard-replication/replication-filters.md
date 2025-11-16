@@ -15,7 +15,7 @@ Replication filters allow users to configure [replicas](replication-overview.md)
 
 ## Binary Log Filters for Replication Primaries
 
-MariaDB provides options that can be used on a [replication primary](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to restrict local changes to specific databases from getting written to the [binary log](../../server-management/server-monitoring-logs/binary-log/), which also determines whether any replicas replicate those changes.
+MariaDB provides options that can be used on a [replication primary](replication-overview.md) to restrict local changes to specific databases from getting written to the [binary log](../../server-management/server-monitoring-logs/binary-log/), which also determines whether any replicas replicate those changes.
 
 ### Binary Log Filter Options
 
@@ -23,11 +23,11 @@ The following options are available, and they are evaluated in the order that th
 
 #### `binlog_do_db`
 
-The [binlog\_do\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option allows you to configure a [replication primary](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
+The [binlog\_do\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option allows you to configure a [replication primary](replication-overview.md) to write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
 
 This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
-This option can **not** be set dynamically.
+This option cannot be set dynamically.
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times. For example:
 
@@ -46,11 +46,11 @@ This will tell the primary to do the following:
 
 #### `binlog_ignore_db`
 
-The [binlog\_ignore\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option allows you to configure a [replication primary](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to **not** write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
+The [binlog\_ignore\_db](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option allows you to configure a [replication primary](replication-overview.md) to **not** write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions will not be present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas will not be able to replicate them.
 
 This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
-This option can **not** be set dynamically.
+This option cannot be set dynamically.
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times. For example:
 
@@ -71,7 +71,7 @@ The [binlog\_ignore\_db](replication-filters.md#binlog_ignore_db) option is effe
 
 ## Replication Filters for Replicas
 
-MariaDB provides options and system variables that can be used on used on a [replicas](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to filter events replicated in the [binary log](../../server-management/server-monitoring-logs/binary-log/).
+MariaDB provides options and system variables that can be used on used on a [replica](replication-overview.md) to filter events replicated in the [binary log](../../server-management/server-monitoring-logs/binary-log/).
 
 ### Replication Filter Options
 
@@ -79,7 +79,7 @@ The following options and system variables are available, and they are evaluated
 
 #### `replicate_rewrite_db`
 
-The [replicate\_rewrite\_db](replication-and-binary-log-system-variables.md#replicate_rewrite_db) option (and, from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), system variable), allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to rewrite database names. It uses the format `primary_database->replica_database`. If a replica encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement) is `primary_database`, then the replica will apply the event in `replica_database` instead.
+The [replicate\_rewrite\_db](replication-and-binary-log-system-variables.md#replicate_rewrite_db) option (and, from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), system variable), allows you to configure a [replica](replication-overview.md) to rewrite database names. It uses the format `primary_database->replica_database`. If a replica encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement) is `primary_database`, then the replica will apply the event in `replica_database` instead.
 
 This option will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
@@ -89,7 +89,7 @@ This option's rewrites are evaluated _before_ any other replication filters conf
 
 Statements that use table names qualified with database names do not work with other replication filters such as [replicate\_do\_table](replication-filters.md#replicate_do_table).
 
-Until [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), this option could not be set dynamically.
+Until [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), this option could not be set dynamically.
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times. For example:
 
@@ -109,7 +109,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 #### `replicate_do_db`
 
-The [replicate\_do\_db](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to apply statements and transactions affecting databases that match a specified name.
+The [replicate\_do\_db](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](replication-overview.md) to apply statements and transactions affecting databases that match a specified name.
 
 This system variable will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) or when using [mixed-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) and the statement is logged statement based. For statement-based replication, only the default database (that is, the one selected by USE) is considered, not any explicitly mentioned tables in the query.\
 See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
@@ -145,7 +145,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 #### `replicate_ignore_db`
 
-The [replicate\_ignore\_db](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to ignore statements and transactions affecting databases that match a specified name.
+The [replicate\_ignore\_db](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](replication-overview.md) to ignore statements and transactions affecting databases that match a specified name.
 
 This system variable will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) or when using [mixed-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging) and the statement is logged statement based. For statement-based replication, only the default database (that is, the one selected by USE) is considered, not any explicitly mentioned tables in the query.\
 See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
@@ -183,7 +183,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 #### `replicate_do_table`
 
-The [replicate\_do\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to apply statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
+The [replicate\_do\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](replication-overview.md) to apply statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
 
 This system variable will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
@@ -221,7 +221,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 #### `replicate_ignore_table`
 
-The [replicate\_ignore\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to ignore statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
+The [replicate\_ignore\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](replication-overview.md) to ignore statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
 
 This system variable will **not** work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
 
@@ -258,7 +258,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 #### `replicate_wild_do_table`
 
-The [replicate\_wild\_do\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to apply statements and transactions that affect tables that match a specified wildcard pattern.
+The [replicate\_wild\_do\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](replication-overview.md) to apply statements and transactions that affect tables that match a specified wildcard pattern.
 
 The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator. This means that the following characters have a special meaning:
 
@@ -305,7 +305,7 @@ See [Configuring Replication Filter Options with Multi-Source Replication](repli
 
 #### `replicate_wild_ignore_table`
 
-The [replicate\_wild\_ignore\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to ignore statements and transactions that affect tables that match a specified wildcard pattern.
+The [replicate\_wild\_ignore\_table](replication-and-binary-log-system-variables.md) system variable allows you to configure a [replica](replication-overview.md) to ignore statements and transactions that affect tables that match a specified wildcard pattern.
 
 The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator. This means that the following characters have a special meaning:
 
@@ -398,15 +398,15 @@ The [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements
 
 #### `IGNORE_SERVER_IDS`
 
-The [IGNORE\_SERVER\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_server_ids) option for `CHANGE MASTER` can be used to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to ignore [binary log](https://mariadb.com/kb/en/binary_log) events that originated from certain servers. Filtered [binary log](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/binary_log/README.md) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The [IGNORE\_SERVER\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_server_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to ignore [binary log](https://mariadb.com/kb/en/binary_log) events that originated from certain servers. Filtered binary log events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
 #### `DO_DOMAIN_IDS`
 
-The [DO\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#do_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to only apply [binary log](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/binary_log/README.md) events if the transaction's [GTID](gtid.md) is in a specific [gtid\_domain\_id](gtid.md#gtid_domain_id) value. Filtered [binary log](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/binary_log/README.md) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The [DO\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#do_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to only apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](gtid.md) is in a specific [gtid\_domain\_id](gtid.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
 #### `IGNORE_DOMAIN_IDS`
 
-The [IGNORE\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) to ignore [binary log](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/binary_log/README.md) events if the transaction's [GTID](gtid.md) is in a specific [gtid\_domain\_id](gtid.md#gtid_domain_id) value. Filtered [binary log](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/binary_log/README.md) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The [IGNORE\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to ignore [binary log](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/binary_log/README.md) events if the transaction's [GTID](gtid.md) is in a specific [gtid\_domain\_id](gtid.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
 ## Replication Filters and Binary Log Formats
 
@@ -427,7 +427,7 @@ When an event is logged in its statement-based format, many replication filters 
 * [replicate\_do\_table](replication-filters.md#replicate_do_table)
 * [replicate\_ignore\_table](replication-filters.md#replicate_ignore_table)
 
-This means that cross-database updates **not** work with replication filters and statement-based binary logging. For example, if [replicate\_do\_table=db2.tab](https://mariadb.com/kb/en/replicate_do_table%3Ddb2.tab) were set, then the following would not replicate with statement-based binary logging:
+This means that cross-database updates **do not work** with replication filters and statement-based binary logging. For example, if [replicate\_do\_table=db2.tab](https://mariadb.com/kb/en/replicate_do_table%3Ddb2.tab) were set, then the following would not replicate with statement-based binary logging:
 
 ```sql
 USE db1;

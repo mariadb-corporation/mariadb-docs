@@ -18,7 +18,7 @@ fixes and enhancements.
 
 When row-based replication is used with [UPDATE](../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) or [DELETE](../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md),\
 the slave needs to locate each replicated row based on the value in columns. If\
-the table contains at least one index, an index lookup will be used (otherwise\
+the table contains at least one index; an index lookup will be used (otherwise\
 a table scan is needed for each row, which is extremely inefficient for all but\
 the smallest table and generally to be avoided).
 
@@ -46,7 +46,7 @@ replication to break in this case; this was also fixed in [MariaDB 5.3](https://
 
 ## See Also
 
-* [What is MariaDB 5.3](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md)
+* [What is MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
