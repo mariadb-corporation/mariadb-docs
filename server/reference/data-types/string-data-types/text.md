@@ -8,7 +8,7 @@ TEXT[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
 
 ## Description
 
-A `TEXT` column with a maximum length of `65,535` (`216 - 1`) characters. The effective maximum length is less if the value contains multi-byte characters. Each `TEXT` value is stored using a two-byte length prefix that indicates the number of bytes in the value. If you need a bigger storage, consider using [MEDIUMTEXT](mediumtext.md) instead.
+A `TEXT` column with a maximum length of `65,535` (`2^16 - 1`) characters. The effective maximum length is less if the value contains multi-byte characters. Each `TEXT` value is stored using a two-byte length prefix that indicates the number of bytes in the value. If you need a bigger storage, consider using [MEDIUMTEXT](mediumtext.md) instead.
 
 An optional length `M` can be given for this type. If this is done, MariaDB creates the column as the smallest `TEXT` type large enough to hold values`M` characters long.
 
