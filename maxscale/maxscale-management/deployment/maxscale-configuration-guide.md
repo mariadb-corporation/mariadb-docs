@@ -762,6 +762,11 @@ Configure the directory for the PID file for MariaDB MaxScale. This file contain
 
 MaxScale versions before 24.08.1 used the path `/var/run/maxscale/` for the PID files. This was a legacy path according to the Filesystem Hierarchy Standard and starting with MaxScale 24.08.1, the appropriate modern PID file path is used.
 
+The value of `piddir` should not be changed when MaxScale is installed from a DEB/RPM package and is run as a
+SystemD service. The SystemD service file in `/lib/systemd/systemd/maxscale.service` depends on the PID file
+being stored at `/run/maxscale/maxscale.pid`. However, if `piddir` must be modified to point to a non-default
+location, it must also be modified in the SystemD service file configuration to point to the new location.
+
 #### `execdir`
 
 Removed in MaxScale 25.10.
