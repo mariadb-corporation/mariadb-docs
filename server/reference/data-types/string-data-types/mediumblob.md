@@ -8,7 +8,7 @@ MEDIUMBLOB
 
 ## Description
 
-A [BLOB](blob.md) column with a maximum length of 16,777,215 (224 - 1) bytes. Each `MEDIUMBLOB` value is stored using a three-byte length prefix that indicates the number of bytes in the value.
+A [BLOB](blob.md) column with a maximum length of 16,777,215 (2²⁴ - 1) bytes. Each `MEDIUMBLOB` value is stored using a three-byte length prefix that indicates the number of bytes in the value.
 
 `LONG VARBINARY` is a synonym for `MEDIUMBLOB` .
 

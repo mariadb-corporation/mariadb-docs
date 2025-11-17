@@ -8,7 +8,7 @@ LONGTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
 
 ## Description
 
-A [TEXT](text.md) column with a maximum length of 4,294,967,295 or 4GB (`232 - 1`) characters. The effective maximum length is less if the value contains multi-byte characters. The effective maximum length of `LONGTEXT` columns also depends on the configured maximum packet size in the client/server protocol and available memory. Each `LONGTEXT` value is stored using a four-byte length prefix that indicates the number of bytes in the value.
+A [TEXT](text.md) column with a maximum length of 4,294,967,295 or 4GB (2³² - 1) characters. The effective maximum length is less if the value contains multi-byte characters. The effective maximum length of `LONGTEXT` columns also depends on the configured maximum packet size in the client/server protocol and available memory. Each `LONGTEXT` value is stored using a four-byte length prefix that indicates the number of bytes in the value.
 
 `JSON` is an alias for `LONGTEXT`. See [JSON Data Type](json.md) for details.
 
