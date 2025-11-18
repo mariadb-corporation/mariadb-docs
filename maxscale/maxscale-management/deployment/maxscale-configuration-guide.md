@@ -316,7 +316,7 @@ The global settings, in a section named `[MaxScale]`, allow various parameters t
 * Default: false
 * Dynamic: No
 
-This parameter specifies whether a core file should be generated if MaxScale crashes. Since 25.10 the default is `false` because usually a core file is not needed, as MaxScale is capable of logging the full strack trace of all threads when it crashes.
+This parameter specifies whether a core file should be generated if MaxScale crashes. Since 25.10 the default is `false` because usually a core file is not needed, as MaxScale is capable of logging the full stack trace of all threads when it crashes.
 
 #### `auto_tune`
 
@@ -1062,7 +1062,7 @@ This could be used to easily identify which applications execute the queries wit
 * Dynamic: Yes
 * Default: `65536`
 
-High water mark for network write buffer. When the size of the outbound network buffer in MaxScale for a single connection exceeds this value, network traffic throtting for that connection is started. The parameter accepts [size type values](maxscale-configuration-guide.md#sizes). The default value was 16777216 bytes before 22.08.4.
+High water mark for network write buffer. When the size of the outbound network buffer in MaxScale for a single connection exceeds this value, network traffic throttling for that connection is started. The parameter accepts [size type values](maxscale-configuration-guide.md#sizes). The default value was 16777216 bytes before 22.08.4.
 
 More specifically, if the client side write queue is above this value, it will block traffic coming from backend servers. If the backend side write queue is above this value, it will block traffic from client.
 
@@ -2163,7 +2163,7 @@ The required history size can be estimated by counting the total number of sessi
 
 Starting with MaxScale versions 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and 24.08.1, binary protocol prepared statements do not count towards the `max_sescmd_history` limit. In practice this means that all binary protocol prepared statements opened by the client are also kept open by MaxScale and are restored whenever a reconnection to a server happens. The limits imposed by `max_sescmd_history` apply to other text protocol commands e.g. `SET NAMES`. Note that text protocol prepared statements count as text protocol commands and are thus potentially pruned when history pruning happens. If an application uses a lot of `PREPARE stmt FROM <sql>` commands, it is recommended that the value of `max_sescmd_history` is increased accordingly.
 
-In older versions of MaxScale, binary protocol prepared statements were limited by `max_sescmd_history` and were also pruned by `prune_sescmd_history` but this caused problems when the binary protocol prepared statment were pruned while they were still open from the client's point of view. In older versions, the recommended value of `max_sescmd_history` is the number of state modifying commands plus the maximum number of open prepared statments that any application may use.
+In older versions of MaxScale, binary protocol prepared statements were limited by `max_sescmd_history` and were also pruned by `prune_sescmd_history` but this caused problems when the binary protocol prepared statement were pruned while they were still open from the client's point of view. In older versions, the recommended value of `max_sescmd_history` is the number of state modifying commands plus the maximum number of open prepared statements that any application may use.
 
 This parameter was moved into the MaxScale core in MaxScale 6.0. The parameter can be configured for all routers that support the session command history. Currently only `readwritesplit` and `schemarouter` support it.
 
@@ -3729,7 +3729,7 @@ $ bin/maxctrl show threads
 ...
 ```
 
-that is, the number of threads was 4 but has been reduced to 2, and while thread 2 has become drained it stays as _Dormant_ since thread 3 is stil&#x6C;_&#x44;raining_, it is possible to make thread 2 _Active_ again by increasing the number of threads to 3.
+that is, the number of threads was 4 but has been reduced to 2, and while thread 2 has become drained it stays as _Dormant_ since thread 3 is still&#x6C;_&#x44;raining_, it is possible to make thread 2 _Active_ again by increasing the number of threads to 3.
 
 ```
 $ bin/maxctrl alter maxscale threads=3
