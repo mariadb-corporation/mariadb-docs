@@ -36,6 +36,27 @@ InnoDB engine.
 The ReadWriteSplit [documentation](maxscale-readwritesplit.md)
 has more on primary-replica setup.
 
+### `forward_nonmaster_errors`
+
+* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: true
+
+Specifies whether an error returned by a target other than the [master](#master),
+should be returned to the client, if it arrives faster than the response from
+the master. If all targets are MariaDB servers, the default value of `true`
+is usually the correct choise. If a non-master target is not a MariaDB server,
+but, for instance, a server used over ODBC, `false` is usually the correct choise.
+
+For instance, if the master is a regular MariaDB server, but a non-master target
+is a server that does not support the `SLEEP` function, then
+```
+SELECT SLEEP(5);
+```
+would with the default `forward_nonmaster_errors=true` result in an error, but
+with `forward_nonmaster_errors=false`, the behaviour would be that of MariaDB.
+
 **Example**
 
 Suppose we have a Transactional service like
