@@ -1025,7 +1025,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `join_buffer_space_limit`
 
-* Description: Maximum size in bytes of the query buffer, By default 1024_128_10.
+* Description: Maximum size in bytes of the query buffer, By default 1024\_128\_10.
 * Command line: `--join-buffer-space-limit=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1125,14 +1125,6 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `en_US`
-
-#### `legacy_xa_rollback_at_disconnect`
-
-* Description: If a user session disconnects after putting a transaction into the `XA PREPARE` state, roll back the transaction. Can be used for backwards compatibility to enable this pre-10.5 behavior for applications that expect it. Note that this violates the XA Specification and should not be used for new code.
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Introduced: [MariaDB 10.5.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-27-release-notes), [MariaDB 10.6.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.20), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.10), [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.4), [MariaDB 11.7.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-1-release-notes)
 
 #### `license`
 
@@ -2349,7 +2341,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `redirect_url`
 
-* Description: URL of another server to redirect clients to. Format should be `{mysql,mariadb}://host [:port]`. Empty string means no redirection. For example,  `set global redirect_url="mysql://mariadb.org:12345"`. See [Connection Redirection Mechanism in the MariaDB Client/Server Protocol](../../connection-redirection-mechanism-in-the-mariadb-clientserver-protocol.md).
+* Description: URL of another server to redirect clients to. Format should be `{mysql,mariadb}://host [:port]`. Empty string means no redirection. For example, `set global redirect_url="mysql://mariadb.org:12345"`. See [Connection Redirection Mechanism in the MariaDB Client/Server Protocol](../../connection-redirection-mechanism-in-the-mariadb-clientserver-protocol.md).
 * Command line: `--redirect_url=val`
 * Scope: Global, Session
 * Dynamic: Yes
