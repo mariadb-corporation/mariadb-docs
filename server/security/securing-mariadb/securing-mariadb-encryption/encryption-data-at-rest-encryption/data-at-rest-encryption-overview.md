@@ -42,7 +42,7 @@ MariaDB's data-at-rest encryption requires the use of a [key management and encr
 
 MariaDB supports the use of [multiple encryption keys](key-management-and-encryption-plugins/encryption-key-management.md#using-multiple-encryption-keys). Each encryption key uses a 32-bit integer as a key identifier. If the specific plugin supports [key rotation](key-management-and-encryption-plugins/encryption-key-management.md#rotating-keys), then encryption keys can also be rotated, which creates a new version of the encryption key.
 
-How MariaDB manages encryption keys depends on which encryption key management solution you choose. Currently, MariaDB has four options:
+How MariaDB manages encryption keys depends on which encryption key management solution you choose. Currently, MariaDB has three options:
 
 * [File Key Management Plugin](../../encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md)
 * [AWS Key Management Plugin](../../encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md)
