@@ -8,67 +8,102 @@ MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the st
 
 The monitor user requires the following grant:
 
+{% tabs %}
+{% tab title="Current" %}
+
 ```sql
-CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
-GRANT REPLICATION CLIENT ON *.* TO 'maxscale'@'maxscalehost';
+CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
+GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
+{% endtab %}
 
-`REPLICA MONITOR` is required:
-
+{% tab title="< 10.5" %}
 ```sql
-GRANT REPLICA MONITOR ON *.* TO 'maxscale'@'maxscalehost';
+CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
+GRANT REPLICATION CLIENT ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
+{% endtab %}
+{% endtabs %}
 
-If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set),  the `FILE` grant is required:
-
+If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set),  it needs the `FILE`
+privilege:
 ```sql
-GRANT FILE ON *.* TO 'maxscale'@'maxscalehost';
+GRANT FILE ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
 
 The `CONNECTION ADMIN` privilege is recommended since it allows the monitor to log in even if server connection limit has been reached.
+```sql
+GRANT CONNECTION ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
+```
+
+[Topology scan](#scan-topology), [discover replicas](#discover-replicas) and [bootstrap](#bootstrap) require
+the following privilege:
+
+% tabs %}
+{% tab title="Current" %}
 
 ```sql
-GRANT CONNECTION ADMIN ON *.* TO 'maxscale'@'maxscalehost';
+GRANT REPLICATION MASTER ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
+{% endtab %}
+
+{% tab title="< 10.5" %}
+```sql
+GRANT REPLICATION SLAVE ON *.* TO 'mariadbmon'@'maxscalehost';
+```
+{% endtab %}
+{% endtabs %}
 
 ### Cluster Manipulation Grants
 
-If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-operations) are used, the following additional grants are required:
-
-```sql
-GRANT SUPER, RELOAD, PROCESS, SHOW DATABASES, EVENT ON *.* TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
-```
-
-Read access to _mysql.global\_priv_ is required:
-
-```sql
-GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
-```
+If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-operations) are used, the monitor requires
+several additional privileges. These privileges allow the monitor to set the *read-only* flag, modify replication
+connections and kill connections from clients that could interfere with an ongoing operation.
 
 {% tabs %}
 {% tab title="Current" %}
-The `SUPER` privilege no longer contains several of its former subprivileges. These must be given separately.
 
 ```sql
-GRANT RELOAD, PROCESS, SHOW DATABASES, EVENT, SET USER, READ_ONLY ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-GRANT REPLICATION SLAVE ADMIN, BINLOG ADMIN, CONNECTION ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
+GRANT READ_ONLY ADMIN, REPLICATION SLAVE ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT BINLOG ADMIN, CONNECTION ADMIN, PROCESS, RELOAD, SET USER ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.user TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 ```
 {% endtab %}
 
 {% tab title="< 11.0.1" %}
-The `SUPER` privilege suffices.
+```sql
+GRANT SUPER ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT PROCESS, RELOAD ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.user TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
+```
 {% endtab %}
 {% endtabs %}
 
-If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following grant:
+If [scheduled event management](#handle_events) is enabled, the monitor requires the `EVENT` privilege. `SHOW DATABASES`
+is also recommended to ensure monitor can see events for all databases.
+```sql
+GRANT EVENT, SHOW DATABASES ON *.* TO 'mariadbmon'@'maxscalehost';
+```
 
+If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following
+grant:
+
+{% tabs %}
+{% tab title="Current" %}
+```sql
+CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
+GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
+```
+{% endtab %}
+{% tab title="< 10.5" %}
 ```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION SLAVE ON *.* TO 'replication'@'replicationhost';
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Primary selection
 
