@@ -12,11 +12,14 @@ Unlike the other routers or MaxScale, the Exasol router does not use `servers`,
 Instead, Exasol database nodes are specified directly via the `connection_string`
 setting.
 
+Internally, the router communicates with Exasol using ODBC, which is visible
+in the configuration of the router.
+
 ## Users
 
-Currently, the Exasol router _always_ uses the service `user` and `password`
-settings when accessing Exasol. That is, it uses those settings _regardless_
-of the identity of the client accessing MaxScale.
+Currently, the Exasol router uses one set of credentials when connecting
+to Exasol. That is, it uses the same credentials _regardless_ of the identity
+of the client accessing MaxScale.
 
 ## Settings
 
@@ -26,16 +29,77 @@ of the identity of the client accessing MaxScale.
 * Mandatory: Yes
 * Dynamic: No
 
-Specifies the Exasol connection string.
+Specifies the Exasol connection string. This setting is passed directly
+to the ODBC driver and the required content depends on how ODBC has
+been configured.
 
-For example:
-```
-connection_string=127.0.0.1:8563
+#### Without `odbc.ini` and `odbcinst.ini`
 
-connection_string=127.0.0.1/340F511A5A5179FF44A6828CC140FAEBAF1F2E2ECD73FBCD7EDD54C8B96A5886:8563
+In this case, the following keys must be provided in the connection
+string:
+* `DRIVER`: The path to the Exasol ODBC driver.
+* `EXAHOST`: The Exasol host string.
+
+In addition, any of the keys specified
+[here](https://docs.exasol.com/db/latest/connect_exasol/drivers/odbc/using_odbc.htm)
+can be provided and may have to be provided (e.g. `FINGERPRINT`).
+
+**NOTE** If `EXAUSER` (or `UID`) is **not** provided in the connection string, the
+service
+[user](../../maxscale-management/deployment/maxscale-configuration-guide.md#user) and
+[password](../../maxscale-management/deployment/maxscale-configuration-guide.md#password)
+will automatically be appended to the string as `;UID=...;PWD=...`.
+
+Example:
 ```
-The latter alternative illustrates the case when the Exasol server uses a
-self-signed certificate.
+connection_string=Driver=/path/to/libexaodbc.so;EXAHOST=127.0.0.1:8563;FINGERPRINT=NOCERTCHECK
+```
+
+`libexaodbc.so` is the Exasol ODBC driver; not the MaxScale Exasol router module.
+
+#### With `/etc/odbcinst.ini`
+
+The `odbcinst.ini` file should contain an entry like
+```
+[Exasol-Driver]
+Description=Exasol ODBC Connector
+Driver=/path/to/libexaodbc.so
+```
+With that entry, the `DRIVER` can be specified using the section name.
+
+Example:
+```
+connection_string=Driver=Exasol-Driver;EXAHOST=127.0.0.1:8563;FINGERPRINT=NOCERTCHECK
+```
+
+#### With `/etc/odbc.ini` or `~/.odbc.ini`
+
+The latter file must reside in the home-directory of the user used
+for running MaxScale.
+
+The `odbc.ini` file should contain an entry like
+```
+[Exasol]
+DRIVER = Exasol-Driver
+EXAHOST = 127.0.0.1:8563
+FINGERPRINT = NOCERTCHECK
+UID = MyUser
+PWD = MyPwd
+```
+
+That assumes a `Exasol-Driver` entry in `/etc/odbcinst.ini`. The `DRIVER`
+can also be provided as a path:
+```
+DRIVER = /path/to/libexaodbc.so
+```
+
+With that entry, the following is sufficient:
+```
+connection_string=DSN=Exasol
+```
+
+In this case, the `UID/PWD` specified in the file, will be used
+instead of the `user` and `password` settings of the service.
 
 ### `appearance`
 
