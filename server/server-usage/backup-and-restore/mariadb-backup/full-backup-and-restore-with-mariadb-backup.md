@@ -72,7 +72,7 @@ $ chown -R mysql:mysql /var/lib/mysql/
 
 #### Restoring with Other Tools
 
-Once a full backup is prepared, it is a fully functional MariaDB data directory. Therefore, as long as the MariaDB Server process is stopped on the target server, you can technically restore the backup using any file copying tool, such as `cp` or `rysnc`. For example, you could also execute the following to restore the backup:
+Once a full backup is prepared, it is a fully functional MariaDB data directory. Therefore, as long as the MariaDB Server process is stopped on the target server, you can technically restore the backup using any file copying tool, such as `cp` or `rsync`. For example, you could also execute the following to restore the backup:
 
 ```bash
 $ rsync -avrP /var/mariadb/backup /var/lib/mysql/
