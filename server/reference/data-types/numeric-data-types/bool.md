@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for TINYINT(1). This type is commonly used to represent boolean
+  values, where 0 is considered false and non-zero values are true.
+---
+
 # BOOL
 
 ## Overview

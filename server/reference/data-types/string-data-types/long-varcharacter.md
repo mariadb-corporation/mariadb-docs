@@ -1,3 +1,9 @@
+---
+description: >-
+  LONG VARCHARACTER is a compatibility synonym for the MEDIUMTEXT string data
+  type.
+---
+
 # LONG VARCHARACTER
 
 ## Overview

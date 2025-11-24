@@ -1,3 +1,9 @@
+---
+description: >-
+  Bit-field data type. A BIT(M) column stores M bits per value, allowing storage
+  of binary values from 1 to 64 bits in length.
+---
+
 # BIT
 
 ## Syntax

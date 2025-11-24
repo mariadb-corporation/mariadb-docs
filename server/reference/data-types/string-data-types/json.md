@@ -1,3 +1,9 @@
+---
+description: >-
+  JSON document storage. While often implemented as an alias for LONGTEXT, this
+  type includes automatic validation to ensure valid JSON format.
+---
+
 # JSON Data Type
 
 The `JSON` alias was added to make it possible to use JSON columns in [statement based](../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based) [replication](../../../ha-and-performance/standard-replication/) from MySQL to MariaDB and to make it possible for MariaDB to read [mysqldumps](../../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md) from MySQL.

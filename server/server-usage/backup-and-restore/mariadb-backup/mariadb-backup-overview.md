@@ -1,3 +1,9 @@
+---
+description: >-
+  Introduction to the mariadb-backup tool. Learn how this utility performs
+  physical backups for InnoDB, Aria, and MyISAM tables.
+---
+
 # mariadb-backup Overview
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}

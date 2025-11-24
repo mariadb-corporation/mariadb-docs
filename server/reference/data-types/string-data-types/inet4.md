@@ -1,3 +1,9 @@
+---
+description: >-
+  IPv4 address data type. Stores IPv4 addresses as 4-byte binary strings for
+  efficient storage and retrieval.
+---
+
 # INET4
 
 {% hint style="info" %}

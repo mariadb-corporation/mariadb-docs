@@ -1,3 +1,9 @@
+---
+description: >-
+  IPv6 address data type. Stores IPv6 addresses as 16-byte binary strings, also
+  supporting IPv4 addresses via mapping.
+---
+
 # INET6
 
 {% hint style="info" %}

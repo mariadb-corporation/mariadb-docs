@@ -1,3 +1,9 @@
+---
+description: >-
+  Exact fixed-point number. DECIMAL(M,D) stores values with M total digits and D
+  decimal places, preventing rounding errors common with floating-point types.
+---
+
 # DECIMAL
 
 ## Syntax

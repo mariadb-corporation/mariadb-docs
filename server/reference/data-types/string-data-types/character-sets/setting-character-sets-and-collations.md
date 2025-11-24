@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to configure character sets and collations at the server, table, and
+  column levels to ensure correct data handling.
+---
+
 # Setting Character Sets and Collations
 
 {% tabs %}
@@ -7,7 +13,7 @@ This may differ in some distros, see for example [Differences in MariaDB in Debi
 {% endtab %}
 
 {% tab title="< 11.6" %}
-The default [character set](./) is `latin1` and the default collation is `latin1_swedish_ci`. \
+The default [character set](./) is `latin1` and the default collation is `latin1_swedish_ci`.\
 This may differ in some distros, see for example [Differences in MariaDB in Debian](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md).
 {% endtab %}
 {% endtabs %}

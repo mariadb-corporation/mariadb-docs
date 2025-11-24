@@ -1,3 +1,9 @@
+---
+description: >-
+  Automatically generate unique identities for new rows. This attribute is
+  commonly used for primary keys to ensure sequential numbering.
+---
+
 # AUTO\_INCREMENT
 
 ## Description

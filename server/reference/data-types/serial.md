@@ -1,3 +1,9 @@
+---
+description: >-
+  Alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE. This shorthand data
+  type is often used to define primary keys.
+---
+
 # SERIAL
 
 ## Overview

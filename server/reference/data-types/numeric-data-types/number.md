@@ -1,3 +1,9 @@
+---
+description: >-
+  Oracle-compatible synonym for DECIMAL. This type is used for fixed-point
+  arithmetic.
+---
+
 # NUMBER
 
 ```sql

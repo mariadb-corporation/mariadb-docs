@@ -1,3 +1,7 @@
+---
+description: NCHAR VARCHARACTER is a synonym for VARCHAR using the utf8 character set.
+---
+
 # NCHAR VARCHARACTER
 
 ## Overview

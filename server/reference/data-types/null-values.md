@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the concept of NULL. This page explains how NULL represents missing
+  or unknown data and how it interacts with comparison operators and functions.
+---
+
 # NULL Values
 
 `NULL` represents an unknown value. It is _not_ an empty string (by default), or a zero value. These are all valid values, and are not `NULL` values.

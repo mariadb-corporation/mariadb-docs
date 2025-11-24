@@ -1,3 +1,9 @@
+---
+description: >-
+  Variable-length character string. A TEXT column can store up to 65,535
+  characters, often used for storing longer text content.
+---
+
 # TEXT
 
 ## Syntax

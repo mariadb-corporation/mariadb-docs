@@ -1,3 +1,9 @@
+---
+description: >-
+  Small integer type. A SMALLINT column uses 2 bytes and stores values from
+  -32768 to 32767 (signed) or 0 to 65535 (unsigned).
+---
+
 # SMALLINT
 
 ## Syntax

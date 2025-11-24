@@ -1,3 +1,9 @@
+---
+description: >-
+  LONG and LONG VARCHAR are compatibility synonyms for the MEDIUMTEXT string
+  data type.
+---
+
 # LONG and LONG VARCHAR
 
 `LONG` and `LONG VARCHAR` are synonyms for [MEDIUMTEXT](mediumtext.md).

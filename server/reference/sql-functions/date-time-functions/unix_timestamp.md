@@ -16,7 +16,7 @@ UNIX_TIMESTAMP(date)
 ## Description
 
 If called with no argument, returns a Unix timestamp (seconds since `1970-01-01 00:00:00` [UTC](../../data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)) as an unsigned integer. If `UNIX_TIMESTAMP()`\
-is called with a date argument, it returns the value of the argument as seconds since `1970-01-01 00:00:00` UTC. date may be a [DATE](../../../../data-types/date-and-time-data-types/date.md) string, a [DATETIME](../../../../data-types/date-and-time-data-types/datetime.md) string, a [TIMESTAMP](../../../../data-types/date-and-time-data-types/timestamp.md), or a number in\
+is called with a date argument, it returns the value of the argument as seconds since `1970-01-01 00:00:00` UTC. date may be a [DATE](../../data-types/date-and-time-data-types/date.md) string, a [DATETIME](../../data-types/date-and-time-data-types/datetime.md) string, a [TIMESTAMP](timestamp-function.md), or a number in\
 the format `YYMMDD` or `YYYYMMDD`. The server interprets date as a value in the current [time zone](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md) and converts it to an internal value in [UTC](../../data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md). Clients can set their time zone as described in [time zones](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md).
 
 The inverse function of `UNIX_TIMESTAMP()` is [FROM\_UNIXTIME()](from_unixtime.md)

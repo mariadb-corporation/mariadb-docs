@@ -1,3 +1,10 @@
+---
+description: >-
+  General introduction to numeric data types. This page summarizes the available
+  integer, fixed-point, and floating-point types and their storage
+  characteristics.
+---
+
 # Numeric Data Type Overview
 
 There are a number of numeric data types:

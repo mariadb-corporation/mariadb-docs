@@ -1,3 +1,9 @@
+---
+description: >-
+  String object with zero or more values from a predefined list. A SET column
+  can store multiple values selected from a list of permitted strings.
+---
+
 # SET Data Type
 
 ## Syntax

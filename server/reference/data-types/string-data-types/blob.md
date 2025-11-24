@@ -1,3 +1,9 @@
+---
+description: >-
+  Variable-length binary large object. BLOB columns can store binary data up to
+  65,535 bytes, suitable for images or other non-text files.
+---
+
 # BLOB
 
 ## Syntax

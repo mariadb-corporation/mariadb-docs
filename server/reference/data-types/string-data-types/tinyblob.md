@@ -1,3 +1,9 @@
+---
+description: >-
+  Very small binary object. A TINYBLOB column can store up to 255 bytes of
+  binary data.
+---
+
 # TINYBLOB
 
 ## Syntax

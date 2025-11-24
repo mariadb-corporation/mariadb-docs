@@ -1,3 +1,7 @@
+---
+description: Very small character string. A TINYTEXT column can store up to 255 characters.
+---
+
 # TINYTEXT
 
 ## Syntax

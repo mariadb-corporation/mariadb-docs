@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference of files generated during backup. This page explains the purpose of
+  metadata files like xtrabackup_checkpoints created by the tool.
+---
+
 # Files Created by mariadb-backup
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}

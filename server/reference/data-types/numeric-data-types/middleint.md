@@ -1,3 +1,7 @@
+---
+description: Synonym for MEDIUMINT. This keyword refers to the 3-byte integer type.
+---
+
 # MIDDLEINT
 
 ## Overview

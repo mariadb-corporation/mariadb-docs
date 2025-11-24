@@ -1,3 +1,9 @@
+---
+description: >-
+  NATIONAL VARCHAR is a synonym for the VARCHAR data type using the predefined
+  utf8 character set.
+---
+
 # NATIONAL VARCHAR
 
 ## Overview

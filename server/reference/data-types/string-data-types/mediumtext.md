@@ -1,3 +1,9 @@
+---
+description: >-
+  Medium-sized character string. A MEDIUMTEXT column can store up to 16MB of
+  text data.
+---
+
 # MEDIUMTEXT
 
 ## Syntax

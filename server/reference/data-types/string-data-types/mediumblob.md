@@ -1,3 +1,9 @@
+---
+description: >-
+  Medium-sized binary object. A MEDIUMBLOB column can store up to 16MB of binary
+  data.
+---
+
 # MEDIUMBLOB
 
 ## Syntax

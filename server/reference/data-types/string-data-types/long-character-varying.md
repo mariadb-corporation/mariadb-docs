@@ -1,3 +1,9 @@
+---
+description: >-
+  LONG CHARACTER VARYING is a compatibility synonym for the MEDIUMTEXT string
+  data type.
+---
+
 # LONG CHARACTER VARYING
 
 ## Overview

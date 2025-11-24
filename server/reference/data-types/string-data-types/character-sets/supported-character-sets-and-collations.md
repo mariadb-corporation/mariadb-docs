@@ -1,3 +1,9 @@
+---
+description: >-
+  View a comprehensive list of the character sets and collations available in
+  MariaDB database, including their default properties and maximum lengths.
+---
+
 # Supported Character Sets and Collations
 
 ## Character Sets

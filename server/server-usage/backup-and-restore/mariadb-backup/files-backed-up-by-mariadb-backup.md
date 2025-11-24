@@ -1,3 +1,9 @@
+---
+description: >-
+  List of file types included in a backup. Understand which data files, logs,
+  and configuration files are preserved during the backup process.
+---
+
 # Files Backed Up By mariadb-backup
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
@@ -25,7 +31,7 @@ mariadb-backup backs up the following InnoDB data files:
 {% endtab %}
 {% endtabs %}
 
-### &#xD;Other Data Files
+### Other Data Files
 
 `mariadb-backup` also backs up files with the following extensions:
 

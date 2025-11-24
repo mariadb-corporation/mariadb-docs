@@ -1,3 +1,9 @@
+---
+description: >-
+  Very large character string. A LONGTEXT column can store up to 4GB of text
+  data, subject to protocol limits.
+---
+
 # LONGTEXT
 
 ## Syntax

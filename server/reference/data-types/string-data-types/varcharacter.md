@@ -1,3 +1,9 @@
+---
+description: >-
+  Variable-length character string type. VARCHARACTER columns store strings of
+  variable length up to a specified maximum (up to 65,535).
+---
+
 # VARCHARACTER
 
 ## Overview

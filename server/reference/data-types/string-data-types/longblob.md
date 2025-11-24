@@ -1,3 +1,9 @@
+---
+description: >-
+  Very large binary object. A LONGBLOB column can store up to 4GB of binary
+  data.
+---
+
 # LONGBLOB
 
 ## Syntax

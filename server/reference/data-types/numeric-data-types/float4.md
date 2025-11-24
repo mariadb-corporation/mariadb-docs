@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for FLOAT. This keyword declares a single-precision floating-point
+  column.
+---
+
 # FLOAT4
 
 ## Overview

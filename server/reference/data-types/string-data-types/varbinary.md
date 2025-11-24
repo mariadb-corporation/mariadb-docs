@@ -1,3 +1,9 @@
+---
+description: >-
+  Variable-length binary string type. VARBINARY columns store binary strings of
+  variable length up to a specified maximum.
+---
+
 # VARBINARY
 
 ## Syntax

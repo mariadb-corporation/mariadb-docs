@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DOUBLE. This keyword declares a normal-size (8-byte)
+  floating-point number with double precision.
+---
+
 # DOUBLE PRECISION
 
 ## Syntax
