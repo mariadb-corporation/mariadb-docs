@@ -38,8 +38,21 @@ SET new_mode = '';
 
 ### FIX_DISK_TMPTABLE_COSTS
 
+From [MariaDB 11.8.4](https://mariadb.com/docs/release-notes/community-server/11.8/11.8.4) to [MariaDB 12.0](https://mariadb.com/docs/release-notes/community-server/12.0). Starting from [MariaDB 12.1.2](https://mariadb.com/docs/release-notes/community-server/12.1/12.1.2/), this behavior is enabled by default.
+
 This flag improves the cost computation for using temporary tables in certain cases, including semi-join subquery materialization ([MDEV-37723](https://jira.mariadb.org/browse/MDEV-37723)).
 
 ### FIX_INDEX_STATS_FOR_ALL_NULLS
 
-This flag improves the selection of execution plans when indexed columns contain only NULL values ([MDEV-36761](https://jira.mariadb.org/browse/MDEV-36761)).
+From [MariaDB 11.4.9](https://mariadb.com/docs/release-notes/community-server/11.4/11.4.9) to [MariaDB 12.0](https://mariadb.com/docs/release-notes/community-server/12.0).
+
+This flag improves the selection of execution plans when indexed columns contain only NULL values ([MDEV-36761](https://jira.mariadb.org/browse/MDEV-36761)). Starting from [MariaDB 12.1.2](https://mariadb.com/docs/release-notes/community-server/12.1/12.1.2/), this behavior is enabled by default.
+
+For proper application of the fix, [engine-independent statistics](https://mariadb.com/docs/server/reference/sql-statements/table-statements/analyze-table#eits-statistics-persistent-for) must be collected for tables having columns with only NULL values:
+```sql
+ANALYZE TABLE table_name PERSISTENT FOR ALL;
+```
+or at least for indexed columns with only NULL values:
+```sql
+ANALYZE TABLE table_name PERSISTENT FOR COLUMNS (b) INDEXES (key_b);
+```
