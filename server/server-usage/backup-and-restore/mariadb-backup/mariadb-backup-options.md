@@ -877,6 +877,10 @@ mariadb-backup --backup \
      --innodb-io-capacity=200
 ```
 
+### `--innodb-log-buffer-size`
+
+The size of the buffer that will be used for reading log during `mariadb-backup --prepare`. Ignored when using `--innodb-log-file-mmap`.
+
 ### `--innodb-log-checksums`
 
 Defines whether to include checksums in the InnoDB logs.
@@ -888,9 +892,18 @@ mariadb-backup --backup \
       --innodb-log-checksums
 ```
 
-### `--innodb-log-buffer-size`
+### `--innodb-log-checkpoint-now`
 
-This option has no functionality in `mariadb-backup`. It exists for MariaDB Server compatibility.
+At the start of a backup, instruct the server to write out all modified pages to the data files, to minimize the size of the `ib_logfile0` that needs to be copied.
+
+```bash
+mariadb-backup --backup \
+      --innodb-log-checkpoint-now
+```
+
+### `--innodb-log-file-mmap`
+
+**MariaDB starting with** 10.11.10, 11.4.4: When this option is enabled, `mariadb-backup` will read the `ib_logfile0` via a memory mapping, rather than by reading into a separately allocated buffer of `--innodb-log-buffer-size`.
 
 ### `--innodb-log-files-in-group`
 
