@@ -1,8 +1,7 @@
 ---
 description: >-
-  Set the active role for the current session. Learn how to switch to a specific
-  role or unset the current role using NONE to change your privileges
-  dynamically.
+  Sets the current role for the session. Learn how to enable none, or a
+  specific role to change your current privileges dynamically.
 ---
 
 # SET ROLE
@@ -16,10 +15,10 @@ SET ROLE { role | NONE }
 ## Description
 
 {% hint style="info" %}
-MariaDB allows only one role to be the current role at a time. Executing `SET ROLE` replaces the existing current role; it does not create a list of roles. This differs from MySQL 8.0+, which allows multiple roles to be active simultaneously.
+Only one role can be current at a time. Executing `SET ROLE` replaces the current role; it does not add to a list of current roles. This is SQL Standard compliant behavior which differs from MySQL, where you may have several current roles at a time.
 {% endhint %}
 
-The `SET ROLE` statement sets the current role for the session. When a role is set, the user adopts the permissions associated with that role. To unset the current role, use `NONE`.
+The `SET ROLE` statement switches the current role for the session, enabling its associated permissions. To have no current role, set `NONE`.
 
 If a role that doesn't exist, or to which the user has not been assigned, is specified, an `ERROR 1959 (OP000): Invalid role specification` error occurs.
 
