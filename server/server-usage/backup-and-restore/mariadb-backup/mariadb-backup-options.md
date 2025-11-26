@@ -195,7 +195,7 @@ In cases where you want to back up most databases on a server or tables on a dat
 
 If a backup is a partial backup, then mariadb-backup will record that detail in the `xtrabackup_info` file.
 
-In `innobackupex` mode, which can be enabled with the `--innobackupex` option, the `--databases` option can be used as described above, or it can be used to refer to a file, just as the [--databases-file](https://mariadb.com/kb/en/-databases-file) option can in the normal mode.
+In `innobackupex` mode, which can be enabled with the `--innobackupex` option, the `--databases` option can be used as described above, or it can be used to refer to a file, just as the [--databases-file](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#databases-file) option can in the normal mode.
 
 ### `--databases-exclude`
 
