@@ -4,15 +4,15 @@
 the state of a MariaDB replication cluster. The monitor can perform cluster manipulation operations
 such as *failover*, *switchover* and *rejoin*. By default, these operations are launched manually,
 but they can be configured to also trigger automatically. All replication modifying operations
-assume GTID-based replication, and will refuse to launch or may work incorrectly when using
+assume GTID-based replication, and refuses to launch or may work incorrectly when using
 file-and-position-based replication.  Also, the operations are mainly designed to work with simple
-topologies, i.e. 1 primary and one to multiple replicas. More complicated setups (multilayered
+topologies, for instance 1 primary and one to multiple replicas. More complicated setups (multilayered
 replication, multimaster rings etc.) may work, but should be tested separately to ensure the results
 are predictable.
 
 The following examples have four servers: *server1* is the initial primary and *server2* to
 *server4* are replicas. The servers are monitored by *TheMonitor*.  The MaxScale configuration file
-would look as follows:
+looks as follows:
 
 ```ini
 [server1]
@@ -92,11 +92,11 @@ alternate form works for module commands in general.
 During failover, *TheMonitor* selects the best replica, promotes it to primary and modifies the
 other replicas to replicate from the new primary. The main criteria for *best replica* is being most
 up-to-date.  If the best replica has unprocessed events in its relay log, meaning it has received
-binary log events from the old primary but not processed them, then failover will stall until the
-processing is complete. If multiple replicas are equally good, then the monitor prefers to promote
+binary log events from the old primary but not processed them, failover stalls until the
+processing is complete. If multiple replicas are equally good, the monitor prefers to promote
 servers in the order stated in the *servers*-setting.
 
-After failover completes, the cluster should look like:
+After failover completes, the cluster looks like this:
 
 ```bash
 $ maxctrl list servers
@@ -113,7 +113,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If *server1* comes back online, it will not be rejoined to the cluster:
+If *server1* comes back online, it is not rejoined to the cluster:
 
 ```bash
 $ maxctrl list servers
@@ -135,8 +135,8 @@ does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb
 
 ## Automatic Failover
 
-To enable automatic failover, simply add `auto_failover=true` to the monitor section in the
-configuration file.
+To enable automatic failover, add `auto_failover=true` to the monitor section in the
+configuration file:
 
 ```ini
 [TheMonitor]
@@ -182,9 +182,9 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴────────────────────────┘
 ```
 
-If you are continuously monitoring the server states, you may notice for a brief period that the
+If you are continuously monitoring the server states, you may notice that, for a brief period, the
 state of *server1* is _Down_ and the state of *server2* is still _Slave, Running_. This is because
-the monitor does not begin failover immediately as the server goes down, as the problem could be
+the monitor does not begin failover immediately when the server goes down, as the problem could be
 temporary. The monitor waits for *server1* to come back for
 [failcount](../reference/maxscale-monitors/mariadb-monitor.md#failcount) monitor intervals. The
 recommended value for *failcount* depends on *monitor_interval* and the stability of the network.
@@ -203,7 +203,7 @@ failcount=5
 ## Rejoin
 
 To enable automatic rejoin, simply add `auto_rejoin=true` to the monitor section in the
-configuration file.
+configuration file:
 
 ```ini
 [TheMonitor]
@@ -215,8 +215,8 @@ auto_rejoin=true
 ...
 ```
 
-When automatic rejoin is enabled, MariaDB Monitor will attempt to rejoin a failed primary as a
-replica should it come back online.
+When automatic rejoin is enabled, MariaDB Monitor attempts to rejoin a failed primary as a
+replica if it comes back online.
 
 In the next example, failover (either automatic or manual) has promoted *server2* to replace failed
 primary *server1*:
@@ -236,12 +236,12 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If *server1* now reappears, the monitor will detect that and attempt to rejoin the old primary as a
-replica. Rejoin is not always possible: If the old primary processed a write (just before crashing)
-and that write was never replicated to the new primary, then automatic rejoin will not be possible
-as the old and new primaries have diverged.
+If *server1* reappears, the monitor detects that, and attempts to rejoin the old primary as a
+replica. Rejoin is not always possible: If the old primary processed a write (just before crashing),
+and that write was never replicated to the new primary, then automatic rejoin is not possible
+because the old and new primaries have diverged.
 
-If rejoin succeeds, then the cluster state will end up looking like:
+If rejoin succeeds, the cluster state ends up looking like:
 
 ```bash
 $ maxctrl list servers
