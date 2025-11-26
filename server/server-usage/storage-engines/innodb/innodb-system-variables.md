@@ -616,7 +616,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
   * `lz4`: Pages are compressed using the [lz4](https://code.google.com/p/lz4/) compression algorithm.
   * `lzo`: Pages are compressed using the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm.
   * `lzma`: Pages are compressed using the [lzma](https://tukaani.org/xz/) compression algorithm.
-  * `bzip2`: Pages are compressed using the [bzip2](https://www.bzip.org/) compression algorithm.
+  * `bzip2`: Pages are compressed using the [bzip2](http://www.bzip.org/) compression algorithm.
   * `snappy`: Pages are compressed using the [snappy](https://google.github.io/snappy/) algorithm.
   * On many distributions, MariaDB may not support all page compression algorithms by default. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107), libraries can be installed as a plugin. See [Compression Plugins](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
   * See [InnoDB Page Compression: Configuring the InnoDB Page Compression Algorithm](innodb-page-compression.md#configuring-the-innodb-page-compression-algorithm) for more information.
