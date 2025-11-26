@@ -61,6 +61,7 @@
   * [Configuring the MariaDB Monitor](mariadb-maxscale-tutorials/configuring-the-mariadb-monitor.md)
   * [Connection Routing with MariaDB MaxScale](mariadb-maxscale-tutorials/connection-routing-with-mariadb-maxscale.md)
   * [Encrypting Passwords](mariadb-maxscale-tutorials/encrypting-passwords.md)
+  * [Failure-tolerant replication and failover](mariadb-maxscale-tutorials/failure-tolerant-replication-and-failover.md)
   * [Filters](mariadb-maxscale-tutorials/filters.md)
   * [MaxScale Administration Tutorial](mariadb-maxscale-tutorials/maxscale-administration-tutorial.md)
   * [Read-Write Splitting](mariadb-maxscale-tutorials/read-write-splitting.md)
