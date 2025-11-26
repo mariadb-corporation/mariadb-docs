@@ -325,7 +325,7 @@ Using this option, you can define a default option file for `mariadb-backup`. Un
 
 ```bash
 mariadb-backup --backup \
-     --defaults-file="config.cnf
+     --defaults-file=config.cnf
 ```
 
 ### `--defaults-group`
@@ -340,7 +340,7 @@ In situations where you find yourself using certain `mariadb-backup` options con
 
 Options you define from the command-line can be set in the configuration file using minor formatting changes. For instance, if you find yourself perform compression operations frequently, you might set `--compress-threads` and `--compress-chunk-size` options in this way:
 
-```bash
+```
 [mariadb-backup]
 compress_threads = 12
 compress_chunk_size = 64K
@@ -366,7 +366,7 @@ If this option is provided during the `--prepare` stage, then it tells `mariadb-
 
 The `--export` option could require rolling back incomplete transactions that had modified the table. This will likely create a "new branch of history" that does not correspond to the server that had been backed up, which makes it impossible to apply another incremental backup on top of such additional changes. The option should only be applied when doing a `--prepare` of the last incremental.
 
-```
+```bash
 mariadb-backup --prepare --export
 ```
 
