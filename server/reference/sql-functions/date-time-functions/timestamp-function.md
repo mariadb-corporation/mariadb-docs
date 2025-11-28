@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert to datetime or add time. With one argument, it returns a datetime;
+  with two, it adds a time expression to a date or datetime.
+---
+
 # TIMESTAMP
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Derive a key. This function derives a key from a password using a Key
+  Derivation Function (KDF), enhancing security for password storage.
+---
+
 # KDF
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_INDEXES table provides metadata about InnoDB indexes, including
+  the table they belong to, unique IDs, and type.
+---
+
 # Information Schema INNODB\_SYS\_INDEXES Table
 
 The [Information Schema](../../) `INNODB_SYS_INDEXES` table contains information about InnoDB indexes.

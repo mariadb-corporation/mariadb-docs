@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the character for a specific ASCII value. This function is similar to
+  CHAR() but accepts a single integer argument.
+---
+
 # CHR
 
 ## Syntax
@@ -12,7 +18,7 @@ CHR(N)
 
 `CHR()` is similar to the [CHAR()](char-function.md) function, but only accepts a single argument.
 
-`CHR()` is available in all [sql\_modes](../../../server-management/variables-and-modes/sql-mode.md).
+`CHR()` is available in all [sql\_modes](../../../server-management/variables-and-modes/sql_mode.md).
 
 ## Examples
 

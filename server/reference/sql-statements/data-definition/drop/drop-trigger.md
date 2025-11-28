@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove a trigger from a table. This command deletes the trigger definition,
+  preventing it from firing on future INSERT, UPDATE, or DELETE events.
+---
+
 # DROP TRIGGER
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  Calculate distance between vectors. This function computes the distance
+  between two vectors using either Euclidean or Cosine metric, depending on the
+  index.
+---
+
 # VEC\_DISTANCE
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}
@@ -14,7 +21,7 @@ VEC_DISTANCE(v, s)
 
 `VEC_DISTANCE` is a generic function that behaves either as [VEC\_DISTANCE\_EUCLIDEAN](vec_distance_euclidean.md), calculating the Euclidean (L2) distance between two points. Or [VEC\_DISTANCE\_COSINE](vec_distance_cosine.md), calculating the Cosine distance between two vectors, depending on the underlying index type.
 
-If the underlying index cannot be determined, an [error 4206](broken-reference) is returned:
+If the underlying index cannot be determined, an [error 4206](../../error-codes/mariadb-error-codes-4200-to-4299/e4206.md) is returned:
 
 ```sql
 ERROR 4206 (HY000): Cannot determine distance type for VEC_DISTANCE, index is not found
@@ -63,3 +70,4 @@ SELECT id FROM v
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+

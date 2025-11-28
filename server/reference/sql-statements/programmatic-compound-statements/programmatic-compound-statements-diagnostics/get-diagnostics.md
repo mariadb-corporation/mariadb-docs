@@ -53,7 +53,7 @@ To read information from a condition, the `CONDITION` keyword must be specified 
 
 The condition properties that can be read with `GET DIAGNOSTICS` are the same that can be set with `SIGNAL` and `RESIGNAL` statements. They are explained in the [diagnostics area](diagnostics-area.md) page. However, there is one more property: `RETURNED_SQLSTATE`, which indicates the condition's [SQLSTATE](sqlstate.md).
 
-For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](broken-reference).
+For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md).
 
 The type for all the condition properties is `VARCHAR`(64), except for `MYSQL_ERRNO`, whose valid range is 1 to 65534.
 

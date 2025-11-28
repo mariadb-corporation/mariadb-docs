@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DAYOFMONTH(). Returns the day of the month (1-31) for a given
+  date.
+---
+
 # DAY
 
 ## Syntax

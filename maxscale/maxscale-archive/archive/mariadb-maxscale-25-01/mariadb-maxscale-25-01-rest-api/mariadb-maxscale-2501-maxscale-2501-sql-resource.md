@@ -743,7 +743,7 @@ connection). All ETL operations must be done on the ODBC connection.
 The ETL operations require that the MariaDB ODBC driver is installed on the\
 MaxScale server. This driver is often available in the package manager of your\
 operating system but it can also be downloaded from the MariaDB\
-website.&#x20;
+website. 
 
 The request body must be a JSON object consisting of the following fields:
 

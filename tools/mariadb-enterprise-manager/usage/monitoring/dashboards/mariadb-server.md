@@ -48,7 +48,7 @@ Provides insight into replication and cluster-related activity, including binary
 
 **Replication Status Table**
 
-This table provides a consolidated view of the health status of replication across instances.&#x20;
+This table provides a consolidated view of the health status of replication across instances. 
 
 | Field Name             | Description                                                    |
 | ---------------------- | -------------------------------------------------------------- |

@@ -4,24 +4,19 @@ This article describes different techniques for inserting data quickly into Mari
 
 ## Background
 
-When inserting new data into MariaDB, the things that take time are:\
-(in order of importance):
+When inserting new data into MariaDB, the things that take time are (in order of importance):
 
 * Syncing data to disk (as part of the end of transactions)
-* Adding new keys. The larger the index, the more time it takes to keep keys\
-  updated.
+* Adding new keys. The larger the index, the more time it takes to keep keys updated.
 * Checking against foreign keys (if they exist).
 * Adding rows to the storage engine.
 * Sending data to the server.
 
-The following describes the different techniques (again, in order of\
-importance) you can use to quickly insert data into a table.
+The following describes the different techniques (again, in order of importance) you can use to quickly insert data into a table.
 
 ## Disabling Keys
 
-You can temporarily disable updating of non unique indexes. This is mostly\
-useful when there are zero (or very few) rows in the table into which you are\
-inserting data.
+You can temporarily disable updating of non-unique indexes. This is mostly useful when there are zero (or very few) rows in the table into which you are inserting data.
 
 ```sql
 ALTER TABLE table_name DISABLE KEYS;
@@ -31,10 +26,8 @@ COMMIT;
 ALTER TABLE table_name ENABLE KEYS;
 ```
 
-In many storage engines (at least MyISAM and Aria),`ENABLE KEYS` works by scanning through the row data and collecting keys,\
-sorting them, and then creating the index blocks. This is an order of magnitude\
-faster than creating the index one row at a time and it also uses less key\
-buffer memory.
+In many storage engines (at least MyISAM and Aria),`ENABLE KEYS` works by scanning through the row data and collecting keys, sorting them and then creating the index blocks. This is an order of magnitude\
+faster than creating the index one row at a time and it also uses less key buffer memory.
 
 **Note:** When you insert into an **empty table** with [INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) or [LOAD DATA](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md), MariaDB **automatically** does a [DISABLE KEYS](../../../reference/sql-statements/data-definition/alter/alter-table/) before and an [ENABLE KEYS](../../../reference/sql-statements/data-definition/alter/alter-table/)\
 afterwards.
@@ -64,34 +57,25 @@ The simplest form of the command is:
 LOAD DATA INFILE 'file_name' INTO TABLE table_name;
 ```
 
-You can also read a file locally on the machine where the client is running by\
-using:
+You can also read a file locally on the machine where the client is running by using:
 
 ```sql
 LOAD DATA LOCAL INFILE 'file_name' INTO TABLE table_name;
 ```
 
-This is not as fast as reading the file on the server side, but the difference\
-is not that big.
+This is not as fast as reading the file on the server side, but the difference is not that big.
 
 `LOAD DATA INFILE` is very fast because:
 
 1. there is no parsing of SQL.
 2. data is read in big blocks.
-3. if the table is empty at the beginning of the operation, all non unique\
-   indexes are disabled during the operation.
-4. the engine is told to cache rows first and then insert them in big blocks (At\
-   least MyISAM and Aria support this).
-5. for empty tables, some transactional engines (like Aria) do not log the\
-   inserted data in the transaction log because one can rollback the operation\
-   by just doing a [TRUNCATE](../../../reference/sql-statements/table-statements/truncate-table.md) on the table.
+3. if the table is empty at the beginning of the operation, all non-unique indexes are disabled during the operation.
+4. the engine is told to cache rows first and then insert them in big blocks (At least MyISAM and Aria support this).
+5. for empty tables, some transactional engines (like Aria) do not log the inserted data in the transaction log because one can roll back the operation by just doing a [TRUNCATE](../../../reference/sql-statements/table-statements/truncate-table.md) on the table.
 
-Because of the above speed advantages there are many cases, when you need to\
-insert **many** rows at a time, where it may be faster to create a file\
-locally, add the rows there, and then use `LOAD DATA INFILE` to load them;\
-compared to using `INSERT` to insert the rows.
+Because of the above speed advantages there are many cases, when you need to insert **many** rows at a time, where it may be faster to create a file locally, add the rows there, and then use `LOAD DATA INFILE` to load them; compared to using `INSERT` to insert the rows.
 
-You will also get [progress reporting](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/broken-reference/README.md) for`LOAD DATA INFILE`.
+You will also get [progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for`LOAD DATA INFILE`.
 
 ### mariadb-import
 
@@ -101,17 +85,13 @@ You can import many files in parallel with [mariadb-import](../../../clients-and
 mariadb-import --use-threads=10 database text-file-name [text-file-name...]
 ```
 
-Internally [mariadb-import](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) uses [LOAD DATA INFILE](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) to read\
-in the data.
+Internally [mariadb-import](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) uses [LOAD DATA INFILE](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) to read in the data.
 
 ## Inserting Data with INSERT Statements
 
 ### Using Big Transactions
 
-When doing many inserts in a row, you should wrap them with `BEGIN / END` to\
-avoid doing a full transaction (which includes a disk sync) for every row. For\
-example, doing a begin/end every 1000 inserts will speed up your inserts by\
-almost 1000 times.
+When doing many inserts in a row, you should wrap them with `BEGIN / END` to avoid doing a full transaction (which includes a disk sync) for every row. For example, doing a begin/end every 1000 inserts will speed up your inserts by almost 1000 times.
 
 ```sql
 BEGIN;
@@ -125,8 +105,7 @@ END;
 ...
 ```
 
-The reason why you may want to have many `BEGIN/END` statements instead of\
-just one is that the former will use up less transaction log space.
+The reason why you may want to have many `BEGIN/END` statements instead of just one is that the former will use up less transaction log space.
 
 ### Multi-Value Inserts
 
@@ -140,8 +119,7 @@ The limit for how much data you can have in one statement is controlled by the [
 
 ## Inserting Data Into Several Tables at Once
 
-If you need to insert data into several tables at once, the best way to do so\
-is to enable multi-row statements and send many inserts to the server at once:
+If you need to insert data into several tables at once, the best way to do so is to enable multi-row statements and send many inserts to the server at once:
 
 ```sql
 INSERT INTO table_name_1 (auto_increment_key, data) VALUES (NULL,"row 1");
@@ -150,8 +128,7 @@ INSERT INTO table_name_2 (auto_increment, reference, data) VALUES (NULL, LAST_IN
 
 [LAST\_INSERT\_ID()](../../../reference/sql-functions/secondary-functions/information-functions/last_insert_id.md) is a function that returns the last`auto_increment` value inserted.
 
-By default, the command line `mariadb` client will send the above as\
-multiple statements.
+By default, the command line `mariadb` client will send the above as multiple statements.
 
 To test this in the `mariadb` client you have to do:
 
@@ -172,8 +149,7 @@ delimiter ;
 | [max\_allowed\_packet](../system-variables/server-system-variables.md#max_allowed_packet)                                     | Increase this to allow bigger multi-insert statements          |
 | [read\_buffer\_size](../system-variables/server-system-variables.md#read_buffer_size)                                         | Read block size when reading a file with LOAD DATA             |
 
-See [Server System Variables](../system-variables/server-system-variables.md) for the full list of server\
-variables.
+See [Server System Variables](../system-variables/server-system-variables.md) for the full list of server variables.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

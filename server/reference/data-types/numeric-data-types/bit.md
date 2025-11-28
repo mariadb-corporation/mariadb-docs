@@ -1,3 +1,9 @@
+---
+description: >-
+  Bit-field data type. A BIT(M) column stores M bits per value, allowing storage
+  of binary values from 1 to 64 bits in length.
+---
+
 # BIT
 
 ## Syntax
@@ -50,7 +56,7 @@ SELECT description, b1+0, LPAD(BIN(b4), 4, 0) AS b4, HEX(b16)
 +-------------+------+------+----------+
 ```
 
-### With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) set
+### With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) set
 
 ```sql
 CREATE TABLE b ( b1 BIT(8) );

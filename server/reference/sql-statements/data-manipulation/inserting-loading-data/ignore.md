@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about the IGNORE keyword. This modifier suppresses certain errors during
+  statement execution, downgrading them to warnings to allow the operation to
+  proceed.
+---
+
 # IGNORE
 
 The `IGNORE` option tells the server to ignore some common errors.
@@ -15,7 +22,7 @@ The `IGNORE` option tells the server to ignore some common errors.
 The logic used:
 
 * Variables out of ranges are replaced with the maximum/minimum value.
-* [SQL\_MODEs](../../../../server-management/variables-and-modes/sql-mode.md) `STRICT_TRANS_TABLES`, `STRICT_ALL_TABLES`, `NO_ZERO_IN_DATE`, `NO_ZERO_DATE` are ignored.
+* [SQL\_MODEs](../../../../server-management/variables-and-modes/sql_mode.md) `STRICT_TRANS_TABLES`, `STRICT_ALL_TABLES`, `NO_ZERO_IN_DATE`, `NO_ZERO_DATE` are ignored.
 * Inserting `NULL` in a `NOT NULL` field will insert 0 ( in a numerical field), 0000-00-00 ( in a date field) or an empty string ( in a character field).
 * Rows that cause a duplicate key error or break a foreign key constraint are not inserted, updated, or deleted.
 
@@ -43,7 +50,7 @@ Ignored errors normally generate a warning.
 
 A property of the `IGNORE` clause consists in causing transactional engines and non-transactional engines (like InnoDB and Aria) to behave the same way. For example, normally a multi-row insert which tries to violate a `UNIQUE` contraint is completely rolled back on InnoDB, but might be partially executed on Aria. With the `IGNORE` clause, the statement will be partially executed in both engines.
 
-Duplicate key errors also generate warnings. The [OLD\_MODE](../../../../server-management/variables-and-modes/old-mode.md) server variable can be used to prevent this.
+Duplicate key errors also generate warnings. The [OLD\_MODE](../../../../server-management/variables-and-modes/old_mode.md) server variable can be used to prevent this.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

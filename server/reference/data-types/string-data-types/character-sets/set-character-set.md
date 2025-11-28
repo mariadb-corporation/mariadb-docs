@@ -1,3 +1,9 @@
+---
+description: >-
+  Map strings to a specific character set. This command updates the character
+  set for the client, results, and connection to ensure correct data encoding.
+---
+
 # SET CHARACTER SET
 
 ## Syntax

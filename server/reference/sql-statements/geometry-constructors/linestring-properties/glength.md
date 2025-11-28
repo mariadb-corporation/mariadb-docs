@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_LENGTH. Calculates the length of a LineString or
+  MultiLineString in its associated spatial reference units.
+---
+
 # GLENGTH
 
 ## Syntax

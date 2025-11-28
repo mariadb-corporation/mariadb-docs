@@ -113,7 +113,7 @@ MariaDB Enterprise Server 10.6.18-14 was released on 2024-06-11.
 * ([MDEV-33819](https://jira.mariadb.org/browse/MDEV-33819)) The purge of committed history is mis-parsing some log
 * ([MDEV-33802](https://jira.mariadb.org/browse/MDEV-33802)) Weird read view after ROLLBACK of other transactions.
 * ([MDEV-32489](https://jira.mariadb.org/browse/MDEV-32489)) Change buffer index fails to delete the records
-* ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777)) Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../../community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105.md) local and [MariaDB 10.6](../../community-server/mariadb-10-6-series/what-is-mariadb-106.md) remote
+* ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777)) Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../../community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105.md) local and [MariaDB 10.6](../../community-server/10.6/what-is-mariadb-106.md) remote
 * ([MDEV-32454](https://jira.mariadb.org/browse/MDEV-32454)) JSON test has problem in view protocol
 * (MENT-1555) Spider: Set proper remote isolation based on information obtained by SQLGetInfo
 * ([MDEV-33979](https://jira.mariadb.org/browse/MDEV-33979)) Disallow bulk insert operation during partition update statement

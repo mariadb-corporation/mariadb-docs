@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the last value from a sequence. This function retrieves the most
+  recently generated value from a sequence object.
+---
+
 # LAST\_VALUE
 
 ## Syntax

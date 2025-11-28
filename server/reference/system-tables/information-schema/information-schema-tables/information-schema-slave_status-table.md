@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema SLAVE_STATUS table displays status information for the
+  replication slave threads, similar to SHOW SLAVE STATUS.
+---
+
 # Information Schema SLAVE\_STATUS Table
 
 {% hint style="info" %}

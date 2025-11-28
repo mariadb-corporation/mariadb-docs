@@ -122,7 +122,7 @@ Always ensure your API key is valid and your request body is correctly formatted
 
 ## Making a Chat Request
 
-The Chat API allows you to send natural language prompts to a AI agent and receive structured responses, including generated SQL and data results when applicable. It supports both stateless and multi-turn conversational use cases and lets you pass agent-specific configuration such as table filters to control the context of the response.
+The Chat API allows you to send natural language prompts to an AI agent and receive structured responses, including generated SQL and data results when applicable. It supports both stateless and multi-turn conversational use cases and lets you pass agent-specific configuration, such as table filters, to control the context of the response.
 
 The optional config object allows you to customize how the agent accesses and filters data during query generation. This is especially useful for enforcing data policies, scoping context, or running controlled experiments.
 
@@ -158,7 +158,7 @@ IMPORTANT: You can use this API on its own for single interactions, or in conjun
     * `agent_id` (string): The UUID of the AI agent to query
     * `session_id` (string, optional): Use this to maintain conversational context across turns.
     * `config` (object, optional): Configuration to pass contextual filters (e.g., row-level security, scope)
-    * `table_filters` (object,optional): Key-value pairs where the key is a table name, and the value is a SQL WHERE clause to apply automatically
+    * `table_filters` (object, optional): Key-value pairs where the key is a table name, and the value is a SQL WHERE clause to apply automatically
 
 **Example using `curl`:**
 

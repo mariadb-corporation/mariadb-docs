@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a named marker within a transaction. Savepoints allow you to roll back
+  part of a transaction without canceling the entire operation.
+---
+
 # SAVEPOINT
 
 ## Syntax

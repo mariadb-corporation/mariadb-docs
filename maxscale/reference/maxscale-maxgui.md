@@ -1,19 +1,16 @@
-# Using MaxGUI
+# MaxScale MaxGUI
 
 ## Introduction
 
-This tutorial is an overview of what the MaxGUI offers as an alternative
-solution to [MaxCtrl](../reference/maxscale-maxctrl.md).
+This tutorial is an overview of what the MaxGUI offers as an alternative solution to [MaxCtrl](maxscale-maxctrl.md).
 
 ## Dashboard
 
-![](<../.gitbook/assets/MaxGUI-dashboard.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-dashboard.png.png)
 
 ### Annotation
 
-1. [MaxScale object](../maxscale-management/deployment/maxscale-configuration-guide.md). i.e.
-   Service, Server, Monitor, Filter, and Listener (Clicking on it will navigate
-   to its detail page)
+1. [MaxScale object](../maxscale-management/deployment/maxscale-configuration-guide.md). i.e. Service, Server, Monitor, Filter, and Listener (Clicking on it will navigate to its detail page)
 2. Create a new MaxScale object.
 3. Dashboard Tab Navigation.
 4. Search Input. This can be used as a quick way to search for a keyword in tables.
@@ -24,34 +21,24 @@ solution to [MaxCtrl](../reference/maxscale-maxctrl.md).
 * LOAD graph shows the last second load of thread.
 
 1. Logout of the app.
-2. Sidebar navigation menu. Access to the following pages: Dashboard,
-   Visualization, Settings, Logs Archive, Query Editor
+2. Sidebar navigation menu. Access to the following pages: Dashboard, Visualization, Settings, Logs Archive, Query Editor
 3. Expand/Collapse the graphs.
 4. Graph annotation configuration.
-5. Active Operations Bar: This bar chart represents the proportion of active
-   operations on the server relative to the total number of connections. The
-   value displayed is the ratio of `active_operations` to `connections`,
-   providing a visual gauge of server activity.
+5. Active Operations Bar: This bar chart represents the proportion of active operations on the server relative to the total number of connections. The value displayed is the ratio of `active_operations` to `connections`, providing a visual gauge of server activity.
 
 ### Create a new MaxScale object
 
-Clicking on the _Create New_ button (Annotation 2) to open a dialog for creating
-a new object.
+Clicking on the _Create New_ button (Annotation 2) to open a dialog for creating a new object.
 
 ### View Replication Status
 
-The replication status of a server monitored by
-[MariaDB-Monitor](../reference/maxscale-monitors/mariadb-monitor.md)
-can be viewed by mousing over the server name. A tooltip will be displayed with
-the following information: replication\_state, seconds\_behind\_master,
-slave\_io\_running, slave\_sql\_running.
+The replication status of a server monitored by [MariaDB-Monitor](maxscale-monitors/mariadb-monitor.md) can be viewed by mousing over the server name. A tooltip will be displayed with the following information: replication\_state, seconds\_behind\_master, slave\_io\_running, slave\_sql\_running.
 
 ### How to kill a session
 
-A session can be killed easily on the "Current Sessions" list which can be
-found on the [Dashboard](#dashboard), Server detail, and Service detail page.
+A session can be killed easily on the "Current Sessions" list which can be found on the [Dashboard](maxscale-maxgui.md#dashboard), Server detail, and Service detail page.
 
-![](<../.gitbook/assets/MaxGUI-kill-session.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-kill-session.png.png)
 
 #### Annotation
 
@@ -60,59 +47,43 @@ found on the [Dashboard](#dashboard), Server detail, and Service detail page.
 
 ### View sessions created by the "Workspace"
 
-Sessions created by the "Workspace", such as via the Query Editor can be found
-in two places:
+Sessions created by the "Workspace", such as via the Query Editor can be found in two places:
 
 #### Dashboard "Current Sessions" tab
 
 ![](<../.gitbook/assets/MaxGUI-session-by-workspace.png (1).png>)
 
-##### Annotation
+**Annotation**
 
-1. A session with an icon next to the "CLIENT" column indicates a connection created
-   by the "Workspace".
+1. A session with an icon next to the "CLIENT" column indicates a connection created by the "Workspace".
 
 #### Query Editor "Processlist"
 
-This table displays the result set from the `PROCESSLIST` table, with options to
-filter processes created by the "Workspace".
+This table displays the result set from the `PROCESSLIST` table, with options to filter processes created by the "Workspace".
 
 ![](<../.gitbook/assets/MaxGUI-workspace-processlist.png (1).png>)
 
-##### Annotation
+**Annotation**
 
 1. Filter option.
 
 ## Detail
 
-This page shows information on each MaxScale object and allow to edit its
-parameter, relationships and perform other manipulation operations. Most of the
-control buttons will be shown on the mouse hover. Below is a screenshot of a
-Monitor Detail page, other Detail pages also have a similar layout structure so
-this is used for illustration purpose.
+This page shows information on each MaxScale object and allow to edit its parameter, relationships and perform other manipulation operations. Most of the control buttons will be shown on the mouse hover. Below is a screenshot of a Monitor Detail page, other Detail pages also have a similar layout structure so this is used for illustration purpose.
 
-![](<../.gitbook/assets/MaxGUI-detail.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-detail.png.png)
 
 ### Annotation
 
-1. Settings option. Clicking on the gear icon will show icons allowing to do
-   different operations depending on the type of the Detail page.
+1. Settings option. Clicking on the gear icon will show icons allowing to do different operations depending on the type of the Detail page.
    * Monitor Detail page, there are icons to Stop, Start, and Destroy monitor.
    * Service Detail page, there are icons to Stop, Start, and Destroy service.
-   * Server Detail page, there are icons to Set maintenance mode, Clear server
-     state, Drain and Delete server.
-   * Filter and Listener Detail page, there is a delete icon to delete the
-     object.
-2. Switchover button. This button is shown on the mouse hover allowing to
-   swap the running primary server with a designated secondary server.
-3. Edit parameters button. This button is shown on the mouse hover allowing
-   to edit the MaxScale object's parameter. Clicking on it will enable editable
-   mode on the table. After finishing editing the parameters, simply click the
-   _Done Editing_ button.
-4. A Detail page has tables showing "Relationship" between other MaxScale
-   object. This "unlink" icon is shown on the mouse hover allowing to
-   remove the relationship between two objects.
-4. This button is used to link other MaxScale objects to the relationship.
+   * Server Detail page, there are icons to Set maintenance mode, Clear server state, Drain and Delete server.
+   * Filter and Listener Detail page, there is a delete icon to delete the object.
+2. Switchover button. This button is shown on the mouse hover allowing to swap the running primary server with a designated secondary server.
+3. Edit parameters button. This button is shown on the mouse hover allowing to edit the MaxScale object's parameter. Clicking on it will enable editable mode on the table. After finishing editing the parameters, simply click the _Done Editing_ button.
+4. A Detail page has tables showing "Relationship" between other MaxScale object. This "unlink" icon is shown on the mouse hover allowing to remove the relationship between two objects.
+5. This button is used to link other MaxScale objects to the relationship.
 
 ## Visualization
 
@@ -122,17 +93,13 @@ This page visualizes MaxScale configuration and clusters.
 
 This page visualizes MaxScale configuration as shown in the figure below.
 
-![](<../.gitbook/assets/MaxGUI-config-visualization.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-config-visualization.png.png)
 
 #### Annotation
 
-1. A MaxScale object (a node graph). The position of the node in the graph can
-   be changed by dragging and dropping it.
-2. Anchor link. The detail page of each MaxScale object can be accessed by
-   clicking on the name of the node.
-3. Filter visualization button. By default, if the number of filters used by a
-   service is larger than 3, filter nodes aren't visualized as shown in the
-   figure. Clicking this button will visualize them.
+1. A MaxScale object (a node graph). The position of the node in the graph can be changed by dragging and dropping it.
+2. Anchor link. The detail page of each MaxScale object can be accessed by clicking on the name of the node.
+3. Filter visualization button. By default, if the number of filters used by a service is larger than 3, filter nodes aren't visualized as shown in the figure. Clicking this button will visualize them.
 4. Hide filter visualization button.
 5. Refresh rate dropdown. The frequency with which the data is refreshed.
 6. Create a new MaxScale object button.
@@ -141,51 +108,40 @@ This page visualizes MaxScale configuration as shown in the figure below.
 
 ### Clusters
 
-This page shows all monitor clusters using
-[mariadbmon](../reference/maxscale-monitors/mariadb-monitor.md) module in a card-like view.
-Clicking on the card will visualize the cluster into a tree graph as shown in
-the following figure.
+This page shows all monitor clusters using [mariadbmon](maxscale-monitors/mariadb-monitor.md) module in a card-like view. Clicking on the card will visualize the cluster into a tree graph as shown in the following figure.
 
-![](<../.gitbook/assets/MaxGUI-cluster-visualization.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-cluster-visualization.png.png)
 
 #### Annotation
 
-1. Drag a secondary server on top of a primary server to promote the secondary
-   server as the new primary server.
-2. Server manipulation operations button. Showing a dropdown with the following
-   operations:
+1. Drag a secondary server on top of a primary server to promote the secondary server as the new primary server.
+2. Server manipulation operations button. Showing a dropdown with the following operations:
    * Set maintenance mode: Setting a server to a maintenance mode.
    * Clear server state: Clear current server state.
    * Drain server: Drain the server of connections.
-3. Quick access to query editor button. Opening the `Query Editor` page for
-   this server. If the connection is already created for that server, it'll use
-   it. Otherwise, it creates a blank worksheet and shows a connection dialog to
-   connect to that server.
-4. Carousel navigation button. Viewing more information about the server in the
-   next slide.
-4. Collapse the carousel.
-5. Anchor link of the server. Opening the detail page of the server in a new tab.
-6. Collapse its children nodes.
-7. Rejoin node. When the `auto_rejoin` parameter is disabled, the node can be
-   manually rejoined by dragging it on top of the primary server.
-8. Monitor manipulation operations button. Showing a dropdown with the
-   following operations:
-   * Stop monitor.
-   * Start monitor.
-   * Destroy monitor.
-   * Reset Replication.
-   * Release ownership.
-   * Master failover. Manually performing a primary failover. This option is visible only when the `auto_failover` parameter is disabled.
+3. Quick access to query editor button. Opening the `Query Editor` page for this server. If the connection is already created for that server, it'll use it. Otherwise, it creates a blank worksheet and shows a connection dialog to connect to that server.
+4. Carousel navigation button. Viewing more information about the server in the next slide.
+5. Collapse the carousel.
+6. Anchor link of the server. Opening the detail page of the server in a new tab.
+7. Collapse its children nodes.
+8. Rejoin node. When the `auto_rejoin` parameter is disabled, the node can be manually rejoined by dragging it on top of the primary server.
+9.  Monitor manipulation operations button. Showing a dropdown with the following operations:
 
-   ColumnStore operations:
+    * Stop monitor.
+    * Start monitor.
+    * Destroy monitor.
+    * Reset Replication.
+    * Release ownership.
+    * Master failover. Manually performing a primary failover. This option is visible only when the `auto_failover` parameter is disabled.
 
-   * Stop cluster.
-   * Start cluster.
-   * Set cluster Read-Only.
-   * Set cluster Read-Write.
-   * Add node to cluster.
-   * Remove node from cluster.
+    ColumnStore operations:
 
+    * Stop cluster.
+    * Start cluster.
+    * Set cluster Read-Only.
+    * Set cluster Read-Write.
+    * Add node to cluster.
+    * Remove node from cluster.
 10. Refresh rate dropdown. The frequency with which the data is refreshed.
 11. Create a new MaxScale object button.
 
@@ -193,13 +149,11 @@ the following figure.
 
 This page shows and allows editing of MaxScale parameters.
 
-![](<../.gitbook/assets/MaxGUI-settings.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-settings.png.png)
 
 ### Annotation
 
-1. Edit parameters button. This button is shown on the mouse hover allowing
-   to edit the MaxScale parameter. Clicking on it will enable editable mode on
-   the table.
+1. Edit parameters button. This button is shown on the mouse hover allowing to edit the MaxScale parameter. Clicking on it will enable editable mode on the table.
 2. Editable parameters are visible as it's illustrated in the screenshot.
 3. After finishing editing the parameters, simply click the Done Editing button.
 
@@ -207,7 +161,7 @@ This page shows and allows editing of MaxScale parameters.
 
 This page show real-time MaxScale logs with filter options.
 
-![](<../.gitbook/assets/MaxGUI-logs-archive.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-logs-archive.png.png)
 
 ### Annotation
 
@@ -216,16 +170,13 @@ This page show real-time MaxScale logs with filter options.
 
 ## Workspace
 
-On this page, you may add numerous worksheets, each of which can be used for
-"Run queries", "Data migration", or "Create an ERD" task.
+On this page, you may add numerous worksheets, each of which can be used for "Run queries", "Data migration", or "Create an ERD" task.
 
-![](<../.gitbook/assets/MaxGUI-workspace.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-workspace.png.png)
 
 ### Run Queries
 
-Clicking on the "Run Queries" card will open a dialog, providing options
-to establish a connection to different MaxScale object types, including
-"Listener, Server, Service".
+Clicking on the "Run Queries" card will open a dialog, providing options to establish a connection to different MaxScale object types, including "Listener, Server, Service".
 
 The Query Editor worksheet will be rendered in the active worksheet after correctly connecting.
 
@@ -233,273 +184,208 @@ The Query Editor worksheet will be rendered in the active worksheet after correc
 
 There are various features in the Query Editor worksheet, the most notable ones are listed below.
 
-![](<../.gitbook/assets/MaxGUI-workspace-query-editor.png (3).png>)
+![](../.gitbook/assets/mariadb-corporation/MaxScale/25.01.2-docs/Documentation/Tutorials/images/MaxGUI-workspace-query-editor.png.png)
 
-##### Create a new connection
+**Create a new connection**
 
-If the connection of the Query Editor expires, or if you wish to make
-a new connection for the active worksheet, simply clicking on the button
-located on the right side of the query tabs navigation bar which features a
-server icon and an active connection name as a label. This will open the
-connection dialog and allow you to create a new connection.
+If the connection of the Query Editor expires, or if you wish to make a new connection for the active worksheet, simply clicking on the button located on the right side of the query tabs navigation bar which features a server icon and an active connection name as a label. This will open the connection dialog and allow you to create a new connection.
 
-##### Schemas objects sidebar
+**Schemas objects sidebar**
 
-###### Set the current database
+**Set the current database**
 
 There are two ways to set the current database:
 
 * Double-click on the name of the database.
 * Right-click on the name of the database to show the context menu, then select the `Use database` option.
 
-###### Preview table data of the top 1000 rows
+**Preview table data of the top 1000 rows**
 
 There are two ways to preview data of a table:
 
 * Click on the name of the table.
-* Right-click on the name of the table to show the context menu, then select
-  the `Preview Data (top 1000)` option.
+* Right-click on the name of the table to show the context menu, then select the `Preview Data (top 1000)` option.
 
-###### Describe table
+**Describe table**
 
 Right-click on the name of the table to show the context menu, then select the`View Details` option.
 
-###### Alter/Drop/Truncate/Create table
+**Alter/Drop/Truncate/Create table**
 
-Right-click on the name of the table to show the context menu, then select
-the desired option.
+Right-click on the name of the table to show the context menu, then select the desired option.
 
-###### Alter/Drop/Create schema
+**Alter/Drop/Create schema**
 
-Right-click on the name of the schema to show the context menu, then select
-the desired option.
+Right-click on the name of the schema to show the context menu, then select the desired option.
 
-###### Alter/Create View, Function, Stored Procedure, Trigger
+**Alter/Create View, Function, Stored Procedure, Trigger**
 
-Right-click on the group node (e.g., Views, Functions, Stored Procedures,
-Triggers) to show the context menu, then select the desired option.
+Right-click on the group node (e.g., Views, Functions, Stored Procedures, Triggers) to show the context menu, then select the desired option.
 
-###### Quickly insert an object into the editor
+**Quickly insert an object into the editor**
 
 There are two ways to quickly insert an object to the editor:
 
 * Drag the object and drop it in the desire position in the editor.
-* Right-click on the object to show the context menu, then mouse
-  hover the `Place to Editor` option and select the desired insert option.
+* Right-click on the object to show the context menu, then mouse hover the `Place to Editor` option and select the desired insert option.
 
-###### Show object creation statement and insights info
+**Show object creation statement and insights info**
 
-To view the statement that creates the given object in the
-[Schemas objects sidebar](#schemas-objects-sidebar),
-right-clicking on schema or table node and select the `View Insights` option.
-For other objects such as view, stored procedure, function and trigger,
-select the `Show Create` option.
+To view the statement that creates the given object in the [Schemas objects sidebar](maxscale-maxgui.md#schemas-objects-sidebar), right-clicking on schema or table node and select the `View Insights` option. For other objects such as view, stored procedure, function and trigger, select the `Show Create` option.
 
-##### Editor
+**Editor**
 
-The editor is powered by [Monaco editor](https://microsoft.github.io/monaco-editor/), therefore, its features are similar to those of
-Visual Studio Code.
+The editor is powered by [Monaco editor](https://microsoft.github.io/monaco-editor/), therefore, its features are similar to those of Visual Studio Code.
 
 To see the command palette, press F1 while the cursor is active on the editor.
 
-The editor also comes with various options to assist your querying tasks. To see
-available options, right-click on the editor to show the context menu.
+The editor also comes with various options to assist your querying tasks. To see available options, right-click on the editor to show the context menu.
 
-###### How to write compound statements
+**How to write compound statements**
 
-By default, all statements in the "Query Tab" are split by semicolons and
-executed one by one on the server. To write the compound statements, use
-the `DELIMITER` command to change the delimiter.
+By default, all statements in the "Query Tab" are split by semicolons and executed one by one on the server. To write the compound statements, use the `DELIMITER` command to change the delimiter.
 
 ![](<../.gitbook/assets/MaxGUI-workspace-query-editor-delimiter-change.png (1).png>)
 
-####### Annotation
+\####### Annotation
 
 1. Change the delimiter to `//`
 2. End of the statement using the new delimiter
 3. Change the delimiter back to the default semicolon.
 
-##### Re-execute old queries
+**Re-execute old queries**
 
-Every executed query will be saved in the browser's storage (IndexedDB).
-Query history can be seen in the `History/Snippets` tab.
-To re-execute a query, follow the same step to [insert an object into the editor](#quickly-insert-an-object-into-the-editor)
-and click the execute query button in the editor.
+Every executed query will be saved in the browser's storage (IndexedDB). Query history can be seen in the `History/Snippets` tab. To re-execute a query, follow the same step to [insert an object into the editor](maxscale-maxgui.md#quickly-insert-an-object-into-the-editor) and click the execute query button in the editor.
 
-##### Create query snippet
+**Create query snippet**
 
 Press CTRL/CMD + D to save the current SQL in the editor to the snippets storage. A snippet is created with a prefix keyword, so when that keyword is typed in the editor, it will be suggested in the "code completion" menu.
 
-##### Generate an ERD
+**Generate an ERD**
 
-To initiate the process, either right-click on the schema name and select the
-`Generate ERD` option, or click on the icon button that resembles a line graph,
-located on the schemas sidebar. This will open a dialog for selecting the
-tables for the diagram.
+To initiate the process, either right-click on the schema name and select the `Generate ERD` option, or click on the icon button that resembles a line graph, located on the schemas sidebar. This will open a dialog for selecting the tables for the diagram.
 
 ### Data Migration
 
-Clicking on the "Data Migration" card will open a dialog, providing an option
-to name the task. The Data Migration worksheet will be rendered in the active
-worksheet after clicking the `Create` button in the dialog.
+Clicking on the "Data Migration" card will open a dialog, providing an option to name the task. The Data Migration worksheet will be rendered in the active worksheet after clicking the `Create` button in the dialog.
 
 #### Data Migration worksheet
 
-MaxScale uses ODBC for extracting and loading from the data source to a server
-in MaxScale. Before starting a migration, ensure that you have set up the
-necessary configurations on the MaxScale server. Instruction can be found [here](../reference/maxscale-rest-api/maxscale-sql-resource.md)
-and limitations [here](../maxscale-management/mariadb-maxscale-limitations-guide.md#etl-limitations).
+MaxScale uses ODBC for extracting and loading from the data source to a server in MaxScale. Before starting a migration, ensure that you have set up the necessary configurations on the MaxScale server. Instruction can be found [here](maxscale-rest-api/maxscale-sql-resource.md) and limitations [here](../maxscale-management/mariadb-maxscale-limitations-guide.md#etl-limitations).
 
-##### Connections
+**Connections**
 
-![](<../.gitbook/assets/MaxGUI-workspace-data-migration-set-up-connections.png (3).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-data-migration-set-up-connections.png (1).png>)
 
-Source connection shows the most common parameter inputs for creating
-an ODBC connection. For extra parameters, enable the `Advanced` mode
-to manually edit the `Connection String` input.
+Source connection shows the most common parameter inputs for creating an ODBC connection. For extra parameters, enable the `Advanced` mode to manually edit the `Connection String` input.
 
-After successfully connected to both source and destination servers,
-click on the `Select objects to migrate` to navigate to the next stage.
+After successfully connected to both source and destination servers, click on the `Select objects to migrate` to navigate to the next stage.
 
-##### Objects Selection
+**Objects Selection**
 
-![](<../.gitbook/assets/MaxGUI-workspace-data-migration-objects-selection.png (3).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-data-migration-objects-selection.png (1).png>)
 
 Select the objects you wish to migrate to the MariaDB server.
 
-After selecting the desired objects, click on the `Prepare Migration Script` to
-navigate to the next stage. The migration scripts will be generated
-differently based on the value selected for the `Create mode` input. Hover over
-the question icon for additional information on the modes.
+After selecting the desired objects, click on the `Prepare Migration Script` to navigate to the next stage. The migration scripts will be generated differently based on the value selected for the `Create mode` input. Hover over the question icon for additional information on the modes.
 
-##### Migration
+**Migration**
 
-![](<../.gitbook/assets/MaxGUI-workspace-data-migration-migration-script.png (3).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-data-migration-migration-script.png (1).png>)
 
-As shown in the screenshot, you can quickly modify the script for each object
-by selecting the corresponding object in the table and using the editors on the
-right-hand side to make any necessary changes.
+As shown in the screenshot, you can quickly modify the script for each object by selecting the corresponding object in the table and using the editors on the right-hand side to make any necessary changes.
 
-After clicking the `Start Migration` button, the script for each object will be
-executed in parallel.
+After clicking the `Start Migration` button, the script for each object will be executed in parallel.
 
-##### Migration report
+**Migration report**
 
-![](<../.gitbook/assets/MaxGUI-workspace-data-migration-migration-report.png (3).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-data-migration-migration-report.png (1).png>)
 
-If errors are reported for certain objects, review the output messages and
-adjust the script accordingly. Then, click the `Manage` button and select `Restart`.
+If errors are reported for certain objects, review the output messages and adjust the script accordingly. Then, click the `Manage` button and select `Restart`.
 
-To migrate additional objects, click the `Manage` button and select
-`Migrate other objects`. Doing so will replace the current migration
-report for the current object with a new one.
+To migrate additional objects, click the `Manage` button and select `Migrate other objects`. Doing so will replace the current migration report for the current object with a new one.
 
-To retain the report and terminate open connections after migration, click the
-`Manage` button, then select `Disconnect`, and finally delete the worksheet.
+To retain the report and terminate open connections after migration, click the `Manage` button, then select `Disconnect`, and finally delete the worksheet.
 
-Deleting the worksheet will not delete the migration task. To clean-up
-everything after migration, click the `Manage` button, then select`Delete`.
+Deleting the worksheet will not delete the migration task. To clean-up everything after migration, click the `Manage` button, then select`Delete`.
 
 ### Create an ERD
 
 There are various features in the ERD worksheet, the most notable ones are listed below.
 
-![](<../.gitbook/assets/MaxGUI-workspace-erd.png (2).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-erd.png (1).png>)
 
 #### ERD worksheet
 
-From an empty new worksheet, clicking on the "Create an ERD" card will open
-a connection dialog. After connecting successfully, the ERD worksheet will be
-rendered in the active worksheet. The connection is required to retrieve
-essential metadata, such as engines, character sets, and collation.
+From an empty new worksheet, clicking on the "Create an ERD" card will open a connection dialog. After connecting successfully, the ERD worksheet will be rendered in the active worksheet. The connection is required to retrieve essential metadata, such as engines, character sets, and collation.
 
-##### Generate an ERD from the existing databases
+**Generate an ERD from the existing databases**
 
-Click on the icon button featured as a line graph, located on the top
-toolbar next to the connection button. This will open a dialog for selecting
-the tables for the diagram.
+Click on the icon button featured as a line graph, located on the top toolbar next to the connection button. This will open a dialog for selecting the tables for the diagram.
 
-##### Create a new ERD
+**Create a new ERD**
 
 New tables can be created by using either of the following methods:
 
-* Click on the icon button that resembles a line graph, located on the
-  top toolbar.
+* Click on the icon button that resembles a line graph, located on the top toolbar.
 * Right-click on the diagram board and select the `Create Table` option.
 
-##### Entity options
+**Entity options**
 
-Two options are available: `Edit Table` and `Remove from Diagram`. These
-options can be accessed using either of the following methods:
+Two options are available: `Edit Table` and `Remove from Diagram`. These options can be accessed using either of the following methods:
 
 * Right-click on the entity and choose the desired option.
-* Hover over the entity, click the gear icon button, and select the desired
-  option.
+* Hover over the entity, click the gear icon button, and select the desired option.
 
-For quickly editing or viewing the table definitions, double-clicking on the
-entity. The entity editor will be shown at the bottom of the worksheet.
+For quickly editing or viewing the table definitions, double-clicking on the entity. The entity editor will be shown at the bottom of the worksheet.
 
-##### Foreign keys quick common options
+**Foreign keys quick common options**
 
-![](<../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png (2).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png (1).png>)
 
 * Edit Foreign Key, this opens an editor for viewing/editing foreign keys.
 * Remove Foreign Key.
-* `Change to One To One` or `Change to One To Many`. Toggling the uniqueness
-  of the foreign key column.
-* `Set FK Column Mandatory` or `Set FK Column Optional`. Toggling the
-  `NOT NULL` option of the foreign key column.
-* `Set Referenced Column Mandatory` or `Set Referenced Column Optional`
-  Toggling the `NOT NULL` option of the referenced column.
+* `Change to One To One` or `Change to One To Many`. Toggling the uniqueness of the foreign key column.
+* `Set FK Column Mandatory` or `Set FK Column Optional`. Toggling the `NOT NULL` option of the foreign key column.
+* `Set Referenced Column Mandatory` or `Set Referenced Column Optional` Toggling the `NOT NULL` option of the referenced column.
 
-To show the above foreign key common options, perform a right-click on the link
-within the diagram.
+To show the above foreign key common options, perform a right-click on the link within the diagram.
 
-##### Viewing foreign key constraint SQL
+**Viewing foreign key constraint SQL**
 
-Hover over the link in the diagram, the constraint SQL of that foreign key will
-be shown in a tooltip.
+Hover over the link in the diagram, the constraint SQL of that foreign key will be shown in a tooltip.
 
-##### Quickly draw a foreign key link
+**Quickly draw a foreign key link**
 
-![](<../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png (2).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png (1).png>)
 
-As shown in the screenshot, a foreign key can be quickly established by
-performing the following actions:
+As shown in the screenshot, a foreign key can be quickly established by performing the following actions:
 
 1. Click on the entity that will have the foreign key.
-2. Click on the connecting point of the desired foreign key column and drag
-   it over the desired referenced column.
+2. Click on the connecting point of the desired foreign key column and drag it over the desired referenced column.
 
-##### Entity editor
+**Entity editor**
 
-![](<../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png (2).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png (1).png>)
 
-Table columns, foreign keys and indexes can be modified via
-the entity editor which can be accessed quickly by double-clicking
-on the entity.
+Table columns, foreign keys and indexes can be modified via the entity editor which can be accessed quickly by double-clicking on the entity.
 
-##### Export options
+**Export options**
 
-Three options are available: `Copy script to clipboard`, `Export script` and
-`Export as jpeg`. These options can be accessed using either of the following methods:
+Three options are available: `Copy script to clipboard`, `Export script` and `Export as jpeg`. These options can be accessed using either of the following methods:
 
 * Right-click on the diagram board and choose the desired option.
 * Click the export icon button, and select the desired option.
 
-##### Applying the script
+**Applying the script**
 
-Click the icon button resembling a play icon to execute the generated script
-for all tables in the diagram. This action will prompt a confirmation dialog
-for script execution. If needed, the script can be manually edited using the
-editor within the dialog.
+Click the icon button resembling a play icon to execute the generated script for all tables in the diagram. This action will prompt a confirmation dialog for script execution. If needed, the script can be manually edited using the editor within the dialog.
 
-##### Visual Enhancement options
+**Visual Enhancement options**
 
-![](<../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png (2).png>)
+![](<../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png (1).png>)
 
-The first section of the top toolbar, there are options to improve the visual of
-the diagram as follows:
+The first section of the top toolbar, there are options to improve the visual of the diagram as follows:
 
 * Change the shape of links.
 * Draw foreign keys to columns.

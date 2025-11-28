@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a string to uppercase. This function returns the string with all
+  characters converted to uppercase.
+---
+
 # UPPER
 
 ## Syntax

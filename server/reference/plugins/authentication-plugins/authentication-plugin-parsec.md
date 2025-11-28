@@ -1,3 +1,10 @@
+---
+description: >-
+  PARSEC is a modern, secure authentication plugin that uses salted passwords
+  and elliptic curve cryptography to prevent replay attacks and secure user
+  credentials.
+---
+
 # Authentication Plugin - PARSEC
 
 {% hint style="info" %}

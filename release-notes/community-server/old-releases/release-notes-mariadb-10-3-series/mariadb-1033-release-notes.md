@@ -59,7 +59,7 @@ Notable changes of this release include:
 
 ### Variables and Modes
 
-* New [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode), EMPTY\_STRING\_IS\_NULL ([MDEV-14013](https://jira.mariadb.org/browse/MDEV-14013)) — contribution by Jérôme Brauge
+* New [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode), EMPTY\_STRING\_IS\_NULL ([MDEV-14013](https://jira.mariadb.org/browse/MDEV-14013)) — contribution by Jérôme Brauge
 * Added [bind\_address](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#bind_address) as a system variable ([MDEV-12542](https://jira.mariadb.org/browse/MDEV-12542)).
 * New status variables [Table\_open\_cache\_active\_instances](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#table_open_cache_active_instances), [Table\_open\_cache\_hits](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#table_open_cache_hits), [Table\_open\_cache\_misses](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#table_open_cache_misses), [Table\_open\_cache\_overflows](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#table_open_cache_overflows) ([MDEV-11153](https://jira.mariadb.org/browse/MDEV-11153))
 * [innodb\_page\_cleaners](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables) is now dynamic ([MDEV-11025](https://jira.mariadb.org/browse/MDEV-11025))

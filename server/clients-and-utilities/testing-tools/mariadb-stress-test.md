@@ -4,11 +4,11 @@
 
 {% tabs %}
 {% tab title="Current" %}
-&#x20;`mysql-stress-test` is the symlink, and `mariadb-stress-test` the binary name.
+ `mysql-stress-test` is the symlink, and `mariadb-stress-test` the binary name.
 {% endtab %}
 
 {% tab title="< 10.5.2" %}
-&#x20;`mysql-stress-test` is the binary name.
+ `mysql-stress-test` is the binary name.
 {% endtab %}
 {% endtabs %}
 

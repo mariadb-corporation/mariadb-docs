@@ -1,3 +1,9 @@
+---
+description: >-
+  Initialize local variables within a stored program. This statement defines
+  variables with a specific data type and optional default value.
+---
+
 # DECLARE Variable
 
 ## Syntax

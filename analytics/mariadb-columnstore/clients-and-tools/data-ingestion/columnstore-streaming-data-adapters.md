@@ -120,7 +120,7 @@ The `-c` flag is optional if you are running the adapter on the server where Col
 
 ## Kafka to ColumnStore Adapter
 
-The Kafka data adapter streams all messages published to Apache Kafka topics in Avro format to MariaDB AX automatically and continuously - enabling data from many sources to be streamed and collected for analysis without complex code. The Kafka adapter is built using [librdkafka](https://cwiki.apache.org/confluence/display/KAFKA/Clients#Clients-C/C++) and the MariaDB ColumnStore bulk write SDK
+The Kafka data adapter streams all messages published to Apache Kafka topics in Avro format to MariaDB ColumnStore automatically and continuously - enabling data from many sources to be streamed and collected for analysis without complex code. The Kafka adapter is built using [librdkafka](https://cwiki.apache.org/confluence/display/KAFKA/Clients#Clients-C/C++) and the MariaDB ColumnStore bulk write SDK
 
 ![kafka-data-adapter](../../../.gitbook/assets/kafka-data-adapter.jpg)
 

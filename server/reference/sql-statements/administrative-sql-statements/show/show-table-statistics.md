@@ -1,3 +1,9 @@
+---
+description: >-
+  View usage statistics for tables. This statement displays metrics like rows
+  read, changed, and updated for each table.
+---
+
 # SHOW TABLE\_STATISTICS
 
 ## Syntax

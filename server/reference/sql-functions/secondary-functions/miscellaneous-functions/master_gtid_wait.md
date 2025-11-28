@@ -1,3 +1,9 @@
+---
+description: >-
+  Wait for a replica to apply a GTID. This function blocks until the replica has
+  executed transactions up to the specified Global Transaction ID.
+---
+
 # MASTER\_GTID\_WAIT
 
 ## Syntax
@@ -12,7 +18,7 @@ This function takes a string containing a comma-separated list of [global transa
 
 An optional second argument gives a timeout in seconds. If the timeout expires before the specified GTID position is reached, then the function returns -1. Passing `NULL` or a negative number for the timeout means no timeout, and the function will wait indefinitely.
 
-If the wait completes without a timeout, 0 is returned. Passing `NULL` for the  gtid-list makes the function return `NULL` immediately, without waiting.
+If the wait completes without a timeout, 0 is returned. Passing `NULL` for the gtid-list makes the function return `NULL` immediately, without waiting.
 
 The gtid-list may be the empty string, in which case `MASTER_GTID_WAIT()` returns immediately. If the gtid-list contains fewer domains than [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md), then only those domains are waited upon. If gtid-list contains a domain that is not present in `@@gtid_slave_pos`, then `MASTER_GTID_WAIT()` will wait until an event containing such domain\_id arrives on the replica (or until timed out or killed).
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate a time-ordered UUID (v7). This function returns a version 7 UUID,
+  which is sortable by creation time.
+---
+
 # UUID\_v7
 
 {% hint style="info" %}

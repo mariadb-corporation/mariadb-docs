@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.servers table stores connection information for remote servers, used
+  by the FEDERATED and Spider storage engines.
+---
+
 # mysql.servers Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

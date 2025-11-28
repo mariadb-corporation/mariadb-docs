@@ -1,3 +1,10 @@
+---
+description: >-
+  View the current status of the primary server's binary log. This statement
+  returns the current log file name and position for replication
+  synchronization.
+---
+
 # SHOW MASTER STATUS
 
 ## Syntax

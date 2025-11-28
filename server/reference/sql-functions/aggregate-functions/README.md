@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about aggregate functions in MariaDB Server. This section details SQL
-  functions like COUNT(), SUM(), AVG(), MIN(), and MAX() for performing
-  calculations on sets of rows.
+  Perform calculations on multiple rows to return a single value. Includes
+  standard SQL functions like SUM, AVG, COUNT, MIN, and MAX, often used with
+  GROUP BY.
 ---
 
 # Aggregate Functions

@@ -1,3 +1,9 @@
+---
+description: >-
+  The GTID_EVENT marks the start of a new transaction event group, associating
+  it with a Global Transaction ID (GTID) and providing commit flags.
+---
+
 # GTID\_EVENT
 
 For [global transaction ID](../../../ha-and-performance/standard-replication/gtid.md), used to start a new transaction event group, instead of the old `BEGIN` query event, and also to mark stand-alone (DDL).

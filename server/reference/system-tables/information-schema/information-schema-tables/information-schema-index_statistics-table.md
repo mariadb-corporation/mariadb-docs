@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INDEX_STATISTICS table provides statistics on index
+  usage, helping to identify unused indexes and optimize performance.
+---
+
 # Information Schema INDEX\_STATISTICS Table
 
 The [Information Schema](../) `INDEX_STATISTICS` table shows statistics on index usage and makes it possible to do such things as locating unused indexes and generating the commands to remove them.

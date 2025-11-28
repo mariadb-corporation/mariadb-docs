@@ -1,3 +1,9 @@
+---
+description: >-
+  Store timestamp values. This type stores the number of seconds since the Unix
+  Epoch, with a range from '1970-01-01' to '2038-01-19' in UTC.
+---
+
 # TIMESTAMP
 
 This page is about the `TIMESTAMP` **data type**. For the timestamp function, see [TIMESTAMP FUNCTION](../../sql-functions/date-time-functions/timestamp-function.md).
@@ -67,7 +73,7 @@ MariaDB does not support time zone literals that contain time zone identifiers. 
 
 ## SQL\_MODE=MAXDB
 
-If the [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is set to `MAXDB`, TIMESTAMP fields will be silently converted to [DATETIME](datetime.md).
+If the [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is set to `MAXDB`, TIMESTAMP fields will be silently converted to [DATETIME](datetime.md).
 
 ## Internal Format
 

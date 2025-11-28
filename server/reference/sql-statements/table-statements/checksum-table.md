@@ -1,3 +1,9 @@
+---
+description: >-
+  Report a checksum for table contents. This statement calculates a value to
+  compare tables, useful for verifying replication consistency.
+---
+
 # CHECKSUM TABLE
 
 ## Syntax
@@ -32,11 +38,11 @@ Identical tables mean that the CREATE statement is identical and that the follow
 
 ## Differences Between MariaDB and MySQL
 
-`CHECKSUM TABLE` may give a different result as MariaDB doesn't ignore `NULL`s in the columns like MySQL 5.1 does (later MySQL versions should calculate checksums the same way as MariaDB).&#x20;
+`CHECKSUM TABLE` may give a different result as MariaDB doesn't ignore `NULL`s in the columns like MySQL 5.1 does (later MySQL versions should calculate checksums the same way as MariaDB).
 
 {% tabs %}
 {% tab title="Current" %}
-You can get the 'old style' checksum in MariaDB by setting [old\_mode](../../../server-management/variables-and-modes/old-mode.md) to [COMPAT\_5\_1\_CHECKSUM](../../../server-management/variables-and-modes/old-mode.md#compat_5_1_checksum). Note, however, that the MyISAM and Aria storage engines in MariaDB are using the new checksum internally, so if you are using this old mode, the `CHECKSUM` command will be slower as it needs to calculate the checksum row by row.
+You can get the 'old style' checksum in MariaDB by setting [old\_mode](../../../server-management/variables-and-modes/old_mode.md) to [COMPAT\_5\_1\_CHECKSUM](../../../server-management/variables-and-modes/old_mode.md#compat_5_1_checksum). Note, however, that the MyISAM and Aria storage engines in MariaDB are using the new checksum internally, so if you are using this old mode, the `CHECKSUM` command will be slower as it needs to calculate the checksum row by row.
 {% endtab %}
 
 {% tab title="< 10.9" %}

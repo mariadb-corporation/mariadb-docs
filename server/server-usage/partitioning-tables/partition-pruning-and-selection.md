@@ -1,6 +1,6 @@
 # Partition Pruning and Selection
 
-When a WHERE clause is related to the partitioning expression, the optimizer knows which partitions are relevant for the query. Other partitions will not be read. This optimization is called _partition pruning_.
+When a `WHERE` clause is related to the partitioning expression, the optimizer knows which partitions are relevant for the query. Other partitions will not be read. This optimization is called _partition pruning_.
 
 [EXPLAIN PARTITIONS](../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) can be used to know which partitions are read for a given query. A column called `partitions` will contain a comma-separated list of the accessed partitions. For example:
 
@@ -13,14 +13,14 @@ EXPLAIN PARTITIONS SELECT * FROM orders WHERE id < 15000000;
 +------+-------------+--------+------------+-------+---------------+---------+---------+------+------+-------------+
 ```
 
-Sometimes the WHERE clause does not contain the necessary information to use partition pruning, or the optimizer cannot infer this information. However, we may know which partitions are relevant for the query. Since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), we can force MariaDB to only access the specified partitions by adding a PARTITION clause. This feature is called _partition selection_. For example:
+Sometimes the WHERE clause does not contain the necessary information to use partition pruning, or the optimizer cannot infer this information. However, we may know which partitions are relevant for the query. We can force MariaDB to only access the specified partitions by adding a `PARTITION` clause. This feature is called _partition selection_. For example:
 
 ```sql
 SELECT * FROM orders PARTITION (p3) WHERE user_id = 50;
 SELECT * FROM orders PARTITION (p2,p3) WHERE user_id >= 40;
 ```
 
-The PARTITION clause is supported for all DML statements:
+The `PARTITION` clause is supported for all DML statements:
 
 * [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md)
 * [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md)

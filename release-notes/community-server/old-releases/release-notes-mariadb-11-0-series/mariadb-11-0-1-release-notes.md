@@ -1,12 +1,12 @@
 # MariaDB 11.0.1 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/11.0.1) | [Release Notes](mariadb-11-0-1-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-1-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
+[Download](https://downloads.mariadb.org/mariadb/11.0.1) | [Release Notes](mariadb-11-0-1-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-1-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
 
 **Release date:** 22 Feb 2023
 
 **Do not use non-stable (non-GA) releases in production!**
 
-[MariaDB 11.0](what-is-mariadb-110.md) is the current development series of MariaDB. It is an evolution of [MariaDB 10.11](../../mariadb-10-11-series/what-is-mariadb-1011.md) with several entirely new features.
+[MariaDB 11.0](what-is-mariadb-110.md) is the current development series of MariaDB. It is an evolution of [MariaDB 10.11](../../10.11/what-is-mariadb-1011.md) with several entirely new features.
 
 [MariaDB 11.0](what-is-mariadb-110.md) is a [_**Release Candidate (RC)**_](../../about/release-criteria.md) release.
 
@@ -77,7 +77,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.0.1](mariadb-11-0-1-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-1-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.0/mariadb-11-0-1-changelog.md).
 
 ## Contributors
 

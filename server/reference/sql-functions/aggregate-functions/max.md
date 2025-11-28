@@ -1,3 +1,9 @@
+---
+description: >-
+  Find the maximum value. This function returns the highest value in a set of
+  values, applicable to numbers, strings, and dates.
+---
+
 # MAX
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_GeomCollFromWKB. Constructs a GeometryCollection value from its
+  WKB representation and an optional SRID.
+---
+
 # GeomCollFromWKB
 
 A synonym for [ST\_GeomCollFromWKB](st_geomcollfromwkb.md).

@@ -1,3 +1,9 @@
+---
+description: >-
+  This table stores a history of password hashes to enforce security policies
+  regarding password reuse when the relevant plugin is enabled.
+---
+
 # mysql.password\_reuse\_check\_history Table
 
 {% hint style="info" %}

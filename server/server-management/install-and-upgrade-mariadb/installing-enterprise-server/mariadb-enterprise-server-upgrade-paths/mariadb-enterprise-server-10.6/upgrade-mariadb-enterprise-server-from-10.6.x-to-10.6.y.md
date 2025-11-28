@@ -10,7 +10,7 @@ For example, it would be a minor release upgrade to upgrade from MariaDB Enterpr
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup prior to upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.
 
-The instructions below show how to perform a backup using [MariaDB Backup](../../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md). For more information about backing up and restoring the database, please see the [Recovery Guide](broken-reference).
+The instructions below show how to perform a backup using [MariaDB Backup](../../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md). For more information about backing up and restoring the database, please see the [Recovery Guide](../../../../../server-usage/backup-and-restore/).
 
 1.  Take a full backup.
 
@@ -61,7 +61,7 @@ Before the new version can be installed, we first need to stop the current Maria
     ```sql
     SET GLOBAL innodb_fast_shutdown = 1;
     ```
-2.  Use [XA RECOVER](../../../../../reference/sql-statements/transactions/xa-transactions.md#xa-recover) to confirm that there are no external XA transactions in a prepared state:
+2.  Use [XA RECOVER](../../../../../reference/sql-statements/transactions/xa-transactions.md#xa-recover) to confirm that there are no external [XA transactions](../../../../../reference/sql-statements/transactions/xa-transactions.md) in a prepared state:
 
     ```sql
     XA RECOVER;
@@ -70,7 +70,7 @@ Before the new version can be installed, we first need to stop the current Maria
     Commit or rollback any open XA transactions before stopping the node for upgrade.
 3.  Stop the server process:
 
-    For distributions that use systemd (most supported OSes), you can manage the Server process using the `systemctl` command:
+    For distributions that use `systemd` (most supported OSes), you can manage the Server process using the `systemctl` command:
 
     ```bash
     $ sudo systemctl stop mariadb
@@ -251,7 +251,7 @@ The utility is called [mariadb-upgrade](../../../../../clients-and-utilities/dep
 $ sudo mariadb-upgrade
 ```
 
-And the utility is called [mysql\_upgrade](../../../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) in MariaDB Enterprise Server 10.3 and 10.2:
+And the utility is called [mysql\_upgrade](../../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) in MariaDB Enterprise Server 10.3 and 10.2:
 
 ```bash
 $ sudo mysql_upgrade

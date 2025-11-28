@@ -43,7 +43,7 @@ server_audit_logging=ON
 
 This will enable logging to the file `/usr/local/mariadb/columnstore/mysql/db/server_audit.log`.
 
-&#x20;For example:
+ For example:
 
 ```bash
 20170914 17:31:24,centos,root,localhost,11,114,QUERY,loans,'SELECT grade, AVG(loan_amnt) avg, FROM loanstats GROUP BY grade ORDER BY grade',0

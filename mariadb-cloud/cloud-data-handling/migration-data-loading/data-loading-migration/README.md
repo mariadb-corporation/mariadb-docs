@@ -31,7 +31,7 @@ Below are the most common scenarios for database migration to MariaDB Cloud.
 
 ## Considerations
 
-Ensure that your MariaDB Cloud servce deploymned configuration is compatible with your existing source database one, including:
+Ensure that your MariaDB Cloud service deployment configuration is compatible with the one for your existing source database, including:
 
 * Deployment region - Ensure that the MariaDB Cloud deployment region is the same as the source database region.
 * Topology - Mariadb Server Single node or with Replica(s)

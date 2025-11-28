@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema TABLE_STATISTICS table provides usage statistics for
+  tables, such as the number of rows read or changed.
+---
+
 # Information Schema TABLE\_STATISTICS Table
 
 The [Information Schema](../) `TABLE_STATISTICS` table shows statistics on table usage.

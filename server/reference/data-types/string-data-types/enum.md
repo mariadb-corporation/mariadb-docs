@@ -1,3 +1,9 @@
+---
+description: >-
+  String object with a value chosen from a predefined list. An ENUM column
+  allows only one value selected from a list of permitted strings.
+---
+
 # ENUM
 
 ## Syntax
@@ -16,7 +22,7 @@ Trailing spaces are automatically stripped from `ENUM` values on table creation.
 
 ### NULL and empty values
 
-An `ENUM` can also contain `NULL` and empty values. If the `ENUM` column is declared to permit `NULL` values, `NULL` becomes a valid value, as well as the default value (see below). If [strict SQL Mode](../../../server-management/variables-and-modes/sql-mode.md) is not enabled, and an invalid value is inserted into an `ENUM`, a special empty string, with an index value of zero (see Numeric index, below), is inserted, with a warning. This may be confusing, because the empty string is also a possible value, and the only difference if that is this case its index is not 0. Inserting will fail with an error if strict mode is active.
+An `ENUM` can also contain `NULL` and empty values. If the `ENUM` column is declared to permit `NULL` values, `NULL` becomes a valid value, as well as the default value (see below). If [strict SQL Mode](../../../server-management/variables-and-modes/sql_mode.md) is not enabled, and an invalid value is inserted into an `ENUM`, a special empty string, with an index value of zero (see Numeric index, below), is inserted, with a warning. This may be confusing, because the empty string is also a possible value, and the only difference if that is this case its index is not 0. Inserting will fail with an error if strict mode is active.
 
 If a `DEFAULT` clause is missing, the default value will be:
 

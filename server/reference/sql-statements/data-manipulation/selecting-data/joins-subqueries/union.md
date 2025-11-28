@@ -1,3 +1,9 @@
+---
+description: >-
+  Combine results from multiple SELECT statements into a single result set. This
+  operator can optionally remove duplicates or include all rows.
+---
+
 # UNION
 
 `UNION` is used to combine the results from multiple [SELECT](../select.md) statements into a single result set.

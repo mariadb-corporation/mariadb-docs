@@ -17,7 +17,7 @@ _utf8 'Foundation' COLLATE utf8_unicode_ci;
 
 Strings can either be enclosed in single quotes or in double quotes (the same character must be used to both open and close the string).
 
-The ANSI SQL-standard does not permit double quotes for enclosing strings, and although MariaDB does by default, if the MariaDB server has enabled the [ANSI\_QUOTES\_SQL](../../../server-management/variables-and-modes/sql-mode.md#ansi_quotes) [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md), double quotes will be treated as being used for [identifiers](identifier-names.md) instead of strings.
+The ANSI SQL-standard does not permit double quotes for enclosing strings, and although MariaDB does by default, if the MariaDB server has enabled the [ANSI\_QUOTES\_SQL](../../../server-management/variables-and-modes/sql_mode.md#ansi_quotes) [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md), double quotes will be treated as being used for [identifiers](identifier-names.md) instead of strings.
 
 Strings that are next to each other are automatically concatenated. The following are equivalent:
 
@@ -29,7 +29,7 @@ Strings that are next to each other are automatically concatenated. The followin
 'The MariaDB Foundation'
 ```
 
-The `\` (backslash character) is used to escape characters (unless the [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) hasn't been set to [NO\_BACKSLASH\_ESCAPES](../../../server-management/variables-and-modes/sql-mode.md#no_backslash_escapes)):
+The `\` (backslash character) is used to escape characters (unless the [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) hasn't been set to [NO\_BACKSLASH\_ESCAPES](../../../server-management/variables-and-modes/sql_mode.md#no_backslash_escapes)):
 
 ```
 'MariaDB's new features'

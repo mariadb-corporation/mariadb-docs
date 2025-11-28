@@ -1,3 +1,9 @@
+---
+description: >-
+  Rename existing database accounts. This guide explains how to change a user's
+  name while preserving their current privileges and properties.
+---
+
 # RENAME USER
 
 ## Syntax

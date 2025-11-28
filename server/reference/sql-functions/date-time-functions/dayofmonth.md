@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the day of the month. This function extracts the day portion of a date,
+  returning a number from 1 to 31.
+---
+
 # DAYOFMONTH
 
 ## Syntax

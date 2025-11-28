@@ -1,3 +1,9 @@
+---
+description: >-
+  Return a substring. This function extracts a portion of a string starting at a
+  specific position for a given length.
+---
+
 # SUBSTRING
 
 ## Syntax

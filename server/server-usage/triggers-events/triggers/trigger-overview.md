@@ -1,37 +1,37 @@
 # Trigger Overview
 
-A trigger, as its name suggests, is a set of statements that run, or are triggered, when an event occurs on a table.
+A trigger is a set of statements that run when, or are triggered by, an event that occurs on a table.
 
 ## Events
 
-The event can be an INSERT, an UPDATE, or a DELETE. The trigger can be executed BEFORE or AFTER the event. A table can have multiple triggers defined for the same event and timing combination.
+The event can be an `INSERT`, an `UPDATE`, or a `DELETE`. The trigger can be executed `BEFORE` or `AFTER` the event. A table can have multiple triggers defined for the same event and timing combination.
 
-The [LOAD DATA INFILE](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) and [LOAD XML](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-xml.md) statements invoke INSERT triggers for each row that is being inserted.
+The [LOAD DATA INFILE](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) and [LOAD XML](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-xml.md) statements invoke `INSERT` triggers for each row that is being inserted.
 
 The [REPLACE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/replace.md) statement is executed with the following workflow:
 
-* BEFORE INSERT;
-* BEFORE DELETE (only if a row is being deleted);
-* AFTER DELETE (only if a row is being deleted);
-* AFTER INSERT.
+* `BEFORE INSERT`;
+* `BEFORE DELETE` (only if a row is being deleted);
+* `AFTER DELETE` (only if a row is being deleted);
+* `AFTER INSERT`.
 
 The [INSERT ... ON DUPLICATE KEY UPDATE](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-on-duplicate-key-update.md) statement, when a row already exists, follows the following workflow:
 
-* BEFORE INSERT;
-* BEFORE UPDATE;
-* AFTER UPDATE.
+* `BEFORE INSERT`;
+* `BEFORE UPDATE`;
+* `AFTER UPDATE`.
 
-Otherwise, it works like a normal INSERT statement.
+Otherwise, it works like a normal `INSERT` statement.
 
 Note that [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md) does not activate any triggers.
 
 ## Triggers and Errors
 
-With non-transactional storage engines, if a BEFORE statement produces an error, the statement will not be executed. Statements that affect multiple rows will fail before inserting the current row.
+With non-transactional storage engines, if a `BEFORE` statement produces an error, the statement isn't executed. Statements that affect multiple rows fail before inserting the current row.
 
 With transactional engines, triggers are executed in the same transaction as the statement that invoked them.
 
-If a warning is issued with the SIGNAL or RESIGNAL statement (that is, an error with an SQLSTATE starting with '01'), it is treated like an error.
+If a warning is issued with the `SIGNAL` or `RESIGNAL` statement (that is, an error with an `SQLSTATE` starting with `'01'`), it is treated like an error.
 
 ## Creating a Trigger
 
@@ -48,7 +48,7 @@ CREATE TABLE animal_count (animals INT);
 INSERT INTO animal_count (animals) VALUES(0);
 ```
 
-We want to increment a counter each time a new animal is added. Here's what the trigger will look like:
+We want to increment a counter each time a new animal is added. Here's what the trigger looks like:
 
 ```sql
 CREATE TRIGGER increment_animal 
@@ -59,17 +59,17 @@ UPDATE animal_count SET animal_count.animals = animal_count.animals+1;
 
 The trigger has:
 
-* a name (in this case, `increment_animal`)
-* a trigger time (in this case, after the specified trigger event)
-* a trigger event (an `INSERT`)
-* a table with which it is associated (`animals`)
-* a set of statements to run (here, just the one UPDATE statement)
+* a name (in this case, `increment_animal`),
+* a trigger time (in this case, after the specified trigger event),
+* a trigger event (an `INSERT`),
+* a table with which it is associated (`animals`),
+* a set of statements to run (here, just the one `UPDATE` statement).
 
-`AFTER INSERT` specifies that the trigger will run _after_ an `INSERT`. The trigger could also be set to run _before_, and the statement causing the trigger could be a `DELETE` or an `UPDATE` as well. You can also have multiple triggers for an action. In this case, you can use `FOLLOWS | PRECEDES other_trigger_name` to specify the order of the triggers.
+`AFTER INSERT` specifies that the trigger runs _after_ an `INSERT`. The trigger could also be set to run _before_, and the statement causing the trigger could be a `DELETE` or an `UPDATE` as well. You can also have multiple triggers for an action. In this case, you can use `FOLLOWS | PRECEDES`` `_`other_trigger_name`_ to specify the order of the triggers.
 
-The set of statements to run are the statements on the table of the trigger; therefore, columns/values that change are always just a column name or an expression like `NEW.column_name`. Table references of other tables must come from explicit table references.
+The set of statements to run are the statements on the table of the trigger; therefore, columns/values that change are always just a column name or an expression like `NEW.`_`column_name`_. Table references of other tables must come from explicit table references.
 
-Now, if we insert a record into the `animals` table, the trigger will run, incrementing the animal\_count table.
+Now, if we insert a record into the `animals` table, the trigger runs, incrementing the _`animal_count`_ table.
 
 ```sql
 SELECT * FROM animal_count;
@@ -106,11 +106,11 @@ The [Information Schema TRIGGERS Table](../../../reference/system-tables/informa
 
 The [SHOW TRIGGERS](../../../reference/sql-statements/administrative-sql-statements/show/show-triggers.md) statement returns similar information.
 
-The [SHOW CREATE TRIGGER](../../../reference/sql-statements/administrative-sql-statements/show/show-create-trigger.md) statement returns a CREATE TRIGGER statement that creates the given trigger.
+The [SHOW CREATE TRIGGER](../../../reference/sql-statements/administrative-sql-statements/show/show-create-trigger.md) statement returns a `CREATE TRIGGER` statement that creates the given trigger.
 
 ## More Complex Triggers
 
-Triggers can consist of multiple statements enclosed by a [BEGIN and END](../../../reference/sql-statements/programmatic-compound-statements/begin-end.md). If you're entering multiple statements on the command line, you'll want to temporarily set a new delimiter so that you can use a semicolon to delimit the statements inside your trigger. See [Delimiters in the mariadb client](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) for more.
+Triggers can consist of multiple statements enclosed by a [BEGIN and END](../../../reference/sql-statements/programmatic-compound-statements/begin-end.md). If you're entering multiple statements on the command line, temporarily set a new delimiter so that you can use a semicolon to delimit the statements inside your trigger. See [Delimiters in the mariadb client](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) for more.
 
 ```sql
 DROP TABLE animals;
@@ -157,7 +157,7 @@ SELECT * FROM animal_count;
 
 ## Trigger Errors
 
-If a trigger contains an error and the engine is transactional, or it is a BEFORE trigger, the trigger will not run, and will prevent the original statement from running as well. If the engine is non-transactional, and it is an AFTER trigger, the trigger will not run, but the original statement will.
+If a trigger contains an error and the engine is transactional, or it is a `BEFORE` trigger, the trigger will not run, and will prevent the original statement from running as well. If the engine is non-transactional, and it is an `AFTER` trigger, the trigger will not run, but the original statement will.
 
 Here, we'll drop the above examples and then recreate the trigger with an error, a field that doesn't exist, first using the default [InnoDB](../../storage-engines/innodb/), a transactional engine, and then again using [MyISAM](../../storage-engines/myisam-storage-engine/), a non-transactional engine.
 
@@ -207,7 +207,7 @@ SELECT * FROM animals;
 +----+----------+
 ```
 
-The following example shows how to use a trigger to validate data. The [SIGNAL](../../../reference/sql-statements/programmatic-compound-statements/signal.md) statement is used to intentionally produce an error if the email field is not a valid email. As the example shows, in that case, the new row is not inserted (because it is a BEFORE trigger).
+The following example shows how to use a trigger to validate data. The [SIGNAL](../../../reference/sql-statements/programmatic-compound-statements/signal.md) statement is used to intentionally produce an error if the email field is not a valid email. As the example shows, in that case, the new row is not inserted (because it is a `BEFORE` trigger).
 
 ```sql
 CREATE TABLE user (

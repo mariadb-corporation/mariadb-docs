@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_BUFFER_PAGE_LRU table details pages in the
+  buffer pool and their position in the LRU eviction list.
+---
+
 # Information Schema INNODB\_BUFFER\_PAGE\_LRU Table
 
 The [Information Schema](../../) `INNODB_BUFFER_PAGE_LRU` table contains information about pages in the [buffer pool](../../../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and how they are ordered for eviction purposes.

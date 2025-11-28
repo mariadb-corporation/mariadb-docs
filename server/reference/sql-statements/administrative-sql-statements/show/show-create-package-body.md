@@ -1,3 +1,9 @@
+---
+description: >-
+  Display the CREATE statement for a package body. This Oracle-compatible
+  statement shows the implementation code of a stored package.
+---
+
 # SHOW CREATE PACKAGE BODY
 
 ## Syntax
@@ -79,7 +85,7 @@ collation_connection: utf8_general_ci
 * [DROP PACKAGE](../../data-definition/drop/drop-package.md)
 * [CREATE PACKAGE BODY](../../data-definition/create/create-package-body.md)
 * [DROP PACKAGE BODY](../../data-definition/drop/drop-package-body.md)
-* [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md)
+* [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

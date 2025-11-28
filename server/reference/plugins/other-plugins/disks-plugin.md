@@ -1,3 +1,9 @@
+---
+description: >-
+  The Disks plugin adds the DISKS table to the Information Schema, providing
+  metadata about the system's disk storage and usage.
+---
+
 # Disks Plugin
 
 The `DISKS` plugin creates the [DISKS](../../system-tables/information-schema/information-schema-tables/information-schema-disks-table.md) table in the [INFORMATION\_SCHEMA](../../system-tables/information-schema/) database. This table shows metadata about disks on the system. It required the [FILE privilege](../../sql-statements/account-management-sql-statements/grant.md).

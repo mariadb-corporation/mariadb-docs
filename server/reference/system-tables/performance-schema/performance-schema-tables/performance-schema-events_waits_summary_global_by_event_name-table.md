@@ -1,3 +1,9 @@
+---
+description: >-
+  This table provides a global summary of wait events aggregated by event name,
+  showing total server-wide wait statistics.
+---
+
 # Performance Schema events\_waits\_summary\_global\_by\_event\_name Table
 
 The [Performance Schema](../) `events_waits_summary_global_by_event_name` table contains wait events summarized by event name. It contains the following columns:

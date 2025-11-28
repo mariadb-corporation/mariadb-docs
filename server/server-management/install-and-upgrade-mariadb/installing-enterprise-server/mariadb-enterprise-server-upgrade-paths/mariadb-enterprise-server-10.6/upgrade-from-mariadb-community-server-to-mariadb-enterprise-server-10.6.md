@@ -8,7 +8,7 @@ When [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup prior to upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.
 
-The instructions below show how to perform a backup using [MariaDB Backup](../../../../../server-usage/backup-and-restore/mariadb-backup/). For more information about backing up and restoring the database, please see the [Recovery Guide](broken-reference).
+The instructions below show how to perform a backup using [MariaDB Backup](../../../../../server-usage/backup-and-restore/mariadb-backup/). For more information about backing up and restoring the database, please see the [Recovery Guide](../../../../../server-usage/backup-and-restore/).
 
 1.  Take a full backup.
 

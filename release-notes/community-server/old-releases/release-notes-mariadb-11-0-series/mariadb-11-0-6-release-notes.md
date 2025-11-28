@@ -1,12 +1,12 @@
 # MariaDB 11.0.6 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/11.0.6/) | [Release Notes](mariadb-11-0-6-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-6-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
+[Download](https://downloads.mariadb.org/mariadb/11.0.6/) | [Release Notes](mariadb-11-0-6-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-6-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.0.6/)
 
 **Release date:** 16 May 2024
 
-[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../mariadb-10-11-series/what-is-mariadb-1011.md) with several entirely new features.
+[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../10.11/what-is-mariadb-1011.md) with several entirely new features.
 
 [MariaDB 11.0.6](mariadb-11-0-6-release-notes.md) is a [_**Stable (GA)**_](../../about/release-criteria.md) release.
 
@@ -70,7 +70,7 @@ From this version, the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTy
 * Fix spider plugin init failure with no\_zero\_date sql\_mode ([MDEV-33494](https://jira.mariadb.org/browse/MDEV-33494))
 * Fix sql plugin init failure with traditional sql\_mode ([MDEV-33584](https://jira.mariadb.org/browse/MDEV-33584))
 * Fix parsing failure on valid left join select by translating the on expression to () ([MDEV-33679](https://jira.mariadb.org/browse/MDEV-33679))
-* Fix Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../mariadb-10-5-series/what-is-mariadb-105.md) local and [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md) remote ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777))
+* Fix Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](../mariadb-10-5-series/what-is-mariadb-105.md) local and [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) remote ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777))
 * Fix bug where [Spider variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables) were not available if Spider was loaded upon server startup ([MDEV-33441](https://jira.mariadb.org/browse/MDEV-33441))
 
 ### Backup
@@ -149,7 +149,7 @@ From this version, the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTy
 * Fix crash in EXECUTE IMMEDIATE 'CREATE OR REPLACE TABLE t1 (a INT DEFAULT ?)' USING DEFAULT ([MDEV-15703](https://jira.mariadb.org/browse/MDEV-15703))
 * Fix wrong result on 2nd execution of PS to select from view using derived ([MDEV-31277](https://jira.mariadb.org/browse/MDEV-31277))
 * Fix wrong warnings on 2nd execution of PS for query with GROUP\_CONCAT ([MDEV-31276](https://jira.mariadb.org/browse/MDEV-31276))
-* [TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp) value of '1970-01-01 00:00:00' can no longer be indirectly inserted in [strict mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode#strict-mode) ([MDEV-34088](https://jira.mariadb.org/browse/MDEV-34088))
+* [TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp) value of '1970-01-01 00:00:00' can no longer be indirectly inserted in [strict mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode#strict-mode) ([MDEV-34088](https://jira.mariadb.org/browse/MDEV-34088))
 * Fix out of range error in [AVG](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/aggregate-functions/avg)([YEAR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/year)([datetime](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime))) due to a wrong data type ([MDEV-33496](https://jira.mariadb.org/browse/MDEV-33496))
 * Fix zero datetime reinterpreting as '1970-01-01 00:00:00' on field\_datetime=field\_timestamp ([MDEV-34069](https://jira.mariadb.org/browse/MDEV-34069))
 * unix\_timestamp(coalesce(timestamp\_column)) no longer returns NULL on '1970-01-01 00:00:00.000001' ([MDEV-34061](https://jira.mariadb.org/browse/MDEV-34061))
@@ -187,7 +187,7 @@ From this version, the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTy
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.0.6](mariadb-11-0-6-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-6-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.0/mariadb-11-0-6-changelog.md).
 
 ## Contributors
 

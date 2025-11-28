@@ -26,11 +26,15 @@ Returns zero on success, non-zero if an error occurred (invalid option or value)
 
 ### Options
 
-*   `MYSQL_INIT_COMMAND`: Command(s) which will be executed when connecting and reconnecting to the server.
+*   `MYSQL_INIT_COMMAND`: lets you specify a command to execute immediately after connecting (and also after a reconnect if enabled).
 
     ```c
-    mysql_optionsv(mysql, MYSQL_INIT_COMMAND, (void *)"CREATE TABLE ...");
+    mysql_optionsv(mysql, MYSQL_INIT_COMMAND, (void *)"CREATE TABLE test.t1(a int)");
+    mysql_optionsv(mysql, MYSQL_INIT_COMMAND, (void *)"SET @value := 1");
     ```
+    * Each call adds one SQL statement to an internal list; all stored commands are executed in order.
+    * You cannot concatenate multiple statements with semicolons; each statement must be added with a separate call.
+  
 *   `MYSQL_OPT_CONNECT_TIMEOUT`: Connect timeout in seconds. This value will be passed as an unsigned `int` parameter.
 
     ```c

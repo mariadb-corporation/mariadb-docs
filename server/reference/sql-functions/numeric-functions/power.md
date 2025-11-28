@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate power. This function returns the value of a number raised to the
+  specified exponent.
+---
+
 # POWER
 
 ## Syntax

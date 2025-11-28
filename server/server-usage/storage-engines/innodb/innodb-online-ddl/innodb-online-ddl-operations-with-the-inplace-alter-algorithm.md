@@ -159,7 +159,7 @@ Query OK, 0 rows affected (0.021 sec)
 
 #### Changing a Column to NOT NULL
 
-InnoDB supports modifying a column to **not** allow [NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null) values with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. It is required for [strict mode](../../../../server-management/variables-and-modes/sql-mode.md#strict-mode) to be enabled in [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md). The operation will fail if the column contains any `NULL` values. Changes that would interfere with referential integrity are also not permitted.
+InnoDB supports modifying a column to **not** allow [NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null) values with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. It is required for [strict mode](../../../../server-management/variables-and-modes/sql_mode.md#strict-mode) to be enabled in [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md). The operation will fail if the column contains any `NULL` values. Changes that would interfere with referential integrity are also not permitted.
 
 The table is rebuilt, which means that all of the data is reorganized substantially, and the indexes are rebuilt. As a result, the operation is quite expensive.
 
@@ -369,7 +369,7 @@ This applies to [ALTER TABLE ... CHANGE COLUMN](../../../../reference/sql-statem
 
 InnoDB supports adding a primary key to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
 
-If the new primary key column is not defined as [NOT NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null), then it is highly recommended for [strict mode](../../../../server-management/variables-and-modes/sql-mode.md#strict-mode) to be enabled in [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md). Otherwise, `NULL` values are silently converted to the default value for the given data type, which is probably not the desired behavior in this scenario.
+If the new primary key column is not defined as [NOT NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null), then it is highly recommended for [strict mode](../../../../server-management/variables-and-modes/sql_mode.md#strict-mode) to be enabled in [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md). Otherwise, `NULL` values are silently converted to the default value for the given data type, which is probably not the desired behavior in this scenario.
 
 The table is rebuilt, which means that all of the data is reorganized substantially, and the indexes are rebuilt. As a result, the operation is quite expensive.
 

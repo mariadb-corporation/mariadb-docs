@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate population standard deviation. This function returns the square root
+  of the population variance. It is a synonym for STDDEV_POP().
+---
+
 # STD
 
 ## Syntax

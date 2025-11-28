@@ -9,7 +9,7 @@ The most recent release of [MariaDB 10.7](what-is-mariadb-107.md) is:[**MariaDB 
 **Do not use&#x20;**_**alpha**_**&#x20;releases in production!**
 
 [MariaDB 10.7](what-is-mariadb-107.md) is the current development series of MariaDB. It is an evolution\
-of [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md) with several entirely new features.
+of [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) with several entirely new features.
 
 [MariaDB 10.7.0](mariadb-1070-release-notes.md) is not a single release, but is instead a number of feature preview releases based on feature branches. Each should be considered as having a maturity of an [_**Alpha**_](../../about/release-criteria.md) release. Read more about feature preview releases [here](https://mariadb.org/preview-releases/).
 

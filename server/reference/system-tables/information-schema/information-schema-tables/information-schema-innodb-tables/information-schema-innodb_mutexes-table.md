@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_MUTEXES table displays statistics about InnoDB
+  mutex and read-write lock waits, helping to identify internal contention.
+---
+
 # Information Schema INNODB\_MUTEXES Table
 
 The `INNODB_MUTEXES` table monitors mutex and rw locks waits. It has the following columns:

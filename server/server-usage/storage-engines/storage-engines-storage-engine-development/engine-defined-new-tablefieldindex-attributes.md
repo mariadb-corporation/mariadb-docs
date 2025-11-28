@@ -105,7 +105,7 @@ When an attribute is set, it are stored with the table definition and shown in t
 
 The values of unknown attributes or attributes with the illegal values cause an error by default. But with [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) one can change the storage engine and some previously valid attributes may become unknown — to the new engine. They are not removed automatically, though, because the table might be altered back to the first engine, and these attributes are valid again. Still [SHOW CREATE TABLE](../../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md) will comment these unknown attributes out in the output, otherwise they would make a generated [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement invalid.
 
-With the `IGNORE_BAD_TABLE_OPTIONS` [sql mode](../../../server-management/variables-and-modes/sql-mode.md) this behavior changes. Unknown attributes do not cause an error, they only result in a warning. And [SHOW CREATE TABLE](../../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md) will not comment them out. This mode is implicitly enabled in the replication slave thread.
+With the `IGNORE_BAD_TABLE_OPTIONS` [sql mode](../../../server-management/variables-and-modes/sql_mode.md) this behavior changes. Unknown attributes do not cause an error, they only result in a warning. And [SHOW CREATE TABLE](../../../reference/sql-statements/administrative-sql-statements/show/show-create-table.md) will not comment them out. This mode is implicitly enabled in the replication slave thread.
 
 ## See Also
 

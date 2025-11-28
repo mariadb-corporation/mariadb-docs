@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a datetime value between time zones. This function shifts a timestamp
+  from a source time zone to a target time zone.
+---
+
 # CONVERT\_TZ
 
 ## Syntax

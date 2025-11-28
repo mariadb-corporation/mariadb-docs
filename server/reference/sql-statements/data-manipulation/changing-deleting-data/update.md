@@ -1,3 +1,9 @@
+---
+description: >-
+  Modify existing data in a table. This statement changes the values of
+  specified columns in rows that match a given condition.
+---
+
 # UPDATE
 
 ## Syntax
@@ -29,7 +35,7 @@ updated in the order that is specified. The [LIMIT](../selecting-data/limit.md) 
 
 {% tabs %}
 {% tab title="Current" %}
-Both clauses can be used with multiple-table updates.&#x20;
+Both clauses can be used with multiple-table updates.
 {% endtab %}
 
 {% tab title="< 10.3" %}
@@ -43,7 +49,7 @@ An `UPDATE` can also reference tables which are located in different databases; 
 
 `table_references` and `where_condition` are as specified as described in [SELECT](../selecting-data/select.md).
 
-For single-table updates, assignments are evaluated in left-to-right order, while for multi-table updates, there is no guarantee of a particular order. If the `SIMULTANEOUS_ASSIGNMENT` [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) is set, UPDATE statements evaluate all assignments simultaneously.
+For single-table updates, assignments are evaluated in left-to-right order, while for multi-table updates, there is no guarantee of a particular order. If the `SIMULTANEOUS_ASSIGNMENT` [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) is set, UPDATE statements evaluate all assignments simultaneously.
 
 You need the `UPDATE` privilege only for columns referenced in an `UPDATE` that are actually updated. You need only the [SELECT](../selecting-data/select.md) privilege for any columns that are read but not modified. See [GRANT](../../account-management-sql-statements/grant.md).
 

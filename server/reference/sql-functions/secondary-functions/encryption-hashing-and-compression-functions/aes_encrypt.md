@@ -1,3 +1,9 @@
+---
+description: >-
+  Encrypt data using AES. This function encrypts a string using the Advanced
+  Encryption Standard (AES) algorithm and returns a binary string.
+---
+
 # AES\_ENCRYPT
 
 ## Syntax

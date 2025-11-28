@@ -1,3 +1,9 @@
+---
+description: >-
+  The events_stages_history_long table stores the most recent 10,000 completed
+  stage events globally, providing a deeper history than per-thread tables.
+---
+
 # Performance Schema events\_transactions\_history\_long Table
 
 {% hint style="info" %}

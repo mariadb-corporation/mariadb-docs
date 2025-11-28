@@ -1,3 +1,9 @@
+---
+description: >-
+  Merge JSON documents. This function merges two or more JSON documents into a
+  single JSON document, preserving all keys and values.
+---
+
 # JSON\_MERGE
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  Access the unique row identifier. This pseudo column often aliases the primary
+  key, allowing direct row access even if the primary key column name is
+  unknown.
+---
+
 # \_rowid
 
 ## Syntax

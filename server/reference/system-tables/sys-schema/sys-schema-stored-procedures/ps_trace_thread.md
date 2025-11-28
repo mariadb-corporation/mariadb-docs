@@ -1,3 +1,10 @@
+---
+description: >-
+  The ps_trace_thread procedure captures a trace of Performance Schema
+  instrumentation for a specific thread and dumps it to a .dot formatted graph
+  file.
+---
+
 # ps\_trace\_thread
 
 ## Syntax

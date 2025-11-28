@@ -1,3 +1,9 @@
+---
+description: >-
+  Very large binary object. A LONGBLOB column can store up to 4GB of binary
+  data.
+---
+
 # LONGBLOB
 
 ## Syntax
@@ -8,7 +14,7 @@ LONGBLOB
 
 ## Description
 
-A [BLOB](blob.md) column with a maximum length of 4,294,967,295 bytes (232<sup>-1</sup>), or 4GB. The effective maximum length of `LONGBLOB` columns depends on the configured maximum packet size in the client/server protocol and available memory. Each `LONGBLOB` value is stored using a four-byte length prefix that indicates the number of bytes in the value.
+A [BLOB](blob.md) column with a maximum length of 4,294,967,295 bytes (2³² - 1), or 4GB. The effective maximum length of `LONGBLOB` columns depends on the configured maximum packet size in the client/server protocol and available memory. Each `LONGBLOB` value is stored using a four-byte length prefix that indicates the number of bytes in the value.
 
 ### Oracle Mode
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  This table provides a global summary of statement events aggregated by event
+  name, showing total execution counts and wait times for the server.
+---
+
 # Performance Schema events\_transactions\_summary\_global\_by\_event\_name Table
 
 {% hint style="info" %}

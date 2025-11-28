@@ -1,3 +1,9 @@
+---
+description: >-
+  String object with zero or more values from a predefined list. A SET column
+  can store multiple values selected from a list of permitted strings.
+---
+
 # SET Data Type
 
 ## Syntax
@@ -13,7 +19,7 @@ represented internally as integers.
 
 `SET` values cannot contain commas.
 
-If a `SET` contains duplicate values, an error will be returned if [strict mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) is enabled, or a warning if strict mode is not enabled.
+If a `SET` contains duplicate values, an error will be returned if [strict mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) is enabled, or a warning if strict mode is not enabled.
 
 ## EXAMPLES
 

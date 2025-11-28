@@ -1,3 +1,9 @@
+---
+description: >-
+  View privileges assigned to a user. This statement displays the GRANT
+  statements required to replicate a user's permissions.
+---
+
 # SHOW GRANTS
 
 ## Syntax
@@ -51,7 +57,7 @@ SHOW GRANTS FOR journalist;
 
 {% tabs %}
 {% tab title="Current" %}
-#### FOR PUBLIC
+**FOR PUBLIC**
 
 [GRANT ... TO PUBLIC](../../account-management-sql-statements/grant.md#to-public) grants privileges to all users. `SHOW GRANTS FOR PUBLIC` shows all these grants.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema SCHEMATA table stores information about databases on
+  the server, including default character sets and collations.
+---
+
 # Information Schema SCHEMATA Table
 
 The [Information Schema](../) `SCHEMATA` table stores information about databases on the server.

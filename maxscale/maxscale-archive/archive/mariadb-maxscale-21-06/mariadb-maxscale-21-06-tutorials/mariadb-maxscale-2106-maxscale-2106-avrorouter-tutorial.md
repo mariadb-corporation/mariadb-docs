@@ -66,7 +66,7 @@ port=4001
 ```
 
 The `source` parameter in the _avro-service_ points to the _replication-service_\
-we defined before. This service will be the data source for the avrorouter. Th&#x65;_&#x66;ilestem_ is the prefix in the binlog files and _start\_index_ is the binlog\
+we defined before. This service will be the data source for the avrorouter. The_filestem_ is the prefix in the binlog files and _start\_index_ is the binlog\
 number to start from. With these parameters, the avrorouter will start reading\
 events from binlog `binlog.000015`.
 
@@ -97,7 +97,7 @@ created. There are multiple ways to do this:
   and copy the generated .avsc files to the avrodir
 
 If you used the schema generator scripts, all Avro schema files for tables that\
-are not created in the binary logs need to be in the location pointed to by th&#x65;_&#x61;vrodir_ parameter. The files use the following naming:`<database>.<table>.<schema_version>.avsc`. For example, the schema file name of\
+are not created in the binary logs need to be in the location pointed to by the_avrodir_ parameter. The files use the following naming:`<database>.<table>.<schema_version>.avsc`. For example, the schema file name of\
 the _test.t1_ table would be `test.t1.0000001.avsc`.
 
 ## Starting MariaDB MaxScale

@@ -1,3 +1,9 @@
+---
+description: >-
+  Check validity of an IPv4 address. This function returns 1 if the argument is
+  a valid IPv4 address string, and 0 otherwise.
+---
+
 # IS\_IPV4
 
 ## Syntax

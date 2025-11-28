@@ -45,9 +45,7 @@ For the full procedure that shows how to quickly create a MariaDB ID account and
 
 MindsDB requires a MindsDB Cloud account.
 
-To create a new MindsDB Cloud account with a free trial, see "[MindsDB: Get Started for Free](https://cloud.mindsdb.com/register/mariadbskysql?utm_medium=partner\&utm_source=mariadb\&utm_campaign=skysql-tutorial)".
-
-After providing your details, such as name, email address, and password, click Create Account.
+Providing your details, such as name, email address, and password, click Create Account.
 
 Now you are redirected to the MindsDB Cloud Editor and ready to connect your database.
 
@@ -61,9 +59,7 @@ To connect a database service in MariaDB Cloud to MindsDB, perform the following
 2.  Connect to the database service in MariaDB Cloud using a supported client.
 
     For information about which clients are supported and how to connect, see "[Connecting](../)".
-3.  Login to your MindsDB Cloud account.
-
-    For information about how to login, see "[MindsDB: Get Started for Free](https://cloud.mindsdb.com/register/mariadbskysql?utm_medium=partner\&utm_source=mariadb\&utm_campaign=skysql-tutorial)".
+3. Login to your MindsDB Cloud account.
 4.  In the MindsDB Cloud Editor, execute a `CREATE DATABASE` statement to connect your MindsDB account to the the database service in MariaDB Cloud.
 
     ```sql
@@ -404,7 +400,6 @@ For more examples on the `INSERT INTO` statement, visit the [MindsDB doc page he
 
 ### Next Steps
 
-* [MindsDB: Get Started for Free](https://cloud.mindsdb.com/register/mariadbskysql?utm_medium=partner\&utm_source=mariadb\&utm_campaign=skysql-tutorial)
 * [MindsDB: Feature Engineering in MindsDB](https://docs.mindsdb.com/sql/feature-eng)
 * [MindsDB: MindsDB and MLflow](https://docs.mindsdb.com/custom-model/mlflow)
 * [Slack: MindsDB Community](https://mindsdbcommunity.slack.com/signup#/domain-signup)

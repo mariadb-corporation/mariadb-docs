@@ -1,3 +1,9 @@
+---
+description: >-
+  Schedule a new event for automatic execution. This statement defines a
+  scheduled task that runs SQL commands at specific times or intervals.
+---
+
 # CREATE EVENT
 
 ## Syntax

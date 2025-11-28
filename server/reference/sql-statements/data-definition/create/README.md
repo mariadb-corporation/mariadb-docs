@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about the CREATE statement in MariaDB Server. This DDL command allows
-  you to define new database objects, including databases, tables, indexes,
-  views, and stored routines.
+  Explore the CREATE statements used to define new database objects. This guide
+  covers syntax for creating databases, tables, indexes, views, and stored
+  routines.
 ---
 
 # CREATE

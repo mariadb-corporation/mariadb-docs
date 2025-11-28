@@ -1,4 +1,11 @@
-# Log Settings
+---
+description: >-
+  Control where and how the audit data is stored. This section explains how to
+  direct output to a file or the system syslog, and how to configure logging
+  parameters for different environments.
+---
+
+# Audit Plugin Log Settings
 
 Events that are logged by the MariaDB Audit Plugin are grouped generally into different types: connect, query, and table events. To log based on these types of events, set the variable, [server\_audit\_events](mariadb-audit-plugin-options-and-system-variables.md#server_audit_events) to `CONNECT`, `QUERY`, or `TABLE`. To have the Audit Plugin log more than one type of event, put them in a comma-separated list like so:
 
@@ -57,12 +64,19 @@ UPDATE command denied to user 'bob'@'localhost' for table 'employees'
 
 Looking in the Audit Plugin log (`server_audit.log`) for this entry, you can see the following entry:
 
+{% code overflow="wrap" %}
 ```sql
-20170817 11:07:18,ip-172-30-0-38,bob,localhost,15,46,QUERY,company,
-'UPDATE employees SET salary = salary * 1.2 WHERE emp_id = 18236',1142
+20170817 11:07:18,ip-172-30-0-38,bob,localhost,15,46,QUERY,company,'UPDATE employees SET salary = salary * 1.2 WHERE emp_id = 18236',1142
 ```
+{% endcode %}
 
-This log entry would be on one line, but it's reformatted here for better rendering. Looking at this log entry, you can see the date and time of the query, followed by the server host and the user and host for the account. Next is the connection and query identification numbers (i.e., `15` and `46`). After the log event type (i.e., `QUERY`), the database name (i.e., `company`), the query, and the error number are recorded.
+This log entry contains the date and time of the query, followed by the server host, and the user and host for the account.
+
+{% hint style="info" %}
+From MariaDB 12.0, in addition to the host, the audit log also contains the port, where applicable (for instance, connecting via a Unix socket doesn't use a port).
+{% endhint %}
+
+Next is the connection and query identification numbers (i.e., `15` and `46`). After the log event type (i.e., `QUERY`), the database name (i.e., `company`), the query, and the error number are recorded.
 
 Notice that the last value in the log entry is `1142`. That's the error number for the query. To find failed queries, you would look for two elements: the notation indicating that it's an entry `QUERY` and the last value for the entry. If the query is successful, the value will be`0` .
 

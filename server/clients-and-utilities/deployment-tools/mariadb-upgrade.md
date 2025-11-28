@@ -14,7 +14,7 @@ You should run `mariadb-upgrade` after upgrading from one major MySQL/MariaDB re
 {% tab title="Current" %}
 `mariadb-upgrade` needs to be run as a user with write access to the data directory.
 
-Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the user running the upgrade tool must have write access to `datadir/mysql_upgrade_info`, so that the tool can write the current MariaDB version into the file.&#x20;
+Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the user running the upgrade tool must have write access to `datadir/mysql_upgrade_info`, so that the tool can write the current MariaDB version into the file. 
 {% endtab %}
 
 {% tab title="< 10.7.2 / 10.6.6 / 10.5.14" %}

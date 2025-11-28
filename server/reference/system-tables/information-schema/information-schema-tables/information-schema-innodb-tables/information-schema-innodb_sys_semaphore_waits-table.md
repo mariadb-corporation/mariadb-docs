@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_SEMAPHORE_WAITS table displays threads currently waiting for
+  semaphores, which is useful for debugging high-concurrency contention.
+---
+
 # Information Schema INNODB\_SYS\_SEMAPHORE\_WAITS Table
 
 The [Information Schema](../../) INNODB\_SYS\_SEMAPHORE\_WAITS table is meant to contain information about current semaphore waits. At present it is not correctly populated. See [MDEV-21330](https://jira.mariadb.org/browse/MDEV-21330).

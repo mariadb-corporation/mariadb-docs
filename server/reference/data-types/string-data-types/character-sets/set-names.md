@@ -1,3 +1,9 @@
+---
+description: >-
+  Configure the character set and collation for the current connection. This
+  ensures the server correctly interprets data sent by the client application.
+---
+
 # SET NAMES
 
 ## Syntax

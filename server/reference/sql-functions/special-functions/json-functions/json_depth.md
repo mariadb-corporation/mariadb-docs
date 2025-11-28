@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover JSON_DEPTH in MariaDB. This function returns the maximum depth of a
+  JSON document, assigning a depth of 1 to scalars and empty structures, and
+  higher values for nested data.
+---
+
 # JSON\_DEPTH
 
 ## Syntax
@@ -8,7 +15,7 @@ JSON_DEPTH(json_doc)
 
 ## Description
 
-Returns the maximum depth of the given JSON document, or `NULL` if the argument is null. An error  occurs if the argument is an invalid JSON document.
+Returns the maximum depth of the given JSON document, or `NULL` if the argument is null. An error occurs if the argument is an invalid JSON document.
 
 * Scalar values or empty arrays or objects have a depth of 1.
 * Arrays or objects that are not empty but contain only elements or member values of depth 1 will have a depth of 2.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Create new roles to simplify privilege management. Learn how to define a role
+  that can be assigned to multiple users or other roles.
+---
+
 # CREATE ROLE
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Concatenate strings from a group. This function joins non-NULL values from
+  multiple rows into a single string, with an optional separator.
+---
+
 # GROUP\_CONCAT
 
 ## Syntax
@@ -34,7 +40,7 @@ GROUP_CONCAT([DISTINCT] expr [,expr ...]
 
 ### LIMIT
 
-The [LIMIT](../../sql-statements/data-manipulation/selecting-data/limit.md) clause can be used with `GROUP_CONCAT`.&#x20;
+The [LIMIT](../../sql-statements/data-manipulation/selecting-data/limit.md) clause can be used with `GROUP_CONCAT`.
 
 ## Examples
 

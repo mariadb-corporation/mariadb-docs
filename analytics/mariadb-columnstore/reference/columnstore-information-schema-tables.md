@@ -37,7 +37,7 @@ This table displays the extent map in a user-consumable form. An extent is a col
 
 1. The state is "Valid" for a normal state, "Invalid" if a cpimport has completed but the table has not yet been accessed (min/max values will be invalid) or "Updating" if there is a DML statement writing to the column.
 2. In ColumnStore the block size is 8192 bytes.
-3. By default, ColumnStore will write and create an extent file of 25&#x36;_&#x31;02&#x34;_&#x57;IDTH bytes for the first partition; if this is too small, then for uncompressed data, it will create a file of the maximum size for the extent (`MAX_BLOCKS * BLOCK_SIZE`). Snappy always compression adds a header block.
+3. By default, ColumnStore will write and create an extent file of 256_1024_WIDTH bytes for the first partition; if this is too small, then for uncompressed data, it will create a file of the maximum size for the extent (`MAX_BLOCKS * BLOCK_SIZE`). Snappy always compression adds a header block.
 4. Object IDs of less than 3000 are for internal tables and will not appear in any of the information schema tables.
 5. HWM is set to zero for the lower segments when there are multiple segments in an extent file; these can be observed when `BLOCK_OFFSET > 0` .
 6. When HWM is 0, the `DATA_SIZE` will show 0 instead of 8192 to avoid confusion when there are multiple segments in an extent file.

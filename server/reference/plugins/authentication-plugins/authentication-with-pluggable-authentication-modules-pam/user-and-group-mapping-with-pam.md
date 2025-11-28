@@ -1,3 +1,9 @@
+---
+description: >-
+  The pam_user_map PAM module allows administrators to map external PAM users
+  and groups to specific MariaDB accounts for flexible authorization management.
+---
+
 # User and Group Mapping with PAM
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  In Oracle mode, CLOB is an alias for the LONGTEXT data type used to store
+  large text objects.
+---
+
 # CLOB
 
 ## Overview

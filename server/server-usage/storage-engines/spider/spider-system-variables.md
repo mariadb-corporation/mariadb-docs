@@ -1248,7 +1248,7 @@ Before this change, a non-minus-one system variable value would override the tab
 
 #### `spider_sync_sql_mode`
 
-* Description: Whether to sync [sql\_mode](../../../server-management/variables-and-modes/sql-mode.md).
+* Description: Whether to sync [sql\_mode](../../../server-management/variables-and-modes/sql_mode.md).
   * `OFF` No sync
   * `ON` Sync
 * Scope: Global, Session

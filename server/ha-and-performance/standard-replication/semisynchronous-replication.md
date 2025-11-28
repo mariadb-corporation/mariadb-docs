@@ -1,8 +1,8 @@
 ---
 description: >-
-  Implement semi-synchronous replication in MariaDB Server. How to ensure data
-  durability by requiring at least one replica to acknowledge receipt of
-  transactions before the master commits.
+  Enhance data consistency with semisynchronous replication. Ensure that the
+  primary waits for at least one replica to acknowledge receipt of a transaction
+  before committing.
 ---
 
 # Semisynchronous Replication
@@ -170,7 +170,7 @@ The effects of the `AFTER_COMMIT` wait point are:
 | N/A     | N/A     | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes) (feature is built-in, no longer available as a separate plugin) |
 | 1.0     | Stable  | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10113-release-notes)                                                               |
 | 1.0     | Gamma   | [MariaDB 10.0.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10011-release-notes)                                                               |
-| 1.0     | Unknown | [MariaDB 10.0.11](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md)                                                                   |
+| 1.0     | Unknown | [MariaDB 10.0.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10011-release-notes)                                                               |
 | 1.0     | N/A     | [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)                                                            |
 
 ## System Variables
@@ -285,7 +285,7 @@ The effects of the `AFTER_COMMIT` wait point are:
 
 ### `init-rpl-role`
 
-* From [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-9-release-notes), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes) and [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes), changes the condition for semi-sync recovery to truncate the [binlog](../../server-management/server-monitoring-logs/binary-log/) to instead use this option, when set to SLAVE. This avoids a possible error state where the replica’s state is ahead of the primary’s. See [-init-rpl-role](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#init-rpl-role).
+* From [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3) and [MariaDB 11.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes), changes the condition for semi-sync recovery to truncate the [binlog](../../server-management/server-monitoring-logs/binary-log/) to instead use this option, when set to SLAVE. This avoids a possible error state where the replica’s state is ahead of the primaries. See [-init-rpl-role](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#init-rpl-role).
 
 ### `rpl-semi-sync_master`
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The status_by_account table aggregates session status variables by client
+  account, showing cumulative counters for specific user-host combinations.
+---
+
 # Performance Schema status\_by\_account Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a sequence generator. This statement initializes a sequence object that
+  produces a series of unique numeric values on demand.
+---
+
 # CREATE SEQUENCE
 
 ## Syntax
@@ -33,7 +39,7 @@ _`table_options`_ can be any of the normal table options in [CREATE TABLE](../..
 
 {% tabs %}
 {% tab title="Current" %}
-`INT` type, that is, one of [TINYINT](../../data-types/numeric-data-types/tinyint.md), [SMALLINT](../../data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../data-types/numeric-data-types/mediumint.md), [INT](../../data-types/numeric-data-types/int.md), [INTEGER](../../data-types/numeric-data-types/integer.md), [BIGINT](../../data-types/numeric-data-types/bigint.md). Can be signed or unsigned. Maximum value is based on the data type. The use of `BIGINT UNSIGNED` with this option extends the possible maximum value from `9223372036854775806` to `18446744073709551614`. Default  is `BIGINT`.
+`INT` type, that is, one of [TINYINT](../../data-types/numeric-data-types/tinyint.md), [SMALLINT](../../data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../data-types/numeric-data-types/mediumint.md), [INT](../../data-types/numeric-data-types/int.md), [INTEGER](../../data-types/numeric-data-types/integer.md), [BIGINT](../../data-types/numeric-data-types/bigint.md). Can be signed or unsigned. Maximum value is based on the data type. The use of `BIGINT UNSIGNED` with this option extends the possible maximum value from `9223372036854775806` to `18446744073709551614`. Default is `BIGINT`.
 {% endtab %}
 
 {% tab title="< 11.5" %}
@@ -59,7 +65,7 @@ First value the sequence will generate. Default `MINVALUE` if `INCREMENT` > `0`,
 
 #### CACHE / NOCACHE
 
-Number of values that should be cached. `0` if no `CACHE`. The underlying table will be updated first time a new sequence number is generated and each time the cache runs out. Default `1000`. [FLUSH TABLES](../../sql-statements/administrative-sql-statements/flush-commands/flush.md), shutting down the server, etc. will discard the cached values, and the next sequence number generated will be according to what's stored in the Sequence object. In effect, this will discard the cached values.&#x20;
+Number of values that should be cached. `0` if no `CACHE`. The underlying table will be updated first time a new sequence number is generated and each time the cache runs out. Default `1000`. [FLUSH TABLES](../../sql-statements/administrative-sql-statements/flush-commands/flush.md), shutting down the server, etc. will discard the cached values, and the next sequence number generated will be according to what's stored in the Sequence object. In effect, this will discard the cached values.
 
 {% hint style="warning" %}
 Note that setting the cache to `1` from `1000` can make inserts to tables using sequences for default values 2x slower and increase the binary log sizes up to 7x.

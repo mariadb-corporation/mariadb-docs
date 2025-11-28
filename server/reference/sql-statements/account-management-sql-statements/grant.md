@@ -1,13 +1,19 @@
+---
+description: >-
+  Assign privileges and roles. Learn the syntax to give users or roles
+  permission to access databases, tables, and execute specific commands.
+---
+
 # GRANT
 
 ## Syntax
 
-```bnf
+```sql
 GRANT
     priv_type [(column_list)]
       [, priv_type [(column_list)]] ...
     ON [object_type] priv_level
-    TO user_specification [ user_options ...]
+    TO user_specification [ user_options ...] | role_name
 
 user_specification:
   username [authentication_option]
@@ -89,7 +95,7 @@ The `GRANT` statement also allows you to implicitly create accounts in some case
 
 If the account does not yet exist, then `GRANT` can implicitly create it. To implicitly create an account with `GRANT`, a user is required to have the same privileges that would be required to explicitly create the account with the `CREATE USER` statement.
 
-If the `NO_AUTO_CREATE_USER` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is set, then accounts can only be created if authentication information is specified, or with a [CREATE USER](create-user.md) statement. If no authentication information is provided, `GRANT` will produce an error when the specified account does not exist, for example:
+If the `NO_AUTO_CREATE_USER` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is set, then accounts can only be created if authentication information is specified, or with a [CREATE USER](create-user.md) statement. If no authentication information is provided, `GRANT` will produce an error when the specified account does not exist, for example:
 
 ```sql
 SHOW VARIABLES LIKE '%sql_mode%' ;
@@ -135,12 +141,11 @@ Privileges can be set globally, for an entire database, for a table or routine, 
 Global privileges do not take effect immediately and are only applied to connections created after the `GRANT` statement was executed.
 
 * [Global privileges priv\_type](grant.md#global-privileges) are granted using `*.*` for priv\_level. Global privileges include privileges to administer the database and manage user accounts, as well as privileges for all tables, functions, and procedures. Global privileges are stored in [mysql.global\_priv table](../../system-tables/the-mysql-database-tables/mysql-global_priv-table.md).
-* [Database privileges priv\_type](grant.md#database-privileges) are granted using `db_name.*` for priv\_level, or using just `*` to use default database. Database privileges include privileges to create tables and functions, as well as\
-  privileges for all tables, functions, and procedures in the database. Database privileges are stored in the [mysql.db table](../../system-tables/the-mysql-database-tables/mysql-db-table.md).
-* [Table privileges priv\_type](grant.md#table-privileges) are granted using `db_name.tbl_name`for priv\_level, or using just `tbl_name` to specify a table in the default database. The `TABLE` keyword is optional. Table privileges include the ability to select and change data in the table. Certain table privileges can be granted for individual columns.
+* [Database privileges priv\_type](grant.md#database-privileges) are granted using `db_name.*` for priv\_level, or using just `*` to use the [current database](../administrative-sql-statements/use-database.md#description). Database privileges include privileges to create tables and functions, as well as privileges for all tables, functions, and procedures in the database. Database privileges are stored in the [mysql.db table](../../system-tables/the-mysql-database-tables/mysql-db-table.md).
+* [Table privileges priv\_type](grant.md#table-privileges) are granted using `db_name.tbl_name`for priv\_level, or using just `tbl_name` to specify a table in the current database. The `TABLE` keyword is optional. Table privileges include the ability to select and change data in the table. Certain table privileges can be granted for individual columns.
 * [Column privileges priv\_type](grant.md#column-privileges) are granted by specifying a table for priv\_level and providing a column list after the privilege type. They allow you to control exactly which columns in a table users can select and change.
-* [Function privileges priv\_type](grant.md#function-privileges) are granted using `FUNCTION db_name.routine_name` for priv\_level, or using just `FUNCTION routine_name` to specify a function in the default database.
-* [Procedure privileges priv\_type](grant.md#procedure-privileges) are granted using `PROCEDURE db_name.routine_name` for priv\_level, or using just `PROCEDURE routine_name` to specify a procedure in the default database.
+* [Function privileges priv\_type](grant.md#function-privileges) are granted using `FUNCTION db_name.routine_name` for priv\_level, or using just `FUNCTION routine_name` to specify a function in the current database.
+* [Procedure privileges priv\_type](grant.md#procedure-privileges) are granted using `PROCEDURE db_name.routine_name` for priv\_level, or using just `PROCEDURE routine_name` to specify a procedure in the current database.
 
 ### The `USAGE` Privilege
 
@@ -293,11 +298,15 @@ Show information about the active processes, for example via [SHOW PROCESSLIST](
 {% tab title="Current" %}
 User ignores the [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) system variable, and can perform write operations even when the `read_only` option is active.
 
-The `READ_ONLY ADMIN` privilege has been removed from [SUPER](grant.md#super). The benefit of this is that one can remove the READ\_ONLY ADMIN privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on replicas when one wants to ensure that the replica is kept identical to the primary.
+A user with that privilege can also change the (global) value of `read_only`.
+
+The `READ_ONLY ADMIN` privilege has been removed from [SUPER](grant.md#super). The benefit of this is that one can remove the `READ_ONLY ADMIN` privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on replicas when one wants to ensure that the replica is kept identical to the primary.
 {% endtab %}
 
 {% tab title="< 10.11" %}
 User ignores the [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) system variable, and can perform write operations even when the `read_only` option is active.
+
+A user with that privilege can also change the (global) value of `read_only`.
 
 The `READ_ONLY ADMIN` privilege is included in [SUPER](grant.md#super).
 {% endtab %}
@@ -509,7 +518,7 @@ Use the SUPER privilege.
 
 The following table lists the privileges that can be granted at the database level. You can also grant all table and function privileges at the database level. Table and function privileges on a database apply to all tables or functions in that database, including those created later.
 
-To set a privilege for a database, specify the database using`db_name.*` for _priv\_level_, or just use `*` to specify the default database.
+To set a privilege for a database, specify the database using`db_name.*` for _priv\_level_, or just use `*` to specify the current. database.
 
 <table><thead><tr><th width="236.5184326171875">Privilege</th><th>Description</th></tr></thead><tbody><tr><td>CREATE</td><td>Create a database using the <a href="../data-definition/create/create-database.md">CREATE DATABASE</a> statement, when the privilege is granted for a database. You can grant the CREATE privilege on databases that do not yet exist. This also grants the CREATE privilege on all tables in the database.</td></tr><tr><td>CREATE ROUTINE</td><td>Create Stored Programs using the <a href="../../../server-usage/stored-routines/stored-procedures/create-procedure.md">CREATE PROCEDURE</a> and <a href="../data-definition/create/create-function.md">CREATE FUNCTION</a> statements.</td></tr><tr><td>CREATE TEMPORARY TABLES</td><td>Create temporary tables with the <a href="../data-definition/create/create-table.md">CREATE TEMPORARY TABLE</a> statement. This privilege enable writing and dropping those temporary tables</td></tr><tr><td>DROP</td><td>Drop a database using the <a href="../data-definition/drop/drop-database.md">DROP DATABASE</a> statement, when the privilege is granted for a database. This also grants the DROP privilege on all tables in the database.</td></tr><tr><td>EVENT</td><td>Create, drop and alter EVENTs.</td></tr><tr><td>GRANT OPTION</td><td>Grant database privileges. You can only grant privileges that you have.</td></tr><tr><td>LOCK TABLES</td><td>Acquire explicit locks using the <a href="../transactions/lock-tables.md">LOCK TABLES</a> statement; you also need to have the SELECT privilege on a table, in order to lock it.</td></tr><tr><td>SHOW CREATE ROUTINE</td><td>Permit viewing the SHOW CREATE definition statement of a routine, for example <a href="../administrative-sql-statements/show/show-create-function.md">SHOW CREATE FUNCTION</a>, even if not the routine owner. From <a href="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes">MariaDB 11.3.0</a>.</td></tr></tbody></table>
 
@@ -525,11 +534,11 @@ Some table privileges can be set for individual columns of a table. To use colum
 GRANT SELECT (name, position) ON Employee TO 'jeffrey'@'localhost';
 ```
 
-<table><thead><tr><th width="249.5555419921875">Privilege</th><th>Description</th></tr></thead><tbody><tr><td>INSERT (column_list)</td><td>Add rows specifying values in columns using the <a href="../data-manipulation/inserting-loading-data/insert.md">INSERT</a> statement. If you only have column-level INSERT privileges, you must specify the columns you are setting in the INSERT statement. All other columns will be set to their default values, or NULL.</td></tr><tr><td>REFERENCES (column_list)</td><td>Unused.</td></tr><tr><td>SELECT (column_list)</td><td>Read values in columns using the <a href="../data-manipulation/selecting-data/select.md">SELECT</a> statement. You cannot access or query any columns for which you do not have SELECT privileges, including in WHERE, ON, GROUP BY, and ORDER BY clauses.</td></tr><tr><td>UPDATE (column_list)</td><td>Update values in columns of existing rows using the <a href="../data-manipulation/changing-deleting-data/update.md">UPDATE</a> statement. UPDATE statements usually include a WHERE clause to update only certain rows. You must have SELECT privileges on the table or the appropriate columns for the WHERE clause.</td></tr></tbody></table>
+<table><thead><tr><th width="249.5555419921875">Privilege</th><th>Description</th></tr></thead><tbody><tr><td>INSERT (column_list)</td><td>Add rows specifying values in columns using the <a href="../data-manipulation/inserting-loading-data/insert.md">INSERT</a> statement. If you only have column-level <code>INSERT</code> privileges, you must specify the columns you are setting in the <code>INSERT</code> statement. All other columns will be set to their default values, or <code>NULL</code>.</td></tr><tr><td>REFERENCES (column_list)</td><td>Unused.</td></tr><tr><td>SELECT (column_list)</td><td>Read values in columns using the <a href="../data-manipulation/selecting-data/select.md">SELECT</a> statement. You cannot access or query any columns for which you do not have <code>SELECT</code> privileges, including in <code>WHERE</code>, <code>ON</code>, <code>GROUP BY</code>, and <code>ORDER BY</code> clauses.</td></tr><tr><td>UPDATE (column_list)</td><td>Update values in columns of existing rows using the <a href="../data-manipulation/changing-deleting-data/update.md">UPDATE</a> statement. <code>UPDATE</code> statements usually include a <code>WHERE</code> clause to update only certain rows. You must have <code>SELECT</code> privileges on the table or the appropriate columns for the <code>WHERE</code> clause.</td></tr></tbody></table>
 
 ### Function Privileges
 
-<table><thead><tr><th width="212.81475830078125">Privilege</th><th>Description</th></tr></thead><tbody><tr><td>ALTER ROUTINE</td><td>Change the characteristics of a stored function using the <a href="../data-definition/alter/alter-function.md">ALTER FUNCTION</a> statement.</td></tr><tr><td>EXECUTE</td><td>Use a stored function. You need SELECT privileges for any tables or columns accessed by the function.</td></tr><tr><td>GRANT OPTION</td><td>Grant function privileges. You can only grant privileges that you have.</td></tr></tbody></table>
+<table><thead><tr><th width="212.81475830078125">Privilege</th><th>Description</th></tr></thead><tbody><tr><td>ALTER ROUTINE</td><td>Change the characteristics of a stored function using the <a href="../data-definition/alter/alter-function.md">ALTER FUNCTION</a> statement.</td></tr><tr><td>EXECUTE</td><td>Use a stored function. You need <code>SELECT</code> privileges for any tables or columns accessed by the function.</td></tr><tr><td>GRANT OPTION</td><td>Grant function privileges. You can only grant privileges that you have.</td></tr></tbody></table>
 
 ### Procedure Privileges
 
@@ -865,9 +874,7 @@ See [Securing Connections for Client and Server](../../../security/securing-mari
 
 ## Roles
 
-### Syntax
-
-```bnf
+```sql
 GRANT role TO grantee [, grantee ... ]
 [ WITH ADMIN OPTION ]
 
@@ -876,7 +883,7 @@ grantee:
     username [authentication_option]
 ```
 
-The GRANT statement is also used to grant the use of a [role](../../../security/user-account-management/roles/) to one or more users or other roles. In order to be able to grant a role, the grantor doing so must have permission to do so (see WITH ADMIN in the [CREATE ROLE](create-role.md) article).
+The `GRANT` statement is also used to grant the use of a [role](../../../security/user-account-management/roles/) to one or more users or other roles. In order to be able to grant a role, the grantor doing so must have permission to do so (see `WITH ADMIN` in the [CREATE ROLE](create-role.md) article).
 
 Specifying the `WITH ADMIN OPTION` permits the grantee to in turn grant the role to another.
 
@@ -889,6 +896,16 @@ GRANT journalist TO berengar WITH ADMIN OPTION;
 ```
 
 If a user has been granted a role, they do not automatically obtain all permissions associated with that role. These permissions are only in use when the user activates the role with the [SET ROLE](set-role.md) statement.
+
+{% hint style="warning" %}
+Be careful to avoid conflicting role and user names. In case of a conflict, the role name takes precedence, as shown in the following example. The `GRANT` statement assigns privileges to the role, not to the user:
+{% endhint %}
+
+```sql
+CREATE USER alice IDENTIFIED BY 'password';
+CREATE ROLE alice;
+GRANT select, insert on db.* TO alice;
+```
 
 ## TO PUBLIC
 
@@ -909,7 +926,7 @@ GRANT <privilege> ON <DATABASE>.<object> TO PUBLIC;
 REVOKE <privilege> ON <DATABASE>.<object> FROM PUBLIC;
 ```
 
-GRANT ... TO PUBLIC grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when one only wants to state once that all users need to have a certain set of privileges.\
+`GRANT ... TO PUBLIC` grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when one only wants to state once that all users need to have a certain set of privileges.\
 When running [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md), a user will also see all privileges inherited from PUBLIC. [SHOW GRANTS FOR PUBLIC](../administrative-sql-statements/show/show-grants.md#for-public) will only show TO PUBLIC grants.
 
 ## Grant Examples

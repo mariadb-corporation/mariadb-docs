@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes memory usage events aggregated by user name and event
+  name, useful for identifying users with high memory footprints.
+---
+
 # Performance Schema memory\_summary\_by\_user\_by\_event\_name Table
 
 {% hint style="info" %}

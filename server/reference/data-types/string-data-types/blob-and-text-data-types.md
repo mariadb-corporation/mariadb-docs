@@ -1,3 +1,9 @@
+---
+description: >-
+  Overview of large object types. This page compares BLOB (binary) and TEXT
+  (character) types, explaining their storage and usage differences.
+---
+
 # BLOB and TEXT Data Types
 
 ## Description

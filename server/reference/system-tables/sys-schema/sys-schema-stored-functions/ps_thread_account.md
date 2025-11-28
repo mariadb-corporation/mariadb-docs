@@ -1,3 +1,9 @@
+---
+description: >-
+  This function returns the user account (username@hostname) associated with a
+  specific Performance Schema thread ID.
+---
+
 # ps\_thread\_account
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

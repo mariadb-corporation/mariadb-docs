@@ -1,3 +1,9 @@
+---
+description: >-
+  This command retrieves a human-readable string containing internal server
+  statistics like uptime and thread counts.
+---
+
 # COM\_STATISTICS
 
 Get internal server statistics.

@@ -1,27 +1,31 @@
 # KEY Partitioning Type
 
-### Syntax
+## Syntax
 
 ```sql
 PARTITION BY KEY ([column_names])
 [PARTITIONS (number_of_partitions)]
 ```
 
-### Description
+## Description
 
 Partitioning by key is a type of partitioning that is similar to and can be used in a similar way as [partitioning by hash](hash-partitioning-type.md).
 
-KEY takes an optional list of _column\_names_, and the hashing function is given by the server.
+`KEY` takes an optional list of _`column_names`_, and the hashing function is given by the server.
 
-Just like HASH partitioning, in KEY partitioning the server takes care of the partition and ensures an even distribution among the partitions. However, the largest difference is that KEY partitioning makes use of _column\_names_, and cannot accept a _partitioning\_expression_ which is based on _column\_names_, in contrast to HASH partitioning, which can.
+Just like `HASH` partitioning, in `KEY` partitioning the server takes care of the partition and ensures an even distribution among the partitions. However, the largest difference is that KEY partitioning makes use of _column\_names_, and cannot accept a _partitioning\_expression_ which is based on _column\_names_, in contrast to `HASH` partitioning, which can.
 
-If no _column\_names_ are specified, the table's primary key is used if present, or not null unique key if no primary key is present. If neither of these keys are present, not specifying any _column\_names_ will result in `ERROR 1488 (HY000): Field in list of fields for partition function not found in table`
+If no _`column_names`_ are specified, the table's primary key is used if present, or not null unique key if no primary key is present. If neither of these keys are present, not specifying any _column\_names_ will result in an error:
 
-Unlike other partitioning types, columns used for partitioning by KEY are not limited to integer or NULL values.
+```
+ ERROR 1488 (HY000): Field in list of fields for partition function not found in table
+```
 
-KEY partitions do not support column index prefixes. Any columns in the partitioning key that make use of column prefixes are not used (see also [MDEV-32727](https://jira.mariadb.org/browse/MDEV-32727)).
+Unlike other partitioning types, columns used for partitioning by `KEY` are not limited to integer or `NULL` values.
 
-### Example
+`KEY` partitions do not support column index prefixes. Any columns in the partitioning key that make use of column prefixes are not used.
+
+## Examples
 
 ```sql
 CREATE OR REPLACE TABLE t1 (v1 INT)
@@ -53,7 +57,7 @@ PARTITION BY KEY()
 PARTITIONS 2;
 ```
 
-The unique key must be NOT NULL:
+The unique key must be `NOT NULL`:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
@@ -65,7 +69,7 @@ PARTITIONS 2;
 ERROR 1488 (HY000): Field in list of fields for partition function not found in table
 ```
 
-KEY requires _column\_values_ if no primary key or not null unique key is present:
+`KEY` requires _`column_values`_ if no primary key or not null unique key is present:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (

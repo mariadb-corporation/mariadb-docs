@@ -104,7 +104,7 @@ could cause a crash in the optimizer. The essential part is that ON expression h
 * ([MDEV-35813](https://jira.mariadb.org/browse/MDEV-35813)) Performance regression in INSERT…SELECT due to unnecessarily making InnoDB log durable.
 * ([MDEV-36781](https://jira.mariadb.org/browse/MDEV-36781)) Assertion \`i < (srv\_page\_size\_shift - 10U)' failed in buf\_block\_t \*buf\_buddy\_shrink(buf\_page\_t \*, buf\_block\_t \*)
 * ([MDEV-36684](https://jira.mariadb.org/browse/MDEV-36684)) main.mdl\_sync fails under valgrind (test for Bug#42643)
-* ([MDEV-31977](https://jira.mariadb.org/browse/MDEV-31977)) When we compile [MariaDB 10.6.11](../../community-server/mariadb-10-6-series/mariadb-10-6-11-release-notes.md) with asan, we failed to run the testcase of rocksdb.
+* ([MDEV-31977](https://jira.mariadb.org/browse/MDEV-31977)) When we compile [MariaDB 10.6.11](../../community-server/10.6/10.6.11.md) with asan, we failed to run the testcase of rocksdb.
 * ([MDEV-36461](https://jira.mariadb.org/browse/MDEV-36461)) In non-explain queries, optimizer trace is flooded with join\_execution nodes
 * ([MDEV-36730](https://jira.mariadb.org/browse/MDEV-36730)) Spuštění nežádoucího triggeru, Zmatení engine, generování null
 * ([MDEV-36516](https://jira.mariadb.org/browse/MDEV-36516)) galera\_3nodes.galera\_gtid\_2\_cluster test failed on 10.5 (these are flaws in the test itself; the fix did not require changing the main server code)

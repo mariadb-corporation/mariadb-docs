@@ -1,3 +1,10 @@
+---
+description: >-
+  Get comprehensive query plans in JSON format. This output provides detailed
+  optimizer data, including costs and attached conditions, not found in the
+  tabular view.
+---
+
 # EXPLAIN FORMAT=JSON
 
 ## Synopsis

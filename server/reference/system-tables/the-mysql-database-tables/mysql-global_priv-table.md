@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.global_priv table stores global privileges and account properties
+  for all users, replacing the older mysql.user table structure.
+---
+
 # mysql.global\_priv Table
 
 The `mysql.global_priv` table contains information about users that have permission to access the MariaDB server, and their global privileges.

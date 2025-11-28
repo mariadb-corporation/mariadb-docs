@@ -1,6 +1,12 @@
+---
+description: >-
+  This plugin creates the METADATA_LOCK_INFO table in the Information Schema,
+  allowing users to view active metadata locks and their owners.
+---
+
 # METADATA\_LOCK\_INFO Plugin
 
-The `METADATA_LOCK_INFO` plugin creates the [METADATA\_LOCK\_INFO](../../system-tables/information-schema/information-schema-tables/information-schema-metadata_lock_info-table.md) table in the [INFORMATION\_SCHEMA](../../system-tables/information-schema/) database. This table shows active [metadata locks](../../sql-statements/transactions/metadata-locking.md). The table will be empty if there are no active metadata locks.
+The `METADATA_LOCK_INFO` plugin creates the [METADATA\_LOCK\_INFO](../../system-tables/information-schema/information-schema-tables/information-schema-metadata_lock_info-table.md) table in the [INFORMATION\_SCHEMA](../../system-tables/information-schema/) database. This table shows active [metadata locks](../../sql-statements/transactions/metadata-locking.md). The table is empty if there are no active metadata locks.
 
 ## Installing the Plugin
 

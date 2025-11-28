@@ -2,71 +2,108 @@
 
 ## Overview
 
-MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the state of the backends and assigns server roles such as primary and replica, which are used by the routers when deciding where to route a query. It can also modify the replication cluster by performing failover, switchover and rejoin. Backend server versions older than MariaDB/MySQL 5.5 are not supported. Failover and other similar operations require MariaDB 10.4 or later.
+MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the state of the backends and assigns server roles such as primary and replica, which are used by the routers when deciding where to route a query. It can also modify the replication cluster by performing failover, switchover and rejoin.
 
 ## Required Grants
 
 The monitor user requires the following grant:
 
+{% tabs %}
+{% tab title="Current" %}
+
+```sql
+CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
+GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
-CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
-GRANT REPLICATION CLIENT ON *.* TO 'maxscale'@'maxscalehost';
+{% endtab %}
+
+{% tab title="< 10.5" %}
+```sql
+CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
+GRANT REPLICATION CLIENT ON *.* TO 'mariadbmon'@'maxscalehost';
+```
+{% endtab %}
+{% endtabs %}
+
+If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set),  it needs the `FILE`
+privilege:
+```sql
+GRANT FILE ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
 
-In MariaDB Server versions 10.5.0 to 10.5.8, the monitor user instead requires REPLICATION SLAVE ADMIN:
-
-```
-GRANT REPLICATION SLAVE ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-```
-
-In MariaDB Server 10.5.9 and later, REPLICA MONITOR is required:
-
-```
-GRANT REPLICA MONITOR ON *.* TO 'maxscale'@'maxscalehost';
+The `CONNECTION ADMIN` privilege is recommended since it allows the monitor to log in even if server connection limit has been reached.
+```sql
+GRANT CONNECTION ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
 
-If the monitor needs to query server disk space (i.e. `disk_space_threshold` is set), then the FILE-grant is required with MariaDB Server versions 10.4.7, 10.3.17, 10.2.26 and 10.1.41 and later.
+[Topology scan](#scan-topology), [discover replicas](#discover-replicas) and [bootstrap](#bootstrap) require
+the following privilege:
 
-```
-GRANT FILE ON *.* TO 'maxscale'@'maxscalehost';
-```
+% tabs %}
+{% tab title="Current" %}
 
-MariaDB Server 10.5.2 introduces CONNECTION ADMIN. This is recommended since it allows the monitor to log in even if server connection limit has been reached.
+```sql
+GRANT REPLICATION MASTER ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
+```
+{% endtab %}
 
+{% tab title="< 10.5" %}
+```sql
+GRANT REPLICATION SLAVE ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
-GRANT CONNECTION ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-```
+{% endtab %}
+{% endtabs %}
 
 ### Cluster Manipulation Grants
 
-If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-operations) are used, the following additional grants are required:
+If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-operations) are used, the monitor requires
+several additional privileges. These privileges allow the monitor to set the *read-only* flag, modify replication
+connections and kill connections from clients that could interfere with an ongoing operation.
 
+{% tabs %}
+{% tab title="Current" %}
+
+```sql
+GRANT READ_ONLY ADMIN, REPLICATION SLAVE ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT BINLOG ADMIN, CONNECTION ADMIN, PROCESS, RELOAD, SET USER ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.user TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 ```
-GRANT SUPER, RELOAD, PROCESS, SHOW DATABASES, EVENT ON *.* TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
+{% endtab %}
+
+{% tab title="< 11.0.1" %}
+```sql
+GRANT SUPER ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT PROCESS, RELOAD ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.user TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
+```
+{% endtab %}
+{% endtabs %}
+
+If [scheduled event management](#handle_events) is enabled, the monitor requires the `EVENT` privilege. `SHOW DATABASES`
+is also recommended to ensure monitor can see events for all databases.
+```sql
+GRANT EVENT, SHOW DATABASES ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
 
-MariaDB 10.5.2 and later require read access to _mysql.global\_priv_:
+If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following
+grant:
 
+{% tabs %}
+{% tab title="Current" %}
+```sql
+CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
+GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
 ```
-GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
-```
-
-As of MariaDB Server 11.0.1, the SUPER-privilege no longer contains several of its former sub-privileges. These must be given separately.
-
-```
-GRANT RELOAD, PROCESS, SHOW DATABASES, EVENT, SET USER, READ_ONLY ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-GRANT REPLICATION SLAVE ADMIN, BINLOG ADMIN, CONNECTION ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
-```
-
-If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following grant:
-
-```
+{% endtab %}
+{% tab title="< 10.5" %}
+```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION SLAVE ON *.* TO 'replication'@'replicationhost';
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Primary selection
 
@@ -993,11 +1030,11 @@ The lock-setting defines how many locks are required for primary status. Setting
 
 Even without a network split, `cooperative_monitoring_locks=majority_of_all` will lead to neither monitor claiming lock majority once too many servers go down. This scenario is depicted in the image below. Only two out of four servers are running when three are needed for majority. Although both MaxScales see both running servers, neither is certain they have majority and the cluster stays in read-only mode. If the primary server is down, no failover is performed either.
 
-![](<../../.gitbook/assets/coop_lock_no_majority.png (4).png>)
+![](<../../.gitbook/assets/coop_lock_no_majority.png (1).png>)
 
 Setting `cooperative_monitoring_locks=majority_of_running` changes the way _n\_servers_ is calculated. Instead of using the total number of servers, only servers currently \[Running] are considered. This scheme adapts to multiple servers going down, ensuring that claiming lock majority is always possible. However, it can lead to multiple monitors claiming primary status in a split-brain situation. As an example, consider a cluster with servers 1 to 4 with MaxScales A and B, as in the image below. MaxScale A can connect to servers 1 and 2 (and claim their locks) but not to servers 3 and 4 due to a network split. MaxScale A thus assumes servers 3 and 4 are down. MaxScale B does the opposite, claiming servers 3 and 4 and assuming 1 and 2 are down. Both MaxScales claim two locks out of two available and assume that they have lock majority. Both MaxScales may then promote their own primaries and route writes to different servers.
 
-![](<../../.gitbook/assets/coop_lock_split_brain.png (4).png>)
+![](<../../.gitbook/assets/coop_lock_split_brain.png (1).png>)
 
 The recommended strategy depends on which failure scenario is more likely and/or more destructive. If it's unlikely that multiple servers are ever down simultaneously, then _majority\_of\_all_ is likely the safer choice. On the other hand, if split-brain is unlikely but multiple servers may be down simultaneously, then _majority\_of\_running_ would keep the cluster operational.
 
@@ -1007,7 +1044,7 @@ If a MaxScale instance tries to acquire the locks but fails to get majority (per
 
 The flowchart below illustrates the lock handling logic.
 
-![](<../../.gitbook/assets/coop_lock_flowchart.svg (4).svg>)
+![](<../../.gitbook/assets/coop_lock_flowchart.svg (1).svg>)
 
 ### Releasing locks
 
@@ -1413,11 +1450,14 @@ johnny ALL= NOPASSWD: /bin/systemctl stop mariadb
 johnny ALL= NOPASSWD: /bin/systemctl start mariadb
 johnny ALL= NOPASSWD: /usr/sbin/lsof
 johnny ALL= NOPASSWD: /bin/kill
+johnny ALL= NOPASSWD: /bin/du
+johnny ALL= NOPASSWD: /usr/bin/mariabackup
 johnny ALL= NOPASSWD: /usr/bin/mariadb-backup
 johnny ALL= NOPASSWD: /bin/mbstream
 johnny ALL= NOPASSWD: /bin/rm -rf /var/lib/mysql/*
 johnny ALL= NOPASSWD: /bin/chown -R mysql\:mysql /var/lib/mysql
 johnny ALL= NOPASSWD: /bin/cat /var/lib/mysql/xtrabackup_binlog_info
+johnny ALL= NOPASSWD: /bin/cat /var/lib/mysql/mariadb_backup_binlog_info
 johnny ALL= NOPASSWD: /bin/tar -xz -C /var/lib/mysql/
 ```
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  NATIONAL VARCHARACTER is a synonym for VARCHAR using the predefined utf8
+  character set.
+---
+
 # NATIONAL VARCHARACTER
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  Compress a string. This function compresses a string argument and returns the
+  result as a binary string, useful for saving storage space.
+---
+
 # COMPRESS
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate relative rank. This function returns the percentage rank of the
+  current row within its partition, ranging from 0 to 1.
+---
+
 # PERCENT\_RANK
 
 ## Syntax

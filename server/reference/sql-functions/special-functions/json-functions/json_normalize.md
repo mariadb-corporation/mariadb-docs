@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover JSON_NORMALIZE in MariaDB. This function recursively sorts keys and
+  removes spaces from a JSON document, enabling reliable equality comparisons
+  and unique constraints on JSON data.
+---
+
 # JSON\_NORMALIZE
 
 {% hint style="info" %}

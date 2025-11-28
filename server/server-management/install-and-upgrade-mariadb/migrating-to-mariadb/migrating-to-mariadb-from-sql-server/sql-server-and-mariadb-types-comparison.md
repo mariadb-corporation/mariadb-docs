@@ -8,7 +8,7 @@ This page helps to map each SQL Server type to the matching MariaDB type.
 
 In MariaDB, numeric types can be declared as `SIGNED` or `UNSIGNED`. By default, numeric columns are `SIGNED`, so not specifying either will not break compatibility with SQL Server.
 
-When using `UNSIGNED` values, there is a potential problem with subtractions. When subtracting an `UNSIGNED` valued from another, the result is usually of an `UNSIGNED` type. But if the result is negative, this will cause an error. To solve this problem, we can enable the [NO\_UNSIGNED\_SUBTRACTION](../../../variables-and-modes/sql-mode.md#no_unsigned_subtraction) flag in sql\_mode.
+When using `UNSIGNED` values, there is a potential problem with subtractions. When subtracting an `UNSIGNED` valued from another, the result is usually of an `UNSIGNED` type. But if the result is negative, this will cause an error. To solve this problem, we can enable the [NO\_UNSIGNED\_SUBTRACTION](../../../variables-and-modes/sql_mode.md#no_unsigned_subtraction) flag in sql\_mode.
 
 For more information see [Numeric Data Type Overview](../../../../reference/data-types/numeric-data-types/numeric-data-type-overview.md).
 
@@ -39,7 +39,7 @@ In SQL Server `real` is an alias for `float(24)`.
 
 In MariaDB [DOUBLE](../../../../reference/data-types/numeric-data-types/double.md), and [DOUBLE PRECISION](../../../../reference/data-types/numeric-data-types/double-precision.md) are aliases for `FLOAT(24-53)`.
 
-Normally, `REAL` is also a synonym for `FLOAT(24-53)`. However, the [sql\_mode](../../../variables-and-modes/sql-mode.md) variable can be set with the `REAL_AS_FLOAT` flag to make `REAL` a synonym for `FLOAT(0-23)`.
+Normally, `REAL` is also a synonym for `FLOAT(24-53)`. However, the [sql\_mode](../../../variables-and-modes/sql_mode.md) variable can be set with the `REAL_AS_FLOAT` flag to make `REAL` a synonym for `FLOAT(0-23)`.
 
 ### Real Numbers (Exact)
 
@@ -106,9 +106,9 @@ You may also consider the following MariaDB types:
 
 ### Zero Values
 
-MariaDB allows a special value where all the parts of a date are zeroes: `'0000-00-00'`. This can be disallowed by setting [sql\_mode=NO\_ZERO\_DATE](../../../variables-and-modes/sql-mode.md#no_zero_date).
+MariaDB allows a special value where all the parts of a date are zeroes: `'0000-00-00'`. This can be disallowed by setting [sql\_mode=NO\_ZERO\_DATE](../../../variables-and-modes/sql_mode.md#no_zero_date).
 
-It is also possible to use values where only some date parts are zeroes, for example `'1994-01-00'` or `'1994-00-00'`. These values can be disallowed by setting [sql\_mode=NO\_ZERO\_IN\_DATE](../../../variables-and-modes/sql-mode.md#no_zero_in_date). They are not affected by `NO_ZERO_DATE`.
+It is also possible to use values where only some date parts are zeroes, for example `'1994-01-00'` or `'1994-00-00'`. These values can be disallowed by setting [sql\_mode=NO\_ZERO\_IN\_DATE](../../../variables-and-modes/sql_mode.md#no_zero_in_date). They are not affected by `NO_ZERO_DATE`.
 
 ### Syntax
 
@@ -156,7 +156,7 @@ To create a MariaDB table that is identical to a SQL Server table, **it may be n
 1. If SQL Server uses a non-unicode collation, a subset of UTF-8 is used. So it is possible to use a smaller character set on MariaDB too.
 2. [InnoDB](../../../../server-usage/storage-engines/innodb/) has a maximum row length of 65,535 bytes. [TEXT](../../../../reference/data-types/string-data-types/blob-and-text-data-types.md) columns do not contribute to the row size, because they are stored separately (except for the first 12 bytes).
 3. In SQL Server, UTF-16 is used if data contains Supplementary Characters, otherwise UCS-2 is used. If not sure, use `utf16` in MariaDB.
-4. In SQL Server, the value of `ANSI_PADDING` determines if `char` values should be padded with spaces to their maximum length. In MariaDB, this depends on the [PAD\_CHAR\_TO\_FULL\_LENGTH](../../../variables-and-modes/sql-mode.md#pad_char_to_full_length) sql\_mode flag.
+4. In SQL Server, the value of `ANSI_PADDING` determines if `char` values should be padded with spaces to their maximum length. In MariaDB, this depends on the [PAD\_CHAR\_TO\_FULL\_LENGTH](../../../variables-and-modes/sql_mode.md#pad_char_to_full_length) sql\_mode flag.
 5. See JSON, below.
 
 ## SQL Server Special Types

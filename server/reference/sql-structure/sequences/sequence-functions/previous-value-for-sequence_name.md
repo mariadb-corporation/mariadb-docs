@@ -1,4 +1,4 @@
-# PREVIOUS VALUE FOR sequence\_name
+# PREVIOUS VALUE FOR
 
 ## Syntax
 
@@ -12,7 +12,7 @@ or
 LASTVAL(sequence_name)
 ```
 
-or in Oracle mode ([SQL\_MODE=ORACLE](../../../../server-management/variables-and-modes/sql-mode.md))
+or in Oracle mode ([SQL\_MODE=ORACLE](../../../../server-management/variables-and-modes/sql_mode.md))
 
 ```sql
 sequence_name.currval
@@ -123,7 +123,7 @@ SELECT LASTVAL(s);
 * [SETVAL()](setval.md). Set next value for the sequence.
 * [AUTO\_INCREMENT](../../../data-types/auto_increment.md)
 * [Information Schema SEQUENCES Table](../../../system-tables/information-schema/information-schema-tables/information-schema-sequences-table.md)
-* [Error 4084: Sequence has run out](broken-reference)
+* [Error 4084: Sequence has run out](../../../error-codes/mariadb-error-codes-4000-to-4099/e4084.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

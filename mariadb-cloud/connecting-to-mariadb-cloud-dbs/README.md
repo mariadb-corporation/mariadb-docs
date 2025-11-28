@@ -16,80 +16,111 @@ layout:
     visible: true
 ---
 
-# Connecting
+# Connection Methods
 
-This page describes how to connect to a MariaDB Cloud database using a MariaDB-compatible client.
+This space offers a comprehensive guide to the various methods available for connecting to your MariaDB Cloud database service. Whether you want to connect using SQL clients, language-specific supported connectors, or partner integrations, you will find the specific instructions for each connection type here. It covers general connection concepts, security configurations, and step-by-step instructions tailored to different environments.
 
-{% hint style="info" %}
-**Whitelist IP Address**\
-Access to all services is by default protected by a firewall. You need to IP whitelist your client’s (your desktop, laptop or server) IP. Select ‘Manage —> Security Access’ and then click ‘Add my current IP’ to add the IP of your current workstation (laptop, desktop).
-{% endhint %}
+## Connection Overview
 
-{% hint style="danger" %}
-**Warning**: Using `0.0.0.0/0` will disable the firewall. Never do this for production databases.\
-For more details, go to the [Firewall](<../Security/Configuring Firewall.md>) settings page.
-{% endhint %}
+Learn the basic concepts of connecting to MariaDB Cloud, including IP allowlisting, firewall setup, using the Portal Connect window, understanding the connection parameters, and general connection principles.
 
-## Connecting Using the MariaDB Client
+{% content-ref url="connection-overview.md" %}
+[connection-overview.md](connection-overview.md)
+{% endcontent-ref %}
 
-Once your DB service is launched, click on the ‘Connect’ option for your service on the dashboard. This pops up all the required attributes to connect from any SQL client.
+## Connect using MariaDB Client
 
-Connection parameters include:
+Instructions to install and use the MariaDB CLI client on major operating systems to securely connect to your MariaDB Cloud database service.
 
-* Default username
-* Default password
-* Hostname (Fully Qualified Domain Name)
-* TCP port (3306 or 3307)
-* ssl-verify-server-cert (if SSL is ON)
+{% content-ref url="connect-using-mariadb-cli.md" %}
+[connect-using-mariadb-cli.md](connect-using-mariadb-cli.md)
+{% endcontent-ref %}
 
-{% hint style="info" %}
-Unlike previous MariaDB Cloud versions, the current version no longer requires clients to supply the Server SSL Certificate for SSL connections. Customers who migrated from MariaDB corporation to MariaDB Cloud Inc can continue to use provided certificates (when using the previous MariaDB Cloud method for connecting). But, we strongly recommend moving to the connection properties as shown in the Connect window for your service.
-{% endhint %}
+## Connect From Node.js App
 
-{% hint style="warning" %}
-There is a default config change in the 11.4.2 MariaDB client that requires SSL. This needs to be disabled by setting `--ssl-verify-server-cert=0`.
-{% endhint %}
+Integrate MariaDB Cloud into Node.js applications using MariaDB Connector/Node.js, with support for both Callback and Promise APIs.
 
-<figure><img src="../Connecting to MariaDB Cloud DBs/connect_window.png" alt=""><figcaption></figcaption></figure>
+{% content-ref url="connect-from-node-js-app.md" %}
+[connect-from-node-js-app.md](connect-from-node-js-app.md)
+{% endcontent-ref %}
 
-### Install and Connect Using the MariaDB Client
+## Connect From Java App
 
-After [installing the MariaDB client](connect-using-mariadb-cli.md) according to your operating system, copy and paste the MariaDB command as displayed in the Connect window.
+Enable Java applications to connect to MariaDB Cloud using MariaDB Connector/J through JDBC connections, JAR file installation, or Maven dependency management.
 
-## Connecting From Your Application
+{% content-ref url="connect-from-java-app.md" %}
+[connect-from-java-app.md](connect-from-java-app.md)
+{% endcontent-ref %}
 
-Applications can connect to MariaDB Cloud using any of the below MariaDB supported connectors. There are several other connectors from the community too.
+## Connect From Python App
 
-* [C](connect-from-c-app.md)
-* [C++](connect-from-c++-app.md)
-* [Java](connect-from-java-app.md)
-* [Java R2DBC](connect-using-connector-r2dbc.md)
-* [Node.js (JavaScript)](connect-from-node-js-app.md)
-* [ODBC API](connect-using-odbc.md)
-* [Python](connect-from-python-app.md)
-* [MongoDB Client](connect-from-mongodb-clients.md)
+Establish connections using MariaDB Connector/Python to connect from a Python application, including support for connection pooling, failover configurations, and example code snippets.
 
-{% hint style="info" %}
-For Server With Replicas, you can also use any MongoDB client and use the [NoSQL Interface](connect-from-mongodb-clients.md).
-{% endhint %}
+{% content-ref url="connect-from-python-app.md" %}
+[connect-from-python-app.md](connect-from-python-app.md)
+{% endcontent-ref %}
 
-## Connecting From SQL Tools
+## Connect From C App
 
-Clients listed here have been tested to properly connect with MariaDB Cloud and execute queries.
+Instructions for installing MariaDB Connector/C and establishing a connection from a C application to MariaDB Cloud.
 
-Most of the SQL clients and editors natively support MariaDB. Most often you can also just select 'MySQL' and connect to your MariaDB Cloud DB service.
+{% content-ref url="connect-from-c-app.md" %}
+[connect-from-c-app.md](connect-from-c-app.md)
+{% endcontent-ref %}
 
-* [Connecting using Java clients like Squirrel SQL](https://squirrel-sql.sourceforge.io/)
-  * All you need to do is to make sure the "useSsl" property is set to 'true' if SSL is ON.
-* MariaDB CLI
-* [Sequel Ace](https://sequel-ace.com/) - Connect to MariaDB from MacOS
-  * In the connection window, you should select 'Require SSL' if your MariaDB Cloud database has SSL turned ON (the default).
+## Connect From C++ App
 
-### Graphical User Interfaces (GUIs)
+Instructions for installing MariaDB Connector/C++ (and its dependency, Connector/C) and establishing a connection from a C++ application.
 
-The following GUI clients have been tested to properly connect with MariaDB Cloud and execute queries. Most SQL clients and editors natively support MariaDB. You can often select 'MySQL' as the connection type to connect to your MariaDB Cloud DB service.
+{% content-ref url="connect-from-c++-app.md" %}
+[connect-from-c++-app.md](connect-from-c++-app.md)
+{% endcontent-ref %}
 
-* [Connect using DBeaver](database-tools/dbeaver.md) (CloudDBA recommended)
-* [Connect using DBGate](database-tools/dbgate.md)
-* [Connect using HeidiSQL](database-tools/heidisql.md)
-* [Connect using TablePlus](database-tools/tableplus.md)
+## Connect From MongoDB Clients
+
+Connect to MariaDB Cloud using MongoDB client libraries and mongosh, leveraging the NoSQL interface that translates MongoDB API calls into SQL for replicated topology services.
+
+{% content-ref url="connect-from-mongodb-clients.md" %}
+[connect-from-mongodb-clients.md](connect-from-mongodb-clients.md)
+{% endcontent-ref %}
+
+## Connect Using ODBC
+
+Configure a MariaDB Connector/ODBC data source across different operating systems to connect to MariaDB Cloud, with support for failover connections.
+
+{% content-ref url="connect-using-odbc.md" %}
+[connect-using-odbc.md](connect-using-odbc.md)
+{% endcontent-ref %}
+
+## Connect Using Connector/R2DBC
+
+Develop reactive, non-blocking Java applications using MariaDB Connector/R2DBC and the R2DBC API to enable scalable database connectivity.
+
+{% content-ref url="connect-using-connector-r2dbc.md" %}
+[connect-using-connector-r2dbc.md](connect-using-connector-r2dbc.md)
+{% endcontent-ref %}
+
+## Using VPC Connections
+
+Establish secure, private connections between your VPC and MariaDB Cloud databases using AWS PrivateLink or similar technologies to enhance security.&#x20;
+
+{% content-ref url="using-aws-azure-gcp-private-vpc-connections/" %}
+[using-aws-azure-gcp-private-vpc-connections](using-aws-azure-gcp-private-vpc-connections/)
+{% endcontent-ref %}
+
+## Database Tools
+
+Connect to MariaDB Cloud using several supported graphical database management tools like DBeaver, DBGate, HeidiSQL, and TablePlus.
+
+{% content-ref url="database-tools/" %}
+[database-tools](database-tools/)
+{% endcontent-ref %}
+
+## Partner Integrations
+
+Extend the MariaDB Cloud's capabilities by integrating with multiple partner products like MindsDB, Qlik, and Striim.&#x20;
+
+{% content-ref url="partner-integrations/" %}
+[partner-integrations](partner-integrations/)
+{% endcontent-ref %}
+

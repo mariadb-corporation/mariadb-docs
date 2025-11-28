@@ -1,3 +1,9 @@
+---
+description: >-
+  Assign values to different types of variables. Learn the syntax for setting
+  user-defined variables, system variables, and stored program variables.
+---
+
 # SET
 
 ## Syntax

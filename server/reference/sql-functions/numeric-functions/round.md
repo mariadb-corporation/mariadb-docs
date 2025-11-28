@@ -1,3 +1,9 @@
+---
+description: >-
+  Round a number. This function rounds a number to a specified number of decimal
+  places.
+---
+
 # ROUND
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Verify dynamic column integrity. This function checks if a blob containing
+  dynamic columns is valid and returns 1 if it is, 0 otherwise.
+---
+
 # COLUMN\_CHECK
 
 ## Syntax

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about SQL joins. This section details various join types (INNER, LEFT,
-  RIGHT, FULL) to combine rows from two or more tables based on related columns,
-  enabling complex data retrieval.
+  Retrieve data from multiple tables based on related columns. This section
+  covers INNER, LEFT, RIGHT, and CROSS JOIN syntax and usage.
 ---
 
 # Joins

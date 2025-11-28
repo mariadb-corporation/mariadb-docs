@@ -1,3 +1,9 @@
+---
+description: >-
+  Install a user-defined function from a shared library. This command loads an
+  external compiled function into the server for extended capabilities.
+---
+
 # CREATE FUNCTION UDF
 
 ## Syntax

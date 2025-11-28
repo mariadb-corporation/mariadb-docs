@@ -1,3 +1,9 @@
+---
+description: >-
+  Perform integer division. This operator divides one number by another and
+  returns the integer result, discarding any remainder.
+---
+
 # DIV
 
 ## Syntax
@@ -10,7 +16,7 @@ DIV
 
 Integer division. Similar to [FLOOR()](floor.md), but is safe with [BIGINT](../../data-types/numeric-data-types/bigint.md) values. Incorrect results may occur for non-integer operands that exceed the `BIGINT` range.
 
-If the `ERROR_ON_DIVISION_BY_ZERO` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is used, a division by zero produces an error. Otherwise, it returns `NULL`.
+If the `ERROR_ON_DIVISION_BY_ZERO` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is used, a division by zero produces an error. Otherwise, it returns `NULL`.
 
 The remainder of a division can be obtained using the [MOD](mod.md) operator.
 

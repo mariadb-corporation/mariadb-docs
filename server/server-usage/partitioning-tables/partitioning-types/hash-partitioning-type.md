@@ -9,26 +9,27 @@ PARTITION BY HASH (partitioning_expression)
 
 ## Description
 
-HASH partitioning is a form of [partitioning](../) in which the server takes care of the partition in which to place the data, ensuring an even distribution among the partitions.
+`HASH` partitioning is a form of [partitioning](../) in which the server takes care of the partition in which to place the data, ensuring an even distribution among the partitions.
 
 It requires a column value, or an expression based on a column value, which is hashed, as well as the number of partitions into which to divide the table.
 
-_partitioning\_expression_ needs to return a non-constant, deterministic integer. It is evaluated for each insert and update, so overly complex expressions can lead to performance issues. A hashing function operating on a single column, and where the value changes consistently with the column value, allows for easy pruning on ranges of partitions, and is usually a better choice. For this reason, using multiple columns in a hashing expression is not usually recommended.
-
-_number\_of\_partitions_ is a positive integer specifying the number of partitions into which to divide the table. If the `PARTITIONS` clause is omitted, the default number of partitions is one.
+* _`partitioning_expression`_ needs to return a non-constant, deterministic integer. It is evaluated for each insert and update, so overly complex expressions can lead to performance issues. A hashing function operating on a single column, and where the value changes consistently with the column value, allows for easy pruning on ranges of partitions, and is usually a better choice. For this reason, using multiple columns in a hashing expression is not usually recommended.
+* _`number_of_partitions`_ is a positive integer specifying the number of partitions into which to divide the table. If the `PARTITIONS` clause is omitted, the default number of partitions is one.
 
 ### Determining the Partition
 
-To determine which partition to use, the following calculation is performed:\
-MOD(partitioning\_expression, number\_of\_partitions)
+To determine which partition to use, perform the following calculation:
 
-For example, if the expression is TO\_DAYS(datetime\_column) and the number of partitions is 5, inserting a datetime value of '2023-11-15' would determine the partition as follows:
+```sql
+MOD(partitioning_expression, number_of_partitions)
+```
 
-* TO\_DAYS('2023-11-15') gives a value of 739204
-* MOD(739204,5) returns 4\
-  so the 4th partition is used.
+For example, if the expression is `TO_DAYS(`_`datetime_column`_`)` and the number of partitions is 5, inserting a datetime value of _`'2023-11-15'`_ would determine the partition as follows:
 
-HASH partitioning making use of the modulus of the hashing function's value. The [LINEAR HASH partitioning type](linear-hash-partitioning-type.md) is similar, using a powers-of-two algorithm. Data is more likely to be evenly distributed over the partitions than with the LINEAR HASH partitioning type, however, adding, dropping, merging and splitting partitions is much slower.
+* `TO_DAYS('2023-11-15')` gives a value of 739204.
+* `MOD(739204,5)` returns 4, so the 4th partition is used.
+
+`HASH` partitioning makes use of the modulus of the hashing function's value. The [LINEAR HASH partitioning type](linear-hash-partitioning-type.md) is similar, using a powers-of-two algorithm. Data is more likely to be evenly distributed over the partitions than with the `LINEAR HASH` partitioning type; however, adding, dropping, merging and splitting partitions is much slower.
 
 ## Examples
 

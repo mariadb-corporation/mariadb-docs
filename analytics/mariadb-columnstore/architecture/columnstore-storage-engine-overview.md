@@ -6,7 +6,6 @@ MariaDB Enterprise ColumnStore integrates with MariaDB Enterprise Server using t
 
 For deployment instructions and available documentation, see "MariaDB Enterprise ColumnStore."
 
-Feature Summary\
 The ColumnStore storage engine has the following features:
 
 | Feature                | Detail             | Resources                                                                                                                                     |

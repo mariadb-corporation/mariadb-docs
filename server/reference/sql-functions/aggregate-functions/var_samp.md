@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate sample variance. This function computes the statistical variance for
+  a set of values assumed to be a sample of the population.
+---
+
 # VAR\_SAMP
 
 ## Syntax

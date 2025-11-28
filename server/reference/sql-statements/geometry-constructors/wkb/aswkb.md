@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_AsBinary. Converts a geometry value from its internal format to
+  its Well-Known Binary (WKB) representation.
+---
+
 # AsWKB
 
 A synonym for [ST\_AsBinary()](st_asbinary.md).

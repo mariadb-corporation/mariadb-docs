@@ -148,9 +148,9 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Command line: `--myisam-sort-buffer-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
-* Data Type: `BIGINT UNSIGNED`                &#x20;
+* Data Type: `BIGINT UNSIGNED`                 
 * Default Value: `134216704`
-* Range:&#x20;
+* Range: 
   * `(`>= [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-5-release-notes), [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-15-release-notes))`: 4096` to `1152921504606846975`
   * `(<`= [MariaDB 10.11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-4-release-notes), [MariaDB 10.6.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-14-release-notes))`: 4096` to `18446744073709551615`
 

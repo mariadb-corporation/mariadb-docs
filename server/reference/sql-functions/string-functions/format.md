@@ -1,3 +1,9 @@
+---
+description: >-
+  Format a number. This function formats a number to a format like
+  '#,###,###.##', rounded to a specified number of decimal places.
+---
+
 # FORMAT
 
 ## Syntax

@@ -92,7 +92,7 @@ For more detailed instructions, refer to [Installing and Using MariaDB via Docke
     * Windows paths like `C:\Users\YourUID\Documents\YourDirName` should be specified as shown above.
     * Ensure paths are absolute, not relative.
     * Replace `yoursecurepassword` with a strong password, especially for environments beyond development.
-22. &#x20;To access the MariaDB container's shell, use the following command:
+22.  To access the MariaDB container's shell, use the following command:
 
     ```bash
     docker exec -it mariadb-docker bash

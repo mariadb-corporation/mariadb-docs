@@ -1,3 +1,9 @@
+---
+description: >-
+  This table aggregates usage statistics for objects (tables, events, etc.) by
+  type, schema, and name, showing global access counts and timers.
+---
+
 # Performance Schema objects\_summary\_global\_by\_type Table
 
 It aggregates object wait events, and contains the following columns:

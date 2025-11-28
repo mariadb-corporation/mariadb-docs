@@ -1,3 +1,9 @@
+---
+description: >-
+  Get the CREATE PROCEDURE statement. This statement returns the SQL syntax used
+  to define a specific stored procedure.
+---
+
 # SHOW CREATE PROCEDURE
 
 ## Syntax
@@ -8,7 +14,7 @@ SHOW CREATE PROCEDURE proc_name
 
 ## Description
 
-This statement is a MariaDB extension. It returns the exact string that can be used to re-create the named [stored procedure](../../../../server-usage/stored-routines/stored-procedures/), as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) that was used when the trigger has been created and the character set used by the connection.. A similar statement, [SHOW CREATE FUNCTION](show-create-function.md), displays information about [stored functions](../../../../server-usage/stored-routines/stored-functions/).
+This statement is a MariaDB extension. It returns the exact string that can be used to re-create the named [stored procedure](../../../../server-usage/stored-routines/stored-procedures/), as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) that was used when the trigger has been created and the character set used by the connection.. A similar statement, [SHOW CREATE FUNCTION](show-create-function.md), displays information about [stored functions](../../../../server-usage/stored-routines/stored-functions/).
 
 Both statements require that:
 
@@ -20,8 +26,6 @@ When none of the above statements are true, the statements display `NULL` for th
 
 {% hint style="danger" %}
 Users with `SELECT` privileges on [mysql.proc](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) or `USAGE` privileges on `*.*` can view the text of routines, even when they do not have privileges for the function or procedure itself.
-
-
 {% endhint %}
 
 {% tabs %}

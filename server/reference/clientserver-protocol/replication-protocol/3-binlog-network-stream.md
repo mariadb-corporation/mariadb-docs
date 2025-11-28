@@ -1,6 +1,12 @@
+---
+description: >-
+  Describes the continuous packet stream format used to transmit binary log
+  events from the primary server to the replica over the network.
+---
+
 # 3-Binlog Network Stream
 
-The binary log events stored in a binary log file can be sent over the network in order to replicate data changes from the master server (where data changes are written in binary logs) to replica servers which  apply data changes to their own databases.
+The binary log events stored in a binary log file can be sent over the network in order to replicate data changes from the master server (where data changes are written in binary logs) to replica servers which apply data changes to their own databases.
 
 The MariaDB replica replication protocol consists of:
 

@@ -1,6 +1,6 @@
 # InnoDB Strict Mode
 
-[InnoDB](./) strict mode is similar to [SQL strict mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode). When it is enabled, certain InnoDB warnings become errors instead.
+[InnoDB](./) strict mode is similar to [SQL strict mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode). When it is enabled, certain InnoDB warnings become errors instead.
 
 ## Configuring InnoDB Strict Mode
 

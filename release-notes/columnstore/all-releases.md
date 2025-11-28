@@ -2,21 +2,22 @@
 
 ## ColumnStore 25.10
 
-| Version                                                                                         | Release Date | Release Status |
-| ----------------------------------------------------------------------------------------------- | ------------ | -------------- |
-| [25.10.0](mariadb-columnstore-25.10-release-notes/mariadb-columnstore-25.10.0-release-notes.md) | 2025-10-22   | Alpha          |
+| Version                     | Release Date | Release Status |
+| --------------------------- | ------------ | -------------- |
+| [25.10.0](25.10/25.10.0.md) | 2025-10-22   | Alpha          |
 
 ## ColumnStore 23.10
 
-| Version                                                       | Release Date | Release Status |
-| ------------------------------------------------------------- | ------------ | -------------- |
-| [23.10.6](23.10/mariadb-columnstore-23.10.6-release-notes.md) | 2025-09-08   | Stable (GA)    |
-| [23.10.5](23.10/mariadb-columnstore-23.10.5-release-notes.md) | 2025-08-06   | Stable (GA)    |
-| [23.10.4](23.10/23.10.4.md)                                   | 2025-05-19   | Stable (GA)    |
-| [23.10.3](23.10/23.10.4.md)                                   | 2025-01-27   | Stable (GA)    |
-| [23.10.2](23.10/23.10.2.md)                                   | 2024-08-19   | Stable (GA)    |
-| [23.10.1](23.10/23.10.1.md)                                   | 2024-03-11   | Stable (GA)    |
-| [23.10.0](23.10/23.10.0.md)                                   | 2023-10-11   | Stable (GA)    |
+| Version                     | Release Date | Release Status |
+| --------------------------- | ------------ | -------------- |
+| [23.10.7](23.10/23.10.7.md) | 2025-11-13   | Stable (GA)    |
+| [23.10.6](23.10/23.10.6.md) | 2025-09-08   | Stable (GA)    |
+| [23.10.5](23.10/23.10.5.md) | 2025-08-06   | Stable (GA)    |
+| [23.10.4](23.10/23.10.4.md) | 2025-05-19   | Stable (GA)    |
+| [23.10.3](23.10/23.10.4.md) | 2025-01-27   | Stable (GA)    |
+| [23.10.2](23.10/23.10.2.md) | 2024-08-19   | Stable (GA)    |
+| [23.10.1](23.10/23.10.1.md) | 2024-03-11   | Stable (GA)    |
+| [23.10.0](23.10/23.10.0.md) | 2023-10-11   | Stable (GA)    |
 
 ## ColumnStore 23.02
 
@@ -39,7 +40,7 @@
 | Version                     | Release Date | Release Status |
 | --------------------------- | ------------ | -------------- |
 | [22.08.8](22.08/22.08.8.md) | 2023-02-10   | Stable (GA)    |
-| [22.08.7](22.08/)           | 2022-12-21   | Stable (GA)    |
+| [22.08.7](22.08)            | 2022-12-21   | Stable (GA)    |
 | [22.08.4](22.08/22.08.4.md) | 2022-11-15   | Stable (GA)    |
 | [22.08.3](22.08/22.08.3.md) | 2022-11-05   | Stable (GA)    |
 | [22.08.2](22.08/22.08.2.md) | 2022-10-04   | Stable (GA)    |
@@ -164,4 +165,3 @@
 | [1.0.3](old-releases/columnstore-1-0/mariadb-columnstore-103-alpha-release-notes.md)             | 2016-09-20   | Alpha          |
 | [1.0.2](old-releases/columnstore-1-0/mariadb-columnstore-102-alpha-release-notes.md)             | 2016-08-23   | Alpha          |
 | [1.0.1](old-releases/columnstore-1-0/mariadb-columnstore-101-alpha-release-notes.md)             | 2016-06-14   | Alpha          |
-

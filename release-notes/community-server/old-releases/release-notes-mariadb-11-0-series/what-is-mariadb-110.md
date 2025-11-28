@@ -52,15 +52,15 @@ page.
 
 ## List of All [MariaDB 11.0](what-is-mariadb-110.md) Releases
 
-| Date        | Release                                           | Status                 | Release Notes                                    | Changelog                                                                                |
-| ----------- | ------------------------------------------------- | ---------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| 16 May 2024 | [MariaDB 11.0.6](mariadb-11-0-6-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-6-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-6-changelog.md) |
-| 7 Feb 2024  | [MariaDB 11.0.5](mariadb-11-0-5-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-5-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-5-changelog.md) |
-| 13 Nov 2023 | [MariaDB 11.0.4](mariadb-11-0-4-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-4-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-4-changelog.md) |
-| 14 Aug 2023 | [MariaDB 11.0.3](mariadb-11-0-3-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-3-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-3-changelog.md) |
-| 6 Jun 2023  | [MariaDB 11.0.2](mariadb-11-0-2-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-2-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-2-changelog.md) |
-| 22 Feb 2023 | [MariaDB 11.0.1](mariadb-11-0-1-release-notes.md) | RC (Release Candidate) | [Release Notes](mariadb-11-0-1-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-1-changelog.md) |
-| 27 Dec 2022 | [MariaDB 11.0.0](mariadb-11-0-0-release-notes.md) | Alpha                  | [Release Notes](mariadb-11-0-0-release-notes.md) |                                                                                          |
+| Date        | Release                                           | Status                 | Release Notes                                    | Changelog                                                      |
+| ----------- | ------------------------------------------------- | ---------------------- | ------------------------------------------------ | -------------------------------------------------------------- |
+| 16 May 2024 | [MariaDB 11.0.6](mariadb-11-0-6-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-6-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-6-changelog.md) |
+| 7 Feb 2024  | [MariaDB 11.0.5](mariadb-11-0-5-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-5-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-5-changelog.md) |
+| 13 Nov 2023 | [MariaDB 11.0.4](mariadb-11-0-4-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-4-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-4-changelog.md) |
+| 14 Aug 2023 | [MariaDB 11.0.3](mariadb-11-0-3-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-3-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-3-changelog.md) |
+| 6 Jun 2023  | [MariaDB 11.0.2](mariadb-11-0-2-release-notes.md) | Stable (GA)            | [Release Notes](mariadb-11-0-2-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-2-changelog.md) |
+| 22 Feb 2023 | [MariaDB 11.0.1](mariadb-11-0-1-release-notes.md) | RC (Release Candidate) | [Release Notes](mariadb-11-0-1-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-1-changelog.md) |
+| 27 Dec 2022 | [MariaDB 11.0.0](mariadb-11-0-0-release-notes.md) | Alpha                  | [Release Notes](mariadb-11-0-0-release-notes.md) |                                                                |
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

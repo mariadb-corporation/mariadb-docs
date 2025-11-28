@@ -1,3 +1,9 @@
+---
+description: >-
+  The Feedback plugin collects and sends anonymous server usage and
+  configuration data to MariaDB to help improve the software.
+---
+
 # Feedback Plugin
 
 The `feedback` plugin is designed to collect and, optionally, upload\

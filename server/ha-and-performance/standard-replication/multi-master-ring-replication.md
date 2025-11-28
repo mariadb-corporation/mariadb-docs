@@ -1,8 +1,8 @@
 ---
 description: >-
-  Implement multi-master ring replication in MariaDB Server. This section covers
-  configuring a circular replication topology for high availability and load
-  balancing across multiple active master server
+  Explore the ring topology where each server acts as both primary and replica.
+  Learn the configuration steps and caveats for setting up a circular
+  replication environment.
 ---
 
 # Multi-Master Ring Replication
@@ -19,7 +19,7 @@ The benefit of asynchronous replication compared to [Galera Cluster](https://app
 
 The following picture shows one of the more advanced Multi-Master setups that is resilient against any master going down but can also handle 'human failures', like an accidental drop table, thanks to the addition of [delayed slaves](delayed-replication.md).
 
-![](<../../.gitbook/assets/multi-master-ring-replication1 (1).png>)
+![](/broken/files/O8IUh3MITbUbwVEIMNWA)
 
 One should [setup replication](setting-up-replication.md) on each master like one does in [standard MariaDB replication](./). The replication setup among the masters should be a ring. In other words, each master should replicate to one other master and each master should only have one other master as a slave.
 
@@ -119,7 +119,7 @@ To fix this:
 An alternative setup to use for Multi-master ring replications is to replicate to the other\
 masters through slaves. The following setup shows how this can be done.
 
-![](<../../.gitbook/assets/multi-master-ring-replication2 (1).png>)
+![](/broken/files/xJwiIPv0ebzXBejpi5yV)
 
 ### Benefits of replication through slaves
 

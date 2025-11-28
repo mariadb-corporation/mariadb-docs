@@ -70,7 +70,7 @@ If no explicit unit has been specified, the value is interpreted as seconds\
 in MaxScale 2.4. In subsequent versions a value without a unit may be rejected.\
 The default value for this parameter is 60 seconds.
 
-When a data modifying SQL statement is processed, a timer is set to the value o&#x66;_&#x74;ime_. Once the timer has elapsed, all statements are routed normally. If a new\
+When a data modifying SQL statement is processed, a timer is set to the value of_time_. Once the timer has elapsed, all statements are routed normally. If a new\
 data modifying SQL statement is processed within the time window, the timer is\
 reset to the value of _time_.
 
@@ -92,7 +92,7 @@ After processing a data modifying SQL statement, a counter is set to the value\
 of _count_ and all statements are routed to the primary. Each executed statement\
 after a data modifying SQL statement cause the counter to be decremented. Once\
 the counter reaches zero, the statements are routed normally. If a new data\
-modifying SQL statement is processed, the counter is reset to the value o&#x66;_&#x63;ount_.
+modifying SQL statement is processed, the counter is reset to the value of_count_.
 
 #### `match`, `ignore`
 

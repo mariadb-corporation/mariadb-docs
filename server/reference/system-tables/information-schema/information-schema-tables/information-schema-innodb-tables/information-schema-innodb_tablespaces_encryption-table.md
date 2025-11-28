@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_TABLESPACES_ENCRYPTION table provides metadata about encrypted
+  InnoDB tablespaces, including key versions and rotation status.
+---
+
 # Information Schema INNODB\_TABLESPACES\_ENCRYPTION Table
 
 The [Information Schema](../../) `INNODB_TABLESPACES_ENCRYPTION` table contains metadata about [encrypted InnoDB tablespaces](../../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-overview.md). When you [enable encryption for an InnoDB tablespace](../../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-overview.md), an entry for the tablespace is added to this table. If you later [disable encryption for the InnoDB tablespace](../../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-overview.md), then the row still remains in this table, but the `ENCRYPTION_SCHEME` and `CURRENT_KEY_VERSION` columns will be set to `0`.

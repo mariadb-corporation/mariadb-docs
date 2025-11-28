@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes memory usage events aggregated by client account and
+  event name, tracking current usage and high-water marks.
+---
+
 # Performance Schema memory\_summary\_by\_account\_by\_event\_name Table
 
 {% hint style="info" %}

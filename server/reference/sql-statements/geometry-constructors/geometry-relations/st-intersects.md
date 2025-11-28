@@ -1,3 +1,9 @@
+---
+description: >-
+  Checks if two geometries intersect. Returns 1 if the geometries share any
+  portion of space (interior or boundary), 0 otherwise.
+---
+
 # ST\_INTERSECTS
 
 ## Syntax

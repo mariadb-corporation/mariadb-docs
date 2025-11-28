@@ -1,3 +1,9 @@
+---
+description: >-
+  Perform a manual node provision. This guide details the steps to manually
+  backup a donor and restore it to a joiner node in a Galera Cluster.
+---
+
 # Manual SST of Galera Cluster Node With mariadb-backup
 
 Sometimes it can be helpful to perform a "manual SST" when Galera's [normal SSTs](introduction-to-state-snapshot-transfers-ssts.md) fail. This can be especially useful when the cluster's [`datadir`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir) is very large, since a normal SST can take a long time to fail in that case.

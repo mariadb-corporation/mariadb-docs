@@ -1,16 +1,22 @@
+---
+description: >-
+  Group result sets by one or more columns. Learn to aggregate data using
+  functions like SUM, COUNT, and AVG in conjunction with grouping.
+---
+
 # GROUP BY
 
 Use the `GROUP BY` clause in a [SELECT](select.md) statement to group rows together that have the same value in one or more column, or the same computed value using expressions with any [functions and operators](../../../sql-functions/) except [grouping functions](../../../sql-functions/aggregate-functions/). When you use a `GROUP BY` clause, you will get a single result row for each group of rows that have the same value for the expression given in `GROUP BY`.
 
 When grouping rows, grouping values are compared as if by the [=](../../../sql-structure/operators/comparison-operators/) operator. For string values, the `=` operator ignores trailing whitespace and may normalize characters and ignore case, depending on the [collation](../../../data-types/string-data-types/character-sets/) in use.
 
-You can use any of the grouping functions in your select expression. Their values will be calculated based on all the rows that have been grouped together for each result row. If you select a non-grouped column or a value computed from a non-grouped column, it is undefined which row the returned value is taken from. This is not permitted if the `ONLY_FULL_GROUP_BY` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is used.
+You can use any of the grouping functions in your select expression. Their values will be calculated based on all the rows that have been grouped together for each result row. If you select a non-grouped column or a value computed from a non-grouped column, it is undefined which row the returned value is taken from. This is not permitted if the `ONLY_FULL_GROUP_BY` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is used.
 
 You can use multiple expressions in the `GROUP BY` clause, separated by commas.\
 Rows are grouped together if they match on each of the expressions.
 
 You can also use a single integer as the grouping expression. If you use an integer _n_,\
-the results will be grouped by the _&#x6E;_&#x74;h column in the select expression.
+the results will be grouped by the \_n\_th column in the select expression.
 
 The `WHERE` clause is applied before the `GROUP BY` clause. It filters non-aggregated\
 rows before the rows are grouped together. To filter grouped rows based on aggregate values,\
@@ -110,7 +116,7 @@ SELECT (wins / plays) AS winavg, AVG(plays) FROM plays
 * [SELECT INTO DUMPFILE](select-into-dumpfile.md)
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
-* [Optimizer Hints](optimizer-hints.md)
+* [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

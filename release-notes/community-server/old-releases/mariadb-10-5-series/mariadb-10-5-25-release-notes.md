@@ -47,7 +47,7 @@ From this version, the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTy
 * Fix spider plugin init failure with no\_zero\_date sql\_mode ([MDEV-33494](https://jira.mariadb.org/browse/MDEV-33494))
 * Fix sql plugin init failure with traditional sql\_mode ([MDEV-33584](https://jira.mariadb.org/browse/MDEV-33584))
 * Fix parsing failure on valid left join select by translating the on expression to () ([MDEV-33679](https://jira.mariadb.org/browse/MDEV-33679))
-* Fix Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](what-is-mariadb-105.md) local and [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md) remote ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777))
+* Fix Spider: ERROR 12710 (HY000): Invalid information from remote table when using [MariaDB 10.5](what-is-mariadb-105.md) local and [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) remote ([MDEV-33777](https://jira.mariadb.org/browse/MDEV-33777))
 * Fix Spider: @@insert\_id 128 to TINYINT: Assertion \`\`!is\_set() || (m\_status == DA\_OK\_BULK && is\_bulk\_op())'\` failed. ([MDEV-28105](https://jira.mariadb.org/browse/MDEV-28105))
 * Fix bug where [Spider variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables) were not available if Spider was loaded upon server startup ([MDEV-33441](https://jira.mariadb.org/browse/MDEV-33441))
 
@@ -112,7 +112,7 @@ From this version, the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTy
 * Fix incorrect handling of [UPDATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update) in PS mode when a table's column declared as NOT NULL ([MDEV-33549](https://jira.mariadb.org/browse/MDEV-33549))
 * Fix crash in EXECUTE IMMEDIATE 'CREATE OR REPLACE TABLE t1 (a INT DEFAULT ?)' USING DEFAULT ([MDEV-15703](https://jira.mariadb.org/browse/MDEV-15703))
 * Fix wrong result on 2nd execution of PS to select from view using derived ([MDEV-31277](https://jira.mariadb.org/browse/MDEV-31277))
-* [TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp) value of '1970-01-01 00:00:00' can no longer be indirectly inserted in [strict mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode#strict-mode) ([MDEV-34088](https://jira.mariadb.org/browse/MDEV-34088))
+* [TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp) value of '1970-01-01 00:00:00' can no longer be indirectly inserted in [strict mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode#strict-mode) ([MDEV-34088](https://jira.mariadb.org/browse/MDEV-34088))
 * Fix zero datetime reinterpreting as '1970-01-01 00:00:00' on field\_datetime=field\_timestamp ([MDEV-34069](https://jira.mariadb.org/browse/MDEV-34069))
 * unix\_timestamp(coalesce(timestamp\_column)) no longer returns NULL on '1970-01-01 00:00:00.000001' ([MDEV-34061](https://jira.mariadb.org/browse/MDEV-34061))
 * Fix crash using UDF in WHERE clause of VIEW ([MDEV-24507](https://jira.mariadb.org/browse/MDEV-24507))

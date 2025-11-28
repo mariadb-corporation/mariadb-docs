@@ -1,3 +1,9 @@
+---
+description: >-
+  Add months to a period. This function adds a specified number of months to a
+  period formatted as YYMM or YYYYMM.
+---
+
 # PERIOD\_ADD
 
 ## Syntax

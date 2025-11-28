@@ -233,7 +233,7 @@ When [encrypting InnoDB tables](../innodb-encryption/), the key that is used to 
 {% tab title="Current Enterprise Server" %}
 The plugin supports key rotation and allows an optional key version in the key file. The keys can be rotated using the `FLUSH FILE_KEY_MANAGEMENT_KEYS` statement, without needing to restart the server. The plugin remains compatible with old key file format, and when version is not specified, it defaults to version 1.
 
-#### Generation of New Key Versions
+**Generation of New Key Versions**
 
 How would new key versions be generated?
 
@@ -264,52 +264,74 @@ The File Key Management plugin does not support [key rotation](../../../securing
 
 ### `file_key_management_encryption_algorithm`
 
-* Description: This system variable is used to determine which algorithm the plugin will use to encrypt data.
+* This system variable is used to determine which algorithm the plugin will use to encrypt data.
   * The recommended algorithm is `AES_CTR`, but this algorithm is only available when MariaDB is built with [OpenSSL](https://www.openssl.org/). If the server is built with [wolfSSL](https://www.wolfssl.com/products/wolfssl/) then this algorithm is not available. See [TLS and Cryptography Libraries Used by MariaDB](../../tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
-* Commandline: `--file-key-management-encryption-algorithm=value`
+* Command line: `--file-key-management-encryption-algorithm=value`
 * Scope: Global
 * Dynamic: No
 * Data Type: `enumerated`
 * Default Value: `AES_CBC`
 * Valid Values: `AES_CBC`, `AES_CTR`
 
+### `file_key_management_digest`
+
+* Specifies the digest function to use in key derivation of the key used for decrypting the key file.
+* Command line: --file-key-management-digest=_value_
+* Scope: Global
+* Dynamic: No
+* Data type: enumerated
+* Default value: sha1
+* Valid values: sha1, sha224, sha256, sha384, sha512
+* Available from MariaDB 12.0
+
 ### `file_key_management_filekey`
 
-* Description: This system variable is used to determine the encryption password that is used to decrypt the key file defined by [file\_key\_management\_filename](file-key-management-encryption-plugin.md#file_key_management_filename).
+* Used to determine the encryption password that is used to decrypt the key file defined by [file\_key\_management\_filename](file-key-management-encryption-plugin.md#file_key_management_filename).
   * If this system variable's value is prefixed with `FILE:`, then it is interpreted as a path to a file that contains the plain-text encryption password.
   * If this system variable's value is not prefixed with `FILE:`, then it is interpreted as the plain-text encryption password. However, this is not recommended.
   * The encryption password has a max length of 256 characters.
   * The only algorithm that MariaDB currently supports when decrypting the key file is [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard). The encryption key size can be 128-bits, 192-bits, or 256-bits. The encryption key is calculated by taking a [SHA-1](https://en.wikipedia.org/wiki/SHA-1) hash of the encryption password.
-* Commandline: `--file-key-management-filekey=value`
+* Command line: `--file-key-management-filekey=value`
 * Scope: Global
 * Dynamic: No
-* Data Type: `string`
-* Default Value: (empty)
+* Data type: `string`
+* Default value: (empty)
 
 ### `file_key_management_filename`
 
-* Description: This system variable is used to determine the path to the file that contains the encryption keys. If [file\_key\_management\_filekey](file-key-management-encryption-plugin.md#file_key_management_filekey) is set, then this file can be encrypted with [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
-* Commandline: `--file-key-management-filename=value`
+* Used to determine the path to the file that contains the encryption keys. If [file\_key\_management\_filekey](file-key-management-encryption-plugin.md#file_key_management_filekey) is set, this file can be encrypted with [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
+* Command line: `--file-key-management-filename=`_`value`_
 * Scope: Global
 * Dynamic: No
-* Data Type: `string`
-* Default Value: (empty)
+* Data type: `string`
+* Default value: (empty)
+
+### `file_key_management_use_pbkdf2`
+
+* Specifies whether pbkdf2 is used in key derivation, and if so, how many iterations.
+* Command line: `--file-key-management-use-pbkdf2=`_`number`_
+* Scope: Global
+* Dynamic: No
+* Data type: `numeric`
+* Default value: 0
+* Valid values: integers ≥ 0 (reasonable value: 600000 for sha256, less for sha512)
+* Available from MariaDB 12.0
 
 ## Options
 
 ### `file_key_management`
 
-* Description: Controls how the server should treat the plugin when the server starts up.
+* Controls how the server should treat the plugin when the server starts up.
   * Valid values are:
     * `OFF` - Disables the plugin without removing it from the [mysql.plugins](../../../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/system-tables/the-mysql-database-tables/mysql-plugin-table.md) table.
     * `ON` - Enables the plugin. If the plugin cannot be initialized, then the server will still continue starting up, but the plugin will be disabled.
     * `FORCE` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error.
     * `FORCE_PLUS_PERMANENT` - Enables the plugin. If the plugin cannot be initialized, then the server will fail to start with an error. In addition, the plugin cannot be uninstalled with [UNINSTALL SONAME](../../../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md) while the server is running.
   * See [Plugin Overview: Configuring Plugin Activation at Server Startup](../../../../../reference/plugins/plugin-overview.md#configuring-plugin-activation-at-server-startup) for more information.
-* Commandline: `--file-key-management=value`
-* Data Type: `enumerated`
-* Default Value: `ON`
-* Valid Values: `OFF`, `ON`, `FORCE`, `FORCE_PLUS_PERMANENT`
+* Command line: `--file-key-management=value`
+* Data type: `enumerated`
+* Default value: `ON`
+* Valid values: `OFF`, `ON`, `FORCE`, `FORCE_PLUS_PERMANENT`
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

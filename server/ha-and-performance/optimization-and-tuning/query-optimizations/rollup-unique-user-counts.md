@@ -20,7 +20,7 @@ A sufficiently random hash (eg MD5) will fold userids into the same bits with a 
 
 I simulated the problem by generating random hashes and calculated the number of bits that would be set. Then, with the help of Eureqa software, I derived the formula:
 
-Y = 0.545&#x36;_&#x58; + 0.654&#x33;_&#x74;an(1.3&#x39;_&#x58;_&#x58;\*X)
+Y = 0.5456_X + 0.6543_tan(1.39_X_X\*X)
 
 ## How good is it?
 

@@ -1,7 +1,8 @@
 ---
 description: >-
-  SET STATEMENT can be used to set the value of a system variable for the
-  duration of the statement. It is also possible to set multiple variables.
+  Set a system variable for the duration of a single query. This statement
+  allows temporary configuration changes that apply only to the immediate
+  statement.
 ---
 
 # SET STATEMENT

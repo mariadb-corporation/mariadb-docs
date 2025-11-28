@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore Silent Column Changes in MariaDB. Learn when the server automatically
+  modifies column definitions or data types during table creation to ensure
+  engine compatibility.
+---
+
 # Silent Column Changes
 
 When a [CREATE TABLE](create-table.md) or [ALTER TABLE](../alter/alter-table/) command is issued, MariaDB silently changes a column specification in the following cases:
@@ -6,7 +13,7 @@ When a [CREATE TABLE](create-table.md) or [ALTER TABLE](../alter/alter-table/) c
 * Any trailing spaces from [SET](../../../data-types/string-data-types/set-data-type.md) and [ENUM](../../../data-types/string-data-types/enum.md) values are discarded.
 * [TIMESTAMP](../../../data-types/date-and-time-data-types/timestamp.md) columns are always NOT NULL, and display sizes are discarded.
 * A row-size limit of 65535 bytes applies.
-* If [strict SQL mode](../../../../server-management/variables-and-modes/sql-mode.md#strict-mode) is not enabled (by default, it is), a [VARCHAR](../../../data-types/string-data-types/varchar.md) column longer than 65535 become [TEXT](../../../data-types/string-data-types/text.md), and a [VARBINARY](../../../data-types/string-data-types/varbinary.md) columns longer than 65535 becomes a [BLOB](../../../data-types/string-data-types/blob.md). If strict mode is enabled the silent changes will not be made, and an error will occur.
+* If [strict SQL mode](../../../../server-management/variables-and-modes/sql_mode.md#strict-mode) is not enabled (by default, it is), a [VARCHAR](../../../data-types/string-data-types/varchar.md) column longer than 65535 become [TEXT](../../../data-types/string-data-types/text.md), and a [VARBINARY](../../../data-types/string-data-types/varbinary.md) columns longer than 65535 becomes a [BLOB](../../../data-types/string-data-types/blob.md). If strict mode is enabled the silent changes will not be made, and an error will occur.
 * If a USING clause specifies an index that's not permitted by the storage engine, the engine will instead use another available index type that can be applied without affecting results.
 * If the CHARACTER SET binary attribute is specified, the column is created as the matching binary data type. A TEXT becomes a BLOB, CHAR a BINARY and VARCHAR a VARBINARY. ENUMs and SETs are created as defined.
 

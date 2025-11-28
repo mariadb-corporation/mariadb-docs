@@ -18,12 +18,12 @@ layout:
 # AI Agents
 
 {% hint style="info" %}
-This capability is currently in Tech Preview, and free to use. We provide up to a million tokens of free usage per month per account. Our "free usage" policy is subject to change as we finalize the product.
+This capability is currently in Tech Preview and is free to use. We provide up to a million tokens of free usage per month per account. Our "free usage" policy is subject to change as we finalize the product.
 {% endhint %}
 
 MariaDB Cloud offers two types of AI Agents:
 
-* **Built-in Agents:** These are preconfigured agents designed to help developers and DBAs maximize the value of MariaDB Cloud. Currently, we have two agents: Developer Copilot and DBA Copilot. The Developer Copilot assists users in answering questions about MySQL, MariaDB, and MariaDB Cloud, in general. The DBA Copilot enables DBA tasks like performance tuning or deb ugging errors. They are tailored to enhance developer/DBA productivity.
+* **Built-in Agents:** These are preconfigured agents designed to help developers and DBAs maximize the value of MariaDB Cloud. Currently, we have two agents: Developer Copilot and DBA Copilot. The Developer Copilot assists users in answering questions about MySQL, MariaDB, and MariaDB Cloud, in general. The DBA Copilot enables DBA tasks like performance tuning or debugging errors. They are tailored to enhance developer/DBA productivity.
 * **User-Created Custom DB Agents:** These are agents on your schemas/datasets permitting natural language queries over complex databases with high accuracy, consistency, and ease. The databases these agents operate on can be managed within MariaDB Cloud or external MySQL or MariaDB DBs.
 
 ## Why AI Agents?
@@ -32,7 +32,7 @@ Traditional solutions fall short because of:
 
 * Complex database schemas with multiple layers and relationships.
 * Ambiguous terminology and hidden business rules.
-* Inconsistent data that makes standard AI models inaccurate.
+* Inconsistent data makes standard AI models inaccurate.
 
 A common approach, Agentic Retrieval-Augmented Generation (RAG), requires extensive data integration and maintenance, making it resource-intensive.
 
@@ -50,7 +50,7 @@ Under the hood, MariaDB Cloud handles:
 
 * **Vector Indexing** of DB metadata, high-cardinality text columns, and golden SQL to enable efficient semantic searches.
 * **Automatic Orchestration** of the RAG pipeline, reducing the need for external integrations and securing all AI interactions.
-* **Online Evaluation** of the results for accuracy - when dealing with complexity, incomplete guidance or semantics, the responses can be inaccurate. It is important for users or a consuming application to know the quality of the response. We use a "LLM as Judge" approach to provide a confidence and correctness score that is biased against providing false positives. The evaluator is designed to assign lower confidence for uncertain responses rather than risk assigning high confidence to incorrect ones. This approach ensures trustworthy results.
+* **Online Evaluation** of the results for accuracy - when dealing with complexity, incomplete guidance, or semantics, the responses can be inaccurate. It is important for users or a consuming application to know the quality of the response. We use an "LLM as Judge" approach to provide a confidence and correctness score that is biased against providing false positives. The evaluator is designed to assign lower confidence for uncertain responses rather than risk assigning high confidence to incorrect ones. This approach ensures trustworthy results.
 
 Once trained, the Agent can be consumed via a simple REST API that supports:
 
@@ -91,7 +91,7 @@ The simplest way to get started is by using our Demo DB in the "DataSource" drop
 
 You can begin by exploring some of the sample questions provided below. Alternatively, connect to any MariaDB server running on MariaDB Cloud or another platform to experiment with your own workloads.
 
-Note: The default DB user created in MariaDB Cloud (eg. “dbpgf12345678”) already has the required privileges pre-created.
+Note: The default DB user created in MariaDB Cloud (e.g. “dbpgf12345678”) already has the required privileges pre-created.
 
 **Steps to follow when using a non-MariaDB Cloud Datasource:**
 
@@ -108,7 +108,7 @@ GRANT CREATE, DROP, CREATE VIEW ON `sky_sys_catalog`.* TO `your_datasource_usern
 
 ### Slow Query Analysis
 
-To analyze slow queries, you need to turn on 'Slow query' logging. The `slow_query_log` overhead is proportional to the amount of queries logged.
+To analyze slow queries, you need to turn on 'Slow query' logging. The `slow_query_log` overhead is proportional to the number of queries logged.
 
 It is recommended you start with a high `slow_query_time`, implement a `log_slow_rate_limit`, and disable logging when not in use.
 
@@ -122,7 +122,7 @@ If using MariaDB Cloud, go to Config Manager to see all the current configuratio
 It is also useful to turn ON 'Performance\_schema'.
 
 {% hint style="warning" %}
-Note that this option will restart your DB service and does introduce some additional overhead so implementation should be tested/tuned for best practice.
+Note that this option will restart your DB service and introduce some additional overhead, so implementation should be tested/tuned for best practice.
 {% endhint %}
 
 ## Semi-Autonomous, No-Code Semantic AI Agents
@@ -173,7 +173,7 @@ You must also define what the agent should ignore, even if that data exists in t
 
 Example:
 
-* "When using filters on string or text in the SQL always default to using LIKE. e.g. where name like '%Steve%'.
+* "When using filters on string or text in the SQL, always default to using LIKE. e.g., where name like '%Steve%'.
 
 **Tip #3: Explicitly define relationships**
 
@@ -206,7 +206,7 @@ If you don't tell your AI agent this, it might:
 * Join them incorrectly
 * Miss important connections in the data
 
-In the description you could provide a hint like this:
+In the description, you could provide a hint like this:
 
 ```
 Table Relationships
@@ -229,7 +229,7 @@ When an AI agent has to interpret too many tables:
 * It may generate incorrect joins or irrelevant results.
 * Prompt size and model attention limits get exceeded, especially with large schemas.
 
-Keeping each agent focused improves SQL generation much more effective.
+Keeping each agent focused improves SQL generation much more effectively.
 
 **Example**
 
@@ -257,7 +257,7 @@ Don't try to incorporate all of this into one agent.
   * Tables: `events`, `api_calls`, `features_used`
   * Tasks: "Which features are most used?", "Track API call volume"
 
-Each agent has <10 tables, well-defined scope, and avoids overloading the model.
+Each agent has <10 tables, a well-defined scope, and avoids overloading the model.
 {% endstep %}
 
 {% step %}
@@ -309,9 +309,9 @@ Categorical columns provide structured context, making it easier for the agent t
 
 **Why Categorical Columns Matter**
 
-* **Enable accurate filtering and segmentation** Queries often require filtering by categories, such as listing all orders from a specific region or finding customers in a particular industry.
-* **Improve query performance** When categorical columns are indexed properly, queries run significantly faster since the system can quickly locate relevant data.
-* **Ensure context-aware SQL generation** By retaining key categorical columns, the agent can correctly interpret and structure SQL queries based on user input.
+* **Enable accurate filtering and segmentation**: Queries often require filtering by categories, such as listing all orders from a specific region or finding customers in a particular industry.
+* **Improve query performance**: When categorical columns are indexed properly, queries run significantly faster since the system can quickly locate relevant data.
+* **Ensure context-aware SQL generation**: By retaining key categorical columns, the agent can correctly interpret and structure SQL queries based on user input.
 
 **Examples of Categorical Columns in a complex business dataset:**
 
@@ -360,7 +360,7 @@ AI-generated queries may be syntactically correct, but semantically off. Use you
 * Validate if the results align with business logic
 * Catch semantic mistakes, such as misused filters or joins
 * Identify missing conditions that should've been applied
-* **Example:** A query that returns top-selling products may technically run fine but forget to filter by date range, giving misleading results.
+* **Example:** A query that returns top-selling products may technically run fine, but forget to filter by date range, giving misleading results.
 
 **2. Use the "Evaluate" Feature**
 
@@ -368,9 +368,9 @@ The AI Builder platform includes a powerful built-in evaluation feature that lev
 
 Use this to measure:
 
-* **Conformance to Golden Query** Compare the generated SQL against your expected Golden Query to check for correctness and completeness.
-* **Accuracy of Results** Verify that the output data matches what you'd expect from a manual query
-* **Faithfulness** Ensure the query is logically faithful to the user's original intent — not just a best guess.
+* **Conformance to Golden Query**: Compare the generated SQL against your expected Golden Query to check for correctness and completeness.
+* **Accuracy of Results**: Verify that the output data matches what you'd expect from a manual query
+* **Faithfulness**: Ensure the query is logically faithful to the user's original intent — not just a best guess.
 
 Run test cases regularly to build confidence and detect regressions as you tweak the agent.
 

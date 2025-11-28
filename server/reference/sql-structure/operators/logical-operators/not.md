@@ -10,7 +10,7 @@ NOT, !
 
 Logical `NOT`. Evaluates to `1` if the operand is `0`, to `0` if the operand is non-zero, and `NOT NULL` returns `NULL`.
 
-By default, the `!` operator has a [higher precedence](../operator-precedence.md). If the `HIGH_NOT_PRECEDENCE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) flag is set, `NOT` and `!` have the same precedence.
+By default, the `!` operator has a [higher precedence](../operator-precedence.md). If the `HIGH_NOT_PRECEDENCE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) flag is set, `NOT` and `!` have the same precedence.
 
 ## Examples
 

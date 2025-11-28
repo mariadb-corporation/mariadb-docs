@@ -10,7 +10,7 @@
 
 Subtraction. The operator is also used as the unary minus for changing sign.
 
-If both operands are integers, the result is calculated with [BIGINT](../../../data-types/numeric-data-types/bigint.md) precision. If either integer is unsigned, the result is also an unsigned integer, unless the `NO_UNSIGNED_SUBTRACTION` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is enabled, in which case the result is always signed.
+If both operands are integers, the result is calculated with [BIGINT](../../../data-types/numeric-data-types/bigint.md) precision. If either integer is unsigned, the result is also an unsigned integer, unless the `NO_UNSIGNED_SUBTRACTION` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled, in which case the result is always signed.
 
 For real or string operands, the operand with the highest precision determines the result precision.
 

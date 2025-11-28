@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.db table stores database-level privileges, determining which users
+  have access to specific databases and what actions they can perform.
+---
+
 # mysql.db Table
 
 The `mysql.db` table contains information about database-level privileges. The table can be queried and although it is possible to directly update it, it is best to use [GRANT](../../sql-statements/account-management-sql-statements/grant.md) for setting privileges.

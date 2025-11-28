@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about the ALTER statement in MariaDB Server. This DDL command allows you
-  to modify the structure of existing database objects like tables, columns, and
-  indexes, without recreating them.
+  Access the reference for ALTER statements. This section lists commands to
+  modify existing database objects, including tables, databases, users, and
+  servers.
 ---
 
 # ALTER

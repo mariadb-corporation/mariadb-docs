@@ -8,7 +8,7 @@ In addition to different release cycle, QA, and etc..., there are also feature d
 
 In addition to this there are Enterprise Features and some backported features. The following are features that are in MariaDB Enterprise Server 10.4 but not in MariaDB Community Server 10.4:
 
-Enterprise Features:
+## Enterprise Features
 
 * [MariaDB Enterprise Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-enterprise-backup)
 * [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
@@ -18,7 +18,7 @@ Enterprise Features:
   * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
 * [Hashicorp Vault Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin)
 
-Backported Features:
+## Backported Features
 
 * [S3 Storage Engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/s3-storage-engine)
 * New option [--require\_secure\_transport](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#require_secure_transport)

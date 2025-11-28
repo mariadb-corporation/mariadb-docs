@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the hexadecimal representation. This function converts a number or
+  string to its hexadecimal string equivalent.
+---
+
 # HEX
 
 ## Syntax

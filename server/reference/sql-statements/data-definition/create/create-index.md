@@ -1,3 +1,9 @@
+---
+description: >-
+  Add an index to an existing table. This statement improves query performance
+  by creating a data structure for rapid lookups on specific columns.
+---
+
 # CREATE INDEX
 
 ## Syntax

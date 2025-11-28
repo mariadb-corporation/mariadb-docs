@@ -287,19 +287,19 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_buffer_pool_chunk_size`
 
-* Description: Chunk size used for dynamically resizing the [buffer pool](innodb-buffer-pool.md). Note that changing this setting can change the size of the buffer pool. When [large-pages](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages) is used this value is effectively rounded up to the next multiple of [large-page-size](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_page_size). See [Setting Innodb Buffer Pool Size Dynamically](../../../ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md). From [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes), the variable is autosized based on the [buffer pool size](innodb-buffer-pool.md). Deprecated and ignored from [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.12-release-notes), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-6-release-notes) and [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-2-release-notes).
+* Description: Chunk size used for dynamically resizing the [buffer pool](innodb-buffer-pool.md). Note that changing this setting can change the size of the buffer pool. When [large-pages](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages) is used this value is effectively rounded up to the next multiple of [large-page-size](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_page_size). See [Setting Innodb Buffer Pool Size Dynamically](../../../ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md). From [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes), the variable is autosized based on the [buffer pool size](innodb-buffer-pool.md).
 * Command line: `--innodb-buffer-pool-chunk-size=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
 * Default Value:
-  * `autosize (0)`, resulting in [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size)/64, if [large\_pages](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages) round down to multiple of largest page size, with 1MiB minimum (>= [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes))
-  * `134217728` (<= [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes))
+  * `autosize (0)`, resulting in [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size)/64, if [large\_pages](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#large_pages) round down to multiple of largest page size, with 1MiB minimum (from [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes))
+  * `134217728` (until [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes))
 * Range:
-  * `0`, as autosize, and then `1048576` to `18446744073709551615` (>= [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108))
-  * `1048576` to [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size)/[innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) (<= [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107))
+  * `0`, as autosize, and then `1048576` to `18446744073709551615` (from [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108))
+  * `1048576` to [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size)/[innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) (until [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107))
 * Block size: `1048576`
-* Deprecated: [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.12-release-notes), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-6-release-notes), [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-2-release-notes)
+* Deprecated and ignored from MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
 
 #### `innodb_buffer_pool_dump_at_shutdown`
 
@@ -453,34 +453,34 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Default Value: `134217728` (128MiB)
 * Range:
   * Minimum: `5242880` (5MiB ) for [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) <= 16k otherwise `25165824` (24MiB) for [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) > 16k (for versions less than next line)
-  * Minimium: `2MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 4k, `3MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 8k, `5MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 16k, `10MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 32k, `20MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 64k, (>= [MariaDB 10.2.42](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10242-release-notes), >= [MariaDB 10.3.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10333-release-notes), >= [MariaDB 10.4.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10423-release-notes), >= [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10514-release-notes), >= [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1066-release-notes), >= [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1072-release-notes))
+  * Minimum: `2MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 4k, `3MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 8k, `5MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 16k, `10MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 32k, `20MiB` [InnoDB Page Size](innodb-system-variables.md#innodb_page_size) = 64k, (>= [MariaDB 10.2.42](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10242-release-notes), >= [MariaDB 10.3.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10333-release-notes), >= [MariaDB 10.4.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10423-release-notes), >= [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10514-release-notes), >= [MariaDB 10.6.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1066-release-notes), >= [MariaDB 10.7.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1072-release-notes))
   * Minimum: 1GiB for [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances) > 1 (<= [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107))
-  * Maximium: `9223372036854775807` (8192PB) (all versions)
+  * Maximum: `9223372036854775807` (8192PB) (all versions)
 * Block size: `1048576`
 
 #### `innodb_buffer_pool_size_auto_min`
 
-* Description: Minimum innodb\_buffer\_pool\_size in bytes for dynamic shrinking on memory pressure. Only affects Linux. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
+* Description: Minimum `innodb_buffer_pool_size` in bytes for dynamic shrinking on memory pressure. Only affects Linux. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
 * Command line: `--innodb-buffer-pool-size-auto-min=#`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `134217728` (128MiB)
 * Range: `0` to `18446744073701163008`
-* Block size: `8388608`
-* Introduced: [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.12-release-notes), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-6-release-notes), [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-2-release-notes)
+* Block size: `8388608` (8 MB on 64-bit systems)
+* Introduced: MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
 
 #### `innodb_buffer_pool_size_max`
 
-* Description: Maximum innodb\_buffer\_pool\_size.
+* Description: Maximum `innodb_buffer_pool_size` value.
 * Command line: `--innodb-buffer-pool-size-max=#`
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: `134217728` (128MiB)
+* Default Value: specified by the initial value of [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size), rounded up to the block size of that variable. See [the section about buffer pool changes](innodb-buffer-pool.md#buffer-pool-changes) in MariaDB 10.11.12, 11.4.6, and 11.8.2.
 * Range: `0` to `18446744073701163008`
-* Block size: `8388608`
-* Introduced: [MariaDB 10.11.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.12-release-notes), [MariaDB 11.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-6-release-notes), [MariaDB 11.8.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/mariadb-11-8-2-release-notes)
+* Block size: `8388608` (8 MB on 64-bit systems)
+* Introduced: MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
 
 #### `innodb_change_buffer_dump`
 
@@ -616,7 +616,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
   * `lz4`: Pages are compressed using the [lz4](https://code.google.com/p/lz4/) compression algorithm.
   * `lzo`: Pages are compressed using the [lzo](https://www.oberhumer.com/opensource/lzo/) compression algorithm.
   * `lzma`: Pages are compressed using the [lzma](https://tukaani.org/xz/) compression algorithm.
-  * `bzip2`: Pages are compressed using the [bzip2](https://www.bzip.org/) compression algorithm.
+  * `bzip2`: Pages are compressed using the [bzip2](http://www.bzip.org/) compression algorithm.
   * `snappy`: Pages are compressed using the [snappy](https://google.github.io/snappy/) algorithm.
   * On many distributions, MariaDB may not support all page compression algorithms by default. From [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107), libraries can be installed as a plugin. See [Compression Plugins](../../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/compression-plugins.md).
   * See [InnoDB Page Compression: Configuring the InnoDB Page Compression Algorithm](innodb-page-compression.md#configuring-the-innodb-page-compression-algorithm) for more information.
@@ -911,8 +911,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 {% tabs %}
 {% tab title="Current" %}
-
-
 *   Description: If set to `ON`, the default, to improve fault tolerance [InnoDB](./) first stores data to a [doublewrite buffer](innodb-doublewrite-buffer.md) before writing it to data file. Disabling will provide a marginal performance improvement, and assumes that writes of [innodb\_page\_size](innodb-system-variables.md#innodb_page_size) are atomic. `fast` is available from [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-6-release-notes), and is like `ON`, but writes are not synchronized to data files. The deprecated start-up parameter [innodb\_flush\_method=NO\_FSYNC](innodb-system-variables.md#innodb_flush_method) will cause innodb\_doublewrite=ON to be changed to innodb\_doublewrite=fast, which will prevent InnoDB from making any durable writes to data files. This would normally be done right before the log checkpoint LSN is updated. Depending on the file systems being used and their configuration, this may or may not be safe.
 
     The value innodb\_doublewrite=fast differs from the previous combination of innodb\_doublewrite=ON and innodb\_flush\_method=O\_DIRECT\_NO\_FSYNC by always invoking os\_file\_flush() on the doublewrite buffer itself in buf\_dblwr\_t::flush\_buffered\_writes\_completed(). This should be safer when there are multiple doublewrite batches between checkpoints.
@@ -1246,7 +1244,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_flush_sync`
 
-* Description: If set to `ON`, the default, the [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) setting is ignored for I/O bursts occuring at checkpoints.
+* Description: If set to `ON`, the default, the [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) setting is ignored for I/O bursts occurring at checkpoints.
 * Command line: `--innodb-flush-sync={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -1696,7 +1694,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Default Value: `16777216` (16MB)
 * Range: `262144` to `2147479552` (256KB to 2GB - 4K) (>= [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-8-release-notes))
-* Range: `262144` to `18446744073709551615` (<= [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-7-release-notes)) - limit to the above maximium because this is an operating system limit.
+* Range: `262144` to `18446744073709551615` (<= [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-7-release-notes)) - limit to the above maximum because this is an operating system limit.
 * Block size: `4096`
 
 #### `innodb_log_checkpoint_now`
@@ -1862,7 +1860,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:&#x20;
+* Default Value:
   * `0 (>=`[MariaDB 10.6.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-20-release-notes), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-10-release-notes), [MariaDB 11.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-6-release-notes), [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-4-release-notes). [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-1-release-notes), [MariaDB 11.7.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-1-release-notes))
   * `32 (<=` [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-9-release-notes), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-5-release-notes), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes))
 * Range: `1` to `18446744073709551615`
@@ -1965,7 +1963,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_max_undo_log_size`
 
-* Description: If an undo tablespace is larger than this, it are marked for truncation if [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
+* Description: If an undo tablespace is larger than this, it is marked for truncation if [innodb\_undo\_log\_truncate](innodb-system-variables.md#innodb_undo_log_truncate) is set.
 * Command line: `--innodb-max-undo-log-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -2213,7 +2211,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_read_io_threads`
 
-* Description: Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), this was simply the number of I/O threads for InnoDB reads. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), asynchronous I/O functionality in the InnoDB Background Thread Pool replaces the old InnoDB I/O Threads. This variable is now multipled by 256 to determine the maximum number of concurrent asynchronous I/O read requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous read requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
+* Description: Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), this was simply the number of I/O threads for InnoDB reads. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), asynchronous I/O functionality in the InnoDB Background Thread Pool replaces the old InnoDB I/O Threads. This variable is now multiplied by 256 to determine the maximum number of concurrent asynchronous I/O read requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous read requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
 * Command line: `--innodb-read-io-threads=#`
 * Scope: Global
 * Dynamic: Yes (>= [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011)), No (<= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010))
@@ -2857,7 +2855,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_write_io_threads`
 
-* Description: Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), this was simply the number of I/O threads for InnoDB writes. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), asynchronous I/O functionality in the InnoDB Background Thread Pool replaces the old InnoDB I/O Threads. This variable is now multipled by 256 to determine the maximum number of concurrent asynchronous I/O write requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous write requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
+* Description: Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), this was simply the number of I/O threads for InnoDB writes. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), asynchronous I/O functionality in the InnoDB Background Thread Pool replaces the old InnoDB I/O Threads. This variable is now multiplied by 256 to determine the maximum number of concurrent asynchronous I/O write requests that can be completed by the Background Thread Pool. The default is therefore 4\*256 = 1024 conccurrent asynchronous write requests. You may on rare occasions need to reduce this default on Linux systems running multiple MariaDB servers to avoid exceeding system limits, or increase if spending too much time waiting on I/O requests.
 * Command line: `--innodb-write-io-threads=#`
 * Scope: Global
 * Dynamic: Yes (>= [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011)), No (<= [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010))

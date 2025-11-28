@@ -1,3 +1,9 @@
+---
+description: >-
+  Begin a new transaction. This statement initiates a transaction, optionally
+  setting characteristics like consistent snapshots or read-only mode.
+---
+
 # START TRANSACTION
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.time_zone_name table maps human-readable time zone names (e.g.,
+  "Europe/Berlin") to their internal time zone IDs.
+---
+
 # mysql.time\_zone\_name Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

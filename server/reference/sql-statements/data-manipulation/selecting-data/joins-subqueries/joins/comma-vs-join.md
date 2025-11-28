@@ -1,3 +1,10 @@
+---
+description: >-
+  Compare implicit and explicit join syntax. This article explains why using the
+  explicit JOIN syntax with an ON clause is preferred over comma-separated
+  tables for readability and precedence.
+---
+
 # Comma vs JOIN
 
 A query to retrieve the list of phone numbers for clients who ordered in the last two weeks might be written in a couple of ways. Here are two:

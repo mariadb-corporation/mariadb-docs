@@ -2,7 +2,7 @@
 
 The Query Editor is a powerful, integrated environment for database developers and administrators. It provides a comprehensive set of tools for writing and debugging SQL and analyzing query results, all from a single interface.
 
-This procedure outlines the steps required to access and utilize the Query Editor within the Workspace section of Enterprise Manager UI.&#x20;
+This procedure outlines the steps required to access and utilize the Query Editor within the Workspace section of Enterprise Manager UI. 
 
 1.  From the main Workspace screen, click the "Run Queries" card.\
 

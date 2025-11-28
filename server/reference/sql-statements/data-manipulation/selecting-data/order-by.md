@@ -1,3 +1,9 @@
+---
+description: >-
+  Sort query results. This clause arranges the returned rows in ascending or
+  descending order based on specified columns or expressions.
+---
+
 # ORDER BY
 
 ## Description
@@ -11,7 +17,7 @@ the first expression, then by the second expression if they have the same value 
 
 You can use the keywords `ASC` and `DESC` after each ordering expression to force that ordering to be ascending or descending, respectively. Ordering is ascending by default.
 
-You can also use a single integer as the ordering expression. If you use an integer _n_, the results will be ordered by the _&#x6E;_&#x74;h column in the select expression.
+You can also use a single integer as the ordering expression. If you use an integer _n_, the results will be ordered by the \_n\_th column in the select expression.
 
 When string values are compared, they are compared as if by the [STRCMP](../../../sql-functions/string-functions/strcmp.md) function. `STRCMP` ignores trailing whitespace and may normalize characters and ignore case, depending on the [collation](../../../data-types/string-data-types/character-sets/) in use.
 
@@ -35,7 +41,7 @@ MariaDB allows packed sort keys and values of non-sorted fields in the sort buff
 {% endtab %}
 
 {% tab title="< 10.5" %}
-MariaDB does not allow packed sort keys and values of non-sorted fields in the sort buffer.&#x20;
+MariaDB does not allow packed sort keys and values of non-sorted fields in the sort buffer.
 {% endtab %}
 {% endtabs %}
 
@@ -132,7 +138,7 @@ SELECT * FROM store;
 
 ## See Also
 
-* [Why is ORDER BY in a FROM subquery ignored?](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-manipulation/selecting-data/broken-reference/README.md)
+* [Why is ORDER BY in a FROM subquery ignored?](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/developer-questions/why-is-order-by-in-a-from-subquery-ignored)
 * [SELECT](select.md)
 * [UPDATE](../changing-deleting-data/update.md)
 * [DELETE](../changing-deleting-data/delete.md)
@@ -146,7 +152,7 @@ SELECT * FROM store;
 * [SELECT INTO DUMPFILE](select-into-dumpfile.md)
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
-* [Optimizer Hints](optimizer-hints.md)
+* [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

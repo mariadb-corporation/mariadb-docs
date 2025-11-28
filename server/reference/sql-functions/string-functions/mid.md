@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for SUBSTRING(). Returns a substring starting at a specified position
+  for a given length.
+---
+
 # MID
 
 ## Syntax

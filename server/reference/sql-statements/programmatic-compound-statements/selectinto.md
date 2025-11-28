@@ -1,3 +1,9 @@
+---
+description: >-
+  Assign query results to variables. This statement retrieves column values from
+  a single row and stores them in local variables or user-defined variables.
+---
+
 # SELECT INTO
 
 ## Syntax

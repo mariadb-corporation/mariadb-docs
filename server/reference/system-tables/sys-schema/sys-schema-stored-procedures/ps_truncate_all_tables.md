@@ -1,3 +1,9 @@
+---
+description: >-
+  This procedure truncates all Performance Schema summary tables, effectively
+  resetting all aggregated performance statistics.
+---
+
 # ps\_truncate\_all\_tables
 
 ## Syntax

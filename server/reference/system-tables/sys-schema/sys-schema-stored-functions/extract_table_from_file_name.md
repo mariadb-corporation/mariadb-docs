@@ -1,3 +1,9 @@
+---
+description: >-
+  This function extracts and returns the table name from a given file path,
+  determined solely by parsing the path string.
+---
+
 # extract\_table\_from\_file\_name
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a virtual table based on a query. This statement defines a view that
+  presents data from underlying tables as a single, queryable object.
+---
+
 # CREATE VIEW
 
 ## Syntax

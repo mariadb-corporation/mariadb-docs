@@ -39,7 +39,7 @@ does not always work, in which case the client should try to log in again.
 
 As the UAM is shared between all listeners of a service, its settings are\
 defined in the service configuration. For more information, search the [configuration guide](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/)\
-for _users\_refresh\_time_, _users\_refresh\_interval_ an&#x64;_&#x61;uth\_all\_servers_. Other settings which affect how the UAM connects to backends\
+for _users\_refresh\_time_, _users\_refresh\_interval_ and_auth\_all\_servers_. Other settings which affect how the UAM connects to backends\
 are the global settings _auth\_connect\_timeout_ and _local\_address_, and\
 the various server-level ssl-settings.
 
@@ -92,10 +92,10 @@ for additional information on how to solve authentication issues.
 #### Wildcard database grants
 
 MaxScale supports wildcards `_` and `%` for database-level grants. As with\
-MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access t&#x6F;_&#x74;est\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the\
+MariaDB Server, `grant select on test_.* to 'alice'@'%';` gives access t&#x6F;_test\__ as well as _test1_, _test2_ and so on. If the GRANT command escapes the\
 wildcard (`grant select on` test\_`.* to 'alice'@'%';`) both MaxScale and the\
 MariaDB Server interpret it as only allowing access to _test\__. `_` and `%`\
-are only interpreted as wildcards when the grant is to a database:`grant select on` test\_`.t1 to 'alice'@'%';` only grants access to th&#x65;_&#x74;est\_.t1_-table, not to _test1.t1_.
+are only interpreted as wildcards when the grant is to a database:`grant select on` test\_`.t1 to 'alice'@'%';` only grants access to the_test\_.t1_-table, not to _test1.t1_.
 
 ### Authenticator options
 
@@ -149,7 +149,7 @@ hostname/IP is ignored.
 
 This setting may be used to force clients to connect through MaxScale. Normally,\
 creating the user _jdoe@%_ will allow the user _jdoe_ to connect from any\
-IP-address. By disabling _match\_host_ and replacing the user wit&#x68;_&#x6A;doe@maxscale-IP_, the user can still connect from any client IP but will be\
+IP-address. By disabling _match\_host_ and replacing the user with_&#x6A;doe@maxscale-IP_, the user can still connect from any client IP but will be\
 forced to go through MaxScale.
 
 ```

@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_MultiPolygonFromText. Constructs a MultiPolygon value from its
+  WKT representation and an optional SRID.
+---
+
 # MultiPolygonFromText
 
 A synonym for [MPolyFromText](mpolyfromtext.md).

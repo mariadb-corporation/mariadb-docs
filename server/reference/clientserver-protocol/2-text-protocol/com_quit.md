@@ -1,3 +1,9 @@
+---
+description: >-
+  This command instructs the server to close the connection and release
+  associated resources.
+---
+
 # COM\_QUIT
 
 Using the `COM_QUIT` command, the client tells the server that the connection should be terminated.

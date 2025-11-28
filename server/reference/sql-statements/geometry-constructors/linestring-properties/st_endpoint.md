@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the end Point of a LineString. This function retrieves the final
+  coordinate in the linear geometry sequence.
+---
+
 # ST\_ENDPOINT
 
 ## Syntax
@@ -9,7 +15,7 @@ EndPoint(ls)
 
 ## Description
 
-Returns the [Point](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) that is the endpoint of the [LineString](../../../sql-statements/geometry-constructors/geometry-constructors/linestring.md) value `ls`.
+Returns the [Point](../geometry-constructors/point.md) that is the endpoint of the [LineString](../geometry-constructors/linestring.md) value `ls`.
 
 `ST_EndPoint()` and `EndPoint()` are synonyms.
 
@@ -26,6 +32,6 @@ SELECT AsText(EndPoint(GeomFromText(@ls)));
 +-------------------------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

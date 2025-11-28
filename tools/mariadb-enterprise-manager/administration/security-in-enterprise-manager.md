@@ -1,6 +1,6 @@
 # Security in Enterprise Manager
 
-MariaDB Enterprise Manager provides security at multiple levels, including transport-layer encryption for all components, secure authentication, and a detailed audit log.&#x20;
+MariaDB Enterprise Manager provides security at multiple levels, including transport-layer encryption for all components, secure authentication, and a detailed audit log. 
 
 {% hint style="info" %}
 This guide covers the primary security configurations. For Users, Roles and Permissions, see [User Management](user-management/).

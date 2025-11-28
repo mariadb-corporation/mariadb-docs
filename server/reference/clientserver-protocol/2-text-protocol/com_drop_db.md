@@ -1,3 +1,9 @@
+---
+description: >-
+  This command drops an existing database from the server, functionally
+  equivalent to the SQL statement DROP DATABASE.
+---
+
 # COM\_DROP\_DB
 
 {% hint style="info" %}

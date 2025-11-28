@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for YEAR. This keyword is an alias used for declaring a column to
+  store year values.
+---
+
 # SQL\_TSI\_YEAR
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  This table records the ten most recent completed stage events per thread,
+  useful for analyzing recent thread activity.
+---
+
 # Performance Schema events\_transactions\_history Table
 
 {% hint style="info" %}

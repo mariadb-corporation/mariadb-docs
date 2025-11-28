@@ -1,4 +1,11 @@
-# Location and Rotation of Logs
+---
+description: >-
+  Manage your audit log files effectively. Learn how to define the log file
+  path, set size limits, and configure rotation strategies to prevent log files
+  from consuming all available disk space.
+---
+
+# Audit Plugin Location and Rotation of Logs
 
 Logs can be written to a separate file or to the system logs. If you prefer to have the logging separated from other system information, the value of the variable [server\_audit\_output\_type](mariadb-audit-plugin-options-and-system-variables.md#server_audit_output_type) should be set to `file`. Incidentally, `file` is the only option on Windows systems.
 

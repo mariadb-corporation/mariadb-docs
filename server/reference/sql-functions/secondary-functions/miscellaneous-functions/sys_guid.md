@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate a UUID without hyphens. This Oracle-compatible function returns a
+  globally unique identifier as a 32-character hexadecimal string.
+---
+
 # SYS\_GUID
 
 {% hint style="info" %}
@@ -36,3 +42,4 @@ SELECT SYS_GUID();
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+

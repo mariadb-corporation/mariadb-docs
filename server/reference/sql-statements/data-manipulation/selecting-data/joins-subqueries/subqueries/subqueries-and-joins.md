@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand when to use subqueries versus joins. This guide explains
+  performance implications and how to rewrite subqueries as joins for
+  efficiency.
+---
+
 # Subqueries and JOINs
 
 A [subquery](./) can quite often, but not in all cases, be rewritten as a [JOIN](../joins/join-syntax.md).

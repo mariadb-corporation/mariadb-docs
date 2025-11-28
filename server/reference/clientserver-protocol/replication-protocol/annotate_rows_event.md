@@ -1,3 +1,9 @@
+---
+description: >-
+  This event accompanies row-based events to provide the original SQL query
+  text, which is useful for auditing and debugging replication.
+---
+
 # ANNOTATE\_ROWS\_EVENT
 
 `ANNOTATE_ROWS_EVENT` events accompany row events and describe the query which caused the row event.

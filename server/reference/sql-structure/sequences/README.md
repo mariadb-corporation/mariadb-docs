@@ -39,6 +39,6 @@ description: >-
 [show-tables.md](../../sql-statements/administrative-sql-statements/show/show-tables.md)
 {% endcontent-ref %}
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
+{% content-ref url="../../error-codes/mariadb-error-codes-4000-to-4099/e4084.md" %}
+[e4084.md](../../error-codes/mariadb-error-codes-4000-to-4099/e4084.md)
 {% endcontent-ref %}

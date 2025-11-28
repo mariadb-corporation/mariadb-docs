@@ -97,7 +97,7 @@ Lastly, use the `bulk` command to compile the packages.
 
 ### Using Poudriere Repositories
 
-In order to use Poudriere, you need to set up and configure a web server, such as `Nginx` or `Apache` to serve the directory that `Poudriere` built. For instance, in the case of the above example, you would map to the `package-builder` `jail`: `/usr/local/poudriere/data/packages/package-builder/`.&#x20;
+In order to use Poudriere, you need to set up and configure a web server, such as `Nginx` or `Apache` to serve the directory that `Poudriere` built. For instance, in the case of the above example, you would map to the `package-builder` `jail`: `/usr/local/poudriere/data/packages/package-builder/`. 
 
 You may find it useful to map this directory to a sub-domain, for instance `httpspkg.example.com` or something similar.
 

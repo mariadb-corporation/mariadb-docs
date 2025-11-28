@@ -18,7 +18,7 @@ MariaDB Cloud services perform server-to-server communication between MariaDB Ma
 
 By default, these server-to-server communications are protected with data-in-transit encryption:
 
-For MariaDB Cloud Services on AWS, see "[Encryption in transit(AWS)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/data-protection.html#encryption-transit)". MariaDB Cloud uses configurations which feature automatic in-transit encryption.
+For MariaDB Cloud Services on AWS, see "[Encryption in transit(AWS)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/data-protection.html#encryption-transit)". MariaDB Cloud uses configurations, which feature automatic in-transit encryption.
 
 For MariaDB Cloud Services on GCP, see "[Encryption in transit (GCP)](https://cloud.google.com/docs/security/encryption-in-transit#encryption_in_transit_by_default)". MariaDB Cloud uses encryption by default.
 

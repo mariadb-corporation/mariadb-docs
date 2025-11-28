@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand MariaDB's regex support. This concept page explains the PCRE
+  library integration, detailing supported syntax, character classes, and
+  special characters.
+---
+
 # PCRE - Perl Compatible Regular Expressions
 
 ### PCRE Versions
@@ -12,7 +19,7 @@
 | PCRE 8.39                            | [MariaDB 10.1.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10115-release-notes), [MariaDB 10.0.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10026-release-notes)                                                                                                                                                                | Stable   |
 | PCRE 8.38                            | [MariaDB 10.1.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10110-release-notes), [MariaDB 10.0.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10023-release-notes)                                                                                                                                                                | Stable   |
 | PCRE 8.37                            | [MariaDB 10.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-5-release-notes), [MariaDB 10.0.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10018-release-notes)                                                                                                                                                                | Stable   |
-| PCRE 8.36                            | [MariaDB 10.1.2](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-functions/string-functions/regular-expressions-functions/broken-reference/README.md), [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10015-release-notes)                                                                                                                                      | Stable   |
+| PCRE 8.36                            | [MariaDB 10.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-2-release-notes), [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10015-release-notes)                                                                                                                                                                | Stable   |
 | PCRE 8.35                            | [MariaDB 10.1.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-0-release-notes), [MariaDB 10.0.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10012-release-notes)                                                                                                                                                                | Stable   |
 | PCRE 8.34                            | [MariaDB 10.0.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1008-release-notes)                                                                                                                                                                                                                                                                                                                                 | Stable   |
 
@@ -29,7 +36,7 @@ Also, `REGEXP/RLIKE`, and the new functions, work correctly with all multi-byte 
 ### New Regular Expression Functions
 
 * [REGEXP\_REPLACE(subject, pattern, replace)](regexp_replace.md) - Replaces all occurrences of a pattern.
-* [REGEXP\_INSTR(subject, pattern)](regexp_instr.md) - Position of the first appearance of a regex .
+* [REGEXP\_INSTR(subject, pattern)](regexp_instr.md) - Position of the first appearance of a regex.
 * [REGEXP\_SUBSTR(subject,pattern)](regexp_substr.md) - Returns the matching part of a string.
 
 See the individual articles for more details and examples.
@@ -38,7 +45,7 @@ See the individual articles for more details and examples.
 
 In most cases PCRE is backward compatible with the old POSIX 1003.2 compliant regexp library (see [Regular Expressions Overview](regular-expressions-overview.md)), so you won't need to change your applications that use SQL queries with the REGEXP/RLIKE predicate.
 
-This section briefly describes the most important extended PCRE features. For more details please refer to the documentation on the [PCRE site](https://www.pcre.org/), or to the documentation which is bundled in the /pcre/doc/html/ directory of a MariaDB sources distribution. The pages pcresyntax.html and pcrepattern.html should be a good start. [Regular-Expressions.Info](https://www.regular-expressions.info/tutorial.html) is another good resource to learn about PCRE and regular expressions generally.
+This section briefly describes the most important extended PCRE features. For more details, please refer to the documentation on the [PCRE site](https://www.pcre.org/), or to the documentation which is bundled in the /pcre/doc/html/ directory of a MariaDB sources distribution. The pages pcresyntax.html and pcrepattern.html should be a good start. [Regular-Expressions.Info](https://www.regular-expressions.info/tutorial.html) is another good resource to learn about PCRE and regular expressions generally.
 
 #### Special Characters
 
@@ -57,7 +64,7 @@ PCRE supports the following escape sequences to match special characters:
 | \xhh      | character with hex code hh                  |
 | \x{hhh..} | character with hex code hhh..               |
 
-Note, the backslash characters (here, and in all examples in the sections below) must be escaped with another backslash, unless you're using the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) `NO_BACKSLASH_ESCAPES`.
+Note, the backslash characters (here, and in all examples in the sections below) must be escaped with another backslash, unless you're using the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) `NO_BACKSLASH_ESCAPES`.
 
 This example tests if a character has hex code 0x61:
 

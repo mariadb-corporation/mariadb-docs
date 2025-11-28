@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a geometry value of any type using its WKT representation and an
+  optional SRID.
+---
+
 # ST\_GeomFromText
 
 ## Syntax
@@ -26,6 +32,6 @@ Constructs a geometry value of any type using its [WKT](wkt-definition.md) repre
 SET @g = ST_GEOMFROMTEXT('POLYGON((1 1,1 5,4 9,6 9,9 3,7 2,1 1))');
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

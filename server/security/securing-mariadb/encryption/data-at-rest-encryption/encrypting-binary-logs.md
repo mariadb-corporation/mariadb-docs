@@ -6,7 +6,7 @@ MariaDB Server can encrypt the server's [binary logs](../../../../server-managem
 
 Since [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes), MariaDB can also encrypt [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md)). Encryption of binary logs is configured by the [encrypt\_binlog](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog) system variable.
 
-Users of data-at-rest encryption will also need to have a [key management and encryption plugin](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) configured. Some examples are [File Key Management Plugin](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) and [AWS Key Management Plugin](key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md).
+Users of data-at-rest encryption will also need to have a [key management and encryption plugin](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) configured. Some examples are the [File Key Management Plugin](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) and [AWS Key Management Plugin](key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md).
 
 ```
 [mariadb]
@@ -30,26 +30,26 @@ MariaDB uses the encryption key with ID 1 to encrypt [binary logs](../../../../s
 
 ### Key Rotation
 
-Some [key management and encryption plugins](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) allow you to automatically rotate and version your encryption keys. If a plugin support key rotation, and if it rotates the encryption keys, then InnoDB's [background encryption threads](innodb-encryption/innodb-background-encryption-threads.md) can re-encrypt InnoDB pages that use the old key version with the new key version. However, the binary log does **not** have a similar mechanism, which means that existing binary logs remain encrypted with the older key version, but new binary logs will be encrypted with the new key version. For more information, see [MDEV-20098](https://jira.mariadb.org/browse/MDEV-20098).
+Some [key management and encryption plugins](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) allow you to automatically rotate and version your encryption keys. If a plugin supports key rotation, and if it rotates the encryption keys, then InnoDB's [background encryption threads](innodb-encryption/innodb-background-encryption-threads.md) can re-encrypt InnoDB pages that use the old key version with the new key version. However, the binary log does **not** have a similar mechanism, which means that existing binary logs remain encrypted with the older key version, but new binary logs will be encrypted with the new key version. For more information, see [MDEV-20098](https://jira.mariadb.org/browse/MDEV-20098).
 
 In order for key rotation to work, both the backend key management service (KMS) and the corresponding [key management and encryption plugin](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) have to support key rotation. See [Encryption Key Management: Support for Key Rotation in Encryption Plugins](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#support-for-key-rotation-in-encryption-plugins) to determine which plugins currently support key rotation.
 
 ## Enabling Encryption
 
-Encryption of binary logs can be enabled by doing the following process.
+Encryption of binary logs can be enabled by following the process:
 
 * First, stop the server.
-* Then, set [encrypt\_binlog=ON](../../../../server-usage/replication-cluster-multi-master/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog) in the MariaDB configuration file.
+* Then, set [encrypt\_binlog=ON](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog) in the MariaDB configuration file.
 * Then, start the server.
 
 From that point forward, any new [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) will be encrypted. To delete old unencrypted [binary logs](../../../../server-management/server-monitoring-logs/binary-log/), you can use [RESET MASTER](../../../../reference/sql-statements/administrative-sql-statements/replication-statements/reset-master.md) or [PURGE BINARY LOGS](../../../../reference/sql-statements/administrative-sql-statements/purge-binary-logs.md).
 
 ## Disabling Encryption
 
-Encryption of [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) can be disabled by doing the following process.
+Encryption of [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) can be disabled by following the process:
 
 * First, stop the server.
-* Then, set [encrypt\_binlog=OFF](../../../../server-usage/replication-cluster-multi-master/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog) in the MariaDB configuration file.
+* Then, set [encrypt\_binlog=OFF](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog) in the MariaDB configuration file.
 * Then, start the server.
 
 From that point forward, any new [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) will be unencrypted. If you would like the server to continue to have access to old encrypted [binary logs](../../../../server-management/server-monitoring-logs/binary-log/), then make sure to keep your [key management and encryption plugin](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) loaded.
@@ -62,7 +62,7 @@ Each event's header and footer are created and processed to produce encrypted bl
 
 ### Effects of Data-at-Rest Encryption on Replication
 
-When using encrypted binary logs with [replication](https://github.com/mariadb-corporation/docs-server/blob/test/server/security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/broken-reference/README.md), it is completely supported to have different encryption keys on the master and slave. The master decrypts encrypted binary log events as it reads them from disk, and before its [binary log dump thread](../../../../ha-and-performance/standard-replication/replication-threads.md#binary-log-dump-thread) sends them to the slave, so the slave actually receives the unencrypted binary log events.
+When using encrypted binary logs with [replication](../../../../ha-and-performance/standard-replication/replication-overview.md), it is completely supported to have different encryption keys on the master and slave. The master decrypts encrypted binary log events as it reads them from disk, and before its [binary log dump thread](../../../../ha-and-performance/standard-replication/replication-threads.md#binary-log-dump-thread) sends them to the slave, so the slave actually receives the unencrypted binary log events.
 
 If you want to ensure that binary log events are encrypted as they are transmitted between the master and slave, then you will have to use [TLS with the replication connection](../data-in-transit-encryption/replication-with-secure-connections.md).
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a MultiPolygon value from a list of WKB Polygon arguments. This
+  function creates a geometry collection containing multiple polygons.
+---
+
 # MULTIPOLYGON
 
 ## Syntax

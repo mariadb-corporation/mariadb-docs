@@ -1,3 +1,9 @@
+---
+description: >-
+  View Galera Cluster membership. This statement displays the UUID, name, and
+  address of nodes in the cluster.
+---
+
 # SHOW WSREP\_MEMBERSHIP
 
 `SHOW WSREP_MEMBERSHIP` is part of the [WSREP\_INFO](../../../../plugins/mariadb-replication-cluster-plugins/wsrep_info-plugin.md) plugin.

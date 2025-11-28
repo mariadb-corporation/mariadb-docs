@@ -1,3 +1,9 @@
+---
+description: >-
+  Release all named locks held by the session. This function frees all
+  user-level locks acquired with GET_LOCK() in the current connection.
+---
+
 # RELEASE\_ALL\_LOCKS
 
 {% hint style="info" %}

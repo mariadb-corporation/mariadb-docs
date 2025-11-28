@@ -20,7 +20,15 @@ MariaDB publishes a Software Bill of Materials (SBOM) for each MariaDB Enterpris
 * **Compliance & audits:** Produce component/license reports and demonstrate software composition controls
 * **Change analysis:** Diff SBOMs between versions to identify updated/deprecated components
 
+## Viewing SBOM Files
 
+The recommended viewer for the MariaDB SBOM files is the CycloneDX Web Tool (hosted by the CycloneDX project), which can be found at [https://cyclonedx.github.io/cyclonedx-web-tool](https://cyclonedx.github.io/cyclonedx-web-tool?utm_source=chatgpt.com)
+
+Advantages of the CycloneDX Web Tool include:
+
+* Our SBOM files are explicitly built for CycloneDX including upload/view functionality for both XML and JSON
+* The CycloneDX Web Tool is maintained by the CycloneDX project so it aligns with the standard and will remain compatible
+* The CycloneDX Web Tool works via browser so you do not need to install anything
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

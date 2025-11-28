@@ -155,7 +155,7 @@ used when replicating from the primary in direct replication mode.
 
 The compression codec to use. By default, the avrorouter does not use compression.
 
-This parameter takes one of the following two values; _null_ o&#x72;_&#x64;eflate_. These are the mandatory compression algorithms required by the\
+This parameter takes one of the following two values; _null_ or_deflate_. These are the mandatory compression algorithms required by the\
 Avro specification. For more information about the compression types,\
 refer to the [Avro specification](https://avro.apache.org/docs/current/spec.html#Required+Codecs).
 
@@ -167,7 +167,7 @@ refer to the [Avro specification](https://avro.apache.org/docs/current/spec.html
 * Default: `""`
 
 These [regular expression settings](../maxscale-24-02getting-started/mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md)\
-filter events for processing depending on table names. Avrorouter does not support th&#x65;_&#x6F;ptions_-parameter for regular expressions.
+filter events for processing depending on table names. Avrorouter does not support the_&#x6F;ptions_-parameter for regular expressions.
 
 To prevent excessive matching of similarly named tables, surround each table\
 name with the `^` and `$` tokens. For example, to match the `test.clients` table\

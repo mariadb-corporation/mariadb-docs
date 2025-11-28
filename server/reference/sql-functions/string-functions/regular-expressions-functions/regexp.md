@@ -1,3 +1,9 @@
+---
+description: >-
+  Test if a string matches a regex. This operator returns 1 if the pattern is
+  found in the string, and 0 otherwise.
+---
+
 # REGEXP
 
 ## Syntax

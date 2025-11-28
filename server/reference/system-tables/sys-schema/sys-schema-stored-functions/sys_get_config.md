@@ -1,3 +1,9 @@
+---
+description: >-
+  The sys_get_config function retrieves the value of a specified configuration
+  option from the sys_config table, or a user variable if set.
+---
+
 # sys\_get\_config
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

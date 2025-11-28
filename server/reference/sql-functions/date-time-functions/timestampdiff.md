@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate the difference between timestamps. This function returns the
+  difference between two datetime expressions in the specified unit.
+---
+
 # TIMESTAMPDIFF
 
 ## Syntax

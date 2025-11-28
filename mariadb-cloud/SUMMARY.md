@@ -9,7 +9,8 @@
   * [Launch DB Using REST API](<Quickstart/Launch DB using the REST API.md>)
   * [Launch DB Using Terraform Provider](<Quickstart/Launch DB using the Terraform Provider.md>)
   * [Launch DB Using Python](<Quickstart/Launch DB using Python.md>)
-* [Connecting](connecting-to-mariadb-cloud-dbs/README.md)
+* [Connection Methods](connecting-to-mariadb-cloud-dbs/README.md)
+  * [Connection Overview](connecting-to-mariadb-cloud-dbs/connection-overview.md)
   * [Connect using MariaDB Client](connecting-to-mariadb-cloud-dbs/connect-using-mariadb-cli.md)
   * [Connect From Node.js App](connecting-to-mariadb-cloud-dbs/connect-from-node-js-app.md)
   * [Connect From Java App](connecting-to-mariadb-cloud-dbs/connect-from-java-app.md)
@@ -41,14 +42,14 @@
   * [Autonomously Scale Compute & Storage](cloud-management/autonomously-scale-compute-storage.md)
   * [Observability](cloud-management/observability.md)
 * [Cloud UI Portal](cloud-usage/README.md)
-  * [MariaDB Cloud UI Portal](cloud-usage/portal-features/README.md)
-    * [Launch Page](cloud-usage/portal-features/launch-page.md)
-    * [Manage Your Service](cloud-usage/portal-features/manage-your-service.md)
-    * [Service Details Page](cloud-usage/portal-features/service-details-page.md)
-    * [Infrastructure Upgrades](cloud-usage/portal-features/infrastructure-upgrades.md)
-    * [Notifications](cloud-usage/portal-features/notifications.md)
-    * [Service Monitoring Panels](cloud-usage/portal-features/service-monitoring-panels.md)
-    * [Billing](cloud-usage/portal-features/billing.md)
+  * [MariaDB Cloud UI Portal](cloud-usage/portal-features.md)
+  * [Launch Page](cloud-usage/launch-page.md)
+  * [Manage Your Service](cloud-usage/manage-your-service.md)
+  * [Service Details Page](cloud-usage/service-details-page.md)
+  * [Infrastructure Upgrades](cloud-usage/infrastructure-upgrades.md)
+  * [Notifications](cloud-usage/notifications.md)
+  * [Service Monitoring Panels](cloud-usage/service-monitoring-panels.md)
+  * [Billing](cloud-usage/billing.md)
 * [Data Loading & Backup](cloud-data-handling/README.md)
   * [Migration, Data Loading](cloud-data-handling/migration-data-loading/README.md)
     * [Migrations](cloud-data-handling/migration-data-loading/data-loading-migration/README.md)
@@ -93,11 +94,7 @@
 * [Reference](reference/README.md)
   * [FAQs](reference-guide/faqs.md)
   * [MariaDB Cloud Uptime SLA](reference-guide/uptime-sla.md)
-  * [Service Tiers](reference-guide/service-tiers/README.md)
-    * [Pricing](reference-guide/service-tiers/pricing.md)
-    * [Maintenance Windows](reference-guide/service-tiers/maintenance-windows.md)
-    * [MaxScale Redundancy](reference-guide/service-tiers/maxscale-redundancy.md)
-  * [Fractional DBA Service: CloudDBA](reference-guide/fractionaldba.md)
+  * [Fractional DBA Service: Remote DBA](reference-guide/fractionaldba.md)
   * [MariaDB Server Version Support](reference-guide/mariadb-server-versions.md)
   * [Supported Backup Types](reference-guide/backup-support.md)
   * [MariaDB Cloud Instance Sizes](reference/mariadb-cloud-instance-sizes.md)
@@ -107,82 +104,15 @@
   * [MariaDB Cloud Stored Procedures](reference-guide/stored-procedures.md)
   * [MariaDB Cloud API Reference Guide](reference-guide/mariadb-cloud-api-reference-guide/README.md)
     * ```yaml
+      type: builtin:openapi
       props:
         models: true
-      type: builtin:openapi
       dependencies:
         spec:
           ref:
             kind: openapi
-            spec: mariadb-api
+            spec: MariaDB-Cloud-DBaaS-API
       ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
+  * [Pricing](reference/pricing.md)
+  * [Maintenance Windows](reference/maintenance-windows.md)
+  * [MaxScale Redundancy](reference/maxscale-redundancy.md)

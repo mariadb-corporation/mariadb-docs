@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the weekday index. This function returns a number from 1 (Sunday) to 7
+  (Saturday) representing the day of the week.
+---
+
 # DAYOFWEEK
 
 ## Syntax

@@ -8,7 +8,7 @@ Deletes all [binary log](../../../../server-management/server-monitoring-logs/bi
 
 If `TO #` is given, then the first new binary log file will start from number #.
 
-This statement is for use only when the master is started for the first time, and should never be used if any slaves are actively [replicating](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/administrative-sql-statements/replication-statements/broken-reference/README.md) from the binary log.
+This statement is for use only when the master is started for the first time and should never be used if any slaves are actively [replicating](../../../../ha-and-performance/standard-replication/) from the binary log.
 
 ## See Also
 

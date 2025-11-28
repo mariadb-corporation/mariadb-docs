@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes stage events aggregated by the client host and the event
+  name, allowing performance analysis per host.
+---
+
 # Performance Schema events\_transactions\_summary\_by\_host\_by\_event\_name Table
 
 {% hint style="info" %}

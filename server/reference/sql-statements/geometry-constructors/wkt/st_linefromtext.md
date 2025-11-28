@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a LineString value using its WKT representation and an optional
+  SRID.
+---
+
 # ST\_LineFromText
 
 ## Syntax
@@ -11,7 +17,7 @@ LineStringFromText(wkt[,srid])
 
 ## Description
 
-Constructs a [LINESTRING](../../../sql-statements/geometry-constructors/geometry-constructors/linestring.md) value using its [WKT](wkt-definition.md) representation and [SRID](../geometry-properties/st_srid.md).
+Constructs a [LINESTRING](../geometry-constructors/linestring.md) value using its [WKT](wkt-definition.md) representation and [SRID](../geometry-properties/st_srid.md).
 
 `ST_LineFromText()`, `ST_LineStringFromText()`, `ST_LineFromText()` and `ST_LineStringFromText()` are all synonyms.
 
@@ -26,6 +32,6 @@ INSERT INTO gis_line VALUES
     (LineStringFromWKB(AsWKB(LineString(Point(10, 10), Point(40, 10)))));
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

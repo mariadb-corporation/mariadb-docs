@@ -1,3 +1,10 @@
+---
+description: >-
+  Read rows from a text file into a table. This high-speed data loading command
+  parses structured text files and inserts records, often much faster than
+  INSERT statements.
+---
+
 # LOAD DATA INFILE
 
 ## Syntax

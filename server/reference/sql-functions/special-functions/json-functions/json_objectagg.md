@@ -1,3 +1,9 @@
+---
+description: >-
+  Aggregate key-value pairs into a JSON object. This function aggregates two
+  columns or expressions into a single JSON object.
+---
+
 # JSON\_OBJECTAGG
 
 {% hint style="info" %}

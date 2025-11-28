@@ -1,3 +1,9 @@
+---
+description: >-
+  The format_path function replaces specific system paths in a given string with
+  their corresponding system variable names for better readability.
+---
+
 # format\_path
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

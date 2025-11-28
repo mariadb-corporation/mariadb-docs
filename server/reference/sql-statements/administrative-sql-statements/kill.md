@@ -1,3 +1,9 @@
+---
+description: >-
+  Terminates a specific connection or query. Allows administrators to stop
+  runaway threads or disconnect users to free up server resources.
+---
+
 # KILL
 
 ## Syntax

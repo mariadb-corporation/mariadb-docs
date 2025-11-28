@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_FIELDS table lists the fields that comprise InnoDB indexes,
+  detailing their position within the index structure.
+---
+
 # Information Schema INNODB\_SYS\_FIELDS Table
 
 The [Information Schema](../../) `INNODB_SYS_FIELDS` table contains information about fields that are part of an InnoDB index.

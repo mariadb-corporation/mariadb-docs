@@ -1,3 +1,9 @@
+---
+description: >-
+  Create tables optimized for vector storage. Learn to define columns with the
+  VECTOR data type and configure vector indexes for similarity search.
+---
+
 # CREATE TABLE with Vectors
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}

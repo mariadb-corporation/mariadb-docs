@@ -1,3 +1,10 @@
+---
+description: >-
+  Perform an upsert operation. If an insert violates a unique constraint, this
+  clause automatically updates the existing row with new values instead of
+  returning an error.
+---
+
 # INSERT ON DUPLICATE KEY UPDATE
 
 ## Syntax
@@ -35,7 +42,7 @@ INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
 
 ## Description
 
-INSERT ... ON DUPLICATE KEY UPDATE is a MariaDB/MySQL extension to the [INSERT](insert.md) statement that, if it finds a duplicate unique or [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key), will instead perform an [UPDATE](../changing-deleting-data/update.md).
+`INSERT ... ON DUPLICATE KEY UPDATE` (often called "upsert") is a MariaDB/MySQL extension to the [INSERT](insert.md) statement that, if it finds a duplicate unique or [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key), will instead perform an [UPDATE](../changing-deleting-data/update.md).
 
 The row/s affected value is reported as 1 if a row is inserted, and 2 if a row is updated, unless the API's `CLIENT_FOUND_ROWS` flag is set.
 

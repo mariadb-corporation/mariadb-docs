@@ -8,7 +8,7 @@ This page provides a high-level overview of the Observability functionality in M
 
 In order to interact with our Observability APIs, an [API KEY](https://skysqlinc.github.io/skysql-docs/Security/Managing%20API%20keys/) must be generated. Throughout this document, we will refer to it as `{{SKYSQL_API_KEY}}`.
 
-Additionally, you will need the MariaDB Cloud Database ID, available by clicking on any of your existing services from the [MariaDB Cloud Console](https://app.skysql.com/), and navigating to the Details page. We will Refer to the Database ID as `{{SKYSQL_DATABASE_ID}}` throughout this document.
+Additionally, you will need the MariaDB Cloud Database ID, available by clicking on any of your existing services from the [MariaDB Cloud Console](https://app.skysql.com/) and navigating to the Details page. We will refer to the Database ID as `{{SKYSQL_DATABASE_ID}}` throughout this document.
 
 For the impatient reader, we jump right to the [Integrations section](observability.md#integrations), then for ones who are building custom instrumentation, we provide a detailed list of [APIs](observability.md#apis) and their relevant documentation.
 
@@ -24,7 +24,7 @@ You will need your Datadog API key to set up the integration. We will refer to i
 
 #### Agent Setup
 
-You will need to configure the Datadog Agent to pull metrics from us. Here is an example of how you can setup the [DataDog Agent](https://docs.datadoghq.com/agent/):
+You will need to configure the Datadog Agent to pull metrics from us. Here is an example of how you can set up the [DataDog Agent](https://docs.datadoghq.com/agent/):
 
 1. Create a local directory for configuration to be mapped to the Docker Container:
 
@@ -46,7 +46,7 @@ instances:
       - '.*'
 ```
 
-3. Send the metrics to the correct DataDog Site. You should refer to [DataDog Site documentation](https://docs.datadoghq.com/getting_started/site/) to determine the correct `SITE PARAMETER` for your account. This resource provides a comprehensive list of Datadog sites and their corresponding `SITE PARAMETER` values, ensuring that your data is sent to the correct regional Datadog instance. We will refer to it as `{{DD_SITE_PARAMETER}}` throughout this document.
+3. Send the metrics to the correct DataDog Site. You should refer to the [DataDog Site documentation](https://docs.datadoghq.com/getting_started/site/) to determine the correct `SITE PARAMETER` for your account. This resource provides a comprehensive list of Datadog sites and their corresponding `SITE PARAMETER` values, ensuring that your data is sent to the correct regional Datadog instance. We will refer to it as `{{DD_SITE_PARAMETER}}` throughout this document.
 4. Run the Datadog Agent Docker Container with the following command:
 
 ```shell
@@ -55,7 +55,7 @@ docker run -v /home/datadog-agent/openmetrics:/etc/datadog-agent/conf.d/openmetr
   -e DD_LOG_LEVEL="info" gcr.io/datadoghq/agent:7
 ```
 
-5. You should see the metrics soon to be available in [DataDog Metrics Explorer](https://app.datadoghq.com/metric/explorer)
+5. You should see the metrics soon to be available in [DataDog Metrics Explorer](https://app.datadoghq.com/metric/explorer).
 
 #### Testing [MariaDB Cloud APIs](observability.md#apis)
 
@@ -107,7 +107,7 @@ For the complete, detailed API reference (including request/response formats, er
 
 #### Table A. Key Observability Metric Series
 
-We export the folowing metrics as part of the [metrics](observability.md#metrics) endpoint:
+We export the following metrics as part of the [metrics](observability.md#metrics) endpoint:
 
 | Metric                                                       |
 | ------------------------------------------------------------ |

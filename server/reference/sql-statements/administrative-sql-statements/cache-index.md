@@ -1,3 +1,9 @@
+---
+description: >-
+  Assigns specific table indices to a named key cache. Optimizes server
+  performance by preloading or dedicating memory to frequently accessed keys.
+---
+
 # CACHE INDEX
 
 ## Syntax

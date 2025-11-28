@@ -1,3 +1,9 @@
+---
+description: >-
+  The rwlock_instances table lists all active read-write lock instances, showing
+  the write-lock owner and the number of waiting readers or writers.
+---
+
 # Performance Schema prepared\_statements\_instances Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_AsText. Converts a geometry value from its internal format to
+  its Well-Known Text (WKT) representation.
+---
+
 # AsWKT
 
 A synonym for [ST\_AsText()](st_astext.md).

@@ -1,3 +1,10 @@
+---
+description: >-
+  Load all plugins contained within a shared library file. This statement
+  automatically discovers and installs every valid plugin found in the specified
+  library.
+---
+
 # INSTALL SONAME
 
 ## Syntax

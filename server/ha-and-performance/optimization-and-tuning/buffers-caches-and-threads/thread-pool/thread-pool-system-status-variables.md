@@ -50,7 +50,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Dynamic:
 * Data Type: `boolean`
 * Default Value: `0`
-* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
+* Introduced: MariaDB 10.5.0
 
 #### `thread_pool_exact_stats`
 
@@ -62,7 +62,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Dynamic:
 * Data Type: `boolean`
 * Default Value: `0`
-* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
+* Introduced: MariaDB 10.5.0
 
 #### `thread_pool_idle_timeout`
 
@@ -85,10 +85,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value:
-  * `65536` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes))
-  * `1000` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes), >= [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1))
-  * `500` (<= [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0))
+* Default Value: `65536`
 * Range: `1` to `65536`
 * Documentation: [Using the thread pool](thread-pool-in-mariadb.md).
 
@@ -125,7 +122,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Data Type: `numeric`
 * Default Value: `1000`
 * Range: `0` to `4294967295`
-* Introduced: [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes)
+* Introduced: MariaDB 10.2.2
 * Documentation: [Using the thread pool](thread-pool-in-mariadb.md).
 
 #### `thread_pool_priority`
@@ -137,7 +134,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Data Type: `enum`
 * Default Value: `auto`
 * Valid Values: `high`, `low`, `auto`.
-* Introduced: [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes)
+* Introduced: MariaDB 10.2.2
 * Documentation: [Using the thread pool](thread-pool-in-mariadb.md).
 
 #### `thread_pool_size`
@@ -150,7 +147,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: Based on the number of processors (but see [MDEV-7806](https://jira.mariadb.org/browse/MDEV-7806)).
-* Range: `1` to `128` (< [MariaDB 5.5.37](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5537-release-notes), [MariaDB 10.0.11](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/broken-reference/README.md)), `1` to `100000` (>= [MariaDB 5.5.37](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5537-release-notes), [MariaDB 10.0.11](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/broken-reference/README.md))
+* Range: `1` to `128` 
 * Documentation: [Using the thread pool](thread-pool-in-mariadb.md).
 
 #### `thread_pool_stall_limit`
@@ -164,7 +161,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `500`
-* Range: `10` to `4294967295` (< [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)), `1` to `4294967295` (>= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105))
+* Range: `1` to `4294967295` 
 * Documentation: [Using the thread pool](thread-pool-in-mariadb.md).
 
 ## Status variables

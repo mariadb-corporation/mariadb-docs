@@ -1,3 +1,7 @@
+---
+description: Synonym for INT. This type uses 4 bytes of storage.
+---
+
 # INT4
 
 `INT4` is a synonym for [INT](int.md).

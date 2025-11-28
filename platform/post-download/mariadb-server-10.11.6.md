@@ -20,7 +20,7 @@
 * The prior release in this series was MariaDB Server 10.11.5, released on 14 Aug 2023
 * This release (MariaDB Server 10.11.6) was released on 13 Nov 2023
 
-{% include "../../mariadb-platform/.gitbook/includes/most-recent-10.11.md" %}
+{% include "../.gitbook/includes/most-recent-10.11.md" %}
 
 ## Useful Resources
 

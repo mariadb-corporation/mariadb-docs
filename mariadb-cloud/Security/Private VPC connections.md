@@ -1,6 +1,6 @@
 # Private VPC Connections
 
-Some customers may have regulatory requirements or information security policies which prohibit the default database connections over the public internet.
+Some customers may have regulatory requirements or information security policies that prohibit the default database connections over the public internet.
 
 MariaDB Cloud services can optionally be configured for private connections using cloud provider-specific features - See [Using Private VPC Connections](<Private VPC connections.md>) for details on how to set this up.
 

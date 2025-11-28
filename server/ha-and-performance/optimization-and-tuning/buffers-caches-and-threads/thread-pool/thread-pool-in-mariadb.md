@@ -1,18 +1,18 @@
 # Thread Pool in MariaDB
 
-## Problem That Thread Pools Solve
+## Problems That Thread Pools Solve
 
 The task of scalable server software (and a DBMS like MariaDB is an example of such software) is to maintain top performance with an increasing number of clients. MySQL traditionally assigned a thread for every client connection, and as the number of concurrent users grows this model shows performance drops. Many active threads are a performance killer, because increasing the number of threads leads to extensive context switching, bad locality for CPU caches, and increased contention for hot locks. An ideal solution that would help to reduce context switching is to maintain a lower number of threads than the number of clients. But this number should not be too low either, since we also want to utilize CPUs to their fullest, so ideally, there should be a single active thread for each CPU on the machine.
 
 ## MariaDB Thread Pool Features
 
-The current MariaDB thread pool was implemented in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5). It replaced the legacy thread pool that was introduced in [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1). The main drawback of the previous solution was that this pool was static–it had a fixed number of threads. Static thread pools can have their merits, for some limited use cases, such as cases where callbacks executed by the threads never block and do not depend on each other. For example, imagine something like an echo server.
+MariaDB has a dynamic and adaptive thread pool, aimed at optimizing resource utilization and preventing deadlocks.
 
-However, DBMS clients are more complicated. For example, a thread may depend on another thread's completion, and they may block each other via locks and/or I/O. Thus it is very hard, and sometimes impossible, to predict how many threads would be ideal or even sufficient to prevent deadlocks in every situation. [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) implements a dynamic/adaptive pool that itself takes care of creating new threads in times of high demand and retiring threads if they have nothing to do. This is a complete reimplementation of the legacy `pool-of-threads` scheduler, with the following goals:
+For example, a thread may depend on another thread's completion, and they may block each other via locks and/or I/O. It is hard, and sometimes impossible, to predict how many threads are ideal or even sufficient to prevent deadlocks in every situation. MariaDB implements a dynamic and adaptive pool that takes care of creating new threads in times of high demand, and retiring threads if they have nothing to do. This is a complete reimplementation of the legacy `pool-of-threads` scheduler, with the following goals:
 
 * Make the pool dynamic, so that it will grow and shrink whenever required.
 * Minimize the amount of overhead that is required to maintain the thread pool itself.
-* Make the best use of underlying OS capabilities. For example, if a native thread pool implementation is available, then it should be used, and if not, then the best I/O multiplexing method should be used.
+* Make the best use of underlying OS capabilities. For example, if a native thread pool implementation is available, it should be used. If not, the best I/O multiplexing method should be used.
 * Limit the resources used by threads.
 
 There are currently two different low-level implementations – depending on OS. One implementation is designed specifically for Windows which utilizes a native [CreateThreadpool](https://docs.microsoft.com/en-us/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool) API. The second implementation is primarily intended to be used in Unix-like systems. Because the implementations are\
@@ -37,8 +37,7 @@ The [thread\_handling](thread-pool-system-status-variables.md) system variable i
 There are several other system variables as well, which are described in the sections below. Many of the system variables documented below are dynamic, meaning that they can be changed with [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/) on a running server.
 
 Generally, there is no need to tweak many of these system variables. The goal of the thread pool was to\
-provide good performance out-of-the box. However, the system variable values can be changed, and we intended to expose as many knobs from the underlying implementation as we could. Feel free to tweak them\
-as you see fit.
+provide good performance out-of-the box. However, the system variable values can be changed, and we intended to expose as many knobs from the underlying implementation as we could. Feel free to tweak them as you see fit.
 
 If you find any issues with any of the default behavior, then we encourage you to [submit a bug report](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/reporting-bugs).
 
@@ -48,7 +47,7 @@ See [Thread Pool System and Status Variables](thread-pool-system-status-variable
 
 On Unix, if you would like to use the thread pool, then you can use the thread pool by setting the [thread\_handling](thread-pool-system-status-variables.md) system variable to `pool-of-threads` in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
-```
+```ini
 [mariadb]
 ...
 thread_handling=pool-of-threads
@@ -57,7 +56,7 @@ thread_handling=pool-of-threads
 The following system variables can also be configured on Unix:
 
 * [thread\_pool\_size](thread-pool-system-status-variables.md) – The number of [thread groups](thread-groups-in-the-unix-implementation-of-the-thread-pool.md) in the thread pool, which determines how many statements can execute simultaneously. The default value is the number of CPUs on the system. When setting this system variable's value at system startup, the max value is 100000. However, it is not a good idea to set it that high. When setting this system variable's value dynamically, the max value is either 128 or the value that was set at system startup--whichever value is higher. See [Thread Groups in the Unix Implementation of the Thread Pool](thread-groups-in-the-unix-implementation-of-the-thread-pool.md) for more information.
-* [thread\_pool\_max\_threads](thread-pool-system-status-variables.md) – The maximum number of threads in the thread pool. Once this limit is reached, no new threads will be created in most cases. In rare cases, the actual number of threads can slightly exceed this, because each [thread group](thread-groups-in-the-unix-implementation-of-the-thread-pool.md) needs at least two threads (i.e. at least one worker thread and at least one listener thread) to prevent deadlocks. The default value in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) is `500`. The default value in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) is `1000` in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1). The default value in [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) and later is `65536`.
+* [thread\_pool\_max\_threads](thread-pool-system-status-variables.md) – The maximum number of threads in the thread pool. Once this limit is reached, no new threads will be created in most cases. In rare cases, the actual number of threads can slightly exceed this, because each [thread group](thread-groups-in-the-unix-implementation-of-the-thread-pool.md) needs at least two threads (i.e. at least one worker thread and at least one listener thread) to prevent deadlocks. The default value is `65536`.
 * [thread\_pool\_stall\_limit](thread-pool-system-status-variables.md) – The number of milliseconds between each stall check performed by the timer thread. The default value is `500`. Stall detection is used to prevent a single client connection from monopolizing a thread group. When the timer thread detects that a thread group is stalled, it wakes up a sleeping worker thread in the thread group, if one is available. If there isn't one, then it creates a new worker thread in the thread group. This temporarily allows several client connections in the thread group to run in parallel. However, note that the timer thread will not create a new worker thread if the number of threads in the thread pool is already greater than or equal to the maximum defined by the [thread\_pool\_max\_threads](thread-pool-system-status-variables.md#thread_pool_max_threads) variable, unless the thread group does not already have a listener thread. See [Thread Groups in the Unix Implementation of the Thread Pool: Thread Group Stalls](thread-groups-in-the-unix-implementation-of-the-thread-pool.md#thread-group-stalls) for more information.
 * [thread\_pool\_oversubscribe](thread-pool-system-status-variables.md) – Determines how many worker threads in a thread group can remain active at the same time once a thread group is oversubscribed due to stalls. The default value is `3`. Usually, a thread group only has one active worker thread at a time. However, the timer thread can add more active worker threads to a thread group if it detects a stall. There are trade-offs to consider when deciding whether to allow only one thread per CPU to run at a time, or whether to allow more than one thread per CPU to run at a time. Allowing only one thread per CPU means that the thread can have unrestricted access to the CPU while its running, but it also means that there is additional overhead from putting threads to sleep or waking them up more frequently. Allowing more than one thread per CPU means that the threads have to share the CPU, but it also means that there is less overhead from putting threads to sleep or waking them up. This is primarily for internal use, and it is not meant to be changed for most users. See [Thread Groups in the Unix Implementation of the Thread Pool: Thread Group Oversubscription](thread-groups-in-the-unix-implementation-of-the-thread-pool.md#thread-group-oversubscription) for more information.
 * [thread\_pool\_idle\_timeout](thread-pool-system-status-variables.md) – The number of seconds before an idle worker thread exits. The default value is `60`. If there is currently no work to do, how long should an idle thread wait before exiting?
@@ -81,29 +80,12 @@ implemented, and the server will silently switch to using the legacy`one-thread-
 
 The native [CreateThreadpool](https://docs.microsoft.com/en-us/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool) API allows applications to set the minimum and maximum number of threads in the pool. The following system variables can be used to configure those values on Windows:
 
-* [thread\_pool\_min\_threads](thread-pool-system-status-variables.md) – The minimum number of threads in the pool. Default is 1.\
-  This applicable in a special case of very “bursty” workloads. Imagine having\
-  longer periods of inactivity after periods of high activity. While the thread pool\
-  is idle, Windows would decide to retire pool threads (based on\
-  experimentation, this seems to happen after thread had been idle for 1\
-  minute). Next time high load comes, it could take some milliseconds or\
-  seconds until the thread pool size stabilizes again to optimal value. To avoid\
-  thread retirement, one could set the parameter to a higher value.
-* [thread\_pool\_max\_threads](thread-pool-system-status-variables.md) – The maximum number of threads in the pool.\
-  Threads are not created when this value is reached. The default from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) to [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) is 500 (this has been increased to 1000 in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1)). This\
-  parameter can be used to prevent the creation of new threads if the pool can\
-  have short periods where many or all clients are blocked (for example, with\
-  “FLUSH TABLES WITH READ LOCK”, high contention on row locks, or similar). New\
-  threads are created if a blocking situation occurs (such as after a\
-  throttling interval), but sometimes you want to cap the number of threads,\
-  if you’re familiar with the application and need to, for example, save\
-  memory. If your application constantly pegs at 500 threads, it might be a\
-  strong indicator for high contention in the application, and the thread pool does\
-  not help much.
+* [thread\_pool\_min\_threads](thread-pool-system-status-variables.md) – The minimum number of threads in the pool. Default is 1. This applicable in a special case of very “bursty” workloads. Imagine having longer periods of inactivity after periods of high activity. While the thread pool is idle, Windows would decide to retire pool threads (based on experimentation, this seems to happen after thread had been idle for 1 minute). Next time high load comes, it could take some milliseconds or seconds until the thread pool size stabilizes again to optimal value. To avoid thread retirement, one could set the parameter to a higher value.
+* [thread\_pool\_max\_threads](thread-pool-system-status-variables.md) – The maximum number of threads in the pool. Threads are not created when this value is reached. The default is 1000. This parameter can be used to prevent the creation of new threads if the pool can have short periods where many or all clients are blocked (for example, with `FLUSH TABLES WITH READ LOCK`, high contention on row locks, or similar). New threads are created if a blocking situation occurs (such as after a throttling interval), but sometimes you want to cap the number of threads, if you’re familiar with the application and need to, for example, save memory. If your application constantly pegs at 500 threads, it might be a strong indicator for high contention in the application, and the thread pool does not help much.
 
 ### Configuring Priority Scheduling
 
-Starting with [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes), it is possible to configure connection prioritization. The priority behavior is configured by the [thread\_pool\_priority](thread-pool-system-status-variables.md) system variable.
+It is possible to configure connection prioritization. The priority behavior is configured by the [thread\_pool\_priority](thread-pool-system-status-variables.md) system variable.
 
 By default, if [thread\_pool\_priority](thread-pool-system-status-variables.md) is set to `auto`, then queries would be given a higher priority, in case the current connection is inside a transaction. This allows the running transaction to finish faster, and has the effect of lowering the number of transactions running in parallel. The default setting will generally improve throughput for transactional workloads. But it is also possible to explicitly set the priority for the current connection to either 'high' or 'low'.
 
@@ -119,7 +101,7 @@ You can configure a specific number of connections for this port by setting the 
 
 These system variables can be set in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
-```
+```ini
 [mariadb]
 ...
 extra_port = 8385
@@ -128,7 +110,7 @@ extra_max_connections = 10
 
 Once you have the extra port configured, you can use the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client with the `-P` option to connect to the port.
 
-```
+```bash
 $ mariadb -u root -P 8385 -p
 ```
 
@@ -155,7 +137,7 @@ To mitigate the issue, MariaDB allows you to configure an extra port for adminis
 
 Once you have the extra port configured, you can use the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client with the `-P` option to connect to the port.
 
-```
+```bash
 $ mariadb -u root -P 8385 -p
 ```
 
@@ -174,52 +156,32 @@ The following Information Schema tables relate to the thread pool:
 
 ## MariaDB Thread Pool vs Oracle MySQL Enterprise Thread Pool
 
-Commercial editions of MySQL since 5.5 include an Oracle MySQL Enterprise\
-thread pool implemented as a plugin, which delivers similar functionality.\
-A detailed discussion about the design of the feature is at [Mikael Ronstrom's blog](https://mikaelronstrom.blogspot.com/2011/10/mysql-thread-pool-summary.html).\
-Here is the summary of similarities and differences, based on the above\
+Commercial editions of MySQL since 5.5 include an Oracle MySQL Enterprise thread pool implemented as a plugin, which delivers similar functionality. A detailed discussion about the design of the feature is at [Mikael Ronstrom's blog](https://mikaelronstrom.blogspot.com/2011/10/mysql-thread-pool-summary.html). Here is the summary of similarities and differences, based on the above\
 materials.
 
 ### Similarities
 
-* On Unix, both MariaDB and Oracle MySQL Enterprise Threadpool will partition\
-  client connections into groups. The [thread\_pool\_size](thread-pool-system-status-variables.md) parameter thus has\
-  the same meaning for both MySQL and MariaDB.
-* Both implementations use similar schema checking for thread stalls, and both\
-  have the same parameter name for [thread\_pool\_stall\_limit](thread-pool-system-status-variables.md) (though in\
-  MariaDB it is measured using millisecond units, not 10ms units like in Oracle\
-  MySQL).
+* On Unix, both MariaDB and Oracle MySQL Enterprise Thread Pool will partition client connections into groups. The [thread\_pool\_size](thread-pool-system-status-variables.md) parameter thus has the same meaning for both MySQL and MariaDB.
+* Both implementations use similar schema checking for thread stalls, and both have the same parameter name for [thread\_pool\_stall\_limit](thread-pool-system-status-variables.md) (though in MariaDB it is measured using millisecond units, not 10ms units like in Oracle MySQL).
 
 ### Differences
 
-* The Windows implementation is completely different – MariaDB's uses native\
-  Windows threadpooling, while Oracle's implementation includes a convenience\
-  function WSAPoll() (provided for convenience to port Unix applications).\
-  As a consequence of relying on WSAPoll(), Oracle's implementation will\
-  not work with named pipes and shared memory connections.
-* MariaDB uses the most efficient I/O multiplexing facilities for each\
-  operating system: Windows (the I/O completion port is used internally by the\
-  native threadpool), Linux (epoll), Solaris (event ports), FreeBSD and OSX\
-  (kevent). Oracle uses optimized I/O multiplexing only on Linux, with epoll,\
+* The Windows implementation is completely different – MariaDB's uses native Windows thread pooling, while Oracle's implementation includes a convenience function WSAPoll() (provided for convenience to port Unix applications). As a consequence of relying on WSAPoll(), Oracle's implementation does not work with named pipes and shared memory connections.
+* MariaDB uses the most efficient I/O multiplexing facilities for each operating system: Windows (the I/O completion port is used internally by the native thread pool), Linux (epoll), Solaris (event ports), FreeBSD and OSX (kevent). Oracle uses optimized I/O multiplexing only on Linux, with epoll,\
   and uses poll() otherwise.
-* Unlike Oracle MySQL Enterprise Threadpool, MariaDB's one is builtin, not a\
-  plugin.
+* Unlike Oracle MySQL Enterprise Thread Pool, MariaDB's one is built in, not a plugin.
 
 ## MariaDB Thread Pool vs Percona Thread Pool
 
-[Percona's implementation](https://www.percona.com/doc/percona-server/5.7/performance/threadpool.html) is a port of the MariaDB's threadpool with some added features. In particular, Percona added priority scheduling to its 5.5-5.7 releases. [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) and Percona priority scheduling work in a similar fashion, but there are some differences in details.
+[Percona's implementation](https://www.percona.com/doc/percona-server/5.7/performance/threadpool.html) is a port of the MariaDB's thread pool with some added features. In particular, Percona added priority scheduling to its 5.5-5.7 releases. MariaDB and Percona priority scheduling works in a similar fashion, but there are some differences in details.
 
-* MariaDB's 10.2 thread\_pool\_priority=auto,high, low correspond to Percona's thread\_pool\_high\_prio\_mode=transactions,statements,none
-* Percona has a thread\_pool\_high\_prio\_tickets connection variable to allow every nth low priority query to be put into the high priority queue. MariaDB does not have corresponding settings.
-* MariaDB has a thread\_pool\_prio\_kickup\_timer setting, which Percona does not have.
-
-## Thread Pool Internals
-
-Low-level implementation details are documented in the [WL#246](https://web.archive.org/web/20160526152157/https://worklog.askmonty.org/worklog/Server-BackLog/?tid=246)
+* MariaDB's `thread_pool_priority=auto,high, low` correspond to Percona's `thread_pool_high_prio_mode=transactions,statements,none`.
+* Percona has a `thread_pool_high_prio_tickets` connection variable to allow every nth low priority query to be put into the high priority queue. MariaDB does not have a corresponding setting.
+* MariaDB has a `thread_pool_prio_kickup_timer` setting, which Percona does not have.
 
 ## Running Benchmarks
 
-When running sysbench and maybe other benchmarks, that create many threads on the same machine as the server, it is advisable to run benchmark driver and server on different CPUs to get the realistic results. Running lots of driver threads and only several server threads on the same CPUs will have the effect that OS scheduler will schedule benchmark driver threads to run with much higher probability than the server threads, that is driver will pre-empt the server. Use "taskset –c" on Linuxes, and "set /affinity" on Windows to separate benchmark driver and server CPUs, as the preferred method to fix this situation.
+When running `sysbench` and maybe other benchmarks, that create many threads on the same machine as the server, it is advisable to run benchmark driver and server on different CPUs to get the realistic results. Running lots of driver threads and only several server threads on the same CPUs will have the effect that OS scheduler will schedule benchmark driver threads to run with much higher probability than the server threads, that is driver will pre-empt the server. Use "taskset –c" on Linuxes, and "set /affinity" on Windows to separate benchmark driver and server CPUs, as the preferred method to fix this situation.
 
 A possible alternative on Unix (if taskset or a separate machine running the benchmark is not desired for some reason) would be to increase thread\_pool\_size to make the server threads more "competitive" against the client threads.
 
@@ -233,7 +195,6 @@ The [thread\_cache\_size](../../system-variables/server-system-variables.md#thre
 
 * [Thread Pool System and Status Variables](thread-pool-system-status-variables.md)
 * [Threadpool Benchmarks](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/quality/benchmarks-and-long-running-tests/benchmark-results/threadpool-benchmarks)
-* [Thread Pool in MariaDB 5.1 - 5.3](thread-pool-in-mariadb-51-53.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

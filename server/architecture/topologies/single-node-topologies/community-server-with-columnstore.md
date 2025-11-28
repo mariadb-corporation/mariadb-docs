@@ -462,7 +462,7 @@ The credentials for cross engine joins were previously configured in the [Cross 
     ```bash
     $ sudo mariadb
     ```
-2.  Create the user account with the [CREATE USER](broken-reference/) statement:
+2.  Create the user account with the [CREATE USER](../../../reference/sql-statements/account-management-sql-statements/create-user.md) statement:
 
     ```sql
     CREATE USER 'cross_engine'@'127.0.0.1'

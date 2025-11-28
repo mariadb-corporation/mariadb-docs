@@ -1,3 +1,9 @@
+---
+description: >-
+  Extract data from a JSON document. This function returns data from a JSON
+  document selected by a given path.
+---
+
 # JSON\_EXTRACT
 
 ## Syntax

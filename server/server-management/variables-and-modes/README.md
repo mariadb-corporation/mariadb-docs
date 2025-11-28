@@ -19,12 +19,16 @@ description: >-
 [server-system-variables.md](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md)
 {% endcontent-ref %}
 
-{% content-ref url="old-mode.md" %}
-[old-mode.md](old-mode.md)
+{% content-ref url="new_mode.md" %}
+[new\_mode.md](new_mode.md)
 {% endcontent-ref %}
 
-{% content-ref url="sql-mode.md" %}
-[sql-mode.md](sql-mode.md)
+{% content-ref url="old_mode.md" %}
+[old\_mode.md](old_mode.md)
+{% endcontent-ref %}
+
+{% content-ref url="sql_mode.md" %}
+[sql\_mode.md](sql_mode.md)
 {% endcontent-ref %}
 
 {% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql" %}

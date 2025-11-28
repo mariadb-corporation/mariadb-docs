@@ -1,3 +1,9 @@
+---
+description: >-
+  This function checks whether a specific user account is enabled for
+  instrumentation in the Performance Schema setup_actors table.
+---
+
 # ps\_is\_account\_enabled
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

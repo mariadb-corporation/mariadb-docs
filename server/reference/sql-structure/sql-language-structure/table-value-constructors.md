@@ -8,7 +8,7 @@ VALUES ( row_value[, row_value...]), (...)...
 
 ## Description
 
-In Unions, Views, and subqueries, a Table Value Constructor (TVC) allows you to inject arbitrary values into the result set. The given values must have the same number of columns as the result set, otherwise it returns [Error 1222](broken-reference).
+In Unions, Views, and subqueries, a Table Value Constructor (TVC) allows you to inject arbitrary values into the result set. The given values must have the same number of columns as the result set, otherwise it returns [Error 1222](../../error-codes/mariadb-error-codes-1200-to-1299/e1222.md).
 
 ## Examples
 

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore Performance Schema tables in MariaDB Server. These system tables
-  provide granular details on server activity and resource consumption, vital
-  for performance analysis and diagnostics.
+  Explore the tables in the performance_schema database, which expose granular
+  metrics on server events, locks, threads, and I/O for detailed performance
+  analysis.
 ---
 
 # Performance Schema Tables

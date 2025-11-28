@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a MultiLineString value using its WKT representation and an
+  optional SRID.
+---
+
 # ST\_MultiLineStringFromText
 
 A synonym for [ST\_GeomFromText](st_geomfromtext.md).

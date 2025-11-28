@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a date from a year and day of year. This function constructs a DATE
+  value given a year and the day number within that year.
+---
+
 # MAKEDATE
 
 ## Syntax

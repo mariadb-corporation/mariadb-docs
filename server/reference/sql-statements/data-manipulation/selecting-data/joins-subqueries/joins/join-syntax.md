@@ -1,3 +1,10 @@
+---
+description: >-
+  Review the full syntax for SQL joins in MariaDB. This guide details the
+  structure of table references, index hints, and various join types supported
+  in SELECT, UPDATE, and DELETE statements.
+---
+
 # JOIN Syntax
 
 {% hint style="info" %}

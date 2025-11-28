@@ -13,7 +13,7 @@ Logical `OR`. When both operands are non-`NULL`, the result is `1` if any operan
 For this operator, [short-circuit evaluation](../operator-precedence.md#short-circuit-evaluation) can be used.
 
 {% hint style="warning" %}
-Note that, if the `PIPES_AS_CONCAT` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is set, `||` is used as a string concatenation operator. This means that `a || b` is the same as `CONCAT(a,b)`. See [CONCAT()](../../../sql-functions/string-functions/concat.md) for details.
+Note that, if the `PIPES_AS_CONCAT` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set, `||` is used as a string concatenation operator. This means that `a || b` is the same as `CONCAT(a,b)`. See [CONCAT()](../../../sql-functions/string-functions/concat.md) for details.
 {% endhint %}
 
 ### Oracle Mode

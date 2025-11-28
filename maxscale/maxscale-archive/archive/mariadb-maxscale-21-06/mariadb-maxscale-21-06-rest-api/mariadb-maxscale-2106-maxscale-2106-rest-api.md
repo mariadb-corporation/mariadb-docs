@@ -179,7 +179,7 @@ prefix is not used, the latest API version is used.
 
 #### Resource Relationships
 
-All resources return complete JSON objects. The returned objects can have &#x61;_&#x72;elationships_ field that represents any relations the object has to other\
+All resources return complete JSON objects. The returned objects can have a_relationships_ field that represents any relations the object has to other\
 objects. This closely resembles the JSON API definition of links.
 
 In the _relationships_ objects, all resources have a _self_ link that points to\

@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a dynamic column blob. This function generates a binary string
+  containing specified column names and values for storage in a BLOB.
+---
+
 # COLUMN\_CREATE
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Pattern matching operator. This function tests whether a string matches a
+  specified SQL pattern using wildcards like '%' and '_'.
+---
+
 # LIKE
 
 ## Syntax

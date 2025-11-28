@@ -4,13 +4,13 @@ To minimize downtime during migration, you can set up live replication from your
 
 ## Prerequisites
 
-1. An active MariaDB Cloud account. Identify requirements for your MariaDB Cloud implementation prior to [deployment](../../../cloud-usage/portal-features/launch-page.md), including:
-
-* Topology - Mariadb Server Single node or with Replica(s)
-* [Instance size](broken-reference)
-* Storage requirements
-* Desired server version
-
+1. An active MariaDB Cloud account. Identify the following requirements for your MariaDB Cloud implementation prior to [deployment](../../../cloud-usage/launch-page.md), including:
+   * Topology - Provisioned or Serverless
+     * Provisioned: MariaDB Server Single node or with Replicas
+     * Serverless: MariaDB Serverless Single Node
+   * Instance size
+   * Storage requirements
+   * Desired server version
 2. An existing source database with the IP added to your MariaDB Cloud allowlist.
 
 ## Steps
@@ -64,7 +64,7 @@ mysql -h [hostname] -u [username] -p \
 {% endstep %}
 
 {% step %}
-### **Import Dumps Into MariaDB Cloud**
+### **Import Dumps into MariaDB Cloud**
 
 Import the logical dumps (SQL files) into your MariaDB Cloud database, ensuring to load the user and grant dumps after the main dump.
 
@@ -80,7 +80,7 @@ If you encounter an error while importing your users, you may need to uninstall 
 {% step %}
 ### **Start Replication**
 
-Turn on replication using MariaDB Cloud stored procedures. There are procedures allowing you to set and start replication. See our [documentation](../../../reference-guide/stored-procedures.md) for details. The `dump.sql` file you created in step 1 will contain the GTID and binary log information needed for the `change_external_primary` procedure.
+Turn on replication using MariaDB Cloud stored procedures. There are procedures allowing you to set up and start replication. See our [documentation](../../../reference-guide/stored-procedures.md) for details. The `dump.sql` file you created in step 1 will contain the GTID and binary log information needed for the `change_external_primary` procedure.
 
 ```sql
 CALL sky.change_external_primary(host VARCHAR(255), port INT, logfile TEXT, logpos LONG,
@@ -135,11 +135,10 @@ UNINSTALL PLUGIN simple_password_check;
 ### Monitoring and Logging
 
 * **Enable Detailed Logging**: Enable detailed logging while testing the migration process to monitor and troubleshoot effectively. The slow\_log can be enabled in the MariaDB Cloud configuration manager.
-* **Resource Monitoring**: Use monitoring tools to track resource usage (CPU, memory, I/O) during the migration to ensure system stability. See our [monitoring documentation](../../../cloud-usage/portal-features/service-monitoring-panels.md) for details.
+* **Resource Monitoring**: Use monitoring tools to track resource usage (CPU, memory, I/O) during the migration to ensure system stability. See our [monitoring documentation](../../../cloud-usage/service-monitoring-panels.md) for details.
 
 ## See Also
 
 * [Backup with mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump)
 * [MariaDB Backup Documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore)
 * [Advanced Backup Techniques](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/backup-optimization)
-* [Migrate RDS MySQL to MariaDB Cloud using the AWS Data Migration Service (DMS)](../../../Data%20loading,%20Migration/migrate-rds-mysql-to-skysql-using-amazon-data-migration-service_whitepaper_1109.pdf)

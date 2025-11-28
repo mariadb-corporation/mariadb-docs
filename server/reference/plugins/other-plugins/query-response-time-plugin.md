@@ -1,3 +1,9 @@
+---
+description: >-
+  The Query Response Time plugin collects and displays the distribution of query
+  execution times, helping to identify performance bottlenecks.
+---
+
 # Query Response Time Plugin
 
 The `query_response_time` plugin creates the [QUERY\_RESPONSE\_TIME](../../system-tables/information-schema/information-schema-tables/information-schema-query_response_time-table.md) table in the [INFORMATION\_SCHEMA](../../system-tables/information-schema/) database. The plugin also adds the [SHOW QUERY\_RESPONSE\_TIME](../../sql-statements/administrative-sql-statements/show/show-query_response_time.md) and [FLUSH QUERY\_RESPONSE\_TIME](query-response-time-plugin.md#flushing-plugin-data) statements.

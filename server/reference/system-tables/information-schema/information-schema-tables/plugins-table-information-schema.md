@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema PLUGINS table contains information about server
+  plugins, including their status, type, and library paths.
+---
+
 # Information Schema PLUGINS Table
 
 The [Information Schema](../) `PLUGINS` table contains information about [server plugins](../../../plugins/).

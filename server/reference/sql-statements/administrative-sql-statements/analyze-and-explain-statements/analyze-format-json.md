@@ -1,3 +1,10 @@
+---
+description: >-
+  Gain deep insight into query execution with JSON-formatted analysis. This
+  command combines optimizer estimates with actual runtime statistics for
+  precise performance tuning.
+---
+
 # ANALYZE FORMAT=JSON
 
 `ANALYZE FORMAT=JSON` is a mix of the [EXPLAIN FORMAT=JSON](explain-format-json.md) and [ANALYZE](analyze-statement.md) statement features. The `ANALYZE FORMAT=JSON $statement` will execute `$statement`, and then print the output of `EXPLAIN FORMAT=JSON`, amended with data from the query execution.

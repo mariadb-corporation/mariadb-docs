@@ -41,7 +41,7 @@ The most common ones have a value for all built-in errors, and can be read both 
 
 `RETURNED_SQLSTATE` is the `SQLSTATE` of the condition. It is a five characters code, composed by a class (first two characters) and a subclass (last three characters). For more information about this property, refer to the [SQLSTATE](sqlstate.md) page.
 
-`MYSQL_ERRNO` is the error code. Each built-in condition has a unique numeric code. 0 indicates success, but it cannot be explicitly set or read via SQL. For a list of built-in error codes, refer to [MariaDB Error Codes](broken-reference). The API function to read it is mysql\_errno().
+`MYSQL_ERRNO` is the error code. Each built-in condition has a unique numeric code. 0 indicates success, but it cannot be explicitly set or read via SQL. For a list of built-in error codes, refer to [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md). The API function to read it is mysql\_errno().
 
 `MESSAGE_TEXT` is a descriptive, human-readable message. For built-in errors, parsing this string is the only way to get more information about the error. For example, parsing a message like "Table 'tab1' already exists", a program can find out that the missing table is tab1. The API function to read it is mysql\_error().
 
@@ -114,7 +114,7 @@ All these statements can also be executed inside a stored routine. However, only
 * [SHOW WARNINGS](../../administrative-sql-statements/show/show-warnings.md)
 * [SHOW ERRORS](../../administrative-sql-statements/show/show-errors.md)
 * [DECLARE HANDLER](../declare-handler.md)
-* [MariaDB Error Codes](broken-reference)
+* [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

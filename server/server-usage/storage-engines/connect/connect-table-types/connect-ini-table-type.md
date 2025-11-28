@@ -102,7 +102,7 @@ section key will delete the whole section.
 
 To be a good candidate for tabular representation, an INI file should have\
 often the same keys in all sections. In practice, many files commonly found on\
-computers, such as the _win.ini_ file of the Windows directory or th&#x65;_&#x6D;y.ini_ file cannot be viewed that way because each section has different\
+computers, such as the _win.ini_ file of the Windows directory or the_&#x6D;y.ini_ file cannot be viewed that way because each section has different\
 keys. In this case, a second way is to regard the file as a table having one\
 row per section key and whose columns can be the section name, the key name,\
 and the key value.

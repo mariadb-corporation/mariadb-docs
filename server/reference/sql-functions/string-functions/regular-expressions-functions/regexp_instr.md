@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the index of a regex match. This function finds the starting position
+  of the first substring that matches the given pattern.
+---
+
 # REGEXP\_INSTR
 
 ## Syntax

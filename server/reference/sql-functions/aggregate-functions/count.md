@@ -1,3 +1,9 @@
+---
+description: >-
+  Count rows or values. This function returns the number of rows that match
+  criteria or the number of non-NULL values in an expression.
+---
+
 # COUNT
 
 ## Syntax

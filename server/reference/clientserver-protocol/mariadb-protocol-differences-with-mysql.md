@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about the specific extensions and differences in the MariaDB protocol
+  compared to MySQL, such as extended capability flags and metadata.
+---
+
 # MariaDB Protocol Differences with MySQL
 
 Here is a list of the differences between MariaDB and MySQL in terms of protocol, in order to help community driver maintainers.
@@ -182,7 +188,7 @@ OK_Packet:
 
 MariaDB has specific authentication methods.
 
-* [ED25519 plugin](1-connecting/connection.md#client_ed25519-plugin)&#x20;
+* [ED25519 plugin](1-connecting/connection.md#client_ed25519-plugin)
 * [PARSEC plugin](1-connecting/connection.md#parsec-plugin) (from MariaDB 11.6.1)
 * [GSSAPI plugin](1-connecting/connection.md#auth_gssapi_client-plugin)
 
@@ -335,7 +341,7 @@ When the server support `MARIADB_CLIENT_STMT_BULK_OPERATIONS` capability, a spec
 * Send a [COM\_STMT\_PREPARE](3-binary-protocol-prepared-statements/com_stmt_prepare.md) then a [COM\_STMT\_EXECUTE](3-binary-protocol-prepared-statements/com_stmt_execute.md) with statement ID `-1` (0xffffffff) commands to the server.
 * Read the prepare and execute responses.
 
-If the [COM\_STMT\_PREPARE](3-binary-protocol-prepared-statements/com_stmt_prepare.md) command returns an error (`ERR_Packet`), the subsequent [COM\_STMT\_EXECUTE](3-binary-protocol-prepared-statements/com_stmt_execute.md) with statement ID `-1`  also fails and returns an error.
+If the [COM\_STMT\_PREPARE](3-binary-protocol-prepared-statements/com_stmt_prepare.md) command returns an error (`ERR_Packet`), the subsequent [COM\_STMT\_EXECUTE](3-binary-protocol-prepared-statements/com_stmt_execute.md) with statement ID `-1` also fails and returns an error.
 
 By eliminating the round trip for the separate `COM_STMT_EXECUTE` command, this approach improves performance for the first execution.
 

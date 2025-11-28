@@ -1,3 +1,10 @@
+---
+description: >-
+  The unix_socket plugin authenticates users connecting via the local Unix
+  socket file by matching the operating system user ID to the database user
+  account.
+---
+
 # Authentication Plugin - Unix Socket
 
 The `unix_socket` authentication plugin is installed by default, and it is used by the `'root'@'localhost'` user account by default. See [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more information.
@@ -99,7 +106,7 @@ To create a user account via [CREATE USER](../../sql-statements/account-manageme
 CREATE USER username@hostname IDENTIFIED VIA unix_socket;
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA unix_socket;

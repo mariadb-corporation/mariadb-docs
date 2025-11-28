@@ -51,8 +51,8 @@ MariaDB Enterprise Server 10.3.24-8 was released on 2020-09-08.
 * Latency and throughput regression identified in write-heavy benchmarks for latest releases in MariaDB Server 10.2, 10.3, and 10.4. (MENT-909)
 * `START SLAVE UNTIL .. file ..` pos stops at an earlier position earlier than defined if the transaction that spans over the given stop position has to roll back due to conflicts. ([MDEV-15152](https://jira.mariadb.org/browse/MDEV-15152))
 * `mariadb-backup` [--prepare](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) does not stop on errors while applying [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) redo log. ([MDEV-22354](https://jira.mariadb.org/browse/MDEV-22354))
-* Point in time recovery of binary log fails with syntax error when [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode). ([MDEV-23108](https://jira.mariadb.org/browse/MDEV-23108))
-* Replication aborts with [ER\_SLAVE\_CONVERSION\_FAILED](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) upon `CREATE .. SELECT` when [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode). ([MDEV-19632](https://jira.mariadb.org/browse/MDEV-19632))
+* Point in time recovery of binary log fails with syntax error when [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode). ([MDEV-23108](https://jira.mariadb.org/browse/MDEV-23108))
+* Replication aborts with [ER\_SLAVE\_CONVERSION\_FAILED](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) upon `CREATE .. SELECT` when [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode). ([MDEV-19632](https://jira.mariadb.org/browse/MDEV-19632))
 * Regression in Audit Plugin Performance. (MENT-700)
 
 ### Related to install and upgrade
@@ -99,7 +99,7 @@ In alignment with the [enterprise lifecycle](https://app.gitbook.com/o/diTpXxF5W
 Some components of MariaDB Enterprise Server might not support all platforms. For additional information, see "[MariaDB Corporation Engineering Policies](https://mariadb.com/engineering-policies)".
 
 {% hint style="info" %}
-#### Note
+**Note**
 
 CentOS 6, Debian 8, and Red Hat Enterprise Linux 6 are no longer supported as per the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies). Older releases are available from the [MariaDB Downloads page](https://mariadb.com/downloads). Instructions for installation are included as a `README` file within the download.
 {% endhint %}

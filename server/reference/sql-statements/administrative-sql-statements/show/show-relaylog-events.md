@@ -1,3 +1,9 @@
+---
+description: >-
+  Inspect events in the relay log. This statement displays replication events
+  from the relay log on a replica server.
+---
+
 # SHOW RELAYLOG EVENTS
 
 {% hint style="info" %}

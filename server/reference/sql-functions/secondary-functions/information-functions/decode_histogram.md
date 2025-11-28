@@ -1,3 +1,9 @@
+---
+description: >-
+  Inspect histogram data. This function allows viewing the distribution
+  statistics stored in a histogram for query optimization analysis.
+---
+
 # DECODE\_HISTOGRAM
 
 ## Syntax

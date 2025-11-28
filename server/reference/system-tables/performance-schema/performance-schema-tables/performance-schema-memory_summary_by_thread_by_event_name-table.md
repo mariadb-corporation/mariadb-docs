@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes memory usage events aggregated by thread and event name,
+  allowing for detailed memory profiling of individual threads.
+---
+
 # Performance Schema memory\_summary\_by\_thread\_by\_event\_name Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Delete one or more user accounts. Understand how to remove users and their
+  associated privileges from the database system safely.
+---
+
 # DROP USER
 
 ## Syntax
@@ -36,8 +42,6 @@ Failed `CREATE` or `DROP` operations, for both users and roles, produce the same
 If the `IF EXISTS` clause is used, MariaDB will return a note instead of an error if the user does not exist.
 
 The `CREATE USER` statement creates new MariaDB accounts. To use it, you must have the global [CREATE USER](grant.md#create-user) privilege or the [INSERT](grant.md#table-privileges) privilege for the [mysql](../../system-tables/the-mysql-database-tables/) database.
-
-
 
 If any of the specified accounts, or any permissions f
 

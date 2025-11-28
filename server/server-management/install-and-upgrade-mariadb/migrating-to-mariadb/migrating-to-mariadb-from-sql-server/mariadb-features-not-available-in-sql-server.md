@@ -17,7 +17,7 @@ This page has a list of MariaDB features that are not supported in SQL Server. T
 
 ## SQL
 
-* The [sql\_mode](../../../variables-and-modes/sql-mode.md) variable determines in which cases an SQL statement should fail with an error, and in which cases it should succeed with a warning even if it is not entirely correct. For example, when a statement tries to insert a string in a column which is not big enough to contain it, it could fail, or it could insert a truncated string and emit a warning. It is a tradeoff between reliability and flexibility.
+* The [sql\_mode](../../../variables-and-modes/sql_mode.md) variable determines in which cases an SQL statement should fail with an error, and in which cases it should succeed with a warning even if it is not entirely correct. For example, when a statement tries to insert a string in a column which is not big enough to contain it, it could fail, or it could insert a truncated string and emit a warning. It is a tradeoff between reliability and flexibility.
   * [SQL\_MODE=MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) allows one to use a small subset of SQL Server proprietary syntax.
 * The [CREATE ... IF EXISTS, CREATE OR REPLACE, DROP ... IF NOT EXISTS](syntax-differences-between-mariadb-and-sql-server.md#if-exists-if-not-exists-or-replace) options are supported for most [DDL statements](../../../../reference/sql-statements/data-definition/).
 * [SHOW](syntax-differences-between-mariadb-and-sql-server.md#show-statements) statements.

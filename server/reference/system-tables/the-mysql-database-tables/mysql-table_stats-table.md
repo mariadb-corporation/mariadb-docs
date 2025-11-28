@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.table_stats table stores engine-independent statistics about tables,
+  such as row counts, to assist the optimizer.
+---
+
 # mysql.table\_stats Table
 
 The `mysql.table_stats` table is one of three tables storing data used for [Engine-independent table statistics](../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics.md). The others are [mysql.column\_stats](mysql-column_stats-table.md) and [mysql.index\_stats](mysql-index_stats-table.md).

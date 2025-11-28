@@ -1,3 +1,9 @@
+---
+description: >-
+  Lock rows for write operations. This clause prevents other transactions from
+  modifying or reading the selected rows until the current transaction ends.
+---
+
 # FOR UPDATE
 
 InnoDB supports row-level locking. Selected rows can be locked using [LOCK IN SHARE MODE](lock-in-share-mode.md) or FOR UPDATE. In both cases, a lock is acquired on the rows read by the query, and it will be released when the current transaction is committed.

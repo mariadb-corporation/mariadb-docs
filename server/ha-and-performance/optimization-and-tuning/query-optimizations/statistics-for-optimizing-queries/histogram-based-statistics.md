@@ -61,11 +61,11 @@ The [optimizer\_use\_condition\_selectivity](../../system-variables/server-syste
 * `4` Use selectivity of all range predicates estimated with histogram.
 * `5` Additionally use selectivity of certain non-range predicates calculated on record sample.
 
-From [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1041-release-notes), the default is `4`. Until [MariaDB 10.4.0](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/broken-reference/README.md), the default is `1`.
+From [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1041-release-notes), the default is `4`. Until [MariaDB 10.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1040-release-notes), the default is `1`.
 
 ## Example
 
-Here is an example of the dramatic impact histogram-based statistics can make. The query is based on [DBT3 Benchmark Q20](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/broken-reference/README.md) with 60 millions records in the `lineitem` table.
+Here is an example of the dramatic impact histogram-based statistics can make. The query is based on [DBT3 Benchmark Q20](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/quality/benchmarks-and-long-running-tests/benchmarks) with 60 million records in the `lineitem` table.
 
 ```sql
 SELECT SQL_CALC_FOUND_ROWS s_name, s_address FROM 

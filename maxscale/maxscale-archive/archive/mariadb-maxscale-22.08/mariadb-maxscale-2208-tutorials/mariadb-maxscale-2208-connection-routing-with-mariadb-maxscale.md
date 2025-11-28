@@ -20,7 +20,7 @@ routes client connections to the master server, the other load balances between 
 servers. To achieve this, we need to define two services in the configuration file.
 
 Create the following two sections in your configuration file. The section names are the\
-names of the services and should be meaningful. For this tutorial, we use the name&#x73;_&#x57;rite-Service_ and _Read-Service_.
+names of the services and should be meaningful. For this tutorial, we use the names_Write-Service_ and _Read-Service_.
 
 ```
 [Write-Service]
@@ -74,7 +74,7 @@ service=Read-Service
 port=3307
 ```
 
-The _service_ parameter tells which service the listener connects to. For th&#x65;_&#x57;rite-Listener_ we set it to _Write-Service_ and for the _Read-Listener_ we set\
+The _service_ parameter tells which service the listener connects to. For the_Write-Listener_ we set it to _Write-Service_ and for the _Read-Listener_ we set\
 it to _Read-Service_.
 
 A listener must define the network port to listen on.

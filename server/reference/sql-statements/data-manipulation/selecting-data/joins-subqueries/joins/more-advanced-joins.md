@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore complex join scenarios. This guide covers filtering joined data with
+  WHERE clauses, handling dates, and aggregating results from multiple tables
+  for deeper analysis.
+---
+
 # More Advanced Joins
 
 This article is a continuation of the [Joining Tables with JOIN Clauses Guide](../../../../../../mariadb-quickstart-guides/mariadb-join-guide.md). If you're getting started with `JOIN` statements, review that page first.

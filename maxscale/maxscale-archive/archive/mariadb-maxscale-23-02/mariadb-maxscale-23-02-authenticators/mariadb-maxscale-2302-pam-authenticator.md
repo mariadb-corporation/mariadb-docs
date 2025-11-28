@@ -39,7 +39,7 @@ port=12345
 MaxScale uses the PAM authenticator plugin to authenticate users with _plugin_\
 set to "pam" in the _mysql.user_-table. The PAM service name of a user is read\
 from the _authetication\_string_-column. The matching PAM service in the\
-operating system PAM config is used for authenticating the user. If th&#x65;_&#x61;uthetication\_string_ for a user is empty, the fallback service "mysql" is\
+operating system PAM config is used for authenticating the user. If the_authetication\_string_ for a user is empty, the fallback service "mysql" is\
 used.
 
 PAM service configuration is out of the scope of this document, see [The Linux-PAM System Administrators' Guide](https://www.linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html)\
@@ -90,7 +90,7 @@ passwords ("Password" and "Verification code") during login. MaxScale uses the\
 normal password when either the local PAM api or a backend asks for "Password".\
 MaxScale answers any other password prompt (e.g. "Verification code") with the\
 second password. See [the limitations section](mariadb-maxscale-2302-pam-authenticator.md#implementation-details-and-limitations)\
-for more details. Two-factor mode is incompatible wit&#x68;_&#x70;am\_use\_cleartext\_plugin_.
+for more details. Two-factor mode is incompatible with_pam\_use\_cleartext\_plugin_.
 
 #### `pam_backend_mapping`
 
@@ -123,7 +123,7 @@ Because the client still needs to authenticate to MaxScale normally, an\
 anonymous user may be required. If the backends do not allow such a user, one\
 can be manually added using the service setting [user\_accounts\_file](../mariadb-maxscale-23-02-getting-started/mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#user_accounts_file).
 
-To map usernames, the PAM service needs to use a module such a&#x73;_&#x70;am\_user\_map.so_. This module is not a standard Linux component and needs to be\
+To map usernames, the PAM service needs to use a module such as_pam\_user\_map.so_. This module is not a standard Linux component and needs to be\
 installed separately. It is included in recent MariaDB Server packages and can\
 also be compiled from source. See [user mapping](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-with-pluggable-authentication-modules-pam/user-and-group-mapping-with-pam)\
 for more information on how to configure the module. If the goal is to only map\

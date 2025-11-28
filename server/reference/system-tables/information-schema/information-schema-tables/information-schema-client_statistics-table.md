@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema CLIENT_STATISTICS table holds statistics about client
+  connections, such as total connections, bytes sent/received, and command
+  counts.
+---
+
 # Information Schema CLIENT\_STATISTICS Table
 
 The [Information Schema](../) `CLIENT_STATISTICS` table holds statistics about client connections. This is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature, which is not enabled by default.

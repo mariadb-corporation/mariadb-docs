@@ -1,3 +1,9 @@
+---
+description: >-
+  This table records the ten most recent completed statement events per thread,
+  offering a short-term history of executed SQL statements.
+---
+
 # Performance Schema events\_statements\_history Table
 
 The `events_statements_history` table by default contains the ten most recent completed statement events per thread. This number can be adjusted by setting the [performance\_schema\_events\_statements\_history\_size](../performance-schema-system-variables.md#performance_schema_events_statements_history_size) system variable when the server starts up.
@@ -25,9 +31,9 @@ The table contains the following columns:
 | OBJECT\_NAME               | Reserved, currently NULL                                                                                                                                                                                                                                      |
 | OBJECT\_TYPE               | Reserved, currently NULL                                                                                                                                                                                                                                      |
 | OBJECT\_INSTANCE\_BEGIN    | Address in memory of the statement object.                                                                                                                                                                                                                    |
-| MYSQL\_ERRNO               | Error code. See [MariaDB Error Codes](broken-reference) for a full list.                                                                                                                                                                                      |
+| MYSQL\_ERRNO               | Error code. See [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md) for a full list.                                                                                                                                                  |
 | RETURNED\_SQLSTATE         | The [SQLSTATE](../../../sql-statements/programmatic-compound-statements/programmatic-compound-statements-diagnostics/sqlstate.md) value.                                                                                                                      |
-| MESSAGE\_TEXT              | Statement error message. See [MariaDB Error Codes](broken-reference).                                                                                                                                                                                         |
+| MESSAGE\_TEXT              | Statement error message. See [MariaDB Error Codes](../../../error-codes/mariadb-error-code-reference.md).                                                                                                                                                     |
 | ERRORS                     | 0 if SQLSTATE signifies completion (starting with 00) or warning (01), otherwise 1.                                                                                                                                                                           |
 | WARNINGS                   | Number of warnings from the diagnostics area.                                                                                                                                                                                                                 |
 | ROWS\_AFFECTED             | Number of rows affected the statement affected.                                                                                                                                                                                                               |

@@ -114,7 +114,7 @@ If you select the `sql` permission, a **"Query editor row limit"** dropdown will
 {% endhint %}
 
 {% hint style="warning" %}
-When creating a role, selecting the `edit` permission requires you to also select the `view` permission.&#x20;
+When creating a role, selecting the `edit` permission requires you to also select the `view` permission. 
 {% endhint %}
 {% endstep %}
 {% endstepper %}
@@ -161,7 +161,7 @@ Roles that are currently assigned to any user cannot be deleted.
 From the User Management page, ensure you are on the **Users** tab.
 
 {% hint style="info" %}
-Users tab show the list of User associated with your Enterprise Manager instance.&#x20;
+Users tab show the list of User associated with your Enterprise Manager instance. 
 
 ![](<../../../.gitbook/assets/image (60).png>)
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Deletes binary log files from the server. Removes logs based on a specific
+  filename or date timestamp to reclaim disk space and manage storage.
+---
+
 # PURGE BINARY LOGS
 
 ## Syntax
@@ -63,3 +69,4 @@ PURGE BINARY LOGS BEFORE '2013-04-22 09:55:22';
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
+

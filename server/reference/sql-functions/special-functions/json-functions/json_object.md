@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a JSON object. This function evaluates a list of key-value pairs and
+  returns a JSON object containing those pairs.
+---
+
 # JSON\_OBJECT
 
 ## Syntax

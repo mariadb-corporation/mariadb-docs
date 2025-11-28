@@ -1,3 +1,9 @@
+---
+description: >-
+  This page defines the fundamental data types used in the MariaDB client/server
+  protocol, including integers, strings, and binary representations.
+---
+
 # Protocol Data Types
 
 ## List of Possible Types

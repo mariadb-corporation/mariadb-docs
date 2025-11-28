@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the length of a string in bytes. This function is a synonym for
+  LENGTH() and returns the number of bytes in the string.
+---
+
 # OCTET\_LENGTH
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the Soundex string. This function calculates the Soundex key for a
+  string, allowing comparison of words that sound similar.
+---
+
 # SOUNDEX
 
 ## Syntax

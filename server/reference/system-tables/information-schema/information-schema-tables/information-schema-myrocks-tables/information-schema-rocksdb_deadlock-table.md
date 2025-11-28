@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_DEADLOCK table provides information about
+  deadlocks that have occurred within the MyRocks storage engine.
+---
+
 # Information Schema ROCKSDB\_DEADLOCK Table
 
 The [Information Schema](../../) `ROCKSDB_DEADLOCK` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

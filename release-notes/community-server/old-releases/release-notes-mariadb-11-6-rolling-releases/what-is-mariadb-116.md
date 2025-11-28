@@ -12,7 +12,7 @@
 
 ### Vectors
 
-* [Vectors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors) are a feature that allow MariaDB Server to perform as a relational vector database. In [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md), only available in the [Vector preview release](mariadb-11-6-0-vector-release-notes.md).
+* [Vectors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors) are a feature that allow MariaDB Server to perform as a relational vector database. In [MariaDB 10.6](../../10.6/what-is-mariadb-106.md), only available in the [Vector preview release](mariadb-11-6-0-vector-release-notes.md).
 * Vector Search was added to [MariaDB 11.7](../mariadb-11-7-rolling-releases/what-is-mariadb-117.md).
 
 ### Character Sets
@@ -58,12 +58,12 @@ Add listcve macro here - removed for performance reasons
 
 ## List of All [MariaDB 11.6](what-is-mariadb-116.md) Releases
 
-| Date        | Release                                                  | Status      | Release Notes                                           | Changelog                                                                                |
-| ----------- | -------------------------------------------------------- | ----------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| 21 Nov 2024 | [MariaDB 11.6.2](mariadb-11-6-2-release-notes.md)        | Stable (GA) | [Release Notes](mariadb-11-6-2-release-notes.md)        | [Changelog](../../changelogs/changelogs-mariadb-11-6-series/mariadb-11-6-2-changelog.md) |
-| 14 Aug 2024 | [MariaDB 11.6.1](mariadb-11-6-1-release-notes.md)        | RC          | [Release Notes](mariadb-11-6-1-release-notes.md)        | [Changelog](../../changelogs/changelogs-mariadb-11-6-series/mariadb-11-6-1-changelog.md) |
-| 29 Jul 2024 | [MariaDB 11.6.0](mariadb-11-6-0-release-notes.md) Vector | Alpha       | [Release Notes](mariadb-11-6-0-vector-release-notes.md) |                                                                                          |
-| 26 Jun 2024 | [MariaDB 11.6.0](mariadb-11-6-0-release-notes.md)        | Alpha       | [Release Notes](mariadb-11-6-0-release-notes.md)        |                                                                                          |
+| Date        | Release                                                  | Status      | Release Notes                                           | Changelog                                                      |
+| ----------- | -------------------------------------------------------- | ----------- | ------------------------------------------------------- | -------------------------------------------------------------- |
+| 21 Nov 2024 | [MariaDB 11.6.2](mariadb-11-6-2-release-notes.md)        | Stable (GA) | [Release Notes](mariadb-11-6-2-release-notes.md)        | [Changelog](../../changelogs/11.6/mariadb-11-6-2-changelog.md) |
+| 14 Aug 2024 | [MariaDB 11.6.1](mariadb-11-6-1-release-notes.md)        | RC          | [Release Notes](mariadb-11-6-1-release-notes.md)        | [Changelog](../../changelogs/11.6/mariadb-11-6-1-changelog.md) |
+| 29 Jul 2024 | [MariaDB 11.6.0](mariadb-11-6-0-release-notes.md) Vector | Alpha       | [Release Notes](mariadb-11-6-0-vector-release-notes.md) |                                                                |
+| 26 Jun 2024 | [MariaDB 11.6.0](mariadb-11-6-0-release-notes.md)        | Alpha       | [Release Notes](mariadb-11-6-0-release-notes.md)        |                                                                |
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

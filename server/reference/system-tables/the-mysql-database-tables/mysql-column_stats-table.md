@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.column_stats table stores engine-independent column statistics, such
+  as histograms, used by the optimizer to improve query execution plans.
+---
+
 # mysql.column\_stats Table
 
 The `mysql.column_stats` table is one of three tables storing data used for [Engine-independent table statistics](../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics.md). The others are [mysql.table\_stats](mysql-table_stats-table.md) and [mysql.index\_stats](mysql-index_stats-table.md).

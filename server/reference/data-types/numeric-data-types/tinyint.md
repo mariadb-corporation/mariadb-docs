@@ -1,3 +1,9 @@
+---
+description: >-
+  Very small integer type. A TINYINT column uses 1 byte and stores values from
+  -128 to 127 (signed) or 0 to 255 (unsigned).
+---
+
 # TINYINT
 
 ## Syntax
@@ -18,7 +24,7 @@ A very small [integer](int.md). The signed range is -128 to 127. The unsigned ra
 CREATE TABLE tinyints (a TINYINT,b TINYINT UNSIGNED,c TINYINT ZEROFILL);
 ```
 
-### With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) set
+### With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) set
 
 ```sql
 INSERT INTO tinyints VALUES (-10,-10,-10);

@@ -60,7 +60,7 @@ Get the detailed query information.
 
 ## Data Editor
 
-Advanced data filters.&#x20;
+Advanced data filters. 
 
 Browse and edit large objects in Data Viewer and Editor windows.
 

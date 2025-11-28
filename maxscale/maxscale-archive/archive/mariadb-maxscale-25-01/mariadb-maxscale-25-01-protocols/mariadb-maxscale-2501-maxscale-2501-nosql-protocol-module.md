@@ -739,7 +739,7 @@ with sha256 for use with the `SCRAM-SHA-256` authentication mechanism\
 (if that is enabled for the user).
 
 The account information can be stored _privately_, in which case it\
-can be used only by a particular MaxScale instance, or in &#x61;_&#x73;hared_ manner, in which case multiple MaxScale instances can\
+can be used only by a particular MaxScale instance, or in a_shared_ manner, in which case multiple MaxScale instances can\
 share the information and a user created/added on one instance\
 can be used on another.
 
@@ -1143,7 +1143,7 @@ CREATE TABLE name (id VARCHAR(35) AS (JSON_COMPACT(JSON_EXTRACT(doc, "$._id"))) 
 where the length of the `VARCHAR` is specified by the value of `id_length`,\
 whose default and minimum is 35.
 
-_NOTE_ If the tables are created manually, then the `CREATE` statemen&#x74;_&#x6D;ust_ contain a similar `AS`-clause as the one above and _should_ contain\
+_NOTE_ If the tables are created manually, then the `CREATE` statement_&#x6D;ust_ contain a similar `AS`-clause as the one above and _should_ contain\
 a similar constraint.
 
 Note that _nosqlprotocol_ does not in any way verify that the table\
@@ -1578,7 +1578,7 @@ with the value of `true` will cause the command to fail.
 
 **Behavior**
 
-Currently only updating using _update operator expressions_ or with &#x61;_&#x72;eplacement document_ is supported. In particular, updating using a&#x6E;_&#x61;ggregation pipeline_ is not supported.
+Currently only updating using _update operator expressions_ or with a_replacement document_ is supported. In particular, updating using a&#x6E;_aggregation pipeline_ is not supported.
 
 **# Update with an Update Operator Expressions document**
 
@@ -2695,7 +2695,7 @@ MongoDB database installed is convenient, as it makes it easy to ascertain\
 whether a problem is due to _nosqlprotocol_ not fully implementing something\
 or due to the API not being used in the correct fashion.
 
-With the _mongo shell_, all that is needed is to invoke it with the por&#x74;_&#x6E;osqlprotocol_ is listening on:
+With the _mongo shell_, all that is needed is to invoke it with the port_&#x6E;osqlprotocol_ is listening on:
 
 ```
 $ mongo --port 17017

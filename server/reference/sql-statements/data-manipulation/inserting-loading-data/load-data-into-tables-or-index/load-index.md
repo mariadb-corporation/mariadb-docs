@@ -1,3 +1,10 @@
+---
+description: >-
+  Preload table indexes into the key cache. This command, used for MyISAM
+  tables, loads index blocks into memory to warm up the cache and improve
+  subsequent query performance.
+---
+
 # LOAD INDEX
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  These tables provide status statistics on compressed pages within the buffer
+  pool, useful for analyzing compression efficiency.
+---
+
 # Information Schema INNODB\_CMPMEM and INNODB\_CMPMEM\_RESET Tables
 
 The `INNODB_CMPMEM` and `INNODB_CMPMEM_RESET` tables contain status information on compressed pages in the [buffer pool](../../../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) (see InnoDB [COMPRESSED](../../../../../server-usage/storage-engines/innodb/innodb-row-formats/innodb-row-formats-overview.md) format).

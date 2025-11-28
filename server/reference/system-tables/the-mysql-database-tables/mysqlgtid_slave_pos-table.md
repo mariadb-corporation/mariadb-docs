@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.gtid_slave_pos table tracks the Global Transaction ID (GTID) of the
+  last applied transaction on a replica to ensure replication consistency.
+---
+
 # mysql.gtid\_slave\_pos Table
 
 The `mysql.gtid_slave_pos` table is used in [replication](../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) by replica servers to keep track of their current position (the [global transaction ID](../../../ha-and-performance/standard-replication/gtid.md) of the last transaction applied). Using the table allows the replica to maintain a consistent value for the [gtid\_slave\_pos](../../../ha-and-performance/standard-replication/gtid.md) system variable across server restarts. See [Global Transaction ID](../../../ha-and-performance/standard-replication/gtid.md).
@@ -43,7 +49,7 @@ Number of replicated transactions that involved changes in multiple (transaction
 
 [Transactions\_multi\_engine](../../../ha-and-performance/standard-replication/replication-and-binary-log-status-variables.md#transactions_multi_engine)
 
-Number of transactions that changed data in multiple (transactional) storage engines. If this is significantly larger than `Rpl_transactions_multi_engine`, it indicates that  setting `gtid_pos_auto_engines` could reduce the need for cross-engine transactions.
+Number of transactions that changed data in multiple (transactional) storage engines. If this is significantly larger than `Rpl_transactions_multi_engine`, it indicates that setting `gtid_pos_auto_engines` could reduce the need for cross-engine transactions.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  The schema_auto_increment_columns view lists tables with AUTO_INCREMENT
+  columns, showing the current value and the maximum allowed value for the
+  column type.
+---
+
 # schema\_auto\_increment\_columns Sys Schema View
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

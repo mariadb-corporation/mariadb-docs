@@ -1,4 +1,4 @@
-# NEXT VALUE for sequence\_name
+# NEXT VALUE FOR
 
 ## Syntax
 
@@ -12,7 +12,7 @@ or
 NEXTVAL(sequence_name)
 ```
 
-or in Oracle mode ([SQL\_MODE=ORACLE](../../../../server-management/variables-and-modes/sql-mode.md))
+or in Oracle mode ([SQL\_MODE=ORACLE](../../../../server-management/variables-and-modes/sql_mode.md))
 
 ```sql
 sequence_name.nextval
@@ -32,7 +32,7 @@ Generate next value for a `SEQUENCE`.
 * `NEXT VALUE` requires the `INSERT` [privilege](../../../sql-statements/account-management-sql-statements/grant.md).
 * You can also use `NEXT VALUE FOR sequence` for column `DEFAULT`.
 
-Once the sequence is complete, unless the sequence has been created with the [CYCLE](../create-sequence.md#cycle-nocycle) attribute (not the default), calling the function will result in [Error 4084: Sequence has run out](broken-reference).
+Once the sequence is complete, unless the sequence has been created with the [CYCLE](../create-sequence.md#cycle-nocycle) attribute (not the default), calling the function will result in [Error 4084: Sequence has run out](../../../error-codes/mariadb-error-codes-4000-to-4099/e4084.md).
 
 ## Examples
 

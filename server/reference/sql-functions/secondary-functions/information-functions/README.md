@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about information functions in MariaDB Server. These SQL functions
-  provide details about the server, session, database, and user, aiding in
-  system monitoring and diagnostics.
+  Retrieve system and session metadata. This section details functions to access
+  database names, user details, version info, and query statistics like row
+  counts.
 ---
 
 # Information Functions

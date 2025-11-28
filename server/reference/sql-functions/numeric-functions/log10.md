@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate base-10 logarithm. This function returns the logarithm of a number
+  to the base 10.
+---
+
 # LOG10
 
 ## Syntax

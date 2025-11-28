@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema APPLICABLE_ROLES table shows the role authorizations
+  that the current user may use, detailing grantable and default status.
+---
+
 # Information Schema APPLICABLE\_ROLES Table
 
 The [Information Schema](../) `APPLICABLE_ROLES` table shows the [role authorizations](../../../../security/user-account-management/roles/) that the current user may use.

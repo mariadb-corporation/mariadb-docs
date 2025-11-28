@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate cosine. This function returns the cosine of an angle given in
+  radians.
+---
+
 # COS
 
 ## Syntax

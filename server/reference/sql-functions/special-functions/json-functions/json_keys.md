@@ -1,3 +1,9 @@
+---
+description: >-
+  Return keys from a JSON object. This function returns the keys from the
+  top-level value of a JSON object as a JSON array.
+---
+
 # JSON\_KEYS
 
 ## Syntax

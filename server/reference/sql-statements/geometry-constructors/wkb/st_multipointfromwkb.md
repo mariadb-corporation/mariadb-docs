@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a MultiLineString value using its WKB representation and an
+  optional SRID.
+---
+
 # ST\_MultiPointFromWKB
 
 A synonym for [ST\_GeomFromWKB](st_geomfromwkb.md).

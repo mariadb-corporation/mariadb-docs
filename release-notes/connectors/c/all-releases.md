@@ -1,3 +1,7 @@
+---
+description: A list of all MariaDB Connector/C Releases
+---
+
 # Connector/C All Releases
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/97ObD80oLdZu6qT33Vhb/" %}
@@ -6,6 +10,7 @@
 
 | Release               | Release Date | Release Status |
 | --------------------- | ------------ | -------------- |
+| [3.4.8](3.4/3.4.8.md) | 2025-11-21   | Stable (GA)    |
 | [3.4.7](3.4/3.4.7.md) | 2025-08-21   | Stable (GA)    |
 | [3.4.5](3.4/3.4.5.md) | 2025-04-09   | Stable (GA)    |
 | [3.4.4](3.4/3.4.4.md) | 2025-02-11   | Stable (GA)    |
@@ -17,6 +22,7 @@
 
 | Release                 | Release Date | Release Status |
 | ----------------------- | ------------ | -------------- |
+| [3.3.18](3.3/3.3.18.md) | 2025-11-21   | Stable (GA)    |
 | [3.3.17](3.3/3.3.17.md) | 2025-08-21   | Stable (GA)    |
 | [3.3.15](3.3/3.3.15.md) | 2025-04-09   | Stable (GA)    |
 | [3.3.14](3.3/3.3.14.md) | 2025-02-11   | Stable (GA)    |

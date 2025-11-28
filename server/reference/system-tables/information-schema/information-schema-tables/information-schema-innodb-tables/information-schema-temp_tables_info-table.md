@@ -1,3 +1,9 @@
+---
+description: >-
+  The TEMP_TABLES_INFO table lists active InnoDB temporary tables, including
+  their column counts and tablespace identifiers.
+---
+
 # Information Schema TEMP\_TABLES\_INFO Table
 
 {% hint style="info" %}

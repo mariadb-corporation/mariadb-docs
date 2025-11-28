@@ -1,8 +1,8 @@
 # Using and Maintaining the Binary Log
 
-See [Overview of the Binary Log](overview-of-the-binary-log.md) for a general overview of what the binary log is, and [Activating the Binary Log](activating-the-binary-log.md) for how to make sure it's running on your system.
+See [Overview of the Binary Log](overview-of-the-binary-log.md) for a general overview of what the binary log is and [Activating the Binary Log](activating-the-binary-log.md) for how to make sure it's running on your system.
 
-For details on using the binary log for replication, see the [Replication](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/server-monitoring-logs/binary-log/broken-reference/README.md) section.
+For details on using the binary log for replication, see the [Replication](../../../ha-and-performance/standard-replication/) section.
 
 ## Purging Log Files
 
@@ -13,9 +13,9 @@ If a replica is active but has yet to read from a binary log file you attempt to
 Log files can also be removed automatically with the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) system variable. This is set to 0 by default (no removal), but can be set to a time, in days, after which a binary log file will be automatically removed. Log files will only be checked for being older than [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) upon log rotation, so if your binary log only fills up slowly and does not reach [max\_binlog\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_size) on a daily basis, you may see older log files still being kept. You can also force log rotation, and so expiry deletes, by running [FLUSH BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) on a regular basis.\
 Always set [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) higher than any possible replica lag.
 
-From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106), the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion, and takes precedence if both are non-zero.
+From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion and takes precedence if both are non-zero.
 
-If the binary log index file has been removed, or incorrectly manually edited, all of the above forms of purging log files will fail. The .index file is a plain text file, and can be manually recreated or edited so that it lists only the binary log files that are present, in numeric/age order.
+If the binary log index file has been removed, or incorrectly manually edited, all of the above forms of purging log files will fail. The .index file is a plain text file and can be manually recreated or edited so that it lists only the binary log files that are present, in numeric/age order.
 
 ### Examples
 
@@ -39,9 +39,9 @@ To be sure replication is not broken while deleting log files, perform the follo
 
 ## Limiting the Binlog Size
 
-**MariaDB starting with** [**11.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)
+**MariaDB starting with** [**11.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4)
 
-From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), it's possible to limit the size of the binlog by setting the [max\_binlog\_total\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_total_size) system variable. If not set to zero, the total size of the binlog will be stored in the [binlog\_disk\_use](../../../ha-and-performance/standard-replication/replication-and-binary-log-status-variables.md#binlog_disk_use) status variable. It's also possible to limit the size of a single binlog file by setting [max\_binlog\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_size).
+From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4), it's possible to limit the size of the binlog by setting the [max\_binlog\_total\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_total_size) system variable. If not set to zero, the total size of the binlog will be stored in the [binlog\_disk\_use](../../../ha-and-performance/standard-replication/replication-and-binary-log-status-variables.md#binlog_disk_use) status variable. It's also possible to limit the size of a single binlog file by setting [max\_binlog\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_size).
 
 ## Binary Log Format
 

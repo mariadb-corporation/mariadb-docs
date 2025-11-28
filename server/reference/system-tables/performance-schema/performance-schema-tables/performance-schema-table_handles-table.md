@@ -1,3 +1,9 @@
+---
+description: >-
+  The table_handles table lists all open table handles, showing which threads
+  are currently accessing which table instances and the locks they hold.
+---
+
 # Performance Schema table\_handles Table
 
 {% hint style="info" %}

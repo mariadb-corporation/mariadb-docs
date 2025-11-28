@@ -1,3 +1,9 @@
+---
+description: >-
+  This command creates a new database on the server, functionally equivalent to
+  the SQL statement CREATE DATABASE.
+---
+
 # COM\_CREATE\_DB
 
 {% hint style="info" %}

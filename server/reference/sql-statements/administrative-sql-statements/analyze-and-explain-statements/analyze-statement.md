@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn to use the ANALYZE statement to execute a query and produce a
+  performance report. This command reveals how close the optimizer's plan was to
+  the actual execution.
+---
+
 # ANALYZE Statement
 
 ## Description

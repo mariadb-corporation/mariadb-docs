@@ -1,3 +1,9 @@
+---
+description: >-
+  This command resets the session state (variables, tables, etc.) to its initial
+  values without closing the connection.
+---
+
 # COM\_RESET\_CONNECTION
 
 `COM_RESET_CONNECTION` resets a connection without reauthentication.

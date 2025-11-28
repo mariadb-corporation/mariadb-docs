@@ -1,3 +1,9 @@
+---
+description: >-
+  Explicitly lock one or more tables. This statement acquires read or write
+  locks on tables, preventing other sessions from accessing them.
+---
+
 # LOCK TABLES
 
 ## Syntax

@@ -21,7 +21,7 @@ However, such accounts may be unable to connect from localhost if an anonymous u
 
 Accounts are not bound to a specific database. They are global. Once an account is created, it is possible to assign it permissions on any existing or non existing database.
 
-The [sql\_mode](../../../variables-and-modes/sql-mode.md) system variable has a [NO\_AUTO\_CREATE\_USER](../../../variables-and-modes/sql-mode.md#no_auto_create_user) flag. In recent MariaDB versions it is enabled by default. If it is not enabled, a [GRANT](../../../../reference/sql-statements/account-management-sql-statements/grant.md) statement specifying privileges for a non-existent account will automatically create that account.
+The [sql\_mode](../../../variables-and-modes/sql_mode.md) system variable has a [NO\_AUTO\_CREATE\_USER](../../../variables-and-modes/sql_mode.md#no_auto_create_user) flag. In recent MariaDB versions it is enabled by default. If it is not enabled, a [GRANT](../../../../reference/sql-statements/account-management-sql-statements/grant.md) statement specifying privileges for a non-existent account will automatically create that account.
 
 For more information: [Account Management SQL Commands](../../../../reference/sql-statements/account-management-sql-statements/).
 

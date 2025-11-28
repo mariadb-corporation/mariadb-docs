@@ -24,7 +24,7 @@ linked list and subsequent `INSERT` operations reuse old row positions.
 
 This statement requires [SELECT and INSERT privileges](../../../reference/sql-statements/account-management-sql-statements/grant.md) for the table.
 
-By default, `OPTIMIZE TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/optimizing-tables/broken-reference/README.md). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
+By default, `OPTIMIZE TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../standard-replication/replication-overview.md). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
 
 `OPTIMIZE TABLE` statements are not logged to the binary log if [read\_only](../system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Replicas](../../standard-replication/read-only-replicas.md).
 
@@ -32,18 +32,17 @@ By default, `OPTIMIZE TABLE` statements are written to the [binary log](../../..
 can use`[ALTER TABLE](../../../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... OPTIMIZE PARTITION`\
 to optimize one or more partitions.
 
-You can use `OPTIMIZE TABLE` to reclaim the unused\
-space and to defragment the data file. With other storage engines, `OPTIMIZE TABLE` does nothing by default, and returns this message: " The storage engine for the table doesn't support optimize". However, if the server has been started with the `--skip-new` option, `OPTIMIZE TABLE` is linked to [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), and recreates the table. This operation frees the unused space and updates index statistics.
+You can use `OPTIMIZE TABLE` to reclaim the unused space and to defragment the data file. With other storage engines, `OPTIMIZE TABLE` does nothing by default, and returns this message: " The storage engine for the table doesn't support optimize". However, if the server has been started with the `--skip-new` option, `OPTIMIZE TABLE` is linked to [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), and recreates the table. This operation frees the unused space and updates index statistics.
 
-The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/optimizing-tables/broken-reference/README.md) for this statement.
+The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for this statement.
 
 If a [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) table is fragmented, [concurrent inserts](../../../reference/sql-statements/data-manipulation/inserting-loading-data/concurrent-inserts.md) will not be performed until an `OPTIMIZE TABLE` statement is executed on that table, unless the [concurrent\_insert](../system-variables/server-system-variables.md#concurrent_insert) server system variable is set to `ALWAYS`.
 
 ### Updating an InnoDB fulltext index
 
-When rows are added or deleted to an InnoDB [fulltext index](../optimization-and-indexes/full-text-indexes/), the index is not immediately re-organized, as this can be an expensive operation. Change statistics are stored in a separate location . The fulltext index is only fully re-organized when an `OPTIMIZE TABLE` statement is run.
+When rows are added or deleted to an InnoDB [fulltext index](../optimization-and-indexes/full-text-indexes/), the index is not immediately re-organized, as this can be an expensive operation. Change statistics are stored in a separate location. The fulltext index is only fully re-organized when an `OPTIMIZE TABLE` statement is run.
 
-By default, an OPTIMIZE TABLE will defragment a table. In order to use it to update fulltext index statistics, the [innodb\_optimize\_fulltext\_only](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_optimize_fulltext_only) system variable must be set to `1`. This is intended to be a temporary setting, and should be reset to `0` once the fulltext index has been re-organized.
+By default, an OPTIMIZE TABLE will defragment a table. In order to use it to update fulltext index statistics, the [innodb\_optimize\_fulltext\_only](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_optimize_fulltext_only) system variable must be set to `1`. This is intended to be a temporary setting and should be reset to `0` once the fulltext index has been re-organized.
 
 Since fulltext re-organization can take a long time, the [innodb\_ft\_num\_word\_optimize](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_ft_num_word_optimize) variable limits the re-organization to a number of words (2000 by default). You can run multiple OPTIMIZE statements to fully re-organize the index.
 

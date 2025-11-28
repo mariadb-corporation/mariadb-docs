@@ -2,7 +2,7 @@
 
 Databases, tables, indexes, columns, aliases, views, stored routines, triggers, events, variables, partitions, tablespaces, savepoints, labels, users, roles, are collectively known as identifiers, and have certain rules for naming.
 
-Identifiers may be quoted using the backtick character (`` ` ``). Quoting is optional for identifiers that don't contain special characters, or for identifiers that are not [reserved words](reserved-words.md). If the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) flag is set, double quotes (`"`) can also be used to quote identifiers. If the [MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) flag is set, square brackets (`[` and `]`) can be used for quoting.
+Identifiers may be quoted using the backtick character (`` ` ``). Quoting is optional for identifiers that don't contain special characters, or for identifiers that are not [reserved words](reserved-words.md). If the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, double quotes (`"`) can also be used to quote identifiers. If the [MSSQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modemssql) flag is set, square brackets (`[` and `]`) can be used for quoting.
 
 Even when using reserved words as names, [fully qualified names](identifier-qualifiers.md) do not need to be quoted. For example, `test.select` has only one possible meaning, so it is correctly parsed even without quotes.
 
@@ -36,7 +36,7 @@ There are a number of other rules for identifiers:
 
 ### Quote Character
 
-The regular quote character is the backtick character - \`\`\`, but if the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) option is specified, a regular double quote - `"` may be used as well.
+The regular quote character is the backtick character - \`\`\`, but if the `ANSI_QUOTES` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) option is specified, a regular double quote - `"` may be used as well.
 
 The backtick character can be used as part of an identifier. In that case the identifier needs to be quoted. The quote character can be the backtick, but in that case, the backtick in the name must be escaped with another backtick.
 

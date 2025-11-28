@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_CONNECTIONS table shows active connections to the
+  Galera Cluster, primarily used for debugging cluster membership.
+---
+
 # Information Schema WSREP\_CONNECTIONS
 
 {% hint style="info" %}

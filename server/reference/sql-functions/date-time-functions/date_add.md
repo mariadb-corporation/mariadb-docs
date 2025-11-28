@@ -1,3 +1,9 @@
+---
+description: >-
+  Add a time interval to a date. This function calculates a new date by adding a
+  specified unit, such as days or seconds, to a starting value.
+---
+
 # DATE\_ADD
 
 ## Syntax

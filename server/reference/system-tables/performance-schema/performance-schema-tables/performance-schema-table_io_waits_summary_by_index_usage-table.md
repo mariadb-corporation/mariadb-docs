@@ -1,3 +1,9 @@
+---
+description: >-
+  This table aggregates I/O wait statistics by index, helping to identify which
+  indexes handle the most traffic or are causing latency.
+---
+
 # Performance Schema table\_io\_waits\_summary\_by\_index\_usage Table
 
 The `table_io_waits_summary_by_index_usage` table records table I/O waits by index.

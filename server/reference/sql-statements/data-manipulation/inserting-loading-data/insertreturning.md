@@ -1,6 +1,11 @@
+---
+description: >-
+  Insert rows and immediately retrieve the results. This extension returns the
+  inserted values, including auto-increments and defaults, in the same round
+  trip.
+---
+
 # INSERT...RETURNING
-
-
 
 {% hint style="info" %}
 INSERT ... RETURNING was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes), and returns a result set of the [inserted](insert.md) rows.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Run a previously prepared statement. This command executes the statement using
+  the specified name, optionally supplying input parameters.
+---
+
 # EXECUTE Statement
 
 ## Syntax

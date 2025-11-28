@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ENABLED_ROLES table lists all roles that are currently
+  enabled for the current session, including nested roles.
+---
+
 # Information Schema ENABLED\_ROLES Table
 
 The [Information Schema](../) `ENABLED_ROLES` table shows the enabled [roles](../../../../security/user-account-management/roles/) for the current session.

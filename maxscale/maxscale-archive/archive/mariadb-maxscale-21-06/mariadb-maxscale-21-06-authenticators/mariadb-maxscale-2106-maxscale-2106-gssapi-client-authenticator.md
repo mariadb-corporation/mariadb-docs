@@ -2,7 +2,7 @@
 
 GSSAPI is an authentication protocol that is commonly implemented with Kerberos\
 on Unix or Active Directory on Windows. This document describes GSSAPI\
-authentication in MaxScale. The authentication module name in MaxScale i&#x73;_&#x47;SSAPIAuth_.
+authentication in MaxScale. The authentication module name in MaxScale is_GSSAPIAuth_.
 
 ### Preparing the GSSAPI system
 

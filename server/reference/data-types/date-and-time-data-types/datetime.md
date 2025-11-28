@@ -1,3 +1,10 @@
+---
+description: >-
+  Store date and time combinations. This type stores values in 'YYYY-MM-DD
+  HH:MM:SS' format, with a range from '1000-01-01 00:00:00' to '9999-12-31
+  23:59:59'.
+---
+
 # DATETIME
 
 ## Syntax
@@ -24,7 +31,7 @@ MariaDB stores values that use the `DATETIME` data type in a format that support
 
 MariaDB can also store [microseconds](../../sql-functions/date-time-functions/microseconds-in-mariadb.md) with a precision between 0 and 6. If no microsecond precision is specified, then 0 is used by default.
 
-MariaDB also supports '`0000-00-00`' as a special _zero-date_ value, unless [NO\_ZERO\_DATE](../../../server-management/variables-and-modes/sql-mode.md#no_zero_date) is specified in the [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md). Similarly, individual components of a date can be set to `0` (for example: '`2015-00-12`'), unless [NO\_ZERO\_IN\_DATE](../../../server-management/variables-and-modes/sql-mode.md#no_zero_in_date) is specified in the [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md). In many cases, the result of en expression involving a zero-date, or a date with zero-parts, is `NULL`. If the [ALLOW\_INVALID\_DATES](../../../server-management/variables-and-modes/sql-mode.md#allow_invalid_dates) SQL\_MODE is enabled, if the day part is in the range between 1 and 31, the date does not produce any error, even for months that have less than 31 days.
+MariaDB also supports '`0000-00-00`' as a special _zero-date_ value, unless [NO\_ZERO\_DATE](../../../server-management/variables-and-modes/sql_mode.md#no_zero_date) is specified in the [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md). Similarly, individual components of a date can be set to `0` (for example: '`2015-00-12`'), unless [NO\_ZERO\_IN\_DATE](../../../server-management/variables-and-modes/sql_mode.md#no_zero_in_date) is specified in the [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md). In many cases, the result of en expression involving a zero-date, or a date with zero-parts, is `NULL`. If the [ALLOW\_INVALID\_DATES](../../../server-management/variables-and-modes/sql_mode.md#allow_invalid_dates) SQL\_MODE is enabled, if the day part is in the range between 1 and 31, the date does not produce any error, even for months that have less than 31 days.
 
 ## Oracle Mode
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Check if an IPv6 address is IPv4-compatible. This function returns 1 if the
+  binary IPv6 address represents an IPv4-compatible address.
+---
+
 # IS\_IPV4\_COMPAT
 
 ## Syntax

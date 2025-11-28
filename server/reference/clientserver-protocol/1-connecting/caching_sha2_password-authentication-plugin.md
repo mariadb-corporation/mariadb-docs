@@ -1,3 +1,10 @@
+---
+description: >-
+  This plugin implements the caching_sha2_password authentication method, using
+  an in-memory cache for fast authentication or RSA encryption for full
+  verification.
+---
+
 # caching\_sha2\_password Authentication Plugin
 
 ## Overview

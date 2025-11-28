@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover JSON_SCHEMA_VALID in MariaDB. Available from version 11.1, this
+  function validates a JSON document against a specified JSON Schema (Draft
+  2020), returning true if valid.
+---
+
 # JSON\_SCHEMA\_VALID
 
 {% hint style="info" %}

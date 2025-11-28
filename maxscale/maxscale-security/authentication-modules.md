@@ -171,7 +171,7 @@ hostname/IP is ignored.
 
 This setting may be used to force clients to connect through MaxScale. Normally,
 creating the user _jdoe@%_ will allow the user _jdoe_ to connect from any
-IP-address. By disabling _match\_host_ and replacing the user wit&#x68;_&#x6A;doe@maxscale-IP_, the user can still connect from any client IP but will be
+IP-address. By disabling _match\_host_ and replacing the user with_&#x6A;doe@maxscale-IP_, the user can still connect from any client IP but will be
 forced to go through MaxScale.
 
 ```

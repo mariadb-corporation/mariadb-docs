@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the weekday index. This function returns the index of the day of the
+  week (0=Monday, 6=Sunday).
+---
+
 # WEEKDAY
 
 ## Syntax

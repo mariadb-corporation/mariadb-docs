@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema LOCALES table lists all compiled-in locales available
+  to the server, providing their IDs, names, and descriptions.
+---
+
 # Information Schema LOCALES Table
 
 ## Description

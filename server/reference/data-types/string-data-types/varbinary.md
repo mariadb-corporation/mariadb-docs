@@ -1,3 +1,9 @@
+---
+description: >-
+  Variable-length binary string type. VARBINARY columns store binary strings of
+  variable length up to a specified maximum.
+---
+
 # VARBINARY
 
 ## Syntax
@@ -12,7 +18,7 @@ The `VARBINARY` type is similar to the [VARCHAR](varchar.md) type, but stores bi
 
 It contains no [character set](character-sets/), and comparison and sorting are based on the numeric value of the bytes.
 
-If the maximum length is exceeded, and [SQL strict mode](../../../server-management/variables-and-modes/sql-mode.md) is not enabled , the extra characters will be dropped with a warning. If strict mode is enabled, an error will occur.
+If the maximum length is exceeded, and [SQL strict mode](../../../server-management/variables-and-modes/sql_mode.md) is not enabled , the extra characters will be dropped with a warning. If strict mode is enabled, an error will occur.
 
 Unlike [BINARY](binary.md) values, `VARBINARY` values are not right-padded when inserting.
 

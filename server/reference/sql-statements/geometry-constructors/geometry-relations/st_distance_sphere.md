@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculates the spherical distance between two points or geometries. Uses a
+  spherical earth model to determine the minimum distance in meters.
+---
+
 # ST\_DISTANCE\_SPHERE
 
 ## Syntax

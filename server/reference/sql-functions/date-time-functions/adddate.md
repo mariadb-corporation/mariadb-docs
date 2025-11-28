@@ -1,3 +1,9 @@
+---
+description: >-
+  Add a time interval to a date. This function performs date arithmetic, adding
+  a specified value like days or hours to a starting date.
+---
+
 # ADDDATE
 
 ## Syntax

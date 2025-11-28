@@ -1,3 +1,10 @@
+---
+description: >-
+  Identify blocks and loops for flow control. Labels provide names for
+  BEGIN...END blocks or loops, allowing them to be targeted by LEAVE, ITERATE,
+  or GOTO statements.
+---
+
 # Labels
 
 ## Syntax

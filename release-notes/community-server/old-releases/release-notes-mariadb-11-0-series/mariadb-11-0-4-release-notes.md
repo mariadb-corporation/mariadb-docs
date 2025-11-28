@@ -2,11 +2,11 @@
 
 The most recent release of [MariaDB 11.0](what-is-mariadb-110.md) is:[**MariaDB 11.0.6**](mariadb-11-0-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.0.6/)
 
-[Download 11.0.4](https://downloads.mariadb.org/mariadb/11.0.4/) | [Release Notes](mariadb-11-0-4-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-4-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
+[Download 11.0.4](https://downloads.mariadb.org/mariadb/11.0.4/) | [Release Notes](mariadb-11-0-4-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-4-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
 
 **Release date:** 13 Nov 2023
 
-[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../mariadb-10-11-series/what-is-mariadb-1011.md) with several entirely new features.
+[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../10.11/what-is-mariadb-1011.md) with several entirely new features.
 
 [MariaDB 11.0.4](mariadb-11-0-4-release-notes.md) is a [_**Stable (GA)**_](../../about/release-criteria.md) release.
 
@@ -191,7 +191,7 @@ Thanks, and enjoy MariaDB!
 
 ### Docker Official Images
 
-* Invert single and double quotes for sql command definitions in [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) due to failure under [sql\_mode=ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode#ansi_quotes) - contribution by Dominik Häckel
+* Invert single and double quotes for sql command definitions in [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) due to failure under [sql\_mode=ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode#ansi_quotes) - contribution by Dominik Häckel
 * [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) --no-defaults behaviour was corrected - reported by Dominik Häckel
 * Added /docker-entrypoint-init.d for tar{,compression} from [MariaDB Backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/) - [instructions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/docker-official-image-frequently-asked-questions#how-do-i-create-a-mariadb-backup-of-the-data)
 * Refactor `docker_mariadb_init` in the entrypoint for extending the MariaDB image
@@ -211,7 +211,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.0.4](mariadb-11-0-4-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-4-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.0/mariadb-11-0-4-changelog.md).
 
 ## Contributors
 

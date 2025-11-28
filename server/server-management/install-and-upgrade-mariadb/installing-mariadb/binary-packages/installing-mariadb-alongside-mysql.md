@@ -87,7 +87,7 @@ user            = mariadb
 + lock_file_path="$lockdir/mariadb"
 ```
 
-The trickiest part will be the last changes to this file. You need to tell mariadb to use only one configuration file. In the **start** section afte&#x72;**$bindir/mysqld\_safe** add **--defaults-file=/opt/mariadb-data/my.cnf**. Finally the lines should look like:
+The trickiest part will be the last changes to this file. You need to tell mariadb to use only one configuration file. In the **start** section after**$bindir/mysqld\_safe** add **--defaults-file=/opt/mariadb-data/my.cnf**. Finally the lines should look like:
 
 ```bash
 # Give extra arguments to mysqld with the my.cnf file. This script

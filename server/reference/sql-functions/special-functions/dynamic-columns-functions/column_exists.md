@@ -1,3 +1,9 @@
+---
+description: >-
+  Check for a dynamic column. This function returns 1 if a specified column
+  exists within a dynamic column blob, and 0 otherwise.
+---
+
 # COLUMN\_EXISTS
 
 ## Syntax

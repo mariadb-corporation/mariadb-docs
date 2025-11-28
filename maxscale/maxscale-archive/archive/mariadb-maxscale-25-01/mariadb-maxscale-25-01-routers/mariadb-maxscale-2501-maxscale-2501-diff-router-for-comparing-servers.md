@@ -62,7 +62,7 @@ the router itself.
 #### Histogram
 
 Diff collects latency information separately for each _canonical_\
-&#xNAN;_&#x73;tatement_, which simply means a statement where all literals have been\
+&#xNAN;_statement_, which simply means a statement where all literals have been\
 replaced with question marks. For instance, the canonical statement of`SELECT f FROM t WHERE f = 10` and `SELECT f FROM t WHERE f = 20` is\
 in both cases `SELECT f FROM t WHERE f = ?`. The latency information\
 of both of those statements will be collected under the same canonical\
@@ -505,7 +505,7 @@ statement is the same) that were EXPLAINed.
 ### Mode
 
 Diff can run in a read-only or read-write mode and the mode is\
-deduced from the replication relationship between _main_ an&#x64;_&#x6F;ther_.
+deduced from the replication relationship between _main_ and_&#x6F;ther_.
 
 If _other_ replicates from _main_, it is assumed that _main_ is\
 the primary. In this case Diff will, when started, stop the\
@@ -629,7 +629,7 @@ will also be saved.
 * Default: `on_discrepancy`
 
 Specifies when the results of executing a statement on _other_ and _main_\
-should be logged; _always_, when there is a significant difference o&#x72;_&#x6E;ever_.
+should be logged; _always_, when there is a significant difference or_&#x6E;ever_.
 
 #### `reset_replication`
 
@@ -649,7 +649,7 @@ START SLAVE
 If Diff has started in read-only mode, the value of `reset_replication`\
 will be ignored.
 
-Note that since Diff writes updates directly to both _main_ an&#x64;_&#x6F;ther_ there is no guarantee that it will be possible to simply\
+Note that since Diff writes updates directly to both _main_ and_&#x6F;ther_ there is no guarantee that it will be possible to simply\
 start the replication. Especially not if `gtid_strict_mode`\
 is on.
 

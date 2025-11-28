@@ -71,7 +71,7 @@ Information about the key we use on most platforms for MariaDB Enterprise Server
 
 * The short Key ID is: `0xE3C94F49`
 * The long Key ID is: `0xCE1A3DD5E3C94F49`
-* The full fingerprint of the key is: `4C47 0FFF EFC4 D3DC 5977 8655 CE1A 3DD5 E3C9 4F49`&#x20;
+* The full fingerprint of the key is: `4C47 0FFF EFC4 D3DC 5977 8655 CE1A 3DD5 E3C9 4F49` 
 
 The key can be added on Debian-based systems using the following command:
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_MultiPointFromText. Constructs a MultiPoint value from its WKT
+  representation and an optional SRID.
+---
+
 # MPointFromText
 
 ## Syntax
@@ -9,7 +15,7 @@ MultiPointFromText(wkt[,srid])
 
 ## Description
 
-Constructs a [MULTIPOINT](../../../sql-statements/geometry-constructors/geometry-constructors/multipoint.md) value using its [WKT](wkt-definition.md) representation and [SRID](../geometry-properties/st_srid.md).
+Constructs a [MULTIPOINT](../geometry-constructors/multipoint.md) value using its [WKT](wkt-definition.md) representation and [SRID](../geometry-properties/st_srid.md).
 
 `MPointFromText()` and `MultiPointFromText()` are synonyms.
 
@@ -24,6 +30,6 @@ INSERT INTO gis_multi_point VALUES
     (MPointFromWKB(AsWKB(MultiPoint(Point(3, 6), Point(4, 10)))));
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

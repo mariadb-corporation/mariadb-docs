@@ -1,8 +1,14 @@
+---
+description: >-
+  Modify table structures. This guide covers adding columns, changing data
+  types, managing indexes, and other schema changes for existing tables.
+---
+
 # Online Schema Change
 
 Generally speaking, “online” refers to the ability to update the table schema without blocking concurrent DML for the duration of the copy.
 
-&#x20;Suppose we have a table `item` featuring columns (`id SERIAL`, `name TEXT`).
+Suppose we have a table `item` featuring columns (`id SERIAL`, `name TEXT`).
 
 Now, it can be `ALTERed` by adding a `TIMESTAMP` field in one connection, while having a concurrent connection inserting a new row.
 
@@ -24,7 +30,7 @@ INSERT INTO items(name) VALUES (“New item”);
 
 If the `INSERT` statement begins its execution after [ALTER TABLE](./) is issued, it will not be blocked and will proceed normally, and thus it may finish before `ALTER TABLE`.
 
-`ALTER TABLE` always allows concurrent [SELECT ](../../../data-manipulation/selecting-data/select.md) statements. If the `LOCK=NONE` locking strategy is chosen, it will allow concurrent modifications (INSERT/DELETE/UPDATE). Namely, `LOCK=NONE` was supported by InnoDB and the Partition engine when `ALGORITHM=NOCOPY` is chosen and is a default locking strategy when available.
+`ALTER TABLE` always allows concurrent [SELECT ](../../../data-manipulation/selecting-data/select.md)statements. If the `LOCK=NONE` locking strategy is chosen, it will allow concurrent modifications (INSERT/DELETE/UPDATE). Namely, `LOCK=NONE` was supported by InnoDB and the Partition engine when `ALGORITHM=NOCOPY` is chosen and is a default locking strategy when available.
 
 With the new release, `LOCK=NONE` support is added for `ALGORITHM=COPY`, thus almost all `ALTER TABLE` operations (a few exceptions are given below) now allow concurrent DML.
 
@@ -33,8 +39,6 @@ With the new release, `LOCK=NONE` support is added for `ALGORITHM=COPY`, thus al
 `LOCK=NONE` adds one extra step to the copy algorithm. It introduces a new internal entity, the **online change buffer**.
 
 <figure><img src="../../../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
-
-
 
 * First, a new table is created using the old table content as it was at the beginning of the `ALTER TABLE` statement. For InnoDB and other transactional engines it means copying in `REPEATABLE READ` isolation mode.
   * In the meantime, every concurrent change is written in the old table and is duplicated to the **online change buffer**.
@@ -48,7 +52,7 @@ The requirement for an engine is to allow concurrent writes, while another conne
 
 ### **MyISAM/Aria**
 
-MyISAM is capable of concurrent [INSERTs ](../../../data-manipulation/inserting-loading-data/insert.md) and also supports concurrent inserts while reading: we can’t say it supports [REPEATABLE READ](../../../transactions/transactions-repeatable-read.md) transaction isolation layer, but the newly inserted data is not seen by the readers until the end of the statement, so it satisfies the criterion, however it is not transactional.
+MyISAM is capable of concurrent [INSERTs ](../../../data-manipulation/inserting-loading-data/insert.md)and also supports concurrent inserts while reading: we can’t say it supports [REPEATABLE READ](../../../transactions/transactions-repeatable-read.md) transaction isolation layer, but the newly inserted data is not seen by the readers until the end of the statement, so it satisfies the criterion, however it is not transactional.
 
 An attempt to invoke any statement that can update or delete a row will be blocked until the end of `ALTER TABLE` (or will evaluate before `ALTER TABLE` acquires a lock, if it started earlier).
 
@@ -95,7 +99,7 @@ Now, a complete list of limitations we are aware of follows:
 * `ALTER TABLE DROP SYSTEM VERSIONING` is not supported either, for the similar reason.
 * Tables with foreign keys with `CASCADE/SET NULL/SET DEFAULT` operations can’t go online under `ALGORITHM=COPY` — similar to disallowing `CHECK` constraints and stored generated columns, cascade operations are done internally by the storage engine, so they bypass the online changes buffer. However, most operations are allowed by InnoDB’s `INPLACE` algorithm. Again, for every DDL request the most optimal algorithm will be chosen automatically.
 * Transaction-versioned tables can also be only changed “online” under `INPLACE/INSTANT ALTER TABLE` algorithms.
-* All the constraints (`CHECK, UNIQUE, FOREIGN KEY`) are evaluated for each row change that is applied from the online change buffer. This means that all the changes that are made during `ALTER TABLE’s` main phase should not violate the final table schema at any point in time.  As always, the checks can be disabled by setting `check_constraint_checks` and `FOREIGN_KEY_CHECKS` to `OFF`.
+* All the constraints (`CHECK, UNIQUE, FOREIGN KEY`) are evaluated for each row change that is applied from the online change buffer. This means that all the changes that are made during `ALTER TABLE’s` main phase should not violate the final table schema at any point in time. As always, the checks can be disabled by setting `check_constraint_checks` and `FOREIGN_KEY_CHECKS` to `OFF`.
 * `ALTER TABLE … ORDER BY` cannot be supported, because changes from the buffer are applied at the end and they might break the strict ordering of rows.
 * It is not available in embedded MariaDB Server due to replication libraries that are not present in the embedded version.
 
@@ -122,4 +126,3 @@ For more information, refer to, [Reduced operational downtime with new ALTER TAB
 Online copy is **not** the default mode.
 {% endtab %}
 {% endtabs %}
-

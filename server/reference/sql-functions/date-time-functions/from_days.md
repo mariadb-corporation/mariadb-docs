@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a day number to a date. This function returns a DATE value
+  corresponding to the number of days since year 0.
+---
+
 # FROM\_DAYS
 
 ## Syntax

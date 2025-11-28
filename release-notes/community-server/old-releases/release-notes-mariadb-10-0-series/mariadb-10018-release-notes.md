@@ -40,7 +40,7 @@ In addition to the [MariaDB-5.5.43](../release-notes-mariadb-5-5-series/mariadb-
 
 * Some symbols in table name can cause to Error Code: 1050 when created FK. Table name is on filename charset but foreign key identifiers are not. This lead incorrect foreign key identifier number to be used ([MDEV-7627](https://jira.mariadb.org/browse/MDEV-7627)).
 * [ALTER \[ONLINE\] TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) with no options no longer requires a table copy ([MDEV-7390](https://jira.mariadb.org/browse/MDEV-7390)).
-* Fixed a case where it was impossible to create copy of a table if the table contained a default value for timestamp field in [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)="NO\_ZERO\_DATE" ([MDEV-7778](https://jira.mariadb.org/browse/MDEV-7778)).
+* Fixed a case where it was impossible to create copy of a table if the table contained a default value for timestamp field in [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)="NO\_ZERO\_DATE" ([MDEV-7778](https://jira.mariadb.org/browse/MDEV-7778)).
 
 ### Other SQL Commands
 

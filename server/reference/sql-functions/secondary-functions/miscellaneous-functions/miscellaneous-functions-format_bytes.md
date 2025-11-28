@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert bytes to a human-readable string. This function formats a numeric byte
+  count into units like KiB, MiB, GiB, up to EiB.
+---
+
 # FORMAT\_BYTES
 
 {% hint style="info" %}

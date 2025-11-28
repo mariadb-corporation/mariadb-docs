@@ -24,7 +24,7 @@ noIndex: true
 * This release (MariaDB Server 10.11.0) was released on 26 Sep 2022.
 * The next release in this series is MariaDB Server 10.11.1, released on 17 Nov 2022.
 
-{% include "../../mariadb-platform/.gitbook/includes/most-recent-10.11.md" %}
+{% include "../.gitbook/includes/most-recent-10.11.md" %}
 
 ## Useful Resources
 

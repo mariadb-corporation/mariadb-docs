@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_MultiPointFromWKB. Constructs a MultiPoint value from its WKB
+  representation and an optional SRID.
+---
+
 # MultiPointFromWKB
 
 A synonym for [MPointFromWKB](mpointfromwkb.md).

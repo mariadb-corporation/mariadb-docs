@@ -1,3 +1,9 @@
+---
+description: >-
+  Control locking priority for table access. These modifiers determine whether
+  read or write operations take precedence when multiple threads access a table.
+---
+
 # HIGH\_PRIORITY and LOW\_PRIORITY
 
 The [InnoDB](../../../../server-usage/storage-engines/innodb/) storage engine uses row-level locking to ensure data integrity. However some storage engines (such as [MEMORY](../../../../server-usage/storage-engines/memory-storage-engine.md), [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/), [Aria](../../../../server-usage/storage-engines/aria/) and [MERGE](../../../../server-usage/storage-engines/merge.md)) lock the whole table to prevent conflicts. These storage engines use two separate queues to remember pending statements; one is for [SELECTs](../selecting-data/select.md) and the other one is for write statements ([INSERT](../inserting-loading-data/insert.md), [DELETE](delete.md), [UPDATE](update.md)). By default, the latter has a higher priority.

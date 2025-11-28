@@ -59,7 +59,7 @@ In the Terraform project directory, create a `main.tf` file that contains the fo
 * [Resources](https://developer.hashicorp.com/terraform/language/resources/syntax)
 * [Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
 
-```
+```hcl
 # ---------------------
 # Provider Requirements
 # ---------------------
@@ -150,7 +150,7 @@ data "skysql_availability_zones" "default" {
 
 In the Terraform project directory, create an `outputs.tf` file that contains the [output values](https://developer.hashicorp.com/terraform/language/values/outputs) used to display metadata about the MariaDB Cloud service:
 
-```tf
+```hcl
 # -------------
 # Output Values
 # -------------
@@ -187,7 +187,7 @@ output "availability_zones" {
 
 In the Terraform project directory, create a `variables.tf` file that contains the [input variables](https://developer.hashicorp.com/terraform/language/values/variables) used to configure the MariaDB Cloud service:
 
-```tf
+```hcl
 # ---------------
 # Input Variables
 # ---------------
@@ -298,7 +298,7 @@ A [`.tfvars` file](https://developer.hashicorp.com/terraform/tutorials/configura
 
 For example:
 
-```ini
+```hcl
 api_key             = "... key data ..."
 service_type        = "transactional"
 topology            = "es-single"
@@ -521,7 +521,7 @@ Destroy complete! Resources: 1 destroyed.
 
 ## Manually Install Provider from Binary Distribution
 
-The MariaDB Cloud New Release Terraform provider can be downloaded from the [GitHub releases page](https://github.com/skysqlinc/terraform-provider-skysql) as a binary distribution and manually installed.
+The MariaDB Cloud New Release Terraform provider can be downloaded from the GitHub releases page as a binary distribution and manually installed.
 
 ### **Manually Install Provider on Linux**
 
@@ -611,8 +611,5 @@ With **macOS**, manually install the provider on the target system by performing
 
 ## Resources
 
-* [GitHub Project](https://github.com/skysqlinc/terraform-provider-skysql)
-* [Example Terraform Configuration Files](https://github.com/skysqlinc/terraform-provider-skysql/tree/main/examples)
 * [Terraform Registry](https://registry.terraform.io/namespaces/skysqlinc)
-* [API Documentation](https://apidocs.skysql.com/)
-* [API Reference Documentation](https://skysqlinc.github.io/skysql-docs/Reference%20Guide/REST%20API%20Reference/)
+* [API Documentation](../reference-guide/mariadb-cloud-api-reference-guide/)

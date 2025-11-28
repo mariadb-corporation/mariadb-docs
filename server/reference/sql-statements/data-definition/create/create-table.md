@@ -1,3 +1,9 @@
+---
+description: >-
+  Define a new table structure. This fundamental command specifies columns, data
+  types, indexes, and storage engine options for storing data.
+---
+
 # CREATE TABLE
 
 ## Syntax
@@ -86,23 +92,20 @@ Use the `TEMPORARY` keyword to create a temporary table that is only available t
 
 {% tabs %}
 {% tab title="Current" %}
-From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120), by default, temporary tables are only created on the replica if the primary is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
+By default, temporary tables are only created on the replica if the primary is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
 
 The new deterministic rules for logging of temporary tables are:
 
-* The STATEMENT binlog format is used. If it is binlogged, 1 is stored in TABLE\_SHARE->table\_creation\_was\_logged. The user can change this behavior by setting [create\_temporary\_table\_binlog\_formats](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#create_tmp_table_binlog_formats) to MIXED,STATEMENT in which case the create is logged in statement format also in MIXED mode (as before).
-* Changes to temporary tables are only binlogged if and only if the CREATE was logged. The logging happens under STATEMENT or MIXED. If binlog\_format=ROW, temporary table changes are not binlogged. A temporary table that is changed under ROW is marked as 'not up to date in binlog' and no future row changes are logged. Any usage of this temporary table will force row logging of other tables in any future statements using the temporary table to be row logged.
-* DROP TEMPORARY is binlogged only if the CREATE was binlogged.
+* The `STATEMENT` binlog format is used. If it is binlogged, 1 is stored in `TABLE_SHARE->table_creation_was_logged`. The user can change this behavior by setting [create\_temporary\_table\_binlog\_formats](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#create_tmp_table_binlog_formats) to `MIXED`, `STATEMENT` in which case the create is logged in statement format also in `MIXED` mode (as before).
+* Changes to temporary tables are only binlogged if and only if the CREATE was logged. The logging happens under `STATEMENT` or `MIXED`. If binlog\_format=ROW, temporary table changes are not binlogged. A temporary table that is changed under ROW is marked as 'not up to date in binlog' and no future row changes are logged. Any usage of this temporary table will force row logging of other tables in any future statements using the temporary table to be row logged.
+* `DROP TEMPORARY` is binlogged only if the `CREATE` was binlogged.
 {% endtab %}
 
 {% tab title="< 12.0" %}
 In some contexts, temporary tables on the primary and replica can become inconsistent.\
-One example is if a temporary table is updated with the value of a non deterministic function\
-like [UUID](../../../sql-functions/secondary-functions/miscellaneous-functions/uuid.md)(), in which the change is never sent to the replica.
+One example is if a temporary table is updated with the value of a non deterministic function like [UUID](../../../sql-functions/secondary-functions/miscellaneous-functions/uuid.md)(), in which the change is never sent to the replica.
 
-\
-In some other contexts, while using MIXED mode, all changes will be logged in ROW mode while the user has any active temporary tables, even if the temporary tables are not used\
-in the query. This depends on in which format some previous independent commands were logged.
+In some other contexts, while using MIXED mode, all changes will be logged in ROW mode while the user has any active temporary tables, even if the temporary tables are not used in the query. This depends on in which format some previous independent commands were logged.
 
 There are many other pitfalls with logging temporary table to the replica.
 {% endtab %}
@@ -125,7 +128,7 @@ ERROR 1347 (HY000): 'test.v' is not of type 'BASE TABLE'
 
 The same version of the table storage format as found in the original table is used for the new table.
 
-`CREATE TABLE ... LIKE` performs the same checks as `CREATE TABLE`. So a statement may fail if a change in the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) renders it invalid. For example:
+`CREATE TABLE ... LIKE` performs the same checks as `CREATE TABLE`. So a statement may fail if a change in the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) renders it invalid. For example:
 
 ```sql
 CREATE OR REPLACE TABLE x (d DATE DEFAULT '0000-00-00');
@@ -578,7 +581,7 @@ The equal sign is optional.
 
 Some options are supported by the server and can be used for all tables, no matter what storage engine they use; other options can be specified for all storage engines, but have a meaning only for some engines. Also, engines can [extend CREATE TABLE with new options](../../../../server-usage/storage-engines/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md).
 
-If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is enabled, wrong table options generate a warning; otherwise, they generate an error.
+If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled, wrong table options generate a warning; otherwise, they generate an error.
 
 ```bnf
 table_option:    
@@ -618,7 +621,7 @@ table_option:
 
 ### \[STORAGE] ENGINE
 
-`[STORAGE] ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql-mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
+`[STORAGE] ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
 
 ### AUTO\_INCREMENT
 
@@ -652,7 +655,7 @@ MyISAM uses `MAX_ROWS` and `AVG_ROW_LENGTH` to decide the maximum size of a tabl
 
 ### DATA DIRECTORY/INDEX DIRECTORY
 
-`DATA DIRECTORY` and `INDEX DIRECTORY` are supported for MyISAM and Aria, and DATA DIRECTORY is also supported by InnoDB if the [innodb\_file\_per\_table](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is enabled, but only in CREATE TABLE, not in [ALTER TABLE](../alter/alter-table/). So, carefully choose a path for InnoDB tables at creation time, because it cannot be changed without dropping and re-creating the table. These options specify the paths for data files and index files, respectively. If these options are omitted, the database's directory will be used to store data files and index files. Note that these table options do not work for [partitioned](../../../../server-usage/partitioning-tables/) tables (use the partition options instead), or if the server has been invoked with the [--skip-symbolic-links startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). To avoid the overwriting of old files with the same name that could be present in the directories, you can use [the --keep\_files\_on\_create option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) (an error will be issued if files already exist). These options are ignored if the `NO_DIR_IN_CREATE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is enabled (useful for replicas). Also note that symbolic links cannot be used for InnoDB tables.
+`DATA DIRECTORY` and `INDEX DIRECTORY` are supported for MyISAM and Aria, and DATA DIRECTORY is also supported by InnoDB if the [innodb\_file\_per\_table](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is enabled, but only in CREATE TABLE, not in [ALTER TABLE](../alter/alter-table/). So, carefully choose a path for InnoDB tables at creation time, because it cannot be changed without dropping and re-creating the table. These options specify the paths for data files and index files, respectively. If these options are omitted, the database's directory will be used to store data files and index files. Note that these table options do not work for [partitioned](../../../../server-usage/partitioning-tables/) tables (use the partition options instead), or if the server has been invoked with the [--skip-symbolic-links startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). To avoid the overwriting of old files with the same name that could be present in the directories, you can use [the --keep\_files\_on\_create option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) (an error will be issued if files already exist). These options are ignored if the `NO_DIR_IN_CREATE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled (useful for replicas). Also note that symbolic links cannot be used for InnoDB tables.
 
 `DATA DIRECTORY` works by creating symlinks from where the table would normally have been (inside the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir)) to where the option specifies. For security reasons, to avoid bypassing the privilege system, the server does not permit symlinks inside the datadir. Therefore, `DATA DIRECTORY` cannot be used to specify a location inside the datadir. An attempt to do so will result in an error `1210 (HY000) Incorrect arguments to DATA DIRECTORY`.
 

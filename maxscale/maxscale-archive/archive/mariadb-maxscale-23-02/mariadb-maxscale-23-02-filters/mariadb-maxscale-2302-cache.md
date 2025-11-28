@@ -195,7 +195,7 @@ is still important to configure a reasonable [soft](mariadb-maxscale-2302-cache.
 
 #### Best Efforts
 
-The invalidation offered by the MaxScale cache can be said to be o&#x66;_&#x62;est efforts_ quality. The reason is that in order to ensure that the\
+The invalidation offered by the MaxScale cache can be said to be of_best efforts_ quality. The reason is that in order to ensure that the\
 cache in all circumstances reflects the state in the actual database,\
 would require that the operations involving the cache and the MariaDB\
 server are synchronized, which would cause an unacceptable overhead.
@@ -1306,14 +1306,14 @@ process, it is very fast and provides almost always a performance benefit.
 Currently there are two _shared_ storages; `storage_memcached` and`storage_redis` that are implemented using [memcached](https://memcached.org/)\
 and [redis](https://redis.io/) respectively.
 
-The shared storages are accessed across the network and consequently it i&#x73;_&#x6E;ot_ self-evident that their use will provide any performance benefit.\
+The shared storages are accessed across the network and consequently it is_&#x6E;ot_ self-evident that their use will provide any performance benefit.\
 Namely, irrespective of whether the data is fetched from the cache or from\
 the server there will be a network hop and often that network hop is, as far\
 as the performance goes, what costs the most.
 
-The presence of a shared cache _may_ provide a performance benefi&#x74;_&#x69;f the network between MaxScale and the storage server (memcached or_\
-&#xNAN;_&#x52;edis) is faster than the network between MaxScale and the database_\
-&#xNAN;_&#x73;erver,_ if the used SELECT statements are heavy (that is, take a significant\
+The presence of a shared cache _may_ provide a performance benefit_if the network between MaxScale and the storage server (memcached or_\
+&#xNAN;_Redis) is faster than the network between MaxScale and the database_\
+&#xNAN;_server,_ if the used SELECT statements are heavy (that is, take a significant\
 amount of time) to process for the database server, or
 
 * if the presence of the cache reduces the overall load of an\

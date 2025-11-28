@@ -1,3 +1,9 @@
+---
+description: >-
+  The XTRADB_INTERNAL_HASH_TABLES table provides memory usage statistics for
+  internal hash tables used by the XtraDB/InnoDB storage engine.
+---
+
 # Information Schema XTRADB\_INTERNAL\_HASH\_TABLES Table
 
 The [Information Schema](../../) `XTRADB_INTERNAL_HASH_TABLES` table contains InnoDB/XtraDB hash table memory usage information.

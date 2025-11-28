@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DOUBLE. This keyword declares a normal-size (8-byte)
+  floating-point number with double precision.
+---
+
 # DOUBLE PRECISION
 
 ## Syntax
@@ -11,7 +17,7 @@ REAL[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 
 `REAL` and `DOUBLE PRECISION` are synonyms for [DOUBLE](double.md).
 
-Exception: If the `REAL_AS_FLOAT` [SQL mode](../../../server-management/variables-and-modes/sql-mode.md) is enabled, `REAL` is a synonym for [FLOAT](float.md) rather than [DOUBLE](double.md).
+Exception: If the `REAL_AS_FLOAT` [SQL mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled, `REAL` is a synonym for [FLOAT](float.md) rather than [DOUBLE](double.md).
 
 ## EXAMPLES
 

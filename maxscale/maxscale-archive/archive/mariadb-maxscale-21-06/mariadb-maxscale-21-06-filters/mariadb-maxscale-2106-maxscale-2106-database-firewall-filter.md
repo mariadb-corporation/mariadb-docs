@@ -431,7 +431,7 @@ The `users` directive defines the users to which the rule should be applied.
 The first keyword is `users`, which identifies this line as a user definition\
 line.
 
-The second component is a list of user names and network addresses in the forma&#x74;_`user`_`@`_`0.0.0.0`_. The first part is the user name and the second part is\
+The second component is a list of user names and network addresses in the format_`user`_`@`_`0.0.0.0`_. The first part is the user name and the second part is\
 the network address. You can use the `%` character as the wildcard to enable\
 user name matching from any address or network matching for all users. After the\
 list of users and networks the keyword match is expected. This means that the\

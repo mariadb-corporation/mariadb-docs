@@ -1,24 +1,23 @@
 # Partition Maintenance
 
-## Preface
+## Overview
 
-This article covers
+This article covers:
 
-* PARTITIONing uses and non-uses
-* How to Maintain a time-series PARTITIONed table
-* AUTO\_INCREMENT secrets
+* Partitioning best practices.
+* How to maintain a time-series-partitioned table.
+* `AUTO_INCREMENT` secrets.
 
-First, my Opinions on PARTITIONing
+General partitioning advice, taken from [Rick's RoTs - Rules of Thumb](https://mysql.rjweb.org/doc.php/ricksrots):
 
-Taken from [Rick's RoTs - Rules of Thumb](https://mysql.rjweb.org/doc.php/ricksrots)
+1. Don't use [PARTITIONing](./) until you know how and why it will help.
+2. Don't use PARTITION unless you will have more than a million rows to handle.
+3. No more than 50 PARTITIONs on a table (open, show table status, etc, are impacted).
+4. `PARTITION BY RANGE` is the only useful method.
 
-* \#1: Don't use [PARTITIONing](./) until you know how and why it will help.
-* Don't use PARTITION unless you will have >1M rows
-* No more than 50 PARTITIONs on a table (open, show table status, etc, are impacted) (fixed in MySQL 5.6.6?; a better fix coming eventually in 5.7)
-* PARTITION BY RANGE is the only useful method.
-* SUBPARTITIONs are not useful.
-* The partition field should not be the field first in any key.
-* It is OK to have an [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) as the first part of a compound key, or in a non-UNIQUE index.
+* Subpartitions are not useful.
+* The partition field should not be the first field in any key.
+* It is okay to have an [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) as the first part of a compound key, or in a nonunique index.
 
 It is so tempting to believe that PARTITIONing will solve performance problems. But it is so often wrong.
 
@@ -61,7 +60,7 @@ Examples (where id is AUTO\_INCREMENT):
 * INDEX(id), INDEX(...) (but no UNIQUE keys)
 * PRIMARY KEY(id), ... -- works only if id is the partition key (not very useful)
 
-## PARTITION maintenance for the time-series case
+## PARTITION Maintenance for the Time-Series Case
 
 Let's focus on the maintenance task involved in Case #1, as described above.
 
@@ -74,7 +73,7 @@ Depending on the type of data, and how long before it expires, you might have da
 
 There is no simple SQL statement to "drop partitions older than 30 days" or "add a new partition for tomorrow". It would be tedious to do this by hand every day.
 
-## High level view of the code
+## High-Level View of the Code
 
 ```sql
 ALTER TABLE tbl
@@ -165,7 +164,7 @@ How many partitions?
 * 8192 partitions is a hard limit (1024 before [MariaDB 10.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1004-release-notes)).
 * Before "native partitions" (5.7.6), each partition consumed a chunk of memory.
 
-## Detailed code
+## Detailed Code
 
 [Reference implementation, in Perl, with demo of daily partitions](https://mysql.rjweb.org/demo_part_maint.pl.txt)
 
@@ -193,11 +192,7 @@ ALTER TABLE tbl REORGANIZE PARTITION
 
 ## Postlog
 
-Original writing -- Oct, 2012; Use cases added: Oct, 2014; Refreshed: June, 2015; 8.0: Sep, 2016
-
 [Slides from Percona Amsterdam 2015](https://mysql.rjweb.org/slides/Partition.pdf)
-
-PARTITIONing requires at least MySQL 5.1
 
 The tips in this document apply to MySQL, MariaDB, and Percona.
 
@@ -222,14 +217,9 @@ Native partitioning will give:
 * This will improve performance slightly by combining two "handlers" into one.
 * Decreased memory usage, especially when using a large number of partitions.
 
-## See also
+## See Also
 
-Rick James graciously allowed us to use this article in the documentation.
-
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
-optimizations, and debugging tips.
-
-Original source: [partitionmaint](https://mysql.rjweb.org/doc.php/partitionmaint)
+Rick James graciously allowed us to use this article in the documentation. [Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos, optimizations, and debugging tips. Original source: [partitionmaint](https://mysql.rjweb.org/doc.php/partitionmaint)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

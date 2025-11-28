@@ -1,3 +1,9 @@
+---
+description: >-
+  Specify actions for error conditions. This statement defines handler routines
+  (CONTINUE or EXIT) to manage exceptions or warnings within a block.
+---
+
 # DECLARE HANDLER
 
 ## Syntax
@@ -33,7 +39,7 @@ If a condition occurs for which no handler has been declared, the default action
 
 A condition\_value for `DECLARE ... HANDLER` can be any of the following values:
 
-* An [SQLSTATE](programmatic-compound-statements-diagnostics/sqlstate.md) value (a 5-character string literal) or a MariaDB error code (a number). You should not use `SQLSTATE` value '00000' or MariaDB error code 0, because those indicate sucess rather than an error condition. For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](broken-reference).
+* An [SQLSTATE](programmatic-compound-statements-diagnostics/sqlstate.md) value (a 5-character string literal) or a MariaDB error code (a number). You should not use `SQLSTATE` value '00000' or MariaDB error code 0, because those indicate success rather than an error condition. For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](../../error-codes/mariadb-error-code-reference.md).
 * A condition name previously specified with `DECLARE ... CONDITION`. It must be in the same stored program. See [DECLARE CONDITION](declare-condition.md).
 * `SQLWARNING` is shorthand for the class of SQLSTATE values that begin with '01'.
 * `NOT FOUND` is shorthand for the class of `SQLSTATE` values that begin with '02'. This is relevant only the context of cursors and is used to control what happens when a cursor reaches the end of a data set. If no more rows are available, a No Data condition occurs with `SQLSTATE` value 02000. To detect this condition, you can set up a handler for it (or for a `NOT FOUND` condition). An example is shown in [Cursor Overview](programmatic-compound-statements-cursors/cursor-overview.md). This condition also occurs for [SELECT ... INTO](selectinto.md) var\_list statements that retrieve no rows.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Export query results to a text file. This statement writes rows to a file on
+  the server, allowing customization of field and line terminators.
+---
+
 # SELECT INTO OUTFILE
 
 ## Syntax

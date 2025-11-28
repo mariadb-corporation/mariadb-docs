@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about dynamic column functions in MariaDB Server. This section details
-  SQL functions for manipulating and querying dynamic columns, enabling flexible
-  schema design and data storage.
+  Manage schema-less data within relational tables. These functions, such as
+  COLUMN_CREATE and COLUMN_GET, allow you to store and retrieve variable sets of
+  columns in a single BLOB field.
 ---
 
 # Dynamic Columns Functions

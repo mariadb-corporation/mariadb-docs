@@ -1,3 +1,9 @@
+---
+description: >-
+  This command selects the default database for the current connection,
+  functionally equivalent to the USE statement.
+---
+
 # COM\_INIT\_DB
 
 `COM_INIT_DB` is used to specify the default schema for the connection.

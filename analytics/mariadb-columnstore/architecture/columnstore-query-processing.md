@@ -3,13 +3,13 @@
 Clients issue a query to the MariaDB Server, which has the ColumnStore storage engine installed. MariaDB Server parses the SQL, identifies the involved ColumnStore tables, and creates an initial logical query execution plan.
 
 \
-Using the ColumnStore storage engine interface (`ha_columnstore`), MariaDB Server converts involved table references into ColumnStore internal objects. These are then handed off to the ExeMgr, which is responsible for managing and orchestrating query execution across the cluster.
+Using the ColumnStore storage engine interface (`ha_columnstore`), MariaDB Server converts involved table references into ColumnStore internal objects. These are then handed off to the `ExeMgr`, which is responsible for managing and orchestrating query execution across the cluster.
 
-The ExeMgr analyzes the query plan and translates it into a distributed ColumnStore execution plan. It determines the necessary query steps and the execution order, including any required parallelization.
+The `ExeMgr` analyzes the query plan and translates it into a distributed ColumnStore execution plan. It determines the necessary query steps and the execution order, including any required parallelization.
 
-The ExeMgr then references the extent map to identify which PrimProc instances hold the relevant data segments. It applies extent elimination to exclude any PrimProc nodes whose extents do not match the query’s filter criteria.&#x20;
+The `ExeMgr` then references the extent map to identify which PrimProc instances hold the relevant data segments. It applies extent elimination to exclude any PrimProc nodes whose extents do not match the query’s filter criteria.
 
-The ExeMgr dispatches commands to the selected PrimProc instances to perform data block I/O operations.
+The `ExeMgr` dispatches commands to the selected PrimProc instances to perform data block I/O operations.
 
 The PrimProc components perform operations such as
 
@@ -20,7 +20,7 @@ The PrimProc components perform operations such as
 
 They then return intermediate result sets to the ExeMgr.
 
-The ExeMgr handles:
+The `ExeMgr` handles:
 
 * Final-stage aggregation
 * Window function evaluation

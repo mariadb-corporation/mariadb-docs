@@ -1,3 +1,10 @@
+---
+description: >-
+  Aggregate multiple geometries into a collection. This function creates a
+  MultiPoint, MultiLineString, MultiPolygon, or GeometryCollection from a set of
+  geometry arguments.
+---
+
 # ST\_Collect
 
 {% hint style="info" %}

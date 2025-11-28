@@ -151,22 +151,70 @@ payload to be useful.
 }
 ```
 
-### OpenID Connect
+## OpenID Connect
 
-MaxScale implements a limited set of OpenID Connect compatible endpoints and
-supports the use of the Implicit Flow for authentication of REST-API
-clients. These endpoints are intended to be used when MaxScale is configured
-with `admin_oidc_url` that points to another MaxScale to whom the authentication
-and authorization is delegated to. The only workflow from OpenID Connect that
-MaxScale implements and uses is the Implicit Flow which returns tokens in the
-redirection URL.
+MaxScale implements support for OpenID Connect for authentication of REST-API
+clients. MaxScale implements both the Code Flow and the Implicit Flows from
+OpenID Connect.
 
-Other OpenID Connect providers that implement the Implict Flow can be
-used with MaxScale to implement SSO for the REST-API and the MaxScale
-GUI.
+The OpenID Connect server is defined using the `admin_oidc_url` setting and the
+credentials used to access it are defined using `admin_oidc_client_id` and
+`admin_oidc_client_secret`.
 
 MaxScale uses the `admin_jwt_issuer` as the `client_id` in all OpenID Connect
-requests.
+requests unless `admin_oidc_client_id` has been defined.
+
+The `account` and `permissions` values of the generated JWT for the REST-API
+client are extracted from the ID token and access tokens that are sent at the
+end of the OpenID Connect authentication process and the contents of the
+userinfo endpoint that's accessed using the access token.
+
+To define the permissions of an externally authenticated user, the OpenID
+Connect identity provider must be able to define custom claims in the JWT. The
+exact method of doing this depends on the identity provider.
+
+If the `permissions` field is present and it is an array of strings that defines
+at least one valid [API permission](maxscale-role-resource.md#create-a-role),
+the values are expected to be the permissions of the user and they are used
+directly. If the `permissions` field is not present but the `account` field is,
+it is expected to be the name of a [role](maxscale-role-resource.md) which is
+then used to authorize the user.
+
+For example, with the following JWT payload, the permissions of the user are
+read from the `permissions` field, which in this case are `edit` and `view`, and
+the account name is taken from the `account` field. The account in this case is
+only used for display purposes and if it's missing, the value `external` is used
+instead.
+
+```javascript
+{
+    "account": "manager",
+    "permissions": [
+        "edit",
+        "view"
+    ],
+    "aud": "maxscale",
+    "exp": 1753487037,
+    "iat": 1753458237,
+    "iss": "www.mariadb.com",
+    "sub": "foo"
+}
+```
+
+Whereas with the following JWT payload, the permissions of the user are from the
+`admin` role so changes to the role in MaxScale itself are reflected instantly
+in the user's permissions.
+
+```javascript
+{
+    "account": "admin",
+    "aud": "maxscale",
+    "exp": 1753487037,
+    "iat": 1753458237,
+    "iss": "www.mariadb.com",
+    "sub": "foo"
+}
+```
 
 #### `/login`
 
@@ -192,22 +240,17 @@ whether the `/login` and `/logout` endpoints cause a redirect, i.e. whether
 
 #### `/authorize`
 
-The `/authorize` endpoint implements the OAuth 2 endpoint for
-authorization. MaxScale does not implement the token endpoint as it only
-supports Implicit Flow authentication and thus all responses will contain the
-id_token value.
+The `/authorize` endpoint implements the OAuth 2 endpoint for authorization.
 
-The only suppored `scope` value is `open_id` and the `response_type` must be
-`id_token`. If a `nonce` value is provided, it is added to the generated JWT
-under the `nonce` claim.
+The `scope` must contain the value `open_id` and the `response_type` must be
+either `id_token` for the Implicit Flow or `code` for the Code Flow. If a
+`nonce` value is provided, it is added to the generated JWT under the `nonce`
+claim.
 
-In the redirect response, `id_token` contains the generated JWT and `token_type`
-is always set to `bearer. The `expires_in` value contains the lifetime of the
-generated JWT. If a `state` value was given, it is included in the redirect
-response.
-
-Any tokens generated from the `/authorize` endpoint will have their lifetime set
-to 8 hours or the value of `admin_jwt_max_age` if it is lower than 8 hours.
+In the redirect response for the Implicit Flow, `id_token` contains the
+generated JWT and `token_type` is always set to `bearer. The `expires_in` value
+contains the lifetime of the generated JWT. If a `state` value was given, it is
+included in the redirect response.
 
 #### `/jwks`
 

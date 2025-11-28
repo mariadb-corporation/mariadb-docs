@@ -1,3 +1,10 @@
+---
+description: >-
+  Review window function support in ColumnStore. This page details the specific
+  window functions and limitations applicable when using the ColumnStore storage
+  engine.
+---
+
 # ColumnStore Window Functions
 
 ## Introduction

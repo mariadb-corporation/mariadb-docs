@@ -6,7 +6,7 @@ In addition to different release cycle, QA, and etc..., there are also feature d
 
 In addition to this there are Enterprise Features and some backported features. The following are features that are in MariaDB Enterprise Server 10.6 but not in MariaDB Community Server 10.6:
 
-Enterprise Features:
+## Enterprise Features
 
 * [MariaDB Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup)
 * [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
@@ -23,7 +23,7 @@ Enterprise Features:
 * Dynamic change of [InnoDB purge](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-purge) threads
 * Sybase SQL mode for extended aliases
 
-**Backported Features:**
+## **Backported Features**
 
 * [mariadb-dump option --as-of](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#options) to dump data as of a given time for system versioned tables
 * JSON functions

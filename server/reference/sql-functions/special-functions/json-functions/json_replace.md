@@ -1,3 +1,9 @@
+---
+description: >-
+  Replace values in a JSON document. This function replaces existing values in a
+  JSON document and returns the result.
+---
+
 # JSON\_REPLACE
 
 ## Syntax

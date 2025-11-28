@@ -1,3 +1,10 @@
+---
+description: >-
+  Pluggable authentication allows MariaDB to use various authentication methods,
+  enabling external validation, different hashing algorithms, and role-based
+  access control.
+---
+
 # Pluggable Authentication Overview
 
 When a user attempts to log in, the authentication plugin controls how MariaDB Server determines whether the connection is from a legitimate user.
@@ -244,7 +251,7 @@ Most [clients and utilities](../../../clients-and-utilities/) support the `--def
 | --------------------- | ------------------------------------------------- |
 | `--default-auth=name` | Default authentication client-side plugin to use. |
 
-Developers using [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) can implement similar functionality in  applications, by setting the `MYSQL_DEFAULT_AUTH` option with the [mysql\_optionsv](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv) function:
+Developers using [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) can implement similar functionality in applications, by setting the `MYSQL_DEFAULT_AUTH` option with the [mysql\_optionsv](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_optionsv) function:
 
 ```c
 mysql_optionsv(mysql, MYSQL_DEFAULT_AUTH, "name");

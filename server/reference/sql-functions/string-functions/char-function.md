@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the character for each integer passed. This function interprets
+  arguments as integer ASCII values and returns a string of those characters.
+---
+
 # CHAR Function
 
 ## Syntax
@@ -19,7 +25,7 @@ SELECT CHARSET(CHAR(0x65)), CHARSET(CHAR(0x65 USING utf8));
 +---------------------+--------------------------------+
 ```
 
-If `USING` is given and the result string is illegal for the given character set, a warning is issued. Also, if strict [SQL mode](../../../server-management/variables-and-modes/sql-mode.md) is enabled, the result from `CHAR()` becomes `NULL`.
+If `USING` is given and the result string is illegal for the given character set, a warning is issued. Also, if strict [SQL mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled, the result from `CHAR()` becomes `NULL`.
 
 ## Examples
 

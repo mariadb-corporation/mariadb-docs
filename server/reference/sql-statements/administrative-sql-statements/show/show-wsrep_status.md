@@ -1,3 +1,9 @@
+---
+description: >-
+  View Galera Cluster status variables. This statement displays internal status
+  metrics for the wsrep provider.
+---
+
 # SHOW WSREP\_STATUS
 
 `SHOW WSREP_STATUS` is part of the [WSREP\_INFO](../../../../plugins/mariadb-replication-cluster-plugins/wsrep_info-plugin.md) plugin.

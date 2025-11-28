@@ -1,3 +1,9 @@
+---
+description: >-
+  Documentation for the deprecated SHOW INNODB STATUS statement. This statement
+  was removed in favor of SHOW ENGINE INNODB STATUS.
+---
+
 # SHOW INNODB STATUS (removed)
 
 ## Syntax

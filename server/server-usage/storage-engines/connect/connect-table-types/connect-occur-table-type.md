@@ -8,7 +8,7 @@ Similarly to the [XCOL](connect-xcol-table-type.md) table type, `OCCUR` is an ex
 referring to a table or view having several columns containing the same kind of\
 data. It enables having a different view of the table where the data from\
 these columns are put in a single column, eventually causing several rows to be\
-generated from one row of the object table. For example, supposing we have &#x61;_&#x70;ets_ table:
+generated from one row of the object table. For example, supposing we have a_pets_ table:
 
 | name    | dog | cat | rabbit | bird | fish |
 | ------- | --- | --- | ------ | ---- | ---- |

@@ -1,6 +1,6 @@
 # Query Cache
 
-The query cache stores results of SELECT queries so that if the identical query is received in future, the results can be quickly returned.
+The query cache stores results of `SELECT` queries so that if the identical query is received in future, the results can be quickly returned.
 
 This is extremely useful in high-read, low-write environments (such as most websites). It does not scale well in environments with high throughput on multi-core machines, so it is disabled by default.
 
@@ -21,21 +21,25 @@ SHOW VARIABLES LIKE 'have_query_cache';
 
 If this is set to `NO`, you cannot enable the query cache unless you rebuild or reinstall a version of MariaDB with the cache available.
 
-To see if the cache is enabled, view the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable. It is enabled by default in MariaDB versions up to 10.1.6, but disabled starting with [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes) - if needed enable it by setting `query_cache_type` to `1`.
-
-Although enabled in versions prior to [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes), the [query\_cache\_size](../system-variables/server-system-variables.md#query_cache_size) is by default 0KB there, which effectively disables the query cache. From 10.1.7 on the cache size defaults to 1MB. If needed set the cache to a size large enough amount, for example:
+To see if the cache is enabled, view the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable. It is disabled by default —  enable it by setting `query_cache_type` to `1` : 
 
 ```sql
-SET GLOBAL query_cache_size = 1000000;
+SET GLOBAL query_cache_type = 1;
 ```
 
-Starting from [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes), `query_cache_type` is automatically set to ON if the server is started with the `query_cache_size` set to a non-zero (and non-default) value.
+The [query\_cache\_size](../system-variables/server-system-variables.md#query_cache_size) is set to 1MB by default. Set the cache to a larger size if needed, for example:
+
+```sql
+SET GLOBAL query_cache_size = 2000000;
+```
+
+The `query_cache_type` is automatically set to `ON` if the server is started with the `query_cache_size` set to a non-zero (and non-default) value.
 
 See [Limiting the size of the Query Cache](query-cache.md#limiting-the-size-of-the-query-cache) below for details.
 
 ## How the Query Cache Works
 
-When the query cache is enabled and a new SELECT query is processed, the query cache is examined to see if the query appears in the cache.
+When the query cache is enabled and a new `SELECT` query is processed, the query cache is examined to see if the query appears in the cache.
 
 Queries are considered identical if they use the same database, same protocol version and same default character set. Prepared statements are always considered as different to non-prepared statements, see [Query cache internal structure](query-cache.md#query-cache-internal-structure) for more info.
 
@@ -79,7 +83,7 @@ When using `query_cache_type=DEMAND` and the query specifies `SQL_CACHE`, the se
 
 If the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `1`, or `ON`, all queries fitting the size constraints will be stored in the cache unless they contain a `SQL_NO_CACHE` clause, or are of a nature that caching makes no sense, for example making use of a function that returns the current time. Queries with `SQL_NO_CACHE` will not attempt to acquire query cache lock.
 
-If any of the following functions are present in a query, it will not be cached. Queries with these functions are sometimes called 'non-deterministic' - don't get confused with the use of this term in other contexts.
+If any of the following functions are present in a query, it will not be cached. Queries with these functions are sometimes called 'non-deterministic' — don't get confused with the use of this term in other contexts.
 
 |                                                                                                                        |                                                                                                                                           |
 | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -114,7 +118,7 @@ A query will also not be added to the cache if:
 * It makes use of stored functions
 * It makes use of user-defined functions
 * It is inside a transaction with the SERIALIZABLE isolation level
-* It is quering a table inside a transaction after the same table executed a query cache invalidation using INSERT, UPDATE or DELETE
+* It is quering a table inside a transaction after the same table executed a query cache invalidation using `INSERT`, `UPDATE` or `DELETE`
 
 The query itself can also specify that it is not to be stored in the cache by using the `SQL_NO_CACHE` attribute. Query-level control is an effective way to use the cache more optimally.
 
@@ -128,7 +132,7 @@ The query cache size is allocated in 1024 byte-blocks, thus it should be set to 
 
 The query result is stored using a minimum block size of [query\_cache\_min\_res\_unit](../system-variables/server-system-variables.md#query_cache_min_res_unit). Check two conditions to use a good value of this variable: Query cache insert result blocks with locks, each new block insert lock query cache, a small value will increase locks and fragmentation and waste less memory for small results, a big value will increase memory use wasting more memory for small results but it reduce locks. Test with your workload for fine tune this variable.
 
-If the [strict mode](../../../server-management/variables-and-modes/sql-mode.md) is enabled, setting the query cache size to an invalid value will cause an error. Otherwise, it will be set to the nearest permitted value, and a warning will be triggered.
+If the [strict mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled, setting the query cache size to an invalid value will cause an error. Otherwise, it will be set to the nearest permitted value, and a warning will be triggered.
 
 ```sql
 SHOW VARIABLES LIKE 'query_cache_size';
@@ -192,7 +196,7 @@ SHOW STATUS LIKE 'Qcache%';
 
 The above example could indicate a poorly performing cache. More queries have been added, and more queries have been dropped, than have actually been used.
 
-Note that before [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), queries returned from the query cache did not increment the [Com\_select](../system-variables/server-status-variables.md#com_select) status variable, so to find the total number of valid queries run on the server, add [Com\_select](../system-variables/server-status-variables.md#com_select) to [Qcache\_hits](../system-variables/server-status-variables.md#qcache_hits). Starting from [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), results returned by the query cache count towards `Com_select` (see [MDEV-4981](https://jira.mariadb.org/browse/MDEV-4981)).
+Results returned by the query cache count towards `Com_select` (see [MDEV-4981](https://jira.mariadb.org/browse/MDEV-4981)).
 
 The [QUERY\_CACHE\_INFO plugin](../../../reference/plugins/other-plugins/query-cache-information-plugin.md) creates the [QUERY\_CACHE\_INFO](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-query_cache_info-table.md) table in the [INFORMATION\_SCHEMA](../../../reference/system-tables/information-schema/), allowing you to examine the contents of the query cache.
 
@@ -232,7 +236,6 @@ Setting either [query\_cache\_type](../system-variables/server-system-variables.
 
 * The query cache needs to be disabled in order to use [OQGRAPH](../../../server-usage/storage-engines/oqgraph-storage-engine/).
 * The query cache is not used by the [Spider](../../../server-usage/storage-engines/spider/) storage engine (amongst others).
-* The query cache also needs to be disabled for MariaDB [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) cluster versions prior to "5.5.40-galera", "10.0.14-galera" and "10.1.2".
 
 ## LOCK TABLES and the Query Cache
 
@@ -267,9 +270,9 @@ The query cache can be used when tables have a write lock (which may seem confus
 
 ## Transactions and the Query Cache
 
-The query cache handles transactions. Internally a flag (FLAGS\_IN\_TRANS) is set to 0 when a query was executed outside a transaction, and to 1 when the query was inside a transaction ([begin](../../../reference/sql-statements/programmatic-compound-statements/begin-end.md) / [COMMIT](../../../reference/sql-statements/transactions/commit.md) / [ROLLBACK](../../../reference/sql-statements/transactions/rollback.md)). This flag is part of the "query cache hash", in others words one query inside a transaction is different from a query outside a transaction.
+The query cache handles transactions. Internally a flag (`FLAGS_IN_TRANS`) is set to `0` when a query was executed outside a transaction, and to 1 when the query was inside a transaction ([begin](../../../reference/sql-statements/programmatic-compound-statements/begin-end.md) / [COMMIT](../../../reference/sql-statements/transactions/commit.md) / [ROLLBACK](../../../reference/sql-statements/transactions/rollback.md)). This flag is part of the "query cache hash", in others words one query inside a transaction is different from a query outside a transaction.
 
-Queries that change rows ([INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) / [UPDATE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) / [DELETE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) / [TRUNCATE](../../../reference/sql-functions/numeric-functions/truncate.md)) inside a transaction will invalidate all queries from the table, and turn off the query cache to the changed table. Transactions that don't end with COMMIT / ROLLBACK check that even without COMMIT / ROLLBACK, the query cache is turned off to allow row level locking and consistency level.
+Queries that change rows ([INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) / [UPDATE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) / [DELETE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) / [TRUNCATE](../../../reference/sql-functions/numeric-functions/truncate.md)) inside a transaction will invalidate all queries from the table, and turn off the query cache to the changed table. Transactions that don't end with `COMMIT` / `ROLLBACK` check that even without `COMMIT` / `ROLLBACK`, the query cache is turned off to allow row level locking and consistency level.
 
 Examples:
 
@@ -376,9 +379,9 @@ Some fields that differentiate queries are (from "Query\_cache\_query\_flags" in
 
 ## Timeout and Mutex Contention
 
-When searching for a query inside the query cache, a try\_lock function waits with a timeout of 50ms. If the lock fails, the query isn't executed via the query cache. This timeout is hard coded ([MDEV-6766](https://jira.mariadb.org/browse/MDEV-6766) include two variables to tune this timeout).
+When searching for a query inside the query cache, a `try_lock` function waits with a timeout of 50ms. If the lock fails, the query isn't executed via the query cache. This timeout is hard-coded ([MDEV-6766](https://jira.mariadb.org/browse/MDEV-6766) include two variables to tune this timeout).
 
-From the sql\_cache.cc, function "try\_lock" using TIMEOUT :
+From the sql\_cache.cc, function "try\_lock" using `TIMEOUT` :
 
 ```c
 struct timespec waittime;
@@ -397,22 +400,22 @@ When two processes execute the same query, only the last process stores the quer
 
 There are two aspects to the query cache: placing a query in the cache, and retrieving it from the cache.
 
-1. Adding a query to the query cache. This is done automatically for cacheable queries (see ([Queries Stored in the Query Cache](query-cache.md#queries-stored-in-the-query-cache)) when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `1`, or `ON` and the query contains no SQL\_NO\_CACHE clause, or when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `2`, or `DEMAND`, and the query contains the SQL\_CACHE clause.
+1. Adding a query to the query cache. This is done automatically for cacheable queries (see ([Queries Stored in the Query Cache](query-cache.md#queries-stored-in-the-query-cache)) when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `1`, or `ON` and the query contains no `SQL_NO_CACHE` clause, or when the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) system variable is set to `2`, or `DEMAND`, and the query contains the `SQL_CACHE` clause.
 2. Retrieving a query from the cache. This is done after the server receives the query and before the query parser. In this case one point should be considered:
 
-When using SQL\_NO\_CACHE, it should be after the first SELECT hint, for example :
+When using `SQL_NO_CACHE`, it should be after the first `SELECT` hint:
 
 ```sql
 SELECT SQL_NO_CACHE .... FROM (SELECT SQL_CACHE ...) AS temp_table
 ```
 
-instead of
+Don't use it like this:
 
 ```sql
 SELECT SQL_CACHE .... FROM (SELECT SQL_NO_CACHE ...) AS temp_table
 ```
 
-The second query will be checked. The query cache only checks if SQL\_NO\_CACHE/SQL\_CACHE exists after the first SELECT. (More info at [MDEV-6631](https://jira.mariadb.org/browse/MDEV-6631))
+The second query will be checked. The query cache only checks if `SQL_NO_CACHE`/`SQL_CACHE` exists after the first `SELECT`. (More info at [MDEV-6631](https://jira.mariadb.org/browse/MDEV-6631))
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

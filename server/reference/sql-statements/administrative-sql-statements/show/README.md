@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about SHOW statements in MariaDB Server. These SQL commands provide
-  insights into server status, database objects, configurations, and various
-  internal states for monitoring and troubleshooting.
+  View server metadata and status. This section lists SHOW statements for
+  inspecting databases, tables, variables, and performance metrics.
 ---
 
 # SHOW Statements

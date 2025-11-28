@@ -1,3 +1,10 @@
+---
+description: >-
+  Declare variables based on existing types. This feature allows defining
+  variables or parameters that inherit the data type of a table column or
+  another variable.
+---
+
 # TYPE OF
 
 ## Overview

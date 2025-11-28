@@ -344,7 +344,7 @@ After setting up the MariaDB Package Repository, you can install the software pa
 
 {% tabs %}
 {% tab title="RHEL" %}
-#### Installing Packages on RHEL and equivalents
+**Installing Packages on RHEL and equivalents**
 
 To install MariaDB on Red Hat Enterprise Linux (RHEL) and equivalents, see the instructions at [Installing MariaDB Packages with YUM](rpm/yum.md#installing-mariadb-packages-with-yum). For example:
 
@@ -360,7 +360,7 @@ sudo dnf install maxscale
 {% endtab %}
 
 {% tab title="Debian / Ubuntu" %}
-#### Installing Packages on Debian and Ubuntu
+**Installing Packages on Debian and Ubuntu**
 
 To install MariaDB on Debian and Ubuntu, see the instructions at [Installing MariaDB Packages with APT](installing-mariadb-deb-files.md#installing-mariadb-packages-with-apt). For example:
 
@@ -376,7 +376,7 @@ sudo apt install maxscale
 {% endtab %}
 
 {% tab title="SLES" %}
-#### Installing Packages on SLES
+**Installing Packages on SLES**
 
 To install MariaDB on SUSE Linux Enterprise Server (SLES), see the instructions at [Installing MariaDB Packages with ZYpp](rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp). For example:
 
@@ -438,6 +438,7 @@ sudo zypper install maxscale
 
 | Version    | sha256sum                                                          |
 | ---------- | ------------------------------------------------------------------ |
+| 2025-11-18 | `7a3e1610fee91347e198214e3672a6d3932ccbbf67905d9e892e9255baaec292` |
 | 2025-08-07 | `923eea378be2c129adb4d191f01162c1fe5473f1114d7586f096b5f6b9874efe` |
 | 2025-02-13 | `c4a0f3dade02c51a6a28ca3609a13d7a0f8910cccbb90935a2f218454d3a914a` |
 | 2024-11-14 | `ceaa5bd124c4d10a892c384e201bb6e0910d370ebce235306d2e4b860ed36560` |

@@ -1,3 +1,9 @@
+---
+description: >-
+  View the CREATE PACKAGE statement. This statement returns the interface
+  definition of a stored package in MariaDB.
+---
+
 # SHOW CREATE PACKAGE
 
 ## Syntax
@@ -8,7 +14,7 @@ SHOW CREATE PACKAGE  [ db_name . ] package_name
 
 ## Description
 
-The `SHOW CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) is set. It shows the `CREATE` statement that creates the given package specification.
+The `SHOW CREATE PACKAGE` statement can be used when [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set. It shows the `CREATE` statement that creates the given package specification.
 
 `SHOW CREATE PACKAGE` quotes identifiers according to the value of the [sql\_quote\_show\_create](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_quote_show_create) system variable.
 
@@ -37,7 +43,7 @@ collation_connection: utf8_general_ci
 * [CREATE PACKAGE BODY](../../data-definition/create/create-package-body.md)
 * [SHOW CREATE PACKAGE BODY](show-create-package-body.md)
 * [DROP PACKAGE BODY](../../data-definition/drop/drop-package-body.md)
-* [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md)
+* [Oracle SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

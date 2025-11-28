@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the value of pi. This function returns the mathematical constant π
+  (approximately 3.141593).
+---
+
 # PI
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Display information about columns in a table. View field names, types, default
+  values, and other attributes for a specific table.
+---
+
 # SHOW COLUMNS
 
 ## Syntax

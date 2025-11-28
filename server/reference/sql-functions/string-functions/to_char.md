@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert to string. This function converts a value (often date/time) to a
+  string, potentially using a format mask.
+---
+
 # TO\_CHAR
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Release a specific named lock. This function frees a user-level lock
+  previously obtained with GET_LOCK(), allowing others to acquire it.
+---
+
 # RELEASE\_LOCK
 
 ## Syntax

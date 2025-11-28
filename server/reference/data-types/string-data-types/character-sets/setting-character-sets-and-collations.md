@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to configure character sets and collations at the server, table, and
+  column levels to ensure correct data handling.
+---
+
 # Setting Character Sets and Collations
 
 {% tabs %}
@@ -7,7 +13,7 @@ This may differ in some distros, see for example [Differences in MariaDB in Debi
 {% endtab %}
 
 {% tab title="< 11.6" %}
-The default [character set](./) is `latin1` and the default collation is `latin1_swedish_ci`. \
+The default [character set](./) is `latin1` and the default collation is `latin1_swedish_ci`.\
 This may differ in some distros, see for example [Differences in MariaDB in Debian](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md).
 {% endtab %}
 {% endtabs %}
@@ -121,7 +127,7 @@ If no collation is provided, the collation will be set to the default collation 
 
 For [VARCHAR](../varchar.md) or [TEXT](../text.md) columns, `CONVERT TO CHARACTER SET` changes the data type if needed to ensure the new column is long enough to store as many characters as the original column.
 
-For example, an ascii `TEXT` column requires a single byte per character, so the column can hold up to 65,535 characters. If the column is converted to utf8mb4, 4 bytes can be required for each character, so the column will be converted to [MEDIUMTEXT](../mediumtext.md) to be able to hold the same number of characters.
+For example, an ascii `TEXT` column requires a single byte per character, so the column can hold up to 65,535 characters. If the column is converted to `utf8mb4`, 4 bytes can be required for each character, so the column will be converted to [MEDIUMTEXT](../mediumtext.md) to be able to hold the same number of characters.
 
 `CONVERT TO CHARACTER SET binary` will convert [CHAR](../char.md), [VARCHAR](../varchar.md) and [TEXT](../text.md) columns to [BINARY](../binary.md), [VARBINARY](../varbinary.md) and [BLOB](../blob.md) respectively, and from that point will no longer have a character set, or be affected by future `CONVERT TO CHARACTER SET` statements.
 
@@ -238,14 +244,14 @@ Examples when setting `@@character_set_client` and `@@character_set_connection` 
 
 Example 1:
 
-Suppose, we have a utf8 database with this table:
+Suppose, we have a `utf8` database with this table:
 
 ```sql
 CREATE TABLE t1 (a VARCHAR(10)) CHARACTER SET utf8 COLLATE utf8_general_ci;
 INSERT INTO t1 VALUES ('oe'),('ö');
 ```
 
-Now we connect to it using "mysql.exe", which uses the DOS character set (cp850 on a West European machine), and want to fetch all records that are equal to 'ö' according to the German phonebook rules.
+Now we connect to it using a client which uses the DOS character set (cp850 on a West European machine), and want to fetch all records that are equal to 'ö' according to the German phonebook rules.
 
 It's possible with the following:
 
@@ -267,7 +273,7 @@ This will return:
 
 It works as follows:
 
-1. The client sends the query using cp850.
+1. The client sends the query using `cp850`.
 2. The server, when parsing the query, creates a utf8 string literal by converting 'ö' from `@@character_set_client` (cp850) to `@@character_set_connection` (utf8).
 3. The server applies the collation `utf8_german2_ci` to this string literal.
 4. The server uses `utf8_german2_ci` for comparison.
@@ -442,10 +448,10 @@ The new variable will take effect in all cases where a character set is explicit
 * `CONVERT`(expr `USING` csname)
 * `CAST`(expr `AS CHAR CHARACTER SET` csname)
 * '' - character string literal
-* \_utf8mb3'text' - a character string literal with an introducer
-* \_utf8mb3 X'61' - a character string literal with an introducer with hex notation
-* \_utf8mb3 0x61 - a character string literal with an introducer with hex hybrid notation
-* @@collation\_connection after a SET NAMES without COLLATE
+* `_utf8mb3'text'` - a character string literal with an introducer
+* `_utf8mb3 X'61'` - a character string literal with an introducer with hex notation
+* `_utf8mb3 0x61` - a character string literal with an introducer with hex hybrid notation
+* `@@collation_connection` after a `SET NAMES` statement without `COLLATE`
 
 ## Example: Changing the Default Character Set To UTF-8
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate the difference between periods. This function returns the number of
+  months between two periods formatted as YYMM or YYYYMM.
+---
+
 # PERIOD\_DIFF
 
 ## Syntax

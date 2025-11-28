@@ -1,3 +1,10 @@
+---
+description: >-
+  Convert a binary IPv6 address to string. This function takes a binary IPv6
+  address (like from INET6_ATON) and returns its human-readable string
+  representation.
+---
+
 # INET6\_NTOA
 
 ## Syntax

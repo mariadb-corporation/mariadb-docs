@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a value to a specific data type. This function explicitly converts a
+  value from one type to another, such as string to integer.
+---
+
 # CAST
 
 ## Syntax

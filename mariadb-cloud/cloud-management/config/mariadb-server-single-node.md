@@ -1,6 +1,6 @@
 # MariaDB Server Single Node
 
-For cloud databases with the Mariadb Server Single Node topology, the following Configuration Manager parameters are used to configure MariaDB Server behavior:
+For cloud databases with the MariaDB Server Single Node topology, the following Configuration Manager parameters are used to configure MariaDB Server behavior:
 
 | Name                                                                                                                                                                                                                                                 | Default Value                                                                                                                                              |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |

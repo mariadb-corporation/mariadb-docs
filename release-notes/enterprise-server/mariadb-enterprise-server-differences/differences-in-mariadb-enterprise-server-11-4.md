@@ -6,7 +6,7 @@ In addition to different release cycles, QA, etc, there are also feature differe
 
 In addition to this, there are Enterprise Features and some backported features. The following are features that are in MariaDB Enterprise Server 11.4 but not in MariaDB Community Server 11.4:
 
-Enterprise Features:
+## Enterprise Features
 
 * [MariaDB Backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup)
 * [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit)
@@ -23,7 +23,7 @@ Enterprise Features:
 * Dynamic change of [InnoDB purge](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-purge) threads
 * Sybase SQL mode for extended aliases
 
-**Backported Features**:
+## **Backported Features**
 
 * New, Detailed Replication Lag Representation
 * New Information Schema Table For Password-Related Data
@@ -32,10 +32,10 @@ Enterprise Features:
 * PARSEC authentication plugin
 * Extending timestamp range to 2106
 * Limit the size of the created disk temporary files and tables
-* The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive.
-* [Vector Search](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) capability has been added (MENT-2233).
-
-
+* The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive
+* [Vector Search](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) capability has been added (MENT-2233)
+* Segmented key cache for Aria
+  * A new variable [aria-pagecache-segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_pagecache_segments) (default 1) to define the number of segments has been added. The default disables the new feature.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

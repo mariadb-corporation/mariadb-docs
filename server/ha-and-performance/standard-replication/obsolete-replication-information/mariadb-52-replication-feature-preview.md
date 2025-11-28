@@ -16,7 +16,7 @@ isolated features that are considered complete and fairly well-tested. It is\
 however not a stable or GA release, nor is it planned to be so.
 
 The stable\
-release including these features will be [**MariaDB 5.3**](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/obsolete-replication-information/broken-reference/README.md). That being said, we\
+release including these features will be [**MariaDB 5.3**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3). That being said, we\
 greatly welcome any feedback / bug reports, and will strive to fix any issues\
 found and we will update the feature preview until [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) stable is ready.
 
@@ -33,12 +33,12 @@ mirrors are available.
 ### Debian/Ubuntu
 
 For Debian and Ubuntu, it is highly recommended to install from the\
-repositories, using `apt-get`, `aptitude`, or other favorite package\
+repositories, using `apt-get`, `aptitude`, or another favorite package\
 managers.
 
 First import the [public key](https://ftp.osuosl.org/pub/mariadb/PublicKey) with\
 which the repositories are signed, so that `apt` can verify the integrity of\
-the packages it downloads. For example like this:
+the packages it downloads. For example, like this:
 
 ```bash
 wget -O- http://ftp.osuosl.org/pub/mariadb/PublicKey | sudo apt-key add -
@@ -112,7 +112,7 @@ headings link to more detailed information.
 This preview release implements group commit which works when using XtraDB with\
 the binary log enabled. (In previous MariaDB releases, and all MySQL releases at\
 the time of writing, group commit works in InnoDB/XtraDB when the binary log\
-is disabled, but stops working when the binary log is enabled).
+is disabled but stops working when the binary log is enabled).
 
 ### [Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT](../enhancements-for-start-transaction-with-consistent-snapshot.md)
 
@@ -141,7 +141,7 @@ replication events.
 ### [Row-based replication for tables with no primary key](../row-based-replication-with-no-primary-key.md)
 
 This feature can improve the performance of row-based replication on tables\
-that do not have a primary key (or other unique key), but which do have another\
+that do not have a primary key (or another unique key), but which do have another\
 index that can help locate rows to update or delete. With this feature, index\
 cardinality information from `ANALYZE TABLE` is considered when selecting the\
 index to use (before this feature is implemented, the first index was selected\
@@ -161,7 +161,7 @@ to not be visible.)
 * This preview also includes a small change to make mysqlbinlog omit\
   redundant `use` statements around `BEGIN`, `SAVEPOINT`, `COMMIT`,\
   and `ROLLBACK` events when reading MySQL 5.0 binlogs.
-* The preview included a feature [--innodb-release-locks-early](xtradb-option-innodb-release-locks-early.md). However we\
+* The preview included a feature [--innodb-release-locks-early](xtradb-option-innodb-release-locks-early.md). However, we\
   decided to omit this feature from future MariaDB releases because of a\
   fundamental design bug, [lp:798213](https://bugs.launchpad.net/maria/+bug/798213).
 

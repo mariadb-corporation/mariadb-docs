@@ -1,6 +1,6 @@
 # MariaDB 10.10.7 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/10.10.7/)[Release Notes](mariadb-10-10-7-release-notes.md)[Changelog](../../changelogs/changelogs-mariadb-10-10-series/mariadb-10-10-7-changelog.md)[Overview of 10.10](what-is-mariadb-1010.md)
+[Download](https://downloads.mariadb.org/mariadb/10.10.7/)[Release Notes](mariadb-10-10-7-release-notes.md)[Changelog](../../changelogs/10.10/10.10.7.md)[Overview of 10.10](what-is-mariadb-1010.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.10.7/)
 
@@ -196,7 +196,7 @@ Thanks, and enjoy MariaDB!
 
 ### Docker Official Images
 
-* Invert single and double quotes for sql command definitions in [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) due to failure under [sql\_mode=ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode#ansi_quotes) - contribution by Dominik Häckel
+* Invert single and double quotes for sql command definitions in [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) due to failure under [sql\_mode=ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode#ansi_quotes) - contribution by Dominik Häckel
 * [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) --no-defaults behaviour was corrected - reported by Dominik Häckel
 * Added /docker-entrypoint-init.d for tar{,compression} from [MariaDB Backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/) - [instructions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/docker-official-image-frequently-asked-questions#how-do-i-create-a-mariadb-backup-of-the-data)
 * Refactor `docker_mariadb_init` in the entrypoint for extending the MariaDB image
@@ -216,7 +216,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 10.10.7](mariadb-10-10-7-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-10-10-series/mariadb-10-10-7-changelog.md).
+information on each push, see the [changelog](../../changelogs/10.10/10.10.7.md).
 
 ## Contributors
 

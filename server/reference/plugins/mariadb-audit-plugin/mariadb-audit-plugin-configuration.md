@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure the Audit Plugin to suit your monitoring requirements. Learn how to
+  enable logging, select specific event types to record, and exclude specific
+  users from the audit trail.
+---
+
 # Audit Plugin Configuration
 
 After the audit plugin has been installed and loaded, there will be some new global variables within MariaDB. These can be used to configure many components, limits, and methods related to auditing the server. You may set these variables related to the logs, such as their location, size limits, rotation parameters, and method of logging information. You may also set what information is logged, such connects, disconnects, and failed attempts to connect. You can also have the audit plugin log queries, read and write access to tables. So as not to overload your logs, the audit plugin can be configured based on lists of users. You can include or exclude the activities of specific users in the logs.

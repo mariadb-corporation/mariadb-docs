@@ -1,3 +1,9 @@
+---
+description: >-
+  Double precision floating-point number. A DOUBLE column uses 8 bytes to store
+  large or precise approximate values.
+---
+
 # DOUBLE
 
 ## Syntax
@@ -24,7 +30,7 @@ These are the theoretical limits, based on the IEEE standard. The actual range m
 
 `ZEROFILL`, if specified, pads the number with zeros, up to the total number of digits specified by `M`.
 
-`REAL` and `DOUBLE PRECISION` are synonyms, unless the `REAL_AS_FLOAT` [SQL mode](../../../server-management/variables-and-modes/sql-mode.md) is enabled, in which case `REAL` is a synonym for [FLOAT](float.md) rather than `DOUBLE`.
+`REAL` and `DOUBLE PRECISION` are synonyms, unless the `REAL_AS_FLOAT` [SQL mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled, in which case `REAL` is a synonym for [FLOAT](float.md) rather than `DOUBLE`.
 
 See [Floating Point Accuracy](floating-point-accuracy.md) for issues when using floating-point numbers.
 

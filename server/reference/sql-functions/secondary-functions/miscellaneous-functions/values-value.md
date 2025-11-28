@@ -1,3 +1,9 @@
+---
+description: >-
+  Access values in ON DUPLICATE KEY UPDATE. This function retrieves the value
+  that would have been inserted into a column if no key conflict occurred.
+---
+
 # VALUES / VALUE
 
 ## Syntax

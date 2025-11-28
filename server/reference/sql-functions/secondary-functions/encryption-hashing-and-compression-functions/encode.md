@@ -1,3 +1,9 @@
+---
+description: >-
+  Encrypt a string. This function encrypts a string using a password, returning
+  a binary string. It is the reverse of the DECODE function.
+---
+
 # ENCODE
 
 ## Syntax

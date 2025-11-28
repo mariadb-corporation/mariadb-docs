@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about Global Transaction IDs (GTIDs) in MariaDB Server. This section
-  explains how GTIDs simplify replication management, ensuring data consistency
-  and enabling automatic failover and repair.
+  Understand how Global Transaction IDs (GTIDs) track replication events. Learn
+  to use GTIDs for simplified failover, easier topology changes, and crash-safe
+  replication.
 ---
 
 # Global Transaction ID

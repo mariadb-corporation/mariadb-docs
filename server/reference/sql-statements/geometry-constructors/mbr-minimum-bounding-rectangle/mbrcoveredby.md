@@ -1,3 +1,9 @@
+---
+description: >-
+  Check if one MBR is covered by another. Returns 1 if the MBR of the first
+  geometry is entirely contained within the MBR of the second geometry.
+---
+
 # MBRCoveredBy
 
 {% hint style="info" %}

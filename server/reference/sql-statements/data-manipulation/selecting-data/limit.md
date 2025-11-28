@@ -1,3 +1,9 @@
+---
+description: >-
+  Restrict the number of rows returned. This clause specifies the maximum number
+  of records to return and can optionally set an offset.
+---
+
 # LIMIT
 
 ## Description
@@ -139,7 +145,7 @@ SELECT * FROM store;
 +------------+------+
 ```
 
-When using `LIMIT`  with [GROUP\_CONCAT](../../../sql-functions/aggregate-functions/group_concat.md), you can simplify certain queries. Consider this table:
+When using `LIMIT` with [GROUP\_CONCAT](../../../sql-functions/aggregate-functions/group_concat.md), you can simplify certain queries. Consider this table:
 
 ```sql
 CREATE TABLE d (dd DATE, cc INT);
@@ -189,7 +195,7 @@ ORDER BY cc DESC LIMIT 1) FROM d;
 * [SELECT INTO DUMPFILE](select-into-dumpfile.md)
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
-* [Optimizer Hints](optimizer-hints.md)
+* [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
 * [SELECT ... OFFSET ... FETCH](select-offset-fetch.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

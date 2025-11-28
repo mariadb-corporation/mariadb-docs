@@ -135,7 +135,7 @@ UPDATE t1 SET dyncol_blob=COLUMN_ADD(dyncol_blob, "column_name", "value")
   WHERE id=1;
 ```
 
-Note: `COLUMN_ADD()` is a regular function (just like [CONCAT()](../sql-statements/built-in-functions/string-functions/concat.md)), hence, in order to update the value in the table you have to use the `UPDATE ... SET dynamic_col=COLUMN_ADD(dynamic_col, ....)` pattern.
+Note: `COLUMN_ADD()` is a regular function (just like [CONCAT()](../../sql-functions/string-functions/concat.md)), hence, in order to update the value in the table you have to use the `UPDATE ... SET dynamic_col=COLUMN_ADD(dynamic_col, ....)` pattern.
 
 #### COLUMN\_GET
 
@@ -149,7 +149,7 @@ Retrieves the value of a dynamic column by its name. If no column with the given
 
 This may seem counter-intuitive: Why would you need to specify which datatype they're retrieving? Can't the dynamic columns system figure the datatype from the data being stored?
 
-The answer is: SQL is a statically-typed language. The SQL interpreter needs to know the datatypes of all expressions before the query is run (for example, when one is using prepared statements and runs`"select COLUMN_GET(...)"`, the prepared statement API requires the server to inform the client about the datatype of the column being read before the query is executed and the server can see what datatype the column actually has).
+The answer is: SQL is a statically typed language. The SQL interpreter needs to know the datatypes of all expressions before the query is run (for example, when one is using prepared statements and runs`"select COLUMN_GET(...)"`, the prepared statement API requires the server to inform the client about the datatype of the column being read before the query is executed and the server can see what datatype the column actually has).
 
 See the [Datatypes](dynamic-columns.md#datatypes) section for more information about datatypes.
 
@@ -271,8 +271,8 @@ The set of possible datatypes is mostly the same as that used by the [CAST](../.
 | DATETIME\[(D)]      | DYN\_COL\_DATETIME           | (date and time (with [microseconds](../../sql-functions/date-time-functions/microseconds-in-mariadb.md)) - 9 bytes)         |
 | DECIMAL\[(M\[,D])]  | DYN\_COL\_DECIMAL            | (variable length binary decimal representation with MariaDB limitation)                                                     |
 | DOUBLE\[(M,D)]      | DYN\_COL\_DOUBLE             | (64 bit double-precision floating point)                                                                                    |
-| INTEGER             | DYN\_COL\_INT                | (variable length, up to 64 bit signed integer)                                                                              |
-| SIGNED \[INTEGER]   | DYN\_COL\_INT                | (variable length, up to 64 bit signed integer)                                                                              |
+| INTEGER             | DYN\_COL\_INT                | (variable length, up to 64-bit signed integer)                                                                              |
+| SIGNED \[INTEGER]   | DYN\_COL\_INT                | (variable length, up to 64-bit signed integer)                                                                              |
 | TIME\[(D)]          | DYN\_COL\_TIME               | (time (with [microseconds](../../sql-functions/date-time-functions/microseconds-in-mariadb.md), may be negative) - 6 bytes) |
 | UNSIGNED \[INTEGER] | DYN\_COL\_UINT               | (variable length, up to 64bit unsigned integer)                                                                             |
 
@@ -287,7 +287,7 @@ SELECT COLUMN_GET(blob, 'colname' as CHAR) ...
 
 ### Client-side API
 
-It is also possible to create or parse dynamic columns blobs on the client side. `libmysql` client library now includes an API for writing/reading dynamic column blobs. See [dynamic-columns-api](broken-reference) for details.
+It is also possible to create or parse dynamic columns blobs on the client side. `libmysql` client library now includes an API for writing/reading dynamic column blobs. See [dynamic-columns-api](dynamic-column-api.md) for details.
 
 ### Limitations
 
@@ -298,7 +298,7 @@ It is also possible to create or parse dynamic columns blobs on the client side.
 
 ## See Also
 
-* [Dynamic Columns](broken-reference)
+* [Dynamic Columns](broken-reference/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,36 +1,32 @@
 # Cassandra Storage Engine Overview
 
-CassandraSE is no longer actively being developed and has been removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106). See [MDEV-23024](https://jira.mariadb.org/browse/MDEV-23024).
+CassandraSE is no longer actively being developed and has been removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). See [MDEV-23024](https://jira.mariadb.org/browse/MDEV-23024).
 
 ## Installing
 
-**MariaDB starting with** [**10.6**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106)
+**MariaDB starting with** [10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
 
 Cassandra storage engine is no longer a part of MariaDB.
 
-The Cassandra storage engine is included but is not installed/activated by\
-default.
+The Cassandra storage engine is included but is not installed/activated by default.
 
-If using the [YUM repositories](https://downloads.mariadb.org/mariadb/repositories/)\
-on Fedora, Red Hat, or CentOS, first install the Cassandra storage engine\
+If using the [YUM repositories](https://downloads.mariadb.org/mariadb/repositories/) on Fedora, Red Hat, or CentOS, first install the Cassandra storage engine\
 package with:
 
 ```
 yum install MariaDB-cassandra-engine
 ```
 
-If using the Debian or Ubuntu repositories, the Cassandra plugin is in the main\
-MariaDB server package.
+If using the Debian or Ubuntu repositories, the Cassandra plugin is in the main MariaDB server package.
 
-To install/activate the storage engine into MariaDB, issue the following\
+To install/activate the storage engine into MariaDB, issue the following \
 command:
 
 ```
 install soname 'ha_cassandra.so';
 ```
 
-You can also activate the storage engine by using the `--plugin-load` command\
-on server startup.
+You can also activate the storage engine by using the `--plugin-load` command on server startup.
 
 ## Introduction
 
@@ -45,16 +41,12 @@ provided each of them runs the Cassandra Storage Engine:
 
 ![mariadb-and-cassandra](../../../../.gitbook/assets/mariadb-and-cassandra.png)
 
-The primary goal of Cassandra SE (Storage Engine) is data integration between\
-the SQL and NoSQL worlds. Have you ever needed to:
+The primary goal of Cassandra SE (Storage Engine) is data integration between the SQL and NoSQL worlds. Have you ever needed to:
 
 * grab some of Cassandra's data from your web frontend, or SQL query?
 * insert a few records into Cassandra from some part of your app?
 
-Now, this is easily possible. Cassandra SE makes Cassandra's column family\
-appear as a table in MariaDB that you can insert to, update, and select from.\
-You can write joins against this table, it is possible to join data that's\
-stored in MariaDB with data that's stored in Cassandra.
+Now, this is easily possible. Cassandra SE makes Cassandra's column family appear as a table in MariaDB that you can insert to, update, and select from. You can write joins against this table; it is possible to join data that's stored in MariaDB with data that's stored in Cassandra.
 
 ### Versions in MariaDB
 
@@ -64,27 +56,17 @@ stored in MariaDB with data that's stored in Cassandra.
 
 ### What about CQL?
 
-The Cassandra Query Language (CQL) is the best way to work with Cassandra. It\
-resembles SQL on first glance, however the resemblance is very shallow. CQL\
-queries are tightly bound to the way Cassandra accesses its data internally.\
-For example, you can't have even the smallest join. In fact, adding a mere`... AND non_indexed_column=1` into a `WHERE` clause is already invalid\
-CQL.
+The Cassandra Query Language (CQL) is the best way to work with Cassandra. It resembles SQL on first glance; however, the resemblance is very shallow. CQL queries are tightly bound to the way Cassandra accesses its data internally. For example, you can't have even the smallest join. In fact, adding a mere`... AND non_indexed_column=1` into a `WHERE` clause is already invalid CQL.
 
-Our goal is to let one work in SQL instead of having to move between CQL and\
-SQL all the time.
+Our goal is to let one work in SQL instead of having to move between CQL and SQL all the time.
 
 ### Does this make Cassandra an SQL database?
 
-No. Cassandra SE is not suitable for running analytics-type queries that sift\
-through huge amounts of data in a Cassandra cluster. That task is better\
-handled by Hadoop-based tools like Apache Pig or Apache Hive. Cassandra SE is\
-rather a "window" from an SQL environment into NoSQL.
+No. Cassandra SE is not suitable for running analytics-type queries that sift through huge amounts of data in a Cassandra cluster. That task is better handled by Hadoop-based tools like Apache Pig or Apache Hive. Cassandra SE is rather a "window" from an SQL environment into NoSQL.
 
 ## Data mapping
 
-Let's get specific. In order to access Cassandra's data from MariaDB, one needs\
-to create a table with `engine=cassandra`. The table will represent a view\
-of a Column Family in Cassandra and its definition will look like so:
+Let's get specific. In order to access Cassandra's data from MariaDB, one needs to create a table with `engine=cassandra`. The table will represent a view of a Column Family in Cassandra and its definition will look like so:
 
 ```
 set cassandra_default_thrift_host='192.168.0.10' -- Cassandra's address. It can also
@@ -109,8 +91,7 @@ create table cassandra_tbl      -- table name can be chosen at will
   column_family='column_family_name';    -- are accessing.
 ```
 
-The name of the table can be arbitrary. However, primary key, column names, and\
-types must "match" those of Cassandra.
+The name of the table can be arbitrary. However, primary key, column names, and types must "match" those of Cassandra.
 
 ### Cassandra's rowkey
 
@@ -122,25 +103,19 @@ The table must define a column that corresponds to the Column Family's rowkey.
 * The type of MariaDB's column must match the validation\_class of Cassandra's\
   rowkey (datatype matching is covered in more detail below).
 
-Note: Multi-column primary keys are currently not supported. Support may be\
-added in a future version, depending on whether there is a demand for it.
+Note: Multi-column primary keys are currently not supported. Support may be added in a future version, depending on whether there is a demand for it.
 
 ### Cassandra's static columns
 
-Cassandra allows one to define a "static column family", where column metadata\
-is defined in the Column Family header and is obeyed by all records.
+Cassandra allows one to define a "static column family", where column metadata is defined in the Column Family header and is obeyed by all records.
 
-These "static" columns can be mapped to regular columns in MariaDB. A static\
-column named 'foo' in Cassandra should have a counterpart named 'foo' in\
-MariaDB. The types must also match, they are covered below.
+These "static" columns can be mapped to regular columns in MariaDB. A static column named 'foo' in Cassandra should have a counterpart named 'foo' in MariaDB. The types must also match; they are covered below.
 
 ### Cassandra's dynamic columns
 
-Cassandra also allows individual rows to have their own sets of columns. In\
-other words, each row can have its own unique columns.
+Cassandra also allows individual rows to have their own sets of columns. In other words, each row can have its own unique columns.
 
-These columns can be accessed through MariaDB's [Dynamic Columns](../../../../reference/sql-structure/nosql/dynamic-columns.md) feature. To do so, one must define a\
-column:
+These columns can be accessed through MariaDB's [Dynamic Columns](../../../../reference/sql-structure/nosql/dynamic-columns.md) feature. To do so, one must define a column:
 
 * with an arbitrary name
 * of type `blob`
@@ -152,20 +127,16 @@ Here is an example:
 dynamic_cols blob DYNAMIC_COLUMN_STORAGE=yes
 ```
 
-Once define, one can access individual columns with the [new variant](broken-reference) of the Dynamic Column functions,\
+Once define, one can access individual columns with the new variant of the Dynamic Column functions,\
 which now support string names (they used to support integers only).
 
 ### Super columns
 
-Cassandra's SuperColumns are not supported, there are currently no plans to\
-support them.
+Cassandra's SuperColumns are not supported, there are currently no plans to support them.
 
 ### Datatypes
 
-There is no direct 1-to-1 mapping between Cassandra's datatypes and\
-MySQL/MariaDB datatypes. Also, Cassandra's size limitations are often more\
-relaxed than MySQL/MariaDB's. For example, Cassandra's limit on rowkey length\
-is about 2G, while MySQL limits unique key length to about 1.5Kb.
+There is no direct 1-to-1 mapping between Cassandra's datatypes and MySQL/MariaDB datatypes. Also, Cassandra's size limitations are often more relaxed than MySQL/MariaDB's. For example, Cassandra's limit on rowkey length is about 2G, while MySQL limits unique key length to about 1.5Kb.
 
 The types must be mapped as follows:
 
@@ -177,7 +148,7 @@ The types must be mapped as follows:
 | varint    | VARBINARY(n)                                                                                                                           |
 | int       | INT                                                                                                                                    |
 | bigint    | BIGINT, TINY, SHORT (pick the one that will fit the real data)                                                                         |
-| uuid      | CHAR(36), the UUID are represented in text form on the MariaDB side                                                                |
+| uuid      | CHAR(36), the UUID are represented in text form on the MariaDB side                                                                    |
 | timestamp | TIMESTAMP (second precision), TIMESTAMP(6) (microsecond precision), BIGINT (gets verbatim Cassandra's 64-bit milliseconds-since-epoch) |
 | boolean   | BOOL                                                                                                                                   |
 | float     | FLOAT                                                                                                                                  |
@@ -185,29 +156,21 @@ The types must be mapped as follows:
 | decimal   | VARBINARY(n)                                                                                                                           |
 | counter   | BIGINT, only reading is supported                                                                                                      |
 
-For types like "`VARBINARY(n)`", `n` should be chosen sufficiently large to\
-accommodate all the data that is encountered in the table.
+For types like "`VARBINARY(n)`", `n` should be chosen sufficiently large to accommodate all the data that is encountered in the table.
 
 ## Command mapping
 
 ### INSERT
 
-Cassandra doesn't provide any practical way to make INSERT different from\
-UPDATE. Therefore, INSERT works as INSERT-or-UPDATE, it will overwrite the\
-data, if necessary.
+Cassandra doesn't provide any practical way to make INSERT different from UPDATE. Therefore, INSERT works as INSERT-or-UPDATE, it will overwrite the data, if necessary.
 
-`INSERT ... SELECT` and multi-line INSERT will try to write data in batches.\
-Batch size is controlled by the [cassandra\_insert\_batch\_size](cassandra-system-variables.md#cassandra_insert_batch_size) system\
-variable, which specifies the max. batch size in columns.
+`INSERT ... SELECT` and multi-line INSERT will try to write data in batches. Batch size is controlled by the [cassandra\_insert\_batch\_size](cassandra-system-variables.md#cassandra_insert_batch_size) system variable, which specifies the max. batch size in columns.
 
-The status variables [Cassandra\_row\_inserts](cassandra-status-variables.md#cassandra_row_inserts) and [Cassandra\_row\_insert\_batches](cassandra-status-variables.md#cassandra_row_insert_batches) allow one to see whether inserts are actually\
-batched.
+The status variables [Cassandra\_row\_inserts](cassandra-status-variables.md#cassandra_row_inserts) and [Cassandra\_row\_insert\_batches](cassandra-status-variables.md#cassandra_row_insert_batches) allow one to see whether inserts are actually batched.
 
 ### UPDATE
 
-UPDATE works like one would expect SQL's UPDATE command to work (i.e. changing\
-a primary key value will result in the old record being deleted and a new\
-record being inserted)
+UPDATE works like one would expect SQL's UPDATE command to work (i.e. changing a primary key value will result in the old record being deleted and a new record being inserted)
 
 ### DELETE
 
@@ -216,35 +179,24 @@ record being inserted)
 
 ### SELECT
 
-Generally, all SELECT statements work like one expects SQL to work. Conditions\
-in the form `primary_key=...` allow the server to construct query plans which\
-access Cassandra's rows with key lookups.
+Generally, all SELECT statements work like one expects SQL to work. Conditions in the form `primary_key=...` allow the server to construct query plans which access Cassandra's rows with key lookups.
 
 #### Full table scan
 
-Full table scans are performed in a memory-efficient way. Cassandra SE performs\
-a full table scan as a series of batches, each of which reads not more than [cassandra\_rnd\_batch\_size](cassandra-system-variables.md#cassandra_rnd_batch_size) records.
+Full table scans are performed in a memory-efficient way. Cassandra SE performs a full table scan as a series of batches, each of which reads not more than [cassandra\_rnd\_batch\_size](cassandra-system-variables.md#cassandra_rnd_batch_size) records.
 
 #### Batched Key Access support
 
-Cassandra supports Batched Key Access in no-association mode. This means that\
-it requires the SQL layer to do hashing, which means the following settings are\
-required:
+Cassandra supports Batched Key Access in no-association mode. This means that it requires the SQL layer to do hashing, which means the following settings are required:
 
 * optimizer\_switch='join\_cache\_hashed=on'
 * join\_cache\_level=7|8
 
-Cassandra SE is currently unable to make use of space in the join buffer (the\
-one whose size is controlled by [#join\_buffer\_size](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#join_buffer_size)). Instead, it\
-will limit read batches to reading not more than [cassandra\_multiget\_batch\_size](cassandra-system-variables.md#cassandra_multiget_batch_size)\
-at a time, and memory are allocated on the heap.
+Cassandra SE is currently unable to make use of space in the join buffer (the one whose size is controlled by [#join\_buffer\_size](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#join_buffer_size)). Instead, it will limit read batches to reading not more than [cassandra\_multiget\_batch\_size](cassandra-system-variables.md#cassandra_multiget_batch_size) at a time, and memory are allocated on the heap.
 
-Note that the [#join\_buffer\_size](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#join_buffer_size)\
-buffer is still needed by the SQL layer, so its value should still be increased\
-if you want to read in big batches.
+Note that the [#join\_buffer\_size](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#join_buffer_size) buffer is still needed by the SQL layer, so its value should still be increased if you want to read in big batches.
 
-It is possible to track the number of read batches, how many keys were\
-looked-up, and how many results were produced with these status variables:
+It is possible to track the number of read batches, how many keys were looked-up, and how many results were produced with these status variables:
 
 | Variable\_name                                                                                      | Value |
 | --------------------------------------------------------------------------------------------------- | ----- |
@@ -280,16 +232,13 @@ The following [status variables](cassandra-status-variables.md) are available:
 
 ## A note about Cassandra 1.2
 
-Cassandra 1.2 has slightly changed its data model, as described at [thrift-to-cql3](https://www.datastax.com/dev/blog/thrift-to-cql3). This has caused some of\
-Thrift-based clients to no longer work (for example, here's a problem\
-experienced by Pig:[CASSANDRA-5234](https://issues.apache.org/jira/browse/CASSANDRA-5234)).
+Cassandra 1.2 has slightly changed its data model, as described at [thrift-to-cql3](https://www.datastax.com/dev/blog/thrift-to-cql3). This has caused some of Thrift-based clients to no longer work (for example, here's a problem experienced by Pig:[CASSANDRA-5234](https://issues.apache.org/jira/browse/CASSANDRA-5234)).
 
-Currently, Cassandra SE is only able to access Cassandra 1.2's column families\
-that were defined `WITH COMPACT STORAGE` attribute.
+Currently, Cassandra SE is only able to access Cassandra 1.2's column families that were defined `WITH COMPACT STORAGE` attribute.
 
 ## See also
 
-* Slides from talk at Percona Live 2013:[MariaDB Cassandra Interoperability](https://www.percona.com/live/mysql-conference-2013/sessions/mariadb-cassandra-interoperability)
+* Slides from talk at Percona Live 2013 - [MariaDB Cassandra Interoperability](https://www.percona.com/live/mysql-conference-2013/sessions/mariadb-cassandra-interoperability)
 * [MDEV-431](https://jira.mariadb.org/browse/MDEV-431) - JIRA task for Cassandra SE work
 * [Instructions for creating binary tarball in MariaDB 5.5](building-cassandra-storage-engine-for-packaging.md)
 * [Cassandra Storage Engine - Future Plans](cassandra-storage-engine-future-plans.md)

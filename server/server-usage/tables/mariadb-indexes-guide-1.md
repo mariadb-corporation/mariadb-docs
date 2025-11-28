@@ -149,8 +149,7 @@ SELECT (3, NULL) = (3, NULL);
 +---------------------- +
 ```
 
-In MariaDB you can combine this with [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md) to\
-enforce uniqueness over a subset of rows in a table:
+In MariaDB you can combine this with [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md) to enforce uniqueness over a subset of rows in a table:
 
 ```sql
 CREATE TABLE Table_1 (
@@ -161,9 +160,7 @@ CREATE TABLE Table_1 (
 )
 ```
 
-This table structure ensures that all _active_ or _on-hold_ users have distinct\
-names, but as soon as a user is _deleted_, his name is no longer part of the\
-uniqueness constraint, and another user may get the same name.
+This table structure ensures that all _active_ or _on-hold_ users have distinct names, but as soon as a user is _deleted_, his name is no longer part of the uniqueness constraint, and another user may get the same name.
 
 If a unique index consists of a column where trailing pad characters are stripped or ignored, inserts into that column where values differ only by the number of trailing pad characters will result in a duplicate-key error.
 
@@ -237,24 +234,17 @@ Full-text indexes support full-text indexing and searching. See the [Full-Text I
 
 ## Choosing Indexes
 
-In general you should only add indexes to match the queries your application\
-uses. Any extra will waste resources. In an application with very small tables,\
-indexes will not make much difference but as soon as your tables are larger\
-than your buffer sizes the indexes will start to speed things up dramatically.
+In general, you should only add indexes to match the queries your application uses. Any extra will waste resources. In an application with very small tables, indexes will not make much difference but as soon as your tables are larger than your buffer sizes the indexes will start to speed things up dramatically.
 
 Using the [EXPLAIN](../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) statement on your queries can help you decide which columns need indexing.
 
 If you query contains something like `LIKE '%word%'`, without a fulltext index you are using a full table scan every time, which is very slow.
 
-If your table has a large number of reads and writes, consider using delayed\
-writes. This uses the db engine in a "batch" write mode, which cuts down on\
-disk io, therefore increasing performance.
+If your table has a large number of reads and writes, consider using delayed writes. This uses the db engine in a "batch" write mode, which cuts down on disk io, therefore increasing performance.
 
 Use the [CREATE INDEX](../../reference/sql-statements/data-definition/create/create-index.md) command to create an index.
 
-If you are building a large table then for best performance add the index after\
-the table is populated with data. This is to increase the insert performance\
-and remove the index overhead during inserts.
+If you are building a large table then for best performance add the index after the table is populated with data. This is to increase the insert performance and remove the index overhead during inserts.
 
 ## Viewing Indexes
 
@@ -276,6 +266,6 @@ _The initial version of this article was copied, with permission, from_ [_Proper
 ## See Also
 
 * [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md)
-* [The Essentials of an Index](https://github.com/mariadb-corporation/docs-server/blob/test/server/mariadb-quickstart-guides/broken-reference/README.md)
+* [The Essentials of an Index](mariadb-indexes-guide-1.md)
 
 CC BY-SA / Gnu FDL

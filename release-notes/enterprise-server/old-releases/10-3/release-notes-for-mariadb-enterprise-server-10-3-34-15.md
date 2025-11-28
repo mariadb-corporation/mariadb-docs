@@ -1,20 +1,20 @@
 # Release Notes for MariaDB Enterprise Server 10.3.34-15
 
-MariaDB Enterprise Server 10.3.34-15 is a maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-enterprise-server/README.md) 10.3. This release includes a variety of fixes.
+MariaDB Enterprise Server 10.3.34-15 is a maintenance release of [MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server)10.3. This release includes a variety of fixes.
 
 MariaDB Enterprise Server 10.3.34-15 was released on 2022-03-14.
 
 ## Fixed Security Vulnerabilities
 
-| CVE (with [cve.org](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-10-3/cve.org) link) | CVSS base score |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| [CVE-2021-46668](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46668)                                                                                               | 5.5             |
-| [CVE-2021-46665](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46665)                                                                                               | 5.5             |
-| [CVE-2021-46664](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46664)                                                                                               | 5.5             |
-| [CVE-2021-46663](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46663)                                                                                               | 5.5             |
-| [CVE-2021-46661](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46661)                                                                                               | 5.5             |
-| [CVE-2021-46659](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46659)                                                                                               | 5.5             |
-| [CVE-2022-21595](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21595)                                                                                               | 4.4             |
+| CVE (with [cve.org](https://cve.mitre.org/) link)                               | CVSS base score |
+| ------------------------------------------------------------------------------- | --------------- |
+| [CVE-2021-46668](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46668) | 5.5             |
+| [CVE-2021-46665](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46665) | 5.5             |
+| [CVE-2021-46664](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46664) | 5.5             |
+| [CVE-2021-46663](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46663) | 5.5             |
+| [CVE-2021-46661](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46661) | 5.5             |
+| [CVE-2021-46659](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-46659) | 5.5             |
+| [CVE-2022-21595](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21595) | 4.4             |
 
 ## Notable Changes
 
@@ -37,7 +37,7 @@ Error 'Invalid default value for 'TABLE_NAME'' on query. Default database: 'test
 
 ### Can result in a hang or crash
 
-* When a FULLTEXT index is added to an InnoDB table with ALGORITHM=INPLACE and the indexed column uses the tis620`character set, the server can crash with a segmentation fault (signal 11). ([MDEV-24901](https://jira.mariadb.org/browse/MDEV-24901))`
+* When a FULLTEXT index is added to an InnoDB table with ALGORITHM=INPLACE and the indexed column uses the tis620 character set, the server can crash with a segmentation fault (signal 11). ([MDEV-24901](https://jira.mariadb.org/browse/MDEV-24901))
 * When MariaDB Server is used on the ARM architecture, which uses a weak memory model, an internal hash table implementation can cause the server to crash with a segmentation fault (signal 11). ([MDEV-27088](https://jira.mariadb.org/browse/MDEV-27088))
 * When [wsrep\_sst\_method=mariadb-backup](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_sst_method) and [innodb\_force\_recovery=1](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_force_recovery) are set with MariaDB Enterprise Cluster, powered by Galera, the joiner node fails to perform an SST. ([MDEV-26064](https://jira.mariadb.org/browse/MDEV-26064))
   * The SST log contains the following message related to the failure:
@@ -47,13 +47,13 @@ mariadb-backup: The option "innodb_force_recovery" should only be used with "--p
 mariadb-backup: innodb_init_param(): Error occurred.
 ```
 
-* When [--stream=xbstream](../../10-3/broken-reference/) is set, MariaDB Enterprise Backup can hang on lock acquisitions due to a deadlock. ([MDEV-26558](https://jira.mariadb.org/browse/MDEV-26558))
+* When [--stream=xbstream](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#stream) is set, MariaDB Enterprise Backup can hang on lock acquisitions due to a deadlock. ([MDEV-26558](https://jira.mariadb.org/browse/MDEV-26558))
 * When a stored procedure is defined with a query that contains a set function, and the set function's only argument is an outer reference to a column of a mergeable view, a derived table, or a CTE, the second execution of the stored procedure can cause the server to crash. ([MDEV-25086](https://jira.mariadb.org/browse/MDEV-25086))
 * When a derived table is created for certain queries that use subqueries over Views or CTEs, the server can crash with a segmentation fault (signal 11). ([MDEV-25631](https://jira.mariadb.org/browse/MDEV-25631))
 * When a stored procedure uses a cursor to run a query that requires an internal temporary table (such as queries containing an ORDER BY clause), the server can crash due to a segmentation fault (signal 11). ([MDEV-24827](https://jira.mariadb.org/browse/MDEV-24827))
 * Server can crash if a CTE or derived table is not used by the query. ([MDEV-25766](https://jira.mariadb.org/browse/MDEV-25766))
 * When [log\_slow\_verbosity = 'explain'](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#log_slow_verbosity) is set and a query is executed that references a derived table, the server can crash while writing the query's execution plan to the slow query log. ([MDEV-26249](https://jira.mariadb.org/browse/MDEV-26249))
-* When a stored procedure or a prepared statement is used to execute a query that performs a join which compares a `GEOMETRY` column with a different data type, executing the stored procedure or prepared statement twice can cause the server to crash. ([MDEV-20770](https://jira.mariadb.org/browse/MDEV-20770))
+* When a stored procedure or a prepared statement is used to execute a query that performs a join, which compares a `GEOMETRY` column with a different data type, executing the stored procedure or prepared statement twice can cause the server to crash. ([MDEV-20770](https://jira.mariadb.org/browse/MDEV-20770))
 * With MariaDB Enterprise Cluster, when [wsrep\_cluster\_address](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_cluster_address) is set to an unknown address and [wsrep\_slave\_threads](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_slave_threads) is set to 0, the server crashes. ([MDEV-25472](https://jira.mariadb.org/browse/MDEV-25472))
 * When a system versioned table is created with [character\_set\_server=utf8mb4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#character_set_server) and [collation\_server=utf8mb4\_unicode\_1400\_ci](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#collation_server), the server can crash. ([MDEV-27195](https://jira.mariadb.org/browse/MDEV-27195))
 * When a system-versioned table is partitioned by SYSTEM\_TIME, executing [DELETE FROM .. PARTITION(..)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete) causes the server to crash. ([MDEV-27217](https://jira.mariadb.org/browse/MDEV-27217))
@@ -68,8 +68,8 @@ mariadb-backup: innodb_init_param(): Error occurred.
 * Subquery using the ALL keyword on [TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/time) columns produces a wrong result. ([MDEV-27098](https://jira.mariadb.org/browse/MDEV-27098))
 * Subquery using the ALL keyword on [DATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/date) columns produces a wrong result. ([MDEV-27072](https://jira.mariadb.org/browse/MDEV-27072))
 * When float literals are defined using scientific notation and the token also contains certain special characters, the parser incorrectly parses the float value and completely drops it from the request. ([MDEV-27066](https://jira.mariadb.org/browse/MDEV-27066))
-* When a double-encapsulated CTE query calls a function which reads a table that has been aliased in the CTE query, the server incorrectly raises an error with the [ER\_NO\_SUCH\_TABLE](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) error code. ([MDEV-26825](https://jira.mariadb.org/browse/MDEV-26825))
-* When a CTE is used in a subquery of a [DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete) statement, the server incorrectly raises an error with the [ER\_NO\_DB\_ERROR](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) error code. ([MDEV-26470](https://jira.mariadb.org/browse/MDEV-26470))
+* When a double-encapsulated CTE query calls a function, which reads a table that has been aliased in the CTE query, the server incorrectly raises an error with the [ER\_NO\_SUCH\_TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-1100-to-1199/e1146) error code. ([MDEV-26825](https://jira.mariadb.org/browse/MDEV-26825))
+* When a CTE is used in a subquery of a [DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete) statement, the server incorrectly raises an error with the [ER\_NO\_DB\_ERROR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-1000-to-1099/e1046) error code. ([MDEV-26470](https://jira.mariadb.org/browse/MDEV-26470))
 * When MariaDB Enterprise Cluster performs an SST, the SST scripts incorrectly try to read [ssl\_ca](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#ssl_ca) as a path to a directory of TLS CA certificates instead of using [ssl\_capath](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#ssl_capath) for that purpose. ([MDEV-27181](https://jira.mariadb.org/browse/MDEV-27181))
 * When MariaDB Enterprise Cluster performs an SST, the SST scripts do not always interpret [log\_bin\_index](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#log_bin_index) correctly. ([MDEV-26915](https://jira.mariadb.org/browse/MDEV-26915))
 * When an index is used for an `ORDER BY .. LIMIT` query, the optimizer does not disable the `Range Checked for Each Record` optimization. ([MDEV-27270](https://jira.mariadb.org/browse/MDEV-27270))
@@ -83,14 +83,14 @@ mariadb-backup: innodb_init_param(): Error occurred.
 * When the `DATABASE()` function is used in some queries (such as queries using `UNION ALL`), database names can be truncated to 34 characters, even though database names can have up to 64 characters. ([MDEV-27544](https://jira.mariadb.org/browse/MDEV-27544))
 * When the [--symbolic-links](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#symbolic-links) option is disabled, such as when `--skip-symbolic-links` or `--disable-symbolic-links` is set, InnoDB still allows symbolic links and .isl files to be created if tables have the `DATA DIRECTORY` option. ([MDEV-26870](https://jira.mariadb.org/browse/MDEV-26870))
 * When `CREATE TABLE t1 LIKE t2` is executed and the `t2` table is a partitioned table that uses the MyISAM or Aria storage engines and has the `DATA DIRECTORY` option defined for partitions, the operation fails with a file system error. ([MDEV-25917](https://jira.mariadb.org/browse/MDEV-25917))
-* When [sql\_mode=ONLY\_FULL\_GROUP\_BY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) is set, some window functions incorrectly raise an error with the [ER\_MIX\_OF\_GROUP\_FUNC\_AND\_FIELDS](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) error code. ([MDEV-17785](https://jira.mariadb.org/browse/MDEV-17785))
-* When a CTE is used with a UNION in a [CREATE TABLE .. AS ..](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) statement, the server incorrectly raises an error with the [ER\_NO\_DB\_ERROR](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) error code. ([MDEV-27086](https://jira.mariadb.org/browse/MDEV-27086))
+* When [sql\_mode=ONLY\_FULL\_GROUP\_BY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) is set, some window functions incorrectly raise an error with the [ER\_MIX\_OF\_GROUP\_FUNC\_AND\_FIELDS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-1100-to-1199/e1140) error code. ([MDEV-17785](https://jira.mariadb.org/browse/MDEV-17785))
+* When a CTE is used with a UNION in a [CREATE TABLE .. AS ..](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) statement, the server incorrectly raises an error with the [ER\_NO\_DB\_ERROR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-1000-to-1099/e1046) error code. ([MDEV-27086](https://jira.mariadb.org/browse/MDEV-27086))
 * When the [JSON\_COMPACT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_compact) function is called with values from a subquery, the output is not always returned as the [JSON](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/json) data type. ([MDEV-18284](https://jira.mariadb.org/browse/MDEV-18284))
 * When a system-versioned table is partitioned by `SYSTEM_TIME` with a \`\`LIMIT\` clause, [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) can incorrectly return an error. ([MDEV-25552](https://jira.mariadb.org/browse/MDEV-25552))
 * The lateral derived optimization is not disabled for queries that use `WITH ROLLUP`, which causes queries that use `GROUP BY` to return incorrect results. ([MDEV-26337](https://jira.mariadb.org/browse/MDEV-26337))
 * When [optimizer\_switch='split\_materialized=on'](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_switch) is set, queries that use the split optimization can return the wrong results. ([MDEV-27510](https://jira.mariadb.org/browse/MDEV-27510), [MDEV-27132](https://jira.mariadb.org/browse/MDEV-27132))
 * When a row is deleted from an InnoDB table, and then a new row with the same key is inserted into the table by a different transaction, InnoDB's MVCC code can incorrectly hide the new row from transactions that should see the changes: (MENT-1414)
-  * Consequently, queries can try to insert another new row with the same key, which results in an error with the [ER\_DUP\_ENTRY](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) error code.
+  * Consequently, queries can try to insert another new row with the same key, which results in an error with the [ER\_DUP\_ENTRY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-1000-to-1099/e1062) error code.
   * When a replica server has [slave\_parallel\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) set to `'optimistic'` or `'aggressive'`, this can result in the following error in [SHOW REPLICA STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status):
 
 ```
@@ -100,15 +100,15 @@ Last_Error: Error 'Duplicate entry 'VALUE' for key 'KEY_NAME'' on query. Default
 
 ## Interface Changes
 
-* [ER\_VERS\_NOT\_ALLOWED](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/enterprise-server/10-3/broken-reference/README.md) error code added
+* [ER\_VERS\_NOT\_ALLOWED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4100-to-4199/e4124) error code added
 * [innodb\_buffer\_pool\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_buffer_pool_size) system variable minimum value changed from `5242880` to `2097152`
-* [innodb\_ft\_cache\_size](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-10-3/innodb-system-variable/README.md#innodb_buffer_pool_size) system variable dynamic changed from `No` to `Yes`
+* [innodb\_ft\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_ft_cache_size) system variable dynamic changed from `No` to `Yes`
 * [innodb\_ft\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_ft_cache_size) system variable maximum value changed from `80000000` to `1099511627776`
 * [innodb\_ft\_total\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_ft_total_cache_size) system variable dynamic changed from `No` to `Yes`
-* [innodb\_ft\_total\_cache\_size](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-10-3/innodb-system-variable/README.md#innodb_ft_total_cache_size##) system variable maximum value changed from `1600000000` to `1099511627776`
+* [innodb\_ft\_total\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_ft_total_cache_size) system variable maximum value changed from `1600000000` to `1099511627776`
 * `mysql_upgrade` [--check-if-upgrade-is-needed](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/deployment-tools/mariadb-upgrade#options) command-line option added
 * `mysqld` rocksdb-ignore-datadic-errors command-line option added
-* [rocksdb\_ignore\_datadic\_errors](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-10-3/myrocks-server-variables/README.md#rocksdb-ignore-datadic-errors) system variable added
+* [rocksdb\_ignore\_datadic\_errors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables) system variable added
 
 ## Platforms
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The LOCAL_INFILE_Packet is sent by the server to request a file from the
+  client during the execution of a LOAD DATA LOCAL INFILE statement.
+---
+
 # LOCAL\_INFILE\_Packet
 
 If the client sends a `LOAD DATA LOCAL INFILE` statement via [com\_query](../2-text-protocol/com_query.md), the server responds with `LOCAL_INFILE_Packet` to tell the client to send a specified file to the server.

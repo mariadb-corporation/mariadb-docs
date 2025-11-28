@@ -111,7 +111,7 @@ Expanded compatibility with Oracle through new functions:
 * Added function [SYS\_GUID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/sys_guid)
 * Added function [TO\_CHAR()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char)
 
-Expanded compatibility with Oracle through [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) enhancements:
+Expanded compatibility with Oracle through [sql\_mode=ORACLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) enhancements:
 
 * With `sql_mode=ORACLE` added `MINUS` as an alias to `EXCEPT`
 * With `sql_mode=ORACLE` improved `SYSDATE` to allow use without parenthesis.

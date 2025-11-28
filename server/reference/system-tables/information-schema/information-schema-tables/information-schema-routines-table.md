@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROUTINES table stores information about stored
+  procedures and stored functions, including their definitions and properties.
+---
+
 # Information Schema ROUTINES Table
 
 The [Information Schema](../) `ROUTINES` table stores information about [stored procedures](../../../../server-usage/stored-routines/stored-procedures/) and [stored functions](../../../../server-usage/stored-routines/stored-functions/).
@@ -31,7 +37,7 @@ It contains the following columns:
 | SECURITY\_TYPE             | INVOKER or DEFINER. Indicates which user's privileges apply to this routine.                                                                                       |
 | CREATED                    | Date and time the routine was created.                                                                                                                             |
 | LAST\_ALTERED              | Date and time the routine was last changed.                                                                                                                        |
-| SQL\_MODE                  | The [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) at the time the routine was created.                                                |
+| SQL\_MODE                  | The [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) at the time the routine was created.                                                |
 | ROUTINE\_COMMENT           | Comment associated with the routine.                                                                                                                               |
 | DEFINER                    | If the SECURITY\_TYPE is DEFINER, this value indicates which user defined this routine.                                                                            |
 | CHARACTER\_SET\_CLIENT     | The [character set](../../../data-types/string-data-types/character-sets/) used by the client that created the routine.                                            |

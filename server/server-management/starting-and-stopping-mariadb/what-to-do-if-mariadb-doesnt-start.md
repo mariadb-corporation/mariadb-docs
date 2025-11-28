@@ -2,7 +2,7 @@
 
 There could be many reasons that MariaDB fails to start. This page will help troubleshoot some of the more common reasons and provide solutions.
 
-If you have tried everything here, and still need help, you can ask for help on IRC or on the forums - see [Where to find other MariaDB users and developers](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/starting-and-stopping-mariadb/broken-reference/README.md) - or ask a question at the [Starting and Stopping MariaDB](./) page.
+If you have tried everything here and still need help, you can ask for help on IRC or on the forums - see [Where to find other MariaDB users and developers](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/joining-the-community) - or ask a question at the [Starting and Stopping MariaDB](./) page.
 
 ## The Error Log and the Data Directory
 
@@ -15,7 +15,7 @@ Common Locations:
 * C:\Program Files\MariaDB x.y\data (x.y refers to the version number)
 * C:\Program Files (x86)\MariaDB x.y\data (32bit version on 64bit Windows)
 
-It's also possible that the error log has been explicitly written to another location. This is often done by changing the [datadir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) or [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variables in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). See [Option Files](what-to-do-if-mariadb-doesnt-start.md#option-files) below for more information about that.
+It's also possible that the error log has been explicitly written to another location. This is often done by changing the [datadir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) or [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variables in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). See the [Option Files](what-to-do-if-mariadb-doesnt-start.md#option-files) below for more information about that.
 
 A quick way to get the values of these system variables is to execute the following commands:
 
@@ -50,9 +50,9 @@ Another potential reason for a startup failure is that an [option file](../insta
 140514 12:19:37 [ERROR] /usr/local/mysql/bin/mariadbd: unknown variable 'option=value'
 ```
 
-This is more likely to happen when you upgrade to a new version of MariaDB. In most cases the [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) from the old version of MariaDB will work just fine with the new version. However, occasionally, options are removed in new versions of MariaDB, or the valid values for options are changed in new versions of MariaDB. Therefore, it's possible for an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) to stop working after an upgrade.
+This is more likely to happen when you upgrade to a new version of MariaDB. In most cases, the [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) from the old version of MariaDB will work just fine with the new version. However, occasionally, options are removed in new versions of MariaDB, or the valid values for options are changed in new versions of MariaDB. Therefore, it's possible for an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) to stop working after an upgrade.
 
-Also remember that option names are case sensitive.
+Also, remember that option names are case sensitive.
 
 Examine the specifics of the error. Possible fixes are usually one of the following:
 
@@ -87,23 +87,23 @@ May 13 10:24:28 mariadb3 maridbd[19221]: 2019-05-13 10:24:28 0 [ERROR] Aborting
 
 This is usually a permission error on the directory in which this file is being written. Ensure that the entire [datadir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) is owned by the user running `mariadbd`, usually `mysql`. Ensure that directories have the "x" (execute) directory permissions for the owner. Ensure that all the parent directories of the datadir upwards have "x" (execute) permissions for all (`user`, `group`, and `other`).
 
-Once this is checked look at the [systemd](what-to-do-if-mariadb-doesnt-start.md#systemd) and [selinux](what-to-do-if-mariadb-doesnt-start.md#selinux) documentation below, or [AppArmor](what-to-do-if-mariadb-doesnt-start.md#AppArmorl).
+Once this is checked, look at the [systemd](what-to-do-if-mariadb-doesnt-start.md#systemd) and [SELinux](what-to-do-if-mariadb-doesnt-start.md#selinux) documentation below, or [AppArmor](what-to-do-if-mariadb-doesnt-start.md#AppArmorl).
 
 ## Can't Lock Aria Control File
 
-On starting MariaDB, the `aria_log_control` file is locked. If a lock cannot be obtained, it will log and error like this:
+On starting MariaDB, the `aria_log_control` file is locked. If a lock cannot be obtained, it will log an error like this:
 
 ```
 2023-05-01 16:27:03 0 [ERROR] mariadbd: Can't lock aria control file '/var/lib/mysql/aria_log_control' for exclusive use, error: 11. Will retry for 30 seconds
 ```
 
-This almost always cause for this is that there is already an existing MariaDB service running on this data directory. Recommend aborting this startup and looking closely for the other MariaDB instance.
+This almost always happens because there is already an existing MariaDB service running on this data directory. Recommend aborting this startup and looking closely for the other MariaDB instance.
 
-The less likely case is there isn't locking available which might occur on a NFS data directory with explictly disable locking.
+A less likely case is that file locking is not available, which might occur on an NFS-mounted data directory without proper locking support.
 
 ## Unable to lock ./ibdata1 error 11
 
-Like the above for the Aria Control File, this is a attempting to exclusively lock the `ibdata1` InnoDB system tablespace. Error 11 corresponds to the system error "OS error code 11: Resource temporarily unavailable" meaning the lock cannot be created.
+Like the above for the Aria Control File, this is attempting to exclusively lock the `ibdata1` InnoDB system tablespace. Error 11 corresponds to the system error "OS error code 11: Resource temporarily unavailable," meaning the lock cannot be created.
 
 ```
 2023-05-01 16:27:34 0 [ERROR] InnoDB: Unable to lock ./ibdata1 error: 11
@@ -120,15 +120,15 @@ Like the above, this is an indication that a second MariaDB instance is already 
 
 ### Cannot Allocate Memory for the InnoDB Buffer Pool
 
-In a typical installation on a dedicated server, at least 70% of your memory should be assigned to [InnoDB buffer pool](../../server-usage/storage-engines/innodb/innodb-buffer-pool.md); sometimes it can even reach 85%. But be very careful: don't assign to the buffer pool more memory than it can allocate. If it cannot allocate memory, InnoDB will use the disk's swap area, which is very bad for performance. If swapping is disabled or the swap area is not big enough, InnoDB will crash. In this case, MariaDB will probably try to restart several times, and each time it will log a message like this:
+In a typical installation on a dedicated server, at least 70% of your memory should be assigned to the [InnoDB buffer pool](../../server-usage/storage-engines/innodb/innodb-buffer-pool.md); sometimes it can even reach 85%. But be very careful: don't assign to the buffer pool more memory than it can allocate. If it cannot allocate memory, InnoDB will use the disk's swap area, which is very bad for performance. If swapping is disabled or the swap area is not big enough, InnoDB will crash. In this case, MariaDB will probably try to restart several times, and each time it will log a message like this:
 
 ```
 140124 17:29:01 InnoDB: Fatal error: cannot allocate memory for the buffer pool
 ```
 
-In that case, you will need to add more memory to your server/VM or decrease the value of the [innodb\_buffer\_pool\_size](../../server-usage/storage-engines/innodb/innodb-system-variables.md) variables.
+In that case, you will need to add more memory to your server/VM or decrease the value of the [innodb\_buffer\_pool\_size](../../server-usage/storage-engines/innodb/innodb-system-variables.md) variable.
 
-Remember that the buffer pool will slightly exceed that limit. Also, remember that MariaDB also needs allocate memory for other storage engines and several per-connection buffers. The operating system also needs memory.
+Remember that the buffer pool will slightly exceed that limit. Also, remember that MariaDB also needs to allocate memory for other storage engines and several per-connection buffers. The operating system also needs memory.
 
 ### InnoDB Table Corruption
 
@@ -146,15 +146,15 @@ Generally, it is still possible to recover most of the corrupted data. To do so,
 
 ## MyISAM
 
-Most tables in the [mysql](../../reference/system-tables/the-mysql-database-tables/) database are MyISAM tables. These tables are necessary for MariaDB to properly work, or even start.
+Most tables in the [mysql](../../reference/system-tables/the-mysql-database-tables/) database are MyISAM tables. These tables are necessary for MariaDB to properly work or even start.
 
-A MariaDB crash could cause system tables corruption. With the default settings, MariaDB will simply not start if the system tables are corrupted. With [myisam\_recover\_options](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_recover_options), we can force MyISAM to repair damaged tables.
+A MariaDB crash could cause system table corruption. With the default settings, MariaDB will simply not start if the system tables are corrupted. With [myisam\_recover\_options](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_recover_options), we can force MyISAM to repair damaged tables.
 
 ## systemd
 
 If you are using [systemd](systemd.md), then there are a few relevant notes about startup failures:
 
-* If MariaDB is configured to access files under `/home`, `/root`, or `/run/user`, then the default systemd unit file will prevent access to these directories with a `Permission Denied` error. This happens because the unit file set [ProtectHome=true](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#ProtectHome=). See [Systemd: Configuring Access to Home Directories](systemd.md#configuring-access-to-home-directories) for information on how to work around this.
+* If MariaDB is configured to access files under `/home`, `/root`, or `/run/user`, then the default systemd unit file will prevent access to these directories with a `Permission Denied` error. This happens because the unit file sets [ProtectHome=true](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#ProtectHome=). See [Systemd: Configuring Access to Home Directories](systemd.md#configuring-access-to-home-directories) for information on how to work around this.
 * The default systemd unit file also sets [ProtectSystem=full](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#ProtectSystem=), which places restrictions on writing to a few other directories. Overwriting this with `ProtectSystem=off` in the same way as above will restore access to these directories.
 * If MariaDB takes longer than 90 seconds to start, then the default systemd unit file will cause it to fail with an error. This happens because the default value for the [TimeoutStartSec](https://www.freedesktop.org/software/systemd/man/systemd.service.html#TimeoutStartSec=) option is 90 seconds. See [Systemd: Configuring the Systemd Service Timeout](systemd.md#configuring-the-systemd-service-timeout) for information on how to work around this.
 * The systemd journal may also contain useful information about startup failures. See [Systemd: Systemd Journal](systemd.md#systemd-journal) for more information.
@@ -163,9 +163,9 @@ See [systemd](systemd.md) documentation for further information on systemd confi
 
 ## SELinux
 
-[Security-Enhanced Linux (SELinux)](https://selinuxproject.org/page/Main_Page) is a Linux kernel module that provides a framework for configuring [mandatory access control (MAC)](https://en.wikipedia.org/wiki/Mandatory_access_control) system for many resources on the system. It is enabled by default on some Linux distributions, including RHEL, CentOS, Fedora, and other similar Linux distribution. SELinux prevents programs from accessing files, directories or ports unless it is configured to access those resources.
+[Security-Enhanced Linux (SELinux)](https://selinuxproject.org/page/Main_Page) is a Linux kernel module that provides a framework for configuring a [mandatory access control (MAC)](https://en.wikipedia.org/wiki/Mandatory_access_control) system for many resources on the system. It is enabled by default on some Linux distributions, including RHEL, CentOS, Fedora, and other similar Linux distributions. SELinux prevents programs from accessing files, directories, or ports unless it is configured to access those resources.
 
-You might need to troubleshoot SELinux-related issues in cases, such as:
+You might need to troubleshoot SELinux-related issues in cases such as:
 
 * MariaDB is using a non-default port.
 * MariaDB is reading from or writing to some files (datadir, log files, option files, etc.) located at non-default paths.

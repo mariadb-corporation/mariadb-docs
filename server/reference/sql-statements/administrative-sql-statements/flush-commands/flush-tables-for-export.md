@@ -1,3 +1,10 @@
+---
+description: >-
+  Prepare individual tables for binary backup. This command flushes changes to
+  disk and locks tables, allowing safe copying of .ibd files while the server
+  runs.
+---
+
 # FLUSH TABLES FOR EXPORT
 
 ## Syntax

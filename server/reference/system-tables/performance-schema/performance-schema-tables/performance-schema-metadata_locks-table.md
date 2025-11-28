@@ -1,3 +1,9 @@
+---
+description: >-
+  The metadata_locks table lists currently held and requested metadata locks,
+  which protect database object definitions from concurrent modification.
+---
+
 # Performance Schema metadata\_locks Table
 
 {% hint style="info" %}
@@ -25,18 +31,56 @@ The table is read-only, and [TRUNCATE TABLE](../../../sql-statements/table-state
 
 The table contains the following columns:
 
-| Field                   | Type                | Null | Default | Description                                                                                                                                                                                                                                                                                                                                      |
-| ----------------------- | ------------------- | ---- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| OBJECT\_TYPE            | varchar(64)         | NO   | NULL    | Object type. One of BACKUP, COMMIT, EVENT, FUNCTION, GLOBAL, LOCKING SERVICE, PROCEDURE, SCHEMA, TABLE, TABLESPACE, TRIGGER (unused) or USER LEVEL LOCK.                                                                                                                                                                                         |
-| OBJECT\_SCHEMA          | varchar(64)         | YES  | NULL    | Object schema.                                                                                                                                                                                                                                                                                                                                   |
-| OBJECT\_NAME            | varchar(64)         | YES  | NULL    | Object name.                                                                                                                                                                                                                                                                                                                                     |
-| OBJECT\_INSTANCE\_BEGIN | bigint(20) unsigned | NO   | NULL    | Address in memory of the instrumented object.                                                                                                                                                                                                                                                                                                    |
-| LOCK\_TYPE              | varchar(32)         | NO   | NULL    | Lock type. One of BACKUP\_FTWRL1, BACKUP\_START, BACKUP\_TRANS\_DML, EXCLUSIVE, INTENTION\_EXCLUSIVE, SHARED, SHARED\_HIGH\_PRIO, SHARED\_NO\_READ\_WRITE, SHARED\_NO\_WRITE, SHARED\_READ, SHARED\_UPGRADABLE or SHARED\_WRITE.                                                                                                                 |
-| LOCK\_DURATION          | varchar(32)         | NO   | NULL    | Lock duration. One of EXPLICIT (locks released by explicit action, for example a global lock acquired with [FLUSH TABLES WITH READ LOCK](../../../sql-statements/administrative-sql-statements/flush-commands/flush.md)) , STATEMENT (locks implicitly released at statement end) or TRANSACTION (locks implicitly released at transaction end). |
-| LOCK\_STATUS            | varchar(32)         | NO   | NULL    | Lock status. One of GRANTED, KILLED, PENDING, POST\_RELEASE\_NOTIFY, PRE\_ACQUIRE\_NOTIFY, TIMEOUT or VICTIM.                                                                                                                                                                                                                                    |
-| SOURCE                  | varchar(64)         | YES  | NULL    | Source file containing the instrumented code that produced the event, as well as the line number where the instrumentation occurred. This allows one to examine the source code involved.                                                                                                                                                        |
-| OWNER\_THREAD\_ID       | bigint(20) unsigned | YES  | NULL    | Thread that requested the lock.                                                                                                                                                                                                                                                                                                                  |
-| OWNER\_EVENT\_ID        | bigint(20) unsigned | YES  | NULL    | Event that requested the lock.                                                                                                                                                                                                                                                                                                                   |
+* `OBJECT_TYPE`
+  * `VARCHAR(64)`
+  * Null: No
+  * Default: `NULL`
+  * Description: Object type. One of `BACKUP`, `COMMIT`, `EVENT`, `FUNCTION`, `GLOBAL`, `LOCKING SERVICE`, `PROCEDURE`, `SCHEMA`, `TABLE`, `TABLESPACE`, `TRIGGER` (unused) or `USER LEVEL LOCK`.
+* `OBJECT_SCHEMA`
+  * `VARCHAR(64)`
+  * Null: Yes
+  * Default: `NULL`
+  * Description: Object schema.
+* `OBJECT_NAME`
+  * `VARCHAR(64)`
+  * Null: Yes
+  * Default: `NULL`
+  * Description: Object name.
+* `OBJECT_INSTANCE_BEGIN`
+  * `BIGINT(20) UNSIGNED`
+  * Null: No
+  * Default: `NULL`
+  * Description: Address in memory of the instrumented object.
+* `LOCK_TYPE`
+  * `VARCHAR(32)`
+  * Null: No
+  * Default: `NULL`
+  * Description: Lock type. One of `BACKUP_FTWRL1`, `BACKUP_START`, `BACKUP_TRANS_DML`, `EXCLUSIVE`, `INTENTION_EXCLUSIVE`, `SHARED`, `SHARED_HIGH_PRIO`, `SHARED_NO_READ_WRITE`, `SHARED_NO_WRITE`, `SHARED_READ`, `SHARED_UPGRADABLE`, or `SHARED_WRITE`.
+* `LOCK_DURATION`
+  * `VARCHAR(32)`
+  * Null: No
+  * Default: `NULL`
+  * Description: Lock duration. One of `EXPLICIT` (locks released by explicit action, for example a global lock acquired with `FLUSH TABLES WITH READ LOCK`) , `STATEMENT` (locks implicitly released at statement end), or `TRANSACTION` (locks implicitly released at transaction end).
+* `LOCK_STATUS`
+  * `VARCHAR(32)`
+  * Null: No
+  * Default: `NULL`
+  * Description: Lock status. One of `GRANTED`, `KILLED`, `PENDING`, `POST_RELEASE_NOTIFY`, `PRE_ACQUIRE_NOTIFY`, `TIMEOUT`, or `VICTIM`.
+* `SOURCE`
+  * `VARCHAR(64)`
+  * Null: Yes
+  * Default: `NULL`
+  * Description: Source file containing the instrumented code that produced the event, as well as the line number where the instrumentation occurred. This allows one to examine the source code involved.
+* `OWNER_THREAD_ID`
+  * `BIGINT(20) UNSIGNED`&#x20;
+  * Null: Yes
+  * Default: `NULL`
+  * Description: Thread that requested the lock.
+* `OWNER_EVENT_ID`
+  * `BIGINT(20) UNSIGNED`&#x20;
+  * Null: Yes
+  * Default: `NULL`
+  * Description: Event that requested the lock.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

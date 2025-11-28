@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a GeometryCollection value from its WKB representation and an
+  optional SRID.
+---
+
 # ST\_GeomCollFromText
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert bytes to a human-readable string. This function formats a numeric byte
+  count into units like KiB, MiB, GiB, up to EiB.
+---
+
 # format\_bytes
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  The replication_applier_status_by_worker table provides status information for
+  each worker thread involved in parallel replication.
+---
+
 # Performance Schema replication\_applier\_status\_by\_worker Table
 
 {% hint style="info" %}

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Implement multi-source replication in MariaDB Server. This section explains
-  how a replica can receive events from multiple masters, enhancing data
-  aggregation and complex high-availability setups.
+  Discover how to replicate data from multiple primaries to a single replica.
+  This guide covers configuration for aggregating data from different sources
+  into one MariaDB instance.
 ---
 
 # Multi-Source Replication

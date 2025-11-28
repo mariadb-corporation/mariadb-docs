@@ -1,3 +1,9 @@
+---
+description: >-
+  Control the execution order of UNION, EXCEPT, and INTERSECT operations. Learn
+  how to use parentheses to define explicit operation priority.
+---
+
 # Precedence Control in Table Operations
 
 You can control the ordering of execution on table operations using parentheses.

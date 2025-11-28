@@ -1,3 +1,9 @@
+---
+description: >-
+  Display warnings from the last executed statement. View warning codes,
+  messages, and levels for recent operations.
+---
+
 # SHOW WARNINGS
 
 ## Syntax
@@ -12,7 +18,7 @@ SHOW COUNT(*) WARNINGS
 
 `SHOW WARNINGS` shows the error, warning, and note messages that resulted from the last statement that generated messages in the current session. It shows nothing if the last statement used a table and generated no messages. (That is, a statement that uses a table but generates no messages clears the message list.) Statements that do not use tables and do not generate messages have no effect on the message list.
 
-A note is different to a warning in that it only appears if the [sql\_notes](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_notes) variable is set to 1 (the default), and is not converted to an error if [strict mode](../../../../server-management/variables-and-modes/sql-mode.md) is enabled.
+A note is different to a warning in that it only appears if the [sql\_notes](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_notes) variable is set to 1 (the default), and is not converted to an error if [strict mode](../../../../server-management/variables-and-modes/sql_mode.md) is enabled.
 
 A related statement, [SHOW ERRORS](show-errors.md), shows only the errors.
 

@@ -110,7 +110,7 @@ The [SELECT](../../data-manipulation/selecting-data/select.md) statement support
 
 Generated columns can be referenced in the [INSERT](../../data-manipulation/inserting-loading-data/insert.md), [UPDATE](../../data-manipulation/changing-deleting-data/update.md), and [DELETE](../../data-manipulation/changing-deleting-data/delete.md) statements.
 
-* However, `VIRTUAL` or `PERSISTENT` generated columns cannot be explicitly set to any other values than `NULL` or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md). If a generated column is explicitly set to any other value, then the outcome depends on whether [strict mode](../../../../server-management/variables-and-modes/sql-mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md). If it is not enabled, then a warning will be raised and the default generated value will be used instead. If it is enabled, then an error will be raised instead.
+* However, `VIRTUAL` or `PERSISTENT` generated columns cannot be explicitly set to any other values than `NULL` or [DEFAULT](../../../sql-functions/secondary-functions/information-functions/default.md). If a generated column is explicitly set to any other value, then the outcome depends on whether [strict mode](../../../../server-management/variables-and-modes/sql_mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md). If it is not enabled, then a warning will be raised and the default generated value will be used instead. If it is enabled, then an error will be raised instead.
 
 The [CREATE TABLE](create-table.md) statement has limited support for generated columns.
 
@@ -197,16 +197,16 @@ CREATE TABLE t1 (a int as (1));
 
 ### Making Stored Values Consistent
 
-When a generated column is `PERSISTENT` or indexed, the value of the expression needs to be consistent regardless of the [SQL Mode](../../../../server-management/variables-and-modes/sql-mode.md) flags in the current session. If it is not, then the table will be seen as corrupted when the value that should actually be returned by the computed expression and the value that was previously stored and/or indexed using a different [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) setting disagree.
+When a generated column is `PERSISTENT` or indexed, the value of the expression needs to be consistent regardless of the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) flags in the current session. If it is not, then the table will be seen as corrupted when the value that should actually be returned by the computed expression and the value that was previously stored and/or indexed using a different [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) setting disagree.
 
 There are currently two affected classes of inconsistencies: character padding and unsigned subtraction:
 
-* For a `VARCHAR` or `TEXT` generated column the length of the value returned can vary depending on the PAD\_CHAR\_TO\_FULL\_LENGTH [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) flag. To make the value consistent, create the generated column using an RTRIM() or RPAD() function. Alternately, create the generated column as a `CHAR` column so that its data is always fully padded.
-* If a `SIGNED` generated column is based on the subtraction of an `UNSIGNED` value, the resulting value can vary depending on how large the value is and the NO\_UNSIGNED\_SUBTRACTION [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md) flag. To make the value consistent, use [CAST()](../../../sql-functions/string-functions/cast.md) to ensure that each `UNSIGNED` operand is `SIGNED` before the subtraction.
+* For a `VARCHAR` or `TEXT` generated column the length of the value returned can vary depending on the PAD\_CHAR\_TO\_FULL\_LENGTH [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, create the generated column using an RTRIM() or RPAD() function. Alternately, create the generated column as a `CHAR` column so that its data is always fully padded.
+* If a `SIGNED` generated column is based on the subtraction of an `UNSIGNED` value, the resulting value can vary depending on how large the value is and the NO\_UNSIGNED\_SUBTRACTION [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) flag. To make the value consistent, use [CAST()](../../../sql-functions/string-functions/cast.md) to ensure that each `UNSIGNED` operand is `SIGNED` before the subtraction.
 
 {% tabs %}
 {% tab title="Current" %}
-A fatal error is generated when trying to create a generated column whose value can change depending on the [SQL Mode](../../../../server-management/variables-and-modes/sql-mode.md) when its data is `PERSISTENT` or indexed. For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
+A fatal error is generated when trying to create a generated column whose value can change depending on the [SQL Mode](../../../../server-management/variables-and-modes/sql_mode.md) when its data is `PERSISTENT` or indexed. For an existing generated column that has a potentially inconsistent value, a warning about a bad expression is generated the first time it is used (if warnings are enabled).
 {% endtab %}
 
 {% tab title="< 10.5" %}
@@ -317,7 +317,7 @@ restrictions that are present in [Microsoft SQL Server's computed columns](https
 * MariaDB allows the [CAST()](../../../sql-functions/string-functions/cast.md) function to be used with non-unicode [character sets](../../../data-types/string-data-types/character-sets/), even though character sets are configurable and differ between binaries/versions.
 * MariaDB allows [FLOAT](../../../data-types/numeric-data-types/float.md) expressions to be used in generated columns. Microsoft SQL Server considers these expressions to be "imprecise" due to potential cross-platform differences in floating-point implementations and precision.
 * Microsoft SQL Server requires the [ARITHABORT](https://docs.microsoft.com/en-us/sql/t-sql/statements/set-arithabort-transact-sql?view=sql-server-2017) mode to be set, so that division by zero returns an error, and not a NULL.
-* Microsoft SQL Server requires `QUOTED_IDENTIFIER` to be set in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md). In MariaDB, if data is inserted without `ANSI_QUOTES` set in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md), then it will be processed and stored differently in a generated column that contains quoted identifiers.
+* Microsoft SQL Server requires `QUOTED_IDENTIFIER` to be set in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md). In MariaDB, if data is inserted without `ANSI_QUOTES` set in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md), then it will be processed and stored differently in a generated column that contains quoted identifiers.
 
 Microsoft SQL Server enforces the above restrictions by doing one of the following things:
 
@@ -325,9 +325,9 @@ Microsoft SQL Server enforces the above restrictions by doing one of the followi
 * Refusing to allow updates to a table containing them.
 * Refusing to use an index over such a column if it can not be guaranteed that the expression is fully deterministic.
 
-In MariaDB, as long as the [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md), language, and other settings that were in effect during the CREATE TABLE remain unchanged, the generated column expression will always be evaluated the same. If any of these things change, then please be aware that the generated column expression might not be evaluated the same way as it previously was.
+In MariaDB, as long as the [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md), language, and other settings that were in effect during the CREATE TABLE remain unchanged, the generated column expression will always be evaluated the same. If any of these things change, then please be aware that the generated column expression might not be evaluated the same way as it previously was.
 
-If you try to update a virtual column, you will get an error if the default [strict mode](../../../../server-management/variables-and-modes/sql-mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql-mode.md), or a warning otherwise.
+If you try to update a virtual column, you will get an error if the default [strict mode](../../../../server-management/variables-and-modes/sql_mode.md#strict-mode) is enabled in [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md), or a warning otherwise.
 
 ## Development History
 

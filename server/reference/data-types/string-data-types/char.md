@@ -1,3 +1,9 @@
+---
+description: >-
+  Fixed-length character string type. CHAR columns store strings of a specified
+  length (0 to 255), padding with spaces if necessary.
+---
+
 # CHAR
 
 {% hint style="info" %}
@@ -16,7 +22,7 @@ A fixed-length string that is always right-padded with spaces to the specified l
 
 `CHAR(0)` columns can contain 2 values: an empty string or `NULL`. Such columns cannot be part of an index. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `CHAR(0)`.
 
-**Note:** Trailing spaces are removed when `CHAR` values are retrieved unless the `PAD_CHAR_TO_FULL_LENGTH` [SQL mode](../../../server-management/variables-and-modes/sql-mode.md) is enabled.
+**Note:** Trailing spaces are removed when `CHAR` values are retrieved unless the `PAD_CHAR_TO_FULL_LENGTH` [SQL mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled.
 
 If a unique index consists of a column where trailing pad characters are stripped or ignored, inserts into that column where values differ only by the number of trailing pad characters will result in a duplicate-key error.
 

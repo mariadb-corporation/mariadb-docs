@@ -10,7 +10,7 @@ Log file group names are case sensitive.
 In some cases, the table exists but that you are referring to it incorrectly:
 
 *  Because MariaDB uses directories and files to store databases and tables, database and table names are case-sensitive if they are located on a file system that has case-sensitive file names.
-* Even for file systems that are not case-sensitive, such as on Windows, all references to a given table within a query must use the same lettercase.&#x20;
+* Even for file systems that are not case-sensitive, such as on Windows, all references to a given table within a query must use the same lettercase. 
 {% endhint %}
 
 The [lower\_case\_table\_names](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lower_case_table_names) server system variable plays a key role. It determines whether table names, aliases, and database names are compared in a case-sensitive manner. If set to `0` (the default on Unix-based systems), table names and aliases, and database names are compared in a case-sensitive manner. If set to `1` (the default on Windows), names are stored in lowercase and not compared in a case-sensitive manner. If set to `2` (the default on Mac OS X), names are stored as declared, but compared in lowercase.

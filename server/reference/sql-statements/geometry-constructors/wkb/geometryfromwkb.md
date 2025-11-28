@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_GeomFromWKB. Constructs a geometry value of any type from its
+  WKB representation and an optional SRID.
+---
+
 # GeometryFromWKB
 
 A synonym for [ST\_GeomFromWKB](st_geomfromwkb.md).

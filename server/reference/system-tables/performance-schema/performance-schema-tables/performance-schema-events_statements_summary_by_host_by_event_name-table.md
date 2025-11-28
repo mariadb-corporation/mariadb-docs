@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes statement events aggregated by client host and event
+  name, showing execution frequency and wait times per host.
+---
+
 # Performance Schema events\_statements\_summary\_by\_host\_by\_event\_name Table
 
 The [Performance Schema](../) events\_statements\_summary\_by\_host\_by\_event\_name table contains statement events summarized by host and event name. It contains the following columns:

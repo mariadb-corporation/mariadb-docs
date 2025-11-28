@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn to load data into MariaDB tables or indexes using LOAD DATA. This
-  section details efficient methods for bulk importing data from external files,
-  optimizing for large datasets.
+  Bulk load data efficiently. This section covers commands like LOAD DATA INFILE
+  and LOAD XML for high-speed data import from text or XML files.
 ---
 
 # LOAD Data into Tables or Index

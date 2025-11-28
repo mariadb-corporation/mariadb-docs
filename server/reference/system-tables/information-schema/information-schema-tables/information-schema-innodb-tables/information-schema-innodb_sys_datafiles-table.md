@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_DATAFILES table, now deprecated and removed, was intended to
+  provide metadata for InnoDB tablespace paths.
+---
+
 # Information Schema INNODB\_SYS\_DATAFILES Table
 
 {% hint style="info" %}

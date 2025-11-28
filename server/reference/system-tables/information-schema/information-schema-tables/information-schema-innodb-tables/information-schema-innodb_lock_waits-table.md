@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_LOCK_WAITS table maps blocked transactions to
+  the transactions that are blocking them, aiding in deadlock analysis.
+---
+
 # Information Schema INNODB\_LOCK\_WAITS Table
 
 The [Information Schema](../../) `INNODB_LOCK_WAITS` table contains information about blocked InnoDB transactions. The `PROCESS` [privilege](../../../../sql-statements/account-management-sql-statements/grant.md) is required to view the table.

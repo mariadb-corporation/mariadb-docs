@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert numbers between bases. This function transforms a number from one
+  numeric base system to another.
+---
+
 # CONV
 
 ## Syntax

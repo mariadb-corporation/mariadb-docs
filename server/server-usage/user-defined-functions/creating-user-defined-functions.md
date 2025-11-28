@@ -8,7 +8,7 @@ Functions are written in C or C++, and to make use of them, the operating system
 
 Each new SQL function requires corresponding functions written in C/C++. In the list below, at least the main function - x() - and one other, are required. _x_ should be replaced by the name of the function you are creating.
 
-All functions need to be thread-safe, so not global or static variables that change can be allocated. Memory is allocated in _x\_init()/ and freed i&#x6E;_&#x78;\_deinit()_._
+All functions need to be thread-safe, so not global or static variables that change can be allocated. Memory is allocated in _x\_init()/ and freed i&#x6E;_x\_deinit()_._
 
 ## Simple Functions
 

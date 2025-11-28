@@ -1,3 +1,9 @@
+---
+description: >-
+  Right-pad a string. This function pads a string on the right side with a
+  specified string until it reaches a certain length.
+---
+
 # RPAD
 
 ## Syntax
@@ -61,3 +67,4 @@ SELECT RPAD('',0),RPAD_ORACLE('',0);
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
+

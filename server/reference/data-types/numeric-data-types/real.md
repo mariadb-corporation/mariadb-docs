@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DOUBLE. In standard SQL mode, REAL is a double-precision
+  floating-point number.
+---
+
 # REAL
 
 ## Overview

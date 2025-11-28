@@ -1,3 +1,10 @@
+---
+description: >-
+  Add new rows to a table. This fundamental SQL command inserts explicit values
+  or query results into a database table, supporting various modifiers for
+  concurrency.
+---
+
 # INSERT
 
 ## Syntax

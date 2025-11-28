@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the value from the first row in the window frame. This function
+  retrieves the value of an expression from the first row of the defined window.
+---
+
 # FIRST\_VALUE
 
 ## Syntax

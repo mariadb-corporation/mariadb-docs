@@ -1,3 +1,10 @@
+---
+description: >-
+  The mysql_native_password plugin is the default legacy authentication method,
+  using SHA-1 hashing to verify passwords stored in the internal mysql.user
+  table.
+---
+
 # Authentication Plugin - mysql\_native\_password
 
 The `mysql_native_password` authentication plugin is the default authentication plugin that will be used for an account created when no authentication plugin is explicitly mentioned and [old\_passwords=0](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set. It uses the password hashing algorithm introduced in MySQL 4.1, which is also used by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function when [old\_passwords=0](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set. This hashing algorithm is based on [SHA-1](https://en.wikipedia.org/wiki/SHA-1).
@@ -17,7 +24,7 @@ SET old_passwords=0;
 CREATE USER username@hostname IDENTIFIED BY 'mariadb';
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 SET old_passwords=0;

@@ -260,7 +260,7 @@ This parameter controls whether binlog server could ask Master server to start\
 the Semi-Synchronous replication. This parameter takes a boolean value and the\
 default value is false.
 
-In order to get semi-sync working, the Master server must have th&#x65;_&#x72;pl\_semi\_sync\_master_ plugin installed. The availability of the plugin and the\
+In order to get semi-sync working, the Master server must have the_rpl\_semi\_sync\_master_ plugin installed. The availability of the plugin and the\
 value of the GLOBAL VARIABLE _rpl\_semi\_sync\_master\_enabled_ are checked in the\
 Master registration phase: if the plugin is installed in the Master database,\
 the binlog server subsequently requests the semi-sync option.

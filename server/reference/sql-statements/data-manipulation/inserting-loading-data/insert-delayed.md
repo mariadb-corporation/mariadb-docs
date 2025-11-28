@@ -1,3 +1,10 @@
+---
+description: >-
+  Queue inserts for later execution. This MyISAM-specific extension returns
+  control immediately to the client while the server inserts rows when the table
+  is free.
+---
+
 # INSERT DELAYED
 
 ## Syntax

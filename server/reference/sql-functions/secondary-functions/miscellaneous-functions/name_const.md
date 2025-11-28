@@ -1,3 +1,9 @@
+---
+description: >-
+  Force a column name for an expression. This function is primarily used
+  internally for replication to ensure consistent column naming.
+---
+
 # NAME\_CONST
 
 ## Syntax

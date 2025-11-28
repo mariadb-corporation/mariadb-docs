@@ -1,4 +1,4 @@
-# Launch DB using Python
+# Launch DB Using Python
 
 The Python example below shows how to launch a DB service and connect to it using the MariaDB Cloud DBaaS API.
 

@@ -1,12 +1,12 @@
 # MariaDB 11.3.2 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/11.3.2) | [Release Notes](mariadb-11-3-2-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-3-series/mariadb-11-3-2-changelog.md) | [Overview of 11.3](what-is-mariadb-113.md)
+​​<a href="https://downloads.mariadb.org/mariadb/11.3.2/" class="button primary">Download</a> <a href="mariadb-11-3-2-release-notes.md" class="button secondary">Release Notes</a> <a href="../../changelogs/11.5/mariadb-11-5-2-changelog.md" class="button secondary">Changelog</a> <a href="../release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115.md" class="button secondary">Overview of 11.5</a>
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.3.2/)
 
 **Release date:** 16 Feb 2024
 
-Note that the Debian packages have compatibility problems with PHP and NodeJS. We suggest that these users hold off upgrading, wait until the next 11.x release, [MariaDB 11.4.2](../../mariadb-11-4-series/mariadb-11-4-2-release-notes.md), or implement one of the following workarounds:
+Note that the Debian packages have compatibility problems with PHP and NodeJS. We suggest that these users hold off upgrading, wait until the next 11.x release, [MariaDB 11.4.2](../../11.4/11.4.2.md), or implement one of the following workarounds:
 
 * Edit `/etc/mysql/mariadb.conf.d/50-server.cnf` and change `character-set-collations = utf8mb4=uca1400_ai_ci` to `character-set-collations = utf8mb4=general_ci`\
   or
@@ -177,7 +177,7 @@ Thanks, and enjoy MariaDB!
 * As per the [MariaDB Deprecation Policy](../../about/platform-deprecation-policy.md), this will be the last release of [MariaDB 11.3](what-is-mariadb-113.md) for Fedora 37 and Ubuntu 23.04 "Lunar"
 * [s3\_debug](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/s3-storage-engine/s3-storage-engine-system-variables#s3_debug) is now dynamic, and [s3\_protocol\_version](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/s3-storage-engine/s3-storage-engine-system-variables#s3_protocol_version) contains new options, and old options have been deprecated ([MDEV-32884](https://jira.mariadb.org/browse/MDEV-32884))
 * It is now possible to create [partitions](https://mariadb.com/docs/server/reference/sql-statements/data-definition/alter/alter-table#partitions) on tables that contain [GEOMETRY types](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/geometry/geometry-types) ([MDEV-19177](https://jira.mariadb.org/browse/MDEV-19177))
-* New [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old-mode) value, `NO_NULL_COLLATION_IDS`, a compatibility setting to support connectors (in particular MySQL Connector/NET) that give an exception when collation ids returned by [SHOW COLLATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-collation) are NULL. It is automatically set when a MySQL Connector/NET connection is determined.
+* New [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode) value, `NO_NULL_COLLATION_IDS`, a compatibility setting to support connectors (in particular MySQL Connector/NET) that give an exception when collation ids returned by [SHOW COLLATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-collation) are NULL. It is automatically set when a MySQL Connector/NET connection is determined.
 * Upgrade [HeidiSQL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/graphical-and-enhanced-clients/heidisql) to 12.6.
 * Using two temporary tables in `OPTIMIZE TABLE` lead to crash ([MDEV-31523](https://jira.mariadb.org/browse/MDEV-31523))
 * `REGEXP_REPLACE` treats empty strings different than `REPLACE` in ORACLE mode ([MDEV-29095](https://jira.mariadb.org/browse/MDEV-29095))
@@ -213,7 +213,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.3.1](mariadb-11-3-1-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-3-series/mariadb-11-3-1-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.3/mariadb-11-3-1-changelog.md).
 
 ## Contributors
 

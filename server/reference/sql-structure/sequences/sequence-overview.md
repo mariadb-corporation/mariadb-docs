@@ -44,7 +44,7 @@ or
 NEXTVAL(sequence_name)
 ```
 
-or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql-mode.md))
+or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql_mode.md))
 
 ```
 sequence_name.nextval
@@ -62,7 +62,7 @@ or
 LASTVAL(sequence_name)
 ```
 
-or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql-mode.md))
+or in Oracle mode ([SQL\_MODE=ORACLE](../../../server-management/variables-and-modes/sql_mode.md))
 
 ```
 sequence_name.currval
@@ -261,7 +261,7 @@ The `cycle_count` column is incremented every time the sequence wraps around.
 * [AUTO INCREMENT](../../data-types/auto_increment.md)
 * [Sequence Storage Engine](../../../server-usage/storage-engines/sequence-storage-engine.md)
 * [Information Schema SEQUENCES Table](../../system-tables/information-schema/information-schema-tables/information-schema-sequences-table.md)
-* [Error 4084: Sequence has run out](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-structure/sequences/broken-reference/README.md)
+* [Error 4084: Sequence has run out](../../error-codes/mariadb-error-codes-4000-to-4099/e4084.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

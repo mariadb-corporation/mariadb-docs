@@ -1,3 +1,9 @@
+---
+description: >-
+  Decode a Geohash to retrieve the longitude. This function returns the
+  longitude coordinate (X-axis) from a given Geohash string.
+---
+
 # ST\_LongFromGeoHash
 
 {% hint style="info" %}

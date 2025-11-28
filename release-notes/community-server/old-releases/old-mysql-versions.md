@@ -22,7 +22,7 @@ This page lists the main features that were added in very old MySQL trees, befor
 * [Replication](https://mariadb.com/docs/server/server-usage/storage-engines/myrocks/myrocks-and-replication) (only statement-based, no SSL).
 * Temporary tables
 * Portable tables through different machines
-* [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode)
+* [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode)
 * [User defined functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/user-defined-functions)
 * [Procedure ANALYSE()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/procedure-analyse)
 * New storage engines:

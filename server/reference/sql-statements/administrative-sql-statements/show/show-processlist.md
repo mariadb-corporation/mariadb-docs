@@ -1,3 +1,9 @@
+---
+description: >-
+  View currently executing threads. This statement displays the ID, user, host,
+  database, statement, time, and state of active connections.
+---
+
 # SHOW PROCESSLIST
 
 ## Syntax

@@ -1,6 +1,0 @@
-[tool.md_dead_link_check]
-# Exclude common false positives
-exclude_links = [
-    "http://localhost*",
-    "https://example.com/link-i-know-is-fine"
-]

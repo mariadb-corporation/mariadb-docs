@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes stage events aggregated by thread and event name,
+  providing granular statistics on thread execution stages.
+---
+
 # Performance Schema events\_stages\_summary\_by\_thread\_by\_event\_name Table
 
 The table lists stage events, summarized by thread and event name.

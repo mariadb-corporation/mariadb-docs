@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference for storage space usage. This page lists the disk space consumed by
+  each data type, helping with capacity planning and schema optimization.
+---
+
 # Data Type Storage Requirements
 
 The following tables indicate the approximate data storage requirements for each data type.

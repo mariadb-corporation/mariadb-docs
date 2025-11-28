@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the length of a string in bits. This function calculates the size of
+  the string in bits (length in bytes multiplied by 8).
+---
+
 # BIT\_LENGTH
 
 ## Syntax

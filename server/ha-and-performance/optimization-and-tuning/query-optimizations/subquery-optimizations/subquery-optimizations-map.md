@@ -21,7 +21,7 @@ the optimizer strategies available to handle them.
 Some things are not on the map:
 
 * MariaDB doesn't evaluate expensive subqueries when doing optimization\
-  (this means, EXPLAIN is always fast). MySQL 5.6 has made a progress in this regard but its optimizer will still evaluate certain kinds of subqueries (for example, scalar-context subqueries used in range predicates)
+  (this means, EXPLAIN is always fast). MySQL 5.6 has made a progress in this regard, but its optimizer will still evaluate certain kinds of subqueries (for example, scalar-context subqueries used in range predicates)
 
 ## Links to pages about individual optimizations:
 
@@ -40,7 +40,7 @@ Some things are not on the map:
 
 ## See also
 
-* [Subquery optimizations in MariaDB 5.3](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/subquery-optimizations/broken-reference/README.md)
+* [Subquery optimizations in MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3#subquery-optimizations)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

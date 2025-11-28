@@ -1,3 +1,9 @@
+---
+description: >-
+  Compute CRC32C checksum. This function calculates a cyclic redundancy check
+  value using the Castagnoli polynomial.
+---
+
 # CRC32C
 
 {% hint style="info" %}

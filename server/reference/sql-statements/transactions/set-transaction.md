@@ -1,3 +1,10 @@
+---
+description: >-
+  Define isolation levels and access modes for transactions. Learn to configure
+  the behavior of the next transaction or the entire session for data
+  consistency.
+---
+
 # SET TRANSACTION
 
 ## Syntax

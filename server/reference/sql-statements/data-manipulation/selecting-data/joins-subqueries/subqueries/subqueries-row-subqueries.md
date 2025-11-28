@@ -1,3 +1,9 @@
+---
+description: >-
+  Retrieve a single row of multiple values. A row subquery returns a tuple that
+  can be compared against a row constructor in the outer query.
+---
+
 # Row Subqueries
 
 A row subquery is a [subquery](./) returning a single row, as opposed to a [scalar subquery](subqueries-scalar-subqueries.md), which returns a single column from a row, or a literal.

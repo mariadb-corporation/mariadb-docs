@@ -45,7 +45,7 @@ See [Replication Compatibility Between MariaDB and MySQL](replication-compatibil
 * [Function Differences Between MariaDB Rolling and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-rolling-and-mysql-8-0.md)
 * [System Variable Differences Between MariaDB Rolling and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-rolling-and-mysql-8-0.md)
 
-### Incompatibilities between [MariaDB 11.4](../../mariadb-11-4-series/what-is-mariadb-114.md) and MySQL 8.0
+### Incompatibilities between [MariaDB 11.4](../../11.4/what-is-mariadb-114.md) and MySQL 8.0
 
 * See [Incompatibilities and Feature Differences Between MariaDB 11.4 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-11-4-and-mysql-8.md) for details.
 * [Function Differences Between MariaDB 11.4 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-11-4-and-mysql-8-0.md)
@@ -57,13 +57,13 @@ See [Replication Compatibility Between MariaDB and MySQL](replication-compatibil
 * [Function Differences Between MariaDB 11.2 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-11-2-and-mysql-8-0.md)
 * [System Variable Differences Between MariaDB 11.2 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-and-mysql-unmaintained-series/system-variable-differences-between-mariadb-11-2-and-mysql-8-0.md)
 
-### Incompatibilities between [MariaDB 10.11](../../mariadb-10-11-series/what-is-mariadb-1011.md) and MySQL 8.0
+### Incompatibilities between [MariaDB 10.11](../../10.11/what-is-mariadb-1011.md) and MySQL 8.0
 
 * See [Incompatibilities and Feature Differences Between MariaDB 10.11 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-10-11-and-mysql-8.md) for details.
 * [Function Differences Between MariaDB 10.11 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-10-11-and-mysql-8-0.md)
 * [System Variable Differences Between MariaDB 10.11 and MySQL 8.0](system-variable-differences-between-mariadb-and-mysql/system-variable-differences-between-mariadb-10-11-and-mysql-8-0.md)
 
-### Incompatibilities between [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md) and MySQL 8.0
+### Incompatibilities between [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) and MySQL 8.0
 
 * See [Incompatibilities and Feature Differences Between MariaDB 10.6 and MySQL 8.0](incompatibilities-and-feature-differences-between-mariadb-10-6-and-mysql-8.md) for details.
 * [Function Differences Between MariaDB 10.6 and MySQL 8.0](function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-10-6-and-mysql-8-0.md)
@@ -84,7 +84,7 @@ For unmaintained versions, see:
 * [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) does not support the ngram and MeCab full-text parser plugins - [MDEV-10267](https://jira.mariadb.org/browse/MDEV-10267), [MDEV-10268](https://jira.mariadb.org/browse/MDEV-10268).
 * [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) does not support multiple triggers for a table - [MDEV-6112](https://jira.mariadb.org/browse/MDEV-6112). This is fixed in [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
 * [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) does not support [CREATE TABLESPACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-tablespace) for InnoDB.
-* [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's “native” InnoDB partitioning handler. Fixed in [MariaDB 10.6.15](../../mariadb-10-6-series/mariadb-10-6-15-release-notes.md).
+* [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's “native” InnoDB partitioning handler. Fixed in [MariaDB 10.6.15](../../10.6/10.6.15.md).
 * MariaDB does not support MySQL 5.7's X protocol.
 * [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) does not support the use of multiple triggers of the same type for a table. This feature was introduced in [MariaDB 10.2.2](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes.md).
 * [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) does not support MySQL 5.7's transportable tablespaces for partitioned InnoDB tables. ALTER TABLE ... {DISCARD|IMPORT} PARTITION is not supported. For a workaround [see the following blog post](https://www.geoffmontee.com/importing-innodb-partitions-in-mysql-5-6-and-mariadb-10-010-1/).
@@ -123,7 +123,7 @@ For unmaintained versions, see:
 ### Incompatibilities between [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) and MySQL 5.5
 
 * Views with definition ALGORITHM=MERGE or ALGORITHM=TEMPTABLE got accidentally swapped between MariaDB and MySQL! You have to re-create views created with either of these definitions!
-* [INSERT IGNORE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/ignore) also gives warnings for duplicate key errors. You can turn this off by setting `OLD_MODE=NO_DUP_KEY_WARNINGS_WITH_IGNORE` (see [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old-mode)).
+* [INSERT IGNORE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/ignore) also gives warnings for duplicate key errors. You can turn this off by setting `OLD_MODE=NO_DUP_KEY_WARNINGS_WITH_IGNORE` (see [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode)).
 * Before [MariaDB 5.5.31](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5531-release-notes.md), `X'HHHH'`, the standard SQL syntax for binary string literals, erroneously worked in the same way as `0xHHHH`, which could work as a number or string depending on the context. In 5.5.31 this was fixed to behave as a string in all contexts (and never as a number), introducing an incompatibility with previous versions of MariaDB, and all versions of MySQL. See [CAST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/cast) and [Hexadecimal Literals](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/hexadecimal-literals) for more details and examples.
 * MariaDB [dynamic columns](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/nosql/dynamic-columns) are not supported by MySQL.
 * MariaDB [virtual columns](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/generated-columns) are not supported by MySQL.
@@ -146,7 +146,7 @@ For unmaintained versions, see:
   and `--aria-`)
 * [SHOW PROCESSLIST](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-processlist) has an extra `Progress` column\
   which shows progress for some commands. You can disable it by\
-  starting `mysqld` with either `--old-mode=NO_PROGRESS_INFO` or with the `--old` flag (see [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old-mode)).
+  starting `mysqld` with either `--old-mode=NO_PROGRESS_INFO` or with the `--old` flag (see [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode)).
 * `INFORMATION_SCHEMA.PROCESSLIST` has three new columns for progress\
   reporting: `STAGE`, `MAX_STAGE`, and `PROGRESS`.
 * [Long comments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/comment-syntax) which start with `/*M!`\
@@ -160,7 +160,7 @@ For unmaintained versions, see:
 
 The list is the same as between [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1, with one addition:
 
-* A new [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) value was added:`IGNORE_BAD_TABLE_OPTIONS`. If it is not set, using a table,\
+* A new [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value was added:`IGNORE_BAD_TABLE_OPTIONS`. If it is not set, using a table,\
   field, or index attribute (option) that is not supported by the chosen storage engine will cause an error. This change might cause warnings in the error log about incorrectly defined tables from the `mysql` database, fix that with [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade).
 
 For all practical purposes, [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md) is a drop in replacement for [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1.

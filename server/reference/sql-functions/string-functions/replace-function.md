@@ -1,3 +1,9 @@
+---
+description: >-
+  Replace occurrences of a substring. This function replaces all instances of a
+  specified search string within a string with a replacement string.
+---
+
 # REPLACE Function
 
 ## Syntax

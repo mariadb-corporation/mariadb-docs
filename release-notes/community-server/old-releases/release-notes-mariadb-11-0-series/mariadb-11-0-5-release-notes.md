@@ -2,11 +2,11 @@
 
 The most recent release of [MariaDB 11.0](what-is-mariadb-110.md) is:[**MariaDB 11.0.6**](mariadb-11-0-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.0.6/)
 
-[Download 11.0.5](https://downloads.mariadb.org/mariadb/11.0.5/) | [Release Notes](mariadb-11-0-5-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-5-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
+[Download 11.0.5](https://downloads.mariadb.org/mariadb/11.0.5/) | [Release Notes](mariadb-11-0-5-release-notes.md) | [Changelog](../../changelogs/11.0/mariadb-11-0-5-changelog.md) | [Overview of 11.0](what-is-mariadb-110.md)
 
 **Release date:** 7 Feb 2024
 
-[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../mariadb-10-11-series/what-is-mariadb-1011.md) with several entirely new features.
+[MariaDB 11.0](what-is-mariadb-110.md) is a current short-term stable series of MariaDB and will be [maintained until](https://mariadb.org/about/#maintenance-policy) June 2024. It is an evolution of [MariaDB 10.11](../../10.11/what-is-mariadb-1011.md) with several entirely new features.
 
 [MariaDB 11.0.5](mariadb-11-0-5-release-notes.md) is a [_**Stable (GA)**_](../../about/release-criteria.md) release.
 
@@ -161,7 +161,7 @@ Thanks, and enjoy MariaDB!
 
 * As per the [MariaDB Deprecation Policy](../../about/platform-deprecation-policy.md), this will be the last release of [MariaDB 11.0](what-is-mariadb-110.md) for Fedora 37, Ubuntu 23.04 "Lunar", and Windows Server 2019
 * [s3\_debug](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/s3-storage-engine/s3-storage-engine-system-variables#s3_debug) is now dynamic, and [s3\_protocol\_version](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/s3-storage-engine/s3-storage-engine-system-variables#s3_protocol_version) contains new options, and old options have been deprecated ([MDEV-32884](https://jira.mariadb.org/browse/MDEV-32884))
-* New [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old-mode) value, `NO_NULL_COLLATION_IDS`, a compatibility setting to support connectors (in particular MySQL Connector/NET) that give an exception when collation ids returned by [SHOW COLLATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-collation) are NULL. It is automatically set when a MySQL Connector/NET connection is determined.
+* New [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode) value, `NO_NULL_COLLATION_IDS`, a compatibility setting to support connectors (in particular MySQL Connector/NET) that give an exception when collation ids returned by [SHOW COLLATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-collation) are NULL. It is automatically set when a MySQL Connector/NET connection is determined.
 * Upgrade [HeidiSQL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/graphical-and-enhanced-clients/heidisql) to 12.6.
 * Using two temporary tables in `OPTIMIZE TABLE` lead to crash ([MDEV-31523](https://jira.mariadb.org/browse/MDEV-31523))
 * `REGEXP_REPLACE` treats empty strings different than `REPLACE` in ORACLE mode ([MDEV-29095](https://jira.mariadb.org/browse/MDEV-29095))
@@ -198,7 +198,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.0.5](mariadb-11-0-5-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-0-series/mariadb-11-0-5-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.0/mariadb-11-0-5-changelog.md).
 
 ## Contributors
 

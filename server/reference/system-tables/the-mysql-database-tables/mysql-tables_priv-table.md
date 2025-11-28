@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.tables_priv table records table-level privileges granted to users,
+  specifying which actions they can perform on specific tables.
+---
+
 # mysql.tables\_priv Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

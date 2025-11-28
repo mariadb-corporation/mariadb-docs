@@ -1,3 +1,9 @@
+---
+description: >-
+  Read rows with a shared lock. This clause ensures rows remain unchanged by
+  other transactions while allowing other sessions to read them.
+---
+
 # LOCK IN SHARE MODE
 
 InnoDB supports row-level locking. Selected rows can be locked using `LOCK IN SHARE MODE` or [FOR UPDATE](for-update.md). In both cases, a lock is acquired on the rows read by the query, and it will be released when the current transaction is committed.

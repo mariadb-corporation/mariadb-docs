@@ -1,3 +1,9 @@
+---
+description: >-
+  Count rows affected by the last statement. This function returns the number of
+  rows inserted, updated, or deleted by the previous DML operation.
+---
+
 # ROW\_COUNT
 
 ## Syntax

@@ -30,7 +30,7 @@ Now for the gory details.
 
 If the MariaDB server is crashing because of 'out-of-memory' then it is probably wrongly configured.
 
-There are two kind of buffers in MariaDB:
+There are two kinds of buffers in MariaDB:
 
 * Global ones that are only allocated once during the lifetime of the server:
   * Storage engine buffers ( [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size), [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size), [aria\_pagecache\_buffer\_size](../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size), etc)
@@ -56,16 +56,11 @@ There are two kind of buffers in MariaDB:
 | [sort\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#sort_buffer_size)        | When doing ORDER BY or GROUP BY                                                                                                                         |
 | [max\_heap\_table\_size](optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) | Used to store temporary tables in memory. See [Optimizing memory tables](optimization-and-tuning/optimizing-data-structure/optimizing-memory-tables.md) |
 
-If any variables in the last group is very large and you have a lot\
-of simultaneous users that are executing queries that are using these\
-buffers then you can run into trouble.
+If any variables in the last group is very large and you have a lot of simultaneous users that are executing queries that are using these buffers then you can run into trouble.
 
-In a default MariaDB installation the default of most of the above\
-variables are quite small to ensure that one does not run out of memory.
+In a default MariaDB installation the default of most of the above variables are quite small to ensure that one does not run out of memory.
 
-You can check which variables that have been changed in your setup by\
-executing the following sql statement. If you are running into\
-out-of-memory issues, it is very likely that the problematic variable is\
+You can check which variables that have been changed in your setup by executing the following sql statement. If you are running into out-of-memory issues, it is very likely that the problematic variable is\
 in this list!
 
 ```sql
@@ -94,7 +89,7 @@ then calculate [Key\_read\_requests](optimization-and-tuning/system-variables/se
 
 ### What is the Buffer Pool?
 
-InnoDB does all its caching in a the [buffer pool](../server-usage/storage-engines/innodb/innodb-buffer-pool.md), whose size is controlled by [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size). By default it contains 16KB data and index blocks from the open tables (see [innodb\_page\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size)), plus some maintenance overhead.
+InnoDB does all its caching in the [buffer pool](../server-usage/storage-engines/innodb/innodb-buffer-pool.md), whose size is controlled by [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size). By default, it contains 16KB data and index blocks from the open tables (see [innodb\_page\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size)), plus some maintenance overhead.
 
 From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), multiple buffer pools are permitted; this can help because there is one mutex per pool, thereby relieving some of the mutex bottleneck.
 
@@ -131,11 +126,11 @@ SELECT  ENGINE,
 
 ### Query Memory Allocation
 
-There are two variables that dictates how memory are allocated by MariaDB while parsing and executing a query.[query\_prealloc\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_prealloc_size) defines the standard buffer for memory used for query execution and [query\_alloc\_block\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_alloc_block_size) that is size of memory blocks if `query_prealloc_size` was not big enough. Getting these variables right will reduce memory fragmentation in the server.
+There are two variables that dictates how memory is allocated by MariaDB while parsing and executing a query.[query\_prealloc\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_prealloc_size) defines the standard buffer for memory used for query execution and [query\_alloc\_block\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_alloc_block_size) that is size of memory blocks if `query_prealloc_size` was not big enough. Getting these variables right will reduce memory fragmentation in the server.
 
 ### Mutex Bottleneck
 
-MySQL was designed in the days of single-CPU machines, and designed to be easily ported to many different architectures. Unfortunately, that lead to some sloppiness in how to interlock actions. There are a small number (too small) of "mutexes" to gain access to several critical processes. Of note:
+MySQL was designed in the days of single-CPU machines and designed to be easily ported to many different architectures. Unfortunately, that lead to some sloppiness in how to interlock actions. There are a small number (too small) of "mutexes" to gain access to several critical processes. Of note:
 
 * MyISAM's key\_buffer
 * The Query Cache
@@ -164,9 +159,7 @@ If you get an error like `[ERROR] /usr/libexec/mysqld: Out of memory (Needed xxx
 
 ### 64-bit OS with 32-bit MariaDB
 
-The OS is not limited by 4GB, but MariaDB is.
-
-If you have at least 4GB of RAM, then maybe these would be good:
+The OS is not limited by 4GB, but MariaDB is. If you have at least 4GB of RAM, then maybe these would be good:
 
 * [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) = 20% of _all_ of RAM, but not more than 3G
 * [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) = 3G
@@ -188,9 +181,7 @@ Each "thread" takes some amount of RAM. This used to be about 200KB; 100 threads
 
 In 5.6 (or [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)), optional thread pooling interacts with [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections). This is a more advanced topic.
 
-Thread stack overrun rarely happens. If it does, do something like thread\_stack=256K
-
-[More on max\_connections, wait\_timeout, connection pooling, etc](https://www.mysqlperformanceblog.com/2013/11/28/mysql-error-too-many-connections/)
+Thread stack overrun rarely happens. If it does, do something like thread\_stack=256K. [More on max\_connections, wait\_timeout, connection pooling, etc](https://www.mysqlperformanceblog.com/2013/11/28/mysql-error-too-many-connections/)
 
 ### table\_open\_cache
 
@@ -225,7 +216,7 @@ Long answer... There are many aspects of the "Query cache"; many are negative.
 "Pruning" is costly and frequent:
 
 * When _any_ write happens on a table, _all_ entries in the QC for _that_ table are removed.
-* It happens even on a readonly Slave.
+* It happens even on a read-only Slave.
 * Purges are performed with a linear algorithm, so a large QC (even 200MB) can be noticeably slow.
 
 To see how well your QC is performing, SHOW GLOBAL STATUS LIKE 'Qc%'; then compute the read hit rate: [Qcache\_hits](optimization-and-tuning/system-variables/server-status-variables.md#qcache_hits) / [Qcache\_inserts](optimization-and-tuning/system-variables/server-status-variables.md#qcache_inserts) If it is over, say, 5, the QC might be worth keeping.
@@ -288,7 +279,7 @@ Overall performance loss/gain: A few percent.
 
 ### Huge Pages
 
-[MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-17-release-notes) (and other releases after 19 Jan 2024) have transparent huge pages automatically disabled. See [MDEV-33279](https://jira.mariadb.org/browse/MDEV-33279) "Disable transparent huge pages after page buffers has been allocated" for more information.
+[MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17) (and other releases after 19 Jan 2024) have transparent huge pages automatically disabled. See [MDEV-33279](https://jira.mariadb.org/browse/MDEV-33279) "Disable transparent huge pages after page buffers has been allocated" for more information.
 
 This is another hardware performance gimmick.
 
@@ -317,7 +308,7 @@ Jumbo Pages? Turn off.
 
 ### ENGINE=MEMORY
 
-The [Memory Storage Engine](../server-usage/storage-engines/memory-storage-engine.md) is a little-used alternative to [MyISAM](../server-usage/storage-engines/myisam-storage-engine/) and [InnoDB](../server-usage/storage-engines/innodb/). The data is not persistent, so it has limited uses. The size of a MEMORY table is limited to [max\_heap\_table\_size](optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size), which defaults to 16MB. I mention it in case you have changed the value to something huge; this would stealing from other possible uses of RAM.
+The [Memory Storage Engine](../server-usage/storage-engines/memory-storage-engine.md) is a little-used alternative to [MyISAM](../server-usage/storage-engines/myisam-storage-engine/) and [InnoDB](../server-usage/storage-engines/innodb/). The data is not persistent, so it has limited uses. The size of a MEMORY table is limited to [max\_heap\_table\_size](optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size), which defaults to 16MB. I mention it in case you have changed the value to something huge; this would be stealing from other possible uses of RAM.
 
 ### How to Set Variables
 
@@ -352,7 +343,7 @@ SHOW GLOBAL VARIABLES LIKE "key_buffer_size";
 
 Note that this particular setting was rounded down to some multiple that MariaDB liked.
 
-You may want to do both (SET, and modify my.cnf) in order to make the change immediately and have it so that the next restart (for whatever reason) will again get the value.
+You may want to do both (SET and modify my.cnf) in order to make the change immediately and have it so that the next restart (for whatever reason) will again get the value.
 
 ### Web Server
 
@@ -367,7 +358,7 @@ There are several tools that advise on memory. One misleading entry they come up
 
 Maximum possible memory usage: 31.3G (266% of installed RAM)
 
-Don't let it scare you -- the formulas used are excessively conservative. They assume all of [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) are in use and active, and doing something memory-intensive.
+Don't let it scare you -- the formulas used are excessively conservative. They assume all of [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) are in use and active and doing something memory intensive.
 
 Total fragmented tables: 23 This implies that OPTIMIZE TABLE _might_ help. I suggest it for tables with either a high percentage of "free space" (see SHOW TABLE STATUS) or where you know you do a lot of DELETEs and/or UPDATEs. Still, don't bother to OPTIMIZE too often. Once a month might suffice.
 
@@ -392,8 +383,7 @@ The tips in this document apply to MySQL, MariaDB, and Percona.
 
 Rick James graciously allowed us to use this article in the documentation.
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
-optimizations, and debugging tips.
+[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos, optimizations, and debugging tips.
 
 Original source: [random](https://mysql.rjweb.org/doc.php/random)
 

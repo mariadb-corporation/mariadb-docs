@@ -1,6 +1,6 @@
 # MariaDB 10.9.5 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/10.9.5) | [Release Notes](mariadb-10-9-5-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-109-series/mariadb-10-9-5-changelog.md) | [Overview of 10.9](what-is-mariadb-109.md)
+[Download](https://downloads.mariadb.org/mariadb/10.9.5) | [Release Notes](mariadb-10-9-5-release-notes.md) | [Changelog](../../changelogs/10.9/10.9.5.md) | [Overview of 10.9](what-is-mariadb-109.md)
 
 **Release date:** 6 Feb 2023
 
@@ -65,7 +65,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 10.9.5](mariadb-10-9-5-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-109-series/mariadb-10-9-5-changelog.md).
+information on each push, see the [changelog](../../changelogs/10.9/10.9.5.md).
 
 ## Contributors
 

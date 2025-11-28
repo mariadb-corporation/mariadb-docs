@@ -1,3 +1,9 @@
+---
+description: >-
+  This command checks if the server is alive and reachable, the server responds
+  with an OK packet if it is running.
+---
+
 # COM\_PING
 
 `COM_PING` permits sending a packet containing one byte to check that the connection is active.

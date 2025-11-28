@@ -1,3 +1,9 @@
+---
+description: >-
+  Checks if two geometries overlap. Returns 1 if they share space but neither
+  completely contains the other, and they have the same dimension.
+---
+
 # ST\_OVERLAPS
 
 ## Syntax

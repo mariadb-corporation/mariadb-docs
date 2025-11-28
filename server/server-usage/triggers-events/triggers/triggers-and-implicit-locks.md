@@ -2,9 +2,9 @@
 
 A [trigger](./) may reference multiple tables, and if a [LOCK TABLES](../../../reference/sql-statements/transactions/lock-tables.md) statement is used on one of the tables, other tables may at the same time also implicitly be locked due to the trigger.
 
-If the trigger only reads from the other table, that table are read locked. If the trigger writes to the other table, it are write locked. If a table is read-locked for reading via `LOCK TABLES`, but needs to be write-locked because it could be modified by a trigger, a write lock is taken.
+If the trigger only reads from the other table, that table are read locked. If the trigger writes to the other table, it is write-locked. If a table is read-locked for reading via `LOCK TABLES`, but needs to be write-locked because it could be modified by a trigger, a write lock is taken.
 
-All locks are acquired together when the `LOCK TABLES` statement is issued and they are released together on `UNLOCK TABLES`.
+All locks are acquired together when the `LOCK TABLES` statement is issued, and released together on `UNLOCK TABLES`.
 
 ## Example
 

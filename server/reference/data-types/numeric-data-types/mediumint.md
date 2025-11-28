@@ -1,3 +1,9 @@
+---
+description: >-
+  Medium-sized integer. A MEDIUMINT column uses 3 bytes and stores values from
+  -8388608 to 8388607 (signed) or 0 to 16777215 (unsigned).
+---
+
 # MEDIUMINT
 
 ## Syntax
@@ -18,7 +24,7 @@ For details on the attributes, see [Numeric Data Type Overview](numeric-data-typ
 
 ## Examples
 
-### With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) set
+### With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) set
 
 ```sql
 CREATE TABLE mediumints (a MEDIUMINT,b MEDIUMINT UNSIGNED,c MEDIUMINT ZEROFILL);

@@ -106,7 +106,7 @@ Configuring the server to listen for remote connections is only the first step. 
     ```bash
     mariadb -u root -p
     ```
-2.  **View Existing Remote Users (Optional):**&#x53;QL
+2.  **View Existing Remote Users (Optional):**SQL
 
     ```sql
     SELECT User, Host FROM mysql.user 

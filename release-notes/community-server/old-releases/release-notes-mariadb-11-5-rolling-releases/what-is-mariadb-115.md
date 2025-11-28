@@ -79,11 +79,11 @@ Add listcve macro here - removed for performance reasons
 
 ## List of All [MariaDB 11.5](what-is-mariadb-115.md) Releases
 
-| Date        | Release                                           | Status      | Release Notes                                    | Changelog                                                                                |
-| ----------- | ------------------------------------------------- | ----------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| 14 Aug 2024 | [MariaDB 11.5.2](mariadb-11-5-2-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-5-2-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-5-series/mariadb-11-5-2-changelog.md) |
-| 30 May 2024 | [MariaDB 11.5.1](mariadb-11-5-1-release-notes.md) | RC          | [Release Notes](mariadb-11-5-1-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-5-series/mariadb-11-5-1-changelog.md) |
-| 18 Mar 2024 | [MariaDB 11.5.0](mariadb-11-5-0-release-notes.md) | Alpha       | [Release Notes](mariadb-11-5-0-release-notes.md) |                                                                                          |
+| Date        | Release                                           | Status      | Release Notes                                    | Changelog                                                      |
+| ----------- | ------------------------------------------------- | ----------- | ------------------------------------------------ | -------------------------------------------------------------- |
+| 14 Aug 2024 | [MariaDB 11.5.2](mariadb-11-5-2-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-5-2-release-notes.md) | [Changelog](../../changelogs/11.5/mariadb-11-5-2-changelog.md) |
+| 30 May 2024 | [MariaDB 11.5.1](mariadb-11-5-1-release-notes.md) | RC          | [Release Notes](mariadb-11-5-1-release-notes.md) | [Changelog](../../changelogs/11.5/mariadb-11-5-1-changelog.md) |
+| 18 Mar 2024 | [MariaDB 11.5.0](mariadb-11-5-0-release-notes.md) | Alpha       | [Release Notes](mariadb-11-5-0-release-notes.md) |                                                                |
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

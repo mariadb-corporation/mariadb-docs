@@ -1,3 +1,7 @@
+---
+description: Synonym for CEILING(). Rounds a number up to the nearest integer.
+---
+
 # CEIL
 
 ## Syntax

@@ -1,6 +1,6 @@
 # MariaDB Cloud Intelligent Proxy
 
-MariaDB Cloud Intelligent Proxy represents an optimized iteration of MariaDB MaxScale. The subsequent Configuration Manager parameters are leveraged to tailor the behavior of MariaDB MaxScale:"
+MariaDB Cloud Intelligent Proxy represents an optimized iteration of MariaDB MaxScale. The subsequent Configuration Manager parameters are leveraged to tailor the behavior of MariaDB MaxScale:
 
 | Name                                                                                                                                                                                                                                             | Default Value              |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |

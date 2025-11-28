@@ -302,7 +302,7 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 
 ## Function Names
 
-If the `IGNORE_SPACE` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) flag is set, function names become reserved words.
+If the `IGNORE_SPACE` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, function names become reserved words.
 
 ## See Also
 

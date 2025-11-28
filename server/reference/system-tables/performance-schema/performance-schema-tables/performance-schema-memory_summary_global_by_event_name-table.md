@@ -1,3 +1,9 @@
+---
+description: >-
+  This table provides a global summary of memory usage events aggregated by
+  event name, showing total memory allocation across the server.
+---
+
 # Performance Schema memory\_summary\_global\_by\_event\_name Table
 
 {% hint style="info" %}

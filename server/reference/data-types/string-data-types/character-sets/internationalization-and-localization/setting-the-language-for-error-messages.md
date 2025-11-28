@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to configure the lc_messages and lc_messages_dir system variables to
+  display server error messages in a supported local language.
+---
+
 # Setting the Language for Error Messages
 
 MariaDB server error messages are by default in English. However, MariaDB server also supports error message [localization](server-locale.md) in many different languages. Each supported language has its own version of the [error message file](../../../../../server-management/server-monitoring-logs/error-log.md#error-messages-file) called `errmsg.sys` in a dedicated directory for that language.

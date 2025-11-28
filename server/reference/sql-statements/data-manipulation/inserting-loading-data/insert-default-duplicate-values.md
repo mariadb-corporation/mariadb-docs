@@ -1,8 +1,15 @@
+---
+description: >-
+  Handle default and duplicate values during insertion. Learn how MariaDB
+  manages missing columns and how to resolve duplicate key conflicts using
+  various strategies.
+---
+
 # INSERT - Default & Duplicate Values
 
 ## Default Values
 
-If the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) contains `STRICT_TRANS_TABLES` and you are [inserting](insert.md) into a transactional table (like InnoDB), or if the SQL\_MODE contains `STRICT_ALL_TABLES`, all `NOT NULL` columns which do not have a `DEFAULT` value (and are not [AUTO\_INCREMENT](../../../data-types/auto_increment.md)) must be explicitly referenced in `INSERT` statements. If not, an error like this is produced:
+If the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) contains `STRICT_TRANS_TABLES` and you are [inserting](insert.md) into a transactional table (like InnoDB), or if the SQL\_MODE contains `STRICT_ALL_TABLES`, all `NOT NULL` columns which do not have a `DEFAULT` value (and are not [AUTO\_INCREMENT](../../../data-types/auto_increment.md)) must be explicitly referenced in `INSERT` statements. If not, an error like this is produced:
 
 ```
 ERROR 1364 (HY000): Field 'col' doesn't have a default value

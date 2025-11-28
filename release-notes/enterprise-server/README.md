@@ -1,18 +1,15 @@
 # Enterprise Server Release Notes
 
-This section contains release notes for MariaDB Enterprise Server releases divided into the major MariaDB series. The latest long-term stable series is [MariaDB Enterprise Server 11.4](11.4/) ([MariaDB Engineering Policy](https://mariadb.com/engineering-policies/)), and the current development release is [MariaDB Enterprise Server 11.8](11.8/).
+This section contains release notes for MariaDB Enterprise Server releases divided into the major MariaDB series. The latest long-term stable series is [MariaDB Enterprise Server 11.4](11.4) ([MariaDB Engineering Policy](https://mariadb.com/engineering-policies/)), and the current development release is [MariaDB Enterprise Server 11.8](11.8).
 
-{% content-ref url="enterprise-server-lifecycle.md" %}
-[enterprise-server-lifecycle.md](enterprise-server-lifecycle.md)
-{% endcontent-ref %}
+## About
 
-{% content-ref url="mariadb-enterprise-server-differences/" %}
-[mariadb-enterprise-server-differences](mariadb-enterprise-server-differences/)
-{% endcontent-ref %}
+* [Enterprise Server Lifecycle](enterprise-server-lifecycle.md)
+* [Enterprise Server Release Schedule](enterprise-server-release-schedule.md)
+* [Enterprise Server Differences](mariadb-enterprise-server-differences/)
+* [Software Bill of Materials (SBOM)](about/sbom.md)
 
 ## Current Releases
-
-
 
 {% content-ref url="11.8/" %}
 [11.8](11.8/)

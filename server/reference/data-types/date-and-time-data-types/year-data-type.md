@@ -1,3 +1,9 @@
+---
+description: >-
+  Store year values. This type stores a year in 2-digit or 4-digit format,
+  supporting values from 1901 to 2155, and 0000.
+---
+
 # YEAR Data Type
 
 {% hint style="info" %}
@@ -36,7 +42,7 @@ SELECT * FROM y;
 +------+
 ```
 
-With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) set — values out of range:
+With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) set — values out of range:
 
 ```sql
 INSERT INTO y VALUES (1005),('3080');
@@ -54,7 +60,7 @@ SELECT * FROM y;
 +------+
 ```
 
-With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) unset — values out of range:
+With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) unset — values out of range:
 
 ```sql
 INSERT INTO y VALUES (1005),('3080');

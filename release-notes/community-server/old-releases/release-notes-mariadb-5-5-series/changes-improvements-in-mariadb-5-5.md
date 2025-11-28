@@ -54,7 +54,7 @@ See also a detailed breakdown of [System variable differences between MariaDB 5.
   * [Executed\_triggers](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#executed_triggers)
   * [Executed\_events](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-status-variables#executed_events)
 * New plugin to log SQL level errors. [SQL\_ERROR\_LOG](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/sql-error-log-plugin)
-* New variable [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old-mode) to set compatibility behavior with older MySQL or MariaDB versions.
+* New variable [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode) to set compatibility behavior with older MySQL or MariaDB versions.
 
 ### Information Schema
 

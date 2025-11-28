@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema EVENTS table stores information about scheduled events
+  on the server, including their timing, definition, and status.
+---
+
 # Information Schema EVENTS Table
 
 The [Information Schema](../) `EVENTS` table stores information about [Events](../../../../server-usage/triggers-events/event-scheduler/) on the server.
@@ -17,7 +23,7 @@ It contains the following columns:
 | EXECUTE\_AT            | [DATETIME](../../../data-types/date-and-time-data-types/datetime.md) when the event is set to execute, or NULL if recurring.                                                                                       |
 | INTERVAL\_VALUE        | Numeric interval between event executions for a recurring event, or NULL if not recurring.                                                                                                                         |
 | INTERVAL\_FIELD        | Interval unit (e.g., HOUR)                                                                                                                                                                                         |
-| SQL\_MODE              | The [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) at the time the event was created.                                                                                                  |
+| SQL\_MODE              | The [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) at the time the event was created.                                                                                                  |
 | STARTS                 | Start [DATETIME](../../../data-types/date-and-time-data-types/datetime.md) for a recurring event, NULL if not defined or not recurring.                                                                            |
 | ENDS                   | End [DATETIME](../../../data-types/date-and-time-data-types/datetime.md) for a recurring event, NULL if not defined or not recurring.                                                                              |
 | STATUS                 | One of ENABLED, DISABLED or /SLAVESIDE\_DISABLED.                                                                                                                                                                  |

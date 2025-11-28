@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains the handshake and acknowledgement process for semi-synchronous
+  replication, ensuring data is committed on at least one replica.
+---
+
 # 4-Semi-Sync Replication
 
 [Regular MariaDB replication](../../../ha-and-performance/standard-replication/) is asynchronous. MariaDB also includes [semisynchronous replication](../../../ha-and-performance/standard-replication/semisynchronous-replication.md) semi-synchronous Binlog Event.
@@ -35,7 +41,7 @@ This event is sent by the replica **only if** the semi-sync flag is set to `0x01
 This packet sent by the replica never includes the `CRC32`.
 {% endhint %}
 
-Sending an `ACK` when the semi-sync flag is set to `0x0`  causes an error, and the connection is closed.
+Sending an `ACK` when the semi-sync flag is set to `0x0` causes an error, and the connection is closed.
 
 ## Example of Heartbeat Event With Semi-Sync Protocol and CRC32
 

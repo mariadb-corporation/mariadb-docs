@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes statement events aggregated by client account and event
+  name, detailing execution counts and timer statistics.
+---
+
 # Performance Schema events\_statements\_summary\_by\_account\_by\_event\_name Table
 
 The [Performance Schema](../) events\_statements\_summary\_by\_account\_by\_event\_name table contains statement events summarized by account and event name. It contains the following columns:

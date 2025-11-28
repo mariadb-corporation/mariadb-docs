@@ -55,7 +55,7 @@ For example, if you want to install the default MariaDB image, you can type:
 docker pull mariadb:10.6
 ```
 
-This will install the 10.6 version.&#x20;
+This will install the 10.6 version. 
 
 You will see a list of necessary layers. For each layer, Docker will say if it is already present, or its download progress.
 

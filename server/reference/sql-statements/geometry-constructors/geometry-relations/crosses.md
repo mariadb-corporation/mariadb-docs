@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_CROSSES. Checks if two geometries cross, meaning they share
+  some interior points but not all, and the intersection has a lower dimension.
+---
+
 # CROSSES
 
 ## Syntax

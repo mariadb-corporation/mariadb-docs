@@ -11,31 +11,31 @@ Without a doubt, you want your backup/restore and export/import operations to be
 1. On the **Database** menu, go to **Backup and Restore**, and click **Backup Database** to open **Database Backup Wizard**.
 2. On the **General** page, specify the required connection and database, the path for the backup file to be saved to, and the output file name in the respective fields. Optionally, you can append a timestamp to the file name, enable the auto-deletion of old files, and compress your backup into an archive. After you set it all up, click **Next**.
 
-![b1](<../../.gitbook/assets/b1 (1).png>)
+![b1](/broken/files/vtjOdg2RunD7q00MPchH)
 
 3. On the **Backup content** page, select the content for your backup and click **Next**.
 
-![b2](<../../.gitbook/assets/b2 (1).png>)
+![b2](/broken/files/KtcYR2CyB1xmryazlQdS)
 
 4. On the **Options** page, configure your detailed backup options—there are quite a few of those to match your requirements most precisely. Then click **Next**.
 
-![b3](<../../.gitbook/assets/b3 (1).png>)
+![b3](/broken/files/EHB1phIPUPvm9l0mYH23)
 
 5. On the **Errors handling** page, configure the **Errors handling** and **Log settings** options. Afterwards, click **Backup** to run the backup process.
 
 Note that you have two more options here: you can select **Save Project** to save your current backup project with all the settings—or you can select **Save Command Line** to save a backup script that you can execute from the command line whenever you need.
 
-![b4](<../../.gitbook/assets/b4 (1).png>)
+![b4](/broken/files/bG0Rk196h9BPLBsAXol0)
 
 6. After you click **Backup**, wait for the backup process to be completed.
 
 Note that you don't have to go through every wizard page to click **Backup**. You can do it whenever you've finished configuring your settings.
 
-![b5](<../../.gitbook/assets/b5 (1).png>)
+![b5](/broken/files/nPV1BVChPQFw1NOtSrRY)
 
 7. Finally, confirm the successful completion by clicking **Finish**.
 
-![b6](<../../.gitbook/assets/b6 (1).png>)
+![b6](/broken/files/JUcVr7pWTWMnxcfEcQhZ)
 
 As you can see, it's very easy. Furthermore, you can schedule to run regular backups using **Action > Create Basic Task** in **Windows Task Scheduler**.
 
@@ -46,13 +46,13 @@ This is an even faster task, done in half as many steps.
 1. On the **Database** menu, go to \***Backup and Restore**, and click **Restore Database** to open the **Database Restore Wizard**.
 2. On the **Database Script File** page, specify the required connection and database, as well as the path to the previously saved backup file.
 
-![r1](<../../.gitbook/assets/r1 (1).png>)
+![r1](/broken/files/qRXtH7mIHuMfDLb9yucu)
 
 3. After that, click **Restore**, and let the Studio do the rest for you.
 
 And when it's done, click **Finish**, and there you have it.
 
-![r2](<../../.gitbook/assets/r2 (1).png>)
+![r2](/broken/files/z8YZhHs7jI2lEio3YyiZ)
 
 You can learn more about this functionality on the dedicated [backup/restore page](https://www.devart.com/dbforge/mysql/studio/mysql-backup.html). Please note: while the page focuses on MySQL databases, everything that's described there is just as perfectly applicable to MariaDB from the same Studio with the same workflow.
 

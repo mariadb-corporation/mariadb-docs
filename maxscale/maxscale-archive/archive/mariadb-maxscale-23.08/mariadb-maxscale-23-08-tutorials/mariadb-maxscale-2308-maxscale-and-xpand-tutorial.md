@@ -23,7 +23,7 @@ balancer.
 #### Bootstrap servers
 
 The Xpand monitor is capable of autonomously figuring out the cluster\
-configuration, but in order to get going there must be at least on&#x65;_&#x73;erver_-section referring to a node in the Xpand cluster.
+configuration, but in order to get going there must be at least one_server_-section referring to a node in the Xpand cluster.
 
 ```
 [Bootstrap-1]
@@ -167,7 +167,7 @@ as a transaction rollback. However, if _readwritesplit_ is used and\
 transaction replay is enabled, then MaxScale may be able to hide the\
 group change so that the client only detects a slight delay.
 
-Apart from the service section, the configuration when usin&#x67;_&#x72;eadwritesplit_ is identical to the _readconnroute_ configuration\
+Apart from the service section, the configuration when using_readwritesplit_ is identical to the _readconnroute_ configuration\
 described above.
 
 #### Service

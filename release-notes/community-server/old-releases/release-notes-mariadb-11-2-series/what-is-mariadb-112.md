@@ -14,7 +14,7 @@ The most recent release of [MariaDB 11.2](what-is-mariadb-112.md) is:[**MariaDB 
 
 ### Online Schema Change
 
-* [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) can now do most operations with `ALGORITHM=COPY, LOCK=NONE`, that is, in most cases, unless the algorithm and lock level are explicitly specified, `ALTER TABLE` will be performed using the [COPY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table#algorithmcopy) algorithm while simultaneously allowing concurrent [DML statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation) on the altered table.&#x20;
+* [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) can now do most operations with `ALGORITHM=COPY, LOCK=NONE`, that is, in most cases, unless the algorithm and lock level are explicitly specified, `ALTER TABLE` will be performed using the [COPY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table#algorithmcopy) algorithm while simultaneously allowing concurrent [DML statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation) on the altered table.
 
 For more information, refer to, [Online Schema Change](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table/online-schema-change).
 
@@ -52,15 +52,15 @@ page.
 
 ## List of All [MariaDB 11.2](what-is-mariadb-112.md) Releases
 
-| Date        | Release                                           | Status      | Release Notes                                    | Changelog                                                                                |
-| ----------- | ------------------------------------------------- | ----------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| 1 Nov 2024  | [MariaDB 11.2.6](mariadb-11-2-6-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-6-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-2-series/mariadb-11-2-6-changelog.md) |
-| 8 Aug 2024  | [MariaDB 11.2.5](mariadb-11-2-5-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-5-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-2-series/mariadb-11-2-5-changelog.md) |
-| 16 May 2024 | [MariaDB 11.2.4](mariadb-11-2-4-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-4-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-2-series/mariadb-11-2-4-changelog.md) |
-| 7 Feb 2024  | [MariaDB 11.2.3](mariadb-11-2-3-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-3-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-2-series/mariadb-11-2-3-changelog.md) |
-| 21 Nov 2023 | [MariaDB 11.2.2](mariadb-11-2-2-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-2-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-2-series/mariadb-11-2-2-changelog.md) |
-| 21 Aug 2023 | [MariaDB 11.2.1](mariadb-11-2-1-release-notes.md) | RC          | [Release Notes](mariadb-11-2-1-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-11-2-series/mariadb-11-2-1-changelog.md) |
-| 20 Jun 2023 | [MariaDB 11.2.0](mariadb-11-2-0-release-notes.md) | Alpha       | [Release Notes](mariadb-11-2-0-release-notes.md) |                                                                                          |
+| Date        | Release                                           | Status      | Release Notes                                    | Changelog                                                      |
+| ----------- | ------------------------------------------------- | ----------- | ------------------------------------------------ | -------------------------------------------------------------- |
+| 1 Nov 2024  | [MariaDB 11.2.6](mariadb-11-2-6-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-6-release-notes.md) | [Changelog](../../changelogs/11.2/mariadb-11-2-6-changelog.md) |
+| 8 Aug 2024  | [MariaDB 11.2.5](mariadb-11-2-5-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-5-release-notes.md) | [Changelog](../../changelogs/11.2/mariadb-11-2-5-changelog.md) |
+| 16 May 2024 | [MariaDB 11.2.4](mariadb-11-2-4-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-4-release-notes.md) | [Changelog](../../changelogs/11.2/mariadb-11-2-4-changelog.md) |
+| 7 Feb 2024  | [MariaDB 11.2.3](mariadb-11-2-3-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-3-release-notes.md) | [Changelog](../../changelogs/11.2/mariadb-11-2-3-changelog.md) |
+| 21 Nov 2023 | [MariaDB 11.2.2](mariadb-11-2-2-release-notes.md) | Stable (GA) | [Release Notes](mariadb-11-2-2-release-notes.md) | [Changelog](../../changelogs/11.2/mariadb-11-2-2-changelog.md) |
+| 21 Aug 2023 | [MariaDB 11.2.1](mariadb-11-2-1-release-notes.md) | RC          | [Release Notes](mariadb-11-2-1-release-notes.md) | [Changelog](../../changelogs/11.2/mariadb-11-2-1-changelog.md) |
+| 20 Jun 2023 | [MariaDB 11.2.0](mariadb-11-2-0-release-notes.md) | Alpha       | [Release Notes](mariadb-11-2-0-release-notes.md) |                                                                |
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

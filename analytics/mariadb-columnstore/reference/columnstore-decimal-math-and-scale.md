@@ -27,7 +27,7 @@ where n is:
 
 ## ColumnStore Decimal Scale
 
-ColumnStore has the ability to support varied internal precision on decimal calculations. `columnstore_decimal_scale` is used internally by the ColumnStore engine to control how many significant digits to the right of the decimal point are carried through in suboperations on calculated columns. If, while running a query, you receive the message ‘aggregate overflow,’ try reducing `columnstore_decimal_scale` and running the query again. Note that, as you decrease `columnstore_decimal_scale`, you may see reduced accuracy in the least significant digit(s) of a returned calculated column.&#x20;
+ColumnStore has the ability to support varied internal precision on decimal calculations. `columnstore_decimal_scale` is used internally by the ColumnStore engine to control how many significant digits to the right of the decimal point are carried through in suboperations on calculated columns. If, while running a query, you receive the message ‘aggregate overflow,’ try reducing `columnstore_decimal_scale` and running the query again. Note that, as you decrease `columnstore_decimal_scale`, you may see reduced accuracy in the least significant digit(s) of a returned calculated column. 
 
 `columnstore_decimal_scale` is used internally by the ColumnStore engine to turn the use of this internal precision on and off. These two system variables may be set as a default for the instance or set at the session level.
 

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Selectively skip replication of binlog events in MariaDB Server. This section
-  details how to bypass specific events, enabling granular control over
-  replication and aiding in troubleshooting.
+  Learn techniques to bypass specific replication events. This guide explains
+  how to ignore individual transactions or errors to restore replication flow
+  after a stoppage.
 ---
 
 # Selectively Skipping Replication of Binlog Events

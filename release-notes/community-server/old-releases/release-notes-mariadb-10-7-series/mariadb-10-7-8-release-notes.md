@@ -1,10 +1,10 @@
 # MariaDB 10.7.8 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/10.7.8/) | [Release Notes](mariadb-10-7-8-release-notes.md) | [Changelog](../../changelogs/changelogs-mariadb-10-7-series/mariadb-10-7-8-changelog.md) | [Overview of 10.7](what-is-mariadb-107.md)
+[Download](https://downloads.mariadb.org/mariadb/10.7.8/) | [Release Notes](mariadb-10-7-8-release-notes.md) | [Changelog](../../changelogs/10.7/10.7.8.md) | [Overview of 10.7](what-is-mariadb-107.md)
 
 **Release date:** 6 Feb 2023
 
-[MariaDB 10.7](what-is-mariadb-107.md) is a previous short-term maintenance stable series of MariaDB, supported until February 2023. It is an evolution of [MariaDB 10.6](../../mariadb-10-6-series/what-is-mariadb-106.md) with several entirely new features.
+[MariaDB 10.7](what-is-mariadb-107.md) is a previous short-term maintenance stable series of MariaDB, supported until February 2023. It is an evolution of [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) with several entirely new features.
 
 [MariaDB 10.7.8](mariadb-10-7-8-release-notes.md) is a [_**Stable (GA)**_](../../about/release-criteria.md) release.
 
@@ -67,7 +67,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 10.7.8](mariadb-10-7-8-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-10-7-series/mariadb-10-7-8-changelog.md).
+information on each push, see the [changelog](../../changelogs/10.7/10.7.8.md).
 
 ## Contributors
 

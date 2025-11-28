@@ -1,3 +1,9 @@
+---
+description: >-
+  Configure State Snapshot Transfers for Galera. Learn to use mariadb-backup for
+  non-blocking data transfer when a new node joins a cluster.
+---
+
 # mariadb-backup SST Method
 
 The `mariabackup` SST method uses the [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) utility for performing SSTs. It is one of the methods that does not block the donor node. `mariadb-backup` was originally forked from [Percona XtraBackup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup), and similarly, the `mariabackup` SST method was originally forked from the xtrabackup-v2 SST method.
@@ -103,13 +109,44 @@ compress-threads=4
 
 ## Authentication and Privileges <a href="#authentication-and-privileges" id="authentication-and-privileges"></a>
 
-To use the mariadb-backup SST method, [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) needs to be able to authenticate locally on the donor node, so that it can create a backup to stream to the joiner. You can tell the donor node what username and password to use by setting the [`wsrep_sst_auth`](../../reference/wsrep-variable-details/wsrep_sst_method.md) system variable. It can be changed dynamically with [`SET GLOBAL`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set) on the node that you intend to be an SST donor:
+To use the `mariadb-backup` SST method, the utility must be able to authenticate locally on the donor node to create a backup stream. There are two ways to manage this authentication:
+
+### Automatic User Account Management (ES 11.4+)
+
+Starting with MariaDB Enterprise Server 11.4, the cluster can automatically manage the SST user account. This method is more secure and requires less configuration because it avoids storing plain-text passwords in configuration files.
+
+When this feature is used:
+
+1. The donor node automatically creates a temporary internal user (e.g., `'wsrep.sst. <timestamp>_<node_id>'@localhost`) with a generated password when the SST process begins.
+2. The necessary privileges (`RELOAD`, `PROCESS`, `LOCK TABLES`, etc.) are automatically granted to this temporary user.
+3. Once the SST process completes, the donor node automatically drops the user.
+
+To enable automatic user management:
+
+Ensure that the [wsrep\_sst\_auth](../../reference/wsrep-variable-details/wsrep_sst_method.md) system variable is not set (or is left blank) in your configuration file.
+
+```ini
+[mariadb]
+...
+# Do not set wsrep_sst_auth to use automatic user management
+# wsrep_sst_auth =
+```
+
+{% hint style="warning" %}
+If you explicitly define `wsrep_sst_auth` in your configuration, the server will revert to the manual behavior and attempt to authenticate using the credentials provided in that variable.
+{% endhint %}
+
+### Manual User Configuration
+
+For versions prior to 11.4, or if you prefer to manage the user manually, you must create a user and provide the credentials to the server.
+
+You can tell the donor node what username and password to use by setting the [wsrep\_sst\_auth](../../reference/wsrep-variable-details/wsrep_sst_method.md) system variable. It can be changed dynamically with `SET GLOBAL` on the node that you intend to be an SST donor:
 
 ```sql
 SET GLOBAL wsrep_sst_auth = 'mariadbbackup:mypassword';
 ```
 
-It can also be set in a server [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files) prior to starting up a node:
+It can also be set in a server [option group](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in an [option file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#global-options-related-to-option-files) prior to starting up a node:
 
 ```ini
 [mariadb]
@@ -117,7 +154,7 @@ It can also be set in a server [option group](https://app.gitbook.com/s/SsmexDFP
 wsrep_sst_auth = mariadbbackup:mypassword
 ```
 
-Some [authentication plugins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins) do not require a password. For example, the [`unix_socket`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-unix-socket) and [`gssapi`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/authentication-with-enterprise-server/authentication-with-gssapi) authentication plugins do not require a password. If you are using a user account that does not require a password in order to log in, then you can just leave the password component of [`wsrep_sst_auth`](../../reference/wsrep-variable-details/wsrep_sst_method.md) empty. For example:
+Some [authentication plugins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins) do not require a password. For example, the `unix_socket` and `gssapi` authentication plugins do not require a password. If you are using a user account that does not require a password in order to log in, then you can just leave the password component of [wsrep\_sst\_auth](../../reference/wsrep-variable-details/wsrep_sst_method.md) empty. For example:
 
 ```ini
 [mariadb]
@@ -125,7 +162,7 @@ Some [authentication plugins](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ref
 wsrep_sst_auth = mariadbbackup:
 ```
 
-The user account that performs the backup for the SST needs to have the same privileges as mariadb-backup, which are the `RELOAD`, `PROCESS`, `LOCK TABLES` and `BINLOG MONITOR`, `REPLICA MONITOR` [global privileges](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-privileges). To be safe, ensure that these privileges are set on each node in your cluster. `mariadb-backup` connects locally on the donor node to perform the backup, so the following user should be sufficient:
+The user account that performs the backup for the SST needs to have the same privileges as [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview), which are the `RELOAD`, `PROCESS`, `LOCK TABLES` and `BINLOG MONITOR`, `REPLICA MONITOR` [global privileges](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-privileges). To be safe, ensure that these privileges are set on each node in your cluster. `mariadb-backup` connects locally on the donor node to perform the backup, so the following user should be sufficient:
 
 ```sql
 CREATE USER 'mariadbbackup'@'localhost' IDENTIFIED BY 'mypassword';

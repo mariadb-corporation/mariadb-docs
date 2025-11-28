@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Enterprise Audit plugin logs detailed data access and
+  configuration changes, offering advanced filtering to meet security and
+  compliance requirements.
+---
+
 # MariaDB Enterprise Audit
 
 ## Overview
@@ -9,6 +16,16 @@ MariaDB Enterprise Audit is a plugin that logs data access and database operatio
 Audit mechanisms are most effective when they produce a manageable quantity of output. MariaDB Enterprise Audit includes advanced filtering features to enable narrowly defining which information is logged.
 
 Where audit mechanisms may only be effective when control parameters can also be audited, MariaDB Enterprise Audit implements logging of configuration changes.
+
+{% hint style="danger" %}
+**Plugin Conflict (**[MENT-316](https://jira.mariadb.org/browse/MENT-316)**)**
+
+The MariaDB Enterprise Audit plugin (`server_audit2.so`) is incompatible with the older server\_audit.so (`v1`) plugin. Running both can cause server instability or deadlocks.
+
+_If you are a new user: You can continue reading._
+
+_If you are migrating: You must remove the old `v1` plugin. Please go directly to the_ [_Upgrades_](mariadb-enterprise-audit.md#upgrades) _section for complete instructions._
+{% endhint %}
 
 ## Configuration Overview
 
@@ -56,137 +73,6 @@ Care must be taken when logging data for audit to maintain alignment to business
 * Backup of audit data should be performed at least as frequently as database backups.
 * Audit log data on database servers could be tampered with if the database server is compromised. Consider secure transmission of log data to a hardened and remote logging server.
 * Where audit data is mission-critical, it should be subject to controls, data protection, data retention, and highly-available storage as are used for other mission-critical data.
-
-### Confirm the MariaDB Audit Plugin is Loaded
-
-To confirm that the MariaDB Audit plugin is loaded, query the [information\_schema.PLUGINS](mariadb-enterprise-audit.md#confirm-the-audit-plugin-is-loaded) table:
-
-```sql
-SELECT PLUGIN_STATUS, PLUGIN_LIBRARY, PLUGIN_DESCRIPTION
-FROM information_schema.PLUGINS
-WHERE PLUGIN_NAME='SERVER_AUDIT'\G
-```
-
-```sql
-*************************** 1. row ***************************
-     PLUGIN_STATUS: ACTIVE
-    PLUGIN_LIBRARY: server_audit2.so
-PLUGIN_DESCRIPTION: Audit the server activity
-```
-
-If you see the output shown above, then the MariaDB Audit plugin is installed, and it must be uninstalled prior to performing the upgrade or migration. Follow the instructions in the section below.
-
-If you do not see any rows in the output, then the MariaDB Audit plugin is not installed.
-
-### Determine Uninstallation Method
-
-The MariaDB Audit plugin has multiple uninstallation methods. You must choose the uninstallation method that corresponds to how the plugin was installed on your system.
-
-To determine the uninstallation method, query the [mysql.plugin](../system-tables/the-mysql-database-tables/mysql-plugin-table.md) system table:
-
-```sql
-SELECT *
-FROM mysql.plugin
-WHERE name = 'SERVER_AUDIT'\G
-```
-
-```sql
-*************************** 1. row ***************************
-name: SERVER_AUDIT
-  dl: server_audit2.so
-```
-
-If you see the output shown above, then the MariaDB Audit plugin can be uninstalled with [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname).
-
-If you do not see any rows in the output, then the MariaDB Audit plugin call be uninstalled by [editing the configuration file](mariadb-enterprise-audit.md#uninstall-with-configuration-file).
-
-### Uninstall with UNINSTALL SONAME
-
-To uninstall the MariaDB Audit Plugin with [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname):
-
-1. Check the plugin load option by querying the [information\_schema.PLUGINS](../system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md) table:
-
-```sql
-SELECT PLUGIN_STATUS, PLUGIN_LIBRARY, PLUGIN_DESCRIPTION, LOAD_OPTION
-FROM information_schema.PLUGINS
-WHERE PLUGIN_NAME='SERVER_AUDIT'\G
-```
-
-```sql
-*************************** 1. row ***************************
-     PLUGIN_STATUS: ACTIVE
-    PLUGIN_LIBRARY: server_audit2.so
-PLUGIN_DESCRIPTION: Audit the server activity
-       LOAD_OPTION: FORCE_PLUS_PERMANENT
-```
-
-If the LOAD\_OPTION column does not contain the value FORCE\_PLUS\_PERMANENT, then you can skip to step 5, which executes the [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname) statement.
-
-2. If the LOAD\_OPTION column contains the value FORCE\_PLUS\_PERMANENT, then check your configuration files for the server-audit option:
-
-```sql
-$ grep --extended-regexp --with-filename \
-   'server[-_]audit[[:blank:]]*=' \
-   /etc/mysql/my.cnf \
-   /etc/mysql/mariadb.conf.d/*
-```
-
-```
-/etc/mysql/mariadb.conf.d/enable-audit.cnf:server_audit=FORCE_PLUS_PERMANENT
-```
-
-3. If the server-audit option was found in a configuration file, then remove or comment the option out:
-
-```
-[mariadb]
-# server_audit=FORCE_PLUS_PERMANENT
-```
-
-4. If the configuration file was changed, then restart the server:
-
-```sql
-$ sudo systemctl restart mariadb
-```
-
-5. Uninstall the plugin by executing the [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname) statement:
-
-```
-UNINSTALL SONAME 'server_audit';
-```
-
-6. Confirm the plugin is uninstalled by querying the [mysql.plugin](../system-tables/the-mysql-database-tables/mysql-plugin-table.md) system table:
-
-```sql
-SELECT *
-FROM mysql.plugin
-WHERE name = 'SERVER_AUDIT'\G
-```
-
-If the query returns no results, then the plugin has been uninstalled.
-
-### Uninstall with Configuration File
-
-To uninstall the MariaDB Audit plugin with a configuration file:
-
-1. Check your configuration files for the `plugin_load_add` option:
-
-```bash
-$ grep --extended-regexp --with-filename \
-   'plugin[-_]load[-_]add[[:blank:]]*=[[:blank:]]*server_audit' \
-   /etc/mysql/my.cnf \
-   /etc/mysql/mariadb.conf.d/*
-```
-
-```bash
-/etc/mysql/mariadb.conf.d/enable-audit.cnf:plugin_load_add=server_audit
-```
-
-2. Remove or comment out the plugin\_load\_add option from the configuration file:
-
-```ini
-[mariadb]
-# plugin_load_add=server_audit
-```
 
 ## Install the Audit Plugin
 
@@ -356,7 +242,7 @@ Buffer writes are available from MariaDB Enterprise Server 11.8.
 
 Audit log buffering is controlled by these variables:
 
-* `server_audit_file_buffer_size` — This defines the size of the buffer. The default value is `0`, meaning there's no buffering at all. Setting non-zero value enables the buffering with the buffer of the specified size aligned by `8192`. The maximum value is `65536`.&#x20;
+* `server_audit_file_buffer_size` — This defines the size of the buffer. The default value is `0`, meaning there's no buffering at all. Setting non-zero value enables the buffering with the buffer of the specified size aligned by `8192`. The maximum value is `65536`.
 * `server_audit_sync_log_file` — This flushes the buffer to the log file. While the log record is in the buffer, it cannot be seen in the log file. If there aren't many events to log, the time before records can be observed can be significant. You can issue this statement to force writing the buffer to the file, making sure not to miss recent records:
 
 ```sql
@@ -505,11 +391,11 @@ In some special cases you might want audits only to be enabled for the users in 
 
 ```sql
 INSERT INTO mysql.server_audit_filters (filtername, rule)
-   VALUES (‘default’,
+   VALUES ('default',
       JSON_COMPACT(
-         ‘{
+         '{
     “logging”: “OFF”
-            }’
+            }'
       ));
 ```
 
@@ -571,21 +457,6 @@ SET GLOBAL server_audit_reload_filters=ON;
 ```
 
 MariaDB Enterprise Audit does not track changes to user accounts. If you delete or rename a user account, the change doesn't cascade to the Audit Filter. The Audit Filters must be updated manually.
-
-### Using the DML\_NO\_SELECT Filter
-
-You can use the `DML_NO_SELECT` filter for the query\_event. It allows excluding `SELECT` statements, providing more granular control over audited events. When the filter is applied, only DML statements that change data, like `INSERT, UPDATE, and DELETE` are included. Note that this includes `SELECT` statements that change data, like `SELECT INTO` or `SELECT FOR UPDATE`.
-
-To use the `DML_NO_SELECT` filter, add it to the query\_event configuration option in the \[audit] section of the MariaDB configuration file:
-
-```ini
-[audit] 
-query_event = DML, DDL, DCL, DML_NO_SELECT 
-```
-
-To verify that the `DML_NO_SELECT` filter is working correctly, run a `SELECT` statement and check the audit log. The event should not be categorized as DML.
-
-Note that excluding `SELECT` statements from the DML category may reduce the amount of audit data generated, but it may also miss important events.
 
 ## System Tables for Audit Filters
 
@@ -1275,28 +1146,31 @@ The plugin is unloaded when MariaDB Enterprise Server is shutdown, so this messa
 
 When audit logging is started and it is directed to a file, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
 
-```sql
+{% code overflow="wrap" %}
+```log
 2021-08-03 21:39:42 server_audit: logging started to the file server_audit.log.
-<<\code>>
-
-If a custom [[mariadb-enterprise-audit/#audit-log-path|audit log path]] is configured, then the message will refer to the custom path.
-
-For additional information, see "[[mariadb-enterprise-audit/#start-audit-logging|Start Audit Logging]]" and "[[mariadb-enterprise-audit/#audit-logging-to-file|Audit Logging to File]]".
-
-== Start Audit Logging to Syslog
-When audit logging is started and it is directed to syslog, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
-<<code>>
-
-2021-08-03 22:02:45 server_audit: logging started to the syslog.
 ```
+{% endcode %}
+
+If a custom [audit log path](mariadb-enterprise-audit.md#audit-log-path) is configured, then the message will refer to the custom path.
+
+For additional information, see "[Start Audit Logging](mariadb-enterprise-audit.md#start-audit-logging)" and "[Audit Logging to File](mariadb-enterprise-audit.md#audit-logging-to-file)".
+
+### Start Audit Logging to Syslog
+
+When audit logging is started and it is directed to syslog, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
 
 For additional information, see "[Start Audit Logging](mariadb-enterprise-audit.md#start-audit-logging)" and "[Audit Logging to Syslog](mariadb-enterprise-audit.md#audit-logging-to-system-log)".
+
+```log
+2021-08-03 22:02:45 server_audit: logging started to the syslog.
+```
 
 ### Stop Audit Logging
 
 When audit logging is stopped, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
 
-```
+```log
 2021-08-03 21:39:50 server_audit: logging was stopped.
 ```
 
@@ -1304,7 +1178,7 @@ When audit logging is stopped, MariaDB Enterprise Audit writes the following mes
 
 When audit logging is changed to a file, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
 
-```
+```log
 2021-08-03 22:03:31 server_audit: Output was redirected to 'file'
 ```
 
@@ -1314,7 +1188,7 @@ For additional information, see "[Audit Logging to File](mariadb-enterprise-audi
 
 When audit logging is changed to syslog, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
 
-```
+```log
 2021-08-03 22:01:22 server_audit: Output was redirected to 'syslog'
 ```
 
@@ -1324,7 +1198,7 @@ For additional information, see "|[mariadb-enterprise-audit/#audit-logging-to-sy
 
 When the file name for audit logging is changed, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
 
-```
+```log
 2021-08-03 22:05:17 server_audit: Log file name was changed to 'mariadb-enterprise-audit.log'.
 ```
 
@@ -1346,7 +1220,7 @@ For additional information, see "[Reload Audit Filters and Assignments](mariadb-
 
 If the query cache is enabled, `READ` Table Events may not be audit logged. If MariaDB Enterprise Audit detects during startup that the query cache is enabled, MariaDB Enterprise Audit writes the following message to the MariaDB error log:
 
-```
+```log
 2021-08-03 21:07:03 server_audit: Query cache is enabled with the TABLE events. Some table reads can be veiled.
 ```
 
@@ -1356,25 +1230,204 @@ MariaDB Enterprise Audit is included with MariaDB Enterprise Server. Special con
 
 For details on how to upgrade from the MariaDB Audit Plugin to MariaDB Enterprise Audit, see the sections below.
 
-### Update System Tables
+{% hint style="danger" %}
+**Migrating from MariaDB Audit Plugin (v1)**
+
+MariaDB Enterprise Audit (`server_audit2.so`) is a different and incompatible plugin from the older MariaDB Audit Plugin (`v1`, `server_audit.so`) found in Community Server or older Enterprise Server versions.
+
+The `v1` plugin is configured with server variables (e.g., `server_audit_events`).
+
+The Enterprise (`v2`) plugin is configured with system tables (e.g., `mysql.server_audit_filters`).
+
+You must uninstall the `v1` plugin before using the `v2` plugin, as running both can cause server instability or deadlocks ([MENT-545](https://jira.mariadb.org/browse/MENT-545)). The following sections guide you through the full migration process, starting with checking for and removing the old plugin.
+{% endhint %}
+
+### Check for and Uninstall the v1 Plugin
+
+#### Confirm the MariaDB Audit Plugin is Loaded
+
+To confirm that the MariaDB Audit plugin is loaded, query the [information\_schema.PLUGINS](mariadb-enterprise-audit.md#confirm-the-audit-plugin-is-loaded) table:
+
+```sql
+SELECT PLUGIN_STATUS, PLUGIN_LIBRARY, PLUGIN_DESCRIPTION
+FROM information_schema.PLUGINS
+WHERE PLUGIN_NAME='SERVER_AUDIT'\G
+```
+
+```
+*************************** 1. row ***************************
+     PLUGIN_STATUS: ACTIVE
+    PLUGIN_LIBRARY: server_audit.so
+PLUGIN_DESCRIPTION: Audit the server activity
+```
+
+If you see the output shown above, then the MariaDB Audit plugin is installed, and it must be uninstalled prior to performing the upgrade or migration. Follow the instructions in the section below.
+
+If you do not see any rows in the output, then the MariaDB Audit plugin is not installed.
+
+#### Determine Uninstallation Method
+
+The MariaDB Audit plugin has multiple uninstallation methods. You must choose the uninstallation method that corresponds to how the plugin was installed on your system.
+
+To determine the uninstallation method, query the [mysql.plugin](../system-tables/the-mysql-database-tables/mysql-plugin-table.md) system table:
+
+```sql
+SELECT *
+FROM mysql.plugin
+WHERE name = 'SERVER_AUDIT'\G
+```
+
+```
+*************************** 1. row ***************************
+name: SERVER_AUDIT
+  dl: server_audit.so
+```
+
+If you see the output shown above, then the MariaDB Audit plugin can be uninstalled with [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname).
+
+If you do not see any rows in the output, then the MariaDB Audit plugin call be uninstalled by [editing the configuration file](mariadb-enterprise-audit.md#uninstall-with-configuration-file).
+
+#### Uninstall with UNINSTALL SONAME
+
+To uninstall the MariaDB Audit Plugin with [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname):
+
+{% stepper %}
+{% step %}
+Check the plugin load option by querying the [information\_schema.PLUGINS](../system-tables/information-schema/information-schema-tables/plugins-table-information-schema.md) table:
+
+```sql
+SELECT PLUGIN_STATUS, PLUGIN_LIBRARY, PLUGIN_DESCRIPTION, LOAD_OPTION
+FROM information_schema.PLUGINS
+WHERE PLUGIN_NAME='SERVER_AUDIT'\G
+```
+
+```
+*************************** 1. row ***************************
+     PLUGIN_STATUS: ACTIVE
+    PLUGIN_LIBRARY: server_audit.so
+PLUGIN_DESCRIPTION: Audit the server activity
+       LOAD_OPTION: FORCE_PLUS_PERMANENT
+```
+{% endstep %}
+
+{% step %}
+Check `LOAD_OPTION` column for `FORCE_PLUS_PERMANENT`
+
+{% hint style="info" %}
+If the `LOAD_OPTION` column does not contain the value `FORCE_PLUS_PERMANENT`, then you can skip to step 5, which executes the [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname) statement.
+{% endhint %}
+
+If the `LOAD_OPTION` column contains the value `FORCE_PLUS_PERMANENT`, then check your configuration files for the server-audit option:
+
+```bash
+$ grep --extended-regexp --with-filename \
+   'server[-_]audit[[:blank:]]*=' \
+   /etc/mysql/my.cnf \
+   /etc/mysql/mariadb.conf.d/*
+```
+
+{% code overflow="wrap" %}
+```
+/etc/mysql/mariadb.conf.d/enable-audit.cnf:server_audit=FORCE_PLUS_PERMANENT
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+If the server-audit option was found in a configuration file, then remove or comment the option out:
+
+```toml
+[mariadb]
+# server_audit=FORCE_PLUS_PERMANENT
+```
+{% endstep %}
+
+{% step %}
+If the configuration file was changed, then restart the server:
+
+```sql
+$ sudo systemctl restart mariadb
+```
+{% endstep %}
+
+{% step %}
+Uninstall the plugin by executing the [UNINSTALL SONAME](mariadb-enterprise-audit.md#uninstall-with-uninstall-soname) statement:
+
+```
+UNINSTALL SONAME 'server_audit';
+```
+{% endstep %}
+
+{% step %}
+Confirm the plugin is uninstalled by querying the [mysql.plugin](../system-tables/the-mysql-database-tables/mysql-plugin-table.md) system table:
+
+```sql
+SELECT *
+FROM mysql.plugin
+WHERE name = 'SERVER_AUDIT'\G
+```
+
+If the query returns no results, then the plugin has been uninstalled.
+{% endstep %}
+{% endstepper %}
+
+#### Uninstall with Configuration File
+
+To uninstall the MariaDB Audit plugin with a configuration file:
+
+{% stepper %}
+{% step %}
+Check your configuration files for the `plugin_load_add` option:
+
+```bash
+$ grep --extended-regexp --with-filename \
+   'plugin[-_]load[-_]add[[:blank:]]*=[[:blank:]]*server_audit' \
+   /etc/mysql/my.cnf \
+   /etc/mysql/mariadb.conf.d/*
+```
+
+{% code overflow="wrap" %}
+```bash
+/etc/mysql/mariadb.conf.d/enable-audit.cnf:plugin_load_add=server_audit
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+Remove or comment out the plugin\_load\_add option from the configuration file:
+
+```ini
+[mariadb]
+# plugin_load_add=server_audit
+```
+{% endstep %}
+{% endstepper %}
+
+### Migrate v1 Settings to Enterprise Audit (v2)
+
+#### Update System Tables
 
 After upgrading to MariaDB Enterprise Server, execute mariadb-upgrade to create the [System Tables for Audit Filters](mariadb-enterprise-audit.md#system-tables-for-audit-filters).
 
-### Migrate Audit Filters
+#### Migrate Audit Filters
 
 The MariaDB Audit Plugin defines Audit Filters using the [server\_audit\_events system](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_events) system variable, but MariaDB Enterprise Audit defines Audit Filters using the mysql.server\_audit\_filters system table.
 
 If you are upgrading from the MariaDB Audit Plugin to MariaDB Enterprise Audit, perform the following procedure:
 
-1. Remove or comment out lines involving the [server\_audit\_events system](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_events) variable from the configuration file:
+{% stepper %}
+{% step %}
+Remove or comment out lines involving the [server\_audit\_events system](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_events) variable from the configuration file:
 
-```ini
+```toml
 [mariadb]
 ...
 # server_audit_events=CONNECT,QUERY
 ```
+{% endstep %}
 
-2. Insert a replacement Audit Filter into the `mysql.server_audit_filters` system table:
+{% step %}
+Insert a replacement Audit Filter into the `mysql.server_audit_filters` system table:
 
 ```sql
 INSERT INTO mysql.server_audit_filters
@@ -1388,14 +1441,20 @@ INSERT INTO mysql.server_audit_filters
 ```
 
 The example passes the JSON object to the [JSON\_COMPACT()](../sql-functions/special-functions/json-functions/json_compact.md) function, so that the JSON object is compacted prior to being inserted into the system table. This step is recommended, but not required.
+{% endstep %}
+{% endstepper %}
 
-### Migrate Users
+#### Migrate Users
 
 The MariaDB Audit Plugin enables or disable audit logging for specific user accounts using the [server\_audit\_incl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_incl_users) and [server\_audit\_excl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_excl_users) system variables, but MariaDB Enterprise Audit uses the mysql.server\_audit\_users system table.
 
 If you are upgrading from the MariaDB Audit Plugin to MariaDB Enterprise Audit, perform the following procedure:
 
-1. Remove or comment out lines involving the [server\_audit\_incl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_incl_users) and [server\_audit\_excl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_excl_users) system variables from the configuration file:
+{% stepper %}
+{% step %}
+Edit configuration file
+
+Remove or comment out lines involving the [server\_audit\_incl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_incl_users) and [server\_audit\_excl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_excl_users) system variables from the configuration file:
 
 ```ini
 [mariadb]
@@ -1403,8 +1462,12 @@ If you are upgrading from the MariaDB Audit Plugin to MariaDB Enterprise Audit, 
 # server_audit_incl_users = root,app
 # server_audit_excl_users = backup_user,monitor_user
 ```
+{% endstep %}
 
-2. For any user account previously mentioned in the [server\_audit\_incl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_incl_users) system variable, determine if the user account can use the [Default Audit Filter](mariadb-enterprise-audit.md#default-audit-filter) or if the user account requires a [Named Audit Filter](mariadb-enterprise-audit.md#named-audit-filters).
+{% step %}
+For the [server\_audit\_incl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_incl_users) system variable
+
+For any user account previously mentioned in the [server\_audit\_incl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_incl_users) system variable, determine if the user account can use the [Default Audit Filter](mariadb-enterprise-audit.md#default-audit-filter) or if the user account requires a [Named Audit Filter](mariadb-enterprise-audit.md#named-audit-filters).
 
 Insert the relevant Audit Filters into the `mysql.server_audit_filters` system table, and insert the user assignments into the `mysql.server_audit_users` system table:
 
@@ -1435,8 +1498,12 @@ INSERT INTO mysql.server_audit_users (host, user, filtername)
 ```
 
 The example passes the JSON object to the [JSON\_COMPACT()](../sql-functions/special-functions/json-functions/json_compact.md) function, so that the JSON object is compacted prior to being inserted into the system table. This step is recommended, but not required.
+{% endstep %}
 
-3. For any user account previously mentioned in the [server\_audit\_excl\_users](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_excl_users) system variable, create a [Named Audit Filter](mariadb-enterprise-audit.md#named-audit-filters) that acts as an exclusion filter.
+{% step %}
+For the [server\_audit\_excl\_users](https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables#server_audit_excl_users) system variable
+
+For any user account previously mentioned in the [server\_audit\_excl\_users](https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables#server_audit_excl_users) system variable, create a [Named Audit Filter](https://mariadb.com/docs/server/reference/plugins/mariadb-enterprise-audit#named-audit-filters) that acts as an exclusion filter.
 
 Insert the relevant Audit Filters into the `mysql.server_audit_filters` system table, and insert the user assignments into the `mysql.server_audit_users` system table:
 
@@ -1454,6 +1521,8 @@ INSERT INTO mysql.server_audit_users (host, user, filtername)
    ('%', 'backup_user', 'exclusion_filter'),
    ('%', 'monitor_user', 'exclusion_filter');
 ```
+{% endstep %}
+{% endstepper %}
 
 <sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
 

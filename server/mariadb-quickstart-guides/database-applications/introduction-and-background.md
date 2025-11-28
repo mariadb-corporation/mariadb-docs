@@ -12,4 +12,4 @@ Relational database systems, more or less all of them using the SQL query langua
 
 With relational databases came the relational database modelling and eventually the different normal forms of database design. Much of this has relaxed these days, but there are still things to consider here.
 
-The introduction of logic in the database layer, such as stored procedures, triggers and other aspects, is somewhat blurring the line between code and data, but the general rules still hold.&#x20;
+The introduction of logic in the database layer, such as stored procedures, triggers and other aspects, is somewhat blurring the line between code and data, but the general rules still hold. 

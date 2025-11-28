@@ -1,3 +1,9 @@
+---
+description: >-
+  List plugins and their library files. View information about installed plugins
+  and their associated shared object names.
+---
+
 # SHOW PLUGINS SONAME
 
 ## Syntax

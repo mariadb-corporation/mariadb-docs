@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about SET statements in MariaDB Server. This section details how to
-  configure system variables at global, session, and local levels, enabling
-  fine-tuning of database behavior and performance.
+  Assign values to system variables. Learn to use the SET statement to configure
+  GLOBAL and SESSION variables for tuning server behavior.
 ---
 
 # SET Statements

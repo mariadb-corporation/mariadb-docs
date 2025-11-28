@@ -1,3 +1,9 @@
+---
+description: >-
+  Decrypt data using DES. This function decrypts a string that was encrypted
+  using the Data Encryption Standard (DES) algorithm.
+---
+
 # DES\_DECRYPT
 
 {% hint style="warning" %}

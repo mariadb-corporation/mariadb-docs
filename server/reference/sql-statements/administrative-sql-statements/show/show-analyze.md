@@ -1,6 +1,14 @@
+---
+description: >-
+  Retrieve runtime statistics for a currently executing query. This statement
+  provides insights into query plan execution without waiting for completion.
+---
+
 # SHOW ANALYZE
 
-`SHOW ANALYZE` was added in [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109).
+{% hint style="info" %}
+`SHOW ANALYZE` was added in MariaDB 10.9.
+{% endhint %}
 
 ## Syntax
 

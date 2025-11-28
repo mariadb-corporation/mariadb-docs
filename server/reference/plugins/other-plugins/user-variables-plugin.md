@@ -1,3 +1,9 @@
+---
+description: >-
+  The User Variables plugin adds the USER_VARIABLES table to the Information
+  Schema, allowing users to inspect defined user variables and their values.
+---
+
 # User Variables Plugin
 
 The `user_variables` plugin creates the [USER\_VARIABLES](../../system-tables/information-schema/information-schema-tables/information-schema-user_variables-table.md) table in the [INFORMATION\_SCHEMA](../../system-tables/information-schema/) database. This table contains information about [user-defined variables](../../sql-structure/sql-language-structure/user-defined-variables.md).

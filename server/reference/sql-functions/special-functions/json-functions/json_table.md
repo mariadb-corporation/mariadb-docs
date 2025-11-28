@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert JSON data to a relational table. This table function extracts data
+  from a JSON document and returns it as a relational table with columns.
+---
+
 # JSON\_TABLE
 
 {% hint style="info" %}

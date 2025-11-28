@@ -1,3 +1,9 @@
+---
+description: >-
+  Inspect the contents of a binary log file. This statement displays the events
+  within a specific binlog, useful for debugging replication issues.
+---
+
 # SHOW BINLOG EVENTS
 
 ## Syntax

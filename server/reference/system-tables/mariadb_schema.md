@@ -10,7 +10,7 @@ description: >-
 `mariadb_schema` was introduced in [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes) and [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes).
 {% endhint %}
 
-`mariadb_schema` is a data type qualifier that allows one to create MariaDB native date types in an [SQL\_MODE](../../server-management/variables-and-modes/sql-mode.md) that has conflicting data type translations.
+`mariadb_schema` is a data type qualifier that allows one to create MariaDB native date types in an [SQL\_MODE](../../server-management/variables-and-modes/sql_mode.md) that has conflicting data type translations.
 
 In [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), if you create a table with the [DATE](../data-types/date-and-time-data-types/date.md) type, it actually creates a [DATETIME](../data-types/date-and-time-data-types/datetime.md#oracle-mode) column to match what an Oracle user is expecting. To be able to create a MariaDB `DATE` in Oracle mode, you would have to use `mariadb_schema`:
 

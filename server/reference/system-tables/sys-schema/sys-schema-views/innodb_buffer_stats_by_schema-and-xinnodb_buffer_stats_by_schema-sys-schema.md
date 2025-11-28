@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize InnoDB buffer pool usage, showing the amount of memory
+  and number of pages allocated to each database schema.
+---
+
 # innodb\_buffer\_stats\_by\_schema and x$innodb\_buffer\_stats\_by\_schema Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

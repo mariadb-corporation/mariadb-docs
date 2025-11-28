@@ -1,3 +1,9 @@
+---
+description: >-
+  This table is used only during an OPTIMIZE TABLE operation to store the
+  document IDs of rows currently being deleted from an InnoDB FULLTEXT index.
+---
+
 # Information Schema INNODB\_FT\_BEING\_DELETED Table
 
 The [Information Schema](../../) `INNODB_FT_BEING_DELETED` table is only used while document ID's in the related [INNODB\_FT\_DELETED](information-schema-innodb_ft_deleted-table.md) are being removed from an InnoDB [fulltext index](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/) while an [OPTIMIZE TABLE](../../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) is underway. At all other times the table will be empty.

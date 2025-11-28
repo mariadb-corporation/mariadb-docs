@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate MD5 checksum. This function returns the MD5 hash of a string as a
+  32-character hexadecimal number.
+---
+
 # MD5
 
 ## Syntax

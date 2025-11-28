@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema FEEDBACK table is created when the Feedback Plugin is
+  enabled and contains the usage data collected for submission.
+---
+
 # Information Schema FEEDBACK Table
 
 The [Information Schema](../) `FEEDBACK` table is created when the [Feedback Plugin](../../../plugins/other-plugins/feedback-plugin.md) is enabled, and contains the complete contents submitted by the plugin.

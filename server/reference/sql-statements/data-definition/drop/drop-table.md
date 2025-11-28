@@ -1,3 +1,9 @@
+---
+description: >-
+  Delete one or more tables. This command removes the table definitions and all
+  stored data permanently, and can also delete temporary tables.
+---
+
 # DROP TABLE
 
 ## Syntax

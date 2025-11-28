@@ -190,14 +190,14 @@ Example output showing the problem:
 
 * MariaDB's user authentication prioritizes more specific host matches. If an anonymous user (`''@'localhost'`) exists, it can take precedence over `'melisa'@'%'` when connecting from `localhost`.
 * **Solutions:**
-  1.  **Create a specific user for localhost:**&#x53;QL
+  1.  **Create a specific user for localhost:**SQL
 
       ```sql
       CREATE USER 'melisa'@'localhost' IDENTIFIED BY 'password_for_melisa_localhost';
       GRANT ALL PRIVILEGES ON yourdatabase.* TO 'melisa'@'localhost'; -- Grant necessary privileges
       FLUSH PRIVILEGES;
       ```
-  2.  **Remove the anonymous user for localhost (use with caution):**&#x53;QL
+  2.  **Remove the anonymous user for localhost (use with caution):**SQL
 
       ```sql
       DROP USER ''@'localhost';

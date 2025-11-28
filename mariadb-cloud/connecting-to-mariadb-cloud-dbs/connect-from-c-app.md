@@ -14,14 +14,14 @@ The connection is configured via the information that is initially acquired from
 
 | Function               | Option/Argument | Where to find it                                                                                                      |
 | ---------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------- |
-| mysql\_real\_connect() | host argument   | The fully Qualified Domain Name from the "Connect" window in MariaDB Cloud portal                                     |
+| mysql\_real\_connect() | host argument   | The fully Qualified Domain Name from the "Connect" window in the MariaDB Cloud portal                                 |
 | mysql\_real\_connect() | user argument   | The desired username, which might be the default username in the Service Credentials view                             |
 | mysql\_real\_connect() | passwd argument | The user's password, which might be the default password in the Service Credentials view if it was not yet customized |
-| mysql\_real\_connect() | port argument   | The Read-Write Port or Read-Only Port from the "Connect" window in MariaDB Cloud portal                               |
+| mysql\_real\_connect() | port argument   | The Read-Write Port or Read-Only Port from the "Connect" window in the MariaDB Cloud portal                           |
 
 ## Code Example
 
-The following code demonstrates how to use MariaDB Connector/C to connect to SkySQL. This example uses the [example database and user account](https://mariadb.com/docs/server/connect/programming-languages/c/example-setup/):
+The following code demonstrates how to use MariaDB Connector/C to connect to SkySQL. This example uses the [example database and user account](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/setup-for-examples):
 
 ```c
 #include <stdio.h>

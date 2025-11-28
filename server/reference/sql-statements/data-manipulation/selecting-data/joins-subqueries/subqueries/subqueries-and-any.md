@@ -1,3 +1,9 @@
+---
+description: >-
+  Compare a value against any result from a subquery. The ANY (or SOME) operator
+  returns TRUE if the comparison holds for at least one row.
+---
+
 # Subqueries and ANY
 
 [Subqueries](./) using the ANY keyword will return `true` if the comparison returns `true` for at least one row returned by the subquery.

@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema ROCKSDB_PERF_CONTEXT_GLOBAL table aggregates
+  performance counters from all sessions, offering a global view of MyRocks
+  performance.
+---
+
 # Information Schema ROCKSDB\_PERF\_CONTEXT\_GLOBAL Table
 
 The [Information Schema](../../) `ROCKSDB_PERF_CONTEXT_GLOBAL` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine and includes global counter information.

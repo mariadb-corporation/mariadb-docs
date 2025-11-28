@@ -1,3 +1,9 @@
+---
+description: >-
+  The ROTATE_EVENT indicates a log rotation, specifying the name of the next
+  binary log file and the position where writing will continue.
+---
+
 # ROTATE\_EVENT
 
 When a [binary log](../../../server-management/server-monitoring-logs/binary-log/) file exceeds the configured size limit, a `ROTATE_EVENT` is written at the end of the file, pointing to the next file in the sequence.
@@ -8,7 +14,7 @@ The `ROTATE_EVENT` is sent to the connected replica servers.
 
 ## Header
 
-* The Event Type is  `ROTATE_EVENT` (`0x4`).
+* The Event Type is `ROTATE_EVENT` (`0x4`).
 
 ## Fields
 

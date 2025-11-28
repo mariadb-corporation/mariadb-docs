@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about crash-safe DDL operations in MariaDB. This feature ensures data
+  definition statements are either fully committed or completely rolled back,
+  preventing metadata inconsistency.
+---
+
 # Atomic DDL
 
 {% tabs %}

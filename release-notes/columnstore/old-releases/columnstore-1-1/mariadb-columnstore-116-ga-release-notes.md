@@ -64,7 +64,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1439](https://jira.mariadb.org/browse/MCOL-1439) - Documentation for Python API missing
 * [MCOL-1615](https://jira.mariadb.org/browse/MCOL-1615) - Merge [MariaDB 10.2.17](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10217-release-notes.md)
 * [MCOL-1617](https://jira.mariadb.org/browse/MCOL-1617) - remove generated build doc from mcsapi in favor of its Readme.md in Github
-* [MCOL-1646](https://jira.mariadb.org/browse/MCOL-1646) - Update AX docs for 18.04
+* [MCOL-1646](https://jira.mariadb.org/browse/MCOL-1646) - Update ColumnStore docs for 18.04
 * [MCOL-1496](https://jira.mariadb.org/browse/MCOL-1496) - Joiner array boundary bug
 
 In addition, all bugs fixed in MariaDB ColumnStore 1.1.5 and earlier are implicitly included in this release.

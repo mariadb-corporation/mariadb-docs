@@ -1,3 +1,9 @@
+---
+description: >-
+  A heartbeat event sent over the network by the master when there are no binlog
+  events, ensuring the replica knows the connection is still active.
+---
+
 # HEARTBEAT\_LOG\_EVENT
 
 This event does not appear in the [binary log](../../../server-management/server-monitoring-logs/binary-log/). It's only sent over the network by a master to a replica server to let it know that the master is still alive, and is only sent when the master has no binlog events to send to replica servers.

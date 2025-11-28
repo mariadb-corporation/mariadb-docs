@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate a sort key for natural ordering. This function produces a key that
+  allows strings containing numbers to be sorted in a human-readable order.
+---
+
 # NATURAL\_SORT\_KEY
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn the core concepts of character sets and collations in MariaDB, including
+  how they define string storage and sorting rules.
+---
+
 # Character Set and Collation Overview
 
 ## What are Character Sets and Collations?

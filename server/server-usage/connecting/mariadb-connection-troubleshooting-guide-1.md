@@ -59,7 +59,7 @@ Passwords are hashed with [PASSWORD](../../reference/sql-functions/secondary-fun
 
 #### Problems Exporting Query Results
 
-If you can run regular queries, but get an authentication error when running the [SELECT ... INTO OUTFILE](../../reference/sql-statements/data-manipulation/selecting-data/select-into-outfile.md), [SELECT ... INTO DUMPFILE](../../reference/sql-statements/data-manipulation/selecting-data/select-into-dumpfile.md) or [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statements, you do not have permission to write files to the server. This requires the FILE privilege. See the [GRANT](../../reference/sql-statements/account-management-sql-statements/grant.md) article.
+If you can run regular queries but get an authentication error when running the [SELECT ... INTO OUTFILE](../../reference/sql-statements/data-manipulation/selecting-data/select-into-outfile.md), [SELECT ... INTO DUMPFILE](../../reference/sql-statements/data-manipulation/selecting-data/select-into-dumpfile.md) or [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statements, you do not have permission to write files to the server. This requires the FILE privilege. See the [GRANT](../../reference/sql-statements/account-management-sql-statements/grant.md) article.
 
 #### Access to the Server, but not to a Database
 
@@ -105,7 +105,7 @@ SELECT user,host FROM mysql.user WHERE user='melisa';
 +--------+------+
 ```
 
-However, you may still be failing to login from localhost. Some setups create anonymous users, including localhost. So the following records exist in the user table:
+However, you may still be failing to login from localhost. Some setups create anonymous users, including localhost. So, the following records exist in the user table:
 
 ```sql
 SELECT user,host FROM mysql.user WHERE user='melisa' OR user='';
@@ -125,6 +125,6 @@ Since you are connecting from localhost, the anonymous credentials, rather than 
 * [GRANT](../../reference/sql-statements/account-management-sql-statements/grant.md)
 * [Authentication](../../security/user-account-management/authentication-from-mariadb-10-4.md)
 * [Authentication from MariaDB 10 4 video tutorial](https://www.youtube.com/watch?v=aWFG4uLbimM)
-* [Error 1698: Access denied for user](broken-reference)
+* [Error 1698: Access denied for user](../../reference/error-codes/mariadb-error-codes-1600-to-1699/e1698.md)
 
 CC BY-SA / Gnu FDL

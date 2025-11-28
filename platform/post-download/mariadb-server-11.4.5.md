@@ -24,7 +24,7 @@ noIndex: true
 * The prior release in this series was MariaDB 11.4.4, released on 1 Nov 2024
 * This release (MariaDB 11.4.5) was released on 4 Feb 2025
 
-{% include "../../mariadb-platform/.gitbook/includes/most-recent-11.4.md" %}
+{% include "../.gitbook/includes/most-recent-11.4.md" %}
 
 ## Useful Resources
 

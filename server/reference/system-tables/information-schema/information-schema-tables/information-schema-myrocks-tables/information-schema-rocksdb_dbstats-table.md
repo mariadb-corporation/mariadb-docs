@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_DBSTATS table displays database-level
+  statistics for the MyRocks storage engine.
+---
+
 # Information Schema ROCKSDB\_DBSTATS Table
 
 The [Information Schema](../../) `ROCKSDB_DBSTATS` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine.

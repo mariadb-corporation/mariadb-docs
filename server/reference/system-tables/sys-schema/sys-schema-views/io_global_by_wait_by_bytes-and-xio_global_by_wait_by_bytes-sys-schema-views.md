@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize global I/O consumers by event name, displaying total
+  bytes read and written to identify high-throughput events.
+---
+
 # io\_global\_by\_wait\_by\_bytes and x$io\_global\_by\_wait\_by\_bytes Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

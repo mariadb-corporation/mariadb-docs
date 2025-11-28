@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the last day of the month. This function calculates the date of the
+  final day for the month containing the given date.
+---
+
 # LAST\_DAY
 
 ## Syntax

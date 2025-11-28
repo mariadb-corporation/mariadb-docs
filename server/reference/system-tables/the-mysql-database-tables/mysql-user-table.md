@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.user table stores user account information, global privileges,
+  authentication details, and resource limits.
+---
+
 # mysql.user Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

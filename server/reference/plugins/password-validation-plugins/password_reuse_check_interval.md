@@ -1,3 +1,9 @@
+---
+description: >-
+  This system variable defines the retention period in days for the password
+  history used by the Password Reuse Check Plugin to prevent reuse.
+---
+
 # password\_reuse\_check\_interval Variable
 
 The `password_reuse_check_interval` system variable is available when the [password\_reuse\_check plugin](password-reuse-check-plugin.md) is installed. It determines the retention period for the password history in days. Zero, the default, means that passwords are never discarded.

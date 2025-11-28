@@ -1,3 +1,9 @@
+---
+description: >-
+  Oracle-compatible synonym for the EXCEPT operator. It returns rows from the
+  first query that are not present in the second query.
+---
+
 # MINUS
 
 {% hint style="info" %}

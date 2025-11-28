@@ -54,7 +54,7 @@ service=Splitter-Service
 port=3306
 ```
 
-The _service_ parameter tells which service the listener connects to. For th&#x65;_&#x53;plitter-Listener_ we set it to _Splitter-Service_.
+The _service_ parameter tells which service the listener connects to. For the_Splitter-Listener_ we set it to _Splitter-Service_.
 
 A listener must define the network port to listen on.
 

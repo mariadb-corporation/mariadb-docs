@@ -1,3 +1,9 @@
+---
+description: >-
+  Prepare and run a dynamic SQL statement in one step. This command simplifies
+  the process by combining the PREPARE and EXECUTE operations.
+---
+
 # EXECUTE IMMEDIATE
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  NCHAR VARYING is a synonym for the VARCHAR string data type using the utf8
+  character set.
+---
+
 # NCHAR VARYING
 
 ## Overview

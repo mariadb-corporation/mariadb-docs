@@ -1,3 +1,9 @@
+---
+description: >-
+  List financial contributors to the MariaDB Foundation. View the names and
+  contributions of companies and individuals supporting the project.
+---
+
 # SHOW CONTRIBUTORS
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  List available system privileges. View the context and description for each
+  privilege supported by the server.
+---
+
 # SHOW PRIVILEGES
 
 ## Syntax

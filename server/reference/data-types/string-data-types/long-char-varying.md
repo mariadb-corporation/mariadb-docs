@@ -1,3 +1,9 @@
+---
+description: >-
+  LONG CHAR VARYING is a compatibility synonym for the MEDIUMTEXT string data
+  type.
+---
+
 # LONG CHAR VARYING
 
 ## Overview

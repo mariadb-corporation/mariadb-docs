@@ -294,7 +294,7 @@ ORDER BY title;
 +------------------------+
 ```
 
-You may have noticed in the one example earlier in which the results are shown, that there's a status line displayed that specifies the number of rows in the results set. This is less than the number of rows that were found in the database that met the statement's criteria. It's less because we used a [LIMIT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause. If we add the [SQL\_CALC\_FOUND\_ROWS](../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md#sql_calc_found_rows) flag just before the column list, MariaDB will calculate the number of columns found even if there is a `LIMIT` clause.
+You may have noticed in the one example earlier in which the results are shown, that there's a status line displayed that specifies the number of rows in the results set. This is less than the number of rows that were found in the database that met the statement's criteria. It's less because we used a [LIMIT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause. If we add the [SQL\_CALC\_FOUND\_ROWS](../../ha-and-performance/optimization-and-tuning/optimizer-hints/#sql_calc_found_rows) flag just before the column list, MariaDB will calculate the number of columns found even if there is a `LIMIT` clause.
 
 ```sql
 SELECT SQL_CALC_FOUND_ROWS isbn, title

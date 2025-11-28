@@ -1,3 +1,9 @@
+---
+description: >-
+  View statistics on client connections. This statement displays metrics like
+  bytes sent/received and busy time for connected clients.
+---
+
 # SHOW CLIENT\_STATISTICS
 
 ## Syntax

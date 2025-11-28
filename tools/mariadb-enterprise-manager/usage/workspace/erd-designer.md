@@ -2,7 +2,7 @@
 
 Enterprise manager provides a visual interface for creating entity relationship diagrams (ERD) and for observing existing database schemas, so you can quickly understand table relationships, identify dependencies, and visually assess the impact of schema changes before implementation.
 
-This procedure outlines the steps required to access and utilize the ERD Designer within the Workspace section of Enterprise Manager UI.&#x20;
+This procedure outlines the steps required to access and utilize the ERD Designer within the Workspace section of Enterprise Manager UI. 
 
 1.  From the main Workspace screen, click the "Run Queries" card.\
 
@@ -69,7 +69,7 @@ Use the toolbar or right-click on the canvas to add new table entities to your d
 
 #### **Edit Entities**
 
-Double-click any table to open the **Entity Editor** at the bottom of the screen.&#x20;
+Double-click any table to open the **Entity Editor** at the bottom of the screen. 
 
 <figure><img src="../../../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
 

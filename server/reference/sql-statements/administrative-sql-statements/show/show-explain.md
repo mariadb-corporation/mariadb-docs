@@ -1,3 +1,9 @@
+---
+description: >-
+  Get the execution plan for a running query. This statement displays EXPLAIN
+  output for a statement currently executing in another thread.
+---
+
 # SHOW EXPLAIN
 
 ## Syntax
@@ -41,11 +47,11 @@ SHOW WARNINGS;
 
 {% tabs %}
 {% tab title="Current" %}
-#### EXPLAIN FOR CONNECTION
+**EXPLAIN FOR CONNECTION**
 
 The `EXPLAIN FOR CONNECTION` syntax was added for MySQL compatibility.
 
-#### FORMAT=JSON
+**FORMAT=JSON**
 
 `SHOW EXPLAIN [FORMAT=JSON] FOR <connection_id>` extends `SHOW EXPLAIN` to return more detailed JSON output.
 {% endtab %}

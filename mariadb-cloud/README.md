@@ -26,7 +26,7 @@ Originally developed by [MariaDB](http://mariadb.com), MariaDB Cloud is aimed to
 
 MariaDB Cloud provides MariaDB and MySQL-compatible workloads with enterprise-grade and production-ready features:
 
-* [Serverless deployment for instant autoscaling](broken-reference)
+* [Serverless deployment for instant autoscaling](/broken/pages/2f8309cd1ade6dd99c4b2c7f84947db5a7fc09ac)
 * [Integrated AI agents for database interaction](cloud-ai/copilot-guide.md)
 * [Automated complex database configurations](cloud-management/config/)
 * [Cloud-native capabilities with auto-scaling](cloud-management/autonomously-scale-compute-storage.md)
@@ -42,7 +42,7 @@ It has:
 
 * Sensible defaults
 * Consistent configuration
-* MariaDB Cloud DBA
+* MariaDB Remote DBA
 
 So you can:
 
@@ -99,3 +99,7 @@ flowchart LR
     style n10 fill:#FFE0B2
     style n11 color:#616161
 ```
+
+## See Also
+
+* [MariaDB Cloud Datasheet](https://mariadb.com/resources/datasheets/mariadb-cloud/)

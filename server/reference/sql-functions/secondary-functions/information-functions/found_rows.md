@@ -1,3 +1,9 @@
+---
+description: >-
+  Count rows found by the last SELECT statement. This function returns the total
+  number of rows matching the query, disregarding any LIMIT clause.
+---
+
 # FOUND\_ROWS
 
 ## Syntax
@@ -8,7 +14,7 @@ FOUND_ROWS()
 
 ## Description
 
-A [SELECT](../../../sql-statements/data-manipulation/selecting-data/select.md) statement may include a [LIMIT](../../../sql-statements/data-manipulation/selecting-data/select.md#limit) clause to restrict the number of rows the server returns to the client. In some cases, it is desirable to know how many rows the statement would have returned without the LIMIT, but without running the statement again. To obtain this row count, include an [SQL\_CALC\_FOUND\_ROWS](../../../sql-statements/data-manipulation/selecting-data/optimizer-hints.md#sql_calc_found_rows) option in the `SELECT` statement, and then invoke `FOUND_ROWS()` afterwards.
+A [SELECT](../../../sql-statements/data-manipulation/selecting-data/select.md) statement may include a [LIMIT](../../../sql-statements/data-manipulation/selecting-data/select.md#limit) clause to restrict the number of rows the server returns to the client. In some cases, it is desirable to know how many rows the statement would have returned without the LIMIT, but without running the statement again. To obtain this row count, include an [SQL\_CALC\_FOUND\_ROWS](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/#sql_calc_found_rows) option in the `SELECT` statement, and then invoke `FOUND_ROWS()` afterwards.
 
 You can also use `FOUND_ROWS()` to obtain the number of rows returned by a `SELECT` which does not contain a `LIMIT` clause. In this case you don't need to use the `SQL_CALC_FOUND_ROWS` option. This can be useful for example in a [stored procedure](../../../../server-usage/stored-routines/stored-procedures/).
 

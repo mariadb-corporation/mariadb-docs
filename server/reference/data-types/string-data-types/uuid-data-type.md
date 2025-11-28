@@ -1,3 +1,9 @@
+---
+description: >-
+  Universally Unique Identifier data type. This type is optimized for storing
+  128-bit UUID values efficiently.
+---
+
 # UUID Data Type
 
 {% hint style="info" %}

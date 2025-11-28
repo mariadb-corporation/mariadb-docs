@@ -1,3 +1,9 @@
+---
+description: >-
+  The events_transactions_current table displays the current transaction event
+  for each thread, including state, isolation level, and GTID.
+---
+
 # Performance Schema events\_transactions\_current Table
 
 {% hint style="info" %}

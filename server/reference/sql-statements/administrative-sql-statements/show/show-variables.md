@@ -1,3 +1,9 @@
+---
+description: >-
+  View system variables. This statement displays the current values of global or
+  session configuration settings.
+---
+
 # SHOW VARIABLES
 
 ## Syntax

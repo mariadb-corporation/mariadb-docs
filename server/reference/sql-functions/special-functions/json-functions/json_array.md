@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a JSON array. This function evaluates a list of values and returns a
+  JSON array containing those values.
+---
+
 # JSON\_ARRAY
 
 ## Syntax

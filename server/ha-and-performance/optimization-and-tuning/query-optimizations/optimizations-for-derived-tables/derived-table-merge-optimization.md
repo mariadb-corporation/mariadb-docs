@@ -73,7 +73,7 @@ SET @@optimizer_switch='derived_merge=OFF'
 
 ## See Also
 
-* FAQ entry: [Why is ORDER BY in a FROM subquery ignored?](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/optimization-and-tuning/query-optimizations/optimizations-for-derived-tables/broken-reference/README.md)
+* FAQ entry: [Why is ORDER BY in a FROM subquery ignored?](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/faq/developer-questions/why-is-order-by-in-a-from-subquery-ignored)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

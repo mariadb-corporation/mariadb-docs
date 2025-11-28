@@ -204,7 +204,7 @@ The most common shared local storage option for GCP (Google Cloud Platform) depl
 
 ## Query Evaluation Architecture
 
-![ECStore-QueryExecutionwith-S3-FlowChart](../../.gitbook/assets/ecstore-queryexecutionwith-s3-flowchart.png)
+![ECStore-QueryExecutionwith-S3-FlowChart](<../../.gitbook/assets/ecstore-queryexecutionwith-s3-flowchart (1).png>)
 
 MariaDB Enterprise ColumnStore uses distributed query execution and massively parallel processing (MPP) techniques to achieve vertical and horizontal scalability for production analytics and data warehousing.
 
@@ -212,7 +212,7 @@ For additional information, see "[MariaDB Enterprise ColumnStore Query Evaluatio
 
 ### Extent Elimination
 
-![ECStore-QueryExecutionExtentElimination](../../.gitbook/assets/ecstore-queryexecutionextentelimination.png)
+![ECStore-QueryExecutionExtentElimination](<../../.gitbook/assets/ecstore-queryexecutionextentelimination (1).png>)
 
 MariaDB Enterprise ColumnStore uses extent elimination to scale query evaluation as the table size increases.
 
@@ -277,7 +277,7 @@ MariaDB Enterprise ColumnStore leverages common technologies to provide highly a
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [S3-compatible object storage](columnstore-architectural-overview.md#s3-compatible-object-storage)                 | <ul><li>HA for data</li><li>Optional.</li></ul>                                                                                                                                                                                                              |
 | [Shared Local Storage](columnstore-architectural-overview.md#shared-local-storage)                                 | <ul><li>With S3: HA for <a href="columnstore-storage-architecture.md#storage-manager-directory">Storage Manager directory</a></li><li>Without S3: HA for <a href="columnstore-storage-architecture.md#db-root-directories">DB Root directories</a></li></ul> |
-| [MariaDB Replication](columnstore-architectural-overview.md#mariadb-replication)                                   | <ul><li>Schema replication (ColumnStore tables) </li><li>Schema and data replication (non-ColumnStore tables)</li><li>Database object replication</li></ul>                                                                                                  |
+| [MariaDB Replication](columnstore-architectural-overview.md#mariadb-replication)                                   | <ul><li>Schema replication (ColumnStore tables)</li><li>Schema and data replication (non-ColumnStore tables)</li><li>Database object replication</li></ul>                                                                                                   |
 | [MaxScale](columnstore-architectural-overview.md#maxscale)                                                         | <ul><li>Monitoring</li><li>Automatic failover</li><li>Load balancing</li></ul>                                                                                                                                                                               |
 | [Cluster Management API (CMAPI) Server](columnstore-architectural-overview.md#cluster-management-api-cmapi-server) | <ul><li>REST API</li><li>Administration</li><li>Add nodes</li><li>Remove nodes</li></ul>                                                                                                                                                                     |
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a Point geometry from a Geohash. This function decodes a Geohash string
+  into a Point object representing the location's center.
+---
+
 # ST\_PointFromGeoHash
 
 {% hint style="info" %}

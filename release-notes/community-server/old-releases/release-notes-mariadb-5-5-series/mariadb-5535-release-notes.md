@@ -27,7 +27,7 @@ from the following:
 
 * MySQL 5.5.35
 * [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) from Percona-Server-5.5.35-rel33.0
-* [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old-mode), to emulate behavior from old MySQL/MariaDB versions.
+* [OLD\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode), to emulate behavior from old MySQL/MariaDB versions.
 * [EXTRACT (HOUR FROM ...)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/extract) now adheres to the SQL standard and returns values from 0 to 23. Previously it could return greater values.
 * Also included are fixes for the following security vulnerabilities:
   * [CVE-2014-0412](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0412)

@@ -1,3 +1,9 @@
+---
+description: >-
+  Find the minimum value. This function returns the lowest value in a set of
+  values, applicable to numbers, strings, and dates.
+---
+
 # MIN
 
 ## Syntax

@@ -1,6 +1,6 @@
 # INTERSECT
 
-The result of an intersect is the intersection of right and left `SELECT` results, i.e. only records that are present in both result sets will be included in the result of the operation.
+Return only rows that appear in both result sets. This set operator identifies the common records shared between two queries.
 
 ## Syntax
 

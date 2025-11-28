@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate the difference between two dates. This function returns the number
+  of days between two date values, ignoring the time component.
+---
+
 # DATEDIFF
 
 ## Syntax

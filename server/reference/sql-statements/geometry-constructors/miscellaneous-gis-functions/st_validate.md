@@ -1,3 +1,10 @@
+---
+description: >-
+  Validate and optionally return a geometry. This function checks if a geometry
+  is valid according to OGC rules; it returns the geometry if valid, or NULL if
+  not.
+---
+
 # ST\_Validate
 
 {% hint style="info" %}

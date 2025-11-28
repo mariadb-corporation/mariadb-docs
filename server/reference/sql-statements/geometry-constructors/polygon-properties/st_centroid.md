@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the centroid of a Polygon or MultiPolygon. The result is a Point
+  geometry representing the mathematical center of mass.
+---
+
 # ST\_CENTROID
 
 ## Syntax
@@ -9,7 +15,7 @@ Centroid(mpoly)
 
 ## Description
 
-Returns a point reflecting the mathematical centroid (geometric center) for the [MultiPolygon](../../../sql-statements/geometry-constructors/geometry-constructors/multipolygon.md) _mpoly_. The resulting point will not necessarily be on the MultiPolygon.
+Returns a point reflecting the mathematical centroid (geometric center) for the [MultiPolygon](../geometry-constructors/multipolygon.md) _mpoly_. The resulting point will not necessarily be on the MultiPolygon.
 
 `ST_Centroid()` and `Centroid()` are synonyms.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  ROW is a data type used in stored programs to store a complete row of data
+  from a cursor or table.
+---
+
 # ROW
 
 ## Syntax

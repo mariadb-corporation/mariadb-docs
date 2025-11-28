@@ -1,8 +1,7 @@
 ---
 description: >-
-  Understand server response packets in MariaDB's binary protocol for prepared
-  statements. This section details the structure of responses from the server,
-  crucial for client-side parsing and handling.
+  This section details the structure of response packets sent by the server when
+  using the binary protocol, particularly for result sets.
 layout:
   width: default
   title:

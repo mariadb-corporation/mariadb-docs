@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize lock wait information, linking waiting transactions to
+  blocking transactions to help diagnose deadlocks and contention.
+---
+
 # innodb\_lock\_waits and x$innodb\_lock\_waits Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

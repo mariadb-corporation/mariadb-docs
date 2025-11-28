@@ -1,3 +1,9 @@
+---
+description: >-
+  Assign values to user-defined variables. This guide explains how to store data
+  in session-specific variables for reuse in subsequent SQL statements.
+---
+
 # SET Variable
 
 ## Syntax

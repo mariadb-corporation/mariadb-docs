@@ -1,3 +1,9 @@
+---
+description: >-
+  Return rows from the first result set that do not appear in the second. This
+  set operator performs a subtraction of two datasets.
+---
+
 # EXCEPT
 
 ## EXCEPT
@@ -45,7 +51,7 @@ All behavior for naming columns, `ORDER BY` and `LIMIT` is the same as for [UNIO
 
 The result of `EXCEPT` is all records of the left `SELECT` result except records which are in right `SELECT` result set, i.e. it is subtraction of two result sets.
 
-`EXCEPT` and `UNION` have the same operation precedence and `INTERSECT` has a higher precedence, unless [running in Oracle mode](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/broken-reference/README.md), in which case all three have the same precedence.
+`EXCEPT` and `UNION` have the same operation precedence and `INTERSECT` has a higher precedence, unless [running in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), in which case all three have the same precedence.
 
 #### Parentheses
 

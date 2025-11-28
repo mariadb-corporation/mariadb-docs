@@ -1,8 +1,10 @@
+---
+description: >-
+  Aggregate values into a JSON array. This function aggregates a result set
+  column into a single JSON array.
+---
+
 # JSON\_ARRAYAGG
-
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
-
-JSON\_ARRAYAGG was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes).
 
 {% hint style="info" %}
 `JSON_ARRAYAGG` is available from MariaDB 10.5.

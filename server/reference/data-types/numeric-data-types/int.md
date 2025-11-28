@@ -1,3 +1,9 @@
+---
+description: >-
+  Standard integer type. An INT column uses 4 bytes and stores values from
+  -2147483648 to 2147483647 (signed) or 0 to 4294967295 (unsigned).
+---
+
 # INT
 
 ## Syntax
@@ -21,7 +27,7 @@ For details on the attributes, see [Numeric Data Type Overview](numeric-data-typ
 
 ## Examples
 
-### With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) set
+### With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) set
 
 ```sql
 CREATE TABLE ints (a INT,b INT UNSIGNED,c INT ZEROFILL);

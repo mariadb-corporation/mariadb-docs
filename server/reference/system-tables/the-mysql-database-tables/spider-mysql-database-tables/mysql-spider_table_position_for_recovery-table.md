@@ -1,3 +1,9 @@
+---
+description: >-
+  This table records XA transaction positions for Spider tables, essential for
+  recovering distributed transactions after a crash.
+---
+
 # mysql.spider\_table\_position\_for\_recovery Table
 
 The `mysql.spider_table_position_for_recovery` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

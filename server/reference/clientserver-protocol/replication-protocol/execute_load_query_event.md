@@ -1,3 +1,9 @@
+---
+description: >-
+  This event is used for LOAD DATA INFILE operations, managing the execution
+  phase similar to a QUERY_EVENT but with extra static fields for file handling.
+---
+
 # EXECUTE\_LOAD\_QUERY\_EVENT
 
 This event is written to the binary log file for [LOAD DATA INFILE](../../sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) events. The event format is similar to a [QUERY\_EVENT](query_event.md), except that it has extra static fields.
@@ -28,8 +34,6 @@ This event is written to the binary log file for [LOAD DATA INFILE](../../sql-st
 * [string](../protocol-data-types.md#fixed-length-bytes) The SQL statement. By subtraction the size of the statement can be known.
 
 ## Example
-
-
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

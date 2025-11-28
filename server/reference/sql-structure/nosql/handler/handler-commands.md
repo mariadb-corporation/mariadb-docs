@@ -98,14 +98,14 @@ You may also find rows committed since the scan originally started.
 * If you do an `ALTER TABLE` for a table that is used by some other connection with `HANDLER`, the `ALTER TABLE` query waits for the `HANDLER` to be closed.
 * For `HASH` keys, you must use all key parts when searching for a row.
 * For `HASH` keys, you can't do a key scan of all values. You can only find all rows with the same key value.
-* While each `HANDLER READ` command is atomic, if you do a scan in many steps, some engines may give you [error 1020](broken-reference) if the table changed between the commands. Please refer to the [specific engine handler page](./) if this happens.
+* While each `HANDLER READ` command is atomic, if you do a scan in many steps, some engines may give you [error 1020](../../../error-codes/mariadb-error-codes-1000-to-1099/e1020.md) if the table changed between the commands. Please refer to the [specific engine handler page](./) if this happens.
 
 ## Error Codes
 
-* [Error 1031](broken-reference) (`ER_ILLEGAL_HA`) Table storage engine for 't1' doesn't have this option
+* [Error 1031](../../../error-codes/mariadb-error-codes-1000-to-1099/e1031.md) (`ER_ILLEGAL_HA`) Table storage engine for 't1' doesn't have this option
   * If you get this for `HANDLER OPEN` it means the storage engine doesn't support `HANDLER` calls.
   * If you get this for `HANDLER READ` , it means you are trying to use an incomplete `HASH` key.
-* [Error 1020](broken-reference) (`ER_CHECKREAD`) Record has changed since last read in table '...'
+* [Error 1020](../../../error-codes/mariadb-error-codes-1000-to-1099/e1020.md) (`ER_CHECKREAD`) Record has changed since last read in table '...'
   * This means that the table changed between two reads, and the handler can't handle this case for the given scan.
 
 ## Examples
@@ -132,7 +132,7 @@ HANDLER t1 READ NEXT;
 +------+
 ```
 
-In the previous example, the `HANDLER` was opened with the `t1` table name. Since `HANDLER`s use unqualified table names, trying to access another table with this same name, even though it's in another database, will result in ambiguity. An alias needs to be used to avoid the ambiguity, resulting in [Error 1066: Not unique table/alias](broken-reference):
+In the previous example, the `HANDLER` was opened with the `t1` table name. Since `HANDLER`s use unqualified table names, trying to access another table with this same name, even though it's in another database, will result in ambiguity. An alias needs to be used to avoid the ambiguity, resulting in [Error 1066: Not unique table/alias](broken-reference/):
 
 ```sql
 CREATE DATABASE db_new;

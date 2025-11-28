@@ -91,7 +91,7 @@ See [Microseconds in MariaDB](../../sql-functions/date-time-functions/microsecon
 
 ## Date and time literals and the `SQL_MODE`
 
-Unless the [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) `NO_ZERO_DATE` flag is set, some special values are allowed: the `'0000-00-00'` `DATE`, the `'00:00:00'` `TIME`, and the `0000-00-00 00:00:00` `DATETIME`.
+Unless the [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) `NO_ZERO_DATE` flag is set, some special values are allowed: the `'0000-00-00'` `DATE`, the `'00:00:00'` `TIME`, and the `0000-00-00 00:00:00` `DATETIME`.
 
 If the `ALLOW_INVALID_DATES` flag is set, the invalid dates (for example, 30th February) are allowed. If not, if the `NO_ZERO_DATE` is set, an error is produced; otherwise, a zero-date is returned.
 

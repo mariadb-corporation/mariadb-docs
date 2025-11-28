@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the current UTC date. This function returns the current Coordinated
+  Universal Time date in 'YYYY-MM-DD' or YYYYMMDD format.
+---
+
 # UTC\_DATE
 
 ## Syntax

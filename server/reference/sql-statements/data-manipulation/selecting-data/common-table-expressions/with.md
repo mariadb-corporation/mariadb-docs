@@ -1,3 +1,10 @@
+---
+description: >-
+  Define one or more Common Table Expressions (CTEs). The WITH clause starts a
+  statement by declaring named temporary result sets that can be referenced in
+  the main query.
+---
+
 # WITH
 
 ### Syntax

@@ -13,7 +13,7 @@ CREATE
 
 ## Notes
 
-* If you describe a view in MariaDB ColumnStore, the column types reported may not match the actual column types in the underlying tables. This is normal and can be ignored.&#x20;
+* If you describe a view in MariaDB ColumnStore, the column types reported may not match the actual column types in the underlying tables. This is normal and can be ignored. 
 
 The following statement creates a customer view of orders with status:
 

@@ -147,6 +147,7 @@ The syntax of MariaDB option files is as follows:
 * The same option group can appear multiple times.
 * The `!include` directive can be used to include other option files. See the [Including Option Files](configuring-mariadb-with-option-files.md#including-option-files) section below for more information on this syntax.
 * The `!includedir` directive can be used to include all `.cnf` files (and potentially `.ini` files) in a given directory. The option files within the directory are read in alphabetical order. See the [Including Option File Directories](configuring-mariadb-with-option-files.md#including-option-file-directories) section below for more information on this syntax.
+* The `?includedir` (introduced in MariaDB 11.4.10 and 11.8.6) directive works like `!includedir` but skips unreadable files, instead of failing with an error.
 * Dashes (`-`) and underscores (`_`) in options are interchangeable.
 * Double quotes can be used to quote values
 * `\n`, `\r`, `\t`, `\b`, `\s`, `\"`, `\'`, and `\\` are recognized as character escapes for new line, carriage return, tab, backspace, space, double quote, single quote, and backslash respectively.
@@ -272,6 +273,17 @@ It is also possible to include all option files in a directory from another opti
 The option files within the directory are read in alphabetical order.
 
 All option file names must end in `.cnf` on Unix-like operating systems. On Windows, all option file names must end in `.cnf` or `.ini`.
+
+{% tabs %}
+{% tab title="Current" %}
+If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error.
+One can use `?includedir` to skip unreadable files without failing out.
+{% endtab %}
+
+{% tab title="< 11.4.10, < 11.8.6" %}
+If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error.
+{% endtab %}
+{% endtabs %}
 
 ### Checking Program Options
 

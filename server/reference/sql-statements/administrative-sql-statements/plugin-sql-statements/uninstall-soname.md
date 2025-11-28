@@ -1,3 +1,9 @@
+---
+description: >-
+  Uninstall all plugins loaded from a specific library. This statement removes
+  every plugin associated with the library file and unloads the library itself.
+---
+
 # UNINSTALL SONAME
 
 ## Syntax

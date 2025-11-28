@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the concept of NULL. This page explains how NULL represents missing
+  or unknown data and how it interacts with comparison operators and functions.
+---
+
 # NULL Values
 
 `NULL` represents an unknown value. It is _not_ an empty string (by default), or a zero value. These are all valid values, and are not `NULL` values.
@@ -202,7 +208,7 @@ In all these special cases, `NULL` is equivalent to the `DEFAULT` keyword.
 
 ## Inserting
 
-If a `NULL` value is single-row inserted into a column declared as `NOT NULL`, an error will be returned. However, if the [SQL mode](../../server-management/variables-and-modes/sql-mode.md) is not [strict](../../server-management/variables-and-modes/sql-mode.md#strict-mode) (strict is the default), if a `NULL` value is multi-row inserted into a column declared as `NOT NULL`, the implicit default for the column type will be inserted (and `NOT` the default value in the table definition). The implicit defaults are an empty string for string types, and the zero value for numeric, date and time types.
+If a `NULL` value is single-row inserted into a column declared as `NOT NULL`, an error will be returned. However, if the [SQL mode](../../server-management/variables-and-modes/sql_mode.md) is not [strict](../../server-management/variables-and-modes/sql_mode.md#strict-mode) (strict is the default), if a `NULL` value is multi-row inserted into a column declared as `NOT NULL`, the implicit default for the column type will be inserted (and `NOT` the default value in the table definition). The implicit defaults are an empty string for string types, and the zero value for numeric, date and time types.
 
 By default, both cases will result in an error.
 
@@ -223,7 +229,7 @@ INSERT INTO nulltest (a,x,y) VALUES (1,NULL,NULL);
 ERROR 1048 (23000): Column 'x' cannot be null
 ```
 
-Multi-row insert with [SQL mode](../../server-management/variables-and-modes/sql-mode.md) not [strict](../../server-management/variables-and-modes/sql-mode.md#strict-mode):
+Multi-row insert with [SQL mode](../../server-management/variables-and-modes/sql_mode.md) not [strict](../../server-management/variables-and-modes/sql_mode.md#strict-mode):
 
 ```sql
 show variables like 'sql_mode%';
@@ -264,7 +270,7 @@ IF a=10 THEN NULL; ELSE NULL; END IF
 
 In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), [CONCAT](../sql-functions/string-functions/concat.md) and the [Logical OR operator ||](../sql-structure/operators/logical-operators/or.md) ignore [null](null-values.md).
 
-When setting [sql\_mode=EMPTY\_STRING\_IS\_NULL](../../server-management/variables-and-modes/sql-mode.md), empty strings and `NULL` values are the same thing. For example:
+When setting [sql\_mode=EMPTY\_STRING\_IS\_NULL](../../server-management/variables-and-modes/sql_mode.md), empty strings and `NULL` values are the same thing. For example:
 
 ```sql
 SET sql_mode=EMPTY_STRING_IS_NULL;

@@ -85,6 +85,7 @@
     * [Upgrading MariaDB Enterprise ColumnStore (Alpha)](mariadb-columnstore/management/upgrades.md)
     * [System Troubleshooting MariaDB ColumnStore](mariadb-columnstore/management/system-troubleshooting-mariadb-columnstore.md)
     * [ColumnStore and Recursive CTE Limitations](mariadb-columnstore/management/columnstore-and-recursive-cte-limitations.md)
+    * [ColumnStore Table Size Limitations](mariadb-columnstore/management/columnstore-table-size-limitations.md)
     * [Optimizing Linux Kernel Parameters for MariaDB ColumnStore](mariadb-columnstore/management/optimizing-linux-kernel-parameters-for-mariadb-columnstore.md)
   * [Security](mariadb-columnstore/security/README.md)
     * [ColumnStore Security Vulnerabilities](mariadb-columnstore/security/columnstore-security-vulnerabilities.md)

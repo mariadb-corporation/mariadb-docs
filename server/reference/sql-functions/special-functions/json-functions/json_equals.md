@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover JSON_EQUALS in MariaDB. This function checks for equality between two
+  JSON objects, returning 1 if they are equal, 0 if not, handling key order and
+  data types intelligently.
+---
+
 # JSON\_EQUALS
 
 {% hint style="info" %}

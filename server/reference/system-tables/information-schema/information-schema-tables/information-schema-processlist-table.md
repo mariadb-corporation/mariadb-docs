@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema PROCESSLIST table contains detailed information about
+  running threads, including their current state and execution time.
+---
+
 # Information Schema PROCESSLIST Table
 
 The [Information Schema](../) `PROCESSLIST` table contains information about running threads.
@@ -29,11 +35,11 @@ It contains the following columns:
 | TID               | Thread ID ([MDEV-6756](https://jira.mariadb.org/browse/MDEV-6756))                                                                                                                                                                                                                                                                                                                              |
 | TMP\_SPACE\_USED  | See [Limiting Size of Created Disk Temporary Files and Tables Overview](../../../../security/limiting-size-of-created-disk-temporary-files-and-tables/limiting-size-of-created-disk-temporary-files-and-tables-overview.md). From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115). |
 
-Note that as a difference to MySQL, in MariaDB the `TIME`column (and also the `TIME_MS` column) are not affected by any setting of [@TIMESTAMP](../../../sql-functions/date-time-functions/timestamp-function.md). This means that it can be reliably used also for threads that change `@TIMESTAMP` (such as the [replication](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/broken-reference/README.md) SQL thread). See also [MySQL Bug #22047](https://bugs.mysql.com/bug.php?id=22047).
+Note that as a difference to MySQL, in MariaDB the `TIME`column (and also the `TIME_MS` column) are not affected by any setting of [@TIMESTAMP](../../../sql-functions/date-time-functions/timestamp-function.md). This means that it can be reliably used also for threads that change `@TIMESTAMP` (such as the [replication](../../../../ha-and-performance/standard-replication/) SQL thread). See also [MySQL Bug #22047](https://bugs.mysql.com/bug.php?id=22047).
 
-As a consequence of this, the `TIME` column of`SHOW FULL PROCESSLIST` and`INFORMATION_SCHEMA.PROCESSLIST` can not be used to determine if a slave is lagging behind. For this, use instead the`Seconds_Behind_Master` column in the output of [SHOW REPLICA STATUS](../../../sql-statements/administrative-sql-statements/show/show-replica-status.md).
+As a consequence of this, the `TIME` column of`SHOW FULL PROCESSLIST` and`INFORMATION_SCHEMA.PROCESSLIST` cannot be used to determine if a slave is lagging behind. For this, use instead the`Seconds_Behind_Master` column in the output of [SHOW REPLICA STATUS](../../../sql-statements/administrative-sql-statements/show/show-replica-status.md).
 
-Note that the `PROGRESS` field from the information schema, and the `PROGRESS` field from `SHOW PROCESSLIST` display different results. `SHOW PROCESSLIST` shows the total progress, while the information schema shows the progress for the current stage only.. To retrieve a similar "total" Progress value from `information_schema.PROCESSLIST` as the one from `SHOW PROCESSLIST`, use
+Note that the `PROGRESS` field from the information schema, and the `PROGRESS` field from `SHOW PROCESSLIST` display different results. `SHOW PROCESSLIST` shows the total progress, while the information schema shows the progress for the current stage only. To retrieve a similar "total" Progress value from `information_schema.PROCESSLIST` as the one from `SHOW PROCESSLIST`, use
 
 ```sql
 SELECT CASE WHEN Max_Stage < 2 THEN Progress ELSE (Stage-1)/Max_Stage*100+Progress/Max_Stage END 

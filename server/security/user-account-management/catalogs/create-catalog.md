@@ -1,3 +1,10 @@
+---
+description: >-
+  Define external catalogs for data integration. This statement configures
+  connections to remote storage systems, allowing query access to external data
+  sources.
+---
+
 # CREATE CATALOG
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

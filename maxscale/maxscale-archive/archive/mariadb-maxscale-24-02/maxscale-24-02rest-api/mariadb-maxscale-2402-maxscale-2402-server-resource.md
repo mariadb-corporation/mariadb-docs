@@ -887,7 +887,7 @@ and _monitors_ fields of the _relationships_ object can be modified. Removal,\
 addition and modification of the links will change which service and monitors\
 use this server.
 
-For example, removing the first value in the _services_ list in th&#x65;_&#x72;elationships_ object from the following JSON document will remove th&#x65;_&#x73;erver1_ from the service _RW-Split-Router_.
+For example, removing the first value in the _services_ list in the_relationships_ object from the following JSON document will remove the_server1_ from the service _RW-Split-Router_.
 
 Removing a service from a server is analogous to removing the server from the\
 service. Both unlink the two objects from each other.
@@ -969,7 +969,7 @@ PATCH /v1/servers/my-db-server/relationships/services
 }
 ```
 
-All relationships for a server can be deleted by sending an empty array as th&#x65;_&#x64;ata_ field value. The following example removes the server from all services.
+All relationships for a server can be deleted by sending an empty array as the_data_ field value. The following example removes the server from all services.
 
 ```
 PATCH /v1/servers/my-db-server/relationships/services
@@ -1066,7 +1066,7 @@ PUT /v1/servers/:name/clear
 ```
 
 This endpoint requires that the `state` parameter is passed with the\
-request. The value of `state` must be one of the values defined in th&#x65;_&#x73;et_ endpoint documentation.
+request. The value of `state` must be one of the values defined in the_set_ endpoint documentation.
 
 **Response**
 

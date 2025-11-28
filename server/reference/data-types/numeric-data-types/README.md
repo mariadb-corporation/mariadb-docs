@@ -1,8 +1,7 @@
 ---
 description: >-
-  Explore numeric data types in MariaDB Server. This section details various
-  integer, fixed-point, and floating-point types, crucial for accurately storing
-  numerical data in your database.
+  Store numerical data efficiently. This section details integer, fixed-point,
+  and floating-point types like INT, DECIMAL, and FLOAT.
 ---
 
 # Numeric Data Types

@@ -32,7 +32,7 @@ OR
 ./client/mariadb-check [OPTIONS] --all-databases
 ```
 
-`mariadb-check` can be used to `CHECK` (`-c`, `-m`, `-C`), `REPAIR` (`-r`), `ANALYZE` (`-a`), or `OPTIMIZE` (`-o`) tables. Some of the options (like `-e` or `-q`) can be used in combination.&#x20;
+`mariadb-check` can be used to `CHECK` (`-c`, `-m`, `-C`), `REPAIR` (`-r`), `ANALYZE` (`-a`), or `OPTIMIZE` (`-o`) tables. Some of the options (like `-e` or `-q`) can be used in combination. 
 
 {% hint style="warning" %}
 Not all options are supported by all storage engines.

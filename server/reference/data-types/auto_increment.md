@@ -1,8 +1,14 @@
+---
+description: >-
+  Automatically generate unique identities for new rows. This attribute is
+  commonly used for primary keys to ensure sequential numbering.
+---
+
 # AUTO\_INCREMENT
 
 ## Description
 
-The `AUTO_INCREMENT` attribute can be used to generate a unique identity for new rows. When you insert a new record into the table (or upon adding an [AUTO\_INCREMENT](auto_increment.md) attribute with the [ALTER TABLE](../sql-statements/data-definition/alter/alter-table/) statement), and the `AUTO_INCREMENT` field is [NULL](null-values.md) or DEFAULT (in the case of an INSERT), automatically be incremented. This also applies to `0`, unless the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql-mode.md#no_auto_value_on_zero) is enabled.
+The `AUTO_INCREMENT` attribute can be used to generate a unique identity for new rows. When you insert a new record into the table (or upon adding an [AUTO\_INCREMENT](auto_increment.md) attribute with the [ALTER TABLE](../sql-statements/data-definition/alter/alter-table/) statement), and the `AUTO_INCREMENT` field is [NULL](null-values.md) or DEFAULT (in the case of an INSERT), automatically be incremented. This also applies to `0`, unless the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql_mode.md#no_auto_value_on_zero) is enabled.
 
 `AUTO_INCREMENT` columns start from 1 by default. The automatically generated value can never be lower than `0`.
 
@@ -336,7 +342,7 @@ SELECT * FROM t1;
 +---+
 ```
 
-If the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql-mode.md#no_auto_value_on_zero) is set, zero values will not be automatically incremented:
+If the [NO\_AUTO\_VALUE\_ON\_ZERO SQL\_MODE](../../server-management/variables-and-modes/sql_mode.md#no_auto_value_on_zero) is set, zero values will not be automatically incremented:
 
 ```sql
 SET SQL_MODE='no_auto_value_on_zero';

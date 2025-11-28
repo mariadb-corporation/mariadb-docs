@@ -41,17 +41,17 @@ Upgrade MaxScale following the instructions for your Linux distribution:
 
 {% tabs %}
 {% tab title="RHEL" %}
-### Upgrade via DNF (RHEL)
+#### Upgrade via DNF (RHEL)
 
 {% stepper %}
 {% step %}
-#### Customer Download Token
+**Customer Download Token**
 
 Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 {% endstep %}
 
 {% step %}
-#### Configure YUM / DNF package repository
+**Configure YUM / DNF package repository**
 
 Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
@@ -76,7 +76,7 @@ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
 {% endstep %}
 
 {% step %}
-#### Upgrade MariaDB MaxScale and package dependencies:
+**Upgrade MariaDB MaxScale and package dependencies:**
 
 ```
 sudo dnf update maxscale
@@ -84,7 +84,7 @@ sudo dnf update maxscale
 {% endstep %}
 
 {% step %}
-#### Configure MaxScale
+**Configure MaxScale**
 
 The upgrade process only loads MaxScale onto the system. MaxScale requires configuration before MaxScale is ready for use.
 {% endstep %}
@@ -92,17 +92,17 @@ The upgrade process only loads MaxScale onto the system. MaxScale requires confi
 {% endtab %}
 
 {% tab title="Debian / Ubuntu" %}
-### Upgrade via APT (Debian, Ubuntu)
+#### Upgrade via APT (Debian, Ubuntu)
 
 {% stepper %}
 {% step %}
-#### Customer Download Token
+**Customer Download Token**
 
 Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.
 {% endstep %}
 
 {% step %}
-#### Configure APT package repository
+**Configure APT package repository**
 
 Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
@@ -131,7 +131,7 @@ sudo apt update
 {% endstep %}
 
 {% step %}
-#### Upgrade MariaDB MaxScale and package dependencies
+**Upgrade MariaDB MaxScale and package dependencies**
 
 ```bash
 sudo apt install --only-upgrade maxscale
@@ -139,7 +139,7 @@ sudo apt install --only-upgrade maxscale
 {% endstep %}
 
 {% step %}
-#### Configure MaxScale
+**Configure MaxScale**
 
 The upgrade process only loads MaxScale onto the system. MaxScale requires configuration before MaxScale is ready for use.
 {% endstep %}
@@ -147,20 +147,17 @@ The upgrade process only loads MaxScale onto the system. MaxScale requires confi
 {% endtab %}
 
 {% tab title="SLES" %}
-### Upgrade via ZYpp (SLES)
-
-
+#### Upgrade via ZYpp (SLES)
 
 {% stepper %}
 {% step %}
-#### Customer Download Token
+**Customer Download Token**
 
-Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.\
-
+Retrieve your Customer Download Token at [https://customers.mariadb.com/downloads/token/](https://customers.mariadb.com/downloads/token/) and substitute for `CUSTOMER_DOWNLOAD_TOKEN` in the following directions.\\
 {% endstep %}
 
 {% step %}
-#### Configure ZYpp package repository
+**Configure ZYpp package repository**
 
 Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
@@ -190,7 +187,7 @@ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply \
 {% endstep %}
 
 {% step %}
-#### Upgrade MariaDB MaxScale and package dependencies
+**Upgrade MariaDB MaxScale and package dependencies**
 
 ```bash
 sudo zypper update maxscale
@@ -198,7 +195,7 @@ sudo zypper update maxscale
 {% endstep %}
 
 {% step %}
-#### Configure MaxScale
+**Configure MaxScale**
 
 The upgrade process only loads MaxScale onto the system. MaxScale requires configuration before MaxScale is ready for use.
 {% endstep %}
@@ -217,27 +214,27 @@ Configuration parameters can change between releases of MariaDB MaxScale, which 
 
 {% tabs %}
 {% tab title="MaxScale 23.02" %}
-### Changes in MaxScale 23.02
+#### Changes in MaxScale 23.02
 
 When upgrading from MaxScale 22.08 and earlier to MaxScale 25.01, the changes introduced in MaxScale 23.02 must be taken into consideration.
 
 MariaDB MaxScale 22.08 is fully compatible with MariaDB MaxScale 23.02 with the exception that some features have been removed.
 
-#### Removed Features
+**Removed Features**
 
 * The `csmon` monitor has been removed after previously being deprecated in MaxScale 22.08.2.
 * The `auroramon` monitor has been removed after previously being deprecated in MaxScale 22.08.2.
 * The `maxctrl cluster` commands have been removed after previously being deprecated in MaxScale 22.08.2
 * The `maxctrl drain` command has been removed, because it is obsolete.
 
-#### Removed Deprecated `maxctrl` Commands
+**Removed Deprecated `maxctrl` Commands**
 
 In MariaDB MaxScale 23.02, some deprecated MaxCtrl commands were removed:
 
 * `maxctrl cluster`
 * `maxctrl drain` has been removed and can be replaced with `maxctrl set server SERVER_NAME drain`
 
-#### Removed Deprecated `maxctrl` Options
+**Removed Deprecated `maxctrl` Options**
 
 In MariaDB MaxScale 23.02, several deprecated MaxCtrl command-line options were removed, since MaxScale previously added the ability to specify module parameters to MaxCtrl as key-value pairs.
 
@@ -291,20 +288,20 @@ For `maxctrl create monitor`, the following deprecated command-line options were
 {% endtab %}
 
 {% tab title="MaxScale 22.08" %}
-### Changes in MaxScale 22.08
+#### Changes in MaxScale 22.08
 
 When upgrading from MaxScale 6 and earlier to MaxScale 25.01, the changes introduced in MaxScale 22.08 must be taken into consideration.
 
-#### Database Firewall Filter
+**Database Firewall Filter**
 
 * The `dbfwfilter` that was deprecated in MaxScale 6 has been removed in MaxScale 22.08.
 
-#### Deprecated Parameters
+**Deprecated Parameters**
 
 * The server parameter `ssl_ca_cert` has been renamed to `ssl_ca` and `ssl_ca_cert` has been deprecated. `ssl_ca_cert` is now an alias for `ssl_ca` and can still be used, but MariaDB recommends using `ssl_ca`, as support for `ssl_ca_cert` will be removed in a future release.
 * The server parameter `admin_ssl_ca_cert` has been renamed to `admin_ssl_ca` and `admin_ssl_ca_cert` has been deprecated. `admin_ssl_ca_cert` is now an alias for `admin_ssl_ca` and can still be used, but MariaDB recommends using `admin_ssl_ca`, as support for `admin_ssl_ca_cert` will be removed in a future release.
 
-#### Removed Parameters
+**Removed Parameters**
 
 * The following MariaDB Monitor (`mariadbmon`) parameters have been removed:
   * `ignore_external_masters`
@@ -313,7 +310,7 @@ When upgrading from MaxScale 6 and earlier to MaxScale 25.01, the changes introd
   * `detect_stale_master` (replaced by `master_conditions`)
   * `detect_stale_slave` (replaced by `slave_conditions`)
 
-#### Default Changed for Logging Behavior
+**Default Changed for Logging Behavior**
 
 * Prior to MaxScale 22.08.1, by default MaxScale logs to `syslog` in addition to the MaxScale log.
 * Starting with MaxScale 22.08.1, by default MaxScale only logs to the MaxScale log and no longer logs to `syslog`.
@@ -324,46 +321,46 @@ When upgrading from MaxScale 6 and earlier to MaxScale 25.01, the changes introd
     syslog=true
     ```
 
-#### REST API Endpoint Removed
+**REST API Endpoint Removed**
 
 * The `/v1/maxscale/tasks/` endpoint has been removed from the REST API.
 {% endtab %}
 
 {% tab title="MaxScale 6" %}
-### Changes in MaxScale 6
+#### Changes in MaxScale 6
 
 When upgrading from MaxScale 2.5 and earlier to MaxScale 25.01, the changes introduced in MaxScale 6 must be taken into consideration.
 
-#### TLS/SSL
+**TLS/SSL**
 
 * MaxScale's `ssl` parameter can no longer be set to `required` or `disabled`:
   * `ssl=true` replaces `ssl=required`
   * `ssl=false` replaces `ssl=disabled`
 
-#### Deprecated Features
+**Deprecated Features**
 
 * dbfwfilter is deprecated (but not removed) in MaxScale 6.
 * Multi-line configuration parameters are deprecated (but not removed) in MaxScale 6.
 
-#### Defaults Changed
+**Defaults Changed**
 
 * The default value of `threads` has changed from `1` to `auto`
 
-#### ColumnStore
+**ColumnStore**
 
 * When using MaxScale with ColumnStore 5 and later, MariaDB Monitor (`mariadbmon`) is used instead of ColumnStore Monitor (`csmon`).
 {% endtab %}
 
 {% tab title="MaxScale 2.5" %}
-#### Changes in MaxScale 2.5
+**Changes in MaxScale 2.5**
 
 When upgrading from MaxScale 2.4 and earlier to MaxScale 25.01, the changes introduced in MaxScale 2.5 must be taken into consideration.
 
-#### Passwords
+**Passwords**
 
 * MaxScale's password encryption features have been updated to be more secure. Passwords encrypted in old versions will still work, but it is recommended to generate a new encryption key with the maxkeys command and to re-encrypt passwords with the maxpasswd command.
 
-#### User Account Privileges
+**User Account Privileges**
 
 MaxScale's user account requires additional privileges in MaxScale 2.5.
 
@@ -388,7 +385,7 @@ GRANT SELECT ON mysql.user
      TO 'maxscale'@'192.0.2.1';
 ```
 
-#### MariaDB Monitor
+**MariaDB Monitor**
 
 MaxScale 2.5 includes configuration changes for [MariaDB Monitor (mariadbmon)](../../../reference/maxscale-monitors/mariadb-monitor.md):
 
@@ -423,7 +420,7 @@ MaxScale 2.5 includes configuration changes for [MariaDB Monitor (mariadbmon)](.
     slave_conditions  = running_master,writable_master
     ```
 
-#### ColumnStore Monitor
+**ColumnStore Monitor**
 
 MaxScale 2.5 includes configuration changes for [ColumnStore Monitor (csmon)](../../../maxscale-archive/archive/mariadb-maxscale-21-06/mariadb-maxscale-2106-maxscale-21-06-monitors/maxscale-mariadb-monitor-usage/maxscale-mariadb-monitor-usage-columnstore-monitor.md):
 
@@ -441,7 +438,7 @@ MaxScale 2.5 includes configuration changes for [ColumnStore Monitor (csmon)](..
     version       = 1.2
     ```
 
-#### Binlog Router
+**Binlog Router**
 
 MaxScale 2.5 includes a completely re-implemented [Binlog Router (binlogrouter)](../../../reference/maxscale-routers/maxscale-binlogrouter.md):
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  This command configures client-specific options for the current connection,
+  such as enabling or disabling multi-statements.
+---
+
 # COM\_SET\_OPTION
 
 Enables or disables server option.

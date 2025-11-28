@@ -1,3 +1,9 @@
+---
+description: >-
+  This command allows a connected client to re-authenticate as a different user
+  without closing and reopening the connection.
+---
+
 # COM\_CHANGE\_USER
 
 `COM_CHANGE_USER` resets the connection and re-authenticates with the given credentials. The packet is identical to the authentication packet in the connection handshake.

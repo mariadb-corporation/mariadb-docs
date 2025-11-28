@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference keywords for date arithmetic. These units, such as DAY, HOUR, and
+  MINUTE, specify the interval type used in functions like DATE_ADD and EXTRACT.
+---
+
 # Date and Time Units
 
 The `INTERVAL` keyword can be used to add or subtract a time interval of time to a [DATETIME](../../data-types/date-and-time-data-types/datetime.md), [DATE](../../data-types/date-and-time-data-types/date.md) or [TIME](../../data-types/date-and-time-data-types/time.md) value.

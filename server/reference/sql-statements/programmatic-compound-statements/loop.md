@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a simple loop construct. This statement repeatedly executes a block of
+  code until explicitly terminated by a LEAVE statement.
+---
+
 # LOOP
 
 ## Syntax
@@ -14,7 +20,7 @@ END LOOP [end_label]
 
 A `LOOP` statement can be [labeled](labels.md). `end_label` cannot be given unless`begin_label` also is present. If both are present, they must be the same.
 
-See [Delimiters](broken-reference) in the [mariadb](../../../clients-and-utilities/mariadb-client/) client for more on delimiter usage in the client.
+See [Delimiters](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) in the [mariadb](../../../clients-and-utilities/mariadb-client/) client for more on delimiter usage in the client.
 
 ## See Also
 

@@ -11,7 +11,7 @@ The MariaDB Cloud MCP Server acts as an intermediary, allowing AI applications l
 The MariaDB Cloud MCP Server provides a comprehensive set of features designed to boost developer productivity and streamline database management:
 
 * **Launch and Manage Serverless Database Instances:** Programmatically launch and manage new serverless MariaDB database instances directly within MariaDB Cloud.
-* **Interact with AI-Powered Database Agents:** Seamlessly connect and interact with AI Agents (Developer Copilot, DBA Copilot and Custom agents) to use natural language queries for database operations.
+* **Interact with AI-Powered Database Agents:** Seamlessly connect and interact with AI Agents (Developer Copilot, DBA Copilot, and Custom agents) to use natural language queries for database operations.
 * **Execute SQL Queries Directly:** Run SQL queries on your MariaDB Cloud instances through a unified interface.
 * **Flexible Deployment:** Can be installed and integrated with various MCP client tools and IDEs.
 
@@ -22,7 +22,7 @@ The MariaDB Cloud MCP Server provides a comprehensive set of features designed t
 * **Enhanced Developer/DBA Productivity:** Empower developers and DBAs with AI-powered assistance for general queries, performance tuning, and debugging.
 * **Accurate and Context-Aware Responses:** AI Agents are designed to deeply understand your data, minimizing hallucinations and providing precise, context-aware insights.
 * **Reduced Security Risks:** AI Agents and the integrated vector store operate locally within MariaDB Cloud, reducing the need to move sensitive data outside your database.
-* **Cost-Effective Scalability:** Leverage MariaDB Cloud's serverless architecture for instant scaling and zero waste during idle times, optimizing costs.
+* **Cost-Effective Scalability:** Leverage MariaDB Cloud's serverless architecture for instant scaling and zero waste during idle time, optimizing costs.
 * **Seamless Integration:** Designed to integrate with popular AI-powered development tools that support the Model Context Protocol (MCP).
 
 ## Target Audience

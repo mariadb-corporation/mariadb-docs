@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema OPTIMIZER_TRACE table contains details about the
+  optimizer's decision-making process for the last executed query.
+---
+
 # Information Schema OPTIMIZER\_TRACE Table
 
 ## Description

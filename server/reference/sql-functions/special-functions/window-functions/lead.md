@@ -1,3 +1,9 @@
+---
+description: >-
+  Access data from a following row. This function returns the value of an
+  expression from a row at a specified physical offset after the current row.
+---
+
 # LEAD
 
 ## Syntax

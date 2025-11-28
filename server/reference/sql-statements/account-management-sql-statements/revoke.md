@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove privileges or roles. Learn how to withdraw previously granted
+  permissions from users or roles to restrict access and secure the database.
+---
+
 # REVOKE
 
 ## Privileges
@@ -17,7 +23,7 @@ REVOKE ALL PRIVILEGES, GRANT OPTION
 
 ### Description
 
-The `REVOKE` statement enables system administrators to revoke privileges (or roles - see [section below](revoke.md#roles)) from MariaDB accounts. Each account is named using the same format as for the `GRANT` statement; for example, '`jeffrey'@'localhost`'. If you specify only the user name part of the account name, a host name part of '`%`' is used. For details on the levels at which privileges exist, the  allowable`priv_type` and `priv_level` values, and the syntax for specifying users and passwords, see [GRANT](grant.md).
+The `REVOKE` statement enables system administrators to revoke privileges (or roles - see [section below](revoke.md#roles)) from MariaDB accounts. Each account is named using the same format as for the `GRANT` statement; for example, '`jeffrey'@'localhost`'. If you specify only the user name part of the account name, a host name part of '`%`' is used. For details on the levels at which privileges exist, the allowable`priv_type` and `priv_level` values, and the syntax for specifying users and passwords, see [GRANT](grant.md).
 
 To use the first `REVOKE` syntax, you must have the`GRANT OPTION` privilege, and you must have the privileges that you are revoking.
 

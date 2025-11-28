@@ -1,3 +1,10 @@
+---
+description: >-
+  Modify existing user accounts. Learn how to change authentication plugins,
+  expire passwords, lock accounts, and adjust resource limits for specific
+  users.
+---
+
 # ALTER USER
 
 ## Syntax

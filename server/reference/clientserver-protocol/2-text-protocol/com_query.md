@@ -1,3 +1,9 @@
+---
+description: >-
+  This command sends an SQL statement to the server for execution immediately,
+  without the prepare/execute steps.
+---
+
 # COM\_QUERY
 
 With the `COM_QUERY` command, the client sends the server an SQL statement to be executed immediately.

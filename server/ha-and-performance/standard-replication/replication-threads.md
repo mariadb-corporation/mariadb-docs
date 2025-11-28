@@ -1,8 +1,8 @@
 ---
 description: >-
-  Understand replication threads in MariaDB Server. This section explains the
-  I/O and SQL threads, their roles in the replication process, and how they
-  impact performance and consistency.
+  Gain insight into the background threads that drive replication. Understand
+  the roles of the I/O thread, SQL thread, and binlog dump thread in moving data
+  between servers.
 ---
 
 # Replication Threads
@@ -27,9 +27,9 @@ The primary creates a separate binary log dump thread for each replica connected
 
 #### Binary Log Dump Threads and the Shutdown Process
 
-When a primary server is shutdown and it goes through the normal shutdown process, the primary kills client threads in random order. By default, the primary also considers its binary log dump threads to be regular client threads. As a consequence, the binary log dump threads can be killed while client threads still exist, and this means that data can be written on the primary during a normal shutdown that won't be replicated. This is true even if [semi-synchronous replication](semisynchronous-replication.md) is being used. Data is not lost, it is stored in the primary server's binary log. The replicas on reconnection, after the primary server restarts, will resume at the exact position they where killed off during the primary shutdown. No data is lost.
+When a primary server is shut down and it goes through the normal shutdown process, the primary kills client threads in random order. By default, the primary also considers its binary log dump threads to be regular client threads. As a consequence, the binary log dump threads can be killed while client threads still exist, and this means that data can be written on the primary during a normal shutdown that won't be replicated. This is true even if [semi-synchronous replication](semisynchronous-replication.md) is being used. Data is not lost; it is stored in the primary server's binary log. The replicas on reconnection, after the primary server restarts, will resume at the exact position they were killed off during the primary shutdown. No data is lost.
 
-In [MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) and later, this problem can be solved by shutting down the server using either the [mariadb-admin](../../clients-and-utilities/administrative-tools/mariadb-admin.md) utility or the [SHUTDOWN](../../reference/sql-statements/administrative-sql-statements/shutdown.md) command, and providing a special option.
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, this problem can be solved by shutting down the server using either the [mariadb-admin](../../clients-and-utilities/administrative-tools/mariadb-admin.md) utility or the [SHUTDOWN](../../reference/sql-statements/administrative-sql-statements/shutdown.md) command and providing a special option.
 
 For example, this problem can be solved by shutting down the server with the [mariadb-admin](../../clients-and-utilities/administrative-tools/mariadb-admin.md) utility and by providing the `--wait-for-all-slaves` option to the utility and by executing the `shutdown` command with the utility:
 
@@ -45,7 +45,7 @@ SHUTDOWN WAIT FOR ALL SLAVES;
 
 When one of these special options is provided, the server only kills its binary log dump threads after all client threads have been killed, and it only completes the shutdown after the last [binary log](../../server-management/server-monitoring-logs/binary-log/) has been sent to all connected replicas.
 
-In [MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/server/ha-and-performance/standard-replication/broken-reference/README.md) and later, it is still not possible to enable this behavior by default. This means that this behavior is currently inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, it is still not possible to enable this behavior by default. This means that this behavior is currently inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
 
 In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) and before, it is recommended to manually switchover replicas to a new primary before shutting down the old primary.
 

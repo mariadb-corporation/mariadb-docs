@@ -1,3 +1,9 @@
+---
+description: >-
+  Small integer type. A SMALLINT column uses 2 bytes and stores values from
+  -32768 to 32767 (signed) or 0 to 65535 (unsigned).
+---
+
 # SMALLINT
 
 ## Syntax
@@ -22,7 +28,7 @@ For more details on the attributes, see [Numeric Data Type Overview](numeric-dat
 
 ## Examples
 
-### With [strict\_mode](../../../server-management/variables-and-modes/sql-mode.md#strict-mode) set
+### With [strict\_mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode) set
 
 ```sql
 CREATE TABLE smallints (a SMALLINT,b SMALLINT UNSIGNED,c SMALLINT ZEROFILL);

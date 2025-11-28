@@ -1,3 +1,9 @@
+---
+description: >-
+  Round down to the nearest integer. This function returns the largest integer
+  value that is less than or equal to the argument.
+---
+
 # FLOOR
 
 ## Syntax

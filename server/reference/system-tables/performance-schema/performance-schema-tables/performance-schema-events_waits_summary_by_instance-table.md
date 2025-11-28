@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes wait events per instrument instance, allowing detailed
+  analysis of specific locks, mutexes, or conditions.
+---
+
 # Performance Schema events\_waits\_summary\_by\_instance Table
 
 The [Performance Schema](../) `events_waits_summary_by_instance` table contains wait events summarized by instance. It contains the following columns:

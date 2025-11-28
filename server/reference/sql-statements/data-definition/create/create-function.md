@@ -1,3 +1,10 @@
+---
+description: >-
+  Define a stored function. This command creates a routine that accepts
+  parameters, executes logic, and returns a single value for use in SQL
+  expressions.
+---
+
 # CREATE FUNCTION
 
 ## Syntax
@@ -9,6 +16,7 @@ CREATE [OR REPLACE]
     RETURNS type
     [characteristic ...]
     RETURN func_body
+    [RETURN SYS_REFCURSOR]
 
 func_parameter:
     [ IN | OUT | INOUT | IN OUT ]  param_name type
@@ -39,13 +47,51 @@ You can also replace the `RETURN` clause with a [BEGIN...END](../../programmatic
 
 By default, a function is associated with the current database. To associate the function explicitly with a given database, specify the fully-qualified name as `db_name.func_name` when you create it. If the function name is the same as the name of a built-in function, you must use the fully qualified name when you call it.
 
-The parameter list enclosed within parentheses must always be present. If there are no parameters, an empty parameter list of () should be used. Parameter names are not case sensitive.
+The parameter list enclosed within parentheses must always be present. If there are no parameters, an empty parameter list of `()` should be used. Parameter names are not case-sensitive.
 
-Each parameter can be declared to use any valid data type, except that the COLLATE attribute cannot be used.
+Each parameter can be declared to use any valid data type, except that the `COLLATE` attribute cannot be used.
 
 For valid identifiers to use as function names, see [Identifier Names](../../../sql-structure/sql-language-structure/identifier-names.md).
 
-#### IN | OUT | INOUT | IN OUT
+### RETURN
+
+The `RETURN` clause can return a function body. In newer versions of MariaDB, it can also return a cursor (using `SYS_REFCURSOR`).
+
+{% tabs %}
+{% tab title="Current" %}
+**RETURN `func_body`**
+
+The `RETURN` clause can return a function body (a valid SQL `PROCEDURE` statement).
+
+**RETURN `SYS_REFCURSOR`**
+
+It can also return a cursor, if the function was declared with a `SYS_REFCURSOR` variable, like this:
+
+```sql
+CREATE FUNCTION f1 RETURN SYS_REFCURSOR AS
+  c SYS_REFCURSOR;
+BEGIN
+  OPEN c FOR SELECT a FROM t1 ORDER BY a;
+  RETURN c;
+END;
+/
+```
+
+Alternatively, a cursor can be returned in an `OUT` parameter, see [this section](create-function.md#in-or-out-or-inout-or-in-out).
+{% endtab %}
+
+{% tab title="< Community Server 12.0 / Enterprise Server 11.8" %}
+**RETURN `func_body`**
+
+The `RETURN` clause can return a function body (a valid SQL `PROCEDURE` statement).
+{% endtab %}
+{% endtabs %}
+
+### AGGREGATE
+
+It is possible to create stored aggregate functions as well. See [Stored Aggregate Functions](../../../../server-usage/stored-routines/stored-functions/stored-aggregate-functions.md) for details.
+
+### IN | OUT | INOUT | IN OUT
 
 {% tabs %}
 {% tab title="Current" %}
@@ -98,31 +144,65 @@ Quantifiers are not available.
 {% endtab %}
 {% endtabs %}
 
-#### AGGREGATE
+{% tabs %}
+{% tab title="Current" %}
+A cursor can be returned, like this:
 
-It is possible to create stored aggregate functions as well. See [Stored Aggregate Functions](../../../../server-usage/stored-routines/stored-functions/stored-aggregate-functions.md) for details.
+```sql
+CREATE TABLE t1 (a INT);
+INSERT INTO t1 VALUES (10),(20);
+ 
+CREATE FUNCTION f1 RETURN SYS_REFCURSOR AS
+  c SYS_REFCURSOR;
+BEGIN
+  OPEN c FOR SELECT a FROM t1 ORDER BY a;
+  RETURN c;
+END;
+/
+ 
+CREATE PROCEDURE p1 AS
+  a INT;
+  c SYS_REFCURSOR DEFAULT f1();
+BEGIN
+  LOOP
+    FETCH c INTO a;
+    EXIT WHEN c%NOTFOUND;
+    dbms_output.put_line(a);
+  END LOOP;
+  CLOSE c;
+  END;
+/
+ 
+CALL p1();
+```
+{% endtab %}
 
-#### RETURNS
+{% tab title="< Community Server 12.0 / Enterprise Server 11.8" %}
+This feature is not available.
+{% endtab %}
+{% endtabs %}
+
+### RETURNS
 
 The `RETURNS` clause specifies the return type of the function. `NULL` values are permitted with all return types.
 
-What happens if the `RETURN` clause returns a value of a different type? It depends on the [SQL\_MODE](../../../../server-management/variables-and-modes/sql-mode.md) in effect at the moment of the function creation.
+What happens if the `RETURN` clause returns a value of a different type? It depends on the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) in effect at the moment of the function creation.
 
-If the SQL\_MODE is strict (STRICT\_ALL\_TABLES or STRICT\_TRANS\_TABLES flags are specified), a 1366 error will be produced.
+If the `SQL_MODE` is strict (`STRICT_ALL_TABLES` or `STRICT_TRANS_TABLES` flags are specified), a 1366 error will be produced.
 
 Otherwise, the value is coerced to the proper type. For example, if a function specifies an `ENUM` or `SET` value in the `RETURNS` clause, but the `RETURN` clause returns an integer, the value returned from the function is the string for the corresponding `ENUM` member of set of `SET` members.
 
-MariaDB stores the SQL\_MODE system variable setting that is in effect at the time a routine is created, and always executes the routine with this setting in force, regardless of the server SQL mode in effect when the routine is invoked.
+MariaDB stores the `SQL_MODE` system variable setting that is in effect at the time a routine is created, and always executes the routine with this setting in force, regardless of the server SQL mode in effect when the routine is invoked.
 
-#### LANGUAGE SQL
+### LANGUAGE SQL
 
-`LANGUAGE SQL` is a standard SQL clause, and it can be used in MariaDB for portability. However that clause has no meaning, because SQL is the only supported language for stored functions.
+`LANGUAGE SQL` is a standard SQL clause which can be used in MariaDB for portability. However that clause has no meaning, because SQL is the only supported language for stored functions.
 
 A function is deterministic if it can produce only one result for a given list of parameters. If the result may be affected by stored data, server variables, random numbers or any value that is not explicitly passed, then the function is not deterministic. Also, a function is non-deterministic if it uses nondeterministic functions like [NOW()](../../../sql-functions/date-time-functions/now.md) or [CURRENT\_TIMESTAMP()](../../../sql-functions/date-time-functions/current_timestamp.md). The optimizer may choose a faster execution plan if it known that the function is deterministic. In such cases, you should declare the routine using the `DETERMINISTIC` keyword. If you want to explicitly state that the function is not deterministic (which is the default) you can use the `NOT DETERMINISTIC` keywords.
 
 If you declare a non-deterministic function as `DETERMINISTIC`, you may get incorrect results. If you declare a deterministic function as `NOT DETERMINISTIC`, in some cases the queries will be slower.
 
-#### OR REPLACE
+### OR REPLACE
 
 If the optional `OR REPLACE` clause is used, it acts as a shortcut for:
 
@@ -133,35 +213,35 @@ CREATE FUNCTION function_name ...;
 
 with the exception that any existing [privileges](../../../../server-usage/stored-routines/stored-functions/stored-routine-privileges.md) for the function are not dropped.
 
-#### IF NOT EXISTS
+### IF NOT EXISTS
 
-If the IF NOT EXISTS clause is used, MariaDB will return a warning instead of an error if the function already exists. Cannot be used together with OR REPLACE.
+If the `IF NOT EXISTS` clause is used, MariaDB will return a warning instead of an error if the function already exists. Cannot be used together with OR REPLACE.
 
-#### \[NOT] DETERMINISTIC
+### \[NOT] DETERMINISTIC
 
 The `[NOT] DETERMINISTIC` clause also affects [binary logging](../../../../server-management/server-monitoring-logs/binary-log/), because the `STATEMENT` format can not be used to store or replicate non-deterministic statements.
 
 `CONTAINS SQL`, `NO SQL`, `READS SQL DATA`, and `MODIFIES SQL DATA` are informative clauses that tell the server what the function does. MariaDB does not check in any way whether the specified clause is correct. If none of these clauses are specified, `CONTAINS SQL` is used by default.
 
-#### MODIFIES SQL DATA
+### MODIFIES SQL DATA
 
 `MODIFIES SQL DATA` means that the function contains statements that may modify data stored in databases. This happens if the function contains statements like [DELETE](../../data-manipulation/changing-deleting-data/delete.md), [UPDATE](../../data-manipulation/changing-deleting-data/update.md), [INSERT](../../data-manipulation/inserting-loading-data/insert.md), [REPLACE](../../data-manipulation/changing-deleting-data/replace.md) or DDL.
 
-#### READS SQL DATA
+### READS SQL DATA
 
 `READS SQL DATA` means that the function reads data stored in databases, but does not modify any data. This happens if [SELECT](../../data-manipulation/selecting-data/select.md) statements are used, but there no write operations are executed.
 
-#### CONTAINS SQL
+### CONTAINS SQL
 
 `CONTAINS SQL` means that the function contains at least one SQL statement, but it does not read or write any data stored in a database. Examples include [SET](../../administrative-sql-statements/set-commands/set.md) or [DO](../../stored-routine-statements/do.md).
 
-#### NO SQL
+### NO SQL
 
 `NO SQL` means nothing, because MariaDB does not currently support any language other than SQL.
 
-#### Oracle Mode
+### Oracle Mode
 
-A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-definition/create/broken-reference/README.md) for details on changes when running Oracle mode.
+A subset of Oracle's PL/SQL language is supported in addition to the traditional SQL/PSM-based MariaDB syntax. See [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle#stored-procedures-and-stored-functions) for details on changes when running Oracle mode.
 
 ## Security
 
@@ -169,7 +249,7 @@ You must have the [EXECUTE](../../account-management-sql-statements/grant.md#fun
 
 Each function has an account associated as the definer. By default, the definer is the account\
 that created the function. Use the `DEFINER` clause to specify a different account as the\
-definer. You must have the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [SET USER](../../account-management-sql-statements/grant.md#set-user) privilege, to use the `DEFINER` clause. See [Account Names](../../account-management-sql-statements/create-user.md#account-names) for details on specifying accounts.
+definer. You must have the [SET USER](../../account-management-sql-statements/grant.md#set-user) privilege to use the `DEFINER` clause. See [Account Names](../../account-management-sql-statements/create-user.md#account-names) for details on specifying accounts.
 
 The `SQL SECURITY` clause specifies what privileges are used when a function is called. If `SQL SECURITY` is `INVOKER`, the function body will be evaluated using the privileges of the user calling the function. If `SQL SECURITY` is `DEFINER`, the function body is always evaluated using the privileges of the definer account. `DEFINER` is the default.
 
@@ -190,9 +270,9 @@ GRANT EXECUTE ON FUNCTION max_salary TO roger;
 
 Since `SQL SECURITY` defaults to `DEFINER`, whenever the user `roger` calls this function, the subselect will execute with your privileges. As long as you have privileges to select the salary of each employee, the caller of the function will be able to get the maximum salary for each department without being able to see individual salaries.
 
-## Character sets and collations
+## Character Sets and Collations
 
-Function return types can be declared to use any valid [character set and collation](../../../data-types/string-data-types/character-sets/). If used, the COLLATE attribute needs to be preceded by a CHARACTER SET attribute.
+Function return types can be declared to use any valid [character set and collation](../../../data-types/string-data-types/character-sets/). If used, the `COLLATE` attribute needs to be preceded by a `CHARACTER SET` attribute.
 
 If the character set and collation are not specifically set in the statement, the database defaults at the time of creation will be used. If the database defaults change at a later stage, the stored function character set/collation will not be changed at the same time; the stored function needs to be dropped and recreated to ensure the same character set/collation as the database is used.
 
@@ -214,7 +294,7 @@ SELECT hello('world');
 +----------------+
 ```
 
-You can use a compound statement in a function to manipulate data with statements like `INSERT` and `UPDATE`. The following example creates a counter function that uses a temporary table to store the current value. Because the compound statement contains statements terminated with semicolons, you have to first change the statement delimiter with the `DELIMITER` statement to allow the semicolon to be used in the function body. See [Delimiters in the mariadb client](broken-reference) for more.
+You can use a compound statement in a function to manipulate data with statements like `INSERT` and `UPDATE`. The following example creates a counter function that uses a temporary table to store the current value. Because the compound statement contains statements terminated with semicolons, you have to first change the statement delimiter with the `DELIMITER` statement to allow the semicolon to be used in the function body. See [Delimiters in the mariadb client](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) for more.
 
 ```sql
 CREATE TEMPORARY TABLE counter (c INT);

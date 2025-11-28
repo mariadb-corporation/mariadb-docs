@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_ENVELOPE. Returns the Minimum Bounding Rectangle (MBR) for the
+  given geometry as a Polygon.
+---
+
 # ENVELOPE
 
 A synonym for [ST\_ENVELOPE](st_envelope.md).

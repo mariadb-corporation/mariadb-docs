@@ -1,3 +1,9 @@
+---
+description: >-
+  Fixed-length binary string type. This type stores a fixed number of bytes,
+  padding with zero bytes if the data is shorter.
+---
+
 # CHAR BYTE
 
 ## Description

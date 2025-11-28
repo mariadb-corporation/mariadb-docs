@@ -24,7 +24,7 @@ Notable changes of this release include:
 * [MDEV-19795](https://jira.mariadb.org/browse/MDEV-19795): Merge upstream [MyRocks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myrocks).
 * [MDEV-17228](https://jira.mariadb.org/browse/MDEV-17228): Encrypted temporary tables are not encrypted.
 * [MDEV-18328](https://jira.mariadb.org/browse/MDEV-18328): [Disks Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/other-plugins/disks-plugin) is now stable and requires the [FILE privilege](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant).
-* [MDEV-16508](https://jira.mariadb.org/browse/MDEV-16508): [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider) - [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) not maintained between spider node and data nodes.
+* [MDEV-16508](https://jira.mariadb.org/browse/MDEV-16508): [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider) - [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) not maintained between spider node and data nodes.
 * Merge relevant InnoDB changes from MySQL 5.7.27
 * Adjust spin loops to the x86 PAUSE instruction latency ([MDEV-19845](https://jira.mariadb.org/browse/MDEV-19845))
 * [MDEV-20102](https://jira.mariadb.org/browse/MDEV-20102): When the ctas from a big table is interrupted ,then you can't drop or recreate the table

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema CHECK_CONSTRAINTS table stores metadata about the
+  constraints defined for tables in all databases, including the check clause.
+---
+
 # Information Schema CHECK\_CONSTRAINTS Table
 
 The [Information Schema](../) `CHECK_CONSTRAINTS` table stores metadata about the [constraints](../../../sql-statements/data-definition/constraint.md) defined for tables in all databases.

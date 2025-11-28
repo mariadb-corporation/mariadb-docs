@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate cotangent. This function returns the cotangent of an angle given in
+  radians.
+---
+
 # COT
 
 ## Syntax

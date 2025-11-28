@@ -1,3 +1,10 @@
+---
+description: >-
+  Define named error conditions. This statement associates a name with a
+  specific SQLSTATE or MariaDB error code for easier handling in stored
+  programs.
+---
+
 # DECLARE CONDITION
 
 ## Syntax
@@ -22,7 +29,7 @@ A condition\_value for `DECLARE ... CONDITION` can be an [SQLSTATE](programmatic
 ERROR 1407 (42000): Bad SQLSTATE: '00000'
 ```
 
-For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](broken-reference).
+For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](../../error-codes/mariadb-error-code-reference.md).
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

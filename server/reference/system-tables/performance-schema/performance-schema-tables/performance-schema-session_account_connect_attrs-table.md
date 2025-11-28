@@ -1,3 +1,9 @@
+---
+description: >-
+  This table exposes connection attributes for the current session's account,
+  providing metadata passed by the client application for identification.
+---
+
 # Performance Schema session\_account\_connect\_attrs Table
 
 ## Description

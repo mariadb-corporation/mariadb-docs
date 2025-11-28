@@ -1,3 +1,9 @@
+---
+description: >-
+  Execute an expression repeatedly. This function runs a scalar expression a
+  specified number of times, primarily for measuring query execution speed.
+---
+
 # BENCHMARK
 
 ## Syntax

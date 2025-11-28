@@ -1,3 +1,9 @@
+---
+description: >-
+  Define subsets of rows for calculation. Window frames specify which rows
+  relative to the current row are included in the window function's calculation.
+---
+
 # Window Frames
 
 ## Syntax

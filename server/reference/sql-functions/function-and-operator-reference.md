@@ -1,3 +1,9 @@
+---
+description: >-
+  Comprehensive reference of all SQL functions and operators. This index lists
+  built-in functions for string manipulation, math, date/time, and more.
+---
+
 # Functions & Operators
 
 | Name                                                                                                                                    | Description                                                                                                               | Added                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |

@@ -4,7 +4,7 @@
 **Important:** The `PUBLIC` role is created implicitly by `GRANT` statements and its creation is not logged, distinguishing it from standard system principals.
 {% endhint %}
 
-MariaDB automatically creates several users and roles for administrative and internal server functions.&#x20;
+MariaDB automatically creates several users and roles for administrative and internal server functions. 
 
 ## System Users
 

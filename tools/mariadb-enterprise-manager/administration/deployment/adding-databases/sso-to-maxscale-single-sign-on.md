@@ -4,7 +4,7 @@ For topologies managed by MaxScale, you can seamlessly access the MaxScale GUI d
 
 {% stepper %}
 {% step %}
-### &#x20;Accessing the MaxScale GUI <a href="#accessing-the-maxscale-gui" id="accessing-the-maxscale-gui"></a>
+###  Accessing the MaxScale GUI <a href="#accessing-the-maxscale-gui" id="accessing-the-maxscale-gui"></a>
 
 1. Click the three-dot menu (⋮) next to a MaxScale node.
 2. Select "Manage MaxScale".

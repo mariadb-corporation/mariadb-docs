@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the ASCII value of the first character. This function returns the
+  numeric ASCII code for the leftmost character of the input string.
+---
+
 # ASCII
 
 ## Syntax

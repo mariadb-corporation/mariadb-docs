@@ -1,37 +1,37 @@
 # Community Server Release Notes
 
-This section contains release notes for MariaDB Server releases divided into the major MariaDB series. The latest long-term stable series is [MariaDB 11.8](mariadb-11-8-series/) (maintained for three years), the current rolling release is [MariaDB 12.0](release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120.md), and the current development releases are [MariaDB 12.1](release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1.md) and [MariaDB 12.2](release-notes-mariadb-12.2-rolling-release/mariadb-12.2-changes-and-improvements.md).
+This section contains release notes for MariaDB Server releases divided into the major MariaDB series. The latest long-term stable series is [MariaDB 11.8](11.8/) (maintained for three years), the current rolling release is [MariaDB 12.0](12.0/what-is-mariadb-120.md), and the current development releases are [MariaDB 12.1](12.1/changes-and-improvements-in-mariadb-12.1.md) and [MariaDB 12.2](12.2/mariadb-12.2-changes-and-improvements.md).
 
 {% content-ref url="about/" %}
 [about](about/)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes-mariadb-12.2-rolling-release/" %}
-[release-notes-mariadb-12.2-rolling-release](release-notes-mariadb-12.2-rolling-release/)
+{% content-ref url="12.2/" %}
+[12.2](12.2/)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes-mariadb-12.1-rolling-releases/" %}
-[release-notes-mariadb-12.1-rolling-releases](release-notes-mariadb-12.1-rolling-releases/)
+{% content-ref url="12.1/" %}
+[12.1](12.1/)
 {% endcontent-ref %}
 
-{% content-ref url="release-notes-mariadb-12.0-rolling-releases/" %}
-[release-notes-mariadb-12.0-rolling-releases](release-notes-mariadb-12.0-rolling-releases/)
+{% content-ref url="12.0/" %}
+[12.0](12.0/)
 {% endcontent-ref %}
 
-{% content-ref url="mariadb-11-8-series/" %}
-[mariadb-11-8-series](mariadb-11-8-series/)
+{% content-ref url="11.8/" %}
+[11.8](11.8/)
 {% endcontent-ref %}
 
-{% content-ref url="mariadb-11-4-series/" %}
-[mariadb-11-4-series](mariadb-11-4-series/)
+{% content-ref url="11.4/" %}
+[11.4](11.4/)
 {% endcontent-ref %}
 
-{% content-ref url="mariadb-10-11-series/" %}
-[mariadb-10-11-series](mariadb-10-11-series/)
+{% content-ref url="10.11/" %}
+[10.11](10.11/)
 {% endcontent-ref %}
 
-{% content-ref url="mariadb-10-6-series/" %}
-[mariadb-10-6-series](mariadb-10-6-series/)
+{% content-ref url="10.6/" %}
+[10.6](10.6/)
 {% endcontent-ref %}
 
 {% content-ref url="old-releases/" %}

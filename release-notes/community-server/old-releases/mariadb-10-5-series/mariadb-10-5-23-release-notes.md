@@ -156,7 +156,7 @@ Thanks, and enjoy MariaDB!
 
 ### Docker Official Images
 
-* Invert single and double quotes for sql command definitions in [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) due to failure under [sql\_mode=ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode#ansi_quotes) - contribution by Dominik Häckel
+* Invert single and double quotes for sql command definitions in [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) due to failure under [sql\_mode=ANSI\_QUOTES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode#ansi_quotes) - contribution by Dominik Häckel
 * [healthcheck.sh](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh) --no-defaults behaviour was corrected - reported by Dominik Häckel
 * Added /docker-entrypoint-init.d for tar{,compression} from [mariadb-backup](../../../mariadb-community-server-release-notes/mariadb-10-5-series/broken-reference/) - [instructions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/docker-official-image-frequently-asked-questions#how-do-i-create-a-mariadb-backup-of-the-data)
 * Refactor `docker_mariadb_init` in the entrypoint for extending the MariaDB image

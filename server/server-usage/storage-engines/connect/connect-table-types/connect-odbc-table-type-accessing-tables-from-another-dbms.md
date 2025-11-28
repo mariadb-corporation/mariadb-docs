@@ -69,7 +69,7 @@ CONNECTION='DSN=firebird';
 
 This definition ignores the FIRST\_NAME, LAST\_NAME, JOB\_CODE, and JOB\_GRADE\
 columns. It places the FULL\_NAME last column of the original table in second\
-position. The type of the HIRE\_DATE column was changed from _timestamp_ t&#x6F;_&#x64;ate_ and the type of the DEPT\_NO column was changed from _char_ t&#x6F;_&#x69;nteger_.
+position. The type of the HIRE\_DATE column was changed from _timestamp_ t&#x6F;_date_ and the type of the DEPT\_NO column was changed from _char_ t&#x6F;_integer_.
 
 Currently, some restrictions apply to ODBC tables:
 
@@ -120,7 +120,7 @@ CREATE TABLE Custfix ENGINE=CONNECT File_name='customer.txt'
   table_type=fix block_size=20 AS SELECT * FROM customer;
 ```
 
-Now you can use _custfix_ for fast database operations on the copie&#x64;_&#x63;ustomer_ table data.
+Now you can use _custfix_ for fast database operations on the copied_customer_ table data.
 
 ## Retrieving data from a spreadsheet
 
@@ -179,7 +179,7 @@ CONNECTION='DSN=Excel Files;DBQ=D:/Ber/CA/CA2004*.xls;';
 ```
 
 Providing that in each file the applying information is internally set for\
-Excel as a table named "bank account". This extension to ODBC does not suppor&#x74;_&#x6D;ultiple_=2. The _qchar_ option was specified to make the identifiers\
+Excel as a table named "bank account". This extension to ODBC does not support_&#x6D;ultiple_=2. The _qchar_ option was specified to make the identifiers\
 quoted in the select statement sent to ODBC, in particular the when the table\
 or column names contain blanks, to avoid SQL syntax errors.
 

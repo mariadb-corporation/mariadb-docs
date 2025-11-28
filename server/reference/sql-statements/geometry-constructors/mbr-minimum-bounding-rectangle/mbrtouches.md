@@ -1,3 +1,9 @@
+---
+description: >-
+  Check if two MBRs touch. Returns 1 if the MBRs intersect only at their
+  boundaries and do not share any interior points.
+---
+
 # MBRTouches
 
 ## Syntax
@@ -41,6 +47,6 @@ SELECT mbrtouches(@g1,@g2);
 +---------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

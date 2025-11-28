@@ -1,3 +1,7 @@
+---
+description: LONG VARBINARY is a compatibility synonym for the MEDIUMBLOB binary data type.
+---
+
 # LONG VARBINARY
 
 ## Overview

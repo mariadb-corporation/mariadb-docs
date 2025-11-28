@@ -13,7 +13,7 @@ You can load data using the [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDF
 
 ## Batch Insert Mode
 
-![ECStoreDataLoadingS3FlowChart](<../../../.gitbook/assets/ecstoredataloadings3flowchart (1) (1).png>)
+![ECStoreDataLoadingS3FlowChart](<../../../.gitbook/assets/ecstoredataloadings3flowchart (1).png>)
 
 MariaDB Enterprise ColumnStore enables batch insert mode by default.
 

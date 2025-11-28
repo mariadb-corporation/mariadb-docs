@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore Galera functions in MariaDB Server. This section details special SQL
-  functions for monitoring and managing Galera Cluster, essential for high
-  availability and distributed database operations.
+  Interact with the Galera Cluster plugin. These functions provide internal
+  status information and control mechanisms specific to synchronous multi-master
+  replication nodes.
 ---
 
 # Galera Functions

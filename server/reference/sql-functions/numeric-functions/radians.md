@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert degrees to radians. This function transforms an angle measured in
+  degrees to its equivalent in radians.
+---
+
 # RADIANS
 
 ## Syntax

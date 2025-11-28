@@ -12,7 +12,7 @@ The client tool is called `mysqlaccess`.
 {% endtab %}
 {% endtabs %}
 
-It checks the access privileges for a host name, user name, and database combination.&#x20;
+It checks the access privileges for a host name, user name, and database combination. 
 
 {% hint style="info" %}
 mariadb-access checks access using only the [user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md), [db](../../reference/system-tables/the-mysql-database-tables/mysql-db-table.md), and host tables. It does not check table, column, or routine privileges specified in the [tables\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-tables_priv-table.md), [columns\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-columns_priv-table.md), or [procs\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-procs_priv-table.md) tables.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a LineString value from a number of Point values. It creates a
+  linear geometry connecting the specified coordinate points.
+---
+
 # LINESTRING
 
 ## Syntax

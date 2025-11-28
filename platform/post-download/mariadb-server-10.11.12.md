@@ -24,7 +24,7 @@ noIndex: true
 * The prior release in this series was MariaDB 10.11.11, released on 4 Feb 2025
 * This release (MariaDB 10.11.12) was released on 6 May 2025
 
-{% include "../../mariadb-platform/.gitbook/includes/most-recent-10.11.md" %}
+{% include "../.gitbook/includes/most-recent-10.11.md" %}
 
 ## Useful Resources
 

@@ -122,7 +122,7 @@ New [reserved words](../../../../reference/sql-structure/sql-language-structure/
 
 #### SQL Mode
 
-[SQL\_MODE](../../../variables-and-modes/sql-mode.md) has been changed; in particular, NOT NULL fields with no default will no longer fall back to a dummy value for inserts which do not specify a value for that field.
+[SQL\_MODE](../../../variables-and-modes/sql_mode.md) has been changed; in particular, NOT NULL fields with no default will no longer fall back to a dummy value for inserts which do not specify a value for that field.
 
 #### Auto\_increment
 

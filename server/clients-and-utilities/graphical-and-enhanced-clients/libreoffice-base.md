@@ -11,7 +11,7 @@ This includes
 * downloading [the latest MariaDB Connector/ODBC](https://mariadb.com/downloads/#connectors),
 * copying the shared library libmaodbc.so to /usr/lib/\[multi-arch],
 * installing the unixodbc, unixodbc-dev, openssh-client, odbcinst packages, and
-* creating a template file for the [ODBC driver](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc/creating-a-data-source-with-mariadb-connectorodbc#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux).&#x20;
+* creating a template file for the [ODBC driver](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc/creating-a-data-source-with-mariadb-connectorodbc#configuring-mariadb-connectorodbc-as-a-unixodbc-driver-on-linux). 
 * Install the ODBC driver from the template file by running:
 
 ```bash

@@ -1,3 +1,9 @@
+---
+description: >-
+  Extract the year. This function returns the year portion of a date as a number
+  from 1000 to 9999.
+---
+
 # YEAR
 
 ## Syntax

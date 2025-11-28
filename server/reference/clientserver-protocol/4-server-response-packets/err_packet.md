@@ -1,3 +1,9 @@
+---
+description: >-
+  The ERR_Packet is sent by the server to report an error, containing a numeric
+  error code, SQL state marker, and a human-readable error message.
+---
+
 # ERR\_Packet
 
 `ERR_Packet` indicates that an error occurred.

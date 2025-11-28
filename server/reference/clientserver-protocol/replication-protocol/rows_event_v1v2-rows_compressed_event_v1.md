@@ -1,3 +1,9 @@
+---
+description: >-
+  These events record row-level changes (WRITE, UPDATE, DELETE) for replication,
+  with versions supporting different column counts and compression.
+---
+
 # ROWS\_EVENT\_V1/V2, ROWS\_COMPRESSED\_EVENT\_V1
 
 A `ROWS_EVENT_V1` is written for row-based replication if data is inserted, deleted or updated.

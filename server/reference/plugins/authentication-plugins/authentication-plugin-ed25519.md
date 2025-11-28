@@ -1,3 +1,10 @@
+---
+description: >-
+  The ed25519 authentication plugin provides high-security password
+  authentication using the Elliptic Curve Digital Signature Algorithm, a modern
+  alternative to SHA-1.
+---
+
 # Authentication Plugin - ed25519
 
 MySQL has used SHA-1 based authentication since version 4.1. The authentication plugin is called [mysql\_native\_password](authentication-plugin-mysql_native_password.md). Over the years as computers became faster, new attacks on SHA-1 were being developed. Nowadays SHA-1 is no longer considered as secure as it was in 2001. That's why the `ed25519` authentication plugin was created.
@@ -40,7 +47,7 @@ You can create a user account by executing the [CREATE USER](../../sql-statement
 CREATE USER username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, then you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA ed25519 USING PASSWORD('secret');
@@ -72,7 +79,7 @@ CREATE USER username@hostname IDENTIFIED VIA ed25519
   USING 'ZIgUREUg5PVgQ6LskhXmO+eZLS0nC8be6HPjYWR4YJY';
 ```
 
-If [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) does not have `NO_AUTO_CREATE_USER` set, you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
+If [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) does not have `NO_AUTO_CREATE_USER` set, you can also create the user account via [GRANT](../../sql-statements/account-management-sql-statements/grant.md):
 
 ```sql
 GRANT SELECT ON db.* TO username@hostname IDENTIFIED VIA ed25519 

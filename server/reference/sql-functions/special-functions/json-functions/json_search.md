@@ -1,3 +1,9 @@
+---
+description: >-
+  Search for a value in a JSON document. This function returns the path to the
+  given string within a JSON document.
+---
+
 # JSON\_SEARCH
 
 ## Syntax

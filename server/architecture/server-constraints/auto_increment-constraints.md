@@ -141,7 +141,7 @@ AND invoice_date = '2020-05-10 12:35:10';
 
 ### Specifying the Column's Value as 0
 
-If the column's value is specified as 0, then InnoDB will automatically generate the value if the [sql\_mode](../../server-management/variables-and-modes/sql-mode.md) system variable does not contain `NO_AUTO_VALUE_ON_ZERO`.
+If the column's value is specified as 0, then InnoDB will automatically generate the value if the [sql\_mode](../../server-management/variables-and-modes/sql_mode.md) system variable does not contain `NO_AUTO_VALUE_ON_ZERO`.
 
 Let's insert a row into the table created in the [Creating an InnoDB Table with an AUTO\_INCREMENT Column](auto_increment-constraints.md#creating-an-innodb-table-with-an-auto_increment-column) section:
 

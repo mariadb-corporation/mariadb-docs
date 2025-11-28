@@ -1,4 +1,10 @@
-# USE
+---
+description: >-
+  Selects the default database for the current session. Subsequent queries
+  execute against this database unless explicitly qualified by name.
+---
+
+# USE \[DATABASE]
 
 ## Syntax
 
@@ -8,7 +14,7 @@ USE db_name
 
 ## Description
 
-The `'USE db_name'` statement tells MariaDB to use the`db_name` database as the default (current) database forsubsequent statements. The database remains the default until the end of thesession or another `USE` statement is issued:
+The `'USE db_name'` statement tells MariaDB to use the `db_name` database as the default (current) database for subsequent statements. The database remains the default until the end of the session, or until another `USE` statement is issued:
 
 ```sql
 USE db1;
@@ -19,7 +25,11 @@ SELECT COUNT(*) FROM mytable;   # selects FROM db2.mytable
 
 The [DATABASE()](../../sql-functions/secondary-functions/information-functions/database.md) function ([SCHEMA()](../../sql-functions/secondary-functions/information-functions/schema.md) is a synonym) returns the default database.
 
-Another way to set the default database is specifying its name at [mariadb](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) command line client startup.
+Another way to set the default database is by specifying its name when starting the [mariadb](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) command line client:
+
+```
+mariadb db1    # starts the mariadb command-line client with db1 as the current database
+```
 
 One cannot use `USE` to a database one has no privileges to. The reason is thata user with no privileges to a database should not be able to know if a database exists or not.
 

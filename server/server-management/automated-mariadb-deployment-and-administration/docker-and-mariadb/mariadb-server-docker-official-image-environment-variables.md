@@ -14,7 +14,7 @@ This specifies the password that will be set for the MariaDB root superuser acco
 
 ### `MARIADB_ALLOW_EMPTY_ROOT_PASSWORD / MYSQL_ALLOW_EMPTY_PASSWORD`
 
-Set to a non-empty value, like `1`, to allow the container to be started with a blank password for the root user.&#x20;
+Set to a non-empty value, like `1`, to allow the container to be started with a blank password for the root user. 
 
 {% hint style="warning" %}
 Setting this variable to yes is not recommended unless you really know what you are doing, since this will leave your MariaDB instance completely unprotected, allowing anyone to gain complete superuser access.

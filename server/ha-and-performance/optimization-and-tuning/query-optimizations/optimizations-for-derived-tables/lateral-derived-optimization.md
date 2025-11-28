@@ -102,7 +102,7 @@ SET optimizer_switch='split_materialized=off'
 
 {% tabs %}
 {% tab title="Current" %}
-From MariaDB 12.1, it is possible to enable or disable the optimization with an optimizer hint, [SPLIT\_MATERLIZED or NO\_SPLIT\_MATERIALIZED](../../../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md#split_materialized-x-and-no_split_materialized-x).
+From MariaDB 12.1, it is possible to enable or disable the optimization with an optimizer hint, [SPLIT\_MATERLIZED or NO\_SPLIT\_MATERIALIZED](../../optimizer-hints/#split_materialized-x-and-no_split_materialized-x).
 
 For example, by default, this table and query makes use of the optimization:
 
@@ -194,7 +194,7 @@ possible_keys: c1
 {% endtab %}
 
 {% tab title="<12.1" %}
-No [optimizer hint](../../../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md) is available.
+No [optimizer hint](../../optimizer-hints/) is available.
 {% endtab %}
 {% endtabs %}
 

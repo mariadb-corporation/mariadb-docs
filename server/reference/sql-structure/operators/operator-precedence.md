@@ -35,9 +35,9 @@ The following list shows the SQL operator precedence. **Operators that appear fi
 Functions precedence is always higher than operators precedence.
 {% endhint %}
 
-If the `HIGH_NOT_PRECEDENCE` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) is set, `NOT` has the same precedence as `!`.
+If the `HIGH_NOT_PRECEDENCE` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) is set, `NOT` has the same precedence as `!`.
 
-The `||` operator's precedence, as well as its meaning, depends on the `PIPES_AS_CONCAT` [SQL\_MODE](../../../server-management/variables-and-modes/sql-mode.md) flag: if it is on, `||` can be used to concatenate strings (like the [CONCAT()](../../sql-functions/string-functions/concat.md) function) and has a higher precedence.
+The `||` operator's precedence, as well as its meaning, depends on the `PIPES_AS_CONCAT` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag: if it is on, `||` can be used to concatenate strings (like the [CONCAT()](../../sql-functions/string-functions/concat.md) function) and has a higher precedence.
 
 The `=` operator's precedence depends on the context - it is higher when `=` is used as a comparison operator.
 

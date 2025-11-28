@@ -1,3 +1,9 @@
+---
+description: >-
+  List tables in a database. This statement displays the names of all
+  non-temporary tables in the current or specified database.
+---
+
 # SHOW TABLES
 
 ## Syntax

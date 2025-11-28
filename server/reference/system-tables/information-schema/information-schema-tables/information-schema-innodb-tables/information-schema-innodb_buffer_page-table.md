@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_BUFFER_PAGE table contains detailed information
+  about each page currently in the InnoDB buffer pool.
+---
+
 # Information Schema INNODB\_BUFFER\_PAGE Table
 
 The [Information Schema](../../) `INNODB_BUFFER_PAGE` table contains information about pages in the [buffer pool](../../../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md).

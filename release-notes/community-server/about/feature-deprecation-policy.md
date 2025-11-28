@@ -1,4 +1,4 @@
-# MariaDB Feature Deprecation Policy
+# Feature Deprecation Policy
 
 From time to time some features in MariaDB will be marked something as deprecated. This is done to warn MariaDB users that the feature is likely to disappear in some upcoming major version and give them time to adapt to the change.
 
@@ -24,7 +24,7 @@ Typical things that are deprecated:
 We do our best to ensure that upgrading to a new major version of MariaDB is as smooth and uneventful as possible. This means that we go to great lengths to keep things compatibility, even when removing deprecated features:
 
 * MariaDB server will keep old startup variables around even after they are removed (deprecation has taken effect). Assigning a value to a removed variable will produce a warning in the error log.
-* Some removed features/behavior that we know is still important for some users, we still keep available behind a dedicated [old-mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old-mode) option, which will give it at least 5 more years until disappearance.
+* Some removed features/behavior that we know is still important for some users, we still keep available behind a dedicated [old-mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/old_mode) option, which will give it at least 5 more years until disappearance.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
 

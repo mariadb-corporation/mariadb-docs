@@ -1,3 +1,9 @@
+---
+description: >-
+  Check who holds a named lock. This function returns the connection identifier
+  of the client holding the lock, or NULL if the lock is free.
+---
+
 # IS\_USED\_LOCK
 
 ## Syntax

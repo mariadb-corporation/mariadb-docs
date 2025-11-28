@@ -6,13 +6,13 @@ These instructions detail the **upgrade** from a previous version of **MariaDB E
 
 When MariaDB Enterprise Server is upgraded, the old version needs to be uninstalled, and the new version needs to be installed.
 
-See [What's New in MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-11-8/whats-new-in-mariadb-enterprise-server-11-8).
+See [What's New in MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8).
 
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup before upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.
 
-The instructions below show how to perform a backup using [MariaDB Backup](../../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md). For more information about backing up and restoring the database, please see the [Recovery Guide](../../../upgrading/upgrades/broken-reference/).
+The instructions below show how to perform a backup using [MariaDB Backup](../../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md). For more information about backing up and restoring the database, please see the [Recovery Guide](../../../../../server-usage/backup-and-restore/).
 
 1\. Take a full backup. On MariaDB Enterprise Server 11.8 and later:
 

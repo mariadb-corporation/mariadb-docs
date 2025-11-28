@@ -1,12 +1,12 @@
 # MariaDB 11.7.2 Release Notes
 
-<a href="https://downloads.mariadb.org/mariadb/11.7.2/" class="button primary">Download</a> <a href="mariadb-11-7-2-release-notes.md" class="button secondary">Release Notes</a> <a href="../../changelogs/changelogs-mariadb-11-7-series/mariadb-11-7-2-changelog.md" class="button secondary">Changelog</a> <a href="what-is-mariadb-117.md" class="button secondary">Overview of 11.7</a>
+<a href="https://downloads.mariadb.org/mariadb/11.7.2/" class="button primary">Download</a> <a href="mariadb-11-7-2-release-notes.md" class="button secondary">Release Notes</a> <a href="../../changelogs/11.7/mariadb-11-7-2-changelog.md" class="button secondary">Changelog</a> <a href="what-is-mariadb-117.md" class="button secondary">Overview of 11.7</a>
 
 **Release date:** 13 Feb 2025
 
 [MariaDB 11.7.2](mariadb-11-7-2-release-notes.md) is a [_**Stable (GA)**_](../../about/release-criteria.md) release. It is an evolution of [MariaDB 11.6](../release-notes-mariadb-11-6-rolling-releases/what-is-mariadb-116.md) with several entirely new features.
 
-[MariaDB 11.7](what-is-mariadb-117.md) is a [rolling release](../../about/release-model.md). One is expected to upgrade to [MariaDB 11.8.2](../../mariadb-11-8-series/mariadb-11-8-2-release-notes.md), there will be no 11.7.3.
+[MariaDB 11.7](what-is-mariadb-117.md) is a [rolling release](../../about/release-model.md). One is expected to upgrade to [MariaDB 11.8.2](../../11.8/11.8.2.md), there will be no 11.7.3.
 
 Thanks, and enjoy MariaDB!
 
@@ -141,7 +141,7 @@ Thanks, and enjoy MariaDB!
 ## Changelog
 
 For a complete list of changes made in [MariaDB 11.7.2](mariadb-11-7-2-release-notes.md), with links to detailed\
-information on each push, see the [changelog](../../changelogs/changelogs-mariadb-11-7-series/mariadb-11-7-2-changelog.md).
+information on each push, see the [changelog](../../changelogs/11.7/mariadb-11-7-2-changelog.md).
 
 ## Contributors
 

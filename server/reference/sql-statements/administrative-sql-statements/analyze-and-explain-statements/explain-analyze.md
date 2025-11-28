@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand the historical context of EXPLAIN ANALYZE in MariaDB. Learn how
+  this syntax maps to the modern ANALYZE statement for profiling query
+  execution.
+---
+
 # EXPLAIN ANALYZE
 
 {% hint style="warning" %}

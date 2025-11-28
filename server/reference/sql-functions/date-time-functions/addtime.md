@@ -1,3 +1,9 @@
+---
+description: >-
+  Add a time value to a date or time expression. This function sums two time
+  arguments, returning a new time or datetime result.
+---
+
 # ADDTIME
 
 ## Syntax

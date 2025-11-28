@@ -1,3 +1,9 @@
+---
+description: >-
+  The ps_is_thread_instrumented function checks whether a specific thread ID is
+  currently instrumented by the Performance Schema.
+---
+
 # ps\_is\_thread\_instrumented
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  Essential guide to modifying table structures: add, drop, or change columns;
+  manage indexes and default values; and rename tables. Includes key precautions
+  for all database operations.
+---
+
 # Altering Tables Guide
 
 This guide provides essential instructions for modifying existing table structures. Learn how to add, drop, and change columns, manage indexes and default values, and rename tables, along with key precautions for these operations when working with your database.

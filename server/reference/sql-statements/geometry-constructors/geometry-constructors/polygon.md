@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a Polygon value from a list of WKB LineString arguments. It defines
+  a filled shape using an outer ring and optional inner rings (holes).
+---
+
 # POLYGON
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Acquire a named user-level lock. This function attempts to obtain a lock with
+  a specified name and timeout, returning 1 on success or 0 on timeout.
+---
+
 # GET\_LOCK
 
 ## Syntax

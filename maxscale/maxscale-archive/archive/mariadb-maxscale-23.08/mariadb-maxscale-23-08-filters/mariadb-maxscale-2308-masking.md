@@ -189,7 +189,7 @@ The masking filter has one mandatory parameter - `rules`.
 
 Specifies the path of the file where the masking rules are stored.\
 A relative path is interpreted relative to the _module configuration directory_\
-of MariaDB MaxScale. The default module configuration directory i&#x73;_/etc/maxscale.modules.d_.
+of MariaDB MaxScale. The default module configuration directory is_/etc/maxscale.modules.d_.
 
 ```
 rules=/path/to/rules-file

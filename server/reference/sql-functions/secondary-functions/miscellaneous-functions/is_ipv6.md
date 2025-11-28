@@ -1,3 +1,9 @@
+---
+description: >-
+  Check validity of an IPv6 address. This function returns 1 if the argument is
+  a valid IPv6 address string, and 0 otherwise.
+---
+
 # IS\_IPV6
 
 ## Syntax

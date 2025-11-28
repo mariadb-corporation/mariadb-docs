@@ -57,7 +57,7 @@ monitor_interval=2500ms
 ```
 
 The servers _cluster-1_, _cluster-2_ and _cluster-3_ are the unique Aurora\
-endpoints configured as MaxScale servers. The monitor will use th&#x65;_&#x61;urora_:_borealis_ credentials to connect to each of the endpoint. The status\
+endpoints configured as MaxScale servers. The monitor will use the_aurora_:_borealis_ credentials to connect to each of the endpoint. The status\
 of the nodes is inspected every 2500 milliseconds.
 
 CC BY-SA / Gnu FDL

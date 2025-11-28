@@ -1,6 +1,12 @@
+---
+description: >-
+  Truncate a number. This function truncates a number to a specified number of
+  decimal places.
+---
+
 # TRUNCATE
 
-This page documents the TRUNCATE function. See [TRUNCATE TABLE](../../sql-statements/table-statements/truncate-table.md) for the DDL statement.
+This page documents the `TRUNCATE` function. See [TRUNCATE TABLE](../../sql-statements/table-statements/truncate-table.md) for the DDL statement.
 
 ## Syntax
 
