@@ -575,7 +575,7 @@ Defines the hostname for the MariaDB Server you want to backup.
 --host=name
 ```
 
-Using this option, you can define the hostname or IP address to use when connecting to a local MariaDB Server over TCP/IP. By default, `mariadb-backup` attempts to connect to the ```localhost```.
+Using this option, you can define the hostname or IP address to use when connecting to a local MariaDB Server over TCP/IP. By default, `mariadb-backup` attempts to connect to `localhost`.
 
 Warning: No Remote Backups. This option does not allow you to back up a remote server. mariabackup must be run on the same server where the database files reside.
 The --host option is used only to establish the client connection for managing locks and retrieving metadata. The actual data files are always read from the local filesystem.
