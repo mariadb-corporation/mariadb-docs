@@ -26,7 +26,7 @@ Originally developed by [MariaDB](http://mariadb.com), MariaDB Cloud is aimed to
 
 MariaDB Cloud provides MariaDB and MySQL-compatible workloads with enterprise-grade and production-ready features:
 
-* [Serverless deployment for instant autoscaling](/broken/pages/2f8309cd1ade6dd99c4b2c7f84947db5a7fc09ac)
+* [Serverless deployment for instant autoscaling](about/serverless.md#intelligent-scaling)
 * [Integrated AI agents for database interaction](cloud-ai/copilot-guide.md)
 * [Automated complex database configurations](cloud-management/config/)
 * [Cloud-native capabilities with auto-scaling](cloud-management/autonomously-scale-compute-storage.md)
@@ -52,6 +52,7 @@ So you can:
 * Security by design
 * Purpose-built monitoring
 * Adapt to any workload
+*
 
 ```mermaid
 ---
