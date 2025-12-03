@@ -12,6 +12,7 @@ MariaDB Cloud supports MaxScale Redundancy as an option at time of launch:
 ## Compatibility
 
 * Replicated Transactions
+https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference
 
 ## Enable MaxScale Redundancy
 
