@@ -245,6 +245,110 @@ This hint is available from MariaDB 12.1.
 
 An index-level hint that enables or disables the specified indexes, for all scopes (join access method, GROUP BY, or sorting). Equivalent to `FORCE INDEX` and `IGNORE INDEX`.
 
+### INDEX\_MERGE and NO\_INDEX\_MERGE
+
+{% hint style="info" %}
+This hint is available from MariaDB 12.2.
+{% endhint %}
+
+The `INDEX_MERGE` and `NO_INDEX_MERGE` optimizer hints provide granular control over the optimizer's use of index merge strategies. They allow users to override the optimizer's cost-based calculations and global switch settings, to force or prevent the merging of indexes for specific tables.
+
+#### Syntax
+
+```sql
+/*+ INDEX_MERGE(table_name [index_name, ...]) */
+/*+ NO_INDEX_MERGE(table_name [index_name, ...]) */
+```
+
+#### Behavior
+
+The hints operate by modifying the set of keys the optimizer considers for merge operations. The specific behavior depends on whether specific index keys are provided within the hint.
+
+#### **INDEX\_MERGE Hint**
+
+This hint instructs the optimizer to employ an index merge strategy.
+
+* Without arguments: When specified as `INDEX_MERGE(tbl)`, the optimizer considers all available keys for that table and selects the cheapest index merge combination.
+* With specific keys: When specified with keys, for instance, `INDEX_MERGE(tbl key1, key2)`, the optimizer considers only the listed keys for the merge operation. All other keys are excluded from consideration for index merging.
+
+{% hint style="info" %}
+The `INDEX_MERGE` hint overrides the global [optimizer\_switch](../query-optimizations/optimizer-switch.md). Even if a specific strategy (such as [index\_merge\_intersection](../query-optimizations/index_merge-sort_intersection.md)) is disabled globally, the hint forces the optimizer to attempt the strategy using the specified keys.
+{% endhint %}
+
+#### **NO\_INDEX\_MERGE Hint**
+
+This hint instructs the optimizer to avoid index merge strategies.
+
+* Without arguments: When specified as `NO_INDEX_MERGE(tbl)`, index merge optimizations are completely disabled for the specified table.
+* With specific keys: When specified with keys, for instance, `NO_INDEX_MERGE(tbl key1)`, the listed keys are excluded from consideration. The optimizer may still perform a merge using other available keys. However, if excluding the listed keys leaves insufficient row-ordered retrieval (ROR) scans available, no merge is performed.
+
+#### Algorithm Selection and Limitations
+
+While these hints control which keys are candidates for merging, they do not directly dictate the specific merge algorithm (Intersection, Union, or Sort-Union).
+
+* Indirect Control: You can influence the strategy indirectly by combining these hints with [optimizer\_switch](../query-optimizations/optimizer-switch.md) settings, but specific algorithm selection is not guaranteed.
+* Invalid Hints: If a hint directs the optimizer to use specific indexes, but those indexes do not provide sufficient ROR scans to form a valid plan, the server is unable to honor the hint. in this scenario, the server emits a warning.
+
+#### Examples
+
+In the following examples, the [index\_merge\_intersection](../query-optimizations/index_merge-sort_intersection.md) switch is globally disabled. However, the `INDEX_MERGE` hint forces the optimizer to consider specific keys (`f2` and `f4`), resulting in an intersection strategy.
+
+You can see that we disable intersection with `NO_INDEX_MERGE` for the following query and the behavior reflects in the [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) output.  The query after that shows with the hint enabling merge–an intersection of `f3,f4` is used.  In the last example, a different intersection is used: `f3,PRIMARY`.
+
+No intersection (no merged indexes):
+
+```sql
+MariaDB [test]> EXPLAIN SELECT /*+ NO_INDEX_MERGE(t1 f2, f4, f3) */ COUNT(*) FROM t1 WHERE f4 = 'h' AND f3 = 'b' AND f5 = 'i'\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: t1
+         type: ref
+possible_keys: PRIMARY,f3,f4
+          key: f3
+      key_len: 9
+          ref: const,const
+         rows: 1
+        Extra: Using index condition; Using where
+1 row in set (0.009 sec)
+```
+
+Intersection of keys `f3, f4`:
+
+```sql
+MariaDB [test]> EXPLAIN SELECT /*+ INDEX_MERGE(t1 f2, f4, f3) */ COUNT(*) FROM t1 WHERE f4 = 'h' AND f3 = 'b' AND f5 = 'i'\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: t1
+         type: index_merge
+possible_keys: PRIMARY,f3,f4
+          key: f3,f4
+      key_len: 9,9
+          ref: NULL
+         rows: 1
+        Extra: Using intersect(f3,f4); Using where; Using index
+1 row in set (0.010 sec)
+```
+
+Intersection of keys `PRIMARY, f3`:
+
+```sql
+MariaDB [test]> EXPLAIN SELECT COUNT(*) FROM t1 WHERE f4 = 'h' AND f3 = 'b' AND f5 = 'i'\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: t1
+         type: index_merge
+possible_keys: PRIMARY,f3,f4
+          key: f3,PRIMARY
+      key_len: 9,4
+          ref: NULL
+         rows: 1
+        Extra: Using intersect(f3,PRIMARY); Using where
+1 row in set (0.006 sec)
+```
+
 ### **NO\_RANGE\_OPTIMIZATION**
 
 {% hint style="info" %}

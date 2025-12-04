@@ -1,3 +1,10 @@
+---
+description: >-
+  A Stored Function is a set of SQL statements that can be called by name,
+  accepts parameters, and returns a single value, enhancing SQL with custom
+  logic.
+---
+
 # Stored Function Overview
 
 A Stored Function is a defined function that is called from within an SQL statement like a regular function and returns a single value.

@@ -1,8 +1,10 @@
+---
+description: >-
+  The AWS KMS Encryption Plugin (aws_key_management) integrates with Amazon Web
+  Services (AWS) KMS
+---
+
 # Understanding the Amazon Web Services (AWS) KMS Encryption Plugin
-
-## Overview
-
-The AWS KMS Encryption Plugin (aws\_key\_management) integrates with Amazon Web Services (AWS) KMS.
 
 ## When to Use the AWS KMS Encryption Plugin?
 
@@ -18,6 +20,6 @@ The AWS KMS Encryption Plugin (aws\_key\_management) allows you to:
 
 Additional information is available [here](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin).
 
-<sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
+{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
 {% @marketo/form formid="4316" formId="4316" %}

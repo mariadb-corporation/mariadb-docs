@@ -1,3 +1,9 @@
+---
+description: >-
+  This page lists the system variables available for configuring InnoDB's
+  behavior, performance, buffers, and logs.
+---
+
 # InnoDB System Variables
 
 This page documents system variables related to the [InnoDB storage engine](./). For options that are not system variables, see [InnoDB Options](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md).

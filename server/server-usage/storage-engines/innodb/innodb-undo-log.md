@@ -1,3 +1,9 @@
+---
+description: >-
+  The undo log stores the "before" image of data modified by active
+  transactions, supporting rollbacks and consistent read views.
+---
+
 # InnoDB Undo Log
 
 ## Overview
@@ -8,9 +14,9 @@ When a [transaction](../../../reference/sql-statements/transactions/) writes dat
 
 Before a row is modified, a diff is copied into the undo log. Each normal row contains a pointer to the most recent version of the same row in the undo log. Each row in the undo log contains a pointer to previous version, if any. So, each modified row has a history chain.
 
-Rows are never physically deleted until a transaction ends. If they were deleted, the restore in ROLLBACK would be impossible. Thus, rows are simply marked for deletion.
+Rows are never physically deleted until a transaction ends. If they were deleted, the restore in `ROLLBACK` would be impossible. Thus, rows are simply marked for deletion.
 
-Each transaction uses a _view_ of the records. The [transaction isolation level](../../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) determines how this view is created. For example, READ UNCOMMITTED usually uses the current version of rows, even if they are not committed (_dirty reads_). Other isolation levels require that the most recent committed version of rows is searched in the undo log. READ COMMITTED uses a different view for each table, while REPEATABLE READ and SERIALIZABLE use the same view for all tables.
+Each transaction uses a _view_ of the records. The [transaction isolation level](../../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) determines how this view is created. For example, `READ UNCOMMITTED` usually uses the current version of rows, even if they are not committed (_dirty reads_). Other isolation levels require that the most recent committed version of rows is searched in the undo log. `READ` `COMMITTED` uses a different view for each table, while `REPEATABLE READ` and `SERIALIZABLE` use the same view for all tables.
 
 There is also a global history list of the data. When a transaction is committed, its history is added to this history list. The order of the list is the chronological order of the commits.
 

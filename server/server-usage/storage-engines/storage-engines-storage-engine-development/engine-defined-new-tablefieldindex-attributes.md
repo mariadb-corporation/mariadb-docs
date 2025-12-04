@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how storage engines can declare and handle custom attributes for tables,
+  fields, and indexes, enhancing schema definitions.
+---
+
 # Engine-defined New Table/Field/Index Attributes
 
 In MariaDB, a storage engine can allow the user to specify additional attributes per index, field, or table. The engine needs to declare what attributes it introduces.

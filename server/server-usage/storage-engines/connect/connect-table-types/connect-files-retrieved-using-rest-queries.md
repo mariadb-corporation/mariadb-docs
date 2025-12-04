@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT - Files Retrieved Using Rest Queries
 
 {% hint style="warning" %}

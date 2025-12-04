@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT JSON Table Type
 
 {% hint style="warning" %}

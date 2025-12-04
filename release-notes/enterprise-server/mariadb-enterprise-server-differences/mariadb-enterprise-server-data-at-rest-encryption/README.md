@@ -32,3 +32,7 @@ description: Data-at-rest encryption secures data on the file system.
 | [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) Gcache | [Encrypting Galera Cluster's Gcache](encrypting-galera-clusters-gcache.md)                                                                                   |
 
 Additional information is available on the [Data-at-Rest Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption) page.
+
+{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+
+{% @marketo/form formid="4316" formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about the background processes that flush dirty pages from the buffer
+  pool to disk, including adaptive flushing algorithms to optimize I/O.
+---
+
 # InnoDB Page Flushing
 
 ## Page Flushing with InnoDB Page Cleaner Threads

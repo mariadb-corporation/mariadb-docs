@@ -1,3 +1,9 @@
+---
+description: >-
+  A comprehensive reference for MyRocks system variables, allowing fine-tuning
+  of performance, memory usage, compaction, and other internal behaviors.
+---
+
 # MyRocks System Variables
 
 This page documents system variables related to the [MyRocks](./) storage engine. See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for a complete list of system variables and instructions on setting them.

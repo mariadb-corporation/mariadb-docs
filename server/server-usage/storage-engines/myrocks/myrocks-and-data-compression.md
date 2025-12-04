@@ -1,4 +1,10 @@
-# Data Compression
+---
+description: >-
+  Explore the data compression options available in MyRocks, including different
+  algorithms (Zstd, LZ4, etc.) and how to configure them per column family.
+---
+
+# MyRocks Data Compression
 
 MyRocks supports several compression algorithms.
 

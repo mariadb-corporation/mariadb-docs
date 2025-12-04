@@ -1,3 +1,9 @@
+---
+description: >-
+  Frequently asked questions about developing storage engines for MariaDB,
+  covering API compatibility with MySQL and recompilation requirements.
+---
+
 # Storage Engine FAQ
 
 ### Are storage engines designed for MySQL compatible with MariaDB?

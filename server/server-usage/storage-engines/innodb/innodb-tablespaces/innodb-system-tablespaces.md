@@ -1,3 +1,9 @@
+---
+description: >-
+  This page explains the InnoDB system tablespace (ibdata1), which stores the
+  data dictionary, doublewrite buffer, and undo logs, and how to resize it.
+---
+
 # InnoDB System Tablespaces
 
 When InnoDB needs to store general information relating to the system as a whole, rather than a specific table, the specific file it writes to is the system tablespace. By default, this is the `ibdata1` file located in the data directory, (as defined by either the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) or [innodb\_data\_home\_dir](../innodb-system-variables.md#innodb_data_home_dir) system variables). InnoDB uses the system tablespace to store the data dictionary, change buffer, and undo logs.

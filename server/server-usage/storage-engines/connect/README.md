@@ -1,8 +1,5 @@
 ---
-description: >-
-  Explore the CONNECT storage engine in MariaDB Server. Learn how to access
-  various data sources, including files and remote databases, directly from your
-  MariaDB instance.
+description: The CONNECT storage engine has been deprecated.
 ---
 
 # CONNECT
@@ -36,6 +33,6 @@ data (MED). This is done by defining tables based on different data types, in\
 particular files in various formats, data extracted from other DBMS or products\
 (such as Excel or MongoDB) via ODBC or JDBC, or data retrieved from the environment (for example DIR, WMI, and MAC tables)
 
-This storage engine supports table partitioning, MariaDB virtual columns and permits defining_special_ columns such as ROWID, FILEID, and SERVID.
+This storage engine supports table partitioning, MariaDB virtual columns and permits defining\_special\_ columns such as ROWID, FILEID, and SERVID.
 
 No precise definition of maturity exists. Because CONNECT handles many table types, each type has a different maturity depending on whether it is old and well-tested, less well-tested or newly implemented. This is indicated for all data types.

@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT - NoSQL Table Types
 
 {% hint style="warning" %}

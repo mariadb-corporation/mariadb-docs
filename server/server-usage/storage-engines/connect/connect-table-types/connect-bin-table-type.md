@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT BIN Table Type
 
 {% hint style="warning" %}

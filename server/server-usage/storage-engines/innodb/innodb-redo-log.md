@@ -1,3 +1,9 @@
+---
+description: >-
+  The redo log is a disk-based transaction log used during crash recovery to
+  replay incomplete transactions and ensure data durability.
+---
+
 # InnoDB Redo Log
 
 Directly editing or moving the redo logs can cause corruption, and should never normally be attempted.

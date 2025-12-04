@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about developing custom storage engines for MariaDB Server. This section
-  guides you through the process, providing insights into the Storage Engine API
-  for extending database functionality.
+  A resource for developers interested in creating custom storage engines for
+  MariaDB, detailing the API and development process.
 ---
 
 # Storage Engine Development

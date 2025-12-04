@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to the FederatedX storage engine, a fork of MySQL's Federated
+  engine, allowing access to remote tables as if they were local. This storage
+  engine has been deprecated.
+---
+
 # About FederatedX
 
 {% hint style="warning" %}

@@ -1,8 +1,12 @@
+---
+description: >-
+  The CSV Storage Engine stores data in comma-separated values format text
+  files, making it easy to exchange data with other applications.
+---
+
 # CSV Overview
 
 The CSV Storage Engine can read and append to files stored in CSV (comma-separated-values) format.
-
-However, since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), a better storage engine is able to read and write such files: [CONNECT](../connect/).
 
 ## The CSV storage engine and logging to tables
 

@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT MONGO Table Type: Accessing Collections from MongoDB
 
 {% hint style="warning" %}

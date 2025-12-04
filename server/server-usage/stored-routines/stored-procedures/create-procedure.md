@@ -1,7 +1,7 @@
 ---
 description: >-
-  Create a stored procedure. This statement defines a routine that can accept
-  input/output parameters and execute complex SQL logic.
+  The CREATE PROCEDURE statement defines a new stored procedure, specifying its
+  name, parameters (IN, OUT, INOUT), and the SQL statements it executes.
 ---
 
 # CREATE PROCEDURE

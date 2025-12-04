@@ -1,6 +1,12 @@
+---
+description: >-
+  Learn about Aria's group commit functionality, which improves performance by
+  batching commit operations to the transaction log.
+---
+
 # Aria Group Commit
 
-Since [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2), the [Aria storage engine](./) has included a feature to group commits to speed up concurrent threads doing many inserts into the same or different Aria tables.
+The [Aria storage engine](./) includes a feature to group commits to speed up concurrent threads doing many inserts into the same or different Aria tables.
 
 By default, group commit for Aria is turned off. It is controlled by the [aria\_group\_commit](aria-system-variables.md) and [aria\_group\_commit\_interval](aria-system-variables.md) system variables.
 
@@ -45,11 +51,11 @@ This ensures that if we call sync infrequently we don't do any waits.
 
 Note that soft group commit should only be used if you can afford to lose a few rows if your machine shuts down hard (as in the case of a power failure).
 
-Works like in `non group commit'` but the thread doesn't do any real sync(). If aria\_group\_commit\_interval is not zero, the sync() are performed by a service thread with the given rate when needed (new LSN appears). If aria\_group\_commit\_interval is zero, there are no sync() calls.
+Works like in `non group commit'` but the thread doesn't do any real sync(). If `aria_group_commit_interval` is not zero, the `sync()` calls are performed by a service thread with the given rate when needed (new LSN appears). If aria\_group\_commit\_interval is zero, there are no `sync()` calls.
 
 ## Code
 
-The code for this can be found in storage/maria/ma\_loghandler.c::translog\_flush()
+The code for this can be found in `storage/maria/ma_loghandler.c::translog_flush()`.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

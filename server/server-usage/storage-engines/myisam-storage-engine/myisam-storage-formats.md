@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about the three storage formats supported by MyISAM: FIXED (static),
+  DYNAMIC (variable length), and COMPRESSED (read-only).
+---
+
 # MyISAM Storage Formats
 
 The [MyISAM](./) storage engine supports three different table storage formats.

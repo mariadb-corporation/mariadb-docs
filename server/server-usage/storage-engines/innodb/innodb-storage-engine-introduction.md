@@ -1,4 +1,10 @@
-# InnoDB Storage Engine Introduction
+---
+description: >-
+  An overview of the InnoDB storage engine, detailing its support for ACID
+  transactions, row-level locking, and crash recovery.
+---
+
+# InnoDB Introduction
 
 ## Overview
 

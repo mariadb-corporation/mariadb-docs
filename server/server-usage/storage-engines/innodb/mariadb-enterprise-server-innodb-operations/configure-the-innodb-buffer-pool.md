@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide to configuring the size and instances of the InnoDB Buffer Pool to
+  optimize memory usage and cache performance.
+---
+
 # Configure the InnoDB Buffer Pool
 
 ## Overview

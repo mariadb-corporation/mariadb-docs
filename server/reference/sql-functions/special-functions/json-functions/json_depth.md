@@ -18,8 +18,20 @@ JSON_DEPTH(json_doc)
 Returns the maximum depth of the given JSON document, or `NULL` if the argument is null. An error occurs if the argument is an invalid JSON document.
 
 * Scalar values or empty arrays or objects have a depth of 1.
-* Arrays or objects that are not empty but contain only elements or member values of depth 1 will have a depth of 2.
-* In other cases, the depth will be greater than 2.
+* Arrays with only scalar values and objects with only scalar values for all keys have depth of 1.
+* In all other cases, the depth can be 2 or greater.
+
+{% tabs %}
+{% tab title="12.2" %}
+There is no maximum depth level — it's unlimited.
+
+For more information, see [this blog post](https://mariadb.org/make-json-depth-unlimited-new-feature-in-mariadb-12-1/).
+{% endtab %}
+
+{% tab title="< 12.2" %}
+The maximum depth is 32.
+{% endtab %}
+{% endtabs %}
 
 ## Examples
 

@@ -1,9 +1,15 @@
+---
+description: >-
+  A guide to diagnosing and resolving performance issues in MyRocks using status
+  variables, `SHOW ENGINE ROCKSDB STATUS`, and RocksDB performance context.
+---
+
 # MyRocks Performance Troubleshooting
 
 MyRocks exposes its performance metrics through several interfaces:
 
 * Status variables
-* SHOW ENGINE ROCKSDB STATUS
+* `SHOW ENGINE ROCKSDB STATUS`
 * RocksDB's perf context
 
 the contents slightly overlap, but each source has its own unique information, so be sure to check all three.

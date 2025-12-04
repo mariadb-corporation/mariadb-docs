@@ -36,7 +36,7 @@ not correspond to a particular version of MySQL, but includes part of MySQL\
 
 ## Includes XtraDB 5.1.56-12.7
 
-We have included [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-unmaintained/about-xtradb) from Percona Server 5.1.56-12.7 in\
+We have included [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/innodb-unmaintained/about-xtradb) from Percona Server 5.1.56-12.7 in\
 this version of MariaDB. See the Percona Server[release\
 notes](https://www.percona.com/docs/wiki/percona-server:release_notes_51) for what changes were made upstream by Percona since Percona Server\
 5.1.54-12.5 (the version of XtraDB included in [MariaDB 5.2.5](mariadb-525-release-notes.md)).

@@ -104,9 +104,9 @@
   * [MariaDB Cloud Stored Procedures](reference-guide/stored-procedures.md)
   * [MariaDB Cloud API Reference Guide](reference-guide/mariadb-cloud-api-reference-guide/README.md)
     * ```yaml
-      type: builtin:openapi
       props:
         models: true
+      type: builtin:openapi
       dependencies:
         spec:
           ref:

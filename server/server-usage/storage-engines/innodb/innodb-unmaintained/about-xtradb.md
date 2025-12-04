@@ -1,3 +1,9 @@
+---
+description: >-
+  Information about the XtraDB storage engine that was used in old MariaDB
+  versions.
+---
+
 # About XtraDB
 
 Percona XtraDB was an enhanced version of the InnoDB storage engine [used in MariaDB before MariaDB 10.2](using-innodb-instead-of-xtradb.md), designed to better scale on modern hardware, and it includes a variety of other features useful in high-performance environments.

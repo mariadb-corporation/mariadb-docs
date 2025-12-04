@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Making the GetRest Library
 
 {% hint style="warning" %}

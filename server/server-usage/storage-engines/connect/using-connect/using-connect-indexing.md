@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Using CONNECT - Indexing
 
 {% hint style="warning" %}
@@ -57,7 +61,7 @@ Unlike other storage engines, CONNECT constructs the indexes as files that are\
 named by default from the data file name, not from the table name, and located\
 in the data file directory. Depending on the SEPINDEX table option, indexes are\
 saved in a unique file or in separate files (if SEPINDEX is true). For\
-instance, if indexes are in separate files, the primary index of the table_dept.dat_ of type DOS is a file named _dept\_PRIMARY.dnx_. This makes\
+instance, if indexes are in separate files, the primary index of the table\_dept.dat\_ of type DOS is a file named _dept\_PRIMARY.dnx_. This makes\
 possible to define several tables on the same data file, with eventual\
 different options such as mapped or not mapped, and to share the index files as\
 well.

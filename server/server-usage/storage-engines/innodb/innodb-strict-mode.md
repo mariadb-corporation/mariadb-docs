@@ -1,3 +1,9 @@
+---
+description: >-
+  InnoDB Strict Mode enforces stricter SQL compliance, returning errors instead
+  of warnings for invalid CREATE TABLE options or potential data loss.
+---
+
 # InnoDB Strict Mode
 
 [InnoDB](./) strict mode is similar to [SQL strict mode](../../../server-management/variables-and-modes/sql_mode.md#strict-mode). When it is enabled, certain InnoDB warnings become errors instead.
@@ -22,7 +28,7 @@ SET SESSION innodb_strict_mode=ON;
 
 It can also be set in a server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server:
 
-```
+```ini
 [mariadb]
 ...
 innodb_strict_mode=ON

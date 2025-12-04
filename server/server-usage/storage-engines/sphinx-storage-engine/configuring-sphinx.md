@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide to configuring the Sphinx daemon (`searchd`) to index data from
+  MariaDB, including setting up `sphinx.conf` and creating necessary users.
+---
+
 # Configuring Sphinx
 
 Before you can get Sphinx working with the Sphinx Storage Engine on MariaDB, you need to configure it.

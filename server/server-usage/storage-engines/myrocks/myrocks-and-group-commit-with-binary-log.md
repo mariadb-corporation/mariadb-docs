@@ -1,4 +1,10 @@
-# MyRocks and Group Commit with Binary log
+---
+description: >-
+  Understand how MyRocks implements group commit to coordinate with the binary
+  log, ensuring data consistency and crash safety for replicated transactions.
+---
+
+# MyRocks Group Commit with Binary log
 
 MyRocks supports group commit with the [binary log](../../../server-management/server-monitoring-logs/binary-log/) ([MDEV-11934](https://jira.mariadb.org/browse/MDEV-11934)).
 

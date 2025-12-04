@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about operations supported by the INPLACE algorithm, which rebuilds the
+  table but allows concurrent DML, offering a balance between performance and
+  availability.
+---
+
 # InnoDB Online DDL Operations with the INPLACE Alter Algorithm
 
 ## Supported Operations by Inheritance

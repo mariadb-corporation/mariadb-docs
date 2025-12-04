@@ -1,3 +1,9 @@
+---
+description: >-
+  This feature enables transparent page-level compression for tables using
+  algorithms like LZ4 or Zlib, reducing storage requirements.
+---
+
 # InnoDB Page Compression
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  Stored routines have specific restrictions, such as prohibiting certain SQL
+  statements (e.g., LOAD DATA) and disallowing result sets in functions.
+---
+
 # Stored Routine Limitations
 
 The following SQL statements are not permitted inside any [stored routines](./) ([stored functions](stored-functions/), [stored procedures](stored-procedures/), [events](../triggers-events/event-scheduler/events.md) or [triggers](../triggers-events/triggers/)).

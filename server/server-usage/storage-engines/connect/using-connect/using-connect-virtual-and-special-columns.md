@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Using CONNECT - Virtual and Special Columns
 
 {% hint style="warning" %}

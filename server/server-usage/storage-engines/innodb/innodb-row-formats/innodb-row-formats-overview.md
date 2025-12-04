@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of the four InnoDB row formats (REDUNDANT, COMPACT, DYNAMIC,
+  COMPRESSED), comparing their storage efficiency and feature support.
+---
+
 # InnoDB Row Formats Overview
 
 The [InnoDB](../) storage engine supports four different row formats:

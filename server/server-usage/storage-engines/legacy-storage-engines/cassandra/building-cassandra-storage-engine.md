@@ -1,6 +1,12 @@
+---
+description: >-
+  Legacy Cassandra storage engine description. Cassandra was removed from
+  MariaDB in MariaDB 10.6.
+---
+
 # Building Cassandra Storage Engine
 
-THIS PAGE IS OBSOLETE, it describes how to build a branch of MariaDB-5.5 with Cassandra SE. Cassandra SE is a part of [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), which uses different approach to building.
+{% include "../../../../.gitbook/includes/the-cassandra-storage-engin....md" %}
 
 This page describes how to build the [Cassandra Storage Engine](cassandra-storage-engine-overview.md).
 

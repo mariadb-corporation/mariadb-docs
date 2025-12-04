@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about the CSV storage engine in MariaDB Server. Understand how to manage
-  data stored as comma-separated values, making it ideal for data import,
-  export, and exchange.
+  The CSV storage engine stores data in text files using comma-separated values
+  format, allowing easy data exchange with other applications.
 ---
 
 # CSV

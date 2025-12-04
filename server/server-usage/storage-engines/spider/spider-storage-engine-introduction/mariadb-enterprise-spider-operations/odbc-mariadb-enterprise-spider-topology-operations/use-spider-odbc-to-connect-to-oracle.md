@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide details how to configure Spider to connect to an Oracle database
+  via ODBC, enabling data migration and federated access to Oracle tables.
+---
+
 # Use Spider ODBC to connect to Oracle
 
 ## Overview

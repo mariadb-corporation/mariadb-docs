@@ -1,3 +1,9 @@
+---
+description: >-
+  Practical examples demonstrating how to create OQGRAPH tables and perform
+  graph operations like finding shortest paths and leaf nodes.
+---
+
 # OQGRAPH Examples
 
 ## Creating a Table with origid, destid Only

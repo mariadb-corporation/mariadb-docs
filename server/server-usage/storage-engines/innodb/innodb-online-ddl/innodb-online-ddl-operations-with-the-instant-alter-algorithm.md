@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover the INSTANT algorithm, which modifies table metadata without
+  rebuilding the table, enabling extremely fast schema changes like adding
+  columns.
+---
+
 # InnoDB Online DDL Operations with the INSTANT Alter Algorithm
 
 ## Column Operations

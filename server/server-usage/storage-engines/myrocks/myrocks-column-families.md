@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about MyRocks column families, a mechanism for grouping data similar to
+  tablespaces, to optimize compression and Bloom filter settings per family.
+---
+
 # MyRocks Column Families
 
 [MyRocks](./) stores data in column families. These are similar to tablespaces.\

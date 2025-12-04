@@ -1,3 +1,9 @@
+---
+description: >-
+  A comprehensive guide to the InnoDB Buffer Pool, the key memory area for
+  caching data and indexes, including configuration and resizing tips.
+---
+
 # InnoDB Buffer Pool
 
 The InnoDB storage engine in MariaDB Enterprise Server utilizes the Buffer Pool as a crucial in-memory cache. This Buffer Pool stores recently accessed data pages, enabling faster retrieval for subsequent requests. Recognizing patterns of access, InnoDB also employs predictive prefetching, caching nearby pages when sequential access is detected. To manage memory efficiently, a least recently used (LRU) algorithm is used to evict older, less frequently accessed pages.

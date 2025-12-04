@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Current Status of the CONNECT Handler
 
 {% hint style="warning" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide to installing the Spider storage engine on Debian/Ubuntu and other
+  Linux distributions, including loading the plugin and configuring data nodes.
+---
+
 # Spider Installation
 
 The Spider storage engine supports partitioning and XA transactions, and allows tables of different MariaDB instances to be handled as if they were on the same instance.

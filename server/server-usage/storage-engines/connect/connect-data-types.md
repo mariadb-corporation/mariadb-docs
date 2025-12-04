@@ -1,4 +1,8 @@
-# Data Types
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
+# CONNECT Data Types
 
 {% hint style="warning" %}
 This storage engine has been deprecated.
@@ -41,7 +45,7 @@ The `TINY` data type contains [integer numeric 1-byte](../../../reference/data-t
 
 The [BIGINT](../../../reference/data-types/numeric-data-types/bigint.md) data type contains signed integer 8-byte values (the _long long_ of the C language) ranging from `-9,223,372,036,854,775,808` to`9,223,372,036,854,775,807` for signed type and from `0` to`18,446,744,073,709,551,615` for unsigned type.
 
-Inside tables, the coding of all integer values depends on the table type. In tables represented by text files, the number is written in characters, while in  tables represented by binary files (`BIN` or `VEC`) the number is directly stored in the binary representation corresponding to the platform.
+Inside tables, the coding of all integer values depends on the table type. In tables represented by text files, the number is written in characters, while in tables represented by binary files (`BIN` or `VEC`) the number is directly stored in the binary representation corresponding to the platform.
 
 The _length_ (or _precision_) specification corresponds to the length of the table field in which the value is stored for text files only. It is used to set the output field length for all table types.
 
@@ -49,7 +53,7 @@ The _length_ (or _precision_) specification corresponds to the length of the tab
 
 The `DOUBLE` data type corresponds to the C language [double](../../../reference/data-types/numeric-data-types/double.md) type, a floating-point double precision value coded with 8 bytes. Like for integers, the internal coding in tables depends on the table type, characters for text files, and platform binary representation for binary files.
 
-The _length_ specification corresponds to the length of the table field in which the value is stored for text files only. The _scale_ (was_precision_) is the number of decimal digits written into text files. For binary table types (BIN and VEC) this does not apply. The _length_ and_scale_ specifications are used to set the output field length and number of decimals for all types of tables.
+The _length_ specification corresponds to the length of the table field in which the value is stored for text files only. The _scale_ (was\_precision\_) is the number of decimal digits written into text files. For binary table types (BIN and VEC) this does not apply. The _length_ and\_scale\_ specifications are used to set the output field length and number of decimals for all types of tables.
 
 ## TYPE\_DECIM
 
@@ -65,47 +69,23 @@ This defines a column _colname_ as a number having a _precision_ of 14 and a _sc
 INSERT INTO xxx VALUES (-2658.74);
 ```
 
-The internal representation of it are the character string`-2658.740000`. The way it is stored in a file table depends on the table type. The _length_ field specification corresponds to the length of the table field in which the value is stored and is calculated by CONNECT from the_precision_ and the _scale_ values. This length is _precision_ plus 1 if_scale_ is not 0 (for the decimal point) plus 1 if this column is not 
-unsigned (for the eventual minus sign). In fix formatted tables the number is 
-right justified in the field of width _length_, for variable formatted 
-tables, such as CSV, the field is the representing character string.
+The internal representation of it are the character string`-2658.740000`. The way it is stored in a file table depends on the table type. The _length_ field specification corresponds to the length of the table field in which the value is stored and is calculated by CONNECT from the\_precision\_ and the _scale_ values. This length is _precision_ plus 1 if\_scale\_ is not 0 (for the decimal point) plus 1 if this column is not unsigned (for the eventual minus sign). In fix formatted tables the number is right justified in the field of width _length_, for variable formatted tables, such as CSV, the field is the representing character string.
 
-Because this type is mainly used by CONNECT to handle numeric or decimal fields 
-of ODBC, JDBC and MySQL table types, CONNECT does not provide decimal calculations or comparison by itself. This is why decimal columns of CONNECT tables cannot be indexed.
+Because this type is mainly used by CONNECT to handle numeric or decimal fields of ODBC, JDBC and MySQL table types, CONNECT does not provide decimal calculations or comparison by itself. This is why decimal columns of CONNECT tables cannot be indexed.
 
 ## DATE Data type
 
-Internally, date/time values are stored by CONNECT as a signed 4-byte integer. 
-The value 0 corresponds to 01 January 1970 12:00:00 am coordinated universal 
-time ([UTC](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)). All other date/time values are 
-represented by the number of seconds elapsed since or before midnight 
-(00:00:00), 1 January 1970, to that date/time value. Date/time values before 
-midnight 1 January 1970 are represented by a negative number of seconds.
+Internally, date/time values are stored by CONNECT as a signed 4-byte integer. The value 0 corresponds to 01 January 1970 12:00:00 am coordinated universal time ([UTC](../../../reference/data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)). All other date/time values are represented by the number of seconds elapsed since or before midnight (00:00:00), 1 January 1970, to that date/time value. Date/time values before midnight 1 January 1970 are represented by a negative number of seconds.
 
 `CONNECT` handles dates from **13 December 1901, 20:45:52** to**18 January 2038, 19:14:07**.
 
-Although date and time information can be represented in both CHAR and INTEGER 
-data types, the DATE data type has special associated properties. For each DATE 
-value, CONNECT can store all or only some of the following information: 
-century, year, month, day, hour, minute, and second.
+Although date and time information can be represented in both CHAR and INTEGER data types, the DATE data type has special associated properties. For each DATE value, CONNECT can store all or only some of the following information: century, year, month, day, hour, minute, and second.
 
 ### Date Format in Text Tables
 
-Internally, date/time values are handled as a signed 4-byte integer. But in text 
-tables (type DOS, FIX, CSV, FMT, and DBF) dates are most of the time stored as 
-a formatted character string (although they also can be stored as a numeric 
-string representing their internal value). Because there are infinite ways to 
-format a date, the format to use for decoding dates, as well as the field 
-length in the file, must be associated to date columns (except when they are 
-stored as the internal numeric value).
+Internally, date/time values are handled as a signed 4-byte integer. But in text tables (type DOS, FIX, CSV, FMT, and DBF) dates are most of the time stored as a formatted character string (although they also can be stored as a numeric string representing their internal value). Because there are infinite ways to format a date, the format to use for decoding dates, as well as the field length in the file, must be associated to date columns (except when they are stored as the internal numeric value).
 
-Note that this associated format is used only to describe the way the temporal 
-value is stored internally. This format is used both for output to decode the 
-date in a SELECT statement as well as for input to encode the date in INSERT or 
-UPDATE statements. However, what is kept in this value depends on the data type 
-used in the column definition (all the MariaDB temporal values can be specified). 
-When creating a table, the format is associated to a date column using the 
-DATE\_FORMAT option in the column definition, for instance:
+Note that this associated format is used only to describe the way the temporal value is stored internally. This format is used both for output to decode the date in a SELECT statement as well as for input to encode the date in INSERT or UPDATE statements. However, what is kept in this value depends on the data type used in the column definition (all the MariaDB temporal values can be specified). When creating a table, the format is associated to a date column using the DATE\_FORMAT option in the column definition, for instance:
 
 ```sql
 CREATE TABLE birthday (
@@ -131,18 +111,9 @@ The values of the INSERT statement must be specified using the standard MariaDB 
 Charlie,11/12/2012,03:30 PM
 ```
 
-**Note:** The field\_length option exists because the MariaDB syntax does not allow specifying the field 
-length between parentheses for temporal column types. If not specified, the field length is calculated 
-from the date format (sometimes as a max value) or made equal to the default length value if there is no 
-date format. In the above example it could have been removed as the calculated values are the ones 
-specified. However, if the table type would have been DOS or FIX, these values could be adjusted to fit 
-the actual field length within the file.
+**Note:** The field\_length option exists because the MariaDB syntax does not allow specifying the field length between parentheses for temporal column types. If not specified, the field length is calculated from the date format (sometimes as a max value) or made equal to the default length value if there is no date format. In the above example it could have been removed as the calculated values are the ones specified. However, if the table type would have been DOS or FIX, these values could be adjusted to fit the actual field length within the file.
 
-A `CONNECT` format string consists of a series of elements that represent a 
-particular piece of information and define its format. The elements are 
-recognized in the order they appear in the format string. Date and time format 
-elements are replaced by the actual date and time as they appear in the 
-source string. They are defined by the following groups of characters:
+A `CONNECT` format string consists of a series of elements that represent a particular piece of information and define its format. The elements are recognized in the order they appear in the format string. Date and time format elements are replaced by the actual date and time as they appear in the source string. They are defined by the following groups of characters:
 
 | Element | Description                                                                     |
 | ------- | ------------------------------------------------------------------------------- |
@@ -162,40 +133,25 @@ source string. They are defined by the following groups of characters:
 
 ### Usage Notes
 
-* To match the source string, you can add body text to the format string, 
-  enclosing it in single quotes or double quotes if it would be ambiguous. 
-  Punctuation marks do not need to be quoted.
-* The hour information is regarded as 12-hour format if a “t” or “tt” element 
-  follows the “hh” element in the format or as 24-hour format otherwise.
-* The "MM", "DD", "hh", "mm", "ss" elements can be specified with one or two 
-  letters (e.g. "MM" or "M") making no difference on input, but placing a 
-  leading zero to one-digit values on output [[1](connect-data-types.md#_note-0)] for two-letter elements.
-* If the format contains elements DDD or DDDD, the day of week name is skipped 
-  on input and ignored to calculate the internal date value. On output, the 
-  correct day of week name is generated and displayed.
+* To match the source string, you can add body text to the format string, enclosing it in single quotes or double quotes if it would be ambiguous. Punctuation marks do not need to be quoted.
+* The hour information is regarded as 12-hour format if a “t” or “tt” element follows the “hh” element in the format or as 24-hour format otherwise.
+* The "MM", "DD", "hh", "mm", "ss" elements can be specified with one or two letters (e.g. "MM" or "M") making no difference on input, but placing a leading zero to one-digit values on output \[[1](connect-data-types.md#_note-0)] for two-letter elements.
+* If the format contains elements DDD or DDDD, the day of week name is skipped on input and ignored to calculate the internal date value. On output, the correct day of week name is generated and displayed.
 * Temporal values are always stored as numeric in [BIN](connect-table-types/connect-table-types-data-files.md#bin-table-type) and [VEC](connect-table-types/connect-table-types-data-files.md#vec-table-type-vecto) tables.
 
 ### Handling dates that are out of the range of supported CONNECT dates
 
-If you want to make a table containing, for instance, historical dates not being convertible into CONNECT dates, make your column `CHAR` or `VARCHAR` and store the dates in the MariaDB format. All date functions applied to these strings will convert them to MariaDB dates and will work 
-as if they were real dates. Of course they must be inserted and are displayed using the MariaDB format.
+If you want to make a table containing, for instance, historical dates not being convertible into CONNECT dates, make your column `CHAR` or `VARCHAR` and store the dates in the MariaDB format. All date functions applied to these strings will convert them to MariaDB dates and will work as if they were real dates. Of course they must be inserted and are displayed using the MariaDB format.
 
 ## NULL handling
 
-`CONNECT` handles [null values](../../../reference/data-types/null-values.md) for data sources able to produce nulls. Currently 
-this concerns mainly the [ODBC](connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md), [JDBC](connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md), MONGO, [MYSQL](connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [XML](connect-table-types/connect-table-types-data-files.md#xml-table-type), [JSON](connect-table-types/connect-json-table-type.md) and [INI](connect-table-types/connect-table-types-data-files.md#ini-table-type) table types. For INI, [JSON](connect-table-types/connect-json-table-type.md), MONGO or XML types, null values are returned when the key is missing in the section (INI) or when the corresponding node does not exist in a row (XML, JSON, MONGO).
+`CONNECT` handles [null values](../../../reference/data-types/null-values.md) for data sources able to produce nulls. Currently this concerns mainly the [ODBC](connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md), [JDBC](connect-table-types/connect-jdbc-table-type-accessing-tables-from-another-dbms.md), MONGO, [MYSQL](connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [XML](connect-table-types/connect-table-types-data-files.md#xml-table-type), [JSON](connect-table-types/connect-json-table-type.md) and [INI](connect-table-types/connect-table-types-data-files.md#ini-table-type) table types. For INI, [JSON](connect-table-types/connect-json-table-type.md), MONGO or XML types, null values are returned when the key is missing in the section (INI) or when the corresponding node does not exist in a row (XML, JSON, MONGO).
 
-For other file tables, the issue is to define what a null value is. In a numeric column, 0 can sometimes be a valid value but, in some other cases, it 
-can make no sense. The same for character columns; is a blank field a valid value or not?
+For other file tables, the issue is to define what a null value is. In a numeric column, 0 can sometimes be a valid value but, in some other cases, it can make no sense. The same for character columns; is a blank field a valid value or not?
 
-A special case is DATE columns with a DATE _FORMAT specified. Any value not matching the format can be regarded as NULL.
+A special case is DATE columns with a DATE \_FORMAT specified. Any value not matching the format can be regarded as NULL.
 
-`CONNECT` leaves the decision to you. When declaring a column in the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) 
-statement, if it is declared NOT NULL, blank or zero values are considered 
-as valid values. Otherwise they are considered as NULL values. In all 
-cases, nulls are replaced on insert or update by pseudo null values, a zero-length character string for text types or a zero value for numeric types. Once 
-converted to pseudo null values, they are recognized as NULL only for 
-columns declared as nullable.
+`CONNECT` leaves the decision to you. When declaring a column in the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement, if it is declared NOT NULL, blank or zero values are considered as valid values. Otherwise they are considered as NULL values. In all cases, nulls are replaced on insert or update by pseudo null values, a zero-length character string for text types or a zero value for numeric types. Once converted to pseudo null values, they are recognized as NULL only for columns declared as nullable.
 
 For instance:
 
@@ -212,8 +168,7 @@ The select query replies:
 | NULL | zero |
 | NULL | ???  |
 
-Sure enough, the value 0 entered on the first row is regarded as NULL for a 
-nullable column. However, if we execute the query:
+Sure enough, the value 0 entered on the first row is regarded as NULL for a nullable column. However, if we execute the query:
 
 ```sql
 SELECT * FROM t1 WHERE a = 0;
@@ -252,16 +207,11 @@ It shows that the NULL inserted value was replaced by a valid 0 value.
 
 ## Unsigned numeric types
 
-They are supported by CONNECT since version 1.01.0010 for fixed numeric types 
-(TINY, SHORT, INTEGER, and BITINT).
+They are supported by CONNECT since version 1.01.0010 for fixed numeric types (TINY, SHORT, INTEGER, and BITINT).
 
 ## Data type conversion
 
-`CONNECT` is able to convert data from one type to another in most cases. These 
-conversions are done without warning even when this leads to truncation or loss 
-of precision. This is true, in particular, for tables of type ODBC, JDBC, MYSQL and PROXY (via MySQL) 
-because the source table may contain some data types not supported by `CONNECT`. 
-They are converted when possible to `CONNECT` types.
+`CONNECT` is able to convert data from one type to another in most cases. These conversions are done without warning even when this leads to truncation or loss of precision. This is true, in particular, for tables of type ODBC, JDBC, MYSQL and PROXY (via MySQL) because the source table may contain some data types not supported by `CONNECT`. They are converted when possible to `CONNECT` types.
 
 When converted, MariaDB types are converted as:
 

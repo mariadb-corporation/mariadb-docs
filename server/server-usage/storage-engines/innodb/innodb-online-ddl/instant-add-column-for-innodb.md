@@ -1,3 +1,10 @@
+---
+description: >-
+  A focused guide on the Instant ADD COLUMN feature, explaining how it works by
+  modifying metadata and its advantages over traditional table-rebuilding
+  methods.
+---
+
 # Instant ADD COLUMN for InnoDB
 
 Normally, adding a column to a table requires the full table to be rebuilt. The complexity of the operation is proportional to the size of the table, or O(n·m) where n is the number of rows in the table and m is the number of indexes.

@@ -1,3 +1,7 @@
+---
+description: MariaDB Enterprise Server Software Bill of Materials (SBOM) information
+---
+
 # SBOM
 
 MariaDB publishes a Software Bill of Materials (SBOM) for each MariaDB Enterprise Server release. An SBOM lists the components that make up a build (libraries, packages, versions, licenses, and hashes); enabling customers to meet compliance requirements, perform vulnerability management, and understand supply chain risk.

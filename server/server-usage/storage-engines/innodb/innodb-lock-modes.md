@@ -1,3 +1,9 @@
+---
+description: >-
+  InnoDB employs Row-Level Locking with Shared (S) and Exclusive (X) locks,
+  along with Intention locks, to manage concurrent transaction access.
+---
+
 # InnoDB Lock Modes
 
 Locks are acquired by a transaction to prevent concurrent transactions from modifying, or even reading, some rows or ranges of rows. This is done to make sure that concurrent write operations never collide.

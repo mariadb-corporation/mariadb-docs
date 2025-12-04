@@ -1,3 +1,9 @@
+---
+description: >-
+  InnoDB Monitors, such as the Standard, Lock, and Tablespace monitors, provide
+  detailed internal state information to the error log for diagnostics.
+---
+
 # InnoDB Monitors
 
 The [InnoDB](./) Monitor refers to particular kinds of monitors included in MariaDB and since the early versions of MySQL.

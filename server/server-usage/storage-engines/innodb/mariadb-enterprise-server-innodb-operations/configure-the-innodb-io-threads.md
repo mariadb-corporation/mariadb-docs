@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on tuning the number of InnoDB read and write I/O threads to
+  match your system's disk I/O capabilities.
+---
+
 # Configure the InnoDB I/O Threads
 
 ## Overview

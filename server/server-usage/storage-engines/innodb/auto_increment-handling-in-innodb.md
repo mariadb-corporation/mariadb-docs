@@ -1,3 +1,9 @@
+---
+description: >-
+  This page explains how InnoDB manages AUTO_INCREMENT columns, including
+  initialization behavior, gap handling, and potential restart effects.
+---
+
 # AUTO\_INCREMENT Handling in InnoDB
 
 ## AUTO\_INCREMENT Lock Modes

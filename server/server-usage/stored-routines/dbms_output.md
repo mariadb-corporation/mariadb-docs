@@ -1,3 +1,9 @@
+---
+description: >-
+  The DBMS_OUTPUT plugin provides Oracle-compatible output buffering functions
+  (like PUT_LINE), allowing stored procedures to send messages to the client.
+---
+
 # DBMS\_OUTPUT
 
 {% hint style="info" %}
@@ -138,4 +144,4 @@ Like other bootstrap scripts, the script creating `DBMS_OUTPUT`:
 * Is put into a new separate `/scripts/dbms_ouput.sql` file in the source directory;
 * Is installed into `/share/dbms_ouput.sql` of the installation directory.
 
-\
+\\

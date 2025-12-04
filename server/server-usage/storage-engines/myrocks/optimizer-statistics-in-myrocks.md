@@ -1,3 +1,7 @@
+---
+description: MyRocks storage engine statistics for the query optimizer.
+---
+
 # Optimizer Statistics in MyRocks
 
 This article describes how MyRocks storage engine provides statistics to the query optimizer.

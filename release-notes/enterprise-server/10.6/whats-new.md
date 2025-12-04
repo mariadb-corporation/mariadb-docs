@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Enterprise
+  Server 10.6
+---
+
 # What's New in MariaDB Enterprise Server 10.6?
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}

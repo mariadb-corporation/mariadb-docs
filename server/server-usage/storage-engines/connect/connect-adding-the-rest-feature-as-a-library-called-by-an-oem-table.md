@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Adding the REST Feature as a Library Called by an OEM Table
 
 {% hint style="warning" %}

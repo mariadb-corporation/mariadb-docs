@@ -1,3 +1,9 @@
+---
+description: >-
+  The MERGE storage engine allows a collection of identical MyISAM tables to be
+  treated as a single logical table, useful for managing large datasets.
+---
+
 # MERGE
 
 ## Description

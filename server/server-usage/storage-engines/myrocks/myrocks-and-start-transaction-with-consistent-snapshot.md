@@ -1,4 +1,8 @@
-# START TRANSACTION WITH CONSISTENT SNAPSHOT
+---
+description: MyRocks storage engine transactions with consistent snapshot.
+---
+
+# MyRocks START TRANSACTION WITH CONSISTENT SNAPSHOT
 
 FB/MySQL has added new syntax:
 

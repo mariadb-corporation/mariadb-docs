@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT Table Types - OEM: Implemented in an External LIB
 
 {% hint style="warning" %}

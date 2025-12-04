@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to expand a sharded Spider topology by adding new data
+  nodes (shards) and rebalancing the data distribution.
+---
+
 # Sharded MariaDB Enterprise Spider Topology Add a Shard
 
 ## Overview

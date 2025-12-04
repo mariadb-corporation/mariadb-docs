@@ -1,4 +1,10 @@
-# Archive
+---
+description: >-
+  The Archive storage engine is optimized for high-speed insertion and
+  compression of large amounts of data, suitable for logging and auditing.
+---
+
+# ARCHIVE
 
 The `ARCHIVE` storage engine is a storage engine that uses gzip to compress rows. It is mainly used for storing large amounts of data, without indexes, with only a very small footprint.
 

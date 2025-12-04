@@ -1,21 +1,20 @@
+---
+description: >-
+  This guide covers typical use cases for the S3 engine, such as archiving
+  inactive tables, and details supported operations like ALTER TABLE and SELECT.
+---
+
 # Using the S3 Storage Engine
 
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)
-
-The [S3 storage engine](./) has been available since [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
-
-The [S3 storage engine](./) is read only and allows one to archive MariaDB\
-tables in Amazon S3, or any third-party public or private cloud that\
-implements S3 API (of which there are many), but still have them\
-accessible for reading in MariaDB.
+The [S3 storage engine](./) is read only and allows one to archive MariaDB tables in Amazon S3, or any third-party public or private cloud that implements S3 API (of which there are many), but still have them accessible for reading in MariaDB.
 
 ## Installing the Plugin
 
-As of [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1057-release-notes), the S3 storage engine is currently [gamma maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria), so the following step can be omitted.
+The S3 storage engine is [gamma maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria), so the following step can be omitted.
 
-On earlier releases, when it was [alpha maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria), it will not load by default on a stable release of the server due to the default value of the [plugin\_maturity](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#plugin_maturity) variable. Set to `alpha` (or below) in your config file to permit installation of the plugin:
+On earlier releases, when it was [alpha maturity](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria), it does not load by default on a stable release of the server due to the default value of the [plugin\_maturity](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#plugin_maturity) variable. Set to `alpha` (or below) in your config file to permit installation of the plugin:
 
-```
+```ini
 [mariadbd]
 plugin-maturity = alpha
 ```
@@ -48,21 +47,19 @@ or for Debian/Ubuntu
 shell> apt install mariadb-plugin-s3
 ```
 
-## Creating an S3 table.
+## Creating an S3 Table
 
-As S3 tables are read only, one cannot create a S3 table with `CREATE TABLE`.\
-One should use instead use `ALTER TABLE old_table ENGINE=S3` to convert an\
-existing table to be stored on S3.
+As S3 tables are read only, one cannot create a S3 table with `CREATE TABLE`. You should use instead use `ALTER TABLE old_table ENGINE=S3` to convert an existing table to be stored on S3.
 
 ## Moving Data to S3
 
-To move data from an existing table to S3, one can run:
+To move data from an existing table to S3, you can run:
 
 ```sql
 ALTER TABLE old_table ENGINE=S3 COMPRESSION_ALGORITHM=zlib
 ```
 
-To get data back to a 'normal' table one can do:
+To get data back to a 'normal' table, you can do:
 
 ```sql
 ALTER TABLE s3_table ENGINE=INNODB

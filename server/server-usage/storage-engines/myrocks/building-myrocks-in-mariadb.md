@@ -1,8 +1,13 @@
+---
+description: >-
+  Learn how to build the MyRocks storage engine from source within the MariaDB
+  Server build process, including necessary dependencies and configuration
+  options.
+---
+
 # Building MyRocks in MariaDB
 
-This page describes how to get [MyRocks in MariaDB](./) when compiling MariaDB from source.
-
-(See [Build-Steps](https://github.com/facebook/mysql-5.6/wiki/Build-Steps) for instructions how to build the upstream)
+This page describes how to get [MyRocks in MariaDB](./) when compiling MariaDB from source. (See [Build-Steps](https://github.com/facebook/mysql-5.6/wiki/Build-Steps) for instructions how to build the upstream.)
 
 ## Build Process and Requirements
 

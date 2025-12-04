@@ -1,17 +1,18 @@
+---
+description: >-
+  An overview of Aria, a storage engine designed as a crash-safe alternative to
+  MyISAM, featuring transactional capabilities and improved caching.
+---
+
 # Aria Storage Engine
 
 The [Aria](./) storage engine is compiled in by default from [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) and it is required to be 'in use' when MariaDB is started.
 
-From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104), all [system tables](../../../reference/system-tables/) are Aria.
+All [system tables](../../../reference/system-tables/) are Aria.
 
-Additionally, internal on-disk tables are in the Aria table format instead of\
-the [MyISAM](../myisam-storage-engine/) table format. This should speed up some [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md)\
-and [DISTINCT](../../../reference/sql-functions/aggregate-functions/count-distinct.md) queries because Aria has better caching than\
-MyISAM.
+Additionally, internal on-disk tables are in the Aria table format instead of the [MyISAM](../myisam-storage-engine/) table format. This should speed up some [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md) and [DISTINCT](../../../reference/sql-functions/aggregate-functions/count-distinct.md) queries because Aria has better caching than MyISAM.
 
-Note: The _**Aria**_ storage engine was previously called _Maria_ (see [The Aria Name](the-aria-name.md) for details on the\
-rename) and in previous versions of [MariaDB](../storage-engines-storage-engines-overview.md) the engine was still called\
-Maria.
+Note: The _**Aria**_ storage engine was previously called _Maria_ (see [The Aria Name](the-aria-name.md) for details on the rename) and in previous versions of [MariaDB](../storage-engines-storage-engines-overview.md) the engine was still called Maria.
 
 The following table options to Aria tables in [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) and [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/):
 
@@ -35,20 +36,10 @@ The `TRANSACTIONAL` and `ROW_FORMAT` table options interact as follows:
 
 Some other improvements are:
 
-* [CHECKSUM TABLE](../../../reference/sql-statements/table-statements/checksum-table.md) now ignores values in NULL fields. This\
-  makes `CHECKSUM TABLE` faster and fixes some cases where\
-  same table definition could give different checksum values depending on [row\
-  format](aria-storage-formats.md). The disadvantage is that the value is now different compared to other\
-  MySQL installations. The new checksum calculation is fixed for all table\
-  engines that uses the default way to calculate and MyISAM which does the\
-  calculation internally. Note: Old MyISAM tables with internal checksum will\
-  return the same checksum as before. To fix them to calculate according to new\
-  rules you have to do an [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/). You can use the old\
-  ways to calculate checksums by using the option `--old` to mariadbdmysqld or set the\
-  system variable '`@@old`' to `1` when you\
+* [CHECKSUM TABLE](../../../reference/sql-statements/table-statements/checksum-table.md) now ignores values in `NULL` fields. This makes `CHECKSUM TABLE` faster and fixes some cases where same table definition could give different checksum values depending on [row format](aria-storage-formats.md). The disadvantage is that the value is now different compared to other MySQL installations. The new checksum calculation is fixed for all table engines that uses the default way to calculate and MyISAM which does the\
+  calculation internally. Note: Old MyISAM tables with internal checksum returns the same checksum as before. To fix them to calculate according to new rules you have to do an [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/). You can use the old ways to calculate checksums by using the option `--old` to mariadbdmysqld or set the system variable '`@@old`' to `1` when you\
   do `CHECKSUM TABLE ... EXTENDED;`
-* At startup Aria will check the Aria logs and automatically recover the tables\
-  from the last checkpoint if the server was not taken down correctly. See [Aria Log Files](aria-storage-engine.md#aria-log-files)
+* At startup Aria will check the Aria logs and automatically recover the tables from the last checkpoint if the server was not taken down correctly. See [Aria Log Files](aria-storage-engine.md#aria-log-files)
 
 ## Startup Options for Aria
 
@@ -60,21 +51,14 @@ In normal operations, the only variables you have to consider are:
   * This is where all index and data pages are cached. The bigger this is, the faster\
     Aria will work.
 * [aria-block-size](aria-system-variables.md#aria_block_size)
-  * The default value 8192, should be ok for most cases. The only problem with a higher\
-    value is that it takes longer to find a packed key in the block as one has to\
+  * The default value 8192, should be ok for most cases. The only problem with a higher value is that it takes longer to find a packed key in the block as one has to\
     search roughly 8192/2 to find each key. We plan to fix this by adding a\
-    dictionary at the end of the page to be able to do a binary search within\
-    the block before starting a scan. Until this is done and key lookups takes\
-    too long time even if you are not hitting disk, then you should consider\
-    making this smaller.
+    dictionary at the end of the page to be able to do a binary search within the block before starting a scan. Until this is done and key lookups takes too long time even if you are not hitting disk, then you should consider making this smaller.
   * Possible values to try are `2048`, `4096` or `8192`
   * Note that you can't change this without dumping, deleting old tables and\
-    deleting all log files and then restoring your Aria tables. (This is the\
-    only option that requires a dump and load)
+    deleting all log files and then restoring your Aria tables. (This is the only option that requires a dump and load.)
 * [aria-log-purge-type](aria-system-variables.md)
-  * Set this to "`at_flush`" if you want to keep a copy of the transaction logs\
-    (good as an extra backup). The logs will stay around until you\
-    execute [FLUSH ENGINE LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+  * Set this to "`at_flush`" if you want to keep a copy of the transaction logs (good as an extra backup). The logs will stay around until you execute [FLUSH ENGINE LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 
 ## Aria Log Files
 

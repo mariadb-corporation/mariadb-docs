@@ -1,4 +1,14 @@
+---
+description: >-
+  This page is outdated. It's left in place because release notes for old
+  MariaDB versions refer to it (MariaDB < 10.3).
+---
+
 # InnoDB Versions
+
+{% hint style="warning" %}
+This page is outdated. It's left in place because release notes for old MariaDB versions refer to it (MariaDB < 10.3).
+{% endhint %}
 
 The InnoDB implementation has diverged substantially from the InnoDB in MySQL. Therefore, in these versions, the InnoDB version is no longer associated with a MySQL release version.
 

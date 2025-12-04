@@ -1,3 +1,9 @@
+---
+description: >-
+  This page details the restrictions on stored functions, such as the inability
+  to return result sets or use transaction control statements.
+---
+
 # Stored Function Limitations
 
 The following restrictions apply to [stored functions](./).

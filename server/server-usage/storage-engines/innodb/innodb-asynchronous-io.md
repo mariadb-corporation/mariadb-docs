@@ -1,3 +1,9 @@
+---
+description: >-
+  Explore how InnoDB uses asynchronous I/O on various operating systems to
+  handle multiple read and write requests concurrently without blocking.
+---
+
 # InnoDB Asynchronous I/O
 
 From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), [InnoDB](./) uses asynchronous I/O to read from and write to disk asynchronously. This forms part of the InnoDB Background Thread Pool.

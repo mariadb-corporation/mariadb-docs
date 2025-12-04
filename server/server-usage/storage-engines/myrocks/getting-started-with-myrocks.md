@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide to installing and configuring MyRocks, including enabling the plugin,
+  setting up basic tables, and understanding key configuration parameters.
+---
+
 # Getting Started with MyRocks
 
 MyRocks is a storage engine that adds the RocksDB database to MariaDB. RocksDB is an LSM database with a great compression ratio that is optimized for flash storage.

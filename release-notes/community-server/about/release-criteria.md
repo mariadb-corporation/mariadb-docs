@@ -1,4 +1,8 @@
-# MariaDB Release Criteria
+---
+description: Project commitments for the maturity stages of MariaDB Releases
+---
+
+# Release Criteria
 
 The MariaDB development release policy has the following project commitments for the maturity stages:
 

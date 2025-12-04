@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # OEM Table Example
 
 {% hint style="warning" %}

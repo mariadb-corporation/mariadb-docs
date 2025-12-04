@@ -1,3 +1,9 @@
+---
+description: >-
+  Specific instructions and prerequisites for building the OQGRAPH storage
+  engine on Windows systems using Visual Studio.
+---
+
 # Building OQGRAPH Under Windows
 
 OQGRAPH v3 can be built on Windows. This has been tested using Windows 7, Microsoft Visual Studio Express 2010 (32-bit), Microsoft Windows 64-bit Platform SDK 7.1 (64-bit), the Boost library >= 1.55 and Judy 1.0.5.

@@ -1,3 +1,7 @@
+---
+description: Information about XtraDB, an storage engine used in old MariaDB versions.
+---
+
 # Using InnoDB Instead of XtraDB
 
 XtraDB, previously the default InnoDB replacement in MariaDB, is no longer included in standard distributions. MariaDB now uses InnoDB by default.

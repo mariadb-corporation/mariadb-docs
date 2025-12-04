@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to configure InnoDB to store each table in its own .ibd file,
+  enabling features like table compression and easier space reclamation.
+---
+
 # InnoDB File-Per-Table Tablespaces
 
 When you create a table using the [InnoDB storage engine](../), data written to that table is stored on the file system in a data file called a tablespace. Tablespace files contain both the data and indexes.

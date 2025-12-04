@@ -1,3 +1,10 @@
+---
+description: >-
+  A reference for table-level parameters in Spider, which can be set via the
+  COMMENT or CONNECTION string to control connection settings, monitoring, and
+  query behavior.
+---
+
 # Spider Table Parameters
 
 When a table uses the [Spider](./) storage engine, the following Spider table parameters can be set in the `COMMENT` clause of the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement. Many Spider table parameters have corresponding system variables, so they can be set for all Spider tables on the node. For additional information, see the [Spider System Variables](spider-system-variables.md) page.

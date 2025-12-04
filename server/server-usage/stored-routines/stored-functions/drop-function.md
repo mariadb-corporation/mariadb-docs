@@ -1,3 +1,9 @@
+---
+description: >-
+  The DROP FUNCTION statement removes a stored function from the database,
+  deleting its definition and associated privileges.
+---
+
 # DROP FUNCTION
 
 ## Syntax

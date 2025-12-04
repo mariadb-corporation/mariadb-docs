@@ -1,3 +1,10 @@
+---
+description: >-
+  A detailed reference list of specific schema change operations (like adding
+  columns or indexes) and their compatibility with INSTANT, INPLACE, and NOCOPY
+  algorithms.
+---
+
 # InnoDB Schema Changes
 
 ## MariaDB Enterprise Server InnoDB Schema Changes with the INPLACE Algorithm

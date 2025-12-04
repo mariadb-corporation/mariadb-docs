@@ -1,3 +1,10 @@
+---
+description: >-
+  Detailed information on the COMPACT row format, which reduces storage space by
+  roughly 20% compared to REDUNDANT, handling NULLs and variable-length columns
+  efficiently.
+---
+
 # InnoDB COMPACT Row Format
 
 **Note**`COMPACT` was the default row format in prior versions of MariaDB. MariaDB has since transitioned to `DYNAMIC` as the default row format.

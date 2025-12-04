@@ -1,17 +1,16 @@
+---
+description: >-
+  Legacy Cassandra storage engine description. Cassandra was removed from
+  MariaDB in MariaDB 10.6.
+---
+
 # Cassandra Storage Engine Overview
 
-CassandraSE is no longer actively being developed and has been removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106). See [MDEV-23024](https://jira.mariadb.org/browse/MDEV-23024).
+{% include "../../../../.gitbook/includes/the-cassandra-storage-engin....md" %}
 
 ## Installing
 
-**MariaDB starting with** [10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106)
-
-Cassandra storage engine is no longer a part of MariaDB.
-
-The Cassandra storage engine is included but is not installed/activated by default.
-
-If using the [YUM repositories](https://downloads.mariadb.org/mariadb/repositories/) on Fedora, Red Hat, or CentOS, first install the Cassandra storage engine\
-package with:
+If using the [YUM repositories](https://downloads.mariadb.org/mariadb/repositories/) on Fedora, Red Hat, or CentOS, first install the Cassandra storage engine package with:
 
 ```
 yum install MariaDB-cassandra-engine
@@ -19,7 +18,7 @@ yum install MariaDB-cassandra-engine
 
 If using the Debian or Ubuntu repositories, the Cassandra plugin is in the main MariaDB server package.
 
-To install/activate the storage engine into MariaDB, issue the following \
+To install/activate the storage engine into MariaDB, issue the following\
 command:
 
 ```
