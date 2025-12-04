@@ -1,10 +1,3 @@
----
-description: >-
-  Comprehensive list of system variables to configure Spider globally or per
-  session, affecting connection timeouts, buffering, and query pushdown
-  strategies.
----
-
 # Spider System Variables
 
 The following variables are available when the [Spider](./) storage engine has been installed.

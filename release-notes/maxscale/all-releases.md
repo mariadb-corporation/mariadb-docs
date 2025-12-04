@@ -1,7 +1,3 @@
----
-description: A list of all MariaDB MaxScale releases
----
-
 # All Releases
 
 ## MaxScale 25.10

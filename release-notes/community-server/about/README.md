@@ -1,5 +1,7 @@
 ---
-description: Information about MariaDB Community Server and our Release Model
+description: >-
+  Information about the MariaDB Community Server Release Series and Release
+  Model
 ---
 
 # About

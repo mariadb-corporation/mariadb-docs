@@ -1,9 +1,3 @@
----
-description: >-
-  Documentation for the DROP FUNCTION statement, which uninstalls a UDF and
-  removes its entry from the system table.
----
-
 # DROP FUNCTION UDF
 
 ## Syntax

@@ -1,9 +1,3 @@
----
-description: >-
-  An overview of changes, improvements, and what's new in MariaDB Enterprise
-  Server 11.4
----
-
 # What's New in MariaDB Enterprise Server 11.4
 
 {% include "../../.gitbook/includes/latest-es-11.4.md" %}

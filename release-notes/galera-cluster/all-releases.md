@@ -1,7 +1,3 @@
----
-description: A list of all Galera Cluster releases
----
-
 # All Releases
 
 ## Galera Cluster 26.4

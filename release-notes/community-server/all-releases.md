@@ -1,7 +1,3 @@
----
-description: A list of all MariaDB Community Server releases
----
-
 # All Releases
 
 ## MariaDB Community Server 12.2

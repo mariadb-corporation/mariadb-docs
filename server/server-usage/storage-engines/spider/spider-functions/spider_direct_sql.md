@@ -1,9 +1,3 @@
----
-description: >-
-  This function executes an SQL string directly on a specified remote backend
-  server, allowing for maintenance tasks or queries that bypass local parsing.
----
-
 # SPIDER\_DIRECT\_SQL
 
 ## Syntax
@@ -14,7 +8,7 @@ SPIDER_DIRECT_SQL('sql', 'tmp_table_list', 'parameters')
 
 ## Description
 
-A [UDF](../../../user-defined-functions/) installed with the [Spider Storage Engine](../), this function is used to execute the SQL string `sql` on the remote server, as defined in `parameters`. If any resultsets are returned, they are stored in the `tmp_table_list`.
+A [UDF](../../../../server-usage/user-defined-functions/) installed with the [Spider Storage Engine](../), this function is used to execute the SQL string `sql` on the remote server, as defined in `parameters`. If any resultsets are returned, they are stored in the `tmp_table_list`.
 
 The function returns `1` if the SQL executes successfully, or `0` if it fails.
 

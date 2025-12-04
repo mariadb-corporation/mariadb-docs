@@ -1,5 +1,5 @@
 ---
-description: A list of all MariaDB Connector/C releases
+description: A list of all MariaDB Connector/C Releases
 ---
 
 # Connector/C All Releases

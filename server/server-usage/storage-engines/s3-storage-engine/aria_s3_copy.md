@@ -1,14 +1,8 @@
----
-description: >-
-  A reference for the `aria_s3_copy` tool, which is used to manually copy Aria
-  tables to and from S3 storage for testing and data migration.
----
-
 # aria\_s3\_copy
 
-{% hint style="info" %}
-The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
-{% endhint %}
+**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)
+
+The [S3 storage engine](./) has been available since [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
 
 `aria_s3_copy` is a tool for copying an [Aria](../aria/) table to and from [S3](./).
 
@@ -22,9 +16,7 @@ Example of properly created Aria table:
 CREATE TABLE test1 (a INT) transactional=0 row_format=PAGE engine=aria;
 ```
 
-{% hint style="info" %}
-[ALTER TABLE table\_name ENGINE=S3](using-the-s3-storage-engine.md) works for any kind of table. It internally converts the table to an Aria table, then moves it to S3 storage.
-{% endhint %}
+Note that [ALTER TABLE table\_name ENGINE=S3](using-the-s3-storage-engine.md) will work for any kind of table. This internally converts the table to an Aria table and then moves it to S3 storage.
 
 ### Main Arguments
 
@@ -54,7 +46,7 @@ CREATE TABLE test1 (a INT) transactional=0 row_format=PAGE engine=aria;
 
 ### Typical Configuration in a my.cnf File
 
-```ini
+```
 [aria_s3_copy]
 s3-bucket=mariadb
 s3-access-key=xxxx

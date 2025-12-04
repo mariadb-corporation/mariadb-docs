@@ -1,9 +1,3 @@
----
-description: >-
-  Explains how to use the DROP VIEW statement to remove one or more views from
-  the database, including required privileges.
----
-
 # DROP VIEW
 
 ## Syntax

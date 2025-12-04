@@ -1,7 +1,3 @@
----
-description: A list of all MariaDB Connector/ODBC releases
----
-
 # Connector/ODBC All Releases
 
 ## 3.2

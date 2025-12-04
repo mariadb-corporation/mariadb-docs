@@ -1,9 +1,3 @@
----
-description: >-
-  A guide on how to migrate tables from a standard MariaDB deployment to a
-  Federated Spider topology, distributing data across multiple backend nodes.
----
-
 # Federated MariaDB Enterprise Spider Topology Migrate Tables
 
 ## Overview
