@@ -1,4 +1,10 @@
+---
+description: The release schedule for MariaDB Enterprise Server
+---
+
 # Enterprise Server Release Schedule
+
+## About
 
 [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) enables a predictable development and operations experience through an [enterprise lifecycle](enterprise-server-lifecycle.md). This enterprise lifecycle incorporates optimized builds, predictable release behavior, and vendor support.
 
@@ -55,6 +61,7 @@ Previously-announced minor or maintenance release dates:
 * 2019-11-18 ([ES 10.4.10-4](old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-10-4.md), [ES 10.3.20-4](old-releases/10-3/release-notes-for-mariadb-enterprise-server-10-3-20-4.md), [ES 10.2.29-4](old-releases/10-2/release-notes-for-mariadb-enterprise-server-10-2-29-4.md))
 * 2019-09-30 ([ES 10.4.8-3](old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-8-3.md), [ES 10.3.18-3](old-releases/10-3/release-notes-for-mariadb-enterprise-server-10-3-18-3.md), [ES 10.2.27-3](old-releases/10-2/release-notes-for-mariadb-enterprise-server-10-2-27-3.md))
 * 2019-08-19 ([ES 10.4.7-2](old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-7-2.md), [ES 10.3.17-2](old-releases/10-3/release-notes-for-mariadb-enterprise-server-10-3-17-2.md), [ES 10.2.26-2](old-releases/10-2/release-notes-for-mariadb-enterprise-server-10-2-26-2.md))
+See the list of [All MariaDB Enterprise Server Releases](all-releases.md)
 
 ## Obtaining MariaDB Enterprise Server
 

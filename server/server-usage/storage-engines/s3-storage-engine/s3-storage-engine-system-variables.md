@@ -1,8 +1,14 @@
+---
+description: >-
+  This page lists system variables to configure the S3 engine, including AWS
+  credentials, bucket names, page cache sizes, and connection protocols.
+---
+
 # S3 System Variables
 
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)
-
-The [S3 storage engine](./) has been available since [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
+{% hint style="info" %}
+The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
+{% endhint %}
 
 This page documents system variables related to the [S3 storage engine](./).
 

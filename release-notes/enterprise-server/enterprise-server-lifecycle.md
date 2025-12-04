@@ -1,6 +1,11 @@
-# Enterprise Server Lifecycle
+---
+description: >-
+  MariaDB Enterprise Server enables a predictable development and operations
+  experience through an enterprise lifecycle — incorporating optimized builds,
+  predictable release behavior, and vendor support
+---
 
-MariaDB Enterprise Server enables a predictable development and operations experience through an _enterprise lifecycle_ This enterprise lifecycle incorporates optimized builds, predictable release behavior, and vendor support.
+# Enterprise Server Lifecycle
 
 ## Enterprise Server Builds
 
@@ -40,7 +45,7 @@ MariaDB Enterprise Server is available to MariaDB subscription customers via the
 
 If you are not yet a MariaDB subscription customer, [contact MariaDB Corporation](https://mariadb.com/contact) for more information.
 
-MariaDB Enterprise Server binary and source code is delivered over secure protocols from MariaDB Corporation-maintained infrastructure as detailed in the [Deployment Guide](broken-reference).
+MariaDB Enterprise Server binary and source code is delivered over secure protocols from MariaDB Corporation-maintained infrastructure as detailed in the [Deployment Guide](/broken/pages/BbZ3TNWsYNwHXVyiSQ6z).
 
 ### Enterprise Server Release Identifiers <a href="#enterprise-server-release-identifiers" id="enterprise-server-release-identifiers"></a>
 

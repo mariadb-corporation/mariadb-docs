@@ -1,4 +1,10 @@
+---
+description: A list of all MariaDB Connector/C++ releases
+---
+
 # Connector/C++ All Releases
+
+
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/97ObD80oLdZu6qT33Vhb/" %}
 

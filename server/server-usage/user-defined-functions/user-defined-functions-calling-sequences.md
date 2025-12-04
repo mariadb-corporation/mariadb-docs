@@ -1,3 +1,9 @@
+---
+description: >-
+  Technical details on the execution flow of UDFs, explaining the sequence in
+  which initialization, processing, and de-initialization functions are called.
+---
+
 # User-Defined Functions Calling Sequences
 
 The functions described in [Creating User-defined Functions](creating-user-defined-functions.md) are expanded on this page. They are declared as follows:
@@ -6,14 +12,14 @@ The functions described in [Creating User-defined Functions](creating-user-defin
 
 ### x()
 
-If x() returns an integer, it is declared as follows:
+If `x()` returns an integer, it is declared as follows:
 
 ```
 long long x(UDF_INIT *initid, UDF_ARGS *args,
               char *is_null, char *error);
 ```
 
-If x() returns a string (DECIMAL functions also return string values), it is declared as follows:
+If `x()` returns a string (`DECIMAL` functions also return string values), it is declared as follows:
 
 ```
 char *x(UDF_INIT *initid, UDF_ARGS *args,
@@ -21,7 +27,7 @@ char *x(UDF_INIT *initid, UDF_ARGS *args,
           char *is_null, char *error);
 ```
 
-If x() returns a real, it is declared as follows:
+If `x()` returns a real, it is declared as follows:
 
 ```
 double x(UDF_INIT *initid, UDF_ARGS *args,
@@ -42,18 +48,18 @@ void x_deinit(UDF_INIT *initid);
 
 ### Description
 
-_initid_ is a parameter passed to all three functions that points to a _UDF\_INIT_ structure, used for communicating information between the functions. Its structure members are:
+_`initid`_ is a parameter passed to all three functions that points to a _UDF\_INIT_ structure, used for communicating information between the functions. Its structure members are:
 
-* my\_bool maybe\_null
+* `my_bool` `maybe_null`
   * maybe\_null should be set to 1 if x\_init can return a NULL value, Defaults to 1 if any arguments are declared maybe\_null.
-* unsigned int decimals
-  * Number of decimals after the decimal point. The default, if an explicit number of decimals is passed in the arguments to the main function, is the maximum number of decimals, so if 9.5, 9.55 and 9.555 are passed to the function, the default would be three (based on 9.555, the maximum). If there are no explicit number of decimals, the default is set to 31, or one more than the maximum for the DOUBLE, FLOAT and DECIMAL types. This default can be changed in the function to suit the actual calculation.
-* unsigned int max\_length
-  * Maximum length of the result. For integers, the default is 21. For strings, the length of the longest argument. For reals, the default is 13 plus the number of decimals indicated by initid->decimals. The length includes any signs or decimal points. Can also be set to 65KB or 16MB in order to return a BLOB. The memory remains unallocated, but this is used to decide on the data type to use if the data needs to be temporarily stored.
-* char \*ptr
-  * A pointer for use as required by the function. Commonly, initid->ptr is used to communicate allocated memory, with x\_init() allocating the memory and assigning it to this pointer, x() using it, and x\_deinit() de-allocating it.
-* my\_bool const\_item
-  * Should be set to 1 in x\_init() if x() always returns the same value, otherwise 0.
+* `unsigned int decimals`
+  * Number of decimals after the decimal point. The default, if an explicit number of decimals is passed in the arguments to the main function, is the maximum number of decimals, so if 9.5, 9.55 and 9.555 are passed to the function, the default would be three (based on 9.555, the maximum). If there are no explicit number of decimals, the default is set to 31, or one more than the maximum for the `DOUBLE`, `FLOAT` and `DECIMAL` types. This default can be changed in the function to suit the actual calculation.
+* `unsigned int max_length`
+  * Maximum length of the result. For integers, the default is 21. For strings, the length of the longest argument. For reals, the default is 13 plus the number of decimals indicated by `initid->decimals`. The length includes any signs or decimal points. Can also be set to 65KB or 16MB in order to return a `BLOB`. The memory remains unallocated, but this is used to decide on the data type to use if the data needs to be temporarily stored.
+* `char *ptr`
+  * A pointer for use as required by the function. Commonly, `initid->ptr` is used to communicate allocated memory, with `x_init()` allocating the memory and assigning it to this pointer, `x()` using it, and `x_deinit()` de-allocating it.
+* `my_bool` `const_item`
+  * Should be set to 1 in `x_init()` if `x()` always returns the same value, otherwise `0`.
 
 ## Aggregate Functions
 

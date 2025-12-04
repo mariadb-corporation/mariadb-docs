@@ -1,3 +1,10 @@
+---
+description: >-
+  Covers advanced management topics like executing direct SQL on backends,
+  copying tables between nodes, and monitoring the cluster using status
+  variables.
+---
+
 # Spider Cluster Management
 
 ## Direct SQL

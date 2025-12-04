@@ -1,6 +1,12 @@
+---
+description: >-
+  Legacy Cassandra storage engine description. Cassandra was removed from
+  MariaDB in MariaDB 10.6.
+---
+
 # Cassandra Storage Engine Future Plans
 
-CassandraSE is no longer actively being developed and has been removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106). See [MDEV-23024](https://jira.mariadb.org/browse/MDEV-23024).
+{% include "../../../../.gitbook/includes/the-cassandra-storage-engin....md" %}
 
 These are possible future directions for [Cassandra Storage Engine](cassandra-storage-engine-overview.md). **This is mostly brainstorming, nobody has committed to implementing this**.
 

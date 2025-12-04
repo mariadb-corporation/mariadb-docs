@@ -1,3 +1,10 @@
+---
+description: >-
+  This page outlines the differences between the standalone SpiderForMySQL
+  distribution and the version integrated into MariaDB Server, including version
+  correspondence and feature availability.
+---
+
 # Spider Differences Between SpiderForMySQL and MariaDB
 
 ### SQL Syntax

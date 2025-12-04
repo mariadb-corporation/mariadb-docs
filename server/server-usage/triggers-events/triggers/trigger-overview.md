@@ -1,3 +1,9 @@
+---
+description: >-
+  A comprehensive guide to triggers, explaining their execution timing
+  (BEFORE/AFTER), supported events, and how they interact with storage engines.
+---
+
 # Trigger Overview
 
 A trigger is a set of statements that run when, or are triggered by, an event that occurs on a table.
@@ -65,7 +71,7 @@ The trigger has:
 * a table with which it is associated (`animals`),
 * a set of statements to run (here, just the one `UPDATE` statement).
 
-`AFTER INSERT` specifies that the trigger runs _after_ an `INSERT`. The trigger could also be set to run _before_, and the statement causing the trigger could be a `DELETE` or an `UPDATE` as well. You can also have multiple triggers for an action. In this case, you can use `FOLLOWS | PRECEDES`` `_`other_trigger_name`_ to specify the order of the triggers.
+`AFTER INSERT` specifies that the trigger runs _after_ an `INSERT`. The trigger could also be set to run _before_, and the statement causing the trigger could be a `DELETE` or an `UPDATE` as well. You can also have multiple triggers for an action. In this case, you can use ` FOLLOWS | PRECEDES`` `` `_`other_trigger_name`_ to specify the order of the triggers.
 
 The set of statements to run are the statements on the table of the trigger; therefore, columns/values that change are always just a column name or an expression like `NEW.`_`column_name`_. Table references of other tables must come from explicit table references.
 

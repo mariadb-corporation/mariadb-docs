@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how triggers can cause implicit locks on referenced tables during the
+  execution of a statement, potentially affecting concurrency.
+---
+
 # Triggers and Implicit Locks
 
 A [trigger](./) may reference multiple tables, and if a [LOCK TABLES](../../../reference/sql-statements/transactions/lock-tables.md) statement is used on one of the tables, other tables may at the same time also implicitly be locked due to the trigger.

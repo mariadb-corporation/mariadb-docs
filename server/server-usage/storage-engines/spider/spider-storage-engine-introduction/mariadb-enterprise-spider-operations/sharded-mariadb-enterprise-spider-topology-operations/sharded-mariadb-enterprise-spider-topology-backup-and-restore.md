@@ -1,3 +1,9 @@
+---
+description: >-
+  Guidelines for backing up and restoring a sharded Spider topology, ensuring
+  consistency across multiple shards using tools like MariaDB Backup.
+---
+
 # Sharded MariaDB Enterprise Spider Topology Backup and Restore
 
 ## Overview

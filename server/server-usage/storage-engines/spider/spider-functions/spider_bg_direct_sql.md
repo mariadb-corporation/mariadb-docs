@@ -1,3 +1,9 @@
+---
+description: >-
+  This UDF allows you to execute SQL statements on remote data nodes in the
+  background, enabling concurrent processing and non-blocking operations.
+---
+
 # SPIDER\_BG\_DIRECT\_SQL
 
 ## Syntax
@@ -10,7 +16,7 @@ SPIDER_BG_DIRECT_SQL('sql', 'tmp_table_list', 'parameters')
 
 Executes the given SQL statement in the background on the remote server, as defined in the parameters listing. If the query returns a result-set, it sttores the results in the given temporary table. When the given SQL statement executes successfully, this function returns the number of called UDF's. It returns `0` when the given SQL statement fails.
 
-This function is a [UDF](../../../../server-usage/user-defined-functions/) installed with the [Spider](../) storage engine.
+This function is a [UDF](../../../user-defined-functions/) installed with the [Spider](../) storage engine.
 
 ## Examples
 

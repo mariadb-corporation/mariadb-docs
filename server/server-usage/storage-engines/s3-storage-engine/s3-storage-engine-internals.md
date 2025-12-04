@@ -1,38 +1,34 @@
-# Engine Internals
+---
+description: >-
+  Learn about the internal architecture of the S3 engine, which inherits from
+  Aria code but redirects reads to S3, using a dedicated page cache.
+---
 
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)
+# S3 Engine Internals
 
-The [S3 storage engine](./) has been available since [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
+{% hint style="info" %}
+The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
+{% endhint %}
 
-The [S3 storage engine](./) is based on the [Aria](../aria/aria-storage-engine.md) code.\
-Internally the S3 storage inherits from the Aria code, with hooks\
-that change reads, so that instead of reading data from the local disk it\
-reads things from S3.
+The [S3 storage engine](./) is based on the [Aria](../aria/aria-storage-engine.md) code. Internally, the S3 storage inherits from the Aria code, with hooks that change reads, so that instead of reading data from the local disk it reads things from S3.
 
 The S3 engine uses it's own page cache, modified to be able to handle reading blocks from S3 (of size `s3_block_size`). Internally the S3 page cache uses pages of [aria-block-size](../aria/aria-system-variables.md#aria_block_size) for splitting the blocks read from S3.
 
 ## ALTER TABLE
 
-[ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) will first create a local table in the normal Aria on disk\
-format and then move both index and data to S3 in buckets of S3\_BLOCK\_SIZE.\
-The .frm file is also copied to S3 for discovery to support discovery for\
-other MariaDB servers.\
-One can also use ALTER TABLE to change the structure of an S3 table.
+[ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/) will first create a local table in the normal Aria on disk format and then move both index and data to S3 in buckets of `S3_BLOCK_SIZE`. The .frm file is also copied to S3 for discovery to support discovery for other MariaDB servers. You can also use `ALTER TABLE` to change the structure of an S3 table.
 
 ## Partitioning Tables
 
-Starting from [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1053-release-notes), S3 tables can also be used with [Partitioning tables](../../partitioning-tables/).\
-All [ALTER PARTITION](../../../reference/sql-statements/data-definition/alter/alter-table/) operations are supported except:
+S3 tables can also be used with [Partitioning tables](../../partitioning-tables/). All [ALTER PARTITION](../../../reference/sql-statements/data-definition/alter/alter-table/) operations are supported except:
 
-* REBUILD PARTITION
-* TRUNCATE PARTITION
-* REORGANIZE PARTITION
+* `REBUILD PARTITION`
+* `TRUNCATE PARTITION`
+* `REORGANIZE PARTITION`
 
 ## Big Reads
 
-One of the properties of many S3 implementations is that they favor large\
-reads. It's said that 4M gives the best performance, which is why the\
-default value for `S3_BLOCK_SIZE` is 4M.
+One of the properties of many S3 implementations is that they favor large reads. It's said that 4M gives the best performance, which is why the default value for `S3_BLOCK_SIZE` is 4M.
 
 ## Compression
 
@@ -60,8 +56,7 @@ Data file:
 s3_bucket/database/table/data/block_number
 ```
 
-block\_number is a 6-digit decimal number, prefixed with 0\
-(Can be larger than 6 numbers, the prefix is just for nice output)
+`block_number` is a 6-digit decimal number, prefixed with `0`. (It can be larger than 6 numbers – the prefix is just for nice output.)
 
 ## Using the awsctl Python Tool to Examine Data
 

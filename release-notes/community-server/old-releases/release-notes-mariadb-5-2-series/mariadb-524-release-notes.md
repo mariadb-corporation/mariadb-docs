@@ -18,7 +18,7 @@ See the [Changelog](../../changelogs/changelogs-mariadb-52-series/mariadb-524-ch
 In most respects [MariaDB](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb/README.md) will work exactly as MySQL: all commands,\
 interfaces, libraries and APIs that exist in MySQL also exist in MariaDB.
 
-## Includes [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-unmaintained/about-xtradb) 5.1.52-11.6
+## Includes [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/innodb-unmaintained/about-xtradb) 5.1.52-11.6
 
 We have included XtraDB from Percona-server-5.1.52-11.6 in this version of\
 MariaDB.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the fundamental concepts behind Spider, including its architecture as
+  a proxy storage engine, sharding capabilities, and support for XA transactions
+  across data nodes.
+---
+
 # Spider Storage Engine Core Concepts
 
 A typical Spider deployment has a shared-nothing clustered architecture. The system works with any inexpensive hardware, and with a minimum of specific requirements for hardware or software. It consists of a set of computers, with one or more MariaDB processes known as nodes.

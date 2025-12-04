@@ -1,3 +1,7 @@
+---
+description: A list of all MariaDB Connector/Python releases
+---
+
 # Connector/Python All Releases
 
 ## 1.1

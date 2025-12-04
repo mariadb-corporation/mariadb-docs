@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide covers typical use cases for the S3 engine, such as archiving
+  inactive tables, and details supported operations like ALTER TABLE and SELECT.
+---
+
 # Using the S3 Storage Engine
 
 The [S3 storage engine](./) is read only and allows one to archive MariaDB tables in Amazon S3, or any third-party public or private cloud that implements S3 API (of which there are many), but still have them accessible for reading in MariaDB.

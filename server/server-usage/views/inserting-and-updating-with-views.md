@@ -1,3 +1,9 @@
+---
+description: >-
+  Covers the conditions under which a view is updatable, allowing INSERT,
+  UPDATE, and DELETE operations to modify the underlying base tables.
+---
+
 # Inserting and Updating with Views
 
 A [view](./) can be used for inserting or updating. However, there are certain limitations.

@@ -1,3 +1,9 @@
+---
+description: >-
+  An introduction to User-Defined Functions (UDFs) in MariaDB, explaining how
+  they extend the server's functionality by adding new native-like functions.
+---
+
 # User-Defined Functions Overview
 
 A user-defined function (UDF) is a historical way to extend MariaDB with a new function that works similar to a native (built-in) MariaDB function such as [ABS( )](../../reference/sql-functions/numeric-functions/abs.md) or [CONCAT( )](../../reference/sql-functions/string-functions/concat.md). It was introduced in 1998 and is generally limited to supporting features that existed at that time.

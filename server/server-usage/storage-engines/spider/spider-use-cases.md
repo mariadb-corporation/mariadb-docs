@@ -1,3 +1,10 @@
+---
+description: >-
+  Describes common use cases for Spider, such as horizontal sharding for
+  scalability, consolidating data from multiple sources, and migrating data
+  between servers.
+---
+
 # Spider Use Cases
 
 ## Introduction

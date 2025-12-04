@@ -1,3 +1,9 @@
+---
+description: >-
+  Features that are in MariaDB Enterprise Server 11.4 but not in MariaDB
+  Community Server 11.4
+---
+
 # Differences in MariaDB Enterprise Server 11.4
 
 MariaDB Enterprise Server is a premium version of MariaDB Community Server that focuses on stability, robustness, and predictability.

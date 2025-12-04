@@ -1,3 +1,7 @@
+---
+description: A list of all MariaDB ColumnStore releases
+---
+
 # All Releases
 
 ## ColumnStore 25.10

@@ -1,3 +1,9 @@
+---
+description: >-
+  Describes the older table discovery API used in earlier MariaDB versions,
+  detailing the `discover()` and `table_exists_in_engine()` methods.
+---
+
 # Table Discovery (before 10.0.2)
 
 This page describes the **old** discovery API, created in MySQL for NDB Cluster. It no longer works in MariaDB. New table discovery API is documented [here](table-discovery.md).

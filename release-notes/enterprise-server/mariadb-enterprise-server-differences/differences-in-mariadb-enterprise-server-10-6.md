@@ -1,3 +1,9 @@
+---
+description: >-
+  Features that are in MariaDB Enterprise Server 10.6 but not in MariaDB
+  Community Server 10.6
+---
+
 # Differences in MariaDB Enterprise Server 10.6
 
 MariaDB Enterprise Server is a premium version of MariaDB Community Server that focuses on stability, robustness, and predictability. For more information about MariaDB Enterprise Server in general please [look here](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-enterprise-server/README.md).

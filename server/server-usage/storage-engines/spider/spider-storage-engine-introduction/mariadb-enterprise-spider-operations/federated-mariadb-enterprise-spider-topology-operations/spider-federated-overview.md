@@ -1,3 +1,10 @@
+---
+description: >-
+  An overview of the federated topology for Spider, where a single Spider node
+  aggregates data from multiple remote data nodes, acting as a unified access
+  point.
+---
+
 # Spider Federated Overview
 
 ## Overview
