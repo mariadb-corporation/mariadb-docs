@@ -30,8 +30,8 @@ PgManage supports MariaDB along many other databases.
 
 ## Links:
 
-Product Page [www.commandprompt.com/products/pgmanage](https://www.commandprompt.com/products/pgmanage/).
-Github Project [www.commandprompt.com/products/pgmanage](https://github.com/commandprompt/pgmanage).
+Product Page [www.commandprompt.com/products/pgmanage](https://www.commandprompt.com/products/pgmanage/)  
+Github Project [https://github.com/commandprompt/pgmanage](https://github.com/commandprompt/pgmanage)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
