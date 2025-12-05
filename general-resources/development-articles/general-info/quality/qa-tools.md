@@ -7,6 +7,7 @@ Tools used for quality assurance testing:
   WorkLogs
 * [MTR/mysqltest reference](https://dev.mysql.com/doc/mysqltest/2.0/en/mysqltest-reference.html)
 * [The Random Query Generator](https://github.com/RQG/RQG-Documentation/wiki/Category:RandomQueryGenerator)
+* [pquery & The pquery Framework](https://github.com/mariadb-corporation/mariadb-qa)
 * [BuildBot Manual](https://buildbot.net/buildbot/docs/latest/)
 
 ## See also:
