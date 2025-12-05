@@ -32,7 +32,7 @@ Prior to [MariaDB 10.6.21](../../10.6/10.6.21.md), [MariaDB 10.11.11](../../10.1
 
 [MariaDB 10.6.21](../../10.6/10.6.21.md), [MariaDB 10.11.11](../../10.11/10.11.11.md), [MariaDB 11.4.5](../../11.4/11.4.5.md), [MariaDB 11.7.2](../../old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-2-release-notes.md) and newer can replicate from a MySQL 8.0 server with the following conditions:
 
-* MariaDB does not support the MySQL default authentication caching\_sha2\_password, so one has to add another replication user using the mysql\_native\_password protocol and use this with [CHANGE MASTER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) in MariaDB.
+* Prior to [MariaDB 11.4.9](../../11.4/11.4.9.md), [MariaDB 11.8.4](../../11.8/11.8.4.md) and [MariaDB 12.1.1](../../12.1/12.1.1.md), MariaDB does not support the MySQL default authentication caching\_sha2\_password, so one has to add another replication user using the mysql\_native\_password protocol and use this with [CHANGE MASTER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) in MariaDB when using an older version.
 * Columns of type JSON are not supported. One should change these to `TEXT` in MySQL. MySQL will work fine with JSON as TEXT, except for a minor performance degradation when using JSON expressions.
 * `binlog-row-value-options` should be set to `""` should be set. This disables the incompatible `PARTIAL_UPDATE_ROWS_EVENT` event.
 * `binlog_transaction_compression` should be set to `0`. This disables binlog compression and the incompatible `TRANSACTION_PAYLOAD_EVENT` event.
