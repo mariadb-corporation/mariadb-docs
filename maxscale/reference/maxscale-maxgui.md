@@ -1,3 +1,10 @@
+---
+description: >-
+  Navigate the MaxGUI browser-based interface. This reference outlines the
+  dashboard features for visual configuration, cluster monitoring, and query
+  execution in MariaDB MaxScale.
+---
+
 # MaxScale MaxGUI
 
 ## Introduction

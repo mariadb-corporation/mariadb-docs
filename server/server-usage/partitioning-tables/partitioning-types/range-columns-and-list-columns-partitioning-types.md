@@ -45,7 +45,7 @@ To determine which partition should contain a row, all specified columns are com
 
 With `LIST COLUMNS`, a row matches a partition if all row values are identical to the specified values. At most one partition can match the row.
 
-With `RANGE COLUMNS`, a row matches a partition if all row values are less than the specified values. The first partition that matches the row values are used.
+With `RANGE COLUMNS`, a row matches a partition if it is less than the specified value tuple in lexicographic order. The first partition that matches the row values are used.
 
 The `DEFAULT` partition catches all records which do not fit in other partitions. Only one `DEFAULT` partition is allowed.
 

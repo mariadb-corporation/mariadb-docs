@@ -1,3 +1,9 @@
+---
+description: >-
+  Highlights features unique to MariaDB, such as pluggable storage engines,
+  dynamic columns, and Flashback, which can offer advantages after migration.
+---
+
 # MariaDB Features Not Available in SQL Server
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

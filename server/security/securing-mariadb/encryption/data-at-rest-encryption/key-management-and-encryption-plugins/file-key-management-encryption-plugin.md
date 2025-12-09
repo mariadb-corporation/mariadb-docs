@@ -144,25 +144,16 @@ Generate a random encryption password using the [openssl rand](https://www.opens
 $ sudo openssl rand -hex 128 > /etc/mysql/encryption/keyfile.key
 ```
 
-Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute the following:
+Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute one of the following commands:
 
+{% code overflow="wrap" %}
 ```bash
-$ sudo openssl enc -aes-256-cbc -md sha1 \
-   -pass file:/etc/mysql/encryption/keyfile.key \
-   -in /etc/mysql/encryption/keyfile \
-   -out /etc/mysql/encryption/keyfile.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 -pass pass:secret -in /tmp/keys.txt -out /tmp/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 -pass pass:secret -in /tmp/keys.txt -out /tmp/keys.enc
 ```
+{% endcode %}
 
-The resulting `keyfile.enc` file is the encrypted version of `keyfile`. Delete the unencrypted key file.
-
-{% hint style="info" %}
-Some more recent `openssl` versions may throw this warning:
-
-```bash
-*** WARNING : deprecated key derivation used.
-Using -iter or -pbkdf2 would be better.
-```
-{% endhint %}
+The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
 
 Having the key file encrypted requires both the [file\_key\_management\_filename](file-key-management-encryption-plugin.md#file_key_management_filename) and the [file\_key\_management\_filekey](file-key-management-encryption-plugin.md#file_key_management_filekey) system variables to be configured.
 

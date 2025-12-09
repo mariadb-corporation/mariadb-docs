@@ -1,3 +1,10 @@
+---
+description: >-
+  An architectural overview for SQL Server DBAs, covering MariaDB's storage
+  engines (InnoDB), transaction logs (undo/redo), buffer pool, and system
+  databases.
+---
+
 # Understanding MariaDB Architecture
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

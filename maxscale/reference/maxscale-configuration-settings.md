@@ -1,3 +1,10 @@
+---
+description: >-
+  Browse the comprehensive list of MariaDB MaxScale configuration parameters.
+  This reference details valid values, default settings, and dynamic
+  capabilities for servers, services, and monitors.
+---
+
 # MaxScale Configuration Settings
 
 ## Configuration Settings
@@ -8,14 +15,14 @@
 
 **Global Settings**
 
-#### [**admin\_audit**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_audit)
+#### [**admin\_audit**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_audit)
 
 * Type: [boolean](../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
 
-#### [**admin\_audit\_exclude\_methods**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_audit\_exclude\_methods)
+#### [**admin\_audit\_exclude\_methods**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_audit_exclude_methods)
 
 * Type: [enum](../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -23,42 +30,42 @@
 * Values: `GET`, `PUT`, `POST`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `CONNECT`, `TRACE`
 * Default: No exclusions
 
-#### [**admin\_audit\_file**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_audit\_file)
+#### [**admin\_audit\_file**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_audit_file)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
 * Default: `/var/log/maxscale/admin_audit.csv`
 
-#### [**admin\_auth**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_auth)
+#### [**admin\_auth**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_auth)
 
 * Type: [boolean](../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
 
-#### [**admin\_enabled**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_enabled)
+#### [**admin\_enabled**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_enabled)
 
 * Type: [boolean](../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
 
-#### [**admin\_gui**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_gui)
+#### [**admin\_gui**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_gui)
 
 * Type: [boolean](../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`
 
-#### [**admin\_host**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_host)
+#### [**admin\_host**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_host)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
 * Default: `"127.0.0.1"`
 
-#### [**admin\_jwt\_algorithm**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_jwt\_algorithm)
+#### [**admin\_jwt\_algorithm**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_jwt_algorithm)
 
 * Type: [enum](../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
@@ -66,7 +73,7 @@
 * Values: `auto`, `HS256`, `HS384`, `HS512`, `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, `ES512`, `ED25519`, `ED448`
 * Default: `auto`
 
-#### [**admin\_jwt\_issuer**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin\_jwt\_issuer)
+#### [**admin\_jwt\_issuer**](../maxscale-management/deployment/maxscale-configuration-guide.md#admin_jwt_issuer)
 
 * Type: string
 * Mandatory: No

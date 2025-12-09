@@ -1,3 +1,10 @@
+---
+description: >-
+  Discusses transaction handling and isolation levels in MariaDB (READ
+  COMMITTED, REPEATABLE READ) compared to SQL Server, including locking behavior
+  and deadlock handling.
+---
+
 # MariaDB Transactions and Isolation Levels for SQL Server Users
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

@@ -1,21 +1,23 @@
+---
+description: >-
+  Learn about special module-specific commands in MaxScale. This guide explains
+  how to list and execute commands using MaxCtrl for modules like
+  authenticators, filters, and monitors.
+---
+
 # MaxScale Module Commands
 
 ## Module commands
 
-Introduced in MaxScale 2.1, the module commands are special, module-specific
-commands. They allow the modules to expand beyond the capabilities of the module
-API. Currently, only MaxCtrl implements an interface to the module commands.
+Introduced in MaxScale 2.1, the module commands are special, module-specific commands. They allow the modules to expand beyond the capabilities of the module API. Currently, only MaxCtrl implements an interface to the module commands.
 
-All registered module commands can be shown with `maxctrl list commands` and
-they can be executed with `maxctrl call command <module> <name> ARGS...` whereis the name of the module and is the name of the command._ARGS_ is a command specific list of arguments.
+All registered module commands can be shown with `maxctrl list commands` and they can be executed with `maxctrl call command <module> <name> ARGS...` whereis the name of the module and is the name of the command._ARGS_ is a command specific list of arguments.
 
 ### Developer reference
 
-The module command API is defined in the _modulecmd.h_ header. It consists of
-various functions to register and call module commands. Read the function
-documentation in the header for more details.
+The module command API is defined in the _modulecmd.h_ header. It consists of various functions to register and call module commands. Read the function documentation in the header for more details.
 
-The following example registers the module command _my\_command_ for module_&#x6D;y\_module_.
+The following example registers the module command _my\_command_ for module\_my\_module\_.
 
 ```
 #include <maxscale/modulecmd.hh>
@@ -52,15 +54,11 @@ int main(int argc, char **argv)
 }
 ```
 
-The array _my\_args_ of type _modulecmd\_arg\_type\_t_ is used to tell what kinds of
-arguments the command expects. The first argument is a boolean and the second
-argument is an optional string.
+The array _my\_args_ of type _modulecmd\_arg\_type\_t_ is used to tell what kinds of arguments the command expects. The first argument is a boolean and the second argument is an optional string.
 
-Arguments are passed to the parsing function as an array of void pointers. They
-are interpreted as the types the command expects.
+Arguments are passed to the parsing function as an array of void pointers. They are interpreted as the types the command expects.
 
-When the module command is executed, the _argv_ parameter for the_&#x6D;y\_simple\_cmd_ contains the parsed arguments received from the caller of the
-command.
+When the module command is executed, the _argv_ parameter for the\_my\_simple\_cmd\_ contains the parsed arguments received from the caller of the command.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

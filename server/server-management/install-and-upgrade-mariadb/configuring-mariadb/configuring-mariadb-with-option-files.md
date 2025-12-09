@@ -256,6 +256,19 @@ MariaDB can be configured to read options from option groups with a custom suffi
 
 The default group suffix can also be specified via the `MYSQL_GROUP_SUFFIX` [environment variable](mariadb-environment-variables.md).
 
+**Example:** To create a custom prompt for the `mariadb` command-line client via a custom group, add this to the option file (for instance, `/etc/my.cnf`):
+
+```ini
+[client_custom_group]
+prompt='(custom prompt for mariadb client)'
+```
+
+Then, launch `mariadb` like this:
+
+```shellscript
+mariadb --defaults-group-suffix=_custom_group
+```
+
 ### Including Option Files
 
 It is possible to include additional option files from another option file. For example, to include `/etc/mysql/dbserver1.cnf`, an option file could contain:

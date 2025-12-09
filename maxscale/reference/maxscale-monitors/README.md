@@ -1,8 +1,8 @@
 ---
 description: >-
-  Monitors are essential for high availability, tracking the status of backend
-  servers. They detect failures, promote replicas, and enable automatic
-  failover, ensuring service continuity.
+  Review the monitoring modules for MariaDB MaxScale. This section details
+  configuration for Galera Cluster, MariaDB Monitor, and other plugins that
+  ensure high availability and failover.
 ---
 
 # MaxScale Monitors

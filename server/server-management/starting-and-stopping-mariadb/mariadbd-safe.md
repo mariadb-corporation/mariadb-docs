@@ -1,18 +1,28 @@
+---
+description: >-
+  Details the `mariadbd-safe` wrapper script, which adds safety features like
+  auto-restart upon crash and error logging to syslog.
+---
+
 # mariadbd-safe
 
-The `mariadbd-safe` startup script is in MariaDB distributions on Linux and Unix. It is a wrapper that starts `mariadbd` with some extra safety features. For example, if `mariadbd-safe` notices that `mariadbd` has crashed, then `mariadbd-safe` will automatically restart `mariadbd`.
+The `mariadbd-safe` startup script is in MariaDB distributions on Linux and Unix. It is a wrapper that starts `mariadbd` with some extra safety features. For example, if `mariadbd-safe` notices that `mariadbd` has crashed, then `mariadbd-safe` automatically restarts `mariadbd`.
 
 `mariadbd-safe` is the recommended way to start `mariadbd` on Linux and Unix distributions that do not support [systemd](systemd.md). Additionally, the [mysql.server](mysql-server.md) init script used by [sysVinit](sysvinit.md) starts `mariadbd` with `mariadbd-safe` by default.
 
-Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), the client used to be called `mysqld_safe`, and can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+{% hint style="info" %}
+Previously, the client used to be called `mysqld_safe`, and can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+{% endhint %}
 
 ## Using mariadbd-safe
 
 The command to use `mariadbd-safe` and the general syntax is:
 
+{% code overflow="wrap" %}
 ```
 mariadbd-safe [ --no-defaults | --defaults-file | --defaults-extra-file | --defaults-group-suffix | --print-defaults ] <options> <mariadbd_options>
 ```
+{% endcode %}
 
 ### Options
 
@@ -95,18 +105,18 @@ The `[safe_mariadbd]` option group is primarily supported for backward compatibi
 
 For example, if you specify the [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) option in a server option group in an option file, like this:
 
-```toml
+```ini
 [mariadb]
 log_error=error.log
 ```
 
-Then `mariadbd-safe` will also use this value for its own `--log-error` option:
+Then `mariadbd-safe` also uses this value for its own `--log-error` option:
 
 ### Configuring the Open Files Limit
 
 When using `mariadbd-safe`, the system's open files limit can be changed by providing the `--open-files-limit` option either on the command-line or in an option file. For example:
 
-```
+```ini
 [mariadbd-safe]
 open_files_limit=4294967295
 ```
@@ -119,7 +129,7 @@ When `mariadbd-safe` starts `mariadbd`, it also uses this option to set the valu
 
 When using `mariadbd-safe`, if you would like to [enable core dumps](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/enabling-core-dumps), the system's core file size limit can be changed by providing the `--core-file-size` option either on the command-line or in an option file. For example:
 
-```
+```ini
 [mariadbd-safe]
 core_file_size=unlimited
 ```

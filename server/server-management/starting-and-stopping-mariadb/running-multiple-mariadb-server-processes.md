@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide on configuring and running multiple independent MariaDB instances on
+  the same machine by isolating data directories, ports, and sockets.
+---
+
 # Running Multiple MariaDB Server Processes
 
 It is possible to run multiple MariaDB Server processes on the same server, but there are certain things that need to be kept in mind. This page will go over some of those things.
@@ -6,7 +12,7 @@ It is possible to run multiple MariaDB Server processes on the same server, but 
 
 If multiple MariaDB Server process are running on the same server, then at minimum, you will need to ensure that the different instances do not use the same [datadir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir), [port](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#port), and [socket](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#socket). The following example shows these options set in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
-```
+```ini
 [client]
 # TCP port to use to connect to mariadbd server
 port=3306
@@ -27,9 +33,9 @@ There may be additional options that also need to be changed for each instance. 
 
 To see the current values set for an instance, see [Checking Program Options](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#checking-program-options) for how to do so.
 
-To list the default values, check the end of:
+To list the default values, check the end of the output of this command:
 
-```
+```bash
 mariadbd --help --verbose
 ```
 

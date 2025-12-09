@@ -1,10 +1,17 @@
+---
+description: >-
+  Implement basic database sharding using the schemarouter. Learn to distribute
+  data across multiple servers while presenting a single logical database to
+  clients.
+---
+
 # Schemarouter: Simple Sharding With Two Servers
 
 Sharding is the method of splitting a single logical database server into separate physical databases. This tutorial describes a very simple way of sharding. Each schema is located on a different database server and MariaDB MaxScale's schemarouter module is used to combine them into a single logical database server.
 
 ### Environment
 
-This tutorial was written for Ubuntu 22.04, MaxScale 23.08 and [MariaDB 10.11](../../release-notes/community-server/mariadb-10-11-series). In addition to the MaxScale server, you'll need two MariaDB servers which will be used for the sharding. The installation of MariaDB is not covered by this tutorial.
+This tutorial was written for Ubuntu 22.04, MaxScale 23.08 and [MariaDB 10.11](../../release-notes/community-server/mariadb-10-11-series/). In addition to the MaxScale server, you'll need two MariaDB servers which will be used for the sharding. The installation of MariaDB is not covered by this tutorial.
 
 ### Installing MaxScale
 
@@ -24,11 +31,7 @@ This tutorial uses a broader set of grants than is required for the sake of brev
 
 All MaxScale configurations require at least two accounts: one for reading authentication data and another for monitoring the state of the database. Services will use the first one and monitors will use the second one. In addition to this, we want to have a separate account that our application will use.
 
-The grants required by the server user are documented
-[here](../maxscale-security/authentication-modules.md#required-grants)
-and the grants required by the Galera monitor user are documented
-[here](../reference/maxscale-monitors/galera-monitor.md#required-grants).
-
+The grants required by the server user are documented [here](../maxscale-security/authentication-modules.md#required-grants) and the grants required by the Galera monitor user are documented [here](../reference/maxscale-monitors/galera-monitor.md#required-grants).
 
 ```sql
 -- Create the user for the service
@@ -47,8 +50,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO app_user@'%';
 
 All of the users must be created on both of the MariaDB servers.
 
-In case there are problems, please check
-[limitations and troubleshooting]((../maxscale-security/authentication-modules.md#limitations-and-troubleshooting).
+In case there are problems, please check \[limitations and troubleshooting]\((../maxscale-security/authentication-modules.md#limitations-and-troubleshooting).
 
 ### Creating the Schemas and Tables
 
@@ -247,7 +249,7 @@ MariaDB [customer_02]> SELECT * FROM customer_01.accounts UNION SELECT * FROM cu
 ERROR 1146 (42S02): Table 'customer_01.accounts' doesn't exist
 ```
 
-In most multi-tenant situations, this is an acceptable limitation. If you do need cross-shard joins, the [Spider](../../server/server-usage/storage-engines/spider) storage engine will provide you this.
+In most multi-tenant situations, this is an acceptable limitation. If you do need cross-shard joins, the [Spider](../../server/server-usage/storage-engines/spider/) storage engine will provide you this.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

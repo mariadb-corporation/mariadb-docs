@@ -1,8 +1,8 @@
 ---
 description: >-
-  This router sends write queries to a single primary server while
-  load-balancing read queries across replica servers. Learn how to configure
-  this for scaling out read workloads.
+  Optimize database performance with the Read/Write Split Router. Understand how
+  to configure query-based load balancing, transaction replay, and causal
+  consistency for primary-replica setups.
 ---
 
 # Read/Write Split Router Usage

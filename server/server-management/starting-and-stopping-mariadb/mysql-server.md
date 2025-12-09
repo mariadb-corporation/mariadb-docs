@@ -1,8 +1,14 @@
+---
+description: >-
+  Documentation for the `mysql.server` script, a SysVinit-style wrapper used to
+  start and stop `mariadbd-safe`.
+---
+
 # mysql.server
 
 The [mysql.server](mysql-server.md) startup script is in MariaDB distributions on Linux and Unix. It is a wrapper that works as a standard [sysVinit](sysvinit.md) script. However, it can be used independently of [sysVinit](sysvinit.md) as a regular `sh` script. The script starts the [mariadbd](mariadbd-options.md) server process by first changing its current working directory to the MariaDB install directory and then starting [mariadbd-safe](mariadbd-safe.md). The script requires the standard [sysVinit](sysvinit.md) arguments, such as `start`, `stop`, `restart`, and `status`. For example:
 
-```
+```bash
 mysql.server start
 mysql.server restart
 mysql.server stop
@@ -17,13 +23,15 @@ The `mysql.server` script starts [mariadbd](mariadbd-options.md) by first changi
 
 The command to use `mysql.server` and the general syntax is:
 
-```
+{% code overflow="wrap" %}
+```bash
 mysql.server [ start | stop | restart | status ] <options> <mariadbd_options>
 ```
+{% endcode %}
 
 ### Options
 
-If an unknown option is provided to `mariadbd-safe` on the command-line, then it is passed to `mariadbd-safe`.
+If an unknown option is provided to `mariadbd-safe` on the command-line, it is passed to `mariadbd-safe`.
 
 `mysql.server` supports the following options:
 
@@ -76,9 +84,9 @@ If you have installed MariaDB to a non-standard location, then you may need to e
 
 If you do not want to edit the `mysql.server` script itself, then `mysql.server` also sources a few other `sh` scripts. These files can be used to set any variables that might be needed to make the script work in your specific environment. The files are:
 
-* /etc/default/mysql
-* /etc/sysconfig/mysql
-* /etc/conf.d/mysql
+* `/etc/default/mysql`
+* `/etc/sysconfig/mysql`
+* `/etc/conf.d/mysql`
 
 ## Installed Locations
 
@@ -88,18 +96,17 @@ If you do not want to edit the `mysql.server` script itself, then `mysql.server`
 
 On systems that use [sysVinit](sysvinit.md), `mysql.server` may also be installed in other locations and with other names.
 
-If you installed MariaDB on Linux using [RPMs](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/), then the `mysql.server` script will be installed into the `/etc/init.d` directory with the name `mysql`. You need not install it manually.
+If you installed MariaDB on Linux using [RPMs](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/), the `mysql.server` script is installed in the `/etc/init.d` directory with the name `mysql`. You need not install it manually.
 
 #### Manually Installing with SysVinit
 
-If you install MariaDB from [source](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md)\
-automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). This is usually done by copying it to `/etc/init.d/` and then creating specially named symlinks in the appropriate `/etc/rcX.d/` directories (where 'X' is a number between 0 and 6).
+If you install MariaDB from [source](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md) automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). This is usually done by copying it to `/etc/init.d/` and then creating specially named symlinks in the appropriate `/etc/rcX.d/` directories (where 'X' is a number between 0 and 6).
 
-In the examples below we will follow the historical convention of renaming the`mysql.server` script to '`mysql`' when we copy it to `/etc/init.d/`.
+In the examples below we will follow the historical convention of renaming the `mysql.server` script to '`mysql`' when we copy it to `/etc/init.d/`.
 
 The first step for most Linux distributions is to copy the `mysql.server` script to `/etc/init.d/` and make it executable:
 
-```
+```bash
 cd /path/to/your/mariadb-version/support-files/
 cp mysql.server /etc/init.d/mysql
 chmod +x /etc/init.d/mysql
@@ -109,20 +116,20 @@ Now all that is needed is to create the specially-named symlinks. On both RPM an
 
 On RPM-based distributions (like Fedora and CentOS), you use `chkconfig`:
 
-```
+```bash
 chkconfig --add mysql
 chkconfig --level 345 mysql on
 ```
 
 On Debian-based distributions you use `update-rc.d`:
 
-```
+```bash
 update-rc.d mysql defaults
 ```
 
 On FreeBSD, the location for startup scripts is`/usr/local/etc/rc.d/` and when you copy the`mysql.server` script there you should rename it so that it matches the `*.sh` pattern, like so:
 
-```
+```bash
 cd /path/to/your/mariadb/support-files/
 cp mysql.server /usr/local/etc/rc.d/mysql.server.sh
 ```

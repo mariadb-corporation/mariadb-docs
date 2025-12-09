@@ -1,3 +1,10 @@
+---
+description: >-
+  Secure your MaxScale configuration by encrypting passwords. Learn to generate
+  encryption keys with maxkeys and obscure credentials using the maxpasswd
+  utility.
+---
+
 # Encrypting Passwords
 
 ## Encrypting Passwords
@@ -10,23 +17,18 @@ There are two options for representing the password, either plain text or encryp
 maxkeys
 ```
 
-By default the key file will be generated in `/var/lib/maxscale`. If a different
-directory is required, it can be given as the first argument to the program. For
-more information, see `maxkeys --help`.
+By default the key file will be generated in `/var/lib/maxscale`. If a different directory is required, it can be given as the first argument to the program. For more information, see `maxkeys --help`.
 
-Once the keys have been created the `maxpasswd` command can be used to generate
-the encrypted password.
+Once the keys have been created the `maxpasswd` command can be used to generate the encrypted password.
 
 ```
 maxpasswd plainpassword
 96F99AA1315BDC3604B006F427DD9484
 ```
 
-The username and password, either encrypted or plain text, are stored in the
-service section using the `user` and `password` parameters.
+The username and password, either encrypted or plain text, are stored in the service section using the `user` and `password` parameters.
 
-If a custom location was used for the key file, give it as the first argument to`maxpasswd` and pass the password to be encrypted as the second argument. For
-more information, see `maxkeys --help`.
+If a custom location was used for the key file, give it as the first argument to`maxpasswd` and pass the password to be encrypted as the second argument. For more information, see `maxkeys --help`.
 
 Here is an example configuration that uses an encrypted password.
 
@@ -40,8 +42,7 @@ user=maxscale
 password=96F99AA1315BDC3604B006F427DD9484
 ```
 
-If the key file is not in the default location, the [datadir](../maxscale-management/deployment/maxscale-configuration-guide.md) parameter must be
-set to the directory that contains it.
+If the key file is not in the default location, the [datadir](../maxscale-management/deployment/maxscale-configuration-guide.md) parameter must be set to the directory that contains it.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

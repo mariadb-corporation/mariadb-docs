@@ -1,3 +1,10 @@
+---
+description: >-
+  Define your database backend servers in MaxScale. Learn to configure server
+  objects set addresses and ports and and enable TLS encryption for secure
+  connections.
+---
+
 # Configuring Servers
 
 The first step is to define the servers that make up the cluster. These servers will be used by the services and are monitored by the monitor.
@@ -23,11 +30,9 @@ The `address` and `port` parameters tell where the server is located.
 
 ### Enabling TLS
 
-To enable encryption for the MaxScale-to-MariaDB communication, add `ssl=true`
-to the server section. To enable server certificate verification, add`ssl_verify_peer_certificate=true`.
+To enable encryption for the MaxScale-to-MariaDB communication, add `ssl=true` to the server section. To enable server certificate verification, add`ssl_verify_peer_certificate=true`.
 
-The `ssl` and `ssl_verify_peer_certificate` parameters are similar to the`--ssl` and `--ssl-verify-server-cert` options of the `mysql` command line
-client.
+The `ssl` and `ssl_verify_peer_certificate` parameters are similar to the`--ssl` and `--ssl-verify-server-cert` options of the `mysql` command line client.
 
 For more information about TLS, refer to the [Configuration Guide](../maxscale-management/deployment/maxscale-configuration-guide.md).
 

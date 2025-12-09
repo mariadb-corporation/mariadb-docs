@@ -8,7 +8,9 @@ description: 'Step 1: Prepare Systems for Enterprise ColumnStore Nodes'
 
 This page details step 1 of a 5-step procedure for deploying Single-Node Enterprise ColumnStore with Object storage.
 
-This step prepares the system to host MariaDB Enterprise Server and MariaDB Enterprise ColumnStore 23.10.
+This step prepares the system to host MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 

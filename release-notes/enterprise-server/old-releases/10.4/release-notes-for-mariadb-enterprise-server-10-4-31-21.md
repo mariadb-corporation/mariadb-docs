@@ -1,6 +1,6 @@
 # Release Notes for MariaDB Enterprise Server 10.4.31-21
 
-MariaDB Enterprise Server 10.4.31-21 is a maintenance release of [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-enterprise-server/README.md) 10.4. This release includes a variety of fixes.
+MariaDB Enterprise Server 10.4.31-21 is a maintenance release of [MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/upgrades/mariadb-enterprise-server-10.4). This release includes a variety of fixes.
 
 MariaDB Enterprise Server 10.4.31-21 was released on 2023-09-11.
 
@@ -153,47 +153,47 @@ table": {
 
 ### Interface Changes
 
-* [aria\_sort\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/aria/aria-system-variables) system variable maximum value changed from `18446744073709551615` to `1152921504606846975` ([MDEV-28054](https://jira.mariadb.org/browse/MDEV-28054))
-* [aria\_sort\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/aria/aria-system-variables) system variable minimum value changed from `4096` to `16376` ([MDEV-28054](https://jira.mariadb.org/browse/MDEV-28054))
-* [ER\_JSON\_INVALID\_VALUE\_FOR\_KEYWORD](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/error-codes/mariadb-error-codes-4100-to-4199/e4193) error code added (MENT-1796)
-* [ER\_JSON\_SCHEMA\_KEYWORD\_UNSUPPORTED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/error-codes/mariadb-error-codes-4100-to-4199/e4194) error code added (MENT-1796)
-* [ER\_QUERY\_EXCEEDED\_ROWS\_EXAMINED\_LIMIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/error-codes/mariadb-error-code-reference) error code removed ([MDEV-31214](https://jira.mariadb.org/browse/MDEV-31214))
-* [ER\_QUERY\_RESULT\_INCOMPLETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/error-codes/mariadb-error-codes-1900-to-1999/e1931) error code added ([MDEV-31214](https://jira.mariadb.org/browse/MDEV-31214))
-* [ER\_QUERY\_TIMEOUT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/error-codes/mariadb-error-code-reference) error code removed
-* [ER\_UNUSED\_1](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/error-codes/mariadb-error-codes-1900-to-1999/e1928) error code added
+* [aria\_sort\_buffer\_size ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_sort_buffer_size)system variable maximum value changed from `18446744073709551615` to `1152921504606846975` ([MDEV-28054](https://jira.mariadb.org/browse/MDEV-28054))
+* [aria\_sort\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_sort_buffer_size) system variable minimum value changed from `4096` to `16376` ([MDEV-28054](https://jira.mariadb.org/browse/MDEV-28054))
+* [ER\_JSON\_INVALID\_VALUE\_FOR\_KEYWORD](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4100-to-4199/e4193) error code added (MENT-1796)
+* [ER\_JSON\_SCHEMA\_KEYWORD\_UNSUPPORTED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4100-to-4199/e4194) error code added (MENT-1796)
+* [ER\_QUERY\_EXCEEDED\_ROWS\_EXAMINED\_LIMIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-1900-to-1999/e1931) error code removed ([MDEV-31214](https://jira.mariadb.org/browse/MDEV-31214))
+* [ER\_QUERY\_RESULT\_INCOMPLETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-1900-to-1999/e1931) error code added ([MDEV-31214](https://jira.mariadb.org/browse/MDEV-31214))
+* ER\_QUERY\_TIMEOUT error code removed
+* ER\_UNUSED\_1 error code added
 * [JSON\_OVERLAPS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps) function added (MENT-1853)
 * [JSON\_SCHEMA\_VALID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_schema_valid) function added (MENT-1796)
-* [myisam\_sort\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/myisam-storage-engine/myisam-system-variables) system variable maximum value changed from `18446744073709551615` to `1152921504606846975` ([MDEV-28054](https://jira.mariadb.org/browse/MDEV-28054))
+* [myisam\_sort\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables#myisam_sort_buffer_size) system variable maximum value changed from `18446744073709551615` to `1152921504606846975` ([MDEV-28054](https://jira.mariadb.org/browse/MDEV-28054))
 
 ### Spider Storage Engine
 
-* [spider\_auto\_increment\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_auto_increment_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bgs\_first\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bgs_first_read) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bgs\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bgs_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bgs\_second\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bgs_second_read) system variable default value changed from `-1` to `100` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bka\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bka_mode) system variable default value changed from `-1` to `1` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bka\_table\_name\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bka_table_name_type) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_buffer_size) system variable default value changed from `-1` to `16000` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bulk\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bulk_size) system variable default value changed from `-1` to `16000` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bulk\_update\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bulk_update_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_bulk\_update\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_bulk_update_size) system variable default value changed from `-1` to `16000` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_casual\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_casual_read) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_connect\_timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_connect_timeout) system variable default value changed from `-1` to `6` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_crd\_bg\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_crd_bg_mode) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_crd\_interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_crd_interval) system variable default value changed from `-1` to `51` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_crd\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_crd_mode) system variable default value changed from `-1` to `1` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_crd\_sync](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_crd_sync) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_crd\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_crd_type) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_crd\_weight](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_crd_weight) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_delete\_all\_rows\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_delete_all_rows_type) system variable default value changed from `-1` to `1` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_direct\_dup\_insert](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_direct_dup_insert) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_direct\_order\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_direct_order_limit) System Variable system variable default value changed from `-1` to 9223372036854775807 ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_error\_read\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_error_read_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_error\_write\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_error_write_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_first\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_first_read) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_init\_sql\_alloc\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_init_sql_alloc_size) system variable default value changed from `-1` to 1024 ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_internal\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_internal_limit) system variable default value changed from `-1` to `9223372036854775807` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
-* [spider\_internal\_offset](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_internal_offset) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_auto\_increment\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_auto_increment_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bgs\_first\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bgs_first_read) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bgs\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bgs_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bgs\_second\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bgs_second_read) system variable default value changed from `-1` to `100` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bka\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bka_mode) system variable default value changed from `-1` to `1` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bka\_table\_name\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bka_table_name_type) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_buffer_size) system variable default value changed from `-1` to `16000` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bulk\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bulk_size) system variable default value changed from `-1` to `16000` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bulk\_update\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bulk_update_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_bulk\_update\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_bulk_update_size) system variable default value changed from `-1` to `16000` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_casual\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_casual_read) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_connect\_timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_connect_timeout) system variable default value changed from `-1` to `6` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_crd\_bg\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_crd_bg_mode) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_crd\_interval](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_crd_interval) system variable default value changed from `-1` to `51` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_crd\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_crd_mode) system variable default value changed from `-1` to `1` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_crd\_sync](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_crd_sync) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_crd\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_crd_type) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_crd\_weight](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_crd_weight) system variable default value changed from `-1` to `2` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_delete\_all\_rows\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_delete_all_rows_type) system variable default value changed from `-1` to `1` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_direct\_dup\_insert](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_direct_dup_insert) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_direct\_order\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_direct_order_limit) system variable default value changed from `-1` to 9223372036854775807 ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_error\_read\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_error_read_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_error\_write\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_error_write_mode) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_first\_read](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_first_read) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_init\_sql\_alloc\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_init_sql_alloc_size) system variable default value changed from `-1` to 1024 ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_internal\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_internal_limit) system variable default value changed from `-1` to `9223372036854775807` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
+* [spider\_internal\_offset](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider/spider-system-variables#spider_internal_offset) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
 * [spider\_internal\_optimize](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_internal_optimize) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
 * [spider\_internal\_optimize\_local](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_internal_optimize_local) system variable default value changed from `-1` to `0` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
 * [spider\_load\_crd\_at\_startup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/spider/spider-system-variables#spider_load_crd_at_startup) system variable default value changed from `-1` to `1` ([MDEV-31524](https://jira.mariadb.org/browse/MDEV-31524))
@@ -234,7 +234,7 @@ table": {
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/~/changes/32/mariadb-enterprise-server-release-notes/enterprise-server-lifecycle), MariaDB Enterprise Server 10.4.31-21 is provided for:
+In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.4.31-21 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64, ARM64)
@@ -246,15 +246,15 @@ In alignment with the [enterprise lifecycle](https://app.gitbook.com/o/diTpXxF5W
 * SUSE Linux Enterprise Server 15 (x86\_64, ARM64)
 * Ubuntu 20.04 (x86\_64, ARM64)
 
-Some components of MariaDB Enterprise Server might not support all platforms. For additional information, see [MariaDB Corporation Engineering Policies".](https://mariadb.com/engineering-policies).
+Some components of MariaDB Enterprise Server might not support all platforms. For additional information, see [MariaDB Corporation Engineering Policies.](https://mariadb.com/engineering-policies)
 
 ## Installation Instructions
 
 * [MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/single-node-topologies/enterprise-server)
-* [Enterprise Cluster Topology with MariaDB Enterprise Server ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)[10](../10-4/broken-reference/)[.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
+* [Enterprise Cluster Topology with MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/galera-cluster)
 * [Primary/Replica Topology with MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/primary-replica)
-* [Enterprise Spider Sharded Topology with MariaDB Enterprise Server 10.4](../10-4/broken-reference/)
-* [Enterprise Spider Federated Topology with MariaDB Enterprise Server 10.4](../10-4/broken-reference/)
+* [Enterprise Spider Sharded Topology with MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/mariadb-enterprise-spider-topologies/sharded-mariadb-enterprise-spider-topology)
+* [Enterprise Spider Federated Topology with MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/mariadb-enterprise-spider-topologies/federated-mariadb-enterprise-spider-topology)
 
 ## Upgrade Instructions
 

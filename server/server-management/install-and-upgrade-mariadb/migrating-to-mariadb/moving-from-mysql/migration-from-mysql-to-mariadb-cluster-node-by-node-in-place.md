@@ -1,3 +1,10 @@
+---
+description: >-
+  Instructions for a rolling migration where individual nodes in a MySQL cluster
+  are taken offline, wiped, and replaced with MariaDB nodes, eventually forming
+  a new cluster.
+---
+
 # Migration from MySQL to MariaDB Cluster (Node-by-Node In-Place)
 
 {% hint style="warning" %}

@@ -8,7 +8,9 @@ description: 'Step 2: Install Enterprise ColumnStore'
 
 This page details step 2 of a 5-step procedure for deploying Single-Node Enterprise ColumnStore with Object storage.
 
-This step installs MariaDB Enterprise Server and MariaDB Enterprise ColumnStore 23.10.
+This step installs MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 

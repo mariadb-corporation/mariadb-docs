@@ -1,3 +1,9 @@
+---
+description: >-
+  Master common administrative tasks in MaxScale. Learn to start/stop services,
+  rotate logs, manage servers with MaxCtrl, and put nodes into maintenance mode.
+---
+
 # MaxScale Administration Tutorial
 
 The purpose of this tutorial is to introduce the MariaDB MaxScale Administrator to a few of the common administration tasks. This is intended to be an introduction for administrators who are new to MariaDB MaxScale and not a reference to all the tasks that may be performed.
@@ -19,7 +25,7 @@ admin_audit_file=/var/log/maxscale/admin_audit.march.csv.
 
 MaxScale uses systemd for managing the process. This means that normal`systemctl` commands can be used to start and stop MaxScale. To start MaxScale, use `systemctl start maxscale`. To stop it, use `systemctl stop maxscale`.
 
-The systemd service file for MaxScale is located  in `/lib/systemd/system/maxscale.service`.
+The systemd service file for MaxScale is located in `/lib/systemd/system/maxscale.service`.
 
 #### Additional Options for MaxScale
 
@@ -67,8 +73,7 @@ Log rotation applies to the MaxScale log file, admin audit file and qlafilter fi
 
 MariaDB MaxScale logs messages of different priority into a single log file. With the exception if error messages that are always logged, whether messages of a particular priority should be logged or not can be enabled via the maxctrl interface or in the configuration file. By default, MaxScale keeps on writing to the same log file. To prevent the file from growing indefinitely, the administrator must take action.
 
-The name of the log file is maxscale.log. When the log is rotated, MaxScale
-closes the current log file and opens a new one using the same name.
+The name of the log file is maxscale.log. When the log is rotated, MaxScale closes the current log file and opens a new one using the same name.
 
 Log file rotation is achieved by use of the `rotate logs` command in maxctrl.
 
@@ -111,27 +116,21 @@ endscript
 }
 ```
 
-In older versions MaxScale renamed the log file, behavior which is not fully
-compliant with the assumptions of logrotate and may lead to issues, depending on
-the used logrotate configuration file. From version 2.1 onward, MaxScale will not itself rename the log file, but when the log is rotated, MaxScale will simply close and reopen the same log file. That will make the behavior fully compliant with logrotate.
+In older versions MaxScale renamed the log file, behavior which is not fully compliant with the assumptions of logrotate and may lead to issues, depending on the used logrotate configuration file. From version 2.1 onward, MaxScale will not itself rename the log file, but when the log is rotated, MaxScale will simply close and reopen the same log file. That will make the behavior fully compliant with logrotate.
 
 ### Taking Objects Temporarily Out of Use
 
 #### Putting Servers into Maintenance
 
-MariaDB MaxScale supports the concept of maintenance mode for servers within a
-cluster. This allows for planned, temporary removal of a database from the cluster without the need to change the MariaDB MaxScale configuration.
+MariaDB MaxScale supports the concept of maintenance mode for servers within a cluster. This allows for planned, temporary removal of a database from the cluster without the need to change the MariaDB MaxScale configuration.
 
 ```bash
 maxctrl set server db-server-3 maintenance
 ```
 
-To achieve this, you can use the `set server` command in maxctrl to set the
-maintenance mode flag for the server. This may be done interactively within
-maxctrl or by passing the command on the command line.
+To achieve this, you can use the `set server` command in maxctrl to set the maintenance mode flag for the server. This may be done interactively within maxctrl or by passing the command on the command line.
 
-This will cause MariaDB MaxScale to stop routing any new requests to the server,
-however if there are currently requests executing on the server these will not be interrupted. Connections to servers in maintenance mode are closed as soon as the next request arrives. To close them immediately, use the `--force` option for `maxctrl set server`.
+This will cause MariaDB MaxScale to stop routing any new requests to the server, however if there are currently requests executing on the server these will not be interrupted. Connections to servers in maintenance mode are closed as soon as the next request arrives. To close them immediately, use the `--force` option for `maxctrl set server`.
 
 ```bash
 maxctrl clear server db-server-3 maintenance
@@ -173,8 +172,7 @@ The MaxScale configuration can be changed at runtime by using the `create`,`alte
 
 Not all parameters can be modified at runtime. Refer to the module documentation for more information on which parameters can be modified at runtime. If a parameter cannot be modified at runtime, the object can be destroyed and recreated in order to change it.
 
-All runtime changes are persisted in files stored by default in `/var/lib/maxscale/maxscale.cnf.d/`. This means that any changes done at runtime
-persist through restarts. Any changes done to objects in the main configuration file are ignored if a persisted entry is found for it.
+All runtime changes are persisted in files stored by default in `/var/lib/maxscale/maxscale.cnf.d/`. This means that any changes done at runtime persist through restarts. Any changes done to objects in the main configuration file are ignored if a persisted entry is found for it.
 
 For example, if the address of a server is modified with `maxctrl alter server db-server-1 address 192.168.0.100`, the file`/var/lib/maxscale/maxscale.cnf.d/db-server-1.cnf` is created with the complete configuration for the object. To remove all runtime changes for all objects, remove all files found in `/var/lib/maxscale/maxscale.cnf.d`.
 

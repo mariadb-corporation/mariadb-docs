@@ -1004,6 +1004,20 @@ The monitor does not enable or disable the event scheduler itself. For the event
 
 Events running at high frequency may cause replication to break in a failover scenario. If an old primary which was failed over restarts, its event scheduler will be on if set in the server configuration file. Its events will also remember their "ENABLED"-status and run when scheduled. This may happen before the monitor rejoins the server and disables the events. This should only be an issue for events running more often than the monitor interval or events that run immediately after the server has restarted.
 
+#### `check_repl_on_stop_slave_timeout`
+
+- **Type**: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+- **Mandatory**: No
+- **Dynamic**: Yes
+- **Default**: `false`
+
+Enables additional checks when a `STOP SLAVE` command times out during a cluster manipulation
+operation such as failover or switchover. Normally, if `STOP SLAVE` times out, the monitor just
+tries again until time runs out. With this setting enabled, the monitor additionally checks
+replication connection status with `SHOW ALL SLAVES STATUS`. If replication has properly ended, the
+monitor assumes `STOP SLAVE` completed successfully and continues with the operation. If replication
+is still ongoing, the monitor prints the slave thread running states and retries `STOP SLAVE`.
+
 ## Cooperative monitoring
 
 As of MaxScale 2.5, MariaDB-Monitor supports cooperative monitoring. This means that multiple monitors (typically in different MaxScale instances) can monitor the same backend server cluster and only one will be the primary monitor. Only the primary monitor may perform _switchover_, _failover_ or _rejoin_ operations. The primary also decides which server is the primary. Cooperative monitoring is enabled with the [cooperative\_monitoring\_locks](mariadb-monitor.md#cooperative_monitoring_locks)-setting. Even with this setting, only one monitor per server per MaxScale is allowed. This limitation can be circumvented by defining multiple copies of a server in the configuration file.

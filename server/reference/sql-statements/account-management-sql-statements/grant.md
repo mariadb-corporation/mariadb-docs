@@ -9,39 +9,53 @@ description: >-
 ## Syntax
 
 ```sql
+/* 1. Granting Privileges */
 GRANT
     priv_type [(column_list)]
       [, priv_type [(column_list)]] ...
     ON [object_type] priv_level
-    TO user_specification [ user_options ...] | role_name
+    TO account_or_role [, account_or_role] ...
+    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
+    [WITH grant_option_list]
 
-user_specification:
-  username [authentication_option]
+/* 2. Granting Proxy Access */
+GRANT PROXY ON user_or_role
+    TO account_or_role [, account_or_role] ...
+    [WITH GRANT OPTION]
+
+/* 3. Granting Roles */
+GRANT role [, role] ...
+    TO account_or_role [, account_or_role] ...
+    [WITH ADMIN OPTION]
+
+/* Variable Definitions */
+
+account_or_role:
+    username [authentication_option]
+  | role
   | PUBLIC
+
 authentication_option:
-  IDENTIFIED BY 'password' 
+    IDENTIFIED BY 'password' 
   | IDENTIFIED BY PASSWORD 'password_hash'
-  | IDENTIFIED {VIA|WITH} authentication_rule [OR authentication_rule  ...]
+  | IDENTIFIED {VIA | WITH} authentication_rule [OR authentication_rule ...]
 
 authentication_rule:
     authentication_plugin
-  | authentication_plugin {USING|AS} 'authentication_string'
-  | authentication_plugin {USING|AS} PASSWORD('password')
+  | authentication_plugin {USING | AS} 'authentication_string'
+  | authentication_plugin {USING | AS} PASSWORD('password')
 
-GRANT PROXY ON username
-    TO user_specification [, user_specification ...]
-    [WITH GRANT OPTION]
-
-GRANT rolename TO grantee [, grantee ...]
-    [WITH ADMIN OPTION]
-
-grantee:
-    rolename
-    username [authentication_option]
-
-user_options:
-    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
-    [WITH with_option [with_option] ...]
+priv_type:
+    ALL [PRIVILEGES]
+  | ALTER | ALTER ROUTINE | BINLOG ADMIN | BINLOG MONITOR | BINLOG REPLAY
+  | CONNECTION ADMIN | CREATE | CREATE ROUTINE | CREATE TABLESPACE
+  | CREATE TEMPORARY TABLES | CREATE USER | CREATE VIEW 
+  | DELETE | DELETE HISTORY | DROP | EVENT | EXECUTE | FEDERATED ADMIN 
+  | FILE | GRANT OPTION | INDEX | INSERT | LOCK TABLES | PROCESS 
+  | READ ONLY ADMIN | RELOAD | REPLICATION CLIENT | REPLICATION MASTER ADMIN 
+  | REPLICATION SLAVE | REPLICATION SLAVE ADMIN | REFERENCES 
+  | SELECT | SET USER | SHOW CREATE ROUTINE | SHOW DATABASES | SHOW VIEW 
+  | SHUTDOWN | SLAVE MONITOR | SUPER | TRIGGER | UPDATE | USAGE
 
 object_type:
     TABLE
@@ -58,19 +72,22 @@ priv_level:
   | tbl_name
   | db_name.routine_name
 
-with_option:
+grant_option_list:
+    grant_option [grant_option] ...
+
+grant_option:
     GRANT OPTION
   | resource_option
 
 resource_option:
-  MAX_QUERIES_PER_HOUR count
+    MAX_QUERIES_PER_HOUR count
   | MAX_UPDATES_PER_HOUR count
   | MAX_CONNECTIONS_PER_HOUR count
   | MAX_USER_CONNECTIONS count
   | MAX_STATEMENT_TIME time
 
 tls_option:
-  SSL 
+    SSL 
   | X509
   | CIPHER 'cipher'
   | ISSUER 'issuer'
@@ -551,6 +568,14 @@ GRANT SELECT (name, position) ON Employee TO 'jeffrey'@'localhost';
 ```sql
 GRANT EXECUTE ON PROCEDURE mysql.create_db TO maintainer;
 ```
+
+### Package Privileges
+
+| Privilege     | Description                                                            |
+| ------------- | ---------------------------------------------------------------------- |
+| ALTER ROUTINE | Change the characteristics of a stored package.                        |
+| EXECUTE       | Execute a stored package or package body.                              |
+| GRANT OPTION  | Grant package privileges. You can only grant privileges that you have. |
 
 ### Proxy Privileges
 

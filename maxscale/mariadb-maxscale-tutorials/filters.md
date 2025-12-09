@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore the power of MaxScale filters. Learn to implement query logging
+  statement rewriting and other processing steps in your request pipeline with
+  practical examples.
+---
+
 # Filters
 
 ### What Are Filters?
@@ -104,9 +111,7 @@ user=maxscale
 password=6628C50E07CCE1F0392EDEEB9D1203F3
 ```
 
-The table you wish to store in Cassandra in called HighScore and will contain the same columns in both the MariaDB table and the Cassandra table. The first step is to install a MariaDB instance with the Cassandra storage engine to act as a bridge server between the relational database and Cassandra. In this bridge server add a table definition for the HighScore table with the engine type set to Cassandra.
-See [Cassandra Storage Engine Overview](../../server/server-usage/storage-engines/legacy-storage-engines/cassandra/cassandra-storage-engine-overview.md) for details.
-Add this server into the MariaDB MaxScale configuration and create a service that will connect to this server.
+The table you wish to store in Cassandra in called HighScore and will contain the same columns in both the MariaDB table and the Cassandra table. The first step is to install a MariaDB instance with the Cassandra storage engine to act as a bridge server between the relational database and Cassandra. In this bridge server add a table definition for the HighScore table with the engine type set to Cassandra. See [Cassandra Storage Engine Overview](../../server/server-usage/storage-engines/legacy-storage-engines/cassandra/cassandra-storage-engine-overview.md) for details. Add this server into the MariaDB MaxScale configuration and create a service that will connect to this server.
 
 ```ini
 [CassandraDB]

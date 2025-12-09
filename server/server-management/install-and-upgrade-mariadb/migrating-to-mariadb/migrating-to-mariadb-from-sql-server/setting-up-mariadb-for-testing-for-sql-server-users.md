@@ -1,3 +1,9 @@
+---
+description: >-
+  From selecting a MariaDB version to setting it up on Windows, using various
+  packages or Docker, this page covers multiple scenarios.
+---
+
 # Setting Up MariaDB for Testing for SQL Server Users
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

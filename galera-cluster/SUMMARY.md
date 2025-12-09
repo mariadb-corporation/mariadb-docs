@@ -73,6 +73,7 @@
     * [wsrep\_sst\_method](reference/wsrep-variable-details/wsrep_sst_method.md)
     * [wsrep\_sst\_common](reference/wsrep-variable-details/wsrep_sst_common.md)
     * [wsrep\_sst\_mariabackup](reference/wsrep-variable-details/wsrep_sst_mariabackup.md)
+    * [gcs.check\_appl\_proto](reference/wsrep-variable-details/gcs.check_appl_proto.md)
     * [socket.ssl](reference/wsrep-variable-details/socket.ssl.md)
     * [socket.ssl\_ca](reference/wsrep-variable-details/socket.ssl_ca.md)
     * [socket.ssl\_cert](reference/wsrep-variable-details/socket.ssl_cert.md)

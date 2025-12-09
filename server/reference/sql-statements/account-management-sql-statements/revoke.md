@@ -10,15 +10,51 @@ description: >-
 
 ### Syntax
 
-```bnf
-REVOKE 
+```sql
+/* 1. Revoking Privileges */
+REVOKE
     priv_type [(column_list)]
       [, priv_type [(column_list)]] ...
     ON [object_type] priv_level
-    FROM user [, user] ...
+    FROM account_or_role [, account_or_role] ...
 
-REVOKE ALL PRIVILEGES, GRANT OPTION
-    FROM user [, user] ...
+/* 2. Revoking All Privileges */
+REVOKE ALL [PRIVILEGES], GRANT OPTION
+    FROM account_or_role [, account_or_role] ...
+
+/* 3. Revoking Proxy Access */
+REVOKE PROXY ON user_or_role
+    FROM account_or_role [, account_or_role] ...
+
+/* 4. Revoking Roles */
+REVOKE role [, role] ...
+    FROM account_or_role [, account_or_role] ...
+
+/* 5. Revoking Admin Option for Roles */
+REVOKE ADMIN OPTION FOR role [, role] ...
+    FROM account_or_role [, account_or_role] ...
+
+/* Variable Definitions */
+
+account_or_role:
+    username
+  | role
+  | PUBLIC
+
+object_type:
+    TABLE
+  | FUNCTION
+  | PROCEDURE
+  | PACKAGE
+  | PACKAGE BODY
+
+priv_level:
+    *
+  | *.*
+  | db_name.*
+  | db_name.tbl_name
+  | tbl_name
+  | db_name.routine_name
 ```
 
 ### Description
@@ -70,6 +106,14 @@ REVOKE ADMIN OPTION FOR role FROM grantee [, grantee2]
 
 ```sql
 REVOKE journalist FROM hulda
+```
+
+## Revoking Proxy
+
+The `REVOKE PROXY` syntax removes the ability for one user to proxy as another.
+
+```sql
+REVOKE PROXY ON 'dba_user'@'localhost' FROM 'app_user'@'localhost';
 ```
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

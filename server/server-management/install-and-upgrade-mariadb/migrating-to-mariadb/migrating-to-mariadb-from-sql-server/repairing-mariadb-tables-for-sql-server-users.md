@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains how to check and repair tables in MariaDB using `CHECK TABLE` and
+  `REPAIR TABLE`, noting that InnoDB typically handles corruption by crashing to
+  prevent data loss.
+---
+
 # Repairing MariaDB Tables for SQL Server Users
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

@@ -8,7 +8,9 @@ description: 'Step 3: Start and Configure Enterprise ColumnStore'
 
 This page details step 3 of a 5-step procedure for deploying [Single-Node Enterprise ColumnStore with Local storage](./).
 
-This step starts and configures MariaDB Enterprise Server and MariaDB Enterprise ColumnStore 23.10.
+This step starts and configures MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 
@@ -20,7 +22,7 @@ Mandatory system variables and options for Single-Node Enterprise ColumnStore in
 
 ### Example Configuration
 
-```
+```ini
 [mariadb]
 log_error                              = mariadbd.err
 character_set_server                   = utf8

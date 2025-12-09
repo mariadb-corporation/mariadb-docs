@@ -1,3 +1,10 @@
+---
+description: >-
+  A strategy for migrating from a MySQL Galera Cluster to a MariaDB Galera
+  Cluster by setting up the new cluster as an asynchronous replica, minimizing
+  downtime.
+---
+
 # Migration from MySQL Galera Cluster to MariaDB Galera Cluster using Replication
 
 This guide details migrating a live database from a MySQL Galera Cluster to a [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide). The migration strategy requires setting up a new MariaDB Cluster and using [asynchronous replication](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication#synchronous-vs.-asynchronous-replication) to sync it with the existing MySQL Cluster. The method includes a reliable failback route.

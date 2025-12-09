@@ -1,18 +1,15 @@
+---
+description: >-
+  Configure automatic failover for MariaDB replication clusters. This tutorial
+  covers setting up the monitor to handle primary server failures and promote
+  replicas automatically.
+---
+
 # Automatic Failover With MariaDB Monitor
 
-[MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md) can do more than just monitor
-the state of a MariaDB replication cluster. The monitor can perform cluster manipulation operations
-such as *failover*, *switchover* and *rejoin*. By default, these operations are launched manually,
-but they can be configured to also trigger automatically. All replication modifying operations
-assume GTID-based replication, and refuse to launch or may work incorrectly when using
-file-and-position-based replication.  Also, the operations are mainly designed to work with simple
-topologies, for instance 1 primary and one to multiple replicas. More complicated setups (multilayered
-replication, multimaster rings etc.) may work, but should be tested separately to ensure the results
-are predictable.
+[MariaDB Monitor](../reference/maxscale-monitors/mariadb-monitor.md) can do more than just monitor the state of a MariaDB replication cluster. The monitor can perform cluster manipulation operations such as _failover_, _switchover_ and _rejoin_. By default, these operations are launched manually, but they can be configured to also trigger automatically. All replication modifying operations assume GTID-based replication, and refuse to launch or may work incorrectly when using file-and-position-based replication. Also, the operations are mainly designed to work with simple topologies, for instance 1 primary and one to multiple replicas. More complicated setups (multilayered replication, multimaster rings etc.) may work, but should be tested separately to ensure the results are predictable.
 
-The following examples have four servers: *server1* is the initial primary and *server2* to
-*server4* are replicas. The servers are monitored by *TheMonitor*.  The MaxScale configuration file
-looks as follows:
+The following examples have four servers: _server1_ is the initial primary and _server2_ to _server4_ are replicas. The servers are monitored by _TheMonitor_. The MaxScale configuration file looks as follows:
 
 ```ini
 [server1]
@@ -80,21 +77,15 @@ OK
 ```
 
 The MaxCtrl command invocation is composed of the following parts:
+
 1. `call command` launches a module command
 2. `mariadbmon` is the module which implements the command
 3. `failover` is the command to invoke
 4. `TheMonitor` is the first and only argument to the command, specifying the target monitor
 
-In MaxScale 25.10 and later, the configured monitor name can be used as the module name. The above
-command invocation can thus be shortened to `maxctrl call command TheMonitor failover`. This
-alternate form works for module commands in general.
+In MaxScale 25.10 and later, the configured monitor name can be used as the module name. The above command invocation can thus be shortened to `maxctrl call command TheMonitor failover`. This alternate form works for module commands in general.
 
-During failover, *TheMonitor* selects the best replica, promotes it to primary and modifies the
-other replicas to replicate from the new primary. The main criteria for *best replica* is being most
-up-to-date.  If the best replica has unprocessed events in its relay log, meaning it has received
-binary log events from the old primary but not processed them, failover stalls until the
-processing is complete. If multiple replicas are equally good, the monitor prefers to promote
-servers in the order stated in the *servers*-setting.
+During failover, _TheMonitor_ selects the best replica, promotes it to primary and modifies the other replicas to replicate from the new primary. The main criteria for _best replica_ is being most up-to-date. If the best replica has unprocessed events in its relay log, meaning it has received binary log events from the old primary but not processed them, failover stalls until the processing is complete. If multiple replicas are equally good, the monitor prefers to promote servers in the order stated in the _servers_-setting.
 
 After failover completes, the cluster looks like this:
 
@@ -113,7 +104,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If *server1* comes back online, it is not rejoined to the cluster:
+If _server1_ comes back online, it is not rejoined to the cluster:
 
 ```bash
 $ maxctrl list servers
@@ -130,13 +121,11 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-This case can be handled by the [rejoin-command](#rejoin). For more details on what exactly failover
-does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md#operation-details).
+This case can be handled by the [rejoin-command](automatic-failover-with-mariadb-monitor.md#rejoin). For more details on what exactly failover does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md#operation-details).
 
 ## Automatic Failover
 
-To enable automatic failover, add `auto_failover=true` to the monitor section in the
-configuration file:
+To enable automatic failover, add `auto_failover=true` to the monitor section in the configuration file:
 
 ```ini
 [TheMonitor]
@@ -164,8 +153,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If *server1* goes down, the monitor performs failover automatically and promotes an existing replica
-to primary.
+If _server1_ goes down, the monitor performs failover automatically and promotes an existing replica to primary.
 
 ```bash
 $ maxctrl list servers
@@ -182,12 +170,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴────────────────────────┘
 ```
 
-If you are continuously monitoring the server states, you may notice that, for a brief period, the
-state of *server1* is _Down_ and the state of *server2* is still _Slave, Running_. This is because
-the monitor does not begin failover immediately when the server goes down, as the problem could be
-temporary. The monitor waits for *server1* to come back for
-[failcount](../reference/maxscale-monitors/mariadb-monitor.md#failcount) monitor intervals. The
-recommended value for *failcount* depends on *monitor_interval* and the stability of the network.
+If you are continuously monitoring the server states, you may notice that, for a brief period, the state of _server1_ is _Down_ and the state of _server2_ is still _Slave, Running_. This is because the monitor does not begin failover immediately when the server goes down, as the problem could be temporary. The monitor waits for _server1_ to come back for [failcount](../reference/maxscale-monitors/mariadb-monitor.md#failcount) monitor intervals. The recommended value for _failcount_ depends on _monitor\_interval_ and the stability of the network.
 
 ```ini
 [TheMonitor]
@@ -202,8 +185,7 @@ failcount=5
 
 ## Rejoin
 
-To enable automatic rejoin, simply add `auto_rejoin=true` to the monitor section in the
-configuration file:
+To enable automatic rejoin, simply add `auto_rejoin=true` to the monitor section in the configuration file:
 
 ```ini
 [TheMonitor]
@@ -215,11 +197,9 @@ auto_rejoin=true
 ...
 ```
 
-When automatic rejoin is enabled, MariaDB Monitor attempts to rejoin a failed primary as a
-replica if it comes back online.
+When automatic rejoin is enabled, MariaDB Monitor attempts to rejoin a failed primary as a replica if it comes back online.
 
-In the next example, failover (either automatic or manual) has promoted *server2* to replace failed
-primary *server1*:
+In the next example, failover (either automatic or manual) has promoted _server2_ to replace failed primary _server1_:
 
 ```bash
 $ maxctrl list servers
@@ -236,10 +216,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-If *server1* reappears, the monitor detects that, and attempts to rejoin the old primary as a
-replica. Rejoin is not always possible: If the old primary processed a write (just before crashing),
-and that write was never replicated to the new primary, then automatic rejoin is not possible
-because the old and new primaries have diverged.
+If _server1_ reappears, the monitor detects that, and attempts to rejoin the old primary as a replica. Rejoin is not always possible: If the old primary processed a write (just before crashing), and that write was never replicated to the new primary, then automatic rejoin is not possible because the old and new primaries have diverged.
 
 If rejoin succeeds, the cluster state ends up looking like:
 
@@ -260,12 +237,9 @@ $ maxctrl list servers
 
 ## Switchover
 
-Switchover is for cases when you explicitly want to move the primary role from one server to
-another. Switchover is safer than failover, as switchover prevents writes to the cluster during the
-operation.
+Switchover is for cases when you explicitly want to move the primary role from one server to another. Switchover is safer than failover, as switchover prevents writes to the cluster during the operation.
 
-Continuing from the cluster state at the end of the previous example, to make *server1* primary
-again, issue the following command:
+Continuing from the cluster state at the end of the previous example, to make _server1_ primary again, issue the following command:
 
 ```bash
 $ maxctrl call command mariadbmon switchover TheMonitor server1 server2
@@ -273,6 +247,7 @@ OK
 ```
 
 The MaxCtrl command invocation is composed of the following parts:
+
 1. `call command` launches a module command
 2. `mariadbmon` is the module which implements the command
 3. `switchover` is the command to invoke
@@ -280,10 +255,7 @@ The MaxCtrl command invocation is composed of the following parts:
 5. `server1` is the server to promote
 6. `server2` is the server to demote, the current primary
 
-Specifying the current primary is optional. The name of the new primary server can also be left out
-if autoselection is tolerable, leaving just `maxctrl call command mariadbmon switchover TheMonitor`.
-As with *failover*, in MaxScale 25.10, the configured monitor name can be used as the module name:
-`maxctrl call command TheMonitor switchover`.
+Specifying the current primary is optional. The name of the new primary server can also be left out if autoselection is tolerable, leaving just `maxctrl call command mariadbmon switchover TheMonitor`. As with _failover_, in MaxScale 25.10, the configured monitor name can be used as the module name: `maxctrl call command TheMonitor switchover`.
 
 If the switchover succeeds, we end up with the following cluster state:
 
@@ -302,8 +274,7 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
-For more details on what exactly switchover does, see
-[MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md#operation-details).
+For more details on what exactly switchover does, see [MariaDB Monitor documentation](../reference/maxscale-monitors/mariadb-monitor.md#operation-details).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

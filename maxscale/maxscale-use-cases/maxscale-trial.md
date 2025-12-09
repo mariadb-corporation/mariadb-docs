@@ -1,3 +1,10 @@
+---
+description: >-
+  Evaluate MariaDB MaxScale with the free Trial version. Learn about its
+  features installation steps, and specific limitations like connection counts
+  and runtime duration for testing purposes.
+---
+
 # MaxScale Trial
 
 With the release of MaxScale 25.01 under a proprietary license, MariaDB has introduced MaxScale Trial, a free version that lets users explore the latest GA features in 24-hour increments, up to one week from install. MaxScale Trial offers limited performance capacity, providing a hands-on way to evaluate MaxScale’s capabilities before committing to an enterprise subscription
@@ -145,6 +152,6 @@ Although the uninstallation of MaxScale Trial will not cause the configuration f
 
 It is not possible to have MaxScale Trial and MaxScale installed simultaneously on the same machine.
 
-MaxScale configurations are not guaranteed to work in MaxScale Trial as MaxScale Trial has restrictions based on the documented limitations above which would block startup.\
+MaxScale configurations are not guaranteed to work in MaxScale Trial as MaxScale Trial has restrictions based on the documented limitations above which would block startup.\\
 
 {% @marketo/form formId="4316" %}

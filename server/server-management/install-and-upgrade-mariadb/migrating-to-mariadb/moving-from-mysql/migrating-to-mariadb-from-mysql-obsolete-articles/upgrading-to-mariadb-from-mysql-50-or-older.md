@@ -1,3 +1,10 @@
+---
+description: >-
+  Outdated page regarding migrating from MySQL to MariaDB Server. While
+  potentially outdated, these resources may offer historical context or insights
+  for specific scenarios.
+---
+
 # Upgrading to MariaDB From MySQL 5.0 or Older
 
 If you upgrade to [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) from MySQL 5.1 you [don't have to do anything](../upgrading-from-mysql-to-mariadb.md) with your data or MySQL clients. Things should "just work".

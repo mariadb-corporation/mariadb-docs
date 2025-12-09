@@ -1,6 +1,12 @@
+---
+description: >-
+  Troubleshooting steps for startup failures, covering issues like file
+  permissions, corrupted data directories, port conflicts, and systemd timeouts.
+---
+
 # What to Do if MariaDB Doesn't Start
 
-There could be many reasons that MariaDB fails to start. This page will help troubleshoot some of the more common reasons and provide solutions.
+This page helps troubleshoot some of the more common reasons for MariaDB not starting, and provide solutions.
 
 If you have tried everything here and still need help, you can ask for help on IRC or on the forums - see [Where to find other MariaDB users and developers](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/joining-the-community) - or ask a question at the [Starting and Stopping MariaDB](./) page.
 
@@ -10,16 +16,16 @@ The reason for the failure will almost certainly be written in the [error log](.
 
 Common Locations:
 
-* /var/log/
-* /var/log/mysql
-* C:\Program Files\MariaDB x.y\data (x.y refers to the version number)
-* C:\Program Files (x86)\MariaDB x.y\data (32bit version on 64bit Windows)
+* `/var/log/`
+* `/var/log/mysql`
+* `C:\Program Files\MariaDB x.y\data` (x.y refers to the version number)
+* `C:\Program Files (x86)\MariaDB x.y\data` (32bit version on 64bit Windows)
 
 It's also possible that the error log has been explicitly written to another location. This is often done by changing the [datadir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir) or [log\_error](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_error) system variables in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). See the [Option Files](what-to-do-if-mariadb-doesnt-start.md#option-files) below for more information about that.
 
 A quick way to get the values of these system variables is to execute the following commands:
 
-```
+```bash
 mariadbd --help --verbose | grep 'log-error' | tail -1
 mariadbd --help --verbose | grep 'datadir' | tail -1
 ```
@@ -30,13 +36,13 @@ Another kind of file to consider when troubleshooting is [option files](../insta
 
 You can check which configuration options MariaDB server will use from its option files by executing the following command:
 
-```
+```bash
 mariadbd --print-defaults
 ```
 
 You can also check by executing the following command:
 
-```
+```bash
 my_print_defaults --mysqld
 ```
 
@@ -101,7 +107,7 @@ This almost always happens because there is already an existing MariaDB service 
 
 A less likely case is that file locking is not available, which might occur on an NFS-mounted data directory without proper locking support.
 
-## Unable to lock ./ibdata1 error 11
+## Unable to Lock ./ibdata1 Error 11
 
 Like the above for the Aria Control File, this is attempting to exclusively lock the `ibdata1` InnoDB system tablespace. Error 11 corresponds to the system error "OS error code 11: Resource temporarily unavailable," meaning the lock cannot be created.
 
@@ -179,13 +185,13 @@ See [SELinux](../../security/securing-mariadb/selinux.md) for more information.
 
 Add the following to `/etc/apparmor.d/tunables/alias` if you have moved the datadir:
 
-```
+```bash
 alias /var/lib/mysql/ -> /data/mariadb/,
 ```
 
 The restart AppArmor:
 
-```
+```bash
 sudo systemctl restart apparmor
 ```
 

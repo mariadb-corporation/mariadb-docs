@@ -1,4 +1,10 @@
-# systemd
+---
+description: >-
+  A comprehensive guide to managing MariaDB with systemd, including unit file
+  customization, startup timeouts, and handling multiple instances.
+---
+
+# systemd (Linux)
 
 `systemd` is a [sysVinit](sysvinit.md) replacement that is the default service manager on the following Linux distributions:
 

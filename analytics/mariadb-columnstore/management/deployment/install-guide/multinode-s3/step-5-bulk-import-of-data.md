@@ -10,6 +10,8 @@ This page details step 5 of a 5-step procedure for deploying Single-Node Enterpr
 
 This step bulk imports data to Enterprise ColumnStore.
 
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
+
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 
 ## Import the Schema

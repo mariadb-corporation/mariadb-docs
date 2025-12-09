@@ -36,7 +36,7 @@ InnoDB engine.
 The ReadWriteSplit [documentation](maxscale-readwritesplit.md)
 has more on primary-replica setup.
 
-**Example**
+#### Example
 
 Suppose we have a Transactional service like
 

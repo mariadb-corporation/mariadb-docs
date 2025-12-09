@@ -1,8 +1,8 @@
 ---
 description: >-
-  Secure your MariaDB MaxScale deployment with authenticators. These modules
-  manage client authentication with backend servers, supporting diverse
-  mechanisms for enhanced security.
+  Explore the authentication modules available in MariaDB MaxScale. This
+  reference covers configuration for GSSAPI, PAM, LDAP, and native MariaDB
+  authentication plugins.
 ---
 
 # MaxScale Authenticators
