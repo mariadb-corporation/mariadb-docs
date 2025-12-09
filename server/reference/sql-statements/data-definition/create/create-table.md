@@ -150,7 +150,7 @@ CREATE TABLE test (a INT NOT NULL, b CHAR(10)) ENGINE=MyISAM
     SELECT 5 AS b, c, d FROM another_table;
 ```
 
-Remember that the query just returns data. If you want to use the same indexes, or the same columns attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`, `CHECK` constraints) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data returned by the `SELECT` requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to forcee the new table to use certain types.
+Remember that the query just returns data. If you want to use the same indexes, or the same columns attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`, `CHECK` constraints) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data returned by the `SELECT` requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to force the new table to use certain types.
 
 Aliases (`AS`) are taken into account, and they should always be used when you `SELECT` an expression (function, arithmetical operation, etc).
 
