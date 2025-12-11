@@ -55,6 +55,7 @@
   * [Backup and Restore](mariadb-enterprise-operator/backup-and-restore/README.md)
     * [Logical backups](mariadb-enterprise-operator/backup-and-restore/logical_backup.md)
     * [Physical backups](mariadb-enterprise-operator/backup-and-restore/physical_backup.md)
+    * [CSI Specific Configuration](mariadb-enterprise-operator/backup-and-restore/csi-specific-configuration.md)
   * [Storage](mariadb-enterprise-operator/storage.md)
   * [TLS](mariadb-enterprise-operator/tls.md)
   * [Configuration](mariadb-enterprise-operator/configuration.md)
