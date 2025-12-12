@@ -1,6 +1,6 @@
 # Server System Variables
 
-### About the Server System Variables
+## Overview
 
 MariaDB has many system variables that can be changed to suit your needs.
 
@@ -50,7 +50,7 @@ mariadbd --verbose --help
 
 * View the Information Schema [GLOBAL\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_variables-and-session_variables-tables.md), [SESSION\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_variables-and-session_variables-tables.md), and [SYSTEM\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md) tables.
 
-### Setting Server System Variables
+## Setting Server System Variables
 
 There are several ways to set server system variables:
 
@@ -87,7 +87,7 @@ Variables that take a numeric size can either be specified in full, or with a su
 
 The suffix can be upper or lower-case.
 
-### List of Server System Variables
+## List of Server System Variables
 
 #### `allow_suspicious_udfs`
 

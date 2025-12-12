@@ -7,7 +7,7 @@ description: >-
 # MINUS
 
 {% hint style="info" %}
-`MINUS` is available starting from [**10.6.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes)**.**
+`MINUS` is available starting from MariaDB 10.6.1.
 {% endhint %}
 
 `MINUS` is a synonym for [EXCEPT](except.md) when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is set.

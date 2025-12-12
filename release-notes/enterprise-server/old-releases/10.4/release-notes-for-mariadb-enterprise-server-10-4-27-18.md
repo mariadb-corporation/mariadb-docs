@@ -22,7 +22,7 @@ SELECT * FROM information_schema.INNODB_SYS_TABLESPACES
 ### Can result in data loss
 
 * When a column is renamed in a partitioned table with [ALTER TABLE .. RENAME COLUMN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) using the [NOCOPY algorithm](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-overview#nocopy-algorithm), the table can be corrupted. ([MDEV-28576](https://jira.mariadb.org/browse/MDEV-28576))
-* When the InnoDB storage engine performs change buffer operations, the [InnoDB Redo Log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-redo-log) can overflow, which can cause table corruption. (MENT-1661, [MDEV-29905](https://jira.mariadb.org/browse/MDEV-29905))
+* When the InnoDB storage engine performs change buffer operations, the [InnoDB Redo Log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-redo-log) can overflow, which can cause table corruption. ([MENT-1661](https://jira.mariadb.org/browse/MENT-1661), [MDEV-29905](https://jira.mariadb.org/browse/MDEV-29905))
 
 ### Can result in a hang or crash
 
@@ -61,7 +61,7 @@ ALTER TABLE t
  ADD PERIOD IF NOT EXISTS FOR `` (s,e);
 ```
 
-* When the Spider storage engine's ODBC foreign data wrapper is used with MariaDB Connector/ODBC 3.1.10, and later, the server can crash. (MENT-1415)
+* When the Spider storage engine's ODBC foreign data wrapper is used with MariaDB Connector/ODBC 3.1.10, and later, the server can crash. ([MENT-1415](https://jira.mariadb.org/browse/MENT-1415))
 
 ### Can result in unexpected behavior
 

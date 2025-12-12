@@ -4,7 +4,7 @@ Return only rows that appear in both result sets. This set operator identifies t
 
 ## Syntax
 
-```
+```sql
 SELECT ...
 (INTERSECT [ALL | DISTINCT] | EXCEPT [ALL | DISTINCT] | UNION [ALL | DISTINCT]) SELECT ...
 [(INTERSECT [ALL | DISTINCT] | EXCEPT [ALL | DISTINCT] | UNION [ALL | DISTINCT]) SELECT ...]

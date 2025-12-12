@@ -1,5 +1,8 @@
 ---
-description: Quickstart guide for MariaDB MaxScale
+description: >-
+  Discover the capabilities of MariaDB MaxScale. This overview explains how the
+  proxy manages high availability, load balancing, and security for your
+  database infrastructure.
 ---
 
 # MariaDB MaxScale Guide

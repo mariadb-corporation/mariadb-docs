@@ -1,5 +1,8 @@
 ---
-description: MariaDB MaxScale installation quickstart guide
+description: >-
+  Follow step-by-step instructions to install MariaDB MaxScale on major Linux
+  distributions. This guide covers repository configuration and package
+  installation.
 ---
 
 # MariaDB MaxScale Installation Guide
@@ -10,7 +13,7 @@ MariaDB MaxScale is an advanced, open-source database proxy that provides intell
 
 {% stepper %}
 {% step %}
-#### Key concepts
+**Key concepts**
 
 To understand MaxScale, familiarize yourself with these core components:
 
@@ -23,7 +26,7 @@ To understand MaxScale, familiarize yourself with these core components:
 {% endstep %}
 
 {% step %}
-#### Installation
+**Installation**
 
 MariaDB MaxScale is typically installed from the official MariaDB repositories.
 
@@ -49,7 +52,7 @@ sudo dnf install -y maxscale
 {% endstep %}
 
 {% step %}
-#### Basic configuration
+**Basic configuration**
 
 MaxScale's configuration is primarily done in its main configuration file in `/etc/maxscale.cnf`.
 
@@ -152,7 +155,7 @@ threads=auto
 {% endstep %}
 
 {% step %}
-#### Complete configuration
+**Complete configuration**
 
 Your `/etc/maxscale.cnf` should now look like this:
 
@@ -192,7 +195,7 @@ port=3306
 {% endstep %}
 
 {% step %}
-#### Start and enable MaxScale
+**Start and enable MaxScale**
 
 After configuring `maxscale.cnf`, start and enable the MaxScale service.
 
@@ -204,7 +207,7 @@ sudo systemctl status maxscale # Check status
 {% endstep %}
 
 {% step %}
-#### Basic usage and verification
+**Basic usage and verification**
 
 Once MaxScale is running, configure your applications to connect to MaxScale's listener port instead of directly to a MariaDB server.
 

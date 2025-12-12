@@ -107,7 +107,7 @@ SELECT (wins / plays) AS winavg, AVG(plays) FROM plays
 ### See Also
 
 * [SELECT](select.md)
-* [Joins and Subqueries](joins-subqueries/)
+* [Joins and Subqueries](set-operations/)
 * [LIMIT](limit.md)
 * [ORDER BY](order-by.md)
 * [Common Table Expressions](common-table-expressions/)

@@ -16,8 +16,8 @@ A view cannot be used for updating if it uses any of the following:
 * [HAVING](../../reference/sql-statements/data-manipulation/selecting-data/select.md)
 * [GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/select.md#group-by)
 * [DISTINCT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#distinct)
-* [UNION](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/union.md)
-* [UNION ALL](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/union.md)
+* [UNION](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)
+* [UNION ALL](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)
 * An aggregate function, such as [MAX()](../../reference/sql-functions/aggregate-functions/max.md), [MIN()](../../reference/sql-functions/aggregate-functions/min.md), [SUM()](../../reference/sql-functions/aggregate-functions/sum.md) or [COUNT()](../../reference/sql-functions/aggregate-functions/count.md)
 * subquery in the SELECT list
 * subquery in the WHERE clause referring to a table in the FROM clause

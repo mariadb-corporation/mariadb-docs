@@ -27,7 +27,7 @@ gunzip world.sql.gz
 
 ## Forcing Join Order
 
-You can force the join order by using [STRAIGHT\_JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) either in the [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) part.
+You can force the join order by using [STRAIGHT\_JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) either in the [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) part.
 
 The simplest way to force the join order is to put the tables in the correct order in the `FROM` clause and use `SELECT STRAIGHT_JOIN` like so:
 
@@ -184,7 +184,7 @@ The optimizer uses several strategies to optimize [GROUP BY](../../../reference/
   * Sort the keys + reference to row (with filesort)
   * Scan the table in sorted order
 
-A temporary table will always be used if the fields which will be sorted are not from the first table in the [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) order.
+A temporary table will always be used if the fields which will be sorted are not from the first table in the [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) order.
 
 * Use a temporary table for [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md):
   * Create a temporary table to hold the [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md) result with an index that matches the [GROUP BY](../../../reference/sql-statements/data-manipulation/selecting-data/group-by.md) fields.

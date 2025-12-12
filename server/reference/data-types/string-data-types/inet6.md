@@ -59,7 +59,7 @@ Attempting to compare `INET6` to an expression of any other data type returns an
 
 ### Mixing INET6 Values for Result
 
-An `INET6` expression can be mixed for result (i.e. [UNION](../../sql-statements/data-manipulation/selecting-data/joins-subqueries/union.md), [CASE..THEN](https://mariadb.com/kb/en/case), [COALESCE](../../sql-structure/operators/comparison-operators/coalesce.md) etc) with:
+An `INET6` expression can be mixed for result (i.e. [UNION](../../sql-statements/data-manipulation/selecting-data/set-operations/union.md), [CASE..THEN](https://mariadb.com/kb/en/case), [COALESCE](../../sql-structure/operators/comparison-operators/coalesce.md) etc) with:
 
 * another `INET6` expression. The resulting data type is `INET6`.
 * a character string in text (short or long) address representation. The result data type is `INET6`. The character string counterpart is automatically converted to `INET6`. If the string format is not understood, it's converted with a warning to either `NULL` or to '::', depending on the `NULL`-ability of the result.

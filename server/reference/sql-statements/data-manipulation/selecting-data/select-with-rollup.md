@@ -140,7 +140,7 @@ SELECT country, year, genre, SUM(sales)
 ## See Also
 
 * [SELECT](select.md)
-* [Joins and Subqueries](joins-subqueries/)
+* [Joins and Subqueries](set-operations/)
 * [LIMIT](limit.md)
 * [ORDER BY](order-by.md)
 * [GROUP BY](group-by.md)

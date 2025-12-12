@@ -18,7 +18,7 @@ If the [query\_cache\_type](../system-variables/server-system-variables.md#query
 
 ## STRAIGHT\_JOIN
 
-`STRAIGHT_JOIN` applies to the [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) queries, and tells the optimizer that the tables must be read in the order they appear in the `SELECT`. For `const` and `system` table this options is sometimes ignored.
+`STRAIGHT_JOIN` applies to the [JOIN](../../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) queries, and tells the optimizer that the tables must be read in the order they appear in the `SELECT`. For `const` and `system` table this options is sometimes ignored.
 
 ## SQL\_CALC\_FOUND\_ROWS
 

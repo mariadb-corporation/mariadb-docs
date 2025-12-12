@@ -257,7 +257,7 @@ set based on the new value. An `AUTO_INCREMENT` column is implicitly `NOT NULL`.
 
 ### ZEROFILL Column Option
 
-If the `ZEROFILL` column option is specified for a column using a [numeric](../../../data-types/numeric-data-types/numeric-data-type-overview.md) data type, then the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../data-manipulation/selecting-data/joins-subqueries/union.md), [INTERSECT](../../data-manipulation/selecting-data/joins-subqueries/intersect.md), or [EXCEPT](../../data-manipulation/selecting-data/joins-subqueries/except.md). `ZEROFILL` is a non-standard MariaDB and MySQL extension.
+If the `ZEROFILL` column option is specified for a column using a [numeric](../../../data-types/numeric-data-types/numeric-data-type-overview.md) data type, then the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../data-manipulation/selecting-data/set-operations/union.md), [INTERSECT](../../data-manipulation/selecting-data/set-operations/intersect.md), or [EXCEPT](../../data-manipulation/selecting-data/set-operations/except.md). `ZEROFILL` is a non-standard MariaDB and MySQL extension.
 
 ### PRIMARY KEY Column Option
 

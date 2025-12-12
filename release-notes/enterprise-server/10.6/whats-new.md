@@ -136,31 +136,31 @@ Enhanced compatibility with Sybase SQL Anywhere through \[sql\_mode=EXTENDED\_AL
 
 [MariaDB Enterprise Server 10.6.9-5](10.6.9-5.md)
 
-* The UUID data type has been backported for more efficient storage of UUID values.
+{% include "../../.gitbook/includes/backports-10.6.9-5.md" %}
 
 [MariaDB Enterprise Server 10.6.11-6](10.6.11-6.md)
 
-* The new [slave\_max\_statement\_time system variable](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) is available to set the maximum execution time for queries on replica nodes.
-* To simplify maintenance, the [ALTER TABLE statement](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) supports new clauses to convert tables to partitions, and partitions to tables
+{% include "../../.gitbook/includes/backports-10.6.11-6.md" %}
 
 [MariaDB Enterprise Server 10.6.12-7](10.6.12-7.md)
 
-* In previous releases, the number of undo logs was configurable before InnoDB was initialized. With this release, the number of undo logs can also be configured after install
+{% include "../../.gitbook/includes/backports-10.6.12-7.md" %}
 
 [MariaDB Enterprise Server 10.6.15-10](10.6.15-10.md)
 
-* [JSON\_OVERLAPS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_overlaps) has been backported
-* [JSON\_SCHEMA\_VALID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_schema_valid) has been backported
+{% include "../../.gitbook/includes/backports-10.6.15-10.md" %}
 
 [MariaDB Enterprise Server 10.6.16-11](10.6.16-11.md)
 
-* A new view `sys.privileges_by_table_by_level` in the sys schema, to show privileges granted to a table on a global, schema, or table level
-* Option s3\_debug can now be changed without the need to restart the server
-* New Time Zone Options `%Z` and `%z` for DATE\_FORMAT
-* Server Audit Log with Milliseconds Precision Timestamps
+{% include "../../.gitbook/includes/backports-10.6.16-11.md" %}
+
+[MariaDB Enterprise Server 10.6.24-20](10.6.24-20.md)
+
+{% include "../../.gitbook/includes/backports-10.6.24-20.md" %}
 
 ## Available Versions
 
+* [MariaDB Enterprise Server 10.6.24-20](10.6.24-20.md)
 * [MariaDB Enterprise Server 10.6.23-19](10.6.23-19.md)
 * [MariaDB Enterprise Server 10.6.22-18](10.6.22-18.md)
 * [MariaDB Enterprise Server 10.6.21-17](10.6.21-17.md)

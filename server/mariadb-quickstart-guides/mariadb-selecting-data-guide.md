@@ -221,7 +221,7 @@ LIMIT 5;
 5 rows in set (0.00 sec)
 ```
 
-* Alternative `JOIN` syntax: `... JOIN authors ON books.author_id = authors.author_id ...`. For more on joins, see the [JOIN Syntax documentation](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) or a "Basic Joins Guide".
+* Alternative `JOIN` syntax: `... JOIN authors ON books.author_id = authors.author_id ...`. For more on joins, see the [JOIN Syntax documentation](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) or a "Basic Joins Guide".
 * **`CONCAT(str1, str2, ...)`:** Concatenates strings.
 * **`AS alias_name`:** Assigns an alias to an output column.
 

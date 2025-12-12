@@ -8,12 +8,12 @@ description: >-
 # JOIN Syntax
 
 {% hint style="info" %}
-For an introduction to joins, see [Joining Tables with JOIN Clauses Guide](../../../../../../mariadb-quickstart-guides/mariadb-join-guide.md).
+For an introduction to joins, see [Joining Tables with JOIN Clauses Guide](../../../../../mariadb-quickstart-guides/mariadb-join-guide.md).
 {% endhint %}
 
 ## Description
 
-MariaDB supports the following `JOIN` syntaxes for the `table_references` part of [SELECT](../../select.md) statements and multiple-table [DELETE](../../../changing-deleting-data/delete.md) and [UPDATE](../../../changing-deleting-data/update.md) statements:
+MariaDB supports the following `JOIN` syntaxes for the `table_references` part of [SELECT](../select.md) statements and multiple-table [DELETE](../../changing-deleting-data/delete.md) and [UPDATE](../../changing-deleting-data/update.md) statements:
 
 ```sql
 table_references:
@@ -77,18 +77,18 @@ index_list:
 
 A _table reference_ is also known as a _join expression_.
 
-Each table can also be specified as `db_name`.`tabl_name`. This allows to write queries which involve multiple databases. See [Identifier Qualifiers](../../../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for syntax details.
+Each table can also be specified as `db_name`.`tabl_name`. This allows to write queries which involve multiple databases. See [Identifier Qualifiers](../../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for syntax details.
 
 The syntax of `table_factor` is an extension to the SQL Standard. The latter accepts only `table_reference`, not a list of them inside a pair of parentheses.
 
-This is a conservative extension if we consider each comma in a list of table\_reference items as equivalent to an inner join. For example, this query:
+This is a conservative extension if we consider each comma in a list of table\_reference items as equivalent to an inner join. Consider this query:
 
 ```sql
 SELECT * FROM t1 LEFT JOIN (t2, t3, t4)
                  ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c)
 ```
 
-Is equivalent to:
+It is equivalent to this query:
 
 ```sql
 SELECT * FROM t1 LEFT JOIN (t2 CROSS JOIN t3 CROSS JOIN t4)
@@ -127,19 +127,23 @@ You **cannot** optionally specify a list of column names in parenthesis.
 {% endtab %}
 {% endtabs %}
 
-See also [Correlation Column List](../subqueries/subqueries-in-a-from-clause-derived-tables.md#correlation-column-list).
+See also [Correlation Column List](../joins-subqueries/subqueries/subqueries-in-a-from-clause-derived-tables.md#correlation-column-list).
 
 ### System-Versioned Tabled
 
-See [System-versioned tables](../../../../../sql-structure/temporal-tables/system-versioned-tables.md) for more information about the `FOR SYSTEM_TIME` syntax.
+See [System-versioned tables](../../../../sql-structure/temporal-tables/system-versioned-tables.md) for more information about the `FOR SYSTEM_TIME` syntax.
 
 ### Index Hints
 
-Index hints can be specified to affect how the MariaDB optimizer makes use of indexes. For more information, see [How to force query plans](../../../../../../ha-and-performance/optimization-and-tuning/query-optimizations/index-hints-how-to-force-query-plans.md).
+Index hints can be specified to affect how the MariaDB optimizer makes use of indexes. For more information, see [How to force query plans](../../../../../ha-and-performance/optimization-and-tuning/query-optimizations/index-hints-how-to-force-query-plans.md).
 
-### Oracle mode
+### Oracle Mode
 
-When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active, from [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1), the Oracle-style `+` syntax can be used. For example, the following two queries are identical:
+{% hint style="info" %}
+This feature is available from MariaDB 12.1.
+{% endhint %}
+
+When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active, the Oracle-style `+` syntax can be used. For example, the following two queries are identical:
 
 ```sql
 SELECT * FROM t1 LEFT JOIN t2 ON t1.a = t2.b;
@@ -173,10 +177,10 @@ SELECT left_tbl.*
 
 ## See Also
 
-* [Joining Tables with JOIN Clauses Guide](../../../../../../mariadb-quickstart-guides/mariadb-join-guide.md)
-* [More Advanced Joins](more-advanced-joins.md)
+* [Joining Tables with JOIN Clauses Guide](../../../../../mariadb-quickstart-guides/mariadb-join-guide.md)
+* [More Advanced Joins](../joins-subqueries/joins/more-advanced-joins.md)
 * [Comma vs JOIN](comma-vs-join.md)
-* [Joins, Subqueries and SET](../../../../../sql-structure/joins-subqueries-set.md)
+* [Joins, Subqueries and SET](../../../../sql-structure/joins-subqueries-set.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

@@ -8,6 +8,7 @@ description: A list of all MariaDB Enterprise Server releases
 
 | Version                      | Release Date | Release Status |
 | ---------------------------- | ------------ | -------------- |
+| [11.8.5-2](11.8/11.8.5-2.md) | 2025-12-11   | Stable (GA)    |
 | [11.8.3-1](11.8/11.8.3-1.md) | 2025-10-22   | Stable (GA)    |
 | [11.8.2-0](11.8/11.8.2-0.md) | 2025-06-04   | Tech Preview   |
 
@@ -15,6 +16,7 @@ description: A list of all MariaDB Enterprise Server releases
 
 | Version                      | Release Date | Release Status |
 | ---------------------------- | ------------ | -------------- |
+| [11.4.9-6](11.4/11.4.9-6.md) | 2025-12-11   | Stable (GA)    |
 | [11.4.8-5](11.4/11.4.8-5.md) | 2025-09-08   | Stable (GA)    |
 | [11.4.7-4](11.4/11.4.7-4.md) | 2025-06-11   | Stable (GA)    |
 | [11.4.5-3](11.4/11.4.5-3.md) | 2025-03-19   | Stable (GA)    |
@@ -25,6 +27,7 @@ description: A list of all MariaDB Enterprise Server releases
 
 | Version                          | Release Date | Release Status |
 | -------------------------------- | ------------ | -------------- |
+| [10.6.24-20](10.6/10.6.24-20.md) | 2025-12-11   | Stable (GA)    |
 | [10.6.23-19](10.6/10.6.23-19.md) | 2025-09-08   | Stable (GA)    |
 | [10.6.22-18](10.6/10.6.22-18.md) | 2025-06-11   | Stable (GA)    |
 | [10.6.21-17](10.6/10.6.21-17.md) | 2025-03-19   | Stable (GA)    |

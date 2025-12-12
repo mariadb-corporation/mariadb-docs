@@ -133,7 +133,7 @@ FROM books
 LIMIT 5;
 ```
 
-This will limit the number of rows displayed to five. To be able to list the author's name for each book along with the title, you will have to join the books table with the authors table. To do this, we can use the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause like so:
+This will limit the number of rows displayed to five. To be able to list the author's name for each book along with the title, you will have to join the books table with the authors table. To do this, we can use the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause like so:
 
 ```sql
 SELECT title, name_last 
@@ -141,7 +141,7 @@ FROM books
 JOIN authors USING (author_id);
 ```
 
-Notice that the primary table from which we're drawing data is given in the `FROM` clause. The table to which we're joining is given in the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause along with the commonly named column (i.e., author\_id) that we're using for the join.
+Notice that the primary table from which we're drawing data is given in the `FROM` clause. The table to which we're joining is given in the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause along with the commonly named column (i.e., author\_id) that we're using for the join.
 
 To retrieve the titles of only books written by Kafka based on his name (not the author\_id), we would use the `WHERE` clause with the [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement. This would be entered like the following:
 

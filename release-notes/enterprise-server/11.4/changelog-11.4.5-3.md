@@ -12,12 +12,12 @@ MariaDB Enterprise Server 11.4.5-3 was released on 19 Mar 2025.
 
 ## Changes
 
-* (MENT-2233) Backport Vector Search to MariaDB Enterprise Server 11.4
-* (MENT-2228) cherry-pick the fix for [MDEV-36138](https://jira.mariadb.org/browse/MDEV-36138)
+* ([MENT-2233](https://jira.mariadb.org/browse/MENT-2233)) Backport Vector Search to MariaDB Enterprise Server 11.4
+* ([MENT-2228](https://jira.mariadb.org/browse/MENT-2228)) cherry-pick the fix for [MDEV-36138](https://jira.mariadb.org/browse/MDEV-36138)
 * ([MDEV-35789](https://jira.mariadb.org/browse/MDEV-35789)) Q1 2025 release merge
 * ([MDEV-35854](https://jira.mariadb.org/browse/MDEV-35854)) Clean up some DDL code around FOREIGN KEY constraints
-* (MENT-2145) Backport [MDEV-23729](https://jira.mariadb.org/browse/MDEV-23729) - INFORMATION\_SCHEMA Table info. about user locked due to max\_password\_errors
-* (MENT-2234) Starting with this release we generate a Software Builds of Materials(SBOM) JSON file provided in the downloads archive, which can be reached from the "All Files" link on the MariaDB Enterprise Server downloads page
+* ([MENT-2145](https://jira.mariadb.org/browse/MENT-2145)) Backport [MDEV-23729](https://jira.mariadb.org/browse/MDEV-23729) - INFORMATION\_SCHEMA Table info. about user locked due to max\_password\_errors
+* ([MENT-2234](https://jira.mariadb.org/browse/MENT-2234)) Starting with this release we generate a Software Builds of Materials(SBOM) JSON file provided in the downloads archive, which can be reached from the "All Files" link on the MariaDB Enterprise Server downloads page
 * ([MDEV-32576](https://jira.mariadb.org/browse/MDEV-32576)) InnoDB deadlock output query length increased to improve visibility of deadlocked statements.
 
 ## Issues Fixed
@@ -54,10 +54,10 @@ MariaDB Enterprise Server 11.4.5-3 was released on 19 Mar 2025.
 * ([MDEV-35090](https://jira.mariadb.org/browse/MDEV-35090)) FIx assertion failure where CURRENT\_USER was not correctly copied during condition pushdown
 * ([MDEV-35710](https://jira.mariadb.org/browse/MDEV-35710)) Fix cluster node hang during shutdown if threadpool is used
 * ([MDEV-24935](https://jira.mariadb.org/browse/MDEV-24935)) Calling a stored routine that executes a join on three or more tables and referencing not-existent column name in the USING clause could previously result in a crash on its second invocation.
-* (MENT-2175) Fix possible assertion failure when Galera cluster is in 'split-brain' state due to loss of communication between nodes (fix requires Galera library 26.4.21+)
-* (MENT-2212) Fix assertion failure when executing XA PREPARE (and possibly other XA statements) on Galera cluster nodes
-* (MENT-2214) Fix assertion failure when executing XA statements on Galera cluster nodes
-* (MENT-2215) In rare cases, an ALTER TABLE or other operation could previously hang when using NBO mode on a cluster with very low network latencies (for example, when both nodes are running on the same physical machine)
+* ([MENT-2175](https://jira.mariadb.org/browse/MENT-2175)) Fix possible assertion failure when Galera cluster is in 'split-brain' state due to loss of communication between nodes (fix requires Galera library 26.4.21+)
+* ([MENT-2212](https://jira.mariadb.org/browse/MENT-2212)) Fix assertion failure when executing XA PREPARE (and possibly other XA statements) on Galera cluster nodes
+* ([MENT-2214](https://jira.mariadb.org/browse/MENT-2214)) Fix assertion failure when executing XA statements on Galera cluster nodes
+* ([MENT-2215](https://jira.mariadb.org/browse/MENT-2215)) In rare cases, an ALTER TABLE or other operation could previously hang when using NBO mode on a cluster with very low network latencies (for example, when both nodes are running on the same physical machine)
 * ([MDEV-33064](https://jira.mariadb.org/browse/MDEV-33064)) MariaDB Cluster and ALTER INPLACE running in Total Order Isolation (wsrep\_OSU\_method=TOI) now correctly abort a DML INSERT operation in InnoDB
 * ([MDEV-33245](https://jira.mariadb.org/browse/MDEV-33245)) Fix possible crash in wsrep\_check\_sequence
 * ([MDEV-35446](https://jira.mariadb.org/browse/MDEV-35446)) Fix sporadic reporting of success when a deadlock error occurs under --ps-protocol BF aborted transaction
@@ -83,11 +83,11 @@ MariaDB Enterprise Server 11.4.5-3 was released on 19 Mar 2025.
 * ([MDEV-20281](https://jira.mariadb.org/browse/MDEV-20281)) The "Failed to write to mysql.slow\_log" error no longer shown without a detailed reason for the error
 * ([MDEV-35907](https://jira.mariadb.org/browse/MDEV-35907)) Fix debian-start script failure when using non-standard socket path
 * ([MDEV-35749](https://jira.mariadb.org/browse/MDEV-35749)) wsrep\_sst\_mariadb-backup.sh no longer uses --use-memory default (100MB) resulting in prepare stage which could take hours
-* (MENT-2238) Replicate\_\* fields in Show-Slave-Status may be truncated, impacting replication monitoring.
-* (MENT-2243) Cherry-Pick [MDEV-35813](https://jira.mariadb.org/browse/MDEV-35813) - Performance regression in INSERT...SELECT due to unnecessarily making InnoDB log durable
-* (MENT-2245) Galera SSL errors after wolfSSL upgrade
-* (MENT-2232) Milliseconds for Timestamp of the Enterprise Audit Log missing in 11.4
-* (MENT-2226) Cherry-pick [MDEV-36026](https://jira.mariadb.org/browse/MDEV-36026) - Problem with INSERT SELECT on NOT NULL columns while having BEFORE UPDATE trigger
+* ([MENT-2238](https://jira.mariadb.org/browse/MENT-2238)) Replicate\_\* fields in Show-Slave-Status may be truncated, impacting replication monitoring.
+* ([MENT-2243](https://jira.mariadb.org/browse/MENT-2243)) Cherry-Pick [MDEV-35813](https://jira.mariadb.org/browse/MDEV-35813) - Performance regression in INSERT...SELECT due to unnecessarily making InnoDB log durable
+* ([MENT-2245](https://jira.mariadb.org/browse/MENT-2245)) Galera SSL errors after wolfSSL upgrade
+* ([MENT-2232](https://jira.mariadb.org/browse/MENT-2232)) Milliseconds for Timestamp of the Enterprise Audit Log missing in 11.4
+* ([MENT-2226](https://jira.mariadb.org/browse/MENT-2226)) Cherry-pick [MDEV-36026](https://jira.mariadb.org/browse/MDEV-36026) - Problem with INSERT SELECT on NOT NULL columns while having BEFORE UPDATE trigger
 * ([MDEV-35098](https://jira.mariadb.org/browse/MDEV-35098)) rpl.rpl\_mysqldump\_gtid\_slave\_pos fails in buildbot
 * ([MDEV-35153](https://jira.mariadb.org/browse/MDEV-35153)) backport the [MDEV-34716](https://jira.mariadb.org/browse/MDEV-34716) fix of socket length in mysql.servers
 * ([MDEV-35110](https://jira.mariadb.org/browse/MDEV-35110)) Fix deadlock on oeplica during BACKUP STAGE BLOCK\_COMMIT on XA transactions
@@ -217,7 +217,7 @@ MariaDB Enterprise Server 11.4.5-3 was released on 19 Mar 2025.
 * ([MDEV-35806](https://jira.mariadb.org/browse/MDEV-35806)) Error in read\_log\_event() corrupts relay log writer, crashes server
 * ([MDEV-35911](https://jira.mariadb.org/browse/MDEV-35911)) Assertion \`marked\_for\_write\_or\_computed()' failed in bool Field\_new\_decimal::store\_value(const my\_decimal\*, int\*)
 * ([MDEV-35954](https://jira.mariadb.org/browse/MDEV-35954)) mysql\_file.h cast warnings
-* (MENT-2213) Test failure on MENT-1733
+* ([MENT-2213](https://jira.mariadb.org/browse/MENT-2213)) Test failure on MENT-1733
 * ([MDEV-35804](https://jira.mariadb.org/browse/MDEV-35804)) galera\_ddl\_fk\_conflict test failed due to timeout
 * ([MDEV-34218](https://jira.mariadb.org/browse/MDEV-34218)) Mariadb Galera cluster fails when replicating from Mysql 5.7 on use of DDL
 * ([MDEV-33978](https://jira.mariadb.org/browse/MDEV-33978)) P\_S.THREADS is not showing all server threads

@@ -40,10 +40,10 @@ Does it make a difference? Not much as written. But you should use the second fo
 ## See Also
 
 * ["MySQL joins: ON vs. USING vs. Theta-style"](https://code.openark.org/blog/mysql/mysql-joins-on-vs-using-vs-theta-style) — A blog entry about this topic.
-* [Joining Tables with JOIN Clauses Guide](../../../../../../mariadb-quickstart-guides/mariadb-join-guide.md)
-* [More Advanced Joins](more-advanced-joins.md)
+* [Joining Tables with JOIN Clauses Guide](../../../../../mariadb-quickstart-guides/mariadb-join-guide.md)
+* [More Advanced Joins](../joins-subqueries/joins/more-advanced-joins.md)
 * [JOIN Syntax](join-syntax.md)
-* [Joins, Subqueries and SET](../../../../../sql-structure/joins-subqueries-set.md)
+* [Joins, Subqueries and SET](../../../../sql-structure/joins-subqueries-set.md)
 
 _The initial version of this article was copied, with permission, from_ [_Comma\_vs\_JOIN_](https://hashmysql.org/wiki/Comma_vs_JOIN) _on 2012-10-05._
 

@@ -62,7 +62,7 @@ INTERVAL '1!30!30' HOUR_SECOND -- same as above
 
 Time units can be used in the following contexts:
 
-* after a [+](../../sql-structure/operators/arithmetic-operators/addition-operator.md) or a [-](../../sql-statements/data-manipulation/selecting-data/joins-subqueries/minus.md) operator;
+* after a [+](../../sql-structure/operators/arithmetic-operators/addition-operator.md) or a [-](../../sql-statements/data-manipulation/selecting-data/set-operations/minus.md) operator;
 * with the following `DATE` or `TIME` functions: [ADDDATE()](adddate.md), [SUBDATE()](subdate.md), [DATE\_ADD()](date_add.md), [DATE\_SUB()](date_sub.md), [TIMESTAMPADD()](timestampadd.md), [TIMESTAMPDIFF()](timestampdiff.md), [EXTRACT()](extract.md);
 * in the `ON SCHEDULE` clause of [CREATE EVENT](../../sql-statements/data-definition/create/create-event.md) and [ALTER EVENT](../../../server-usage/triggers-events/event-scheduler/alter-event.md);
 * when defining a [partitioning](../../sql-statements/data-definition/create/create-table.md#partitions) `BY SYSTEM_TIME` .

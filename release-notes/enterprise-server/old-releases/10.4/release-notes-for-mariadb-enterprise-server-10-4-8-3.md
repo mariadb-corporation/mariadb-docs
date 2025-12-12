@@ -6,7 +6,7 @@ MariaDB Enterprise Server 10.4.8-3 was released on 2019-09-30.
 
 ## Notable Changes
 
-* [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin) plugin sends an error to the client when auditing cannot be started. When reloaded, wrong filter definitions will result in an error, and the old cache filters will be used. (MENT-256)
+* [MariaDB Enterprise Audit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin) plugin sends an error to the client when auditing cannot be started. When reloaded, wrong filter definitions will result in an error, and the old cache filters will be used. ([MENT-256](https://jira.mariadb.org/browse/MENT-256))
 
 ## Issues Fixed
 
@@ -33,7 +33,7 @@ MariaDB Enterprise Server 10.4.8-3 was released on 2019-09-30.
 ### Related to performance
 
 * Optimized scanning of the undo log versions while scanning the secondary index versions. ([MDEV-20301](https://jira.mariadb.org/browse/MDEV-20301))
-* Improved performance for [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) [--prepare](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#prepare) and [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) crash recovery, and the [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) write performance. (MENT-139)
+* Improved performance for [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) [--prepare](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options#prepare) and [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) crash recovery, and the [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb) write performance. ([MENT-139](https://jira.mariadb.org/browse/MENT-139))
 
 ## Interface Changes
 

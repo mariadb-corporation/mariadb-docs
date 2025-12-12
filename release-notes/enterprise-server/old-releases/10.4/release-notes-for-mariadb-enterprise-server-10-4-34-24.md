@@ -30,7 +30,7 @@ InnoDB: Crash recovery is broken due to insufficient innodb_log_file_size
 
 ### Can result in unexpected behavior
 
-* Spider/ODBC passed double quotes for names, in ANSI style (MENT-958)
+* Spider/ODBC passed double quotes for names, in ANSI style ([MENT-958](https://jira.mariadb.org/browse/MENT-958))
 * Default charset doesn't work with the PHP MySQLi extension ([MDEV-32975](https://jira.mariadb.org/browse/MDEV-32975))
 * Spider returns parsing failure on valid left join select by translating the on expression to () ([MDEV-33679](https://jira.mariadb.org/browse/MDEV-33679))
 * Original IP not shown in network-related error messages when `proxy_protocol` is in use ([MDEV-33506](https://jira.mariadb.org/browse/MDEV-33506))

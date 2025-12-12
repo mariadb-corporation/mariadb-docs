@@ -40,7 +40,7 @@ If `SIGNED`, or no attribute, is specified, a portion of the numeric type will b
 
 If `UNSIGNED` is specified, no portion of the numeric type is reserved for the sign, so for integer types range can be larger. For example, a `TINYINT UNSIGNED` can range from 0 to 255. Floating point and fixed-point types also can be `UNSIGNED`, but this only prevents negative values from being stored and doesn't alter the range.
 
-If `ZEROFILL` is specified, the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../sql-statements/data-manipulation/selecting-data/joins-subqueries/union.md). `ZEROFILL` is a non-standard MySQL and MariaDB enhancement.
+If `ZEROFILL` is specified, the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../sql-statements/data-manipulation/selecting-data/set-operations/union.md). `ZEROFILL` is a non-standard MySQL and MariaDB enhancement.
 
 Note that although the preferred syntax indicates that the attributes are exclusive, more than one attribute can be specified.
 

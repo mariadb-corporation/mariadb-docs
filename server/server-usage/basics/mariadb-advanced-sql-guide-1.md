@@ -82,7 +82,7 @@ See [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) for more.
 SELECT * FROM t1 INNER JOIN t2 ON t1.a = t2.b;
 ```
 
-This kind of query is called a join - see [JOINS](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/) for more.
+This kind of query is called a join - see [JOINS](../../reference/sql-statements/data-manipulation/selecting-data/joins/) for more.
 
 ## Finding the Maximum Value
 

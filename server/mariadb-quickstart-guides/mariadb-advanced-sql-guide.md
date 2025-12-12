@@ -106,7 +106,7 @@ To combine rows from two tables based on a related column:
 SELECT * FROM t1 INNER JOIN t2 ON t1.a = t2.b;
 ```
 
-This type of query is a join. For more details, consult the documentation on [JOINS](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/).
+This type of query is a join. For more details, consult the documentation on [JOINS](../reference/sql-statements/data-manipulation/selecting-data/joins/).
 
 ### Finding the Maximum Value
 

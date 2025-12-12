@@ -39,7 +39,7 @@ In addition to this, there are Enterprise Features and some backported features.
 * Extending timestamp range to 2106
 * Limit the size of the created disk temporary files and tables
 * The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive
-* [Vector Search](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) capability has been added (MENT-2233)
+* [Vector Search](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) capability has been added ([MENT-2233](https://jira.mariadb.org/browse/MENT-2233))
 * Segmented key cache for Aria
   * A new variable [aria-pagecache-segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_pagecache_segments) (default 1) to define the number of segments has been added. The default disables the new feature.
 

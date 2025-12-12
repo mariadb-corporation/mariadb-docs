@@ -32,6 +32,12 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 * Namespace support was added to HashiCorp Vault in MariaDB. See the [Hashicorp namespaces documentation](https://developer.hashicorp.com/vault/docs/enterprise/namespaces) for details.
 * [Audit logging buffer writes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit#audit-logging-buffer-writes) are possible now.
 
+## Backported Features
+
+[MariaDB Enterprise Server 11.8.5-2](11.8.5-2.md)
+
+{% include "../../.gitbook/includes/backports-11.8.5-2-and-11.4.9-6.md" %}
+
 ## Indexes, SQL Functions, and Query Enhancements <a href="#indexes-sql-functions-and-query-enhancements" id="indexes-sql-functions-and-query-enhancements"></a>
 
 * **UUID Generation**: New functions `UUID_v4() and UUID_v7()` for modern and time-ordered UUIDs.
@@ -247,6 +253,7 @@ The implementation supports the following associative array methods:
 
 ## Available Versions <a href="#available-versions" id="available-versions"></a>
 
+* [MariaDB Enterprise Server 11.8.5-2](11.8.5-2.md)
 * [MariaDB Enterprise Server 11.8.3-1](11.8.3-1.md)
 * MariaDB Enterprise Server 11.8.2-0 Tech Preview
 

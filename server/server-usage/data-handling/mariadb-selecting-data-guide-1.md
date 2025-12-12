@@ -186,7 +186,7 @@ Notice that the [ORDER BY](../../reference/sql-statements/data-manipulation/sele
 
 #### Friendlier and More Complicated
 
-So far we've been working with one table of data containing information on books for a fictitious bookstore. A database will usually have more than one table, of course. In this particular database, there's also one called authors in which the name and other information on authors is contained. To be able to select data from two tables in one [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement, we will have to tell MariaDB that we want to join the tables and will need to provide a join point. This can be done with a [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause as shown in the following SQL statement, with the results following it:
+So far we've been working with one table of data containing information on books for a fictitious bookstore. A database will usually have more than one table, of course. In this particular database, there's also one called authors in which the name and other information on authors is contained. To be able to select data from two tables in one [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement, we will have to tell MariaDB that we want to join the tables and will need to provide a join point. This can be done with a [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause as shown in the following SQL statement, with the results following it:
 
 ```sql
 SELECT isbn, title, 
@@ -211,7 +211,7 @@ LIMIT 5;
 5 rows in set (0.00 sec)
 ```
 
-Our [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement is getting hefty, but it's the same one to which we've been adding. Don't let the clutter fluster you. Looking for the new elements, let's focus on the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause first. There are a few possible ways to construct a join. This method works if both tables contain a column of the same name and value. Otherwise you'll have to redo the `JOIN` clause to look something like this:
+Our [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement is getting hefty, but it's the same one to which we've been adding. Don't let the clutter fluster you. Looking for the new elements, let's focus on the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause first. There are a few possible ways to construct a join. This method works if both tables contain a column of the same name and value. Otherwise you'll have to redo the `JOIN` clause to look something like this:
 
 ```sql
 ...

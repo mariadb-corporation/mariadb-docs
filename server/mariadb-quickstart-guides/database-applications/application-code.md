@@ -126,4 +126,4 @@ There are situations where the application-level SQL gets really complex, someti
 * [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md)
 * [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md)
 * [Reserved words](../../reference/sql-structure/sql-language-structure/reserved-words.md)
-* [JOIN queries](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/)\\
+* [JOIN queries](../../reference/sql-statements/data-manipulation/selecting-data/joins/)\\

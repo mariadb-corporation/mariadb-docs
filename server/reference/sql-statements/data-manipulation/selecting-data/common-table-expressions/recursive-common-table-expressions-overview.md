@@ -26,8 +26,6 @@ CTEs permit a query to reference itself. A recursive CTE will repeatedly execute
 
 ![rcte\_syntax](../../../../../.gitbook/assets/rcte_syntax.png)
 
-![cte\_syntax](/broken/files/MFZE3zCsU3RNoysbwrNB)
-
 ### Computation
 
 Given the following structure:

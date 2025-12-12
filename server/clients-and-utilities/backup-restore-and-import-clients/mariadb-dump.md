@@ -6,17 +6,9 @@ The `mariadb-dump` client is a backup program originally written by Igor Romanen
 Previously, the client used to be called `mysqldump`, and can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows. From MariaDB 11.0, the symlink `mysqldump` is deprecated and removed from the `mariadb` Docker Official Image.
 {% endhint %}
 
-{% tabs %}
-{% tab title="Current" %}
-`mariadb-dump` generates a command at the beginning of the dump to enable \[sandbox]\(../mariadb-client/mariadb-command line-client.md#-sandbox) mode. This command cannot be interpreted by earlier versions of the \[MariaDB command line client]\(../mariadb-client/mariadb-command line-client.md) or by MySQL's command line client, and the client generates an error if used against the versions that do not support it. This does not affect other methods of importing the data.
-{% endtab %}
+`mariadb-dump` generates a command at the beginning of the dump to enable [sandbox mode](../mariadb-client/mariadb-command-line-client.md#sandbox). This command cannot be interpreted by earlier versions of the `mariadb` command-line client or by the MySQL command-line client `mysql` – an error is thrown if used against client versions that do not support it. This does not affect other methods of importing the data.
 
-{% tab title="< 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18 / 10.5.25" %}
-N/A
-{% endtab %}
-{% endtabs %}
-
-The `mariadb-dump` client can be used to dump a database or a collection of databases for backup or transfer to another database server (not necessarily MariaDB or MySQL). The dump typically contains SQL statements to create the table, populate it, or both. Also, `mariadb-dump` can also be used to generate files in CSV, other delimited text, or XML format.
+`mariadb-dump` is used to dump a database or a collection of databases for backup, or transferring data to another database server (not necessarily MariaDB or MySQL). The dump contains SQL statements to create databases, tables, table data, and more. It can also be used to generate files in CSV, XML, or other formats that use delimiters.
 
 {% hint style="info" %}
 If you are doing a backup on the server and your tables all are [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) tables, consider using [mariadb-hotcopy](mariadb-hotcopy.md) instead, because it can accomplish faster backups and faster restores.
@@ -28,11 +20,13 @@ If you are doing a backup on the server and your tables all are [MyISAM](../../s
 
 ## Performance
 
-`mariadb-dump` usually doesn't consume much CPU resources on modern hardware, as by default it uses a single thread. This method is good for a heavily loaded server.
+`mariadb-dump` doesn't consume much CPU – by default, it uses a single thread. This method is good for a heavily loaded server.
 
-Disk input/outputs per second (IOPS), can, however, increase for multiple reasons. When you back up on the same device as the database, this produces unnecessary random IOPS. The dump is done sequentially, on a per-table basis, causing a full table scan and many buffer page misses on tables that are not fully cached in memory.
+Disk input/output per second (IOPS) can, however, increase for multiple reasons. When backing up on the same device as the database, this produces unnecessary random IOPS. The dump is done sequentially, on a per-table basis, causing a full table scan and many buffer page misses on tables that are not fully cached in memory.
 
+{% hint style="warning" %}
 It's recommended that you back up from a network location to remove disk IOPS on the database server, but it is vital to use a separate network card to keep network bandwidth available for regular traffic.
+{% endhint %}
 
 Although `mariadb-dump` by default preserves your resources for regular spindle disks and low-core hardware, this doesn't mean that concurrent dumps cannot benefit from hardware architecture like SAN, flash storage, low write workload. The backup time would benefit from a tool such as MyDumper.
 

@@ -1,4 +1,7 @@
 ---
+description: >-
+  MariaDB Enterprise Server 11.6.23-19 is a Stable (GA) maintenance release of
+  MariaDB Enterprise Server 10.6, released on 2025-09-08
 hidden: true
 ---
 
@@ -8,7 +11,7 @@ hidden: true
 
 MariaDB Enterprise Server 10.6.23-19 is a maintenance release of [MariaDB Enterprise Server 10.6](whats-new.md). For the categorized highlights and other details of this release, see the [release notes](10.6.23-19.md).
 
-MariaDB Enterprise Server 10.6.23-19 was released on&#x20;
+**Release date:** 8 Sep 2025
 
 ## Changes <a href="#changes" id="changes"></a>
 

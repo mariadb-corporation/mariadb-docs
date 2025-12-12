@@ -143,7 +143,7 @@ SELECT * FROM store;
 * [UPDATE](../changing-deleting-data/update.md)
 * [DELETE](../changing-deleting-data/delete.md)
 * [Improvements to ORDER BY Optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimization-strategies/improvements-to-order-by.md)
-* [Joins and Subqueries](joins-subqueries/)
+* [Joins and Subqueries](set-operations/)
 * [LIMIT](limit.md)
 * [GROUP BY](group-by.md)
 * [Common Table Expressions](common-table-expressions/)
