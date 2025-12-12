@@ -9,7 +9,7 @@ In the ODBC MariaDB Enterprise Spider topology, a Spider Node contains one or mo
 MariaDB Enterprise Spider:
 
 * Supports a MariaDB foreign data wrapper. The MariaDB foreign data wrapper can be used to replace the older Federated and FederatedX storage engines.
-* Supports an ODBC foreign data wrapper in MariaDB Enterprise Server 10.5 and later. The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
+* Supports an ODBC foreign data wrapper in MariaDB Enterprise Server 10.5 and later. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
 
 The Spider ODBC topology:
 
@@ -25,7 +25,7 @@ In the Spider ODBC topology, a Spider Node contains one or more "virtual" Spider
 
 MariaDB Enterprise Spider implemented support for the ODBC foreign data wrapper in MariaDB Enterprise Server 10.5.
 
-The ODBC foreign data wrapper is beta maturity. The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
+The maturity can be confirmed by querying the [information\_schema.SPIDER\_WRAPPER\_PROTOCOLS](../../../server-usage/storage-engines/spider/information-schema-spider_wrapper_protocols-table.md) table.
 
 The Spider ODBC topology consists of:
 
