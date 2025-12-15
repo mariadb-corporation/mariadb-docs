@@ -50,7 +50,7 @@ See [this issue](https://github.com/kubernetes-sigs/blob-csi-driver/issues/2078)
 ### Issue 2: Immediate List Operations and Backup Deletion (`--cancel-list-on-mount-seconds=0`)
 
 When using the `blob-csi-driver` with its default settings, list operations (which are critical for cleaning up old backups) may not work immediately upon mount,
-leading to issues like [PhysicalBackups](./physical_backup.md) never being deleted.
+leading to issues like old physical backups never being deleted.
 Setting the mountOption `--cancel-list-on-mount-seconds` to "0" ensures that list operations work as expected immediately after the volume is mounted.
 
 See [this issue](https://github.com/kubernetes-sigs/blob-csi-driver/issues/558#issuecomment-961563722) for more information.
