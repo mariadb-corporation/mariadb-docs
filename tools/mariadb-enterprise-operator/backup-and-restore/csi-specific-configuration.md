@@ -5,7 +5,7 @@
 This section outlines a recommended `StorageClass` configuration for the [Azure Blob Storage CSI Driver](https://github.com/kubernetes-sigs/blob-csi-driver) that 
 resolves common mounting and list operation issues encountered in Kubernetes environments.
 
-The following [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/) is recommended when working with Azure Blob Storage (ABS).
+The following [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) is recommended when working with Azure Blob Storage (ABS).
 
 ```yaml
 apiVersion: storage.k8s.io/v1
