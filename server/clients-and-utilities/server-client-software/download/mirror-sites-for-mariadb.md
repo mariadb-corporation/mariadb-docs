@@ -220,6 +220,8 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 - Universitas Surabaya (Surabaya)
 - Citrahost By Citranet (Jakarta)
 - Heru Nugroho (Jakarta)
+- Nevacloud (Jakarta)
+- Domainesia (Jakarta)
 
 ### Iran
 
