@@ -25,7 +25,7 @@ mountOptions:
   - --cancel-list-on-mount-seconds=0
 ```
 
-Next, when defining your PhysicalBackup resource, make sure to use the new StorageClass we created.
+Next, when defining your `PhysicalBackup` resource, make sure to use the new `StorageClass` we created.
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
