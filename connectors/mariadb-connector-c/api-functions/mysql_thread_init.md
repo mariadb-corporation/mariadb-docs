@@ -16,6 +16,10 @@ Returns zero if successful or 1 if an error occurred.
 Before a client thread ends the [mysql\_thread\_end()](mysql_thread_end.md) function must be called to release memory - otherwise the client library will report an error.
 {% endhint %}
 
+{% hint style="warning" %}
+This function has been deprecated since MariaDB Connector/C 3.0.0.
+{% endhint %}
+
 ## See also
 
 * [mysql\_thread\_end()](mysql_thread_end.md)
