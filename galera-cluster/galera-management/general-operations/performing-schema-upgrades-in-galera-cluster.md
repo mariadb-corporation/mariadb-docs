@@ -7,7 +7,7 @@ MariaDB Galera Cluster provides two methods for handling schema upgrades:
 | Method                       | Description                                                                                                                                               |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Total Order Isolation (TOI)  | Default and safest method. The DDL statement is replicated to all nodes, blocking the entire cluster until all preceding transactions complete.           |
-| Rolling Schema Upgrade (RSU) | Advanced, non-blocking method. The DDL is executed on the local node, with changes applied manually to each node in sequence, keeping the cluster online. |
+| Rolling Schema Upgrade (RSU) | Advanced, [non-blocking method]({galera}/galera-management/configuration/galera-cluster-address). The DDL is executed on the local node, with changes applied manually to each node in sequence, keeping the cluster online. |
 
 The method used is controlled by the `wsrep_OSU_method` [session variable](../../reference/galera-cluster-system-variables.md#wsrep_osu_method).
 
