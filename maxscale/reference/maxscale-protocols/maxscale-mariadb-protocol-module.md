@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure the core MariaDB client-server protocol in MaxScale. Learn about
+  settings for compression, connection redirection, and replication support for
+  standard database listeners.
+---
+
 # MaxScale MariaDB Protocol Module
 
 ## Overview

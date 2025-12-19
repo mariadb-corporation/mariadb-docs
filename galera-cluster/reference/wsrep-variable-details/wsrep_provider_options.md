@@ -307,15 +307,15 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `gmcast.listen_addr`
 
-*   Description: Address Galera listens for connections from other nodes. Can be used to override the default port to listen, which is obtained from the connection address.\
-    Specifying a hostname isn't supported. Use an IP number instead.\
-    You can specify the setting using either TCP or SSL, like this:
-
-    `gmcast.listen_addr=tcp://192.168.8.111:4567`
-
-    `gmcast.listen_addr=ssl://192.168.8.111:4567` \
-    If your system supports IPv6, you can also specify it like this:\
-    `gmcast.listen_addr=tcp://[::]:4567`
+* Description: Address Galera listens for connections from other nodes. Can be used to override the default port to listen, which is obtained from the connection address.
+  * Specifying a hostname isn't supported. Use an IP number instead.
+    * Note that [wsrep\_cluster\_address](../galera-cluster-system-variables.md#wsrep_cluster_address) supports TCP, SSL, and hostnames.
+  * You can specify the setting using either TCP or SSL, like this:
+    * `gmcast.listen_addr=tcp://192.168.8.111:4567`&#x20;
+    * `gmcast.listen_addr=ssl://192.168.8.111:4567`&#x20;
+  * If your system supports IPv6, you can also specify it like this:
+    * `gmcast.listen_addr=tcp://[::]:@mysqld.1.#4567`&#x20;
+    * Here, @mysqld.1 is an environment variable, and 4567 is the Galera port.
 * Dynamic: No
 * Default: `tcp://0.0.0.0:4567`
 

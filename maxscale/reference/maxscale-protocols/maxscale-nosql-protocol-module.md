@@ -1,3 +1,10 @@
+---
+description: >-
+  Use MariaDB as a backend for MongoDB applications. This module allows MaxScale
+  to accept MongoDB wire protocol commands and transparently convert them into
+  SQL queries.
+---
+
 # MaxScale NoSQL Protocol Module
 
 ## Overview

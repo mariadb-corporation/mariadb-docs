@@ -1,3 +1,9 @@
+---
+description: >-
+  Manage network listeners via the REST API. Use this resource to define ports,
+  protocols, and service associations for handling incoming client connections.
+---
+
 # MaxScale Listener Resource
 
 ## Overview

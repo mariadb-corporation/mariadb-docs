@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand the fundamentals of the MaxScale REST API. This guide details API
+  versioning, JSON Web Token authentication, and the standard JSON response
+  format.
+---
+
 # MaxScale REST API
 
 ## Overview

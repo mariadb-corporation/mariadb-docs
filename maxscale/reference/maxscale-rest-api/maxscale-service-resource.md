@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure routing services. This resource manages the core services that
+  define how MaxScale routes and balances traffic between clients and backend
+  servers.
+---
+
 # MaxScale Service Resource
 
 ## Overview

@@ -2,10 +2,6 @@
 
 MariaDB Enterprise Manager provides a powerful and flexible alerting system, built on the capabilities of the integrated **Grafana Alerting** engine. It allows you to proactively monitor your entire database fleet, define custom rules for potential issues, and receive notifications through various channels to ensure you can respond quickly.
 
-{% hint style="danger" %}
-All persistent Grafana settings are managed through the MariaDB Enterprise Manager configuration files. Changes made directly in the Grafana UI will be lost upon restart.
-{% endhint %}
-
 ### How It Works: The Alerting Flow
 
 The alerting process in MariaDB Enterprise Manager follows a clear, four-step flow from detection to notification.

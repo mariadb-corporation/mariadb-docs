@@ -1,3 +1,10 @@
+---
+description: >-
+  Control server monitoring modules. This resource allows you to configure
+  monitors, check cluster health status, and modify monitoring parameters
+  dynamically.
+---
+
 # MaxScale Monitor Resource
 
 ## Overview

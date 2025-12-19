@@ -1,10 +1,10 @@
 # Managing Portal Users
 
-By default, MariaDB Cloud services are launched and managed in the [Portal](../../Portal%20features/).
+By default, MariaDB Cloud services are launched and managed in the [Portal](https://app.skysql.com/dashboard).
 
 For multiple MariaDB Cloud ID accounts to jointly manage a set of MariaDB Cloud services, these accounts can be added to a Team.
 
-The User Management interface in the [Portal](../../Portal%20features/) is a self-service tool to manage your Team.
+The User Management interface in the [Portal](https://app.skysql.com/dashboard) is a self-service tool to manage your Team.
 
 A Team can be managed by the initial user on the Team or by any Administrator added to the Team.
 

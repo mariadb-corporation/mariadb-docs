@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure standard settings for all MaxScale monitors. Learn about essential
+  parameters like monitor intervals, backend timeouts, and user credentials for
+  connecting to database servers.
+---
+
 # Common Monitor Parameters
 
 This document settings supported by all monitors. These should be defined in the monitor section of the configuration file.

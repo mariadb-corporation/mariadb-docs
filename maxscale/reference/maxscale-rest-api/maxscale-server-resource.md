@@ -1,3 +1,9 @@
+---
+description: >-
+  Administer backend database servers. Use this resource to add, remove, or
+  modify server definitions and view their current runtime state and statistics.
+---
+
 # MaxScale Server Resource
 
 ## Overview

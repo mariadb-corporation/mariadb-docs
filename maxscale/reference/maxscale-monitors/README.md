@@ -1,8 +1,8 @@
 ---
 description: >-
-  Review the monitoring modules for MariaDB MaxScale. This section details
-  configuration for Galera Cluster, MariaDB Monitor, and other plugins that
-  ensure high availability and failover.
+  Ensure high availability with MaxScale Monitors. This reference details
+  monitoring modules for MariaDB replication and Galera clusters, covering
+  failover, role detection, and health checks.
 ---
 
 # MaxScale Monitors

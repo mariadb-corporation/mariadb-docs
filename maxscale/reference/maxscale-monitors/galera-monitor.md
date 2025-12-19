@@ -1,3 +1,10 @@
+---
+description: >-
+  Monitor Galera Clusters with the galeramon module. This guide explains how to
+  detect cluster state, assign read/write roles, and manage node priorities for
+  effective load balancing.
+---
+
 # Galera Monitor
 
 ## Overview

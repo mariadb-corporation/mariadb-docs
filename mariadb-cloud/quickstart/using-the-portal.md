@@ -36,7 +36,7 @@ Go to [app.skysql.com](https://app.skysql.com) to sign up. You can sign up using
 
     \
     **Note:** Available regions vary by cloud provider and service type.
-4. Service Name: Enter a name to identify your database service, such as `sales-demo` or keep the automatically suggested service name.
+4. Service Name: Enter a name to identify your database service, such as `quickstart-1` or keep the automatically suggested service name.
 5. Click the `Launch Service` button.\
    For additional information on available selections, see "[Service Launch](../cloud-usage/launch-page.md)".
 

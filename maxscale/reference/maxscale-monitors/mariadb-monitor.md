@@ -1,3 +1,10 @@
+---
+description: >-
+  Manage primary-replica clusters with the mariadbmon module. Learn to configure
+  automatic failover, perform switchovers, and monitor replication lag to
+  maintain database availability.
+---
+
 # MariaDB Monitor
 
 ## Overview
