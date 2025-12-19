@@ -14,6 +14,23 @@ When MariaDB Enterprise Server is upgraded, the old version needs to be uninstal
 
 See [What's New in MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5).
 
+## Incompatible Changes
+
+### Binary Name Changes (Critical for Scripts)
+
+* **`mysqld` is now `mariadbd`**: The server binary has been renamed.
+  * Systemd services and `mysqld_safe` handle this automatically.
+  * **Impact:** Monitoring scripts or custom startup scripts that explicitly look for a process named `mysqld` **will fail**. Update them to look for `mariadbd`.
+
+### Privileges
+
+* **`SHOW SLAVE STATUS`**: This command now requires the `REPLICATION SLAVE ADMIN` or `SUPER` privilege. It previously required only `REPLICATION CLIENT`. Ensure your monitoring users have the correct grants.
+
+### Removed Variables
+
+* **`innodb_checksums`**: Replaced by `innodb_checksum_algorithm`.
+* **`innodb_undo_logs`**: Deprecated/Replaced.
+
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup before upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.

@@ -19,10 +19,10 @@ MaxGUI is not available out-of-the box. MaxScale requires some configuration bef
 
 Several global parameters must be configured in maxscale.cnf.
 
-| Parameter                                                               | Description                                                                                                 |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [admin\_host](../deployment/maxscale-configuration-guide.md#admin_host) | • This parameter defines the network address that the REST API listens on.• The default value is 127.0.0.1. |
-| [admin\_port](../deployment/maxscale-configuration-guide.md#admin_port) | • This parameter defines the network port that the REST API listens on.• The default value is 8989.         |
+| Parameter                                                                                              | Description                                                                                                 |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| [admin\_host](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_host) | • This parameter defines the network address that the REST API listens on.• The default value is 127.0.0.1. |
+| [admin\_port](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_port) | • This parameter defines the network port that the REST API listens on.• The default value is 8989.         |
 
 For example:
 
@@ -35,11 +35,11 @@ admin_port            = 8443
 
 2. MaxGUI requires TLS, so you must [enable TLS for MaxScale's REST API](../administrative-tools-for-mariadb-maxscale-maxctrl/connecting-to-maxscale-using-tls-with-maxctrl.md) Several global parameters must be configured in maxscale.cnf.
 
-| Parameter                                                                               | Description                                                                         |
-| --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| [admin\_ssl\_key](../deployment/maxscale-configuration-guide.md#admin_ssl_key)          | \* This parameter defines the private key used by the REST API.                     |
-| [admin\_ssl\_cert](../deployment/maxscale-configuration-guide.md#admin_ssl_cert)        | \* This parameter defines the certificate used by the REST API.                     |
-| [admin\_ssl\_ca\_cert](../deployment/maxscale-configuration-guide.md#admin_ssl_ca_cert) | \*This parameter defines the CA certificate that signed the REST API's certificate. |
+| Parameter                                                                                                              | Description                                                                         |
+| ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [admin\_ssl\_key](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_key)          | \* This parameter defines the private key used by the REST API.                     |
+| [admin\_ssl\_cert](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_cert)        | \* This parameter defines the certificate used by the REST API.                     |
+| [admin\_ssl\_ca\_cert](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_ca_cert) | \*This parameter defines the CA certificate that signed the REST API's certificate. |
 
 For example:
 

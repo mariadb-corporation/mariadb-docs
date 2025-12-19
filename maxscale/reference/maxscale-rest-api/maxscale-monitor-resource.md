@@ -1,9 +1,15 @@
+---
+description: >-
+  Control server monitoring modules. This resource allows you to configure
+  monitors, check cluster health status, and modify monitoring parameters
+  dynamically.
+---
+
 # MaxScale Monitor Resource
 
 ## Overview
 
-A monitor resource represents a monitor inside MaxScale that monitors one or
-more servers.
+A monitor resource represents a monitor inside MaxScale that monitors one or more servers.
 
 ## Resource Operations
 
@@ -361,8 +367,7 @@ Get all monitors.
 GET /v1/monitors/:name/relationships/servers
 ```
 
-The _:type_ in the URI must be either _services_, for service
-relationships, or _servers_, for server relationships.
+The _:type_ in the URI must be either _services_, for service relationships, or _servers_, for server relationships.
 
 #### Response
 
@@ -393,29 +398,22 @@ relationships, or _servers_, for server relationships.
 POST /v1/monitors
 ```
 
-Create a new monitor. The request body must define at least the following
-fields.
+Create a new monitor. The request body must define at least the following fields.
 
 * `data.id`
   * Name of the monitor
-
 * `data.type`
   * Type of the object, must be `monitors`
-
 * `data.attributes.module`
   * The monitor module to use
-
 * `data.attributes.parameters.user`
- * The [`user`](../../maxscale-management/deployment/maxscale-configuration-guide.md#user) to use
-
+* The [`user`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user) to use
 * `data.attributes.parameters.password`
-  * The [password](../../maxscale-management/deployment/maxscale-configuration-guide.md#password) to use
+  * The [password](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#password) to use
 
 All monitor parameters can be defined at creation time.
 
-The following example defines a request body which creates a new monitor and
-assigns two servers to be monitored by it. It also defines a custom value for
-the _monitor_interval_ parameter.
+The following example defines a request body which creates a new monitor and assigns two servers to be monitored by it. It also defines a custom value for the _monitor\_interval_ parameter.
 
 ```javascript
 {
@@ -460,24 +458,21 @@ Monitor is created:
 PATCH /v1/monitors/:name
 ```
 
-The request body must be a valid JSON document representing the modified
-monitor.
+The request body must be a valid JSON document representing the modified monitor.
 
 ### Modifiable Fields
 
-The following standard server parameter can be modified.
-maxscale-monitors/common-monitor-parameters.md
-- [user](../maxscale-monitors/common-monitor-parameters.md#user)
-- [password](../maxscale-monitors/common-monitor-parameters.md#password)
-- [monitor_interval](../maxscale-monitors/common-monitor-parameters.md#monitor_interval)
-- [backend_connect_timeout](../maxscale-monitors/common-monitor-parameters.md#backend_connect_timeout)
-- [backend_write_timeout](../maxscale-monitors/common-monitor-parameters.md#backend_write_timeout)
-- [backend_read_timeout](../maxscale-monitors/common-monitor-parameters.md#backend_read_timeout)
-- [backend_connect_attempts](../maxscale-monitors/common-monitor-parameters.md#backend_connect_attempts)
+The following standard server parameter can be modified. maxscale-monitors/common-monitor-parameters.md
 
-In addition to these standard parameters, the monitor specific parameters can
-also be modified. Refer to the monitor module documentation for details on these
-parameters.
+* [user](../maxscale-monitors/common-monitor-parameters.md#user)
+* [password](../maxscale-monitors/common-monitor-parameters.md#password)
+* [monitor\_interval](../maxscale-monitors/common-monitor-parameters.md#monitor_interval)
+* [backend\_connect\_timeout](../maxscale-monitors/common-monitor-parameters.md#backend_connect_timeout)
+* [backend\_write\_timeout](../maxscale-monitors/common-monitor-parameters.md#backend_write_timeout)
+* [backend\_read\_timeout](../maxscale-monitors/common-monitor-parameters.md#backend_read_timeout)
+* [backend\_connect\_attempts](../maxscale-monitors/common-monitor-parameters.md#backend_connect_attempts)
+
+In addition to these standard parameters, the monitor specific parameters can also be modified. Refer to the monitor module documentation for details on these parameters.
 
 #### Response
 
@@ -495,16 +490,11 @@ Invalid request body:
 PATCH /v1/monitors/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be either _services_, for service
-relationships, or _servers_, for server relationships.
+The _:type_ in the URI must be either _services_, for service relationships, or _servers_, for server relationships.
 
-The request body must be a JSON object that defines only the _data_ field. The
-value of the _data_ field must be an array of relationship objects that define
-the _id_ and _type_ fields of the relationship. This object will replace the
-existing relationships of the monitor.
+The request body must be a JSON object that defines only the _data_ field. The value of the _data_ field must be an array of relationship objects that define the _id_ and _type_ fields of the relationship. This object will replace the existing relationships of the monitor.
 
-The following is an example request and request body that defines a single
-server relationship for a monitor.
+The following is an example request and request body that defines a single server relationship for a monitor.
 
 ```
 PATCH /v1/monitors/my-monitor/relationships/servers
@@ -516,8 +506,7 @@ PATCH /v1/monitors/my-monitor/relationships/servers
 }
 ```
 
-All relationships for a monitor can be deleted by sending an empty array as the
-_data_ field value. The following example removes all servers from a monitor.
+All relationships for a monitor can be deleted by sending an empty array as the _data_ field value. The following example removes all servers from a monitor.
 
 ```
 PATCH /v1/monitors/my-monitor/relationships/servers
@@ -543,11 +532,9 @@ Invalid JSON body:
 DELETE /v1/monitors/:name
 ```
 
-Destroy a created monitor. The monitor must not have relationships to any
-servers in order to be destroyed.
+Destroy a created monitor. The monitor must not have relationships to any servers in order to be destroyed.
 
-This endpoint also supports the `force=yes` parameter that will unconditionally
-delete the monitor by first unlinking it from all servers that it uses.
+This endpoint also supports the `force=yes` parameter that will unconditionally delete the monitor by first unlinking it from all servers that it uses.
 
 #### Response
 

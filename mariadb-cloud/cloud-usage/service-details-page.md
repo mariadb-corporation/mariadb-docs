@@ -8,7 +8,7 @@ After [service launch](launch-page.md), a detailed summary of the service can be
 2. From the Dashboard, click the name of the desired service.
 3. Click the "Details" tab.
 
-<figure><img src="../.gitbook/assets/service-details.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/details (1).png" alt=""><figcaption></figcaption></figure>
 
 _Service Details_
 

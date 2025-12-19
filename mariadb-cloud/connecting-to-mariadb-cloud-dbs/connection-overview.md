@@ -33,7 +33,7 @@ Connection parameters include:
 Unlike previous MariaDB Cloud versions, the current version no longer requires clients to supply the Server SSL Certificate for SSL connections. Customers who migrated from MariaDB corporation to MariaDB Cloud Inc can continue to use provided certificates (when using the previous MariaDB Cloud method for connecting). But we strongly recommend moving to the connection properties as shown in the Connect window for your service.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/connect_window.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/connect_window.png" alt=""><figcaption><p>Connection Window</p></figcaption></figure>
 
 ## Connecting From Your Application
 

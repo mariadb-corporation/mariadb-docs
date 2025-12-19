@@ -2,12 +2,15 @@
 
 ## Overview
 
-Having tables encrypted makes it almost impossible for someone to access or\
-steal a hard disk and get access to the original data. This functionality is also known as "Transparent Data Encryption (TDE)".
+Having tables encrypted makes it almost impossible for someone to access or steal a hard disk and get access to the original data. This functionality is also known as _Transparent Data Encryption_ (TDE).
 
-This assumes that encryption keys are stored on another system.
+{% hint style="warning" %}
+All of the following assumes that encryption keys are stored on another system.
+{% endhint %}
 
+{% hint style="info" %}
 Using encryption has an overhead of roughly _3-5%_.
+{% endhint %}
 
 ## Which Storage Engines Does MariaDB Encryption Support?
 

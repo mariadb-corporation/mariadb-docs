@@ -145,7 +145,7 @@ The _maxctrl_-command can be used to confirm that MaxScale is running and the se
 
 MariaDB MaxScale is now ready to start accepting client connections and route queries to the backend cluster.
 
-More options can be found in the [Configuration Guide](../maxscale-management/deployment/maxscale-configuration-guide.md),[readwritesplit module documentation](../reference/maxscale-routers/maxscale-readwritesplit.md) and [readconnroute module documentation](../reference/maxscale-routers/maxscale-readconnroute.md).
+More options can be found in the [Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md),[readwritesplit module documentation](../reference/maxscale-routers/maxscale-readwritesplit.md) and [readconnroute module documentation](../reference/maxscale-routers/maxscale-readconnroute.md).
 
 For more information about MaxCtrl and how to secure it, see the [REST-API Tutorial](rest-api-tutorial.md).
 

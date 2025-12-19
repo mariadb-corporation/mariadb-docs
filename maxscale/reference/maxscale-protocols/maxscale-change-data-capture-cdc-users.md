@@ -1,16 +1,17 @@
+---
+description: >-
+  Manage user authentication for the legacy CDC protocol. This reference
+  explains how to create, store, and manage user credentials for clients
+  connecting to the CDC listener.
+---
+
 # MaxScale Change Data Capture (CDC) users
 
 ## Overview
 
-Change Data Capture (CDC) is a new MaxScale protocol that allows compatible
-clients to authenticate and register for Change Data Capture events. The new
-protocol must be use in conjunction with AVRO router which currently converts
-MariaDB binlog events into AVRO records. Clients connect to CDC listener and
-authenticate using credentials provided in a format described in the
-[CDC Protocol documentation](maxscale-change-data-capture-cdc-protocol.md).
+Change Data Capture (CDC) is a new MaxScale protocol that allows compatible clients to authenticate and register for Change Data Capture events. The new protocol must be use in conjunction with AVRO router which currently converts MariaDB binlog events into AVRO records. Clients connect to CDC listener and authenticate using credentials provided in a format described in the [CDC Protocol documentation](maxscale-change-data-capture-cdc-protocol.md).
 
-**Note**: If no users are found in that file or if it doesn't exist, the only
-available user will be the _service user_:
+**Note**: If no users are found in that file or if it doesn't exist, the only available user will be the _service user_:
 
 ```
 [avro-service]
@@ -29,8 +30,7 @@ Starting with MaxScale 2.1, users can also be created through maxctrl:
 maxctrl call command cdc add_user <service> <name> <password>
 ```
 
-The should be the service name where the user is created. Older
-versions of MaxScale should use the _cdc\_users.py_ script.
+The should be the service name where the user is created. Older versions of MaxScale should use the _cdc\_users.py_ script.
 
 ```
 bash$ cdc_users.py [-h] USER PASSWORD
@@ -42,9 +42,7 @@ The output of this command should be appended to the _cdcusers_ file at`/var/lib
 bash$ cdc_users.py user1 pass1 >> /var/lib/maxscale/avro-service/cdcusers
 ```
 
-Users can be deleted by removing the related rows in 'cdcusers' file. For
-more details on the format of the _cdcusers_ file, read the
-[CDC Protocol documentation](maxscale-change-data-capture-cdc-protocol.md).
+Users can be deleted by removing the related rows in 'cdcusers' file. For more details on the format of the _cdcusers_ file, read the [CDC Protocol documentation](maxscale-change-data-capture-cdc-protocol.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

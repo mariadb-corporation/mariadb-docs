@@ -2,7 +2,7 @@
 
 The available panels are :
 
-<figure><img src="../.gitbook/assets/monitoring (1) (1).png" alt=""><figcaption><p>Monitoring page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/service-monitoring.png" alt=""><figcaption><p>Service Monioring</p></figcaption></figure>
 
 ## Current SQL Commands (service)
 
@@ -36,7 +36,7 @@ This panel shows the amount of storage space used (as the usage percentage, actu
 
 This panel shows the amount of storage space used by each server node during the selected time interval.
 
-<figure><img src="../.gitbook/assets/lags-panel.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/storage-lags.png" alt=""><figcaption><p>Monitoring—Lags</p></figcaption></figure>
 
 ## GTID Replication Position (service, replicas)
 
@@ -54,7 +54,7 @@ This panel shows the current binary log position of the replica SQL thread for e
 
 This panel shows the current binary log position of the replica I/O thread for each ES node during the selected time interval.
 
-<figure><img src="../.gitbook/assets/queries-panel.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/queries.png" alt=""><figcaption><p>Monitoring—Queries</p></figcaption></figure>
 
 ## Top Command Counters (service, queries)
 
@@ -96,7 +96,7 @@ This panel shows the number of client threads running on all ES nodes during the
 
 This panel shows the number of client threads connected and running on the ES node during the selected time interval.
 
-<figure><img src="../.gitbook/assets/database-panel.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/database.png" alt=""><figcaption><p>Monitoring—Database</p></figcaption></figure>
 
 ## MaxScale Service Connections
 
@@ -134,7 +134,7 @@ This panel shows the number of tables opened by the database server on the ES no
 
 This panel shows the number of tables that have been opened by all ES nodes during the selected time interval.
 
-<figure><img src="../.gitbook/assets/system-panel.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/system.png" alt=""><figcaption><p>Monitoring—System</p></figcaption></figure>
 
 ## CPU Load
 

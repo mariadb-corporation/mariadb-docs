@@ -60,7 +60,7 @@ $ sudo chown maxscale /run/maxscale
 $ sudo chown maxscale /var/cache/maxscale
 ```
 
-The following step is to create the MariaDB MaxScale configuration file `/etc/maxscale.cnf`. The file `etc/maxscale.cnf.template` can be used as a base. Please refer to [Configuration Guide](../deployment/maxscale-configuration-guide.md) for details.
+The following step is to create the MariaDB MaxScale configuration file `/etc/maxscale.cnf`. The file `etc/maxscale.cnf.template` can be used as a base. Please refer to [Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide.md) for details.
 
 When the configuration file has been created, MariaDB MaxScale can be started.
 
@@ -88,7 +88,7 @@ Enter a directory where you have the right to create a subdirectory. Then do as 
 $ tar -xzvf maxscale-x.y.z.OS.tar.gz
 ```
 
-The next step is to create the MaxScale configuration file `maxscale-x.y.z/etc/maxscale.cnf`. The file `maxscale-x.y.z/etc/maxscale.cnf.template` can be used as a base. Please refer to [Configuration Guide](../deployment/maxscale-configuration-guide.md) for details.
+The next step is to create the MaxScale configuration file `maxscale-x.y.z/etc/maxscale.cnf`. The file `maxscale-x.y.z/etc/maxscale.cnf.template` can be used as a base. Please refer to [Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide.md) for details.
 
 When the configuration file has been created, MariaDB MaxScale can be started.
 

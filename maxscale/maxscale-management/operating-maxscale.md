@@ -11,7 +11,7 @@ description: >-
   * [Creating a REST API User](administrative-tools-for-mariadb-maxscale-maxctrl/creating-a-rest-api-user-for-maxscale-with-maxctrl.md)
   * [Deleting a REST API User](../reference/maxscale-maxctrl.md#destroy-user)
 * TLS
-  * [Enabling TLS on MaxScale](deployment/maxscale-configuration-guide.md#tlsssl-encryption)
+  * [Enabling TLS on MaxScale](deployment/installation-and-configuration/maxscale-configuration-guide.md#tlsssl-encryption)
   * [Enabling TLS for MaxScale's REST API](administrative-tools-for-mariadb-maxscale-maxctrl/connecting-to-maxscale-using-tls-with-maxctrl.md)
   * [Connecting to MaxScale using TLS with MaxCtrl](administrative-tools-for-mariadb-maxscale-maxctrl/connecting-to-maxscale-using-tls-with-maxctrl.md)
 * MaxGUI

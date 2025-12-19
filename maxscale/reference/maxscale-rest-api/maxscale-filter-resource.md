@@ -1,9 +1,14 @@
+---
+description: >-
+  Configure database traffic filters programmatically. This resource enables you
+  to retrieve, create, and modify filter instances and their runtime parameters.
+---
+
 # MaxScale Filter Resource
 
 ## Overview
 
-A filter resource represents an instance of a filter inside MaxScale. Multiple
-services can use the same filter and a single service can use multiple filters.
+A filter resource represents an instance of a filter inside MaxScale. Multiple services can use the same filter and a single service can use multiple filters.
 
 ## Resource Operations
 
@@ -186,8 +191,7 @@ GET /v1/filters
 GET /v1/filters/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be _services_ as filters only have service
-relationships.
+The _:type_ in the URI must be _services_ as filters only have service relationships.
 
 #### Response
 
@@ -214,24 +218,18 @@ relationships.
 POST /v1/filters
 ```
 
-Create a new filter. The posted object must define at
-least the following fields.
+Create a new filter. The posted object must define at least the following fields.
 
 * `data.id`
   * Name of the filter
-
 * `data.type`
   * Type of the object, must be `filters`
-
 * `data.attributes.module`
   * The filter module to use
 
-All of the filter parameters should be defined at creation time in the
-`data.attributes.parameters` object.
+All of the filter parameters should be defined at creation time in the `data.attributes.parameters` object.
 
-As the service to filter relationship is ordered (filters are applied in the
-order they are listed), filter to service relationships cannot be defined at
-creation time.
+As the service to filter relationship is ordered (filters are applied in the order they are listed), filter to service relationships cannot be defined at creation time.
 
 The following example defines a request body which creates a new filter.
 
@@ -262,12 +260,9 @@ Filter is created:
 PATCH /v1/filters/:name
 ```
 
-Filter parameters can be updated at runtime if the module supports it. Refer to
-the individual module documentation for more details on whether it supports
-runtime configuration and which parameters can be updated.
+Filter parameters can be updated at runtime if the module supports it. Refer to the individual module documentation for more details on whether it supports runtime configuration and which parameters can be updated.
 
-The following example modifies a filter by changing the `match` parameter to
-`.*users.*`.
+The following example modifies a filter by changing the `match` parameter to `.*users.*`.
 
 ```javascript
 {
@@ -295,13 +290,9 @@ DELETE /v1/filters/:filter
 
 The _:filter_ in the URI must map to the name of the filter to be destroyed.
 
-A filter can only be destroyed if no service uses it. This means that the
-`data.relationships` object for the filter must be empty. Note that the service
-→ filter relationship cannot be modified from the filters resource and must be
-done via the services resource.
+A filter can only be destroyed if no service uses it. This means that the `data.relationships` object for the filter must be empty. Note that the service → filter relationship cannot be modified from the filters resource and must be done via the services resource.
 
-This endpoint also supports the `force=yes` parameter that will unconditionally
-delete the filter by first removing it from all services that it uses.
+This endpoint also supports the `force=yes` parameter that will unconditionally delete the filter by first removing it from all services that it uses.
 
 #### Response
 

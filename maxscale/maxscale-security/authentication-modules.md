@@ -7,7 +7,7 @@ description: >-
 
 # Authentication Modules
 
-This document describes general MySQL protocol authentication in MaxScale. For REST-api authentication, see the [configuration guide](../maxscale-management/deployment/maxscale-configuration-guide.md) and the [REST-api guide](../reference/maxscale-rest-api/maxscale-rest-api.md).
+This document describes general MySQL protocol authentication in MaxScale. For REST-api authentication, see the [configuration guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) and the [REST-api guide](../reference/maxscale-rest-api/maxscale-rest-api.md).
 
 Similar to the MariaDB Server, MaxScale uses authentication plugins to implement different authentication schemes for incoming clients. The same plugins also handle authenticating the clients to backend servers. The authentication plugins available in MaxScale are [standard MySQL password](../reference/maxscale-authenticators/maxscale-mariadb-mysql-authenticator.md), [GSSAPI](../reference/maxscale-authenticators/maxscale-gssapi-client-authenticator.md), [ed25519](../reference/maxscale-authenticators/maxscale-ed25519-authenticator.md), [PARSEC](../reference/maxscale-authenticators/maxscale-parsec-authenticator.md) and [pluggable authentication modules (PAM)](../reference/maxscale-authenticators/maxscale-pam-authenticator.md).
 
@@ -21,13 +21,13 @@ The service uses the stored data when authenticating clients, checking their pas
 
 If authentication fails, the UAM updates its data from a backend. MaxScale may attempt authenticating the client again with the refreshed data without communicating the first failure to the client. This transparent user data update does not always work, in which case the client should try to log in again.
 
-As the UAM is shared between all listeners of a service, its settings are defined in the service configuration. For more information, search the [configuration guide](../maxscale-management/deployment/maxscale-configuration-guide.md) for _users\_refresh\_time_, _users\_refresh\_interval_ and _auth\_all\_servers_. Other settings which affect how the UAM connects to backends are the global settings _auth\_connect\_timeout_ and _local\_address_, and the various server-level ssl-settings.
+As the UAM is shared between all listeners of a service, its settings are defined in the service configuration. For more information, search the [configuration guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) for _users\_refresh\_time_, _users\_refresh\_interval_ and _auth\_all\_servers_. Other settings which affect how the UAM connects to backends are the global settings _auth\_connect\_timeout_ and _local\_address_, and the various server-level ssl-settings.
 
 ### Required grants
 
 To properly fetch user account information, the MaxScale service user must be able to read from various tables in the _mysql_-database: _user_, _db_, _tables\_priv_, _columns\_priv_, _procs\_priv_, _proxies\_priv_, _global\_priv_ and _roles\_mapping_. The user should also have the _SHOW DATABASES_-grant.
 
-The _SET USER_ grant is optional but recommended if MaxScale is used with MariaDB version 12 or newer. Granting it to the service user allows the backend authentication to use the service credentials to log in after which the final user account is selected using the `SET SESSION AUTHORIZATION` command. For more information, refer to the documentation of the [use\_service\_credentials](../maxscale-management/deployment/maxscale-configuration-guide.md#use_service_credentials) setting.
+The _SET USER_ grant is optional but recommended if MaxScale is used with MariaDB version 12 or newer. Granting it to the service user allows the backend authentication to use the service credentials to log in after which the final user account is selected using the `SET SESSION AUTHORIZATION` command. For more information, refer to the documentation of the [use\_service\_credentials](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#use_service_credentials) setting.
 
 ```sql
 CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
@@ -56,7 +56,7 @@ When a client logs in to MaxScale, MaxScale sees the client's IP address. When M
 There are two primary ways to deal with this:
 
 1. Duplicate user accounts. For every user account with a restricted hostname an equivalent user account for MaxScale is added (`'alice'@'maxscale-ip'`).
-2. Use [proxy protocol](../maxscale-management/deployment/maxscale-configuration-guide.md#proxy_protocol).
+2. Use [proxy protocol](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#proxy_protocol).
 
 Option 1 limits the passwords for user accounts with shared usernames. Such accounts must use the same password since they will effectively share the MaxScale-to-backend user account. Option 2 requires server support.
 
@@ -76,7 +76,7 @@ authenticator_options=skip_authentication=true,lower_case_table_names=1
 
 ### `skip_authentication`
 
-* Type: [boolean](../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `false`
@@ -93,7 +93,7 @@ authenticator_options=skip_authentication=true
 
 ### `match_host`
 
-* Type: [boolean](../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
 * Default: `true`

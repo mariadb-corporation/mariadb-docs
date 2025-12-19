@@ -14,6 +14,21 @@ When MariaDB Enterprise Server is upgraded, the old version needs to be uninstal
 
 See [What's New in MariaDB Enterprise Server 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.3/whats-new-in-mariadb-enterprise-server-10-3).
 
+## Incompatible Changes
+
+### Reserved Words
+
+* **`EXCEPT`** and **`INTERSECT`**: These are now reserved words. If used as identifiers (table/column names), they must be quoted.
+
+### SQL Compatibility
+
+* **`VALUES()` Function**: Renamed to `VALUE()`.
+* **`mysqldump` Compatibility**: A `mysqldump` binary from an older version cannot dump data from a MariaDB 10.3 server due to changes in the transaction registry tables. You must upgrade your client tools along with the server.
+
+### Removed Options
+
+* **`innodb_file_format`**: The Antelope file format is no longer supported. The default is Barracuda.
+
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup before upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.

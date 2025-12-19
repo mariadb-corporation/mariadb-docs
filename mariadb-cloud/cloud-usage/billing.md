@@ -18,7 +18,7 @@ Usage information can be shown by service or by resource.
 
 Click the resource name or service name to expand the view.
 
-<figure><img src="../.gitbook/assets/current-usage.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/billing-history.png" alt=""><figcaption></figcaption></figure>
 
 _Billing - Current Usage_
 

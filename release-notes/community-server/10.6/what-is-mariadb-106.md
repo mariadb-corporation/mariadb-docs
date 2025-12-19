@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Community
+  Server 10.6
+---
+
 # MariaDB 10.6 Changes & Improvements
 
 {% include "../../.gitbook/includes/latest-10-6.md" %}

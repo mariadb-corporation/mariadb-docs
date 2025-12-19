@@ -20,10 +20,10 @@ The REST API is enabled by default. However, the default configuration is not op
 
 1. [Configure MaxScale's REST API](maxgui/configuring-maxscale-for-maxgui.md) for remote connections by configuring several global parameters in maxscale.cnf.
 
-| Parameter                                                            | Description                                                                                                 |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [admin\_host](deployment/maxscale-configuration-guide.md#admin_host) | • This parameter defines the network address that the REST API listens on.• The default value is 127.0.0.1. |
-| [admin\_port](deployment/maxscale-configuration-guide.md#admin_port) | • This parameter defines the network port that the REST API listens on.• The default value is 8989.         |
+| Parameter                                                                                           | Description                                                                                                 |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| [admin\_host](deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_host) | • This parameter defines the network address that the REST API listens on.• The default value is 127.0.0.1. |
+| [admin\_port](deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_port) | • This parameter defines the network port that the REST API listens on.• The default value is 8989.         |
 
 For example:
 

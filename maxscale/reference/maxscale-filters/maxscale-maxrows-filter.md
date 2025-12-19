@@ -2,12 +2,9 @@
 
 ## Overview
 
-The Maxrows filter is capable of restricting the amount of rows that a SELECT,
-a prepared statement or stored procedure could return to the client application.
+The Maxrows filter is capable of restricting the amount of rows that a SELECT, a prepared statement or stored procedure could return to the client application.
 
-If a resultset from a backend server has more rows than the configured limit
-or the resultset size exceeds the configured size,
-an empty result will be sent to the client.
+If a resultset from a backend server has more rows than the configured limit or the resultset size exceeds the configured size, an empty result will be sent to the client.
 
 ## Configuration
 
@@ -26,8 +23,7 @@ filters=MaxRows
 
 ## Settings
 
-The Maxrows filter has no mandatory parameters.
-Optional parameters are:
+The Maxrows filter has no mandatory parameters. Optional parameters are:
 
 ### `max_resultset_rows`
 
@@ -36,8 +32,7 @@ Optional parameters are:
 * Dynamic: Yes
 * Default: (no limit)
 
-Specifies the maximum number of rows a resultset can have in order to be
-returned to the user.
+Specifies the maximum number of rows a resultset can have in order to be returned to the user.
 
 If a resultset is larger than this an empty result will be sent instead.
 
@@ -47,14 +42,12 @@ max_resultset_rows=1000
 
 ### `max_resultset_size`
 
-* Type: [size](../../maxscale-management/deployment/maxscale-configuration-guide.md#sizes)
+* Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `64Ki`
 
-Specifies the maximum size a resultset can have in order
-to be sent to the client. A resultset larger than this, will
-not be sent: an empty resultset will be sent instead.
+Specifies the maximum size a resultset can have in order to be sent to the client. A resultset larger than this, will not be sent: an empty resultset will be sent instead.
 
 ```
 max_resultset_size=128Ki
@@ -62,14 +55,13 @@ max_resultset_size=128Ki
 
 ### `max_resultset_return`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `empty`, `error`, `ok`
 * Default: `empty`
 
-Specifies what the filter sends to the client when the
-rows or size limit is hit, possible values:
+Specifies what the filter sends to the client when the rows or size limit is hit, possible values:
 
 * an empty result set
 * an error packet with input SQL
@@ -89,9 +81,7 @@ ERROR 1415 (0A000): Row limit/size exceeded for query: select * from test.t4
 * Dynamic: Yes
 * Default: `0`
 
-An integer value, using which the level of debug logging made by the Maxrows
-filter can be controlled. The value is actually a bitfield with different bits
-denoting different logging.
+An integer value, using which the level of debug logging made by the Maxrows filter can be controlled. The value is actually a bitfield with different bits denoting different logging.
 
 * `0` (`0b00000`) No logging is made.
 * `1` (`0b00001`) A decision to handle data form server is logged.
@@ -105,8 +95,7 @@ debug=2
 
 ## Example Configuration
 
-Here is an example of filter configuration where the maximum number of returned
-rows is 10000 and maximum allowed resultset size is 256KB
+Here is an example of filter configuration where the maximum number of returned rows is 10000 and maximum allowed resultset size is 256KB
 
 ```
 [MaxRows]

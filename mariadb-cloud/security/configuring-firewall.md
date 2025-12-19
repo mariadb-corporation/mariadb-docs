@@ -18,13 +18,13 @@ To modify Secure Access settings:
 2. Click the "Settings" link in the main menu (left navigation in the Portal).
 3. Click the "Secure Access" button.
 
-<figure><img src="../.gitbook/assets/secure-access.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/securing-access (2).png" alt=""><figcaption></figcaption></figure>
 
 _Secure Access Settings_
 
 Alternatively, you can access firewall settings for a specific service by clicking on the "MANAGE" button for the desired service, then choosing "Manage allowlist" from the menu.
 
-<figure><img src="../.gitbook/assets/allow-list-dialog.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/firewall-settings.png" alt=""><figcaption></figcaption></figure>
 
 _Allowlist dialog_
 

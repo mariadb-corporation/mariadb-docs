@@ -98,7 +98,7 @@ For all authentication and permission related errors, add `debug=enable-statemen
 
 ### Access denied errors for user root!
 
-If you want to connect as root, you'll need to add [enable\_root\_user=true](deployment/maxscale-configuration-guide.md#enable_root_user) to the service.
+If you want to connect as root, you'll need to add [enable\_root\_user=true](deployment/installation-and-configuration/maxscale-configuration-guide.md#enable_root_user) to the service.
 
 ### Access denied on databases/tables containing underscores
 

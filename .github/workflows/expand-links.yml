@@ -3,10 +3,10 @@ name: Expand Cross-Space Links (DOCS-5904)
 on:
   pull_request:
     paths:
-      - '**.md' # Only runs when Markdown files are changed
+      - '**.md'
 
 permissions:
-  contents: write # Needed to push the fixed links back to the PR
+  contents: write
 
 jobs:
   expand-links:
@@ -15,40 +15,59 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }} # Checkout the actual PR branch
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0 
 
-      - name: Replace Link Aliases
+      # REPLACED: Manual git diff with the robust standard action
+      - name: Get Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: '**.md'
+          separator: "," # Return files as a comma-separated list
+
+      - name: Replace Link Aliases (Safe Mode)
+        if: steps.changed-files.outputs.any_changed == 'true'
         shell: bash
         run: |
-          # ========================================================
-          # 1. DEFINE YOUR ALIASES HERE
-          # Format: LINKS["{alias}"]="full_url"
-          # (Note: No trailing slashes at the end of URLs)
-          # ========================================================
+          # 1. CONFIGURATION
           declare -A LINKS
-          
           LINKS["{server}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV"
           LINKS["{maxscale}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX"
           LINKS["{analytics}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14"
           LINKS["{galera}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7"
-          
-          # ========================================================
-          # 2. EXECUTION LOGIC
-          # ========================================================
-          echo "🔍 Scanning for aliases to expand..."
 
-          for alias in "${!LINKS[@]}"; do
-            target="${LINKS[$alias]}"
-            
-            # Check if this alias exists in any .md file
-            if grep -r -q "$alias" . --include="*.md"; then
-                echo "  -> Expanding $alias to $target"
+          # 2. READ FILES FROM ACTION OUTPUT
+          # We read the comma-separated list into an array
+          IFS=',' read -r -a files <<< "${{ steps.changed-files.outputs.all_changed_files }}"
+
+          echo "🔎 Scanning ${#files[@]} changed files..."
+
+          # 3. EXECUTION
+          count=0
+          
+          for file in "${files[@]}"; do
+            if [ -f "$file" ]; then
+              for alias in "${!LINKS[@]}"; do
+                target="${LINKS[$alias]}"
                 
-                # Replace safely in .md files
-                # We use pipe (|) as delimiter to handle slashes in URLs safely
-                grep -rl "$alias" . --include="*.md" | xargs -r sed -i "s|$alias|$target|g"
+                # Check for alias (Fixed string mode)
+                if grep -Fq "$alias" "$file"; then
+                  echo "  👉 Found $alias in $file"
+                  
+                  # Use '@' delimiter to avoid conflict with Table pipes '|'
+                  sed -i "s@$alias@$target@g" "$file"
+                  count=$((count+1))
+                fi
+              done
             fi
           done
+
+          if [ "$count" -eq 0 ]; then
+             echo "✅ No aliases found to replace."
+          else
+             echo "🚀 Replaced aliases in $count files."
+          fi
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5

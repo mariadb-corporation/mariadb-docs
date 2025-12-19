@@ -1,10 +1,14 @@
+---
+description: >-
+  Inspect and manage active client sessions. This resource allows you to view
+  connected clients, check session details, and terminate specific connections.
+---
+
 # MaxScale Session Resource
 
 ## Overview
 
-A session is an abstraction of a client connection, any number of related backend
-connections, a router module session and possibly filter module sessions. Each
-session is created on a service and each service can have multiple sessions.
+A session is an abstraction of a client connection, any number of related backend connections, a router module session and possibly filter module sessions. Each session is created on a service and each service can have multiple sessions.
 
 ## Resource Operations
 
@@ -14,12 +18,9 @@ session is created on a service and each service can have multiple sessions.
 GET /v1/sessions/:id
 ```
 
-Get a single session. _:id_ must be a valid session ID. The session ID is the
-same that is exposed to the client as the connection ID.
+Get a single session. _:id_ must be a valid session ID. The session ID is the same that is exposed to the client as the connection ID.
 
-This endpoint also supports the `rdns=true` parameter, which instructs MaxScale to
-perform reverse DNS on the client IP address. As this requires communicating with
-an external server, the operation may be expensive.
+This endpoint also supports the `rdns=true` parameter, which instructs MaxScale to perform reverse DNS on the client IP address. As this requires communicating with an external server, the operation may be expensive.
 
 #### Response
 
@@ -233,11 +234,9 @@ Get all sessions.
 PATCH /v1/sessions/:id
 ```
 
-The request body must be a JSON object which represents the new configuration of
-the session. The `:id` must be a valid session ID that is active.
+The request body must be a JSON object which represents the new configuration of the session. The `:id` must be a valid session ID that is active.
 
-The `log_debug`, `log_info`, `log_notice`, `log_warning` and `log_error` boolean
-parameters control whether the associated logging level is enabled:
+The `log_debug`, `log_info`, `log_notice`, `log_warning` and `log_error` boolean parameters control whether the associated logging level is enabled:
 
 ```
 {
@@ -251,12 +250,7 @@ parameters control whether the associated logging level is enabled:
 }
 ```
 
-The filters that a session uses can be updated by re-defining the filter
-relationship of the session. This causes new filter sessions to be opened
-immediately. The old filter session are closed and replaced with the new filter
-session the next time the session is idle. The order in which the filters are
-defined in the request body is the order in which the filters are installed,
-similar to how the filter relationship for services behaves.
+The filters that a session uses can be updated by re-defining the filter relationship of the session. This causes new filter sessions to be opened immediately. The old filter session are closed and replaced with the new filter session the next time the session is idle. The order in which the filters are defined in the request body is the order in which the filters are installed, similar to how the filter relationship for services behaves.
 
 ```
 {
@@ -287,15 +281,9 @@ Session is modified:
 POST /v1/sessions/:id/restart
 ```
 
-This endpoint causes the session to re-read the configuration from the
-service. As a result of this, all backend connections will be closed and then
-opened again. All router and filter sessions will be created again which means
-that for modules that perform something whenever a new module session is opened,
-this behaves as if a new session was started.
+This endpoint causes the session to re-read the configuration from the service. As a result of this, all backend connections will be closed and then opened again. All router and filter sessions will be created again which means that for modules that perform something whenever a new module session is opened, this behaves as if a new session was started.
 
-This endpoint can be used to apply configuration changes that were done after
-the session was started. This can be useful for situations where the client
-connections live for a long time and connections are not recycled often enough.
+This endpoint can be used to apply configuration changes that were done after the session was started. This can be useful for situations where the client connections live for a long time and connections are not recycled often enough.
 
 #### Response
 
@@ -309,8 +297,7 @@ Session is was restarted:
 POST /v1/sessions/restart
 ```
 
-This endpoint does the same thing as the `/v1/sessions/:id/restart` endpoint
-except that it applies to all sessions.
+This endpoint does the same thing as the `/v1/sessions/:id/restart` endpoint except that it applies to all sessions.
 
 #### Response
 
@@ -331,9 +318,7 @@ This endpoint causes the session to be forcefully closed.
 This endpoint supports the following request parameters.
 
 * `ttl`
-* The time after which the session is killed. If this parameter is not given,
-  the session is killed immediately. This can be used to give the session time
-  to finish the work it is performing before the connection is closed.
+* The time after which the session is killed. If this parameter is not given, the session is killed immediately. This can be used to give the session time to finish the work it is performing before the connection is closed.
 
 #### Response
 

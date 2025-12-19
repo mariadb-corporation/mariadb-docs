@@ -4,7 +4,7 @@ This walkthrough explains how to launch database services and manage the lifecyc
 
 For users who prefer other interfaces, MariaDB Cloud offers the following alternatives:
 
-* Use the [Portal](../../Portal%20features/) in a web browser
+* Use the [Portal](https://app.skysql.com/dashboard) in a web browser
 * Use the [DBaaS API](launch-db-using-the-rest-api.md) with a REST client
 
 This walkthrough demonstrates a service configuration that is suitable for a quick test. A more customized configuration should be selected for performance testing or for alignment to the needs of production workloads.

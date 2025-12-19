@@ -17,6 +17,8 @@ Autonomous features can be enabled at the time of [service launch](../cloud-usag
 
 <figure><img src="../.gitbook/assets/auto-settings.png" alt=""><figcaption></figcaption></figure>
 
+_Autonomous Settings_
+
 ## Enable Auto-Scaling of Nodes
 
 Auto-scaling of nodes can be enabled either at the time of service launch or after service launch.

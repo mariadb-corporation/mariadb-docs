@@ -1,3 +1,9 @@
+---
+description: >-
+  Administer backend database servers. Use this resource to add, remove, or
+  modify server definitions and view their current runtime state and statistics.
+---
+
 # MaxScale Server Resource
 
 ## Overview
@@ -803,8 +809,7 @@ Response contains a resource collection with all servers.
 GET /v1/servers/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be either _services_, for service
-relationships, or _monitors_, for monitor relationships.
+The _:type_ in the URI must be either _services_, for service relationships, or _monitors_, for monitor relationships.
 
 #### Response
 
@@ -831,23 +836,16 @@ relationships, or _monitors_, for monitor relationships.
 POST /v1/servers
 ```
 
-Create a new server by defining the resource. The posted object must define at
-least the following fields.
+Create a new server by defining the resource. The posted object must define at least the following fields.
 
 * `data.id`
   * Name of the server
-
 * `data.type`
   * Type of the object, must be `servers`
-
 * `data.attributes.parameters.address` OR `data.attributes.parameters.socket`
-  * The [`address`](../../maxscale-management/deployment/maxscale-configuration-guide.md#address) or
-    [`socket`](../../maxscale-management/deployment/maxscale-configuration-guide.md#socket) to use. Only
-    one of the fields can be defined.
-
+  * The [`address`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#address) or [`socket`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#socket) to use. Only one of the fields can be defined.
 * `data.attributes.parameters.port`
-  * The [`port`](../../maxscale-management/deployment/maxscale-configuration-guide.md#port) to use. Needs
-    to be defined if the `address` field is defined.
+  * The [`port`](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#port) to use. Needs to be defined if the `address` field is defined.
 
 The following is the minimal required JSON object for defining a new server.
 
@@ -866,8 +864,7 @@ The following is the minimal required JSON object for defining a new server.
 }
 ```
 
-The relationships of a server can also be defined at creation time. This allows
-new servers to be created and immediately taken into use.
+The relationships of a server can also be defined at creation time. This allows new servers to be created and immediately taken into use.
 
 ```javascript
 {
@@ -906,8 +903,7 @@ new servers to be created and immediately taken into use.
 }
 ```
 
-Refer to the [Configuration Guide](../../maxscale-management/deployment/maxscale-configuration-guide.md)
-for a full list of server parameters.
+Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) for a full list of server parameters.
 
 #### Response
 
@@ -925,23 +921,15 @@ Invalid JSON body:
 PATCH /v1/servers/:name
 ```
 
-The request body must be a valid JSON document representing the modified
-server.
+The request body must be a valid JSON document representing the modified server.
 
 ### Modifiable Fields
 
-In addition to the server
-[parameters](../../maxscale-management/deployment/maxscale-configuration-guide.md#server-1), the _services_
-and _monitors_ fields of the _relationships_ object can be modified. Removal,
-addition and modification of the links will change which service and monitors
-use this server.
+In addition to the server [parameters](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1), the _services_ and _monitors_ fields of the _relationships_ object can be modified. Removal, addition and modification of the links will change which service and monitors use this server.
 
-For example, removing the first value in the _services_ list in the
-_relationships_ object from the following JSON document will remove the
-_server1_ from the service _RW-Split-Router_.
+For example, removing the first value in the _services_ list in the _relationships_ object from the following JSON document will remove the _server1_ from the service _RW-Split-Router_.
 
-Removing a service from a server is analogous to removing the server from the
-service. Both unlink the two objects from each other.
+Removing a service from a server is analogous to removing the server from the service. Both unlink the two objects from each other.
 
 Request for `PATCH /v1/servers/server1` that modifies the address of the server:
 
@@ -978,10 +966,7 @@ Request for `PATCH /v1/servers/server1` that modifies the server relationships:
 }
 ```
 
-If parts of the resource are not defined (e.g. the `attributes` field in the
-above example), those parts of the resource are not modified. All parts that are
-defined are interpreted as the new definition of those part of the resource. In
-the above example, the `relationships` of the resource are completely redefined.
+If parts of the resource are not defined (e.g. the `attributes` field in the above example), those parts of the resource are not modified. All parts that are defined are interpreted as the new definition of those part of the resource. In the above example, the `relationships` of the resource are completely redefined.
 
 #### Response
 
@@ -999,16 +984,11 @@ Invalid JSON body:
 PATCH /v1/servers/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be either _services_, for service
-relationships, or _monitors_, for monitor relationships.
+The _:type_ in the URI must be either _services_, for service relationships, or _monitors_, for monitor relationships.
 
-The request body must be a JSON object that defines only the _data_ field. The
-value of the _data_ field must be an array of relationship objects that define
-the _id_ and _type_ fields of the relationship. This object will replace the
-existing relationships of the particular type from the server.
+The request body must be a JSON object that defines only the _data_ field. The value of the _data_ field must be an array of relationship objects that define the _id_ and _type_ fields of the relationship. This object will replace the existing relationships of the particular type from the server.
 
-The following is an example request and request body that defines a single
-service relationship for a server.
+The following is an example request and request body that defines a single service relationship for a server.
 
 ```
 PATCH /v1/servers/my-db-server/relationships/services
@@ -1020,8 +1000,7 @@ PATCH /v1/servers/my-db-server/relationships/services
 }
 ```
 
-All relationships for a server can be deleted by sending an empty array as the
-_data_ field value. The following example removes the server from all services.
+All relationships for a server can be deleted by sending an empty array as the _data_ field value. The following example removes the server from all services.
 
 ```
 PATCH /v1/servers/my-db-server/relationships/services
@@ -1047,12 +1026,9 @@ Invalid JSON body:
 DELETE /v1/servers/:name
 ```
 
-A server can only be deleted if it is not used by any services or
-monitors.
+A server can only be deleted if it is not used by any services or monitors.
 
-This endpoint also supports the `force=yes` parameter that will unconditionally
-delete the server by first unlinking it from all services and monitors that use
-it.
+This endpoint also supports the `force=yes` parameter that will unconditionally delete the server by first unlinking it from all services and monitors that use it.
 
 #### Response
 
@@ -1070,32 +1046,26 @@ Server is in use:
 PUT /v1/servers/:name/set
 ```
 
-This endpoint requires that the `state` parameter is passed with the
-request. The value of `state` must be one of the following values.
+This endpoint requires that the `state` parameter is passed with the request. The value of `state` must be one of the following values.
 
-|Value      | State Description                |
-|-----------|----------------------------------|
-|master     | Server is a Master               |
-|slave      | Server is a Slave                |
-|maintenance| Server is put into maintenance   |
-|running    | Server is up and running         |
-|synced     | Server is a Galera node          |
-|drain      | Server is drained of connections |
+| Value       | State Description                |
+| ----------- | -------------------------------- |
+| master      | Server is a Master               |
+| slave       | Server is a Slave                |
+| maintenance | Server is put into maintenance   |
+| running     | Server is up and running         |
+| synced      | Server is a Galera node          |
+| drain       | Server is drained of connections |
 
-For example, to set the server _db-server-1_ into maintenance mode, a request to
-the following URL must be made:
+For example, to set the server _db-server-1_ into maintenance mode, a request to the following URL must be made:
 
 ```
 PUT /v1/servers/db-server-1/set?state=maintenance
 ```
 
-This endpoint also supports the `force=yes` parameter that will cause all
-connections to the server to be closed if `state=maintenance` is also set. By
-default setting a server into maintenance mode will cause connections to be
-closed only after the next request is sent.
+This endpoint also supports the `force=yes` parameter that will cause all connections to the server to be closed if `state=maintenance` is also set. By default setting a server into maintenance mode will cause connections to be closed only after the next request is sent.
 
-The following example forcefully closes all connections to server _db-server-1_
-and sets it into maintenance mode:
+The following example forcefully closes all connections to server _db-server-1_ and sets it into maintenance mode:
 
 ```
 PUT /v1/servers/db-server-1/set?state=maintenance&force=yes
@@ -1117,9 +1087,7 @@ Missing or invalid parameter:
 PUT /v1/servers/:name/clear
 ```
 
-This endpoint requires that the `state` parameter is passed with the
-request. The value of `state` must be one of the values defined in the
-_set_ endpoint documentation.
+This endpoint requires that the `state` parameter is passed with the request. The value of `state` must be one of the values defined in the _set_ endpoint documentation.
 
 #### Response
 

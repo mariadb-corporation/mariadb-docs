@@ -14,6 +14,22 @@ When MariaDB Enterprise Server is upgraded, the old version needs to be uninstal
 
 See [What's New in MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/whats-new-in-mariadb-enterprise-server-10-4).
 
+## Incompatible Changes
+
+### Authentication & Users (Critical)
+
+* **`mysql.user` Table**: This table is now a **View** into `mysql.global_priv`.
+  * **Impact:** Legacy scripts that attempt to manipulate users via `INSERT INTO mysql.user ...` **will fail**. You must use standard SQL commands (`CREATE USER`, `GRANT`, `DROP USER`).
+* **Unix Socket Auth**: The `unix_socket` authentication plugin is now enabled by default on Linux. `root` access via `sudo mariadb` works without a password, which may affect scripts expecting password authentication for localhost root.
+
+### Security
+
+* **TLSv1.0**: Disabled by default. Ensure your clients support newer TLS versions (TLS 1.1+).
+
+### Galera Cluster
+
+* **`wsrep_load_data_splitting`**: Default changed to `OFF`.
+
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup before upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.

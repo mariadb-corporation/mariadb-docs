@@ -16,9 +16,9 @@
       * [MaxScale Installation Guide](maxscale-management/installation-and-configuration/maxscale-installation-guide.md)
       * [Building MaxScale From Source](maxscale-management/installation-and-configuration/building-maxscale-from-source.md)
       * [Installing MaxScale Using a Tarball](maxscale-management/installation-and-configuration/installing-maxscale-using-a-tarball.md)
+      * [MaxScale Configuration Guide](maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md)
     * [Upgrading MaxScale](maxscale-management/deployment/upgrading-maxscale/README.md)
       * [Upgrade to MaxScale 25.01](maxscale-management/deployment/upgrading-maxscale/upgrade-to-maxscale-25.01.md)
-    * [MaxScale Configuration Guide](maxscale-management/deployment/maxscale-configuration-guide.md)
     * [MaxScale MaxGUI Guide](maxscale-management/deployment/maxscale-maxgui-guide.md)
   * [Configuring MaxScale's REST API](maxscale-management/configuring-maxscales-rest-api.md)
   * [Operating MaxScale](maxscale-management/operating-maxscale.md)
@@ -133,6 +133,8 @@
     * [MaxScale Readwritesplit](reference/maxscale-routers/maxscale-readwritesplit.md)
     * [MaxScale SchemaRouter](reference/maxscale-routers/maxscale-schemarouter.md)
     * [MaxScale SmartRouter](reference/maxscale-routers/maxscale-smartrouter.md)
+  * [MaxScale Servers](reference/maxscale-servers.md)
+  * [MaxScale Listeners](reference/maxscale-listeners.md)
 
 ## MaxScale Archive
 

@@ -229,5 +229,5 @@ mariadb -h 127.0.0.1 -P 3306 -u my-user -p
 #### Further Resources:
 
 * [MariaDB MaxScale Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md)
-* [MariaDB MaxScale Configuration Guide](../maxscale-management/deployment/maxscale-configuration-guide.md)
+* [MariaDB MaxScale Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md)
 * [MariaDB MaxScale GitHub Repository](https://github.com/mariadb-corporation/MaxScale)

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Consult the MariaDB MaxScale REST API documentation. This reference defines
-  available endpoints, resource objects, and methods for programmatic management
-  of the database proxy.
+  Access the complete reference for the MariaDB MaxScale REST API. Find
+  documentation for all resources, authentication methods, and endpoints for
+  programmatic management.
 ---
 
 # MaxScale REST API

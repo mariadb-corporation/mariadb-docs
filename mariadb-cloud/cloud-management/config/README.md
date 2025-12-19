@@ -26,6 +26,8 @@ Database server configuration, including system variables, is managed through th
 
 <figure><img src="../../.gitbook/assets/configuration-manager.png" alt=""><figcaption></figcaption></figure>
 
+_Configuration Manager_
+
 ## **Access to Configuration Manager**
 
 To access the Configuration Manager interface:

@@ -116,3 +116,4 @@
   * [Pricing](reference/pricing.md)
   * [Maintenance Windows](reference/maintenance-windows.md)
   * [MaxScale Redundancy](reference/maxscale-redundancy.md)
+  * [Support](reference/support.md)

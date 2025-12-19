@@ -1,8 +1,13 @@
+---
+description: >-
+  Interact with generic MaxScale objects. This endpoint provides a unified
+  interface for retrieving and managing configuration objects across the
+  instance.
+---
+
 # MaxScale Object Resource
 
-The objects resource collection contains all of the objects that are in
-MaxScale: listeners, services, filters, servers and monitors. This is a "view"
-on top of the other resource collection endpoints.
+The objects resource collection contains all of the objects that are in MaxScale: listeners, services, filters, servers and monitors. This is a "view" on top of the other resource collection endpoints.
 
 ## Resource Operations
 

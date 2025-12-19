@@ -1,6 +1,6 @@
 # Notifications
 
-Actions performed through the Portal will generate a notification.
+Actions performed through the Portal will generate a notification.&#x20;
 
 One notification is generated when an action is initiated.
 
@@ -17,13 +17,13 @@ A menu of recent notifications will be displayed.
 
 The bell icon will include a red dot indicator when a new notification is present. This indicator can be cleared by clicking the "Clear all" link.
 
-[![notifications.png](../.gitbook/assets/notifications.png)](../Portal%20features/notifications.png)
+<figure><img src="../.gitbook/assets/notifications-new.png" alt=""><figcaption></figcaption></figure>
 
 _Notifications_
 
 To view historical notifications, click the "View more" link at the bottom of the menu. When viewing historical notifications, notifications can be filtered by category and time frame.
 
-[![notifications-all.png](../.gitbook/assets/notifications-all.png)](../Portal%20features/notifications-all.png)
+<figure><img src="../.gitbook/assets/notifications-his.png" alt=""><figcaption></figcaption></figure>
 
 _Notifications - current and historical_
 
@@ -41,8 +41,8 @@ You can configure the notifications delivered to your email address from User Pr
 To access User Preferences:
 
 1. Log in to the [Portal](https://app.skysql.com/dashboard).
-2. Click your name in the upper-right corner of the interface.
-3. Choose `Profile`.
+2. Click your profile name in the upper-right corner of the interface.
+3. Select `Account Settings`.
 4. Click to expand the `Notification preferences` section.
 
 From User Preferences, you can specify your notification preferences:
@@ -50,7 +50,7 @@ From User Preferences, you can specify your notification preferences:
 * Whether to send notifications to you by email
 * Which Notification Categories you want to be sent
 
-[![notification-preferences.png](../.gitbook/assets/notification-preferences.png)](../Portal%20features/notification-preferences.png)
+<figure><img src="../.gitbook/assets/notifications-pref.png" alt=""><figcaption></figcaption></figure>
 
 _User Preferences_
 
@@ -66,7 +66,7 @@ To access Notification Channel settings:
 2. Click the "Settings" link in the main menu (left navigation in the Portal).
 3. Click the "Notification Channel" button.
 
-<figure><img src="../.gitbook/assets/notification-channels.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/notifications-chan.png" alt=""><figcaption></figcaption></figure>
 
 _Notification Channels_
 
@@ -77,9 +77,9 @@ To add a Notification Channel, from the Notification Channel settings interface:
 1. Click the "Add" button in the upper-right corner.
 2. Enter a channel name.
 3. Enter the email address that will receive notifications.
-4. Choose the notification categories that should be sent to that address.
+4. Choose the notification categories that should be sent to that address from the dropdown.
 
-<figure><img src="../.gitbook/assets/add-notification-channel.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/notifications-add.png" alt=""><figcaption></figcaption></figure>
 
 _Notification Channels - Adding a Channel_
 
@@ -91,6 +91,10 @@ To remove a Notification Channel from the Notification Channel settings interfac
 2. Click the "Delete" button (which appears when a notification channel is selected by a checkbox).
 3. Confirm removal of the notification channel by clicking the "Yes, delete" button.
 
+<figure><img src="../.gitbook/assets/notifications-del.png" alt=""><figcaption></figcaption></figure>
+
+_Notification Channels - Removing a Channel_
+
 #### **Edit a Notification Channel**
 
 To modify a Notification Channel, from the Notification Channel settings interface:
@@ -98,3 +102,7 @@ To modify a Notification Channel, from the Notification Channel settings interfa
 1. Click the name of the channel to modify.
 2. Make the desired changes to the channel name, email address, recipient list, and notification categories.
 3. Click the "Save" button.
+
+<figure><img src="../.gitbook/assets/notifications-edit.png" alt=""><figcaption></figcaption></figure>
+
+_Notification Channels - Editing a Channel_

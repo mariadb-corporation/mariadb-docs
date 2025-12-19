@@ -34,7 +34,7 @@ To enable encryption for the MaxScale-to-MariaDB communication, add `ssl=true` t
 
 The `ssl` and `ssl_verify_peer_certificate` parameters are similar to the`--ssl` and `--ssl-verify-server-cert` options of the `mysql` command line client.
 
-For more information about TLS, refer to the [Configuration Guide](../maxscale-management/deployment/maxscale-configuration-guide.md).
+For more information about TLS, refer to the [Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

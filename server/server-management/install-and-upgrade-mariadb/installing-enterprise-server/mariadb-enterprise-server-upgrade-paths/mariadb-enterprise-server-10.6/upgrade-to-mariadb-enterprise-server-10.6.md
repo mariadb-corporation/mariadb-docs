@@ -15,6 +15,28 @@ When MariaDB Enterprise Server is upgraded, the old version needs to be uninstal
 
 See [What's New in MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6/whats-new).
 
+## Incompatible Changes
+
+### Reserved Words
+
+* **`OFFSET`**: This is now a reserved word. If you have tables or columns named `OFFSET`, you must quote them (e.g., `` `OFFSET` ``) in your SQL queries.
+
+### Character Sets
+
+* **`utf8` changes**: The `utf8` character set is now an alias for `utf8mb3` (3-byte) by default. If you need 4-byte support (for emojis), ensure your application explicitly uses `utf8mb4`.
+
+### Removed Variables
+
+The following variables have been removed. Remove them from `my.cnf` before upgrading:
+
+* **`innodb_checksum_algorithm`**: The `innodb` and `none` options are removed. Use `crc32` or `full_crc32`.
+* **`innodb_log_checksums`**: Removed.
+* **`innodb_undo_logs`**: Removed.
+
+### Storage Engines
+
+* **TokuDB**: The TokuDB storage engine was disabled in 10.5 and removed in 10.6. Migrating TokuDB tables to InnoDB or MyRocks is required before upgrading.
+
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup before upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.

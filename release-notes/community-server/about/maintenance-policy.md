@@ -1,3 +1,8 @@
+---
+description: >-
+  About the maintenance policy for MariaDB Community Server
+---
+
 # Maintenance Policy
 
 The MariaDB project is a community project governed by the [MariaDB Foundation](https://mariadb.org). Please see the [Maintenance Policy](https://mariadb.org/about/maintenance-policy/) on the MariaDB Foundation website.

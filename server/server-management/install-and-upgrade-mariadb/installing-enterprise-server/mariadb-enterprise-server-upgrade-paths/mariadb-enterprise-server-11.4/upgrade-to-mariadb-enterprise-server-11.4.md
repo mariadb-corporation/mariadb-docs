@@ -15,6 +15,27 @@ When MariaDB Enterprise Server is upgraded, the old version needs to be uninstal
 
 See [What's New in MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/whats-new).
 
+## Incompatible Changes
+
+MariaDB Enterprise Server 11.4 includes changes from previous release series (10.11, 11.0, 11.1, etc.). If you are upgrading from **MariaDB Enterprise Server 10.6** or older, you are skipping several major versions. Review the following breaking changes to ensure application stability.
+
+### Removed Variables (Action Required)
+
+The following variables have been removed. You **must remove** them from your configuration files (`my.cnf`, `.ini`) before starting the upgrade, or the server will fail to start:
+
+* **`innodb_defragment`**: (and all associated variables like `innodb_defragment_fill_factor`, `innodb_defragment_n_pages`).
+* **`des_encrypt` / `des_decrypt`**: These functions have been removed.
+* **`innodb_version`**: This variable is removed as it was redundant.
+
+### Behavior Changes & Deprecations
+
+* **Binary Names**: Scripts using `mysql`, `mysqldump`, or `mysqladmin` may fail or emit deprecation warnings. Update automation to use `mariadb`, `mariadb-dump`, and `mariadb-admin`.
+* **Compression Plugins**: If you used non-zlib compression (like `lz4` or `lzo`) in 10.6, ensure you have the necessary provider plugins installed in 11.4. Tables may be unreadable until the correct `mariadb-plugin-provider-*` package is installed.
+* **Spider Engine**: Default values for Spider buffers (e.g., `spider_buffer_size`) have changed significantly (often autosized). If you rely on specific Spider tuning from 10.6, verify your settings.
+* **Replication (GTID)**: ES 11.4 defaults to stricter GTID consistency. If upgrading a cluster, ensure Replicas are compatible before upgrading the Primary.
+* **InnoDB Redo Log**: The `innodb_log_file_size` variable is now dynamic and largely ignored. The physical format of the redo log changed in 10.9; ensure you have a valid logical backup (mariadb-dump) before upgrading.
+* **Optimizer (Cost Model)**: The Query Optimizer was rewritten in version 11.0. Execution plans may change. It is recommended to run `ANALYZE TABLE` on major tables after the upgrade.
+
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 
 Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. Therefore, it is generally best to perform a backup before upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.

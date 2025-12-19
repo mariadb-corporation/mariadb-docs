@@ -29,11 +29,12 @@ GRANT role [, role] ...
     [WITH ADMIN OPTION]
 
 /* Variable Definitions */
-
 account_or_role:
     username [authentication_option]
   | role
   | PUBLIC
+  | CURRENT_USER [()]
+  | CURRENT_ROLE [()]
 
 authentication_option:
     IDENTIFIED BY 'password' 

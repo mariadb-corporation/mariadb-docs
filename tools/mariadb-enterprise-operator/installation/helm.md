@@ -8,7 +8,7 @@ Configure your [customer credentials as described in the documentation](../custo
 
 ## Charts
 
-MariaDB Enterprise Kubernetes Operator is splitted into two different helm charts for better convenience:
+MariaDB Enterprise Kubernetes Operator is split into two different helm charts for better convenience:
 
 * `mariadb-enterprise-operator-crds`: Bundles the [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) required by the operator.
 * `mariadb-enterprise-operator`: Contains all the template manifests required to install the operator. Refer to the [operator helm values](helm.md#operator-helm-values) section for detailed information about the supported values.
@@ -246,7 +246,7 @@ helm uninstall mariadb-enterprise-operator-crds
 | config.exporterMaxscaleImage | string | `"mariadb/maxscale-prometheus-exporter-ubi:1.1.0"` | Default MaxScale exporter image |
 | config.galeraLibPath | string | `"/usr/lib64/galera/libgalera_enterprise_smm.so"` | Galera Enterprise library path to be used with Galera |
 | config.mariadbDefaultVersion | string | `"11.8"` | Default MariaDB Enterprise version to be used when unable to infer it via image tag |
-| config.mariadbImage | string | `"docker.mariadb.com/enterprise-server:11.8.3-1"` | Default MariaDB Enterprise image |
+| config.mariadbImage | string | `"docker.mariadb.com/enterprise-server:11.8.5-2"` | Default MariaDB Enterprise image |
 | config.mariadbImageName | string | `"docker.mariadb.com/enterprise-server"` | Default MariaDB Enterprise image name |
 | config.maxscaleImage | string | `"docker.mariadb.com/maxscale:25.10.0"` | Default MaxScale Enterprise image |
 | crds | object | `{"enabled":false}` | CRDs |
@@ -281,7 +281,7 @@ helm uninstall mariadb-enterprise-operator-crds
 | pprof.enabled | bool | `false` | Enable the pprof HTTP server. |
 | pprof.port | int | `6060` | The port where the pprof HTTP server listens. |
 | priorityClassName | string | `""` | priorityClassName to add to controller Pod |
-| rbac.aggregation.enabled | bool | `true` | Specifies whether the cluster roles aggrate to view and edit predefinied roles |
+| rbac.aggregation.enabled | bool | `true` | Specifies whether the cluster roles aggregate to view and edit predefinied roles |
 | rbac.enabled | bool | `true` | Specifies whether RBAC resources should be created |
 | resources | object | `{}` | Resources to add to controller container |
 | securityContext | object | `{}` | Security context to add to controller container |

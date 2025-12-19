@@ -13,7 +13,7 @@ MaxCtrl is a command line administrative client for MaxScale which uses the MaxS
 
 By default, the MaxScale REST API listens on port 8989 on the local host. The default credentials for the REST API are `admin:mariadb`. The users used by the REST API are the same that are used by the MaxAdmin network interface. This means that any users created for the MaxAdmin network interface should work with the MaxScale REST API and MaxCtrl.
 
-For more information about the MaxScale REST API, refer to the [REST API documentation](maxscale-rest-api/maxscale-rest-api.md). and the [Configuration guide](../maxscale-management/deployment/maxscale-configuration-guide.md).
+For more information about the MaxScale REST API, refer to the [REST API documentation](maxscale-rest-api/maxscale-rest-api.md). and the [Configuration guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
 
 ## Limitations
 

@@ -50,7 +50,7 @@ user=maxscale-user
 password=96F99AA1315BDC3604B006F427DD9484
 ```
 
-See [encrypting-passwords](../maxscale-management/deployment/maxscale-configuration-guide.md#encrypting-passwords) for more information regarding password encryption.
+See [encrypting-passwords](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#encrypting-passwords) for more information regarding password encryption.
 
 ### Secure GUI & Admin Interface Connections
 
@@ -161,7 +161,7 @@ ssl_cert=/certs/my-cert.pem
 
 In MaxScale 25.10, the `ssl_cert` and `ssl_key` settings can be omitted, which causes MaxScale to generate a self-signed certificate during startup. Recent client versions (11.4 and later) can even verify this auto-generated certificate.
 
-For more information on SSL settings, see [here](../maxscale-management/deployment/maxscale-configuration-guide.md#settings-for-tlsssl-encryption)
+For more information on SSL settings, see [here](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#settings-for-tlsssl-encryption)
 
 #### 2. Verify client certificates
 

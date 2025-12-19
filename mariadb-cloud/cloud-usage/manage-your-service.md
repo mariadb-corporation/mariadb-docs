@@ -23,7 +23,7 @@ The service will be stopped. You will only be charged for storage on a stopped s
 
 ## Start a Service
 
-<figure><img src="../.gitbook/assets/start-service.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/starting-service.png" alt="MariaDB Cloud Portal showing the Start Service option used to start a stopped database service."><figcaption></figcaption></figure>
 
 _Start Service_
 

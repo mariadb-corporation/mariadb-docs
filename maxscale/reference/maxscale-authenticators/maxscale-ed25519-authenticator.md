@@ -45,7 +45,7 @@ authenticator_options=ed_mode=sha256,
 
 ### Using a Mapping File
 
-To enable MaxScale to authenticate to backends, [user mapping](../../maxscale-management/deployment/maxscale-configuration-guide.md#user_mapping_file) can be used. The mapping and backend passwords are given in a JSON file. The client can map to an identical username or to another user, and the backend authentication scheme can be something else than `ed25519`.
+To enable MaxScale to authenticate to backends, [user mapping](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_mapping_file) can be used. The mapping and backend passwords are given in a JSON file. The client can map to an identical username or to another user, and the backend authentication scheme can be something else than `ed25519`.
 
 The following example maps user "alpha" to "beta" and MaxScale then uses standard authentication to log into backends as "beta". User "alpha" authenticates to MaxScale using whatever method configured in the server. User "gamma" does not map to another user, just the password is given.
 

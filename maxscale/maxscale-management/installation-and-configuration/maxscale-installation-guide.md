@@ -61,11 +61,11 @@ cat /proc/sys/vm/overcommit_memory
 
 [The MaxScale Tutorial](../../mariadb-maxscale-tutorials/setting-up-mariadb-maxscale.md) covers the first steps in configuring your MariaDB MaxScale installation. Follow this tutorial to learn how to configure and start using MaxScale.
 
-For a detailed list of all configuration parameters, refer to the [Configuration Guide](../deployment/maxscale-configuration-guide.md) and the module specific documents found in the [reference](../../reference/).
+For a detailed list of all configuration parameters, refer to the [Configuration Guide](../deployment/installation-and-configuration/maxscale-configuration-guide.md) and the module specific documents found in the [reference](../../reference/).
 
 ### Encrypting Passwords
 
-Read the [Encrypting Passwords](../deployment/maxscale-configuration-guide.md#encrypting-passwords) section of the configuration guide to set up password encryption for the configuration file.
+Read the [Encrypting Passwords](../deployment/installation-and-configuration/maxscale-configuration-guide.md#encrypting-passwords) section of the configuration guide to set up password encryption for the configuration file.
 
 ### Administration Of MariaDB MaxScale
 

@@ -1,7 +1,9 @@
 # Hashicorp Key Management Plugin
 
 {% hint style="info" %}
-**MariaDB starting with** [**Community Server 10.9**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109) **and** [**Enterprise Server 10.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10-4)
+**Key Rotation and Cache Flushing**&#x20;
+
+As of MariaDB 12.3, you can manually rotate keys and flush the cache without restarting the server. See [Key Rotation and Cache Flushing](hashicorp-key-management-plugin.md#key-rotation-and-cache-flushing) for details.
 {% endhint %}
 
 The Hashicorp Key Management Pugin is used to implement encryption using keys stored in the Hashicorp Vault KMS. For more information, see [Hashicorp Vault and MariaDB](../../../../../server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb.md), and for how to install Vault, see [Install Vault](https://www.vaultproject.io/docs/install), as well as [MySQL/MariaDB Database Secrets Engine](https://developer.hashicorp.com/vault/docs/secrets/databases/mysql-maria).
@@ -120,6 +122,34 @@ The plugin supports the following parameters, which must be set in advance and c
 
 * Description: This parameter enables ("on", this is the default value) or disables ("off") checking the kv storage version during plugin initialization. The plugin requires storage to be version 2 or older in order for it to work properly.
 * Command line: `--[loose-]hashicorp-key-management-check-kv-version="on"|"off"`
+
+## Key Rotation and Cache Flushing
+
+_Available as of MariaDB 12.3_
+
+The HashiCorp Key Management plugin supports key versioning provided by the HashiCorp Vault Server. In previous versions, rotating keys required a server restart to clear the internal cache. As of MariaDB 12.3, you can flush the plugin cache manually while the server is running.
+
+#### Flushing the Cache
+
+To rotate keys, you must flush the cached keys using the `FLUSH` command. This clears the local cache, forcing the server to re-fetch the latest key versions from the HashiCorp Vault server upon the next access.
+
+Executing this command requires the `RELOAD` privilege.
+
+```sql
+FLUSH HASHICORP_KEY_MANAGEMENT_CACHE;
+```
+
+#### Verifying Key Versions
+
+To view the current Key IDs and Key Versions stored in the latest version cache, you can query the Information Schema table or use the `SHOW` command.
+
+See [Information Schema HASHICORP\_KEY\_MANAGEMENT\_CACHE](../../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-hashicorp_key_management_cache.md) for table details.
+
+Using the SHOW command:
+
+```sql
+SHOW HASHICORP_KEY_MANAGEMENT_CACHE;
+```
 
 ## See Also
 
