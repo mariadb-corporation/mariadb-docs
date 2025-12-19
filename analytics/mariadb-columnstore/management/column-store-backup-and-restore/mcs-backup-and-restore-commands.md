@@ -1,4 +1,4 @@
-# MCS backup and restore commands
+# MCS Backup and Restore Commands
 
 This page documents how to create and restore MariaDB Enterprise ColumnStore backups using the `mcs` CLI.
 
@@ -13,9 +13,9 @@ The `mcs backup` and `mcs restore` commands support the same workflows as the `m
 The examples in this page assume the `mcs` command is available on the host and you run the backup/restore operations as `root`.
 {% endhint %}
 
-## Before you start
+## Before You Start
 
-### Identify your storage topology
+### Identify Your Storage Topology
 
 On a ColumnStore node, determine which StorageManager service is configured:
 
@@ -32,7 +32,7 @@ Example output:
 Use `service = LocalStorage` when ColumnStore data lives on local/shared storage, and `service = S3` when ColumnStore data is stored in object storage.
 {% endhint %}
 
-### Estimate backup size
+### Estimate Backup Size
 
 LocalStorage:
 
@@ -49,14 +49,14 @@ aws s3 ls s3://<bucketname> --recursive | grep -v -E "(Bucket: |Prefix: |LastWri
 
 ## Backups
 
-## LocalStorage topology backups
+## LocalStorage Topology Backups
 
 ### Instructions
 
 1. Run `mcs backup` as `root` on **each node**, starting with the primary node.
 2. Use the same backup location on each node.
 
-### List your backups
+### List Your Backups
 
 ```bash
 mcs backup --backup-location /tmp/backups/ --list
@@ -74,7 +74,7 @@ Options                                       Last-Updated  Extent Map      EM-S
 Restore with mcs restore --path /tmp/backups/ --directory <backup_folder_from_above>
 ```
 
-### Quick examples
+### Quick Examples
 
 Full backup:
 
@@ -106,7 +106,7 @@ Save the backup to a remote host (SCP):
 mcs backup --backup-destination Remote --scp root@192.68.0.1
 ```
 
-### Online backup example
+### Online Backup Example
 
 When you run a backup, by default the tooling performs polling checks and attempts to obtain a consistent point-in-time backup by:
 
@@ -129,7 +129,7 @@ Skipping polls/locks/BRM saving can be useful for certain workflows, but it incr
 mcs backup -P 8
 ```
 
-#### Incremental backup example
+#### Incremental Backup Example
 {% hint style="warning" %}
 Before you can run an incremental backup, you need a full backup taken.
 {% endhint %}
@@ -159,7 +159,7 @@ Apply to a specific full backup folder:
 mcs backup --incremental <full-backup-folder>
 ```
 
-### Cron backup example
+### Cron Backup Example
 
 Create a cron job (run as root) that takes periodic backups and appends logs:
 
@@ -180,11 +180,11 @@ Full backup once a week (Saturday night) w/ incremental backups all the other ni
 59 23 * * 7 mcs backup --incremental auto_most_recent -r 21 >> /root/cs_backup.log 2>&1
 ```
 
-### LocalStorage backup flags
+### LocalStorage Backup Flags
 
 The most commonly used options are:
 
-| Flag / option | Description | Notes |
+| Flag / Option | Description | Notes |
 | --- | --- | --- |
 | `--backup-location` (`-bl`) | Defines the path where the backup should be saved to. A date based folder under this path will be created per backup run automatically. You can change the name of the folders with `-nb` | Typical default in tooling: `/tmp/backups/` |
 | `--backup-destination` (`-bd`) | Where backups are stored relative to the node running the command. Two possible values: `Local` or `Remote`. Determines if the backup requires ssh thus `-scp` needs to be defined too or if the `-bl` path is relative to the script| `Local` or `Remote` |
@@ -198,7 +198,7 @@ The most commonly used options are:
 | `--apply-retention-only` (`-aro`) | Only apply retention policy; do not run a backup | Works with `--retention-days` |
 | `--list` (`-li`) | List backups | Lists backups in the configured location |
 
-## S3 topology backups
+## S3 Topology Backups
 
 ### Instructions
 
@@ -210,7 +210,7 @@ The most commonly used options are:
 If you're using an on-premise S3-compatible solution, you may need `--endpoint-url` (and sometimes `--no-verify-ssl`).
 {% endhint %}
 
-### Quick examples
+### Quick Examples
 
 Full backup:
 
@@ -240,15 +240,15 @@ Key Flags for on premise buckets are the following:
 mcs backup --storage S3 --backup-bucket s3://my-on-premise-bucket --endpoint-url http://127.0.0.1:8000
 ```
 
-### Cron backup example
+### Cron Backup Example
 
 As with LocalStorage, you can schedule `mcs backup` in cron. Consider including `--name-backup` to avoid collisions.
 
-### S3 backup flags
+### S3 Backup Flags
 
 The most commonly used S3-specific options are:
 
-| Flag / option | Description | Notes |
+| Flag / Option | Description | Notes |
 | --- | --- | --- |
 | `--storage S3` (`-s`) | Use S3 storage topology | Must be set to `S3` for object storage workflows |
 | `--backup-bucket` (`-bb`) | Bucket where backups are stored | Example: `s3://my-cs-backups` |
@@ -257,7 +257,7 @@ The most commonly used S3-specific options are:
 
 ## Restore
 
-## LocalStorage topology restore
+## LocalStorage Topology Restore
 
 ### Instructions
 {% hint style="tip" %}
@@ -277,13 +277,13 @@ scp /tmp/backups/12-03-2024/configs root@pm3:/tmp/backups/12-03-2024/configs
 When running a columnstore backup, a restore.job file is created with a command compatible to run on each node to restore the backup.
 {% endhint %}
 
-### List your backups to restore
+### List Your Backups to Restore
 
 ```bash
 mcs restore --backup-location /tmp/backups/ --list
 ```
 
-### Quick examples
+### Quick Examples
 
 Standard restore:
 
@@ -303,11 +303,11 @@ Compressed backup restore:
 mcs restore -l 11-21-2024 -bl /mnt/custom/path/ -c pigz
 ```
 
-### LocalStorage restore flags
+### LocalStorage Restore Flags
 
 Common options:
 
-| Flag / option | Description | Notes |
+| Flag / Option | Description | Notes |
 | --- | --- | --- |
 | `--load` (`-l`) | Backup folder name to restore | Required for restore |
 | `--backup-location` (`-bl`) | Where backups are located | Example: `/tmp/backups/` |
@@ -315,7 +315,7 @@ Common options:
 | `--scp` (`-scp`) | SCP source used when `--backup_destination Remote` | Format: `user@host` |
 | `--skip-mariadb-backup` (`-smdb`) | Skip restoring MariaDB server data | Use when restoring ColumnStore only |
 
-## S3 topology restore
+## S3 Topology Restore
 
 ### Instructions
 
@@ -326,14 +326,14 @@ Common options:
 When running a columnstore backup, a restoreS3.job file is created with a command compatible to run on each node to restore the backup.
 {% endhint %}
 
-### Quick examples
+### Quick Examples
 ```bash
 mcs restore -s S3 -bb s3://my-cs-backups  -l 12-03-2025
 mcs restore -s S3 -bb gs://on-premise-bucket -l 12-03-2025 -url http://127.0.0.1:8000
 mcs restore -s S3 -bb s3://my-cs-backups -l 11-21-2022 -nb s3://new-data-bucket -nr us-east-1 -nk AKIAxxxxxxx3FHCADF -ns GGGuxxxxxxxxxxnqa72csk5 -ha
 ```
 
-#### Standard restore:
+#### Standard Restore:
 
 ```bash
 # on primary
@@ -345,13 +345,13 @@ systemctl stop mariadb-columnstore-cmapi
 mcs restore -s S3 -bb s3://my-cs-backups -l 11-21-2024
 ```
 
-#### On-premise S3 endpoint:
+#### On-premise S3 Endpoint:
 
 ```bash
 mcs restore -s S3 -bb gs://on-premise-bucket -l 12-03-2021 -url http://127.0.0.1:9000
 ```
 
-#### Restoring to a new bucket:
+#### Restoring to a New Bucket:
 Key Flags for restoring to a new bucket
 
 * `-nb` - the name of the new bucket to copy the backup into and configure columnstore to use post restore
@@ -364,11 +364,11 @@ Key Flags for restoring to a new bucket
 mcs restore -s S3 -bb s3://my-cs-backups -l 11-21-2022 -nb s3://new-data-bucket -nr us-east-1 -nk AKIAxxxxxxx3FHCADF -ns GGGuxxxxxxxxxxnqa72csk5
 ```
 
-### S3 restore flags
+### S3 Restore Flags
 
 Common options:
 
-| Flag / option | Description | Notes |
+| Flag / Option | Description | Notes |
 | --- | --- | --- |
 | `--backup-bucket` (`-bb`) | Backup bucket to restore from | Example: `s3://my-cs-backups` |
 | `--endpoint-url` (`-url`) | Custom S3 endpoint URL | For on-premise S3 vendors |
@@ -379,7 +379,7 @@ Common options:
 | `--new-secret` (`-ns`) | Secret for `--new-bucket` | S3 only |
 | `--continue` (`-cont`) | Allow deleting data in `--new-bucket` during restore | S3 only; dangerous if bucket contains important data |
 
-## DBRM backups
+## DBRM Backups
 Both S3 and LocalStorage use the same commands for dbrm backups
 {% hint style="danger" %}
 DBRM backups are intended for backing up **internal ColumnStore metadata only**.
@@ -388,13 +388,13 @@ DBRM backups are intended for backing up **internal ColumnStore metadata only**.
 ### Instructions
 Run `mcs dbrm_backup` as root with the appropriate flags as you need **ONLY on the primary node**
 
-### List your dbrm backups
+### List Your dbrm Backups
 
 ```bash
 mcs dbrm_backup --list
 ```
 
-### Quick examples
+### Quick Examples
 ```bash
 mcs dbrm_backup --mode loop --interval 90 --retention-days 7 --backup-location /mnt/dbrm_backups
 mcs dbrm_backup --mode once --retention-days 7 --backup-location /mnt/dbrm_backups -nb my-one-off-backup
@@ -412,11 +412,11 @@ mcs dbrm_backup
 mcs dbrm_backup -nb before_upgrade_11.21.2024_dbrm_backup
 ```
 
-### dbrm_backup flags
+### dbrm_backup Flags
 
 Common options:
 
-| Flag / option | Description | Notes |
+| Flag / Option | Description | Notes |
 | --- | --- | --- |
 | `--backup-location` (`-bl`) | Where DBRM backups are written | Default example: `/tmp/dbrm_backups` |
 | `--retention-days` (`-r`) | Retain DBRM backups created within last X days | Older backups are deleted |
@@ -428,7 +428,7 @@ Common options:
 | `--skip-polls` (`-spoll`) | Skip polling to confirm locks are released | Support-guided workflows |
 | `--quiet` (`-q`) | Silence verbose copy output | Useful for cron |
 
-## DBRM restore
+## DBRM Restore
 
 ### Instructions
 Both S3 and LocalStorage use the same commands for dbrm restore.
@@ -439,13 +439,13 @@ DBRM backups are intended for backing up **internal ColumnStore metadata only**.
 1. List available DBRM backups.
 2. Restore from the selected folder.
 
-### List your dbrm restore options
+### List Your dbrm Restore Options
 
 ```bash
 mcs dbrm_restore --list
 ```
 
-### Quick examples
+### Quick Examples
 
 ```bash
 ./mcs_backup_manager.sh dbrm_restore --backup-location /tmp/dbrm_backups --load dbrm_backup_20241203_172842
@@ -458,11 +458,11 @@ mcs dbrm_restore --list
 mcs dbrm-restore --backup-location /tmp/dbrm_backups --load <dbrm_backup_folder>
 ```
 
-### `dbrm_restore` flags
+### `dbrm_restore` Flags
 
 Common options:
 
-| Flag / option | Description | Notes |
+| Flag / Option | Description | Notes |
 | --- | --- | --- |
 | `--backup-location` (`-bl`) | Where DBRM backups exist on disk | Example: `/tmp/dbrm_backups` |
 | `--load` (`-l`) | Backup directory name to restore | Required for restore |
