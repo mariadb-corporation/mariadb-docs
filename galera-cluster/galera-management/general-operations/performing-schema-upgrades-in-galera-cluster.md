@@ -17,7 +17,7 @@ The method used is controlled by the `wsrep_OSU_method` [session variable](../..
 
 ### How TOI Works
 
-When you execute a DDL statement, such as `ALTER TABLE...`, on any node in a cluster, the following process occurs:
+When you execute a [DDL statement]({galera}/galera-management/configuration/galera-cluster-address), such as `ALTER TABLE...`, on any node in a cluster, the following process occurs:
 
 1. **Replication**: The statement is replicated across all nodes in the cluster.
 2. **Transaction Wait**: Each node waits for any pre-existing transactions to complete before proceeding.
