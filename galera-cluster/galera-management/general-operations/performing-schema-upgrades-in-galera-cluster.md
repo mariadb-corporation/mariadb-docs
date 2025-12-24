@@ -13,7 +13,7 @@ The method used is controlled by the `wsrep_OSU_method` [session variable](../..
 
 ## Total Order Isolation (TOI)
 
-Total Order Isolation is the default method for schema upgrades (`wsrep_OSU_method = 'TOI'`). It ensures maximum data consistency by treating the DDL statement like any other [transaction that must be applied in the same order on all nodes](../../galera-architecture/certification-based-replication.md).
+[Total Order Isolation]({server}) is the default method for schema upgrades (`wsrep_OSU_method = 'TOI'`). It ensures maximum data consistency by treating the DDL statement like any other [transaction that must be applied in the same order on all nodes](../../galera-architecture/certification-based-replication.md).
 
 ### How TOI Works
 
