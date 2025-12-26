@@ -14,7 +14,7 @@ This specifies the password that will be set for the MariaDB root superuser acco
 
 ### `MARIADB_ALLOW_EMPTY_ROOT_PASSWORD / MYSQL_ALLOW_EMPTY_PASSWORD`
 
-Set to a non-empty value, like `1`, to allow the container to be started with a blank password for the root user. 
+Set to a non-empty value, like `1`, to allow the container to be started with a blank password for the root user.
 
 {% hint style="warning" %}
 Setting this variable to yes is not recommended unless you really know what you are doing, since this will leave your MariaDB instance completely unprotected, allowing anyone to gain complete superuser access.
@@ -44,7 +44,7 @@ Set `MARIADB_MYSQL_LOCALHOST_USER` to a non-empty value to create the `mysql@loc
 
 Set `MARIADB_HEALTHCHECK_GRANTS` to the grants required to be given to the `healthcheck@localhost`, `healthcheck@127.0.0.1`, `healthcheck@::1`, users. When not specified the default grant is [USAGE](../../../reference/sql-statements/account-management-sql-statements/grant.md#the-usage-privilege).
 
-The main value used here will be `[REPLICA MONITOR](../../../../../reference/sql-statements-and-structure/sql-statements/account-management-sql-commands/grant.md#replica-monitor) for the [healthcheck --replication](using-healthcheck-sh.md) test.`
+The main value used here will be `[REPLICA MONITOR](../../../reference/sql-statements/account-management-sql-statements/grant.md#replica-monitor)` for the `[healthcheck --replication](using-healthcheck-sh.md)` test.
 
 ### `MARIADB_INITDB_SKIP_TZINFO / MYSQL_INITDB_SKIP_TZINFO`
 
