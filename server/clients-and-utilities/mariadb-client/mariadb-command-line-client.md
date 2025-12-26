@@ -116,7 +116,7 @@ Number of seconds before connection timeout. Defaults to `0`.
 
 Database to use.
 
-#### `-``[`_`options`_`], --debug[=`_`options`_`]`
+#### `-#[`_`options`_`], --debug[=`_`options`_`]`
 
 On debugging builds, write a debugging log. A typical `debug_options` string is `d:t:o,file_name`. The default is `d:t:o,/tmp/mysql.trace`.
 
@@ -292,7 +292,7 @@ This option is not available.
 {% endtab %}
 {% endtabs %}
 
-#### `--script-dir`
+#### `--script-dir=`_`name`_
 
 {% tabs %}
 {% tab title="Current" %}
