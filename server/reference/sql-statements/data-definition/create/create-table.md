@@ -485,7 +485,7 @@ Each storage engine supports some or all index types. See [Storage Engine Index 
 Different index types are optimized for different kind of operations:
 
 * `BTREE` is the default type, and normally is the best choice. It is supported by all storage engines. It can be used to compare a column's value with a value using the =, >, >=, <, <=, `BETWEEN`, and `LIKE` operators. `BTREE` can also be used to find `NULL` values. Searches against an index prefix are possible.
-* `HASH` is only supported by the MEMORY storage engine. `HASH` indexes can only be used for =, <=, and >= comparisons. It can not be used for the `ORDER BY` clause. Searches against an index prefix are not possible.
+* `HASH` can only be used by the optimizer in case of the MEMORY storage engine. `HASH` indexes can only be used for =, <=, and >= comparisons and they can not be used for the `ORDER BY` clause. Searches against an index prefix are not possible.
 * `RTREE` is the default for [SPATIAL](../../../sql-structure/geometry/spatial-index.md) indexes, but if the storage engine does not support it `BTREE` can be used.
 
 {% tabs %}
