@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand the routing logic of the readwritesplit router. This guide explains
+  how MaxScale identifies write statements for the primary and distributes reads
+  to replicas.
+---
+
 # Routing Statements with MaxScale's Read/Write Split Router
 
 The [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) uses well-defined rules to determine whether a statement can be routed to a replica server, or whether it needs to be routed to the primary server. Application designers must understand these rules to ensure that the router can properly load balance queries.
@@ -14,13 +21,12 @@ The following statements are routed to the primary server:
   * [REPLACE](../../../server/reference/sql-statements/data-manipulation/changing-deleting-data/replace.md)
   * [REPLACE ... RETURNING](../../../server/reference/sql-statements/data-manipulation/changing-deleting-data/replacereturning.md)
   * [LOAD DATA INFILE](../../../server/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md)
-* Queries that modify the database (DDL)
-  For example, this includes, but is not limited to, the following statements:
+* Queries that modify the database (DDL) For example, this includes, but is not limited to, the following statements:
   * [CREATE DATABASE](../../../server/reference/sql-statements/data-definition/create/create-database.md)
   * [ALTER DATABASE](../../../server/reference/sql-statements/data-definition/alter/alter-database.md)
   * [DROP DATABASE](../../../server/reference/sql-statements/data-definition/drop/drop-database.md)
   * [CREATE TABLE](../../../server/reference/sql-statements/data-definition/create/create-table.md)
-  * [ALTER TABLE](../../../server/reference/sql-statements/data-definition/alter/alter-table)
+  * [ALTER TABLE](../../../server/reference/sql-statements/data-definition/alter/alter-table/)
   * [DROP TABLE](../../../server/reference/sql-statements/data-definition/drop/drop-table.md)
   * [CREATE VIEW](../../../server/server-usage/views/create-view.md)
   * [ALTER VIEW](../../../server/server-usage/views/alter-view.md)
@@ -41,9 +47,7 @@ The following statements are routed to the primary server:
   * [DROP USER](../../../server/reference/sql-statements/account-management-sql-statements/drop-user.md)
   * [CREATE ROLE](../../../server/reference/sql-statements/account-management-sql-statements/create-role.md)
   * [DROP ROLE](../../../server/reference/sql-statements/account-management-sql-statements/drop-role.md)
-* Queries within open transactions
-  If the application uses explicit transactions, then all queries within the transaction will be routed to the primary server.
-  Explicit transactions are used in the following cases:
+* Queries within open transactions If the application uses explicit transactions, then all queries within the transaction will be routed to the primary server. Explicit transactions are used in the following cases:
   * When [autocommit](../../../server/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) is set to OFF.
   * When [BEGIN](../../../server/reference/sql-statements/transactions/start-transaction.md) is executed.
   * When [START TRANSACTION](../../../server/reference/sql-statements/transactions/start-transaction.md) is executed.
@@ -82,11 +86,9 @@ COMMIT;
 
 The following statements are routed to a replica server:
 
-* Queries that are read-only
-  For example, this includes, but is not limited to, the following statements:
+* Queries that are read-only For example, this includes, but is not limited to, the following statements:
   * [SELECT](../../../server/reference/sql-statements/data-manipulation/selecting-data/select.md)
-* Queries that read system or user-defined variables
-  For example, this includes, but is not limited to, the following statements:
+* Queries that read system or user-defined variables For example, this includes, but is not limited to, the following statements:
   * [SHOW CHARACTER SET](../../../server/reference/sql-statements/administrative-sql-statements/show/show-character-set.md)
   * [SHOW COLLATION](../../../server/reference/sql-statements/administrative-sql-statements/show/show-collation.md)
   * [SHOW COLUMNS](../../../server/reference/sql-statements/administrative-sql-statements/show/show-columns.md)

@@ -1,3 +1,10 @@
+---
+description: >-
+  Implement high-security authentication using Ed25519 signatures. This guide
+  explains how to configure the ed25519auth module and handle backend
+  authentication via user mapping.
+---
+
 # MaxScale Ed25519 Authenticator
 
 ## Overview

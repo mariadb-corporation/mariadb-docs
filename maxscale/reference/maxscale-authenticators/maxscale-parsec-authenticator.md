@@ -1,3 +1,10 @@
+---
+description: >-
+  Enable modern, secure authentication with PARSEC. This guide explains the
+  parsecauth module, which uses elliptic curve signatures and salted passwords
+  to prevent replay attacks.
+---
+
 # MaxScale PARSEC Authenticator
 
 ## PARSEC Authenticator

@@ -1,3 +1,10 @@
+---
+description: >-
+  Mask failovers from applications. Configure transaction_replay to
+  automatically re-execute interrupted transactions on a new primary server
+  without returning errors.
+---
+
 # Replaying Transactions with MaxScale's Read/Write Split Router
 
 The [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) routes write queries to the primary server and load balances read-only queries between one or more replica servers. If a server fails, then the router may need to replay in-progress transactions on a different server.

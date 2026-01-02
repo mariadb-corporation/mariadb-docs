@@ -1,3 +1,10 @@
+---
+description: >-
+  Improve query performance by caching SELECT statement results. This filter
+  stores result sets in memory, serving identical subsequent queries directly
+  from MaxScale.
+---
+
 # MaxScale Cache
 
 ## Overview

@@ -1,3 +1,10 @@
+---
+description: >-
+  Log every SQL query passing through MaxScale. This filter provides
+  comprehensive audit trails by recording query text, execution time, and client
+  details.
+---
+
 # MaxScale Query Log All Filter
 
 ## Overview

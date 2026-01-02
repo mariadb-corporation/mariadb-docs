@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure standard native password authentication. This guide covers the
+  MariaDBAuth module, which handles the default mysql_native_password plugin
+  used by MariaDB and MySQL.
+---
+
 # MaxScale MariaDB/MySQL Authenticator
 
 ## Overview

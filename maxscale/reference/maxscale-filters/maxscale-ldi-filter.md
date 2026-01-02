@@ -1,3 +1,10 @@
+---
+description: >-
+  Manage LOAD DATA INFILE operations. This filter splits large data loads into
+  smaller chunks to prevent blocking and improve stability during bulk data
+  ingestion.
+---
+
 # MaxScale LDI Filter
 
 ## Overview

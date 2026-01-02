@@ -1,3 +1,10 @@
+---
+description: >-
+  Limit the size of result sets returned to clients. This filter prevents
+  excessive resource consumption by truncating results that exceed a configured
+  row count.
+---
+
 # MaxScale Maxrows Filter
 
 ## Overview

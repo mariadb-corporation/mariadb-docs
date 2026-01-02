@@ -1,3 +1,10 @@
+---
+description: >-
+  Automate recovery after primary failure. This guide explains how to use the
+  master_reconnection parameter to seamlessly move client connections to a new
+  primary server.
+---
+
 # Reconnecting to the Primary Server with MaxScale's Read/Write Split Router
 
 The Read/Write Split Router (readwritesplit) routes write queries to the primary server and load balances read-only queries between one or more replica servers. If the primary server fails, then the router can automatically reconnect existing client connections to the new primary server.
