@@ -1,3 +1,10 @@
+---
+description: >-
+  Obfuscate sensitive data in query results. This filter masks specific columns
+  based on user roles, ensuring compliance with privacy regulations without
+  altering the database.
+---
+
 # MaxScale Masking Filter
 
 ## Overview

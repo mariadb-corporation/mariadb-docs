@@ -1,3 +1,9 @@
+---
+description: >-
+  Improve read reliability. Learn to configure retry_failed_reads to
+  automatically attempt failed SELECT queries on alternative replica servers.
+---
+
 # Retrying Failed Reads with MaxScale's Read/Write Split Router
 
 The [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) routes write queries to the primary server and load balances read-only queries between one or more replica servers. If a read-only query fails, then the router can retry the query on a different server.

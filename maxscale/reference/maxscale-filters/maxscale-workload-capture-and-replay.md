@@ -1,3 +1,10 @@
+---
+description: >-
+  Record and replay real database traffic. This filter captures client sessions
+  to create realistic benchmarks and test environments based on production
+  workloads.
+---
+
 # MaxScale Workload Capture and Replay
 
 _The WCAR (Workload Capture and Replay) module is a sophisticated feature designed to capture and archive client traffic passing through a MaxScale instance. This allows system administrators and developers to process and store vast volumes of data related to client-server interactions in a reliable manner. By harnessing this captured data, users gain the flexibility to replay and simulate the varied client activity typically seen in a production environment._

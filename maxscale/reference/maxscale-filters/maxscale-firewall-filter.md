@@ -1,3 +1,10 @@
+---
+description: >-
+  Protect your database by blocking unauthorized queries. This filter inspects
+  incoming SQL against a defined set of rules to prevent SQL injection and
+  unauthorized access.
+---
+
 # MaxScale Firewall Filter
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  Ensure data consistency by routing reads to the primary server after a write.
+  This filter guarantees that a client sees its own modifications immediately.
+---
+
 # MaxScale Consistent Critical Read Filter
 
 ## Overview

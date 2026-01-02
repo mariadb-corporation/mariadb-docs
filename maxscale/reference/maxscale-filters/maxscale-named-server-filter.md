@@ -1,3 +1,10 @@
+---
+description: >-
+  Route queries to specific servers based on regex patterns. This filter allows
+  you to direct traffic matching defined rules to a particular backend server by
+  name.
+---
+
 # MaxScale Named Server Filter
 
 ## Overview

@@ -1,3 +1,10 @@
+---
+description: >-
+  Get an overview of the readwritesplit router. Learn how it splits traffic for
+  MariaDB replication and Galera clusters to enhance scalability and
+  performance.
+---
+
 # Understanding MaxScale's Read/Write Split Router
 
 MaxScale's [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) performs query-based load balancing. For each client connected to MaxScale, it opens up connections to multiple back-end database servers. When the client sends a write query to MaxScale, it routes the query to the connection opened with the primary server. When the client sends a read query to MaxScale, it routes the query to a connection opened with one of the replicas.
@@ -6,9 +13,9 @@ MaxScale's [Read/Write Split Router (readwritesplit)](../../reference/maxscale-r
 
 The [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) supports:
 
-* [MariaDB replication](../../../server/architecture/topologies/primary-replica) deployments.
-* [Galera Cluster](../../../server/architecture/topologies/galera-cluster) deployments.
-* [Columnstore Object Storage](../../../server/architecture/topologies/columnstore-object-storage) and [ColumnStore Shared Local Storage](../../../server/architecture/topologies/columnstore-shared-local-storage) deployments.
+* [MariaDB replication](../../../server/architecture/topologies/primary-replica/) deployments.
+* [Galera Cluster](../../../server/architecture/topologies/galera-cluster/) deployments.
+* [Columnstore Object Storage](../../../server/architecture/topologies/columnstore-object-storage/) and [ColumnStore Shared Local Storage](../../../server/architecture/topologies/columnstore-shared-local-storage/) deployments.
 
 ## When to Use the Read/Write Split Router?
 

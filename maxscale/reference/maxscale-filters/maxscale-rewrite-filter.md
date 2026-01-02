@@ -1,3 +1,10 @@
+---
+description: >-
+  Transform SQL queries using template-based rules. This filter modifies
+  incoming statements to optimize performance or fix compatibility issues
+  without changing application code.
+---
+
 # MaxScale Rewrite Filter
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  Identify the most expensive queries. This filter logs the top N slowest
+  queries passing through MaxScale helping to pinpoint performance bottlenecks.
+---
+
 # MaxScale Top Filter
 
 ## Overview

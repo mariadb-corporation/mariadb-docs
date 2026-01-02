@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure listening ports for client connections. This reference details how
+  to define listeners, associate them with services, and enable protocol
+  features like Proxy Protocol.
+---
+
 # MaxScale Listeners
 
 A listener defines a port MaxScale listens on for incoming connections. Accepted connections are linked with a MaxScale service. Multiple listeners can feed the same service.
