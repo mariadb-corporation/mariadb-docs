@@ -1,3 +1,10 @@
+---
+description: >-
+  Preserve session context across connections. Learn how MaxScale's session
+  command history replays SET statements on new replica connections to maintain
+  state consistency.
+---
+
 # Maintaining Connection State on Replica Servers with MaxScale's Read/Write Split Router
 
 The [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) load balances read-only queries between one or more replica servers. If a replica server fails, then the router may need to create new connections to a different replica server for any existing client connections. The router takes certain steps to ensure that those new replica server connections have the same state as the old replica server connections.

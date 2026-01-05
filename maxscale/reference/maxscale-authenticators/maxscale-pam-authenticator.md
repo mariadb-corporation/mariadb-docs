@@ -1,3 +1,10 @@
+---
+description: >-
+  Authenticate users via Pluggable Authentication Modules (PAM). This reference
+  details the PAMAuth module, supporting standard passwords, two-factor
+  authentication, and SUID mode.
+---
+
 # MaxScale PAM Authenticator
 
 ## Overview

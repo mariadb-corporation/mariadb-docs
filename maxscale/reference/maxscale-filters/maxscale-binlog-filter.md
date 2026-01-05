@@ -1,3 +1,10 @@
+---
+description: >-
+  Selectively replicate binary log events to replica servers. This filter uses
+  regex matching to include or exclude specific events from the replication
+  stream.
+---
+
 # MaxScale Binlog Filter
 
 ## Overview

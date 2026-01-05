@@ -1,3 +1,10 @@
+---
+description: >-
+  Define backend database servers in MaxScale. This reference explains how to
+  configure server objects, set addresses and ports, and manage connection pools
+  for your database cluster.
+---
+
 # MaxScale Servers
 
 A server section defines a backend database server that MariaDB MaxScale uses. A server is identified by its section name in the configuration file.

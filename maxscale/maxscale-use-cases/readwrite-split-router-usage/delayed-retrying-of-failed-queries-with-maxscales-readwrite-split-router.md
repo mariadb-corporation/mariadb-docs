@@ -1,3 +1,10 @@
+---
+description: >-
+  Handle transient failures gracefully. Learn to configure the delayed_retry
+  parameter to pause and retry queries when backend servers are temporarily
+  unavailable.
+---
+
 # Delayed Retrying of Failed Queries with MaxScale's Read/Write Split Router
 
 The [Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) routes write queries to the primary server and load balances read-only queries between one or more replica servers. If a server fails, then the router may need to retry failed queries on a different server. The retry may need to be delayed in some cases, such as when [automatic failover](../../mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor.md) is in progress.

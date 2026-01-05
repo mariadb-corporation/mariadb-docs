@@ -1,3 +1,10 @@
+---
+description: >-
+  Regulate the rate of incoming queries. This filter prevents database overload
+  by limiting the number of queries processed per second based on defined
+  thresholds.
+---
+
 # MaxScale Throttle Filter
 
 ## Overview

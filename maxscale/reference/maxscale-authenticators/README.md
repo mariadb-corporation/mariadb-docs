@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore the authentication modules available in MariaDB MaxScale. This
-  reference covers configuration for GSSAPI, PAM, LDAP, and native MariaDB
-  authentication plugins.
+  Secure client connections with MaxScale authentication modules. This reference
+  details configuration for Native, PAM, GSSAPI, and Ed25519 plugins to validate
+  user credentials.
 ---
 
 # MaxScale Authenticators

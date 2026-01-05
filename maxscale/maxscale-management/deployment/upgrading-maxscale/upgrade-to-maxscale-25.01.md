@@ -1,3 +1,10 @@
+---
+description: >-
+  Follow the specific steps to upgrade MariaDB MaxScale to version 25.01. This
+  guide covers new package structures, removed features, and critical
+  configuration changes for this release.
+---
+
 # Upgrade to MaxScale 25.01
 
 These instructions detail the upgrade to **MariaDB MaxScale 25.01** in a **MaxScale Instance** configuration on a range of [supported Operating Systems](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/compatibility).
@@ -41,7 +48,7 @@ Upgrade MaxScale following the instructions for your Linux distribution:
 
 {% tabs %}
 {% tab title="RHEL" %}
-#### Upgrade via DNF (RHEL)
+**Upgrade via DNF (RHEL)**
 
 {% stepper %}
 {% step %}
@@ -92,7 +99,7 @@ The upgrade process only loads MaxScale onto the system. MaxScale requires confi
 {% endtab %}
 
 {% tab title="Debian / Ubuntu" %}
-#### Upgrade via APT (Debian, Ubuntu)
+**Upgrade via APT (Debian, Ubuntu)**
 
 {% stepper %}
 {% step %}
@@ -147,7 +154,7 @@ The upgrade process only loads MaxScale onto the system. MaxScale requires confi
 {% endtab %}
 
 {% tab title="SLES" %}
-#### Upgrade via ZYpp (SLES)
+**Upgrade via ZYpp (SLES)**
 
 {% stepper %}
 {% step %}
@@ -214,7 +221,7 @@ Configuration parameters can change between releases of MariaDB MaxScale, which 
 
 {% tabs %}
 {% tab title="MaxScale 23.02" %}
-#### Changes in MaxScale 23.02
+**Changes in MaxScale 23.02**
 
 When upgrading from MaxScale 22.08 and earlier to MaxScale 25.01, the changes introduced in MaxScale 23.02 must be taken into consideration.
 
@@ -288,7 +295,7 @@ For `maxctrl create monitor`, the following deprecated command-line options were
 {% endtab %}
 
 {% tab title="MaxScale 22.08" %}
-#### Changes in MaxScale 22.08
+**Changes in MaxScale 22.08**
 
 When upgrading from MaxScale 6 and earlier to MaxScale 25.01, the changes introduced in MaxScale 22.08 must be taken into consideration.
 
@@ -327,7 +334,7 @@ When upgrading from MaxScale 6 and earlier to MaxScale 25.01, the changes introd
 {% endtab %}
 
 {% tab title="MaxScale 6" %}
-#### Changes in MaxScale 6
+**Changes in MaxScale 6**
 
 When upgrading from MaxScale 2.5 and earlier to MaxScale 25.01, the changes introduced in MaxScale 6 must be taken into consideration.
 

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Optimize database performance with the Read/Write Split Router. Understand how
-  to configure query-based load balancing, transaction replay, and causal
-  consistency for primary-replica setups.
+  Master the Read/Write Split Router. This collection of guides details how to
+  configure query load balancing, automatic failover, transaction replay, and
+  causal consistency settings.
 ---
 
 # Read/Write Split Router Usage

@@ -12,6 +12,10 @@ All of the following assumes that encryption keys are stored on another system.
 Using encryption has an overhead of roughly _3-5%_.
 {% endhint %}
 
+## Encryption and Decryption Lifecycle
+
+MariaDB performs data-at-rest encryption at specific points during disk I/O operations. When data is written to disk, encryption usually takes place; when data is read back into memory, decryption takes place. Data stored in memory (for example, in buffer pools) is often decrypted while in use.
+
 ## Which Storage Engines Does MariaDB Encryption Support?
 
 MariaDB encryption is fully supported for the [InnoDB](../../../../server-usage/storage-engines/innodb/) storage engines. Encryption is also supported for the Aria storage engine, but only for tables created with `ROW_FORMAT=PAGE` (the default), and for the binary log (replication log).
@@ -75,6 +79,16 @@ Temporary files created internally by InnoDB, such as those used for merge sorts
 MariaDB can also encrypt [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md)).
 
 * [Encrypting Binary Logs](../../encryption/data-at-rest-encryption/encrypting-binary-logs.md)
+
+### Binary and Relay Log Encryption Behavior
+
+#### When is an event encrypted?
+
+When binary log and relay log events are written to the `IO_CACHE`, they are encrypted. This happens regardless of whether the cache is stored on disk or in memory, depending on the transaction size and the values of `binlog_cache_size` and `binlog_stmt_cache_size`. Hence, before events are written to the actual binary log and relay log files, they are encrypted.
+
+#### When is an event decrypted?
+
+When a `START_ENCRYPTION_EVENT` appears in the binary log or relay log, events are decrypted as they are read. This event comes right after the `FORMAT_DESCRIPTION_EVENT` in encrypted binary logs and relay logs, making it the second event in the log file.
 
 ## Encryption and Page Compression
 

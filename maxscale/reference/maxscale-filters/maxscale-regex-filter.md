@@ -1,3 +1,10 @@
+---
+description: >-
+  Rewrite or block queries using regular expressions. This versatile filter
+  modifies SQL statements on the fly or rejects them based on pattern matching
+  rules.
+---
+
 # MaxScale Regex Filter
 
 ## Overview

@@ -4,6 +4,18 @@ MariaDB supports data-at-rest encryption for tables using the [InnoDB](../../../
 
 For encrypting data with the Aria storage engine, see [Encrypting Data for Aria](../aria-encryption/aria-encryption-overview.md).
 
+## InnoDB Encryption and Decryption Behavior
+
+When data-at-rest encryption is enabled for InnoDB, encryption and decryption occur at specific points during disk I/O operations.
+
+### When is InnoDB data encrypted?
+
+When InnoDB pages are written to disk, they are automatically encrypted.&#x20;
+
+### When is InnoDB data decrypted?
+
+InnoDB pages are decrypted before they are read from disk and stored in the InnoDB buffer pool. A page remains decrypted in memory while it is in the buffer pool. As a result, decrypted memory pages may include data from rows, columns, or even tables that the current query does not directly access.
+
 ## Basic Configuration
 
 Using data-at-rest encryption requires that you first configure an [Encryption Key Management](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) plugin, such as the [file\_key\_management](../key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) or [aws\_key\_management](../key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) plugins.\

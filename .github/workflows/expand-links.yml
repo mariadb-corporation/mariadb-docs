@@ -16,61 +16,39 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-          fetch-depth: 0 
+          fetch-depth: 0
 
-      # REPLACED: Manual git diff with the robust standard action
-      - name: Get Changed Files
-        id: changed-files
-        uses: tj-actions/changed-files@v45
-        with:
-          files: '**.md'
-          separator: "," # Return files as a comma-separated list
-
-      - name: Replace Link Aliases (Safe Mode)
-        if: steps.changed-files.outputs.any_changed == 'true'
+      - name: Replace Link Aliases
         shell: bash
         run: |
           # 1. CONFIGURATION
           declare -A LINKS
+          # I have filled these in for you based on our previous chats:
           LINKS["{server}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV"
           LINKS["{maxscale}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX"
           LINKS["{analytics}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14"
           LINKS["{galera}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7"
+          LINKS["{columnstore}"]="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/2I4jZ8pGq8bT4w5n3q6r"
 
-          # 2. READ FILES FROM ACTION OUTPUT
-          # We read the comma-separated list into an array
-          IFS=',' read -r -a files <<< "${{ steps.changed-files.outputs.all_changed_files }}"
+          echo "🔍 Scanning for aliases..."
 
-          echo "🔎 Scanning ${#files[@]} changed files..."
-
-          # 3. EXECUTION
-          count=0
-          
-          for file in "${files[@]}"; do
-            if [ -f "$file" ]; then
-              for alias in "${!LINKS[@]}"; do
-                target="${LINKS[$alias]}"
+          for alias in "${!LINKS[@]}"; do
+            target="${LINKS[$alias]}"
+            
+            # grep -F ensures we find "{server}" exactly (ignoring regex special chars)
+            # grep -r searches inside subfolders
+            if grep -F -r -q "$alias" . --include="*.md"; then
+                echo "  -> Expanding $alias to $target"
                 
-                # Check for alias (Fixed string mode)
-                if grep -Fq "$alias" "$file"; then
-                  echo "  👉 Found $alias in $file"
-                  
-                  # Use '@' delimiter to avoid conflict with Table pipes '|'
-                  sed -i "s@$alias@$target@g" "$file"
-                  count=$((count+1))
-                fi
-              done
+                # Use @ delimiter to safely handle URLs and avoid conflict with Table pipes '|'
+                grep -F -rl "$alias" . --include="*.md" | xargs -r sed -i "s@$alias@$target@g"
             fi
           done
-
-          if [ "$count" -eq 0 ]; then
-             echo "✅ No aliases found to replace."
-          else
-             echo "🚀 Replaced aliases in $count files."
-          fi
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs: expand cross-space link aliases [skip ci]"
-          file_pattern: "*.md"
+          # 👇 THIS IS THE CRITICAL FIX 👇
+          # Double asterisk captures files in subfolders (like galera-cluster/...)
+          file_pattern: "**/*.md"

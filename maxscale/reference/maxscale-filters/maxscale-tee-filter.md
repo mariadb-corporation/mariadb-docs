@@ -1,3 +1,10 @@
+---
+description: >-
+  Duplicate query traffic to multiple targets. This filter sends a copy of
+  incoming requests to a secondary service or server useful for testing and
+  auditing.
+---
+
 # MaxScale Tee Filter
 
 ## Overview

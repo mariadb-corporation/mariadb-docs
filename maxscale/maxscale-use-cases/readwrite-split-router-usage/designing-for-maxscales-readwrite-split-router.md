@@ -1,3 +1,10 @@
+---
+description: >-
+  Optimize applications for read-write splitting. This guide outlines best
+  practices for transaction management and connection handling to ensure
+  compatibility with MaxScale.
+---
+
 # Designing for MaxScale's Read/Write Split Router
 
 [MaxScale's Read/Write Split Router (readwritesplit)](../../reference/maxscale-routers/maxscale-readwritesplit.md) performs query-based load balancing. For each client connected to MaxScale, it opens up connections to multiple back-end database servers. When the client sends a write query to MaxScale, it routes the query to the connection opened with the primary server. When the client sends a read query to MaxScale, it routes the query to a connection opened with one of the replicas.
