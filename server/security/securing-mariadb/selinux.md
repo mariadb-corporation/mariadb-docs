@@ -32,7 +32,7 @@ If that solved the problem, then it means that the current SELinux policy is the
 MariaDB Server should work with your default distribution policy (which is usually part of the `selinux-policy` or `selinux-policy-targeted` system package). If you use `mysqld_safe`, you will need an additional policy file, `mariadb.pp`, which is installed together with the MariaDB Server. It will be loaded automatically if you have `/usr/sbin/semodule` installed, but you can load it manually anytime with
 
 ```bash
-/usr/sbin/semodule -i /usr/share/mysql/policy/selinux/mariadb.pp
+/usr/sbin/semodule -i /usr/share/mariadb/policy/selinux/mariadb.pp
 ```
 
 Note that this policy file extends, but not replaces the system policy.
