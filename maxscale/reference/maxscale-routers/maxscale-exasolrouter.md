@@ -162,7 +162,7 @@ The Exasol router communicates with Exasol using ODBC. In practice that
 means that the way ODBC has been configured affects what actually must
 be specified in [connections_string](#connection_string). It is possible
 to provide all needed information in the connection string, but it is
-adviseable to at least have a `/etc/odbcinst.ini` or `~/.odbcinst.ini`
+advisable to at least have a `/etc/odbcinst.ini` or `~/.odbcinst.ini`
 where the location of the ODBC driver is specified.
 ```
 [EXAODBC]
