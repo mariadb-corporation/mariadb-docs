@@ -1,8 +1,7 @@
 ---
 description: >-
-  General information and hints on how to automate MariaDB deployments and
-  configuration with Ansible, an open source tool to automate deployment,
-  configuration and operations.
+  Provides general information and resources for using Ansible to automate the
+  deployment and configuration of MariaDB servers using playbooks.
 ---
 
 # Ansible and MariaDB

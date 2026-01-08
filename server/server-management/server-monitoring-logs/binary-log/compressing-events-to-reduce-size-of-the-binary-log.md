@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide to using the `log_bin_compress` system variable to compress binary log
+  events, reducing storage usage and network bandwidth during replication.
+---
+
 # Compressing Events to Reduce Size of the Binary Log
 
 Selected events in the [binary log](./) can be optionally compressed, to save space in the binary log on disk and in network transfers.

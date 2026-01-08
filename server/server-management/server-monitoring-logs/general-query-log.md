@@ -1,3 +1,10 @@
+---
+description: >-
+  Describes the General Query Log, a comprehensive record of every query and
+  connection event received by the server, useful for auditing and debugging but
+  potentially high-volume.
+---
+
 # General Query Log
 
 The general query log is a log of every SQL query received from a client, as well as each client connect and disconnect. Since it's a record of every query received by the server, it can grow large quite quickly.

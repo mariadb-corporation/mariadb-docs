@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to Orchestrator, a tool for managing MySQL and MariaDB
+  replication topologies, providing high availability and automated failover
+  capabilities.
+---
+
 # Orchestrator Overview
 
 Orchestrator is no longer actively maintained.

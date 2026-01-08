@@ -1,3 +1,10 @@
+---
+description: >-
+  Demonstrates how to automate the loading of time zone data into MariaDB using
+  the `mysql_tzinfo_to_sql` utility, with techniques to ensure the task is
+  idempotent.
+---
+
 # Running mariadb-tzinfo-to-sql with Ansible
 
 For documentation about the `mariadb-tzinfo-to-sql` utility, see [mysql\_tzinfo\_to\_sql](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_tzinfo_to_sql.md). This page is about running it using Ansible.

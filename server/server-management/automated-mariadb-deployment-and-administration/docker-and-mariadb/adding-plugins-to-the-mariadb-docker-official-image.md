@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to extend the official MariaDB Docker image by installing
+  additional plugins and dependencies using a custom Dockerfile.
+---
+
 # Adding Plugins to the MariaDB Docker Official Image
 
 MariaDB has many plugins. Most are not enabled by default, some are in the `mariadb` container, while others need to be installed from additional packages.

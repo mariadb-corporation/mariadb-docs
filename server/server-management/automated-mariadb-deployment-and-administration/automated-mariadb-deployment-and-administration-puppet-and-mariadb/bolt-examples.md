@@ -1,3 +1,10 @@
+---
+description: >-
+  Demonstrates how to use Bolt, an orchestration tool in the Puppet ecosystem,
+  to run ad-hoc commands, scripts, and tasks on remote MariaDB servers without a
+  permanent agent.
+---
+
 # Bolt Examples
 
 This page shows some examples of what we can do with Bolt to administer a set of MariaDB servers. Bolt is a tool that is part of the [Puppet](./) ecosystem.

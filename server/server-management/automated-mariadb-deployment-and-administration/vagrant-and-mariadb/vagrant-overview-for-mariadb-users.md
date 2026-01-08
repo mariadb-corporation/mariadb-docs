@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduction to Vagrant's workflow and terminology for database
+  administrators, explaining how it simplifies the creation of reproducible
+  MariaDB development environments.
+---
+
 # Vagrant Overview for MariaDB Users
 
 Vagrant is a tool to create and manage development machines (Vagrant _boxes_). They are usually virtual machines on the localhost system, but they could also be Docker containers or remote machines. Vagrant is open source software maintained by HashiCorp and released under the MIT license.

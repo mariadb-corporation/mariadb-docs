@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduction to Puppet's architecture (agent-master vs. standalone), concepts
+  like manifests and catalogs, and how it can be used for configuration
+  management of MariaDB servers.
+---
+
 # Puppet Overview
 
 Puppet is a tool to automate servers configuration management. It is produced by Puppet Inc, and released under the terms of the Apache License, version 2.

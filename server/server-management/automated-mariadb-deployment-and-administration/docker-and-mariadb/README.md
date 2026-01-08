@@ -1,3 +1,9 @@
+---
+description: >-
+  Discusses running MariaDB in Docker containers, covering the benefits of
+  isolation and ease of deployment for development and testing environments.
+---
+
 # MariaDB Containers
 
 Containers are an OCI standard format for software images and their specified time all bundled up into a single distributable time. They can be used for production, development or testing.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the MyISAM log (`myisam.log`), a specialized log for recording
+  changes to MyISAM tables for debugging purposes, enabled via the `--log-isam`
+  option.
+---
+
 # MyISAM Log
 
 The MyISAM log records all changes to [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) tables. It is not enabled by default. To enable it, start the server with the [--log-isam](../starting-and-stopping-mariadb/mariadbd-options.md) option, for example:

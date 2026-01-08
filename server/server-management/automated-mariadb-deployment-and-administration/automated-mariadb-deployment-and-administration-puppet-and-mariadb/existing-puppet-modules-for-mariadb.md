@@ -1,3 +1,10 @@
+---
+description: >-
+  Lists available Puppet modules for MariaDB from the Puppet Forge and GitHub,
+  noting that while no official module exists, community and generic MySQL
+  modules are often used.
+---
+
 # Existing Puppet Modules for MariaDB
 
 This page contains links to Puppet modules that can be used to automate MariaDB deployment and configuration. The list is not meant to be exhaustive. Use it as a starting point, but then please do your own research.

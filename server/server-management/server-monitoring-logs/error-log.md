@@ -1,3 +1,10 @@
+---
+description: >-
+  Details the Error Log, which captures critical server errors, warnings, and
+  startup/shutdown messages, and explains how to configure its verbosity and
+  output destination (file or syslog).
+---
+
 # Error Log
 
 The error log contains a record of critical errors that occurred during the server's operation, table corruption, start and stop information.

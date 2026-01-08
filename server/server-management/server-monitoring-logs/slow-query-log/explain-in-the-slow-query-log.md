@@ -1,10 +1,16 @@
+---
+description: >-
+  Describes how to configure MariaDB to automatically write the `EXPLAIN` plan
+  for slow queries to the log using the `log_slow_verbosity` system variable.
+---
+
 # EXPLAIN in the Slow Query Log
 
 ### Switching it On
 
-[EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) output can be switched on by specifying the "`explain`" keyword in the [log\_slow\_verbosity](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_verbosity) system variable. Alternatively, you can set with the `log-slow-verbosity` command line argument.
+[EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) output can be switched on by specifying the `explain` keyword in the [log\_slow\_verbosity](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_verbosity) system variable. Alternatively, you can set with the `log-slow-verbosity` command line argument.
 
-```
+```ini
 [mysqld]
 log-slow-verbosity=query_plan,explain
 ```
@@ -30,9 +36,7 @@ SET TIMESTAMP=1384261412;
 SELECT COUNT(*) FROM customer, orders, nation WHERE c_custkey=o_custkey AND c_nationkey=n_nationkey AND n_name='GERMANY';
 ```
 
-EXPLAIN lines start with \`
-
-## explain:\`.
+`EXPLAIN` lines start with `explain:`.
 
 ### See Also
 

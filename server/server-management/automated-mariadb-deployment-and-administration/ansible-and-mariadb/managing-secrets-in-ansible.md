@@ -1,3 +1,10 @@
+---
+description: >-
+  Best practices for handling sensitive information like database passwords and
+  SSH keys within Ansible, recommending the use of `ansible-vault` to encrypt
+  secrets.
+---
+
 # Managing Secrets in Ansible
 
 An Ansible role often runs commands that require certain privileges, so it must perform some forms of login, using passwords or key pairs. In the context of database automation, we normally talk about: SSH access, sudo access, and access to MariaDB. If we write these secrets (passwords or private keys) in clear text in an Ansible repository, anyone who has access to the repository can access them, and this is not what we want.

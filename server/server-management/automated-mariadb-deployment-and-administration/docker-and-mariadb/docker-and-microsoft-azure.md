@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for running MariaDB containers within the Microsoft Azure
+  ecosystem.
+---
+
 # Docker and Microsoft Azure
 
 This process shows how to deploy MariaDB in a Docker container running on an Azure VM instance. First we'll create the Azure VM, then we'll deploy Docker to it. After that, we'll pull the MariaDB Docker image which we'll use to create a running container with a MariaDB instance. Finally, we'll load a sample database into the MariaDB instance.
@@ -69,11 +75,15 @@ For more detailed instructions, refer to [Installing and Using MariaDB via Docke
     ```
 19.
 
-    Microsoft Azure offers two machine types with pre-installed Docker. If you need to reinstall Docker or choose a machine type without Docker pre-installed, you can install it manually. Connect to your machine via SSH and use the following command:
+```
+Microsoft Azure offers two machine types with pre-installed Docker. If you need to reinstall Docker or choose a machine type without Docker pre-installed, you can install it manually. Connect to your machine via SSH and use the following command:
+```
 
-    ```bash
-    curl -fsSL get.docker.com | sudo sh
-    ```
+````
+```bash
+curl -fsSL get.docker.com | sudo sh
+```
+````
 
 **Pull the MariaDB Docker image and create the container**
 
@@ -92,17 +102,26 @@ For more detailed instructions, refer to [Installing and Using MariaDB via Docke
     * Windows paths like `C:\Users\YourUID\Documents\YourDirName` should be specified as shown above.
     * Ensure paths are absolute, not relative.
     * Replace `yoursecurepassword` with a strong password, especially for environments beyond development.
-22.  To access the MariaDB container's shell, use the following command:
+22. To access the MariaDB container's shell, use the following command:
 
-    ```bash
-    docker exec -it mariadb-docker bash
-    ```
-23. To login to MRDB inside the container, use the root password from step 20:
+````
+```bash
+````
 
-    ```bash
-    mariadb -p'yoursecurepassword'
-    ```
-24. Setup admin account with permission for remote connection, configure access control
+````
+docker exec -it mariadb-docker bash
+```
+````
+
+23\. To login to MRDB inside the container, use the root password from step 20:
+
+````
+```bash
+mariadb -p'yoursecurepassword'
+```
+````
+
+24\. Setup admin account with permission for remote connection, configure access control
 
 ```sql
 MariaDB [(none)]> CREATE USER 'admin'@'%' IDENTIFIED BY 'admin';

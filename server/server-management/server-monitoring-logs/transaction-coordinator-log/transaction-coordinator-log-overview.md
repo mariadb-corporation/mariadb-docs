@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the purpose of the Transaction Coordinator (TC) log (`tc.log`), which
+  maintains consistency for XA transactions that affect multiple storage
+  engines, and how to configure it.
+---
+
 # Transaction Coordinator Log Overview
 
 The transaction coordinator log (tc\_log) is used to coordinate transactions that affect multiple [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) [storage engines](../../../server-usage/storage-engines/). If you have two or more XA-capable storage engines enabled, then a transaction coordinator log must be available.

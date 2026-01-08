@@ -1,3 +1,9 @@
+---
+description: >-
+  Specific considerations and steps for running MariaDB Docker containers on
+  Amazon EC2 instances.
+---
+
 # Docker and AWS EC2
 
 This process shows how to deploy MariaDB in a Docker container running on an EC2 instance. First we'll create the EC2 VM, then we'll deploy Docker to it. After that, we'll pull the MariaDB Docker image which we'll use to create a running container with a MariaDB instance. Finally, we'll load a sample database into the MariaDB instance.

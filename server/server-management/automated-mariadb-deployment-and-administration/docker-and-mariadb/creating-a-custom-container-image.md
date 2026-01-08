@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide to building a custom MariaDB container image to include specific
+  configuration files, scripts, or pre-loaded data.
+---
+
 # Creating a Custom Container Image
 
 OCI containers, frequently and incorrectly called Docker containers, are created from OCI images. An image contains software that can be launched, including the underlying system. A container is an instance of that software.
