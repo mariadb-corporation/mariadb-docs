@@ -440,7 +440,7 @@ spec:
         - ReadWriteOnce
 ``` 
 
-In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](./api_reference.md) for more configuration options.
+In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](../api_reference.md) for more configuration options.
 
 Similarly, you may also use a custom staging area when [bootstrapping from backup](#bootstrap-new-mariadb-instances):
 
@@ -528,7 +528,7 @@ spec:
 
 Also, to avoid situations where `mysql.global_priv` is unreplicated, all the entries in that table must be managed via DDLs. This is the recommended approach suggested in the [Galera docs](https://galeracluster.com/library/kb/user-changes.html). There are a couple of ways that we can guarantee this:
 - Use the `rootPasswordSecretKeyRef`, `username` and `passwordSecretKeyRef` fields of the `MariaDB` CR to create the root and initial user respectively. This fields will be translated into DDLs by the image entrypoint.
-- Rely on the [`User`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/user.yaml) and [`Grant`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/grant.yaml) CRs to create additional users and grants. Refer to the [SQL resource documentation](./sql_resources.md) for further detail.
+- Rely on the [`User`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/user.yaml) and [`Grant`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/grant.yaml) CRs to create additional users and grants. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
 #### `LOCK TABLES` 
 
@@ -640,7 +640,7 @@ spec:
 ```
 
 ## Reference
-* [API reference](api_reference.md)
+* [API reference](../api_reference.md)
 * [`mariadb-dump` options](https://mariadb.com/kb/en/mariadb-dump/#options)
 * [`mariadb` options](https://mariadb.com/kb/en/mariadb-command-line-client/#options)
 

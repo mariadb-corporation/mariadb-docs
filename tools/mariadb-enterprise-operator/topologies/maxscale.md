@@ -26,7 +26,7 @@ A server defines the backend database servers that MaxScale forwards traffic to.
 
 A monitor is an agent that queries the state of the servers and makes it available to the services in order to route traffic based on it. For more detailed information, please consult the [monitor reference](https://mariadb.com/kb/en/mariadb-maxscale-2308-mariadb-maxscale-configuration-guide/#monitor).
 
-Depending on which highly available configuration your servers have, you will need to choose betweeen the following modules:
+Depending on which highly available configuration your servers have, you will need to choose between the following modules:
 
 * [Galera Monitor](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor): Detects whether servers are part of the cluster, ensuring synchronization among them, and assigning primary and replica roles as needed.
 * [MariaDB Monitor](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/mariadb-monitor): Probes the state of the cluster, assigns roles to the servers, and executes failover, switchover, and rejoin operations as necessary.
@@ -366,7 +366,7 @@ Refer to the [MaxScale reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX
 
 ## Authentication
 
-MaxScale requires authentication with differents levels of permissions for the following components/actors:
+MaxScale requires authentication with different levels of permissions for the following components/actors:
 
 * [MaxScale API](#maxscale-api) consumed by MariaDB Enterprise Kubernetes Operator.
 * Clients connecting to MaxScale.
