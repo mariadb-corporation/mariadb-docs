@@ -47,7 +47,7 @@ spec:
   secretName: connection
 ```
 
-Please refer to the [Kubernetes `Service` documentation](./topologies/high_availability.md#kubernetes-services) to identify which `Services` are available.
+Please refer to the [Kubernetes `Service` documentation](./topologies/high-availability.md#kubernetes-services) to identify which `Services` are available.
 
 ## Credential generation
 
