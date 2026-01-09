@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide to managing Docker container lifecycles using Puppet's `docker`
+  resource type, covering image pulling, container execution, and upgrades for
+  MariaDB.
+---
+
 # Deploying Docker Containers with Puppet
 
 Puppet can also be used to manage Docker container upgrades and configuration changes. Docker has more specific tools for this purpose, but sometimes there are reasons to choose alternatives. See [Benefits of Managing Docker Containers with Automation Software](../docker-and-mariadb/benefits-of-managing-mariadb-containers-with-orchestration-software.md).

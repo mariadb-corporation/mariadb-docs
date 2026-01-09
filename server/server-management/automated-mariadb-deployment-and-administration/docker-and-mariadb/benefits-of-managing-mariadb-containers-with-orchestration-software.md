@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the advantages of using orchestration tools like Kubernetes or Docker
+  Swarm for managing MariaDB containers, including automated failover, scaling,
+  and rolling updates.
+---
+
 # Benefits of Managing MariaDB Containers with Orchestration Software
 
 In this page we'll discuss why automating [containers](./) with software like [Ansible](../ansible-and-mariadb/) or [Puppet](../automated-mariadb-deployment-and-administration-puppet-and-mariadb/) may be desirable in some cases. To talk about this, we'll first need to discuss why containers are defined _ephemeral_, and how this applies to containerized database servers (particularly MariaDB).

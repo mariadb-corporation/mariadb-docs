@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide on creating and configuring a `Vagrantfile` to define the
+  characteristics of a MariaDB virtual machine, including box selection and
+  provisioning steps.
+---
+
 # Creating a Vagrantfile
 
 In this page we discuss how to create a Vagrantfile, which you can use to create new boxes or machines. This content is specifically written to address the needs of MariaDB users.

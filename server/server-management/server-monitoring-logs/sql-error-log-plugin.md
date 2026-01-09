@@ -1,3 +1,10 @@
+---
+description: >-
+  Documentation for the SQL Error Log Plugin, which allows logging of errors
+  sent to clients to a file, enabling analysis of application-side errors that
+  might otherwise be missed.
+---
+
 # SQL Error Log Plugin
 
 The `SQL_ERROR_LOG` plugin collects errors sent to clients in a log file defined by [sql\_error\_log\_filename](../../ha-and-performance/optimization-and-tuning/system-variables/sql-error-log-system-variables-and-options.md#sql_error_log_filename), so that they can later be analyzed. The log file can be rotated if [sql\_error\_log\_rotate](../../ha-and-performance/optimization-and-tuning/system-variables/sql-error-log-system-variables-and-options.md#sql_error_log_rotate) is set.

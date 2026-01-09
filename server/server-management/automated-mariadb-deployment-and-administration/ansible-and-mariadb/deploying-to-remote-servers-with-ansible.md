@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide to executing Ansible commands and playbooks on remote servers via SSH,
+  covering basic connectivity tests (ping) and the application of roles to
+  specific host groups.
+---
+
 # Deploying to Remote Servers with Ansible
 
 If we manage several remote servers, running commands on them manually can be frustrating and time consuming. Ansible allows one to run commands on a whole group of servers.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Overview of the relay log, a set of log files created by a replica server to
+  store events received from the primary's binary log before executing them.
+---
+
 # Relay Log
 
 The relay log is a set of log files created by a replica during [replication](../../../ha-and-performance/standard-replication/).
@@ -10,15 +16,21 @@ Events are read from the primary's binary log and written to the replica's relay
 
 New relay log files are created by the replica at the following times:
 
-* when the IO thread starts
-* when the logs are flushed, with [FLUSH LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) or [mariadb-admin flush-logs](../../../clients-and-utilities/administrative-tools/mariadb-admin.md).
-* when the maximum size, determined by the [max\_relay\_log\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_relay_log_size) system variable, has been reached
+* When the IO thread starts.
+* When the logs are flushed, with [FLUSH LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) or [mariadb-admin flush-logs](../../../clients-and-utilities/administrative-tools/mariadb-admin.md).
+* When the maximum size, determined by the [max\_relay\_log\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_relay_log_size) system variable, has been reached.
 
 ## Relay Log Names
 
 By default, the relay log will be given a name `host_name-relay-bin.nnnnnn`, with `host_name` referring to the server's host name, and #nnnnnn`the sequence number.`
 
-This will cause problems if the replica's host name changes, returning the error `Failed to open the relay log` and `Could not find target log during relay log initialization`. To prevent this, you can specify the relay log file name by setting the [relay\_log](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log) and [relay\_log\_index](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_index) system variables.
+This causes problems if the replica's host name changes, returning this error:
+
+```
+Failed to open the relay log and Could not find target log during relay log initialization
+```
+
+To prevent this, you can specify the relay log file name by setting the [relay\_log](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log) and [relay\_log\_index](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_index) system variables.
 
 If you need to overcome this issue while replication is already underway,you can stop the replica, prepend the old relay log index file to the new relay log index file, and restart the replica.
 

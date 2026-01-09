@@ -1,3 +1,9 @@
+---
+description: >-
+  A quickstart guide for getting a MariaDB instance running using `docker run`,
+  connecting with the client, and managing the container lifecycle.
+---
+
 # Installing and Using MariaDB via Docker
 
 Sometimes we want to install a specific version of MariaDB, [MariaDB ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/), or [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) on a certain system, but no packages are available. Or maybe, we simply want to isolate MariaDB from the rest of the system, to be sure that we won't cause any damage.
@@ -55,7 +61,7 @@ For example, if you want to install the default MariaDB image, you can type:
 docker pull mariadb:10.6
 ```
 
-This will install the 10.6 version. 
+This will install the 10.6 version.
 
 You will see a list of necessary layers. For each layer, Docker will say if it is already present, or its download progress.
 

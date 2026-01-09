@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the role of Kubernetes Operators in automating complex database tasks
+  like provisioning, scaling, and backups, and references available operators
+  for MariaDB.
+---
+
 # Kubernetes Operators for MariaDB
 
 Operators basically instruct Kubernetes about how to manage a certain technology. Kubernetes comes with some default operators, but it is possible to create custom operators. Operators created by the community can be found on [OperatorHub.io](https://operatorhub.io/).
@@ -31,7 +38,7 @@ It's available in both [Artifact Hub](https://artifacthub.io/packages/helm/maria
 * Multiple [highly available](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/high_availability.md) topologies supported:
   * [Asynchronous replication](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/replication.md)
   * [Synchronous multi-master via Galera](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/galera.md)
-  * [MaxScale](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maxscale.md) as database proxy to load balance requests and perform  failover/switchover operations
+  * [MaxScale](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maxscale.md) as database proxy to load balance requests and perform failover/switchover operations
 * Flexible [storage](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md) configuration. [Volume expansion](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md#volume-resize).
 * [Physical backups](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md) based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/).
 * [Logical backups](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/logical_backup.md) based on [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).

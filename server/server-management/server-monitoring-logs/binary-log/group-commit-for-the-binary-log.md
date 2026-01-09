@@ -1,3 +1,10 @@
+---
+description: >-
+  Describes the group commit optimization, which improves performance by
+  committing multiple transactions to the binary log in a single disk I/O
+  operation.
+---
+
 # Group Commit for the Binary Log
 
 ## Overview

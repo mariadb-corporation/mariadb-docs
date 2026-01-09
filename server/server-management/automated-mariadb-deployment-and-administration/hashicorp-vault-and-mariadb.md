@@ -1,3 +1,9 @@
+---
+description: >-
+  Discusses the integration of HashiCorp Vault with MariaDB for managing
+  secrets, including using MariaDB as a storage backend for Vault.
+---
+
 # HashiCorp Vault and MariaDB
 
 Vault is open source software for secret management provided by HashiCorp. It is designed to avoid sharing secrets of various types, like passwords and private keys. When building automation, Vault is a good solution to avoid storing secrets in plain text in a repository.

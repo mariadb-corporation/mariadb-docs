@@ -1,3 +1,9 @@
+---
+description: >-
+  Describes how to use the MariaDB Event Scheduler to automate recurring SQL
+  tasks directly within the database server, similar to cron jobs.
+---
+
 # Automating MariaDB Tasks with Events
 
 MariaDB has an event scheduler that can be used to automate tasks, making them run at regular intervals of time. This page is about using events for [automation](./). For more information about events themselves, and how to work with them, see [event scheduler](../../server-usage/triggers-events/event-scheduler/).

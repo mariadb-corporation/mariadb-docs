@@ -298,13 +298,6 @@ Now RAM is broken into pagable and non pagable parts; what parts can reasonably 
 * Huge pages enabled
 * Tell the OS to allocate the right amount (namely to match the buffer\_pool)
 * Tell MariaDB to use huge pages
-* [innodb memory usage vs swap](https://forums.mysql.com/read.php?22,384707,385002)
-
-That thread has more details on what to look for and what to set.
-
-Overall performance gain: A few percent. Yawn. Too much hassle for too little benefit.
-
-Jumbo Pages? Turn off.
 
 ### ENGINE=MEMORY
 

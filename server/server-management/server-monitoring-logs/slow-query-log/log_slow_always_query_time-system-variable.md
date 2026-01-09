@@ -1,3 +1,10 @@
+---
+description: >-
+  Documentation for the `log_slow_always_query_time` variable, which forces
+  queries executed by a specific function or user to be logged regardless of
+  their execution time.
+---
+
 # log\_slow\_always\_query\_time System Variable
 
 * Description: Queries slower than log\_slow\_always\_query\_time are not affected by [log\_slow\_rate\_limit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_rate_limit) or [log\_slow\_min\_examined\_row\_limit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_min_examined_row_limit). Query will be logged to the [slow query log](./) if the execution time of the query is longer than [log\_slow\_query\_time](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_slow_query_time) and log\_slow\_always\_query\_time. The argument will be treated as a decimal value with microsecond precision.

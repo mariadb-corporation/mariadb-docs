@@ -12,7 +12,7 @@ description: >-
 {% tabs %}
 {% tab title="Current" %}
 ```sql
-SHOW BINLOG STATUS
+SHOW [MASTER | BINLOG] STATUS
 ```
 {% endtab %}
 

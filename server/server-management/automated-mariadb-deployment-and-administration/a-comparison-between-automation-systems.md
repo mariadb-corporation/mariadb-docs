@@ -1,3 +1,10 @@
+---
+description: >-
+  Compares different automation tools like Ansible and Puppet, highlighting
+  differences in their architecture (agentless vs. agent-based) and code
+  structure to help users choose the right tool.
+---
+
 # Comparison Between Automation Systems
 
 This page compares the automation systems that are covered by this section of the MariaDB documentation. More information about these systems are presented in the relevant pages, and more systems may be added in the future.
@@ -53,7 +60,7 @@ To recap, Ansible does not need to be installed on the server is administers. It
 {% endtab %}
 
 {% tab title="Puppet" %}
-#### Puppet Architecture
+**Puppet Architecture**
 
 Puppet supports two types of architecture: agent-master or standalone. The agent-master architecture is recommended by Puppet Labs, and it is the most popular among Puppet users. For this reason, those who prefer a standalone architecture tend to prefer Ansible.
 

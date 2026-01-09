@@ -1,3 +1,10 @@
+---
+description: >-
+  Instructions on directing the General Query Log and Slow Query Log to tables
+  (`mysql.general_log`, `mysql.slow_log`) instead of files using the
+  `log_output=TABLE` system variable.
+---
+
 # Writing Logs Into Tables
 
 By default, all logs are disabled or written into files. The [general query log](general-query-log.md) and the [slow query log](slow-query-log/) can also be written to special tables in the `mysql` database. During the startup, entries will always be written into files.

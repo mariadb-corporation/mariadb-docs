@@ -1,4 +1,10 @@
-# using-healthcheck-sh
+---
+description: >-
+  Explains how to use the `healthcheck.sh` script included in the official image
+  to monitor the status and readiness of the MariaDB server.
+---
+
+# Using Healthcheck
 
 ## Using Healthcheck.sh
 

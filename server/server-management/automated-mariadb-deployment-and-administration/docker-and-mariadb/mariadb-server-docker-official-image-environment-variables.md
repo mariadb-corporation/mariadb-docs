@@ -1,3 +1,10 @@
+---
+description: >-
+  Detailed reference for environment variables used to configure the container
+  on startup, such as `MARIADB_ROOT_PASSWORD`, `MARIADB_DATABASE`, and
+  `MARIADB_USER`.
+---
+
 # MariaDB Server Docker Official Image Environment Variables
 
 When you start the image, you can adjust the initialization of the MariaDB Server instance by passing one or more environment variables on the docker run command line. Do note that all of the variables below, except `MARIADB_AUTO_UPGRADE`, will have no effect if you start the container with a data directory that already contains a database: any pre-existing database will always be left untouched on container startup.

@@ -917,13 +917,13 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 {% tabs %}
 {% tab title="Current" %}
-*   Description: If set to `ON`, the default, to improve fault tolerance [InnoDB](./) first stores data to a [doublewrite buffer](innodb-doublewrite-buffer.md) before writing it to data file. Disabling will provide a marginal performance improvement, and assumes that writes of [innodb\_page\_size](innodb-system-variables.md#innodb_page_size) are atomic. `fast` is available from [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-6-release-notes), and is like `ON`, but writes are not synchronized to data files. The deprecated start-up parameter [innodb\_flush\_method=NO\_FSYNC](innodb-system-variables.md#innodb_flush_method) will cause innodb\_doublewrite=ON to be changed to innodb\_doublewrite=fast, which will prevent InnoDB from making any durable writes to data files. This would normally be done right before the log checkpoint LSN is updated. Depending on the file systems being used and their configuration, this may or may not be safe.
+*   Description: If set to `ON`, the default, to improve fault tolerance [InnoDB](./) first stores data to a [doublewrite buffer](innodb-doublewrite-buffer.md) before writing it to data file. Disabling will provide a marginal performance improvement, and assumes that writes of [innodb\_page\_size](innodb-system-variables.md#innodb_page_size) are atomic. `fast` is available from [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-6-release-notes), and is like `ON`, but writes are not synchronized to data files. The deprecated start-up parameter [innodb\_flush\_method=NO\_FSYNC](innodb-system-variables.md#innodb_flush_method) will cause `innodb_doublewrite=ON` to be changed to `innodb_doublewrite=fast`, which will prevent InnoDB from making any durable writes to data files. This is normally done right before the log checkpoint LSN is updated. Depending on the file systems being used and their configuration, this may or may not be safe.
 
-    The value innodb\_doublewrite=fast differs from the previous combination of innodb\_doublewrite=ON and innodb\_flush\_method=O\_DIRECT\_NO\_FSYNC by always invoking os\_file\_flush() on the doublewrite buffer itself in buf\_dblwr\_t::flush\_buffered\_writes\_completed(). This should be safer when there are multiple doublewrite batches between checkpoints.
+    The value `innodb_doublewrite=fast` differs from the previous combination of `innodb_doublewrite=ON` and `innodb_flush_method=O_DIRECT_NO_FSYNC` by always invoking `os_file_flush()` on the doublewrite buffer itself in `buf_dblwr_t::flush_buffered_writes_completed()`. This is safer when there are multiple doublewrite batches between checkpoints.
 
-    Typically, once per second, buf\_flush\_page\_cleaner() would write out up to innodb\_io\_capacity pages and advance the log checkpoint. Also typically, innodb\_io\_capacity>128, which is the size of the doublewrite buffer in pages. Should os\_file\_flush\_func() not be invoked between doublewrite batches, writes could be reordered in an unsafe way.
+    Typically, once per second, `buf_flush_page_cleaner()` writes out up to `innodb_io_capacity` pages and advance the log checkpoint. Also typically, `innodb_io_capacity`>`128`, which is the size of the doublewrite buffer in pages. If `os_file_flush_func()` is not invoked between doublewrite batches, writes may be reordered in an unsafe way.
 
-    The setting innodb\_doublewrite=fast could be safe when the doublewrite buffer (the first file of the system tablespace) and the data files reside in the same file system.
+    The setting `innodb_doublewrite=fast` can be safe when the doublewrite buffer (the first file of the system tablespace) and the data files reside on the same file system.
 * Command line: `--innodb-doublewrite{=val}`, `--skip-innodb-doublewrite`
 * Scope: Global
 * Dynamic: Yes
@@ -954,21 +954,19 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_empty_free_list_algorithm`
 
-* Description: XtraDB 5.6.13-61 introduced an algorithm to assist with reducing mutex contention when the buffer pool free list is empty, controlled by this variable. If set to `backoff`, the default until [MariaDB 10.1.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10124-release-notes), the new algorithm are used. If set to `legacy`, the original InnoDB algorithm are used. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1026-release-notes) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades. See [#1651657](https://bugs.launchpad.net/percona-server/+bug/1651657) for the reasons this was changed back to `legacy` in XtraDB 5.6.36-82.0. When upgrading from 10.0 to 10.1 (>= 10.1.24), for large buffer pools the default will remain `backoff`, while for small ones it are changed to `legacy`.
+* Description: XtraDB 5.6.13-61 introduced an algorithm to assist with reducing mutex contention when the buffer pool free list is empty, controlled by this variable. If set to `backoff`, the new algorithm is used. If set to `legacy`, the original InnoDB algorithm is used. XtraDB only. Added as a deprecated and ignored option in MariaDB 10.2.6 (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades. See [#1651657](https://bugs.launchpad.net/percona-server/+bug/1651657) for the reasons this was changed back to `legacy` in XtraDB 5.6.36-82.0.
 * Command line: `innodb-empty-free-list-algorithm=value`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enum`
-* Default Value:
-  * `deprecated`
-* Valid Values:
-  * `deprecated`, `backoff`, `legacy`
+* Default Value: `deprecated`
+* Valid Values: `deprecated`, `backoff`, `legacy`
 * Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1026-release-notes)
 * Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1030-release-notes)
 
 #### `innodb_enable_unsafe_group_commit`
 
-* Description: Unneeded after XtraDB 1.0.5. If set to `0`, the default, InnoDB will keep transactions between the transaction log and [binary log](../../../server-management/server-monitoring-logs/binary-log/) s in the same order. Safer, but slower. If set to `1`, transactions can be group-committed, but there is no guarantee of the order being kept, and a small risk of the two logs getting out of sync. In write-intensive environments, can lead to a significant improvement in performance.
+* Description: Unneeded after XtraDB 1.0.5. If set to `0`, the default, InnoDB keep transactions between the transaction log and [binary log](../../../server-management/server-monitoring-logs/binary-log/) is in the same order. Safer, but slower. If set to `1`, transactions can be group-committed, but there is no guarantee of the order being kept, and a small risk of the two logs getting out of sync. In write-intensive environments, can lead to a significant improvement in performance.
 * Command line: `--innodb-enable-unsafe-group-commit`
 * Scope: Global
 * Dynamic: Yes
@@ -992,7 +990,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Description: Enables automatic encryption of all InnoDB tablespaces.
   * `OFF` - Disables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`.
   * `ON` - Enables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`, but allows unencrypted tables to be created.
-  * `FORCE` - Enables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`, and doesn't allow unencrypted tables to be created (CREATE TABLE ... ENCRYPTED=NO will fail).
+  * `FORCE` - Enables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`, and doesn't allow unencrypted tables to be created (`CREATE TABLE ... ENCRYPTED=NO` fails).
   * See [Data-at-Rest Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling InnoDB Encryption: Enabling Encryption for Automatically Encrypted Tablespaces](../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-automatically-encrypted-tablespaces) for more information.
 * Command line: `--innodb-encrypt-tables={0|1}`
 * Scope: Global
@@ -1071,7 +1069,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_fake_changes`
 
-* Description: From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) until [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1), XtraDB-only option that enables the fake changes feature. In [replication](../../../ha-and-performance/standard-replication/replication-overview.md), setting up or restarting a replica can cause a replication reads to perform more slowly, as MariaDB is single-threaded and needs to read the data before it can execute the queries. This can be speeded up by prefetching threads to warm the server, replaying the statements and then rolling back at commit. This however has an overhead from locking rows only then to undo changes at rollback. Fake changes attempts to reduce this overhead by reading the rows for INSERT, UPDATE and DELETE statements but not updating them. The rollback is then very fast with little or nothing to do. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1026-release-notes) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades. Not present in [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) and beyond.
+* Description: From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) until [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1), XtraDB-only option that enables the fake changes feature. In [replication](../../../ha-and-performance/standard-replication/replication-overview.md), setting up or restarting a replica can cause a replication reads to perform more slowly, as MariaDB is single-threaded and needs to read the data before it can execute the queries. This can be speeded up by prefetching threads to warm the server, replaying the statements and then rolling back at commit. This however has an overhead from locking rows only then to undo changes at rollback. Fake changes attempts to reduce this overhead by reading the rows for `INSERT`, `UPDATE`, and `DELETE` statements but not updating them. The rollback is then very fast with little or nothing to do. Added as a deprecated and ignored option in MariaDB 10.2.6 (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades. Not present in MariaDB 10.3 and beyond.
 * Command line: `--innodb-fake-changes={0|1}`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1082,7 +1080,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_fast_checksum`
 
-* Description: Implements a more CPU efficient XtraDB checksum algorithm, useful for write-heavy loads with high I/O. If set to `1` on a server with tables that have been created with it set to `0`, reads are slower, so tables should be recreated (dumped and reloaded). XtraDB will fail to start if set to `0` and there are tables created while set to `1`. Replaced with [innodb\_checksum\_algorithm](innodb-system-variables.md#innodb_checksum_algorithm) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)/XtraDB 5.6.
+* Description: Implements a more CPU efficient XtraDB checksum algorithm, useful for write-heavy loads with high I/O. If set to `1` on a server with tables that have been created with it set to `0`, reads are slower, so tables should be recreated (dumped and reloaded). XtraDB fails to start if set to `0` and there are tables created while set to `1`. Replaced with [innodb\_checksum\_algorithm](innodb-system-variables.md#innodb_checksum_algorithm) in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)/XtraDB 5.6.
 * Command line: `--innodb-fast-checksum={0|1}`
 * Scope: Global
 * Dynamic: No
@@ -1092,7 +1090,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_fast_shutdown`
 
-* Description: The shutdown mode.
+* Description: The shutdown mode:
   * `0` - InnoDB performs a slow shutdown, including full purge (before [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1036-release-notes), not always, due to [MDEV-13603](https://jira.mariadb.org/browse/MDEV-13603)) and change buffer merge. Can be very slow, even taking hours in extreme cases.
   * `1` - the default, [InnoDB](./) performs a fast shutdown, not performing a full purge or an insert buffer merge.
   * `2`, the [InnoDB redo log](innodb-redo-log.md) is flushed and a cold shutdown takes place, similar to a crash. The resulting startup then performs crash recovery. Extremely fast, in cases of emergency, but risks corruption. Not suitable for upgrades between major versions!
@@ -1131,7 +1129,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_file_format_check`
 
-* Description: If set to `1`, the default, [InnoDB](./) checks the shared tablespace file format tag. If this is higher than the current version supported by XtraDB/InnoDB (for example Barracuda when only Antelope is supported), XtraDB/InnoDB will not start. If it the value is not higher, XtraDB/InnoDB starts correctly and the [innodb\_file\_format\_max](innodb-system-variables.md#innodb_file_format_max) value is set to this value. If innodb\_file\_format\_check is set to `0`, no checking is performed. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
+* Description: If set to `1`, the default, [InnoDB](./) checks the shared tablespace file format tag. If this is higher than the current version supported by XtraDB/InnoDB (for example Barracuda when only Antelope is supported), XtraDB/InnoDB will not start. If it the value is not higher, XtraDB/InnoDB starts correctly and the [innodb\_file\_format\_max](innodb-system-variables.md#innodb_file_format_max) value is set to this value. If `innodb_file_format_check` is set to `0`, no checking is performed. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
 * Command line: `--innodb-file-format-check={0|1}`
 * Scope: Global
 * Dynamic: No
@@ -1142,7 +1140,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_file_format_max`
 
-* Description: The highest [XtraDB/InnoDB](./) file format. This is set to the value of the file format tag in the shared tablespace on startup (see [innodb\_file\_format\_check](innodb-system-variables.md#innodb_file_format_check)). If the server later creates a higher table format, innodb\_file\_format\_max is set to that value. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
+* Description: The highest [XtraDB/InnoDB](./) file format. This is set to the value of the file format tag in the shared tablespace on startup (see [innodb\_file\_format\_check](innodb-system-variables.md#innodb_file_format_check)). If the server later creates a higher table format, `innodb_file_format_max` is set to that value. See [XtraDB/InnoDB File Format](innodb-file-format.md) for more on the file formats.
 * Command line: `--innodb-file-format-max=value`
 * Scope: Global
 * Dynamic: Yes
@@ -1183,11 +1181,11 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_flush_log_at_trx_commit`
 
-* Description: Set to `1`, along with [sync\_binlog=1](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) for the greatest level of fault tolerance. The value of [innodb\_use\_global\_flush\_log\_at\_trx\_commit](innodb-system-variables.md#innodb_use_global_flush_log_at_trx_commit) determines whether this variable can be reset with a SET statement or not.
-  * `1` The default, the log buffer is written to the [InnoDB redo log](innodb-redo-log.md) file and a flush to disk performed after each transaction. This is required for full ACID compliance.
+* Description: Set to `1`, along with [sync\_binlog=1](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) for the greatest level of fault tolerance. The value of [innodb\_use\_global\_flush\_log\_at\_trx\_commit](innodb-system-variables.md#innodb_use_global_flush_log_at_trx_commit) determines whether this variable can be reset with a `SET` statement or not.
+  * `1` The default, the log buffer is written to the [InnoDB redo log](innodb-redo-log.md) file and a flush to disk performed after each transaction. This is required for full ACID[^1] compliance.
   * `0` Nothing is done on commit; rather the log buffer is written and flushed to the [InnoDB redo log](innodb-redo-log.md) once a second. This gives better performance, but a server crash can erase the last second of transactions.
   * `2` The log buffer is written to the [InnoDB redo log](innodb-redo-log.md) after each commit, but flushing takes place every [innodb\_flush\_log\_at\_timeout](innodb-system-variables.md#innodb_flush_log_at_timeout) seconds (by default once a second). Performance is slightly better, but a OS or power outage can cause the last second's transactions to be lost.
-  * `3` Emulates [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) [group commit](../../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) (3 syncs per group commit). See [Binlog group commit and innodb\_flush\_log\_at\_trx\_commit](binary-log-group-commit-and-innodb-flushing-performance.md). This option has not been working correctly since 10.2 and may be removed in future, see [1873](https://github.com/MariaDB/server/pull/1873)
+  * `3` Emulates [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) [group commit](../../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) (3 syncs per group commit). See [Binlog group commit and innodb\_flush\_log\_at\_trx\_commit](binary-log-group-commit-and-innodb-flushing-performance.md). This option has not been working correctly since 10.2 and may be removed in future, see [1873](https://github.com/MariaDB/server/pull/1873).
 * Command line: `--innodb-flush-log-at-trx-commit[=#]`
 * Scope: Global
 * Dynamic: Yes
@@ -1197,28 +1195,32 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_flush_method`
 
-* Description: [InnoDB](./) flushing method. Windows always uses async\_unbuffered and this variable then has no effect. On Unix, before [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes), by default fsync() is used to flush data and logs. Adjusting this variable can give performance improvements, but behavior differs widely on different filesystems, and changing from the default has caused problems in some situations, so test and benchmark carefully before adjusting. In MariaDB, Windows recognises and correctly handles the Unix methods, but if none are specified it uses own default - unbuffered write (analog of O\_DIRECT) + syncs (e.g FileFlushBuffers()) for all files.
-  * `O_DSYNC` - O\_DSYNC is used to open and flush logs, and fsync() to flush the data files.
-  * `O_DIRECT` - O\_DIRECT or directio(), is used to open data files, and fsync() to flush data and logs. Default on Unix from [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes).
-  * `fsync` - Default on Unix until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105). Can be specified directly, but if the variable is unset on Unix, fsync() are used by default.
-  * `O_DIRECT_NO_FSYNC` - introduced in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0). Uses O\_DIRECT during flushing I/O, but skips fsync() afterwards. Not suitable for XFS filesystems. Generally not recommended over O\_DIRECT, as does not get the benefit of [innodb\_use\_native\_aio=ON](innodb-system-variables.md#innodb_use_native_aio).
-  * `ALL_O_DIRECT` - introduced in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and available with XtraDB only. Uses O\_DIRECT for opening both data and logs and fsync() to flush data but not logs. Use with large InnoDB files only, otherwise may cause a performance degradation. Set [innodb\_log\_block\_size](innodb-system-variables.md#innodb_log_block_size) to 4096 on ext4 filesystems. This is the default log block size on ext4 and will avoid unaligned AIO/DIO warnings.
+* Description: [InnoDB](./) flushing method. Windows always uses `async_unbuffered` , meaning that this variable has no effect. Adjusting this variable can give performance improvements, but behavior differs widely on different filesystems. Changing from the default value may cause problems in some situations, so test and benchmark carefully before adjusting. In MariaDB, Windows recognizes and correctly handles the Unix methods, but if no methods are specified, it uses its own default – unbuffered write (analog of `O_DIRECT`) plus syncs (for instance, `FileFlushBuffers()`) for all files.
+* A detailed description of the variable and its effects can be found [on this page](innodb-flush-method.md).
+  * `O_DSYNC` is used to open and flush logs, and `fsync()` to flush the data files.
+  * `O_DIRECT` is used to open data files, and `fsync()` to flush data and logs. This is the default on Unix from MariaDB 10.6.
+  * `O_DIRECT_NO_FSYNC` uses `O_DIRECT` during flushing I/O, but skips `fsync()` afterwards. Not suitable for XFS filesystems. Generally not recommended over `O_DIRECT`, as it does not get the benefit of [innodb\_use\_native\_aio=ON](innodb-system-variables.md#innodb_use_native_aio).
+  * `ALL_O_DIRECT` is available with XtraDB only. Uses `O_DIRECT` for opening both data and logs and `fsync()` to flush data but not logs. Use with large InnoDB files only, because otherwise it may cause a performance degradation. Set [innodb\_log\_block\_size](innodb-system-variables.md#innodb_log_block_size) to 4096 on ext4 filesystems. This is the default log block size on ext4 and avoids unaligned AIO/DIO warnings.
   * `unbuffered` - Windows-only default
   * `async_unbuffered` - Windows-only, alias for `unbuffered`
   * `normal` - Windows-only, alias for `fsync`
   * `littlesync` - for internal testing only
   * `nosync` - for internal testing only
-* Deprecated in [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110) and replaced by four boolean dynamic variables that can be changed while the server is running: [innodb\_log\_file\_buffering](innodb-system-variables.md#innodb_log_file_buffering) (disable O\_DIRECT, added by [MDEV-28766](https://jira.mariadb.org/browse/MDEV-28766) in 10.8.4, 10.9.2), [innodb\_data\_file\_buffering](innodb-system-variables.md#innodb_data_file_buffering) (disable O\_DIRECT on data files), [innodb\_log\_file\_write\_through](innodb-system-variables.md#innodb_log_file_write_through) (enable O\_DSYNC on the log), [innodb\_data\_file\_write\_through](innodb-system-variables.md#innodb_data_file_write_through) (enable O\_DSYNC on persistent data files) From [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110), if set to one of the following values, then the values of the four boolean flags are set as follows:
-  * `O_DSYNC`: [innodb\_log\_file\_write\_through=ON](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=ON](innodb-system-variables.md#innodb_data_file_write_through),[innodb\_data\_file\_buffering=OFF](innodb-system-variables.md#innodb_data_file_buffering), and (if supported) [innodb\_log\_file\_buffering=OFF](innodb-system-variables.md#innodb_log_file_buffering).
-  * `fsync`, `littlesync`, `nosync`, or (Microsoft Windows specific) `normal`: [innodb\_log\_file\_write\_through=OFF](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=OFF](innodb-system-variables.md#innodb_data_file_write_through), and [innodb\_data\_file\_buffering=ON](innodb-system-variables.md#innodb_data_file_buffering).
+* This variable is deprecated from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110) and replaced by four boolean dynamic variables that can be changed while the server is running:
+  * [innodb\_log\_file\_buffering](innodb-system-variables.md#innodb_log_file_buffering) (disable `O_DIRECT`, added in 10.8.4, 10.9.2)
+  * [innodb\_data\_file\_buffering](innodb-system-variables.md#innodb_data_file_buffering) (disable `O_DIRECT` on data files)
+  * [innodb\_log\_file\_write\_through](innodb-system-variables.md#innodb_log_file_write_through) (enable `O_DSYNC` on the log)
+  * [innodb\_data\_file\_write\_through](innodb-system-variables.md#innodb_data_file_write_through) (enable `O_DSYNC` on persistent data files)
+  * If set to one of the following values, the values of the four boolean flags are as follows:
+    * `O_DSYNC`: [innodb\_log\_file\_write\_through=ON](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=ON](innodb-system-variables.md#innodb_data_file_write_through),[innodb\_data\_file\_buffering=OFF](innodb-system-variables.md#innodb_data_file_buffering), and (if supported) [innodb\_log\_file\_buffering=OFF](innodb-system-variables.md#innodb_log_file_buffering).
+    * `fsync`, `littlesync`, `nosync`, or (on Windows) `normal`: [innodb\_log\_file\_write\_through=OFF](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=OFF](innodb-system-variables.md#innodb_data_file_write_through), and [innodb\_data\_file\_buffering=ON](innodb-system-variables.md#innodb_data_file_buffering).
 * Command line: `--innodb-flush-method=name`
 * Scope: Global
 * Dynamic: No
-* Data Type: `enumeration` (>= [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes)), `string` (<= [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1036-release-notes))
+* Data Type: `enumeration`
 * Default Value:
-  * `O_DIRECT` (Unix, >= [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes))
-  * `fsync` (Unix, >= [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes), <= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105))
-  * Not set (<= [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1036-release-notes))
+  * `O_DIRECT` (Unix, >= MariaDB 10.6.0)
+  * `fsync` (only in MariaDB < 10.5)
 * Valid Values:
   * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`. `O_DIRECT`, `O_DIRECT_NO_FSYNC`
   * Windows: `unbuffered`, `async_unbuffered`, `normal`
@@ -2391,13 +2393,14 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_snapshot_isolation`
 
-* Description: Use snapshot isolation (write-write conflict detection). If set, if an attempt to acquire a lock on a record that does not exist in the current read view is made, an error DB\_RECORD\_CHANGED (HA\_ERR\_RECORD\_CHANGED, ER\_CHECKREAD) are raised. This error are treated in the same way as a deadlock and the transaction are rolled back. When set, the default isolation level, [REPEATABLE READ](../../../reference/sql-statements/transactions/transactions-repeatable-read.md) arecome Snapshot Isolation. Prior to [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-2-release-notes), the default is OFF for backwards compatibility.
+* Description: Whether or not to use snapshot isolation (write/write conflict detection within InnoDB).\
+  If enabled (set to `ON`), an error `DB_RECORD_CHANGED` (`HA_ERR_RECORD_CHANGED`, `ER_CHECKREAD`) is raised if an attempt is made to acquire a lock on a record that does not exist in the current read view. This error is treated in the same way as a deadlock, and the transaction is rolled back. This affects the default isolation level, [REPEATABLE READ](../../../reference/sql-statements/transactions/transactions-repeatable-read.md).
 * Command line: `--innodb-snapshot-isolation={0|1}`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `boolean`
-* Default Value: `ON` (>= [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-2-release-notes)), `OFF` (<= [MariaDB 11.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-1-release-notes))
-* Introduced: [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-18-release-notes), [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-8-release-notes), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-6-release-notes), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-5-release-notes), [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-4-release-notes), [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-2-release-notes)
+* Default Value: `ON` (>= MariaDB 11.6.2), `OFF` (<= MariaDB 11.6.1)
+* Introduced: MariaDB 10.6.18, MariaDB 10.11.8, MariaDB 11.0.6, MariaDB 11.1.5, MariaDB 11.2.4, MariaDB 11.4.2
 
 #### `innodb_sort_buffer_size`
 
@@ -2872,3 +2875,12 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+
+[^1]: ACID compliance refers to a set of properties—Atomicity, Consistency, Isolation, and Durability—that ensure database transactions are processed reliably and maintain data integrity.\
+    Atomicity guarantees that a transaction is treated as a single, indivisible unit, where all operations succeed or the entire transaction is rolled back.\
+    Consistency ensures that a transaction brings the database from one valid state to another, adhering to all defined rules and constraints.\
+    Isolation mandates that concurrent transactions do not interfere with each other, preserving data accuracy during simultaneous operations.\
+    Durability ensures that once a transaction is committed, its changes are permanently stored and survive system failures such as crashes or power outages.\
+    These properties are essential for mission-critical applications in industries like banking, healthcare, and e-commerce, where data accuracy and reliability are paramount.\
+    While ACID compliance enhances data integrity and user confidence, it can impact performance, particularly under high load, due to the overhead of maintaining strict consistency and concurrency control.\
+    Some modern systems, such as data warehouses, may relax isolation requirements to improve read performance, though they still typically maintain atomicity, consistency, and durability.

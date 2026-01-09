@@ -1,3 +1,10 @@
+---
+description: >-
+  Describes the process of heuristic recovery using the TC log to resolve
+  "in-doubt" transactions that may occur after a server crash during a 2-phase
+  commit.
+---
+
 # Heuristic Recovery with the Transaction Coordinator Log
 
 The transaction coordinator log (tc\_log) is used to coordinate transactions that affect multiple [XA-capable](../../../reference/sql-statements/transactions/xa-transactions.md) [storage engines](../../../server-usage/storage-engines/). One of the main purposes of this log is in crash recovery.
