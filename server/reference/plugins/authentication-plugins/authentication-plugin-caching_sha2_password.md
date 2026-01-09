@@ -1,110 +1,91 @@
 # Authentication Plugin - caching\_sha2\_password
 
 {% hint style="info" %}
-This plugin is available from MariaDB Enterprise Server 11.8.
+This plugin is available from MariaDB Server 11.4.
 {% endhint %}
 
 ## Overview
 
-MariaDB provides two authentication plugins that implement SHA-256 hashing for user account passwords:
-
-* `caching_sha2_password`: Implements SHA-256 authentication, using caching on the server side for better performance, and with additional features for wider applicability.
-* [sha256\_password](../../clientserver-protocol/1-connecting/caching_sha2_password-authentication-plugin.md): Implements basic SHA-256 authentication. This is deprecated and subject to removal in the future.
-
-This page documents the **caching** SHA-256 authentication plugin. For the non-caching plugin, see [this page](authentication-plugin-sha-256.md).
-
-`caching_sha2_password` is the default authentication plugin, rather than [mysql\_native\_password](authentication-plugin-mysql_native_password.md).
-
-{% hint style="warning" %}
-To connect to the server using an account that authenticates with the `caching_sha2_password` plugin, you must use a secure connection or an unencrypted connection that supports password exchange using an RSA key pair.
-{% endhint %}
-
-{% hint style="info" %}
-**sha256** refers to the 256-bit digest length the plugin uses for encryption.
-{% endhint %}
-
-The `caching_sha2_password` plugin has the following advantages over the `sha256_password` plugin:
-
-* On the server side, an in-memory cache enables faster reauthentication of users who have connected previously when they connect again.
-* RSA-based password exchange is available regardless of the SSL library against which MariaDB is linked.
-* Support is provided for client connections that use the Unix socket-file and shared-memory protocols.
+To aid migrations MariaDB provides MySQL compatible `caching_sha2_password` authentication plugin. It allows to move users from MySQL to MariaDB without requiring them to change their passwords. It should be only used for migration, otherwise a more secure and convenient PARSEC plugin is recommended.
 
 ## Installing the Plugin
 
-The `caching_sha2_password` plugin exists in server and client forms:
+The `caching_sha2_password` authentication plugin's shared library is included in MariaDB packages as the `auth_mysql_sha2.so` or `auth_mysql_sha2.dll` shared library on systems where it can be built.
 
-* The server-side plugin is built into the server, doesn't have to be loaded explicitly, and cannot be disabled (unloaded).
-* The client-side plugin is built into the `libmysqlclient` client library and is available to any program linked against `libmysqlclient`.
+Although the plugin's shared library is distributed with MariaDB, the plugin is not actually installed into MariaDB by default. There are two methods that can be used to install the plugin into MariaDB.
+
+The first method can be used to install the plugin without restarting the server. You can install the plugin dynamically by executing [INSTALL SONAME](../../sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname.md) or [INSTALL PLUGIN](../../sql-statements/administrative-sql-statements/plugin-sql-statements/install-plugin.md):
+
+```sql
+INSTALL SONAME 'auth_mysql_sha2';
+```
+
+The second method can be used to tell the server to load the plugin when it starts up. The plugin can be installed this way by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#-plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
+
+```ini
+[mariadb]
+...
+plugin_load_add = auth_mysql_sha2
+```
+
+## Uninstalling the Plugin
+
+You can uninstall the plugin dynamically by executing [UNINSTALL SONAME](../../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname.md) or [UNINSTALL PLUGIN](../../sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin.md):
+
+```sql
+UNINSTALL SONAME 'auth_mysql_sha2';
+```
+
+If you installed the plugin by providing the [--plugin-load](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options in a relevant server [option group](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then those options must be removed to prevent the plugin from being loaded the next time the server is restarted.
 
 ## Using the Plugin
 
-To set up an account that uses the deprecated `sha256_password` plugin for SHA-256 password hashing, use the following statement, where _`password`_ is the account password:
+To create a user in MariaDB that was using `caching_sha2_password` plugin in MySQL, do the usual
 
 ```sql
-CREATE USER 'sha2user'@'localhost'
-IDENTIFIED WITH caching_sha2_password BY 'password';
+CREATE USER user@host IDENTIFIED WITH caching_sha2_password USING 'authentication_string';
 ```
 
-The server assigns the `caching_sha256_password` plugin to the account and uses it to encrypt the password using SHA-256, storing the values in the `plugin` and `authentication_string` columns of the `mysql.user` system table.
+where `authentication_string` is taken from the `mysql.user` table for the correspoding user in MySQL installation. Beware that the authentication string for `caching_sha2_password` in MySQL can contain non-printable characters and copying it from the terminal window will likely not work.
 
-To start the server with the default authentication plugin set to `sha256_password`, add this to the [configuration file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) (for instance, `my.cnf`):
+## System Variables
 
-```ini
-[mysqld]
-default_authentication_plugin=caching_sha2_password
-```
+### `caching_sha2_password_private_key_path`
 
-This makes the `caching_sha256_password` plugin the default for new accounts. With that setting, you can simplify the creation of users that are meant to use this plugin for authentication:
+* Description: A path to the private RSA key used for authentication.
+* Command line: `--caching-sha2-password-private-key-path`
+* Scope: Global
+* Dynamic: No
+* Data Type: `string`
+* Default Value: `private_key.pem`
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
 
-```sql
-CREATE USER 'some-user'@'localhost' IDENTIFIED BY 'password';
-```
+### `caching_sha2_password_public_key_path`
 
-To use a plugin other than the (now) default, for example, the `mysql_native_password` plugin, issue this statement:
+* Description: A path to the public RSA key used for authentication.
+* Command line: `--caching-sha2-password-public-key-path`
+* Scope: Global
+* Dynamic: No
+* Data Type: `string`
+* Default Value: `public_key.pem`
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
 
-```sql
-CREATE USER 'some-user'@'localhost'
-IDENTIFIED WITH mysql_native_password BY 'password';
-```
+### `caching_sha2_password_auto_generate_rsa_keys`
 
-## RSA Support
+* Description: Auto generate RSA keys at server startup if key paths are not explicitly set and key files are not present at their default locations.
+* Command line: `--caching-sha2-password-auto-generate-rsa-keys`
+* Scope: Global
+* Dynamic: No
+* Data Type: `boolean`
+* Default Value: `ON`
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
 
-`caching_sha2_password` supports connections over secure transport. If configured, it also supports encrypted password exchange using RSA over unencrypted connections. RSA support has these features:
+### `caching_sha2_password_digest_rounds`
 
-* Clients that are in possession of the RSA public key can perform RSA key pair-based password exchange with the server during the connection process.
-*   For connections from accounts that authenticate with `caching_sha2_password` and RSA key pair-based password exchange, the server does not send the RSA public key to clients by default. Clients can use a client-side copy of the required public key, or request the public key from the server.
-
-    Using a trusted local copy of the public key enables the client to avoid a round trip in the client/server protocol, and is more secure than requesting the public key from the server. On the other hand, requesting the public key from the server is more convenient (it requires no management of a client-side file) and may be acceptable in secure network environments.
-
-    If the option is given to specify a valid public key file, it takes precedence over the option to request the public key from the server.
-
-For clients using the `caching_sha2_password` plugin, passwords are never exposed as cleartext when connecting to the server. How password transmission occurs depends on whether a secure connection or RSA encryption is used:
-
-* If the connection is secure, no RSA key pair is used. This applies to TCP connections encrypted using TLS, as well as Unix socket-file and shared-memory connections. The password is sent as cleartext but cannot be intercepted because the connection is secure.
-* If the connection is not secure, an RSA key pair is used. This applies to TCP connections not encrypted using TLS and named-pipe connections. RSA is used only for password exchange between client and server, to prevent password snooping. When the server receives the encrypted password, it decrypts it. A scramble is used in the encryption to prevent repeat attacks.
-
-**Cache Operation for SHA-2 Pluggable Authentication**
-
-On the server side, the `caching_sha2_password` plugin uses an in-memory cache for faster authentication of clients who have connected previously. Entries consist of account-name/password-hash pairs. The cache works like this:
-
-1. When a client connects, `caching_sha2_password` checks whether the client and password match some cache entry. If so, authentication succeeds.
-2. If there is no matching cache entry, the plugin attempts to verify the client against the credentials in the `mysql.user` system table. If this succeeds, `caching_sha2_password` adds an entry for the client to the hash. Otherwise, authentication fails and the connection is rejected.
-
-This way, when a client first connects, authentication against the `mysql.user` system table occurs. When the client connects subsequently, faster authentication against the cache occurs.
-
-Password cache operations other than adding entries are handled by the `sha2_cache_cleaner` audit plugin, which performs these actions on behalf of `caching_sha2_password`:
-
-* It clears the cache entry for any account that is renamed or dropped, or any account for which the credentials or authentication plugin are changed.
-* It empties the cache when the [FLUSH PRIVILEGES](../../sql-statements/administrative-sql-statements/flush-commands/) statement is executed.
-* It empties the cache at server shutdown. (This means the cache is not persistent across server restarts.)
-
-Cache clearing operations affect the authentication requirements for subsequent client connections. For each user account, the first client connection for the user after any of the following operations must use a secure connection (made using TCP using TLS credentials, a Unix socket file, or shared memory) or RSA key pair-based password exchange:
-
-* After account creation.
-* After a password change for the account.
-* After a [RENAME USER](../../sql-statements/account-management-sql-statements/rename-user.md) statement for the account.
-* After issuing [FLUSH PRIVILEGES](../../sql-statements/administrative-sql-statements/flush-commands/flush.md).
-
-`FLUSH PRIVILEGES` clears the entire cache and affects all accounts that use the `caching_sha2_password` plugin. The other operations clear specific cache entries and affect only accounts that are part of the operation.
-
-Once a user authenticates successfully, the account is entered into the cache, and subsequent connections do not require a secure connection or the RSA key pair, until another cache clearing event occurs that affects the account. (When the cache can be used, the server uses a challenge-response mechanism that does not use cleartext password transmission and does not require a secure connection.)
+* Description: Number of SHA2 rounds to be performed when computing a password hash.
+* Command line: `--caching-sha2-password-digest-rounds`
+* Scope: Global
+* Dynamic: No
+* Data Type: `integer`
+* Default Value: `5000`
+* Introduced: MariaDB 11.4.9, MariaDB 11.8.4
