@@ -2239,6 +2239,7 @@
       * [Audit Plugin Versions](reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-versions.md)
     * [Authentication Plugins](reference/plugins/authentication-plugins/README.md)
       * [Pluggable Authentication Overview](reference/plugins/authentication-plugins/pluggable-authentication-overview.md)
+      * [Authentication Plugin - caching\_sha2\_password](reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md)
       * [Authentication Plugin - ed25519](reference/plugins/authentication-plugins/authentication-plugin-ed25519.md)
       * [Authentication Plugin - GSSAPI](reference/plugins/authentication-plugins/authentication-plugin-gssapi.md)
       * [Authentication Plugin - mysql\_native\_password](reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md)
