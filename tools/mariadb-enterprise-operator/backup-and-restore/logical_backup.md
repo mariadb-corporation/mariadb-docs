@@ -440,7 +440,7 @@ spec:
         - ReadWriteOnce
 ``` 
 
-In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](../api_reference.md) for more configuration options.
+In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](../api-reference.md) for more configuration options.
 
 Similarly, you may also use a custom staging area when [bootstrapping from backup](#bootstrap-new-mariadb-instances):
 
@@ -594,7 +594,7 @@ spec:
           key: tls.crt
     targetRecoveryTime: 2024-08-26T12:24:34Z
 ```
-5. If you are using Galera in your new instance, migrate your previous users and grants to use the `User` and `Grant` CRs. Refer to the [SQL resource documentation](./sql_resources.md) for further detail.
+5. If you are using Galera in your new instance, migrate your previous users and grants to use the `User` and `Grant` CRs. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
 ### Migrating to a `MariaDB` with different topology
 
@@ -640,7 +640,7 @@ spec:
 ```
 
 ## Reference
-* [API reference](../api_reference.md)
+* [API reference](../api-reference.md)
 * [`mariadb-dump` options](https://mariadb.com/kb/en/mariadb-dump/#options)
 * [`mariadb` options](https://mariadb.com/kb/en/mariadb-command-line-client/#options)
 
