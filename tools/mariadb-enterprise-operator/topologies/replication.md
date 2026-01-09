@@ -111,7 +111,6 @@ spec:
 - `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
 - `standaloneProbes`: Determines whether to use regular non-HA startup and liveness probes. It is disabled by default.
 
-
 These options are used by the operator to create a replication configuration file that is applied to all nodes in the cluster. When updating any of these options, an [update of the cluster](#updates) will be triggered in order to apply the new configuration.
 
 For replica-specific configuration options, please refer to the [replica configuration](#replica-configuration) section. Additional system variables may be configured via the `myCnf` configuration field. Refer to the [configuration documentation](../configuration.md#mycnf) for more details.
@@ -181,7 +180,13 @@ Depending on the `PhysicalBackup` strategy used, the operator will track the GTI
 - __mariadb-backup__: When using `PhysicalBackup` with the `mariadb-backup` strategy, the GTID will be restored to a `mariadb-enterprise-operator.info` file in the data directory, which the agent will expose to the operator via HTTP.
 - __VolumeSnapshot__: When using `PhysicalBackup` with the `VolumeSnapshot` strategy, the GTID position will be kept in a `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, which later on the operator will read when restoring the backup.
 
+When using `PhysicalBackup` with the `mariadb-backup` strategy, the GTID will be restored to a `mariadb-enterprise-operator.info` file in the data directory, which the agent will expose to the operator via HTTP.
+
 It is important to note that, by default, physical backups are only taken in ready replicas when the `MariaDB` resource is in a ready state. If you are running with a single replica, it is recommended to set `mariaDbRef.waitForIt=false` and `target=PreferReplica` in the `PhysicalBackup` CR to allow taking backups from the primary when the replica is not ready. Please refer to the [physical backup documentation](../backup-and-restore/physical_backup.md) for configuring this behaviour.
+
+#### `VolumeSnapshot`
+
+When using `PhysicalBackup` with the `VolumeSnapshot` strategy, the GTID position will be kept in a `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, which later on the operator will read when restoring the backup.
 
 {% hint style="warning" %}
 Refrain from removing the `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, as it is required for configuring the replica when restoring the backup.
@@ -429,6 +434,8 @@ NAME           READY   STATUS    PRIMARY          UPDATES                    AGE
 mariadb-repl   True    Running   mariadb-repl-1   ReplicasFirstPrimaryLast   3d5h
 ```
 
+It is important to note that, if there are no ready replicas available at the time of the scaling out operation, the `PhysicalBackup` will not become ready, and the scaling out operation will be stuck until a replica becomes ready. You have the ability to cancel the scaling out operation by setting back the `spec.replicas` field to the previous value.
+
 {% hint style="warning" %}
 Considering that we set `mariaDbRef.waitForIt=false` and `target=PreferReplica` in the `PhysicalBackup` template, it is important to note that, if there are no ready replicas available at the time of the scaling out operation, the operator will take the backup from the primary instead. Please refer to the [physical backup documentation](../backup-and-restore/physical_backup.md) for configuring this behaviour.
 {% endhint %}
@@ -660,7 +667,6 @@ When using MaxScale, after having updated all the replica Pods, it could happen 
 ```bash
 2025-10-27 15:17:11   error  : [mariadbmon] 'mariadb-repl-1' is not a valid demotion target for switchover: it does not have a 'gtid_binlog_pos'.
 ``` 
-
 For this case, you can manually update the `primaryServer` field in the `MaxScale` resource to a safe Pod, and restart the operator. If the new primary server is the right Pod, MaxScale will start the switchover and the update will continue after it completes.
 
 ##### Scale out/replica recovery job names too long

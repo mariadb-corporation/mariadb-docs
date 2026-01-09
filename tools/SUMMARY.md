@@ -59,6 +59,7 @@
   * [Storage](mariadb-enterprise-operator/storage.md)
   * [TLS](mariadb-enterprise-operator/tls.md)
   * [Configuration](mariadb-enterprise-operator/configuration.md)
+  * [Connections](mariadb-enterprise-operator/connections.md)
   * [Updates](mariadb-enterprise-operator/updates.md)
     * [25.08 version update guide](mariadb-enterprise-operator/updates/update-25.08.md)
     * [25.10 LTS version update guide](mariadb-enterprise-operator/updates/update-25.10.md)

@@ -17,9 +17,9 @@ jobs:
         id: changes
         uses: tj-actions/changed-files@v45
         with:
-           files: |
-             **.md
-             **.html
+          files: |
+            **.md
+            **.html
 
       - name: Scan for broken links
         if: steps.changes.outputs.any_changed == 'true'
@@ -30,6 +30,7 @@ jobs:
             --no-progress
             --exclude dev\.mysql\.com
             --exclude docs\.oracle\.com
+            --exclude kubernetes\.io\/docs
             --exclude '.*\{.*'
             --exclude '.*%7B.*'
             ${{ steps.changes.outputs.all_changed_files }}
@@ -40,3 +41,4 @@ jobs:
         run: |
           echo "### ❌ Link Check Failed?" >> $GITHUB_STEP_SUMMARY
           echo "👉 [**Read the SOP: How to Fix Link Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> $GITHUB_STEP_SUMMARY
+

@@ -1,6 +1,6 @@
 # External MariaDB
 
-`mariadb-enterprise-operator` supports managing resources in external MariaDB instances i.e running outside of the Kubernetes cluster where the operator runs. This feature allows to manage users, privileges, databases, run SQL jobs declaratively and taking backups using the same CRs that you use to manage internal MariaDB instances.
+MariaDB Enterprise Kubernetes Operator supports managing resources in external MariaDB instances i.e running outside of the Kubernetes cluster where the operator runs. This feature allows to manage users, privileges, databases, run SQL jobs declaratively and taking backups using the same CRs that you use to manage internal MariaDB instances.
 
 ## `ExternalMariaDB` configuration
 
@@ -23,8 +23,8 @@ spec:
     healthCheck:
       interval: 5s
 ```
-If you need to use TLS to connect to the external MariaDB, you can provide the server CA certificate and the client certificate `Secrets` via the `tls` field:
 
+If you need to use TLS to connect to the external MariaDB, you can provide the server CA certificate and the client certificate `Secrets` via the `tls` field:
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
 kind: ExternalMariaDB
@@ -49,6 +49,32 @@ spec:
       interval: 5s
       retryInterval: 10s
 ```
+
+When using TLS, if you don't want to send the client certificate during the TLS handshake, please set `tls.mutual=false`: 
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: ExternalMariaDB
+metadata:
+  name: external-mariadb
+spec:
+  host: mariadb.example.com
+  port: 3306
+  username: root
+  passwordSecretKeyRef:
+    name: mariadb
+    key: password
+  tls:
+    enabled: true
+    mutual: false
+    clientCASecretRef:
+      name: client-ca-secret
+  connection:
+    secretName: external-mariadb
+    healthCheck:
+      interval: 5s
+      retryInterval: 10s
+```
+
 As a result, you will be able to specify the `ExternalMariaDB` as a reference in [multiple objects](#supported-objects), the same way you would do for a internal `MariaDB` resource.
 
 As part of the `ExternalMariaDB` reconciliation, a `Connection` will be created whenever the `connection` template is specified. This could be handy to track the external connection status and declaratively create a connection string in a `Secret` to be consumed by applications to connect to the external `MariaDB`.
