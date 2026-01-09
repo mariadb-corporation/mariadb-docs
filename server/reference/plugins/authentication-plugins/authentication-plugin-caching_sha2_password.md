@@ -46,7 +46,7 @@ To create a user in MariaDB that was using `caching_sha2_password` plugin in MyS
 CREATE USER user@host IDENTIFIED WITH caching_sha2_password USING 'authentication_string';
 ```
 
-where `authentication_string` is taken from the `mysql.user` table for the correspoding user in MySQL installation. Beware that the authentication string for `caching_sha2_password` in MySQL can contain non-printable characters and copying it from the terminal window will likely not work.
+where `authentication_string` is taken from the `mysql.user` table for the corresponding user in MySQL installation. Beware that the authentication string for `caching_sha2_password` in MySQL can contain non-printable characters and copying it from the terminal window will likely not work.
 
 ## System Variables
 
