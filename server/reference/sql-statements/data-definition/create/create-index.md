@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```sql
-CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL] INDEX 
+CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL|VECTOR] INDEX 
   [IF NOT EXISTS] index_name
     [index_type]
     ON tbl_name (index_col_name,...)
@@ -30,6 +30,8 @@ index_option:
   | COMMENT 'string'
   | CLUSTERING={YES| NO} ]
   [ IGNORED | NOT IGNORED ]
+  | DISTANCE={EUCLIDEAN| COSINE} ]
+  | M=number ]
 
 algorithm_option:
     ALGORITHM [=] {DEFAULT|INPLACE|COPY|NOCOPY|INSTANT}
