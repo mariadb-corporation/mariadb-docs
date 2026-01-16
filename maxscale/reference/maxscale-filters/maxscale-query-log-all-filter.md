@@ -209,6 +209,23 @@ The log entry is written when the last reply from the server is received.
 Prior to version 6.2 the entry was written when the query was received from
 the client, or if _reply\_time_ was specified, on first reply from the server.
 
+If you enable SQL query logging, the log entries contain the entire SQL
+query. If the queries themselves are large (e.g. inserts with thousands of
+elements), the log entries end up equally long. This can cause slowdown and high
+disk space usage on the MaxScale host.
+
+{% tabs %}
+{% tab title="Current" %}
+The filter limits the length of the logged query to 1024 characters by
+default. Queries longer than the limit are only partially logged. See
+[logged_query_max_length](#logged_query_max_length) for more information.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+The filter does not limit the length of the logged query.
+{% endtab %}
+{% endtabs %}
+
 **NOTE** The _error\_msg_ is the raw message from the server. Even if _use\_canonical\_form_
 is set the error message may contain user defined constants. For example:
 
@@ -288,6 +305,35 @@ is to the output. The value should be enclosed in quotes.
 
 ```
 newline_replacement=" NL "
+```
+
+### `logged_query_max_length`
+
+* Type: count
+* Mandatory: No
+* Dynamic: Yes
+* Default: `1024`
+
+Limits the length of the logged SQL query when `log_data` includes `query`. If
+`logged_query_max_length` is set to N, the filter only logs up to N characters
+of any query. If `newline_replacement` is enabled, as it is by default, the
+length limit takes effect before the filter replaces newlines. This means that
+the final length of the logged query may be greater than N. This deviation
+depends on the number of newlines in the query and the length of the value of
+`newline_replacement`.
+
+Use this setting to ensure that large queries do not cause the log file to
+consume too much space. Setting `logged_query_max_length=0` removes the length
+limit, causing the filter to always log the entire query.
+
+{% tabs %}
+{% tab title="< 26.10" %}
+This feature is only available in MaxScale 26.10.0 and later.
+{% endtab %}
+{% endtabs %}
+
+```
+logged_query_max_length=100
 ```
 
 ## Limitations
