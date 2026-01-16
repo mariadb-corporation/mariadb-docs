@@ -28,7 +28,7 @@ If these conditions are not met, the cluster automatically falls back to perform
 This functionality is available from MariaDB 12.0.
 {% endhint %}
 
-Appliers need to verify foreign key constraints during normal operation in multi-active topologies. Therefore, appliers are configured to enable FK[^1] checking.
+Appliers need to verify foreign key constraints during normal operation in multi-active topologies. Therefore, appliers are configured to enable FK[^1] [checking]({galera}).
 
 However, during node joining, in IST and latter catch-up period, the node is still idle (from local connections), and the only source for incoming transactions is the cluster sending certified write sets for applying. IST happens with parallel applying — there is a possibility that foreign key check cause lock conflicts between appliers accessing FK child and parent tables. Also, excessive FK checking slows down the IST process.
 
