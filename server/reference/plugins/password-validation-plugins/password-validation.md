@@ -1,12 +1,10 @@
 ---
 description: >-
-  Technical reference for building plugins that enforce specific security
+  General introduction into plugins that enforce specific security
   policies and complexity rules for user passwords.
 ---
 
 # Password Validation Plugin Overview
-
-{% include "../../../.gitbook/includes/this-page-contains-backgrou....md" %}
 
 _Password validation_ means ensuring that user passwords meet certain minimal security requirements. A dedicated plugin API allows the creation of password validation plugins that will check user passwords as they are set (in [SET PASSWORD](../../sql-statements/account-management-sql-statements/set-password.md) and [GRANT](../../sql-statements/account-management-sql-statements/grant.md) statements) and either allow or reject them.
 
