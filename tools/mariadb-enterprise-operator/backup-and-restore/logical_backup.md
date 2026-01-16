@@ -157,6 +157,60 @@ Currently the following compression algorithms are supported:
 
 `compression` is defaulted to `none` by the operator.
 
+#### Server-Side Encryption with Customer-Provided Keys (SSE-C)
+
+You can enable server-side encryption using your own encryption key (SSE-C) by providing a reference to a `Secret` containing a 32-byte (256-bit) key encoded in base64:
+
+```yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: ssec-key
+stringData:
+  # 32-byte key encoded in base64 (use: openssl rand -base64 32)
+  customer-key: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
+```
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: Backup
+metadata:
+  name: backup
+spec:
+  mariaDbRef:
+    name: mariadb
+  storage:
+    s3:
+      bucket: backups
+      prefix: mariadb
+      endpoint: minio.minio.svc.cluster.local:9000
+      region: us-east-1
+      accessKeyIdSecretKeyRef:
+        name: minio
+        key: access-key-id
+      secretAccessKeySecretKeyRef:
+        name: minio
+        key: secret-access-key
+      tls:
+        enabled: true
+        caSecretKeyRef:
+          name: minio-ca
+          key: tls.crt
+      ssec:
+        customerKeySecretKeyRef:
+          name: ssec-key
+          key: customer-key
+```
+
+{% hint style="warning" %}
+When using SSE-C, you are responsible for managing and securely storing the encryption key. If you lose the key, you will not be able to decrypt your backups. Ensure you have proper key management procedures in place.
+{% endhint %}
+
+{% hint style="info" %}
+When restoring from SSE-C encrypted backups, the same key must be provided in the `Restore` CR or `bootstrapFrom` configuration.
+{% endhint %}
+
 ## `Restore` CR
 
 You can easily restore a `Backup` in your `MariaDB` instance by creating the following resource:
@@ -386,7 +440,7 @@ spec:
         - ReadWriteOnce
 ``` 
 
-In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](./api_reference.md) for more configuration options.
+In the examples above, a PVC with the default `StorageClass` will be used as staging area. Refer to the [API reference](../api-reference.md) for more configuration options.
 
 Similarly, you may also use a custom staging area when [bootstrapping from backup](#bootstrap-new-mariadb-instances):
 
@@ -474,7 +528,7 @@ spec:
 
 Also, to avoid situations where `mysql.global_priv` is unreplicated, all the entries in that table must be managed via DDLs. This is the recommended approach suggested in the [Galera docs](https://galeracluster.com/library/kb/user-changes.html). There are a couple of ways that we can guarantee this:
 - Use the `rootPasswordSecretKeyRef`, `username` and `passwordSecretKeyRef` fields of the `MariaDB` CR to create the root and initial user respectively. This fields will be translated into DDLs by the image entrypoint.
-- Rely on the [`User`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/user.yaml) and [`Grant`](https://github.com/mariadb-corporation/mariadb-enterprise-operator/blob/main/examples/manifests/grant.yaml) CRs to create additional users and grants. Refer to the [SQL resource documentation](./sql_resources.md) for further detail.
+- Rely on the [`User`](../sql-resources.md#user-cr) and [`Grant`](../sql-resources.md#grant-cr) CRs to create additional users and grants. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
 #### `LOCK TABLES` 
 
@@ -540,7 +594,7 @@ spec:
           key: tls.crt
     targetRecoveryTime: 2024-08-26T12:24:34Z
 ```
-5. If you are using Galera in your new instance, migrate your previous users and grants to use the `User` and `Grant` CRs. Refer to the [SQL resource documentation](./sql_resources.md) for further detail.
+5. If you are using Galera in your new instance, migrate your previous users and grants to use the `User` and `Grant` CRs. Refer to the [SQL resource documentation](../sql-resources.md) for further detail.
 
 ### Migrating to a `MariaDB` with different topology
 
@@ -586,7 +640,7 @@ spec:
 ```
 
 ## Reference
-* [API reference](api_reference.md)
+* [API reference](../api-reference.md)
 * [`mariadb-dump` options](https://mariadb.com/kb/en/mariadb-dump/#options)
 * [`mariadb` options](https://mariadb.com/kb/en/mariadb-command-line-client/#options)
 
