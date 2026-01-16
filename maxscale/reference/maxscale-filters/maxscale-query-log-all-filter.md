@@ -3,8 +3,9 @@
 ## Overview
 
 The Query Log All (QLA) filter logs query content. Logs are written to a file in
-CSV format. Log elements are configurable and include the time submitted and the
-SQL statement text, among others.
+CSV format, or to [Kafka](https://kafka.apache.org/). Log elements are
+configurable and include the time submitted and the SQL statement text, among
+others.
 
 ## Configuration
 
@@ -162,7 +163,7 @@ source_exclude=/(^127[.]0[.]0[.]1)|(^192[.]168[.]0[.]109)/
 * Type: [enum\_mask](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Values: `session`, `unified`, `stdout`
+* Values: `session`, `unified`, `stdout`, `kafka`
 * Default: `session`
 
 The type of log file to use.
@@ -172,6 +173,20 @@ The type of log file to use.
 | session | Write to session-specific files |
 | unified | Use one file for all sessions   |
 | stdout  | Same as unified, but to stdout  |
+| kafka   | Send log events to Kafka        |
+
+If you enable Kafka logging, you need to also configure
+[Kafka bootstrap servers](#kafka_bootstrap_servers) and [topic](#kafka_topic).
+Depending on the Kafka broker configuration, the various other [Kafka
+settings](#kafka-settings) may also be required.
+
+When Kafka logging is enabled, MaxScale attempts to send query events to the
+Kafka broker. If the Kafka event production fails for any reason, MaxScale will
+simply log the error to the MaxScale general log and continue.  The Kafka
+messages MaxScale sends always contain the client session id as message key. If
+`log_data` includes `session`, then the session is also included in the message
+text. Kafka message timestamps match the time MaxScale receives the query from
+the client.
 
 ### `log_data`
 
@@ -335,6 +350,129 @@ This feature is only available in MaxScale 26.10.0 and later.
 ```
 logged_query_max_length=100
 ```
+
+### Kafka settings
+
+These settings resemble the equivalent settings in the
+[KafkaCDC Router](../maxscale-routers/maxscale-kafkacdc.md#settings). Although
+these settings can be modified during runtime, this is typically ill-advised, as
+any modifications only affect new client sessions. Define at least
+`kafka_bootstrap_servers` and `kafka_topic` when logging events to Kafka. Kafka
+logging only activates when the value of `log_type` includes `kafka`.
+
+#### `kafka_bootstrap_servers`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+The list of Kafka brokers to use in `host:port` format. Multiple values can be
+separated with commas.
+
+```
+kafka_bootstrap_servers=127.0.0.1:9092
+```
+
+#### `kafka_topic`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+The Kafka topic where the log events are published.
+
+```
+kafka_topic=maxscale_qlalogs
+```
+
+#### `kafka_enable_idempotence`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+
+Enable idempotent producer mode. This feature requires Kafka version 0.11 or
+newer to work. When enabled, the Kafka producer enters a strict mode which
+avoids event duplication due to broker outages or other network errors.
+
+#### `kafka_ssl`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `false`
+
+Enable SSL for Kafka connections.
+
+#### `kafka_ssl_ca`
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+Path to the certificate authority file in PEM format. If this is not provided,
+the default system certificates will be used.
+
+#### `kafka_ssl_cert`
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+Path to the public certificate in PEM format. The client must provide a
+certificate if the Kafka server performs authentication of the client
+certificates. This feature is enabled by default in Kafka and is controlled by
+[ssl.endpoint.identification.algorithm](https://kafka.apache.org/documentation/#brokerconfigs_ssl.endpoint.identification.algorithm).
+
+If `kafka_ssl_cert` is provided, `kafka_ssl_key` must also be provided.
+
+#### `kafka_ssl_key`
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+Path to the private key in PEM format. If `kafka_ssl_key` is provided,
+`kafka_ssl_cert` must also be provided.
+
+#### `kafka_sasl_user`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+Username for SASL authentication. If `kafka_sasl_user` is provided,
+`kafka_sasl_password` must also be provided.
+
+#### `kafka_sasl_password`
+
+* Type: string
+* Mandatory: No
+* Dynamic: Yes
+* Default: `""`
+
+Password for SASL authentication. If `kafka_sasl_password` is provided,
+`kafka_sasl_user` must also be provided.
+
+#### `kafka_sasl_mechanism`
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`
+* Default: `PLAIN`
+
+The SASL mechanism used. The default value `PLAIN` uses plaintext
+authentication. You should enable SSL whenever plaintext authentication is
+used. The value that should be used depends on the SASL mechanism used by the
+Kafka broker.
 
 ## Limitations
 
