@@ -38,7 +38,7 @@ To address that issue, you can relax FK checks for appliers during IST and catch
 wsrep_mode=SKIP_APPLIER_FK_CHECKS_IN_IST
 ```
 
-When this operation mode is set, and the node is processing IST or catch-up, appliers skip FK checking.
+When this operation mode is set, and the node is processing IST or catch-up, appliers skip [FK checking]({galera}).
 
 ## The Write-Set Cache (GCache)
 
