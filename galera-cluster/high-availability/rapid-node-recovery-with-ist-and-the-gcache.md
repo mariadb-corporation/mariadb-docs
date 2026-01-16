@@ -6,7 +6,7 @@ This page provides a deep-dive into Incremental State Transfer (IST), a method f
 
 ## Incremental State Transfer (IST)
 
-An Incremental State Transfer (IST) is the fast and efficient process where a joining node receives only the missing [transactions](../galera-architecture/certification-based-replication.md#how-the-process-works) it needs to catch up with the cluster, rather than receiving a full copy of the entire database.
+An Incremental State Transfer (IST) is the fast and efficient process where a joining node receives only the missing [transactions](../galera-architecture/certification-based-replication.md#how-the-process-works) it needs to catch up with the cluster, rather than receiving a full copy of the [entire database]({galera}/high-availability).
 
 This is the preferred provisioning method because it is:
 
