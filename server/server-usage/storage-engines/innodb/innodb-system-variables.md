@@ -2474,7 +2474,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_stats_on_metadata`
 
-* Description: If set to `ON`, XtraDB/InnoDB updates statistics when accessing the INFORMATION\_SCHEMA.TABLES or INFORMATION\_SCHEMA.STATISTICS tables, and when running metadata statements such as [SHOW INDEX](../../../reference/sql-statements/administrative-sql-statements/show/show-index.md) or [SHOW TABLE STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-table-status.md). If set to `OFF`, statistics are not updated at those times, which can reduce the access time for large schemas, as well as make execution plans more stable.
+* Description: If set to `ON` (the default), XtraDB/InnoDB updates statistics when accessing the INFORMATION\_SCHEMA.TABLES or INFORMATION\_SCHEMA.STATISTICS tables, and when running metadata statements such as [SHOW INDEX](../../../reference/sql-statements/administrative-sql-statements/show/show-index.md) or [SHOW TABLE STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-table-status.md). If set to `OFF`, statistics are not updated at those times, which can reduce the access time for large schemas, as well as make execution plans more stable.
 * Command line: `--innodb-stats-on-metadata`
 * Scope: Global
 * Dynamic: Yes
