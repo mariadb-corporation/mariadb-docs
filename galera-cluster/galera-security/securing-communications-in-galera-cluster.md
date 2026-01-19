@@ -6,7 +6,7 @@ To mitigate this concern, Galera Cluster allows you to encrypt data in transit a
 
 In order to secure connections between the cluster nodes, you need to ensure that all servers were compiled with TLS support. See [Secure Connections Overview](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview) to determine how to check whether a server was compiled with TLS support.
 
-For each cluster node, you also need a certificate, private key, and the Certificate Authority (CA) chain to verify the certificate. If you want to use self-signed certificates that are created with OpenSSL, then see [Certificate Creation with OpenSSL]({server}/security/securing-mariadb/encryption/data-in-transit-encryption/certificate-creation-with-openssl) for information on how to create those.
+For each cluster node, you also need a certificate, private key, and the Certificate Authority (CA) chain to verify the certificate. If you want to use self-signed certificates that are created with OpenSSL, then see [Certificate Creation with OpenSSL](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/certificate-creation-with-openssl) for information on how to create those.
 
 ## Securing Galera Cluster Replication Traffic
 
