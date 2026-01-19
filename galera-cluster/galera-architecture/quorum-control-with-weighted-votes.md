@@ -56,6 +56,8 @@ In a two-node cluster, to ensure `node1` is always the primary in case of a netw
 
 For a [disaster recovery setup](../high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica.md) with two nodes at a primary site and two at a secondary site:
 
+STEP B TEST {server}
+
 #### Primary Site:
 
 * `node1`: `pc.weight = 2`
@@ -67,7 +69,6 @@ For a [disaster recovery setup](../high-availability/using-mariadb-replication-w
 * `node4`: `pc.weight = 1`
 
 If the secondary site or the [WAN link](galera-cluster-deployment-variants.md#id-3.-wide-area-network-wan-cluster-multi-data-center) fails, the primary site maintains quorum. Additionally, one node at the primary site can fail without causing an outage.
-STEP B TEST {server}
 
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
