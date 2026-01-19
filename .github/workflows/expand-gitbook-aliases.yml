@@ -17,17 +17,36 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Expand GitBook aliases
+      # 👇 NEW STEP: Adds a clickable link to the GitHub Action Summary UI
+      - name: 📖 Documentation
+        run: |
+          echo "### 🔗 Link Expander Documentation" >> $GITHUB_STEP_SUMMARY
+          echo "For a list of supported aliases and usage guide, please see:" >> $GITHUB_STEP_SUMMARY
+          echo "👉 [**Using Aliases in Pull Requests**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Using-Aliases-in-Pull-Requests)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Expand GitBook aliases (exclude README.md)
         run: |
           set -e
 
-          echo "Expanding GitBook aliases..."
+          echo "Expanding GitBook aliases (excluding README.md)..."
 
-          find . -type f -name "*.md" -print0 | xargs -0 sed -i \
-            -e 's|{server}|https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV|g' \
-            -e 's|{galera}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7|g'
+          # Using | as delimiter to handle URL slashes cleanly
+          # Note: Trailing slashes have been removed from URLs to avoid double-slashes
+          find . -type f -name "*.md" ! -name "README.md" -print0 | xargs -0 sed -i \
+            -e 's|{server}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV|g' \
+            -e 's|{galera}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7|g' \
+            -e 's|{maxscale}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX|g' \
+            -e 's|{analytics}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14|g' \
+            -e 's|{columnstore}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/2I4jZ8pGq8bT4w5n3q6r|g' \
+            -e 's|{skysql}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb|g' \
+            -e 's|{home}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1|g' \
+            -e 's|{platform}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn|g' \
+            -e 's|{connectors}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L|g' \
+            -e 's|{tools}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD|g' \
+            -e 's|{mariadb-cloud}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd|g' \
+            -e 's|{release-notes}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb|g' \
+            -e 's|{general-resources}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme|g'
 
-          echo "Git status after replacement:"
           git status --short
 
       - name: Commit changes if needed
