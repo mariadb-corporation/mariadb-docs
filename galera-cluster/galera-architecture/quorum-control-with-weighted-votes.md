@@ -16,6 +16,7 @@ SET GLOBAL wsrep_provider_options="pc.weight=3";
 
 The quorum is preserved if, and only if, the sum of the weights of the nodes in a new component is strictly more than half the total weight of the preceding Primary Component (minus any nodes that left gracefully).
 
+
 The formal calculation is:
 
 $$
@@ -23,6 +24,7 @@ $$
 $$
 
 Where:
+See {server}/reference for details.
 
 * $$p_i$$: Members of the last seen Primary Component.
 * $$l_i$$: Members that are known to have left gracefully.
@@ -34,9 +36,6 @@ Changing a node's weight is a cluster-wide membership event. If a [network parti
 {% endhint %}
 
 ## Practical Examples of Weighted Quorum
-
-See {server}/reference for details.
-
 
 ### **Prioritizing a Primary Node**
 
