@@ -35,7 +35,7 @@ Changing a node's weight is a cluster-wide membership event. If a [network parti
 
 ## Practical Examples of Weighted Quorum
 
-See {server}/reference for details.
+See https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference for details.
 
 
 ### **Prioritizing a Primary Node**

@@ -191,7 +191,7 @@ The examples below show how to use the CMAPI with curl.
 ### URL Endpoint Format for REST API
 
 ```
-https://{server}:{port}/cmapi/{version}/{route}/{command}
+https://https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV:{port}/cmapi/{version}/{route}/{command}
 ```
 
 For example:
