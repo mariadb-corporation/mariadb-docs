@@ -24,7 +24,7 @@ $$
 $$
 
 Where:
-See {server}/reference for details.
+See https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference for details.
 
 * $$p_i$$: Members of the last seen Primary Component.
 * $$l_i$$: Members that are known to have left gracefully.
