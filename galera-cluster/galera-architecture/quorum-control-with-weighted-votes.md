@@ -36,6 +36,7 @@ Changing a node's weight is a cluster-wide membership event. If a [network parti
 ## Practical Examples of Weighted Quorum
 
 ### **Prioritizing a Primary Node**
+STEP B TEST {server}
 
 In a three-node cluster, to make `node1` the most critical for maintaining the [Primary Component](../high-availability/understanding-quorum-monitoring-and-recovery.md#the-galera-arbitrator-garbd):
 
@@ -55,8 +56,6 @@ In a two-node cluster, to ensure `node1` is always the primary in case of a netw
 ### **Primary and Secondary Site Scenario**
 
 For a [disaster recovery setup](../high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica.md) with two nodes at a primary site and two at a secondary site:
-
-STEP B TEST {server}
 
 #### Primary Site:
 
