@@ -35,8 +35,10 @@ Changing a node's weight is a cluster-wide membership event. If a [network parti
 
 ## Practical Examples of Weighted Quorum
 
+See {server}/reference for details.
+
+
 ### **Prioritizing a Primary Node**
-STEP B TEST {server}
 
 In a three-node cluster, to make `node1` the most critical for maintaining the [Primary Component](../high-availability/understanding-quorum-monitoring-and-recovery.md#the-galera-arbitrator-garbd):
 
