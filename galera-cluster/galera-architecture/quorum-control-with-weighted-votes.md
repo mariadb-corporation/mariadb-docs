@@ -67,5 +67,7 @@ For a [disaster recovery setup](../high-availability/using-mariadb-replication-w
 * `node4`: `pc.weight = 1`
 
 If the secondary site or the [WAN link](galera-cluster-deployment-variants.md#id-3.-wide-area-network-wan-cluster-multi-data-center) fails, the primary site maintains quorum. Additionally, one node at the primary site can fail without causing an outage.
+STEP B TEST {server}
+
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
