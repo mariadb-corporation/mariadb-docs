@@ -10,7 +10,7 @@ SHOW GLOBAL STATUS LIKE 'wsrep_%'
 
 The most fundamental aspect of a healthy cluster is [Quorum](understanding-quorum-monitoring-and-recovery.md#advanced-quorum-control). Quorum is a mechanism that ensures data consistency by requiring a majority of nodes to be online and in communication to form a Primary Component. Only the Primary Component will process transactions. This prevents ["split-brain" scenarios](understanding-quorum-monitoring-and-recovery.md#understanding-and-recovering-from-a-split-brain) where a network partition could otherwise lead to data conflicts.
 
-You can check the [cluster's integrity and Quorum status]({galera}/galera-management) using these key variables. For a healthy cluster, the values for these variables must be identical on every node.
+You can check the [cluster's integrity and Quorum status](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-management) using these key variables. For a healthy cluster, the values for these variables must be identical on every node.
 
 | Parameter                  | Description                                                                                                    | Expected Value               |
 | -------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------- |
