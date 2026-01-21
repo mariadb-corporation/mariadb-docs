@@ -31,7 +31,7 @@ Connection is done by many exchanges:
 ## Initial Handshake Packet
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) protocol version.
-* [string](../protocol-data-types.md#null-terminated-strings) server version
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) server version
   * MariaDB Server 10.X versions are by default prefixed "5.5.5-".
   * [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110) and later versions do not have a "5.5.5-" default prefix.
 * [int<4>](../protocol-data-types.md#fixed-length-integers) connection id.
@@ -51,10 +51,10 @@ Connection is done by many exchanges:
 * Else:
   * [int<4>](../protocol-data-types.md#fixed-length-integers) server capabilities 3rd part. MariaDB specific flags `/*` [`MariaDB 10.2`](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) `or later */`.
 * If (`server_capabilities` & `CLIENT_SECURE_CONNECTION`):
-  * [string](../protocol-data-types.md#fixed-length-strings) authentication plugin data 2nd part. Length = max(12, plugin data length - 9).
+  * [string<N>](../protocol-data-types.md#fixed-length-strings) authentication plugin data 2nd part. Length = max(12, plugin data length - 9).
   * [string<1>](../protocol-data-types.md#fixed-length-strings) reserved byte.
 * If (server\_capabilities & PLUGIN\_AUTH):
-  * [string](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
+  * [string<nul>](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
 
 ## Client Handshake Response
 
@@ -118,26 +118,26 @@ If the calculated shared secret matches the received one, the SSL connection is 
   * [int<4>](../protocol-data-types.md#fixed-length-integers) extended client capabilities.
 * Else:
   * [string<4>](../protocol-data-types.md#fixed-length-strings) reserved.
-* [string](../protocol-data-types.md#null-terminated-strings) username.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) username.
 * If (password):
   * If (`server_capabilities` & `PLUGIN_AUTH_LENENC_CLIENT_DATA`):
-    * [string](../protocol-data-types.md#length-encoded-strings) authentication data.
+    * [string<len>](../protocol-data-types.md#length-encoded-strings) authentication data.
   * Else if (`server_capabilities` & `CLIENT_SECURE_CONNECTION`):
     * [int<1>](../protocol-data-types.md#fixed-length-integers) length of authentication response.
-    * [string](../protocol-data-types.md#fixed-length-strings) authentication response (length is indicated by previous field).
+    * [string<N>](../protocol-data-types.md#fixed-length-strings) authentication response (length is indicated by previous field).
   * Else:
-    * [string](../protocol-data-types.md#null-terminated-strings) authentication response null ended.
+    * [string<nul>](../protocol-data-types.md#null-terminated-strings) authentication response null ended.
 * Else:
   * string<1>\0 (empty password).
 * If (`server_capabilities` & `CLIENT_CONNECT_WITH_DB`):
-  * [string](../protocol-data-types.md#null-terminated-strings) default database name.
+  * [string<nul>](../protocol-data-types.md#null-terminated-strings) default database name.
 * If (`server_capabilities` & `CLIENT_PLUGIN_AUTH`):
-  * [string](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
+  * [string<nul>](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
 * If (`server_capabilities` & `CLIENT_CONNECT_ATTRS`):
-  * [int](../protocol-data-types.md#length-encoded-integers) size of connection attributes.
+  * [int<len>](../protocol-data-types.md#length-encoded-integers) size of connection attributes.
   * While packet has remaining data:
-    * [string](../protocol-data-types.md#length-encoded-strings) key.
-    * [string](../protocol-data-types.md#length-encoded-strings) value.
+    * [string<len>](../protocol-data-types.md#length-encoded-strings) key.
+    * [string<len>](../protocol-data-types.md#length-encoded-strings) value.
 
 ## Server Response to Handshake Response Packet
 
@@ -150,8 +150,8 @@ The server responds with an [OK\_packet](../4-server-response-packets/ok_packet.
 (If client and server support `CLIENT_AUTH` capability):
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) 0xFE : Authentication switch request header.
-* [string](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) authentication plugin data.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
+* [byte<eof>](../protocol-data-types.md#end-of-file-length-bytes) authentication plugin data.
 
 ## Plugin List
 
@@ -165,7 +165,7 @@ Authentication plugin data format:
 
 Client response:
 
-* [string](../protocol-data-types.md#null-terminated-strings) old format encrypted password.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) old format encrypted password.
 
 #### mysql\_clear\_password Plugin
 
@@ -177,7 +177,7 @@ Send clear password to server.
 
 Client response:
 
-* [string](../protocol-data-types.md#null-terminated-strings) password without encryption.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) password without encryption.
 
 #### mysql\_native\_password Plugin
 
@@ -185,11 +185,11 @@ SHA-1 encrypted password with server seed.
 
 Authentication plugin data format:
 
-* [string](../protocol-data-types.md#null-terminated-strings) seed.
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) seed.
 
 Client response:
 
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) `SHA1`-encrypted password.
+* [byte<eof>](../protocol-data-types.md#end-of-file-length-bytes) `SHA1`-encrypted password.
 
 The password is encrypted with: `SHA1( password ) ^ SHA1( seed + SHA1( SHA1( password ) ) )` .
 
@@ -200,7 +200,7 @@ Interactive exchanges to permit fill passwords — for example for 2-step authen
 Authentication plugin data format:
 
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) password type.
-* [string](../protocol-data-types.md#end-of-file-length-strings) prompt message.
+* [string<eof>](../protocol-data-types.md#end-of-file-length-strings) prompt message.
 
 The server can send one or many requests. For each of them, the client must display this prompt message to the user, to permit the user to type requested information, then send it to the server in [string](../protocol-data-types.md#null-terminated-strings) format. Password type indicates the answer format (`2` means "read the input with the echo enabled", `4` means "password-like input, echo disabled")
 
@@ -214,8 +214,8 @@ GSSAPI implementation.
 
 Authentication plugin data format:
 
-* [string](../protocol-data-types.md#null-terminated-strings) serverPrincipalName (UTF-8 format).
-* [string](../protocol-data-types.md#null-terminated-strings) mechanisms (UTF-8 format).
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) serverPrincipalName (UTF-8 format).
+* [string<nul>](../protocol-data-types.md#null-terminated-strings) mechanisms (UTF-8 format).
 
 Client must exchange packet with server until having a mutual [GSSAPI](https://en.wikipedia.org/wiki/Generic_Security_Services_Application_Program_Interface) authentication.\
 The only difference compared to standard client-server GSSAPI authentication is that exchanges contain standard protocol with packet headers.
@@ -230,11 +230,11 @@ The server sends a random nonce that the client signs.
 
 authentication plugin data format:
 
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) seed.
+* [byte<eof>](../protocol-data-types.md#end-of-file-length-bytes) seed.
 
 Client response:
 
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) `ed25519` encrypted password.
+* [byte<eof>](../protocol-data-types.md#end-of-file-length-bytes) `ed25519` encrypted password.
 
 ### parsec Plugin
 
@@ -248,7 +248,7 @@ Format of ext-salt is:
 
 * [string<1>](../protocol-data-types.md#fixed-length-strings) 'P' (denotes KDF algorithm = PBKDF2).
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) iteration factor. number of iterations correspond to 1024 << iteration factor (0x0 means 1024, 0x1 means 2048, etc.).
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) salt.
+* [byte<eof>](../protocol-data-types.md#end-of-file-length-bytes) salt.
 
 The client must then:
 
