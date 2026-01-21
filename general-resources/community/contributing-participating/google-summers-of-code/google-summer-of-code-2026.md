@@ -24,6 +24,16 @@ This project is to implement support for LOAD plugins and refactor the current L
 
 **Skills needed:** C++, bison**Mentors:** Sergei Golubchik
 
+#### [MDEV-7924](https://jira.mariadb.org/browse/MDEV-7924) START SLAVE UNTIL to Support Timestamps
+
+**Part-time project 175h**
+
+Users can control a point at which a replica will automatically stop applying events from the primary via [START REPLICA UNTIL](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/start-replica#start-replica-until). Currently, this only allows [GTIDs](https://mariadb.com/docs/server/ha-and-performance/standard-replication/gtid) and log-offsets (file-name, binlog offset), which usually requires users to manually examine the binary log on the master to find the exact transaction one wants to stop at. Often, users won't care about the specifics on the exact transaction to stop at, but rather the goal is to create a known/consistent state, e.g. across multiple different slaves (possibly of different masters). That is, it currently requires users to use [mariadb-binlog](https://mariadb.com/docs/server/clients-and-utilities/logging-tools/mariadb-binlog/using-mariadb-binlog) to manually analyze the binary log files in the master server's binlog directory, find the transaction identifier (GTID or log-offset) of some transaction at the timestamp they want to stop the slaves at, and input that into their `STOP SLAVE UNTIL` command. With multiple masters, this process would need to be repeated for each master.
+
+This project is to implement support for timestamps in `START SLAVE UNTIL`, to simplify the aforementioned process. To define inclusive/exclusive behaviors, it would be good to be consistent with the existing GTID-based keywords `SQL_BEFORE_GTIDS` and `SQL_AFTER_GTIDS`, i.e. to define `SQL_BEFORE_TIMESTAMP` and `SQL_AFTER_TIMESTAMP`, respectively.
+
+**Skills needed:** C++, Lex/Yacc **Mentors:** Brandon Nesterenko
+
 ## Suggest a Task
 
 Do you have an idea of your own, not listed above? Do let us know in the comments below (Click 'Login' on the top of the page first)!
