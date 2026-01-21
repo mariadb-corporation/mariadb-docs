@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the standard binary format for geometry. This overview explains how
+  WKB represents spatial data types for storage and exchange.
+---
+
 # Well-Known Binary (WKB) Format
 
 WKB stands for Well-Known Binary, a format for representing geographical and geometrical data.

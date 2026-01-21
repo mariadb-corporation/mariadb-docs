@@ -1,3 +1,10 @@
+---
+description: >-
+  The ALTER PROCEDURE statement modifies the characteristics of an existing
+  stored procedure, such as its security context or comment, without changing
+  its logic.
+---
+
 # ALTER PROCEDURE
 
 ## Syntax

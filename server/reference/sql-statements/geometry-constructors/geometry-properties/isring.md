@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_ISRING. Checks if a LineString is a ring, meaning it is both
+  closed and simple.
+---
+
 # IsRing
 
 A synonym for [ST\_IsRing](st_isring.md).

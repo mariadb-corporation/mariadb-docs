@@ -1,3 +1,9 @@
+---
+description: >-
+  Copy data between tables. This statement inserts the result set of a SELECT
+  query directly into a target table, enabling efficient bulk data transfer.
+---
+
 # INSERT SELECT
 
 ## Syntax

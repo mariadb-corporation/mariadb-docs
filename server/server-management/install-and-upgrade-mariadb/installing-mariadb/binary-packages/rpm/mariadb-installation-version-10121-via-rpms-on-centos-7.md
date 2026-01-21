@@ -1,6 +1,11 @@
-# MariaDB Installation (Version 10.1.21) via RPMs on CentOS 7
+---
+description: >-
+  A detailed walkthrough for installing a specific legacy version of MariaDB
+  (10.1.21) on CentOS 7 using individual RPM packages, including dependency
+  resolution.
+---
 
-
+# MariaDB Installation via RPMs on CentOS 7
 
 This guide provides the detailed steps for installing MariaDB 10.1.21 via individual RPM packages on CentOS 7. The process involves installing dependencies, then the main packages, and resolving potential conflicts as they appear.
 

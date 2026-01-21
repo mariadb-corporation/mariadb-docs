@@ -1,3 +1,9 @@
+---
+description: >-
+  The users table tracks connection statistics aggregated by user name,
+  including current active connections and total historical connections.
+---
+
 # Performance Schema users Table
 
 ## Description

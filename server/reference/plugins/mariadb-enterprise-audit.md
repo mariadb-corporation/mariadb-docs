@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Enterprise Audit plugin logs detailed data access and
+  configuration changes, offering advanced filtering to meet security and
+  compliance requirements.
+---
+
 # MariaDB Enterprise Audit
 
 ## Overview
@@ -384,11 +391,11 @@ In some special cases you might want audits only to be enabled for the users in 
 
 ```sql
 INSERT INTO mysql.server_audit_filters (filtername, rule)
-   VALUES (‘default’,
+   VALUES ('default',
       JSON_COMPACT(
-         ‘{
+         '{
     “logging”: “OFF”
-            }’
+            }'
       ));
 ```
 

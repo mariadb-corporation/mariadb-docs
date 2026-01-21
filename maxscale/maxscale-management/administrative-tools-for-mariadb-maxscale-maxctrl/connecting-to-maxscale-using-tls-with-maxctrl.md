@@ -1,17 +1,19 @@
+---
+description: >-
+  Learn how to secure your MaxCtrl connections using TLS. This guide details the
+  necessary MaxScale configuration parameters and command-line flags to enable
+  encrypted administrative sessions.
+---
+
 # Connecting to MaxScale using TLS with MaxCtrl
 
 ## Overview
 
-_MaxCtrl is a command-line utility that can perform administrative tasks using
-[MaxScale's REST API](../../reference/maxscale-rest-api/).
-It is possible to connect to MaxScale using TLS with MaxCtrl.
+\_MaxCtrl is a command-line utility that can perform administrative tasks using [MaxScale's REST API](../../reference/maxscale-rest-api/). It is possible to connect to MaxScale using TLS with MaxCtrl.
 
 ## Connecting to MaxScale using TLS
 
-1. [Create a basic](creating-a-rest-api-user-for-maxscale-with-maxctrl.md#creating-a-basic-user)
-   or
-   [admin user](creating-a-rest-api-user-for-maxscale-with-maxctrl.md#creating-an-admin-user),
-   depending on what kind of user you need:
+1. [Create a basic](creating-a-rest-api-user-for-maxscale-with-maxctrl.md#creating-a-basic-user) or [admin user](creating-a-rest-api-user-for-maxscale-with-maxctrl.md#creating-an-admin-user), depending on what kind of user you need:
 
 ```bash
 $ maxctrl create user "maxscale_rest_admin" "maxscale_rest_admin_password" --type=admin
@@ -19,14 +21,12 @@ $ maxctrl create user "maxscale_rest_admin" "maxscale_rest_admin_password" --typ
 
 Replace `maxscale\_rest\_admin` and `maxscale\_rest\_admin\_password` with the desired user and password.
 
-2. If you want to use MaxCtrl remotely,
-   [configure the REST API for remote connections](../configuring-maxscales-rest-api.md#configuring-maxscales-rest-api-for-remote-connections).
-   Several global parameters must be configured in maxscale.cnf.
+2. If you want to use MaxCtrl remotely, [configure the REST API for remote connections](../configuring-maxscales-rest-api.md#configuring-maxscales-rest-api-for-remote-connections). Several global parameters must be configured in maxscale.cnf.
 
-| Parameter                                                                                                                                                                            | Description                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| [admin\_host](../deployment/maxscale-configuration-guide.md#admin_host) | This parameter defines the network address that the REST API listens on. The default value is 127.0.0.1. |
-| [admin\_port](../deployment/maxscale-configuration-guide.md#admin_port) | This parameter defines the network port that the REST API listens on. The default value is 8989.         |
+| Parameter                                                                                              | Description                                                                                              |
+| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| [admin\_host](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_host) | This parameter defines the network address that the REST API listens on. The default value is 127.0.0.1. |
+| [admin\_port](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_port) | This parameter defines the network port that the REST API listens on. The default value is 8989.         |
 
 For example:
 
@@ -37,14 +37,13 @@ admin_host            = 0.0.0.0
 admin_port            = 8443
 ```
 
-3. [Enable TLS for MaxScale's REST API](../deployment/maxscale-configuration-guide.md#tlsssl-encryption)
-   Several global parameters must be configured in maxscale.cnf.
+3. [Enable TLS for MaxScale's REST API](../deployment/installation-and-configuration/maxscale-configuration-guide.md#tlsssl-encryption) Several global parameters must be configured in maxscale.cnf.
 
-| Parameter                                                                                                                                                                                            | Description                                                                         |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| [admin\_ssl\_key](../deployment/maxscale-configuration-guide.md#admin_ssl_key)          | \* This parameter defines the private key used by the REST API.                     |
-| [admin\_ssl\_cert](../deployment/maxscale-configuration-guide.md#admin_ssl_cert)        | \* This parameter defines the certificate used by the REST API.                     |
-| [admin\_ssl\_ca\_cert](../deployment/maxscale-configuration-guide.md#admin_ssl_ca_cert) | \*This parameter defines the CA certificate that signed the REST API's certificate. |
+| Parameter                                                                                                              | Description                                                                         |
+| ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [admin\_ssl\_key](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_key)          | \* This parameter defines the private key used by the REST API.                     |
+| [admin\_ssl\_cert](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_cert)        | \* This parameter defines the certificate used by the REST API.                     |
+| [admin\_ssl\_ca\_cert](../deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_ca_cert) | \*This parameter defines the CA certificate that signed the REST API's certificate. |
 
 For example:
 

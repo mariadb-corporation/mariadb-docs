@@ -1,3 +1,10 @@
+---
+description: >-
+  MyRocks is a storage engine based on RocksDB, optimized for high-write
+  workloads and flash storage, offering superior compression and reduced write
+  amplification.
+---
+
 # About MyRocks for MariaDB
 
 ## About MyRocks for MariaDB

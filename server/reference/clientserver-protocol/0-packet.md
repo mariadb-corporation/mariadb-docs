@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the standard packet structure in the MariaDB protocol, including
+  the packet header, length, sequence number, and payload handling.
+---
+
 # 0 - Packet
 
 Client/server exchanges are done using the following format:
@@ -36,8 +42,7 @@ The packet length is 3 bytes, making a maximum size of (2^24 -1) bytes or 16Mbyt
 
 The principle is to split data by chunks of 16M bytes. When the server receives a packet with `0xffffff` length, it will continue to read the next packet. In case of a length of exactly 16M bytes, an empty packet must terminate the sequence.
 
-Example: `max_allowed_packet` is set to a value > to 40M bytes. Sending a 40M bytes packet body: \
-
+Example: `max_allowed_packet` is set to a value > to 40M bytes. Sending a 40M bytes packet body: \\
 
 <figure><img src="../../.gitbook/assets/standard_packet.png" alt=""><figcaption></figcaption></figure>
 

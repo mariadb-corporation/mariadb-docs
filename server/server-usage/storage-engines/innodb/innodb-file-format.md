@@ -1,12 +1,12 @@
+---
+description: >-
+  Learn about the different file formats supported by InnoDB, such as Antelope
+  and Barracuda, and how they impact table features and storage.
+---
+
 # InnoDB File Format
 
-Prior to [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103), the [InnoDB](./) storage engine supports two different file formats.
-
 ## Setting a Table's File Format
-
-In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) and before, the default file format for InnoDB tables can be chosen by setting the [innodb\_file\_format](innodb-system-variables.md#innodb_file_format).
-
-In [MariaDB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1021-release-notes) and before, the default file format is`Antelope`. In [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes) and later, the default file format is `Barracuda` and `Antelope` is deprecated.
 
 A table's tablespace is tagged with the lowest InnoDB file format that supports the table's [row format](innodb-row-formats/innodb-row-formats-overview.md). So, even if the `Barracuda` file format is enabled, tables that use the `COMPACT` or `REDUNDANT` row formats are tagged with the `Antelope` file format in the [information\_schema.INNODB\_SYS\_TABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_sys_tables-table.md) table.
 

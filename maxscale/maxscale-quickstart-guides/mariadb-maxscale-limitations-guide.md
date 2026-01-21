@@ -1,5 +1,8 @@
 ---
-description: MariaDB MaxScale limitations quickstart guide
+description: >-
+  Review known limitations and constraints of MariaDB MaxScale. Understand
+  supported features, configuration boundaries, and protocol specifics to plan
+  your deployment effectively.
 ---
 
 # MariaDB MaxScale Limitations Guide

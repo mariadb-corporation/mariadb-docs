@@ -214,7 +214,7 @@ Disabling PSC on an existing service will cause all existing connections to be d
 4. In the context menu, select "Manage your Private Service Connect".
 5. In the popup window, click "I want to disconnect my Private Service Connect".
 6. In the popup window, select "Disconnect".
-7. Since the service's allowlist was cleared when Goolge PSC was previously enabled, you will need to [update the allowlist](<../../Security/Configuring Firewall.md>) to allow clients to connect after disabling PSC.
+7. Since the service's allowlist was cleared when Goolge PSC was previously enabled, you will need to [update the allowlist](../../security/configuring-firewall.md) to allow clients to connect after disabling PSC.
 
 </details>
 

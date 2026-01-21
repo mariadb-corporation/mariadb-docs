@@ -1,3 +1,9 @@
+---
+description: >-
+  This is an internal command used to represent a sleeping connection that is
+  waiting for a new command from the client.
+---
+
 # COM\_SLEEP
 
 This command is used inside the server only.

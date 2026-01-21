@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DOUBLE. This keyword declares a double-precision floating-point
+  column.
+---
+
 # FLOAT8
 
 ## Overview

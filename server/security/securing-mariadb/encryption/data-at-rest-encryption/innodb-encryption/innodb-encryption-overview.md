@@ -1,8 +1,27 @@
+---
+description: >-
+  Introduction to InnoDB's encryption architecture, explaining how data is
+  encrypted/decrypted during disk I/O, the role of the buffer pool (where data
+  is unencrypted), and how to verify encryption stat
+---
+
 # InnoDB Encryption Overview
 
 MariaDB supports data-at-rest encryption for tables using the [InnoDB](../../../../../server-usage/storage-engines/innodb/) storage engines. When enabled, the server encrypts data when it writes it to and decrypts data when it reads it from the file system. You can [configure InnoDB encryption](innodb-enabling-encryption.md) to automatically have all new InnoDB tables automatically encrypted, or specify encrypt per table.
 
 For encrypting data with the Aria storage engine, see [Encrypting Data for Aria](../aria-encryption/aria-encryption-overview.md).
+
+## InnoDB Encryption and Decryption Behavior
+
+When data-at-rest encryption is enabled for InnoDB, encryption and decryption occur at specific points during disk I/O operations.
+
+### When is InnoDB data encrypted?
+
+When InnoDB pages are written to disk, they are automatically encrypted.&#x20;
+
+### When is InnoDB data decrypted?
+
+InnoDB pages are decrypted before they are read from disk and stored in the InnoDB buffer pool. A page remains decrypted in memory while it is in the buffer pool. As a result, decrypted memory pages may include data from rows, columns, or even tables that the current query does not directly access.
 
 ## Basic Configuration
 

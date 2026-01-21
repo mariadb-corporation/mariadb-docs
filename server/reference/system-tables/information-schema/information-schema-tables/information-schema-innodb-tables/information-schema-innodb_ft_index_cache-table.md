@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_FT_INDEX_CACHE table displays token information from newly inserted
+  rows in a FULLTEXT index before the data is flushed to disk.
+---
+
 # Information Schema INNODB\_FT\_INDEX\_CACHE Table
 
 The [Information Schema](../../) `INNODB_FT_INDEX_CACHE` table contains information about rows that have recently been inserted into an InnoDB [fulltext index](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/). To avoid re-organizing the fulltext index each time a change is made, which would be very expensive, new changes are stored separately and only integrated when an [OPTIMIZE TABLE](../../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) is run.

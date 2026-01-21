@@ -1,3 +1,9 @@
+---
+description: >-
+  Execute a block until a condition is met. This loop construct runs at least
+  once and continues repeating as long as the UNTIL condition remains false.
+---
+
 # REPEAT LOOP
 
 ## Syntax

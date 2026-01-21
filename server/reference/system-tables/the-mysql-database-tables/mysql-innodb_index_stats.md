@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.innodb_index_stats table stores persistent index statistics for
+  InnoDB, allowing optimizer plans to remain stable across restarts.
+---
+
 # mysql.innodb\_index\_stats
 
 The `mysql.innodb_index_stats` table stores data related to particular [InnoDB Persistent Statistics](../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md), and contains multiple rows for each index.

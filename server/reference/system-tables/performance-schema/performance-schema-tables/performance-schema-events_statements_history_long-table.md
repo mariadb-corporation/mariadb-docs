@@ -1,3 +1,9 @@
+---
+description: >-
+  The events_statements_history_long table stores the most recent 10,000
+  completed statement events globally, providing extensive query history.
+---
+
 # Performance Schema events\_statements\_history\_long Table
 
 The `events_statements_history_long` table by default contains the ten thousand most recent completed statement events. This number can be adjusted by setting the [performance\_schema\_events\_statements\_history\_long\_size](../performance-schema-system-variables.md#performance_schema_events_statements_history_long_size) system variable when the server starts up.

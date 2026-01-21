@@ -1,3 +1,9 @@
+---
+description: >-
+  Describes how to manage MariaDB using SysVinit scripts (mysql.server), common
+  on older Linux distributions, using commands like `service` and `chkconfig`.
+---
+
 # sysVinit
 
 [sysVinit](https://en.wikipedia.org/wiki/Init#SysV-style) is one of the most common service managers. On systems that use [sysVinit](https://en.wikipedia.org/wiki/Init#SysV-style), the [mysql.server](mysql-server.md) script is normally installed to `/etc/init.d/mysql`.

@@ -1,3 +1,9 @@
+---
+description: >-
+  A brief history of the naming of the Aria storage engine, explaining its
+  origins as "Maria" and the reasons for the eventual name change.
+---
+
 # The Aria Name
 
 The [Aria](./) storage engine used to be called Maria. This page gives the history\
@@ -25,11 +31,9 @@ heard it liked that idea. So the decision was made that the next best thing was\
 for the community to suggest and vote on names.
 
 This was done by running a contest in 2009 through the end of May 2010.\
-After that the best names were voted on by the community and Monty picked and [announced the winner](https://blogs.gnome.org/mneptok/2010/07/20/rename-maria-contest-winner/)\
-(Aria) at OSCon 2010 in Portland.
+After that the best names were voted on by the community and Monty picked and [announced the winner](https://blogs.gnome.org/mneptok/2010/07/20/rename-maria-contest-winner/) (Aria) at OSCon 2010 in Portland.
 
-The winning entry was submitted by Chris Tooley. He received a Linux-powered [System 76](https://www.system76.com) Meerkat NetTop\
-as his prize for suggesting the winning name from Monty Program.
+The winning entry was submitted by Chris Tooley. He received a Linux-powered [System 76](https://www.system76.com) Meerkat NetTop as his prize for suggesting the winning name from Monty Program.
 
 ## See Also
 

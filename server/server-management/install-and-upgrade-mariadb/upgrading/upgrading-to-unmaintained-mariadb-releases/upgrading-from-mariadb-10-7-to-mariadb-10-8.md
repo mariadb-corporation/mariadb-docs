@@ -1,3 +1,7 @@
+---
+description: An upgrading guide for unmaintained versions of MariaDB Community Server.
+---
+
 # Upgrading from MariaDB 10.7 to MariaDB 10.8
 
 ### How to Upgrade

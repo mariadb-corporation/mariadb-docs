@@ -1,3 +1,9 @@
+---
+description: >-
+  This command executes a bulk insert for a previously prepared statement, using
+  a compact binary format for efficiency.
+---
+
 # COM\_STMT\_BULK\_EXECUTE
 
 Executes a bulk insert of a previously prepared statement.

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema PARTITIONS table provides detailed metadata about table
+  partitions, including partition methods and data distribution.
+---
+
 # Information Schema PARTITIONS Table
 
 The [Information Schema](../) `PARTITIONS` contains information about [table partitions](../../../../server-usage/partitioning-tables/partitioning-overview.md), with each record corresponding to a single partition or subpartition of a partitioned table. Each non-partitioned table also has a record in the `PARTITIONS` table, but most of the values are `NULL`.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Step-by-step guide for compiling MariaDB on Debian, including installing build
+  dependencies via `apt-get` and using `autobake-deb.sh`.
+---
+
 # Building MariaDB on Debian
 
 In the event that you are using the Linux-based operating system Debian or any of its direct derivatives and would like to compile MariaDB from source code, you can do so using the MariaDB source repository for the release that interests you. For Ubuntu and its derivatives, see [Building on Ubuntu](building-mariadb-on-ubuntu.md).

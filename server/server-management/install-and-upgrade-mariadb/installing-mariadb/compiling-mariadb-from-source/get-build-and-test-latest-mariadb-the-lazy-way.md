@@ -1,3 +1,9 @@
+---
+description: >-
+  A simplified guide to quickly fetching, building, and testing the latest
+  MariaDB source from GitHub.
+---
+
 # Get, Build and Test Latest MariaDB the Lazy Way
 
 The intention of this documentation is show all the steps of getting, building and testing the latest MariaDB server (10.5 at time of writing) from GitHub. Each stage links to the full documentation for that step if you need to find out more.
@@ -17,7 +23,7 @@ apt install -y build-essential bison libgnutls28-dev
 apt build-dep mariadb-server
 ```
 
-## [Set Up git](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/using-git-with-mariadb/using-git)
+## [Set Up git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM)
 
 Fetch and checkout the MariaDB source to a subdirectory of the current directory
 

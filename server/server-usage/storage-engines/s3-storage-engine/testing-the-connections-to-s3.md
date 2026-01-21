@@ -1,8 +1,14 @@
-# Testing Connections
+---
+description: >-
+  Instructions on how to verify your S3 configuration using tools like
+  `aria_s3_copy` and the `mysql-test-run` suite to ensure proper connectivity.
+---
 
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)
+# Testing Connections to S3
 
-The [S3 storage engine](./) has been available since [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
+{% hint style="info" %}
+The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
+{% endhint %}
 
 If you can't get the S3 storage engine to work, here are some steps to help verify where the problem could be.
 
@@ -20,7 +26,7 @@ Key [S3 variables](s3-storage-engine-status-variables.md) are:
 * [s3\_provider](s3-storage-engine-system-variables.md#s3_provider): Enable S3 provider specific compatibility tweaks. "Default", "Amazon", or "Huawei".
 * [s3\_protocol\_version](s3-storage-engine-system-variables.md#s3_protocol_version): Protocol used to communicate with S3. One of "Amazon" or "Original"
 
-There are several ways to ensure you get them right:
+There are several ways to ensure you get them right, detailed in the following sections.
 
 ### Using aria\_s3\_copy to Test the Connection
 
@@ -35,8 +41,7 @@ INSERT INTO s3_test VALUES (1),(2);
 FLUSH TABLES s3_test;
 ```
 
-Now you can use the [aria\_s3\_copy](aria_s3_copy.md) tool to copy this to S3 from your\
-shell/the command line:
+Now you can use the [aria\_s3\_copy](aria_s3_copy.md) tool to copy this to S3 from your shell/the command line:
 
 ```bash
 shell> cd mariadb-data-directory/test
@@ -51,8 +56,7 @@ Copying data information test/s3_test/data
 
 As you can see from the above, [aria\_s3\_copy](aria_s3_copy.md) is using the current directory as the database name.
 
-You can also set the [aria\_s3\_copy](aria_s3_copy.md) options in your my.cnf file to avoid\
-some typing.
+You can also set the [aria\_s3\_copy](aria_s3_copy.md) options in your my.cnf file to avoid some typing.
 
 ### Using mariadb-test-run to Test the Connection and the S3 Storage Engine
 
@@ -61,8 +65,7 @@ One can use the [MariaDB test system](../../../clients-and-utilities/testing-too
 To do that you have to locate the `mysql-test` directory in your system and`cd` to it.
 
 The config file for the S3 test system can be found at `suite/s3/my.cnf`.\
-To enable testing you have to edit this file and add the s3 connection options\
-to the end of the file. It should look something like this after editing:
+To enable testing you have to edit this file and add the s3 connection options to the end of the file. It should look something like this after editing:
 
 ```ini
 !include include/default_mysqld.cnf
@@ -80,8 +83,7 @@ s3-region=
 
 You must give values for `s3-access-key`, `s3-secret-key` and `s3-region` that reflects your S3 provider. The `s3-bucket` name is defined by your administrator.
 
-If you are not using Amazon Web Services as your S3 provider you must\
-also specify `s3-hostname` and possibly change`s3-protocol-version` to "Original".
+If you are not using Amazon Web Services as your S3 provider you must also specify `s3-hostname` and possibly change`s3-protocol-version` to "Original".
 
 Now you can test the configuration:
 
@@ -119,8 +121,7 @@ If you have problems deciper the trace, you can always create a ticket on [Maria
 
 ## What to do when you have got things to work
 
-When you got the connection to work, you should add the options to your global my.cnf file.\
-Now you can start testing S3 from your [mariadb command client](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) by converting some existing table to S3 with [ALTER TABLE ... ENGINE=S3](using-the-s3-storage-engine.md).
+When you got the connection to work, you should add the options to your global my.cnf file. Now you can start testing S3 from your [mariadb command client](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) by converting some existing table to S3 with [ALTER TABLE ... ENGINE=S3](using-the-s3-storage-engine.md).
 
 ## See Also
 

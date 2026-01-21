@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduction to the purpose and structure of the binary log, explaining how it
+  records data changes (DML) and structure changes (DDL) for replication and
+  recovery.
+---
+
 # Overview of the Binary Log
 
 The binary log contains a record of all changes to the databases, both data and structure, as well as how long each statement took to execute. It consists of a set of binary log files and an index.

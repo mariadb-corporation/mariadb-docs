@@ -1,3 +1,7 @@
+---
+description: Calculate sine. This function returns the sine of an angle given in radians.
+---
+
 # SIN
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  This page explains the privileges required to create, alter, execute, and drop
+  stored routines, including the automatic grants for creators.
+---
+
 # Stored Routine Privileges
 
 It's important to give careful thought to the privileges associated with [stored functions](./) and [stored procedures](../stored-procedures/). The following is an explanation of how they work.

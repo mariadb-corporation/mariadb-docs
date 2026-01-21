@@ -1,3 +1,9 @@
+---
+description: >-
+  The setup_timers table defines the timer type (e.g., NANOSECOND, MICROSECOND)
+  used for each instrument class within the Performance Schema.
+---
+
 # Performance Schema setup\_timers Table
 
 ## Description

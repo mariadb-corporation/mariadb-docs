@@ -1,9 +1,9 @@
 ---
 description: >-
-  Automate MariaDB Server deployment and administration. This section covers
-  tools and practices for streamlined installation, configuration, and ongoing
-  management using binary packages.
+  An overview of automation tools and strategies for deploying MariaDB,
+  comparing systems like Ansible, Puppet, and Kubernetes, and discussing
+  "Infrastructure as Code" principles.
 ---
 
-# Automated MariaDB Deployment and Administration
+# Automated Deployment & Administration
 

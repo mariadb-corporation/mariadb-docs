@@ -1,3 +1,9 @@
+---
+description: >-
+  Variable-length binary large object. BLOB columns can store binary data up to
+  65,535 bytes, suitable for images or other non-text files.
+---
+
 # BLOB
 
 ## Syntax
@@ -8,7 +14,7 @@ BLOB[(M)]
 
 ## Description
 
-A `BLOB` column with a maximum length of `65,535` (`216 - 1`) bytes. Each`BLOB` value is stored using a two-byte length prefix that indicates the number of bytes in the value.
+A `BLOB` column with a maximum length of 65,535 (2¹⁶ - 1) bytes. Each `BLOB` value is stored using a two-byte length prefix that indicates the number of bytes in the value.
 
 An optional length `M` can be given for this type. If this is done, MariaDB creates the column as the smallest `BLOB` type large enough to hold values _`M`_ bytes long.
 

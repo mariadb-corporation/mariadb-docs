@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a date to a day number. This function returns the number of days
+  between year 0 and the given date.
+---
+
 # TO\_DAYS
 
 ## Syntax

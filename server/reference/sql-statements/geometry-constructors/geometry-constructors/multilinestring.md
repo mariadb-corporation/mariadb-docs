@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a MultiLineString value from a list of WKB LineString arguments.
+  This function creates a collection of multiple line strings.
+---
+
 # MULTILINESTRING
 
 ## Syntax

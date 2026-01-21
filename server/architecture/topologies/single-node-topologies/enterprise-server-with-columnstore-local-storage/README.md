@@ -1,5 +1,7 @@
 ---
-description: Deploy Single-Node MariaDB Enterprise ColumnStore with Local Storage
+description: >-
+  Deployment instructions for a single-node MariaDB Enterprise Server instance
+  with the ColumnStore engine using local storage.
 ---
 
 # Enterprise Server with ColumnStore (Local Storage)

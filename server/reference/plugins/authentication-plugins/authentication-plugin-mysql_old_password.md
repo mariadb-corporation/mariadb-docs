@@ -1,3 +1,10 @@
+---
+description: >-
+  This plugin provides backward compatibility for pre-4.1 clients using an
+  older, insecure password hashing algorithm and should not be used for new
+  installations.
+---
+
 # Authentication Plugin - mysql\_old\_password
 
 The `mysql_old_password` authentication plugin is the default authentication plugin that is used for an account created when no authentication plugin is explicitly mentioned and [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set. It uses the pre-MySQL 4.1 password hashing algorithm, which is also used by the [OLD\_PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/old_password.md) function and by the [PASSWORD()](../../sql-functions/secondary-functions/encryption-hashing-and-compression-functions/password.md) function when `old_passwords=1` is set.

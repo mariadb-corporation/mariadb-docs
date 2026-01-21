@@ -1,3 +1,9 @@
+---
+description: >-
+  This command executes a prepared statement using parameter values provided in
+  the binary protocol format.
+---
+
 # COM\_STMT\_EXECUTE
 
 Executes a previously prepared statement.

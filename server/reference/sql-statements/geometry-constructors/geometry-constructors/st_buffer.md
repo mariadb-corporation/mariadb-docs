@@ -1,3 +1,10 @@
+---
+description: >-
+  Returns a geometry representing all points within a given distance of the
+  geometry. This standard-compliant function creates a buffer zone around the
+  object.
+---
+
 # ST\_BUFFER
 
 ## Syntax

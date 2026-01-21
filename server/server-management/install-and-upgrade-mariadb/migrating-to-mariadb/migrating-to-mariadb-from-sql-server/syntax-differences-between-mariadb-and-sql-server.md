@@ -1,3 +1,10 @@
+---
+description: >-
+  Details syntax variations between the two systems, such as string quoting,
+  NULL handling, and DDL statement differences, with advice on using
+  `sql_mode='MSSQL'`.
+---
+
 # Syntax Differences between MariaDB and SQL Server
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

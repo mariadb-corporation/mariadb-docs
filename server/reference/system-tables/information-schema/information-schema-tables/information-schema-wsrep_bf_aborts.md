@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_BF_ABORTS table provides statistics on Galera
+  Cluster brute force aborts, detailing the victim and transaction IDs.
+---
+
 # Information Schema WSREP\_BF\_ABORTS
 
 {% hint style="info" %}
@@ -12,26 +18,26 @@ This table contains execution state information for Galera threads. [The respect
 
 The table displays the history of BF[^1] aborts. It has these columns:
 
-* TIME - Datetime when bf abort happened&#x20;
-* VICTIM\_TRX\_ID - Victim trx ID or NULL&#x20;
-* VICTIM\_THREAD\_ID - Victim thread&#x20;
-* THD ID VICTIM\_QUERY\_ID - Victim query id&#x20;
-* VICTIM\_SEQNO - Victim TO seqno associated with victim transaction&#x20;
-* VICTIM\_CLIENT\_STATE - Victim thread wsrep client state at the moment when BF abort attempt happened&#x20;
-* VICTIM\_CLIENT\_MODE - Victim thread wsrep client mode&#x20;
-* VICTIM\_TRX\_STATE - Victim thread wsrep transaction state at the moment when BF abort attempt happened&#x20;
-* VICTIM\_LOCK - Victim lock information&#x20;
-* BF\_TRX\_ID - BF thread transaction ID&#x20;
-* BF\_THREAD\_ID - BF thread THD ID&#x20;
-* BF\_QUERY\_ID - BF query id&#x20;
-* BF\_SEQNO - TO sequence number associated with BF transaction&#x20;
-* BF\_CLIENT\_STATE - BF thread wsrep client state&#x20;
-* BF\_CLIENT\_MODE - BF thread wsrep client mode&#x20;
+* TIME - Datetime when bf abort happened
+* VICTIM\_TRX\_ID - Victim trx ID or NULL
+* VICTIM\_THREAD\_ID - Victim thread
+* THD ID VICTIM\_QUERY\_ID - Victim query id
+* VICTIM\_SEQNO - Victim TO seqno associated with victim transaction
+* VICTIM\_CLIENT\_STATE - Victim thread wsrep client state at the moment when BF abort attempt happened
+* VICTIM\_CLIENT\_MODE - Victim thread wsrep client mode
+* VICTIM\_TRX\_STATE - Victim thread wsrep transaction state at the moment when BF abort attempt happened
+* VICTIM\_LOCK - Victim lock information
+* BF\_TRX\_ID - BF thread transaction ID
+* BF\_THREAD\_ID - BF thread THD ID
+* BF\_QUERY\_ID - BF query id
+* BF\_SEQNO - TO sequence number associated with BF transaction
+* BF\_CLIENT\_STATE - BF thread wsrep client state
+* BF\_CLIENT\_MODE - BF thread wsrep client mode
 * BF\_TRX\_STATE - BF thread wsrep transaction state
-* BF\_LOCK - Information about the lock which BF thread tried to acquire&#x20;
-* SPACE\_ID - Lock space\_id in case of record or table lock&#x20;
-* PAGE\_NO - Lock page\_no in case of record lock&#x20;
-* INDEX\_NAME - Record lock index name&#x20;
+* BF\_LOCK - Information about the lock which BF thread tried to acquire
+* SPACE\_ID - Lock space\_id in case of record or table lock
+* PAGE\_NO - Lock page\_no in case of record lock
+* INDEX\_NAME - Record lock index name
 * TABLE\_NAME - Lock table name
 
 Example output:
@@ -55,8 +61,6 @@ SELECT * FROM INFORMATION_SCHEMA.WSREP_BF_ABORT_HISTORY LIMIT 100;
 | 2025-05-14 09:48:31.789163 |        379119 |               90 |         2366384 |         NULL | exec                | local              | executing       +----------------------------+---------------+------------------+-----------------+--------------+---------------------+--------------------+------------------+----------------------------+-----------+--------------+-------------+----------+-----------------+----------------+--------------+----------------------------+----------+---------+------------+------------------+
 ...
 ```
-
-
 
 [^1]: Brute Force (BF) conflict resolution mechanism:
 

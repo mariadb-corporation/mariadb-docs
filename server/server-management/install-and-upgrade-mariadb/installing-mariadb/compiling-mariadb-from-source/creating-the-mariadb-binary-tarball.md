@@ -1,3 +1,9 @@
+---
+description: >-
+  How to generate a binary tarball from compiled source using `make package`,
+  enabling portable distribution.
+---
+
 # Creating the MariaDB Binary Tarball
 
 How to generate binary `tar.gz` files.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove an existing index from a table. This command deletes the index
+  structure, potentially impacting query performance but freeing storage.
+---
+
 # DROP INDEX
 
 ## Syntax

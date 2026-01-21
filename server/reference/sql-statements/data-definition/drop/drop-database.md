@@ -1,3 +1,9 @@
+---
+description: >-
+  Delete a database and all its contents. This command permanently removes the
+  database directory and all tables, routines, and data within it.
+---
+
 # DROP DATABASE
 
 ## Syntax

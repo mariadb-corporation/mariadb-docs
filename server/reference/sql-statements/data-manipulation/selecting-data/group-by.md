@@ -1,3 +1,9 @@
+---
+description: >-
+  Group result sets by one or more columns. Learn to aggregate data using
+  functions like SUM, COUNT, and AVG in conjunction with grouping.
+---
+
 # GROUP BY
 
 Use the `GROUP BY` clause in a [SELECT](select.md) statement to group rows together that have the same value in one or more column, or the same computed value using expressions with any [functions and operators](../../../sql-functions/) except [grouping functions](../../../sql-functions/aggregate-functions/). When you use a `GROUP BY` clause, you will get a single result row for each group of rows that have the same value for the expression given in `GROUP BY`.
@@ -10,14 +16,10 @@ You can use multiple expressions in the `GROUP BY` clause, separated by commas.\
 Rows are grouped together if they match on each of the expressions.
 
 You can also use a single integer as the grouping expression. If you use an integer _n_,\
-the results will be grouped by the _&#x6E;_&#x74;h column in the select expression.
+the results will be grouped by the \_n\_th column in the select expression.
 
 The `WHERE` clause is applied before the `GROUP BY` clause. It filters non-aggregated\
-rows before the rows are grouped together. To filter grouped rows based on aggregate values,\
-use the `HAVING` clause. The `HAVING` clause takes any expression and evaluates it as\
-a boolean, just like the `WHERE` clause. You can use grouping functions in the `HAVING`\
-clause. As with the select expression, if you reference non-grouped columns in the `HAVING`\
-clause, the behavior is undefined.
+rows before the rows are grouped together. To filter grouped rows based on aggregate values, use the `HAVING` clause. The `HAVING` clause takes any expression and evaluates it as a boolean, just like the `WHERE` clause. You can use grouping functions in the `HAVING` clause. As with the select expression, if you reference non-grouped columns in the `HAVING` clause, the behavior is undefined.
 
 By default, if a `GROUP BY` clause is present, the rows in the output will be sorted by the expressions used in the `GROUP BY`. You can also specify `ASC` or `DESC` (ascending, descending) after those expressions, like in [ORDER BY](order-by.md). The default is `ASC`.
 
@@ -54,8 +56,7 @@ SELECT wins, COUNT(*) FROM plays GROUP BY wins;
 3 rows in set (0.00 sec)
 ```
 
-The `GROUP BY` expression can be a computed value, and can refer back to an identifier\
-specified with `AS`. Get a list of win averages along with a count:
+The `GROUP BY` expression can be a computed value, and can refer back to an identifier specified with `AS`. Get a list of win averages along with a count:
 
 ```sql
 SELECT (wins / plays) AS winavg, COUNT(*) FROM plays GROUP BY winavg;
@@ -101,7 +102,7 @@ SELECT (wins / plays) AS winavg, AVG(plays) FROM plays
 ### See Also
 
 * [SELECT](select.md)
-* [Joins and Subqueries](joins-subqueries/)
+* [Joins and Subqueries](set-operations/)
 * [LIMIT](limit.md)
 * [ORDER BY](order-by.md)
 * [Common Table Expressions](common-table-expressions/)
@@ -110,7 +111,7 @@ SELECT (wins / plays) AS winavg, AVG(plays) FROM plays
 * [SELECT INTO DUMPFILE](select-into-dumpfile.md)
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
-* [Optimizer Hints](optimizer-hints.md)
+* [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

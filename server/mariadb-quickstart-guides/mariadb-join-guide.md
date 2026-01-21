@@ -1,8 +1,10 @@
 ---
-description: Basic Joins Guide
+description: >-
+  This guide introduces the different types of JOINs (INNER, LEFT, RIGHT, CROSS)
+  and demonstrates how to combine data from multiple tables.
 ---
 
-# Joining Tables with JOIN Clauses Guide
+# Joining Tables with JOIN Clauses
 
 This guide offers a simple, hands-on introduction to three basic `JOIN` types in MariaDB: `INNER JOIN`, `CROSS JOIN`, and `LEFT JOIN`. Use these examples to understand how different joins combine data from multiple tables based on specified conditions.
 
@@ -169,8 +171,8 @@ While this syntax works, the explicit `JOIN` syntax (`INNER JOIN`, `LEFT JOIN`, 
 ### See Also
 
 * [More Advanced Joins](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
-* [JOIN Syntax](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md)
-* [Comma vs JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/comma-vs-join.md)
+* [JOIN Syntax](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md)
+* [Comma vs JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/comma-vs-join.md)
 * [Joins, Subqueries and SET](../reference/sql-structure/joins-subqueries-set.md)
 
 _The initial version of this article was copied, with permission, from_ [_Introduction\_to\_Joins_](https://hashmysql.org/wiki/Introduction_to_Joins) _on 2012-10-05._

@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of the OQGRAPH storage engine, which allows for handling
+  hierarchies and graph structures using SQL.
+---
+
 # OQGRAPH Overview
 
 The Open Query GRAPH computation engine, or OQGRAPH as the engine itself is called, allows you to handle hierarchies (tree structures) and complex graphs (nodes having many connections in several directions).

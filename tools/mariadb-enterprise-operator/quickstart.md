@@ -1,15 +1,11 @@
-
 # Quickstart
 
 This guide aims to provide a quick way to get started with the MariaDB Enterprise Kubernetes Operator for Kubernetes. It will walk you through the process of deploying a MariaDB Enterprise Cluster and MaxScale via the `MariaDB` and `MaxScale` CRs ([Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)) respectively.
 
-
 Before you begin, ensure you meet the following prerequisites:
 
-
 * Configure your [customer access for docker.mariadb.com](customer-access-to-docker-mariadb-com.md)
-* [Install the MariaDB Enterprise Kubernetes Operator](mariadb-enterprise-operator-installation/README.md)
-
+* [Install the MariaDB Enterprise Kubernetes Operator](mariadb-enterprise-operator-installation/)
 
 The first step will be configuring a `Secret` with the credentials used by the `MariaDB` CR:
 
@@ -58,6 +54,7 @@ kubectl apply -f mariadb-galera.yaml
 ```
 
 Let's break it down:
+
 * `rootPasswordSecretKeyRef`: A reference to a `Secret` containing the root password.
 * `imagePullSecrets`: The name of the `Secret` containing the customer credentials to pull the MariaDB Enterprise Server image.
 * `maxScaleRef`: The name of the `MaxScale` CR that we will be creating right after.
@@ -65,7 +62,6 @@ Let's break it down:
 * `storage`: The size of the volume that will back the data directory.
 * `replicas`: The number of MariaDB Enterprise Server instances to deploy.
 * `galera`: Configuration for the Galera clustering.
-
 
 After applying the CR, we can observe the MariaDB `Pods` being created:
 
@@ -96,8 +92,8 @@ spec:
 kubectl apply -f maxscale-galera.yaml
 ```
 
-
 Again, let's break it down:
+
 * `imagePullSecrets`: The name of the `Secret` containing the customer credentials to pull the MaxScale image.
 * `mariaDbRef`: A reference to the `MariaDB` CR that we want to connect to.
 * `replicas`: The number of MaxScale instances to deploy.
@@ -121,13 +117,11 @@ NAME             READY   STATUS    PRIMARY            UPDATES                   
 mariadb-galera   True    Running   mariadb-galera-0   ReplicasFirstPrimaryLast   10m
 ```
 
-
-
 To conclude, let's connect to the MariaDB Enterprise Cluster through MaxScale using the initial user and database we initially defined in the `MariaDB` CR:
 
-
+{% code overflow="wrap" %}
 ```sh
-❯ kubectl run mariadb-connect --rm -it --image=mariadb:11.4 -- bash -c "mariadb -u mariadb -p'MariaDB11!' --ssl=false -h maxscale-galera"
+❯ kubectl run mariadb-connect --rm -it --image=docker.mariadb.com/enterprise-server:11.4 -- bash -c "mariadb -u mariadb -p'MariaDB11!' --ssl=false -h maxscale-galera"
 If you don't see a command prompt, try pressing enter.
 MariaDB [(none)]> SHOW DATABASES;
 +--------------------+
@@ -138,14 +132,14 @@ MariaDB [(none)]> SHOW DATABASES;
 +--------------------+
 2 rows in set (0.001 sec)
 ```
+{% endcode %}
 
 {% hint style="success" %}
 You have successfully deployed a MariaDB Enterprise Cluster with MaxScale in Kubernetes using the MariaDB Enterprise Kubernetes Operator!
 {% endhint %}
 
-Refer to the [documentation](README.md), the [API reference](api-reference.md) and the [examples catalog](examples-catalog.md) for further detail.
+Refer to the [documentation](./), the [API reference](api-reference.md) and the [examples catalog](examples-catalog.md) for further detail.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
-
 
 {% @marketo/form formId="4316" %}

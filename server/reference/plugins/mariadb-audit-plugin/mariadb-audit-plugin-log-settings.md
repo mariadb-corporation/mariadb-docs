@@ -1,3 +1,10 @@
+---
+description: >-
+  Control where and how the audit data is stored. This section explains how to
+  direct output to a file or the system syslog, and how to configure logging
+  parameters for different environments.
+---
+
 # Audit Plugin Log Settings
 
 Events that are logged by the MariaDB Audit Plugin are grouped generally into different types: connect, query, and table events. To log based on these types of events, set the variable, [server\_audit\_events](mariadb-audit-plugin-options-and-system-variables.md#server_audit_events) to `CONNECT`, `QUERY`, or `TABLE`. To have the Audit Plugin log more than one type of event, put them in a comma-separated list like so:
@@ -63,7 +70,7 @@ Looking in the Audit Plugin log (`server_audit.log`) for this entry, you can see
 ```
 {% endcode %}
 
-This log entry contains the date and time of the query, followed by the server host, and the user and host for the account.&#x20;
+This log entry contains the date and time of the query, followed by the server host, and the user and host for the account.
 
 {% hint style="info" %}
 From MariaDB 12.0, in addition to the host, the audit log also contains the port, where applicable (for instance, connecting via a Unix socket doesn't use a port).

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema METADATA_LOCK_INFO table shows active metadata locks
+  and user locks, helping to diagnose locking conflicts.
+---
+
 # Information Schema METADATA\_LOCK\_INFO Table
 
 The [Information Schema](../) `METADATA_LOCK_INFO` table is created by the [metadata\_lock\_info](../../../plugins/other-plugins/metadata-lock-info-plugin.md) plugin. It shows active [metadata locks](../../../sql-statements/transactions/metadata-locking.md) and user locks (the locks acquired with [GET\_LOCK](../../../sql-functions/secondary-functions/miscellaneous-functions/get_lock.md)).

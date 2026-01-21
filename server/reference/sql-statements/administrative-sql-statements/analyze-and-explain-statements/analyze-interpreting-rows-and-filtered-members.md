@@ -1,6 +1,13 @@
+---
+description: >-
+  Understand the r_rows and r_filtered fields in analysis output. Learn how
+  these actual runtime counters compare to the optimizer's rows and filtered
+  estimates.
+---
+
 # ANALYZE: Interpreting rows and filtered members
 
-This article describes how to interpret `r_rows` and `r_filtered` members in ANALYZE FORMAT=JSON when an index-based access method is used.
+This article describes how to interpret `r_rows` and `r_filtered` members in `ANALYZE FORMAT=JSON` when an index-based access method is used.
 
 ## Index-based access method
 

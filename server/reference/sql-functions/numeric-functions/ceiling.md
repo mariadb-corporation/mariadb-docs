@@ -1,3 +1,9 @@
+---
+description: >-
+  Round up to the nearest integer. This function returns the smallest integer
+  value that is greater than or equal to the argument.
+---
+
 # CEILING
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Extract the date part from a datetime expression. This function returns the
+  year, month, and day portions, discarding the time component.
+---
+
 # DATE FUNCTION
 
 ## Syntax

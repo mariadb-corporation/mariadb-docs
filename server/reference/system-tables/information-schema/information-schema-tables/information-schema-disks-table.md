@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema DISKS table, created by the DISKS plugin, displays
+  metadata such as total and available space for disks on the system.
+---
+
 # Information Schema DISKS Table
 
 {% hint style="warning" %}

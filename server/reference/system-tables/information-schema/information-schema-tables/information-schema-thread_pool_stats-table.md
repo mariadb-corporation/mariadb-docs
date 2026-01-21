@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema THREAD_POOL_STATS table provides performance statistics
+  for the thread pool, such as thread creation and efficiency.
+---
+
 # Information Schema THREAD\_POOL\_STATS Table
 
 {% hint style="info" %}

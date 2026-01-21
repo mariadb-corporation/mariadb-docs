@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns a geometry representing the convex hull of the given geometry. This
+  standard function computes the smallest convex polygon enclosing the geometry.
+---
+
 # ST\_CONVEXHULL
 
 ## Syntax

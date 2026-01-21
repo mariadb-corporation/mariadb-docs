@@ -1,6 +1,6 @@
 # MariaDB 10.5 Changes & Improvements
 
-MariaDB 10.5 is no longer maintained. Please use a [more recent release](../../../latest-releases.md).&#x20;
+MariaDB 10.5 is no longer maintained. Please use a [more recent release](../../../latest-releases.md).
 
 {% include "../../../.gitbook/includes/latest-10-5.md" %}
 
@@ -12,7 +12,7 @@ MariaDB 10.5 is no longer maintained. Please use a [more recent release](../../.
 
 ## Implemented Features
 
-See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-server/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10-5.md) page for items that are different between MariaDB Community Server 10.5 and MariaDB Enterprise Server 10.5.
+See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.5.md) page for items that are different between MariaDB Community Server 10.5 and MariaDB Enterprise Server 10.5.
 
 ### ColumnStore
 
@@ -150,7 +150,7 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 
 * [INSERT ... RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning) ([MDEV-10014](https://jira.mariadb.org/browse/MDEV-10014)) - returns SELECT of inserted rows (analogous to [DELETE ... RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete))
 * [REPLACE ... RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/replacereturning) ([MDEV-10014](https://jira.mariadb.org/browse/MDEV-10014))
-* [EXCEPT ALL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/except#alldistinct) and [INTERSECT ALL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/intersect#alldistinct) ([MDEV-18844](https://jira.mariadb.org/browse/MDEV-18844))
+* [EXCEPT ALL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/except#alldistinct) and [INTERSECT ALL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/intersect#alldistinct) ([MDEV-18844](https://jira.mariadb.org/browse/MDEV-18844))
 * Application period tables: [WITHOUT OVERLAPS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/application-time-periods#without-overlaps) ([MDEV-16978](https://jira.mariadb.org/browse/MDEV-16978))
 * Setup [default partitions for system versioning](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/system-versioned-tables#default-partitions) ([MDEV-19903](https://jira.mariadb.org/browse/MDEV-19903))
 * Database comments in [CREATE DATABASE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-database) and [ALTER DATABASE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-database) statements ([MDEV-307](https://jira.mariadb.org/browse/MDEV-307))

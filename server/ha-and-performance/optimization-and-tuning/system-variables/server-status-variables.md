@@ -1,3 +1,10 @@
+---
+description: >-
+  Documentation for server status variables, which provide information about the
+  server's current state and operation (e.g., `Aborted_connects`, `Uptime`),
+  accessed via `SHOW STATUS`.
+---
+
 # Server Status Variables
 
 {% include "../../../.gitbook/includes/for-a-full-list-of-server-v....md" %}

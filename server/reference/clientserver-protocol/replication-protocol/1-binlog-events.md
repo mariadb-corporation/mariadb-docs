@@ -1,3 +1,9 @@
+---
+description: >-
+  This section provides an overview of the various events recorded in the binary
+  log, which are the core units of replication data transmission.
+---
+
 # 1-Binlog Events
 
 Binary log events, or binlog events, are information about data modification made to a MariaDB server instance stored in the [binary log](../../../server-management/server-monitoring-logs/binary-log/) files.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the role of Kubernetes Operators in automating complex database tasks
+  like provisioning, scaling, and backups, and references available operators
+  for MariaDB.
+---
+
 # Kubernetes Operators for MariaDB
 
 Operators basically instruct Kubernetes about how to manage a certain technology. Kubernetes comes with some default operators, but it is possible to create custom operators. Operators created by the community can be found on [OperatorHub.io](https://operatorhub.io/).
@@ -31,12 +38,12 @@ It's available in both [Artifact Hub](https://artifacthub.io/packages/helm/maria
 * Multiple [highly available](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/high_availability.md) topologies supported:
   * [Asynchronous replication](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/replication.md)
   * [Synchronous multi-master via Galera](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/galera.md)
-  * [MaxScale](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maxscale.md) as database proxy to load balance requests and perform  failover/switchover operations
+  * [MaxScale](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maxscale.md) as database proxy to load balance requests and perform failover/switchover operations
 * Flexible [storage](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md) configuration. [Volume expansion](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md#volume-resize).
 * [Physical backups](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md) based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/).
 * [Logical backups](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/logical_backup.md) based on [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
 * Multiple [backup storage types](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#storage-types): S3 compatible, PVCs, Kubernetes volumes and `VolumeSnapshots`.
-* Flexible backup configuration: [scheduling](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#scheduling), [compression](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#compression), [retention policy](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#retention-policy), [timeout](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#timeout), [staging area](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#staging-area)...
+* Flexible backup configuration: [scheduling](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#scheduling), [compression](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#compression), [encryption](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#server-side-encryption-with-customer-provided-keys-sse-c), [retention policy](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#retention-policy), [target policy](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#target-policy), [timeout](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#timeout), [staging area](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#staging-area)...
 * [Target recovery time](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#target-recovery-time): restore the closest available backup to the specified time.
 * [Bootstrap new instances](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#restoration) from: Physical backups, logical backups, S3, PVCs, `VolumeSnapshots`...
 * [Cluster-aware rolling update](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/updates.md#replicasfirstprimarylast): roll out replica Pods one by one, wait for each of them to become ready, and then proceed with the primary Pod, using `ReplicasFirstPrimaryLast`.

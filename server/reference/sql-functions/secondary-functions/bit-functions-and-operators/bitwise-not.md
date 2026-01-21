@@ -1,3 +1,9 @@
+---
+description: >-
+  Invert all bits. This unary operator flips every bit in the operand, changing
+  1s to 0s and 0s to 1s.
+---
+
 # \~
 
 ## Syntax

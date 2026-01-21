@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Compiling JSON UDFs in a Separate Library
 
 {% hint style="warning" %}

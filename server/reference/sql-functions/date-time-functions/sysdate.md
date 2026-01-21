@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the time of execution. Unlike NOW(), which returns the start time of
+  the statement, SYSDATE() returns the time it executes.
+---
+
 # SYSDATE
 
 ## Syntax

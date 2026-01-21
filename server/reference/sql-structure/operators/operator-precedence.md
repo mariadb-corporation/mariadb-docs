@@ -14,7 +14,7 @@ The following list shows the SQL operator precedence. **Operators that appear fi
 * [INTERVAL](comparison-operators/interval.md)
 * [BINARY](../../data-types/string-data-types/binary.md), [COLLATE](../../data-types/string-data-types/character-sets/setting-character-sets-and-collations.md#literals)
 * [!](logical-operators/not.md)
-* [-](../../sql-statements/data-manipulation/selecting-data/joins-subqueries/minus.md) (unary minus), [bitwise not](../../sql-functions/secondary-functions/bit-functions-and-operators/bitwise-not.md) (unary bit inversion)
+* [-](../../sql-statements/data-manipulation/selecting-data/set-operations/minus.md) (unary minus), [bitwise not](../../sql-functions/secondary-functions/bit-functions-and-operators/bitwise-not.md) (unary bit inversion)
 * `||` (string concatenation)
 * [^](../../sql-functions/aggregate-functions/bit_xor.md) (bitwise XOR)
 * [\*](arithmetic-operators/multiplication-operator.md), [/](arithmetic-operators/division-operator.md), [DIV](../../sql-functions/numeric-functions/div.md), [%](arithmetic-operators/modulo-operator.md), [MOD](../../sql-functions/numeric-functions/mod.md) (multiplication, division, modulo)

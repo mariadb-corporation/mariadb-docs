@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema FILES table provides information about files stored in
+  tablespaces, such as those used by the InnoDB storage engine.
+---
+
 # Information Schema FILE\_KEY\_MANAGEMENT\_KEYS
 
 {% hint style="info" %}

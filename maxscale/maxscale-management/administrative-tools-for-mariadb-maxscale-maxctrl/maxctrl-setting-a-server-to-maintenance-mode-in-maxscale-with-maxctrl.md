@@ -1,3 +1,10 @@
+---
+description: >-
+  Perform server maintenance safely. Learn how to use MaxCtrl to gracefully
+  drain connections or force a server into maintenance mode, effectively
+  removing it from the load balancing pool.
+---
+
 # Setting a Server to Maintenance Mode in MaxScale with MaxCtrl
 
 ## Overview

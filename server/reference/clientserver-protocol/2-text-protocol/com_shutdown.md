@@ -1,3 +1,9 @@
+---
+description: >-
+  This command requests the server to shut down, it requires the SHUTDOWN
+  privilege to be executed successfully.
+---
+
 # COM\_SHUTDOWN
 
 Shuts down the server. To execute this command, the [SHUTDOWN](../../sql-statements/account-management-sql-statements/grant.md#shutdown) privilege is required.

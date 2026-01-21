@@ -116,7 +116,7 @@ Number of seconds before connection timeout. Defaults to `0`.
 
 Database to use.
 
-#### `-``[`_`options`_`], --debug[=`_`options`_`]`
+#### `-#[`_`options`_`], --debug[=`_`options`_`]`
 
 On debugging builds, write a debugging log. A typical `debug_options` string is `d:t:o,file_name`. The default is `d:t:o,/tmp/mysql.trace`.
 
@@ -242,7 +242,7 @@ Print the program argument list and exit. Must be given as the first option.
 
 #### `--progress-reports`
 
-Get [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
+Get [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
 
 #### `--prompt=`_`name`_
 
@@ -284,7 +284,7 @@ Allow only those [UPDATE](../../reference/sql-statements/data-manipulation/chang
 
 {% tabs %}
 {% tab title="Current" %}
-Disallow commands that access the file system (except `\P` without an argument and `\e`). Disabled commands include system (`\!`), tee (`\T`), pager with an argument(`\P`` `_`foo`_), source (`\.`). Using a disabled command is an error, which can be ignored with `--force`. A sandbox command (`\-`) enables the sandbox mode until EOF (current file or the session, if interactive).
+Disallow commands that access the file system (except `\P` without an argument and `\e`). Disabled commands include system (`\!`), tee (`\T`), pager with an argument(` \P`` `` `_`foo`_), source (`\.`). Using a disabled command is an error, which can be ignored with `--force`. A sandbox command (`\-`) enables the sandbox mode until EOF (current file or the session, if interactive).
 {% endtab %}
 
 {% tab title="< 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18 / 10.5.25" %}
@@ -292,7 +292,7 @@ This option is not available.
 {% endtab %}
 {% endtabs %}
 
-#### `--script-dir`
+#### `--script-dir=`_`name`_
 
 {% tabs %}
 {% tab title="Current" %}
@@ -354,7 +354,7 @@ Don't write line number for errors. See `--line-numbers`.
 
 #### `--skip-progress-reports`
 
-Disables getting [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for long running commands. See `--progress-reports`.
+Disables getting [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for long running commands. See `--progress-reports`.
 
 #### `--skip-reconnect`
 
@@ -686,7 +686,7 @@ The prompt command reconfigures the default prompt `\N [\d]>`. The string for de
 | \Y     | The current year, four digits.                                      |
 | \y     | The current year, two digits.                                       |
 | \_     | A space.                                                            |
-| \      | A space (a space follows the backslash).                            |
+| \\     | A space (a space follows the backslash).                            |
 | '      | Single quote.                                                       |
 | "      | Double quote.                                                       |
 | \\\\   | A literal “\” backslash character.                                  |

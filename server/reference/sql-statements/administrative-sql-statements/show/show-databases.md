@@ -1,3 +1,9 @@
+---
+description: >-
+  List databases on the MariaDB server. View the names of all databases
+  available to the current user.
+---
+
 # SHOW DATABASES
 
 ## Syntax

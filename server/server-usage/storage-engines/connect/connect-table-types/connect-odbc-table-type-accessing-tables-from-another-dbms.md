@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT ODBC Table Type: Accessing Tables From Another DBMS
 
 {% hint style="info" %}
@@ -120,7 +124,7 @@ CREATE TABLE Custfix ENGINE=CONNECT File_name='customer.txt'
   table_type=fix block_size=20 AS SELECT * FROM customer;
 ```
 
-Now you can use _custfix_ for fast database operations on the copie&#x64;_&#x63;ustomer_ table data.
+Now you can use _custfix_ for fast database operations on the copied\_customer\_ table data.
 
 ## Retrieving data from a spreadsheet
 
@@ -179,7 +183,7 @@ CONNECTION='DSN=Excel Files;DBQ=D:/Ber/CA/CA2004*.xls;';
 ```
 
 Providing that in each file the applying information is internally set for\
-Excel as a table named "bank account". This extension to ODBC does not suppor&#x74;_&#x6D;ultiple_=2. The _qchar_ option was specified to make the identifiers\
+Excel as a table named "bank account". This extension to ODBC does not support\_multiple\_=2. The _qchar_ option was specified to make the identifiers\
 quoted in the select statement sent to ODBC, in particular the when the table\
 or column names contain blanks, to avoid SQL syntax errors.
 

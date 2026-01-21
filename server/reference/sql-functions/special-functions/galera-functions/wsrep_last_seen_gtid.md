@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the GTID of the most recent write transaction. This function helps
+  determine the transaction ID to use for synchronization waiting.
+---
+
 # WSREP\_LAST\_SEEN\_GTID
 
 ## Syntax

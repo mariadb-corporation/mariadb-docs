@@ -1,7 +1,7 @@
 ---
 description: >-
-  DECLARE TYPE adds support for Oracle-style INDEX BY tables (associative
-  arrays) for stored routines and anonymous blocks.
+  Define data types for Oracle compatibility. This statement allows declaring
+  PL/SQL-style record types and associative arrays within stored procedures.
 ---
 
 # DECLARE TYPE
@@ -37,7 +37,7 @@ It supports the following associative array methods:
 
 ## Associative Arrays
 
-In Oracle, associative arrays (called index-by tables) are sparse collections of elements indexed by keys, which can be integers or strings.&#x20;
+In Oracle, associative arrays (called index-by tables) are sparse collections of elements indexed by keys, which can be integers or strings.
 
 Here’s an example of how to declare an associative array in Oracle:
 

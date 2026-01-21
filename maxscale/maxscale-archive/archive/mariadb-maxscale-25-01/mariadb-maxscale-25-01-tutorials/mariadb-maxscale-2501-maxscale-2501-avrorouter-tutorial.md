@@ -57,7 +57,7 @@ protocol=CDC
 port=4001
 ```
 
-The `source` parameter in the _avro-service_ points to the _replication-service_ we defined before. This service will be the data source for the avrorouter. Th&#x65;_&#x66;ilestem_ is the prefix in the binlog files and _start\_index_ is the binlog number to start from. With these parameters, the avrorouter will start reading\
+The `source` parameter in the _avro-service_ points to the _replication-service_ we defined before. This service will be the data source for the avrorouter. The_filestem_ is the prefix in the binlog files and _start\_index_ is the binlog number to start from. With these parameters, the avrorouter will start reading\
 events from binlog `binlog.000015`.
 
 Note that the _filestem_ and _start\_index_ must point to the file that is the first binlog that the binlogrouter will replicate. For example, if the first file you are replicating is `my-binlog-file.001234`, set the parameters to`filestem=my-binlog-file` and `start_index=1234`.
@@ -74,7 +74,7 @@ If the binary logs contain data modification events for tables that aren't creat
 * Use the [cdc\_schema Go utility](../mariadb-maxscale-25-01-routers/mariadb-maxscale-2501-maxscale-2501-avrorouter.md) and copy the generated .avsc files to the avrodir
 * Use the [Python version of the schema generator](https://mariadb.com/server/modules/protocol/examples/cdc_schema.py) and copy the generated `.avsc` files to the avrodir
 
-If you used the schema generator scripts, all Avro schema files for tables that are not created in the binary logs need to be in the location pointed to by th&#x65;_&#x61;vrodir_ parameter. The files use the following naming:`<database>.<table>.<schema_version>.avsc`. For example, the schema file name of\
+If you used the schema generator scripts, all Avro schema files for tables that are not created in the binary logs need to be in the location pointed to by the_avrodir_ parameter. The files use the following naming:`<database>.<table>.<schema_version>.avsc`. For example, the schema file name of\
 the _test.t1_ table would be `test.t1.0000001.avsc`.
 
 ## Starting MariaDB MaxScale

@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand concurrent inserts in MyISAM. This feature allows SELECT statements
+  to run simultaneously with INSERT operations, reducing lock contention and
+  improving performance.
+---
+
 # Concurrent Inserts
 
 The [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/) storage engine supports concurrent inserts. This feature allows [SELECT](../selecting-data/select.md) statements to be executed during [INSERT](insert.md) operations, reducing contention.

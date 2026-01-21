@@ -1,3 +1,9 @@
+---
+description: >-
+  This function returns the minor version number of the MariaDB Server instance,
+  such as the 6 in 10.6.4.
+---
+
 # version\_minor
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

@@ -1,9 +1,9 @@
 ---
 description: >-
-  Troubleshoot MariaDB Server installation issues on Debian and Ubuntu. This
-  section provides specific guidance for resolving common problems encountered
-  when deploying MariaDB on Linux distributions.
+  A collection of troubleshooting articles specific to Debian and Ubuntu
+  deployments, covering upgrade failures, repository conflicts, and migration
+  issues.
 ---
 
-# Installation issues on Debian and Ubuntu
+# Installation Issues on Debian and Ubuntu
 

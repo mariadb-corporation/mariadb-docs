@@ -1,6 +1,14 @@
+---
+description: >-
+  Documentation for server system variables that control the server's
+  configuration and behavior (e.g., `max_connections`,
+  `innodb_buffer_pool_size`), which can often be set dynamically or in
+  configurat
+---
+
 # Server System Variables
 
-### About the Server System Variables
+## Overview
 
 MariaDB has many system variables that can be changed to suit your needs.
 
@@ -50,7 +58,7 @@ mariadbd --verbose --help
 
 * View the Information Schema [GLOBAL\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_variables-and-session_variables-tables.md), [SESSION\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-global_variables-and-session_variables-tables.md), and [SYSTEM\_VARIABLES](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md) tables.
 
-### Setting Server System Variables
+## Setting Server System Variables
 
 There are several ways to set server system variables:
 
@@ -87,7 +95,7 @@ Variables that take a numeric size can either be specified in full, or with a su
 
 The suffix can be upper or lower-case.
 
-### List of Server System Variables
+## List of Server System Variables
 
 #### `allow_suspicious_udfs`
 
@@ -380,7 +388,7 @@ The suffix can be upper or lower-case.
 #### `core_file`
 
 * Description: Write a core-file on crashes. The file name and location are system dependent. On Linux it is usually called `core.${PID}`, and it is usually written to the data directory. However, this can be changed.
-  * See [Enabling Core Dumps](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/enabling-core-dumps) for more information.
+  * See [Enabling Core Dumps](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YszphlxXpuc64pTHiGem) for more information.
   * Previously this system variable existed only as an [option](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), but it was also made into a read-only system variable starting with [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10217-release-notes) and [MariaDB 10.1.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10135-release-notes).
   * On Windows >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes), this option is set by default.
   * Note that the option accepts no arguments; specifying `--core-file` sets the value to `ON`. It cannot be disabled in the case of Windows >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes).
@@ -548,40 +556,7 @@ The suffix can be upper or lower-case.
 
 #### `div_precision_increment`
 
-* Description: The precision of the result of the decimal division will be the larger than the precision of the dividend by that number. By default it's `4`, so `SELECT 2/15` would return 0.1333 and `SELECT 2.0/15` would return 0.13333. After setting div\_precision\_increment to `6`, for example, the same operation would return 0.133333 and 0.1333333 respectively.
-
-From [MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes) and [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes), `div_precision_increment` is taken into account in intermediate calculations. Previous versions did not, and the results were dependent on the optimizer, and therefore unpredictable.
-
-In [MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.1.47](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10147-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.2.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10234-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.3.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10325-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes), [MariaDB 10.4.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10415-release-notes), [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes) and [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1056-release-notes) only, the fix truncated decimal values after every division, resulting in lower precision in some cases for those versions only.
-
-From [MariaDB 10.1.48](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10326-release-notes), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10416-release-notes) and [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1057-release-notes), a different fix was implemented. Instead of truncating decimal values after every division, they are instead truncated for comparison purposes only.
-
-For example
-
-Versions other than [MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.1.47](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10147-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.2.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10234-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.3.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10325-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes), [MariaDB 10.4.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10415-release-notes), [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes) and [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1056-release-notes):
-
-```
-SELECT (55/23244*1000);
-+-----------------+
-| (55/23244*1000) |
-+-----------------+
-| 2.3662          |
-+-----------------+
-```
-
-[MariaDB 10.1.46](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10146-release-notes), [MariaDB 10.1.47](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10147-release-notes), [MariaDB 10.2.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10233-release-notes), [MariaDB 10.2.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10234-release-notes), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10235-release-notes), [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10324-release-notes), [MariaDB 10.3.25](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10325-release-notes), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10414-release-notes), [MariaDB 10.4.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10415-release-notes), [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1055-release-notes) and [MariaDB 10.5.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1056-release-notes) only:
-
-```
-SELECT (55/23244*1000);
-+-----------------+
-| (55/23244*1000) |
-+-----------------+
-| 2.4000          |
-+-----------------+
-```
-
-This is because the intermediate result, `SELECT 55/23244` takes into account `div_precision_increment` and results were truncated after every division in those versions only.
-
+* Description: The precision of the result of the decimal division will be the larger than the precision of the dividend by that number. By default it's `4`, so `SELECT 2/15` would return 0.1333 and `SELECT 2.0/15` would return 0.13333. After setting div\_precision\_increment to `6`, for example, the same operation would return 0.133333 and 0.1333333 respectively. `div_precision_increment` is taken into account in intermediate calculations. Instead of truncating decimal values after every division, they are instead truncated for comparison purposes only.
 * Command line: `--div-precision-increment=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1025,7 +1000,7 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `join_buffer_space_limit`
 
-* Description: Maximum size in bytes of the query buffer, By default 102&#x34;_&#x31;2&#x38;_&#x31;0.
+* Description: Maximum size in bytes of the query buffer, By default 1024\_128\_10.
 * Command line: `--join-buffer-space-limit=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1063,23 +1038,36 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 
 #### `large_files_support`
 
-* Description: ON if the server if was compiled with large file support or not, else OFF
+* Description: `ON` if the server if was compiled with large file support, else `OFF` .
 * Scope: Global
 * Dynamic: No
 
 #### `large_page_size`
 
-* Description: Indicates the size of memory page if large page support (Linux only) is enabled. The page size is determined from the Hugepagesize setting in `/proc/meminfo`. See [large\_pages](server-system-variables.md#large_pages). Deprecated and unused in [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1053-release-notes) since multiple page size support was added.
+* Description: Indicates the size of memory page if large page support (Linux only) is enabled. The page size is determined from the Hugepagesize setting in `/proc/meminfo`. See [large\_pages](server-system-variables.md#large_pages). Deprecated and unused (since multiple page size support was added).
 * Scope: Global
 * Dynamic: No
 * Data Type: `numeric`
-* Default Value: Autosized (see description)
+* Default Value: `0` (zero, from MariaDB 10.5.3)
 * Deprecated: [MariaDB 10.5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1053-release-notes)
 * Removed: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.0/what-is-mariadb-120)
 
 #### `large_pages`
 
-* Description: Indicates whether large page support (prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), Linux only, by now supported Windows and BSD distros, also called huge pages) is used. This is set with `--large-pages` or disabled with `--skip-large-pages`. Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)). To use large pages, the Linux `sysctl` variable `kernel.shmmax` must be large than the llocation. Also, the `sysctl` variable `vm.nr_hugepages` multipled by [large-page](server-system-variables.md#large_page_size)) must be larger than the usage. The ulimit for locked memory must be sufficient to cover the amount used (`ulimit -l` and equalivent in /etc/security/limits.conf / or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd.md)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages will fall back to conventional memory allocation, and a warning will appear in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`).
+* Description: Whether or not large page support is used.
+  * This is set with `--large-pages` or disabled with `--skip-large-pages`.&#x20;
+  * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).&#x20;
+  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd.md)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`). The  implementation supports multiple page sizes using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
+    * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
+    * To find possible huge page size values, issue this command:\
+      `ls -la /sys/devices/system/node/node0/hugepages/`
+    * To determine how many huge pages are free, issue this command:\
+      `more /sys/devices/system/node/node*/hugepages/hugepages-*kB/free_hugepages`
+  * **Windows**: The implementation uses the Windows `GetLargePageMinimum()` syscall to determine the supported page sizes.
+    * This works only if the user that runs `mariadbd` has the `SeLockMemoryPrivilege` privilege.
+  * **Solaris, FreeBSD, NetBSD**: The implementation uses the `getpagesizes()` syscall to determine the supported page sizes.
+    * On Solaris, find possible huge page sizes by calling [getpagessizes syscall](https://docs.oracle.com/cd/E23824_01/html/821-1465/getpagesizes-3c.html).
+  * **macOS, OpenBSD**: The implementation uses the `getpagesize()` syscall to determine the system's current page size.
 * Command line: `--large-pages`, `--skip-large-pages`
 * Scope: Global
 * Dynamic: No
@@ -1125,14 +1113,6 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `en_US`
-
-#### `legacy_xa_rollback_at_disconnect`
-
-* Description: If a user session disconnects after putting a transaction into the `XA PREPARE` state, roll back the transaction. Can be used for backwards compatibility to enable this pre-10.5 behavior for applications that expect it. Note that this violates the XA Specification and should not be used for new code.
-* Scope: Global, Session
-* Dynamic: Yes
-* Data Type: `boolean`
-* Introduced: [MariaDB 10.5.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-27-release-notes), [MariaDB 10.6.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.20), [MariaDB 10.11.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.10), [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.4), [MariaDB 11.7.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-1-release-notes)
 
 #### `license`
 
@@ -1370,13 +1350,16 @@ This is because the intermediate result, `SELECT 55/23244` takes into account `d
 #### `log_warnings`
 
 * Description: Determines which additional warnings are logged. Setting to `0` disables additional warning logging. Note that this does not prevent all warnings, there is a core set of warnings that will always be written to the error log. The additional warnings are as follows:
+  * log\_warnings = 0
+    * No notes from the event scheduler, only warnings and errors (from MariaDB 10.11.16, 11.4.10, 11.8.6, 12.2.2)
   * log\_warnings >= 1
+    * Only startup and shutdown event scheduler notes (from MariaDB 10.11.16, 11.4.10, 11.8.6, 12.2.2)
     * [Event scheduler](../../../server-usage/triggers-events/event-scheduler/) information.
     * System signals.
     * Wrong usage of `--user`.
-    * Failed setrlimit() and mlockall().
+    * Failed `setrlimit()` and `mlockall()`.
     * Changed limits.
-    * Wrong values of lower\_case\_table\_names and stack\_size.
+    * Wrong values of `lower_case_table_names` and `stack_size`.
     * Wrong values for command line options.
     * Start log position and some master information when starting slaves.
     * Slave reconnects.
@@ -1994,8 +1977,8 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `derived_with_keys={on|off}` - see [Derived table with key optimization](../query-optimizations/optimizations-for-derived-tables/derived-table-with-key-optimization.md)
   * `duplicateweedout={on|off}`. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.0/what-is-mariadb-120).
   * `engine_condition_pushdown={on|off}`. Deprecated in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) as engine condition pushdown is now automatically enabled for all engines that support it.
-  * `exists_to_in={on|off}` - see [EXISTS-to-IN optimization](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/extended-keys)
-  * `extended_keys={on|off}` - see [Extended Keys](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/extended-keys)
+  * `exists_to_in={on|off}` - see [EXISTS-to-IN optimization](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/hQ8119jaKVqgAcnaABXn)
+  * `extended_keys={on|off}` - see [Extended Keys](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/hQ8119jaKVqgAcnaABXn)
   * `firstmatch={on|off}` - see [First Match Strategy](../query-optimizations/optimization-strategies/firstmatch-strategy.md)
   * `hash_join_cardinality={on|off}` - see [hash\_join\_cardinality-optimizer\_switch-flag](../query-optimizations/hash_join_cardinality-optimizer_switch-flag.md) (>= [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-2-release-notes), [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.3), [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.13))
   * `index_condition_pushdown={on|off}` - see [Index Condition Pushdown](../query-optimizations/index-condition-pushdown.md)
@@ -2005,24 +1988,24 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `index_merge_sort_union={on|off}`
   * `index_merge_union={on|off}`
   * `in_to_exists={on|off}` - see [IN-TO-EXISTS transformation](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md#the-in-to-exists-transformation)
-  * `join_cache_bka={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
-  * `join_cache_hashed={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
-  * `join_cache_incremental={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `join_cache_bka={on|off}` - see [Block-Based Join Algorithms](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2)
+  * `join_cache_hashed={on|off}` - see [Block-Based Join Algorithms](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2)
+  * `join_cache_incremental={on|off}` - see [Block-Based Join Algorithms](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2)
   * `loosescan={on|off}` - see [LooseScan strategy](../query-optimizations/optimization-strategies/loosescan-strategy.md)
   * `materialization={on|off}` - [Semi-join](../query-optimizations/optimization-strategies/semi-join-materialization-strategy.md) and [non semi-join](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md#materialization-for-non-correlated-in-subqueries) materialization.
   * `mrr={on|off}` - see [Multi Range Read optimization](../mariadb-internal-optimizations/multi-range-read-optimization.md)
   * `mrr_cost_based={on|off}` - see [Multi Range Read optimization](../mariadb-internal-optimizations/multi-range-read-optimization.md)
   * `mrr_sort_keys={on|off}` - see [Multi Range Read optimization](../mariadb-internal-optimizations/multi-range-read-optimization.md)
   * `not_null_range_scan={on|off}` - see [not\_null\_range\_scan optimization](../query-optimizations/not_null_range_scan-optimization.md) ( >= [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes))
-  * `optimize_join_buffer_size={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `optimize_join_buffer_size={on|off}` - see [Block-Based Join Algorithms](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2)
   * `orderby_uses_equalities={on|off}` - if not set, the optimizer ignores equality propagation. See [MDEV-8989](https://jira.mariadb.org/browse/MDEV-8989).
-  * `outer_join_with_cache={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `outer_join_with_cache={on|off}` - see [Block-Based Join Algorithms](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2)
   * `partial_match_rowid_merge={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
   * `partial_match_table_scan={on|off}` - see [Non-semi-join subquery optimizations](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md)
   * `rowid_filter={on|off}` - see [Rowid Filtering Optimization](../query-optimizations/rowid-filtering-optimization.md)
   * `sargable_casefold={on|off}` (>= [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes))
   * `semijoin={on|off}` - see [Semi-join subquery optimizations](../query-optimizations/subquery-optimizations/semi-join-subquery-optimizations.md)
-  * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms)
+  * `semijoin_with_cache={on|off}` - see [Block-Based Join Algorithms](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2)
   * `split_materialized={on|off}`
   * `subquery_cache={on|off}` - see [subquery cache](../query-optimizations/subquery-optimizations/subquery-cache.md).
   * `table_elimination={on|off}` - see [Table Elimination User Interface](../query-optimizations/table-elimination/table-elimination-user-interface.md)
@@ -2031,7 +2014,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 * Description: Controls storing of optimizer context of all tables that are referenced in a query.
 * Command line: `--optimizer-record-context{=0|1}`
-* Scope: Global, Session
+* Scope: Session
 * Dynamic: Yes
 * Data Type: boolean
 * Default Value: `OFF`
@@ -2039,7 +2022,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_trace`
 
-* Description: Controls [tracing of the optimizer](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/mariadb-internals-documentation-optimizer-trace): optimizer\_trace=option=val\[,option=val...], where option is one of {enabled} and val is one of {on, off, default}
+* Description: Controls [tracing of the optimizer](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/wIjY1kOpUvbr3Rbr8GXl): optimizer\_trace=option=val\[,option=val...], where option is one of {enabled} and val is one of {on, off, default}
 * Command line: `--optimizer-trace=value`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2049,7 +2032,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_trace_max_mem_size`
 
-* Description: Limits the memory used while tracing a query by specifying the maximum allowed cumulated size, in bytes, of stored [optimizer traces](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/mariadb-internals-documentation-optimizer-trace/optimizer-trace-resources).
+* Description: Limits the memory used while tracing a query by specifying the maximum allowed cumulated size, in bytes, of stored [optimizer traces](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/fk225HlL63dpG3RuBfxi).
 * Command line: `--optimizer-trace-max-mem-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2140,7 +2123,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `progress_report_time`
 
-* Description: Time in seconds between sending [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) to the client for time-consuming statements. If set to `0`, progress reporting will be disabled.
+* Description: Time in seconds between sending [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) to the client for time-consuming statements. If set to `0`, progress reporting will be disabled.
 * Command line: `--progress-report-time=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2349,7 +2332,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `redirect_url`
 
-* Description: URL of another server to redirect clients to. Format should be `{mysql,mariadb}://host [:port]`. Empty string means no redirection. For example,  `set global redirect_url="mysql://mariadb.org:12345"`. See [Connection Redirection Mechanism in the MariaDB Client/Server Protocol](../../connection-redirection-mechanism-in-the-mariadb-clientserver-protocol.md).
+* Description: URL of another server to redirect clients to. Format should be `{mysql,mariadb}://host [:port]`. Empty string means no redirection. For example, `set global redirect_url="mysql://mariadb.org:12345"`. See [Connection Redirection Mechanism in the MariaDB Client/Server Protocol](../../connection-redirection-mechanism-in-the-mariadb-clientserver-protocol.md).
 * Command line: `--redirect_url=val`
 * Scope: Global, Session
 * Dynamic: Yes

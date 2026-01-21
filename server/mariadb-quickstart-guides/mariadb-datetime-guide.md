@@ -1,5 +1,7 @@
 ---
-description: Date and Time Handling Guide
+description: >-
+  Understand how to work with date and time values in MariaDB, including data
+  types like DATETIME and TIMESTAMP, and useful temporal functions.
 ---
 
 # Doing Time Guide
@@ -20,7 +22,7 @@ While dates and times can be stored as character strings, using specific tempora
 
 MariaDB provides several functions to get the current date and time.
 
-**Current Date:**\
+**Current Date:**\
 Use `CURRENT_DATE` (no parentheses) or `CURDATE()` (with parentheses).
 
 ```sql
@@ -44,7 +46,7 @@ WHERE rec_id = LAST_INSERT_ID();
 +--------+-----------+------------+--------------+
 ```
 
-**Current Time:**\
+**Current Time:**\
 Use `CURRENT_TIME` or `CURTIME()`.
 
 ```sql
@@ -65,7 +67,7 @@ WHERE rec_id = '2462';
 +------------+--------------+--------------+
 ```
 
-**Current Date and Time (Timestamp):**\
+**Current Date and Time (Timestamp):**\
 Use `CURRENT_TIMESTAMP`, `NOW()`, or `SYSDATE()`. These functions return the current date and time in `YYYY-MM-DD HH:MM:SS` format, suitable for `DATETIME` or `TIMESTAMP` columns.
 
 ### Extracting Date and Time Parts
@@ -159,9 +161,9 @@ WHERE rec_id = '2462';
 +------+--------+--------+
 ```
 
-**Using `EXTRACT()` for `DATETIME` or `TIMESTAMP` types:**\
-The `EXTRACT(unit FROM datetime_column)` function extracts a specified `unit` from a date/time value.\
-Common units: `YEAR`, `MONTH`, `DAY`, `HOUR`, `MINUTE`, `SECOND`.\
+**Using `EXTRACT()` for `DATETIME` or `TIMESTAMP` types:**\
+The `EXTRACT(unit FROM datetime_column)` function extracts a specified `unit` from a date/time value.\
+Common units: `YEAR`, `MONTH`, `DAY`, `HOUR`, `MINUTE`, `SECOND`.\
 Combined units: `YEAR_MONTH`, `DAY_HOUR`, `HOUR_MINUTE`, etc.
 
 ```sql
@@ -223,8 +225,8 @@ LIMIT 1;
 +-------------------+------------------------------+
 ```
 
-**Using `DATE_FORMAT(datetime_column, format_string)`:**\
-This function provides extensive formatting options.\
+**Using `DATE_FORMAT(datetime_column, format_string)`:**\
+This function provides extensive formatting options.\
 Syntax: `DATE_FORMAT(date_value, 'format_options_and_literals')`.
 
 ```sql
@@ -273,7 +275,7 @@ LIMIT 1;
 
 For a complete list of options, see the official [DATE\_FORMAT() documentation](../reference/sql-functions/date-time-functions/date_format.md).
 
-**Using `TIME_FORMAT(time_column, format_string)`:**\
+**Using `TIME_FORMAT(time_column, format_string)`:**\
 Similar to `DATE_FORMAT()`, but uses only time-related format options.
 
 ```sql

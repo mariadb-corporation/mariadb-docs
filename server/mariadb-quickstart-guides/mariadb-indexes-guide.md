@@ -1,5 +1,7 @@
 ---
-description: Indexing Guide
+description: >-
+  Understand the different types of indexes in MariaDB, such as Primary Keys and
+  Unique Indexes, and learn how to create and manage them for performance.
 ---
 
 # Getting Started with Indexes Guide
@@ -61,7 +63,7 @@ WHERE t.TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'mysql'
 
 ### Unique Index
 
-A unique index ensures that all values in the indexed column (or combination of columns) are unique. However, unlike a primary key, columns in a unique index can store `NULL` values.&#x20;
+A unique index ensures that all values in the indexed column (or combination of columns) are unique. However, unlike a primary key, columns in a unique index can store `NULL` values.
 
 Each key value uniquely identifies a row, but not every row needs to be represented if `NULL`s are allowed.
 

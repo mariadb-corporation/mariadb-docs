@@ -20,7 +20,7 @@ Instructions how to install the packages can be found [here](../../../server-man
 ## Pre-Release Binaries
 
 Binaries from our [Buildbot](https://buildbot.askmonty.org) system (see also\
-the [Buildbot](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/buildbot) page), are available at [archive](https://hasky.askmonty.org/archive). They are not suitable for use in\
+the [Buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA) page), are available at [archive](https://hasky.askmonty.org/archive). They are not suitable for use in\
 production systems but may be of use for debugging.
 
 Once at the above URL you will need to click on the MariaDB tree you are\
@@ -35,7 +35,7 @@ In this case, the value is "2434".
 
 You can find all the source code at [server](https://github.com/MariaDB/server)
 
-To retrieve the code, the [Git](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/using-git-with-mariadb/using-git) source control software offers\
+To retrieve the code, the [Git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM) source control software offers\
 the path of least resistance. If you are unfamiliar with git, please refer to\
 the [git documentation](https://git-scm.com/doc) for an understanding\
 of version control with git.

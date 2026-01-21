@@ -4,7 +4,7 @@
 
 At its core, mariadb-test is very simple. The client program `mariadb-test`\
 executes a _test file_ and compares the produced output with the _result_\
-&#xNAN;_&#x66;ile_. If the files match, the test is passed; otherwise the test has failed.\
+&#xNAN;_file_. If the files match, the test is passed; otherwise the test has failed.\
 This approach can be used to test any SQL statement, as well as other\
 executables (with the `exec` command).
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The XTRADB_RSEG table contains detailed information about the rollback
+  segments used by XtraDB for undo logging and MVCC.
+---
+
 # Information Schema XTRADB\_RSEG Table
 
 The [Information Schema](../../) `XTRADB_RSEG` table contains information about the XtraDB rollback segments.

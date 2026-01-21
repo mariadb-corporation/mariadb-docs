@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a datetime value between time zones. This function shifts a timestamp
+  from a source time zone to a target time zone.
+---
+
 # CONVERT\_TZ
 
 ## Syntax
@@ -10,9 +16,19 @@ CONVERT_TZ(dt,from_tz,to_tz)
 
 `CONVERT_TZ()` converts a datetime value _dt_ from the [time zone](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md) given by _from\_tz_ to the time zone given by _to\_tz_ and returns the resulting value.
 
-In order to use named time zones, such as GMT, MET or Africa/Johannesburg, the time\_zone tables must be loaded (see [mysql\_tzinfo\_to\_sql](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_tzinfo_to_sql.md)).
+In order to use named time zones, such as GMT, MET or Africa/Johannesburg, the `time_zone` tables must be loaded (see [mysql\_tzinfo\_to\_sql](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_tzinfo_to_sql.md)).
 
-No conversion will take place if the value falls outside of the supported `TIMESTAMP` range ('1970-01-01 00:00:01' to '2038-01-19 05:14:07' UTC) when converted from _from\_tz_ to UTC.
+No conversion takes place if the value falls outside of the supported `TIMESTAMP` range when converted from _from\_tz_ to UTC.
+
+{% tabs %}
+{% tab title="Currrent" %}
+The supported range is `1970-01-01 00:00:00` to `2106-02-07 06:28:15` UTC.
+{% endtab %}
+
+{% tab title="< 11.5" %}
+The supported range is `1970-01-01 00:00:01` to `2038-01-19 05:14:07` UTC.
+{% endtab %}
+{% endtabs %}
 
 This function returns `NULL` if the arguments are invalid (or named time zones have not been loaded).
 

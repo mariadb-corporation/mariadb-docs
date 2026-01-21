@@ -1,8 +1,8 @@
 ---
 description: >-
-  Understand binlog event checksums in MariaDB Server. This section explains how
-  checksums ensure data integrity and detect corruption in the binary log during
-  replication processes.
+  Configure checksums to detect data corruption in binary logs. Learn how to
+  enable verification to ensure the integrity of replication events during
+  transmission and storage.
 ---
 
 # Binlog Event Checksums

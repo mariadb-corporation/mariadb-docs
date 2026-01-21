@@ -1,3 +1,10 @@
+---
+description: >-
+  Format a time in picoseconds. This function converts a numeric picosecond
+  value into a human-readable string with units like ps, ns, us, ms, s, m, h, or
+  d.
+---
+
 # FORMAT\_PICO\_TIME
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Replace rows and retrieve the results immediately. This extension returns the
+  values of the replaced or inserted rows in the same operation.
+---
+
 # REPLACE...RETURNING
 
 {% hint style="info" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  Propagate error conditions. This statement allows a handler to pass an error
+  condition back to the caller or modify the error information before passing it
+  on.
+---
+
 # RESIGNAL
 
 ## Syntax

@@ -1,7 +1,16 @@
+---
+description: >-
+  Guide to using the `openssl` command-line tool to generate a Certificate
+  Authority (CA) key, server private key, and self-signed X509 certificate for
+  testing or internal use.
+---
+
 # Certificate Creation with OpenSSL
 
-**Warning**: the instructions below generate version 1 certificates only. These work fine with servers and clients using OpenSSL, but fail if WolfSSL is used instead, as is the case for our Windows MSI packages and our binary tarballs for Linux.\
-WolfSSL requires version 3 certificates instead when using TLS v1.2 or higher, and so won't work with certificates generated as shown here when using two-way TLS with explicit client certificates.\
+**Warning**: the instructions below generate version 1 certificates only. These work fine with servers and clients using OpenSSL, but fail if WolfSSL is used instead, as is the case for our Windows MSI packages and our binary tarballs for Linux.
+
+WolfSSL requires version 3 certificates instead when using TLS v1.2 or higher, and so won't work with certificates generated as shown here when using two-way TLS with explicit client certificates.
+
 Generating version 3 certificates requires a few more minor steps, we will upgrade the instructions below soon to include these.\
 See also: [MDEV-25701](https://jira.mariadb.org/browse/MDEV-25701)
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema THREAD_POOL_GROUPS table provides details about the
+  thread groups in the thread pool, including active thread counts.
+---
+
 # Information Schema THREAD\_POOL\_GROUPS Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  The XTRADB_INTERNAL_HASH_TABLES table provides memory usage statistics for
+  internal hash tables used by the XtraDB/InnoDB storage engine.
+---
+
 # Information Schema CHANGED\_PAGE\_BITMAPS Table
 
 The [Information Schema](../../) `CHANGED_PAGE_BITMAPS` table is a dummy table added to [XtraDB](../../../../../server-usage/storage-engines/innodb/) with reset\_table callback to allow `FLUSH NO_WRITE_TO_BINLOG CHANGED_PAGE_BITMAPS` to be called from `innobackupex`. It contains only one column, _dummy_.

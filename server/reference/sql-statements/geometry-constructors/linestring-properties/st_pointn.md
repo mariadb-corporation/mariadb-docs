@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the N-th Point in a LineString. This function retrieves a specific
+  point from the sequence based on its 1-based index.
+---
+
 # ST\_POINTN
 
 ## Syntax

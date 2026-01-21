@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate a short 64-bit UUID. This function returns a unique, monotonically
+  increasing integer suitable for use as a compact identifier.
+---
+
 # UUID\_SHORT
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for NOW(). Returns the current date and time as a value in 'YYYY-MM-DD
+  HH:MM:SS' or YYYYMMDDHHMMSS format.
+---
+
 # CURRENT\_TIMESTAMP
 
 ## Syntax

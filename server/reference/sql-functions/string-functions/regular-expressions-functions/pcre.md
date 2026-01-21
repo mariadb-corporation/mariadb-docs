@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand MariaDB's regex support. This concept page explains the PCRE
+  library integration, detailing supported syntax, character classes, and
+  special characters.
+---
+
 # PCRE - Perl Compatible Regular Expressions
 
 ### PCRE Versions

@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the position of the first occurrence of a substring. This function
+  locates a substring within a string and returns its index.
+---
+
 # INSTR
 
 ## Syntax

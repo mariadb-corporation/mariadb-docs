@@ -1,3 +1,9 @@
+---
+description: >-
+  The DROP PROCEDURE statement permanently removes a stored procedure and its
+  associated privileges from the database.
+---
+
 # DROP PROCEDURE
 
 ## Syntax

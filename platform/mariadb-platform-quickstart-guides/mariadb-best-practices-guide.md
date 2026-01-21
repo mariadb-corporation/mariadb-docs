@@ -1,5 +1,5 @@
 ---
-cover: ../.gitbook/assets/Group 15569 (2).png
+cover: broken-reference
 coverY: 0
 ---
 

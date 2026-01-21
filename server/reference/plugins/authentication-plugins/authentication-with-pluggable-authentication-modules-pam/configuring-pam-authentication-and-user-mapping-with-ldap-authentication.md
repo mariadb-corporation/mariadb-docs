@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn to configure the PAM plugin to authenticate users via LDAP and map LDAP
+  groups to MariaDB accounts using the pam_user_map module.
+---
+
 # Configuring PAM Authentication and User Mapping with LDAP Authentication
 
 In this article, we will walk through the configuration of PAM authentication using the [pam](authentication-plugin-pam.md) authentication plugin and user and group mapping with the [pam\_user\_map](user-and-group-mapping-with-pam.md) PAM module. The primary authentication will be handled by the [pam\_ldap](https://linux.die.net/man/5/pam_ldap) PAM module, which performs LDAP authentication. We will also set up an OpenLDAP server.
@@ -608,8 +614,6 @@ We can verify that our `alice` Unix user was properly mapped to the `dba` MariaD
 ## Integrating with MariaDB MaxScale
 
 If you are connecting to MariaDB Server through MariaDB MaxScale, it is also recommended to configure the proxy to authenticate users via [MaxScale PAM Authenticator](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-authenticators/maxscale-pam-authenticator).
-
-
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Raise a custom error condition. This statement allows stored programs to
+  generate specific error messages and SQLSTATEs to handle application logic
+  exceptions.
+---
+
 # SIGNAL
 
 ## Syntax

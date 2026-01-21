@@ -57,8 +57,8 @@ Covers index types, creation, and best practices for leveraging them to signific
 
 {% columns %}
 {% column %}
-{% content-ref url="../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md" %}
-[optimizer-hints.md](../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md)
+{% content-ref url="optimizer-hints/" %}
+[optimizer-hints](optimizer-hints/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -126,6 +126,3 @@ Provides techniques for writing efficient SQL, understanding query execution pla
 Optimize MariaDB Server with system variables, configuring various parameters to fine-tune performance, manage resources, and adapt the database to your specific workload requirements.
 {% endcolumn %}
 {% endcolumns %}
-
-
-

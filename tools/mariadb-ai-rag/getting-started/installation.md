@@ -13,7 +13,7 @@
 
 {% tabs %}
 {% tab title="Debian/Ubuntu" %}
-### Debian/Ubuntu Installation
+#### Debian/Ubuntu Installation
 
 1. Download the Debian / Ubuntu `.deb` installation package from:
    * [https://mariadb.com/downloads/enterprise-tooling/ai-rag/](https://mariadb.com/downloads/enterprise-tooling/ai-rag/)
@@ -30,7 +30,7 @@
 {% endtab %}
 
 {% tab title="RHEL" %}
-### RHEL (and equivalents) Installation
+#### RHEL (and equivalents) Installation
 
 1. Download the RHEL `.rpm` installation package from:
    * [https://mariadb.com/downloads/enterprise-tooling/ai-rag/](https://mariadb.com/downloads/enterprise-tooling/ai-rag/)
@@ -42,7 +42,7 @@
 {% endtab %}
 
 {% tab title="Windows" %}
-### Windows Installation
+#### Windows Installation
 
 1. Download the Windows `.msi` installation package from:
    * [https://mariadb.com/downloads/enterprise-tooling/ai-rag/](https://mariadb.com/downloads/enterprise-tooling/ai-rag/)

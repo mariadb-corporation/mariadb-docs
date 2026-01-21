@@ -34,7 +34,7 @@ select calShowPartitions('orders','orderdate');
 
 The _`calEnablePartitions`_ stored procedure allows for enabling of one or more partitions. The procedure takes the same set of parameters as _`calDisablePartitions`_.
 
-&#x20;For example:
+ For example:
 
 ```sql
 select calEnablePartitions('orders', '0.0.1');
@@ -63,7 +63,7 @@ select calShowPartitions('orders','orderdate');
 
 ### Disabling Partitions
 
-The _`calDisablePartition`s_ stored procedure allows for disabling of one or more partitions. A disabled partition still exists on the file system (and can be enabled again at a later time) but will not participate in any query, DML or import activity. The procedure takes either two or three mandatory parameters: \[_`database_name`_], _`table_name`_, and _`partition_numbers`_ separated by commas. If two parameters are provided the current database is assumed.&#x20;
+The _`calDisablePartition`s_ stored procedure allows for disabling of one or more partitions. A disabled partition still exists on the file system (and can be enabled again at a later time) but will not participate in any query, DML or import activity. The procedure takes either two or three mandatory parameters: \[_`database_name`_], _`table_name`_, and _`partition_numbers`_ separated by commas. If two parameters are provided the current database is assumed. 
 
 For example:
 
@@ -94,7 +94,7 @@ select calShowPartitions('orders','orderdate');
 
 ### Dropping Partitions
 
-The _`calDropPartitions`_ stored procedure allows for dropping of one or more partitions. Dropping means that the underlying storage is deleted and the partition is completely removed. A partition can be dropped from either enabled or disabled state. The procedure takes the same set of parameters as _`calDisablePartitions`_. Extra caution should be used with this procedure since it is destructive and cannot be reversed.&#x20;
+The _`calDropPartitions`_ stored procedure allows for dropping of one or more partitions. Dropping means that the underlying storage is deleted and the partition is completely removed. A partition can be dropped from either enabled or disabled state. The procedure takes the same set of parameters as _`calDisablePartitions`_. Extra caution should be used with this procedure since it is destructive and cannot be reversed. 
 
 For example:
 
@@ -128,7 +128,7 @@ select calShowPartitions('orders','orderdate');
 
 Information about a range of parititions for a given column can be retrieved using the _`calShowPartitionsByValue`_ stored procedure. This procedure takes either four or five mandatory parameters: \[_`database_name`_], _`table_name`_`,`` `_`column_name`_`,`` `_`start_value`_`, and`` `_`end_value`_. If four parameters are provided, the current database is assumed. Only casual partition column types ([INTEGER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/int), [DECIMAL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/decimal), [DATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/date), [DATETIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime), [CHAR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/char) up to 8 bytes and [VARCHAR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/varchar) up to 7 bytes) are supported for this function.
 
-The function returns a list of partitions whose minimum and maximum values for the column `col_name` fall completely within the range of `start_value` and `end_value`.&#x20;
+The function returns a list of partitions whose minimum and maximum values for the column `col_name` fall completely within the range of `start_value` and `end_value`. 
 
 For example:
 
@@ -147,9 +147,9 @@ select calShowPartitionsByValue('orders','orderdate', '1992-01-01', '2010-07-24'
 
 ### Enabling Partitions
 
-The _`calEnablePartitionsbyValue`_ stored procedure allows for enabling of one or more partitions by value. The procedure takes the same set of arguments as _`calShowPartitionsByValue`_.&#x20;
+The _`calEnablePartitionsbyValue`_ stored procedure allows for enabling of one or more partitions by value. The procedure takes the same set of arguments as _`calShowPartitionsByValue`_. 
 
-A good practice is to use _`calShowPartitionsByValue`_ to identify the partitions to be enabled and then the same argument values used to construct the _`calEnablePartitionsbyValue`_ call.&#x20;
+A good practice is to use _`calShowPartitionsByValue`_ to identify the partitions to be enabled and then the same argument values used to construct the _`calEnablePartitionsbyValue`_ call. 
 
 For example:
 
@@ -180,7 +180,7 @@ select calShowPartitionsByValue('orders','orderdate', '1992-01-01', '2010-07-24'
 
 ### Disabling Partitions
 
-The _`calDisablePartitionsByValue`_ stored procedure allows for disabling of one or more partitions by value. A disabled partition still exists on the file system (and can be enabled again at a later time) but will not participate in any query, DML or import activity. The procedure takes the same set of arguments as _`calShowPartitionsByValue`_.&#x20;
+The _`calDisablePartitionsByValue`_ stored procedure allows for disabling of one or more partitions by value. A disabled partition still exists on the file system (and can be enabled again at a later time) but will not participate in any query, DML or import activity. The procedure takes the same set of arguments as _`calShowPartitionsByValue`_. 
 
 A good practice is to use _`calShowPartitionsByValue`_ to identify the partitions to be disabled and then the same argument values used to construct the _`calDisablePartitionsByValue`_ call. For example:
 
@@ -211,7 +211,7 @@ select calShowPartitionsByValue('orders','orderdate', '1992-01-01', '2010-07-24'
 
 ### Dropping Partitions
 
-The _`calDropPartitionsByValue`_ stored procedure allows for dropping of one or more partitions by value. Dropping means that the underlying storage is deleted and the partition is completely removed. A partition can be dropped from either enabled or disabled state. The procedure takes the same set of arguments as _`calShowPartitionsByValue`_. A good practice is to use _calShowPartitionsByValue_ to identify the partitions to be enabled and then the same argument values used to construct the _`calDropPartitionsByValue`_ call. Extra caution should be used with this procedure since it is destructive and cannot be reversed.&#x20;
+The _`calDropPartitionsByValue`_ stored procedure allows for dropping of one or more partitions by value. Dropping means that the underlying storage is deleted and the partition is completely removed. A partition can be dropped from either enabled or disabled state. The procedure takes the same set of arguments as _`calShowPartitionsByValue`_. A good practice is to use _calShowPartitionsByValue_ to identify the partitions to be enabled and then the same argument values used to construct the _`calDropPartitionsByValue`_ call. Extra caution should be used with this procedure since it is destructive and cannot be reversed. 
 
 For example:
 

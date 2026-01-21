@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the numeric value of the first character. This function returns the
+  code for the leftmost character, supporting multi-byte characters.
+---
+
 # ORD
 
 ## Syntax

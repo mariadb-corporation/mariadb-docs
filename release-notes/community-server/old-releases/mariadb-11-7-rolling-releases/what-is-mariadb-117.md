@@ -45,7 +45,7 @@ MariaDB 11.7 is no longer maintained. Please use a [more recent release](../../.
 
 ### Derived Tables
 
-* Add optional correlation column list for [derived tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/subqueries-in-a-from-clause-derived-tables) ([MDEV-31466](https://jira.mariadb.org/browse/MDEV-31466))
+* Add optional correlation column list for [derived tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) ([MDEV-31466](https://jira.mariadb.org/browse/MDEV-31466))
 
 ### \[SHOW] CREATE SERVER
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the count of interior rings in a Polygon. This function calculates the
+  total number of inner holes within the polygon.
+---
+
 # ST\_NumInteriorRings
 
 ## Syntax
@@ -11,7 +17,7 @@ NumInteriorRings(poly)
 
 Returns an integer containing the number of interior rings in the Polygon value `poly`.
 
-Note that according the OpenGIS standard, a [POLYGON](../../../sql-statements/geometry-constructors/geometry-constructors/polygon.md) should have exactly one ExteriorRing and all other rings should lie within that ExteriorRing and thus be the InteriorRings. Practically, however, some systems, including MariaDB's, permit polygons to have several 'ExteriorRings'. In the case of there being multiple, non-overlapping exterior rings ST\_NumInteriorRings() will return `1`.
+Note that according the OpenGIS standard, a [POLYGON](../geometry-constructors/polygon.md) should have exactly one ExteriorRing and all other rings should lie within that ExteriorRing and thus be the InteriorRings. Practically, however, some systems, including MariaDB's, permit polygons to have several 'ExteriorRings'. In the case of there being multiple, non-overlapping exterior rings ST\_NumInteriorRings() will return `1`.
 
 `ST_NumInteriorRings()` and `NumInteriorRings()` are synonyms.
 
@@ -40,6 +46,6 @@ SELECT ST_NumInteriorRings(ST_PolyFromText('POLYGON((0 0,10 0,10 10,0 10,0 0),
 +------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

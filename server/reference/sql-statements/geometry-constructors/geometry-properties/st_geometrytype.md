@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the name of the geometry type (e.g., 'POINT', 'LINESTRING', 'POLYGON')
+  for the given geometry instance.
+---
+
 # ST\_GEOMETRYTYPE
 
 ## Syntax

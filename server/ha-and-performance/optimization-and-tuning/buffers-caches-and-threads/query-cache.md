@@ -21,7 +21,7 @@ SHOW VARIABLES LIKE 'have_query_cache';
 
 If this is set to `NO`, you cannot enable the query cache unless you rebuild or reinstall a version of MariaDB with the cache available.
 
-To see if the cache is enabled, view the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable. It is disabled by default —  enable it by setting `query_cache_type` to `1` :&#x20;
+To see if the cache is enabled, view the [query\_cache\_type](../system-variables/server-system-variables.md#query_cache_type) server variable. It is disabled by default —  enable it by setting `query_cache_type` to `1` : 
 
 ```sql
 SET GLOBAL query_cache_type = 1;

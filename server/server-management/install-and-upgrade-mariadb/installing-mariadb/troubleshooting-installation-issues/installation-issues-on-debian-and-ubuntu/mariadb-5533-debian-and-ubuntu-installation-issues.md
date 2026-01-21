@@ -1,3 +1,9 @@
+---
+description: >-
+  Specific instructions for resolving dependency breakage that occurred with the
+  release of MariaDB 5.5.33 on Debian and Ubuntu systems.
+---
+
 # MariaDB 5.5.33 Debian and Ubuntu Installation Issues
 
 {% hint style="warning" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the benefits of automating database deployment and management, such
+  as consistency, scalability, and the adoption of Infrastructure as Code
+  principles.
+---
+
 # Why to Automate MariaDB Deployments and Management
 
 MariaDB includes a powerful [configuration system](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). This is enough when we need to deploy a single MariaDB instance, or a small number of instances. But many modern organisations have many database servers. Deploying and upgrading them manually could require too much time, and would be error-prone.

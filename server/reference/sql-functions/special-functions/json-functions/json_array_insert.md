@@ -1,3 +1,10 @@
+---
+description: >-
+  This function inserts values into a JSON document at a specified path,
+  returning the modified document, and supports evaluating multiple path-value
+  pairs sequentially.
+---
+
 # JSON\_ARRAY\_INSERT
 
 ## Syntax

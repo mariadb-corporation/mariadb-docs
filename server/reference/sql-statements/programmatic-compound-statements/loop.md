@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a simple loop construct. This statement repeatedly executes a block of
+  code until explicitly terminated by a LEAVE statement.
+---
+
 # LOOP
 
 ## Syntax

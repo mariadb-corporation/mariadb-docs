@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the differences between official Debian/Ubuntu repository packages
+  and those from MariaDB.org, particularly regarding library linking and
+  configuration defaults.
+---
+
 # Differences in MariaDB in Debian (and Ubuntu)
 
 The [.deb](../../binary-packages/installing-mariadb-deb-files.md) packages provided by MariaDB Foundation's and MariaDB Corporation's repositories are not identical to the official [.deb](../../binary-packages/installing-mariadb-deb-files.md) packages provided by Debian's and Ubuntu's default repositories.

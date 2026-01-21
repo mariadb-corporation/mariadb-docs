@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove dynamic columns. This function deletes specified columns from a dynamic
+  column blob and returns the updated blob.
+---
+
 # COLUMN\_DELETE
 
 ## Syntax

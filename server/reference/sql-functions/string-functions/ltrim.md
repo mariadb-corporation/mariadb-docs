@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove leading spaces. This function returns the string with any leading
+  whitespace characters removed.
+---
+
 # LTRIM
 
 ## Syntax

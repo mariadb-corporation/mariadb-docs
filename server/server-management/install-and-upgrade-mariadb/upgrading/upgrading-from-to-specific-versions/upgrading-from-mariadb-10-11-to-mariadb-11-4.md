@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide for upgrading from the previous LTS version 10.11 to 11.4, highlighting
+  major optimizer changes, replication improvements, and SSL defaults.
+---
+
 # Upgrading from MariaDB 10.11 to MariaDB 11.4
 
 This page includes details for upgrading from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011) to the subsequent long-term maintenance version, [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114).
@@ -6,7 +12,7 @@ This page includes details for upgrading from [MariaDB 10.11](https://app.gitboo
 
 For Windows, see [Upgrading MariaDB on Windows](../upgrading-mariadb-on-windows.md).
 
-For MariaDB Galera Cluster, see [Upgrading from MariaDB 11.4 to MariaDB 11.4 with Galera Cluster](https://mariadb.com/kb/en/upgrading-from-mariadb-10-11-to-mariadb-11-4-with-galeracluster/).
+For MariaDB Galera Cluster, see [Upgrading Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster) section.
 
 Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md).
 

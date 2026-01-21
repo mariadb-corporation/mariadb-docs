@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_FOREIGN table provides metadata about foreign key constraints
+  defined on InnoDB tables, including reference details.
+---
+
 # Information Schema INNODB\_SYS\_FOREIGN Table
 
 The [Information Schema](../../) `INNODB_SYS_FOREIGN` table contains information about InnoDB [foreign keys](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md).

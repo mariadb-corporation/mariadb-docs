@@ -1,3 +1,10 @@
+---
+description: >-
+  Insert a substring into a string. This function inserts a string within
+  another string at a specified position and length, replacing existing
+  characters.
+---
+
 # INSERT Function
 
 ## Syntax

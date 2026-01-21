@@ -14,7 +14,7 @@ Follow these steps to add another logical database that is monitored by the same
 
 {% stepper %}
 {% step %}
-### Add a new monitored logical database
+#### Add a new monitored logical database
 
 1. Navigate to your main database inventory page.
 2. Locate the existing logical database that is associated with your MaxScale deployment.
@@ -24,7 +24,7 @@ Follow these steps to add another logical database that is monitored by the same
 {% endstep %}
 
 {% step %}
-### Configure the new monitor
+#### Configure the new monitor
 
 1. In the dialog box that appears, provide a new **Logical Database Name** and select the specific **MaxScale Monitor** you wish to track from the dropdown list.
 2. Click the **Confirm** button to add the new monitored database.
@@ -37,22 +37,20 @@ If you need to change which MaxScale monitor an existing logical database is tra
 
 {% stepper %}
 {% step %}
-### Open the database edit menu
+#### Open the database edit menu
 
 1. Navigate to your main database inventory page and locate the logical database you wish to edit.
 2. Click the **three-dot menu icon (⋮)** on the right side of the database entry.
-3.  Select the **Edit** option from the menu.\
-
+3.  Select the **Edit** option from the menu.\\
 
     <figure><img src="../../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-### Select a different monitor
+#### Select a different monitor
 
 1. In the configuration window, scroll down to the **Advanced** section.
-2.  From the **Monitor name** dropdown, select the new MaxScale monitor you want this logical database to track.\
-
+2.  From the **Monitor name** dropdown, select the new MaxScale monitor you want this logical database to track.\\
 
     <figure><img src="../../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 3. Click the **Confirm** button to save your changes.

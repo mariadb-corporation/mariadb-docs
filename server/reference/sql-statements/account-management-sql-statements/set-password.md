@@ -1,8 +1,14 @@
+---
+description: >-
+  Set or change a user's password. This guide covers the syntax for updating
+  authentication credentials for yourself or other accounts.
+---
+
 # SET PASSWORD
 
 ## Syntax
 
-```bnf
+```sql
 SET PASSWORD [FOR user] =
     {
         PASSWORD('some password')

@@ -1,3 +1,9 @@
+---
+description: >-
+  This table shows the status of the coordinator thread when parallel
+  replication is enabled, detailing the distribution of transactions to workers.
+---
+
 # Performance Schema replication\_applier\_status\_by\_coordinator Table
 
 {% hint style="info" %}

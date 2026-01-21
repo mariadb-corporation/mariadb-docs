@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the current date. This function outputs today's date as a value in
+  'YYYY-MM-DD' or YYYYMMDD format, depending on the context.
+---
+
 # CURDATE
 
 ## Syntax

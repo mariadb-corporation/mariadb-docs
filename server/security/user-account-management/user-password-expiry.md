@@ -1,3 +1,10 @@
+---
+description: >-
+  Guide to configuring password expiration policies, including setting global
+  lifetimes via `default_password_lifetime` or per-user limits, and handling
+  expired password connections.
+---
+
 # User Password Expiry
 
 Password expiry permits administrators to expire user passwords, either manually or automatically.

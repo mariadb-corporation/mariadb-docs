@@ -1,3 +1,9 @@
+---
+description: >-
+  Fixed-length binary string type. This type stores a fixed number of bytes,
+  padding with zero bytes if the data is shorter.
+---
+
 # BINARY
 
 This page describes the BINARY data type. For details about the operator, see [Binary Operator](../../sql-functions/string-functions/binary-operator.md).

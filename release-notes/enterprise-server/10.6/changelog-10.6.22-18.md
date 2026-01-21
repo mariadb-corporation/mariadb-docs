@@ -6,7 +6,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/latest-es-10.6.md" %}
 
-MariaDB Enterprise Server 10.6.22-18 is a maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.22-18.md).
+MariaDB Enterprise Server 10.6.22-18 is a Stable (GA) maintenance release of [MariaDB Enterprise Server](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/) 10.6. For the categorized highlights and other details of this release, see the [release notes](10.6.22-18.md).
 
 MariaDB Enterprise Server 10.6.22-18 was released on 11 Jun 2025.
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema ENGINES table displays status information about the
+  server's storage engines, including support level and transaction
+  capabilities.
+---
+
 # Information Schema ENGINES Table
 
 The [Information Schema](../) `ENGINES` table displays status information about the server's [storage engines](../../../../server-usage/storage-engines/).

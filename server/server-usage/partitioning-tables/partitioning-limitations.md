@@ -1,8 +1,14 @@
+---
+description: >-
+  This page outlines constraints when using partitioning, such as the maximum
+  number of partitions and restrictions on foreign keys and query cache usage.
+---
+
 # Partitioning Limitations
 
 The following limitations apply to partitioning in MariaDB:
 
-* Each table can contain a maximum of 8192 partitions. Until [MariaDB 10.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1003-release-notes), the limit was 1024.
+* Each table can contain a maximum of 8192 partitions.
 * Queries are never parallelized, even when they involve multiple partitions.
 * A table can only be partitioned if the storage engine supports partitioning.
 * All partitions must use the same storage engine. For a workaround, see [Using CONNECT - Partitioning and Sharding](../storage-engines/connect/using-connect/using-connect-partitioning-and-sharding.md).

@@ -12,7 +12,7 @@ This guide describes steps to install MariaDB Enterprise Manager for evaluation 
 
 {% stepper %}
 {% step %}
-### Prepare a machine for Enterprise Manager installation
+#### Prepare a machine for Enterprise Manager installation
 
 [Machine requirements](administration/deployment/hardware-and-system-requirements.md) (minimal hardware resources for evaluation):
 
@@ -27,7 +27,7 @@ Other requirements:
 {% endstep %}
 
 {% step %}
-### Obtain MariaDB Customer Download Token
+#### Obtain MariaDB Customer Download Token
 
 1. Navigate to the [Customer Download Token at the MariaDB Customer Portal](https://customers.mariadb.com/downloads/token/)
 2. Log in using your [MariaDB ID](https://id.mariadb.com/)
@@ -35,7 +35,7 @@ Other requirements:
 {% endstep %}
 
 {% step %}
-### Setup MariaDB Enterprise Repository - "MariaDB Enterprise Tools"
+#### Setup MariaDB Enterprise Repository - "MariaDB Enterprise Tools"
 
 [Set up the repository for each monitored MariaDB Server and MaxScale](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#mariadb_es_repo_setup)
 {% endstep %}
@@ -45,7 +45,7 @@ Other requirements:
 
 {% stepper %}
 {% step %}
-### Login to the MariaDB Enterprise Docker Registry
+#### Login to the MariaDB Enterprise Docker Registry
 
 Use your MariaDB ID as username and Customer Download Token as password:
 
@@ -55,7 +55,7 @@ docker login docker.mariadb.com
 {% endstep %}
 
 {% step %}
-### Download the installation script
+#### Download the installation script
 
 Insert your Customer Download Token into the download URL and download the installation script:
 
@@ -65,7 +65,7 @@ wget https://dlm.mariadb.com/<Customer_Download_Token>/enterprise-release-helper
 {% endstep %}
 
 {% step %}
-### Make the installation script executable
+#### Make the installation script executable
 
 ```bash
 chmod +x install-enterprise-manager.sh
@@ -73,7 +73,7 @@ chmod +x install-enterprise-manager.sh
 {% endstep %}
 
 {% step %}
-### Run the installer with default options
+#### Run the installer with default options
 
 ```bash
 ./install-enterprise-manager.sh
@@ -81,7 +81,7 @@ chmod +x install-enterprise-manager.sh
 {% endstep %}
 
 {% step %}
-### Access Enterprise Manager UI
+#### Access Enterprise Manager UI
 
 Open in a browser:
 
@@ -99,7 +99,7 @@ Below are procedures for topologies without and with MaxScale.
 
 {% stepper %}
 {% step %}
-### Create monitoring user for each MariaDB Server (Enterprise Manager access)
+#### Create monitoring user for each MariaDB Server (Enterprise Manager access)
 
 Run on each [MariaDB server](usage/monitoring/dashboards/mariadb-server.md) (replace \<Enterprise\_Manager\_IP> ):
 
@@ -110,7 +110,7 @@ GRANT REPLICA MONITOR ON *.* TO 'monitor'@'<Enterprise_Manager_IP>';
 {% endstep %}
 
 {% step %}
-### Add database topology in Enterprise Manager UI
+#### Add database topology in Enterprise Manager UI
 
 Add each MariaDB Server in the Enterprise Manager UI, providing access details for each server.
 
@@ -118,7 +118,7 @@ Add each MariaDB Server in the Enterprise Manager UI, providing access details f
 {% endstep %}
 
 {% step %}
-### Install agent on each MariaDB Server to enable metrics collection
+#### Install agent on each MariaDB Server to enable metrics collection
 
 On each MariaDB server install the [mema-agent package](administration/deployment/adding-databases/agent-installation-t-copy.md).
 
@@ -136,7 +136,7 @@ sudo apt install -y mema-agent
 {% endstep %}
 
 {% step %}
-### Create monitoring user for agent access (on each MariaDB Server)
+#### Create monitoring user for agent access (on each MariaDB Server)
 
 Run on each MariaDB server:
 
@@ -147,34 +147,32 @@ GRANT PROCESS, BINLOG MONITOR, REPLICA MONITOR, REPLICATION MASTER ADMIN ON *.* 
 {% endstep %}
 
 {% step %}
-### Setup agent using the command generated in Enterprise Manager UI
+#### Setup agent using the command generated in Enterprise Manager UI
 
-1.  In the UI, click the three dots beside the server you want to install the Agent on.\
-
+1.  In the UI, click the three dots beside the server you want to install the Agent on.\\
 
     <figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 2. The UI will generate a unique setup command for that specific server with the username and password you provide.
 3. Copy and run the command on that specific server.
-4.  Repeat for all servers in the database fleet.\
-
+4.  Repeat for all servers in the database fleet.\\
 
     <figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-### Wait for metrics to appear
+#### Wait for metrics to appear
 
 Wait 1–2 minutes for [metrics](../mariadb-enterprise-operator/metrics.md) to start populating in Enterprise Manager from the agents (default collection interval is 1 minute).
 {% endstep %}
 {% endstepper %}
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Topology with MaxScale
 
 {% stepper %}
 {% step %}
-### Add MaxScale instances to Enterprise Manager
+#### Add MaxScale instances to Enterprise Manager
 
 Add each MaxScale instance in the Enterprise Manager UI, providing access details.
 
@@ -182,7 +180,7 @@ Add each MaxScale instance in the Enterprise Manager UI, providing access detail
 {% endstep %}
 
 {% step %}
-### Install agent on each MaxScale and MariaDB Server
+#### Install agent on each MaxScale and MariaDB Server
 
 On each MaxScale and each MariaDB server install the mema-agent package.
 
@@ -200,7 +198,7 @@ sudo apt install -y mema-agent
 {% endstep %}
 
 {% step %}
-### Create monitoring user for agent access (on each MariaDB Server)
+#### Create monitoring user for agent access (on each MariaDB Server)
 
 Run on each MariaDB server:
 
@@ -211,7 +209,7 @@ GRANT PROCESS, BINLOG MONITOR, REPLICA MONITOR, REPLICATION MASTER ADMIN ON *.* 
 {% endstep %}
 
 {% step %}
-### Setup agent using the command generated in Enterprise Manager UI
+#### Setup agent using the command generated in Enterprise Manager UI
 
 1. Click the three dots beside the server or MaxScale instance you want to install the Agent on and click **Install Agent**.
 2. The UI will generate a unique setup command for that specific server/MaxScale instance with the username and password you provide. Copy the command.
@@ -220,7 +218,7 @@ GRANT PROCESS, BINLOG MONITOR, REPLICA MONITOR, REPLICATION MASTER ADMIN ON *.* 
 {% endstep %}
 
 {% step %}
-### Wait for metrics to appear
+#### Wait for metrics to appear
 
 Wait 1–2 minutes for metrics to start populating in Enterprise Manager from the agents (default collection interval is 1 minute).
 {% endstep %}

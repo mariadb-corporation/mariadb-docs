@@ -1,3 +1,9 @@
+---
+description: >-
+  A quick reference guide for essential SQL statements in MariaDB, categorized
+  by Data Definition, Data Manipulation, and Transaction Control.
+---
+
 # Basic SQL Statements
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}

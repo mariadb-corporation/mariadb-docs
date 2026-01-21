@@ -1,3 +1,9 @@
+---
+description: >-
+  Format a date according to a pattern. This function converts a date value into
+  a specific string format using specifiers like %Y, %m, and %d.
+---
+
 # DATE\_FORMAT
 
 ## Syntax

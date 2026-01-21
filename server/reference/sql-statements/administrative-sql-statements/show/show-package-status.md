@@ -1,3 +1,9 @@
+---
+description: >-
+  List stored packages. View metadata about the interface part of
+  Oracle-compatible packages in the database.
+---
+
 # SHOW PACKAGE STATUS
 
 ## Syntax

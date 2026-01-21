@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT JDBC Table Type: Accessing Tables from Another DBMS
 
 {% hint style="warning" %}

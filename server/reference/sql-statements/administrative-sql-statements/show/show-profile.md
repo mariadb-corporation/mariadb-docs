@@ -1,3 +1,9 @@
+---
+description: >-
+  Display profiling information for a query. View resource usage statistics like
+  CPU and block IO for the most recent statement.
+---
+
 # SHOW PROFILE
 
 ## Syntax

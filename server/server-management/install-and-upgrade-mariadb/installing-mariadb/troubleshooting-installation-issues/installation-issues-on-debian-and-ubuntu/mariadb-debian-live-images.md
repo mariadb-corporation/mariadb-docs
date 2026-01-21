@@ -1,3 +1,9 @@
+---
+description: >-
+  Information about using MariaDB Debian Live images for testing and offline
+  installation, including boot options and default credentials.
+---
+
 # MariaDB Debian Live Images
 
 {% hint style="warning" %}
@@ -8,28 +14,18 @@ A member of the MariaDB community, Mark `<ms (at) it-infrastrukturen (dot) org>`
 has created some Debian "squeeze" 6.0.4 based, live iso images with [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2)\
 or 5.3 pre-installed on them and some Debian "squeeze" 6.0.5 based, live iso images with [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) pre-installed on them.
 
-These live and install images can be used to quickly run a MariaDB server in\
-live mode for learning or testing purposes, or to simplify and speed up\
-off-line installations of Debian-based MariaDB servers onto harddisk.
+These live and install images can be used to quickly run a MariaDB server in live mode for learning or testing purposes, or to simplify and speed up off-line installations of Debian-based MariaDB servers onto harddisk.
 
-To work in live mode the system boots from a usb stick (or CD/DVD) and runs in\
-RAM without touching the system's harddisk drive.
+To work in live mode the system boots from a usb stick (or CD/DVD) and runs in RAM without touching the system's harddisk drive.
 
-The same usb stick (or CD/DVD media) can be used to install a complete server\
-installation onto the harddisk drive using the included Debian installer.
+The same usb stick (or CD/DVD media) can be used to install a complete server installation onto the harddisk drive using the included Debian installer.
 
-All required MariaDB packages are included on the media, so there is no need\
-for an Internet connection.
+All required MariaDB packages are included on the media, so there is no need for an Internet connection.
 
 Three types of images are provided, text (command line), LXDE, and Gnome. The\
-text-based live images can be used for testing or server off-line\
-installations. The two gui types, LXDE and Gnome, can be used for\
-testing/learning in live mode or for off-line desktop installations. Debian\
-live images with LXDE (gnome, KDE or awesome) are pretty comfortable for daily\
-work as a replacement for whatever desktop OS is installed on the system.
+text-based live images can be used for testing or server off-line installations. The two gui types, LXDE and Gnome, can be used for testing/learning in live mode or for off-line desktop installations. Debian live images with LXDE (gnome, KDE or awesome) are pretty comfortable for daily work as a replacement for whatever desktop OS is installed on the system.
 
-There are three iso images for each type, one for 32-bit (i386) systems, one\
-for 64-bit (amd64) systems, and one with both.
+There are three iso images for each type, one for 32-bit (i386) systems, one for 64-bit (amd64) systems, and one with both.
 
 1. [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2) Live iso images (text) for i386, amd64 or multi architectures.
 

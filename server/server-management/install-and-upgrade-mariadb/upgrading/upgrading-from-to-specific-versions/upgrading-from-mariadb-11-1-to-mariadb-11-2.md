@@ -1,3 +1,7 @@
+---
+description: An upgrading guide for unmaintained versions of MariaDB Community Server.
+---
+
 # Upgrading from MariaDB 11.1 to MariaDB 11.2
 
 This page includes details for upgrading from [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111) to [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112). Note that [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111) and [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112) are both [short-term releases](https://mariadb.org/about/#maintenance-policy), only maintained for one year.

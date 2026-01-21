@@ -4,7 +4,7 @@ MariaDB Cloud customers can configure outbound replication from a Replicated Tra
 
 MariaDB Cloud uses stored procedures to configure replication to other MariaDB or MySQL database servers.
 
-For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](../../reference-guide/stored-procedures.md).
+For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](../../reference/stored-procedures.md).
 
 ## Requirements <a href="#requirements" id="requirements"></a>
 

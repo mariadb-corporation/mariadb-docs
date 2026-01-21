@@ -1,3 +1,10 @@
+---
+description: >-
+  Troubleshooting guide for a specific linker error involving
+  `mysql_get_server_name` and `libmysqlclient_16`, typically occurring due to
+  library version mismatches.
+---
+
 # Error: symbol mysql\_get\_server\_name, version libmysqlclient\_16 not defined
 
 If you see the error message:

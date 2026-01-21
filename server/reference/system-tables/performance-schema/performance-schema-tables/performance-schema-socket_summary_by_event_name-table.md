@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes socket I/O events aggregated by event name, showing
+  execution counts and wait times for operations like send and receive.
+---
+
 # Performance Schema socket\_summary\_by\_event\_name Table
 
 It aggregates timer and byte count statistics for all socket I/O operations by socket instrument.

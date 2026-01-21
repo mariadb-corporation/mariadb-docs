@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_TABLES table exposes the internal InnoDB data dictionary
+  metadata for tables, including row formats and space IDs.
+---
+
 # Information Schema INNODB\_SYS\_TABLES Table
 
 The [Information Schema](../../) `INNODB_SYS_TABLES` table contains information about InnoDB tables.

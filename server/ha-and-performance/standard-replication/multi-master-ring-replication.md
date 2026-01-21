@@ -1,8 +1,8 @@
 ---
 description: >-
-  Implement multi-master ring replication in MariaDB Server. This section covers
-  configuring a circular replication topology for high availability and load
-  balancing across multiple active master server
+  Explore the ring topology where each server acts as both primary and replica.
+  Learn the configuration steps and caveats for setting up a circular
+  replication environment.
 ---
 
 # Multi-Master Ring Replication

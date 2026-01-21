@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema SEQUENCES table provides metadata about sequence
+  objects, including their minimum, maximum, and current values.
+---
+
 # Information Schema SEQUENCES Table
 
 {% hint style="info" %}

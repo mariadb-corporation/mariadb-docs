@@ -1,5 +1,7 @@
 ---
-description: MariaDB Primer
+description: >-
+  A beginner-friendly primer on using the mariadb command-line client to log in,
+  create databases, and execute basic SQL commands.
 ---
 
 # A MariaDB Primer Guide

@@ -1,3 +1,9 @@
+---
+description: >-
+  Replace regex matches in a string. This function substitutes occurrences of a
+  pattern with a specified replacement string.
+---
+
 # REGEXP\_REPLACE
 
 ## Syntax

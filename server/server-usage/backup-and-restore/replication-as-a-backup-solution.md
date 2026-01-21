@@ -1,3 +1,9 @@
+---
+description: >-
+  Explore how to use replication as part of your backup strategy, allowing you
+  to offload backup tasks to a replica server to reduce load on the primary.
+---
+
 # Replication as a Backup Solution
 
 [Replication](../../ha-and-performance/standard-replication/) can be used to support the [backup](./) strategy.

@@ -1,8 +1,14 @@
+---
+description: >-
+  Strategies for backing up and restoring MariaDB data in containers, comparing
+  methods like `mariadb-dump` and physical volume backups.
+---
+
 # Container Backup and Restoration
 
 MariaDB databases in containers need backup and restore like their non-container equivalents.
 
-## Logicial Backups
+## Logical Backups
 
 In this section, we will assume that the MariaDB container has been created as follows:
 

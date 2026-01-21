@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Enterprise
+  Server 11.4
+---
+
 # What's New in MariaDB Enterprise Server 11.4
 
 {% include "../../.gitbook/includes/latest-es-11.4.md" %}
@@ -49,8 +55,8 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
       | [{"key": "key1", "value": "val1"}, {"key": "key2", "value": "val2"}]        |
       +-----------------------------------------------------------------------------+
       ```
-* The function `JSON_KEY_VALUE()` can be used as an argument to `JSON_TABLE()`, which allows adding the key to a result set.\\
-*   Example:\\
+* The function `JSON_KEY_VALUE()` can be used as an argument to `JSON_TABLE()`, which allows adding the key to a result set.
+*   Example:
 
     ```sql
     SELECT jt.* FROM JSON_TABLE(
@@ -70,15 +76,13 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
     +------+------+------+
     ```
 * New function `JSON_ARRAY_INTERSECT(<array1>, <array2>)`, used to find the intersection between two JSON arrays.
-  *   Example:\\
+  *   Example:
 
       ```sql
       SET @array1= '[1,2,3]';
       SET @array2= '[1,2,4]';
       SELECT json_array_intersect(@array1, @array2) AS result;
       ```
-
-      \\
 
       ```
       +--------+
@@ -88,15 +92,11 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
       +--------+
       ```
 
-      \\
-
       ```sql
       SET @json1= '[[1,2,3],[4,5,6],[1,1,1]]';
       SET @json2= '[[1,2,3],[4,5,6],[1,3,2]]';
       SELECT json_array_intersect(@json1, @json2) AS result;
       ```
-
-      \\
 
       ```
       +------------------------+
@@ -106,14 +106,12 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
       +------------------------+
       ```
 * The new JSON function `JSON_OBJECT_TO_ARRAY(<json_doc>)` is used to convert all JSON objects found in a JSON document to JSON arrays where each item in the outer array represents a single key-value pair from the object.
-*   Example:\\
+*   Example:
 
     ```sql
     SET @json1= '{ "a" : [1,2,3] , "b": {"key1": "val1", "key2": {"key3": "val3"}} }';
     SELECT JSON_OBJECT_TO_ARRAY(@json1) AS result;
     ```
-
-    \\
 
     ```
     +-----------------------------------------------------------------------+
@@ -122,70 +120,71 @@ This document includes all major features and changes between 10.6 ES and 11.4 E
     | [["a", [1, 2, 3]], ["b", {"key1": "val1", "key2": {"key3": "val3"}}]] |
     +-----------------------------------------------------------------------+
     ```
-* Resulting arrays can be compared using `JSON_ARRAY_INTERSECT()`:
+*   Resulting arrays can be compared using `JSON_ARRAY_INTERSECT()`:
 
-```sql
-SET @json1='{"a":[1,2,3],"b":{"key1":"val1","key2":{"key3":"val3"}}}';
-SET @json2='{"a":[1,2,3]}';
-SELECT JSON_OBJECT_TO_ARRAY(@json1) INTO @array1;
-SELECT JSON_OBJECT_TO_ARRAY(@json2) INTO @array2;
-SELECT JSON_ARRAY_INTERSECT(@array1,@array2) as result;
-```
+    ```sql
+    SET @json1='{"a":[1,2,3],"b":{"key1":"val1","key2":{"key3":"val3"}}}';
+    SET @json2='{"a":[1,2,3]}';
+    SELECT JSON_OBJECT_TO_ARRAY(@json1) INTO @array1;
+    SELECT JSON_OBJECT_TO_ARRAY(@json2) INTO @array2;
+    SELECT JSON_ARRAY_INTERSECT(@array1,@array2) as result;
+    ```
 
-```
-+--------------------+
-| result             |
-+--------------------+
-| [["a", [1, 2, 3]]] |
-+--------------------+
-```
+    ```
+    +--------------------+
+    | result             |
+    +--------------------+
+    | [["a", [1, 2, 3]]] |
+    +--------------------+
+    ```
+
 
 * The new JSON function `JSON_OBJECT_FILTER_KEYS(<json_doc>,<array_keys>)` returns key/value pairs from a JSON string for keys defined in \<array\_keys>.
-* Example:
+  *   Example:
 
-```sql
-SET @json1= '{ "a": 1, "b": 2, "c": 3}';
-SELECT JSON_OBJECT_FILTER_KEYS (@json1, ' ["b", "c"] ') AS result;
-```
+      ```sql
+      SET @json1= '{ "a": 1, "b": 2, "c": 3}';
+      SELECT JSON_OBJECT_FILTER_KEYS (@json1, ' ["b", "c"] ') AS result;
+      ```
 
-```
-+------------------+
-| result           |
-+------------------+
-| {"b": 2, "c": 3} |
-+------------------+
-```
+      ```
+      +------------------+
+      | result           |
+      +------------------+
+      | {"b": 2, "c": 3} |
+      +------------------+
+      ```
+
 
 * By using `JSON_ARRAY_INTERSECT()` and `JSON_KEY()` as arguments for `JSON_OBJECT_FILTER_KEYS()`, a comparison of two JSON strings is possible where only the same keys are compared, not the key/value pairs.\\
-* Example (only show key/value pairs of json1 where the key exists in json2):
+  *   Example (only show key/value pairs of json1 where the key exists in json2):
 
-```sql
-SET @json1= '{ "a": 1, "b": 2, "c": 3}';
-SET @json2= '{"b" : 10, "c": 20, "d": 30}';
-SELECT JSON_OBJECT_FILTER_KEYS (@json1, json_array_intersect(json_keys(@json1), json_keys(@json2))) AS result;
-```
+      ```sql
+      SET @json1= '{ "a": 1, "b": 2, "c": 3}';
+      SET @json2= '{"b" : 10, "c": 20, "d": 30}';
+      SELECT JSON_OBJECT_FILTER_KEYS (@json1, json_array_intersect(json_keys(@json1), json_keys(@json2))) AS result;
+      ```
 
-```
-+------------------+
-| result           |
-+------------------+
-| {"b": 2, "c": 3} |
-+------------------+
-```
+      ```
+      +------------------+
+      | result           |
+      +------------------+
+      | {"b": 2, "c": 3} |
+      +------------------+
+      ```
 
-* To define the position in a JSON array from the end to the beginning, negative indexes or last can be used as the last element of an array for an JSON array of a JSON path, where the JSON path is used as a parameter in a JSON function.
 
-```sql
-SELECT JSON_REMOVE(@json, '$.A[-10]');
+*   To define the position in a JSON array from the end to the beginning, negative indexes or last can be used as the last element of an array for an JSON array of a JSON path, where the JSON path is used as a parameter in a JSON function.
 
-SELECT JSON_REMOVE(@json, '$.A[last]');
-```
+    ```sql
+    SELECT JSON_REMOVE(@json, '$.A[-10]');
+    SELECT JSON_REMOVE(@json, '$.A[last]');
+    ```
+*   Range notation for JSON path using the keyword to define a range of elements.
 
-* Range notation for JSON path using the keyword to define a range of elements.
-
-```sql
-SELECT JSON_REMOVE(@json, '$.A[1 to 3]');
-```
+    ```sql
+    SELECT JSON_REMOVE(@json, '$.A[1 to 3]');
+    ```
 
 ### SQL Functions
 
@@ -194,158 +193,161 @@ SELECT JSON_REMOVE(@json, '$.A[1 to 3]');
 * New function `SFORMAT()` for custom formats of strings. The function uses a string including formatting options and a set of given values to generate a custom formatted string.
 * New function `RANDOM_BYTES()` which returns a binary string of a length between 1 and 1024 bytes. This nondeterministic value is generated by the random number generator of the SSL library, so it generates an arbitrary length string of cryptographic random bytes that are suitable for cryptographic use.
 * The encryption functions `AES_ENCRYPT()` and `AES_DECRYPT()` now support adding the two new parameters initialization vector (iv) and block encryption mode (mode).
-* Syntax for older release series:
+*   Syntax for older release series:
 
-```sql
-AES_ENCRYPT(str,key_str)
-```
+    ```sql
+    AES_ENCRYPT(str,key_str)
+    ```
+*   New syntax:
 
-* New syntax:
+    ```sql
+    AES_ENCRYPT(str, key, [, iv [, mode]])
+    ```
+* If no mode is provided it will be used from the new system variable `block_encryption_mode`
+  *   Example (using the mode from system variable block\_encryption\_mode):
 
-```sql
-AES_ENCRYPT(str, key, [, iv [, mode]])
-```
+      ```sql
+      SELECT @@block_encryption_mode;
+      ```
 
-* If no mode is provided it will be used from the new system variable `block_encryption_mode`.\\
-* Example (using the mode from system variable block\_encryption\_mode):
+      ```
+      +-------------------------+
+      | @@block_encryption_mode |
+      +-------------------------+
+      | aes-128-ecb             |
+      +-------------------------+
+      ```
 
-```sql
-SELECT @@block_encryption_mode;
-```
+      ```sql
+      SELECT HEX(AES_ENCRYPT('MariaDB','mykey','vector')) AS result;
+      ```
 
-```
-+-------------------------+
-| @@block_encryption_mode |
-+-------------------------+
-| aes-128-ecb             |
-+-------------------------+
-```
+      ```
+      +----------------------------------+
+      | result                           |
+      +----------------------------------+
+      | CD0352A4B2FB18A592C04FF8CDA6C2F2 |
+      +----------------------------------+
+      ```
 
-```sql
-SELECT HEX(AES_ENCRYPT('MariaDB','mykey','vector')) AS result;
-```
+      ```sql
+      SELECT AES_DECRYPT(x'CD0352A4B2FB18A592C04FF8CDA6C2F2','mykey','vector') AS result;
+      ```
 
-```
-+----------------------------------+
-| result                           |
-+----------------------------------+
-| CD0352A4B2FB18A592C04FF8CDA6C2F2 |
-+----------------------------------+
-```
+      ```
+      +---------+
+      | result  |
+      +---------+
+      | MariaDB |
+      +---------+
+      ```
 
-```sql
-SELECT AES_DECRYPT(x'CD0352A4B2FB18A592C04FF8CDA6C2F2','mykey','vector') AS result;
-```
 
-```
-+---------+
-| result  |
-+---------+
-| MariaDB |
-+---------+
-```
+  *   Example (mode provided as argument):<br>
 
-* Example (mode provided as argument):
+      ```sql
+      SELECT HEX(AES_ENCRYPT('MariaDB','mykey','thisismy256vector','aes-256-cbc')) AS result;
+      ```
 
-```sql
-SELECT HEX(AES_ENCRYPT('MariaDB','mykey','thisismy256vector','aes-256-cbc')) AS result;
-```
+      ```
+      +----------------------------------+
+      | result                           |
+      +----------------------------------+
+      | CD6C47183B89A813557BFD639A893CE3 |
+      +----------------------------------+
+      ```
 
-```
-+----------------------------------+
-| result                           |
-+----------------------------------+
-| CD6C47183B89A813557BFD639A893CE3 |
-+----------------------------------+
-```
+      ```sql
+      SELECT AES_DECRYPT(x'CD6C47183B89A813557BFD639A893CE3','mykey','thisismy256vector','aes-256-cbc') AS result;
+      ```
 
-```sql
-SELECT AES_DECRYPT(x'CD6C47183B89A813557BFD639A893CE3','mykey','thisismy256vector','aes-256-cbc') AS result;
-```
+      ```
+      +---------+
+      | result  |
+      +---------+
+      | MariaDB |
+      +---------+
+      ```
 
-```
-+---------+
-| result  |
-+---------+
-| MariaDB |
-+---------+
-```
 
-* The new options `%Z` and `%z` can be used for the format string of the function
+*   The new options `%Z` and `%z` can be used for the format string of the `DATE_FORMAT` function for adding time zone information to the date string
 
-```sql
-DATE_FORMAT(DATE, format)
-```
-
-for adding time zone information to the date string.
-
+    ```sql
+    DATE_FORMAT(DATE, format)
+    ```
 * `%Z` Time zone abbreviation
 * `%z` Numeric time zone +hhmm or -hhmm presenting the hour and minute offset from UTC
-* Example:
+  *   Example:
 
-```sql
-SELECT DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z');
-```
+      ```sql
+      SELECT DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z');
+      ```
 
-```
-+--------------------------------------------------+
-| DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z') |
-+--------------------------------------------------+
-| Tuesday 21 November 2023 13:28:34 EST -0500      |
-+--------------------------------------------------+
-```
+      ```
+      +--------------------------------------------------+
+      | DATE_FORMAT(NOW(), '%W %d %M %Y %H:%i:%s %Z %z') |
+      +--------------------------------------------------+
+      | Tuesday 21 November 2023 13:28:34 EST -0500      |
+      +--------------------------------------------------+
+      ```
 
-* The SQL function `KDF()` is a key derivation function, useful for generating encryption keys from a user provided password or a passphrase. It can be used to generate encryption keys for encryption functions such as `AES_ENCRYPT`.
 
-```sql
-KDF(key_str, salt [, {info | iterations} [, kdf_name [, width ]]])
-```
+*   The SQL function `KDF()` is a key derivation function, useful for generating encryption keys from a user provided password or a passphrase. It can be used to generate encryption keys for encryption functions such as `AES_ENCRYPT`.
 
+    ```
+    KDF(key_str, salt [, {info | iterations} [, kdf_name [, width ]]])
+    ```
 * `kdf_name` is "hkdf" or "pbkdf2\_hmac"
 * `width` (in bits) can be any number divisible by 8
 * `info` is a non-secret parameter of the hkdf method, it allows to generate different encryption keys for different purposes from the same secret password
-* `iterations` is a positive numeric parameter of the pbkdf2\_hmac method, larger values make the password more difficult to brute-force.\
-  Example:
+* `iterations` is a positive numeric parameter of the pbkdf2\_hmac method, larger values make the password more difficult to brute-force.
+  *   Example:<br>
 
-```sql
-SELECT hex(kdf('foo', 'bar', 'info', 'hkdf'));
-```
+      ```sql
+      SELECT hex(kdf('foo', 'bar', 'info', 'hkdf'));
+      ```
 
-```
-+----------------------------------------+
-| hex(kdf('foo', 'bar', 'info', 'hkdf')) |
-+----------------------------------------+
-| 710583081D40A55F0B573A76E02D8975       |
-+----------------------------------------+
-insert into tbl values (aes_encrypt(@secret_data, kdf("Passw0rd", "NaCl", "info", 'hkdf'), "iv"));
-```
+      ```
+      +----------------------------------------+
+      | hex(kdf('foo', 'bar', 'info', 'hkdf')) |
+      +----------------------------------------+
+      | 710583081D40A55F0B573A76E02D8975       |
+      +----------------------------------------+
+      ```
+
+      ```sql
+      insert into tbl values (aes_encrypt(@secret_data, kdf("Passw0rd", "NaCl", "info", 'hkdf'), "iv"));
+      ```
+
 
 * The function `CONV()` , which converts a number between numeric base systems, now supports conversions up to base 62. This allows conversions to encodings to capital letters A-Z, lower case letters a-z, and numbers 0-9. The old limit was 36, not including lower case letters.
-  * Example:
+  *   Example:
 
-```sql
-SELECT CONV(61,10,36);
-```
+      ```sql
+      SELECT CONV(61,10,36);
+      ```
 
-```
-+----------------+
-| CONV(61,10,36) |
-+----------------+
-| 1P             |
-+----------------+
-```
+      ```
+      +----------------+
+      | CONV(61,10,36) |
+      +----------------+
+      | 1P             |
+      +----------------+
+      ```
 
-```sql
-SELECT CONV(61,10,62);
-```
+      ```sql
+      SELECT CONV(61,10,62);
+      ```
 
-```
-+----------------+
-| CONV(61,10,62) |
-+----------------+
-| z              |
-+----------------+
-```
+      ```
+      +----------------+
+      | CONV(61,10,62) |
+      +----------------+
+      | z              |
+      +----------------+
+      ```
+
+
 
 ### Data Types
 
@@ -369,17 +371,139 @@ SELECT CONV(61,10,62);
 
 MariaDB Enterprise Server now supports descending indexes. Composite indexes can be used with differently ordered columns to get a significant performance boost in the corresponding `ORDER BY` use cases.
 
-### **Backported Features**:
+## **Backported Features**
 
-* New, Detailed Replication Lag Representation.
-* New Information Schema Table For Password Related Data.
-* GTID binlog events now include the thread ID.
-* Automatic SST user account management for Galera.
-* PARSEC authentication plugin.
-* Extending timestamp range to 2106.
-* Limit the size of created disk temporary files and tables.
-* The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive.
-* [Vector Search](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) capability has been added (MENT-2233).
+* New, Detailed Replication Lag Representation
+* New Information Schema Table For Password Related Data
+* GTID binlog events now include the thread ID
+* Automatic SST user account management for Galera
+* PARSEC authentication plugin
+* Extended TIMESTAMP Maximum Value
+  * For 64 bit systems the maximum value for the TIMESTAMP data type has been extended from ‘`2038-01-19 03:14:07 UTC`’ to ‘`2106-02-07 06:28:15 UTC`’ without changing the storage format.
+  * System versioned tables use the maximum value of TIMESTAMP for their `row_end` field to indicate a currently valid value. These values should be changed changed to the new maximum value:
+    * `ALTER TABLE` can be used for this conversion
+    * A new option `--update-history` for mariadb-dump allows converting `row_end` values to the new maximum while running a dump
+* Option To Limit Disk Space Used For Temporary Files And Tables
+  * When internal in-memory temporary tables are reaching a memory limit, they need to be stored on disk in directories defined via the tmpdir system variable.
+  * Two new system variables have been added to define the maximum storage to be used for such temporary tables and other internally created temporary files:
+    * `max_tmp_session_space_usage` – to limit the disc storage used per session
+    * `max_tmp_total_space_usage` – to limit the total disc storage used by the MariaDB Server instance
+  * Any query which does result in exceeding the limit of temporary storage will return with an error.
+  * Two new status variables can be used to monitor the currently used storage:
+    * `tmp_space_used`
+    * `max_tmp_space_used`
+  * See also [Limiting Size of Created Disk Temporary Files and Tables Overview](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/limiting-size-of-created-disk-temporary-files-and-tables/limiting-size-of-created-disk-temporary-files-and-tables-overview). The space used per session is also shown in the view `process_list` in the information schema.
+* The Software Bill of Materials (SBOM) JSON file is generated in the downloads archive
+* Vector Search capability has now been added to the MariaDB Enterprise Server 11.4 release. This  [blog post](https://mariadb.com/resources/blog/mariadb-vector-preview-is-out/) explains the idea of the new vector search feature in detail ([MENT-2233](https://jira.mariadb.org/browse/MENT-2233))
+* Vector Embeddings
+  * Vector embeddings are numerical representations \[0.2, -0.5, 0.8, 0.1, ...] that capture semantic meaning or features of data in a multi-dimensional space. The embedding transforms simple to complex data such as text, images, audio, or video into a series of numbers (a vector) where similar items are positioned together in the multi-dimensional vector space.
+  * For example, a word embedding of the word "dog" would be close in a vector embedding space to the word "puppy", whereas "dog" would not be close to the word "airplane". The embedding representation can be used in similarity search, recommendation systems, or more generally in traditional AI/ML systems and GenAI systems.
+* New Data Type `VECTOR(N)`
+  * With the RC release a new data type `VECTOR(N)` has been added to represent the vector column, where N is the number of dimensions.&#x20;
+    *   Example:
+
+        ```sql
+        CREATE TABLE myVectorSearch (
+            id INT PRIMARY KEY,
+            v VECTOR(5) NOT NULL,
+            VECTOR INDEX (v)
+        );
+        ```
+* Conversion Functions
+  * VEC\_FromText() converts a text representation of the vector (a json array of numbers) to a vector (little-endian IEEE float sequence of bytes, 4 bytes per float).
+    *   Example:
+
+        ```sql
+        select hex(vec_fromtext('[1,2,3]'));
+        +------------------------------+
+        | hex(vec_fromtext('[1,2,3]')) |
+        +------------------------------+
+        | 0000803F0000004000004040     |
+        +------------------------------+
+        ```
+  * `VEC_ToText()` converts a binary vector into a json array of numbers (floats).&#x20;
+    *   Example:
+
+        ```sql
+        SELECT VEC_ToText(x'e360d63ebe554f3fcdbc523f4522193f5236083d');
+        +---------------------------------------------------------+
+        | VEC_ToText(x'e360d63ebe554f3fcdbc523f4522193f5236083d') |
+        +---------------------------------------------------------+
+        | [0.418708,0.809902,0.823193,0.598179,0.033255]          |
+        +---------------------------------------------------------+
+        ```
+* Comparison Functions
+  * Comparing vectors, calculating how close they are, is the key functionality needed by an application working with vector search. Two functions exist for calculating the distance between vectors. Which one to use depends on the application and on how the vectors were generated.
+  * VEC\_DISTANCE\_EUCLIDEAN() takes two vectors and computes the straight line (L2) Euclidean distance between two multi-dimensional points in the vector space
+    *   Example:
+
+        ```sql
+        INSERT INTO v VALUES
+            (1, x'e360d63ebe554f3fcdbc523f4522193f5236083d'),
+            (2, x'f511303f72224a3fdd05fe3eb22a133ffae86a3f'),
+            (3,x'f09baa3ea172763f123def3e0c7fe53e288bf33e'),
+            (4,x'b97a523f2a193e3eb4f62e3f2d23583e9dd60d3f'),
+            (5,x'f7c5df3e984b2b3e65e59d3d7376db3eac63773e'),
+            (6,x'de01453ffa486d3f10aa4d3fdd66813c71cb163f'),
+            (7,x'76edfc3e4b57243f10f8423fb158713f020bda3e'),
+            (8,x'56926c3fdf098d3e2c8c5e3d1ad4953daa9d0b3e'),
+            (9,x'7b713f3e5258323f80d1113d673b2b3f66e3583f'),
+            (10,x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
+        ```
+
+        ```sql
+        SELECT id FROM v
+            ORDER BY VEC_DISTANCE_EUCLIDEAN(v, x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
+        ```
+
+        ```
+        +----+
+        | id |
+        +----+
+        | 10 |
+        |  7 |
+        |  3 |
+        |  9 |
+        |  2 |
+        |  1 |
+        |  5 |
+        |  4 |
+        |  6 |
+        |  8 |
+        +----+
+        ```
+
+
+  * `VEC_DISTANCE_COSINE()` measures the cosine distance between two vectors in a multi-dimensional vector space
+    *   Example:
+
+        ```sql
+        SELECT VEC_DISTANCE_COSINE(VEC_FROMTEXT('[1,2,3]'), VEC_FROMTEXT('[3,5,7]'));
+        ```
+
+        ```
+        +-----------------------------------------------------------------------+
+        | VEC_DISTANCE_COSINE(VEC_FROMTEXT('[1,2,3]'), VEC_FROMTEXT('[3,5,7]')) |
+        +-----------------------------------------------------------------------+
+        |                                                   0.00258509695694209 |
+        +-----------------------------------------------------------------------+
+        ```
+
+
+  * **Configuration Options**
+    * The vector search feature requires some [new system variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors/vector-system-variables) for controlling the general behavior. Four new system variables have been added:
+      * `mhnsw_max_cache_size` - Upper limit for one `MHNSW` vector index cache
+      * `mhnsw_default_distance` - Default value for the `DISTANCE` vector index option
+      * `mhnsw_default_m` - Default value for the `M` vector index option
+      * `mhnsw_ef_search` - Minimal number of result candidates to look for in the vector index for `ORDER BY ... LIMIT N` queries.<br>
+
+[MariaDB Enterprise Server 11.4.8-5](11.4.8-5.md)
+
+{% include "../../.gitbook/includes/backports-11.4.8-5.md" %}
+
+[MariaDB Enterprise Server 11.4.9-6](11.4.9-6.md)
+
+{% include "../../.gitbook/includes/backports-11.8.5-2-and-11.4.9-6.md" %}
 
 ## Operational Enhancements
 
@@ -964,11 +1088,14 @@ ALTER TABLE t2 IMPORT TABLESPACE;
 * `SHOW EXPLAIN` for `<conn_id>`, which returns an `EXPLAIN` for a query running in another connection, has been extended to return the more detailed JSON output by using the syntax `SHOW EXPLAIN [FORMAT=JSON] FOR <conn_id>`.
   * Syntax EXPLAIN `[ FORMAT=JSON] FOR CONNECTION <conn_id>` is also supported.
 * New status monitoring features for MariaDB Enterprise Cluster:
-  * New thread states in `PROCESSLIST` for MariaDB Galera Cluster allow better tracking of a session status
-    * "waiting to execute in isolation"
-    * "waiting for TOI DDL"
-    * "waiting for flow control"
-    * "waiting for certification"
+  *   New thread states in `PROCESSLIST` for MariaDB Galera Cluster allow better tracking of a session status
+
+      * "waiting to execute in isolation"
+      * "waiting for TOI DDL"
+      * "waiting for flow control"
+      * "waiting for certification"
+
+      For detailed information about these states, see [Galera Cluster Thread States](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states).
   * MariaDB Enterprise Cluster has added a new feature to save wsrep node status changes in a dedicated machine readable JSON file. This allows an easier way for reading and interpreting the status file by an external monitoring tool. A filename needs to be specified via the option `wsrep_status_file` to enable the feature.
     * This JSON file also includes details about a node eviction status to the JSON file to report that a Galera node needs to be restarted to join the cluster.
   * MariaDB Enterprise Cluster now includes progress reporting of MariaDB Enterprise Backup based SST when `wsrep-debug=1` is set and the tool `pv` is installed. The SST progress report is then written into the server log:

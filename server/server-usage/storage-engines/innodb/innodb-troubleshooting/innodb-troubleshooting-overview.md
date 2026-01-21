@@ -1,3 +1,9 @@
+---
+description: >-
+  A starting point for diagnosing InnoDB issues, recommending checks on error
+  logs, deadlocks, and table integrity using various tools.
+---
+
 # InnoDB Troubleshooting Overview
 
 As with most errors, first take a look at the contents of the [MariaDB error log](../../../../server-management/server-monitoring-logs/error-log.md). If dealing with a deadlock, setting the [innodb\_print\_all\_deadlocks](../innodb-system-variables.md) option (off by default) will output details of all deadlocks to the error log.

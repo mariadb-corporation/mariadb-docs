@@ -1,3 +1,10 @@
+---
+description: >-
+  Returns a Point guaranteed to lie on the surface of the given geometry. This
+  standard function finds a representative point strictly within the geometry's
+  area.
+---
+
 # ST\_POINTONSURFACE
 
 ## Syntax

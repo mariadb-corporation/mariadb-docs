@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Community
+  Server 12.0
+---
+
 # MariaDB 12.0 Changes & Improvements
 
 {% include "../../.gitbook/includes/latest-12-0.md" %}
@@ -28,25 +34,29 @@ MariaDB 12.0 is a [rolling release](../about/release-model.md). It is an evoluti
 * [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [SEQUENCE tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
 
 ### Optimizer <a href="#optimizer" id="optimizer"></a>
-
+* [Rowid Filtering](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) optimization can now be applied for reverse-ordered scans ([MDEV-36094](https://jira.mariadb.org/browse/MDEV-36094))
+* [Index Condition Pushdown](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) optimization can now applied for reverse-ordered scans ([MDEV-34413](https://jira.mariadb.org/browse/MDEV-34413))
+* Loose Index Scan ("Use index for group-by") optimization can now use indexes with DESC key parts ([MDEV-32732](https://jira.mariadb.org/browse/MDEV-32732))
 * find\_order\_in\_list mismatch when order item needs fixing() ([MDEV-36607](https://jira.mariadb.org/browse/MDEV-36607))
 * If the join\_condition is specified via USING (column\_list), the query plan depends on the sequence of tables in the query ([MDEV-36592](https://jira.mariadb.org/browse/MDEV-36592))
-* Add support for [optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints) ([MDEV-35504](https://jira.mariadb.org/browse/MDEV-35504))
-  * [QB\_NAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#query-block-naming)
-  * [NO\_RANGE\_OPTIMIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#no_range_optimization)
-  * [NO\_ICP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#no_icp)
-  * [MRR, NO\_MRR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#mrr-and-no_mrr)
-  * [BKA, NO\_BKA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#bka-and-no_bka)
-  * [BNL, NO\_BNL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#bnl-and-no_bnl)
+
+### Optimizer hints <a href="#optimizer-hints" id="optimizer-hints"></a>
+* Add support for [optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints) ([MDEV-35504](https://jira.mariadb.org/browse/MDEV-35504))
+  * [QB\_NAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#query-block-naming)
+  * [NO\_RANGE\_OPTIMIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#no_range_optimization)
+  * [NO\_ICP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#no_icp)
+  * [MRR, NO\_MRR](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#mrr-and-no_mrr)
+  * [BKA, NO\_BKA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#bka-and-no_bka)
+  * [BNL, NO\_BNL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#bnl-and-no_bnl)
 * Add support for subquery optimizer hints ([MDEV-34888](https://jira.mariadb.org/browse/MDEV-34888))
-  * [SEMIJOIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#semijoin-and-no_semijoin)
-  * [SUBQUERY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#subquery-hint)
+  * [SEMIJOIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#semijoin-and-no_semijoin)
+  * [SUBQUERY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#subquery-hint)
 * Add support for join order hints ([MDEV-34870](https://jira.mariadb.org/browse/MDEV-34870))
   * JOIN\_FIXED\_ORDER similar to existing STRAIGHT\_JOIN hint
   * JOIN\_ORDER to apply the specified table order
   * JOIN\_PREFIX to hint what tables should be first in the join
   * JOIN\_SUFFIX to hint what tables should be last in the join
-* Add support for the [MAX\_EXECUTION\_TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#max_execution_time) hint ([MDEV-34860](https://jira.mariadb.org/browse/MDEV-34860))
+* Add support for the [MAX\_EXECUTION\_TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#max_execution_time) hint ([MDEV-34860](https://jira.mariadb.org/browse/MDEV-34860))
 
 ### GIS <a href="#gis" id="gis"></a>
 

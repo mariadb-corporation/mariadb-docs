@@ -1,3 +1,9 @@
+---
+description: >-
+  These views summarize statement execution stages grouped by host, showing
+  where threads spend the most time during query processing.
+---
+
 # host\_summary\_by\_stages and x$host\_summary\_by\_stages Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

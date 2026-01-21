@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore JSON_OBJECT_TO_ARRAY in MariaDB. Available from version 11.2, this
+  function converts JSON objects into arrays of key-value pairs, facilitating
+  operations like finding common values when used w
+---
+
 # JSON\_OBJECT\_TO\_ARRAY
 
 {% hint style="info" %}

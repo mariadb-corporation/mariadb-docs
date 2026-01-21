@@ -1,3 +1,10 @@
+---
+description: >-
+  Covers advanced management topics like executing direct SQL on backends,
+  copying tables between nodes, and monitoring the cluster using status
+  variables.
+---
+
 # Spider Cluster Management
 
 ## Direct SQL
@@ -132,7 +139,7 @@ SET GLOBAL spider_log_result_error_with_sql=3;
 
 ## Compiling in Debug Mode
 
-See [Compiling MariaDB for Debugging](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging) and [Creating a Trace File](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/creating-a-trace-file).
+See [Compiling MariaDB for Debugging](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7) and [Creating a Trace File](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/NUEN5ddQGEvSv2bnyq5F).
 
 Report the issue in [MariaDB JIRA](https://jira.mariadb.org) (see [Reporting Bugs](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/reporting-bugs)) or to the MariaDB Corporation support center.
 

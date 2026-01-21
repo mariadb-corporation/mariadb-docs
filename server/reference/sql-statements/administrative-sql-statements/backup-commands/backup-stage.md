@@ -1,3 +1,10 @@
+---
+description: >-
+  Control backup phases for external tools. Learn how to cycle through stages
+  like START, BLOCK_DDL, and BLOCK_COMMIT to perform consistent backups with
+  minimal locking.
+---
+
 # BACKUP STAGE
 
 The `BACKUP STAGE` commands are a set of commands to make it possible to make an efficient external backup tool.

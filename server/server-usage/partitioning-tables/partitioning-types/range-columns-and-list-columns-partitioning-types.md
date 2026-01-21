@@ -1,3 +1,9 @@
+---
+description: >-
+  Discover these variants that allow partitioning based on multiple columns and
+  non-integer types, offering greater flexibility than standard RANGE/LIST.
+---
+
 # RANGE COLUMNS and LIST COLUMNS Partitioning Types
 
 `RANGE COLUMNS` and `LIST COLUMNS` are variants of, respectively, [RANGE](range-partitioning-type.md) and [LIST](list-partitioning-type.md). With these partitioning types, there is not a single partitioning expression; instead, a list of one or more columns is accepted. The following rules apply:
@@ -39,7 +45,7 @@ To determine which partition should contain a row, all specified columns are com
 
 With `LIST COLUMNS`, a row matches a partition if all row values are identical to the specified values. At most one partition can match the row.
 
-With `RANGE COLUMNS`, a row matches a partition if all row values are less than the specified values. The first partition that matches the row values are used.
+With `RANGE COLUMNS`, a row matches a partition if it is less than the specified value tuple in lexicographic order. The first partition that matches the row values are used.
 
 The `DEFAULT` partition catches all records which do not fit in other partitions. Only one `DEFAULT` partition is allowed.
 

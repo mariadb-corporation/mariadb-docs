@@ -1,4 +1,10 @@
-# Archive
+---
+description: >-
+  The Archive storage engine is optimized for high-speed insertion and
+  compression of large amounts of data, suitable for logging and auditing.
+---
+
+# ARCHIVE
 
 The `ARCHIVE` storage engine is a storage engine that uses gzip to compress rows. It is mainly used for storing large amounts of data, without indexes, with only a very small footprint.
 
@@ -49,7 +55,7 @@ If you installed the plugin by providing the [--plugin-load](../../server-manage
 * Does not support [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md).
 * No storage limit.
 * Supports row locking.
-* Supports [table discovery](storage-engines-storage-engine-development/table-discovery.md), and the server can access ARCHIVE tables even if the corresponding `.frm` file is missing.
+* Supports [table discovery](../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md), and the server can access ARCHIVE tables even if the corresponding `.frm` file is missing.
 * [OPTIMIZE TABLE](../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) and [REPAIR TABLE](../../reference/sql-statements/table-statements/repair-table.md) can be used to compress the table in its entirety, resulting in slightly better compression.
 * With MariaDB, it is possible to upgrade from the MySQL 5.0 format without having to dump the tables.
 * [INSERT DELAYED](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) is supported.

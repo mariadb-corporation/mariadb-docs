@@ -1,3 +1,9 @@
+---
+description: >-
+  Step-by-step instructions for installing MariaDB on Debian, covering service
+  configuration and security settings.
+---
+
 # Installing MariaDB .deb Files
 
 ## Installing MariaDB with APT
@@ -340,7 +346,7 @@ Then, execute the following command:
 sudo apt-get install mariadb-cracklib-password-check
 ```
 
-#### Installing Older Versions from the Repository
+### Installing Older Versions from the Repository
 
 The MariaDB `apt` repository contains the last few versions of MariaDB. To show what versions are available, use the [apt-cache](https://manpages.ubuntu.com/manpages/bionic/man8/apt-cache.8.html) command:
 
@@ -348,15 +354,58 @@ The MariaDB `apt` repository contains the last few versions of MariaDB. To show 
 sudo apt-cache showpkg mariadb-server
 ```
 
-In the output you will see the available versions.
+There will be a lot of output, but in the "Provides" section at the end of the output you will see the available versions. For example:
 
-To install an older version of a package instead of the latest version we just need to specify the package name, an equal sign, and then the version number.
+```
+Package: mariadb-server
+Versions: 
+1:12.1.2+maria~ubu2404 (/var/lib/apt/lists/dlm.mariadb.com_repo_mariadb-server_12.rolling_repo_ubuntu_dists_noble_main_binary-amd64_Packages)
+ Description Language:
+ ...<extra-output-snipped>...
+ Provides: 
+1:12.1.2+maria~ubu2404 - virtual-mysql-server (= ) default-mysql-server (= ) 
+1:12.0.2+maria~ubu2404 - virtual-mysql-server (= ) default-mysql-server (= ) 
+1:10.11.13-0ubuntu0.24.04.1 - virtual-mysql-server (= ) 
+1:10.11.7-2ubuntu2 - virtual-mysql-server (= ) 
+```
 
-However, when installing an older version of a package, if `apt-get` has to install dependencies, then it will automatically choose to install the latest versions of those packages. To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all. Therefore, to install [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103). from this `apt` repository, we would do the following:
+In the above example there are four versions available, two from the MariaDB repositories, and two from the Ubuntu repositories. The versions from MariaDB have "maria" in the version number, and the versions from Ubuntu have "ubuntu" in the version number.
+
+To install an older version of a package instead of the latest version we just need to specify the package name, an equal sign, and then the complete version number. From the example above, the complete version number for MariaDB 12.0.2 is: `1:12.0.2+maria~ubu2404`
+
+However, when installing an older version of a package, `apt` will automatically choose to install the latest versions of any dependencies, which doesn't work for dependencies of the `mariadb-server` package like `mariadb-client` and `mariadb-server-core`.&#x20;
+
+<pre class="language-bash"><code class="lang-bash"><strong>sudo apt install mariadb-server=1:12.0.2+maria~ubu2404
+</strong></code></pre>
+
+```
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+ mariadb-client : Breaks: mariadb-server (< 1:12.1.2+maria~ubu2404) but 1:12.0.2+maria~ubu2404 is to be installed
+ mariadb-server-core : Breaks: mariadb-server (< 1:12.1.2+maria~ubu2404) but 1:12.0.2+maria~ubu2404 is to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+
+To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all. Therefore, to install the 12.0.2 version of the `mariadb-server` package from this `apt` repository, we would do the following (using a variable to hold the version number, and putting each package on its own line so things are cleaner):
 
 ```bash
-sudo apt-get install mariadb-server=10.6.21-1 mariadb-client=10.6.21-1 libmariadb3=10.6.21-1 mariadb-backup=10.6.21-1 mariadb-common=10.6.21-1
+ver="1:12.0.2+maria~ubu2404"
+sudo apt install \
+  mariadb-server=${ver} \
+  mariadb-client=${ver} \
+  mariadb-server-core=${ver} \
+  mariadb-client-core=${ver}
 ```
+
+For MariaDB Enterprise, version numbers are similar, but have an extra point. For example, MariaDB Enterprise Server 11.8.5-2 for Ubuntu 24.04 Noble has the version number: `1:11.8.5.2+maria~ubu2404` .
 
 The rest of the install and setup process is as normal.
 

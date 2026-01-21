@@ -1,3 +1,9 @@
+---
+description: >-
+  An upgrade guide for an older, end-of-life version of MariaDB Enterprise
+  Server, kept for reference purposes for legacy systems.
+---
+
 # Upgrade to MariaDB Enterprise Server 10.4
 
 ## Overview <a href="#overview" id="overview"></a>
@@ -6,7 +12,23 @@ These instructions detail the **upgrade** from a previous version of **MariaDB E
 
 When MariaDB Enterprise Server is upgraded, the old version needs to be uninstalled, and the new version needs to be installed.
 
-See [What's New in MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/whats-new-in-mariadb-enterprise-server-10-4).
+See [What's New in MariaDB Enterprise Server 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/whats-new-in-mariadb-enterprise-server-10-4).
+
+## Incompatible Changes
+
+### Authentication & Users (Critical)
+
+* **`mysql.user` Table**: This table is now a **View** into `mysql.global_priv`.
+  * **Impact:** Legacy scripts that attempt to manipulate users via `INSERT INTO mysql.user ...` **will fail**. You must use standard SQL commands (`CREATE USER`, `GRANT`, `DROP USER`).
+* **Unix Socket Auth**: The `unix_socket` authentication plugin is now enabled by default on Linux. `root` access via `sudo mariadb` works without a password, which may affect scripts expecting password authentication for localhost root.
+
+### Security
+
+* **TLSv1.0**: Disabled by default. Ensure your clients support newer TLS versions (TLS 1.1+).
+
+### Galera Cluster
+
+* **`wsrep_load_data_splitting`**: Default changed to `OFF`.
 
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Delete the body of a stored package. This command removes the implementation
+  logic while preserving the package specification and interface.
+---
+
 # DROP PACKAGE BODY
 
 ## Syntax

@@ -33,14 +33,14 @@ If you haven't already configured the MariaDB Enterprise repository on the serve
 
 {% stepper %}
 {% step %}
-### Get your Customer Download Token
+#### Get your Customer Download Token
 
 * Navigate to the [MariaDB Customer Portal](https://customers.mariadb.com/downloads/token/) and log in.
 * Copy your **Customer Download Token**. You will need this for the script.
 {% endstep %}
 
 {% step %}
-### Download the repository setup script
+#### Download the repository setup script
 
 In your server's terminal, download the official setup script:
 
@@ -50,7 +50,7 @@ curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_se
 {% endstep %}
 
 {% step %}
-### Run the script
+#### Run the script
 
 Make the script executable, then run it with your download token:
 

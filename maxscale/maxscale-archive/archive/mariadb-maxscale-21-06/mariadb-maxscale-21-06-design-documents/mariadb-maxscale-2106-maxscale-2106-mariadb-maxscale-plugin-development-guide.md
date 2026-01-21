@@ -2,7 +2,7 @@
 
 This document and the attached example code explain prospective plugin\
 developers the MariaDB MaxScale plugin API and also present and explain some\
-best practices and possible pitfalls in module development. We predict tha&#x74;_&#x66;ilters_ and _routers_ are the module types developers are most likely to work\
+best practices and possible pitfalls in module development. We predict that_filters_ and _routers_ are the module types developers are most likely to work\
 on, so the APIs of these two are discussed in detail.
 
 * [MariaDB MaxScale plugin development guide](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-plugin-development-guide.md#mariadb-maxscale-plugin-development-guide)
@@ -297,7 +297,7 @@ These functions manage sessions. `newSession` should allocate a router or filter
 session attached to the client session represented by `mxs_session`. MaxScale\
 will pass the returned pointer to all the API entrypoints that process user data\
 for the particular client. `closeSession` should close connections the session\
-has opened and release any resources specific to the served client. Th&#x65;_&#x53;ESSION_ structure allocated in `newSession` should not be deallocated by`closeSession` but in `freeSession`. These two are called in succession\
+has opened and release any resources specific to the served client. The_SESSION_ structure allocated in `newSession` should not be deallocated by`closeSession` but in `freeSession`. These two are called in succession\
 by the core.
 
 ```
@@ -339,7 +339,7 @@ called to route partial packets. If the routing logic does not require any\
 information on the contents of the packets or even tracking the number of\
 packets, this may be fine. For many cases though, receiving a data packet in a\
 complete GWBUF chain or in one contiguos GWBUF is required. The former can be\
-requested by `getCapabilities` returning _RCAP\_TYPE\_STMT_, the latter b&#x79;_&#x52;CAP\_TYPE\_CONTIGUOUS_. Separate settings exist for queries and replies. For\
+requested by `getCapabilities` returning _RCAP\_TYPE\_STMT_, the latter by_RCAP\_TYPE\_CONTIGUOUS_. Separate settings exist for queries and replies. For\
 replies, an additional value, _RCAP\_TYPE\_RESULTSET\_OUTPUT_ is defined. This\
 requests the protocol module to gather partial results into one result set.\
 Enforcing complete packets will delay processing, since the protocol module will\

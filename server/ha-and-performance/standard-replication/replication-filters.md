@@ -1,8 +1,8 @@
 ---
 description: >-
-  Use replication filters to control what data is replicated. This section
-  explains how to include or exclude specific databases or tables, enhancing
-  flexibility and resource management.
+  Learn how to filter specific databases or tables from being replicated. This
+  guide covers configuration options to replicate only the data you need on
+  specific replicas.
 ---
 
 # Replication Filters

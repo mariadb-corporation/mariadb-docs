@@ -146,7 +146,7 @@ PARTITION BY LIST(branch_id) (
 
 ### Deployment
 
-* [Deploy MariaDB Enterprise Spider](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/deployment#spider-topologies)
+* [Deploy MariaDB Enterprise Spider](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/BbZ3TNWsYNwHXVyiSQ6z#spider-topologies)
 
 ### Schema Design
 

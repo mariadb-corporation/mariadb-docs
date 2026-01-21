@@ -143,7 +143,7 @@ Backup can be achieved by simply copying the Server data directories under `/usr
 
 ### Restoring the ColumnStore Data Files
 
-The data directories should simply be copied from the backup location or restored via an appropriate backup or snapshot utility.&#x20;
+The data directories should simply be copied from the backup location or restored via an appropriate backup or snapshot utility. 
 
 For example:
 

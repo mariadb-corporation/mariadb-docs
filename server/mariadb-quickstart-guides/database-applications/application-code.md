@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide covers application-side considerations, such as using ORMs, stored
+  procedures, and writing robust SQL that handles schema changes gracefully.
+---
+
 # Application Code
 
 Although relational database applications strive to separate application code from database data, this is only possible to a limited extent. That said, there are means to work with database and application design that make maintaining database schema and applications easier. The task at hand then, on the application side of things, is to make the application easy to maintain and as flexible as possible when it comes to integrating with the database on one hand, and on the other hand ensure that the measures taken don’t take a toll on features, functionality or performance.
@@ -120,4 +126,4 @@ There are situations where the application-level SQL gets really complex, someti
 * [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md)
 * [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md)
 * [Reserved words](../../reference/sql-structure/sql-language-structure/reserved-words.md)
-* [JOIN queries](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/)\
+* [JOIN queries](../../reference/sql-statements/data-manipulation/selecting-data/joins/)\\

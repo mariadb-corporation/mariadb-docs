@@ -1,3 +1,9 @@
+---
+description: >-
+  Extract a scalar value from a JSON document. This function extracts a value
+  from a JSON document at a given path and returns it as a scalar.
+---
+
 # JSON\_VALUE
 
 ## Syntax

@@ -1,20 +1,19 @@
+---
+description: >-
+  This page provides version history, installation instructions, and limitations
+  for the Mroonga storage engine, highlighting its full-text search
+  capabilities.
+---
+
 # About Mroonga
 
-| Mroonga Version | Introduced                                                                                                                                                                                                                                                                                                                   | Maturity |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| 7.07            | [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes), [MariaDB 10.1.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10129-release-notes) | Stable   |
-| 5.04            | [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-6-release-notes)                                                                                                                                                                | Stable   |
-| 5.02            | [MariaDB 10.0.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10018-release-notes), [MariaDB 10.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-5-release-notes) | Stable   |
-| 5.0             | [MariaDB 10.0.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10017-release-notes)                                                                                                                                                                | Stable   |
-| 4.06            | [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10015-release-notes)                                                                                                                                                                | Stable   |
-
-Mroonga is a full text search storage engine based on Groonga, which is an open-source CJK-ready (Chinese, Japanese, and Korean) fulltext search engine using column base. See [groonga.org](https://groonga.org) for more.
+Mroonga is a full-text search storage engine based on Groonga, which is an open-source CJK-ready (Chinese, Japanese, and Korean) fulltext search engine using column base. See [groonga.org](https://groonga.org) for more.
 
 With Mroonga, you can have a CJK-ready full text search feature, and it is faster than the [MyISAM](../myisam-storage-engine/) and [InnoDB](../innodb/) [full text search](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/) for both updating and searching.
 
 Mroonga also supports Groonga's fast geolocation search by using MariaDB's geolocation SQL syntax.
 
-Mroonga currently only supports Linux x86\_64 (Intel64/AMD64).
+Mroonga only supports Linux x86\_64 (Intel64/AMD64).
 
 ## How to Install
 

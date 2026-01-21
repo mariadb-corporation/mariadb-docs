@@ -2,18 +2,15 @@
 
 The Query Editor is a powerful, integrated environment for database developers and administrators. It provides a comprehensive set of tools for writing and debugging SQL and analyzing query results, all from a single interface.
 
-This procedure outlines the steps required to access and utilize the Query Editor within the Workspace section of Enterprise Manager UI.&#x20;
+This procedure outlines the steps required to access and utilize the Query Editor within the Workspace section of Enterprise Manager UI.
 
-1.  From the main Workspace screen, click the "Run Queries" card.\
-
+1.  From the main Workspace screen, click the "Run Queries" card.\\
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
-2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\
-
+2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\\
 
     <figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
-3.  Upon successful connection, the main [Query Editor worksheet](broken-reference) will appear, ready for you to begin.\
-
+3.  Upon successful connection, the main [Query Editor worksheet](broken-reference/) will appear, ready for you to begin.\\
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -71,33 +68,33 @@ Easily share or archive query results. You can export data grids directly into c
 
 {% stepper %}
 {% step %}
-### From results tab, click Export Results
+#### From results tab, click Export Results
 
-<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (2).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-### From Export results window, make the selection.
+#### From Export results window, make the selection.
 
 <figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
-| Setting                  | Description                                                                                                              |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| File name                | The name for the downloaded export file. A default name with the current date is usually suggested.                      |
-| Fields to export         | Allows you to select which columns from the query result set to include in the export.                                   |
-| File format              | Choose the output format: `CSV`, `SQL`, or `JSON`.                                                                       |
-| _CSV Options_            |                                                                                                                          |
-|     Fields terminated by | The character used to separate values (e.g., `,` or `\t`).                                                               |
-|     Lines terminated by  | The character indicating the end of a row (e.g., `\n`).                                                                  |
-|     NULL replaced by     | How `NULL` values should be represented (e.g., `\N`).                                                                    |
-|     With Headers         | Checkbox to include column names as the first row.                                                                       |
-| _SQL Options_            |                                                                                                                          |
-|     Export option        | Choose whether to export `Both structure and data`, `Data only` (INSERT statements), or `Structure only` (CREATE TABLE). |
-| _JSON Options_           | None                                                                                                                     |
+| Setting              | Description                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| File name            | The name for the downloaded export file. A default name with the current date is usually suggested.                      |
+| Fields to export     | Allows you to select which columns from the query result set to include in the export.                                   |
+| File format          | Choose the output format: `CSV`, `SQL`, or `JSON`.                                                                       |
+| _CSV Options_        |                                                                                                                          |
+| Fields terminated by | The character used to separate values (e.g., `,` or `\t`).                                                               |
+| Lines terminated by  | The character indicating the end of a row (e.g., `\n`).                                                                  |
+| NULL replaced by     | How `NULL` values should be represented (e.g., `\N`).                                                                    |
+| With Headers         | Checkbox to include column names as the first row.                                                                       |
+| _SQL Options_        |                                                                                                                          |
+| Export option        | Choose whether to export `Both structure and data`, `Data only` (INSERT statements), or `Structure only` (CREATE TABLE). |
+| _JSON Options_       | None                                                                                                                     |
 {% endstep %}
 
 {% step %}
-### Click Import
+#### Click Import
 
 <figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Modify existing data in a table. This statement changes the values of
+  specified columns in rows that match a given condition.
+---
+
 # UPDATE
 
 ## Syntax

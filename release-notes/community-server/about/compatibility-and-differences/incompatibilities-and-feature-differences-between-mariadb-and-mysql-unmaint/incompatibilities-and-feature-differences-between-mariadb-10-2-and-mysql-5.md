@@ -18,7 +18,7 @@ In addition to the standard [InnoDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO
 
 ## Speed Improvements
 
-* Many optimizer enhancements. [Subqueries](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries) are more usable.\
+* Many optimizer enhancements. [Subqueries](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries) are more usable.\
   The complete list and a comparison with MySQL is [here](../optimizer-feature-comparison-matrix.md).
 * Faster and safer replication:[Group commit for the binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log). This makes many setups that use replication and lots of updates [more than 2x times faster](https://www.facebook.com/note.php?note_id=10150211546215933).
 * [Improvements](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/quality/benchmarks-and-long-running-tests/benchmarks/mariadb-53-asynchronous-io-on-windows-with-innodb) for Innodb asynchronous IO subsystem on Windows.

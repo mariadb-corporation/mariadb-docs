@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for configuring MariaDB Server to use TLS by setting system
+  variables like `ssl_cert`, `ssl_key`, and `ssl_ca` in the configuration file.
+---
+
 # Enabling TLS on MariaDB Server
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  This command fetches rows from an existing result set of a prepared statement
+  that was executed with a cursor.
+---
+
 # COM\_STMT\_FETCH
 
 Fetch rows from a prepared statement.

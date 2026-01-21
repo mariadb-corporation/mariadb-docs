@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Enterprise
+  Server 11.8
+---
+
 # What's New in MariaDB Enterprise Server 11.8
 
 {% include "../../.gitbook/includes/latest-es-11.8.md" %}
@@ -25,6 +31,12 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 * Optimization that makes vector search 30-50% (depending on the data) faster for the same recall. Enabled automatically for applicable vectors. Vectors are applicable if they can be gradually truncated to trade some recall for speed. For example matryoshka embeddings as produced by OpenAI are applicable.
 * Namespace support was added to HashiCorp Vault in MariaDB. See the [Hashicorp namespaces documentation](https://developer.hashicorp.com/vault/docs/enterprise/namespaces) for details.
 * [Audit logging buffer writes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-enterprise-audit#audit-logging-buffer-writes) are possible now.
+
+## Backported Features
+
+[MariaDB Enterprise Server 11.8.5-2](11.8.5-2.md)
+
+{% include "../../.gitbook/includes/backports-11.8.5-2-and-11.4.9-6.md" %}
 
 ## Indexes, SQL Functions, and Query Enhancements <a href="#indexes-sql-functions-and-query-enhancements" id="indexes-sql-functions-and-query-enhancements"></a>
 
@@ -155,7 +167,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 ## Key Management <a href="#key-management" id="key-management"></a>
 
 * [**KMS Plugin**](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins) **Enhancement**: The file\_key\_management plugin can now read keys from a **Unix socket**, not just from files.
-* **File Key Management Encryption Plugin:** Added key rotation capability; see [this page](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin#key-rotation) for details. In addition, a new Information Schema table was added, [FILE\_KEY\_MANAGEMENT\_KEYS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-files-table/information-schema-file_key_management_keys).
+* **File Key Management Encryption Plugin:** Added key rotation capability; see [this page](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin#key-rotation) for details. In addition, a new Information Schema table was added, [FILE\_KEY\_MANAGEMENT\_KEYS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-file_key_management_keys).
 
 ## Observability & Information Schema <a href="#observability-information-schema" id="observability-information-schema"></a>
 
@@ -241,6 +253,7 @@ The implementation supports the following associative array methods:
 
 ## Available Versions <a href="#available-versions" id="available-versions"></a>
 
+* [MariaDB Enterprise Server 11.8.5-2](11.8.5-2.md)
 * [MariaDB Enterprise Server 11.8.3-1](11.8.3-1.md)
 * MariaDB Enterprise Server 11.8.2-0 Tech Preview
 
@@ -260,10 +273,10 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
 * [What's New in MariaDB Enterprise Server 11.4](../11.4/whats-new.md)
 * [What's New in MariaDB Enterprise Server 10.6](../10.6/whats-new.md)
-* [What's New in MariaDB Enterprise Server 10.5](../old-releases/10-5/whats-new-in-mariadb-enterprise-server-10-5.md)
-* [What's New in MariaDB Enterprise Server 10.4](../old-releases/10-4/whats-new-in-mariadb-enterprise-server-10-4.md)
-* [What's New in MariaDB Enterprise Server 10.3](../old-releases/10-3/whats-new-in-mariadb-enterprise-server-10-3.md)
-* [What's New in MariaDB Enterprise Server 10.2](../old-releases/10-2/whats-new-in-mariadb-enterprise-server-10-2.md)
+* [What's New in MariaDB Enterprise Server 10.5](../old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5.md)
+* [What's New in MariaDB Enterprise Server 10.4](../old-releases/10.4/whats-new-in-mariadb-enterprise-server-10-4.md)
+* [What's New in MariaDB Enterprise Server 10.3](../old-releases/10.3/whats-new-in-mariadb-enterprise-server-10-3.md)
+* [What's New in MariaDB Enterprise Server 10.2](../old-releases/10.2/whats-new-in-mariadb-enterprise-server-10-2.md)
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

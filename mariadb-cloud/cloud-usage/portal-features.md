@@ -17,19 +17,17 @@ layout:
 
 # MariaDB Cloud UI Portal
 
-From the MariaDB Cloud Portal, you can launch, monitor, and manage your MariaDB Cloud services.
+The MariaDB Cloud Portal provides a unified management interface to launch, manage, and monitor your MariaDB Cloud services.
 
 ## Access the Portal
 
-You can access the Portal [here](https://app.skysql.com/dashboard).
+The Portal offers an intuitive dashboard, real-time performance metrics, and seamless access to various administrative tools. You can access the Portal [here](https://app.skysql.com/dashboard). After signing in, you will be taken directly to the main dashboard, where you can view various features such as health indicators, performance charts, alerts, logs, configuration options, etc.&#x20;
 
 ## Dashboard
 
-<figure><img src="../Portal features/dashboard.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/dashboard.png" alt=""><figcaption></figcaption></figure>
 
 From the Dashboard, you can see a list of your MariaDB Cloud services and status information for each service.
-
-From a different view, the Dashboard can be accessed by clicking the "Dashboard" link in the main menu (left navigation in the Portal).
 
 ## Launch
 
@@ -39,13 +37,11 @@ See "[Service Launch](launch-page.md)" for details on the service launch process
 
 ## Service-Specific Interfaces
 
-Service-specific interfaces are available from the Dashboard by clicking on the service name for the desired service.
-
-Service-specific interfaces will vary by topology.
+Service-specific interfaces are available from the Dashboard by clicking on the service name for the desired service. Service-specific interfaces will vary by topology.
 
 Service-specific interfaces are provided to:
 
-* [Connect](../Connecting%20to%20Sky%20DBs/)
+* [Connect](../connecting-to-mariadb-cloud-dbs/)
 * [Manage](manage-your-service.md)
 * [Monitor](service-monitoring-panels.md)
 * [Service Details](service-details-page.md)
@@ -56,14 +52,14 @@ Service-specific interfaces are provided to:
 
 From the Dashboard, the details needed to connect to your MariaDB Cloud service can be seen by clicking on the "CONNECT" button for the desired service.
 
-See "[Client Connections](../Connecting%20to%20Sky%20DBs/)" for details on how to connect to a service.
+See "[Client Connections](../connecting-to-mariadb-cloud-dbs/)" for details on how to connect to a service.
 
 ## Manage
 
 From the Dashboard, the "MANAGE" button for a service provides access to:
 
 * [Self-Service Operations](manage-your-service.md) to stop/start, delete, or scale your service
-* [Security access](<../Security/Configuring Firewall.md>) to manage the firewall
+* [Security access](../security/configuring-firewall.md) to manage the firewall
 * [Autonomous](../cloud-management/autonomously-scale-compute-storage.md) settings for auto-scale of nodes and auto-scale of storage
 * [Apply custom configuration](../cloud-management/config/)
 
@@ -95,25 +91,25 @@ Server log files can be accessed by clicking the "Logs" link in the main menu (l
 
 ## Settings
 
-These settings can be accessed by clicking the "Settings" link in the main menu (left navigation in the Portal):
+The Settings page allows you to access administrative and organizational configuration options for your MariaDB Cloud account. You can access the page by clicking the "Settings" link in the main menu (left navigation in the Portal). \
+Once you click the Settings link, the following options appear:
 
-* [User Management](<../Security/Managing Portal Users.md>)
+* Organization
+* [User Management](../security/managing-portal-users.md)
+* [Secure Access (Firewall)](../security/configuring-firewall.md)
 * [Configuration Manager](../cloud-management/config/)
-* [Firewall](<../Security/Configuring Firewall.md>)
-* [Notification Channels](notifications.md) for the delivery of monitoring alerts by email
 * Policies for monitoring alerts
+* [Notification Channels](notifications.md) for the delivery of monitoring alerts by email
 
 ## Notifications
 
-Actions performed through the Portal will generate a notification.
-
-To view current notifications, click the bell icon in the upper-right corner of the interface.
+The Portal generates notifications whenever specific actions are performed. To view current notifications, click the bell icon in the upper-right corner of the interface.
 
 See "[Notifications](notifications.md)" for additional details.
 
 ## User Preferences
 
-To customize your email notification preferences, click your name in the upper-right corner of the interface, then choose "User preferences".
+To customize your email notification preferences, click your name in the upper-right corner of the interface, then choose "Account Settings".
 
 See "[Notifications](notifications.md)" for additional details.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Information about the GPG keys used to sign MariaDB packages and repositories,
+  including how to import them for verification.
+---
+
 # GPG
 
 The MariaDB project signs their MariaDB packages for Debian, Ubuntu, Fedora, and Red Hat. This page documents information about the keys that we use and have used.
@@ -66,20 +72,14 @@ sudo rpmkeys --import https://supplychain.mariadb.com/MariaDB-Server-GPG-KEY-201
 ## MariaDB Enterprise GPG Keys
 
 {% tabs %}
-{% tab title="RHEL 7/8/9, Debian, Ubuntu" %}
+{% tab title="RHEL 7/8/9, Debian 11/12, Ubuntu" %}
 Information about the key we use on most platforms for MariaDB Enterprise Server releases:
 
 * The short Key ID is: `0xE3C94F49`
 * The long Key ID is: `0xCE1A3DD5E3C94F49`
-* The full fingerprint of the key is: `4C47 0FFF EFC4 D3DC 5977 8655 CE1A 3DD5 E3C9 4F49`&#x20;
+* The full fingerprint of the key is: `4C47 0FFF EFC4 D3DC 5977 8655 CE1A 3DD5 E3C9 4F49`
 
-The key can be added on Debian-based systems using the following command:
-
-```bash
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xCE1A3DD5E3C94F49
-```
-
-* Usage of the `apt-key` command is deprecated in the latest versions of Debian and Ubuntu, and the replacement method is to download the keyring file to the `/etc/apt/trusted.gpg.d/` directory. This can be done with the following:
+On Debian / Ubuntu systems, you can install the keyring containing this key with:
 
 ```bash
 sudo curl -LsSo /etc/apt/trusted.gpg.d/mariadb-keyring-2019.gpg https://supplychain.mariadb.com/mariadb-keyring-2019.gpg
@@ -98,14 +98,20 @@ sudo rpmkeys --import https://supplychain.mariadb.com/MariaDB-Enterprise-GPG-KEY
 ```
 {% endtab %}
 
-{% tab title="RHEL 10+" %}
-For RHEL, AlmaLinux, Rocky, and Oracle Linux 10 and above, there are new requirements around GPG keys used to sign rpm packages. For these distributions we have created a different GPG key for our Enterprise Server releases for these distributions.
+{% tab title="RHEL 10+ , Debian 13+" %}
+For RHEL, AlmaLinux, Rocky, and Oracle Linux 10 and above, and for Debian 13 Trixie and above there are new requirements around GPG keys used to sign rpm packages. For these distributions we have created a stronger GPG key for our Enterprise Server releases.
 
 Information on this key:
 
 * The short Key ID is: `0x8C27D14E`
 * The long Key ID is: `0x5D87FACA8C27D14E`
 * The full fingerprint of the key is: `BB2A 36F3 6C3B 4D37 3BAC 328A 5D87 FACA 8C27 D14E`
+
+On Debian / Ubuntu systems, you can install the keyring containing this key with:
+
+```bash
+sudo curl -LsSo /etc/apt/trusted.gpg.d/mariadb-keyring-2025.gpg https://supplychain.mariadb.com/mariadb-keyring-2025.gpg
+```
 
 The key can be imported on RPM-based systems using the following command:
 
@@ -121,11 +127,69 @@ sudo rpmkeys --import https://supplychain.mariadb.com/MariaDB-Enterprise-GPG-KEY
 {% endtab %}
 {% endtabs %}
 
+## MariaDB MaxScale GPG Keys
+
+{% tabs %}
+{% tab title="Dec 2025+" %}
+In December 2025, [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) moved to using the same GPG key used by MariaDB Enterprise Server for RHEL 10 and Debian 13 Trixie.
+
+Information on this key:
+
+* The short Key ID is: `0x8C27D14E`
+* The long Key ID is: `0x5D87FACA8C27D14E`
+* The full fingerprint of the key is: `BB2A 36F3 6C3B 4D37 3BAC 328A 5D87 FACA 8C27 D14E`
+
+On Debian / Ubuntu systems, you can install the keyring containing this key with:
+
+```bash
+sudo curl -LsSo /etc/apt/trusted.gpg.d/mariadb-keyring-2025.gpg https://supplychain.mariadb.com/mariadb-keyring-2025.gpg
+```
+
+The key can be imported on RPM-based systems using the following command:
+
+```bash
+sudo rpm --import https://supplychain.mariadb.com/MariaDB-Enterprise-GPG-KEY-2025
+```
+
+or
+
+```bash
+sudo rpmkeys --import https://supplychain.mariadb.com/MariaDB-Enterprise-GPG-KEY-2025
+```
+{% endtab %}
+
+{% tab title="Pre Dec 2025" %}
+Information on the key used by MaxScale repositories prior to December 2025:
+
+* The short Key ID is: `0xE3C94F49`
+* The long Key ID is: `0xCE1A3DD5E3C94F49`
+* The full fingerprint of the key is: `4C47 0FFF EFC4 D3DC 5977 8655 CE1A 3DD5 E3C9 4F49`
+
+On Debian / Ubuntu systems, you can install the keyring containing this key with:
+
+```bash
+sudo curl -LsSo /etc/apt/trusted.gpg.d/mariadb-keyring-2025.gpg https://supplychain.mariadb.com/mariadb-keyring-2025.gpg
+```
+
+&#x20;The key can be imported on RPM-based systems using the following command:
+
+```bash
+sudo rpm --import https://supplychain.mariadb.com/MariaDB-MaxScale-GPG-KEY
+```
+
+or
+
+```bash
+sudo rpmkeys --import https://supplychain.mariadb.com/MariaDB-MaxScale-GPG-KEY
+```
+{% endtab %}
+{% endtabs %}
+
 
 
 ## Configuring Repositories
 
-See the [this page](mariadb-package-repository-setup-and-usage.md) for details on using the `mariadb_repo_setup`  and `mariadb_es_repo_setup` scripts to configure repositories that use these keys.
+See the [MariaDB Package Repository Setup and Usage](mariadb-package-repository-setup-and-usage.md) page for details on using the `mariadb_repo_setup` and `mariadb_es_repo_setup` scripts to configure repositories that use these keys.
 
 See the [details](https://downloads.mariadb.org/mariadb/repositories/) on configuring MariaDB Foundation repositories that use these keys.
 

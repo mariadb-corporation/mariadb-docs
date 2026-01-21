@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # JSON Sample Files
 
 {% hint style="warning" %}

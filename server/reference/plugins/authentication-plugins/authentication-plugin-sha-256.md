@@ -1,3 +1,9 @@
+---
+description: >-
+  The SHA-256 authentication plugin uses the SHA-256 hashing algorithm for
+  password storage, offering stronger security than the default SHA-1 method.
+---
+
 # Authentication Plugin - SHA-256
 
 ## Background
@@ -9,7 +15,7 @@ The `caching_sha2_password` plugin is now the default authentication plugin in M
 ## Support in MariaDB Server
 
 {% hint style="warning" %}
-MariaDB **Server** does not support the [sha256\_password](https://dev.mysql.com/doc/refman/5.6/en/sha256-pluggable-authentication.html) plugin. A `caching_sha2_password` authentication plugin was added in MariaDB [Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1) and [Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8). See [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804) for more information.&#x20;
+MariaDB **Server** does not support the [sha256\_password](https://dev.mysql.com/doc/refman/5.6/en/sha256-pluggable-authentication.html) plugin. A `caching_sha2_password` authentication plugin was added in MariaDB [Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1) and [Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8). See [MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804) for more information.
 {% endhint %}
 
 Reasons for not supporting the SHA-256 plugin:
@@ -17,7 +23,7 @@ Reasons for not supporting the SHA-256 plugin:
 * To use the protocol, you have to distribute the server's public key to all MariaDB users, which can be cumbersome and impractical.
 * The server receives the password in clear text, which can cause problems if the user connects to a malicious server.
 
-If you are migrating from a MySQL instance that is using SHA-256 authentication, you have to change the SHA-256 authentication to  `mysql_native_authentication` :
+If you are migrating from a MySQL instance that is using SHA-256 authentication, you have to change the SHA-256 authentication to `mysql_native_authentication` :
 
 ```sql
 ALTER USER user_name IDENTIFIED WITH mysql_native_password BY 'new_password'

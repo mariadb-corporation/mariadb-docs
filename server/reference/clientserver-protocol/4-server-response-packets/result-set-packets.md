@@ -1,3 +1,9 @@
+---
+description: >-
+  A result set consists of a sequence of packets including column counts, column
+  definitions, and row data, terminated by an EOF or OK packet.
+---
+
 # Result Set Packets
 
 MariaDB Server sends the following packets as part of a result set.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for running the `mariadb-install-db` script on Unix-like systems
+  to initialize the MariaDB data directory and system tables.
+---
+
 # Installing System Tables on Unix
 
 `mariadb-install-db` initializes the MariaDB data directory and creates the [system tables](../../../../reference/system-tables/) in the [mysql](../../../../reference/system-tables/the-mysql-database-tables/) database, if they do not exist. MariaDB uses these tables to manage [privileges](../../../../reference/sql-statements/account-management-sql-statements/grant.md#privilege-levels), [roles](../../../../security/user-account-management/roles/), and [plugins](../../../../reference/plugins/). It also uses them to provide the data for the [help](../../../../reference/sql-statements/administrative-sql-statements/help-command.md) command in the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client.

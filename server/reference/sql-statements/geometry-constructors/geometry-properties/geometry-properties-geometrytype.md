@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_GEOMETRYTYPE. Returns the name of the geometry type (e.g.,
+  'POINT') of the geometry instance.
+---
+
 # GeometryType
 
 A synonym for [ST\_GeometryType](st_geometrytype.md).

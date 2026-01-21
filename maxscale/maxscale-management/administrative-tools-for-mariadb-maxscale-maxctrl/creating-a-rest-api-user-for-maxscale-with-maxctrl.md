@@ -1,13 +1,17 @@
+---
+description: >-
+  Create new users for the MaxScale REST API using MaxCtrl. This page explains
+  the difference between basic and admin users and provides command examples for
+  adding credentials to your system.
+---
+
 # Creating a REST API User for MaxScale with MaxCtrl
 
 ## Overview
 
-MaxScale has a [REST API](../../reference/maxscale-rest-api/), which can be configured to
-require authentication. When first installed, it has a single default admin user (admin)
-and password (mariadb). However, this user can be deleted, and other users can be created.
+MaxScale has a [REST API](../../reference/maxscale-rest-api/), which can be configured to require authentication. When first installed, it has a single default admin user (admin) and password (mariadb). However, this user can be deleted, and other users can be created.
 
-_MaxCtrl_ is a command-line utility that can perform administrative tasks using MaxScale's
-[REST API](../../reference/maxscale-rest-api/). It can create a user for the REST API.
+_MaxCtrl_ is a command-line utility that can perform administrative tasks using MaxScale's [REST API](../../reference/maxscale-rest-api/). It can create a user for the REST API.
 
 ## User Types
 
@@ -20,8 +24,7 @@ There are two types of users:
 
 ## Creating a Basic User
 
-1. Configure the [REST API](connecting-to-maxscale-using-tls-with-maxctrl.md)
-   if the default configuration is not sufficient.
+1. Configure the [REST API](connecting-to-maxscale-using-tls-with-maxctrl.md) if the default configuration is not sufficient.
 2. Use _MaxCtrl_ to execute the create user command:
 
 ```bash
@@ -39,8 +42,7 @@ Replace maxscale\_rest and maxscale\_rest\_password with the desired user and pa
 
 ## Creating an Admin User
 
-1. Configure the [REST API](connecting-to-maxscale-using-tls-with-maxctrl.md)
-   if the default configuration is not sufficient.
+1. Configure the [REST API](connecting-to-maxscale-using-tls-with-maxctrl.md) if the default configuration is not sufficient.
 2. Use _MaxCtrl_ to execute the create user command with the --type=admin option:
 
 ```bash

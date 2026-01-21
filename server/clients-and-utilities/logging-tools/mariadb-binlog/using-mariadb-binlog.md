@@ -1,7 +1,7 @@
 # Using mariadb-binlog
 
 {% hint style="info" %}
-Previously, the client was called `mysqlbinlog`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.&#x20;
+Previously, the client was called `mysqlbinlog`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows. 
 {% endhint %}
 
 ## Overview

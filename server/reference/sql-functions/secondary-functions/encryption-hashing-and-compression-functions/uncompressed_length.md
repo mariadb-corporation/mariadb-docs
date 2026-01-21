@@ -1,3 +1,9 @@
+---
+description: >-
+  Return length of uncompressed string. This function returns the length of a
+  compressed string before it was compressed.
+---
+
 # UNCOMPRESSED\_LENGTH
 
 ## Syntax

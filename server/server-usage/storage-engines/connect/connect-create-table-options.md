@@ -1,4 +1,8 @@
-# Create Table Options
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
+# CONNECT Create Table Options
 
 {% hint style="warning" %}
 This storage engine has been deprecated.

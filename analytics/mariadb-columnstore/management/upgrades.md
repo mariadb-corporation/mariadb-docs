@@ -146,7 +146,7 @@ Downgrades can cause data loss or cluster inconsistency if not planned and valid
 After a successful upgrade, or after downgrading and a manual restart:
 
 * Validate that CMAPI is ready on all nodes:\
-  &#x20;`mcs cmapi is-ready`
+   `mcs cmapi is-ready`
 * Check ColumnStore and MariaDB services are running and the cluster is healthy:\
   `mcs cluster status`
 

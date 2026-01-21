@@ -1,3 +1,9 @@
+---
+description: >-
+  Extract the hour. This function returns the hour portion of a time or datetime
+  value as a number from 0 to 23.
+---
+
 # HOUR
 
 ## Syntax

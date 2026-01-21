@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema COLUMNS table provides information about columns in
+  each table on the server, including data types, defaults, and nullability.
+---
+
 # Information Schema COLUMNS Table
 
 The [Information Schema](../) `COLUMNS` table provides information about columns in each table on the server.

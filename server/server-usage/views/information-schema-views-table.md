@@ -1,3 +1,9 @@
+---
+description: >-
+  Describes the VIEWS table in the Information Schema, which provides metadata
+  about all views in the database, such as definition and check options.
+---
+
 # Information Schema VIEWS Table
 
 The [Information Schema](../../reference/system-tables/information-schema/) `VIEWS` table contains information about [views](./). The `SHOW VIEW` [privilege](../../reference/sql-statements/account-management-sql-statements/grant.md) is required to view the table.

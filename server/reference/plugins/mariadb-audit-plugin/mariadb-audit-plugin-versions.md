@@ -1,3 +1,10 @@
+---
+description: >-
+  Review the version history of the MariaDB Audit Plugin. Check compatibility
+  with different MariaDB Server releases and identify which features or bug
+  fixes are included in each version.
+---
+
 # Audit Plugin Versions
 
 Below is a list of the releases of the MariaDB Audit Plugin, the most recent version first, and in which versions of MariaDB each plugin version was included.

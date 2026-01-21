@@ -45,7 +45,7 @@ SELECT * FROM region WHERE name = ’ASIA’;
 
 ## GROUP BY
 
-`GROUP BY` groups data based on values in one or more specific columns. The following statement returns rows from the _lineitem_ table where /orderke&#x79;_&#x69;s less than 1 000 000 and groups them by the quantity._
+`GROUP BY` groups data based on values in one or more specific columns. The following statement returns rows from the _lineitem_ table where /orderkey_is less than 1 000 000 and groups them by the quantity._
 
 ```sql
 SELECT quantity, COUNT(*) FROM lineitem WHERE orderkey < 1000000 GROUP BY quantity;

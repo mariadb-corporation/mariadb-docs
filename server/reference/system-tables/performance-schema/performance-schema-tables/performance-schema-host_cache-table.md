@@ -1,3 +1,9 @@
+---
+description: >-
+  The host_cache table exposes the internal host cache contents, including
+  IP-to-hostname resolution details and connection error counters.
+---
+
 # Performance Schema host\_cache Table
 
 The `host_cache` table contains host and IP information from the host\_cache, used for avoiding DNS lookups for new client connections.

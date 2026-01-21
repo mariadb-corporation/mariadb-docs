@@ -2,7 +2,7 @@
 
 MariaDB MariaDB Cloud customers can configure inbound replication from both **MySQL** and **MariaDB** to a compatible MariaDB running in MariaDB Cloud. This guide will walk you through setting up replication for both MySQL and MariaDB as the source databases.
 
-For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](../../../reference-guide/stored-procedures.md).
+For additional information about the stored procedures used to configure replication with Replicated Transactions services, see [MariaDB Cloud Replication Helper Procedures for Replicated Transactions](../../../reference/stored-procedures.md).
 
 ## Requirements
 
@@ -47,7 +47,7 @@ CALL sky.change_external_primary('mysql1.example.com', 3306, 'mysql-bin.000001',
 ```
 
 This procedure can be referenced in the official documentation:\
-[sky.change\_external\_primary()](../../../reference-guide/stored-procedures.md#change_external_primary)
+[sky.change\_external\_primary()](../../../reference/stored-procedures.md#change_external_primary)
 
 This will return a `GRANT` statement that needs to be executed on the external MySQL server:
 
@@ -55,7 +55,7 @@ This will return a `GRANT` statement that needs to be executed on the external M
 GRANT REPLICATION SLAVE ON *.* TO 'skysql_replication'@'%' IDENTIFIED BY '<password_hash>';
 ```
 
-For MariaDB (GTID Based) if preferred refer to [sky.change\_external\_primary\_gtid()](../../../reference-guide/stored-procedures.md#change_external_primary_gtid)
+For MariaDB (GTID Based) if preferred refer to [sky.change\_external\_primary\_gtid()](../../../reference/stored-procedures.md#change_external_primary_gtid)
 {% endstep %}
 
 {% step %}
@@ -77,7 +77,7 @@ This will return a confirmation message such as:
 +----------------------------------------+
 ```
 
-You can find the documentation for this procedure [here](../../../reference-guide/stored-procedures.md).
+You can find the documentation for this procedure [here](../../../reference/stored-procedures.md).
 {% endstep %}
 
 {% step %}
@@ -148,7 +148,7 @@ Slave_Non_Transactional_Groups: 0
     Slave_Transactional_Groups: 0
 ```
 
-You can reference the replication status procedure [here](../../../reference-guide/stored-procedures.md#replication_status)
+You can reference the replication status procedure [here](../../../reference/stored-procedures.md#replication_status)
 {% endstep %}
 {% endstepper %}
 

@@ -1,13 +1,16 @@
+---
+description: >-
+  Historical guide on compiling older MariaDB versions with the original Oracle
+  InnoDB plugin instead of XtraDB.
+---
+
 # Compiling with the InnoDB Plugin from Oracle
 
-From [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102), MariaDB uses InnoDB as the default storage engine. Before [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102), MariaDB came by default with [XtraDB](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/innodb/README.md), an enhanced version of the InnoDB plugin that comes from Oracle.
+MariaDB uses InnoDB as the default storage engine.&#x20;
 
-If you want to use Oracle's InnoDB plugin, then you need to compile MariaDB and**not** specify `--without-plugin-innodb_plugin` when\
-configuring. For example, a simple `./configure` without\
-any options will do.
+If you want to use Oracle's InnoDB plugin, then you need to compile MariaDB and**not** specify `--without-plugin-innodb_plugin` when configuring. For example, a simple `./configure` without any options will do.
 
-When the InnoDB plugin is compiled, the `innodb_plugin` test suite will test the\
-InnoDB plugin in addition to xtradb:
+When the InnoDB plugin is compiled, the `innodb_plugin` test suite will test the InnoDB plugin in addition to xtradb:
 
 ```bash
 ./mysql-test-run --suite=innodb_plugin

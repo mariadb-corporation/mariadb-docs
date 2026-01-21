@@ -1,3 +1,9 @@
+---
+description: >-
+  A marker event indicating a checkpoint in the binary log, used to ensure
+  consistency and safe rotation of log files.
+---
+
 # BINLOG\_CHECKPOINT\_EVENT
 
 Binlog Checkpoint Event, Event Type is 161 (0xa1). This event specifies a binlog file such that XA crash recovery can start from that file.

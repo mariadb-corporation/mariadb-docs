@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for installing MariaDB on the same server as an existing MySQL
+  installation, useful for migration testing or running multiple versions.
+---
+
 # Installing MariaDB Alongside MySQL
 
 MariaDB was originally designed as a drop-in replacement of MySQL, with more features, new storage engines, fewer bugs, and better performance, but you can also install it alongside MySQL. (This can be useful, for example, if you want to migrate databases/applications one by one.)
@@ -87,7 +93,7 @@ user            = mariadb
 + lock_file_path="$lockdir/mariadb"
 ```
 
-The trickiest part will be the last changes to this file. You need to tell mariadb to use only one configuration file. In the **start** section afte&#x72;**$bindir/mysqld\_safe** add **--defaults-file=/opt/mariadb-data/my.cnf**. Finally the lines should look like:
+The trickiest part will be the last changes to this file. You need to tell mariadb to use only one configuration file. In the **start** section after\*\*$bindir/mysqld\_safe\*\* add **--defaults-file=/opt/mariadb-data/my.cnf**. Finally the lines should look like:
 
 ```bash
 # Give extra arguments to mysqld with the my.cnf file. This script

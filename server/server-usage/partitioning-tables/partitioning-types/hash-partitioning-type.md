@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about HASH partitioning, which distributes data based on a user-defined
+  expression to ensure an even spread of rows across partitions.
+---
+
 # HASH Partitioning Type
 
 ## Syntax

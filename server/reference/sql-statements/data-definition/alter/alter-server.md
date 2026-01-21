@@ -1,3 +1,9 @@
+---
+description: >-
+  Modify server definitions. Update connection information for external servers
+  defined with CREATE SERVER, primarily used by the Federated engine.
+---
+
 # ALTER SERVER
 
 ## Syntax

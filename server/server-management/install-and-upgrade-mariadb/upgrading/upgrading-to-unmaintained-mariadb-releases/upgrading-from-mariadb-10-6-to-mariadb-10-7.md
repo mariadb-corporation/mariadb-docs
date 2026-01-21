@@ -1,3 +1,7 @@
+---
+description: An upgrading guide for unmaintained versions of MariaDB Community Server.
+---
+
 # Upgrading from MariaDB 10.6 to MariaDB 10.7
 
 Note that [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107) is [only maintained for one year](https://mariadb.org/about/#maintenance-policy). [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) is currently the latest long-term maintenance release.

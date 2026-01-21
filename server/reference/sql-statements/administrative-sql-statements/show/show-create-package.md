@@ -1,3 +1,9 @@
+---
+description: >-
+  View the CREATE PACKAGE statement. This statement returns the interface
+  definition of a stored package in MariaDB.
+---
+
 # SHOW CREATE PACKAGE
 
 ## Syntax

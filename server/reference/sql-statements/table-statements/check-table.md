@@ -1,3 +1,9 @@
+---
+description: >-
+  Check tables or views for errors. This statement verifies the integrity of
+  table structure and data for supported storage engines.
+---
+
 # CHECK TABLE
 
 ## Syntax

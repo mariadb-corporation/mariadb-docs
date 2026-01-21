@@ -1,3 +1,9 @@
+---
+description: >-
+  Invoke a stored procedure. This statement executes a previously created stored
+  procedure, optionally passing parameters and returning results.
+---
+
 # CALL
 
 ## Syntax

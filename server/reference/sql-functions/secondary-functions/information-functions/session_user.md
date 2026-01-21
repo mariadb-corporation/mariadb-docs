@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the current user name. This function returns the user name and host
+  name as provided by the client when connecting.
+---
+
 # SESSION\_USER
 
 ## Syntax

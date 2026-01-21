@@ -1,5 +1,7 @@
 ---
-description: Deploy Single-Node Enterprise ColumnStore with Object Storage
+description: >-
+  Deployment instructions for a single-node MariaDB Enterprise Server instance
+  with the ColumnStore engine using S3-compatible object storage.
 ---
 
 # Enterprise Server with ColumnStore (Object Storage)

@@ -1,3 +1,9 @@
+---
+description: >-
+  String object with a value chosen from a predefined list. An ENUM column
+  allows only one value selected from a list of permitted strings.
+---
+
 # ENUM
 
 ## Syntax

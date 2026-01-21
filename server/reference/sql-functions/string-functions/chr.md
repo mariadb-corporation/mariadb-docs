@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the character for a specific ASCII value. This function is similar to
+  CHAR() but accepts a single integer argument.
+---
+
 # CHR
 
 ## Syntax

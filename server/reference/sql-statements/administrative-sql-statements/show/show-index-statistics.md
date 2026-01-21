@@ -1,3 +1,9 @@
+---
+description: >-
+  View usage statistics for table indexes. This statement displays how often
+  specific indexes are used, helping optimize query performance.
+---
+
 # SHOW INDEX\_STATISTICS
 
 ## Syntax

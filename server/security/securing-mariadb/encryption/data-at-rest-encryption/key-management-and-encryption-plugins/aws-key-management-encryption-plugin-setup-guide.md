@@ -1,3 +1,10 @@
+---
+description: >-
+  Advanced configuration guide for the AWS KMS plugin, detailing how to secure
+  key access using IAM policies, restrict usage by IP address, and implement
+  Multi-Factor Authentication (MFA).
+---
+
 # Amazon Web Services (AWS) Key Management Service (KMS) Encryption Plugin Setup Guide
 
 ## Overview

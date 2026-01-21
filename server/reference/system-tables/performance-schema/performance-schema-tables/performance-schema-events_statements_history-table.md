@@ -1,3 +1,9 @@
+---
+description: >-
+  This table records the ten most recent completed statement events per thread,
+  offering a short-term history of executed SQL statements.
+---
+
 # Performance Schema events\_statements\_history Table
 
 The `events_statements_history` table by default contains the ten most recent completed statement events per thread. This number can be adjusted by setting the [performance\_schema\_events\_statements\_history\_size](../performance-schema-system-variables.md#performance_schema_events_statements_history_size) system variable when the server starts up.

@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.roles_mapping table manages role assignments, linking user accounts
+  to the roles they have been granted.
+---
+
 # mysql.roles\_mapping Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

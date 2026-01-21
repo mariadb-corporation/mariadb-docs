@@ -70,7 +70,7 @@ argument:
 | -U, --update-state       | Mark tables as crashed if any errors were found and clean if check didn't find any errors but table was marked as 'not clean' before. This allows one to get rid of warnings like 'table not properly closed'. If table was updated, update also the timestamp for when the check was made. This option is on by default! Use --skip-update-state to disable. |
 | -T, --read-only          | Don't mark table as checked.                                                                                                                                                                                                                                                                                                                                  |
 
-### **Recover (Repair) Options**&#x20;
+### **Recover (Repair) Options** 
 
 When using `--recover` or `--safe-recover'` , these options are available:
 

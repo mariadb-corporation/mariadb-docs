@@ -116,7 +116,7 @@ MariaDB Connector/C reads client options from the following [option groups](http
 | `[client-server]`  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
 | `[client-mariadb]` | Options read by all MariaDB client programs.                                                                                                                             |
 
-MariaDB Connector/C allows application developers to read options from these option groups by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments.&#x20;
+MariaDB Connector/C allows application developers to read options from these option groups by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and a `NULL` pointer as arguments. 
 
 For example:
 
@@ -126,7 +126,7 @@ mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, NULL);
 
 #### Custom Option Groups
 
-MariaDB Connector/C allows application developers to read options from a custom option group by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and the name of the custom option group as arguments.&#x20;
+MariaDB Connector/C allows application developers to read options from a custom option group by calling the [mysql\_optionsv](api-functions/mysql_optionsv.md) function and providing the [MYSQL\_READ\_DEFAULT\_GROUP](api-functions/mysql_optionsv.md#options) option name and the name of the custom option group as arguments. 
 
 For example:
 
@@ -182,7 +182,7 @@ mysqldump would have been started with the following arguments:
 --ssl_cert=/etc/my.cnf.d/certificates/client-cert.pem --ssl_key=/etc/my.cnf.d/certificates/client-key.pem --ssl_ca=/etc/my.cnf.d/certificates/ca.pem --ssl-verify-server-cert --max_allowed_packet=1GB
 ```
 
-If it is installed on your system, then you can also check which options a given program is going to use by using the [my\_print\_defaults](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/my_print_defaults) utility and providing the names of the option groups that the program reads.&#x20;
+If it is installed on your system, then you can also check which options a given program is going to use by using the [my\_print\_defaults](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/my_print_defaults) utility and providing the names of the option groups that the program reads. 
 
 For example:
 

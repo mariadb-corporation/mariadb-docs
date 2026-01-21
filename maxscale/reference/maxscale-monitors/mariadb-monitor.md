@@ -1,3 +1,10 @@
+---
+description: >-
+  Manage primary-replica clusters with the mariadbmon module. Learn to configure
+  automatic failover, perform switchovers, and monitor replication lag to
+  maintain database availability.
+---
+
 # MariaDB Monitor
 
 ## Overview
@@ -8,67 +15,93 @@ MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the st
 
 The monitor user requires the following grant:
 
+{% tabs %}
+{% tab title="Current" %}
 ```sql
-CREATE USER 'maxscale'@'maxscalehost' IDENTIFIED BY 'maxscale-password';
-GRANT REPLICATION CLIENT ON *.* TO 'maxscale'@'maxscalehost';
+CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
+GRANT REPLICA MONITOR ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
+{% endtab %}
 
-`REPLICA MONITOR` is required:
-
+{% tab title="< 10.5" %}
 ```sql
-GRANT REPLICA MONITOR ON *.* TO 'maxscale'@'maxscalehost';
+CREATE USER 'mariadbmon'@'maxscalehost' IDENTIFIED BY 'mariadbmon-password';
+GRANT REPLICATION CLIENT ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
+{% endtab %}
+{% endtabs %}
 
-If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set),  the `FILE` grant is required:
+If the monitor needs to query server disk space (for instance, `disk_space_threshold` is set), it needs the `FILE` privilege:
 
 ```sql
-GRANT FILE ON *.* TO 'maxscale'@'maxscalehost';
+GRANT FILE ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
 
 The `CONNECTION ADMIN` privilege is recommended since it allows the monitor to log in even if server connection limit has been reached.
 
 ```sql
-GRANT CONNECTION ADMIN ON *.* TO 'maxscale'@'maxscalehost';
+GRANT CONNECTION ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
+```
+
+[Topology scan](mariadb-monitor.md#scan-topology), [discover replicas](mariadb-monitor.md#discover-replicas) and [bootstrap](mariadb-monitor.md#bootstrap) require the following privilege:
+
+% tabs %\}
+
+```sql
+GRANT REPLICATION MASTER ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
+```
+
+```sql
+GRANT REPLICATION SLAVE ON *.* TO 'mariadbmon'@'maxscalehost';
 ```
 
 ### Cluster Manipulation Grants
 
-If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-operations) are used, the following additional grants are required:
-
-```sql
-GRANT SUPER, RELOAD, PROCESS, SHOW DATABASES, EVENT ON *.* TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
-```
-
-Read access to _mysql.global\_priv_ is required:
-
-```sql
-GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
-```
+If [cluster manipulation operations](mariadb-monitor.md#cluster-manipulation-operations) are used, the monitor requires several additional privileges. These privileges allow the monitor to set the _read-only_ flag, modify replication connections and kill connections from clients that could interfere with an ongoing operation.
 
 {% tabs %}
 {% tab title="Current" %}
-The `SUPER` privilege no longer contains several of its former subprivileges. These must be given separately.
-
 ```sql
-GRANT RELOAD, PROCESS, SHOW DATABASES, EVENT, SET USER, READ_ONLY ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-GRANT REPLICATION SLAVE ADMIN, BINLOG ADMIN, CONNECTION ADMIN ON *.* TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.user TO 'maxscale'@'maxscalehost';
-GRANT SELECT ON mysql.global_priv TO 'maxscale'@'maxscalehost';
+GRANT READ_ONLY ADMIN, REPLICATION SLAVE ADMIN ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT BINLOG ADMIN, CONNECTION ADMIN, PROCESS, RELOAD, SET USER ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.user TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
 ```
 {% endtab %}
 
 {% tab title="< 11.0.1" %}
-The `SUPER` privilege suffices.
+```sql
+GRANT SUPER ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT PROCESS, RELOAD ON *.* TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.user TO 'mariadbmon'@'maxscalehost';
+GRANT SELECT ON mysql.global_priv TO 'mariadbmon'@'maxscalehost';
+```
 {% endtab %}
 {% endtabs %}
 
+If [scheduled event management](mariadb-monitor.md#handle_events) is enabled, the monitor requires the `EVENT` privilege. `SHOW DATABASES` is also recommended to ensure monitor can see events for all databases.
+
+```sql
+GRANT EVENT, SHOW DATABASES ON *.* TO 'mariadbmon'@'maxscalehost';
+```
+
 If a separate replication user is defined (with `replication_user` and`replication_password`), it requires the following grant:
 
+{% tabs %}
+{% tab title="Current" %}
+```sql
+CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
+GRANT REPLICATION REPLICA ON *.* TO 'replication'@'replicationhost';
+```
+{% endtab %}
+
+{% tab title="< 10.5" %}
 ```sql
 CREATE USER 'replication'@'replicationhost' IDENTIFIED BY 'replication-password';
 GRANT REPLICATION SLAVE ON *.* TO 'replication'@'replicationhost';
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Primary selection
 
@@ -116,7 +149,7 @@ These are optional parameters specific to the MariaDB Monitor. Failover, switcho
 
 ### `assume_unique_hostnames`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -137,7 +170,7 @@ This setting is useful if replication and application traffic are separated to d
 
 ### `master_conditions`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
@@ -168,7 +201,7 @@ master_conditions=connected_slave,running_slave
 
 ### `slave_conditions`
 
-* Type: [enum\_mask](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum\_mask](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `linked_master`, `running_master`, `writable_master`, `primary_monitor_master`
@@ -212,7 +245,7 @@ The worst-case delay between the primary failure and the start of the failover c
 
 ### `enforce_writable_master`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -225,7 +258,7 @@ When this feature is enabled, setting the primary manually to _read\_only_ will 
 
 ### `enforce_read_only_slaves`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -236,7 +269,7 @@ _read\_only_ won't be enabled on the master server, even if it has lost \[Master
 
 ### `enforce_read_only_servers`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -247,7 +280,7 @@ The monitor user requires the SUPER-privilege (or READ\_ONLY ADMIN) for this fea
 
 ### `maintenance_on_low_disk_space`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -262,7 +295,7 @@ maxctrl clear server server2 Maint
 
 ### `cooperative_monitoring_locks`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `none`, `majority_of_all`, `majority_of_running`
@@ -538,13 +571,13 @@ The resulting json-object contains an array with an element for each scanned ser
 
 Any discovered servers are added to MaxScale as if created via runtime `maxctrl create server ...`. The servers are thus similar to any other runtime configured server and are visible in the GUI and `maxctrl list servers`. The _address_ and _port_-settings of the discovered servers are set to the values returned by `SHOW REPLICA HOSTS`. Other settings are copied from the current primary server, so that the discovered servers inherit e.g. TLS settings. The generated servers are named _\<monitor\_name>-server_, e.g. _MyMonitor-server3_.
 
-A server can only be removed if it is not explicitly used by any other module, e.g. a service. Thus, this command is best used when services are configured with the [cluster](../../maxscale-management/deployment/maxscale-configuration-guide.md#cluster)-setting as the services will then automatically match any changes in the set of monitored servers.
+A server can only be removed if it is not explicitly used by any other module, e.g. a service. Thus, this command is best used when services are configured with the [cluster](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#cluster)-setting as the services will then automatically match any changes in the set of monitored servers.
 
 ```
 maxctrl call command mariadbmon discover-replicas monitor=MyMonitor remove=true
 ```
 
-Discover-replicas is incompatible with [configuration synchronization](../../maxscale-management/deployment/maxscale-configuration-guide.md#configuration-synchronization) and will refuse to run if it is enabled.
+Discover-replicas is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization) and will refuse to run if it is enabled.
 
 #### Bootstrap
 
@@ -562,7 +595,7 @@ Discover-replicas is incompatible with [configuration synchronization](../../max
 
 Any discovered servers are added to MaxScale as if created via runtime `maxctrl create server ...`. The servers are thus similar to any other runtime configured server and are visible in the GUI and `maxctrl list servers`.
 
-The _address_ and _port_-settings of the discovered servers are set to the values returned by `SHOW REPLICA HOSTS` or `SHOW REPLICA STATUS`. Other settings are copied from the server given in the _template_-setting, so that the discovered servers inherit e.g. TLS settings. If no server template is given, discovered servers will use [server default settings](../../maxscale-management/deployment/maxscale-configuration-guide.md#server-1). The server template must be a valid, existing server in MaxScale configuration. It need not be monitored by any monitor and its _address_ and _port_-settings can point to a non-existing (but theoretically valid) network address. It can be configured in the config file or created runtime:
+The _address_ and _port_-settings of the discovered servers are set to the values returned by `SHOW REPLICA HOSTS` or `SHOW REPLICA STATUS`. Other settings are copied from the server given in the _template_-setting, so that the discovered servers inherit e.g. TLS settings. If no server template is given, discovered servers will use [server default settings](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#server-1). The server template must be a valid, existing server in MaxScale configuration. It need not be monitored by any monitor and its _address_ and _port_-settings can point to a non-existing (but theoretically valid) network address. It can be configured in the config file or created runtime:
 
 ```
 maxctrl create server MyServerTemplate address=123.123.123.123 port=1111 ssl=true ssl_ca=/certs/ca.crt
@@ -574,7 +607,7 @@ Only simple topologies (i.e. one primary and zero or more replicas) are supporte
 maxctrl call command mariadbmon bootstrap monitor=MyMonitor template=MyServerTemplate address=192.168.0.4
 ```
 
-Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/maxscale-configuration-guide.md#configuration-synchronization) and will refuse to run if it is enabled.
+Bootstrap is incompatible with [configuration synchronization](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#configuration-synchronization) and will refuse to run if it is enabled.
 
 ### Manual activation
 
@@ -723,7 +756,7 @@ After failover the new primary is replicating from the external primary. If the 
 
 #### `auto_failover`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `true`, `on`, `yes`, `1`, `false`, `off`, `no`, `0`, `safe`
@@ -731,7 +764,7 @@ After failover the new primary is replicating from the external primary. If the 
 
 Enable automatic primary failover. `true`, `on`, `yes` and `1` enable normal failover. `false`, `off`, `no` and `0` disable the feature. `safe` enables [safe failover](mariadb-monitor.md#failover-safe).
 
-When automatic failover is enabled, MaxScale will elect a new primary server for the cluster if the old primary goes down. A server is assumed _Down_ if it cannot be connected to, even if this is caused by incorrect credentials. Failover triggers if the primary stays down for [failcount](mariadb-monitor.md#failcount) monitor intervals. Failover will not take place if MaxScale is set [passive](../../maxscale-management/deployment/maxscale-configuration-guide.md#passive).
+When automatic failover is enabled, MaxScale will elect a new primary server for the cluster if the old primary goes down. A server is assumed _Down_ if it cannot be connected to, even if this is caused by incorrect credentials. Failover triggers if the primary stays down for [failcount](mariadb-monitor.md#failcount) monitor intervals. Failover will not take place if MaxScale is set [passive](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive).
 
 As failover alters replication, it requires more privileges than normal monitoring. See [here](mariadb-monitor.md#cluster-manipulation-grants) for a list of grants.
 
@@ -739,7 +772,7 @@ Failover is designed to be used with simple primary-replica topologies. More com
 
 #### `auto_rejoin`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -759,7 +792,7 @@ Replica A is still trying to replicate from the downed primary, since it wasn't 
 
 #### `auto_failback_switchover`
 
-* **Type**: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* **Type**: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * **Mandatory**: No
 * **Dynamic**: Yes
 * **Default**: `false`
@@ -782,14 +815,14 @@ The following series of events demonstrates failback switchover:
 
 #### `switchover_on_low_disk_space`\*\*
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
 
 If enabled, the monitor will attempt to switchover a primary server low on disk space with a replica. The switch is only done if a replica without disk space issues is found. If`maintenance_on_low_disk_space` is also enabled, the old primary (now a replica) will be put to maintenance during the next monitor iteration.
 
-For this parameter to have any effect, `disk_space_threshold` must be specified for the [server](../../maxscale-management/deployment/maxscale-configuration-guide.md#disk_space_threshold) or the [monitor](common-monitor-parameters.md#disk_space_threshold). Also, [disk\_space\_check\_interval](common-monitor-parameters.md#disk_space_check_interval) must be defined for the monitor.
+For this parameter to have any effect, `disk_space_threshold` must be specified for the [server](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disk_space_threshold) or the [monitor](common-monitor-parameters.md#disk_space_threshold). Also, [disk\_space\_check\_interval](common-monitor-parameters.md#disk_space_check_interval) must be defined for the monitor.
 
 ```
 switchover_on_low_disk_space=true
@@ -797,7 +830,7 @@ switchover_on_low_disk_space=true
 
 #### `enforce_simple_topology`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -838,7 +871,7 @@ See [replication\_user](mariadb-monitor.md#replication_user)
 
 #### `replication_master_ssl`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -862,7 +895,7 @@ replication_custom_options=MASTER_SSL_CERT = '/tmp/certs/client-cert.pem',
 
 #### `failover_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
@@ -873,7 +906,7 @@ If no successful failover takes place within the configured time period, a messa
 
 #### `switchover_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `90s`
@@ -882,7 +915,7 @@ Time limit for switchover operations. The timeout is also used as the time limit
 
 #### `verify_master_failure`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -899,12 +932,12 @@ For automatic failover to activate, the `failcount` requirement must also be met
 
 #### `master_failure_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
 
-`master_failure_timeout` is specified as documented [here](../../maxscale-management/deployment/maxscale-configuration-guide.md). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the timeout is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
+`master_failure_timeout` is specified as documented [here](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the timeout is seconds, a timeout specified in milliseconds will be rejected, even if the duration is longer than a second.
 
 #### `servers_no_promotion`
 
@@ -954,7 +987,7 @@ See [promotion\_sql\_file](mariadb-monitor.md#promotion_sql_file).
 
 #### `handle_events`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -968,6 +1001,15 @@ The monitor does not check whether the same events were disabled and enabled dur
 The monitor does not enable or disable the event scheduler itself. For the events to run on the new primary server, the scheduler should be enabled by the admin. Enabling it in the server configuration file is recommended.
 
 Events running at high frequency may cause replication to break in a failover scenario. If an old primary which was failed over restarts, its event scheduler will be on if set in the server configuration file. Its events will also remember their "ENABLED"-status and run when scheduled. This may happen before the monitor rejoins the server and disables the events. This should only be an issue for events running more often than the monitor interval or events that run immediately after the server has restarted.
+
+#### `check_repl_on_stop_slave_timeout`
+
+* **Type**: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* **Mandatory**: No
+* **Dynamic**: Yes
+* **Default**: `false`
+
+Enables additional checks when a `STOP SLAVE` command times out during a cluster manipulation operation such as failover or switchover. Normally, if `STOP SLAVE` times out, the monitor just tries again until time runs out. With this setting enabled, the monitor additionally checks replication connection status with `SHOW ALL SLAVES STATUS`. If replication has properly ended, the monitor assumes `STOP SLAVE` completed successfully and continues with the operation. If replication is still ongoing, the monitor prints the slave thread running states and retries `STOP SLAVE`.
 
 ## Cooperative monitoring
 
@@ -1025,7 +1067,7 @@ See the following configuration parameters for more information on how to config
 
 #### `write_test_interval`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Dynamic: Yes
 * Default: 0s
 
@@ -1062,7 +1104,7 @@ write_test_table=mxs.my_write_test_table
 
 #### `write_test_fail_action`
 
-* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Default: `log`
 * Values: `log`, `failover`
 * Dynamic: Yes
@@ -1302,7 +1344,7 @@ Path to file with an ssh private key. Used when logging in to backend servers to
 
 #### `ssh_check_host_key`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
@@ -1311,7 +1353,7 @@ Boolean, default: true. When logging in to backends, require that the server is 
 
 #### `ssh_timeout`
 
-* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10s`
@@ -1611,7 +1653,7 @@ See the [Limitations and requirements-section](mariadb-monitor.md#limitations-an
 
 Before performing failover or switchover, the monitor checks that prerequisites are fulfilled, printing any errors and warnings found. This should catch and explain most issues with failover or switchover not working. If the operations are attempted and still fail, then most likely one of the commands the monitor issued to a server failed or timed out. The log should explain which query failed.
 
-A typical failure reason is that a command such as `STOP SLAVE` takes longer than the`backend_read_timeout` of the monitor, causing the connection to break. As of 2.3, the monitor will retry most such queries if the failure was caused by a timeout. The retrying continues until the total time for a failover or switchover has been spent. If the log shows warnings or errors about commands timing out, increasing the backend timeout settings of the monitor should help. Other settings to look at are `query_retries` and `query_retry_timeout`. These are general MaxScale settings described in the [Configuration guide](../../maxscale-management/deployment/maxscale-configuration-guide.md). Setting `query_retries` to 2 is a reasonable first try.
+A typical failure reason is that a command such as `STOP SLAVE` takes longer than the`backend_read_timeout` of the monitor, causing the connection to break. As of 2.3, the monitor will retry most such queries if the failure was caused by a timeout. The retrying continues until the total time for a failover or switchover has been spent. If the log shows warnings or errors about commands timing out, increasing the backend timeout settings of the monitor should help. Other settings to look at are `query_retries` and `query_retry_timeout`. These are general MaxScale settings described in the [Configuration guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md). Setting `query_retries` to 2 is a reasonable first try.
 
 If switchover causes the old primary (now replica) to fail replication, then most likely a user or perhaps a scheduled event performed a write while monitor had set `read_only=1`. This is possible if the user performing the write has "SUPER" or "READ\_ONLY ADMIN" privileges. The switchover-operation tries to kick out SUPER-users but this is not certain to succeed. Remove these privileges from any users that regularly do writes to prevent them from interfering with switchover.
 

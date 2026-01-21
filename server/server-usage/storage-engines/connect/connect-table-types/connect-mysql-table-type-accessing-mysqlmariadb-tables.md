@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT MYSQL Table Type: Accessing MySQL/MariaDB Tables
 
 {% hint style="warning" %}

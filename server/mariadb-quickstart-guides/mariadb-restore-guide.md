@@ -1,5 +1,7 @@
 ---
-description: Data Restoration Guide
+description: >-
+  This guide explains how to restore your MariaDB data from backup files created
+  with mariadb-dump using the mariadb client.
 ---
 
 # Restoring Data from Dump Files Guide

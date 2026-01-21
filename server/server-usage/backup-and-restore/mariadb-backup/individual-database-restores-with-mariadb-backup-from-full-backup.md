@@ -1,3 +1,9 @@
+---
+description: >-
+  Restore a single database from a full backup. Learn the procedure to extract
+  and recover a specific database schema from a larger backup set.
+---
+
 # Individual Database Restores with mariadb-backup from Full Backup
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
@@ -30,19 +36,19 @@ sed -n '/Current Database: `DATABASENAME`/, /Current Database:/p' nodata.sql > t
 vim trimednodata.sql
 ```
 
-I won’t go over the backup process, as this is done earlier in other documents, such as full-backup-and-restore-with-mariadb-backup. Prepare the backup with any incremental-backup-and-restores that you have, and then run the following on the full backup folder using the --export option to generate files with .cfg extensions which InnoDB will look for.
+Prepare the backup with any incremental-backup-and-restores that you have, and then run the following on the full backup folder using the `--export` option to generate files with .cfg extensions which InnoDB will look for.
 
 ```bash
 mariadb-backup --prepare --export --target-dir=/media/backups/fullbackupfolder
 ```
 
-Once we have done these steps, we can then import the table structure. If you have used the --all-databases option, then you will need to either use SED or open it in a text editor and export out tables that you require. You will also need to log in to the database and create the database if the dump file doesn't. Run the following command below:
+Once we have done these steps, we can then import the table structure. If you have used the `--all-databases` option, then you will need to either use SED or open it in a text editor and export out tables that you require. You will also need to log in to the database and create the database if the dump file doesn't. Run the following command below:
 
 ```bash
-Mysql -u root -p schema_name < nodata.sql
+mysql -u root -p schema_name < nodata.sql
 ```
 
-Once the structure is in the database, we have now registered the tables to the engine. Next, we will run the following statements in the information\_schema database, to export statements to import/discard table spaces and drop and create foreign keys which we will use later. (edit the CONSTRAINT\_SCHEMA and TABLE\_SCHEMA WHERE clause to the database you are restoring. Also, add the following lines after your SELECT and before the FROM to have MariaDB export the files to the OS)
+Once the structure is in the database, we have now registered the tables to the engine. Next, we will run the following statements in the information\_schema database, to export statements to import/discard table spaces and drop and create foreign keys which we will use later. (edit the `CONSTRAINT_SCHEMA` and `TABLE_SCHEMA` `WHERE` clause to the database you are restoring. Also, add the following lines after your `SELECT` and before the `FROM` to have MariaDB export the files to the OS)
 
 ```sql
 SELECT ...
@@ -89,21 +95,21 @@ AND KCU.CONSTRAINT_NAME NOT LIKE 'PRIMARY';
 
 Once we have run those statements, and they have been exported to a Linux directory or copied from a GUI interface.
 
-Run the ALTER DROP KEYS statements in the database
+Run the `ALTER DROP KEYS` statements in the database.
 
 ```sql
 ALTER TABLE schemaname.tablename DROP FOREIGN KEY key_name;
 ...
 ```
 
-Once completed, run the DROP TABLE SPACE statements in the database
+Once completed, run the `DROP TABLE SPACE` statements in the database:
 
 ```sql
 ALTER TABLE test DISCARD TABLESPACE;
 ...
 ```
 
-Exit out the database and change into the directory of the full backup location. Run the following commands to copy all the .cfg and .ibd files to the datadir such as /var/lib/mysql/testdatabase (Change the datadir location if needed). Learn more about files that mariadb-backup generates with files-created-by-mariadb-backup
+Exit out the database and change into the directory of the full backup location. Run the following commands to copy all the `.cfg` and `.ibd` files to the datadir such as _`/var/lib/mysql/testdatabase`_ (change the `datadir` location if needed). Learn more about files that `mariadb-backup` generates with files-created-by-mariadb-backup.
 
 ```bash
 cp *.cfg /var/lib/mysql
@@ -141,13 +147,13 @@ SELECT * FROM test LIMIT 10;
 
 If you have a primary-replica set up, it would be best to follow the sets above for the primary node and then either take a full mariadb-dump or take a new full mariadb-backup and restore this to the replica. You can find more information about restoring a replica with mariadb-backup in Setting up a Replica with mariadb-backup
 
-After running the below command, copy to the replica and use the LESS linux command to grab the change master statement. Remember to follow this process: Stop replica > restore data > run CHANGE MASTER statement > start replica again.
+After running the below command, copy to the replica and use the `LESS` linux command to grab the change master statement. Remember to follow this process: Stop replica > restore data > run `CHANGE MASTER` statement > start replica again.
 
 ```bash
 mariadb-dump -u user -p --single-transaction --master-data=2 > fullbackup.sql
 ```
 
-Please follow Setting up a Replica with mariadb-backup on restoring a replica with mariadb-backup
+Please follow Setting up a Replica with mariadb-backup on restoring a replica with `mariadb-backup`:
 
 ```bash
 $ mariadb-backup --backup \
@@ -156,25 +162,25 @@ $ mariadb-backup --backup \
    --user=mariadb-backup --password=mypassword
 ```
 
-### Galera cluster
+### Galera Cluster
 
-For this process to work with Galera cluster, we first need to understand that some statements are not replicated across Galera nodes. One of which is the DISCARD and IMPORT for ALTER TABLES statements, and these statements will need to be ran on all nodes. We also need to run the OS level steps on each server as seen below.
+For this process to work with Galera cluster, we first need to understand that some statements are not replicated across Galera nodes. One of which is the `DISCARD` and `IMPORT` for `ALTER TABLES` statements, and these statements will need to be ran on all nodes. We also need to run the OS level steps on each server as seen below.
 
-Run the ALTER DROP KEYS statements on ONE NODE as these are replicated.
+Run the `ALTER DROP KEYS` statements on ONE NODE as these are replicated.
 
 ```sql
 ALTER TABLE schemaname.tablename DROP FOREIGN KEY key_name;
 ...
 ```
 
-Once completed, run the DROP TABLE SPACE statements on EVERY NODE, as these are not replicated.
+Once completed, run the `DROP TABLE SPACE` statements on EVERY NODE, as these are not replicated.
 
 ```sql
 ALTER TABLE test DISCARD TABLESPACE;
 ...
 ```
 
-Exit out the database and change into the directory of the full backup location. Run the following commands to copy all the .cfg and .ibd files to the datadir such as /var/lib/mysql/testdatabase (Change the datadir location if needed). Learn more about files that mariadb-backup generates with files-created-by-mariadb-backup. This step needs to be done on all nodes. You will need to copy the backup files to each node, we can use the same backup on all nodes.
+Exit out the database and change into the directory of the full backup location. Run the following commands to copy all the `.cfg` and `.ibd` files to the datadir such as _`/var/lib/mysql/testdatabase`_ (change the `datadir` location if needed). Learn more about files that `mariadb-backup` generates with files-created-by-mariadb-backup. This step needs to be done on all nodes. You will need to copy the backup files to each node, we can use the same backup on all nodes.
 
 ```bash
 cp *.cfg /var/lib/mysql
@@ -194,7 +200,7 @@ ALTER TABLE test IMPORT TABLESPACE;
 ...
 ```
 
-Run the add key statements on ONE NODE
+Run the add key statements on ONE NODE.
 
 ```sql
 ALTER TABLE schmeaname.tablename ADD CONSTRAINT key_name FOREIGN KEY (`column_name`) REFERENCES `foreign_table` (`colum_name`) ON UPDATE NO ACTION ON DELETE NO ACTION;

@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Introduction to the CONNECT Engine
 
 {% hint style="warning" %}

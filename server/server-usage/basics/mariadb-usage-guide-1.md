@@ -1,3 +1,9 @@
+---
+description: >-
+  A beginner-friendly primer on using the mariadb command-line client to log in,
+  create databases, and execute basic SQL commands.
+---
+
 # A MariaDB Primer
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}

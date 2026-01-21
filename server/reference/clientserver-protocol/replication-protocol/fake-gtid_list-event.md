@@ -1,3 +1,9 @@
+---
+description: >-
+  A synthetic event sent by the master after the initial handshake to inform the
+  replica of its current GTID state, it is not written to the binary log.
+---
+
 # Fake GTID\_LIST event
 
 This event is sent by master server to the registering replica. It is sent only once, after the [Format Description Event](format_description_event.md).
@@ -17,7 +23,7 @@ The fake `GTID_LIST` event is not written in the binlog file. It's created by th
 
 The content is the same as the "real" [GTID\_LIST](gtid_list_event.md).
 
-* #### of GTIDs
+* **of GTIDs**
 * domain\_id
 * server\_id
 * sequence

@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide to using the `logrotate` utility on Linux to manage MariaDB log files,
+  ensuring they don't consume excessive disk space by rotating, compressing, and
+  archiving them.
+---
+
 # Rotating Logs on Unix and Linux
 
 Unix and Linux distributions offer the [logrotate](https://linux.die.net/man/8/logrotate) utility, which makes it very easy to rotate log files. This page will describe how to configure log rotation for the [error log](error-log.md), [general query log](general-query-log.md), and the [slow query log](slow-query-log/).

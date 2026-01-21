@@ -1,8 +1,8 @@
 ---
 description: >-
-  Identify unsafe statements for statement-based replication in MariaDB Server.
-  This section details SQL commands that can cause inconsistencies, guiding you
-  toward safer replication practices.
+  Identify SQL statements that are non-deterministic and unsafe for
+  statement-based replication. Learn why these queries cause divergence and how
+  to switch to row-based logging.
 ---
 
 # Unsafe Statements for Statement-Based Replication

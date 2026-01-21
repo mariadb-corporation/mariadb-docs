@@ -1,3 +1,9 @@
+---
+description: >-
+  Very small binary object. A TINYBLOB column can store up to 255 bytes of
+  binary data.
+---
+
 # TINYBLOB
 
 ## Syntax
@@ -8,7 +14,7 @@ TINYBLOB
 
 ## Description
 
-A [BLOB](blob.md) column with a maximum length of 255 (28 - 1) bytes. Each `TINYBLOB` value is stored using a one-byte length prefix that indicates the number of bytes in the value.
+A [BLOB](blob.md) column with a maximum length of 255 (2⁸ - 1) bytes. Each `TINYBLOB` value is stored using a one-byte length prefix that indicates the number of bytes in the value.
 
 ## EXAMPLES
 

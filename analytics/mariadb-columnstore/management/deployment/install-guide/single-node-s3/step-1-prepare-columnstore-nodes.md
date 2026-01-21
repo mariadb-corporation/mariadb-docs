@@ -8,7 +8,9 @@ description: 'Step 1: Prepare ColumnStore Nodes'
 
 This page details step 1 of the 9-step procedure "Deploy ColumnStore Object Storage Topology".
 
-This step prepares systems to host MariaDB Enterprise Server and MariaDB Enterprise ColumnStore 23.10.
+This step prepares systems to host MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 

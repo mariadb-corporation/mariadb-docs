@@ -1,3 +1,10 @@
+---
+description: >-
+  Detailed comparison of the three binary logging formats: Statement-based
+  (SBR), Row-based (RBR), and Mixed, including their pros, cons, and
+  configuration via `binlog_format`.
+---
+
 # Binary Log Formats
 
 ## Supported Binary Log Formats

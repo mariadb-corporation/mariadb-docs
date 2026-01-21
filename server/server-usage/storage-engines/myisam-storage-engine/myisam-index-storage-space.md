@@ -1,3 +1,9 @@
+---
+description: >-
+  This page explains how MyISAM stores and compresses indexes, detailing space
+  usage for different key types and compression strategies.
+---
+
 # MyISAM Index Storage Space
 
 Regular [MyISAM](./) tables make use of [B-tree indexes](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/storage-engine-index-types.md#b-tree-indexes).

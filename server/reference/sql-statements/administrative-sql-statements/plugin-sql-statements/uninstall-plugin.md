@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove a specific plugin from the server. This statement unloads the plugin
+  code and deletes its entry from the mysql.plugin table to prevent reloading.
+---
+
 # UNINSTALL PLUGIN
 
 ## Syntax

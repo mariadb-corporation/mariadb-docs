@@ -1,3 +1,9 @@
+---
+description: >-
+  Implement complex conditional logic in stored programs. This control flow
+  statement executes specific SQL blocks based on matching conditions.
+---
+
 # CASE Statement
 
 ## Syntax
@@ -58,4 +64,3 @@ The indentation used here in the `ELSE` clause is for purposes of clarity only a
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
-

@@ -1,3 +1,9 @@
+---
+description: >-
+  Final step of removing key management plugins from the configuration once all
+  data and logs have been confirmed as unencrypted.
+---
+
 # Uninstall Key Management Plugins
 
 Once all data and logs have been decrypted, you can safely remove key management plugins, if desired. For example, if using the file key management plugin:

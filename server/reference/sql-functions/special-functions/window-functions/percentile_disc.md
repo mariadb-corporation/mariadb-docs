@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate a discrete percentile. This inverse distribution function returns an
+  actual value from the dataset that corresponds to the specified percentile.
+---
+
 # PERCENTILE\_DISC
 
 ## Syntax

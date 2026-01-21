@@ -1,3 +1,9 @@
+---
+description: >-
+  A reference list of security vulnerabilities (CVEs) found in Oracle MySQL that
+  do not affect MariaDB, helping administrators distinguish relevant threats.
+---
+
 # Security Vulnerabilities Fixed in Oracle MySQL That Did Not Exist in MariaDB
 
 ## About
@@ -18,6 +24,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 ## Full List of CVEs Fixed in Oracle MySQL That Never Existed in MariaDB
 
 ### [October 2025](https://www.oracle.com/security-alerts/cpuoct2025.html#AppendixMSQL)
+
 * [CVE-2025-6965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6965)
 * [CVE-2025-4517](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-4517)
 * [CVE-2025-49796](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-49796)
@@ -36,6 +43,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 * [CVE-2025-53067](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-53067)
 
 ### [July 2025](https://www.oracle.com/security-alerts/cpujul2025.html#AppendixMSQL)
+
 * [CVE-2024-9287](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-9287)
 * [CVE-2025-32415](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-32415)
 * [CVE-2025-0725](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-0725)

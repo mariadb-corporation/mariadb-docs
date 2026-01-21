@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to the Spider storage engine, which provides built-in sharding
+  by linking to tables on remote MariaDB servers, supporting partitioning and XA
+  transactions.
+---
+
 # Spider Storage Engine Overview
 
 ## About

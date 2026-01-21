@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the character for each integer passed. This function interprets
+  arguments as integer ASCII values and returns a string of those characters.
+---
+
 # CHAR Function
 
 ## Syntax

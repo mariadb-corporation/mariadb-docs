@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains the benefits and use cases for deploying MariaDB using package
+  tarballs (containing RPMs or DEBs) for offline or custom installations.
+---
+
 # Deploy with Package Tarballs
 
 MariaDB Corporation provides package tarballs for some MariaDB database products.
@@ -57,7 +63,7 @@ Once downloaded and extracted, you can:
 
 * Install .rpm packages (RHEL, CentOS, and SLES): `rpm -i`
 * Install .deb packages (Debian, Ubuntu): `dpkg -i`
-* Install from the simple package repositories included in the tarball. Missing dependencies will be resolved when using the `apt`, `yum`, or `zypper` package manager. \
+* Install from the simple package repositories included in the tarball. Missing dependencies will be resolved when using the `apt`, `yum`, or `zypper` package manager.\
   See the `README file` enclosed in the package tarball for more information.
 * Test packages before placement in an internal package repository for distribution to your servers. Secure this repository from outside access.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Empty a table completely. This DDL statement drops and re-creates the table,
+  offering a faster alternative to DELETE for removing all rows.
+---
+
 # TRUNCATE TABLE
 
 ## Syntax
@@ -64,7 +70,7 @@ These have no effect on the operation.
 
 With [InnoDB](../../../server-usage/storage-engines/innodb/), `TRUNCATE TABLE` is slower if [innodb\_file\_per\_table=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) is set (the default). This is because `TRUNCATE TABLE` unlinks the underlying tablespace file, which can be an expensive operation. See [MDEV-8069](https://jira.mariadb.org/browse/MDEV-8069) for more details.
 
-The performance issues with [innodb\_file\_per\_table=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) can be exacerbated in cases where the [InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) is very large and [innodb\_adaptive\_hash\_index=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is set. In that case, using [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) instead of `TRUNCATE TABLE` may perform better. Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index)  can also help.
+The performance issues with [innodb\_file\_per\_table=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) can be exacerbated in cases where the [InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) is very large and [innodb\_adaptive\_hash\_index=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is set. In that case, using [DROP TABLE](../data-definition/drop/drop-table.md) followed by [CREATE TABLE](../data-definition/create/create-table.md) instead of `TRUNCATE TABLE` may perform better. Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) can also help.
 
 Setting [innodb\_adaptive\_hash\_index=OFF](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) can also improve `TRUNCATE TABLE` performance in general. See [MDEV-16796](https://jira.mariadb.org/browse/MDEV-16796) for more details.
 

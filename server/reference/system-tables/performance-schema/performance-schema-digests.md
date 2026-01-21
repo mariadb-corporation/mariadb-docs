@@ -1,3 +1,10 @@
+---
+description: >-
+  Statement digests aggregate statistics for similar queries by removing
+  specific data values, allowing you to identify performance patterns across
+  statement types.
+---
+
 # Performance Schema Digests
 
 The Performance Schema digest is a normalized form of a statement, with the specific data values removed. It allows statistics to be gathered for similar kinds of statements.

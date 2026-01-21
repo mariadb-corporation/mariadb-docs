@@ -1,3 +1,9 @@
+---
+description: >-
+  Standard integer type. An INT column uses 4 bytes and stores values from
+  -2147483648 to 2147483647 (signed) or 0 to 4294967295 (unsigned).
+---
+
 # INT
 
 ## Syntax

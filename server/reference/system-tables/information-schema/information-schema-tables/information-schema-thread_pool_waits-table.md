@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema THREAD_POOL_WAITS table lists the number of times
+  threads in the thread pool have waited for various events.
+---
+
 # Information Schema THREAD\_POOL\_WAITS Table
 
 {% hint style="info" %}

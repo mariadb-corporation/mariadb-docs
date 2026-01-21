@@ -1,8 +1,8 @@
 ---
 description: >-
-  Implement semi-synchronous replication in MariaDB Server. How to ensure data
-  durability by requiring at least one replica to acknowledge receipt of
-  transactions before the master commits.
+  Enhance data consistency with semisynchronous replication. Ensure that the
+  primary waits for at least one replica to acknowledge receipt of a transaction
+  before committing.
 ---
 
 # Semisynchronous Replication

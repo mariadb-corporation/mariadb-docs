@@ -2,11 +2,11 @@
 
 MariaDB Cloud's self-service management features enable authorized accounts to launch cloud databases, start and stop cloud databases, delete cloud databases, apply database configuration changes, and configure the cloud database's IP firewall.
 
-Self-service [user management](<../Security/Managing Portal Users.md>) features enable you to define role-based access for your team to jointly manage MariaDB Cloud resources.
+Self-service [user management](../security/managing-portal-users.md) features enable you to define role-based access for your team to jointly manage MariaDB Cloud resources.
 
 ## Stop a Service
 
-<figure><img src="../Portal features/stop-service.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/stopping-service.png" alt="MariaDB Cloud Portal showing the Stop Service Option  used to stop a running database service."><figcaption></figcaption></figure>
 
 _Stop Service_
 
@@ -23,7 +23,7 @@ The service will be stopped. You will only be charged for storage on a stopped s
 
 ## Start a Service
 
-<figure><img src="../Portal features/start-service.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/starting-service.png" alt="MariaDB Cloud Portal showing the Start Service option used to start a stopped database service."><figcaption></figcaption></figure>
 
 _Start Service_
 
@@ -40,7 +40,7 @@ The service will be started. Service start may take up to 10-15 minutes. The nor
 
 ## Scale Nodes In/Out
 
-<figure><img src="../Portal features/scale-in-out.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/scale-nodes(inout).png" alt="MariaDB Cloud Portal showing the Scale Nodes In/Out option used to manage the number of nodes for a service."><figcaption></figcaption></figure>
 
 _Service - Horizontal Scaling_
 
@@ -62,7 +62,7 @@ The service immediately goes into scaling status.
 
 ## Scale Nodes Up/Down
 
-<figure><img src="../Portal features/scale-up-down.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/scale-nodes(updown).png" alt="MariaDB Cloud Portal showing the Scale Nodes Up/Down option to increase or decrease node size for a service."><figcaption></figcaption></figure>
 
 _Service - Vertical Scaling_
 
@@ -84,7 +84,7 @@ The service immediately goes into scaling status.
 
 ## Scale Storage
 
-<figure><img src="../Portal features/scale-storage.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/scaling-storage.png" alt="MariaDB Cloud Portal showing the Scale Storage option used to increase block storage capacity for a service."><figcaption></figcaption></figure>
 
 _Service - Scale Storage_
 
@@ -103,7 +103,7 @@ Storage upgrades are not reversible.
 
 ## Delete a Service
 
-<figure><img src="../Portal features/delete-service.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/deleting-service.png" alt="MariaDB Cloud Portal showing the Delete Service option used to permanently remove a database service."><figcaption></figcaption></figure>
 
 _Service - Delete_
 
@@ -123,9 +123,9 @@ Your service and all its data will be deleted. This operation is non-reversible.
 ## Other Self-Service Operations
 
 * [Service Launch](launch-page.md)
-* [Firewall Management](<../Security/Configuring Firewall.md>)
+* [Firewall Management](../security/configuring-firewall.md)
 * [Configuration Management](../cloud-management/config/)
 * Private Connections:
   * [AWS PrivateLink](../connecting-to-mariadb-cloud-dbs/using-aws-azure-gcp-private-vpc-connections/setting-up-aws-private-link.md)
   * [GCP Private Service Connect](../connecting-to-mariadb-cloud-dbs/using-aws-azure-gcp-private-vpc-connections/setting-up-gcp-private-service-connect.md)
-* [User Management](<../Security/Managing Portal Users.md>)
+* [User Management](../security/managing-portal-users.md)

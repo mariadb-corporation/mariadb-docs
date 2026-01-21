@@ -1,3 +1,9 @@
+---
+description: >-
+  List available collations. View the character set associated with each
+  collation and identifying properties like ID and default status.
+---
+
 # SHOW COLLATION
 
 ## Syntax

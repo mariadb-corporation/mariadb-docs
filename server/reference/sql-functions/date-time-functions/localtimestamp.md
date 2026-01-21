@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for NOW(). Returns the current date and time in the session time zone
+  as a datetime value.
+---
+
 # LOCALTIMESTAMP
 
 ## Syntax

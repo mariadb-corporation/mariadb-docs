@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the current date and time. This function returns the current timestamp
+  as a value in 'YYYY-MM-DD HH:MM:SS' or YYYYMMDDHHMMSS format.
+---
+
 # NOW
 
 ## Syntax
@@ -28,9 +34,9 @@ These functions return SQL standard compliant types:
 {% tab title="< 11.7" %}
 These functions do **not** return SQL standard compliant types:
 
-* `NOW()`&#x20;
-* `CURRENT_TIMESTAMP()`&#x20;
-* `LOCALTIMESTAMP`&#x20;
+* `NOW()`
+* `CURRENT_TIMESTAMP()`
+* `LOCALTIMESTAMP`
 {% endtab %}
 {% endtabs %}
 

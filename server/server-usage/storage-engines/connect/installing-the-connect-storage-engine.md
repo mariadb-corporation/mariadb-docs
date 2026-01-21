@@ -1,4 +1,8 @@
-# Installing
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
+# Installing CONNECT
 
 {% hint style="warning" %}
 This storage engine has been deprecated.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about the COMPRESSED row format, which compresses data and index pages
+  using algorithms like zlib to minimize storage footprint at the cost of CPU.
+---
+
 # InnoDB COMPRESSED Row Format
 
 An alternative (and usually superior) way to compress InnoDB tables is by using [InnoDB Page Compression](../innodb-page-compression.md). See [Comparison with the COMPRESSED Row Format](../innodb-page-compression.md#comparison-with-the-compressed-row-format).

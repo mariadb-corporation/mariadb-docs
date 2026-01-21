@@ -1,3 +1,9 @@
+---
+description: >-
+  Introduction to Catalogs, a multi-tenancy feature for isolating database
+  objects and users, planned for future MariaDB releases.
+---
+
 # Catalogs
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

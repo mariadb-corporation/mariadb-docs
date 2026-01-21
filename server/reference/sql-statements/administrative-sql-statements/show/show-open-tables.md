@@ -1,3 +1,9 @@
+---
+description: >-
+  List currently open tables. View the database, table name, and lock status for
+  tables in the table cache.
+---
+
 # SHOW OPEN TABLES
 
 ## Syntax

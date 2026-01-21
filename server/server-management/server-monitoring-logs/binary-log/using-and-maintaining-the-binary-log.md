@@ -1,3 +1,9 @@
+---
+description: >-
+  Best practices for managing binary logs, including setting expiration policies
+  (`expire_logs_days`), purging old logs, and using the `mysqlbinlog` utility.
+---
+
 # Using and Maintaining the Binary Log
 
 See [Overview of the Binary Log](overview-of-the-binary-log.md) for a general overview of what the binary log is and [Activating the Binary Log](activating-the-binary-log.md) for how to make sure it's running on your system.

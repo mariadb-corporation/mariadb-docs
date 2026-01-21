@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the server version. This function outputs a string indicating the
+  version number and distribution of the MariaDB server.
+---
+
 # VERSION
 
 ## Syntax

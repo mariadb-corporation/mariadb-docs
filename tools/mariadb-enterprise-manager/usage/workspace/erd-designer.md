@@ -2,40 +2,37 @@
 
 Enterprise manager provides a visual interface for creating entity relationship diagrams (ERD) and for observing existing database schemas, so you can quickly understand table relationships, identify dependencies, and visually assess the impact of schema changes before implementation.
 
-This procedure outlines the steps required to access and utilize the ERD Designer within the Workspace section of Enterprise Manager UI.&#x20;
+This procedure outlines the steps required to access and utilize the ERD Designer within the Workspace section of Enterprise Manager UI.
 
-1.  From the main Workspace screen, click the "Run Queries" card.\
-
+1.  From the main Workspace screen, click the "Run Queries" card.\\
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
-2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\
-
+2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\\
 
     <figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
-3.  Upon successful connection, the main ERD worksheet will appear.\
+3.  Upon successful connection, the main ERD worksheet will appear.\\
 
-
-    <figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../../.gitbook/assets/image (5) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## **Creating ERD diagram**
 
 {% stepper %}
 {% step %}
-### Initiate generation
+#### Initiate generation
 
 1. From the ERD Worksheet\
    On ERD Designer worksheet, click **Generate ERD**
 
-<figure><img src="../../../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (62) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. From the Query Editor\
    In the **Query Editor**, right-click on a schema name in the **Schemas Sidebar** and select the **"Generate ERD"** option.
 
-<figure><img src="../../../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (62) (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-### Select schema, and tables
+#### Select schema, and tables
 
 A dialog will appear. Choose the specific schema you want to visualize. You may select which tables within that schema to include in the diagram.
 
@@ -43,11 +40,11 @@ A dialog will appear. Choose the specific schema you want to visualize. You may 
 {% endstep %}
 
 {% step %}
-### Visualize
+#### Visualize
 
 Click the Visualize button to generate and display the ERD on the worksheet canvas.
 
-<figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (64) (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -55,7 +52,7 @@ Click the Visualize button to generate and display the ERD on the worksheet canv
 
 The core of the designer is a visual canvas where you can build and manage your database structures.
 
-<figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (64) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### **Model Tables, Indexes, and Relationships**
 
@@ -69,9 +66,9 @@ Use the toolbar or right-click on the canvas to add new table entities to your d
 
 #### **Edit Entities**
 
-Double-click any table to open the **Entity Editor** at the bottom of the screen.&#x20;
+Double-click any table to open the **Entity Editor** at the bottom of the screen.
 
-<figure><img src="../../../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (71) (1).png" alt=""><figcaption></figcaption></figure>
 
 Here, you can define and modify columns (including data types and `NOT NULL` constraints), indexes, and foreign keys through an intuitive interface.
 
@@ -97,7 +94,7 @@ Right-click on a relationship link between two tables to open a context menu wit
 
 Once your design is complete, you can export it for documentation or deployment. The export options, found in the toolbar or by right-clicking the canvas, include the following:
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * **Export as SQL Script:** Generates the `CREATE TABLE` and `ALTER TABLE` statements for your entire diagram.
 * **Export as JPEG:** Creates an image of your diagram for use in presentations or other documents.

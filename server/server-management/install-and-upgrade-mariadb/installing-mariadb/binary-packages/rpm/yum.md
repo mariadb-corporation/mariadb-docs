@@ -1,3 +1,10 @@
+---
+description: >-
+  Comprehensive guide to installing MariaDB using `yum` or `dnf` on RHEL,
+  CentOS, and Fedora, covering repository configuration, GPG key import, and
+  package installation.
+---
+
 # Installing MariaDB with yum/dnf
 
 On RHEL, CentOS, Fedora, and other similar Linux RPM based distributions, these provide MariaDB packages. These are supported by those distributions. If you have a particular need for a later version than what is in the distribution, then MariaDB provides repositories for them.
@@ -99,33 +106,9 @@ If the `yum` repository is pinned to a specific minor release, then the above `s
 * Edit the `MariaDB.repo` repository file manually.
 * Or delete the `MariaDB.repo` repository file, and then install the repository of the new version with the more robust [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md).
 
-## Importing the MariaDB GPG Public Key
+## The MariaDB GPG Key
 
-Before MariaDB can be installed, you also have to import the GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the `yum`, `dnf` and `rpm` utilities to verify the integrity of the packages that they install.
-
-The id of our GPG public key is:
-
-* short form: `0xC74CD1D8`
-* long form: `0xF1656F24C74CD1D8`
-* full fingerprint: `177F 4010 FE56 CA33 3630 0305 F165 6F24 C74C D1D8`
-
-`yum` should prompt you to import the GPG public key the first time that you install a package from MariaDB's repository. However, if you like, the [rpm](https://linux.die.net/man/8/rpm) utility can be used to manually import this key instead. For example:
-
-```bash
-sudo rpm --import https://supplychain.mariadb.com/MariaDB-Server-GPG-KEY
-```
-
-Once the GPG public key is imported, you are ready to install packages from the repository.
-
-### Old Key
-
-For releases before 2023 an older SHA1 based GPG key was used.
-
-The id of this older GPG public key was `0xcbcb082a1bb943db`. The short form was `0x1BB943DB`. The full key fingerprint was:
-
-```
-1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
-```
+See the [GPG](../gpg.md) page for information on the various keys used by MariaDB.
 
 ## Installing MariaDB Packages with YUM/DNF
 
@@ -151,18 +134,18 @@ sudo dnf install MariaDB-server
 
 The process to install MariaDB Galera Cluster with the MariaDB `yum` repository is practically the same as installing standard MariaDB Server.
 
-You need to install the `galera-4` package to obtain the [Galera](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md) 4 wsrep provider library.
+You need to install the `galera-4` package to obtain the [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4 wsrep provider library.
 
 To install MariaDB Galera Cluster, you could execute the following command:
 
 ```bash
-sudo yum install MariaDB-server MariaDB-client galera-4
+sudo dnf install MariaDB-server MariaDB-client galera-4
 ```
 
 If you haven't yet imported the MariaDB GPG public key, then `yum` will prompt you to\
 import it after it downloads the packages, but before it prompts you to install them.
 
-See [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md) for more information on MariaDB Galera Cluster.
+See [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) for more information on MariaDB Galera Cluster.
 
 ### Installing MariaDB Clients and Client Libraries with YUM
 
@@ -171,18 +154,18 @@ See [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/
 To Install the clients and client libraries, execute the following command:
 
 ```bash
-sudo yum install MariaDB-client MariaDB-shared
+sudo dnf install MariaDB-client MariaDB-shared
 ```
 
 If you want compile your own programs against MariaDB Connector/C, execute the following command:
 
 ```bash
-sudo yum install MariaDB-devel
+sudo dnf install MariaDB-devel
 ```
 
 ### Installing mariadb-backup with YUM
 
-To install [mariadb-backup](../../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/), execute the following command:
+To install [mariadb-backup](../../../../../server-usage/backup-and-restore/mariadb-backup/), execute the following command:
 
 ```bash
 sudo yum install MariaDB-backup
@@ -195,19 +178,19 @@ Some [plugins](../../../../../reference/plugins/) may also need to be installed.
 For example, to install the [cracklib\_password\_check](../../../../../reference/plugins/password-validation-plugins/cracklib-password-check-plugin.md) password validation plugin, execute the following command:
 
 ```bash
-sudo yum install MariaDB-cracklib-password-check
+sudo dnf install MariaDB-cracklib-password-check
 ```
 
 ### Installing Debug Info Packages with YUM
 
-The MariaDB `yum` repository also contains [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) packages. These package may be needed when [debugging a problem](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd).
+The MariaDB `yum` repository also contains [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) packages. These package may be needed when [debugging a problem](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/yt4NDbw3wL7QsDjQtA0H).
 
 #### Installing Debug Info for the Most Common Packages with YUM
 
 To install [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) for the most common packages, execute the following command:
 
 ```bash
-sudo yum install MariaDB-server-debuginfo MariaDB-client-debuginfo MariaDB-shared-debuginfo MariaDB-backup-debuginfo MariaDB-common-debuginfo
+sudo dnf install MariaDB-server-debuginfo MariaDB-client-debuginfo MariaDB-shared-debuginfo MariaDB-backup-debuginfo MariaDB-common-debuginfo
 ```
 
 All packages have their debuginfo by appending `-debuginfo` to the package name.
@@ -217,7 +200,7 @@ All packages have their debuginfo by appending `-debuginfo` to the package name.
 To install [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) for MariaDB Server, execute the following command:
 
 ```bash
-sudo yum install MariaDB-server-debuginfo
+sudo dnf install MariaDB-server-debuginfo
 ```
 
 ### Installing Older Versions from the Repository
@@ -225,49 +208,61 @@ sudo yum install MariaDB-server-debuginfo
 The MariaDB `yum` repository contains the last few versions of MariaDB. To show what versions are available, use the following command:
 
 ```bash
-yum list --showduplicates MariaDB-server
+sudo dnf list --showduplicates MariaDB-server
 ```
 
 The output shows the available versions. For example:
 
 ```bash
-$ yum list --showduplicates MariaDB-server
-Loaded plugins: fastestmirror
-Loading mirror speeds from cached hostfile
- * base: centos.mirrors.ovh.net
- * extras: centos.mirrors.ovh.net
- * updates: centos.mirrors.ovh.net
+sudo dnf list --showduplicates MariaDB-server
+Last metadata expiration check: 0:01:42 ago on Fri 12 Dec 2025 03:47:20 PM UTC.
 Available Packages
-MariaDB-server.x86_64   10.3.10-1.el7.centos    mariadb
-MariaDB-server.x86_64   10.3.11-1.el7.centos    mariadb
-MariaDB-server.x86_64   10.3.12-1.el7.centos    mariadb
-mariadb-server.x86_64   1:5.5.60-1.el7_5         base
+MariaDB-server.x86_64  11.8.2-1.el8                               mariadb-main
+MariaDB-server.x86_64  12.0.2-1.el8                               mariadb-main
+MariaDB-server.x86_64  12.1.2-1.el8                               mariadb-main
+mariadb-server.x86_64  3:10.3.39-1.module+el8.8.0+1452+2a7eab68   appstream
 ```
 
-The MariaDB `yum` repository in this example contains [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes), [MariaDB 10.3.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10311-release-notes), and [MariaDB 10.3.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10312-release-notes). The CentOS base `yum` repository also contains [MariaDB 5.5.60](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5560-release-notes).
+The MariaDB repository in this example contains MariaDB 12.1.2, 12.0.2, and 11.8.2; and the appstream repository contains MariaDB 10.3.39.
 
-To install an older version of a package instead of the latest version we just\
-need to specify the package name, a dash, and then the version number. And we\
-only need to specify enough of the version number for it to be unique from the\
-other available versions.
+To install an older version of a package instead of the latest version we just need to specify the package name, a dash, and then the version number. And we only need to specify enough of the version number for it to be unique from the other available versions.
 
-However, when installing an older version of a package, if `yum` has to install dependencies, then it will automatically choose to install the latest versions of those packages. To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all.
+However, when installing an older version of a package, if dependencies need to be installed, then it will automatically choose to install the latest versions of those packages, which can sometimes break those dependencies. To ensure that all MariaDB packages are on the same version in this scenario, it is necessary to specify them all.
 
-The packages that the MariaDB-server package depend on are: MariaDB-client,\
-MariaDB-shared, and MariaDB-common. Therefore, to install [MariaDB 10.3.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10311-release-notes) from this `yum`\
-repository, we would do the following:
+The MariaDB packages that the `MariaDB-server` package depend on are: `MariaDB-client`, `MariaDB-shared`, and `MariaDB-common`. Therefore, to install MariaDB 12.0.2 from this `yum`\
+repository, we could do the following (putting the version in a variable and each package on its own line so things are cleaner):
 
 ```bash
-sudo yum install MariaDB-server-10.3.11 MariaDB-client-10.3.11 MariaDB-shared-10.3.11 MariaDB-backup-10.3.11 MariaDB-common-10.3.11
+ver=12.0.2
+sudo dnf install \
+  MariaDB-server-${ver} \
+  MariaDB-client-${ver} \
+  MariaDB-shared-${ver} \
+  MariaDB-common-${ver}
+```
+
+For MariaDB Enterprise it is necessary to specify the release part of the version number as well, but with an underscore (\_) instead of a dash (-), as that is how dnf/yum see the version number. For example, for MariaDB Enterprise Server 11.8.5-2 you would specify the version as `11.8.5_2`. For example:
+
+```bash
+ver=11.8.5_2
+sudo dnf install \
+  MariaDB-server-${ver} \
+  MariaDB-client-${ver} \
+  MariaDB-shared-${ver} \
+  MariaDB-common-${ver}
 ```
 
 The rest of the install and setup process is as normal.
 
 ## After Installation
 
-After the installation is complete, you can [start MariaDB](../../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md).
+After the installation is complete, you can [start MariaDB](../../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md) with:
 
-If you are using [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera/README.md), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
+```bash
+sudo systemctl start mariadb 
+```
+
+If you are using [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), then keep in mind that the first node will have to be [bootstrapped](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster#bootstrapping-a-new-cluster).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

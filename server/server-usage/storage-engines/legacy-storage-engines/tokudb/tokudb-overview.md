@@ -1,3 +1,7 @@
+---
+description: The TokuDB storage engine has been removed from MariaDB.
+---
+
 # TokuDB Overview
 
 {% include "../../../../.gitbook/includes/tokudb-has-been-deprecated-....md" %}

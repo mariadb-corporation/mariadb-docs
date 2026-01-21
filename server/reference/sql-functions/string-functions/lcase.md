@@ -1,3 +1,7 @@
+---
+description: Synonym for LOWER(). Converts a string to lowercase characters.
+---
+
 # LCASE
 
 ## Syntax

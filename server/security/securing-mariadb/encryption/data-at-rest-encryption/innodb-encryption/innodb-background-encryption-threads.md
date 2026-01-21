@@ -1,3 +1,10 @@
+---
+description: >-
+  Details the operation of background threads (configured via
+  `innodb_encryption_threads`) which handle key rotation, and the
+  encryption/decryption of tablespaces when global settings.
+---
+
 # InnoDB Background Encryption Threads
 
 InnoDB performs some encryption and decryption operations with background encryption threads. The [innodb\_encryption\_threads](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads) system variable controls the number of threads that the storage engine uses for encryption-related background operations, including encrypting and decrypting pages after key rotations or configuration changes, and [scrubbing](../../../../../server-usage/storage-engines/innodb/innodb-data-scrubbing.md) data to permanently delete it.

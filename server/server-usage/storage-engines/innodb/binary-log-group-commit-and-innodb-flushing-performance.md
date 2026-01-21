@@ -1,10 +1,14 @@
-# Binary Log Group Commit and InnoDB Flushing Performance
+---
+description: >-
+  Understand how group commit works with InnoDB to improve performance by
+  reducing the number of disk syncs required during transaction commits.
+---
 
-[MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) introduced a performance improvement related to [group commit](../../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) that affects the performance of flushing [InnoDB](./) transactions when the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is enabled.
+# Binary Log Group Commit and InnoDB Flushing Performance
 
 ## Overview
 
-In [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) and above, when both [innodb\_flush\_log\_at\_trx\_commit=1](innodb-system-variables.md#innodb_flush_log_at_trx_commit) (the default) is set and the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is enabled, there is now one less sync to disk inside InnoDB during commit (2 syncs shared between a group of transactions instead of 3).
+When both [innodb\_flush\_log\_at\_trx\_commit=1](innodb-system-variables.md#innodb_flush_log_at_trx_commit) (the default) is set and the [binary log](../../../server-management/server-monitoring-logs/binary-log/) is enabled, there is now one less sync to disk inside InnoDB during commit (2 syncs shared between a group of transactions instead of 3).
 
 Durability of commits is not decreased — this is because even if the server crashes before the commit is written to disk by InnoDB, it are recovered from the binary log at next server startup (and it is guaranteed that sufficient information is synced to disk so that such a recovery is always possible).
 

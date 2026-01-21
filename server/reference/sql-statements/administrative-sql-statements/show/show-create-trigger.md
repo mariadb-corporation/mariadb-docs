@@ -1,3 +1,9 @@
+---
+description: >-
+  Retrieve the CREATE TRIGGER statement. This statement displays the SQL syntax
+  defining a specific trigger and its timing events.
+---
+
 # SHOW CREATE TRIGGER
 
 ## Syntax

@@ -48,14 +48,14 @@ You can perform actions on your databases and nodes using the three-dot menu (â‹
 
 {% stepper %}
 {% step %}
-### Accessing the MaxScale GUI
+#### Accessing the MaxScale GUI
 
 * Click the three-dot menu (â‹®) next to a MaxScale node.
 * Select "Manage MaxScale".
 {% endstep %}
 
 {% step %}
-### Configuring SSO in `maxscale.cnf`
+#### Configuring SSO in `maxscale.cnf`
 
 To enable SSO, add the following parameters to your MaxScale configuration file (`maxscale.cnf`) on the MaxScale host:
 

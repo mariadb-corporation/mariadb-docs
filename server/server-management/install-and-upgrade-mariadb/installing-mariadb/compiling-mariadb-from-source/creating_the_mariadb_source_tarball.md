@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how to generate a source tarball from the MariaDB build environment
+  using `automake` and `make dist`.
+---
+
 # Creating the MariaDB Source Tarball
 
 How to create a source tar.gz file.

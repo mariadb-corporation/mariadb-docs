@@ -1,3 +1,9 @@
+---
+description: >-
+  Impersonate another user for the current session. Learn how to assume the
+  identity and privileges of another account for testing or administration.
+---
+
 # SET SESSION AUTHORIZATION
 
 {% hint style="info" %}

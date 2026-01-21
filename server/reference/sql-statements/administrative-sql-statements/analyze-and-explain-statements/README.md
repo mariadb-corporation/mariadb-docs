@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about ANALYZE and EXPLAIN statements in MariaDB Server. This section
-  details how to optimize queries by analyzing table distribution statistics and
-  understanding query execution plans.
+  Learn commands for query analysis. This section covers ANALYZE TABLE and
+  EXPLAIN, used to view execution plans and optimize query performance.
 ---
 
 # ANALYZE and EXPLAIN Statements

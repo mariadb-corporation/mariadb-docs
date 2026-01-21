@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove a server definition. This command deletes the connection details for a
+  remote server used by the FEDERATED or SPIDER storage engines.
+---
+
 # DROP SERVER
 
 ## Syntax

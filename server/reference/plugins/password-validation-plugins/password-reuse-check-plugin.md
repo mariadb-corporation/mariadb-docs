@@ -1,3 +1,10 @@
+---
+description: >-
+  The Password Reuse Check Plugin prevents users from reusing previous
+  passwords, with a retention policy controlled by the
+  password_reuse_check_interval variable.
+---
+
 # Password Reuse Check Plugin
 
 {% hint style="info" %}

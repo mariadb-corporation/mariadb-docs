@@ -1,3 +1,9 @@
+---
+description: >-
+  Stored Aggregate Functions allow users to create custom aggregate functions
+  that process a sequence of rows and return a single summary result.
+---
+
 # Stored Aggregate Functions
 
 [Aggregate functions](../../../reference/sql-functions/aggregate-functions/) are functions that are computed over a sequence of rows and return one result for the sequence of rows.

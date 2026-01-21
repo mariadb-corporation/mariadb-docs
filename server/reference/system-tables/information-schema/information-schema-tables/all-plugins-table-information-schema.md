@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema ALL_PLUGINS table contains information about server
+  plugins, whether installed or not, providing a superset of SHOW PLUGINS
+  SONAME.
+---
+
 # Information Schema ALL\_PLUGINS Table
 
 ## Description

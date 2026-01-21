@@ -1,3 +1,9 @@
+---
+description: >-
+  Define a trigger on a table. This statement creates a routine that
+  automatically executes in response to INSERT, UPDATE, or DELETE events.
+---
+
 # CREATE TRIGGER
 
 ## Syntax
@@ -68,7 +74,7 @@ Only one _`trigger_event`_ can be specified.
 
 #### FOLLOWS/PRECEDES _other\_trigger\_name_
 
-The `FOLLOWS`` `_`other_trigger_name`_ and `PRECEDES`` `_`other_trigger_name`_ options support multiple triggers per action time.
+The ` FOLLOWS`` `` `_`other_trigger_name`_ and ` PRECEDES`` `` `_`other_trigger_name`_ options support multiple triggers per action time.
 
 `FOLLOWS` adds the new trigger after another trigger, while `PRECEDES` adds the new trigger before another trigger. If neither option is used, the new trigger is added last for the given action and time.
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about the IGNORE keyword. This modifier suppresses certain errors during
+  statement execution, downgrading them to warnings to allow the operation to
+  proceed.
+---
+
 # IGNORE
 
 The `IGNORE` option tells the server to ignore some common errors.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Get the CREATE PROCEDURE statement. This statement returns the SQL syntax used
+  to define a specific stored procedure.
+---
+
 # SHOW CREATE PROCEDURE
 
 ## Syntax

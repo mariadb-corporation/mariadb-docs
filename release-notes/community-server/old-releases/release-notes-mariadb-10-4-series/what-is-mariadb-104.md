@@ -8,7 +8,7 @@ The most recent release of [MariaDB 10.4](what-is-mariadb-104.md) is:[**MariaDB 
 
 ## Implemented Features
 
-See the [Differences in MariaDB Enterprise Server 10.4](../../../enterprise-server/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10-4.md) page for items that are different between MariaDB Community Server 10.4 and MariaDB Enterprise Server 10.4.
+See the [Differences in MariaDB Enterprise Server 10.4](../../../enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.4.md) page for items that are different between MariaDB Community Server 10.4 and MariaDB Enterprise Server 10.4.
 
 ### Authentication
 
@@ -50,7 +50,7 @@ See the [Differences in MariaDB Enterprise Server 10.4](../../../enterprise-serv
 ### Syntax
 
 * [Temporal tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables) extended with support for [application-time periods](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/application-time-periods) ([MDEV-16973](https://jira.mariadb.org/browse/MDEV-16973), [MDEV-16974](https://jira.mariadb.org/browse/MDEV-16974), [MDEV-16975](https://jira.mariadb.org/browse/MDEV-16975), [MDEV-17082](https://jira.mariadb.org/browse/MDEV-17082))
-* Support of brackets (parentheses) for specifying precedence in [UNION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/union)/[EXCEPT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/except)/[INTERSECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/intersect) operations ([MDEV-11953](https://jira.mariadb.org/browse/MDEV-11953))
+* Support of brackets (parentheses) for specifying precedence in [UNION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/union)/[EXCEPT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/except)/[INTERSECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/intersect) operations ([MDEV-11953](https://jira.mariadb.org/browse/MDEV-11953))
 * New [FLUSH SSL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/flush-commands/flush) command to reload SSL certificates without server restart ([MDEV-16266](https://jira.mariadb.org/browse/MDEV-16266))
 * New `CAST` target — `CAST(x AS INTERVAL DAY_SECOND(N))` ([MDEV-17776](https://jira.mariadb.org/browse/MDEV-17776))
 * `IF NOT EXISTS` clause added to [INSTALL PLUGIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-plugin) and `IF EXISTS` clause added to [UNINSTALL PLUGIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-plugin) and [UNINSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/uninstall-soname) ([MDEV-16294](https://jira.mariadb.org/browse/MDEV-16294))

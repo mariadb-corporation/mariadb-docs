@@ -1,3 +1,9 @@
+---
+description: >-
+  Reverse a string. This function returns the string with the order of its
+  characters reversed.
+---
+
 # REVERSE
 
 ## Syntax

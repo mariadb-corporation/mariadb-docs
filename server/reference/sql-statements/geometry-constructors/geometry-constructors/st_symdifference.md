@@ -1,3 +1,10 @@
+---
+description: >-
+  Returns a geometry representing the point set symmetric difference of two
+  geometries. It outputs the spatial area present in either geometry but not in
+  both.
+---
+
 # ST\_SYMDIFFERENCE
 
 ## Syntax

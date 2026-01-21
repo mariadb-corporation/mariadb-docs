@@ -13,7 +13,7 @@ The module command API is defined in the _modulecmd.h_ header. It consists of\
 various functions to register and call module commands. Read the function\
 documentation in the header for more details.
 
-The following example registers the module command _my\_command_ for modul&#x65;_&#x6D;y\_module_.
+The following example registers the module command _my\_command_ for module_&#x6D;y\_module_.
 
 ```
 #include <maxscale/modulecmd.hh>
@@ -57,7 +57,7 @@ argument is an optional string.
 Arguments are passed to the parsing function as an array of void pointers. They\
 are interpreted as the types the command expects.
 
-When the module command is executed, the _argv_ parameter for th&#x65;_&#x6D;y\_simple\_cmd_ contains the parsed arguments received from the caller of the\
+When the module command is executed, the _argv_ parameter for the_&#x6D;y\_simple\_cmd_ contains the parsed arguments received from the caller of the\
 command.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

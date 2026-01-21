@@ -1,3 +1,9 @@
+---
+description: >-
+  The STOP_EVENT is written to the binary log when the server shuts down,
+  serving as a marker for a clean stop.
+---
+
 # STOP\_EVENT
 
 The master server writes the event to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) when it shuts down, or when resuming after a mariadbd process crash.

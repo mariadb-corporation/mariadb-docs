@@ -10,6 +10,8 @@ This page details step 6 of the 9-step procedure "Deploy ColumnStore Shared Loca
 
 This step installs MariaDB MaxScale 22.08. ColumnStore Object Storage requires 1 or more MaxScale nodes.
 
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
+
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 
 ## Retrieve Customer Download Token

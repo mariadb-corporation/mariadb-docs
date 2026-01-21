@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.time_zone_leap_second table lists leap second corrections to be
+  applied to specific time zones.
+---
+
 # mysql.time\_zone\_leap\_second Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

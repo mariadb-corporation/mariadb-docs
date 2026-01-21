@@ -1,3 +1,9 @@
+---
+description: >-
+  Get the SQL statement to recreate a table. This statement shows the complete
+  CREATE TABLE syntax, including column definitions and indexes.
+---
+
 # SHOW CREATE TABLE
 
 ## Syntax

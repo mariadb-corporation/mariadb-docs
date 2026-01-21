@@ -1,7 +1,7 @@
 # EXPLAIN Analyzer API
 
 {% hint style="warning" %}
-&#x20;`EXPLAIN` Analyzer is no longer active.
+ `EXPLAIN` Analyzer is no longer active.
 {% endhint %}
 
 The online `EXPLAIN` Analyzer tool has an open API to allow client applications to send it EXPLAINs.

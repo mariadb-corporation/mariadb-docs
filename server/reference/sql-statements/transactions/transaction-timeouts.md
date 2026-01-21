@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand how timeouts affect transactions. This section explains system
+  variables that control wait times for locks and transaction duration.
+---
+
 # Transaction Timeouts
 
 MariaDB has always had the [wait\_timeout](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#wait_timeout) and [interactive\_timeout](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#interactive_timeout) settings, which close connections after a certain period of inactivity.

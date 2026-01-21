@@ -1,3 +1,10 @@
+---
+description: >-
+  The sha256_password plugin manages authentication using SHA-256 encryption,
+  supporting both clear text passwords over SSL and RSA encrypted password
+  exchange.
+---
+
 # sha256\_password Plugin
 
 ## Overview

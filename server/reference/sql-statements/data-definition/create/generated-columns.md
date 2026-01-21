@@ -89,12 +89,12 @@ Defining indexes on both `VIRTUAL` and `PERSISTENT` generated columns is support
 If an index is defined on a generated column, then the optimizer considers using it in the same way as indexes based on "real" columns.
 
 {% tabs %}
-{% tab title="Tab 1" %}
-The optimizer can recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and ref(const) accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
+{% tab title="Current" %}
+The optimizer can recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 
 {% tab title="< 11.8" %}
-The optimizer **cannot** recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and ref(const) accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
+The optimizer **cannot** recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses. See [Virtual Column Support in the Optimizer](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/virtual-column-support-in-the-optimizer.md).
 {% endtab %}
 {% endtabs %}
 

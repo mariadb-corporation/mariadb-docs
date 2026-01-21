@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to configure MariaDB using option files (my.cnf/my.ini), including
+  file locations, syntax, and command-line overrides.
+---
+
 # Configuring MariaDB with Option Files
 
 You can configure MariaDB to run the way you want by configuring the server with MariaDB's option files. The default MariaDB option file is called `my.cnf` on Unix-like operating systems and `my.ini` on Windows. Depending on how you've [installed](../) MariaDB, the default option file may be in a number of places, or it may not exist at all.
@@ -107,7 +113,7 @@ echo %WINDIR%
 ```
 
 * The `Windows Directory` is the directory returned by the `GetWindowsDirectory` function. The value may be a private `Windows Directory` for the application, or it may be the same as the `System Windows Directory` returned by the `GetSystemWindowsDirectory` function.
-* `INSTALLDIR` is the parent directory of the directory where `mysqld.exe` is located. For example, if `mysqld.exe` is in `C:\Program Files\` ,  `INSTALLDIR` is `C:\Program Files\`.
+* `INSTALLDIR` is the parent directory of the directory where `mysqld.exe` is located. For example, if `mysqld.exe` is in `C:\Program Files\` , `INSTALLDIR` is `C:\Program Files\`.
 * `MARIADB_HOME` or `MYSQL_HOME` is the [environment variable](mariadb-environment-variables.md) containing the path to the directory holding the server-specific `my.cnf` file.
 
 {% hint style="warning" %}
@@ -118,7 +124,7 @@ Note that if `MARIADB_HOME` is set, `MYSQL_HOME` is not used, even if set.
 
 MariaDB looks in all of the above locations, in order, even if it has already found an option file, and it's possible for more than one option file to exist. For example, you could have an option file in `/etc/my.cnf` with global settings for all servers, and another option file in `~/.my.cnf` (that is, your user account's home directory) which specifies additional settings (or override previously specified settings) that are specific only to that user.
 
-Option files are usually optional. However, if the [--defaults-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-file) option is set, but the file does not exist,  MariaDB raises an error. If the `--defaults-file` option is set, MariaDB _only_ reads the option file referred to by this option.
+Option files are usually optional. However, if the [--defaults-file](../../starting-and-stopping-mariadb/mariadbd-options.md#defaults-file) option is set, but the file does not exist, MariaDB raises an error. If the `--defaults-file` option is set, MariaDB _only_ reads the option file referred to by this option.
 
 If an option or system variable is not explicitly set, then it will be set to its default value. See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for a full list of all server system variables and their default values.
 
@@ -147,6 +153,7 @@ The syntax of MariaDB option files is as follows:
 * The same option group can appear multiple times.
 * The `!include` directive can be used to include other option files. See the [Including Option Files](configuring-mariadb-with-option-files.md#including-option-files) section below for more information on this syntax.
 * The `!includedir` directive can be used to include all `.cnf` files (and potentially `.ini` files) in a given directory. The option files within the directory are read in alphabetical order. See the [Including Option File Directories](configuring-mariadb-with-option-files.md#including-option-file-directories) section below for more information on this syntax.
+* The `?includedir` (introduced in MariaDB 11.4.10 and 11.8.6) directive works like `!includedir` but skips unreadable files, instead of failing with an error.
 * Dashes (`-`) and underscores (`_`) in options are interchangeable.
 * Double quotes can be used to quote values
 * `\n`, `\r`, `\t`, `\b`, `\s`, `\"`, `\'`, and `\\` are recognized as character escapes for new line, carriage return, tab, backspace, space, double quote, single quote, and backslash respectively.
@@ -249,6 +256,19 @@ MariaDB can be configured to read options from option groups with a custom suffi
 
 The default group suffix can also be specified via the `MYSQL_GROUP_SUFFIX` [environment variable](mariadb-environment-variables.md).
 
+**Example:** To create a custom prompt for the `mariadb` command-line client via a custom group, add this to the option file (for instance, `/etc/my.cnf`):
+
+```ini
+[client_custom_group]
+prompt='(custom prompt for mariadb client)'
+```
+
+Then, launch `mariadb` like this:
+
+```shellscript
+mariadb --defaults-group-suffix=_custom_group
+```
+
 ### Including Option Files
 
 It is possible to include additional option files from another option file. For example, to include `/etc/mysql/dbserver1.cnf`, an option file could contain:
@@ -272,6 +292,16 @@ It is also possible to include all option files in a directory from another opti
 The option files within the directory are read in alphabetical order.
 
 All option file names must end in `.cnf` on Unix-like operating systems. On Windows, all option file names must end in `.cnf` or `.ini`.
+
+{% tabs %}
+{% tab title="Current" %}
+If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error. One can use `?includedir` to skip unreadable files without failing out.
+{% endtab %}
+
+{% tab title="< 11.4.10, < 11.8.6" %}
+If a `.cnf` file cannot be read an executable (a MariaDB server or a client tool) will exit with an error.
+{% endtab %}
+{% endtabs %}
 
 ### Checking Program Options
 

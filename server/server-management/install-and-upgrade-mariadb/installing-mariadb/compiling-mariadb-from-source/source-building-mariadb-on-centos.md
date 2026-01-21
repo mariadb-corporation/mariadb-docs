@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for building MariaDB on CentOS, including installing build
+  dependencies with `yum-builddep`.
+---
+
 # Building MariaDB on CentOS
 
 In the event that you are using the Linux-based operating system CentOS or any of its derivatives, you can optionally compile MariaDB from source code. This is useful in cases where you want use a more advanced release than the one that's available in the official repositories, or when you want to enable certain feature that are not otherwise accessible.

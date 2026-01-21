@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to creating and managing scheduled events, which are named
+  database objects containing SQL statements to be executed by the Event
+  Scheduler.
+---
+
 # Events Overview
 
 [Events](../) are named database objects containing SQL statements that are to be executed at a later stage, either once off, or at regular intervals.

@@ -15,6 +15,8 @@ At any given time, developers is working on their own branches locally or on Git
 The main MariaDB branches are:
 
 * [main](https://github.com/MariaDB/server/tree/main)
+* [12.3](https://github.com/MariaDB/server/tree/12.3)
+* [12.2](https://github.com/MariaDB/server/tree/12.2)
 * [12.1](https://github.com/MariaDB/server/tree/12.1)
 * [12.0](https://github.com/MariaDB/server/tree/12.0)
 * [11.8](https://github.com/MariaDB/server/tree/11.8)
@@ -34,7 +36,7 @@ Source repositories for the MariaDB Connectors are:
 
 See also:
 
-* [Using git](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/using-git-with-mariadb/using-git) page for instructions on how to use git to check out the source code and switch between the various branches.
+* [Using git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM) page for instructions on how to use git to check out the source code and switch between the various branches.
 * [Compiling MariaDB from source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/)
 
 {% hint style="danger" %}
@@ -160,7 +162,7 @@ bzr pull
 ## Alternate Bazaar Instructions
 
 The following alternative instructions are what we have used for setting up\
-repositories on our build machines in [buildbot](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/buildbot).
+repositories on our build machines in [buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA).
 
 ### Shell Variables
 

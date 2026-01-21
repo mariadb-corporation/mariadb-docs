@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore other plugins available for MariaDB Server. This section details
-  various additional plugins that extend database functionality, provide
-  specialized features, and enhance specific use cases.
+  Discover additional plugins that extend MariaDB Server functionality, such as
+  the Disks, Feedback, and Query Response Time plugins, for specialized use
+  cases.
 ---
 
 # Other Plugins

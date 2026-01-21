@@ -18,7 +18,7 @@ This page describes replication compatibility between MariaDB and MySQL. For rep
 
 MariaDB does not support the MySQL implementation of Global Transaction IDs (GTIDs), so the MariaDB replica server must use the binary log file and position for replication. If GTID mode is enabled on the MySQL primary server, the MariaDB replica server will remove the MySQL GTID events and replace them with MariaDB GTID events.
 
-You can disable `GTID` and use logfile name and position in MariaDB by excuting on the slave:
+You can disable `GTID` and use logfile name and position in MariaDB by executing on the slave:
 
 ```sql
 CHANGE MASTER ... MASTER_LOG_FILE=file_name MASTER_LOG_POS=# MASTER_USE_GTID=no
@@ -32,12 +32,12 @@ Prior to [MariaDB 10.6.21](../../10.6/10.6.21.md), [MariaDB 10.11.11](../../10.1
 
 [MariaDB 10.6.21](../../10.6/10.6.21.md), [MariaDB 10.11.11](../../10.11/10.11.11.md), [MariaDB 11.4.5](../../11.4/11.4.5.md), [MariaDB 11.7.2](../../old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-2-release-notes.md) and newer can replicate from a MySQL 8.0 server with the following conditions:
 
-* MariaDB does not support the MySQL default authentication caching\_sha2\_password, so one has to add another replication user using the mysql\_native\_password protocol and use this with [CHANGE MASTER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) in MariaDB.
+* Prior to [MariaDB 11.4.9](../../11.4/11.4.9.md), [MariaDB 11.8.4](../../11.8/11.8.4.md) and [MariaDB 12.1.1](../../12.1/12.1.1.md), MariaDB does not support the MySQL default authentication caching\_sha2\_password, so one has to add another replication user using the mysql\_native\_password protocol and use this with [CHANGE MASTER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to) in MariaDB when using an older version.
 * Columns of type JSON are not supported. One should change these to `TEXT` in MySQL. MySQL will work fine with JSON as TEXT, except for a minor performance degradation when using JSON expressions.
 * `binlog-row-value-options` should be set to `""` should be set. This disables the incompatible `PARTIAL_UPDATE_ROWS_EVENT` event.
 * `binlog_transaction_compression` should be set to `0`. This disables binlog compression and the incompatible `TRANSACTION_PAYLOAD_EVENT` event.
 * MySQL 8.0 utf8mb4\_ja\_0900\_ collations can not be used when replicating to [MariaDB 10.6](../../10.6/what-is-mariadb-106.md) - [MariaDB 11.4.4](../../11.4/11.4.4.md). [MariaDB 11.4.5](../../11.4/11.4.5.md) and above will support [most of the MySQL 8.0 utf8mb4\_ja\_0900\_... collations](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations#collations).
-* For differences at the SQL level that may cause replication failures, see [Incompatibilities and Feature Differences](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/compatibility-differences/README.md) between the specific versions. When using [binlog\_format](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_format) this almost exclusively affects DDL'sm, where MariaDB is very compatible with MySQL.
+* For differences at the SQL level that may cause replication failures, see [Incompatibilities and Feature Differences](./) between the specific versions. When using [binlog\_format](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_format) this almost exclusively affects DDL'sm, where MariaDB is very compatible with MySQL.
 
 Here are the changes one should do in the config files for MySQL 8.0:
 
@@ -74,7 +74,7 @@ character-set-server=utf8mb4
 collation-server=utf8mb4_0900_ai_ci
 ```
 
-For differences at the SQL level that may cause replication failures, see [Incompatibilities and Feature Differences](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/compatibility-differences/README.md) between the specific versions.
+For differences at the SQL level that may cause replication failures, see [Incompatibilities and Feature Differences](./) between the specific versions.
 
 ## See also
 

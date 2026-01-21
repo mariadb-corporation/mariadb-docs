@@ -1,3 +1,9 @@
+---
+description: >-
+  The DYNAMIC row format, default in modern MariaDB versions, optimizes storage
+  for large BLOB/TEXT columns by storing them on separate overflow pages.
+---
+
 # InnoDB DYNAMIC Row Format
 
 `DYNAMIC` is the default InnoDB row format.

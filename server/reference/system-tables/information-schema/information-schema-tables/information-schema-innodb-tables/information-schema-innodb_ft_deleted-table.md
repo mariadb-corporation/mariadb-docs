@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_FT_DELETED table lists document IDs of rows that have been deleted
+  from an InnoDB FULLTEXT index but not yet removed from the index files.
+---
+
 # Information Schema INNODB\_FT\_DELETED Table
 
 The [Information Schema](../../) `INNODB_FT_DELETED` table contains rows that have been deleted from an InnoDB [fulltext index](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/). This information is then used to filter results on subsequent searches, removing the need to expensively reorganise the index each time a row is deleted.

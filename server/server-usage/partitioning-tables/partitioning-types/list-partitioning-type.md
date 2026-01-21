@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand LIST partitioning, where rows are assigned to partitions based on
+  whether a column value matches one in a defined list of values.
+---
+
 # LIST Partitioning Type
 
 `LIST` partitioning is conceptually similar to [RANGE partitioning](range-partitioning-type.md). In both cases you decide a partitioning expression (a column, or a slightly more complex calculation) and use it to determine which partitions will contain each row. However, with the `RANGE` type, partitioning is done by assigning a range of values to each partition. With the `LIST` type, we assign a set of values to each partition. This is usually preferred if the partitioning expression can return a limited set of values.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the name of the month. This function returns the full name of the
+  month, such as 'January' or 'December', for a given date.
+---
+
 # MONTHNAME
 
 ## Syntax

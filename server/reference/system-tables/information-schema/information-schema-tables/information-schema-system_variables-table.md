@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema SYSTEM_VARIABLES table contains all system variables
+  and their current global or session values.
+---
+
 # Information Schema SYSTEM\_VARIABLES Table
 
 The [Information Schema](../) `SYSTEM_VARIABLES` table shows current values and various metadata of all [system variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md).

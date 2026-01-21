@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_TABLESPACES table provides metadata about the tablespaces used
+  by InnoDB, including space ID, page size, and filename.
+---
+
 # Information Schema INNODB\_SYS\_TABLESPACES Table
 
 The [Information Schema](../../) `INNODB_SYS_TABLESPACES` table contains information about InnoDB tablespaces. Until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) it was based on the internal `SYS_TABLESPACES` table. This internal table was removed in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes), so this Information Schema table has been repurposed\

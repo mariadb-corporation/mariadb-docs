@@ -1,3 +1,10 @@
+---
+description: >-
+  Detailed instructions for automating the installation of MariaDB on
+  Debian/Ubuntu systems, including tasks for adding repositories, importing GPG
+  keys, and installing packages.
+---
+
 # Installing MariaDB .deb Files with Ansible
 
 This page refers to the operations described in [Installing MariaDB .deb Files](../../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md). Refer to that page for a complete list and explanation of the tasks that should be performed.

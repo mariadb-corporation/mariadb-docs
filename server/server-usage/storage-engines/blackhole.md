@@ -1,3 +1,9 @@
+---
+description: >-
+  The BLACKHOLE storage engine discards all data written to it but records
+  operations in the binary log, useful for replication filtering and testing.
+---
+
 # BLACKHOLE
 
 The `BLACKHOLE` storage engine accepts data but does not store it and always returns an empty result.

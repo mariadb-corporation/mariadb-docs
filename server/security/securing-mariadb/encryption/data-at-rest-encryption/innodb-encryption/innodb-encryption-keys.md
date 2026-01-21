@@ -1,3 +1,10 @@
+---
+description: >-
+  How InnoDB manages encryption keys using 32-bit integer IDs, including the
+  default key ID (`innodb_default_encryption_key_id`), assigning specific keys
+  to tables, and the process of key rotatation.
+---
+
 # InnoDB Encryption Keys
 
 InnoDB uses [encryption key management](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) plugins to support the use of multiple [encryption keys](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#using-multiple-encryption-keys).

@@ -1,3 +1,9 @@
+---
+description: >-
+  Pagination using standard SQL syntax. This clause limits the number of rows
+  returned and skips a specified number of rows, similar to LIMIT.
+---
+
 # SELECT ... OFFSET ... FETCH
 
 {% hint style="info" %}

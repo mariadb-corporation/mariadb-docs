@@ -1,3 +1,10 @@
+---
+description: >-
+  This guide outlines the benefits and process of migrating tables from MyISAM
+  to InnoDB, highlighting key differences like transaction support and foreign
+  keys.
+---
+
 # Converting Tables from MyISAM to InnoDB
 
 ## The task

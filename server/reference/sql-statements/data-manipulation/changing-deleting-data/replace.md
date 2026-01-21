@@ -1,3 +1,9 @@
+---
+description: >-
+  Insert or replace rows based on unique keys. This statement acts like INSERT,
+  but if a duplicate key exists, it deletes the old row and inserts the new one.
+---
+
 # REPLACE
 
 {% hint style="info" %}

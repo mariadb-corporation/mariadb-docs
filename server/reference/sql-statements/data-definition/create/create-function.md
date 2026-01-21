@@ -1,3 +1,10 @@
+---
+description: >-
+  Define a stored function. This command creates a routine that accepts
+  parameters, executes logic, and returns a single value for use in SQL
+  expressions.
+---
+
 # CREATE FUNCTION
 
 ## Syntax
@@ -52,11 +59,11 @@ The `RETURN` clause can return a function body. In newer versions of MariaDB, it
 
 {% tabs %}
 {% tab title="Current" %}
-#### RETURN `func_body`
+**RETURN `func_body`**
 
 The `RETURN` clause can return a function body (a valid SQL `PROCEDURE` statement).
 
-#### RETURN `SYS_REFCURSOR`
+**RETURN `SYS_REFCURSOR`**
 
 It can also return a cursor, if the function was declared with a `SYS_REFCURSOR` variable, like this:
 
@@ -74,7 +81,7 @@ Alternatively, a cursor can be returned in an `OUT` parameter, see [this section
 {% endtab %}
 
 {% tab title="< Community Server 12.0 / Enterprise Server 11.8" %}
-#### RETURN `func_body`
+**RETURN `func_body`**
 
 The `RETURN` clause can return a function body (a valid SQL `PROCEDURE` statement).
 {% endtab %}

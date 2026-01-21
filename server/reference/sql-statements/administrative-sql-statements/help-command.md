@@ -1,3 +1,9 @@
+---
+description: >-
+  Displays help information from the server's help tables. Useful for looking up
+  SQL syntax and command descriptions directly from the client.
+---
+
 # HELP Command
 
 ## Syntax

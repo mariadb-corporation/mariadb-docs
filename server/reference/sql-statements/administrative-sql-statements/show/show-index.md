@@ -1,3 +1,9 @@
+---
+description: >-
+  List index information for a table. View key names, column sequences,
+  cardinality, and other index attributes.
+---
+
 # SHOW INDEX
 
 ## Syntax

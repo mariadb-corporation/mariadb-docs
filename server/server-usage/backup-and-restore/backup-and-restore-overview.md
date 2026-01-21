@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide provides an introduction to the various backup and restore methods
+  available in MariaDB, helping you choose the right strategy for your data.
+---
+
 # Backup and Restore Overview
 
 This article briefly discusses the main ways to backup MariaDB. For detailed descriptions and syntax, see the individual pages. More detail is in the process of being added.

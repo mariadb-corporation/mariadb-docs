@@ -1,3 +1,10 @@
+---
+description: >-
+  Monitor the performance and status of the Audit Plugin. View variables that
+  track the number of logged events and current settings to ensure the auditing
+  system is functioning correctly.
+---
+
 # Audit Plugin Status Variables
 
 There are a few status variables related to the [MariaDB Audit Plugin](./), once it has been [installed](mariadb-audit-plugin-installation.md). These variables can be displayed using the [SHOW STATUS](../../sql-statements/administrative-sql-statements/show/show-status.md) statement like so:

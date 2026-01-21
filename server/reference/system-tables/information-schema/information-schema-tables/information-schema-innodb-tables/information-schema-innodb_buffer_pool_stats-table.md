@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_BUFFER_POOL_STATS table displays high-level
+  statistics about the InnoDB buffer pool's activity.
+---
+
 # Information Schema INNODB\_BUFFER\_POOL\_STATS Table
 
 The [Information Schema](../../) `INNODB_BUFFER_POOL_STATS` table contains information about pages in the [buffer pool](../../../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md), similar to what is returned with the [SHOW ENGINE INNODB STATUS](../../../../sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) statement.

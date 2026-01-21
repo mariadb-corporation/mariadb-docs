@@ -1,3 +1,10 @@
+---
+description: >-
+  Step-by-step guide to enabling encryption for InnoDB, covering the
+  configuration of innodb_encrypt_tables for automatic encryption and the use of
+  ENCRYPTED=YES table options for per-table encryption.
+---
+
 # Enabling InnoDB Encryption
 
 In order to enable data-at-rest encryption for tables using the InnoDB storage engines, you first need to configure the Server to use an [Encryption Key Management](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) plugin. Once this is done, you can enable encryption by setting the [innodb\_encrypt\_tables](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables) system variable to encrypt the InnoDB [system](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-system-tablespaces.md) and [file](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespaces and setting the [innodb\_encrypt\_log](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log) system variable to encrypt the InnoDB [Redo Log](../../../../../server-usage/storage-engines/innodb/innodb-redo-log.md).

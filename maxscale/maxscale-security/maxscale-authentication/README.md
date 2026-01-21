@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about authentication in MariaDB MaxScale. This section covers
-  configuring user authentication for clients connecting through MaxScale and
-  securing access to your database instances.
+  Explore the supported authentication methods in MariaDB MaxScale. Learn how
+  authenticators validate clients and backend servers using plugins like Native,
+  PAM, GSSAPI, etc.
 ---
 
 # MaxScale Authentication

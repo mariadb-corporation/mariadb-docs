@@ -1,12 +1,14 @@
 # Virtual Column Support in the Optimizer
 
-**MariaDB starting with** [**11.8**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/what-is-mariadb-118)
+{% hint style="info" %}
+This feature is available from MariaDB 11.8.
+{% endhint %}
 
-Starting from [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/what-is-mariadb-118), the optimizer can recognize use of indexed virtual column expressions in the WHERE clause and use them to construct range and ref(const) accesses.
+The optimizer can recognize use of indexed virtual column expressions in the `WHERE` clause and use them to construct range and `ref(const)` accesses.
 
-## Motivating Example
+## Example
 
-Suppose one has a table with data in JSON:
+Consider this table with data in JSON format:
 
 ```sql
 CREATE TABLE t1 (json_data JSON);
@@ -14,7 +16,7 @@ INSERT INTO t1 VALUES('{"column1": 1234}');
 INSERT INTO t1 ...
 ```
 
-In order to do efficient queries over data in JSON, one can add a virtual column and an index on it:
+In order to do efficient queries over data in JSON, you can add a virtual column, and an index on that column:
 
 ```sql
 ALTER TABLE t1
@@ -22,13 +24,12 @@ ALTER TABLE t1
   ADD INDEX(vcol1);
 ```
 
-Before [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-8-series/what-is-mariadb-118), one had to use `vcol1` in the WHERE clause. Now, one can use the\
-virtual column expression, too:
+Before MariaDB 11.8, you had to use `vcol1` in the `WHERE` clause. Now, you can use the virtual column expression, too:
 
 ```sql
--- This will use the index before 11.8:
+-- This uses the index before 11.8:
 EXPLAIN SELECT * FROM t1 WHERE vcol1=100;
--- Starting from 11.8, this will use the index, too:
+-- Starting from 11.8, this uses the index, too:
 EXPLAIN SELECT * FROM t1 
 WHERE cast(json_value(json_data, '$.column1') AS INTEGER)=100;
 ```
@@ -45,8 +46,8 @@ WHERE cast(json_value(json_data, '$.column1') AS INTEGER)=100;
 
 * In MariaDB, one has to create a virtual column and then create an index over it. Other databases allow to create an index directly over expression: `create index on t1((col1+col2))`. This is not yet supported in MariaDB ([MDEV-35853](https://jira.mariadb.org/browse/MDEV-35853)).
 * The `WHERE` clause must use the exact same expression as in the virtual column definition.
-* The optimization is implemented in a similar way to MySQL: the optimizer finds potentially useful occurrences of `vcol_expr` in the WHERE clause and replaces them with `vcol_name`.
-* In the optimizer trace, the rewrites are shown like so:
+* The optimization is implemented in a way similar to MySQL – the optimizer finds potentially useful occurrences of `vcol_expr` in the `WHERE` clause and replaces them with `vcol_name`.
+* In the optimizer trace, the rewrites are shown like this:
 
 ```json
 "virtual_column_substitution": {
@@ -55,9 +56,17 @@ WHERE cast(json_value(json_data, '$.column1') AS INTEGER)=100;
             }
 ```
 
+{% hint style="info" %}
+The following improvements are available from MariaDB 12.1.
+{% endhint %}
+
+1. Improved Optimizer plans for `SELECT` statements with `ORDER BY` or `GROUP BY` virtual columns when the virtual column expressions are covered by indexes that can be used.
+2. Improved Optimizer plans for `SELECT` statements with `ORDER BY` or `GROUP BY` virtual columns expressions, by substitution of the virtual column expressions with virtual columns when the virtual columns are usable indexes themselves.
+3. The same improvements apply for **single-table** `UPDATE` or `DELETE` statements.
+
 ## Accessing JSON fields
 
-### Cast the value to the desired type
+### Cast the Value to the Desired Type
 
 SQL is strongly-typed language while JSON is weakly-typed. This means one must specify the desired datatype when accessing JSON data from SQL. In the above example, we declared `vcol1` as `INT` and then used `(CAST ... AS INTEGER)` (both in the ALTER TABLE and in the `WHERE` clause in SELECT query:):
 
@@ -70,11 +79,9 @@ ALTER TABLE t1
 SELECT ...  WHERE ... CAST(json_value(json_data, '$.column1') AS INTEGER) ...;
 ```
 
-### Specify collation for strings
+### Specify the Collation for Strings
 
-When extracting string values, `CAST` is not necessary, as `JSON_VALUE` returns strings.
-
-However, one must take into account collations. If one declares the column as `JSON`:
+When extracting string values, `CAST` is not necessary, as `JSON_VALUE` returns strings. However, you must take into account collations. Consider this column declared as `JSON`:
 
 ```sql
 CREATE TABLE t1 ( 
@@ -82,7 +89,7 @@ CREATE TABLE t1 (
   ...
 ```
 
-the collation of `json_data` will be `utf8mb4_bin`. The collation of`JSON_VALUE(json_data, ...)` will also be `utf8mb4_bin`.
+The collation of `json_data` is `utf8mb4_bin`. The collation  of `JSON_VALUE(json_data, ...)` is `utf8mb4_bin`, too.
 
 Most use cases require a more commonly-used collation. It is possible to achieve that using the `COLLATE` clause:
 

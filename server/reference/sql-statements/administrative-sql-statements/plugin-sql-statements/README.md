@@ -11,9 +11,8 @@ ayout:
   pagination:
     visible: false
 description: >-
-  Learn about plugin SQL statements in MariaDB Server. This section details how
-  to install, uninstall, enable, and disable server plugins, extending database
-  functionality as needed.
+  Manage server plugins. This section covers INSTALL PLUGIN, UNINSTALL PLUGIN,
+  and SHOW PLUGINS for extending server functionality.
 ---
 
 # Plugin Statements

@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the quarter of the year. This function returns a number from 1 to 4
+  indicating the quarter for a given date.
+---
+
 # QUARTER
 
 ## Syntax

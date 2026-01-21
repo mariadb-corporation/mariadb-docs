@@ -1,3 +1,10 @@
+---
+description: >-
+  Upgrade documentation for MariaDB Enterprise Server 10.6, featuring Atomic DDL
+  support, JSON_TABLE function, improved Oracle compatibility modes, and the
+  removal of older storage engines.
+---
+
 # Upgrade to MariaDB Enterprise Server 10.6
 
 ## Overview <a href="#overview" id="overview"></a>
@@ -7,6 +14,28 @@ These instructions detail the **upgrade** from a previous version of **MariaDB E
 When MariaDB Enterprise Server is upgraded, the old version needs to be uninstalled, and the new version needs to be installed.
 
 See [What's New in MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/10.6/whats-new).
+
+## Incompatible Changes
+
+### Reserved Words
+
+* **`OFFSET`**: This is now a reserved word. If you have tables or columns named `OFFSET`, you must quote them (e.g., `` `OFFSET` ``) in your SQL queries.
+
+### Character Sets
+
+* **`utf8` changes**: The `utf8` character set is now an alias for `utf8mb3` (3-byte) by default. If you need 4-byte support (for emojis), ensure your application explicitly uses `utf8mb4`.
+
+### Removed Variables
+
+The following variables have been removed. Remove them from `my.cnf` before upgrading:
+
+* **`innodb_checksum_algorithm`**: The `innodb` and `none` options are removed. Use `crc32` or `full_crc32`.
+* **`innodb_log_checksums`**: Removed.
+* **`innodb_undo_logs`**: Removed.
+
+### Storage Engines
+
+* **TokuDB**: The TokuDB storage engine was disabled in 10.5 and removed in 10.6. Migrating TokuDB tables to InnoDB or MyRocks is required before upgrading.
 
 ## Data Backup <a href="#data-backup" id="data-backup"></a>
 

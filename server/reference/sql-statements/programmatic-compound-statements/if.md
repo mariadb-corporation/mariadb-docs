@@ -1,3 +1,9 @@
+---
+description: >-
+  Execute code based on conditions. This control flow statement runs different
+  blocks of SQL statements depending on whether a specified condition is true.
+---
+
 # IF
 
 ## Syntax

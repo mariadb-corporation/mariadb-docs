@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains default file permissions for data directories and how to customize
+  them using `UMASK` and `UMASK_DIR` environment variables.
+---
+
 # Specifying Permissions for Schema (Data) Directories and Tables
 
 ## Default File Permissions
@@ -27,7 +33,7 @@ export UMASK_DIR=0750
 
 These environment variables do not set the umask. They set the default file system permissions. See [MDEV-23058](https://jira.mariadb.org/browse/MDEV-23058) for more information.
 
-### Configuring File Permissions with systemd
+### Configuring File Permissions With systemd
 
 If your server is started by [systemd](systemd.md), then there is a specific way to configure the umask. See [Systemd: Configuring the umask](systemd.md#configuring-the-umask) for more information.
 

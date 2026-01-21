@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_INTERSECTS. Checks if two geometries intersect, meaning they
+  share at least one common point.
+---
+
 # INTERSECTS
 
 ## Syntax

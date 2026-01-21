@@ -1,3 +1,10 @@
+---
+description: >-
+  Store date and time combinations. This type stores values in 'YYYY-MM-DD
+  HH:MM:SS' format, with a range from '1000-01-01 00:00:00' to '9999-12-31
+  23:59:59'.
+---
+
 # DATETIME
 
 ## Syntax

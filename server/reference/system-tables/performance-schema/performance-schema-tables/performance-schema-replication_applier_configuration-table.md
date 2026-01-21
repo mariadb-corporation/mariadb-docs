@@ -1,3 +1,9 @@
+---
+description: >-
+  This table displays the configuration parameters used by the replica to
+  connect to the primary server, such as host, port, and user credentials.
+---
+
 # Performance Schema replication\_applier\_configuration Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Modify table structures. This guide covers adding columns, changing data
+  types, managing indexes, and other schema changes for existing tables.
+---
+
 # ALTER TABLE
 
 ## Syntax
@@ -89,13 +95,15 @@ index_type:
     USING {BTREE | HASH | RTREE}
 
 index_option:
-  [ KEY_BLOCK_SIZE [=] value
+    KEY_BLOCK_SIZE [=] value
   | index_type
   | WITH PARSER parser_name
   | VISIBLE
   | COMMENT 'string'
-  | CLUSTERING={YES| NO} ]
-  [ IGNORED | NOT IGNORED ]
+  | CLUSTERING={YES | NO}
+  | { IGNORED | NOT IGNORED }
+  | DISTANCE={EUCLIDEAN | COSINE}
+  | M=number
 
   table_option [[,] table_option] ...
 

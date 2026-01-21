@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes memory usage events aggregated by client host and event
+  name, helping to analyze memory consumption patterns per host.
+---
+
 # Performance Schema memory\_summary\_by\_host\_by\_event\_name Table
 
 {% hint style="info" %}

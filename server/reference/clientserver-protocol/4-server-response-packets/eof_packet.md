@@ -1,3 +1,9 @@
+---
+description: >-
+  The EOF_Packet marks the end of a result set or a sequence of packets,
+  containing warning counts and server status flags.
+---
+
 # EOF\_Packet
 
 The `EOF_Packet` marks the end of a result set, and returns status and warnings.

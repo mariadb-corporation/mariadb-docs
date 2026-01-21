@@ -1,3 +1,10 @@
+---
+description: >-
+  Step-by-step tutorial for setting up the AWS KMS plugin, covering the creation
+  of a Customer Master Key (CMK) in AWS, configuring IAM roles for EC2, and
+  installing the plugin from source.
+---
+
 # Amazon Web Services (AWS) Key Management Service (KMS) Encryption Plugin Advanced Usage
 
 This document assumes you've already set up an Amazon Web Services (AWS) account, created a master key in the Key Management Service (KMS), and have done the basic work to set up the MariaDB AWS KMS plugin. These steps are all described in [Amazon Web Services (AWS) Key Management Service (KMS) Encryption Plugin Setup Guide](aws-key-management-encryption-plugin-setup-guide.md).

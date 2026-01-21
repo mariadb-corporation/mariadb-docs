@@ -1,15 +1,17 @@
+---
+description: >-
+  Remove unwanted or obsolete REST API users from your MariaDB MaxScale
+  instance. This guide demonstrates how to safely delete user credentials using
+  the MaxCtrl command-line utility.
+---
+
 # Deleting a REST API User for MaxScale with MaxCtrl
 
 ## Overview
 
-MaxScale has a [REST API](../../reference/maxscale-rest-api/), which can be
-configured to require authentication. When it is first installed, it has a
-single default admin user (admin) and password (mariadb). However, this user
-can be deleted, and other users can be created.
+MaxScale has a [REST API](../../reference/maxscale-rest-api/), which can be configured to require authentication. When it is first installed, it has a single default admin user (admin) and password (mariadb). However, this user can be deleted, and other users can be created.
 
-[MaxCtrl](./) is a command-line utility that can perform administrative tasks
-using MaxScale's [REST API](../../reference/maxscale-rest-api/). It can be used
-to delete a user for the REST API.
+[MaxCtrl](./) is a command-line utility that can perform administrative tasks using MaxScale's [REST API](../../reference/maxscale-rest-api/). It can be used to delete a user for the REST API.
 
 ## Deleting a User
 

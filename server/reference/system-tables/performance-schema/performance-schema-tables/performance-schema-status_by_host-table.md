@@ -1,3 +1,9 @@
+---
+description: >-
+  The status_by_host table aggregates session status variables by client host,
+  useful for tracking activity levels from specific application servers.
+---
+
 # Performance Schema status\_by\_host Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  This command is sent by a replica to the primary server to request the start
+  of the binary log event stream from a specific file and position.
+---
+
 # COM\_BINLOG\_DUMP
 
 This is a command the replica sends to the master after [COM\_REGISTER\_SLAVE](com_register_slave.md).

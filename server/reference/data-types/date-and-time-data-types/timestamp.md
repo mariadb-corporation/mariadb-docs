@@ -1,3 +1,9 @@
+---
+description: >-
+  Store timestamp values. This type stores the number of seconds since the Unix
+  Epoch, with a range from '1970-01-01' to '2038-01-19' in UTC.
+---
+
 # TIMESTAMP
 
 This page is about the `TIMESTAMP` **data type**. For the timestamp function, see [TIMESTAMP FUNCTION](../../sql-functions/date-time-functions/timestamp-function.md).

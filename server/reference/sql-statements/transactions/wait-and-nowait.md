@@ -1,3 +1,9 @@
+---
+description: >-
+  Control lock wait behavior. These clauses allow statements to wait for a
+  specific timeout or fail immediately if a lock cannot be acquired.
+---
+
 # WAIT and NOWAIT
 
 Extended syntax so that it is possible to set [innodb\_lock\_wait\_timeout](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_lock_wait_timeout) and [lock\_wait\_timeout](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lock_wait_timeout) for the following statements:

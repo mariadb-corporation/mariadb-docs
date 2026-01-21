@@ -1,3 +1,9 @@
+---
+description: >-
+  Update dynamic columns. This function adds or updates values within a dynamic
+  column blob, returning the new blob content.
+---
+
 # COLUMN\_ADD
 
 ## Syntax

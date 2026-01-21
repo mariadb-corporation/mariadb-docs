@@ -1,3 +1,10 @@
+---
+description: >-
+  Frequently asked questions about Spider, covering troubleshooting common
+  errors, configuration best practices, and architectural questions regarding HA
+  and sharding.
+---
+
 # Spider FAQ
 
 ### What does "\[ERROR] mysqld: Can't find record in 'spider\_tables'" mean?

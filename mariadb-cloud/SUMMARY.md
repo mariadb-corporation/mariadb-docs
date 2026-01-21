@@ -1,14 +1,14 @@
 # Table of contents
 
 * [MariaDB Cloud](README.md)
-  * [Key Features & Capabilities](about/key-features-and-capabilities.md)
-  * [MariaDB Cloud Serverless](about/serverless.md)
-  * [MariaDB Cloud Serverless Architecture](about/architecture.md)
-* [Quickstart Guides](Quickstart/README.md)
+  * [Key Features & Capabilities](readme/key-features-and-capabilities.md)
+  * [MariaDB Cloud Serverless](readme/serverless.md)
+  * [MariaDB Cloud Serverless Architecture](readme/architecture.md)
+* [Quickstart Guides](quickstart/README.md)
   * [Using the Portal](quickstart/using-the-portal.md)
-  * [Launch DB Using REST API](<Quickstart/Launch DB using the REST API.md>)
-  * [Launch DB Using Terraform Provider](<Quickstart/Launch DB using the Terraform Provider.md>)
-  * [Launch DB Using Python](<Quickstart/Launch DB using Python.md>)
+  * [Launch DB Using REST API](quickstart/launch-db-using-the-rest-api.md)
+  * [Launch DB Using Terraform Provider](quickstart/launch-db-using-the-terraform-provider.md)
+  * [Launch DB Using Python](quickstart/launch-db-using-python.md)
 * [Connection Methods](connecting-to-mariadb-cloud-dbs/README.md)
   * [Connection Overview](connecting-to-mariadb-cloud-dbs/connection-overview.md)
   * [Connect using MariaDB Client](connecting-to-mariadb-cloud-dbs/connect-using-mariadb-cli.md)
@@ -81,28 +81,28 @@
   * [AI Agents](cloud-ai/copilot-guide.md)
   * [AI Agents API User Guide](cloud-ai/ai-api-guide.md)
   * [MariaDB Cloud MCP Server](cloud-ai/mcp-server.md)
-* [HA & DR](<High Availability, DR/README.md>)
+* [HA & DR](high-availability-dr/README.md)
   * [HA & Replicated Topology](high-availability-dr/ha-and-replicated-topology.md)
-  * [Global Replication](<High Availability, DR/Setup Global Replication.md>)
-* [Security](Security/README.md)
-  * [Managing Portal Users](<Security/Managing Portal Users.md>)
-  * [Configuring Firewall](<Security/Configuring Firewall.md>)
-  * [Encryption](Security/Encryption.md)
-  * [Managing API keys](<Security/Managing API keys.md>)
-  * [Private VPC Connections](<Security/Private VPC connections.md>)
-  * [Portal Single Sign-On](<Security/Portal Single Sign-On.md>)
+  * [Global Replication](high-availability-dr/setup-global-replication.md)
+* [Security](security/README.md)
+  * [Managing Portal Users](security/managing-portal-users.md)
+  * [Configuring Firewall](security/configuring-firewall.md)
+  * [Encryption](security/encryption.md)
+  * [Managing API keys](security/managing-api-keys.md)
+  * [Private VPC Connections](security/private-vpc-connections.md)
+  * [Portal Single Sign-On](security/portal-single-sign-on.md)
 * [Reference](reference/README.md)
-  * [FAQs](reference-guide/faqs.md)
-  * [MariaDB Cloud Uptime SLA](reference-guide/uptime-sla.md)
-  * [Fractional DBA Service: Remote DBA](reference-guide/fractionaldba.md)
-  * [MariaDB Server Version Support](reference-guide/mariadb-server-versions.md)
-  * [Supported Backup Types](reference-guide/backup-support.md)
+  * [FAQs](reference/faqs.md)
+  * [MariaDB Cloud Uptime SLA](reference/uptime-sla.md)
+  * [Fractional DBA Service: Remote DBA](reference/fractionaldba.md)
+  * [MariaDB Server Version Support](reference/mariadb-server-versions.md)
+  * [Supported Backup Types](reference/backup-support.md)
   * [MariaDB Cloud Instance Sizes](reference/mariadb-cloud-instance-sizes.md)
   * [MariaDB Cloud Monitoring Metrics Reference](reference/mariadb-cloud-monitoring-metrics-reference.md)
-  * [MariaDB Cloud Region Choices](reference-guide/region-choices.md)
-  * [MariaDB Cloud REST API Reference](reference-guide/rest-api-reference.md)
-  * [MariaDB Cloud Stored Procedures](reference-guide/stored-procedures.md)
-  * [MariaDB Cloud API Reference Guide](reference-guide/mariadb-cloud-api-reference-guide/README.md)
+  * [MariaDB Cloud Region Choices](reference/region-choices.md)
+  * [MariaDB Cloud REST API Reference](reference/rest-api-reference.md)
+  * [MariaDB Cloud Stored Procedures](reference/stored-procedures.md)
+  * [MariaDB Cloud API Reference Guide](reference/mariadb-cloud-api-reference-guide/README.md)
     * ```yaml
       props:
         models: true
@@ -111,78 +111,9 @@
         spec:
           ref:
             kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
-      ```
-    * ```yaml
-      props:
-        models: true
-      type: builtin:openapi
-      dependencies:
-        spec:
-          ref:
-            kind: openapi
-            spec: mariadb-api
+            spec: MariaDB-Cloud-DBaaS-API
       ```
   * [Pricing](reference/pricing.md)
   * [Maintenance Windows](reference/maintenance-windows.md)
   * [MaxScale Redundancy](reference/maxscale-redundancy.md)
+  * [Support](reference/support.md)

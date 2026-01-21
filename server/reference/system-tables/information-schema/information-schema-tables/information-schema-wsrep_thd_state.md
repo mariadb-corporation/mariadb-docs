@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_THD_STATE table displays the internal state of
+  Galera threads, helping to monitor replication progress and locking.
+---
+
 # Information Schema WSREP\_THD\_STATE
 
 {% hint style="info" %}

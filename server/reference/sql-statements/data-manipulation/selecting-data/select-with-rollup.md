@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate super-aggregate summaries. This modifier adds extra rows to the
+  result set representing subtotals and grand totals for grouped columns.
+---
+
 # SELECT WITH ROLLUP
 
 ## Syntax
@@ -134,7 +140,7 @@ SELECT country, year, genre, SUM(sales)
 ## See Also
 
 * [SELECT](select.md)
-* [Joins and Subqueries](joins-subqueries/)
+* [Joins and Subqueries](set-operations/)
 * [LIMIT](limit.md)
 * [ORDER BY](order-by.md)
 * [GROUP BY](group-by.md)
@@ -143,7 +149,7 @@ SELECT country, year, genre, SUM(sales)
 * [SELECT INTO DUMPFILE](select-into-dumpfile.md)
 * [FOR UPDATE](for-update.md)
 * [LOCK IN SHARE MODE](lock-in-share-mode.md)
-* [Optimizer Hints](optimizer-hints.md)
+* [Optimizer Hints](../../../../ha-and-performance/optimization-and-tuning/optimizer-hints/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

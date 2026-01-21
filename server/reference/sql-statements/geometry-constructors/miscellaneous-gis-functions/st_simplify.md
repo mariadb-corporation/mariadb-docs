@@ -1,3 +1,10 @@
+---
+description: >-
+  Simplify a geometry using the Douglas-Peucker algorithm. This function reduces
+  the number of vertices in a geometry while preserving its general shape,
+  useful for rendering maps.
+---
+
 # ST\_Simplify
 
 {% hint style="info" %}

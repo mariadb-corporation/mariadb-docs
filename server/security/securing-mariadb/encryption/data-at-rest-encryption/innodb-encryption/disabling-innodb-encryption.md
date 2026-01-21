@@ -1,3 +1,10 @@
+---
+description: >-
+  Instructions for safely disabling encryption on InnoDB tables, emphasizing the
+  critical need to decrypt all tablespaces and redo logs using background
+  threads or ALTER TABLE.
+---
+
 # Disabling InnoDB Encryption
 
 The process involved in safely disabling encryption for your InnoDB tables is a little more complicated than that of [enabling encryption](innodb-enabling-encryption.md). Turning off the relevant system variables doesn't decrypt the tables. If you turn it off and remove the encryption key management plugin, it'll render the encrypted data inaccessible.

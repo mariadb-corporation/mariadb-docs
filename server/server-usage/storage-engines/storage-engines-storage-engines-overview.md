@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to MariaDB's pluggable storage engine architecture,
+  highlighting key engines like InnoDB, MyISAM, and Aria for different
+  workloads.
+---
+
 # Storage Engines Overview
 
 ## Overview

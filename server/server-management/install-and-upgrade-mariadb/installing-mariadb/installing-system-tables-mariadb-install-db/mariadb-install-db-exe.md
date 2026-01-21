@@ -1,3 +1,9 @@
+---
+description: >-
+  Details the use of `mariadb-install-db.exe` on Windows to create new database
+  instances, set the root password, and register Windows services.
+---
+
 # Installing System Tables on Windows
 
 The `mariadb-install-db.exe` utility is the Windows equivalent of [mariadb-install-db](../../../../clients-and-utilities/deployment-tools/mariadb-install-db.md).

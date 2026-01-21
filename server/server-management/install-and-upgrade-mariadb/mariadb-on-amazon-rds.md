@@ -1,3 +1,10 @@
+---
+description: >-
+  While specific documentation content was not returned, this section typically
+  covers the specifics of running MariaDB as a managed service on AWS RDS,
+  including version support and configuration.
+---
+
 # MariaDB on Amazon RDS
 
 MariaDB is available on Amazon AWS, as one of the database options when using Amazon's RDS service, or using a MariaDB AMI on Amazon EC2 from the AWS Marketplace.

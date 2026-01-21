@@ -1,3 +1,10 @@
+---
+description: >-
+  Define named error conditions. This statement associates a name with a
+  specific SQLSTATE or MariaDB error code for easier handling in stored
+  programs.
+---
+
 # DECLARE CONDITION
 
 ## Syntax

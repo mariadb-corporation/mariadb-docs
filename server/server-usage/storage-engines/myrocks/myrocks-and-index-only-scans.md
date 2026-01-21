@@ -1,4 +1,8 @@
-# Index-Only Scans
+---
+description: MyRocks storage engine scans that only use indexes.
+---
+
+# MyRocks Index-Only Scans
 
 This article is about [MyRocks](./) and index-only scans on secondary indexes. It applies to MariaDB's MyRocks, Facebook's MyRocks, and other variants.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  The XTRADB_READ_VIEW table displays the current MVCC read views, showing which
+  transactions are visible to active queries.
+---
+
 # Information Schema XTRADB\_READ\_VIEW Table
 
 The [Information Schema](../../) `XTRADB_READ_VIEW` table contains information about the oldest active transaction in the system.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Step-by-step instructions for deploying MariaDB on IBM Cloud Kubernetes
+  Service, including provisioning clusters and configuring storage.
+---
+
 # Installing MariaDB on IBM Cloud
 
 Get MariaDB on IBM Cloud.
@@ -104,7 +110,7 @@ We will deploy MariaDB on our cluster
 2. Select **Software** from the catalog
 3. Search for _MariaDB_ and click on it
 
-![search](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/search (1).png>)
+![search](<../../../.gitbook/assets/search (1).png>)
 
 4. Please select **IBM Kubernetes Service**
 
@@ -112,19 +118,19 @@ We will deploy MariaDB on our cluster
 
 5. On the application page, select the cluster you wish to use
 
-![cluster-select](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/cluster-select (1).png>)
+![cluster-select](<../../../.gitbook/assets/cluster-select (1).png>)
 
 6. Click on **Enter or select namespace** and choose the default Namespace or use a custom one
 
-![details-namespace](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/details-namespace (1).png>)
+![details-namespace](<../../../.gitbook/assets/details-namespace (1).png>)
 
 7. Give a unique name to workspace, which you can easily recognize
 
-![details-name](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/details-name (1).png>)
+![details-name](<../../../.gitbook/assets/details-name (1).png>)
 
 8. Select which **Resource Group** you want to use, it's for access controll and billing purposes. For more information please visit [resource groups](https://cloud.ibm.com/docs/account?topic=account-account_setup#bp_resourcegroups)
 
-![details-resource](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/details-resource (1).png>)
+![details-resource](<../../../.gitbook/assets/details-resource (1).png>)
 
 9. Give **Tags** to your MariaDB, for more information visit [tags](https://cloud.ibm.com/docs/account?topic=account-tag)
 
@@ -132,7 +138,7 @@ We will deploy MariaDB on our cluster
 
 10. Click on **Parameters with default values**, You can set deployment values or use the default ones
 
-![parameters](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/parameters (1).png>)
+![parameters](<../../../.gitbook/assets/parameters (1).png>)
 
 11. Please set the MariaDB root password in the parameters
 
@@ -144,11 +150,11 @@ We will deploy MariaDB on our cluster
 
 13. The MariaDB workspace will start installing, wait a couple of minutes
 
-![in-progress](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/in-progress (1).png>)
+![in-progress](<../../../.gitbook/assets/in-progress (1).png>)
 
 14. Your MariaDB workspace has been successfully deployed
 
-![done](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/done (1).png>)
+![done](<../../../.gitbook/assets/done (1).png>)
 
 ## Verify MariaDB installation
 
@@ -170,7 +176,7 @@ We will deploy MariaDB on our cluster
 $ kubectl get ns
 ```
 
-![get-ns](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/get-ns (1).png>)
+![get-ns](<../../../.gitbook/assets/get-ns (1).png>)
 
 ```bash
 $ kubectl get pod -n NAMESPACE -o wide
@@ -190,7 +196,7 @@ $ kubectl get service -n NAMESPACE
 $ kubectl exec --stdin --tty PODNAME -n NAMESPACE -- /bin/bash
 ```
 
-![bash](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/bash (1).png>)
+![bash](<../../../.gitbook/assets/bash (1).png>)
 
 9. After you are in your pod please enter Mariadb and enter your root password after the prompt
 
@@ -198,7 +204,7 @@ $ kubectl exec --stdin --tty PODNAME -n NAMESPACE -- /bin/bash
 $ mysql -u root -p
 ```
 
-![welcome](<../../../.gitbook/assets/installing-mariadb-on-ibm-cloud/+image/welcome (1).png>)
+![welcome](<../../../.gitbook/assets/welcome (1).png>)
 
 You have successfully deployed MariaDB IBM Cloud!
 

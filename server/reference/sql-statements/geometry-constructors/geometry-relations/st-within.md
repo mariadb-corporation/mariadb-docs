@@ -1,3 +1,9 @@
+---
+description: >-
+  Checks if geometry A is within geometry B. Returns 1 if A is completely inside
+  B, 0 otherwise. This is the inverse of ST_CONTAINS.
+---
+
 # ST\_WITHIN
 
 ## Syntax

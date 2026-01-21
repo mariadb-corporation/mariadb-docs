@@ -1,3 +1,7 @@
+---
+description: Constructs a Polygon value using its WKB representation and an optional SRID.
+---
+
 # ST\_PolyFromWKB
 
 ## Syntax
@@ -11,7 +15,7 @@ PolygonFromWKB(wkb[,srid])
 
 ## Description
 
-Constructs a [POLYGON](../../../sql-statements/geometry-constructors/geometry-constructors/polygon.md) value using its [WKB](well-known-binary-wkb-format.md) representation and [SRID](../geometry-properties/st_srid.md).
+Constructs a [POLYGON](../geometry-constructors/polygon.md) value using its [WKB](well-known-binary-wkb-format.md) representation and [SRID](../geometry-properties/st_srid.md).
 
 `ST_PolyFromWKB()`, `ST_PolygonFromWKB()`, `PolyFromWKB()` and `PolygonFromWKB()` are synonyms.
 
@@ -28,6 +32,6 @@ SELECT ST_AsText(ST_PolyFromWKB(@g)) AS p;
 +----------------------------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

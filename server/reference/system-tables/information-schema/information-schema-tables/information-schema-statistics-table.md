@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema STATISTICS table provides information about table
+  indexes, serving as a standard-compliant alternative to SHOW INDEX.
+---
+
 # Information Schema STATISTICS Table
 
 The [Information Schema](../) `STATISTICS` table provides information about table indexes.

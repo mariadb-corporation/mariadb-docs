@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about the JSON_INSERT function in MariaDB. This function inserts new
+  data into a JSON document without replacing existing values, returning the
+  updated document or NULL.
+---
+
 # JSON\_INSERT
 
 ## Syntax

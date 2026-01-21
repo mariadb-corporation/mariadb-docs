@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn about LINEAR KEY partitioning, which combines the internal key hashing
+  with a linear algorithm for efficient partition handling.
+---
+
 # LINEAR KEY Partitioning Type
 
 ## Syntax

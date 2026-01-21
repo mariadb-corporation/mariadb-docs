@@ -319,7 +319,7 @@ const conn = mariadb.createConnection({ socketPath: '\\\\.\\pipe\\MySQL', user: 
 
 > * `options`: _JSON/string_ [pool options](connector-nodejs-callback-api.md#pool-options)
 >
-> Returns a [Pool](connector-nodejs-callback-api.md#pool-api) object.&#x20;
+> Returns a [Pool](connector-nodejs-callback-api.md#pool-api) object. 
 
 Creates a new pool.
 

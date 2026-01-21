@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_FT_DEFAULT_STOPWORD table lists the default stop words used by
+  InnoDB FULLTEXT indexes when no custom stopword list is defined.
+---
+
 # Information Schema INNODB\_FT\_DEFAULT\_STOPWORD Table
 
 The [Information Schema](../../) `INNODB_FT_DEFAULT_STOPWORD` table contains a list of default [stopwords](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/full-text-index-stopwords.md) used when creating an InnoDB [fulltext index](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/).

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Utilize read-only replicas in MariaDB Server for enhanced performance. This
-  section explains how to configure replicas to offload read traffic from the
-  master, improving scalability.
+  Learn how to configure replicas as read-only instances. This ensures data
+  integrity by preventing accidental writes on the replica while allowing it to
+  process replication events.
 ---
 
 # Read-Only Replicas

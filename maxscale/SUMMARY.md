@@ -16,9 +16,9 @@
       * [MaxScale Installation Guide](maxscale-management/installation-and-configuration/maxscale-installation-guide.md)
       * [Building MaxScale From Source](maxscale-management/installation-and-configuration/building-maxscale-from-source.md)
       * [Installing MaxScale Using a Tarball](maxscale-management/installation-and-configuration/installing-maxscale-using-a-tarball.md)
+      * [MaxScale Configuration Guide](maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md)
     * [Upgrading MaxScale](maxscale-management/deployment/upgrading-maxscale/README.md)
       * [Upgrade to MaxScale 25.01](maxscale-management/deployment/upgrading-maxscale/upgrade-to-maxscale-25.01.md)
-    * [MaxScale Configuration Guide](maxscale-management/deployment/maxscale-configuration-guide.md)
     * [MaxScale MaxGUI Guide](maxscale-management/deployment/maxscale-maxgui-guide.md)
   * [Configuring MaxScale's REST API](maxscale-management/configuring-maxscales-rest-api.md)
   * [Operating MaxScale](maxscale-management/operating-maxscale.md)
@@ -61,6 +61,7 @@
   * [Configuring the MariaDB Monitor](mariadb-maxscale-tutorials/configuring-the-mariadb-monitor.md)
   * [Connection Routing with MariaDB MaxScale](mariadb-maxscale-tutorials/connection-routing-with-mariadb-maxscale.md)
   * [Encrypting Passwords](mariadb-maxscale-tutorials/encrypting-passwords.md)
+  * [Failure-tolerant replication and failover](mariadb-maxscale-tutorials/failure-tolerant-replication-and-failover.md)
   * [Filters](mariadb-maxscale-tutorials/filters.md)
   * [MaxScale Administration Tutorial](mariadb-maxscale-tutorials/maxscale-administration-tutorial.md)
   * [Read-Write Splitting](mariadb-maxscale-tutorials/read-write-splitting.md)
@@ -124,6 +125,7 @@
     * [MaxScale Binlogrouter](reference/maxscale-routers/maxscale-binlogrouter.md)
     * [MaxScale Cat](reference/maxscale-routers/maxscale-cat.md)
     * [MaxScale Diff](reference/maxscale-routers/maxscale-diff.md)
+    * [MaxScale Exasolrouter](reference/maxscale-routers/maxscale-exasolrouter.md)
     * [MaxScale KafkaCDC](reference/maxscale-routers/maxscale-kafkacdc.md)
     * [MaxScale KafkaImporter](reference/maxscale-routers/maxscale-kafkaimporter.md)
     * [MaxScale Mirror](reference/maxscale-routers/maxscale-mirror.md)
@@ -131,6 +133,8 @@
     * [MaxScale Readwritesplit](reference/maxscale-routers/maxscale-readwritesplit.md)
     * [MaxScale SchemaRouter](reference/maxscale-routers/maxscale-schemarouter.md)
     * [MaxScale SmartRouter](reference/maxscale-routers/maxscale-smartrouter.md)
+  * [MaxScale Servers](reference/maxscale-servers.md)
+  * [MaxScale Listeners](reference/maxscale-listeners.md)
 
 ## MaxScale Archive
 

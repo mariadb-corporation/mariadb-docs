@@ -1,3 +1,9 @@
+---
+description: >-
+  Negated pattern matching. This operator tests whether a string does NOT match
+  a specified SQL pattern.
+---
+
 # NOT LIKE
 
 ## Syntax

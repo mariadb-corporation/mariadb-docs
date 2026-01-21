@@ -1,3 +1,9 @@
+---
+description: >-
+  Parse and optimize a SQL statement for later use. This command assigns a name
+  to the statement, enabling efficient execution with parameters.
+---
+
 # PREPARE Statement
 
 ## Syntax

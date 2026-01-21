@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to verify the integrity of MariaDB RPM packages using GPG
+  signatures, including importing the public key and running `rpm --checksig`.
+---
+
 # Checking MariaDB RPM Package Signatures
 
 MariaDB RPM packages since [MariaDB 5.1.55](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/mariadb-5155-release-notes) are signed.

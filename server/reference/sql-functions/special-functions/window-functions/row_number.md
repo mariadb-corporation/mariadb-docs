@@ -1,3 +1,9 @@
+---
+description: >-
+  Assign a sequential integer to rows. This function numbers rows within a
+  partition starting at 1, based on the specified order.
+---
+
 # ROW\_NUMBER
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  Provides an overview of using Spider for sharding in MariaDB Enterprise
+  Server, allowing data distribution across multiple nodes for horizontal
+  scalability.
+---
+
 # Spider Sharded Overview
 
 ## Overview

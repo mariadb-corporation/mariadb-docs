@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduction to encrypting Aria tables, covering the necessary system
+  variables (`aria_encrypt_tables`, `encrypt_tmp_disk_tables`) and how to verify
+  encryption status by inspecting data files.
+---
+
 # Aria Encryption Overview
 
 MariaDB can encrypt data in tables that use the [Aria storage engine](../../../../../server-usage/storage-engines/aria/). This includes both user-created tables and internal on-disk temporary tables that use the Aria storage engine. This ensures that your Aria data is only accessible through MariaDB.

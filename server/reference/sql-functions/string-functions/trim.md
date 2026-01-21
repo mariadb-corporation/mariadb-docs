@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove spaces from both ends. This function removes leading and trailing
+  whitespace (or other specified characters) from a string.
+---
+
 # TRIM
 
 ## Syntax

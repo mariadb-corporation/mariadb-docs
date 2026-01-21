@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a new database container. This command initializes a new database
+  namespace with optional character set and collation settings.
+---
+
 # CREATE DATABASE
 
 ## Syntax

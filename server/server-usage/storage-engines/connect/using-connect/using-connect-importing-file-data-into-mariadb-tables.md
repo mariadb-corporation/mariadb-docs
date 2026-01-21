@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Using CONNECT - Importing File Data Into MariaDB Tables
 
 {% hint style="warning" %}

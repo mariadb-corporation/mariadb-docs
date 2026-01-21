@@ -1,6 +1,13 @@
+---
+description: >-
+  Evaluate MariaDB MaxScale with the free Trial version. Learn about its
+  features installation steps, and specific limitations like connection counts
+  and runtime duration for testing purposes.
+---
+
 # MaxScale Trial
 
-With the release of MaxScale 25.01 under a proprietary license, MariaDB has introduced MaxScale Trial, a free version that lets users explore the latest GA features in 24-hour increments, up to one week from install. MaxScale Trial offers limited performance capacity, providing a hands-on way to evaluate MaxScale’s capabilities before committing to an enterprise subscription
+With the release of MaxScale 25.01 under a [proprietary license](https://mariadb.com/terms/), MariaDB has introduced MaxScale Trial, a free version that lets users explore the latest GA features in 24-hour increments, up to one week from install. MaxScale Trial offers limited performance capacity, providing a hands-on way to evaluate MaxScale’s capabilities before committing to an enterprise subscription
 
 ### Installing MaxScale Trial <a href="#installing-maxscale-trial" id="installing-maxscale-trial"></a>
 
@@ -10,7 +17,7 @@ Before starting MaxScale, the database users needed by MaxScale must be created.
 
 #### Database Users used by MaxScale <a href="#database-users-used-by-maxscale" id="database-users-used-by-maxscale"></a>
 
-MaxScale needs two database users for its own use; one user used by a MaxScale [service](../maxscale-management/deployment/maxscale-configuration-guide.md#service) for fetching user account information and another user used by the MaxScale [monitor](../maxscale-management/deployment/maxscale-configuration-guide.md#monitor) for monitoring the health of the MariaDB server and for performing operations on it. The same user can be used for both purposes, provided the user has all the grants needed by services and monitors.
+MaxScale needs two database users for its own use; one user used by a MaxScale [service](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#service) for fetching user account information and another user used by the MaxScale [monitor](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#monitor) for monitoring the health of the MariaDB server and for performing operations on it. The same user can be used for both purposes, provided the user has all the grants needed by services and monitors.
 
 In the following, the host is specified using '%', which means that MaxScale can access the server from anywhere. In a non-trial context, it is advisable to use the specific IP where MaxScale is running.
 
@@ -130,7 +137,7 @@ If the limit is exceeded at runtime using MaxGUI, the operation will fail with t
 
 If the connection limit is exceeded, the connection attempt will fail, and note that no error message will be displayed.
 
-An attempt to explicitly raise [max\_connections](../maxscale-management/deployment/maxscale-configuration-guide.md#max_connections) beyond the maximum of 15, will prevent MaxScale from running at startup and at runtime fail with a runtime error.
+An attempt to explicitly raise [max\_connections](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_connections) beyond the maximum of 15, will prevent MaxScale from running at startup and at runtime fail with a runtime error.
 
 If the configured capture [size](../reference/maxscale-filters/maxscale-workload-capture-and-replay.md#capture_size) or [duration](../reference/maxscale-filters/maxscale-workload-capture-and-replay.md#capture_duration) exceeds the maximum limit of MaxScale Trial, the value will be adjusted down to the allowed maximum value and an error will be logged.
 
@@ -145,6 +152,6 @@ Although the uninstallation of MaxScale Trial will not cause the configuration f
 
 It is not possible to have MaxScale Trial and MaxScale installed simultaneously on the same machine.
 
-MaxScale configurations are not guaranteed to work in MaxScale Trial as MaxScale Trial has restrictions based on the documented limitations above which would block startup.\
+MaxScale configurations are not guaranteed to work in MaxScale Trial as MaxScale Trial has restrictions based on the documented limitations above which would block startup.\\
 
 {% @marketo/form formId="4316" %}

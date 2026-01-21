@@ -1,3 +1,9 @@
+---
+description: >-
+  Steps for minor version upgrades (e.g., 10.5.8 to 10.5.9) on Linux, which
+  typically involve package manager updates and a service restart.
+---
+
 # Upgrading Between Minor MariaDB Versions
 
 For Windows, see [Upgrading MariaDB on Windows](upgrading-mariadb-on-windows.md) instead.

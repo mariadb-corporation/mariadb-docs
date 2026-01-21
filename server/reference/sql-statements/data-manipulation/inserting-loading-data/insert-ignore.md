@@ -1,3 +1,10 @@
+---
+description: >-
+  Insert rows while ignoring specific errors. This statement allows bulk inserts
+  to continue even if some rows fail due to duplicate keys or data conversion
+  issues.
+---
+
 # INSERT IGNORE
 
 ## Ignoring Errors

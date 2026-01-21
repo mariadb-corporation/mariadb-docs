@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema USERS table lists user accounts, including whether they
+  are global or local, and details about their password expiration.
+---
+
 # Information Schema USERS Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  The OK_Packet is sent by the server to indicate the successful completion of a
+  command, conveying affected row counts and server status flags.
+---
+
 # OK\_Packet
 
 `OK_Packet` is sent by the server to the client and indicates a successful completion of a command sent by the client before.

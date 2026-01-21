@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for building MariaDB on Fedora, using `dnf builddep` to install
+  dependencies and CMake to configure the build.
+---
+
 # Building MariaDB on Fedora
 
 In the event that you are using the Linux-based operating system Fedora or any of its derivatives and would like to compile MariaDB from source code, you can do so using the MariaDB build in the official repositories.

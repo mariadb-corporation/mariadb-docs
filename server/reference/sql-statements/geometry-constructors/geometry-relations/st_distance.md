@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculates the shortest distance between two geometries. Returns the minimum
+  Euclidean distance between any two points in the geometries.
+---
+
 # ST\_DISTANCE
 
 ## Syntax

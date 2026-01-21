@@ -1,8 +1,8 @@
 ---
 description: >-
-  Control binlog reading speed from a primary by a replica. This section
-  explains how to configure replicas to regulate the rate at which they consume
-  binary log events, optimizing network usage.
+  Configure throughput limits for replication traffic. Learn to throttle the
+  binlog download speed to prevent replication from consuming all available
+  network bandwidth.
 ---
 
 # Restricting Speed of Reading Binlog from Primary by a Replica

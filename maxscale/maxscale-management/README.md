@@ -1,8 +1,8 @@
 ---
 description: >-
-  Manage MariaDB MaxScale efficiently. This section covers configuration,
-  monitoring, and administration tasks to ensure optimal performance and
-  reliability of your database proxy.
+  Centralize your database proxy administration. This guide outlines tools and
+  procedures for deploying, configuring, and maintaining MariaDB MaxScale
+  instances.
 icon: gear
 ---
 

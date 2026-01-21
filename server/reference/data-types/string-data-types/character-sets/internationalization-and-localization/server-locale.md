@@ -1,3 +1,9 @@
+---
+description: >-
+  Server locale settings control the language for date and time functions via
+  lc_time_names and the language for error messages via lc_messages.
+---
+
 # Server Locale
 
 The [lc\_time\_names](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_time_names) server system variable sets the language used by the date and time functions [DAYNAME()](../../../../sql-functions/date-time-functions/dayname.md), [MONTHNAME()](../../../../sql-functions/date-time-functions/monthname.md), and [DATE\_FORMAT()](../../../../sql-functions/date-time-functions/date_format.md), and the [lc\_messages](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lc_messages) sets the language for error messages.

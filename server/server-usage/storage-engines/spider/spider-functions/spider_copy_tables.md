@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn how to use this function to copy table data from one Spider link ID to
+  another, useful for migrating data or rebalancing shards without stopping the
+  service.
+---
+
 # SPIDER\_COPY\_TABLES
 
 ## Syntax
@@ -9,7 +16,7 @@ SPIDER_COPY_TABLES(spider_table_name,
 
 ## Description
 
-A [UDF](../../../../server-usage/user-defined-functions/) installed with the [Spider Storage Engine](../), this function copies table data from `source_link_id` to `destination_link_id_list`. The service does not need to be stopped in order to copy.
+A [UDF](../../../user-defined-functions/) installed with the [Spider Storage Engine](../), this function copies table data from `source_link_id` to `destination_link_id_list`. The service does not need to be stopped in order to copy.
 
 If the Spider table is partitioned, the name must be of the format `table_name#P#partition_name`. The partition name can be viewed in the `mysql.spider_tables` table, for example:
 

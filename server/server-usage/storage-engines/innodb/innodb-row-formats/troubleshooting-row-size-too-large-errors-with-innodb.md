@@ -1,3 +1,10 @@
+---
+description: >-
+  Diagnose and fix 'Row size too large' errors in InnoDB, usually caused by
+  exceeding the maximum row size, by changing row formats to DYNAMIC or
+  adjusting column data types.
+---
+
 # Troubleshooting Row Size Too Large Errors with InnoDB
 
 With InnoDB, users can see the following message as an error or warning:

@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide to configuring the size and number of InnoDB redo log files in MariaDB
+  Enterprise Server to balance write performance and crash recovery time.
+---
+
 # Configure the InnoDB Redo Log
 
 ## Overview

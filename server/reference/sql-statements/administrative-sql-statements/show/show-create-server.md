@@ -1,18 +1,24 @@
+---
+description: >-
+  Display the CREATE SERVER statement. This statement shows the configuration
+  details for a defined federated server connection.
+---
+
 # SHOW CREATE SERVER
 
 {% tabs %}
 {% tab title="Current" %}
-#### Syntax
+**Syntax**
 
 ```sql
 SHOW CREATE SERVER server_name
 ```
 
-#### Description
+**Description**
 
 Shows the [CREATE SERVER](../../data-definition/create/create-server.md) statement that created the given server definition.
 
-#### Example
+**Example**
 
 ```sql
 SHOW CREATE SERVER srv1\G

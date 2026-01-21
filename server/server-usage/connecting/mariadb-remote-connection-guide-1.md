@@ -1,3 +1,9 @@
+---
+description: >-
+  Configure MariaDB to accept remote connections by adjusting the bind-address
+  directive and granting appropriate user privileges.
+---
+
 # Remote Client Access
 
 Some MariaDB packages bind MariaDB to `127.0.0.1` (the loopback IP address) by default as a security measure using the [bind-address](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#bind_address) configuration directive. Old MySQL packages sometimes disabled TCP/IP networking altogether using the [skip-networking](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_networking) directive. Before going in to how to configure these, let's explain what each of them actually does:

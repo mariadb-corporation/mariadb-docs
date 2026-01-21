@@ -1,8 +1,5 @@
 ---
-description: >-
-  Learn about upgrading to unmaintained MariaDB Server releases. This section
-  provides information on potential risks and considerations when working with
-  older, unsupported versions.
+description: Upgrading guides for unmaintained versions of MariaDB Community Server.
 ---
 
 # Archived Guides (Unmaintained CS Versions)

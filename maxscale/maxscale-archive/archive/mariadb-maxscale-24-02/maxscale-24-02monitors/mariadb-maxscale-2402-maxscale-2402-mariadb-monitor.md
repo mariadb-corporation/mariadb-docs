@@ -1,85 +1,5 @@
 # MaxScale 24.02 MariaDB Monitor
 
-* [MariaDB Monitor](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#mariadb-monitor)
-  * [Overview](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#overview)
-  * [Required Grants](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#required-grants)
-    * [Cluster Manipulation Grants](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cluster-manipulation-grants)
-  * [Primary selection](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#primary-selection)
-  * [Configuration](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#configuration)
-  * [Common Monitor Parameters](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#common-monitor-parameters)
-  * [MariaDB Monitor optional parameters](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#mariadb-monitor-optional-parameters)
-    * [assume\_unique\_hostnames](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#assume_unique_hostnames)
-    * [private\_address](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#private_address)
-    * [master\_conditions](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#master_conditions)
-    * [slave\_conditions](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#slave_conditions)
-    * [failcount](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#failcount)
-    * [enforce\_writable\_master](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#enforce_writable_master)
-    * [enforce\_read\_only\_slaves](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#enforce_read_only_slaves)
-    * [enforce\_read\_only\_servers](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#enforce_read_only_servers)
-    * [maintenance\_on\_low\_disk\_space](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#maintenance_on_low_disk_space)
-    * [cooperative\_monitoring\_locks](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cooperative_monitoring_locks)
-    * [script\_max\_replication\_lag](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#script_max_replication_lag)
-  * [Cluster manipulation operations](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cluster-manipulation-operations)
-    * [Operation details](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#operation-details)
-      * [Failover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#failover)
-      * [Switchover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#switchover)
-      * [Switchover-force](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#switchover-force)
-      * [Rejoin](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#rejoin)
-      * [Reset Replication](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#reset-replication)
-    * [Manual activation](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#manual-activation)
-      * [Queued switchover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#queued-switchover)
-    * [Automatic activation](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#automatic-activation)
-    * [Limitations and requirements](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#limitations-and-requirements)
-    * [External primary support](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#external-primary-support)
-    * [Configuration parameters](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#configuration-parameters)
-      * [auto\_failover](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#auto_failover)
-      * [auto\_rejoin](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#auto_rejoin)
-      * [switchover\_on\_low\_disk\_space](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#switchover_on_low_disk_space)
-      * [enforce\_simple\_topology](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#enforce_simple_topology)
-      * [replication\_user and replication\_password](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#replication_user-and-replication_password)
-      * [replication\_master\_ssl](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#replication_master_ssl)
-      * [replication\_custom\_options](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#replication_custom_options)
-      * [failover\_timeout and switchover\_timeout](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#failover_timeout-and-switchover_timeout)
-      * [verify\_master\_failure](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#verify_master_failure)
-      * [master\_failure\_timeout](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#master_failure_timeout)
-      * [servers\_no\_promotion](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#servers_no_promotion)
-      * [promotion\_sql\_file and demotion\_sql\_file](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#promotion_sql_file-and-demotion_sql_file)
-      * [handle\_events](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#handle_events)
-  * [Cooperative monitoring](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cooperative-monitoring)
-    * [Releasing locks](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#releasing-locks)
-  * [Backup operations](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#backup-operations)
-    * [Rebuild server](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#rebuild-server)
-    * [Create backup](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#create-backup)
-    * [Restore from backup](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#restore-from-backup)
-    * [Settings](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#settings)
-      * [ssh\_user](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#ssh_user)
-      * [ssh\_keyfile](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#ssh_keyfile)
-      * [ssh\_check\_host\_key](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#ssh_check_host_key)
-      * [ssh\_timeout](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#ssh_timeout)
-      * [ssh\_port](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#ssh_port)
-      * [rebuild\_port](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#rebuild_port)
-      * [mariadb-backup\_use\_memory](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#mariadb-backup_use_memory)
-      * [mariadb-backup\_parallel](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#mariadb-backup_parallel)
-      * [backup\_storage\_address](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#backup_storage_address)
-      * [backup\_storage\_path](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#backup_storage_path)
-    * [sudoers.d configuration](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#sudoersd-configuration)
-  * [ColumnStore commands](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#columnstore-commands)
-    * [Get status](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#get-status)
-    * [Add or remove node](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#add-or-remove-node)
-    * [Start and stop cluster](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#start-and-stop-cluster)
-    * [Set read-only or readwrite](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#set-read-only-or-readwrite)
-    * [Settings](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#settings_1)
-      * [cs\_admin\_port](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cs_admin_port)
-      * [cs\_admin\_api\_key](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cs_admin_api_key)
-      * [cs\_admin\_base\_path](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cs_admin_base_path)
-  * [Other commands](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#other-commands)
-    * [fetch-cmd-result](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#fetch-cmd-result)
-    * [cancel-cmd](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#cancel-cmd)
-  * [Troubleshooting](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#troubleshooting)
-    * [Failover/switchover fails](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#failoverswitchover-fails)
-    * [Replica detection shows external primaries](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#replica-detection-shows-external-primaries)
-  * [Using the MariaDB Monitor With Binlogrouter](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#using-the-mariadb-monitor-with-binlogrouter)
-
 ### Overview
 
 MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the\
@@ -304,14 +224,14 @@ separated to different network interfaces.
 * Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`, `disk_space_ok`
 * Default: `primary_monitor_master, disk_space_ok`
 
-Designate additional conditions fo&#x72;_&#x4D;aster_-status, i.e. qualified for read and write queries.
+Designate additional conditions for\_Master\_-status, i.e. qualified for read and write queries.
 
 Normally, if a suitable primary candidate server is found as described in [Primary selection](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#primary-selection), MaxScale designates it _Master_._master\_conditions_ sets additional conditions for a primary server. This\
 setting is an enum\_mask, allowing multiple conditions to be set simultaneously.\
 Conditions 2, 3 and 4 refer to replica servers. A single replica must\
 fulfill all of the given conditions for the primary to be viable.
 
-If the primary candidate fails _master\_conditions_ but fulfill&#x73;_&#x73;lave\_conditions_, it may be designated _Slave_ instead.
+If the primary candidate fails _master\_conditions_ but fulfills\_slave\_conditions\_, it may be designated _Slave_ instead.
 
 The available conditions are:
 
@@ -358,7 +278,7 @@ i.e qualified for read queries.
 Normally, a server is _Slave_ if it is at least attempting to replicate from the\
 primary candidate or a relay (Slave\_IO\_Running is 'Yes' or 'Connecting',\
 Slave\_SQL\_Running is 'Yes', valid replication credentials). The primary candidate\
-does not necessarily need to be writable, e.g. if it fails it&#x73;_&#x6D;aster\_conditions_. _slave\_conditions_ sets additional conditions for a replica\
+does not necessarily need to be writable, e.g. if it fails its\_master\_conditions\_. _slave\_conditions_ sets additional conditions for a replica\
 server. This setting is an enum\_mask, allowing multiple conditions to be set\
 simultaneously.
 
@@ -459,7 +379,7 @@ marked \[Slave].
 * Dynamic: Yes
 * Default: `false`
 
-Works similar to [enforce\_read\_only\_slaves](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#enforce_read_only_slaves) except will se&#x74;_&#x72;ead\_only_ on any writable server that is not the primary and not in\
+Works similar to [enforce\_read\_only\_slaves](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#enforce_read_only_slaves) except will set\_read\_only\_ on any writable server that is not the primary and not in\
 maintenance (a superset of the servers altered by _enforce\_read\_only\_slaves_).
 
 The monitor user requires the SUPER-privilege\
@@ -513,8 +433,8 @@ Allowed values:
 3. `majority_of_running` Primary monitor requires a majority of locks over\
    \[Running] servers.
 
-This setting is separate from the global MaxScale setting _passive_. I&#x66;_&#x70;assive_ is set to `true`, cluster operations are disabled even if monitor has\
-acquired the locks. Generally, it's best not to mix cooperative monitoring wit&#x68;_&#x70;assive_. Either set `passive=false` or do not set it at all.
+This setting is separate from the global MaxScale setting _passive_. If\_passive\_ is set to `true`, cluster operations are disabled even if monitor has\
+acquired the locks. Generally, it's best not to mix cooperative monitoring with\_passive\_. Either set `passive=false` or do not set it at all.
 
 #### `script_max_replication_lag`
 
@@ -809,7 +729,7 @@ Example REST-API paths for other commands are listed below.
 **Queued switchover**
 
 Most cluster modification commands wait until the operation either succeeds or\
-fails. _async-switchover_ is an exception, as it returns immediately. Otherwis&#x65;_&#x61;sync-switchover_ works identical to a normal _switchover_ command. Use the\
+fails. _async-switchover_ is an exception, as it returns immediately. Otherwise\_async-switchover\_ works identical to a normal _switchover_ command. Use the\
 module command _fetch-cmd-result_ to view the result of the queued command._fetch-cmd-result_ returns the status or result of the latest manual command,\
 whether queued or not.
 
@@ -915,7 +835,7 @@ events. Although the monitor by default disables events on the master, an\
 event may already be executing. If the event definer has SUPER-privilege, the\
 event can write to the database even through _read\_only_.
 
-When mixing rejoin with failover/switchover, the backends should hav&#x65;_&#x6C;og\_slave\_updates_ on. The rejoining server is likely lagging behind the rest\
+When mixing rejoin with failover/switchover, the backends should have\_log\_slave\_updates\_ on. The rejoining server is likely lagging behind the rest\
 of the cluster. If the current cluster primary does not have binary logs from the\
 moment the rejoining server lost connection, the rejoining server cannot\
 continue replication. This is an issue if the primary has changed and\
@@ -1083,7 +1003,7 @@ encrypted with the same key to avoid erroneous decryption.
 
 If set to ON, any `CHANGE MASTER TO`-command generated will set `MASTER_SSL=1` to enable\
 encryption for the replication stream. This setting should only be enabled if the backend\
-servers are configured for ssl. This typically means setting _ssl\_ca_, _ssl\_cert_ an&#x64;_&#x73;sl\_key_ in the server configuration file. Additionally, credentials for the replication\
+servers are configured for ssl. This typically means setting _ssl\_ca_, _ssl\_cert_ and\_ssl\_key\_ in the server configuration file. Additionally, credentials for the replication\
 user should require an encrypted connection (`e.g. ALTER USER repl@'%' REQUIRE SSL;`).
 
 If the setting is left OFF, `MASTER_SSL` is not set at all, which will preserve existing\
@@ -1311,7 +1231,7 @@ read-only mode. If the primary server is down, no failover is performed either.
 
 ![](<../../../../.gitbook/assets/coop_lock_no_majority.png (1).png>)
 
-Setting `cooperative_monitoring_locks=majority_of_running` changes the wa&#x79;_&#x6E;\_servers_ is calculated. Instead of using the total number of servers, only\
+Setting `cooperative_monitoring_locks=majority_of_running` changes the way\_n\_servers\_ is calculated. Instead of using the total number of servers, only\
 servers currently \[Running] are considered. This scheme adapts to multiple\
 servers going down, ensuring that claiming lock majority is always possible.\
 However, it can lead to multiple monitors claiming primary status in a\
@@ -1343,7 +1263,7 @@ If a MaxScale instance tries to acquire the locks but fails to get majority\
 any acquired locks and try again after a random number of monitor ticks. This\
 prevents multiple MaxScales from fighting over the locks continuously as one\
 MaxScale will eventually wait less time than the others. Conflict probability\
-can be further decreased by configuring each monitor with a differen&#x74;_&#x6D;onitor\_interval_.
+can be further decreased by configuring each monitor with a different\_monitor\_interval\_.
 
 The flowchart below illustrates the lock handling logic.
 
@@ -1368,13 +1288,13 @@ running MariaDB Server.
 
 On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured\
 for just the server process. See [Server System Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tcp_keepalive_interval)\
-for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ an&#x64;_&#x74;cp\_keepalive\_time_. These settings can also be set on the operating system\
+for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and\_tcp\_keepalive\_time\_. These settings can also be set on the operating system\
 level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
 As of MaxScale 6.4.16, 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring\
 TCP keepalive is no longer necessary as monitor sets the session _wait\_timeout_\
 variable when acquiring a lock. This causes the MariaDB Server to close the\
-monitor connection if the connection appears idle for too long. The value o&#x66;_&#x77;ait\_timeout_ used depends on the monitor interval and connection timeout\
+monitor connection if the connection appears idle for too long. The value of\_wait\_timeout\_ used depends on the monitor interval and connection timeout\
 settings, and is logged at MaxScale startup.
 
 A monitor can also be ordered to manually release its locks via the module\
@@ -1412,7 +1332,7 @@ fetch-cmd-result-command\
 
 To perform backup operations, MaxScale requires ssh-access on all affected\
 machines. The _ssh\_user_ and _ssh\_keyfile_-settings define the SSH credentials\
-MaxScale uses to access the servers. MaxScale must be able to run commands wit&#x68;_&#x73;udo_ on both the source and target servers. See [settings](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#sudoersd-configuration) below\
+MaxScale uses to access the servers. MaxScale must be able to run commands with\_sudo\_ on both the source and target servers. See [settings](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#settings) and [sudoers.d configuration](mariadb-maxscale-2402-maxscale-2402-mariadb-monitor.md#sudoersd-configuration) below\
 for more information.
 
 The following tools need to be installed on the backends:

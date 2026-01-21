@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore JSON functions in MariaDB Server. This section details SQL functions
-  for creating, manipulating, and querying JSON data, enabling flexible and
-  efficient handling of unstructured data.
+  Manipulate JSON documents natively. Use these functions to extract values,
+  modify structures, and query data stored in JSON format directly within your
+  SQL statements.
 ---
 
 # JSON Functions

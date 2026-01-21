@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate tangent. This function returns the tangent of an angle given in
+  radians.
+---
+
 # TAN
 
 ## Syntax

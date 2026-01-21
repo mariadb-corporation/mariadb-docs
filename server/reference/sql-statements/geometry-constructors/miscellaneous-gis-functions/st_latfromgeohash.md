@@ -1,3 +1,9 @@
+---
+description: >-
+  Decode a Geohash to retrieve the latitude. This function returns the latitude
+  coordinate (Y-axis) from a given Geohash string.
+---
+
 # ST\_LatFromGeoHash
 
 {% hint style="info" %}

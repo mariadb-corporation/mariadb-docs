@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand the NOCOPY algorithm, which avoids rebuilding the clustered index
+  for certain operations like adding secondary indexes, significantly reducing
+  I/O.
+---
+
 # InnoDB Online DDL Operations with the NOCOPY Alter Algorithm
 
 ## Supported Operations by Inheritance

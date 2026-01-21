@@ -1,4 +1,11 @@
-# Incrementing of the access\_denied\_errors status variable
+---
+description: >-
+  Describes the conditions that trigger the `access_denied_errors` status
+  variable, such as failed logins, invalid privileges, or missing SSL
+  requirements, aiding in security monitoring.
+---
+
+# Incrementing of the access\_denied\_errors Status Variable
 
 The [access\_denied\_errors](../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md#access_denied_errors) status variable is incremented when someone tries to access something they do not have rights to.
 

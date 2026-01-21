@@ -1,3 +1,10 @@
+---
+description: >-
+  Provides methods for transferring data from SQL Server to MariaDB, including
+  generating CSV files, using `mariadb-dump`, or leveraging the CONNECT storage
+  engine with ODBC.
+---
+
 # Moving Data Between SQL Server and MariaDB
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  Read rows from a text file into a table. This high-speed data loading command
+  parses structured text files and inserts records, often much faster than
+  INSERT statements.
+---
+
 # LOAD DATA INFILE
 
 ## Syntax
@@ -101,7 +108,7 @@ The `LOW_PRIORITY` and `CONCURRENT` keywords are mutually exclusive. They cannot
 
 ### Progress Reporting
 
-The `LOAD DATA INFILE` statement supports [progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
+The `LOAD DATA INFILE` statement supports [progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
 
 ### Using mariadb-import
 

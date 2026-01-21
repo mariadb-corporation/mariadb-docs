@@ -1,3 +1,9 @@
+---
+description: >-
+  Group multiple SQL statements into a logical block. This construct defines a
+  compound statement, creating a new scope for variables and exception handling.
+---
+
 # BEGIN END
 
 ## Syntax

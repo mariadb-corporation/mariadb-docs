@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore MariaDB replication and cluster plugins. This section details plugins
-  that enhance high availability, data consistency, and scalability for
-  replicated and clustered MariaDB deployments.
+  This section covers plugins specifically designed for high availability and
+  clustering, including the wsrep_provider plugin used for Galera Cluster
+  integration.
 ---
 
 # MariaDB Replication & Cluster Plugins

@@ -1,3 +1,9 @@
+---
+description: >-
+  Step-by-step guide for compiling MariaDB on Ubuntu, covering build
+  dependencies installation and using source repositories.
+---
+
 # Building MariaDB on Ubuntu
 
 In the event that you are using the Linux-based operating system Ubuntu or any of its derivatives and would like to compile MariaDB from source code, you can do so using the MariaDB source repository for the release that interests you.

@@ -4,7 +4,7 @@
 
 MariaDB ColumnStore is a columnar storage engine. This is the first release in the ColumnStore 1.4 series. This release contains new features and fixes, compared to MariaDB ColumnStore 1.2.5.
 
-This release of MariaDB ColumnStore is included with [MariaDB Enterprise Server 10.4.11-5](../../../enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-11-5.md).
+This release of MariaDB ColumnStore is included with [MariaDB Enterprise Server 10.4.11-5](../../../enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-11-5.md).
 
 MariaDB ColumnStore 1.4.2 was released on 2020-01-06.
 

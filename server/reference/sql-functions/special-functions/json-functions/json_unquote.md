@@ -1,3 +1,9 @@
+---
+description: >-
+  Unquote a JSON value. This function removes the quotes from a JSON string and
+  unescapes special characters.
+---
+
 # JSON\_UNQUOTE
 
 ## Syntax

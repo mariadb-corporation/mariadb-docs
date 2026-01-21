@@ -1,6 +1,12 @@
+---
+description: >-
+  Instructions on how to manually create Mroonga's UDFs if they were not
+  automatically installed, ensuring full functionality.
+---
+
 # Creating Mroonga User-Defined Functions
 
-The [Mroonga storage engine](../) includes a number of [user-defined functions](../../../user-defined-functions/) that need to be created before they can be used. If these are not created already during Mroonga setup, you will need to do so yourself. The full list of available functions and the statements to create them are found in `share/mroonga/install.sql`, for example, as of Mroonga 7.07 ([MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes) and [MariaDB 10.1.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10129-release-notes)) running on Linux:
+The [Mroonga storage engine](../) includes a number of [user-defined functions](../../../user-defined-functions/) that need to be created before they can be used. If these are not created already during Mroonga setup, you will need to do so yourself. The full list of available functions and the statements to create them are found in `share/mroonga/install.sql`, for example, as of Mroonga 7.07  running on Linux:
 
 ```sql
 DROP FUNCTION IF EXISTS last_insert_grn_id;

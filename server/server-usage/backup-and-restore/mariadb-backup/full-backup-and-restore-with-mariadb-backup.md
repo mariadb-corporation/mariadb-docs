@@ -1,12 +1,20 @@
+---
+description: >-
+  Learn how to perform and restore full physical backups of MariaDB databases
+  using the mariadb-backup tool, ensuring consistent data recovery.
+---
+
 # Full Backup and Restore with mariadb-backup
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
 
 When using mariadb-backup, you have the option of performing a full or an incremental backup. Full backups create a complete backup of the database server in an empty directory while incremental backups update a previous backup with whatever changes to the data have occurred since the backup. This page documents how to perform full backups.
 
+{% include "../../../.gitbook/includes/for-a-complete-list-of-mari....md" %}
+
 ### Backing up the Database Server
 
-In order to back up the database, you need to run mariadb-backup with the --backup option to tell it to perform a backup and with the --target-dir option to tell it where to place the backup files. When taking a full backup, the target directory must be empty or it must not exist.
+In order to back up the database, you need to run mariadb-backup with the `--backup` option to tell it to perform a backup and with the `--target-dir` option to tell it where to place the backup files. When taking a full backup, the target directory must be empty or it must not exist.
 
 To take a backup, run the following command:
 
@@ -18,7 +26,7 @@ $ mariadb-backup --backup \
 
 The time the backup takes depends on the size of the databases or tables you're backing up. You can cancel the backup if you need to, as the backup process does not modify the database.
 
-Mariadb-backup writes the backup files the target directory. If the target directory doesn't exist, then it creates it. If the target directory exists and contains files, then it raises an error and aborts.
+`mariadb-backup` writes the backup files the target directory. If the target directory doesn't exist, it creates it. If the target directory exists and contains files,  it raises an error and aborts.
 
 Here is an example backup directory:
 
@@ -31,11 +39,25 @@ backup-my.cnf     test                    xtrabackup_logfile
 ibdata1           xtrabackup_binlog_info
 ```
 
+### Using the Backup History Feature
+
+You can optionally use the `--history` option to record metadata about your full backup in the database. This creates a centralized log and allows future incremental backups to reference this full backup by name instead of by directory path.
+
+```bash
+$ mariadb-backup --backup \
+   --target-dir=/var/mariadb/backup/ \
+   --user=mariadb-backup --password=mypassword \
+   --history=full_backup_weekly
+```
+
+* Privileges: The backup user requires `INSERT`, `CREATE`, and `ALTER` privileges on the history table (`mysql.mariadb_backup_history` in MariaDB 10.11+, or `PERCONA_SCHEMA.xtrabackup_history` in older versions).
+* Failure Case: If the user lacks privileges, the backup will complete the file copy process but will fail at the final step with an `INSERT command denied` error.
+
 ### Preparing the Backup for Restoration
 
-The data files that mariadb-backup creates in the target directory are not point-in-time consistent, given that the data files are copied at different times during the backup operation. If you try to restore from these files, InnoDB notices the inconsistencies and crashes to protect you from corruption
+The data files that `mariadb-backup` creates in the target directory are not point-in-time consistent, given that the data files are copied at different times during the backup operation. If you try to restore from these files, InnoDB notices the inconsistencies and crashes to protect you from corruption
 
-Before you can restore from a backup, you first need to **prepare** it to make the data files consistent. You can do so with the --prepare option.
+Before you can restore from a backup, you first need to **prepare** it to make the data files consistent. You can do so with the `--prepare` option.
 
 ```bash
 $ mariadb-backup --prepare \
@@ -44,16 +66,16 @@ $ mariadb-backup --prepare \
 
 #### Backup Preparation Steps
 
-1. Run mariadb-backup --backup. You must use a version of mariadb-backup that is compatible with the server version you are planning to upgrade from. For instance, when upgrading from MariaDB 10.4 to 10.5, you must use the 10.4 version of mariadb-backup, Another example: When upgrading from MariaDB 10.6 to 10.11, you must use the 10.6 version of mariadb-backup.
-2. Run mariadb-backup --prepare, again using a compatible version of mariadb-backup, as described in the previous step.
+1. Run `mariadb-backup --backup`. You must use a version of `mariadb-backup` that is compatible with the server version you are planning to upgrade from. For instance, when upgrading from MariaDB 10.4 to 10.5, you must use the 10.4 version of `mariadb-backup`, Another example: When upgrading from MariaDB 10.6 to 10.11, you must use the 10.6 version of `mariadb-backup`.
+2. Run `mariadb-backup --prepare`, again using a compatible version of `mariadb-backup`, as described in the previous step.
 
 ### Restoring the Backup
 
-Once the backup is complete and you have prepared the backup for restoration (previous step), you can restore the backup using either the --copy-back or the --move-back options. The --copy-back option allows you to keep the original backup files. The --move-back option actually moves the backup files to the datadir, so the original backup files are lost.
+Once the backup is complete and you have prepared the backup for restoration (previous step), you can restore the backup using either the `--copy-back` or the `--move-back` options. The `--copy-back` option allows you to keep the original backup files. The `--move-back` option actually moves the backup files to the datadir, so the original backup files are lost.
 
 * First, stop the MariaDB Server process.
-* Then, ensure that the datadir is empty.
-* Then, run mariadb-backup with one of the options mentioned above:
+* Then, ensure that `datadir` is empty.
+* Then, run `mariadb-backup` with one of the options mentioned above:
 
 ```bash
 $ mariadb-backup --copy-back \
@@ -62,7 +84,7 @@ $ mariadb-backup --copy-back \
 
 * Then, you may need to fix the file permissions.
 
-When mariadb-backup restores a database, it preserves the file and directory privileges of the backup. However, it writes the files to disk as the user and group restoring the database. As such, after restoring a backup, you may need to adjust the owner of the data directory to match the user and group for the MariaDB Server, typically `mysql` for both. For example, to recursively change ownership of the files to the `mysql` user and group, you could execute:
+When `mariadb-backup` restores a database, it preserves the file and directory privileges of the backup. However, it writes the files to disk as the user and group restoring the database. As such, after restoring a backup, you may need to adjust the owner of the data directory to match the user and group for the MariaDB Server, typically `mysql` for both. For example, to recursively change ownership of the files to the `mysql` user and group, you could execute:
 
 ```bash
 $ chown -R mysql:mysql /var/lib/mysql/
@@ -72,7 +94,7 @@ $ chown -R mysql:mysql /var/lib/mysql/
 
 #### Restoring with Other Tools
 
-Once a full backup is prepared, it is a fully functional MariaDB data directory. Therefore, as long as the MariaDB Server process is stopped on the target server, you can technically restore the backup using any file copying tool, such as `cp` or `rysnc`. For example, you could also execute the following to restore the backup:
+Once a full backup is prepared, it is a fully functional MariaDB data directory. Therefore, as long as the MariaDB Server process is stopped on the target server, you can technically restore the backup using any file copying tool, such as `cp` or `rsync`. For example, you could also execute the following to restore the backup:
 
 ```bash
 $ rsync -avrP /var/mariadb/backup /var/lib/mysql/

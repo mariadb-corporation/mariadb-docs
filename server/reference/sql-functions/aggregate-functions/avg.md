@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate the average value. This function computes the arithmetic mean of a
+  numeric expression, ignoring NULL values.
+---
+
 # AVG
 
 ## Syntax

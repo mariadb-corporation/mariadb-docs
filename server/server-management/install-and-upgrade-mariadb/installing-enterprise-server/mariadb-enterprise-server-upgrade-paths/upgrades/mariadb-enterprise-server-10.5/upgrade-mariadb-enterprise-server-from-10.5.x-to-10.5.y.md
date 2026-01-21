@@ -1,3 +1,9 @@
+---
+description: >-
+  An upgrade guide for an older, end-of-life version of MariaDB Enterprise
+  Server, kept for reference purposes for legacy systems.
+---
+
 # Upgrade MariaDB Enterprise Server from 10.5.X to 10.5.Y
 
 These instructions detail a **minor release upgrade** with **MariaDB Enterprise Server 10.5** on a range of supported Operating Systems.

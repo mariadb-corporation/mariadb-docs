@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the Spatial Reference Identifier (SRID) for the geometry. This integer
+  represents the coordinate system used.
+---
+
 # ST\_SRID
 
 ## Syntax

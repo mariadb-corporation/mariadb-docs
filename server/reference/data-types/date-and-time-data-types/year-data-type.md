@@ -1,3 +1,9 @@
+---
+description: >-
+  Store year values. This type stores a year in 2-digit or 4-digit format,
+  supporting values from 1901 to 2155, and 0000.
+---
+
 # YEAR Data Type
 
 {% hint style="info" %}

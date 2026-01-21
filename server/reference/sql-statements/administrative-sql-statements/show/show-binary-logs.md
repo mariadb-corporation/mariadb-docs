@@ -1,3 +1,9 @@
+---
+description: >-
+  List the binary log files on the server. View the file names and sizes to
+  monitor replication logs and manage disk usage.
+---
+
 # SHOW BINARY LOGS
 
 ## Syntax

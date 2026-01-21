@@ -1,3 +1,9 @@
+---
+description: >-
+  Compare a value against all results from a subquery. The ALL operator returns
+  TRUE if the comparison holds for every row returned by the subquery.
+---
+
 # Subqueries and ALL
 
 [Subqueries](./) using the ALL keyword will return `true` if the comparison returns `true` for each row returned by the subquery, or the subquery returns no rows.

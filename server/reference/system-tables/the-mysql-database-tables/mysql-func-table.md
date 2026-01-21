@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.func table registers user-defined functions (UDFs), storing their
+  names and the shared library files containing their code.
+---
+
 # mysql.func Table
 
 The `mysql.func` table stores information about [user-defined functions](../../../server-usage/user-defined-functions/) (UDFs) created with the [CREATE FUNCTION UDF](../../../server-usage/user-defined-functions/create-function-udf.md) statement.

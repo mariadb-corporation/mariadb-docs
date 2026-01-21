@@ -1,3 +1,9 @@
+---
+description: >-
+  Check if a geometry is valid. This function returns 1 if the geometry complies
+  with OGC specifications (e.g., no self-intersections), 0 otherwise.
+---
+
 # ST\_IsValid
 
 {% hint style="info" %}

@@ -1,4 +1,10 @@
-# CHECK TABLE
+---
+description: >-
+  Details on using the CHECK TABLE statement with MyRocks to verify the
+  integrity of tables and indexes, and how it differs from other engines.
+---
+
+# MyRocks CHECK TABLE
 
 MyRocks supports the [CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) command.
 

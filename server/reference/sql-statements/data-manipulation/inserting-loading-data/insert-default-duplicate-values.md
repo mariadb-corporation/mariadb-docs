@@ -1,3 +1,10 @@
+---
+description: >-
+  Handle default and duplicate values during insertion. Learn how MariaDB
+  manages missing columns and how to resolve duplicate key conflicts using
+  various strategies.
+---
+
 # INSERT - Default & Duplicate Values
 
 ## Default Values

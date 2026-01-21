@@ -1,3 +1,9 @@
+---
+description: >-
+  An artificial event sent to the replica to indicate the name of the binary log
+  file on the master, ensuring the replica knows which file is being read.
+---
+
 # Fake ROTATE\_EVENT
 
 When a slave server connects to a MariaDB master server, the first binlog event sent is Fake `ROTATE_EVENT`. This event is similar to [ROTATE\_EVENT](rotate_event.md), but it's artificial and its purpose is to tell the replica server which the binlog file name of the master is.

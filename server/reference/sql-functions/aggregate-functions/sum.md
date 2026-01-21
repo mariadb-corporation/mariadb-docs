@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate the total sum. This function returns the sum of all values in a
+  numeric expression, ignoring NULL values.
+---
+
 # SUM
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to use dbForge Studio, a GUI tool, to perform backup and restore
+  operations for MariaDB databases visually.
+---
+
 # Backup and Restore via dbForge Studio
 
 {% hint style="info" %}

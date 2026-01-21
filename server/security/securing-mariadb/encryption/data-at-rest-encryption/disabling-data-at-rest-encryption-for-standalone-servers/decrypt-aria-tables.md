@@ -1,7 +1,7 @@
 ---
 description: >-
-  This page describes how to decrypt datdata at resta-at-rest for tables that
-  use the Aria storage engine.
+  Instructions to decrypt Aria tables by disabling global encryption and
+  rebuilding tables using `ALTER TABLE`.
 ---
 
 # Decrypt Aria Tables
@@ -15,11 +15,11 @@ ALTER TABLE my_table ENCRYPTED=NO;
 Repeat this for each Aria table that is encrypted.
 
 {% hint style="info" %}
-For more information, refer to  [`MDEV-17268`](https://jira.mariadb.org/browse/MDEV-17268).
+For more information, refer to [`MDEV-17268`](https://jira.mariadb.org/browse/MDEV-17268).
 {% endhint %}
 
 * **Ensure the server can currently read encrypted data**\
-  Keep your key management/encryption plugin configured and loaded so MariaDB can read existing encrypted Aria tables. Don’t remove the plugin yet. [MariaDB](https://mariadb.com/docs/server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins?utm_source=chatgpt.com)
+  Keep your key management/encryption plugin configured and loaded so MariaDB can read existing encrypted Aria tables. Don’t remove the plugin yet.
 *   **Turn off Aria encryption for future writes**\
     Set the global variable to off and restart if set in config:
 

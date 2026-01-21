@@ -1,12 +1,17 @@
+---
+description: >-
+  Define simple temporary result sets. Non-recursive CTEs act like query-local
+  views, improving readability by allowing you to define and reuse subqueries
+  within a single statement.
+---
+
 # Non-Recursive Common Table Expressions Overview
 
 Common Table Expressions (CTEs) are a standard SQL feature, and are essentially temporary named result sets. There are two kinds of CTEs: Non-Recursive, which this article covers; and [Recursive](recursive-common-table-expressions-overview.md).
 
 ## Non-Recursive CTEs
 
-The [WITH](with.md) keyword signifies a CTE. It is given a name, followed by a body (the main query):
-
-![cte\_syntax](<../../../../../.gitbook/assets/cte_syntax (1).png>)
+The [WITH](with.md) keyword signifies a CTE. It is given a name, followed by a body (the main query).
 
 CTEs are similar to derived tables:
 

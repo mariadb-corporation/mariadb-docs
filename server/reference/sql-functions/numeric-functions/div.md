@@ -1,3 +1,9 @@
+---
+description: >-
+  Perform integer division. This operator divides one number by another and
+  returns the integer result, discarding any remainder.
+---
+
 # DIV
 
 ## Syntax

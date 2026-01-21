@@ -6,7 +6,7 @@ This is an advanced draft.
 
 {% stepper %}
 {% step %}
-### Edit the environment file
+#### Edit the environment file
 
 1. Navigate to your MariaDB Enterprise Manager installation directory:
 
@@ -48,7 +48,7 @@ GF_SMTP_FROM_NAME=MariaDB Enterprise Manager
 {% endstep %}
 
 {% step %}
-### Restart the Grafana service
+#### Restart the Grafana service
 
 The new settings are applied only after Grafana restarts.
 
@@ -66,7 +66,7 @@ docker compose up -d grafana
 {% endstep %}
 
 {% step %}
-### Verify the configuration in Grafana
+#### Verify the configuration in Grafana
 
 After Grafana restarts:
 

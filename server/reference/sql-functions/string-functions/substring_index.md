@@ -1,3 +1,9 @@
+---
+description: >-
+  Return a substring before a delimiter. This function returns the substring
+  from a string before a specified number of occurrences of a delimiter.
+---
+
 # SUBSTRING\_INDEX
 
 ## Syntax

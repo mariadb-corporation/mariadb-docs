@@ -1,3 +1,10 @@
+---
+description: >-
+  Retrieve GTID position from a binary log file. This function returns the
+  Global Transaction ID corresponding to a specific file and position in the
+  binlog.
+---
+
 # BINLOG\_GTID\_POS
 
 ## Syntax

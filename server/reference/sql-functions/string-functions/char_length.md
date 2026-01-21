@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the length of a string in characters. This function counts the number
+  of characters in the string, treating multi-byte characters as single units.
+---
+
 # CHAR\_LENGTH
 
 ## Syntax

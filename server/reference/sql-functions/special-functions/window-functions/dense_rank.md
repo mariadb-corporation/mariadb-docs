@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate rank without gaps. This function assigns a rank to each row within a
+  partition, with tied values receiving the same rank and no numbers skipped.
+---
+
 # DENSE\_RANK
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  This command deallocates a prepared statement on the server, freeing up
+  associated resources.
+---
+
 # COM\_STMT\_CLOSE
 
 Closes a previously prepared statement.

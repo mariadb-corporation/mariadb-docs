@@ -1,3 +1,9 @@
+---
+description: >-
+  Highlight keywords within a text string using HTML tags, making it easy to
+  display search results with matched terms emphasized.
+---
+
 # mroonga\_highlight\_html
 
 ## Syntax
@@ -10,7 +16,7 @@ mroonga_highlight_html(text[[, keyword1, ..., keywordN]])
 
 ## Description
 
-`mroonga_highlight_html` is a [user-defined function](../../../../server-usage/user-defined-functions/) (UDF) included with the [Mroonga storage engine](../). It highlights the specified keywords in the target text. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
+`mroonga_highlight_html` is a [user-defined function](../../../user-defined-functions/) (UDF) included with the [Mroonga storage engine](../). It highlights the specified keywords in the target text. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
 
 The optional parameter can either be one or more _keywords_, or a Groonga _query_.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Get an overview of regex usage. This page introduces the pattern matching
+  capabilities and common metacharacters used in MariaDB regular expressions.
+---
+
 # Regular Expressions Overview
 
 Regular Expressions allow MariaDB to perform complex pattern matching on a string. In many cases, the simple pattern matching provided by [LIKE](../like.md) is sufficient. `LIKE` performs two kinds of matches:

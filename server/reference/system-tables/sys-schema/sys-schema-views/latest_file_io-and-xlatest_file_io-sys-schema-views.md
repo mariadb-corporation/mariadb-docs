@@ -1,3 +1,9 @@
+---
+description: >-
+  These views display the most recent file I/O events, providing a real-time
+  look at which files are being accessed by the server.
+---
+
 # latest\_file\_io and x$latest\_file\_io Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

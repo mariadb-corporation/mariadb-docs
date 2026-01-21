@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove data from a JSON document. This function removes data from a JSON
+  document at a specified path and returns the result.
+---
+
 # JSON\_REMOVE
 
 ## Syntax

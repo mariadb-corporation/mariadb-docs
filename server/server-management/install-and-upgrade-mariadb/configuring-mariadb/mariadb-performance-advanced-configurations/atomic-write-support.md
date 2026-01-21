@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the concept of atomic writes in MariaDB, which improve performance
+  and data integrity on SSDs by bypassing the InnoDB doublewrite buffer,
+  supported on devices like Fusion-io and Shannon SSDs.
+---
+
 # Atomic Write Support
 
 ## Partial Write Operations

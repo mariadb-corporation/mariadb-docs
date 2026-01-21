@@ -20,7 +20,7 @@ Insights into Galera Cluster health with critical metrics and node-specific stat
 
 ### Galera Nodes
 
-<figure><img src="../../../../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (58) (1).png" alt=""><figcaption></figcaption></figure>
 
 Per-node status summary with short state logic
 

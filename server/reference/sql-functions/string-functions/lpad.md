@@ -1,3 +1,9 @@
+---
+description: >-
+  Left-pad a string. This function pads a string on the left side with a
+  specified string until it reaches a certain length.
+---
+
 # LPAD
 
 ## Syntax

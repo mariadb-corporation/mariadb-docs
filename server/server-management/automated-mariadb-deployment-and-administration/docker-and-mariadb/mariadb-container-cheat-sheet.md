@@ -1,9 +1,14 @@
+---
+description: >-
+  A concise reference of common Docker commands and environment variables used
+  with MariaDB containers.
+---
+
 # MariaDB Container Cheat Sheet
 
 ## Get the images
 
-Images can be found on [MariaDB Docker Hub](https://hub.docker.com/_/mariadb).\
-To get the list of images run
+Images can be found on [MariaDB Docker Hub](https://hub.docker.com/_/mariadb). To get the list of images, run this command:
 
 ```bash
 $ docker images -a
@@ -39,7 +44,7 @@ CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS
 ad374ec8a272   mariadb:latest   "docker-entrypoint.s…"   3 seconds ago    Up 1 second     3306/tcp   mariadb-server
 ```
 
-Note: specify the flag `-a` in case you want to see all containers
+Note: Specify the flag `-a` in case you want to see all containers
 
 ## Start the client from the container
 

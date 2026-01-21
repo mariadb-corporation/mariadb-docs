@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes I/O wait events by table, detailing the frequency and
+  latency of fetch, insert, update, and delete operations.
+---
+
 # Performance Schema table\_io\_waits\_summary\_by\_table Table
 
 The `table_io_waits_summary_by_table` table records table I/O waits by table.

@@ -399,7 +399,7 @@ The location of the MariaDB user data cache was moved from`/var/cache/maxscale/<
 
 ### Galeramon Monitoring Algorithm
 
-Galeramon will assign the master status _only_ to the node which has &#x61;_&#x77;srep\_local\_index_ value of 0. This will guarantee consistent writes with\
+Galeramon will assign the master status _only_ to the node which has a_wsrep\_local\_index_ value of 0. This will guarantee consistent writes with\
 multiple MaxScales but it also causes slower changes of the master node.
 
 To enable the legacy behavior, add `root_node_as_master=false` to the Galera\

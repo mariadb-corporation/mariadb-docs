@@ -43,7 +43,7 @@ MySQL [ontime]> EXPLAIN SELECT * FROM ontime WHERE (Origin='SEA' OR Dest='SEA') 
 
 In the above output, the "rows" column shows that the first is almost 10x less efficient and the second is over 15x less efficient than `index_merge`.
 
-Starting in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3), the optimizer will delay discarding potential`index_merge` plans until the point where it is really necessary.&#x20;
+Starting in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3), the optimizer will delay discarding potential`index_merge` plans until the point where it is really necessary. 
 
 By not discarding potential `index_merge` plans until absolutely necessary,\
 the two queries stay just as efficient as the original:

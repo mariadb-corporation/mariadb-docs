@@ -1,3 +1,9 @@
+---
+description: >-
+  An upgrade guide for an older, end-of-life version of MariaDB Enterprise
+  Server, kept for reference purposes for legacy systems.
+---
+
 # Upgrade MariaDB Enterprise Server from 10.4.X to 10.4.Y
 
 These instructions detail a **minor release upgrade** with **MariaDB Enterprise Server 10.4** on a range of supported Operating Systems.
@@ -117,10 +123,10 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
     ```bash
     $ sudo yum update "MariaDB-*" "galera*"
     ```
-4.  For users who have the [Spider storage engine](../../../../../../server-usage/storage-engines/spider/) loaded who are upgrading from [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-24-15) or earlier, Spider's new RPM package and dependencies must be manually installed after upgrading to [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-25-16) or later.
+4.  For users who have the [Spider storage engine](../../../../../../server-usage/storage-engines/spider/) loaded who are upgrading from [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-24-15) or earlier, Spider's new RPM package and dependencies must be manually installed after upgrading to [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-25-16) or later.
 
-    * In [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-24-15) and earlier, Spider's components were installed with the server's RPM package.
-    * Starting with [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-25-16), Spider adds `unixODBC` as a dependency, so Spider has been moved to a separate RPM package to avoid adding new dependencies to the server's RPM package.
+    * In [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-24-15) and earlier, Spider's components were installed with the server's RPM package.
+    * Starting with [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-25-16), Spider adds `unixODBC` as a dependency, so Spider has been moved to a separate RPM package to avoid adding new dependencies to the server's RPM package.
 
     To install Spider's new package and dependencies:
 
@@ -211,10 +217,10 @@ MariaDB Corporation provides package repositories for YUM (RHEL, AlmaLinux, Cent
     ```
     $ sudo zypper update "MariaDB-*" "galera*"
     ```
-4.  For users who have the [Spider storage engine](../../../../../../server-usage/storage-engines/spider/) loaded who are upgrading from [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-24-15) or earlier, Spider's new RPM package and dependencies must be manually installed after upgrading to [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-25-16) or later.
+4.  For users who have the [Spider storage engine](../../../../../../server-usage/storage-engines/spider/) loaded who are upgrading from [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-24-15) or earlier, Spider's new RPM package and dependencies must be manually installed after upgrading to [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-25-16) or later.
 
-    * In [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-24-15) and earlier, Spider's components were installed with the server's RPM package.
-    * Starting with [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10-4/release-notes-for-mariadb-enterprise-server-10-4-25-16), Spider adds `unixODBC` as a dependency, so Spider has been moved to a separate RPM package to avoid adding new dependencies to the server's RPM package.
+    * In [ES 10.4.24-15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-24-15) and earlier, Spider's components were installed with the server's RPM package.
+    * Starting with [ES 10.4.25-16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.4/release-notes-for-mariadb-enterprise-server-10-4-25-16), Spider adds `unixODBC` as a dependency, so Spider has been moved to a separate RPM package to avoid adding new dependencies to the server's RPM package.
 
     To install Spider's new package and dependencies:
 

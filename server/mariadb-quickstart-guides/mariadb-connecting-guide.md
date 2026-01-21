@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide details how to connect to a MariaDB server using the command-line
+  client, covering options for host, user, password, and protocol.
+---
+
 # Connecting to MariaDB Guide
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}

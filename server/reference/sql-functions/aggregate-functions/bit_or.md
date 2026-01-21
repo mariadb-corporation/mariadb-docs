@@ -1,3 +1,9 @@
+---
+description: >-
+  Perform a bitwise OR operation. This function returns the result of performing
+  a bitwise OR on all values in a given expression.
+---
+
 # BIT\_OR
 
 ## Syntax

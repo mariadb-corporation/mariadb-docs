@@ -1,3 +1,10 @@
+---
+description: >-
+  Lists and describes the standard Ansible modules available for managing
+  MariaDB, such as `mysql_db`, `mysql_user`, and `mysql_variables`, highlighting
+  their idempotent nature.
+---
+
 # Existing Ansible Modules and Roles for MariaDB
 
 This page contains links to Ansible modules and roles that can be used to automate MariaDB deployment and configuration. The list is not meant to be exhaustive. Use it as a starting point, but then please do your own research.

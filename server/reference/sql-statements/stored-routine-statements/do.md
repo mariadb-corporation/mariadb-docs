@@ -1,3 +1,9 @@
+---
+description: >-
+  Execute expressions without returning a result set. This statement runs
+  functions or expressions, often used for side effects like releasing locks.
+---
+
 # DO
 
 ## Syntax

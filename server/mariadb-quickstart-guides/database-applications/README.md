@@ -1,5 +1,7 @@
 ---
-description: Advice for writing and maintaining applications using databases.
+description: >-
+  This section offers advice on writing and maintaining applications that use
+  databases, covering schema design, code practices, and testing.
 ---
 
 # Database Applications

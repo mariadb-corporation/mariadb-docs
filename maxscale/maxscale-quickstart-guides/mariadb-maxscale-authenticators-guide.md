@@ -1,5 +1,8 @@
 ---
-description: Quickstart guide for MariaDB MaxScale authentication modules
+description: >-
+  Configure secure access to your database. This guide explains how to set up
+  authenticators in MaxScale to manage client credentials and validate
+  connections to backend servers.
 ---
 
 # MariaDB MaxScale Authenticators Guide

@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert hexadecimal to string. This function interprets pairs of hexadecimal
+  digits as numbers and converts them to the characters they represent.
+---
+
 # UNHEX
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_TRX table stores information about currently executing InnoDB
+  transactions, including transaction state, start time, and locks.
+---
+
 # Information Schema INNODB\_TRX Table
 
 The [Information Schema](../../) `INNODB_TRX` table stores information about all currently executing InnoDB transactions.

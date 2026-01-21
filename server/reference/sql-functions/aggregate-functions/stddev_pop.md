@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate population standard deviation. This function computes the standard
+  deviation assuming the set of values represents the entire population.
+---
+
 # STDDEV\_POP
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  This function returns the major version number of the MariaDB Server instance
+  (e.g., 10 from 10.6.4).
+---
+
 # version\_major
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

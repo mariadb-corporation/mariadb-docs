@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_PointFromWKB. Constructs a Point value from its WKB
+  representation and an optional SRID.
+---
+
 # PointFromWKB
 
 A synonym for [ST\_PointFromWKB](st_pointfromwkb.md).

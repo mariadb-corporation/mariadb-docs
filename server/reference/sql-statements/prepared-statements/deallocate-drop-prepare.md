@@ -1,3 +1,9 @@
+---
+description: >-
+  Release a prepared statement to free resources. This command removes the
+  statement definition and its name from the current session.
+---
+
 # DEALLOCATE / DROP PREPARE
 
 ## Syntax

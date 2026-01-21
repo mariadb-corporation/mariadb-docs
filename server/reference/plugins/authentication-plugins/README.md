@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore authentication plugins in MariaDB Server. This section details various
-  plugins that extend authentication capabilities, allowing integration with
-  external systems and enhancing security.
+  Explore the authentication plugins available in MariaDB, such as ed25519,
+  GSSAPI, and PAM, which provide flexible and secure methods for user
+  verification.
 ---
 
 # Authentication Plugins

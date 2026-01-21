@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate random bytes. This function returns a binary string of random bytes
+  of a specified length, suitable for cryptographic use.
+---
+
 # RANDOM\_BYTES
 
 {% hint style="info" %}

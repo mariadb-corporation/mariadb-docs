@@ -1,3 +1,9 @@
+---
+description: >-
+  This page details MariaDB Enterprise Backup, an enhanced version of
+  mariadb-backup with enterprise-specific optimizations and support.
+---
+
 # MariaDB Enterprise Backup
 
 ## Overview

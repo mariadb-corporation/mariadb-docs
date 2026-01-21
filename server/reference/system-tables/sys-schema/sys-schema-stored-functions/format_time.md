@@ -1,3 +1,9 @@
+---
+description: >-
+  The format_time function converts a time value in picoseconds into a
+  human-readable string with appropriate units (e.g., ms, s, min).
+---
+
 # format\_time
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

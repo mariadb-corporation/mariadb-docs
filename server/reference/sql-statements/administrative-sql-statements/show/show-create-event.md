@@ -1,3 +1,9 @@
+---
+description: >-
+  Get the SQL statement to recreate a scheduled event. This statement displays
+  the complete syntax used to define a specific event.
+---
+
 # SHOW CREATE EVENT
 
 ## Syntax

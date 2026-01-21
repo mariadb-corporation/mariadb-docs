@@ -39,7 +39,7 @@ Before using MariaDB Cloud and MindsDB, both services require an account.
 
 MariaDB Cloud requires a [MariaDB ID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/mariadb-id-sign-up) account.
 
-For the full procedure that shows how to quickly create a MariaDB ID account and launch a database service in MariaDB Cloud, see "[Quickstart](../../Quickstart/)".
+For the full procedure that shows how to quickly create a MariaDB ID account and launch a database service in MariaDB Cloud, see "[Quickstart](../../quickstart/)".
 
 #### Register for MindsDB
 
@@ -55,7 +55,7 @@ To connect a database service in MariaDB Cloud to MindsDB, perform the following
 
 1.  Create a database service in MariaDB Cloud.
 
-    For the full procedure that shows how to quickly create a MariaDB ID account and launch a database service in MariaDB Cloud, see "[Quickstart](../../Quickstart/)".
+    For the full procedure that shows how to quickly create a MariaDB ID account and launch a database service in MariaDB Cloud, see "[Quickstart](../../quickstart/)".
 2.  Connect to the database service in MariaDB Cloud using a supported client.
 
     For information about which clients are supported and how to connect, see "[Connecting](../)".

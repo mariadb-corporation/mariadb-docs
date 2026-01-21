@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore Silent Column Changes in MariaDB. Learn when the server automatically
+  modifies column definitions or data types during table creation to ensure
+  engine compatibility.
+---
+
 # Silent Column Changes
 
 When a [CREATE TABLE](create-table.md) or [ALTER TABLE](../alter/alter-table/) command is issued, MariaDB silently changes a column specification in the following cases:

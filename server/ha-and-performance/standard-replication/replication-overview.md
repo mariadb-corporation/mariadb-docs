@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore the core concepts of MariaDB standard replication. Learn about the
+  primary-replica architecture, data redundancy strategies, and how to scale
+  read operations effectively.
+---
+
 # Replication Overview
 
 Replication is a feature allowing the contents of one or more servers (called primaries) to be mirrored on one or more servers (called replicas).

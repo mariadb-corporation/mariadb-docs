@@ -1,3 +1,9 @@
+---
+description: >-
+  This function quotes a given string with backticks to ensure it can be safely
+  used as an identifier in SQL statements.
+---
+
 # quote\_identifier
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

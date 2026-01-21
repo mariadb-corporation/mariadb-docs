@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains how to enable and configure the slow query log to identify queries
+  that take longer than a specified time (`long_query_time`) or don't use
+  indexes.
+---
+
 # Slow Query Log Overview
 
 The slow query log is a record of SQL queries that took a long time to perform.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Strategies for moving data from PostgreSQL to MariaDB, using the CONNECT
+  storage engine with ODBC/JDBC or foreign data wrappers.
+---
+
 # Migrating to MariaDB from PostgreSQL
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/DIKbJcrzYIyfEVdDst6b/" %}

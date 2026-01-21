@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.slow_log table records details of queries that exceed the
+  long_query_time threshold when slow query logging to tables is enabled.
+---
+
 # mysql.slow\_log Table
 
 **System tables should not normally be edited directly. Use the related SQL statements instead.**

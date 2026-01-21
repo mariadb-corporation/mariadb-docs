@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_SYS_TABLESTATS table offers low-level performance statistics for
+  InnoDB tables, such as row counts and modification counters.
+---
+
 # Information Schema INNODB\_SYS\_TABLESTATS Table
 
 The [Information Schema](../../) `INNODB_SYS_TABLESTATS` table contains InnoDB status information. It can be used for developing new performance-related extensions, or high-level performance monitoring.

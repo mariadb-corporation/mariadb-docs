@@ -1,3 +1,9 @@
+---
+description: >-
+  Information on the legacy REDUNDANT row format, primarily maintained for
+  backward compatibility with older MySQL versions.
+---
+
 # InnoDB REDUNDANT Row Format
 
 The `REDUNDANT` row format is the original non-compacted row format.

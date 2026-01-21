@@ -1,4 +1,10 @@
-# Enterprise Server
+---
+description: >-
+  A guide to installing MariaDB Enterprise Server on various operating systems
+  using package managers (YUM, APT, ZYpp) or binary tarballs.
+---
+
+# Installing Enterprise Server
 
 ## Overview
 

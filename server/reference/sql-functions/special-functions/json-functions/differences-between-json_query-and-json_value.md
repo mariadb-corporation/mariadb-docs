@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn the difference between JSON_QUERY and JSON_VALUE in MariaDB. JSON_QUERY
+  returns objects or arrays, while JSON_VALUE extracts scalar values.
+---
+
 # Differences between JSON\_QUERY and JSON\_VALUE
 
 The primary difference between the two functions is that _JSON\_QUERY_ returns an object or an array, while _JSON\_VALUE_ returns a scalar.

@@ -1,8 +1,16 @@
+---
+description: >-
+  Instructions for configuring MariaDB to start automatically on macOS using a
+  launchd plist file in /Library/LaunchDaemons.
+---
 
-# launchd
+# launchd (macOS)
 
-In MacOS, create a file called /Library/LaunchDaemons/com.mariadb.server.plist with the following contents (edit to suit):
+If you install MariaDB on macOS using Homebrew – which is the only option – starting and stopping `mariadbd` (MariaDB server) is done as [described on this page](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-on-macos-using-homebrew.md). The below instructions don't need to be performed.
 
+***
+
+On macOS, create a file called `/Library/LaunchDaemons/com.mariadb.server.plist` with the following contents (edit to suit):
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -33,15 +41,11 @@ In MacOS, create a file called /Library/LaunchDaemons/com.mariadb.server.plist w
 
 Then from a shell, run `launchctl load /Library/LaunchDaemons/com.mariadb.server.plist` and MariaDB will run immediately, and also upon reboot.
 
-
 ## See Also
-
 
 * [Creating Launch Daemons and Agents](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html)
 * [A launchd Tutorial](https://www.launchd.info/)
 
-
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
-
 
 {% @marketo/form formId="4316" %}

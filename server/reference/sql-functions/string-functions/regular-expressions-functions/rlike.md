@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for REGEXP. This operator performs a regular expression match against
+  a string argument.
+---
+
 # RLIKE
 
 ## Syntax

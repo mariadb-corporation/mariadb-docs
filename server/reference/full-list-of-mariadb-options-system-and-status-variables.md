@@ -1,3 +1,9 @@
+---
+description: >-
+  A comprehensive, alphabetical reference list of all server command-line
+  options, system variables, and status variables available in MariaDB.
+---
+
 # Options, System & Status Variables
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}

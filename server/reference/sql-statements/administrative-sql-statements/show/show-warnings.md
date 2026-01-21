@@ -1,3 +1,9 @@
+---
+description: >-
+  Display warnings from the last executed statement. View warning codes,
+  messages, and levels for recent operations.
+---
+
 # SHOW WARNINGS
 
 ## Syntax

@@ -1,6 +1,6 @@
 # MariaDB 11.3.2 Release Notes
 
-[Download](https://downloads.mariadb.org/mariadb/11.3.2) | [Release Notes](mariadb-11-3-2-release-notes.md) | [Changelog](../../changelogs/11.3/mariadb-11-3-2-changelog.md) | [Overview of 11.3](what-is-mariadb-113.md)
+​​<a href="https://downloads.mariadb.org/mariadb/11.3.2/" class="button primary">Download</a> <a href="mariadb-11-3-2-release-notes.md" class="button secondary">Release Notes</a> <a href="../../changelogs/11.5/mariadb-11-5-2-changelog.md" class="button secondary">Changelog</a> <a href="../release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115.md" class="button secondary">Overview of 11.5</a>
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.3.2/)
 

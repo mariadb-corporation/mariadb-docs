@@ -1,3 +1,9 @@
+---
+description: >-
+  An upgrade guide for an older, end-of-life version of MariaDB Enterprise
+  Server, kept for reference purposes for legacy systems.
+---
+
 # Upgrade from MariaDB Community Server to MariaDB Enterprise Server 10.5
 
 These instructions detail the **upgrade** from **MariaDB Community Server** to **MariaDB Enterprise Server 10.5** on a range of [supported Operating Systems](https://mariadb.com/engineering-policies/).

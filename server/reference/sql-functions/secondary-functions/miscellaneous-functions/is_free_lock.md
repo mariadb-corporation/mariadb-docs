@@ -1,3 +1,9 @@
+---
+description: >-
+  Check if a named lock is free. This function returns 1 if the specified lock
+  is available (not currently held), and 0 if it is in use.
+---
+
 # IS\_FREE\_LOCK
 
 ## Syntax

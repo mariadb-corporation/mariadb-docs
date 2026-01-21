@@ -1,3 +1,10 @@
+---
+description: >-
+  Calculate distance between vectors. This function computes the distance
+  between two vectors using either Euclidean or Cosine metric, depending on the
+  index.
+---
+
 # VEC\_DISTANCE
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}
@@ -63,3 +70,4 @@ SELECT id FROM v
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+

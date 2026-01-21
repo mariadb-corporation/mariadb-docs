@@ -1,7 +1,12 @@
+---
+description: >-
+  Detailed steps for installing MariaDB on SLES and OpenSUSE using the `zypper`
+  package manager, including repository configuration and package installation.
+---
+
 # Installing MariaDB with zypper
 
-On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM packages](./) from MariaDB's\
-repository using [zypper](https://en.wikipedia.org/wiki/ZYpp).
+On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM packages](./) from MariaDB's repository using [zypper](https://en.wikipedia.org/wiki/ZYpp).
 
 This page walks you through the simple installation steps using `zypper`.
 
@@ -172,7 +177,7 @@ sudo zypper install MariaDB-cracklib-password-check
 
 ### Installing Debug Info Packages with ZYpp
 
-The MariaDB `zypper` repository also contains [debuginfo](https://en.opensuse.org/openSUSE:Packaging_guidelines#Debuginfo) packages. These package may be needed when [debugging a problem](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd).
+The MariaDB `zypper` repository also contains [debuginfo](https://en.opensuse.org/openSUSE:Packaging_guidelines#Debuginfo) packages. These package may be needed when [debugging a problem](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/yt4NDbw3wL7QsDjQtA0H).
 
 #### Installing Debug Info for the Most Common Packages with ZYpp
 

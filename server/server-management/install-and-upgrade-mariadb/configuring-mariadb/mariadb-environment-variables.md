@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference for environment variables that affect MariaDB configuration, such as
+  MYSQL_HOME and LD_PRELOAD, and how they interact with option files.
+---
+
 # MariaDB Environment Variables
 
 MariaDB makes use of numerous environment variables that may be set on your system. Environment variables have the lowest precedence, so any options set on the command line or in an option file will take precedence.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Store date values. This type stores dates in 'YYYY-MM-DD' format, with a
+  supported range from '1000-01-01' to '9999-12-31'.
+---
+
 # DATE
 
 ## Syntax

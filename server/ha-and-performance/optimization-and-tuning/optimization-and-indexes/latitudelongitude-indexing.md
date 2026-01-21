@@ -63,7 +63,7 @@ SMALLINT scaled -- Convert latitude into a SMALLINT SIGNED by doing (degrees / 9
 
 [FLOAT](../../../reference/data-types/numeric-data-types/float.md) has 24 significant bits; [DOUBLE](../../../reference/data-types/numeric-data-types/double.md) has 53. (They don't work with PARTITIONing but are included for completeness. Often people use DOUBLE without realizing how much an overkill it is, and how much space it takes.)
 
-Sure, you could do DE&#x47;_&#x31;000 and other "in between" cases, but there is no advantage. DE&#x47;_&#x31;000 takes as much space as DEG\*10000, but has less resolution.
+Sure, you could do DEG_1000 and other "in between" cases, but there is no advantage. DEG_1000 takes as much space as DEG\*10000, but has less resolution.
 
 So, go down the list to see how much resolution you need, then pick an encoding you are comfortable with. However, since we are about to use latitude as a "partition key", it must be limited to one of the INTs. For the sample code, I will use Deg\*10000 ([MEDIUMINT](../../../reference/data-types/numeric-data-types/mediumint.md)).
 

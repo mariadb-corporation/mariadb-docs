@@ -1,10 +1,18 @@
+---
+description: >-
+  Explains how to use `mariadbd-multi` to manage multiple MariaDB server
+  processes on a single host using GNR groups in the configuration file.
+---
+
 # mariadbd-multi
 
 Before using mariadbd-multi be sure that you understand the meanings of the options that are passed to the mariadbd servers and why you would want to have separate mariadbd processes. Beware of the dangers of using multiple mariadbd servers with the same data directory. Use separate data directories, unless you know what you are doing. Starting multiple servers with the same data directory does not give you extra performance in a threaded system.
 
 The `mariadbd-multi` startup script is in MariaDB distributions on Linux and Unix. It is a wrapper that is designed to manage several `mariadbd` processes running on the same host.
 
-Prior to [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), the client was called `mysqld_multi`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+{% hint style="info" %}
+Previously, the client was called `mysqld_multi`. It can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
+{% endhint %}
 
 In order for multiple `mariadbd` processes to work on the same host, these processes must:
 
@@ -19,7 +27,7 @@ In order for multiple `mariadbd` processes to work on the same host, these proce
 
 The command to use `mariadbd-multi` and the general syntax is:
 
-```
+```bash
 mariadbd-multi [options] {start|stop|report} [GNR[,GNR] ...]
 ```
 

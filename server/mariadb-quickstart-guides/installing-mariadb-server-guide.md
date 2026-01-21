@@ -4,7 +4,7 @@ description: 'Quickstart Guide: Installing MariaDB Server'
 
 # Installing MariaDB Server Guide
 
-This guide provides a quick overview of how to install MariaDB Server on common operating systems. The specific steps may vary slightly depending on your Linux distribution or if you are installing on Windows.
+This guide provides step-by-step instructions for installing MariaDB Server on various operating systems, including package updates and security settings.
 
 #### For Linux (Ubuntu/Debian/Red Hat-based distributions)
 

@@ -1,8 +1,14 @@
+---
+description: >-
+  The INNODB_UNDO_LOGS table, an XtraDB enhancement, contains information about
+  undo log segments, including transaction IDs and states.
+---
+
 # Information Schema INNODB\_UNDO\_LOGS Table
 
-**MariaDB** [**5.5.27**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5527-release-notes) **-** [**10.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
-
+{% hint style="info" %}
 The `INNODB_UNDO_LOGS` are a Percona enhancement, introduced in version [MariaDB 5.5.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5527-release-notes) and removed in 10.0.
+{% endhint %}
 
 The [Information Schema](../../) `INNODB_UNDO_LOGS` table is a Percona enchancement, and is only available for XtraDB, not InnoDB (see [XtraDB and InnoDB](../../../../../server-usage/storage-engines/innodb/)). It contains information about the InnoDB [undo log](../../../../../server-usage/storage-engines/innodb/innodb-undo-log.md), with each record being an undo log segment. It was removed in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0).
 

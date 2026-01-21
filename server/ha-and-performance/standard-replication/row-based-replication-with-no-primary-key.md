@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about row-based replication in MariaDB Server without a primary key.
-  This section discusses the implications and challenges of replicating data
-  when tables lack a unique identifier.
+  Understand the performance implications and best practices for replicating
+  tables without primary keys when using row-based logging, including how to
+  avoid full table scans.
 ---
 
 # Row-based Replication With No Primary Key

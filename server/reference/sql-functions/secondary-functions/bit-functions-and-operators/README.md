@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about bit functions and operators in MariaDB Server. This section
-  details how to perform bitwise operations on numeric values, essential for
-  low-level data manipulation and flags.
+  Perform bitwise logic and manipulation. This section covers operators like
+  AND, OR, XOR, and functions for shifting bits or counting set bits in binary
+  data.
 ---
 
 # Bit Functions and Operators

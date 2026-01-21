@@ -1,3 +1,9 @@
+---
+description: >-
+  Report a checksum for table contents. This statement calculates a value to
+  compare tables, useful for verifying replication consistency.
+---
+
 # CHECKSUM TABLE
 
 ## Syntax

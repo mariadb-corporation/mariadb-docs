@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore LINEAR HASH partitioning, a variation of HASH that uses a
+  powers-of-two algorithm for faster partition management at the cost of
+  distribution.
+---
+
 # LINEAR HASH Partitioning Type
 
 ## Syntax

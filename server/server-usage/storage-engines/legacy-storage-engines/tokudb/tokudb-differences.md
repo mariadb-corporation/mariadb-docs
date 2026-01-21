@@ -1,3 +1,7 @@
+---
+description: The TokuDB storage engine has been removed from MariaDB.
+---
+
 # TokuDB Differences
 
 {% include "../../../../.gitbook/includes/tokudb-has-been-deprecated-....md" %}
@@ -11,7 +15,7 @@ On this page we list all the known differences between the TokuDB from [Tokutek]
 * TokuDB is not the default storage engine.
   * If you want to enable this, you have to start mysqld with: `--default-storage-engine=tokudb`.
 * Auto increment for second part of a key behaves as documented (and as it does in MyISAM and other storage engines).
-* The DDL syntax is different. While binaries from Tokutek have the patched SQL parser, TokuDB in MariaDB uses the special [Storage Engine API extension](../../storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md). Thus in Tokutek binaries you write `CLUSTERED KEY (columns)` and, for example, `ROW_FORMAT=TOKUDB_LZMA`. And in MariaDB you write `KEY (columns) CLUSTERING=YES` and `COMPRESSION=TOKUDB_LZMA`.
+* The DDL syntax is different. While binaries from Tokutek have the patched SQL parser, TokuDB in MariaDB uses the special [Storage Engine API extension](../../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md). Thus in Tokutek binaries you write `CLUSTERED KEY (columns)` and, for example, `ROW_FORMAT=TOKUDB_LZMA`. And in MariaDB you write `KEY (columns) CLUSTERING=YES` and `COMPRESSION=TOKUDB_LZMA`.
 
 ## Features missing in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 

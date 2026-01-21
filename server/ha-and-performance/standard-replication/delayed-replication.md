@@ -1,8 +1,8 @@
 ---
 description: >-
-  Implement delayed replication in MariaDB Server. This section explains how to
-  configure a time delay for replica application, providing a safety net against
-  accidental data changes or logical errors.
+  Learn to configure a time lag for your replica. Delayed replication helps
+  recover from human errors on the primary, such as accidental drop commands, by
+  preserving older states.
 ---
 
 # Delayed Replication

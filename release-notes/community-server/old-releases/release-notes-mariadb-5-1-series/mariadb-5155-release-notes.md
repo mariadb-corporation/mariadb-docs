@@ -24,7 +24,7 @@ For [MariaDB 5.1.55](mariadb-5155-release-notes.md) we have merged in all of the
 5.1.54 and 5.1.55. The MySQL [5.1.54](https://dev.mysql.com/doc/refman/5.1/en/news-5-1-54.html) and [5.1.55](https://dev.mysql.com/doc/refman/5.1/en/news-5-1-55.html) release\
 notes have details of what changes were made upstream by MySQL since 5.1.53.
 
-## Includes [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-unmaintained/about-xtradb) 5.1.54-12.5
+## Includes [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/innodb-unmaintained/about-xtradb) 5.1.54-12.5
 
 We have included XtraDB from Percona Server 5.1.54-12.5 in this version of\
 MariaDB. See the Percona Server[release\

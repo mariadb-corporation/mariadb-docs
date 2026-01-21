@@ -1,4 +1,8 @@
-# Connect System Variables
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
+# CONNECT System Variables
 
 {% hint style="warning" %}
 This storage engine has been deprecated.

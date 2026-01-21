@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_METRICS table contains a wide range of low-level
+  performance metrics and counters for the InnoDB storage engine.
+---
+
 # Information Schema INNODB\_METRICS Table
 
 The [Information Schema](../../) `INNODB_METRICS` table contains a list of useful InnoDB performance metrics. Each row in the table represents an instrumented counter that can be stopped, started and reset, and which can be grouped together by module.

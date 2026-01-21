@@ -147,7 +147,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: Based on the number of processors (but see [MDEV-7806](https://jira.mariadb.org/browse/MDEV-7806)).
-* Range: `1` to `128`&#x20;
+* Range: `1` to `128` 
 * Documentation: [Using the thread pool](thread-pool-in-mariadb.md).
 
 #### `thread_pool_stall_limit`
@@ -161,7 +161,7 @@ This article describes the system and status variables used by the MariaDB threa
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `500`
-* Range: `1` to `4294967295`&#x20;
+* Range: `1` to `4294967295` 
 * Documentation: [Using the thread pool](thread-pool-in-mariadb.md).
 
 ## Status variables

@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.proc table stores the definitions, body, and metadata for stored
+  procedures and functions created on the server.
+---
+
 # mysql.proc Table
 
 The `mysql.proc` table contains information about [stored procedures](../../../server-usage/stored-routines/stored-procedures/) and [stored functions](../../../server-usage/stored-routines/stored-functions/). It contains similar information to that stored in the [INFORMATION SCHEMA.ROUTINES](../information-schema/information-schema-tables/information-schema-routines-table.md) table.
@@ -33,7 +39,7 @@ The `mysql.proc` table contains the following fields:
 
 ## See Also
 
-* [Stored Procedure Internals](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-source-code-internals/stored-procedure-internals)
+* [Stored Procedure Internals](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/QKbsa2VohfMtMUhmmPcm)
 * [MySQL to MariaDB migration: handling privilege table differences when using mysqldump](https://mariadb.com/blog/mysql-mariadb-migration-handling-privilege-table-differences-when-using-mysqldump)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

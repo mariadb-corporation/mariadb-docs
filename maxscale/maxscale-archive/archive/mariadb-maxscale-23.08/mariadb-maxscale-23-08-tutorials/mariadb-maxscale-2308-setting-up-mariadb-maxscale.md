@@ -49,7 +49,7 @@ Because MariaDB MaxScale sits between the clients and the backend databases, the
 databases will see all clients as if they were connecting from MaxScale's address. This\
 usually means that two sets of grants for each user are required.
 
-For example, assume that the user _'jdoe'@'client-host'_ exists and MaxScale is located a&#x74;_&#x6D;axscale-host_. If _'jdoe'@'client-host'_ needs to be able to connect through MaxScale,\
+For example, assume that the user _'jdoe'@'client-host'_ exists and MaxScale is located at_&#x6D;axscale-host_. If _'jdoe'@'client-host'_ needs to be able to connect through MaxScale,\
 another user, _'jdoe'@'maxscale-host'_, must be created. The second user must have the\
 same password and similar grants as _'jdoe'@'client-host'_.
 

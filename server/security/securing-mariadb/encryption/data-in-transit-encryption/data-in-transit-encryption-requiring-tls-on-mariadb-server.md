@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains how to enforce encrypted connections globally by enabling the
+  `require_secure_transport` system variable, which rejects any connection
+  attempt not using TLS or a local socket.
+---
+
 # Requiring TLS on MariaDB Server
 
 ## Overview

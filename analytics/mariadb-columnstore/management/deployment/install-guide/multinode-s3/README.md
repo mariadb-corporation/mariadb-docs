@@ -25,9 +25,11 @@ layout:
 
 This procedure describes the deployment of the Single-Node Enterprise ColumnStore topology with Object storage.
 
-MariaDB Enterprise ColumnStore 23.10 is a columnar storage engine for MariaDB Enterprise Server and Enterprise ColumnStore is best suited for Online Analytical Processing (OLAP) workloads.
+MariaDB Enterprise ColumnStore is a columnar storage engine for MariaDB Enterprise Server and Enterprise ColumnStore is best suited for Online Analytical Processing (OLAP) workloads.
 
 This procedure has 5 steps, which are executed in sequence.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 This page provides an overview of the topology, requirements, and deployment procedures.
 

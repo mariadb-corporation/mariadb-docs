@@ -1,3 +1,9 @@
+---
+description: >-
+  List registered replicas. This statement displays information about replica
+  servers connected to the current primary.
+---
+
 # SHOW REPLICA HOSTS
 
 ## Syntax

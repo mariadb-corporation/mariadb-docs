@@ -1,3 +1,9 @@
+---
+description: >-
+  Lists required tools and dependencies for building MariaDB on Linux, and how
+  to install them using package managers.
+---
+
 # Build Environment Setup for Linux
 
 ## Required Tools

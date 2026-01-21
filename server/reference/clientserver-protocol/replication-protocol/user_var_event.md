@@ -1,3 +1,9 @@
+---
+description: >-
+  The USER_VAR_EVENT logs the value of a user-defined variable, ensuring that
+  statements using variables replicate consistently.
+---
+
 # USER\_VAR\_EVENT
 
 A `USER_VAR_EVENT` is written every time a statement uses a user defined variable.

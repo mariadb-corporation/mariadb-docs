@@ -1,3 +1,9 @@
+---
+description: >-
+  Specify actions for error conditions. This statement defines handler routines
+  (CONTINUE or EXIT) to manage exceptions or warnings within a block.
+---
+
 # DECLARE HANDLER
 
 ## Syntax

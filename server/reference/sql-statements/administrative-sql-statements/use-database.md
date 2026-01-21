@@ -1,3 +1,9 @@
+---
+description: >-
+  Selects the default database for the current session. Subsequent queries
+  execute against this database unless explicitly qualified by name.
+---
+
 # USE \[DATABASE]
 
 ## Syntax

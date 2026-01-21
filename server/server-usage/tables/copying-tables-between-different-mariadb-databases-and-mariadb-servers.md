@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide explains various methods for copying tables between MariaDB
+  databases and servers, including using FLUSH TABLES FOR EXPORT and mysqldump.
+---
+
 # Copying Tables Between Databases and Servers
 
 With MariaDB it's very easy to copy tables between different MariaDB databases\

@@ -1,3 +1,9 @@
+---
+description: >-
+  Encrypt data using DES. This function encrypts a string using the Data
+  Encryption Standard (DES) algorithm.
+---
+
 # DES\_ENCRYPT
 
 {% hint style="warning" %}

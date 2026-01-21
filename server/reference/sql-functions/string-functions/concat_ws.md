@@ -1,3 +1,9 @@
+---
+description: >-
+  Concatenate with separator. This function joins strings with a specified
+  separator. It skips NULL values during concatenation.
+---
+
 # CONCAT\_WS
 
 ## Syntax

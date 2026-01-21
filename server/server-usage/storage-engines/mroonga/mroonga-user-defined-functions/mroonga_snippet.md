@@ -1,3 +1,9 @@
+---
+description: >-
+  This function extracts a snippet of text surrounding a keyword from a
+  document, providing necessary context for search result displays.
+---
+
 # mroonga\_snippet
 
 ## Syntax
@@ -18,7 +24,7 @@ mroonga_snippet document,
 
 ## Description
 
-`mroonga_snippet` is a [user-defined function](../../../../server-usage/user-defined-functions/) (UDF) included with the [Mroonga storage engine](../). It provides a keyword with surrounding text, or the keyword in context. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
+`mroonga_snippet` is a [user-defined function](../../../user-defined-functions/) (UDF) included with the [Mroonga storage engine](../). It provides a keyword with surrounding text, or the keyword in context. See [Creating Mroonga User-Defined Functions](creating-mroonga-user-defined-functions.md) for details on creating this UDF if required.
 
 The required parameters include:
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Overview of CMake configuration options available when building MariaDB from
+  source, helping customize the build.
+---
+
 # MariaDB Source Configuration Options
 
 All `CMake` configuration options for MariaDB can be displayed with:

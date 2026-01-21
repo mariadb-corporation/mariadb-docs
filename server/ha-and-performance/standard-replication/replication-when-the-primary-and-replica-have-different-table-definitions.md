@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about replication challenges when primary & replica servers have
-  differing table definitions. The section explores strategies to manage
-  inconsistencies & ensure data integrity in such scenarios.
+  Understand the rules and limitations when replicating between tables with
+  differing structures. Learn how attribute promotion and column handling work
+  in row-based replication.
 ---
 
 # Replication When the Primary and Replica Have Different Table Definitions

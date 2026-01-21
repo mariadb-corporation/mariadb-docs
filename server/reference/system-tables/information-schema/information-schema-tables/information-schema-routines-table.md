@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROUTINES table stores information about stored
+  procedures and stored functions, including their definitions and properties.
+---
+
 # Information Schema ROUTINES Table
 
 The [Information Schema](../) `ROUTINES` table stores information about [stored procedures](../../../../server-usage/stored-routines/stored-procedures/) and [stored functions](../../../../server-usage/stored-routines/stored-functions/).

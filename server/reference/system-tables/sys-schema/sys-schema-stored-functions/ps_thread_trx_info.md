@@ -1,3 +1,9 @@
+---
+description: >-
+  The ps_thread_trx_info function returns a JSON object detailing the current
+  transaction and executed statements for a specific thread.
+---
+
 # ps\_thread\_trx\_info
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Compute cyclic redundancy check. This function returns a 32-bit unsigned
+  integer representing the CRC32 checksum of a string.
+---
+
 # CRC32
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  This command prepares an SQL statement on the server, returning a statement ID
+  and metadata about parameters and columns.
+---
+
 # COM\_STMT\_PREPARE
 
 Prepares a statement on the server.

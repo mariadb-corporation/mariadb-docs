@@ -1,5 +1,7 @@
 ---
-description: Modifies a database, changing its overall characteristics.
+description: >-
+  Modify database characteristics. Learn how to change global properties like
+  the default character set and collation for a specific database.
 ---
 
 # ALTER DATABASE

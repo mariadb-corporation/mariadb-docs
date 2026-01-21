@@ -1,3 +1,9 @@
+---
+description: >-
+  Explore MariaDB's built-in string functions for formatting, extracting, and
+  manipulating text data within your queries.
+---
+
 # String Functions
 
 MariaDB has many built-in functions that can be used to manipulate strings of data. With these functions, one can format data, extract certain characters, or use search expressions. Good developers should be aware of the string functions that are available. Therefore, in this article we will go through several string functions, grouping them by similar features, and provide examples of how they might be used.

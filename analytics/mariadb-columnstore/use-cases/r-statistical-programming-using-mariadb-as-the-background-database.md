@@ -9,7 +9,7 @@ One of `R’s` strengths is the ease with which well-designed publication-qualit
 
 ## The R Environment
 
-`R` is an integrated suite of software facilities for data manipulation, calculation, and graphical display.&#x20;
+`R` is an integrated suite of software facilities for data manipulation, calculation, and graphical display. 
 
 It includes:
 

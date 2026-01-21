@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for cross-compiling MariaDB for different architectures,
+  including using Buildroot and CMake toolchain files.
+---
+
 # Cross-compiling MariaDB
 
 ## Buildroot

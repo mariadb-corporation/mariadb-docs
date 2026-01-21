@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand how the optimizer automatically prunes irrelevant partitions and
+  how to explicitly select partitions in your queries for efficiency.
+---
+
 # Partition Pruning and Selection
 
 When a `WHERE` clause is related to the partitioning expression, the optimizer knows which partitions are relevant for the query. Other partitions will not be read. This optimization is called _partition pruning_.

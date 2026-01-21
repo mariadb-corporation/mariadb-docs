@@ -1,3 +1,9 @@
+---
+description: >-
+  Use aggregate functions over windows. Standard aggregates like SUM and AVG can
+  be used with an OVER clause to calculate running totals and moving averages.
+---
+
 # Aggregate Functions as Window Functions
 
 It is possible to use [aggregate functions](../../aggregate-functions/) as window functions. An aggregate function used as a window function must have the `OVER` clause. For example, here's [COUNT()](../../aggregate-functions/count.md) used as a window function:

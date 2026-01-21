@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a string to a date. This function parses a string based on a specified
+  format string and returns a DATE, TIME, or DATETIME value.
+---
+
 # STR\_TO\_DATE
 
 ## Syntax
@@ -100,3 +106,4 @@ SELECT STR_TO_DATE('Wednesday23423, June 2, 2014', '%W%#, %M %e, %Y');
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
+

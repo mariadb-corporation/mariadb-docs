@@ -1,3 +1,9 @@
+---
+description: >-
+  The events_statements_current table displays the current statement event for
+  each thread, including SQL text, timer stats, and error codes.
+---
+
 # Performance Schema events\_statements\_current Table
 
 The `events_statements_current` table contains current statement events, with each row being a record of a thread and its most recent statement event.

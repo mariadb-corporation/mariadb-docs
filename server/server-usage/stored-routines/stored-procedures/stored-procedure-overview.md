@@ -1,3 +1,10 @@
+---
+description: >-
+  Stored procedures are precompiled collections of SQL statements stored on the
+  server, allowing for encapsulated logic, parameterized execution, and improved
+  application performance.
+---
+
 # Stored Procedure Overview
 
 A Stored Procedure is a routine invoked with a [CALL](../../../reference/sql-statements/stored-routine-statements/call.md) statement. It may have input parameters, output parameters and parameters that are both input parameters and output parameters.

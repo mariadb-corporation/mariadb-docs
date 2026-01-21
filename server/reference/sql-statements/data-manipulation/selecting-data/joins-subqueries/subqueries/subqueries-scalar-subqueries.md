@@ -1,3 +1,9 @@
+---
+description: >-
+  Return a single value. A scalar subquery produces a one-row, one-column result
+  that can be used anywhere a constant or expression is valid.
+---
+
 # Scalar Subqueries
 
 A scalar subquery is a [subquery](./) that returns a single value. This is the simplest form of a subquery, and can be used in most places a literal or single column value is valid.

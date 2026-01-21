@@ -1,8 +1,8 @@
 ---
 description: >-
-  This section contains obsolete information regarding MariaDB Server standard
-  replication. While outdated, it may offer historical context or insights for
-  specific compatibility or migration scenarios.
+  Access documentation for deprecated or removed replication features. Review
+  this historical context when upgrading legacy systems or migrating to newer
+  MariaDB versions.
 ---
 
 # Obsolete Replication Information

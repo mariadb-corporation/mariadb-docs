@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema USER_STATISTICS table provides activity statistics for
+  users, such as bytes sent and rows read, aiding in auditing.
+---
+
 # Information Schema USER\_STATISTICS Table
 
 The [Information Schema](../) `USER_STATISTICS` table holds statistics about user activity. This is part of the [User Statistics](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) feature, which is not enabled by default.

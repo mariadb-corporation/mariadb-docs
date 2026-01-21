@@ -1,3 +1,9 @@
+---
+description: >-
+  The Cracklib Password Check Plugin enforces password strength by validating
+  new passwords against the CrackLib library and its dictionary.
+---
+
 # Cracklib Password Check Plugin
 
 `cracklib_password_check` is a [password validation](./) plugin. It uses the [CrackLib](https://github.com/cracklib/cracklib) library to check the strength of new passwords. CrackLib is installed by default in many Linux distributions, since the system's [Pluggable Authentication Module (PAM)](https://en.wikipedia.org/wiki/Pluggable_authentication_module) authentication framework is usually configured to check the strength of new passwords with the [pam\_cracklib](https://linux.die.net/man/8/pam_cracklib) PAM module.
@@ -107,7 +113,7 @@ SHOW WARNINGS;
 +---------+------+----------------------------------------------------------------+
 ```
 
-And the SELinux `audit.log`  contains errors like these:
+And the SELinux `audit.log` contains errors like these:
 
 ```
 type=AVC msg=audit(1548371977.821:66): avc:  denied  { read } for  pid=3537 comm="mysqld" name="pw_dict.pwd" dev="xvda2" ino=564747 scontext=system_u:system_r:mysqld_t:s0 tcontext=system_u:object_r:crack_db_t:s0 tclass=file

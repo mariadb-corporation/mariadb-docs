@@ -1,6 +1,10 @@
+---
+description: >-
+  Define the interface for a stored package. This Oracle-compatible statement
+  declares the public variables and subroutines of a package.
+---
+
 # CREATE PACKAGE
-
-
 
 {% tabs %}
 {% tab title="Current" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how to use CMake options like `PLUGIN_xxx` to control which plugins
+  are built statically, dynamically, or not at all during compilation.
+---
+
 # Specifying Which Plugins to Build
 
 By default all plugins are enabled and built as dynamic `.so` (or `.dll`) modules. If a plugin does not support dynamic builds, it is not built at all.

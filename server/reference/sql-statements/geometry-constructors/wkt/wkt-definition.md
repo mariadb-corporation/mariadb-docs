@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the Well-Known Text (WKT) format. This section describes the
+  standard ASCII representation for exchanging geometric data.
+---
+
 # WKT Definition
 
 ## Description

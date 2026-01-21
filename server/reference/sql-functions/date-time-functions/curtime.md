@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the current time. This function outputs the current time of day as a
+  value in 'HH:MM:SS' or HHMMSS format.
+---
+
 # CURTIME
 
 ## Syntax

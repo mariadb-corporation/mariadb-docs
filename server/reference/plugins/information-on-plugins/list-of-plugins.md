@@ -1,3 +1,10 @@
+---
+description: >-
+  This page lists the maturity level (Alpha, Beta, Gamma, Stable) of various
+  MariaDB plugins, helping users determine which are suitable for production
+  environments.
+---
+
 # Plugin Maturity
 
 The following table lists the various plugins included in MariaDB ordered by their maturity. Note that maturity will differ across MariaDB versions - see below for an easy way to get a complete list of plugins and their maturity in your version of MariaDB:

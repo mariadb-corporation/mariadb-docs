@@ -1,3 +1,10 @@
+---
+description: >-
+  Restart the current loop. This statement jumps back to the beginning of a
+  LOOP, REPEAT, or WHILE block, skipping any remaining statements in the current
+  iteration.
+---
+
 # ITERATE
 
 ## Syntax

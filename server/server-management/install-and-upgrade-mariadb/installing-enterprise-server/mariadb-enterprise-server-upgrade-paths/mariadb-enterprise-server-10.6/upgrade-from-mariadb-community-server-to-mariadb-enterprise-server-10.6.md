@@ -1,3 +1,10 @@
+---
+description: >-
+  Upgrade documentation for MariaDB Enterprise Server 10.6, featuring Atomic DDL
+  support, JSON_TABLE function, improved Oracle compatibility modes, and the
+  removal of older storage engines.
+---
+
 # Upgrade from MariaDB Community Server to MariaDB Enterprise Server 10.6
 
 These instructions detail the **upgrade** from **MariaDB Community Server** to **MariaDB Enterprise Server 10.6** on a range of [supported Operating Systems](https://mariadb.com/engineering-policies/).

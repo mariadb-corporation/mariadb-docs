@@ -1,3 +1,9 @@
+---
+description: >-
+  Add a specific number of months to a date. This Oracle-compatible function
+  simplifies date calculations involving monthly intervals.
+---
+
 # ADD\_MONTHS
 
 {% hint style="info" %}

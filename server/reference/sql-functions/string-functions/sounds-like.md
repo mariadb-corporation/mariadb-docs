@@ -1,3 +1,9 @@
+---
+description: >-
+  Compare strings by sound. This operator tests if two strings have the same
+  Soundex value, useful for fuzzy matching.
+---
+
 # SOUNDS LIKE
 
 ## Syntax

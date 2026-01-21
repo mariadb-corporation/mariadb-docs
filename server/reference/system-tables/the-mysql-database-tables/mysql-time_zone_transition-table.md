@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.time_zone_transition table defines the exact times at which daylight
+  saving time or other time zone transitions occur.
+---
+
 # mysql.time\_zone\_transition Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

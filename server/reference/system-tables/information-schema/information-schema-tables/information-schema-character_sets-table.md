@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema CHARACTER_SETS table contains a list of supported
+  character sets, their default collations, and maximum lengths.
+---
+
 # Information Schema CHARACTER\_SETS Table
 
 The [Information Schema](../) `CHARACTER_SETS` table contains a list of supported [character sets](../../../data-types/string-data-types/character-sets/), their default collations and maximum lengths.

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema INNODB_CHANGED_PAGES table lists pages that have been
+  modified since a specific checkpoint.
+---
+
 # Information Schema INNODB\_CHANGED\_PAGES Table
 
 The [Information Schema](../../) `INNODB_CHANGED_PAGES` Table contains data about modified pages from the bitmap file. It is updated at checkpoints by the log tracking thread parsing the log, so does not contain real-time data.

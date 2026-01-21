@@ -1,6 +1,12 @@
+---
+description: >-
+  Legacy Cassandra storage engine description. Cassandra was removed from
+  MariaDB in MariaDB 10.6.
+---
+
 # Cassandra Status Variables
 
-CassandraSE is no longer actively being developed and has been removed in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106). See [MDEV-23024](https://jira.mariadb.org/browse/MDEV-23024).
+{% include "../../../../.gitbook/includes/the-cassandra-storage-engin....md" %}
 
 This page documents status variables related to the [Cassandra storage engine](./). See [Server Status Variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../../../reference/sql-statements/administrative-sql-statements/show/show-status.md).
 

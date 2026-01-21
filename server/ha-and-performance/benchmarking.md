@@ -2,7 +2,7 @@
 
 ## Published Results
 
-* [Benchmark Results](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/quality/benchmarks-and-long-running-tests/benchmark-results)
+* [Benchmark Results](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/Y8bPFaOuzfEwsco9DIkw)
 
 ## Systemtap
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Cast a string to a binary string. This operator converts a character string to
+  a binary string, often used for case-sensitive comparisons.
+---
+
 # BINARY Operator
 
 This page describes the BINARY operator. For details about the data type, see [Binary Data Type](../../data-types/string-data-types/binary.md).

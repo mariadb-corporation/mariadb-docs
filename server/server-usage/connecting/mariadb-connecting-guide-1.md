@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn the various parameters and options for connecting to a MariaDB server
+  using the command-line client and other tools.
+---
+
 # Connecting to MariaDB Server
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}

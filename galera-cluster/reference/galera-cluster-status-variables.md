@@ -132,7 +132,7 @@ MariaDB Galera Cluster has the following status variables:
 
 #### `wsrep_local_bf_aborts`
 
-* Description: Total number of local transactions aborted by slave transactions while being executed
+* Description: Total number of high-priority local transactions aborts caused by replication applier threads.
 
 #### `wsrep_local_cached_downto`
 
@@ -140,7 +140,7 @@ MariaDB Galera Cluster has the following status variables:
 
 #### `wsrep_local_cert_failures`
 
-* Description: Total number of local transactions that failed the certification test.
+* Description: Total number of local transactions that failed the certification test and consequently issued a voluntary rollback.
 
 #### `wsrep_local_commits`
 

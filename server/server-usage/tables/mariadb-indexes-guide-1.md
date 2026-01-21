@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the different types of indexes in MariaDB, such as Primary Keys and
+  Unique Indexes, and how to use them to optimize query performance.
+---
+
 # Indexes
 
 For a basic overview, see [The Essentials of an Index](mariadb-indexes-guide-1.md).

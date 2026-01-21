@@ -1,3 +1,9 @@
+---
+description: >-
+  Manage time zone settings in MariaDB, including the global server time zone,
+  session time zone, and system time zone configurations.
+---
+
 # Time Zones
 
 MariaDB keeps track of several time zone settings.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand the extensions to the SHOW statement. Learn how to use WHERE and
+  LIKE clauses to perform complex filtering on metadata results.
+---
+
 # Extended SHOW
 
 The following [SHOW](./) statements can be extended using a `WHERE` clause and a `LIKE` clause to refine the results:

@@ -1,3 +1,9 @@
+---
+description: >-
+  List triggers defined on tables. View metadata such as the trigger event,
+  timing, and the table it is associated with.
+---
+
 # SHOW TRIGGERS
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to MariaDB's asynchronous replication and Galera Cluster for
+  SQL Server users, explaining concepts like binary logs, relay logs, and group
+  commit.
+---
+
 # MariaDB Replication Overview for SQL Server Users
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

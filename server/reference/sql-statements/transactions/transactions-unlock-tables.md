@@ -1,3 +1,9 @@
+---
+description: >-
+  Release explicit table locks. This statement releases all locks acquired by
+  the current session with LOCK TABLES.
+---
+
 # UNLOCK TABLES
 
 ## Syntax

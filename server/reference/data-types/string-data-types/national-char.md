@@ -1,3 +1,9 @@
+---
+description: >-
+  NATIONAL CHAR is a synonym for the CHAR data type that uses the predefined
+  utf8 character set.
+---
+
 # NATIONAL CHAR
 
 ## Overview

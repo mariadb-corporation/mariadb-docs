@@ -1,3 +1,10 @@
+---
+description: >-
+  Browse the complete reference of system variables for the Audit Plugin. Use
+  these settings to fine-tune logging behavior, control performance impact, and
+  manage log file handling.
+---
+
 # Audit Plugin Options and System Variables
 
 ## Overview
@@ -57,12 +64,13 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 
 #### `server_audit_file_buffer_size`
 
-* Description: Size (in bytes) of file buffer to make logging faster.
+* Description: Size (in bytes) of file buffer to make logging faster. Values > `0` are adjusted in increments of `8192`. (For instance, a value of `100` would be adjusted to `8192`.)
 * Command line: `--server-audit-file-buffer-size=`_`#`_
 * Scope: Global
 * Dynamic: Yes
 * Data type: `numeric`
-* Size limit: 65536
+* Value range: `0` to `65536`
+* Default value: `0` (no buffering)
 * Introduced: MariaDB 12.1
 * Usage: See [description](mariadb-audit-plugin-options-and-system-variables.md#audit_file_buffer_size-and-server_audit_sync_log_file)
 
@@ -166,7 +174,9 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 
 #### `server_audit_sync_log_file`
 
-* Description: Force sync log file.
+* Description: Flushes the buffer to the log file.\
+  While log records are in the buffer, they don't appear in the log file. To write them out from the buffer, issue this statement:\
+  `SET GLOBAL server_audit_sync_log_file=1`
 * Command line: `--server-audit-sync-log-file`
 * Scope: Global
 * Dynamic: Yes

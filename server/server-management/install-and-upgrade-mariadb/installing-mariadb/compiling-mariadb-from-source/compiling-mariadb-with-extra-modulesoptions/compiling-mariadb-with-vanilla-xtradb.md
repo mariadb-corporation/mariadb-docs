@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide for compiling older versions of MariaDB (specifically 5.3) with the
+  original XtraDB engine from Percona Server, useful for testing purposes.
+---
+
 # Compiling MariaDB with Vanilla XtraDB
 
 Sometimes, one needs to have MariaDB compiled with Vanilla XtraDB. This page describes the process to do this. The process is rather crude, as my goal was just a once-off compile for testing (that is, not packaging or shipping) purposes.

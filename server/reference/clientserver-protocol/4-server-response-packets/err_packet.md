@@ -1,3 +1,9 @@
+---
+description: >-
+  The ERR_Packet is sent by the server to report an error, containing a numeric
+  error code, SQL state marker, and a human-readable error message.
+---
+
 # ERR\_Packet
 
 `ERR_Packet` indicates that an error occurred.
@@ -25,7 +31,7 @@ Note that the `ERR_Packet` is supposed to send a server error to the client. In 
 
 ## See also
 
-["Progress reporting"](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting)
+["Progress reporting"](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

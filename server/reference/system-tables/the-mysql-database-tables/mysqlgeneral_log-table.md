@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.general_log table captures a record of all SQL statements received
+  by the server when general query logging is enabled and written to tables.
+---
+
 # mysql.general\_log Table
 
 The `mysql.general_log` table stores the contents of the [General Query Log](../../../server-management/server-monitoring-logs/general-query-log.md) if general logging is active and the output is being written to table (see [Writing logs into tables](../../../server-management/server-monitoring-logs/writing-logs-into-tables.md)).

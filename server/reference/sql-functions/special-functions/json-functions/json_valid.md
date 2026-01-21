@@ -1,3 +1,9 @@
+---
+description: >-
+  Check if a value is valid JSON. This function returns 1 if the argument is a
+  valid JSON document, and 0 otherwise.
+---
+
 # JSON\_VALID
 
 ## Syntax

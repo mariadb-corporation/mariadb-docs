@@ -1,3 +1,9 @@
+---
+description: >-
+  Identify and resolve common connection problems, including server status
+  checks, authentication errors, and network configuration.
+---
+
 # Fixing Connection Issues
 
 If you are completely new to MariaDB and relational databases, you may want to start with the [MariaDB Primer](../../mariadb-quickstart-guides/mariadb-usage-guide.md). Also, make sure you understand the connection parameters discussed in the [Connecting to MariaDB](../../mariadb-quickstart-guides/mariadb-connecting-guide.md) article.

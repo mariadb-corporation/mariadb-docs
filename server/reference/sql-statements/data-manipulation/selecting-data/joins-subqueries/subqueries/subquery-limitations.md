@@ -1,3 +1,9 @@
+---
+description: >-
+  Review restrictions on subquery usage. This page details unsupported
+  operations, such as modifying a table while selecting from it in a subquery.
+---
+
 # Subquery Limitations
 
 There are a number of limitations regarding [subqueries](./), which are discussed below.

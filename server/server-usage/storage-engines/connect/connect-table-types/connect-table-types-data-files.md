@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT Table Types - Data Files
 
 {% hint style="warning" %}

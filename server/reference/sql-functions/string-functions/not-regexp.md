@@ -1,3 +1,9 @@
+---
+description: >-
+  Negated regular expression matching. This operator tests whether a string does
+  NOT match a specified regular expression pattern.
+---
+
 # NOT REGEXP
 
 ## Syntax

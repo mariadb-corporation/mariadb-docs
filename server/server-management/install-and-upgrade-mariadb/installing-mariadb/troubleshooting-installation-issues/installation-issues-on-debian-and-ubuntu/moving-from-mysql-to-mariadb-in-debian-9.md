@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide on migrating from MySQL 5.5 to MariaDB 10.1 during an operating system
+  upgrade to Debian 9 (Stretch).
+---
+
 # Moving from MySQL to MariaDB in Debian 9
 
 {% hint style="warning" %}

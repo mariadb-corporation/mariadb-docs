@@ -1,8 +1,8 @@
 ---
 description: >-
-  Manage MariaDB MaxScale with MaxGUI. This section introduces the graphical
-  user interface for easy configuration, monitoring, and administration of your
-  MaxScale instances.
+  Manage MariaDB MaxScale visually with MaxGUI. This browser-based dashboard
+  simplifies configuration, monitoring, and administration tasks for your
+  database proxy instances.
 ---
 
 # MaxGUI

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema EVENTS table stores information about scheduled events
+  on the server, including their timing, definition, and status.
+---
+
 # Information Schema EVENTS Table
 
 The [Information Schema](../) `EVENTS` table stores information about [Events](../../../../server-usage/triggers-events/event-scheduler/) on the server.

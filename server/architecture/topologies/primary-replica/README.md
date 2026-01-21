@@ -1,4 +1,10 @@
-# Primary/Replica
+---
+description: >-
+  This page explains how to set up a standard Primary/Replica replication
+  topology for MariaDB Enterprise Server.
+---
+
+# Installing Primary/Replica
 
 ## Overview
 

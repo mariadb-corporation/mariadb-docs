@@ -1,3 +1,9 @@
+---
+description: >-
+  Perform bitwise OR. This operator compares bits and returns 1 if at least one
+  of the corresponding bits is 1.
+---
+
 # |
 
 ## Syntax

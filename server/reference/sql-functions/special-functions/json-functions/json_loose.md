@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover JSON_LOOSE in MariaDB. This function adds spaces to a JSON document
+  to improve its readability, providing a format that is easier for humans to
+  scan than compact JSON.
+---
+
 # JSON\_LOOSE
 
 ## Syntax

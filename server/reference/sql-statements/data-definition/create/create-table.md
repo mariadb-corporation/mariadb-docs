@@ -1,3 +1,9 @@
+---
+description: >-
+  Define a new table structure. This fundamental command specifies columns, data
+  types, indexes, and storage engine options for storing data.
+---
+
 # CREATE TABLE
 
 ## Syntax
@@ -144,7 +150,7 @@ CREATE TABLE test (a INT NOT NULL, b CHAR(10)) ENGINE=MyISAM
     SELECT 5 AS b, c, d FROM another_table;
 ```
 
-Remember that the query just returns data. If you want to use the same indexes, or the same columns attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data returned by the `SELECT` requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to forcee the new table to use certain types.
+Remember that the query just returns data. If you want to use the same indexes, or the same columns attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`, `CHECK` constraints) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data returned by the `SELECT` requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to force the new table to use certain types.
 
 Aliases (`AS`) are taken into account, and they should always be used when you `SELECT` an expression (function, arithmetical operation, etc).
 
@@ -251,7 +257,7 @@ set based on the new value. An `AUTO_INCREMENT` column is implicitly `NOT NULL`.
 
 ### ZEROFILL Column Option
 
-If the `ZEROFILL` column option is specified for a column using a [numeric](../../../data-types/numeric-data-types/numeric-data-type-overview.md) data type, then the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../data-manipulation/selecting-data/joins-subqueries/union.md), [INTERSECT](../../data-manipulation/selecting-data/joins-subqueries/intersect.md), or [EXCEPT](../../data-manipulation/selecting-data/joins-subqueries/except.md). `ZEROFILL` is a non-standard MariaDB and MySQL extension.
+If the `ZEROFILL` column option is specified for a column using a [numeric](../../../data-types/numeric-data-types/numeric-data-type-overview.md) data type, then the column will be set to `UNSIGNED` and the spaces used by default to pad the field are replaced with zeros. `ZEROFILL` is ignored in expressions or as part of a [UNION](../../data-manipulation/selecting-data/set-operations/union.md), [INTERSECT](../../data-manipulation/selecting-data/set-operations/intersect.md), or [EXCEPT](../../data-manipulation/selecting-data/set-operations/except.md). `ZEROFILL` is a non-standard MariaDB and MySQL extension.
 
 ### PRIMARY KEY Column Option
 
@@ -573,7 +579,7 @@ For each individual table you create (or alter), you can set some table options.
 
 The equal sign is optional.
 
-Some options are supported by the server and can be used for all tables, no matter what storage engine they use; other options can be specified for all storage engines, but have a meaning only for some engines. Also, engines can [extend CREATE TABLE with new options](../../../../server-usage/storage-engines/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md).
+Some options are supported by the server and can be used for all tables, no matter what storage engine they use; other options can be specified for all storage engines, but have a meaning only for some engines. Also, engines can [extend CREATE TABLE with new options](../../../product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md).
 
 If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled, wrong table options generate a warning; otherwise, they generate an error.
 
@@ -836,16 +842,16 @@ subpartition_definition:
 
 If the `PARTITION BY` clause is used, the table will be [partitioned](../../../../server-usage/partitioning-tables/). A partition method must be explicitly indicated for partitions and subpartitions. Partition methods are:
 
-* \[LINEAR] [HASH](../../../../../server-management/partitioning-tables/partitioning-types/hash-partitioning-type.md) creates a hash key which will be used to read and write rows. The partition function can be any valid SQL expression which returns an `INTEGER` number. Thus, it is possible to use the [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) method on an integer column, or on functions which accept integer columns as an argument. However, `VALUES LESS THAN` and `VALUES IN` clauses can not be used with [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md). An example:
+* `[LINEAR]` [`HASH`](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) creates a hash key which will be used to read and write rows. The partition function can be any valid SQL expression which returns an `INTEGER` number. Thus, it is possible to use the `HASH` method on an integer column, or on functions which accept integer columns as an argument. However, `VALUES LESS THAN` and `VALUES IN` clauses can not be used with `HASH`. An example:
 
 ```sql
 CREATE TABLE t1 (a INT, b CHAR(5), c DATETIME)
     PARTITION BY HASH ( YEAR(c) );
 ```
 
-\[LINEAR] [HASH](../../../../../server-management/partitioning-tables/partitioning-types/hash-partitioning-type.md) can be used for subpartitions, too.
+`[LINEAR]` [`HASH`](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md) can be used for subpartitions, too.
 
-* \[LINEAR] [KEY](../../../../../server-management/partitioning-tables/partitioning-types/key-partitioning-type.md) is similar to [HASH](../../../../server-usage/partitioning-tables/partitioning-types/hash-partitioning-type.md), but the index has an even distribution of data. Also, the expression can only be a column or a list of columns. `VALUES LESS THAN` and `VALUES IN` clauses can not be used with [KEY](../../../../server-usage/partitioning-tables/partitioning-types/key-partitioning-type.md).
+* `[LINEAR]` [`KEY`](../../../../server-usage/partitioning-tables/partitioning-types/key-partitioning-type.md) is similar to `HASH`, but the index has an even distribution of data. Also, the expression can only be a column or a list of columns. `VALUES LESS THAN` and `VALUES IN` clauses can not be used with `KEY`.
 * [RANGE](../../../../server-usage/partitioning-tables/partitioning-types/range-partitioning-type.md) partitions the rows using on a range of values, using the `VALUES LESS THAN` operator. `VALUES IN` is not allowed with `RANGE`. The partition function can be any valid SQL expression which returns a single value.
 * [LIST](../../../../server-usage/partitioning-tables/partitioning-types/list-partitioning-type.md) assigns partitions based on a table's column with a restricted set of possible values. It is similar to `RANGE`, but `VALUES IN` must be used for at least 1 columns, and `VALUES LESS THAN` is disallowed.
 * `SYSTEM_TIME` partitioning is used for [System-versioned tables](../../../sql-structure/temporal-tables/system-versioned-tables.md) to store historical data separately from current data.
@@ -955,9 +961,9 @@ CREATE TABLE t1(
 * [Character Sets and Collations](../../../data-types/string-data-types/character-sets/supported-character-sets-and-collations.md)
 * [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md)
 * [CREATE TABLE with Vectors](../../../sql-structure/vectors/create-table-with-vectors.md)
-* Storage engines can add their own [attributes for columns, indexes and tables](../../../../server-usage/storage-engines/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md)
+* Storage engines can add their own [attributes for columns, indexes and tables](../../../product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md)
 * Variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md)
-* [InnoDB Limitations](https://mariadb.com/kb/en/InnoDB_Limitations)
+* [InnoDB Limitations](../../../../server-usage/storage-engines/innodb/innodb-limitations.md)
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

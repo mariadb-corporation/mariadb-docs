@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for upgrading from the rolling release 11.3 to the long-term
+  support release 11.4, detailing package updates and system table upgrades.
+---
+
 # Upgrading from MariaDB 11.3 to MariaDB 11.4
 
 This page includes details for upgrading from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113) to [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114). Note that [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113) is a [rolling release](https://mariadb.org/about/#maintenance-policy), and [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114) is a [long-term maintenance release](https://mariadb.org/about/#maintenance-policy). After [MariaDB 11.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-2-release-notes), one can continue to the next rolling release, 11.5.2, 11.6.2 and so on, or remain on the long-term series, [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes). [MariaDB 11.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-4-release-notes) etc.

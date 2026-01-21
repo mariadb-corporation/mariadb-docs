@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema TRIGGERS table contains detailed information about
+  triggers, including the event, timing, and action statement.
+---
+
 # Information Schema TRIGGERS Table
 
 The [Information Schema](../) `TRIGGERS` table contains information about [triggers](../../../../server-usage/triggers-events/triggers/).

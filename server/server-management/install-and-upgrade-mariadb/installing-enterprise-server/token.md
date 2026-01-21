@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to retrieve and use a Customer Download Token to access
+  MariaDB Enterprise Server packages and binaries.
+---
+
 # Customer Download Token
 
 MariaDB Corporation customers can use a Customer Download Token to download MariaDB database products using command-line tools or automation. This page provides instructions on how to retrieve and use the Customer Download Token.
@@ -54,8 +60,7 @@ Download a binary file using the following procedure:
    * MariaDB Enterprise Server
    * MariaDB MaxScale
    * MariaDB Xpand
-2.  In your web browser, navigate to the binary file that you would like to download and copy the URL. For example, to download a binary tarball of MariaDB Enterprise Server 10.6.20-16 for RHEL 8 on x86\_64, the URL is:\
-
+2.  In your web browser, navigate to the binary file that you would like to download and copy the URL. For example, to download a binary tarball of MariaDB Enterprise Server 10.6.20-16 for RHEL 8 on x86\_64, the URL is:\\
 
     ```
     https://dlm.mariadb.com/FILE_ID/mariadb-enterprise-server/10.6.20-16/bintar-rhel-8-x86_64/mariadb-enterprise-10.6.20-16-rhel-8-x86_64.tar.gz
@@ -63,14 +68,12 @@ Download a binary file using the following procedure:
 
     \
     `FILE_ID` is an internal identifier that is different for each file.
-3.  Extract the `FILE` path from the copied URL. For example, to download the file mentioned above, the FILE path is:\
-
+3.  Extract the `FILE` path from the copied URL. For example, to download the file mentioned above, the FILE path is:\\
 
     ```
     FILE_ID/mariadb-enterprise-server/10.6.20-16/bintar-rhel-8-x86_64/mariadb-enterprise-10.6.20-16-rhel-8-x86_64.tar.gz
     ```
-4.  Use your Customer Download Token and the FILE path to construct your customer-specific URL to download the file using command-line tools or automation.For example, to download the file mentioned above, the customer-specific URL is:\
-
+4.  Use your Customer Download Token and the FILE path to construct your customer-specific URL to download the file using command-line tools or automation.For example, to download the file mentioned above, the customer-specific URL is:\\
 
     ```
     https://dlm.mariadb.com/CUSTOMER_DOWNLOAD_TOKEN/FILE_ID/mariadb-enterprise-server/10.6.20-16/bintar-rhel-8-x86_64/mariadb-enterprise-10.6.20-16-rhel-8-x86_64.tar.gz

@@ -1,3 +1,9 @@
+---
+description: >-
+  A guide to selecting the appropriate storage engine based on data needs,
+  comparing features of general-purpose, columnar, and specialized engines.
+---
+
 # Choosing the Right Storage Engine
 
 A high-level overview of the main reasons for choosing a particular storage engine:

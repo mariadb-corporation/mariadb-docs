@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of supported online schema change operations in InnoDB, detailing
+  which DDL statements can be performed without locking the table.
+---
+
 # Schema Changes
 
 ## Overview

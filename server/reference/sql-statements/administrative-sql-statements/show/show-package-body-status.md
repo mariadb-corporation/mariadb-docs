@@ -1,3 +1,9 @@
+---
+description: >-
+  List stored package bodies. View metadata about the implementation part of
+  Oracle-compatible packages.
+---
+
 # SHOW PACKAGE BODY STATUS
 
 ## Syntax

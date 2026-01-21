@@ -1,3 +1,9 @@
+---
+description: >-
+  A comprehensive guide to the InnoDB Buffer Pool, the key memory area for
+  caching data and indexes, including configuration and resizing tips.
+---
+
 # InnoDB Buffer Pool
 
 The InnoDB storage engine in MariaDB Enterprise Server utilizes the Buffer Pool as a crucial in-memory cache. This Buffer Pool stores recently accessed data pages, enabling faster retrieval for subsequent requests. Recognizing patterns of access, InnoDB also employs predictive prefetching, caching nearby pages when sequential access is detected. To manage memory efficiently, a least recently used (LRU) algorithm is used to evict older, less frequently accessed pages.
@@ -36,7 +42,7 @@ MariaDB server deprecates and ignores the [`innodb_buffer_pool_chunk_size`](inno
 
 If `innodb_buffer_pool_size_max` is `0` or not specified, it defaults to the [`innodb_buffer_pool_size`](innodb-system-variables.md#innodb_buffer_pool_size) value.
 
-The new [`innodb_buffer_pool_size_min`](innodb-system-variables.md#innodb_buffer_pool_size_min) variable specifies the minimum size the buffer pool can be shrunk to by a memory pressure event. When a memory pressure event occurs, MariaDB server attempts to shrink `innodb_buffer_pool_size` halfway between its current value and the `innodb_buffer_pool_size_min` value. If `innodb_buffer_pool_size_min` is not specified or `0`, its default value is adjusted to `innodb_buffer_pool_size`. In other words, memory pressure events are disregarded by default.
+The [`innodb_buffer_pool_size_auto_min`](innodb-system-variables.md#innodb_buffer_pool_size_auto_min) variable specifies the minimum size the buffer pool can be shrunk to by a memory pressure event. When a memory pressure event occurs, MariaDB server attempts to shrink `innodb_buffer_pool_size` halfway between its current value and the `innodb_buffer_pool_size_auto_min` value. If `innodb_buffer_pool_size_auto_min` is not specified or `0`, its default value is adjusted to `innodb_buffer_pool_size` — in other words, memory pressure events are disregarded by default.
 
 The minimum `innodb_buffer_pool_size` is 320 pages (256\*5/4). With the default value of `innodb_page_size=16k`, this corresponds to 5 MiB. However, since `innodb_buffer_pool_size` includes the memory allocated for the block descriptors, the minimum is effectively `innodb_buffer_pool_size=6m`.
 

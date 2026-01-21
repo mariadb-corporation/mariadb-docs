@@ -1,3 +1,9 @@
+---
+description: >-
+  Overview of the SHOW statement syntax. Learn how to use patterns and WHERE
+  clauses to filter output from various SHOW statements.
+---
+
 # About SHOW
 
 `SHOW` provides information about various aspects of MariaDB Server. A list of the various `SHOW` statements is [here](./).

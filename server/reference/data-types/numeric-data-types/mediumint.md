@@ -1,3 +1,9 @@
+---
+description: >-
+  Medium-sized integer. A MEDIUMINT column uses 3 bytes and stores values from
+  -8388608 to 8388607 (signed) or 0 to 16777215 (unsigned).
+---
+
 # MEDIUMINT
 
 ## Syntax

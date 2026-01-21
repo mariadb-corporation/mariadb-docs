@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a string to a number. This Oracle-compatible function parses a string
+  using a specified format and returns a numeric value.
+---
+
 # TO\_NUMBER
 
 {% hint style="info" %}

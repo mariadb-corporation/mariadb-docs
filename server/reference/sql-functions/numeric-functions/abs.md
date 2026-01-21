@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate absolute value. This function returns the non-negative value of a
+  number, removing any negative sign.
+---
+
 # ABS
 
 ## Syntax

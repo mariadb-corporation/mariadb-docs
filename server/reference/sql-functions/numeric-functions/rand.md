@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate a random number. This function returns a random floating-point value
+  between 0 and 1.
+---
+
 # RAND
 
 ## Syntax

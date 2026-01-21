@@ -1,3 +1,9 @@
+---
+description: >-
+  Answers to common questions about AUTO_INCREMENT. Learn about gaps in
+  sequences, resetting values, and behavior in different storage engines.
+---
+
 # AUTO\_INCREMENT FAQ
 
 ## How do I get the last inserted auto\_increment value?

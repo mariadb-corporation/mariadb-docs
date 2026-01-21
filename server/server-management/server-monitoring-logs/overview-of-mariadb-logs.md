@@ -1,3 +1,10 @@
+---
+description: >-
+  An introductory guide to the various logs available in MariaDB, including the
+  Error Log, General Query Log, Slow Query Log, and Binary Log, and how to
+  enable or disable them.
+---
+
 # Overview of MariaDB Logs
 
 There are many variables in MariaDB that you can use to define what to log and when to log.

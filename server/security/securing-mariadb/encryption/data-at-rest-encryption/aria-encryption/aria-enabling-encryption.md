@@ -1,3 +1,10 @@
+---
+description: >-
+  Step-by-step guide to enabling encryption for user-created and internal
+  temporary Aria tables, including the requirement to manually rebuild existing
+  tables using `ALTER TABLE`.
+---
+
 # Aria Enabling Encryption
 
 In order to enable data-at-rest encryption for tables using the [Aria](../../../../../server-usage/storage-engines/aria/) storage engine, you first need to configure the server to use an [Encryption Key Management](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) plugin. Once this is done, you can enable encryption by setting the relevant system variables.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn strategies for debugging SQL queries, including formatting for
+  readability, using aliases effectively, and interpreting syntax errors.
+---
+
 # Basic SQL Debugging
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}

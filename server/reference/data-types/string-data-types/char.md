@@ -1,3 +1,9 @@
+---
+description: >-
+  Fixed-length character string type. CHAR columns store strings of a specified
+  length (0 to 255), padding with spaces if necessary.
+---
+
 # CHAR
 
 {% hint style="info" %}

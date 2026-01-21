@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate a random UUID (v4). This function returns a version 4 UUID, which is
+  generated using random numbers.
+---
+
 # UUID\_v4
 
 {% hint style="info" %}

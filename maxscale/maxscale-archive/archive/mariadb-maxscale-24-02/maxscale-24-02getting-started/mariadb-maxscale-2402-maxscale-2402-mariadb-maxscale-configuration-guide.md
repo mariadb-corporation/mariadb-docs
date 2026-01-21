@@ -505,7 +505,7 @@ changes done with `SET GLOBAL` statements are lost if the process is restarted.
 
 #### Booleans
 
-Boolean type parameters interpret the values `true`, `yes`, `on` and `1` a&#x73;_&#x74;rue_ values and `false`, `no`, `off` and `0` as _false_ values. Starting with\
+Boolean type parameters interpret the values `true`, `yes`, `on` and `1` as_true_ values and `false`, `no`, `off` and `0` as _false_ values. Starting with\
 MaxScale 23.02, the REST API also accepts the same boolean values for boolean\
 type parameters.
 
@@ -618,13 +618,13 @@ used in a similar way across these filters, the settings are explained here. The
 documentation of the filters link here and describe any exceptions to this\
 generalized explanation.
 
-These settings typically limit the queries the filter module acts on. _match_ an&#x64;_&#x65;xclude_ define PCRE2 regular expression patterns while _options_ affects how both of the\
+These settings typically limit the queries the filter module acts on. _match_ and_exclude_ define PCRE2 regular expression patterns while _options_ affects how both of the\
 patterns are compiled. _options_ works as explained above, accepting the values`ignorecase`, `case` and `extended`, with `ignorecase` being the default.
 
-The queries are matched as they arrive to the filter on their way to a routing module. I&#x66;_&#x6D;atch_ is defined, the filter only acts on queries matching that pattern. If _match_ is\
+The queries are matched as they arrive to the filter on their way to a routing module. If_&#x6D;atch_ is defined, the filter only acts on queries matching that pattern. If _match_ is\
 not defined, all queries are considered to match.
 
-If _exclude_ is defined, the filter only acts on queries not matching that pattern. I&#x66;_&#x65;xclude_ is not defined, nothing is excluded.
+If _exclude_ is defined, the filter only acts on queries not matching that pattern. If_exclude_ is not defined, nothing is excluded.
 
 If both are defined, the query needs to match _match_ but not match _exclude_.
 
@@ -720,7 +720,7 @@ Note that if MaxScale is running in a container where the CPU resources\
 have been limited, the use of `auto` may cause MaxScale to use more resources\
 than what is available. In such a situation `auto` should not be used, but instead\
 an explicit number that corresponds to the amount of CPU resources available in\
-the container. As a rule of thumb, an appropriate value for `threads` is th&#x65;_&#x76;CPU_ of the container rounded up to the nearest integer. For instance, if\
+the container. As a rule of thumb, an appropriate value for `threads` is the_vCPU_ of the container rounded up to the nearest integer. For instance, if\
 the _vCPU_ of the container is `0.5` then `1` is an appropriate value for`threads`, if the _vCPU_ is `2.3` then `3` is.
 
 The maximum value for `threads` is specified by [threads\_max](mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md#threads_max).
@@ -2999,8 +2999,8 @@ only present on MaxScale, so logging into backends can still fail. The format of
 the file is protocol-specific. The following only applies to MariaDB-protocol,\
 which is also the only protocol supporting this feature.
 
-The file contains json text. Three objects are read from it: _user_, _db_ an&#x64;_&#x72;oles\_mapping_, none of which are mandatory. These objects must be arrays which\
-contain user information similar to the _mysql.user_, _mysql.db_ an&#x64;_&#x6D;ysql.roles\_mapping_ tables on the server. Each array element must define at\
+The file contains json text. Three objects are read from it: _user_, _db_ and_roles\_mapping_, none of which are mandatory. These objects must be arrays which\
+contain user information similar to the _mysql.user_, _mysql.db_ and_&#x6D;ysql.roles\_mapping_ tables on the server. Each array element must define at\
 least the string fields _user_ and _host_, which define the user account to add\
 or modify.
 
@@ -3029,7 +3029,7 @@ field:
 
 When users are read from both servers and the file, the server takes priority.\
 That is, if user `'joe'@'%'` is defined on both, the file-version is discarded.\
-The file can still affect the database grants and roles of `'joe'@'%'`, as th&#x65;_&#x64;b_ and _roles\_mapping_-arrays are read separately and added to existing grant\
+The file can still affect the database grants and roles of `'joe'@'%'`, as the_db_ and _roles\_mapping_-arrays are read separately and added to existing grant\
 and role lists.
 
 An example users file is below.
@@ -3105,14 +3105,14 @@ user_accounts_file_usage=file_only_always
 * Default: `-1s`
 
 Normally, MaxScale only pools backend connections when\
-a session is closed (controlled by server settings _persistpoolmax_ an&#x64;_&#x70;ersistmaxtime_). Other sessions can use the pooled connections\
+a session is closed (controlled by server settings _persistpoolmax_ and_persistmaxtime_). Other sessions can use the pooled connections\
 instead of creating new connections to backends. If connection sharing is enabled,\
 MaxScale can pool backend connections also from running sessions, and\
 re-attach a pooled connection when a session is doing a query. This effectively\
 allows multiple sessions to share backend connections.
 
 _idle\_session\_pool\_time_ defines the amount of time a session must be idle\
-before its backend connections may be pooled. To enable connection sharing, se&#x74;_&#x69;dle\_session\_pool\_time_ to zero or greater. The value can be given in\
+before its backend connections may be pooled. To enable connection sharing, set_idle\_session\_pool\_time_ to zero or greater. The value can be given in\
 seconds or milliseconds.
 
 This feature has a significant drawback: when a backend connection is reused, it\
@@ -3187,7 +3187,7 @@ fragmentation. This may reduce overall throughput, though. When using connection
 sharing, backend connections are only in the pool momentarily. Consequently,_persistmaxtime_ can be set quite low, e.g. 10s.
 
 If a client session exceeds _max\_sescmd\_history_ (default 50), pooling is\
-disabled for that session. If many sessions do this an&#x64;_&#x6D;ax\_routing\_connections_ is set, other sessions will stall as they cannot find\
+disabled for that session. If many sessions do this and_&#x6D;ax\_routing\_connections_ is set, other sessions will stall as they cannot find\
 a backend connection. This can be avoided with _prune\_sescmd\_history_. However,\
 pruning means that old session commands will not be replayed when a pooled\
 connection is reused. If the pruned commands are important\
@@ -3629,7 +3629,7 @@ same service. Mandatory parameters are _type_, _service_ and _protocol_._address
 only. _socket_ is also optional and is used for Unix socket connections.
 
 The network socket where the listener listens may have a backlog of\
-connections. The size of this backlog is controlled by th&#x65;_&#x6E;et.ipv4.tcp\_max\_syn\_backlog_ and _net.core.somaxconn_ kernel parameters.
+connections. The size of this backlog is controlled by the_&#x6E;et.ipv4.tcp\_max\_syn\_backlog_ and _net.core.somaxconn_ kernel parameters.
 
 Increasing the size of the backlog by modifying the kernel parameters helps with\
 sudden connection spikes and rejected connections. For more information see [listen(2)](https://man7.org/linux/man-pages/man2/listen.2.html).
@@ -3720,7 +3720,7 @@ be used simultaneously by giving a comma-separated list e.g.`authenticator=PAMAu
 * Dynamic: No
 * Default: `""`
 
-This defines additional options for authentication. As of MaxScale 2.5.0, onl&#x79;_&#x4D;ariaDBClient_ and its authenticators support additional options. The value of\
+This defines additional options for authentication. As of MaxScale 2.5.0, only_&#x4D;ariaDBClient_ and its authenticators support additional options. The value of\
 this parameter should be a comma-separated list of key-value pairs. See\
 authenticator specific documentation for more details.
 
@@ -3821,7 +3821,7 @@ name is then used when logging into backends. If the file also contains\
 credentials for the mapped user, then those are used. Otherwise, MaxScale tries\
 to log in with an empty password and default MariaDB authentication.
 
-Three arrays are read from the file: _user\_map_, _group\_map_ an&#x64;_&#x73;erver\_credentials_, none of which are mandatory.
+Three arrays are read from the file: _user\_map_, _group\_map_ and_server\_credentials_, none of which are mandatory.
 
 Each array element in the _user\_map_-array must define the following fields:
 
@@ -4132,7 +4132,7 @@ supplied. MaxScale connections to will then be encrypted with TLS/SSL.
 
 Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and\
 24.08.1, if ssl is disabled for a listener, MariaDB user accounts that require\
-ssl cannot log in through that listener. Any user account with a non-empt&#x79;_&#x73;sl\_type_-field in _mysql.user_-table is blocked. This includes users created\
+ssl cannot log in through that listener. Any user account with a non-empty_ssl\_type_-field in _mysql.user_-table is blocked. This includes users created\
 with `REQUIRE SSL` or `REQUIRE X509`.
 
 #### `ssl_key`
@@ -4933,7 +4933,7 @@ $ bin/maxctrl show threads
 ```
 
 that is, the number of threads was 4 but has been reduced to 2, and while\
-thread 2 has become drained it stays as _Dormant_ since thread 3 is stil&#x6C;_&#x44;raining_, it is possible to make thread 2 _Active_ again by increasing the\
+thread 2 has become drained it stays as _Dormant_ since thread 3 is stil&#x6C;_Draining_, it is possible to make thread 2 _Active_ again by increasing the\
 number of threads to 3.
 
 ```

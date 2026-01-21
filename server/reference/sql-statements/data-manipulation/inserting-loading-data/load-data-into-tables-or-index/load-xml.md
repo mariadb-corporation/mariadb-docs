@@ -1,3 +1,9 @@
+---
+description: >-
+  Read data from an XML file into a table. This command parses XML content,
+  mapping elements and attributes to table columns for direct data import.
+---
+
 # LOAD XML
 
 ## Syntax

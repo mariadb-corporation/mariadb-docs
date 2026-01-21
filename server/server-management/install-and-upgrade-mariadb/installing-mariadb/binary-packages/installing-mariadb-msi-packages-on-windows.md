@@ -1,3 +1,9 @@
+---
+description: >-
+  Step-by-step instructions for installing MariaDB on Windows using the MSI
+  installer, covering service configuration and security settings.
+---
+
 # Installing MariaDB MSI Packages on Windows
 
 MSI packages is available for x64 (64 bit) processor architectures and, in some older releases only, for x86 (32 bit). We use screenshots from an x64 installation in the following.

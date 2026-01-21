@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate sample standard deviation. This function computes the standard
+  deviation assuming the set of values represents a sample of the population.
+---
+
 # STDDEV\_SAMP
 
 ## Syntax

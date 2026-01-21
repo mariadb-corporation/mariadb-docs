@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore JSON_EXISTS in MariaDB. This function checks whether a specified JSON
+  document contains an element at a given path, returning 1 for existence and 0
+  otherwise.
+---
+
 # JSON\_EXISTS
 
 ## Syntax

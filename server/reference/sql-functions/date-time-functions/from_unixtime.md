@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a Unix timestamp to a datetime. This function formats a Unix timestamp
+  as a date string or number in the current time zone.
+---
+
 # FROM\_UNIXTIME
 
 ## Syntax

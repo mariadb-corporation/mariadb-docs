@@ -1,3 +1,7 @@
+---
+description: Features available in Microsoft SQL Server that aren't available in MariaDB.
+---
+
 # SQL Server Features Not Available in MariaDB
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

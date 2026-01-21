@@ -1,3 +1,9 @@
+---
+description: >-
+  The session_status table displays status variable values for the current
+  session, providing data equivalent to the SHOW SESSION STATUS statement.
+---
+
 # Performance Schema session\_status Table
 
 {% hint style="info" %}

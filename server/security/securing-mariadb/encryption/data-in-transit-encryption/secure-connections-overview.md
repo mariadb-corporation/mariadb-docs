@@ -1,3 +1,10 @@
+---
+description: >-
+  Conceptual overview of data-in-transit encryption in MariaDB, discussing
+  supported TLS libraries (OpenSSL, wolfSSL), protocol versions (`tls_version`),
+  and certificate verification.
+---
+
 # Secure Connections Overview
 
 Prior to [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), by default, MariaDB transmits data between the server and clients without encrypting it. This is generally acceptable when the server and client run on the same host or in networks where security is guaranteed through other means. However, in cases where the server and client exist on separate networks or they are in a high-risk network, the lack of encryption does introduce security concerns as a malicious actor could potentially eavesdrop on the traffic as it is sent over the network between them.

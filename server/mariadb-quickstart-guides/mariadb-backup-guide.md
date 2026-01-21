@@ -1,5 +1,7 @@
 ---
-description: Data Backup with mariadb-dump Guide
+description: >-
+  Learn how to use the mariadb-dump utility to create logical backups of your
+  databases, with options for specific tables and data consistency.
 ---
 
 # Making Backups with mariadb-dump Guide
@@ -80,8 +82,6 @@ mariadb-dump --user=admin_backup --password --lock-tables --extended-insert your
 * **Test Your Backups:** Regularly test your backup files by restoring them to a non-production environment to ensure they are valid and can be used for recovery.
 * **Restoration:** To learn how to restore data from these dump files, see the "[Data Restoration Guide](mariadb-restore-guide.md)".
 * **Security:** Store backup files in a secure location. If passwords are included in scripts, ensure the script files have restricted permissions.
-
-
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

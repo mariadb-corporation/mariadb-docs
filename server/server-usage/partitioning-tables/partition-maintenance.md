@@ -1,3 +1,9 @@
+---
+description: >-
+  Discover administrative tasks for managing partitions, such as adding,
+  dropping, reorganizing, and coalescing them to keep your data optimized.
+---
+
 # Partition Maintenance
 
 ## Overview

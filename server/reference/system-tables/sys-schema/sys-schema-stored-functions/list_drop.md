@@ -1,3 +1,9 @@
+---
+description: >-
+  The list_drop function removes a specified value from a comma-separated list,
+  returning the modified list.
+---
+
 # list\_drop
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Monitor replication & binary log status with status variables. This section
-  details key metrics for observing replication health & binary log activity,
-  aiding in troubleshooting & performance tuning.
+  View the status variables used to monitor replication health. Learn how to
+  interpret metrics regarding log positions, connection status, and event
+  counts.
 ---
 
 # Replication and Binary Log Status Variables

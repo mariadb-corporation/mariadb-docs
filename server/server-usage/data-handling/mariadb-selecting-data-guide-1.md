@@ -1,3 +1,9 @@
+---
+description: >-
+  This guide explains how to retrieve data from MariaDB using the SELECT
+  statement, progressing from basic syntax to more involved queries.
+---
+
 # Getting Data from MariaDB
 
 The simplest way to retrieve data from MariaDB is to use the [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement. Since the [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement is an essential SQL statement, it has many options available with it. It's not necessary to know or use them all—you could execute very basic [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statements if that satisfies your needs. However, as you use MariaDB more, you may need more powerful [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statements. In this article we will go through the basics of [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) and will progress to more involved [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statements;we will move from the beginner level to the more intermediate and hopefully you will find some benefit from this article regardless of your skill level. For absolute beginners who are just starting with MariaDB, you may want to read the [MariaDB Basics article](../../mariadb-quickstart-guides/basics-guide.md).
@@ -180,7 +186,7 @@ Notice that the [ORDER BY](../../reference/sql-statements/data-manipulation/sele
 
 #### Friendlier and More Complicated
 
-So far we've been working with one table of data containing information on books for a fictitious bookstore. A database will usually have more than one table, of course. In this particular database, there's also one called authors in which the name and other information on authors is contained. To be able to select data from two tables in one [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement, we will have to tell MariaDB that we want to join the tables and will need to provide a join point. This can be done with a [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause as shown in the following SQL statement, with the results following it:
+So far we've been working with one table of data containing information on books for a fictitious bookstore. A database will usually have more than one table, of course. In this particular database, there's also one called authors in which the name and other information on authors is contained. To be able to select data from two tables in one [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement, we will have to tell MariaDB that we want to join the tables and will need to provide a join point. This can be done with a [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause as shown in the following SQL statement, with the results following it:
 
 ```sql
 SELECT isbn, title, 
@@ -205,7 +211,7 @@ LIMIT 5;
 5 rows in set (0.00 sec)
 ```
 
-Our [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement is getting hefty, but it's the same one to which we've been adding. Don't let the clutter fluster you. Looking for the new elements, let's focus on the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause first. There are a few possible ways to construct a join. This method works if both tables contain a column of the same name and value. Otherwise you'll have to redo the `JOIN` clause to look something like this:
+Our [SELECT](../../reference/sql-statements/data-manipulation/selecting-data/select.md) statement is getting hefty, but it's the same one to which we've been adding. Don't let the clutter fluster you. Looking for the new elements, let's focus on the [JOIN](../../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause first. There are a few possible ways to construct a join. This method works if both tables contain a column of the same name and value. Otherwise you'll have to redo the `JOIN` clause to look something like this:
 
 ```sql
 ...
@@ -294,7 +300,7 @@ ORDER BY title;
 +------------------------+
 ```
 
-You may have noticed in the one example earlier in which the results are shown, that there's a status line displayed that specifies the number of rows in the results set. This is less than the number of rows that were found in the database that met the statement's criteria. It's less because we used a [LIMIT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause. If we add the [SQL\_CALC\_FOUND\_ROWS](../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md#sql_calc_found_rows) flag just before the column list, MariaDB will calculate the number of columns found even if there is a `LIMIT` clause.
+You may have noticed in the one example earlier in which the results are shown, that there's a status line displayed that specifies the number of rows in the results set. This is less than the number of rows that were found in the database that met the statement's criteria. It's less because we used a [LIMIT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause. If we add the [SQL\_CALC\_FOUND\_ROWS](../../ha-and-performance/optimization-and-tuning/optimizer-hints/#sql_calc_found_rows) flag just before the column list, MariaDB will calculate the number of columns found even if there is a `LIMIT` clause.
 
 ```sql
 SELECT SQL_CALC_FOUND_ROWS isbn, title

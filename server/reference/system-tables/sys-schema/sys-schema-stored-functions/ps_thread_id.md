@@ -1,3 +1,9 @@
+---
+description: >-
+  The ps_thread_id function returns the internal Performance Schema thread ID
+  associated with a given connection ID.
+---
+
 # ps\_thread\_id
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

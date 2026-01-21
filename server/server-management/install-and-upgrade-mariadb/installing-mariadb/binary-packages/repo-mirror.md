@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to create and maintain local mirrors of MariaDB package repositories
+  for secure or air-gapped deployments.
+---
+
 # Deploy with Local Package Repository Mirrors
 
 MariaDB Corporation provides package repositories, including the MariaDB Enterprise Repository and the MariaDB Community Repository, that can be used to install MariaDB products using the operating system's package manager. Local mirrors of the package repositories can be used for local deployments.

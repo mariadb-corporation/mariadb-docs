@@ -1,3 +1,9 @@
+---
+description: >-
+  The threads table lists all instrumented threads, mapping internal thread IDs
+  to process IDs and providing execution status for every thread.
+---
+
 # Performance Schema threads Table
 
 Each server thread is represented as a row in the `threads` table.

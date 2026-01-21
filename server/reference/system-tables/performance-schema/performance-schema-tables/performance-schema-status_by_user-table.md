@@ -1,3 +1,9 @@
+---
+description: >-
+  The status_by_user table aggregates session status variables by user name,
+  summarizing activity across all connections for a specific user identity.
+---
+
 # Performance Schema status\_by\_user Table
 
 {% hint style="info" %}

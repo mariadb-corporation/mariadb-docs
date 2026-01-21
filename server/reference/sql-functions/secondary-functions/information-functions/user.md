@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the current MariaDB user. This function returns the user name and host
+  name provided by the client upon connection.
+---
+
 # USER
 
 ## Syntax

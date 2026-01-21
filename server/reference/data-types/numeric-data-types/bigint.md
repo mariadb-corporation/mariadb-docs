@@ -1,3 +1,10 @@
+---
+description: >-
+  Large integer type. A BIGINT uses 8 bytes and can store values from
+  -9223372036854775808 to 9223372036854775807 (signed) or 0 to
+  18446744073709551615 (unsigned).
+---
+
 # BIGINT
 
 ## Syntax

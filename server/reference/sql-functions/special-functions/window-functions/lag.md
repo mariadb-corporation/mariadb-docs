@@ -1,3 +1,9 @@
+---
+description: >-
+  Access data from a preceding row. This function returns the value of an
+  expression from a row at a specified physical offset prior to the current row.
+---
+
 # LAG
 
 ## Syntax

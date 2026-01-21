@@ -1,3 +1,10 @@
+---
+description: >-
+  Generate a Geohash string from a point or coordinates. This function encodes
+  spatial locations into short, alphanumeric strings for efficient indexing and
+  proximity searches.
+---
+
 # ST\_GeoHash
 
 {% hint style="info" %}

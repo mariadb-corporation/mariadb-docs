@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about the Mroonga storage engine, which provides fast CJK-ready
+  full-text searching using column-based storage and supports Groonga's
+  features.
+---
+
 # Mroonga Overview
 
 Once Mroonga has been installed (see [About Mroonga](about-mroonga.md)), its basic usage is similar to that of a [regular fulltext index](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/).

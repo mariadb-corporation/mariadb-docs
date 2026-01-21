@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the count of Points in a LineString. This function calculates the
+  total number of vertices defining the line.
+---
+
 # ST\_NUMPOINTS
 
 ## Syntax

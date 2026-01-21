@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the leftmost characters. This function returns the specified number of
+  characters from the beginning (left) of a string.
+---
+
 # LEFT
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Returns the combinatorial boundary of a geometry. For a Polygon, this is the
+  line string defining the boundary.
+---
+
 # ST\_BOUNDARY
 
 ## Syntax
@@ -31,6 +37,6 @@ SELECT ST_AsText(ST_Boundary(ST_GeomFromText('POLYGON((3 3,0 0, -3 3, 3 3))')));
 +--------------------------------------------------------------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

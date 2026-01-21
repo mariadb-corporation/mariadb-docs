@@ -1,3 +1,9 @@
+---
+description: >-
+  Checks if two geometries touch. Returns 1 if they intersect only at their
+  boundaries and not their interiors.
+---
+
 # ST\_TOUCHES
 
 ## Syntax

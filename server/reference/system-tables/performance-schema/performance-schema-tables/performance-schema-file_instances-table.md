@@ -1,3 +1,9 @@
+---
+description: >-
+  The file_instances table lists all file objects currently open by the server,
+  including filenames and the number of open handles.
+---
+
 # Performance Schema file\_instances Table
 
 ## Description

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema COLLATIONS table contains a list of supported
+  collations, indicating their associated character sets and compilation status.
+---
+
 # Information Schema COLLATIONS Table
 
 The [Information Schema](../) `COLLATIONS` table contains a list of supported [collations](../../../data-types/string-data-types/character-sets/).
@@ -90,7 +96,7 @@ SELECT 'a ' = 'a';
 
 ## PAD SPACE Collations
 
-&#x20;`PAD SPACE` collations pad strings to equal lengths in comparisons, so that the comparison evaluates to `1` (`TRUE`). Example:
+`PAD SPACE` collations pad strings to equal lengths in comparisons, so that the comparison evaluates to `1` (`TRUE`). Example:
 
 ```sql
 SELECT 'a ' = 'a'; 

@@ -1,4 +1,10 @@
-# Sequence
+---
+description: >-
+  The Sequence engine generates virtual tables of number sequences on the fly,
+  useful for generating series of integers without storing data.
+---
+
+# SEQUENCE Storage Engine
 
 This article is about the Sequence storage engine. For details about sequence objects, see [Sequences](../../reference/sql-structure/sequences/).
 

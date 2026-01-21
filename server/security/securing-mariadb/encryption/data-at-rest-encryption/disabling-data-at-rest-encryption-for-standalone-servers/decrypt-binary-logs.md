@@ -1,3 +1,9 @@
+---
+description: >-
+  Techniques to read encrypted binary logs using `mysqlbinlog` with key access,
+  as they cannot be decrypted in-place.
+---
+
 # Decrypt Binary Logs
 
 This page covers how to confirm that binlogs are encrypted, recommended approaches for getting decrypted output.

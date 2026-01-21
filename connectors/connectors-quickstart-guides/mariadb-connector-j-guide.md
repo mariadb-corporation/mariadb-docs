@@ -8,7 +8,7 @@ description: Quickstart Guide for Connector/J
 
 MariaDB Connector/J is the official Java Database Connectivity (JDBC) driver for connecting Java applications to MariaDB and MySQL databases. It allows Java programs to interact with databases using the standard JDBC API.
 
-See [About MariaDB Connector/J](about-mariadb-connector-j.md) for full content.
+See [About MariaDB Connector/J](https://mariadb.com/docs/connectors/mariadb-connector-j/about-mariadb-connector-j) for full content.
 
 #### 1. Installation
 

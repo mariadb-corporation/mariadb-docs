@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn the fundamentals of table partitioning in MariaDB, including its
+  benefits for performance, maintenance, and managing large datasets.
+---
+
 # Partitioning Overview
 
 In MariaDB, a table can be split in smaller subsets. Both data and indexes are partitioned.
@@ -665,7 +671,7 @@ ALTER TABLE t1 REORGANIZE PARTITION p3 INTO (
 TRUNCATE PARTITION partition_names
 ```
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... TRUNCATE PARTITION`&#x20;
+`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... TRUNCATE PARTITION`
 
 [ALTER TABLE TRUNCATE PARTITION](../../reference/sql-statements/data-definition/alter/alter-table/#truncate-partition) removes all data from the specified partition/s, leaving the table and partition structure unchanged. Partitions don't need to be contiguous:
 

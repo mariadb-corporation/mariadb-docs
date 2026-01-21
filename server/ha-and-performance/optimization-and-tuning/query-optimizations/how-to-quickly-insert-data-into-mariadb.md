@@ -75,7 +75,7 @@ This is not as fast as reading the file on the server side, but the difference i
 
 Because of the above speed advantages there are many cases, when you need to insert **many** rows at a time, where it may be faster to create a file locally, add the rows there, and then use `LOAD DATA INFILE` to load them; compared to using `INSERT` to insert the rows.
 
-You will also get [progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for`LOAD DATA INFILE`.
+You will also get [progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for`LOAD DATA INFILE`.
 
 ### mariadb-import
 

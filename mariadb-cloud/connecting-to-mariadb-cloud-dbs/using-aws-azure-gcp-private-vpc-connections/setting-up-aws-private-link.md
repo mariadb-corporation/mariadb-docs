@@ -209,7 +209,7 @@ Disabling PrivateLink on an existing service will cause all existing connections
 * In the context menu, select "Manage PrivateLink".
 * In the popup window, click "I want to disconnect my Private Link".
 * In the popup window, select "Disconnect".
-* Since the service's allowlist was cleared when AWS PrivateLink was previously enabled, you will need to [update the allowlist](<../../Security/Configuring Firewall.md>) to allow clients to connect after disabling PrivateLink.
+* Since the service's allowlist was cleared when AWS PrivateLink was previously enabled, you will need to [update the allowlist](../../security/configuring-firewall.md) to allow clients to connect after disabling PrivateLink.
 
 ## Disable AWS PrivateLink via the MariaDB Cloud DBaaS API
 

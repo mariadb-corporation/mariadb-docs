@@ -1,3 +1,10 @@
+---
+description: >-
+  Return one of two values based on a condition. This function evaluates a
+  boolean expression and returns the first value if true, or the second if
+  false.
+---
+
 # IF Function
 
 ## Syntax

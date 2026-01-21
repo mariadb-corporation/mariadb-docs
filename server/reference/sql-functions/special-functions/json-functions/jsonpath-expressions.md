@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand JSONPath syntax. This guide explains how to use JSONPath to select
+  and extract specific elements, objects, or arrays from JSON documents.
+---
+
 # JSONPath Expressions
 
 A number of [JSON functions](./) accept JSON Path expressions. MariaDB defines this path as follows:

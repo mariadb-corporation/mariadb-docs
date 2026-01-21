@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduction to core Ansible concepts such as inventories, playbooks, and
+  roles, with specific examples of how to structure them for MariaDB deployments
+  like Galera Clusters and replicas.
+---
+
 # Ansible Overview for MariaDB Users
 
 Ansible is a tool to automate servers configuration management. It is produced by Red Hat and it is open source software released under the terms of the GNU GPL.

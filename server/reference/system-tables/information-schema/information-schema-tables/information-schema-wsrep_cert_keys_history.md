@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_CERT_KEYS_HISTORY table logs a history of
+  certification keys for recently processed Galera transactions.
+---
+
 # Information Schema WSREP\_CERT\_KEYS\_HISTORY
 
 {% hint style="info" %}

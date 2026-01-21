@@ -23,8 +23,8 @@ MariaDB Connector/J releases older than 1.2.0 may be compatible with server vers
 To determine which MariaDB Connector/J release series would be best to use for each Java version, please see the following table:
 
 | Java Version(s)                            | Recommended MariaDB Connector/J Release Series                                | JDBC Version |
-| ------------------------------------------ | ----------------------------------------------------------------------------- | ------------ |
-| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[[1](about-mariadb-connector-j.md#_note-0)] | JDBC 4.2     |
+| ------------------------------------------ | ----------------------------------------------------------------------------- |--------------|
+| Java 25, Java 21, Java 17, Java 11, Java 8 | MariaDB Connector/J 3.5, 3.4, 3.3\[[1](about-mariadb-connector-j.md#_note-0)] | JDBC 4.5     |
 | Java 17, Java 11, Java 8                   | MariaDB Connector/J 2.7                                                       | JDBC 4.2     |
 
 1. [↑](about-mariadb-connector-j.md#_ref-0) see parsec authentication restriction
@@ -456,7 +456,7 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 
 #### **connectionAttributes**
 
-* Description: When performance\_schema is active, permit to send server some client information in a key;value pair format (example: connectionAttributes=key1:value1,key2,value2).Those informations can be retrieved on server within tables performance\_schema.session\_connect\_attrs and performance\_schema.session\_account\_connect\_attrs.This can permit from server an identification of client/application
+* Description: When performance\_schema is active, permit sending the server some client information in a key;value pair format (example: connectionAttributes=key1:value1,key2,value2).The information can be retrieved on the server in the tables performance\_schema.session\_connect\_attrs and performance\_schema.session\_account\_connect\_attrs. This can enable the server to identify the client/application
 * Data Type: `string`
 * Default Value: `null`
 * Introduced: 1.4.0
@@ -937,7 +937,7 @@ using `Statement.setFetchSize(1000)` indicates that 1000 rows will be stored in 
 So, when the query has executed, 1000 rows will be in memory. After 1000 `ResultSet.next()`, the next 1000 rows will be stored in memory, and so on.
 
 {% hint style="danger" %}
-If another query is run on same connection while the resultset has not been completly read, the connector will fetch all remaining rows before executing the query. This can lead to still needing lots of memory. Recommendation is then to use another connection for simultaneous operations.
+If another query is run on same connection while the resultset has not been completely read, the connector will fetch all remaining rows before executing the query. This can lead to still needing lots of memory. Recommendation is then to use another connection for simultaneous operations.
 {% endhint %}
 
 Note that the server usually expects clients to read off the result set relatively quickly. The [net\_write\_timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#net_write_timeout) server variable controls this behavior (defaults to 60s).\
@@ -1026,7 +1026,7 @@ The driver has 3 default plugins :
 
 This permits AWS database IAM authentication. The plugin generate a token using IAM credential and region. Token is valid for 15 minutes and cached for 10 minutes.
 
-To use this credential authentication, com.amazonaws:aws-java-sdk-rds dependency must be registred in classpath. Implementation use SDK `DefaultAWSCredentialsProviderChain` and `DefaultAwsRegionProviderChain` to get IAM credential and region.\
+To use this credential authentication, com.amazonaws:aws-java-sdk-rds dependency must be registered in classpath. Implementation use SDK `DefaultAWSCredentialsProviderChain` and `DefaultAwsRegionProviderChain` to get IAM credential and region.\
 see [DefaultAWSCredentialsProviderChain](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html) and [DefaultAwsRegionProviderChain](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html) to check how those information can be retrieved (environment variable / system properties, files, ...)
 
 Example: `jdbc:mariadb://host/db?credentialType=AWS-IAM&useSsl&serverSslCert=/somepath/rds-combined-ca-bundle.pem`
@@ -1114,7 +1114,7 @@ Example of configuring "trace" level on driver for logback: file logback.xml in 
 </configuration>
 ```
 
-Exemple of generated logs :
+Example of generated logs :
 
 ```
 11:47:04.613 [main] TRACE o.m.j.c.socket.impl.PacketWriter - send: conn=17532 (M)

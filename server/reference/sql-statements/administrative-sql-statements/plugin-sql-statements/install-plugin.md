@@ -1,3 +1,9 @@
+---
+description: >-
+  Install a specific plugin from a shared library. This statement adds the
+  plugin to the mysql.plugin table and loads its code into the server memory.
+---
+
 # INSTALL PLUGIN
 
 ## Syntax

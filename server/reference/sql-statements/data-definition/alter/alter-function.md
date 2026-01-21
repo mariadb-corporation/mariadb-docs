@@ -1,3 +1,9 @@
+---
+description: >-
+  Change stored function characteristics. This statement allows modifying the
+  security context or comments of a stored function without dropping it.
+---
+
 # ALTER FUNCTION
 
 ## Syntax

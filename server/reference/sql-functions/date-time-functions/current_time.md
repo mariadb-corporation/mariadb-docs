@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for CURTIME(). Returns the current time as a value in 'HH:MM:SS' or
+  HHMMSS format.
+---
+
 # CURRENT\_TIME
 
 ## Syntax

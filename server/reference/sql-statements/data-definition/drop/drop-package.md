@@ -1,3 +1,9 @@
+---
+description: >-
+  Remove a stored package completely. This command deletes both the package
+  specification (interface) and its body (implementation) from the database.
+---
+
 # DROP PACKAGE
 
 ## Syntax

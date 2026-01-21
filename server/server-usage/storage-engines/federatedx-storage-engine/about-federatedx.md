@@ -1,3 +1,10 @@
+---
+description: >-
+  An introduction to the FederatedX storage engine, a fork of MySQL's Federated
+  engine, allowing access to remote tables as if they were local. This storage
+  engine has been deprecated.
+---
+
 # About FederatedX
 
 {% hint style="warning" %}
@@ -23,7 +30,7 @@ When MySQL 5.1 became the production release of MySQL, Federated had more featur
 * Various bugs that needed to be fixed from MySQL 5.0
 * Plugin capability
 
-In [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes) FederatedX got support for assisted [table discovery](../storage-engines-storage-engine-development/table-discovery.md).
+In [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes) FederatedX got support for assisted [table discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md).
 
 ## Installing the Plugin
 

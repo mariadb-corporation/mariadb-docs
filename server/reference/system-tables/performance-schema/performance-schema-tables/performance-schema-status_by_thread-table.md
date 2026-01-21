@@ -1,3 +1,9 @@
+---
+description: >-
+  The status_by_thread table lists session status variables for each active
+  thread, effectively providing a "SHOW SESSION STATUS" for every connection.
+---
+
 # Performance Schema status\_by\_thread Table
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  A comprehensive list of system variables for configuring Aria, including
+  buffer sizes, log settings, and recovery options.
+---
+
 # Aria System Variables
 
 This page documents system variables related to the [Aria storage engine](./). For options that are not system variables, see [Aria Options](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md).

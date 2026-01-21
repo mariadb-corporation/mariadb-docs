@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.procs_priv table records privileges granted to users specifically
+  for executing or altering stored procedures and functions.
+---
+
 # mysql.procs\_priv Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

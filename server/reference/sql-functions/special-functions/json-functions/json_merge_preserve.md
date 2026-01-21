@@ -1,3 +1,10 @@
+---
+description: >-
+  Explore JSON_MERGE_PRESERVE in MariaDB. This function merges JSON documents
+  while keeping all members, including those with duplicate keys, effectively
+  acting as a synonym for the legacy JSON_MERGE.
+---
+
 # JSON\_MERGE\_PRESERVE
 
 ## Syntax

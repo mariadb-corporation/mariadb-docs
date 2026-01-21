@@ -1,5 +1,5 @@
 ---
-description: Information about the MariaDB Enterprise Server Release Series
+description: Information about MariaDB Enterprise Server releases
 ---
 
 # About

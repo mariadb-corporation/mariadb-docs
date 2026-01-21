@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert a value to a specific type or character set. This function converts
+  data between types or character sets using the USING keyword.
+---
+
 # CONVERT
 
 ## Syntax

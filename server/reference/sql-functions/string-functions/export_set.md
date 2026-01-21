@@ -1,3 +1,9 @@
+---
+description: >-
+  Return a string representation of bits. This function generates a string based
+  on the bits set in a number, using specified 'on' and 'off' strings.
+---
+
 # EXPORT\_SET
 
 ## Syntax

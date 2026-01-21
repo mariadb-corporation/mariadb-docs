@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on building and configuring MariaDB to use alternative memory
+  allocators like TCMalloc or jemalloc for improved performance and profiling.
+---
+
 # Using MariaDB with TCMalloc or jemalloc
 
 Read the [Profiling Memory Usage](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/profiling-memory-usage) page for more information on how to debug high memory consumption.
@@ -151,7 +157,7 @@ jeprof --show_bytes --pdf path-to-mariadbd  jeprof.19678.0.f.heap > /tmp/mariadb
 ### See Also
 
 * [Profiling memory usage](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/profiling-memory-usage)
-* [Debugging a running server on Linux](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/debugging-a-running-server-on-linux)
+* [Debugging a running server on Linux](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KggZ6kWNn0qD0bBBw1kX)
 * [Jemalloc leak checking](https://github.com/jemalloc/jemalloc/wiki/Use-Case:-Leak-Checking)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

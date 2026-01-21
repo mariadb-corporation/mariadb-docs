@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn to connect, create databases, and execute fundamental SQL commands like
+  INSERT, SELECT, and UPDATE.
+---
+
 # Basics Guide
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/G9gr3KMrlccJhmFh3SNT/" %}
@@ -146,7 +152,7 @@ To limit the number of rows returned (e.g., to 5) using `LIMIT` (see [LIMIT docu
 SELECT title FROM books LIMIT 5;
 ```
 
-To retrieve data from multiple tables, use a `JOIN` (see [JOIN documentation](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md)). This example lists book titles and author last names by joining `books` and `authors` on their common `author_id` column:
+To retrieve data from multiple tables, use a `JOIN` (see [JOIN documentation](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md)). This example lists book titles and author last names by joining `books` and `authors` on their common `author_id` column:
 
 ```sql
 SELECT title, name_last

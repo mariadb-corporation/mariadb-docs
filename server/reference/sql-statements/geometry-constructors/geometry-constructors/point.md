@@ -1,3 +1,9 @@
+---
+description: >-
+  Constructs a Point value using its coordinates. This basic constructor creates
+  a point geometry from given X and Y (and optionally Z/M) values.
+---
+
 # POINT
 
 ## Syntax

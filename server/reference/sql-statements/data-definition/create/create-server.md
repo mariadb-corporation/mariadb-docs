@@ -1,3 +1,9 @@
+---
+description: >-
+  Define a connection to a remote server. This command registers server details
+  for use with the FEDERATED or SPIDER storage engines.
+---
+
 # CREATE SERVER
 
 ## Syntax
@@ -55,7 +61,7 @@ The CREATE SERVER statement creates an entry in the [mysql.servers](../../../sys
 
 [DROP SERVER](../drop/drop-server.md) removes a previously created server definition.
 
-`CREATE SERVER` is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used and therefore will not replicate.&#x20;
+`CREATE SERVER` is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used and therefore will not replicate.
 
 {% tabs %}
 {% tab title="Current" %}

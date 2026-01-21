@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand Minimum Bounding Rectangles. An MBR is the smallest rectangle that
+  completely encloses a geometry, defined by its minimum and maximum X and Y
+  coordinates.
+---
+
 # MBR Definition
 
 ## Description

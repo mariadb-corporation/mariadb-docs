@@ -276,14 +276,14 @@ simultaneously.
 * Values: `none`, `connecting_slave`, `connected_slave`, `running_slave`, `primary_monitor_master`
 * Default: `primary_monitor_master`
 
-Designate additional conditions fo&#x72;_&#x4D;aster_-status, i.e qualified for read and write queries.
+Designate additional conditions for_&#x4D;aster_-status, i.e qualified for read and write queries.
 
 Normally, if a suitable master candidate server is found as described in [Master selection](mariadb-maxscale-2106-maxscale-2106-mariadb-monitor.md#master-selection), MaxScale designates it _Master_._master\_conditions_ sets additional conditions for a master server. This\
 setting is an enum\_mask, allowing multiple conditions to be set simultaneously.\
 Conditions 2, 3 and 4 refer to slave servers. If combined, a single slave must\
 fulfill all of the given conditions for the master to be viable.
 
-If the master candidate fails _master\_conditions_ but fulfill&#x73;_&#x73;lave\_conditions_, it may be designated _Slave_ instead.
+If the master candidate fails _master\_conditions_ but fulfills_slave\_conditions_, it may be designated _Slave_ instead.
 
 The available conditions are:
 
@@ -326,7 +326,7 @@ i.e qualified for read queries.
 Normally, a server is _Slave_ if it is at least attempting to replicate from the\
 master candidate or a relay (Slave\_IO\_Running is 'Yes' or 'Connecting',\
 Slave\_SQL\_Running is 'Yes', valid replication credentials). The master candidate\
-does not necessarily need to be writable, e.g. if it fails it&#x73;_&#x6D;aster\_conditions_. _slave\_conditions_ sets additional conditions for a slave\
+does not necessarily need to be writable, e.g. if it fails its_&#x6D;aster\_conditions_. _slave\_conditions_ sets additional conditions for a slave\
 server. This setting is an enum\_mask, allowing multiple conditions to be set\
 simultaneously.
 
@@ -438,7 +438,7 @@ marked \[Slave].
 * Dynamic: Yes
 * Default: `false`
 
-Works similar to [enforce\_read\_only\_slaves](mariadb-maxscale-2106-maxscale-2106-mariadb-monitor.md#enforce_read_only_slaves) except will se&#x74;_&#x72;ead\_only_ on any writable server that is not the primary and not in\
+Works similar to [enforce\_read\_only\_slaves](mariadb-maxscale-2106-maxscale-2106-mariadb-monitor.md#enforce_read_only_slaves) except will set_read\_only_ on any writable server that is not the primary and not in\
 maintenance (a superset of the servers altered by _enforce\_read\_only\_slaves_).
 
 The monitor user requires the SUPER-privilege\
@@ -492,8 +492,8 @@ Allowed values:
 3. `majority_of_running` Primary monitor requires a majority of locks over\
    \[Running] servers.
 
-This setting is separate from the global MaxScale setting _passive_. I&#x66;_&#x70;assive_ is set to `true`, cluster operations are disabled even if monitor has\
-acquired the locks. Generally, it's best not to mix cooperative monitoring wit&#x68;_&#x70;assive_. Either set `passive=false` or do not set it at all.
+This setting is separate from the global MaxScale setting _passive_. If_passive_ is set to `true`, cluster operations are disabled even if monitor has\
+acquired the locks. Generally, it's best not to mix cooperative monitoring with_passive_. Either set `passive=false` or do not set it at all.
 
 #### `script_max_replication_lag`
 
@@ -744,7 +744,7 @@ Example REST-API paths for other commands are listed below.
 **Queued switchover**
 
 Most cluster modification commands wait until the operation either succeeds or\
-fails. _async-switchover_ is an exception, as it returns immediately. Otherwis&#x65;_&#x61;sync-switchover_ works identical to a normal _switchover_ command. Use the\
+fails. _async-switchover_ is an exception, as it returns immediately. Otherwise_async-switchover_ works identical to a normal _switchover_ command. Use the\
 module command _fetch-cmd-result_ to view the result of the queued command._fetch-cmd-result_ returns the status or result of the latest manual command,\
 whether queued or not.
 
@@ -843,7 +843,7 @@ events. Although the monitor by default disables events on the master, an\
 event may already be executing. If the event definer has SUPER-privilege, the\
 event can write to the database even through _read\_only_.
 
-When mixing rejoin with failover/switchover, the backends should hav&#x65;_&#x6C;og\_slave\_updates_ on. The rejoining server is likely lagging behind the rest\
+When mixing rejoin with failover/switchover, the backends should have_&#x6C;og\_slave\_updates_ on. The rejoining server is likely lagging behind the rest\
 of the cluster. If the current cluster master does not have binary logs from the\
 moment the rejoining server lost connection, the rejoining server cannot\
 continue replication. This is an issue if the master has changed and\
@@ -1011,7 +1011,7 @@ encrypted with the same key to avoid erroneous decryption.
 
 If set to ON, any `CHANGE MASTER TO`-command generated will set `MASTER_SSL=1` to enable\
 encryption for the replication stream. This setting should only be enabled if the backend\
-servers are configured for ssl. This typically means setting _ssl\_ca_, _ssl\_cert_ an&#x64;_&#x73;sl\_key_ in the server configuration file. Additionally, credentials for the replication\
+servers are configured for ssl. This typically means setting _ssl\_ca_, _ssl\_cert_ and_ssl\_key_ in the server configuration file. Additionally, credentials for the replication\
 user should require an encrypted connection (`e.g. ALTER USER repl@'%' REQUIRE SSL;`).
 
 If the setting is left OFF, `MASTER_SSL` is not set at all, which will preserve existing\
@@ -1208,7 +1208,7 @@ read-only mode. If the primary server is down, no failover is performed either.
 
 ![](<../../../../.gitbook/assets/coop_lock_no_majority.png (1).png>)
 
-Setting `cooperative_monitoring_locks=majority_of_running` changes the wa&#x79;_&#x6E;\_servers_ is calculated. Instead of using the total number of servers, only\
+Setting `cooperative_monitoring_locks=majority_of_running` changes the way_&#x6E;\_servers_ is calculated. Instead of using the total number of servers, only\
 servers currently \[Running] are considered. This scheme adapts to multiple\
 servers going down, ensuring that claiming lock majority is always possible.\
 However, it can lead to multiple monitors claiming primary status in a\
@@ -1240,7 +1240,7 @@ If a MaxScale instance tries to acquire the locks but fails to get majority\
 any acquired locks and try again after a random number of monitor ticks. This\
 prevents multiple MaxScales from fighting over the locks continuously as one\
 MaxScale will eventually wait less time than the others. Conflict probability\
-can be further decreased by configuring each monitor with a differen&#x74;_&#x6D;onitor\_interval_.
+can be further decreased by configuring each monitor with a different_&#x6D;onitor\_interval_.
 
 The flowchart below illustrates the lock handling logic.
 
@@ -1265,13 +1265,13 @@ running MariaDB Server.
 
 On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured\
 for just the server process. See [Server System Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tcp_keepalive_interval)\
-for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ an&#x64;_&#x74;cp\_keepalive\_time_. These settings can also be set on the operating system\
+for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and_tcp\_keepalive\_time_. These settings can also be set on the operating system\
 level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
 As of MaxScale 6.4.16, 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring\
 TCP keepalive is no longer necessary as monitor sets the session _wait\_timeout_\
 variable when acquiring a lock. This causes the MariaDB Server to close the\
-monitor connection if the connection appears idle for too long. The value o&#x66;_&#x77;ait\_timeout_ used depends on the monitor interval and connection timeout\
+monitor connection if the connection appears idle for too long. The value of_wait\_timeout_ used depends on the monitor interval and connection timeout\
 settings, and is logged at MaxScale startup.
 
 A monitor can also be ordered to manually release its locks via the module\

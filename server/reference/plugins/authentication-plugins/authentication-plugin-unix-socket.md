@@ -1,3 +1,10 @@
+---
+description: >-
+  The unix_socket plugin authenticates users connecting via the local Unix
+  socket file by matching the operating system user ID to the database user
+  account.
+---
+
 # Authentication Plugin - Unix Socket
 
 The `unix_socket` authentication plugin is installed by default, and it is used by the `'root'@'localhost'` user account by default. See [Authentication](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more information.

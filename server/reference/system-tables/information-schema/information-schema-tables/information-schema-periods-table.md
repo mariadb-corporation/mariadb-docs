@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema PERIODS table provides information about
+  Application-Time Periods, detailing the start and end columns for system
+  versioning.
+---
+
 # Information Schema PERIODS Table
 
 {% hint style="info" %}

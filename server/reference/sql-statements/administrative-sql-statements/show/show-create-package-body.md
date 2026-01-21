@@ -1,3 +1,9 @@
+---
+description: >-
+  Display the CREATE statement for a package body. This Oracle-compatible
+  statement shows the implementation code of a stored package.
+---
+
 # SHOW CREATE PACKAGE BODY
 
 ## Syntax

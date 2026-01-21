@@ -1,3 +1,9 @@
+---
+description: >-
+  The host_summary views provide a high-level overview of activity per client
+  host, including statement counts, file I/O, and connection statistics.
+---
+
 # host\_summary and x$host\_summary Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

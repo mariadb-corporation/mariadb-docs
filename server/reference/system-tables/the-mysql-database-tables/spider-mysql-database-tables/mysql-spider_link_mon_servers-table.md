@@ -1,3 +1,9 @@
+---
+description: >-
+  This table defines the remote servers used for link monitoring in the Spider
+  storage engine, ensuring high availability and failover handling.
+---
+
 # mysql.spider\_link\_mon\_servers Table
 
 The `mysql.spider_link_mon_servers` table is installed by the [Spider storage engine](../../../../server-usage/storage-engines/spider/).

@@ -1,3 +1,9 @@
+---
+description: >-
+  Return a set of comma-separated strings. This function returns a string
+  consisting of substrings corresponding to the set bits in a given number.
+---
+
 # MAKE\_SET
 
 ## Syntax

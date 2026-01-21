@@ -1,3 +1,9 @@
+---
+description: >-
+  Solutions for when `apt-get upgrade` hangs or fails because the MariaDB
+  service takes too long to start, triggering a timeout in the init script.
+---
+
 # apt-upgrade Fails, But the Database is Running
 
 After running `apt-upgrade mariadb`, it's possible that apt shows a fail in trying to start the server, but in fact the database is up and running, which then provokes apt to remain in a non finished state.
@@ -39,7 +45,7 @@ This situation could occur if the timeout for the init script was too short. For
 
 To overcome this, the timeout needs to be increased. This can be achieved as follows:
 
-* On systems where `systemd` is not `enabled/supported`: The timeout can be increased by setting `MYSQLD_STARTUP_TIMEOUT` either directly in the script or via the command line. The init script also sources `/etc/default/mariadb`, so it can also be used to set `MYSQLD_STARTUP_TIMEOUT` to persistently change the startup timeout.&#x20;
+* On systems where `systemd` is not `enabled/supported`: The timeout can be increased by setting `MYSQLD_STARTUP_TIMEOUT` either directly in the script or via the command line. The init script also sources `/etc/default/mariadb`, so it can also be used to set `MYSQLD_STARTUP_TIMEOUT` to persistently change the startup timeout.
 * On systems that support `systemd`: The startup timeout can be increased by setting [TimeoutStartSec systemd](../../../../starting-and-stopping-mariadb/systemd.md) option.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

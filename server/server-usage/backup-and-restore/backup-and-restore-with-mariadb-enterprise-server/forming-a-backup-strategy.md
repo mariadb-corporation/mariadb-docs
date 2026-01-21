@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to design a robust backup strategy tailored to your business needs,
+  balancing recovery time objectives and data retention policies.
+---
+
 # Forming a Backup Strategy
 
 ## Overview

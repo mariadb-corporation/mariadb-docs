@@ -1,3 +1,9 @@
+---
+description: >-
+  Guidance for dealing with glibc or shared library errors when attempting to
+  install modern MariaDB binaries on older Linux distributions.
+---
+
 # Installing on an Old Linux Version
 
 This article lists some typical errors that may happen when you try to use an incompatible MariaDB binary on a linux system:

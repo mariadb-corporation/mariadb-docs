@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DATABASE(). Returns the name of the default database currently in
+  use.
+---
+
 # SCHEMA
 
 ## Syntax

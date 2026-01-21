@@ -1,3 +1,10 @@
+---
+description: >-
+  Loop through a range or cursor result set. This control flow statement
+  repeatedly executes a block of code for each item in a specified range or
+  query.
+---
+
 # FOR
 
 ## Syntax

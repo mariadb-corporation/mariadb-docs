@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to manage InnoDB undo logs in MariaDB Enterprise Server, including
+  moving them to separate tablespaces and enabling truncation.
+---
+
 # Configure the InnoDB Undo Log
 
 ## Overview

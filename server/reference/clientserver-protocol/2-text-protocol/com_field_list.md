@@ -1,3 +1,9 @@
+---
+description: >-
+  This command retrieves a list of fields (columns) for a specified table,
+  similar to the SHOW COLUMNS SQL statement.
+---
+
 # COM\_FIELD\_LIST
 
 {% hint style="info" %}
@@ -7,8 +13,8 @@ This command is deprecated and not used by MariaDB connectors any more. Use the 
 ## Fields
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) 0x04 : COM\_FIELD\_LIST header.
-* [string<nul>](../protocol-data-types.md#null-terminated-strings) Table name.
-* [string<eof>](../protocol-data-types.md#end-of-file-length-strings) Optional field list.
+* [string](../protocol-data-types.md#null-terminated-strings) Table name.
+* [string](../protocol-data-types.md#end-of-file-length-strings) Optional field list.
 
 ## Response
 

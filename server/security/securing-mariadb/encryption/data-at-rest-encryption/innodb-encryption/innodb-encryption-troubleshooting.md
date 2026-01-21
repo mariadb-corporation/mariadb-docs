@@ -1,3 +1,10 @@
+---
+description: >-
+  Solutions for common issues such as Error 1005 (Wrong create options) when
+  configuring encryption, and handling cases where encryption key IDs are set
+  for unencrypted tables.
+---
+
 # InnoDB Encryption Troubleshooting
 
 ### Wrong Create Options
@@ -55,7 +62,7 @@ SHOW WARNINGS;
 3 rows in set (0.00 sec)
 ```
 
-Creating a table with the [ENCRYPTED](../../../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT` while the [innodb\_encrypt\_tables](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables) system variable is set to `OFF`, and the [innodb\_default\_encryption\_key\_id](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_default_encryption_key_id) system variable or the [ENCRYPTION\_KEY\_ID](../../../../../reference/sql-statements/data-definition/create/create-table.md#encryption_key_id) table option are **not** set to `1`  no longer fail, and it no longer throws a warning.
+Creating a table with the [ENCRYPTED](../../../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT` while the [innodb\_encrypt\_tables](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables) system variable is set to `OFF`, and the [innodb\_default\_encryption\_key\_id](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_default_encryption_key_id) system variable or the [ENCRYPTION\_KEY\_ID](../../../../../reference/sql-statements/data-definition/create/create-table.md#encryption_key_id) table option are **not** set to `1` no longer fail, and it no longer throws a warning.
 
 For more information, see [MDEV-18601](https://jira.mariadb.org/browse/MDEV-18601).
 

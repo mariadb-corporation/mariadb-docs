@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to integrate MindsDB with MariaDB to train and query machine
+  learning models directly using standard SQL commands.
+---
+
 # Machine Learning with MindsDB
 
 ## Overview

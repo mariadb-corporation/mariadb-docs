@@ -1,3 +1,9 @@
+---
+description: >-
+  This command sends long data, such as BLOB or TEXT values, in chunks for a
+  specific parameter of a prepared statement.
+---
+
 # COM\_STMT\_SEND\_LONG\_DATA
 
 When data for a specific column is large, it can be sent separately to avoid the limitation of `max_allowed_packet` (see [packet splitting](../0-packet.md#packet-splitting)).

@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the collation of a string. This function outputs the name of the
+  collation rule used for sorting and comparing the string argument.
+---
+
 # COLLATION
 
 ## Syntax

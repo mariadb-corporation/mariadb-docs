@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.plugin table records information about installed server plugins,
+  ensuring they are reloaded automatically upon server startup.
+---
+
 # mysql.plugin Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

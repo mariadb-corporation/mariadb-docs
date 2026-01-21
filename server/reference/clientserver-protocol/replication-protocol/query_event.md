@@ -1,3 +1,10 @@
+---
+description: >-
+  The QUERY_EVENT records text-based SQL statements for statement-based
+  replication, capturing the query string and execution context like the default
+  database.
+---
+
 # QUERY\_EVENT
 
 This event is written into the binary log file for:

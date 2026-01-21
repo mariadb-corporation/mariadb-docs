@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains how to use the Flashback feature (via `mysqlbinlog --flashback`) to
+  rollback transactions by reversing the binary log events, useful for
+  recovering from accidental data modifications.
+---
+
 # Flashback
 
 Flashback is a feature that allows instances, databases or tables to be rolled back to an old snapshot.
@@ -6,13 +13,13 @@ Flashback is currently supported only over DML statements ([INSERT](../../../ref
 
 Flashback is achieved in MariaDB Server using existing support for full image format binary logs ([binlog\_row\_image=FULL](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_image)), so it supports all engines.
 
-The real work of Flashback is done by [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) with `--flashback`. This causes events to be translated: INSERT to DELETE, DELETE to INSERT, and for UPDATEs, the before and after images are swapped.
+The real work of Flashback is done by [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) with `--flashback`. This causes events to be translated: `INSERT` to `DELETE`, `DELETE` to `INSERT`, and for `UPDATE` statements, the before and after images are swapped.
 
-When executing `mariadb-binlog` with `--flashback`, the Flashback events will be stored in memory. You should make sure your server has enough memory for this feature.
+When executing `mariadb-binlog` with `--flashback`, the Flashback events are stored in memory. You must make sure your server has enough memory for this feature.
 
 ## Arguments
 
-* [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) has the option `--flashback` or `-B` that will let it work in flashback mode.
+* [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) has the option `--flashback` or `-B` that lets it work in flashback mode.
 * [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md) has the option [--flashback](../../starting-and-stopping-mariadb/mariadbd-options.md#-flashback) that enables the binary log and sets `binlog_format=ROW`. It is not mandatory to use this option if you have already enabled those options directly.
 
 Do not use `-v` `-vv` options, as this adds verbose information to the binary log which can cause problems when importing. See [MDEV-12066](https://jira.mariadb.org/browse/MDEV-12066) and [MDEV-12067](https://jira.mariadb.org/browse/MDEV-12067).

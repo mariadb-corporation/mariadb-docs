@@ -1,3 +1,9 @@
+---
+description: >-
+  View the status of replication threads. This statement displays critical
+  metrics like log positions and error status for the replica.
+---
+
 # SHOW REPLICA STATUS
 
 ## Syntax

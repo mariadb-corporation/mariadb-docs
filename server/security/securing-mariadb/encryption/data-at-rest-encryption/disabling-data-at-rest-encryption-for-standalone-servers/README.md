@@ -1,3 +1,23 @@
+---
+description: >-
+  Guide to safely disabling data-at-rest encryption on a standalone server by
+  systematically decrypting tables and logs.
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+---
+
 # Disabling Data-at-Rest Encryption for Standalone Servers
 
 In certain situations, you may need to turn off data-at-rest encryption in a standalone or single-node MariaDB Enterprise Server deployment. For instance, you might have originally enabled encryption using a key management plugin, but later determine that encryption is no longer necessary.

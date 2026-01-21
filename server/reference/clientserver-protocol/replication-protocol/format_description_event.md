@@ -1,3 +1,9 @@
+---
+description: >-
+  This descriptor event appears at the start of every binary log file, defining
+  the server version, binlog version, and header lengths for all event types.
+---
+
 # FORMAT\_DESCRIPTION\_EVENT
 
 This is a descriptor event that is written to the beginning of a [binary log](../../../server-management/server-monitoring-logs/binary-log/) file, at position 4 (after the 4 magic number bytes). The whole event written to disk is [byte<19>](../protocol-data-types.md#fixed-length-bytes) event header + data fields.

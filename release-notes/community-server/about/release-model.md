@@ -1,3 +1,7 @@
+---
+description: Information about the release model used for MariaDB Community Server releases
+---
+
 # Release Model
 
 ## Current Release Model (from [MariaDB 11.3](../old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113.md))
@@ -41,7 +45,7 @@ Almost the same as above, except that
 * It's maintained for five years after the first GA release
 * A release is going through conventional alpha, beta, RC maturity phases until reaching GA
 * The first GA is planned to happen in May
-  * it didn't quite work, [10.2](../../enterprise-server/old-releases/10-2/) and [10.3](../../enterprise-server/old-releases/10-3/) were in May, [10.4](../../enterprise-server/old-releases/10-4/) and [10.5](../../enterprise-server/old-releases/10-5/) — in June, [10.6](../../enterprise-server/10.6) — in July.
+  * it didn't quite work, [10.2](../../enterprise-server/old-releases/10.2/) and [10.3](../../enterprise-server/old-releases/10.3/) were in May, [10.4](../../enterprise-server/old-releases/10.4/) and [10.5](../../enterprise-server/old-releases/10.5/) — in June, [10.6](../../enterprise-server/10.6) — in July.
 
 ### From [MariaDB 10.0](../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) to [MariaDB 10.1](../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
 

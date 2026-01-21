@@ -1,3 +1,9 @@
+---
+description: >-
+  This page details the dedicated thread pool in MariaDB Enterprise Server that
+  manages InnoDB background tasks, improving scalability and performance.
+---
+
 # MariaDB Enterprise Server InnoDB Background Thread Pool
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Performance Schema is a feature for monitoring server performance that
+  inspects internal execution details at a low level with minimal overhead.
+---
+
 # Performance Schema Overview
 
 The Performance Schema is a feature for monitoring server performance.

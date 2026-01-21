@@ -1,3 +1,9 @@
+---
+description: >-
+  The global_status table provides a persistent view of global server status
+  variables, aggregating statistics across all threads.
+---
+
 # Performance Schema global\_status Table
 
 {% hint style="info" %}

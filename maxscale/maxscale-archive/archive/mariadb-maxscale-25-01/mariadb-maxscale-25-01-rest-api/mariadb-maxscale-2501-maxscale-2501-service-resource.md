@@ -978,7 +978,7 @@ PATCH /v1/services/my-rw-service/relationships/servers
 }
 ```
 
-All relationships for a service can be deleted by sending an empty array as th&#x65;_&#x64;ata_ field value. The following example removes all servers from a service.
+All relationships for a service can be deleted by sending an empty array as the_data_ field value. The following example removes all servers from a service.
 
 ```
 PATCH /v1/services/my-rw-service/relationships/servers

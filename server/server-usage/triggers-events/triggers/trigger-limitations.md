@@ -1,6 +1,12 @@
+---
+description: >-
+  Understand the constraints of triggers, such as the prohibition of statements
+  that return result sets or explicitly start/commit transactions.
+---
+
 # Trigger Limitations
 
-The following restrictions apply to [triggers](./).
+The following restrictions apply to [triggers](./):
 
 * All of the restrictions listed in [Stored Routine Limitations](../../stored-routines/stored-routine-limitations.md).
 * All of the restrictions listed in [Stored Function Limitations](../../stored-routines/stored-functions/stored-function-limitations.md).

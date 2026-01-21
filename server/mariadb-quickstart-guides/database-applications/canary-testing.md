@@ -1,3 +1,9 @@
+---
+description: >-
+  Explore strategies for safely testing schema and application changes using
+  canary deployments, replication, and features like invisible columns.
+---
+
 # Canary Testing
 
 For canary testing new versions of an application, there are some tools to work with, but it has to be said that this is hardly ever 100% clear. If we assume that the advice above has been followed to some extent, then the following are some tools to work with.
@@ -55,8 +61,8 @@ MariaDB> SELECT * FROM `orders_t`;
 |        2 | 2025-12-12 18:44:08 |
 +----------+---------------------+
 2 rows in set (0.004 sec)
-<strong>
-</strong><strong>MariaDB> INSERT INTO `orders_t`
+
+<strong>MariaDB> INSERT INTO `orders_t`
 </strong>  (`order_id`, `order_date`, `customer_id`) VALUES(3, NOW(), 2);
 </code></pre>
 

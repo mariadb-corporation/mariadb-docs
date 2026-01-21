@@ -1,3 +1,9 @@
+---
+description: >-
+  Clears internal server buffers, caches, and status variables. Resets state
+  information like the query cache or replication status without a restart.
+---
+
 # RESET
 
 ## Syntax

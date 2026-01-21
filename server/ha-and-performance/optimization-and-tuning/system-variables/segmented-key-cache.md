@@ -2,7 +2,7 @@
 
 ## About Segmented Key Cache
 
-A segmented key cache is a collection of structures for regular [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) key caches called key cache segments. Segmented key caches mitigate one of the major problems of the simple key cache: thread contention for key cache lock (mutex). With regular key caches, every call of a key cache interface function must acquire this lock. So threads compete for this lock even in the case when they have  acquired shared locks for the file and the pages they want to read from are in the key cache buffers.
+A segmented key cache is a collection of structures for regular [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) key caches called key cache segments. Segmented key caches mitigate one of the major problems of the simple key cache: thread contention for key cache lock (mutex). With regular key caches, every call of a key cache interface function must acquire this lock. So threads compete for this lock even in the case when they have acquired shared locks for the file and the pages they want to read from are in the key cache buffers.
 
 When working with a segmented key cache any key cache interface function that needs only one page has to acquire the key cache lock only for the segment the page is assigned to. This makes the chances\
 for threads not having to compete for the same key cache lock better.
@@ -12,7 +12,7 @@ page. Pages are evenly distributed among segments.
 
 The idea and the original code of the segmented key cache was provided by Fredrik Nylander from Stardoll.com. The code was extensively reworked, improved, and eventually merged into MariaDB by Igor Babaev from Monty Program (now MariaDB Corporation).
 
-You can find some benchmark results comparing various settings on the [Segmented Key Cache Performance](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/quality/benchmarks-and-long-running-tests/benchmarks/segmented-key-cache-performance) page.
+You can find some benchmark results comparing various settings on the [Segmented Key Cache Performance](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/ySaANiCpRqROWwoll9yo) page.
 
 ## Segmented Key Cache Syntax
 
@@ -43,7 +43,7 @@ Statistics about the key cache can be found by looking at the [KEY\_CACHES](../.
 
 ## See Also
 
-* [Segmented Key Cache Performance](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/quality/benchmarks-and-long-running-tests/benchmarks/segmented-key-cache-performance)
+* [Segmented Key Cache Performance](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/ySaANiCpRqROWwoll9yo)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

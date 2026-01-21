@@ -1,3 +1,10 @@
+---
+description: >-
+  Migrate from Oracle to MariaDB Server. This page provides detailed guidance,
+  tools, and best practices for a smooth and efficient transition of your
+  databases and applications.
+---
+
 # Oracle XE 11.2. and MariaDB 10.1 integration on Ubuntu 14.04 and Debian systems
 
 ### Part 1: Installing Oracle Database Express Edition (XE)

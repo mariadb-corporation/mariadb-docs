@@ -90,8 +90,7 @@ BinaryLog Backup Examples
 
 ### **Additional Backup Options (with Examples)**
 
-*   Replication as Backup: In situations where the service cannot be locked or stopped, or is under heavy load, performing backups directly on a primary server may not be the preferred option. Using a replica database instance for backups allows the replica to be shut down or locked, enabling backup operations without impacting the primary server.\
-
+*   Replication as Backup: In situations where the service cannot be locked or stopped, or is under heavy load, performing backups directly on a primary server may not be the preferred option. Using a replica database instance for backups allows the replica to be shut down or locked, enabling backup operations without impacting the primary server.<br>
 
     > **Hint:** To implement this approach, the primary server replicates data to a replica. Backups are initiated from the replica to avoid disrupting the primary server. \
     > \

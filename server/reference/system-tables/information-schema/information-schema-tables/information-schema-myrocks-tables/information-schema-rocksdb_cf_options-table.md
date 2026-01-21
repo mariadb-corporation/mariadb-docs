@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema ROCKSDB_CF_OPTIONS table contains information about
+  MyRocks column families, such as the column family name and option type.
+---
+
 # Information Schema ROCKSDB\_CF\_OPTIONS Table
 
 The [Information Schema](../../) `ROCKSDB_CF_OPTIONS` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine, and contains infomation about MyRocks [column families](../../../../../server-usage/storage-engines/myrocks/myrocks-column-families.md).

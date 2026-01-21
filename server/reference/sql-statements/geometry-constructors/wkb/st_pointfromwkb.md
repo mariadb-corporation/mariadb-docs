@@ -1,3 +1,7 @@
+---
+description: Constructs a Point value using its WKB representation and an optional SRID.
+---
+
 # ST\_PointFromWKB
 
 ## Syntax
@@ -9,7 +13,7 @@ PointFromWKB(wkb[,srid])
 
 ## Description
 
-Constructs a [POINT](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) value using its [WKB](well-known-binary-wkb-format.md) representation and [SRID](../geometry-properties/st_srid.md).
+Constructs a [POINT](../geometry-constructors/point.md) value using its [WKB](well-known-binary-wkb-format.md) representation and [SRID](../geometry-properties/st_srid.md).
 
 `ST_PointFromWKB()` and `PointFromWKB()` are synonyms.
 
@@ -26,6 +30,6 @@ SELECT ST_AsText(ST_PointFromWKB(@g)) AS p;
 +------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

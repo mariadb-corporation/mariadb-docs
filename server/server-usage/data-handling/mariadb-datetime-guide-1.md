@@ -1,3 +1,9 @@
+---
+description: >-
+  Master date and time handling in MariaDB with this guide on temporal data
+  types, current time functions, and formatting dates for display.
+---
+
 # Doing Time with MariaDB
 
 The recording of date and time in a MariaDB database is a very common requirement. For gathering temporal data, one needs to know which type of columns to use in a table. More importantly is knowing how to record chronological data and how to retrieve it in various formats. Although this is a seemingly basic topic, there are many built-in time functions that can be used for more accurate SQL statements and better formatting of data. In this article we will explore these various aspects of how to do time with MariaDB.

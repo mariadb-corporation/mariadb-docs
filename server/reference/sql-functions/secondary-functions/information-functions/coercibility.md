@@ -1,3 +1,9 @@
+---
+description: >-
+  Determine collation coercibility. This function returns a numeric value
+  indicating the priority of the argument's collation in comparison operations.
+---
+
 # COERCIBILITY
 
 ## Syntax

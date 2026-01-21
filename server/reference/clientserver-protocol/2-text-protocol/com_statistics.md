@@ -1,3 +1,9 @@
+---
+description: >-
+  This command retrieves a human-readable string containing internal server
+  statistics like uptime and thread counts.
+---
+
 # COM\_STATISTICS
 
 Get internal server statistics.
@@ -8,7 +14,7 @@ Get internal server statistics.
 
 ## Response
 
-[string<eof>](../protocol-data-types.md#end-of-file-length-strings) human-readable string.
+[string](../protocol-data-types.md#end-of-file-length-strings) human-readable string.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Recommendations for setting the Linux `vm.swappiness` kernel parameter
+  (ideally to 1) to prevent the OS from swapping out MariaDB memory pages, which
+  degrades performance.
+---
+
 # Configuring Swappiness
 
 ## Why to Avoid Swapping

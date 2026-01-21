@@ -1,8 +1,12 @@
+---
+description: >-
+  Procedure to decrypt InnoDB tables by setting `innodb_encrypt_tables=OFF` and
+  executing `ALTER TABLE ... ENCRYPTION='N'`.
+---
+
 # Decrypt InnoDB Tables
 
 When **data-at-rest encryption** is enabled, InnoDB tables and tablespaces are transparently encrypted and decrypted by the storage engine. In some cases, administrators may need to **decrypt an InnoDB table**—for example, when migrating data to an environment where encryption is not required, or when disabling encryption to simplify configuration.
-
-
 
 {% hint style="info" %}
 For more information, refer to, [MDEV-17269](https://jira.mariadb.org/browse/MDEV-17269).

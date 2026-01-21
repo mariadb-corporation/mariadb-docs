@@ -1,3 +1,9 @@
+---
+description: >-
+  The MEMORY storage engine stores tables in RAM for fast access, but data is
+  lost upon server restart
+---
+
 # MEMORY
 
 Contents of the MEMORY storage engine (previously known as HEAP) are stored in memory rather than on disk.
@@ -40,7 +46,7 @@ SET max_heap_table_size = @@max_heap_table_size;
 
 ## See Also
 
-* [Performance of MEMORY tables](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/quality/benchmarks-and-long-running-tests/benchmarks/performance-of-memory-tables)
+* [Performance of MEMORY tables](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/qnjMjiyRC0dWALAFvdZL)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Steps to decrypt InnoDB redo logs by setting `innodb_redo_log_encrypt=OFF` and
+  restarting the server to generate plaintext logs.
+---
+
 # Decrypt InnoDB Redo Logs
 
 When **data-at-rest encryption** is enabled in MariaDB Enterprise Server, InnoDB can encrypt redo logs. If you later disable encryption or need to recover data from encrypted redo logs, you may need to **decrypt the redo log files** before MariaDB can process them.

@@ -11,7 +11,7 @@ Support history,
 
 ## General configuration
 
-The [gssapi](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi) authentication plugin must be installed on the database server. The relevant user account must also be configured to use the plug-in for authentication.&#x20;
+The [gssapi](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi) authentication plugin must be installed on the database server. The relevant user account must also be configured to use the plug-in for authentication. 
 
 For example:
 
@@ -19,7 +19,7 @@ For example:
 CREATE USER one IDENTIFIED VIA gssapi AS 'userOne@EXAMPLE.COM';
 ```
 
-And then this user account could be used to connect to the database server with the Java connector by specifying the user name in the Java connection URL.&#x20;
+And then this user account could be used to connect to the database server with the Java connector by specifying the user name in the Java connection URL. 
 
 For example:
 

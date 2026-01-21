@@ -1,3 +1,9 @@
+---
+description: >-
+  Generate a Universally Unique Identifier (v1). This function returns a
+  standard 128-bit UUID as a 36-character string with hyphens.
+---
+
 # UUID
 
 ## Syntax

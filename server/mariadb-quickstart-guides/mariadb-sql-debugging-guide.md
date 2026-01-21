@@ -1,5 +1,7 @@
 ---
-description: SQL Query Design Guide
+description: >-
+  This guide offers conventions and practical tips for designing SQL queries
+  that are easier to read, understand, and debug.
 ---
 
 # Basic SQL Debugging Guide

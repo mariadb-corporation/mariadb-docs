@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide to securing replication traffic between primary and replica servers,
+  covering the use of `CHANGE MASTER TO` options (e.g., `MASTER_SSL`) and mutual
+  authentication.
+---
+
 # Replication with Secure Connections
 
 {% hint style="info" %}

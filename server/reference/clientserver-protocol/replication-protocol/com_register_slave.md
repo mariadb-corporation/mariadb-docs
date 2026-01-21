@@ -1,3 +1,9 @@
+---
+description: >-
+  This command is used by a replica to register its details, such as server ID,
+  hostname, and port, with the primary server.
+---
+
 # COM\_REGISTER\_SLAVE
 
 This command is sent by the replica server to start MariaDB replication, and should be sent before requesting binlog events with [COM\_BINLOG\_DUMP](com_binlog_dump.md).

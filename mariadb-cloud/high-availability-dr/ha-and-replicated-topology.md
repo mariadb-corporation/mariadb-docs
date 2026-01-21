@@ -24,7 +24,7 @@ While hardware failures are a possibility, a more common scenario we see in prac
 
 Behind the scenes, MariaDB Cloud consistently directs SQL through its intelligent proxy. This proxy not only continuously monitors servers for failures but also remains acutely aware of any replication lags in the replica servers. Should a primary server fail, an immediate election process ensues to select a replica with the least lag. Simultaneously, attempts are made to flush any pending events, ensuring synchronization and full data consistency. Any pending transactions on the primary server are also replayed. Collectively, these measures enable applications to operate without connection-level interruptions or SQL exceptions. Achieving heightened levels of High Availability (HA) is effortlessly attainable by expanding the number of replicas. Replication can even extend across different cloud providers or to a self-managed (ˮpeace of mindˮ) replica within a customerʼs own environment.
 
-<figure><img src="../High Availability, DR/HA_in_single_region.drawio.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/HA_in_single_region.drawio.png" alt=""><figcaption></figcaption></figure>
 
 _HA in a single region_
 
@@ -44,7 +44,7 @@ This model functions optimally when application clients utilize sticky SQL conne
 
 Causal consistency is configured in the MariaDB Cloud [Configuration Manager](https://app.skysql.com/settings/configuration-manager), under Maxscale Variables (applies to Replicated clusters only). Search for [causal reads](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#causal_reads).
 
-<figure><img src="../High Availability, DR/causal.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/causal.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 We do not advise adjusting `causal_reads` unless absolutely necessary. Adjust the [max\_slave\_replication\_lag](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-routers/mariadb-maxscale-2302-readwritesplit#max_slave_replication_lag), which determines the max lag > for any read. The load balancer will only route to slaves with a lag less than this value. By default, this is unbounded. Make sure none of the replicas ever cross 70-80% CPU in a sustained manner.
@@ -80,14 +80,14 @@ In MariaDB Cloud, you can control routing using 2 strategies:
 ## **Level 3 Resiliency - Disaster Recovery – Across Regions, Cloud Providers, or “Self-managed” Environments**
 
 {% hint style="success" %}
-Please refer to [this](<../High Availability, DR/Setup Global Replication.md>) document for the steps to setup a distant replica for DR.
+Please refer to [this](setup-global-replication.md) document for the steps to setup a distant replica for DR.
 {% endhint %}
 
 The major cloud providers tout disaster recovery across regions, ensuring resilience against natural disasters impacting an entire geographical region. But in reality, such disasters are exceedingly rare. Whatʼs far more common are technical issues impacting an entire region for a specific cloud provider. For instance, we’ve encountered DNS-level failures in GCP regions, rendering all services dependent on DNS, including MariaDB Cloud, inaccessible.
 
 One effective strategy to mitigate such risks is to replicate data to a data center owned by a different cloud provider within the same geographical area, minimizing network latencies. Disaster recovery across cloud providers is, of course, something an individual provider such as AWS or GCP simply don't support. Alternatively, customers can maintain their own “standby” database for emergencies—an environment entirely under their control, ensuring a near-real time copy of the data at all times.
 
-<figure><img src="../High Availability, DR/Failover_to_another_region.drawio.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Failover_to_another_region.drawio.png" alt=""><figcaption></figcaption></figure>
 
 _Failover when the entire region becomes unavailable_
 

@@ -1,3 +1,7 @@
+---
+description: Synonym for DECIMAL. This type stores exact numeric data values.
+---
+
 # NUMERIC
 
 ## Overview

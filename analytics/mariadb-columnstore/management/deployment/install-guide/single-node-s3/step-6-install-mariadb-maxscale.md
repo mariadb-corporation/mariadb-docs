@@ -10,6 +10,8 @@ This page details step 6 of the 9-step procedure "Deploy ColumnStore Object Stor
 
 This step installs MariaDB MaxScale 22.08.
 
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
+
 ColumnStore Object Storage requires 1 or more MaxScale nodes.
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.

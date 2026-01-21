@@ -1,3 +1,9 @@
+---
+description: >-
+  Replace a portion of XML. This function replaces a section of XML markup
+  matching an XPath expression with a new XML fragment.
+---
+
 # UPDATEXML
 
 ## Syntax

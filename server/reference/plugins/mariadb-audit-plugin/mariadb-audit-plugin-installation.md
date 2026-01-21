@@ -1,4 +1,11 @@
-# Installation
+---
+description: >-
+  Follow this guide to install the Audit Plugin on your MariaDB server. Learn
+  how to verify the plugin file's location, load it dynamically, or configure it
+  to load automatically at startup.
+---
+
+# Audit Plugin Installation
 
 The `server_audit` plugin logs the server's activity. For each client session, it records who connected to the server (i.e., user name and host), what queries were executed, and which tables were accessed and server variables that were changed. This information is stored in a rotating log file or it may be sent to the local syslogd.
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about JSON_PRETTY in MariaDB. This function is an alias for
+  JSON_DETAILED, serving to format JSON documents in a human-readable way by
+  adding indentation and newlines.
+---
+
 # JSON\_PRETTY
 
 {% hint style="info" %}

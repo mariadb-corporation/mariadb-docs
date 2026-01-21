@@ -33,8 +33,6 @@ solution to [MaxCtrl](../mariadb-maxscale-2208-reference/mariadb-maxscale-2208-m
 
 ## Dashboard
 
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-dashboard.png.png)
-
 ### Annotation
 
 1. [MaxScale object](https://mariadb.com/kb/en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#objects). i.e.\
@@ -73,8 +71,6 @@ control buttons will be shown on the mouseover event. Below is a screenshot of a
 Monitor Detail page, other Detail pages also have a similar layout structure so\
 this is used for illustration purpose.
 
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-detail.png.png)
-
 ### Annotation
 
 1. Settings option. Clicking on the gear icon will show icons allowing to do\
@@ -106,8 +102,6 @@ This page visualizes MaxScale configuration and clusters.
 
 This page visualizes MaxScale configuration as shown in the figure below.
 
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-config-visualization.png.png)
-
 #### Annotation
 
 1. A MaxScale object (a node graph). The position of the node in the graph can\
@@ -126,8 +120,6 @@ This page visualizes MaxScale configuration as shown in the figure below.
 This page shows all monitor clusters using [mariadbmon](../mariadb-maxscale-2208-monitors/mariadb-maxscale-2208-mariadb-monitor.md) module in a card-like view.\
 Clicking on the card will visualize the cluster into a tree graph as shown in\
 the figure below.
-
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-cluster-visualization.png.png)
 
 #### Annotation
 
@@ -169,8 +161,6 @@ the figure below.
 
 This page shows and allows editing of MaxScale parameters.
 
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-settings.png.png)
-
 ### Annotation
 
 1. Edit parameters button. This button is shown on the mouseover event allowing\
@@ -184,8 +174,6 @@ This page shows and allows editing of MaxScale parameters.
 
 This page show real-time MaxScale logs with filter options.
 
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-logs-archive.png.png)
-
 ### Annotation
 
 1. Filter by dropdown. All logs types are selected to be shown by default
@@ -194,8 +182,6 @@ This page show real-time MaxScale logs with filter options.
 ## Query Editor
 
 A SQL editor tool to run queries and perform other SQL operations.
-
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-query-editor.png.png)
 
 ### Annotation
 
@@ -266,8 +252,6 @@ A SQL editor tool to run queries and perform other SQL operations.
 
 A session can be killed easily on the "Current Sessions" table which can be\
 found on the [Dashboard](mariadb-maxscale-2208-using-maxgui-tutorial.md#dashboard), Server detail, and Service detail page.
-
-![](../../../../.gitbook/assets/mariadb-corporation/MaxScale/22.08.17/Documentation/Tutorials/images/MaxGUI-kill-session.png.png)
 
 ### Annotation
 

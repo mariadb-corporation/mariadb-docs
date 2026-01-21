@@ -1,3 +1,9 @@
+---
+description: >-
+  Concatenate strings. This function joins two or more string arguments into a
+  single string. Returns NULL if any argument is NULL.
+---
+
 # CONCAT
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Community
+  Server 12.1
+---
+
 # MariaDB 12.1 Changes & Improvements
 
 {% include "../../.gitbook/includes/latest-12-1.md" %}
@@ -9,21 +15,32 @@ MariaDB 12.1 is a [rolling release](../about/release-model.md). It is an evoluti
 ### Performance improvements <a href="#performance-improvements" id="performance-improvements"></a>
 
 * Segmented key cache for [Aria storage engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria) ([MDEV-24](https://jira.mariadb.org/browse/MDEV-24))
-  * [aria\_pagecache\_segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_pagecache_segments) system variable
+  * The new [aria\_pagecache\_segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_pagecache_segments) system variable defines how many segments are used, default is `1`, maximum `128`
 * MDL scalability improvements ([MDEV-19749](https://jira.mariadb.org/browse/MDEV-19749))
-* Parallel replication for [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) replicas ([MDEV-20065](https://jira.mariadb.org/browse/MDEV-20065))
-* Buffered logging for [audit plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin) ([MDEV-34680](https://jira.mariadb.org/browse/MDEV-34680))
+* Asynchronous replication between two [Galera Clusters](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) can now use parallel replication
+  * This is managed by the new [wsrep\_applier\_retry\_count](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable ([MDEV-20065](https://jira.mariadb.org/browse/MDEV-20065))
+* The [audit plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin) now supports buffered logging
+  * The size of the buffer is defined using the new system variable [server\_audit\_file\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables#server_audit_file_buffer_size) ([MDEV-34680](https://jira.mariadb.org/browse/MDEV-34680))
 * Faster [vector](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors) distance calculations via extrapolation ([MDEV-36205](https://jira.mariadb.org/browse/MDEV-36205))
 
 ### Compatibility features <a href="#compatibility-features" id="compatibility-features"></a>
 
-* caching\_sha2\_password plugin ([MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804))
-* [( + ) for outer join syntax in Oracle mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax#oracle-mode) ([MDEV-13817](https://jira.mariadb.org/browse/MDEV-13817))
+* New authentication plugin [caching\_sha2\_password](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/clientserver-protocol/1-connecting/caching_sha2_password-authentication-plugin) for MySQL compatibility ([MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804))
+* [( + ) for outer join syntax in Oracle mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode) ([MDEV-13817](https://jira.mariadb.org/browse/MDEV-13817))
 * Associative arrays: DECLARE TYPE .. TABLE OF .. INDEX BY ([MDEV-34319](https://jira.mariadb.org/browse/MDEV-34319)) ([blog post](https://mariadb.org/bringing-oracles-associative-arrays-to-mariadb/))
 * [DROP USER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user) will now by default issue a warning if the user has active sessions, or fail in [Oracle mode](../about/compatibility-and-differences/sql_modeoracle.md) ([MDEV-35617](https://jira.mariadb.org/browse/MDEV-35617))
-* [Optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints): [\[NO\_\]JOIN\_INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#join_index-and-no_join_index), [\[NO\_\]GROUP\_INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#group_index-and-no_group_index), [\[NO\_\]ORDER\_INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#order_index-and-no_order_index), [\[NO\_\]INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#index-and-no_index) ([MDEV-35856](https://jira.mariadb.org/browse/MDEV-35856))
-* [Optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints): [\[NO\_\]SPLIT\_MATERIALIZED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#split_materialized-x-and-no_split_materialized-x) ([MDEV-36092](https://jira.mariadb.org/browse/MDEV-36092))
-* [Optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints): [\[NO\_\]DERIVED\_CONDITION\_PUSHDOWN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#derived_condition_pushdown-and-no_derived_condition_pushdown), [\[NO\_\]MERGE ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#merge-and-no_merge)([MDEV-36106](https://jira.mariadb.org/browse/MDEV-36106))
+
+### Optimizer <a href="#optimizer" id="optimizer"></a>
+
+* Optimizations for GROUP/ORDER BY can make use of indexes on virtual columns ([MDEV-36132](https://jira.mariadb.org/browse/MDEV-36132))
+* Include definitions of tables and views in the [optimizer trace](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/mariadb-internals-documentation-optimizer-trace) ([MDEV-36483](https://jira.mariadb.org/browse/MDEV-36483))
+  * [optimizer\_record\_context](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable.
+
+#### Optimizer hints <a href="#optimizer-hints" id="optimizer-hints"></a>
+
+* [Optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints): [\[NO\_\]JOIN\_INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#join_index-and-no_join_index), [\[NO\_\]GROUP\_INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#group_index-and-no_group_index), [\[NO\_\]ORDER\_INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#order_index-and-no_order_index), [\[NO\_\]INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#index-and-no_index) ([MDEV-35856](https://jira.mariadb.org/browse/MDEV-35856))
+* [Optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints): [\[NO\_\]SPLIT\_MATERIALIZED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#split_materialized-x-and-no_split_materialized-x) ([MDEV-36092](https://jira.mariadb.org/browse/MDEV-36092))
+* [Optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints): [\[NO\_\]DERIVED\_CONDITION\_PUSHDOWN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#derived_condition_pushdown-and-no_derived_condition_pushdown), [\[NO\_\]MERGE ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#merge-and-no_merge)([MDEV-36106](https://jira.mariadb.org/browse/MDEV-36106))
 
 ### Miscellaneous <a href="#miscellaneous" id="miscellaneous"></a>
 
@@ -31,9 +48,6 @@ MariaDB 12.1 is a [rolling release](../about/release-model.md). It is an evoluti
   * Controlled through the [wsrep\_applier\_retry\_count](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable
 * [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) now supports [wildcards](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#l-wildcards) with the `-L` or `--wildcards` option ([MDEV-21376](https://jira.mariadb.org/browse/MDEV-21376))
 * [Foreign key](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint names no longer need to be unique per database, only per table ([MDEV-28933](https://jira.mariadb.org/browse/MDEV-28933)) ([blog post](https://mariadb.org/per-table-unique-foreign-key-constraint-names-new-feature-in-mariadb-12-1/))
-* Support for functional indexes in GROUP/ORDER BY ([MDEV-36132](https://jira.mariadb.org/browse/MDEV-36132))
-* Include definitions of tables and views in the [optimizer trace](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/mariadb-internals-documentation-optimizer-trace) ([MDEV-36483](https://jira.mariadb.org/browse/MDEV-36483))
-  * [optimizer\_record\_context](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context) system variable.
 
 ### Development release only <a href="#miscellaneous" id="miscellaneous"></a>
 
@@ -43,10 +57,11 @@ This feature was only available in the 12.1 development releases, and will be im
 
 ## List of All MariaDB 12.1 Releases
 
-| Date         | Release                     | Status  | Release Notes              | Changelog                                 |
-| ------------ | --------------------------- | ------- | -------------------------- | ----------------------------------------- |
-| 7 Aug 2025   | [MariaDB 12.1.1](12.1.1.md) | RC      | [Release Notes](12.1.1.md) | [Changelog](../changelogs/12.1/12.1.1.md) |
-| 26 June 2025 | MariaDB 12.1.0              | Preview |                            |                                           |
+| Date         | Release        | Status  | Release Notes              | Changelog                                 |
+| ------------ | -------------- | ------- | -------------------------- | ----------------------------------------- |
+| 18 Nov 2025  | MariaDB 12.1.2 | GA      | [Release Notes](12.1.2.md) | [Changelog](../changelogs/12.1/12.1.2.md) |
+| 7 Aug 2025   | MariaDB 12.1.1 | RC      | [Release Notes](12.1.1.md) | [Changelog](../changelogs/12.1/12.1.1.md) |
+| 26 June 2025 | MariaDB 12.1.0 | Preview |                            |                                           |
 
 ***
 

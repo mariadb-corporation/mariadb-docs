@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the name of the weekday. This function returns the full name of the
+  day, such as 'Monday' or 'Sunday', for a given date.
+---
+
 # DAYNAME
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the weight string. This function returns the binary string that
+  represents the sorting and comparison value of the input string.
+---
+
 # WEIGHT\_STRING
 
 ## Syntax

@@ -65,7 +65,7 @@ The pushdown from HAVING to WHERE part is controlled by `condition_pushdown_from
 
 {% tabs %}
 {% tab title="Current" %}
-From MariaDB 12.1, it is possible to enable or disable the optimization with an optimizer hint, [DERIVED\_CONDITION\_PUSHDOWN and NO\_DERIVED\_CONDITION\_PUSHDOWN](../../../../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md#derived_condition_pushdown-and-no_derived_condition_pushdown).
+From MariaDB 12.1, it is possible to enable or disable the optimization with an optimizer hint, [DERIVED\_CONDITION\_PUSHDOWN and NO\_DERIVED\_CONDITION\_PUSHDOWN](../../optimizer-hints/#derived_condition_pushdown-and-no_derived_condition_pushdown).
 {% endtab %}
 
 {% tab title="<12.1" %}

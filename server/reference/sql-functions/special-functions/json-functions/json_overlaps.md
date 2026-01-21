@@ -1,3 +1,10 @@
+---
+description: >-
+  Discover JSON_OVERLAPS in MariaDB. Available from version 10.9, this function
+  compares two JSON documents, returning true if they share at least one common
+  key-value pair, array element, or scalar val
+---
+
 # JSON\_OVERLAPS
 
 {% hint style="info" %}

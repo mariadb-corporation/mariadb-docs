@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the differences in user authorization between SQL Server and MariaDB,
+  noting that MariaDB uses accounts ('user'@'host') rather than users and
+  logins, and detailing privilege levels.
+---
+
 # MariaDB Authorization and Permissions for SQL Server Users
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

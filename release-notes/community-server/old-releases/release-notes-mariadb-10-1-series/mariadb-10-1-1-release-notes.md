@@ -40,7 +40,7 @@ Notable changes of this release include:
   * [FLUSH QUERY\_RESPONSE\_TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/other-plugins/query-response-time-plugin)
   * [SHOW LOCALES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-locales)
 * Two new columns added to the [CLIENT\_STATISTICS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-client_statistics-table) and [USER\_STATISTICS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-user_statistics-table) Information Schema tables (`TOTAL_SSL_CONNECTIONS` and `MAX_STATEMENT_TIME_EXCEEDED`).
-* MariaDB can execute [UNION ALL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/union) without a temporary table. (MySQL 5.7 patch)
+* MariaDB can execute [UNION ALL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/union) without a temporary table. (MySQL 5.7 patch)
 * `@@sql_log_slow` is now a session variable, not global.
 * Merge with [MariaDB 10.0.14](../release-notes-mariadb-10-0-series/mariadb-10014-release-notes.md)
 * As per the [MariaDB Deprecation Policy](../../about/platform-deprecation-policy.md), this will be the last release of [MariaDB 10.1](changes-improvements-in-mariadb-10-1.md) for both Ubuntu 13.10 "Saucy" and Mint 16 "Petra".

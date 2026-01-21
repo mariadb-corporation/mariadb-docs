@@ -80,7 +80,7 @@ _matchXY_ defines a [PCRE2 regular expression](../mariadb-maxscale-25-01-getting
 against which the incoming SQL query is matched. _XY_ must be a number in the range\
 01 - 25. Each _match_-setting pairs with a similarly indexed _target_-setting. If one is\
 defined, the other must be defined as well. If a query matches the pattern, the filter\
-attaches a routing hint defined by the _target_-setting to the query. Th&#x65;_&#x6F;ptions_-parameter affects how the patterns are compiled.
+attaches a routing hint defined by the _target_-setting to the query. The_&#x6F;ptions_-parameter affects how the patterns are compiled.
 
 ```
 match01=^SELECT
@@ -105,7 +105,7 @@ for `matchXY`.
 * Dynamic: Yes
 * Default: None
 
-The hint which is attached to the queries matching the regular expression defined b&#x79;_&#x6D;atchXY_. If a compatible router is used in the service the query will be routed\
+The hint which is attached to the queries matching the regular expression defined by_&#x6D;atchXY_. If a compatible router is used in the service the query will be routed\
 accordingly. The target can be one of the following:
 
 * a server or service name (adds a `HINT_ROUTE_TO_NAMED_SERVER` hint)

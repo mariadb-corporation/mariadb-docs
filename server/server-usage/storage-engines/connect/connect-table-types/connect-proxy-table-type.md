@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT PROXY Table Type
 
 {% hint style="warning" %}

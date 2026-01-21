@@ -1,3 +1,9 @@
+---
+description: >-
+  Get metadata for tables. View details like engine type, row count, data
+  length, and create time for tables in a database.
+---
+
 # SHOW TABLE STATUS
 
 ## Syntax

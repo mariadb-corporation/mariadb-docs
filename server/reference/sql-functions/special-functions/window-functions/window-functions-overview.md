@@ -1,3 +1,10 @@
+---
+description: >-
+  Understand window function concepts. These functions operate on a set of rows
+  (window) defined by an OVER clause, returning a value for each row without
+  collapsing results.
+---
+
 # Window Functions Overview
 
 ## Introduction

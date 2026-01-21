@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_DISJOINT. Checks if two geometries are disjoint, meaning they
+  have no points in common.
+---
+
 # DISJOINT
 
 ## Syntax

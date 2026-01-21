@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_CERT_KEYS table displays the certification keys
+  for transactions currently being processed by the Galera Cluster.
+---
+
 # Information Schema WSREP\_CERT\_KEYS
 
 {% hint style="info" %}
@@ -83,6 +89,3 @@ SELECT KEY_STRING, KEY_TYPE FROM INFORMATION_SCHEMA.WSREP_CERT_KEYS;
 ## Shared
 
 This key type is used when a referenced table update happens, and `wsrep_protocol_version` is smaller than 4.
-
-
-

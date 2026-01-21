@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_FT_INDEX_TABLE table provides information about the inverted index
+  (tokens and positions) for an InnoDB FULLTEXT index currently in use.
+---
+
 # Information Schema INNODB\_FT\_INDEX\_TABLE Table
 
 The [Information Schema](../../) `INNODB_FT_INDEX_TABLE` table contains information about InnoDB [fulltext indexes](../../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/). To avoid re-organizing the fulltext index each time a change is made, which would be very expensive, new changes are stored separately and only integrated when an [OPTIMIZE TABLE](../../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) is run. See the [INNODB\_FT\_INDEX\_CACHE](information-schema-innodb_ft_index_cache-table.md) table.

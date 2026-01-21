@@ -95,7 +95,7 @@ graph TD
     style F fill:#f5ddb3
 ```
 
-To build the model, our query uses the following Common Table Expressions (CTEs).&#x20;
+To build the model, our query uses the following Common Table Expressions (CTEs). 
 
 | CTE Name                  | Purpose                                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------------------ |

@@ -1,3 +1,9 @@
+---
+description: >-
+  Manage distributed transactions. This section covers XA statements for
+  coordinating two-phase commits across multiple resources.
+---
+
 # XA Transactions
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+description: >-
+  Frequently asked questions about the Aria storage engine, covering its
+  history, comparison with MyISAM, and key features like crash safety.
+---
+
 # Aria FAQ
 
 This FAQ provides information on the [Aria](./) storage engine.

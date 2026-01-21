@@ -1,3 +1,9 @@
+---
+description: >-
+  View the CREATE DATABASE statement. This statement returns the SQL syntax
+  required to recreate a specific database with its current options.
+---
+
 # SHOW CREATE DATABASE
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Replace NULL values with a fallback. This function returns the first argument
+  if it's not NULL; otherwise, it returns the specified replacement value.
+---
+
 # IFNULL
 
 ## Syntax
@@ -9,7 +15,7 @@ NVL(expr1,expr2)
 
 ## Description
 
-If _`expr1`_ is not `NULL`, `IFNULL()` returns _`expr1`_; otherwise it return&#x73;_`expr2`_. `IFNULL()` returns a numeric or string value, depending on the context in which it is used.
+If _`expr1`_ is not `NULL`, `IFNULL()` returns _`expr1`_; otherwise it returns\_`expr2`\_. `IFNULL()` returns a numeric or string value, depending on the context in which it is used.
 
 `NVL()` is an alias for `IFNULL()`.
 

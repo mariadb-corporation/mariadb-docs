@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT. This
-  section details how these improvements aid in achieving consistent backups and
-  replication in highly active environments.
+  Learn how to start a consistent transaction for backups or replication setup.
+  This command ensures a consistent view of the database without locking tables
+  unnecessarily.
 ---
 
 # START TRANSACTION ... WITH CONSISTENT SNAPSHOT
@@ -64,7 +64,7 @@ INSERT INTO accounts VALUES (1, 1000.00);
 
 #### Scenario: Two sessions are running concurrently.
 
-<table><thead><tr><th width="111.34375">Timeline</th><th>Session 1 (Application checking balance)</th><th>Session 2 (An external deposit)</th></tr></thead><tbody><tr><td>T1</td><td><code>START TRANSACTION;</code></td><td></td></tr><tr><td>T2</td><td><code>-- Application logic causes a 2-second delay</code>  <code>DO SLEEP(2);</code></td><td><code>START TRANSACTION;</code></td></tr><tr><td>T3</td><td></td><td><code>UPDATE accounts SET balance = 1500.00 WHERE id = 1;</code></td></tr><tr><td>T4</td><td></td><td><code>COMMIT;</code></td></tr><tr><td>T5</td><td><code>SELECT balance FROM accounts WHERE id = 1;</code></td><td></td></tr><tr><td>T6</td><td><code>COMMIT;</code></td><td></td></tr></tbody></table>
+<table><thead><tr><th width="111.34375">Timeline</th><th>Session 1 (Application checking balance)</th><th>Session 2 (An external deposit)</th></tr></thead><tbody><tr><td>T1</td><td><code>START TRANSACTION;</code></td><td></td></tr><tr><td>T2</td><td><code>-- Application logic causes a 2-second delay</code> <code>DO SLEEP(2);</code></td><td><code>START TRANSACTION;</code></td></tr><tr><td>T3</td><td></td><td><code>UPDATE accounts SET balance = 1500.00 WHERE id = 1;</code></td></tr><tr><td>T4</td><td></td><td><code>COMMIT;</code></td></tr><tr><td>T5</td><td><code>SELECT balance FROM accounts WHERE id = 1;</code></td><td></td></tr><tr><td>T6</td><td><code>COMMIT;</code></td><td></td></tr></tbody></table>
 
 In the scenario above, the read view for Session 1 is created at T5. Since Session 2's `COMMIT` happened at T4, the `SELECT` in Session 1 will see the new balance: `$1500.00`. This might not be the desired behavior if the goal was to see the balance as it was at T1.
 
@@ -78,4 +78,4 @@ In this second scenario, the read view for Session 1 is created immediately at T
 
 ### `innodb_snapshot_isolation`
 
-This system variable influences the behavior of locking reads (e.g., `SELECT ... FOR UPDATE`). When [innodb\_snapshot\_isolation](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is enabled (ON), locking reads will reference the transaction's read view. If a transaction tries to lock a row modified by another transaction not visible in the current read view, MariaDB returns an `ER_CHECKREAD` error instead of waiting for a lock. This enforces stricter snapshot consistency, even for locking operations.
+This system variable influences the behavior of locking reads (for instance, `SELECT ... FOR UPDATE`). When [innodb\_snapshot\_isolation](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_snapshot_isolation) is enabled (`ON`), locking reads reference the transaction's read view. If a transaction tries to lock a row modified by another transaction not visible in the current read view, MariaDB returns an `ER_CHECKREAD` error instead of waiting for a lock. This enforces stricter snapshot consistency, even for locking operations.

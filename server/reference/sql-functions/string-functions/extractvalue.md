@@ -1,3 +1,9 @@
+---
+description: >-
+  Extract a value from XML. This function returns the text content of an XML
+  fragment matching a given XPath expression.
+---
+
 # EXTRACTVALUE
 
 ## Syntax

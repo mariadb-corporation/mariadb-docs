@@ -1,3 +1,10 @@
+---
+description: >-
+  Return the length of a string in bytes. This function counts the number of
+  bytes in the string, which may differ from character count for multi-byte
+  strings.
+---
+
 # LENGTH
 
 ## Syntax

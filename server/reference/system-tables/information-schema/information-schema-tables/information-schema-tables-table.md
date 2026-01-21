@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema TABLES table provides metadata about tables in
+  databases, including row counts, storage engines, and creation times.
+---
+
 # Information Schema TABLES Table
 
 {% tabs %}

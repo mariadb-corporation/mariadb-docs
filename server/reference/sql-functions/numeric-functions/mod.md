@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate modulo. This function returns the remainder of a number divided by
+  another number.
+---
+
 # MOD
 
 ## Syntax

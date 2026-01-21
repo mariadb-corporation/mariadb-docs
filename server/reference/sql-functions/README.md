@@ -1,5 +1,5 @@
 ---
-description: Functions and procedures in MariaDB
+description: Discover functions and procedures in MariaDB.
 ---
 
 # SQL Functions

@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn about best practices for database schema design, including naming
+  conventions, choosing appropriate data types, and using views to abstract
+  complexity.
+---
+
 # Database Design
 
 ## Overview
@@ -34,7 +41,7 @@ In other situations, you cannot really tell what the maximum might be, say a nam
 
 #### **Character Sets and Collations**
 
-One issue that needs to be considered is what character set to use for text strings. In most cases, it is recommended that UTF-8 be used, but note that MariaDB has a few options here; either you can use 3-byte UTF-8, called utf8mb3, which allows for 2-byte Unicode or 4-byte, called utf8mb4, which allows full Unicode support. When you use UTF-8, though, remember that storage of strings might be longer. MariaDB ensures that space is allocated as appropriate, but the max potential length of a `VARCHAR(8)` string using utf8mb3 will be 24 bytes,  and when it comes to calculating the maximum row size, this is calculated as 24, not 8, bytes.
+One issue that needs to be considered is what character set to use for text strings. In most cases, it is recommended that UTF-8 be used, but note that MariaDB has a few options here; either you can use 3-byte UTF-8, called utf8mb3, which allows for 2-byte Unicode or 4-byte, called utf8mb4, which allows full Unicode support. When you use UTF-8, though, remember that storage of strings might be longer. MariaDB ensures that space is allocated as appropriate, but the max potential length of a `VARCHAR(8)` string using utf8mb3 will be 24 bytes, and when it comes to calculating the maximum row size, this is calculated as 24, not 8, bytes.
 
 Collations determine how a string is sorted, for example, when an `ORDER BY` is used and when indexes are created. You really do want to avoid upgrading a schema to change the collation of a column in a table, so be careful here.
 

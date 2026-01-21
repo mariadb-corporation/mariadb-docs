@@ -6,9 +6,11 @@ description: 'Step 3: Start and Configure Enterprise ColumnStore'
 
 ## Overview
 
-This page details step 3 of a 5-step procedure for deploying [Single-Node Enterprise ColumnStore with Object storage](broken-reference).
+This page details step 3 of a 5-step procedure for deploying [Single-Node Enterprise ColumnStore with Object storage](broken-reference/).
 
-This step starts and configures MariaDB Enterprise Server and MariaDB Enterprise ColumnStore 23.10.
+This step starts and configures MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 
@@ -16,7 +18,7 @@ Interactive commands are detailed. Alternatively, the described operations can b
 
 Mandatory system variables and options for Single-Node Enterprise ColumnStore include:
 
-<table><thead><tr><th width="342">Connector</th><th>MariaDB Connector/R2DBC</th></tr></thead><tbody><tr><td><a href="broken-reference">character_set_server</a></td><td>Set this system variable to <code>utf8</code></td></tr><tr><td><a href="broken-reference">collation_server</a></td><td>Set this system variable to <code>utf8_general_ci</code></td></tr><tr><td>columnstore_use_import_for_batchinsert</td><td>Set this system variable to <code>ALWAYS</code> to always use <code>cpimport</code> for <a href="broken-reference">LOAD DATA INFILE</a> and <a href="broken-reference">INSERT...SELECT</a> statements.</td></tr></tbody></table>
+<table><thead><tr><th width="342">Connector</th><th>MariaDB Connector/R2DBC</th></tr></thead><tbody><tr><td><a href="broken-reference/">character_set_server</a></td><td>Set this system variable to <code>utf8</code></td></tr><tr><td><a href="broken-reference/">collation_server</a></td><td>Set this system variable to <code>utf8_general_ci</code></td></tr><tr><td>columnstore_use_import_for_batchinsert</td><td>Set this system variable to <code>ALWAYS</code> to always use <code>cpimport</code> for <a href="broken-reference/">LOAD DATA INFILE</a> and <a href="broken-reference/">INSERT...SELECT</a> statements.</td></tr></tbody></table>
 
 ### Example Configuration
 

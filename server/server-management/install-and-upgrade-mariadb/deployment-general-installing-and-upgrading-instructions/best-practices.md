@@ -1,3 +1,10 @@
+---
+description: >-
+  A guide outlining essential recommendations for stable MariaDB deployments,
+  covering backup strategies, change management, security controls, and
+  pre-production testing.
+---
+
 # Best Practices
 
 These best practices warrant consideration, but are not expected to apply to every business or in every situation. Recommendations here are not mandatory.

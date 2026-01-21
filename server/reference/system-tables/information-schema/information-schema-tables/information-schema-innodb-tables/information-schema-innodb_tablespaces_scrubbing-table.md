@@ -1,3 +1,9 @@
+---
+description: >-
+  The INNODB_TABLESPACES_SCRUBBING table contains statistics about background
+  data scrubbing processes for InnoDB tablespaces.
+---
+
 # Information Schema INNODB\_TABLESPACES\_SCRUBBING Table
 
 {% hint style="info" %}

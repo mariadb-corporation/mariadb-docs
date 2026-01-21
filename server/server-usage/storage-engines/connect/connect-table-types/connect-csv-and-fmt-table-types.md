@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT CSV and FMT Table Types
 
 {% hint style="warning" %}

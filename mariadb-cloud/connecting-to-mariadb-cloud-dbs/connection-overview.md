@@ -14,7 +14,7 @@ Access to all services is by default protected by a firewall. You need to whitel
 
 {% hint style="danger" %}
 **Warning**: Using `0.0.0.0/0` will disable the firewall. Never do this for production databases.\
-For more details, go to the [Firewall](<../Security/Configuring Firewall.md>) settings page.
+For more details, go to the [Firewall](../security/configuring-firewall.md) settings page.
 {% endhint %}
 
 ## Connecting Using the MariaDB Client
@@ -33,7 +33,7 @@ Connection parameters include:
 Unlike previous MariaDB Cloud versions, the current version no longer requires clients to supply the Server SSL Certificate for SSL connections. Customers who migrated from MariaDB corporation to MariaDB Cloud Inc can continue to use provided certificates (when using the previous MariaDB Cloud method for connecting). But we strongly recommend moving to the connection properties as shown in the Connect window for your service.
 {% endhint %}
 
-<figure><img src="../Connecting to MariaDB Cloud DBs/connect_window.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/connect_window.png" alt=""><figcaption><p>Connection Window</p></figcaption></figure>
 
 ## Connecting From Your Application
 

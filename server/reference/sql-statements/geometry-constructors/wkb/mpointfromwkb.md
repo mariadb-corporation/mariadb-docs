@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_MultiPointFromWKB. Constructs a MultiPoint value from its WKB
+  representation and an optional SRID.
+---
+
 # MPointFromWKB
 
 ## Syntax
@@ -9,7 +15,7 @@ MultiPointFromWKB(wkb[,srid])
 
 ## Description
 
-Constructs a [MULTIPOINT](../../../sql-statements/geometry-constructors/geometry-constructors/multipoint.md) value using its [WKB](well-known-binary-wkb-format.md) representation and [SRID](../geometry-properties/st_srid.md).
+Constructs a [MULTIPOINT](../geometry-constructors/multipoint.md) value using its [WKB](well-known-binary-wkb-format.md) representation and [SRID](../geometry-properties/st_srid.md).
 
 `MPointFromWKB()` and `MultiPointFromWKB()` are synonyms.
 
@@ -26,6 +32,6 @@ SELECT ST_AsText(MPointFromWKB(@g));
 +-----------------------------------------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of key management in MariaDB, discussing the need for plugins to
+  manage encryption keys, support for multiple keys (ID 1 for system, ID 2 for
+  temp), and key rotation capabilities.
+---
+
 # Encryption Key Management
 
 MariaDB's [data-at-rest encryption](../data-at-rest-encryption-overview.md) requires the use of a key management and encryption plugin. These plugins are responsible both for the management of encryption keys and for the actual encryption and decryption of data.
@@ -68,7 +75,7 @@ The [Aria storage engine](../../../../../server-usage/storage-engines/aria/) doe
 
 ## Encryption Plugin API
 
-New key management and encryption plugins can be developed using the [encryption plugin API](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/encryption-plugin-api).
+New key management and encryption plugins can be developed using the [encryption plugin API](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/5UGvvjnJpWY0JXBeD4Hc).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the importance of data-at-rest encryption for mitigating physical
+  theft risks and meeting regulatory compliance standards such as GDPR, HIPAA,
+  and PCI DSS.
+---
+
 # Why Encrypt MariaDB Data?
 
 Nearly everyone owns data of immense value: customer data, construction plans, recipes, product designs and other information. These data are stored in clear text on your storage media. Everyone with file system access is able to read and modify the data. If this data falls into the wrong hands (criminals or competitors) this may result in serious consequences.

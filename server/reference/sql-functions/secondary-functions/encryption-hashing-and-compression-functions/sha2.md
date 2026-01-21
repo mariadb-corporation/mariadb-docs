@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate SHA-2 checksum. This function computes the SHA-2 family of hash
+  functions (SHA-224, SHA-256, SHA-384, and SHA-512).
+---
+
 # SHA2
 
 ## Syntax

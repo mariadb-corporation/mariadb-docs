@@ -1,3 +1,10 @@
+---
+description: >-
+  A matrix listing the features supported by Spider, including sharding,
+  partitioning, XA transactions, and support for various SQL statements and
+  functions.
+---
+
 # Spider Feature Matrix
 
 Not complete yet - still being updated

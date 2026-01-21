@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DECIMAL. This keyword creates a fixed-point column with exact
+  precision, suitable for financial calculations.
+---
+
 # DEC
 
 See [DECIMAL](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/data-types/data-types-numeric-data-types/data-types-decimal/README.md).

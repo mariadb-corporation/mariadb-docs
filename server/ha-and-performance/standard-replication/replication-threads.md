@@ -1,8 +1,8 @@
 ---
 description: >-
-  Understand replication threads in MariaDB Server. This section explains the
-  I/O and SQL threads, their roles in the replication process, and how they
-  impact performance and consistency.
+  Gain insight into the background threads that drive replication. Understand
+  the roles of the I/O thread, SQL thread, and binlog dump thread in moving data
+  between servers.
 ---
 
 # Replication Threads

@@ -98,6 +98,31 @@ SELECT * FROM x WHERE c BETWEEN '2018-11-11' AND '2018-11-12';
 +------------+---------------------+---------------------+
 ```
 
+### Common Pitfall When Using Strings as Conditions
+
+The following query doesn't show countries whose name starts with 'D':
+
+```sql
+SELECT name
+FROM countries
+WHERE name BETWEEN "B" AND "D"
+ORDER BY name ASC;
++--------------------------------+
+| name                           |
++--------------------------------+
+| Bahamas                        |
+| Bahrain                        |
+| Bangladesh                     |
+...
+| Cuba                           |
+| Cyprus                         |
+| Czech Republic                 |
++--------------------------------+
+41 rows in set (0.001 sec)
+```
+
+When using `WHERE name BETWEEN 'B' AND 'D'`, the condition includes all names that start with 'B' because 'B' is the lower bound and is inclusive. However, names starting with 'D' are excluded because the upper bound 'D' is treated as a string, and the comparison stops at the character level. For example, a name like 'D' is included if it matches exactly, but a name like 'Denmark' is not included because 'Denmark' is lexicographically greater than 'D'.
+
 ## See Also
 
 * [Operator Precedence](../operator-precedence.md)

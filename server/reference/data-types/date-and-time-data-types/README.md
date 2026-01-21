@@ -1,8 +1,7 @@
 ---
 description: >-
-  Explore date and time data types in MariaDB Server. This section details
-  various types like DATE, TIME, DATETIME, and TIMESTAMP, crucial for storing
-  temporal data accurately.
+  Store temporal values. This section covers data types for dates, times, and
+  timestamps, including DATE, DATETIME, TIMESTAMP, TIME, and YEAR.
 ---
 
 # Date and Time Data Types

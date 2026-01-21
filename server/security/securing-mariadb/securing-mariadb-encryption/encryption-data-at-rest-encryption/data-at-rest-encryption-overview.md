@@ -1,13 +1,27 @@
+---
+description: >-
+  Introduction to MariaDB's transparent data-at-rest encryption architecture,
+  which supports pluggable key management and per-table or per-tablespace
+  encryption for InnoDB and Aria engines.
+---
+
 # Data-at-Rest Encryption Overview
 
 ## Overview
 
-Having tables encrypted makes it almost impossible for someone to access or\
-steal a hard disk and get access to the original data. This functionality is also known as "Transparent Data Encryption (TDE)".
+Having tables encrypted makes it almost impossible for someone to access or steal a hard disk and get access to the original data. This functionality is also known as _Transparent Data Encryption_ (TDE).
 
-This assumes that encryption keys are stored on another system.
+{% hint style="warning" %}
+All of the following assumes that encryption keys are stored on another system.
+{% endhint %}
 
+{% hint style="info" %}
 Using encryption has an overhead of roughly _3-5%_.
+{% endhint %}
+
+## Encryption and Decryption Lifecycle
+
+MariaDB performs data-at-rest encryption at specific points during disk I/O operations. When data is written to disk, encryption usually takes place; when data is read back into memory, decryption takes place. Data stored in memory (for example, in buffer pools) is often decrypted while in use.
 
 ## Which Storage Engines Does MariaDB Encryption Support?
 
@@ -42,7 +56,7 @@ MariaDB's data-at-rest encryption requires the use of a [key management and encr
 
 MariaDB supports the use of [multiple encryption keys](key-management-and-encryption-plugins/encryption-key-management.md#using-multiple-encryption-keys). Each encryption key uses a 32-bit integer as a key identifier. If the specific plugin supports [key rotation](key-management-and-encryption-plugins/encryption-key-management.md#rotating-keys), then encryption keys can also be rotated, which creates a new version of the encryption key.
 
-How MariaDB manages encryption keys depends on which encryption key management solution you choose. Currently, MariaDB has four options:
+How MariaDB manages encryption keys depends on which encryption key management solution you choose. Currently, MariaDB has three options:
 
 * [File Key Management Plugin](../../encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md)
 * [AWS Key Management Plugin](../../encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md)
@@ -72,6 +86,16 @@ Temporary files created internally by InnoDB, such as those used for merge sorts
 MariaDB can also encrypt [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md)).
 
 * [Encrypting Binary Logs](../../encryption/data-at-rest-encryption/encrypting-binary-logs.md)
+
+### Binary and Relay Log Encryption Behavior
+
+#### When is an event encrypted?
+
+When binary log and relay log events are written to the `IO_CACHE`, they are encrypted. This happens regardless of whether the cache is stored on disk or in memory, depending on the transaction size and the values of `binlog_cache_size` and `binlog_stmt_cache_size`. Hence, before events are written to the actual binary log and relay log files, they are encrypted.
+
+#### When is an event decrypted?
+
+When a `START_ENCRYPTION_EVENT` appears in the binary log or relay log, events are decrypted as they are read. This event comes right after the `FORMAT_DESCRIPTION_EVENT` in encrypted binary logs and relay logs, making it the second event in the log file.
 
 ## Encryption and Page Compression
 

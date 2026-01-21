@@ -1,3 +1,9 @@
+---
+description: >-
+  Store time values. This type handles time durations or time of day, ranging
+  from '-838:59:59' to '838:59:59' with optional microsecond precision.
+---
+
 # TIME
 
 ## Syntax

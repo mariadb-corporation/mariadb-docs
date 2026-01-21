@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate password hash. This function calculates a password hash string for a
+  plaintext password.
+---
+
 # PASSWORD
 
 ## Syntax

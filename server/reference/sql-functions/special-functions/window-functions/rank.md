@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate rank with gaps. This function assigns a rank to each row, with tied
+  values receiving the same rank and subsequent ranks skipped.
+---
+
 # RANK
 
 ## Syntax

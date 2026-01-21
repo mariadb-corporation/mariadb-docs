@@ -1,3 +1,9 @@
+---
+description: >-
+  Information on how to downgrade MariaDB Server to a previous version, noting
+  that it is generally unsupported and requires restoring from a logical dump.
+---
+
 # Downgrading MariaDB
 
 Downgrading MariaDB is not officially supported between major versions.

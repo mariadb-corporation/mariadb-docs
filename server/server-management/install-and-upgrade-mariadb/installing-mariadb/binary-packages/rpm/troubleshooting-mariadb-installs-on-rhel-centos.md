@@ -1,3 +1,10 @@
+---
+description: >-
+  Solutions for common installation issues on RHEL and CentOS, such as conflicts
+  with existing MySQL installations and handling configuration file backups
+  (.rpmsave).
+---
+
 # Troubleshooting MariaDB Installs on RHEL / CentOS
 
 The following article is about different issues people have encountered when installing MariaDB on RHEL / CentOS.

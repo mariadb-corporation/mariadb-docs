@@ -19,5 +19,25 @@ layout:
     visible: true
 ---
 
-# Installation Guides
+# Installing ColumnStore
+
+{% content-ref url="../../../columnstore-quickstart-guides/mariadb-columnstore-hardware-guide.md" %}
+[mariadb-columnstore-hardware-guide.md](../../../columnstore-quickstart-guides/mariadb-columnstore-hardware-guide.md)
+{% endcontent-ref %}
+
+{% content-ref url="singlenode-localstorage/" %}
+[singlenode-localstorage](singlenode-localstorage/)
+{% endcontent-ref %}
+
+{% content-ref url="singlenode-localstorage/" %}
+[singlenode-localstorage](singlenode-localstorage/)
+{% endcontent-ref %}
+
+{% content-ref url="single-node-s3/" %}
+[single-node-s3](single-node-s3/)
+{% endcontent-ref %}
+
+{% content-ref url="multinode-s3/" %}
+[multinode-s3](multinode-s3/)
+{% endcontent-ref %}
 

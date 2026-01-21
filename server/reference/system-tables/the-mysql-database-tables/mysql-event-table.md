@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.event table contains the definitions and scheduling information for
+  events created with the CREATE EVENT statement.
+---
+
 # mysql.event Table
 
 The `mysql.event` table contains information about MariaDB [events](../../../server-usage/triggers-events/event-scheduler/). Similar information can be obtained by viewing the [INFORMATION\_SCHEMA.EVENTS](../information-schema/information-schema-tables/information-schema-events-table.md) table, or with the [SHOW EVENTS](../../sql-statements/administrative-sql-statements/show/show-events.md) and [SHOW CREATE EVENT](../../sql-statements/administrative-sql-statements/show/show-create-event.md) statements.

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema USER_PRIVILEGES table lists global privileges granted
+  to user accounts, derived from the mysql.user table.
+---
+
 # Information Schema USER\_PRIVILEGES Table
 
 The [Information Schema](../) `USER_PRIVILEGES` table contains global user privilege information derived from the [mysql.global\_priv](../../the-mysql-database-tables/mysql-global_priv-table.md) grant table.

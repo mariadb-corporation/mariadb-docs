@@ -1,5 +1,7 @@
 ---
-description: String Functions Guide
+description: >-
+  This guide goes through several built-in string functions in MariaDB, grouping
+  them by similar features, and providing examples of how they might be used.
 ---
 
 # MariaDB String Functions Guide
@@ -188,8 +190,6 @@ Functions that provide information about strings or assist in specific compariso
     -- Get the last two elements
     SELECT SUBSTRING_INDEX('elem1|elem2|elem3|elem4', '|', -2); -- Output: elem3|elem4
     ```
-
-
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

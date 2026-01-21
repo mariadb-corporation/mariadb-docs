@@ -1,3 +1,9 @@
+---
+description: >-
+  Details on configuring MariaDB clients to connect securely, and how to enforce
+  TLS for specific user accounts using the `REQUIRE SSL` clause.
+---
+
 # Securing Connections for Client and Server
 
 Starting from 11.4 MariaDB, it encrypts the transmitted data between the server and clients by default unless the server and client run on the same host.

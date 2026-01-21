@@ -1,3 +1,10 @@
+---
+description: >-
+  Details the `sql_mode` system variable, which defines the strictness of SQL
+  syntax and validation (e.g., `STRICT_TRANS_TABLES`, `ANSI_QUOTES`), enabling
+  emulation of other database behaviors.
+---
+
 # SQL\_MODE
 
 MariaDB supports several different modes which allow you to tune it to suit your needs.
@@ -53,7 +60,7 @@ If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-st
 
 #### ANSI\_QUOTES
 
-Changes `"` to be treated as \`\`\`, the identifier quote character. This may break old MariaDB applications which assume that `"` is used as a string quote character.
+Changes the double-quote character (`"`) to be treated as a backtick (`` ` ``), the identifier quote character. This can break old MariaDB applications which assume that `"` is used as a string quote character.
 
 #### DB2
 
@@ -63,7 +70,7 @@ If set, [SHOW CREATE TABLE](../../reference/sql-statements/administrative-sql-st
 
 #### EMPTY\_STRING\_IS\_NULL
 
-Oracle-compatibility option that translates Item\_string created in the parser to Item\_null, and translates binding an empty string as prepared statement parameters to binding NULL. For example, `SELECT '' IS NULL` returns TRUE, `INSERT INTO t1 VALUES ('')` inserts NULL. Since [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+Oracle-compatibility option that translates Item\_string created in the parser to `Item_null`, and translates binding an empty string as prepared statement parameters to binding `NULL`. For example, `SELECT '' IS NULL` returns TRUE, `INSERT INTO t1 VALUES ('')` inserts `NULL`.
 
 #### ERROR\_FOR\_DIVISION\_BY\_ZERO
 

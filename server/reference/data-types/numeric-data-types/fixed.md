@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for DECIMAL. This keyword is used to define columns that require exact
+  numeric precision, such as currency.
+---
+
 # FIXED
 
 ## Overview

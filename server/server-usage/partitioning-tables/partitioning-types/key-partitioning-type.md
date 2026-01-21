@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand KEY partitioning, similar to HASH but using MariaDB's internal
+  hashing function on one or more columns to distribute data.
+---
+
 # KEY Partitioning Type
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Subtract two time values. This function calculates the difference between two
+  time or datetime expressions.
+---
+
 # TIMEDIFF
 
 ## Syntax

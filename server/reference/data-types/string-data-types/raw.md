@@ -1,3 +1,9 @@
+---
+description: >-
+  In Oracle mode, RAW is a variable-length binary data type synonymous with
+  VARBINARY.
+---
+
 # RAW
 
 ## Overview

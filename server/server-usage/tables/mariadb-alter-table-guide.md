@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to modify existing table structures using the ALTER TABLE statement,
+  including adding, changing, and dropping columns and indexes.
+---
+
 # Altering Tables in MariaDB
 
 Despite a MariaDB developer's best planning, occasionally one needs to change the structure or other aspects of tables. This is not very difficult, but some developers are unfamiliar with the syntax for the functions used in MariaDB to accomplish this. And some changes can be very frustrating. In this article we'll explore the ways to alter tables in MariaDB and we'll give some precautions about related potential data problems.

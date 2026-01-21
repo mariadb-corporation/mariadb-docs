@@ -1,3 +1,10 @@
+---
+description: >-
+  The wsrep_provider plugin exposes Galera Cluster provider options as
+  individual system variables, allowing for easier configuration and validation
+  of cluster settings.
+---
+
 # wsrep\_provider
 
 This plugin is for [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/). It splits up the `wsrep_provider_options` setting into individual configuration variables.

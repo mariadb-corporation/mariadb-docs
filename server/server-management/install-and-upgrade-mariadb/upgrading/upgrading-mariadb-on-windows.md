@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide to upgrading MariaDB on Windows using the MSI installer, supporting both
+  minor upgrades and major version migrations using the upgrade wizard.
+---
+
 # Upgrading MariaDB on Windows
 
 For incompatibilities such as removed features, and changes to variables, see the pages describing changes by version on [Upgrading MariaDB](./).

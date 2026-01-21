@@ -1,9 +1,15 @@
-# caching\_sha2\_password Authentication Plugin
+---
+description: >-
+  This plugin implements the caching_sha2_password authentication method, using
+  an in-memory cache for fast authentication or RSA encryption for full
+  verification.
+---
+
+# Connecting via caching\_sha2\_password
 
 ## Overview
 
-Caching `SHA256` first sends an `SHA256`-encrypted password.\
-MySQL server has an in-memory cache of `SHA256` key for successful authentication. When a cache hit occurs, the connection is validated, if not, using some more steps to a process similar to [sha256\_password](sha256_password-plugin.md).
+Caching `SHA256` first sends an `SHA256`-encrypted password. MySQL server has an in-memory cache of `SHA256` key for successful authentication. When a cache hit occurs, the connection is validated, if not, using some more steps to a process similar to [sha256\_password](sha256_password-plugin.md).
 
 Caching SHA256 authentication possible exchanges:
 

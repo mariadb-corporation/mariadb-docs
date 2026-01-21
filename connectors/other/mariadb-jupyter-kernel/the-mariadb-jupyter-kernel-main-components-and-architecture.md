@@ -9,7 +9,7 @@ Here’s a diagram displaying the relationship between all the main components o
 ![architecture](../../.gitbook/assets/architecture.jpg)
 
 When you start a notebook in [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/), Jupyter spawns an instance of [MariaDBKernel](the-mariadb-jupyter-kernel-main-components-and-architecture.md).\
-The kernel then creates a [ClientConfig](the-mariadb-jupyter-kernel-main-components-and-architecture.md) object to read `mariadb_config.json`. If the kernel detects based on the configuration settings that a MariaDB server is up and running, it creates a [MariaDBClient](the-mariadb-jupyter-kernel-main-components-and-architecture.md) object that is responsible for talking to the server.&#x20;
+The kernel then creates a [ClientConfig](the-mariadb-jupyter-kernel-main-components-and-architecture.md) object to read `mariadb_config.json`. If the kernel detects based on the configuration settings that a MariaDB server is up and running, it creates a [MariaDBClient](the-mariadb-jupyter-kernel-main-components-and-architecture.md) object that is responsible for talking to the server. 
 
 \
 If no server is detected, based on the config options, the kernel might start a MariaDB Server instance for you. This server instance is abstracted via the [MariaDBServer](the-mariadb-jupyter-kernel-main-components-and-architecture.md) type.
@@ -119,7 +119,7 @@ a nice [display\_data](https://jupyter-client.readthedocs.io/en/stable/messaging
 
 The `%df` magic writes the result of the last query executed in the notebook into an external `CSV` formatted file.
 
-The purpose of this magic command is to allow users to export query data from their MariaDB databases and then quickly import it into a Python Notebook where more complex analytics can be performed.&#x20;
+The purpose of this magic command is to allow users to export query data from their MariaDB databases and then quickly import it into a Python Notebook where more complex analytics can be performed. 
 
 If no arguments are specified, the kernel writes the data into a`CSV` file named `last_query.csv`.
 

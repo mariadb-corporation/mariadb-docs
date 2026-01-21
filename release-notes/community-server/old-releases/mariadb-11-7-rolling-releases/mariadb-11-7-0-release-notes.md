@@ -2,7 +2,7 @@
 
 {% include "../../../.gitbook/includes/latest-11-7.md" %}
 
-<a href="https://downloads.mariadb.org/mariadb/11.7.0/" class="button primary">Download</a> <a href="mariadb-11-7-0-release-notes.md" class="button secondary">Release Notes</a>  <a href="what-is-mariadb-117.md" class="button secondary">Overview of 11.7</a>
+<a href="https://downloads.mariadb.org/mariadb/11.7.0/" class="button primary">Download</a> <a href="mariadb-11-7-0-release-notes.md" class="button secondary">Release Notes</a> <a href="what-is-mariadb-117.md" class="button secondary">Overview of 11.7</a>
 
 **Release date:** 25 Sep 2024
 
@@ -63,7 +63,7 @@ New GIS functions. These functions improve compatibility with MySQL 8. **Note th
 
 ### Derived Tables
 
-* Add optional correlation column list for [derived tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/subqueries-in-a-from-clause-derived-tables) ([MDEV-31466](https://jira.mariadb.org/browse/MDEV-31466))
+* Add optional correlation column list for [derived tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) ([MDEV-31466](https://jira.mariadb.org/browse/MDEV-31466))
 
 ### Vectors
 

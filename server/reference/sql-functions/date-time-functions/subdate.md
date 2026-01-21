@@ -1,3 +1,9 @@
+---
+description: >-
+  Subtract a time interval from a date. This synonym for DATE_SUB calculates a
+  past date by subtracting a specified unit from a starting value.
+---
+
 # SUBDATE
 
 ## Syntax

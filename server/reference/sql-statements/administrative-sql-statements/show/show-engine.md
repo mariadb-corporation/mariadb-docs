@@ -1,3 +1,9 @@
+---
+description: >-
+  Display status information for a storage engine. This statement retrieves
+  operational logs or status details for a specific engine.
+---
+
 # SHOW ENGINE
 
 ## Syntax

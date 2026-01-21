@@ -1,3 +1,9 @@
+---
+description: >-
+  Discover how to create and manage views in MariaDB to simplify complex
+  queries, restrict data access, and provide an abstraction layer over tables.
+---
+
 # Views
 
 ## A Tutorial Introduction

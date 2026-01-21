@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # Using CONNECT - Exporting Data From MariaDB
 
 {% hint style="warning" %}

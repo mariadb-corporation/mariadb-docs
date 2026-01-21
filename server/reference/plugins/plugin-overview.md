@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB supports loading plugins at startup or runtime to extend
+  functionality, including storage engines, security features, and logging
+  capabilities, without rebuilding the server.
+---
+
 # Plugin Overview
 
 MariaDB supports the use of plugins, software components that may be added to the core software without having to rebuild the MariaDB server from source code. Plugins can be loaded at startup, or loaded and unloaded while the server is running, without interruption. Plugins are commonly used for adding desired storage engines, additional security requirements, logging special information about the server, or even small enhancements, such as a plugin to get a timestamp as an integer.

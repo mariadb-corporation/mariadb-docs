@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT TBL Table Type: Table List
 
 {% hint style="warning" %}

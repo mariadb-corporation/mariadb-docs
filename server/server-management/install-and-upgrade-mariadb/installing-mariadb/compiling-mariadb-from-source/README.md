@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn to compile MariaDB Server from source code. This section provides
-  detailed instructions for building MariaDB, offering flexibility and control
-  over your installation.
+  Instructions for compiling MariaDB Server from source code using CMake,
+  including obtaining the source and installing dependencies.
 ---
 
 # Compiling MariaDB From Source

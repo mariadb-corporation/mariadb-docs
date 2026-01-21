@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of different deployment architectures (single-node, primary/replica)
+  & methods, including manual installation via repositories or tarballs, and
+  automated deployment with tools like Ansible.
+---
+
 # Deployment Methods
 
 | Method                                                                                                                             | Typical use case                                                                                                     |

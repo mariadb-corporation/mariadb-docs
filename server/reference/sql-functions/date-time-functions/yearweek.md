@@ -1,3 +1,9 @@
+---
+description: >-
+  Return the year and week. This function returns the year and week number for a
+  date, useful for grouping results by week.
+---
+
 # YEARWEEK
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  This section details the different ways to add non-executable comments to your
+  SQL statements and script files, including single-line & multi-line comments,
+  and MariaDB-specific conditional comments.
+---
+
 # Comment Syntax
 
 There are three supported comment styles in MariaDB:

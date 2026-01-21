@@ -1,3 +1,9 @@
+---
+description: >-
+  Logged during binlog rotation or checkpoints, this event lists the GTIDs
+  present in the binary log to help replicas determine their replication state.
+---
+
 # GTID\_LIST\_EVENT
 
 Logged in every binlog to record the current [replication](../../../ha-and-performance/standard-replication/) state. Consists of the last [GTID](../../../ha-and-performance/standard-replication/gtid.md) seen for each replication domain.

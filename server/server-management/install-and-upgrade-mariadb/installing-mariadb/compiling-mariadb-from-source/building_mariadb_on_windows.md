@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide to building MariaDB on Windows using Visual Studio, CMake, and Git,
+  including creating ZIP and MSI packages.
+---
+
 # Building MariaDB on Windows
 
 ## Build Requirements

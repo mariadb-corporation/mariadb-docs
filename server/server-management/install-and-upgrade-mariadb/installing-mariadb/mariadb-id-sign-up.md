@@ -1,3 +1,9 @@
+---
+description: >-
+  Information on creating a free MariaDB ID account to access software
+  downloads, including binary packages and repositories.
+---
+
 # MariaDB ID Sign Up
 
 A MariaDB ID is a free account that provides:
@@ -32,4 +38,4 @@ To contact us with questions, or if you need assistance:
 * If you do not have a MariaDB ID or are unable to login, [contact us](https://mariadb.com/contact/)
 * [MariaDB Customer Portal](https://customers.mariadb.com/)
 
-\
+\\

@@ -6,33 +6,11 @@ hidden: true
 
 ## Testing the styles out
 
-
-
 ### On this page
-
-
 
 #### To see how the customization options look
 
-
-
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nullam a nisi augue. Integer nec felis eu sapien malesuada consectetur. Morbi eget consequat libero. Sed dignissim erat in quam volutpat, ac dignissim elit fermentum. Suspendisse potenti. Integer eget velit nec arcu condimentum maximus. Donec bibendum suscipit velit, sit amet porttitor leo scelerisque ac. Quisque feugiat sollicitudin velit, nec volutpat lectus pretium et. Sed aliquam mauris eget libero efficitur, quis pellentesque erat cursus.
-
-{% hint style="info" %}
-
-{% endhint %}
-
-{% hint style="warning" %}
-
-{% endhint %}
-
-{% hint style="danger" %}
-
-{% endhint %}
-
-{% hint style="success" %}
-
-{% endhint %}
 
 | Testing | Styles | Here |
 | ------- | ------ | ---- |
@@ -42,15 +20,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vi
 
 {% stepper %}
 {% step %}
-### Test
-
-
+#### Test
 {% endstep %}
 
 {% step %}
-### Test
-
-
+#### Test
 {% endstep %}
 {% endstepper %}
 
@@ -62,8 +36,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vi
 // Some code
 ```
 
-
-
 ## Form 3317 below
 
 Original form for KB post-download flow - .ORG Download lead source
@@ -73,8 +45,6 @@ Original form for KB post-download flow - .ORG Download lead source
 ## Form 4279 below
 
 Use this for styling validation
-
-
 
 {% @marketo/form formId="4279" %}
 

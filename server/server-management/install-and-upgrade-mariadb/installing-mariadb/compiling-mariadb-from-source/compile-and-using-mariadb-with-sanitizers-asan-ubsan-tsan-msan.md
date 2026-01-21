@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide on compiling MariaDB with various sanitizers like ASAN and UBSAN for
+  debugging and error detection.
+---
+
 # Compile and Using MariaDB with Sanitizers (ASAN, UBSAN, TSAN, MSAN)
 
 ## What are Sanitizers?
@@ -305,7 +311,7 @@ The [MariaDB test system](../../../../clients-and-utilities/testing-tools/mariad
 
 ## See Also
 
-* [Compiling MariaDB for debugging](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging)
+* [Compiling MariaDB for debugging](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

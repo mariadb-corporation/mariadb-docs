@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about replication SQL statements in MariaDB Server. This section covers
-  commands for configuring, controlling, and monitoring replication, essential
-  for high availability and data distribution.
+  Control replication topologies. Learn statements like CHANGE MASTER TO and
+  START SLAVE to configure primaries and replicas.
 ---
 
 # Replication Statements

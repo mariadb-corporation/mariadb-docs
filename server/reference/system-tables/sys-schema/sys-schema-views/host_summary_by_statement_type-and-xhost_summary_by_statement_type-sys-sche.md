@@ -1,3 +1,9 @@
+---
+description: >-
+  These views aggregate executed statements by type (e.g., SELECT, INSERT) and
+  host, providing statistics on frequency and latency.
+---
+
 # host\_summary\_by\_statement\_type and x$host\_summary\_by\_statement\_type Sys Schema Views
 
 {% include "../../../../.gitbook/includes/sys-schema-views-are-availa....md" %}

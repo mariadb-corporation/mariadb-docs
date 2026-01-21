@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema PARAMETERS table stores information about parameters
+  for stored procedures and functions, including data types and modes.
+---
+
 # Information Schema PARAMETERS Table
 
 The [Information Schema](../) `PARAMETERS` table stores information about [stored procedures](../../../../server-usage/stored-routines/stored-procedures/) and [stored functions](../../../../server-usage/stored-routines/stored-functions/) parameters.
@@ -10,6 +16,7 @@ It contains the following columns:
 | SPECIFIC\_SCHEMA           | Database name containing the stored routine parameter.                                                                                                             |
 | SPECIFIC\_NAME             | Stored routine name.                                                                                                                                               |
 | ORDINAL\_POSITION          | Ordinal position of the parameter, starting at 1. 0 for a function RETURNS clause.                                                                                 |
+| PARAMETER\_DEFAULT         | Displays default values for stored routine parameters.                                                                                                             |
 | PARAMETER\_MODE            | One of IN, OUT, INOUT or NULL for RETURNS.                                                                                                                         |
 | PARAMETER\_NAME            | Name of the parameter, or NULL for RETURNS.                                                                                                                        |
 | DATA\_TYPE                 | The column's [data type](../../../data-types/).                                                                                                                    |
@@ -50,6 +57,7 @@ CHARACTER_MAXIMUM_LENGTH: 255
           COLLATION_NAME: utf8_general_ci
           DTD_IDENTIFIER: varchar(255)
             ROUTINE_TYPE: PROCEDURE
+       PARAMETER_DEFAULT: NULL
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

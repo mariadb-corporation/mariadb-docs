@@ -1,3 +1,9 @@
+---
+description: >-
+  Create new database accounts. This guide covers the syntax for defining users,
+  setting authentication methods, and establishing initial resource limits.
+---
+
 # CREATE USER
 
 ## Syntax

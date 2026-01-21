@@ -1,3 +1,9 @@
+---
+description: >-
+  Implement the logic for a stored package. This statement defines the private
+  variables and code for the subroutines declared in the package specification.
+---
+
 # CREATE PACKAGE BODY
 
 {% tabs %}

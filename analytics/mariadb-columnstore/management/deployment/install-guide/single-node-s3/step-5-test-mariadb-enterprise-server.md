@@ -8,7 +8,9 @@ description: 'Step 5: Test MariaDB Enterprise Server'
 
 This page details step 5 of the 9-step procedure "Deploy ColumnStore Object Storage Topology".
 
-This step tests MariaDB Enterprise Server and MariaDB Enterprise ColumnStore 23.10.
+This step tests MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 
@@ -292,7 +294,7 @@ INSERT INTO test.contacts (first_name, last_name, email)
 $ sudo mariadb
 ```
 
-4. Execute a [SELECT](broken-reference) query to retrieve the data:
+4. Execute a [SELECT](broken-reference/) query to retrieve the data:
 
 ```sql
 SELECT * FROM test.contacts;

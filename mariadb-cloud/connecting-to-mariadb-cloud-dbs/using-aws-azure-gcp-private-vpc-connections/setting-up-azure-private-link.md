@@ -229,7 +229,7 @@ Disabling Private Link on an existing service will cause all existing connection
 4. In the context menu, select "Manage Private Link".
 5. In the popup window, click "I want to disconnect my Private Link".
 6. In the popup window, select "Disconnect".
-7. Since the service's allowlist was cleared when Azure Private Link was previously enabled, you will need to [update the allowlist](<../../Security/Configuring Firewall.md>) to allow clients to connect after disabling Private Link.
+7. Since the service's allowlist was cleared when Azure Private Link was previously enabled, you will need to [update the allowlist](../../security/configuring-firewall.md) to allow clients to connect after disabling Private Link.
 
 </details>
 

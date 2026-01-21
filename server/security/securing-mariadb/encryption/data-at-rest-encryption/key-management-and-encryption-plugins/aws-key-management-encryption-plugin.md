@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduction to the AWS Key Management plugin, which uses Amazon KMS to
+  generate and store master keys, decrypting them at startup to enable
+  data-at-rest encryption with key rotation support.
+---
+
 # AWS Key Management Encryption Plugin
 
 Due to license incompatibilities between the MariaDB server source code and the Amazon AWS C++ SDK, we can only distribute the plugin in source code form, and not as ready-to-use binaries. See [Installing the Plugin's Package](aws-key-management-encryption-plugin.md#installing-the-plugins-package) for details.

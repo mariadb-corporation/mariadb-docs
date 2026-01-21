@@ -1,3 +1,9 @@
+---
+description: >-
+  Understand how MariaDB manages concurrency. Metadata locks protect the
+  structure of database objects from being modified while they are in use.
+---
+
 # Metadata Locking
 
 MariaDB supports metadata locking. This means that when a transaction (including [XA transactions](xa-transactions.md)) uses a table, it locks its metadata until the end of transaction. Non-transactional tables are also locked, as well as views and objects which are related to locked tables/views (stored functions, triggers, etc). When a connection tries to use a DDL statement (like an [ALTER TABLE](../data-definition/alter/alter-table/)) which modifies a table that is locked, that connection is queued, and has to wait until it's unlocked. Using savepoints and performing a partial rollback does not release metadata locks.
@@ -16,7 +22,7 @@ If the [metadata\_lock\_info](../../plugins/other-plugins/metadata-lock-info-plu
 {% tab title="Current" %}
 The [Performance Schema metadata\_locks](../../system-tables/performance-schema/performance-schema-tables/performance-schema-metadata_locks-table.md) table contains metadata lock information.
 
-#### Example
+**Example**
 
 Let's use the following MEMORY (non-transactional) table:
 

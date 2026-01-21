@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert vector to text. This function takes a binary VECTOR data type and
+  returns its JSON array string representation.
+---
+
 # VEC\_ToText
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  The TIME_MS column in the INFORMATION_SCHEMA.PROCESSLIST table displays the
+  time a thread has been in its current state in milliseconds, offering higher
+  precision than the standard TIME column.
+---
+
 # TIME\_MS column in INFORMATION\_SCHEMA.PROCESSLIST
 
 In MariaDB, an extra column `TIME_MS` was added to the [INFORMATION\_SCHEMA.PROCESSLIST](information-schema-tables/information-schema-processlist-table.md) table. This column shows the same information as the column '`TIME`', but in units of milliseconds with microsecond precision (the unit and precision of the`TIME` column is one second).

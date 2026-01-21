@@ -1,3 +1,10 @@
+---
+description: >-
+  The Information Schema ROCKSDB_PERF_CONTEXT table contains performance
+  counters for the current session, providing granular metrics on RocksDB
+  operations.
+---
+
 # Information Schema ROCKSDB\_PERF\_CONTEXT Table
 
 The [Information Schema](../../) `ROCKSDB_PERF_CONTEXT` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine and includes per-table/partition counters .

@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate SHA-1 checksum. This function computes the SHA-1 160-bit checksum
+  for a string, returning a 40-character hexadecimal string.
+---
+
 # SHA1
 
 ## Syntax

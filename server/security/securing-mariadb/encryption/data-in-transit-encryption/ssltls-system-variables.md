@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference list of system variables related to TLS configuration, such as
+  `ssl_cipher`, `ssl_crl`, and `have_ssl`, used to manage and monitor encryption
+  settings.
+---
+
 # SSL/TLS System Variables
 
 The system variables listed on this page relate to encrypting data during transfer between servers and clients using the Transport Layer Security (TLS) protocol. Often, the term Secure Sockets Layer (SSL) is used interchangeably with TLS, although strictly speaking the SSL protocol is the predecessor of TLS and is no longer considered secure.
@@ -26,7 +33,7 @@ For compatibility reasons, the TLS system variables in MariaDB still use the `ss
 
 #### `ssl_ca`
 
-* Description: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. This system variable implies the [ssl](../../../../server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) option.
+* Description: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#ssl) option.
   * See [Secure Connections Overview: Certificate Authorities (CAs)](secure-connections-overview.md#certificate-authorities-cas) for more information.
 * Command line: `--ssl-ca=file_name`
 * Scope: Global
@@ -35,7 +42,7 @@ For compatibility reasons, the TLS system variables in MariaDB still use the `ss
 
 #### `ssl_capath`
 
-* Description: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. The directory specified by this variable needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. This system variable implies the [ssl](../../../../server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) option.
+* Description: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. The directory specified by this variable needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#ssl) option.
   * See [Secure Connections Overview: Certificate Authorities (CAs)](secure-connections-overview.md#certificate-authorities-cas) for more information.
 * Command line: `--ssl-capath=directory_name`
 * Scope: Global
@@ -44,7 +51,7 @@ For compatibility reasons, the TLS system variables in MariaDB still use the `ss
 
 #### `ssl_cert`
 
-* Description: Defines a path to the X509 certificate file to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. This system variable implies the [ssl](../../../../server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) option.
+* Description: Defines a path to the X509 certificate file to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#ssl) option.
 * Command line: `--ssl-cert=name`
 * Scope: Global
 * Dynamic: No
@@ -53,7 +60,7 @@ For compatibility reasons, the TLS system variables in MariaDB still use the `ss
 
 #### `ssl_cipher`
 
-* Description: List of permitted ciphers or cipher suites to use for [TLS](./). Besides cipher names, if MariaDB was compiled with OpenSSL, this variable could be set to "SSLv3" or "TLSv1.2" to allow all SSLv3 or all TLSv1.2 ciphers. Note that the TLSv1.3 ciphers cannot be excluded when using OpenSSL, even by using this system variable. See [Using TLSv1.3](using-tlsv13.md) for details. This system variable implies the [ssl](../../../../server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/mariadbd-options.md) option.
+* Description: List of permitted ciphers or cipher suites to use for [TLS](./). Besides cipher names, if MariaDB was compiled with OpenSSL, this variable could be set to "SSLv3" or "TLSv1.2" to allow all SSLv3 or all TLSv1.2 ciphers. Note that the TLSv1.3 ciphers cannot be excluded when using OpenSSL, even by using this system variable. See [Using TLSv1.3](using-tlsv13.md) for details. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#ssl) option.
 * Command line: `--ssl-cipher=name`
 * Scope: Global
 * Dynamic: No
@@ -84,7 +91,7 @@ For compatibility reasons, the TLS system variables in MariaDB still use the `ss
 
 #### `ssl_key`
 
-* Description: Defines a path to a private key file to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option.
+* Description: Defines a path to a private key file to use for [TLS](./). This system variable requires that you use the absolute path, not a relative path. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#ssl) option.
 * Command line: `--ssl-key=name`
 * Scope: Global
 * Dynamic: No

@@ -1,3 +1,10 @@
+---
+description: >-
+  Navigate the MaxGUI browser-based interface. This reference outlines the
+  dashboard features for visual configuration, cluster monitoring, and query
+  execution in MariaDB MaxScale.
+---
+
 # MaxScale MaxGUI
 
 ## Introduction
@@ -10,7 +17,7 @@ This tutorial is an overview of what the MaxGUI offers as an alternative solutio
 
 ### Annotation
 
-1. [MaxScale object](../maxscale-management/deployment/maxscale-configuration-guide.md). i.e. Service, Server, Monitor, Filter, and Listener (Clicking on it will navigate to its detail page)
+1. [MaxScale object](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md). i.e. Service, Server, Monitor, Filter, and Listener (Clicking on it will navigate to its detail page)
 2. Create a new MaxScale object.
 3. Dashboard Tab Navigation.
 4. Search Input. This can be used as a quick way to search for a keyword in tables.

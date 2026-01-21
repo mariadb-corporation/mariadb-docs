@@ -1,5 +1,7 @@
 ---
-description: Introduction to Views Guide
+description: >-
+  Discover how to create and use views to simplify complex queries, restrict
+  data access, and present a specific perspective of your data.
 ---
 
 # Creating & Using Views Guide

@@ -1,3 +1,9 @@
+---
+description: >-
+  Set the transaction isolation level to READ COMMITTED. In this mode, each
+  query within a transaction sees only data committed before the query began.
+---
+
 # READ COMMITTED
 
 `READ COMMITTED` is one of the transaction isolation levels. Each consistent read, even within the same transaction, sets and reads its own fresh snapshot.

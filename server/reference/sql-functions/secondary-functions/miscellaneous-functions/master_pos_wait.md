@@ -1,3 +1,10 @@
+---
+description: >-
+  Wait for a replica to reach a log position. This function blocks until the
+  replica has read and applied updates up to a specified position in the
+  master's binary log.
+---
+
 # MASTER\_POS\_WAIT
 
 ## Syntax

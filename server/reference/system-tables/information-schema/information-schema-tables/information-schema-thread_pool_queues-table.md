@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema THREAD_POOL_QUEUES table shows the status of the queues
+  within the thread pool, detailing pending connections.
+---
+
 # Information Schema THREAD\_POOL\_QUEUES Table
 
 {% hint style="info" %}

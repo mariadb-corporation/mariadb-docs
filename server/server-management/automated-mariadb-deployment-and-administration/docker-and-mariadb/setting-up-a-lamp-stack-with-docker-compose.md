@@ -1,3 +1,9 @@
+---
+description: >-
+  Tutorial on using Docker Compose to orchestrate a full LAMP stack (Linux,
+  Apache, MariaDB, PHP) environment.
+---
+
 # Setting Up a LAMP Stack with Docker Compose
 
 Docker Compose is a tool that allows one to declare which Docker containers should run, and which relationships should exist between them. It follows the **infrastructure as code** approach, just like most automation software and Docker itself.

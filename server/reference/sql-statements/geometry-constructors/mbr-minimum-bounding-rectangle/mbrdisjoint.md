@@ -1,3 +1,9 @@
+---
+description: >-
+  Check if two MBRs are disjoint. Returns 1 if the Minimum Bounding Rectangles
+  of the two geometries do not intersect or touch at all.
+---
+
 # MBRDisjoint
 
 ## Syntax
@@ -32,6 +38,6 @@ SELECT mbrdisjoint(@g1,@g2);
 +----------------------+
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

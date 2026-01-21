@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn to set up standard replication in MariaDB Server. This section provides
-  step-by-step instructions for configuring master and replica servers to ensure
-  data redundancy and high availability.
+  Follow this step-by-step guide to configure standard replication. Learn how to
+  prepare the primary, configure the replica, and establish a connection for
+  data synchronization.
 ---
 
 # Setting Up Replication
@@ -27,7 +27,7 @@ Follow these steps to set up MariaDB replication:
 
 {% stepper %}
 {% step %}
-#### Configure the Master
+**Configure the Master**
 
 * Enable binary logging if it's not already enabled. See [Activating the Binary Log](../../server-management/server-monitoring-logs/binary-log/activating-the-binary-log.md) and [Binary log formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) for details.
 * Give the master a unique [server\_id](replication-and-binary-log-system-variables.md#server_id). All slaves must also be given a server\_id. This can be a number from 1 to 232-1, and must be unique for each server in the replicating group.
@@ -71,7 +71,7 @@ Replication from MySQL 8.0 to MariaDB [requires more configuration](https://app.
 {% endstep %}
 
 {% step %}
-#### Check Settings
+**Check Settings**
 
 There are a number of options that may impact or break replication. Check the following settings to avoid problems.
 
@@ -80,13 +80,13 @@ There are a number of options that may impact or break replication. Check the fo
 {% endstep %}
 
 {% step %}
-#### Configure the Replica
+**Configure the Replica**
 
 Give the replica a unique [server\_id](replication-and-binary-log-system-variables.md). All servers, whether masters or replicas, are given a server\_id. This can be a number from `1` to `232-1`, and must be unique for each server in the replicating group. The server will need to be restarted in order for a change in this option to take effect.
 {% endstep %}
 
 {% step %}
-#### Get the Master's Binary Log Coordinates
+**Get the Master's Binary Log Coordinates**
 
 Now you need prevent any changes to the data while you view the binary log position. You'll use this to tell the replica at exactly which point it should start replicating from.
 
@@ -113,7 +113,7 @@ UNLOCK TABLES;
 {% endstep %}
 
 {% step %}
-#### Start the Replica
+**Start the Replica**
 
 * Once the data has been imported, you are ready to start replicating. Begin by running a [CHANGE MASTER TO](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md), making sure that `MASTER_LOG_FILE` matches the file and `MASTER_LOG_POS` the position returned by the earlier `SHOW MASTER STATUS`:
 

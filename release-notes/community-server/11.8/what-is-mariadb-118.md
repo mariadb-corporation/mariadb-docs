@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Community
+  Server 11.8
+---
+
 # MariaDB 11.8 Changes & Improvements
 
 {% include "../../.gitbook/includes/latest-11-8.md" %}
@@ -130,7 +136,7 @@ This list includes all features since the previous long-term release, [MariaDB 1
 
 ### Derived Tables
 
-* Add optional correlation column list for [derived tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/subqueries-in-a-from-clause-derived-tables) ([MDEV-31466](https://jira.mariadb.org/browse/MDEV-31466), [MariaDB 11.7](../old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117.md))
+* Add optional correlation column list for [derived tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) ([MDEV-31466](https://jira.mariadb.org/browse/MDEV-31466), [MariaDB 11.7](../old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117.md))
 
 ### \[SHOW] CREATE SERVER
 
@@ -175,13 +181,14 @@ The following deprecated features have been removed:
 
 ## List of All [MariaDB 11.8](what-is-mariadb-118.md) Releases
 
-| Date        | Release        | Status      | Release Notes              | Changelog                                                   |
-| ----------- | -------------- | ----------- | -------------------------- | ----------------------------------------------------------- |
-| 6 Nov 2025  | MariaDB 11.8.4 | Stable (GA) | [Release Notes](11.8.4.md) | [Changelog](../changelogs/11.8/11.8.4.md)                   |
-| 6 Aug 2025  | MariaDB 11.8.3 | Stable (GA) | [Release Notes](11.8.3.md) | [Changelog](../changelogs/11.8/11.8.3.md)                   |
-| 4 Jun 2025  | MariaDB 11.8.2 | Stable (GA) | [Release Notes](11.8.2.md) | [Changelog](../changelogs/11.8/11.8.2.md)                   |
-| 13 Feb 2024 | MariaDB 11.8.1 | RC          | [Release Notes](11.8.1.md) | [Changelog](../changelogs/11.7/mariadb-11-7-1-changelog.md) |
-| 18 Dec 2024 | MariaDB 11.8.0 | Alpha       | [Release Notes](11.8.0.md) |                                                             |
+| Date        | Release        | Status      | Release Notes              | Changelog                                 |
+| ----------- | -------------- | ----------- | -------------------------- | ----------------------------------------- |
+| 14 Nov 2025 | MariaDB 11.8.5 | Stable (GA) | [Release Notes](11.8.5.md) | [Changelog](../changelogs/11.8/11.8.5.md) |
+| 6 Nov 2025  | MariaDB 11.8.4 | Stable (GA) | [Release Notes](11.8.4.md) | [Changelog](../changelogs/11.8/11.8.4.md) |
+| 6 Aug 2025  | MariaDB 11.8.3 | Stable (GA) | [Release Notes](11.8.3.md) | [Changelog](../changelogs/11.8/11.8.3.md) |
+| 4 Jun 2025  | MariaDB 11.8.2 | Stable (GA) | [Release Notes](11.8.2.md) | [Changelog](../changelogs/11.8/11.8.2.md) |
+| 13 Feb 2024 | MariaDB 11.8.1 | RC          | [Release Notes](11.8.1.md) | [Changelog](../changelogs/11.8/11.8.1.md) |
+| 18 Dec 2024 | MariaDB 11.8.0 | Alpha       | [Release Notes](11.8.0.md) |                                           |
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
 

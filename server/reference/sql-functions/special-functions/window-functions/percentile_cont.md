@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate a continuous percentile. This inverse distribution function returns
+  an interpolated value that corresponds to the specified percentile.
+---
+
 # PERCENTILE\_CONT
 
 ## Syntax

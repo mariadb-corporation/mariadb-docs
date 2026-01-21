@@ -1,5 +1,7 @@
 ---
-description: Adding and Modifying Data Guide
+description: >-
+  This guide provides a walkthrough of the INSERT, UPDATE, and DELETE
+  statements, demonstrating how to add, modify, and remove data in tables.
 ---
 
 # Adding & Changing Data Guide

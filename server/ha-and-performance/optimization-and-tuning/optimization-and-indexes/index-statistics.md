@@ -1,16 +1,19 @@
+---
+description: >-
+  Index statistics provide crucial insights to the MariaDB query optimizer,
+  guiding it in executing queries efficiently. Up-to-date index statistics
+  ensure optimized query performance.
+---
+
 # Index Statistics
 
 ## How Index Statistics Help the Query Optimizer
 
-The MariaDB query optimizer decides how best to execute each query based largely on the details of the indexes involved.
-
-The index statistics help inform these decisions. Imagine yourself choosing whether to look up a number in a phone book, or in your personal address book. You'd choose the personal phone book if at all possible, as it would (usually!) contain far fewer records and be quicker to search.
-
-Now imagine getting to your personal address book and finding it has twice the number of entries as the phone book. Your search would be slower. The same process applies to the query optimizer, so having access to up-to-date and accurate statistics is critical.
+Understanding index statistics is crucial for the MariaDB query optimizer to efficiently execute queries. Accurate and current statistics guide the optimizer in choosing the best way to access data, similar to using a personal address book for quicker searches rather than a larger phone book. Up-to-date index statistics ensure optimized query performance.
 
 ## Value Groups
 
-The statistics are mainly based on groups of index elements of the same value. In a primary key, every index is unique, so every group size is one. In a non-unique index, you may have multiple keys with the same value. A worst-case example would be having large groups with the same value, for example an index on a boolean field.
+The statistics primarily focus on groups of index elements with identical values. In a primary key, each index is unique, resulting in a group size of one. In a non-unique index, multiple keys may share the same value. The worst-case scenario involves large groups with identical values, such as an index on a boolean field.
 
 MariaDB makes heavy use of the average group size statistic. For example, if there are 100 rows, and twenty groups with the same index values, the average group size would be five.
 

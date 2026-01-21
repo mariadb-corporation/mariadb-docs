@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema REFERENTIAL_CONSTRAINTS table contains metadata about
+  foreign keys, including update and delete rules.
+---
+
 # Information Schema REFERENTIAL\_CONSTRAINTS Table
 
 The [Information Schema](../) `REFERENTIAL_CONSTRAINTS` table contains information about [foreign keys](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md). The single columns are listed in the [KEY\_COLUMN\_USAGE](information-schema-key_column_usage-table.md) table.

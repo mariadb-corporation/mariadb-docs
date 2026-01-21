@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert an integer to an IPv4 address. This function takes a numeric IP value
+  and returns its dotted-quad string representation.
+---
+
 # INET\_NTOA
 
 ## Syntax

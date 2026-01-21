@@ -1,5 +1,7 @@
 ---
-description: Bulk Data Importing Guide
+description: >-
+  Learn how to efficiently import data into MariaDB tables from external files
+  using the LOAD DATA INFILE statement.
 ---
 
 # Importing Data Guide

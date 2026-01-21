@@ -1,3 +1,9 @@
+---
+description: >-
+  Explore JSON_ARRAY_APPEND in MariaDB. This function appends values to the end
+  of specified arrays within a JSON document, returning the modified result.
+---
+
 # JSON\_ARRAY\_APPEND
 
 ## Syntax

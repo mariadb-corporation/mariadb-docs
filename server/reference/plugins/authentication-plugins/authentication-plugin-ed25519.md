@@ -1,3 +1,10 @@
+---
+description: >-
+  The ed25519 authentication plugin provides high-security password
+  authentication using the Elliptic Curve Digital Signature Algorithm, a modern
+  alternative to SHA-1.
+---
+
 # Authentication Plugin - ed25519
 
 MySQL has used SHA-1 based authentication since version 4.1. The authentication plugin is called [mysql\_native\_password](authentication-plugin-mysql_native_password.md). Over the years as computers became faster, new attacks on SHA-1 were being developed. Nowadays SHA-1 is no longer considered as secure as it was in 2001. That's why the `ed25519` authentication plugin was created.

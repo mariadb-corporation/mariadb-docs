@@ -1,3 +1,9 @@
+---
+description: >-
+  Export a single row to a file without formatting. This statement writes raw
+  binary data, such as BLOBs, directly to a file on the server.
+---
+
 # SELECT INTO DUMPFILE
 
 ## Syntax

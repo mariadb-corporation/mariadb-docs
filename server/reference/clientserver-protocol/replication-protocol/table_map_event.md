@@ -1,3 +1,9 @@
+---
+description: >-
+  This event provides a mapping between a table ID and its table definition,
+  preceding row events to interpret the row data correctly.
+---
+
 # TABLE\_MAP\_EVENT
 
 Used for row-based binary logging beginning (binlog\_format=`ROW` or `MIXED`).

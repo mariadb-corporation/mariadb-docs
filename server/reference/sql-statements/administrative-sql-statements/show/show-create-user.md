@@ -1,3 +1,9 @@
+---
+description: >-
+  View the CREATE USER statement. This statement returns the SQL required to
+  recreate a user account with its authentication details.
+---
+
 # SHOW CREATE USER
 
 ## Syntax

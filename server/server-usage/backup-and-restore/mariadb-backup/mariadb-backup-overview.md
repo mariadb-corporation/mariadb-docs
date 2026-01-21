@@ -1,3 +1,9 @@
+---
+description: >-
+  An introduction to the mariadb-backup utility, detailing its features,
+  installation process, and support for hot online backups of InnoDB tables.
+---
+
 # mariadb-backup Overview
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
@@ -32,6 +38,16 @@ MariaDB Backup supports some additional features, such as:
 MariaDB Backup does **not** support some additional features.
 {% endtab %}
 {% endtabs %}
+
+## Backup Types
+
+mariadb-backup supports various type of backups (and restores from those backups), documented on separate pages:
+
+* [Full backup and restore](full-backup-and-restore-with-mariadb-backup.md)
+* [Incremental backup and restore](incremental-backup-and-restore-with-mariadb-backup.md)
+* [Partial backup and restore](partial-backup-and-restore-with-mariadb-backup.md)
+* Restoring [individual databases](individual-database-restores-with-mariadb-backup-from-full-backup.md), [tables, and partitions](restoring-individual-tables-and-partitions-with-mariadb-backup.md)
+* [Point-in-time recovery (PITR)](point-in-time-recovery-pitr-mariadb-backup.md)
 
 ## Installing `mariadb-backup`
 
@@ -124,20 +140,20 @@ The following options relate to how MariaDB command-line tools handles option fi
 
 mariadb-backup reads server options from the following [option groups](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
-| Group              | Description                                                                                                                                                                                                                                                                             |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `[mariadb-backup]` | Options read by `mariadb-backup`.                                                                                                                                                                                                                                                       |
-| `[mariadb-backup]` | Options read by `mariadb-backup`.                                                                                                                                                                                                                                                       |
-| `[xtrabackup]`     | Options read by `mariadb-backup` and Percona XtraBackup.                                                                                                                                                                                                                                |
-| `[server]`         | Options read by MariaDB Server.                                                                                                                                                                                                                                                         |
-| `[mysqld]`         | Options read by `mariadbd`, which includes both MariaDB Server and MySQL Server (where it is called `mysqld`).                                                                                                                                                                          |
-| `[mysqld-X.Y]`     | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example: `[mysqld-10.6]`.                                                                                                                                                        |
-| `[mariadb]`        | Options read by MariaDB Server.                                                                                                                                                                                                                                                         |
-| `[mariadb-X.Y]`    | Options read by a specific version of MariaDB Server. For example: `[mariadb-10.6]`.                                                                                                                                                                                                    |
-| `[mariadbd]`       | Options read by MariaDB Server. Available from MariaDB 10.5.4.                                                                                                                                                                                                                          |
-| `[mariadbd-X.Y]`   | Options read by a specific version of MariaDB Server. For example: `[mariadbd-10.6]`. Available from MariaDB 10.5.4.                                                                                                                                                                    |
-| `[client-server]`  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients.                                                                                                                |
-| `[galera]`         | Options read by MariaDB Server, but only if it is compiled with Galera Cluster support. All builds on Linux are compiled with Galera Cluster support. When using one of these builds, options from this option group are read even if the Galera Cluster functionality is not enabled.  |
+| Group              | Description                                                                                                                                                                                                                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[mariadb-backup]` | Options read by `mariadb-backup`.                                                                                                                                                                                                                                                      |
+| `[mariadb-backup]` | Options read by `mariadb-backup`.                                                                                                                                                                                                                                                      |
+| `[xtrabackup]`     | Options read by `mariadb-backup` and Percona XtraBackup.                                                                                                                                                                                                                               |
+| `[server]`         | Options read by MariaDB Server.                                                                                                                                                                                                                                                        |
+| `[mysqld]`         | Options read by `mariadbd`, which includes both MariaDB Server and MySQL Server (where it is called `mysqld`).                                                                                                                                                                         |
+| `[mysqld-X.Y]`     | Options read by a specific version of mysqld, which includes both MariaDB Server and MySQL Server. For example: `[mysqld-10.6]`.                                                                                                                                                       |
+| `[mariadb]`        | Options read by MariaDB Server.                                                                                                                                                                                                                                                        |
+| `[mariadb-X.Y]`    | Options read by a specific version of MariaDB Server. For example: `[mariadb-10.6]`.                                                                                                                                                                                                   |
+| `[mariadbd]`       | Options read by MariaDB Server. Available from MariaDB 10.5.4.                                                                                                                                                                                                                         |
+| `[mariadbd-X.Y]`   | Options read by a specific version of MariaDB Server. For example: `[mariadbd-10.6]`. Available from MariaDB 10.5.4.                                                                                                                                                                   |
+| `[client-server]`  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients.                                                                                                               |
+| `[galera]`         | Options read by MariaDB Server, but only if it is compiled with Galera Cluster support. All builds on Linux are compiled with Galera Cluster support. When using one of these builds, options from this option group are read even if the Galera Cluster functionality is not enabled. |
 
 #### **Client Option Groups**
 
@@ -151,6 +167,19 @@ mariadb-backup reads client options from the following option groups from option
 | `[client]`         | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `[client-server]`  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. Available starting with [MariaDB 10.1.38](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10138-release-notes), [MariaDB 10.2.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10222-release-notes), and [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10313-release-notes). |
 | `[client-mariadb]` | Options read by all MariaDB client programs. Available starting with [MariaDB 10.1.38](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10138-release-notes), [MariaDB 10.2.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10222-release-notes), and [MariaDB 10.3.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10313-release-notes).                                                                                                                             |
+
+### Backup History Table
+
+`mariadb-backup` can optionally track your backup operations in a database table. This provides a centralized audit log and allows you to automate incremental backups by referencing the logical name of the previous backup instead of managing file paths.
+
+**Table Location and Schema Changes (MariaDB 10.11):**
+
+* **MariaDB 10.11 and later:** The history table is `mysql.mariadb_backup_history` and uses the **InnoDB** storage engine (transactional).
+* **MariaDB 10.10 and earlier:** The history table is `PERCONA_SCHEMA.xtrabackup_history` and uses the **CSV** storage engine.
+
+{% hint style="info" %}
+On the first run after upgrading to MariaDB 10.11, `mariadb-backup` will attempt to migrate the old CSV table to the new InnoDB table. This requires specific privileges (see below).
+{% endhint %}
 
 ## Authentication and Privileges
 
@@ -182,23 +211,44 @@ If your database server is also using the [MyRocks storage engine](../../storage
 
 `REPLICA MONITOR` (or alias `SLAVE MONITOR`) is also required where [--galera-info](mariadb-backup-options.md#galera-info) or [--slave-info](mariadb-backup-options.md#slave-info) is specified.
 
-To use the [--history](mariadb-backup-options.md#history) option, the backup user also needs to have the following privileges granted:
+To use the [--history](mariadb-backup-options.md#history) option(or the incremental history options), the backup user requires specific privileges on the history table.
+
+{% tabs %}
+{% tab title="Current" %}
+The user needs `INSERT` to create history records and `SELECT` to read them for incremental backups:
+
+{% code overflow="wrap" %}
+```sql
+GRANT SELECT, INSERT, CREATE, ALTER ON mysql.mariadb_backup_history TO 'mariadb-backup'@'localhost';
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="< MariaDB 10.10" %}
+The user needs privileges on the legacy `PERCONA_SCHEMA`:
+
+{% code overflow="wrap" %}
+```sql
+GRANT SELECT, INSERT, CREATE, ALTER ON PERCONA_SCHEMA.xtrabackup_history TO 'mariadb-backup'@'localhost';
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+**For Upgrading to 10.11 (One-Time Migration)**&#x20;
+
+If upgrading from an older version, `mariadb-backup` will attempt to migrate the old table to the new location on the first run. The backup user needs privileges to move and modify the old table:
 
 ```sql
-GRANT CREATE, ALTER, INSERT ON mysql.mariadb_backup_history TO 'mariadb-backup'@'localhost';
+GRANT DROP, ALTER, RENAME ON PERCONA_SCHEMA.xtrabackup_history TO 'mariadb-backup'@'localhost';
+GRANT CREATE ON PERCONA_SCHEMA TO 'mariadb-backup'@'localhost';
 ```
 
-Prior to MariaDB 10.11, the necessary permissions to use [--history](mariadb-backup-options.md#history) were:
-
-```sql
-GRANT CREATE, INSERT ON PERCONA_SCHEMA.* TO 'mariadb-backup'@'localhost';
-```
-
-If you're upgrading from an older version and you want to use the new default table without losing your backup history, you can move and rename the current table in this way:
+Alternatively, you can perform this migration manually before running the backup:
 
 ```sql
 RENAME TABLE PERCONA_SCHEMA.xtrabackup_history TO mysql.mariadb_backup_history;
-ALTER TABLE mysql.mariadb_backup_history MODIFY format ENUM('file', 'tar', 'mbstream') DEFAULT NULL;
+ALTER TABLE mysql.mariadb_backup_history ENGINE=InnoDB;
 ```
 
 The user account information can be specified with the [--user](mariadb-backup-options.md#user) and [--password](mariadb-backup-options.md#p-password) command-line options. For example:
@@ -211,7 +261,7 @@ mariadb-backup --backup \
 
 The user account information can also be specified in a supported [client option group](mariadb-backup-overview.md#client-option-groups) in an [option file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
-```bash
+```ini
 [mariadb-backup]
 user=mariadb-backup
 password=mypassword
@@ -265,7 +315,7 @@ The `mariadb-backup` SST method uses the `mariadb-backup` utility for performing
 
 If `mariadb-backup` uses more file descriptors than the system is configured to allow, then users can see errors like the following:
 
-```
+```log
 2019-02-12 09:48:38 7ffff7fdb820  InnoDB: Operating system error number 23 in a file operation.
 InnoDB: Error number 23 means 'Too many open files in system'.
 InnoDB: Some operating system error numbers are described at

@@ -1,3 +1,9 @@
+---
+description: >-
+  Calculate Cosine distance. This function computes the Cosine distance between
+  two vectors, measuring the cosine of the angle between them.
+---
+
 # VEC\_DISTANCE\_COSINE
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}

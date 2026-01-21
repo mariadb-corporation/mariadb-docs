@@ -1,3 +1,9 @@
+---
+description: >-
+  Provides information about a table's columns. Acts as a shortcut for SHOW
+  COLUMNS, displaying field names, types, and other attributes.
+---
+
 # DESCRIBE
 
 ## Syntax

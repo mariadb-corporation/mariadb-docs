@@ -13,9 +13,11 @@ Auto-scale of nodes enables scaling based on load:
 
 Auto-scale of storage enables expansion of capacity based on usage.
 
-Autonomous features can be enabled at the time of [service launch](../cloud-usage/launch-page.md). Autonomous features can be enabled or disabled after launch.
+Autonomous features can be enabled at the time of [service launch](../cloud-usage/launch-page.md). These features can be enabled or disabled after launch.
 
-<figure><img src="../Autonomously scale Compute, Storage/autonomous.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/auto-settings.png" alt=""><figcaption></figcaption></figure>
+
+_Autonomous Settings_
 
 ## Enable Auto-Scaling of Nodes
 
@@ -41,9 +43,11 @@ After service launch, [manage Autonomous settings](autonomously-scale-compute-st
 
 To manage Autonomous settings:
 
-* From the [Portal](../Portal%20features/), click the "MANAGE" button for the desired service, then choose "Autonomous" from the menu.
-* Update settings as desired.
-* Click "Apply Changes" when complete.
+1. From the [Portal](../Portal%20features/), click the "MANAGE" button for the desired service, then choose "Autonomous" from the menu.
+2. Update settings as desired.
+3. Click "Apply Changes" when complete.
+
+The “Apply Changes” option ensures that your updated Autonomous Settings take effect on the selected service.
 
 ## Scaling Rules
 
@@ -59,4 +63,4 @@ Automatic scaling occurs based on rules.
 
 Autonomous actions are not instantaneous.
 
-Cooldown periods may apply. A cooldown period is the time period after a scaling operation is completed and before another scaling operation can occur. The cooldown period for storage scaling is 6 hours.
+Cooldown periods may apply. A cooldown period is the time interval between the completion of a scaling operation and initiation of another scaling operation. The cooldown period for storage scaling is 6 hours.

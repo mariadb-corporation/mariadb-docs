@@ -1,3 +1,9 @@
+---
+description: >-
+  The Information Schema WSREP_THD_STATE_HISTORY table maintains a history of
+  thread states for Galera replication, aiding in post-incident analysis.
+---
+
 # Information Schema WSREP\_THD\_STATE\_HISTORY
 
 {% hint style="info" %}

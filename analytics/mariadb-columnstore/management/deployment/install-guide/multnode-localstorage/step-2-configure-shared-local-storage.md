@@ -8,7 +8,9 @@ description: 'Step 2: Configure Shared Local Storage'
 
 This page details step 2 of the 9-step procedure "Deploy ColumnStore Shared Local Storage Topology".
 
-This step configures shared local storage on systems hosting Enterprise ColumnStore 23.10.
+This step configures shared local storage on systems hosting Enterprise ColumnStore.
+
+{% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
 
 Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 

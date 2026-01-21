@@ -1,3 +1,9 @@
+---
+description: >-
+  Double precision floating-point number. A DOUBLE column uses 8 bytes to store
+  large or precise approximate values.
+---
+
 # DOUBLE
 
 ## Syntax

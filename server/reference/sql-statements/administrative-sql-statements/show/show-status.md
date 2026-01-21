@@ -1,3 +1,9 @@
+---
+description: >-
+  View server status variables. This statement displays counters and metrics for
+  server activity, performance, and health.
+---
+
 # SHOW STATUS
 
 ## Syntax

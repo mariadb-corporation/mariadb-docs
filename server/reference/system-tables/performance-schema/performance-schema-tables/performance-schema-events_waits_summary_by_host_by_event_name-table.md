@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes wait events aggregated by client host and event name,
+  helping to analyze wait latencies on a per-host basis.
+---
+
 # Performance Schema events\_waits\_summary\_by\_host\_by\_event\_name Table
 
 The [Performance Schema](../) `events_waits_summary_by_host_by_event_name` table contains wait events summarized by host and event name. It contains the following columns:

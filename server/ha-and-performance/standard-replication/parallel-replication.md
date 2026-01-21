@@ -60,7 +60,7 @@ Optimistic mode of in-order parallel replication provides a lot of opportunities
 Optimistic mode of in-order parallel replication can be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `optimistic` on the replica.
 
 Any transactional DML (INSERT/UPDATE/DELETE) is allowed to run in parallel, up to the limit of [@@slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md). This may cause conflicts on the replica, e.g. if two transactions try to modify the same row. Any such conflict is detected, and the latter of the two transactions is rolled back, allowing the former to proceed. The latter transaction is then re-tried once\
-the former has completed.&#x20;
+the former has completed. 
 
 The term "optimistic" is used for this mode, because the server optimistically assumes that few conflicts will occur, and that the extra work spent rolling back and retrying conflicting transactions is justified from the gain from running most transactions in parallel.
 
@@ -118,7 +118,7 @@ Note that even if there is no parallelism available from the primary [group comm
 
 #### Minimal Mode of In-Order Parallel Replication
 
-Minimal mode of in-order parallel replication _onl&#x79;_&#x61;llows the commit step of transactions to be applied in parallel; all other steps are applied serially.
+Minimal mode of in-order parallel replication _only_allows the commit step of transactions to be applied in parallel; all other steps are applied serially.
 
 Minimal mode of in-order parallel replication can be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `minimal` on the replica.
 

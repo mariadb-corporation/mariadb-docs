@@ -24,7 +24,9 @@ layout:
 
 Database server configuration, including system variables, is managed through the Configuration Manager.
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/configuration-manager.png" alt=""><figcaption></figcaption></figure>
+
+_Configuration Manager_
 
 ## **Access to Configuration Manager**
 
@@ -34,7 +36,7 @@ To access the Configuration Manager interface:
 2. Select <kbd>Settings</kbd> in the sidebar.
 3. Select <kbd>Configuration Manager</kbd>.
 
-After selecting Configuration Manager, you will be sent to Saved Configuration page, where you can view, create, and manage configuration templates for various MariaDB cloud topologies.
+After selecting Configuration Manager, you will be sent to the Saved Configuration page, where you can view, create, and manage configuration templates for various MariaDB cloud topologies.
 
 ## **What is Configurable?**
 

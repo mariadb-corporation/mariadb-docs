@@ -1,3 +1,9 @@
+---
+description: >-
+  This function appends a value to a comma-separated list of values, which is
+  useful for modifying system variables that take list values.
+---
+
 # list\_add
 
 {% include "../../../../.gitbook/includes/sys-schema-is-available-fro....md" %}

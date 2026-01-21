@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of changes, improvements, and what's new in MariaDB Community
+  Server 10.6
+---
+
 # MariaDB 10.6 Changes & Improvements
 
 {% include "../../.gitbook/includes/latest-10-6.md" %}
@@ -10,7 +16,7 @@
 
 ## New Features & Improvements
 
-See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10-6.md) page for items that are different between MariaDB Community Server 10.6 and MariaDB Enterprise Server 10.6.
+See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/about/mariadb-enterprise-server-differences/differences-in-mariadb-enterprise-server-10.6.md) page for items that are different between MariaDB Community Server 10.6 and MariaDB Enterprise Server 10.6.
 
 ### Atomic DDL
 
@@ -25,11 +31,11 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 #### Oracle Compatibility
 
-* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/mariadb-community-server-release-notes/mariadb-10-6-series/broken-reference/README.md) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
+* Anonymous [subqueries in a FROM clause](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/subqueries/subqueries-in-a-from-clause-derived-tables) (no AS clause) are permitted in [ORACLE mode](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/mariadb-community-server-release-notes/mariadb-10-6-series/broken-reference/README.md) ([MDEV-19162](https://jira.mariadb.org/browse/MDEV-19162))
 * [ADD\_MONTHS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/add_months) added ([MDEV-20025](https://jira.mariadb.org/browse/MDEV-20025))
 * [TO\_CHAR()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/to_char) added ([MDEV-20017](https://jira.mariadb.org/browse/MDEV-20017))
 * [SYS\_GUID()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/sys_guid) added ([MDEV-24285](https://jira.mariadb.org/browse/MDEV-24285))
-* MINUS is mapped to [EXCEPT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/except) in UNION ([MDEV-20021](https://jira.mariadb.org/browse/MDEV-20021))
+* MINUS is mapped to [EXCEPT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/except) in UNION ([MDEV-20021](https://jira.mariadb.org/browse/MDEV-20021))
 * [ROWNUM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/information-functions/rownum) function returns the current number of accepted rows in the current context ([MDEV-24089](https://jira.mariadb.org/browse/MDEV-24089))
 
 ### InnoDB

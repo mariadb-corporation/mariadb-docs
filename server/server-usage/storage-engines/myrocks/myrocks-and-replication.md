@@ -1,3 +1,10 @@
+---
+description: >-
+  This page details how MyRocks integrates with MariaDB replication,
+  specifically addressing limitations with statement-based replication and lack
+  of Gap Lock support.
+---
+
 # MyRocks and Replication
 
 Details about how MyRocks works with [replication](../../../ha-and-performance/standard-replication/).

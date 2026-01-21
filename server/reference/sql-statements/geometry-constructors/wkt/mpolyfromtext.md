@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_MultiPolygonFromText. Constructs a MultiPolygon value from its
+  WKT representation and an optional SRID.
+---
+
 # MPolyFromText
 
 ## Syntax
@@ -9,7 +15,7 @@ MultiPolygonFromText(wkt[,srid])
 
 ## Description
 
-Constructs a [MULTIPOLYGON](../../../sql-statements/geometry-constructors/geometry-constructors/multipolygon.md) value using its [WKT](wkt-definition.md) representation and [SRID](../geometry-properties/st_srid.md).
+Constructs a [MULTIPOLYGON](../geometry-constructors/multipolygon.md) value using its [WKT](wkt-definition.md) representation and [SRID](../geometry-properties/st_srid.md).
 
 `MPolyFromText()` and `MultiPolygonFromText()` are synonyms.
 
@@ -29,6 +35,6 @@ INSERT INTO gis_multi_polygon VALUES
        LineString(Point(0, 3), Point(3, 3), Point(3, 0), Point(0, 3)))))));
 ```
 
-<sub>_This page is licensed: GPLv2, originally from [fill\_help\_tables.sql](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)_</sub>
+<sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}

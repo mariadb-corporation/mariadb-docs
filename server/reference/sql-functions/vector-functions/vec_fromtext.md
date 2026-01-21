@@ -1,3 +1,9 @@
+---
+description: >-
+  Convert text to vector. This function parses a JSON array string
+  representation of a vector and converts it into the binary VECTOR data type.
+---
+
 # VEC\_FromText
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}

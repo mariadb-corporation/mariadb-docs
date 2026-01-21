@@ -1,3 +1,9 @@
+---
+description: >-
+  This command resets the data of a prepared statement on the server, clearing
+  any buffers or previous parameter values.
+---
+
 # COM\_STMT\_RESET
 
 Resets a prepared statement on the client and server to state after preparing.

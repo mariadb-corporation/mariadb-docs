@@ -1,3 +1,9 @@
+---
+description: >-
+  Change the name of one or more tables atomically. This command moves tables
+  within or between databases while preserving their data and structure.
+---
+
 # RENAME TABLE
 
 ## Syntax
@@ -37,7 +43,7 @@ RENAME TABLE db1.t TO db2.t;
 #### Limitations of Moving Tables to Another Database
 
 {% hint style="warning" %}
-Note that moving a table to another database is not possible if it has [triggers](../../../server-usage/triggers-events/triggers/).&#x20;
+Note that moving a table to another database is not possible if it has [triggers](../../../server-usage/triggers-events/triggers/).
 {% endhint %}
 
 Trying to do so produces the following error:
@@ -86,7 +92,7 @@ Executing the `RENAME TABLE` statement requires the [DROP](../account-management
 {% tab title="Current" %}
 `RENAME TABLE` is atomic for most storage engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-23842](https://jira.mariadb.org/browse/MDEV-23842)).
 
-This means that if there is a crash (server down or power outage) during `RENAME TABLE`, all tables  revert to their original names and any changes to trigger files are reverted.\
+This means that if there is a crash (server down or power outage) during `RENAME TABLE`, all tables revert to their original names and any changes to trigger files are reverted.\
 \
 See [Atomic DDL](atomic-ddl.md) for more information.
 {% endtab %}

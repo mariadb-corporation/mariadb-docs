@@ -1,3 +1,9 @@
+---
+description: >-
+  Extract the time portion. This function returns the time part of a time or
+  datetime expression.
+---
+
 # TIME
 
 ## Syntax

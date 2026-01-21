@@ -1,3 +1,10 @@
+---
+description: >-
+  Details how Aria manages encryption keys (using ID 1 for user tables and ID 2
+  for temporary tables) and notes limitations regarding key rotation and
+  per-table key assignment.
+---
+
 # Aria Encryption Keys
 
 As with other storage engines that support data-at-rest encryption, Aria relies on an [Encryption Key Management](../key-management-and-encryption-plugins/) plugin to handle its encryption keys. Where the support is available, Aria can use [multiple keys](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#using-multiple-encryption-keys).

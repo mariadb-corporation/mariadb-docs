@@ -1,3 +1,9 @@
+---
+description: >-
+  Details the CREATE VIEW statement, including syntax for defining views,
+  security context (DEFINER vs INVOKER), and optional algorithms.
+---
+
 # CREATE VIEW
 
 ## Syntax

@@ -1,3 +1,7 @@
+---
+description: The CONNECT storage engine has been deprecated.
+---
+
 # CONNECT - Using the TBL and MYSQL Table Types Together
 
 {% hint style="warning" %}
@@ -19,7 +23,7 @@ Another major limitation of FEDERATED is to access only one table. By combining 
 
 ## Remotely executing complex queries
 
-Many companies or administrations must deal with distributed information. CONNECT enables to deal with it efficiently without having to copy it to a centralized database. Let us suppose we have on some remote network machine&#x73;_&#x6D;1, m2, … mn_ some information contained in two tables _t1_ and _t2_.
+Many companies or administrations must deal with distributed information. CONNECT enables to deal with it efficiently without having to copy it to a centralized database. Let us suppose we have on some remote network machines\_m1, m2, … mn\_ some information contained in two tables _t1_ and _t2_.
 
 Suppose we want to execute on all servers a query such as:
 
@@ -53,13 +57,13 @@ SELECT c1, SUM(sc2) FROM rtall;
 
 Almost all the work are done on the remote machines, simultaneously thanks to the thread option, making this query super-fast even on big tables placed on many remote machines.
 
-Thread is currently experimental. Use it only for test and report any malfunction on [JIRA](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/jira).
+Thread is currently experimental. Use it only for test and report any malfunction on [JIRA](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/8H2QW24PZkCSvuwPkQtB).
 
 ## Providing a list of servers
 
 An interesting case is when the query to run on remote machines is the same for all of them. It is then possible to avoid declaring all sub-tables. In this case, the table list option are used to specify the list of servers the`SRCDEF` query must be sent. This is a list of URL’s and/or Federated server names.
 
-For instance, supposing that federated servers srv1, srv2, … sr&#x76;_&#x6E;_ were created for all remote servers, it are possible to create a tbl table allowing getting the result of a query executed on all of them by:
+For instance, supposing that federated servers srv1, srv2, … srv\_n\_ were created for all remote servers, it are possible to create a tbl table allowing getting the result of a query executed on all of them by:
 
 ```sql
 CREATE TABLE qall [column definition]

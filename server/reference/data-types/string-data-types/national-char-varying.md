@@ -1,3 +1,9 @@
+---
+description: >-
+  NATIONAL CHAR VARYING is a synonym for VARCHAR that uses the predefined utf8
+  character set.
+---
+
 # NATIONAL CHAR VARYING
 
 ## Overview

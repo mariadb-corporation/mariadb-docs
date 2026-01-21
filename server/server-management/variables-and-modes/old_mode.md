@@ -1,6 +1,13 @@
+---
+description: >-
+  Describes the `OLD_MODE` system variable, used to revert specific behaviors to
+  match older MariaDB or MySQL versions for compatibility purposes during
+  upgrades.
+---
+
 # OLD\_MODE
 
-The [old\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode) system variable was introduced in [MariaDB 5.5.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5535-release-notes) to replace the [old](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) variable with a new one with better granularity.
+The [old\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode) system variable was introduced to replace the [old](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) variable with a new one with better granularity.
 
 MariaDB supports several different modes which allow you to tune it to suit your needs.
 
@@ -24,7 +31,7 @@ SELECT @@OLD_MODE, @@GLOBAL.OLD_MODE;
 
 You can set the `OLD_MODE` either from the [command line](../starting-and-stopping-mariadb/mariadbd-options.md) (option `--old-mode`) or by setting the [old\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode) system variable.
 
-Non-default old mode features are deprecated by design, and from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113), a warning will be issued when set.
+Non-default old mode features are deprecated by design, and a warning is issued when set.
 
 ## Modes
 

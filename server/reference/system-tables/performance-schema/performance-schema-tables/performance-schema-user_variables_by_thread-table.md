@@ -1,3 +1,9 @@
+---
+description: >-
+  This table exposes user-defined variables set within active threads, allowing
+  inspection of custom variables across all sessions.
+---
+
 # Performance Schema user\_variables\_by\_thread Table
 
 {% hint style="info" %}

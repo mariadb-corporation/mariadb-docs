@@ -1,3 +1,9 @@
+---
+description: >-
+  The purge process is a garbage collection mechanism that removes old row
+  versions from the undo log that are no longer required for MVCC.
+---
+
 # InnoDB Purge
 
 When a transaction updates a row in an InnoDB table, InnoDB's MVCC implementation keeps old versions of the row in the [InnoDB undo log](innodb-undo-log.md). The old versions are kept at least until all transactions older than the transaction that updated the row are no longer open. At that point, the old versions can be deleted. InnoDB has purge process that is used to delete these old versions.

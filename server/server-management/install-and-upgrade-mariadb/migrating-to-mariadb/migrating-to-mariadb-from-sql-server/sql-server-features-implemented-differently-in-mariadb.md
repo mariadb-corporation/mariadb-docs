@@ -1,3 +1,7 @@
+---
+description: Differences between features in Microsoft SQL Server and MariaDB.
+---
+
 # SQL Server Features Implemented Differently in MariaDB
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}

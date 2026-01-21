@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how to generate RPM packages from the MariaDB source code using CMake
+  with the `-DRPM` flag.
+---
+
 # Building RPM Packages From Source
 
 To generate RPM packages from the build, supply the `-DRPM=xxx` flag to `CMake`, where the value `xxx` is the name of the distribution you're building for. For example, centos7 or rocky8 or fedora39 or sles15.

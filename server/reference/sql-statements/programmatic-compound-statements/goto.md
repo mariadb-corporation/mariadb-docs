@@ -1,3 +1,9 @@
+---
+description: >-
+  Jump to a labeled point in the code. This Oracle-compatible statement
+  transfers execution control to a specific label within the stored program.
+---
+
 # GOTO
 
 ## Syntax

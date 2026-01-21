@@ -1,3 +1,9 @@
+---
+description: >-
+  Retrieve a dynamic column value. This function extracts a specific column's
+  value from a dynamic column blob, casting it to a specified type.
+---
+
 # COLUMN\_GET
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for building MariaDB binaries from a source RPM package using
+  tools like `rpmbuild`, `yum`, or `dnf`.
+---
+
 # Building MariaDB from a Source RPM
 
 For some distributions you can build MariaDB from a source RPM. (See also [Why Source RPMs (SRPMs) Aren't Packaged For Some Platforms](../binary-packages/rpm/why-source-rpms-srpms-arent-packaged-for-some-platforms.md)).

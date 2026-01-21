@@ -1,3 +1,9 @@
+---
+description: >-
+  This table summarizes socket I/O events per socket instance, allowing for
+  traffic analysis and latency monitoring of individual connections.
+---
+
 # Performance Schema socket\_summary\_by\_instance Table
 
 It aggregates timer and byte count statistics for all socket I/O operations by socket instance.

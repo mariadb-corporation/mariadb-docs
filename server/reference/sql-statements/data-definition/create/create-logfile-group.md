@@ -1,3 +1,9 @@
+---
+description: >-
+  Create a log file group for NDB Cluster. This command allocates undo log space
+  on disk for NDB Disk Data tables.
+---
+
 # CREATE LOGFILE GROUP
 
 {% hint style="info" %}

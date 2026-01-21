@@ -1,3 +1,9 @@
+---
+description: >-
+  Highlights features unique to MariaDB, such as pluggable storage engines,
+  dynamic columns, and Flashback, which can offer advantages after migration.
+---
+
 # MariaDB Features Not Available in SQL Server
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/UQS8KgfG8jtpHBvT83fL/" %}
@@ -57,7 +63,7 @@ For compatibility with some other database systems, MariaDB supports the [JSON](
   * Tables can be partitioned based on [multiple columns](../../../../server-usage/partitioning-tables/partitioning-types/range-columns-and-list-columns-partitioning-types.md).
   * Several [partitioning types](../../../../server-usage/partitioning-tables/partitioning-overview.md#partitioning-types) are available.
   * Subpartitions.
-* [Progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for some typically expensive statements.
+* [Progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for some typically expensive statements.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Implement conditional logic in SQL queries. This operator evaluates conditions
+  and returns a specific value when the first true condition is met.
+---
+
 # CASE OPERATOR
 
 ## Syntax

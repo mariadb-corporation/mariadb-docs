@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to create a custom Debian repository for MariaDB packages
+  using `dpkg-scanpackages`.
+---
+
 # Creating a Debian Repository
 
 Below are instructions for creating your own Debian repository. The instructions are based on [repository-howto.en.html](https://www.debian.org/doc/manuals/maint-guide/)

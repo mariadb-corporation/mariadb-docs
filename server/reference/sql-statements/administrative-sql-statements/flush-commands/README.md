@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about FLUSH statements in MariaDB Server. This section details how to
-  clear various internal caches and logs, essential for administrative tasks and
-  ensuring consistent database state.
+  Explore commands to clear internal caches. Learn to use FLUSH to reload
+  privileges, clear the query cache, or close open tables.
 ---
 
 # FLUSH Statements

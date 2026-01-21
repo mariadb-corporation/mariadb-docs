@@ -1,3 +1,10 @@
+---
+description: >-
+  Checks if two geometries cross. Returns 1 if they intersect but one does not
+  cover the other, and the intersection dimension is less than the maximum
+  dimension.
+---
+
 # ST\_CROSSES
 
 ## Syntax

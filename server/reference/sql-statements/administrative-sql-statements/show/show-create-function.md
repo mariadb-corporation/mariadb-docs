@@ -1,3 +1,9 @@
+---
+description: >-
+  Retrieve the CREATE FUNCTION statement. This statement shows the exact SQL
+  used to define a stored function, including its body and characteristics.
+---
+
 # SHOW CREATE FUNCTION
 
 ## Syntax

@@ -1,8 +1,14 @@
+---
+description: >-
+  The mysql.help_category table stores category information for the server-side
+  help system, organizing help topics into a hierarchy.
+---
+
 # mysql.help\_category Table
 
 `mysql.help_category` is one of the four tables used by the [HELP command](../../sql-statements/administrative-sql-statements/help-command.md). It is populated when the server is installed by the `fill_help_tables.sql` script. The other help tables are [help\_relation](mysql-help_relation-table.md), [help\_topic](mysql-help_topic-table.md) and [help\_keyword](mysql-help_keyword-table.md).
 
-This table uses the [Aria](../../../server-usage/storage-engines/aria/) storage engine.&#x20;
+This table uses the [Aria](../../../server-usage/storage-engines/aria/) storage engine.
 
 The `mysql.help_category` table contains the following fields:
 

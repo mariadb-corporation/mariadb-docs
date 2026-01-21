@@ -1,3 +1,9 @@
+---
+description: >-
+  Use a subquery as a temporary table. Derived tables allow you to select from
+  the result set of another query within the FROM clause.
+---
+
 # Subqueries in a FROM Clause (Derived Tables)
 
 Although [subqueries](./) are more commonly placed in a WHERE clause, they can also form part of the FROM clause. Such subqueries are commonly called derived tables.

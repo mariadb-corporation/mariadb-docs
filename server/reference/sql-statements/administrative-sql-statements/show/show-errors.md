@@ -1,3 +1,9 @@
+---
+description: >-
+  Display errors from the last executed statement. View error codes, messages,
+  and types for recent failures.
+---
+
 # SHOW ERRORS
 
 ## Syntax

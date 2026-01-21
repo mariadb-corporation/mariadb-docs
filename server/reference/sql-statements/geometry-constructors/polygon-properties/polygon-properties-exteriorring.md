@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for ST_ExteriorRing. Returns the exterior ring of a Polygon as a
+  LineString.
+---
+
 # ExteriorRing
 
 A synonym for [ST\_ExteriorRing](st_exteriorring.md).

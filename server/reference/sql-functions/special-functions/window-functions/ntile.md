@@ -1,3 +1,9 @@
+---
+description: >-
+  Distribute rows into buckets. This function divides the rows in an ordered
+  partition into a specified number of approximately equal groups.
+---
+
 # NTILE
 
 ## Syntax

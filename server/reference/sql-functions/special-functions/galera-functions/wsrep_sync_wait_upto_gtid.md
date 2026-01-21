@@ -1,3 +1,10 @@
+---
+description: >-
+  Wait for a specific GTID to be applied. This function blocks the client until
+  the node has committed the transaction with the specified Global Transaction
+  ID.
+---
+
 # WSREP\_SYNC\_WAIT\_UPTO\_GTID
 
 ## Syntax

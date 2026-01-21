@@ -1,3 +1,9 @@
+---
+description: >-
+  While technically a storage engine, PERFORMANCE_SCHEMA provides a way to
+  inspect internal server execution details at a low level.
+---
+
 # PERFORMANCE\_SCHEMA
 
 If you run [SHOW ENGINES](../../reference/sql-statements/administrative-sql-statements/show/show-engines.md), you'll see the following storage engine listed.

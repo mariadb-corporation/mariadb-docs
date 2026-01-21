@@ -1,3 +1,10 @@
+---
+description: >-
+  The gssapi authentication plugin enables passwordless single sign-on by
+  authenticating users via the Generic Security Services API, supporting
+  Kerberos on Unix and Windows.
+---
+
 # Authentication Plugin - GSSAPI
 
 The `gssapi` authentication plugin allows the user to authenticate with services that use the [Generic Security Services Application Program Interface (GSSAPI)](https://en.wikipedia.org/wiki/Generic_Security_Services_Application_Program_Interface). Windows has a slightly different but very similar API called [Security Support Provider Interface (SSPI)](https://docs.microsoft.com/en-us/windows/desktop/secauthn/sspi). The GSSAPI is a standardized API described in [RFC2743](https://tools.ietf.org/html/rfc2743.html) and [RFC2744](https://tools.ietf.org/html/rfc2744.html). The client and server negotiate using a standardized protocol described in [RFC7546](https://tools.ietf.org/html/rfc7546.html).

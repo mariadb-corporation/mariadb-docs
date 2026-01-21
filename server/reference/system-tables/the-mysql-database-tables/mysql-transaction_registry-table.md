@@ -1,3 +1,9 @@
+---
+description: >-
+  The mysql.transaction_registry table is used by system-versioned tables to
+  track transaction IDs and their commit timestamps.
+---
+
 # mysql.transaction\_registry Table
 
 {% include "../../../.gitbook/includes/system-tables-warning.md" %}

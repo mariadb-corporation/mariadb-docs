@@ -26,7 +26,7 @@ The `EXPLAIN` statement can be used either as a synonym for [DESCRIBE](../descri
 * `'EXPLAIN tbl_name'` is synonymous with`'[DESCRIBE](../describe.md) tbl_name'` or`'[SHOW COLUMNS](../show/show-columns.md) FROM tbl_name'`.
 * When you precede a `SELECT`, `UPDATE` or a `DELETE` statement with the keyword`EXPLAIN`, MariaDB displays information from the optimizer about the query execution plan. That is, MariaDB explains how it would process the `SELECT`, `UPDATE` or `DELETE`, including information about how tables are joined and in which order. `EXPLAIN EXTENDED` can be used to provide additional information.
 * `EXPLAIN PARTITIONS` is useful only when examining queries involving partitioned tables. For details, see [Partition pruning and selection](../../../../server-usage/partitioning-tables/partition-pruning-and-selection.md).
-* [ANALYZE statement](analyze-statement.md) performs the query as well as producing EXPLAIN output, and provides actual as well as estimated statistics.
+* The [ANALYZE statement](analyze-statement.md) is also supported in MariaDB 10.1.0 and later. The ANALYZE statement is similar to EXPLAIN ones, but it runs the query rather than only estimating the execution path. Hence, ANALYZE statement provides both estimated and real execution statistics. This includes the `r_rows` and `r_filtered` columns, which reflect the actual number of rows evaluated and filtered during query execution.
 * `EXPLAIN` output can be printed in the [slow query log](../../../../server-management/server-monitoring-logs/slow-query-log/). See [EXPLAIN in the Slow Query Log](../../../../server-management/server-monitoring-logs/slow-query-log/explain-in-the-slow-query-log.md) for details.
 * `EXPLAIN FOR CONNECTION` is an alias for `SHOW EXPLAIN FOR`.
 

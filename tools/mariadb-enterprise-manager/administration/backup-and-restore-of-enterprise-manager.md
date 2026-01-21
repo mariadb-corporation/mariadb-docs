@@ -6,14 +6,14 @@ Note: This is about backing up the data, configuration and collected metrics of 
 
 {% stepper %}
 {% step %}
-#### Stop the Enterprise Manager
+**Stop the Enterprise Manager**
 
 1. Go to the Enterprise Manager installation directory
 2. Run `docker compose stop` to stop the Enterprise Manager
 {% endstep %}
 
 {% step %}
-#### Create a directory for backups
+**Create a directory for backups**
 
 {% code title="Create the `backups` directory" %}
 ```bash
@@ -23,7 +23,7 @@ mkdir backups
 {% endstep %}
 
 {% step %}
-#### Take a backup of all the volumes
+**Take a backup of all the volumes**
 
 {% code title="Back up all volumes" %}
 ```bash
@@ -37,7 +37,7 @@ The `backups` directory now contains the data from the Enterprise Manager.
 {% endstep %}
 
 {% step %}
-### Start the Enterprise Manager
+#### Start the Enterprise Manager
 
 1. Go to the Enterprise Manager installation directory
 2. Run `docker compose up -d` to start the Enterprise Manager
@@ -48,14 +48,14 @@ The `backups` directory now contains the data from the Enterprise Manager.
 
 {% stepper %}
 {% step %}
-### Stop the Enterprise Manager
+#### Stop the Enterprise Manager
 
 1. Go to the Enterprise Manager installation directory
 2. Run `docker compose stop` to stop the Enterprise Manager
 {% endstep %}
 
 {% step %}
-### Restore the backup of all volumes
+#### Restore the backup of all volumes
 
 The backups are stored in the `~/backups/` directory.
 
@@ -75,7 +75,7 @@ docker run --rm --volumes-from enterprise-manager-supermax -v $(pwd)/backups/:/b
 {% endstep %}
 
 {% step %}
-### Start the Enterprise Manager
+#### Start the Enterprise Manager
 
 1. Go to the Enterprise Manager installation directory
 2. Run `docker compose up -d` to start the Enterprise Manager

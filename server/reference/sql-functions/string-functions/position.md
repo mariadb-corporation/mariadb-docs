@@ -1,3 +1,9 @@
+---
+description: >-
+  Synonym for LOCATE(). Returns the position of the first occurrence of a
+  substring within a string.
+---
+
 # POSITION
 
 ## Syntax

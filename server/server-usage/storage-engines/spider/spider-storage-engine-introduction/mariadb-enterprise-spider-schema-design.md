@@ -1,14 +1,18 @@
+---
+description: Learn about the schema design of the Spider storage engine.
+---
+
 # MariaDB Enterprise Spider Schema Design
 
 ## Create Tables
 
-Spider Tables can be created with MariaDB Enterprise Spider using the [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) statement. The [Enterprise Spider storage engine](./) can be chosen for the table by specifying ENGINE=Spider.
+Spider Tables can be created with MariaDB Enterprise Spider using the [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) statement. The [Enterprise Spider storage engine](./) can be chosen for the table by specifying `ENGINE=Spider`.
 
-For each Spider Table, MariaDB Enterprise Spider requires connection details for the Data Nodes. The connection details are provided by specifying [Connection Options](mariadb-enterprise-spider-schema-design.md#connection-options) in the COMMENT option for the table or partition, depending on the topology.
+For each Spider Table, MariaDB Enterprise Spider requires connection details for the Data Nodes. The connection details are provided by specifying [Connection Options](mariadb-enterprise-spider-schema-design.md#connection-options) in the `COMMENT` option for the table or partition, depending on the topology.
 
 ### Create Tables in a Federated Topology
 
-In a Federated MariaDB Enterprise Spider topology, the [Connection Options](mariadb-enterprise-spider-schema-design.md#connection-options) are specified in the COMMENT table option for the Spider Table:
+In a Federated MariaDB Enterprise Spider topology, the [Connection Options](mariadb-enterprise-spider-schema-design.md#connection-options) are specified in the `COMMENT` table option for the Spider Table:
 
 ```sql
 CREATE SERVER hq_server
@@ -52,7 +56,7 @@ COMMENT='table "invoices", host "192.0.2.2", port "5801", user "spider_user", pa
 
 ### Create Tables in a Sharded Topology
 
-In a Sharded MariaDB Enterprise Spider topology, the [Connection Options](mariadb-enterprise-spider-schema-design.md#connection-options) are specified in the COMMENT partition option for each partition of the Spider Table:
+In a Sharded MariaDB Enterprise Spider topology, the [Connection Options](mariadb-enterprise-spider-schema-design.md#connection-options) are specified in the `COMMENT` partition option for each partition of the Spider Table:
 
 ```sql
 CREATE SERVER hq_server

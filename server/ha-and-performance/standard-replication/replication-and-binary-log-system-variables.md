@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explore replication and binary log system variables in MariaDB Server. This
-  section details essential configuration parameters for managing replication
-  behavior & binary logging for data consistency.
+  Browse the reference for system variables that control replication behavior
+  and binary logging. Use these settings to tune performance and behavior on
+  primaries and replicas.
 ---
 
 # Replication and Binary Log System Variables

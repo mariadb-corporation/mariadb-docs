@@ -1,3 +1,9 @@
+---
+description: >-
+  Compare two expressions and return NULL if they are equal. If the expressions
+  differ, the function returns the first expression.
+---
+
 # NULLIF
 
 ## Syntax

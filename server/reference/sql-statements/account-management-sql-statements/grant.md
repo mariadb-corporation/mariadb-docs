@@ -1,41 +1,62 @@
+---
+description: >-
+  Assign privileges and roles. Learn the syntax to give users or roles
+  permission to access databases, tables, and execute specific commands.
+---
+
 # GRANT
 
 ## Syntax
 
 ```sql
+/* 1. Granting Privileges */
 GRANT
     priv_type [(column_list)]
       [, priv_type [(column_list)]] ...
     ON [object_type] priv_level
-    TO user_specification [ user_options ...] | role_name
+    TO account_or_role [, account_or_role] ...
+    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
+    [WITH grant_option_list]
 
-user_specification:
-  username [authentication_option]
+/* 2. Granting Proxy Access */
+GRANT PROXY ON user_or_role
+    TO account_or_role [, account_or_role] ...
+    [WITH GRANT OPTION]
+
+/* 3. Granting Roles */
+GRANT role [, role] ...
+    TO account_or_role [, account_or_role] ...
+    [WITH ADMIN OPTION]
+
+/* Variable Definitions */
+account_or_role:
+    username [authentication_option]
+  | role
   | PUBLIC
+  | CURRENT_USER [()]
+  | CURRENT_ROLE [()]
+
 authentication_option:
-  IDENTIFIED BY 'password' 
+    IDENTIFIED BY 'password' 
   | IDENTIFIED BY PASSWORD 'password_hash'
-  | IDENTIFIED {VIA|WITH} authentication_rule [OR authentication_rule  ...]
+  | IDENTIFIED {VIA | WITH} authentication_rule [OR authentication_rule ...]
 
 authentication_rule:
     authentication_plugin
-  | authentication_plugin {USING|AS} 'authentication_string'
-  | authentication_plugin {USING|AS} PASSWORD('password')
+  | authentication_plugin {USING | AS} 'authentication_string'
+  | authentication_plugin {USING | AS} PASSWORD('password')
 
-GRANT PROXY ON username
-    TO user_specification [, user_specification ...]
-    [WITH GRANT OPTION]
-
-GRANT rolename TO grantee [, grantee ...]
-    [WITH ADMIN OPTION]
-
-grantee:
-    rolename
-    username [authentication_option]
-
-user_options:
-    [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
-    [WITH with_option [with_option] ...]
+priv_type:
+    ALL [PRIVILEGES]
+  | ALTER | ALTER ROUTINE | BINLOG ADMIN | BINLOG MONITOR | BINLOG REPLAY
+  | CONNECTION ADMIN | CREATE | CREATE ROUTINE | CREATE TABLESPACE
+  | CREATE TEMPORARY TABLES | CREATE USER | CREATE VIEW 
+  | DELETE | DELETE HISTORY | DROP | EVENT | EXECUTE | FEDERATED ADMIN 
+  | FILE | GRANT OPTION | INDEX | INSERT | LOCK TABLES | PROCESS 
+  | READ ONLY ADMIN | RELOAD | REPLICATION CLIENT | REPLICATION MASTER ADMIN 
+  | REPLICATION SLAVE | REPLICATION SLAVE ADMIN | REFERENCES 
+  | SELECT | SET USER | SHOW CREATE ROUTINE | SHOW DATABASES | SHOW VIEW 
+  | SHUTDOWN | SLAVE MONITOR | SUPER | TRIGGER | UPDATE | USAGE
 
 object_type:
     TABLE
@@ -52,19 +73,22 @@ priv_level:
   | tbl_name
   | db_name.routine_name
 
-with_option:
+grant_option_list:
+    grant_option [grant_option] ...
+
+grant_option:
     GRANT OPTION
   | resource_option
 
 resource_option:
-  MAX_QUERIES_PER_HOUR count
+    MAX_QUERIES_PER_HOUR count
   | MAX_UPDATES_PER_HOUR count
   | MAX_CONNECTIONS_PER_HOUR count
   | MAX_USER_CONNECTIONS count
   | MAX_STATEMENT_TIME time
 
 tls_option:
-  SSL 
+    SSL 
   | X509
   | CIPHER 'cipher'
   | ISSUER 'issuer'
@@ -292,11 +316,15 @@ Show information about the active processes, for example via [SHOW PROCESSLIST](
 {% tab title="Current" %}
 User ignores the [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) system variable, and can perform write operations even when the `read_only` option is active.
 
-The `READ_ONLY ADMIN` privilege has been removed from [SUPER](grant.md#super). The benefit of this is that one can remove the READ\_ONLY ADMIN privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on replicas when one wants to ensure that the replica is kept identical to the primary.
+A user with that privilege can also change the (global) value of `read_only`.
+
+The `READ_ONLY ADMIN` privilege has been removed from [SUPER](grant.md#super). The benefit of this is that one can remove the `READ_ONLY ADMIN` privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on replicas when one wants to ensure that the replica is kept identical to the primary.
 {% endtab %}
 
 {% tab title="< 10.11" %}
 User ignores the [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) system variable, and can perform write operations even when the `read_only` option is active.
+
+A user with that privilege can also change the (global) value of `read_only`.
 
 The `READ_ONLY ADMIN` privilege is included in [SUPER](grant.md#super).
 {% endtab %}
@@ -541,6 +569,14 @@ GRANT SELECT (name, position) ON Employee TO 'jeffrey'@'localhost';
 ```sql
 GRANT EXECUTE ON PROCEDURE mysql.create_db TO maintainer;
 ```
+
+### Package Privileges
+
+| Privilege     | Description                                                            |
+| ------------- | ---------------------------------------------------------------------- |
+| ALTER ROUTINE | Change the characteristics of a stored package.                        |
+| EXECUTE       | Execute a stored package or package body.                              |
+| GRANT OPTION  | Grant package privileges. You can only grant privileges that you have. |
 
 ### Proxy Privileges
 
@@ -901,23 +937,49 @@ GRANT select, insert on db.* TO alice;
 
 {% tabs %}
 {% tab title="Current" %}
-[blog post](https://mariadb.org/grant-to-public-in-mariadb/)
+### Syntax
+
+```sql
+GRANT <privilege> ON <db_name>.<object> TO PUBLIC;
+REVOKE <privilege> ON <db_name>.<object> FROM PUBLIC;
+```
+
+`GRANT ... TO PUBLIC` grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when you only want to state once that all users need to have a certain set of privileges. When running [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md), a user also sees all privileges inherited from `PUBLIC`. [SHOW GRANTS FOR PUBLIC](../administrative-sql-statements/show/show-grants.md#for-public) only shows `TO PUBLIC` grants.
+
+### Example
+
+The following example shows the difference between granting privileges to particular users and granting privileges to `PUBLIC`.
+
+```sql
+-- ... (connect as user root) ... 
+MariaDB [(none)]> CREATE USER developer; 
+MariaDB [(none)]> CREATE DATABASE dev_db; 
+MariaDB [(none)]> GRANT ALL ON dev_db.* TO PUBLIC; 
+MariaDB [(none)]> GRANT ALL ON mysql.* TO developer; 
+-- ... (connect as user developer) ... 
+MariaDB [(none)]> SHOW GRANTS; 
++-------------------------------------------------+ 
+| Grants for developer@%                          | 
++-------------------------------------------------+ 
+| GRANT USAGE ON . TO developer@%                 | 
+| GRANT ALL PRIVILEGES ON mysql.* TO developer@%  | 
+| GRANT ALL PRIVILEGES ON dev_db.* TO PUBLIC      | 
++-------------------------------------------------+ 
+MariaDB [(none)]> SHOW GRANTS FOR PUBLIC; 
++------------------------------------------------+ 
+| Grants for PUBLIC                              | 
++------------------------------------------------+ 
+| GRANT ALL PRIVILEGES ON `dev_db`.* TO `PUBLIC` | 
++------------------------------------------------+
+```
+
+For more details, and information on the background of this feature, refer to this [blog post](https://mariadb.org/grant-to-public-in-mariadb/).
 {% endtab %}
 
 {% tab title="< 10.11.0" %}
 TO PUBLIC is unavailable.
 {% endtab %}
 {% endtabs %}
-
-### Syntax
-
-```sql
-GRANT <privilege> ON <DATABASE>.<object> TO PUBLIC;
-REVOKE <privilege> ON <DATABASE>.<object> FROM PUBLIC;
-```
-
-`GRANT ... TO PUBLIC` grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when one only wants to state once that all users need to have a certain set of privileges.\
-When running [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md), a user will also see all privileges inherited from PUBLIC. [SHOW GRANTS FOR PUBLIC](../administrative-sql-statements/show/show-grants.md#for-public) will only show TO PUBLIC grants.
 
 ## Grant Examples
 

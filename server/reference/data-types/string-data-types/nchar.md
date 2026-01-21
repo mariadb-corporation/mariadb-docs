@@ -1,3 +1,9 @@
+---
+description: >-
+  NCHAR is a synonym for the fixed-length CHAR string data type using the utf8
+  character set.
+---
+
 # NCHAR
 
 ## Overview

@@ -1,9 +1,14 @@
+---
+description: >-
+  Manage network listeners via the REST API. Use this resource to define ports,
+  protocols, and service associations for handling incoming client connections.
+---
+
 # MaxScale Listener Resource
 
 ## Overview
 
-A listener resource represents a listener of a service in MaxScale. All
-listeners point to a service in MaxScale.
+A listener resource represents a listener of a service in MaxScale. All listeners point to a service in MaxScale.
 
 ## Resource Operations
 
@@ -13,8 +18,7 @@ listeners point to a service in MaxScale.
 GET /v1/listeners/:name
 ```
 
-Get a single listener. The _:name_ in the URI must be the name of a listener in
-MaxScale.
+Get a single listener. The _:name_ in the URI must be the name of a listener in MaxScale.
 
 #### Response
 
@@ -257,8 +261,7 @@ Get all listeners.
 GET /v1/listeners/:name/relationships/:type
 ```
 
-The _:type_ in the URI must be _services_ as listeners only have service
-relationships.
+The _:type_ in the URI must be _services_ as listeners only have service relationships.
 
 #### Response
 
@@ -289,17 +292,12 @@ Creates a new listener. The request body must define the following fields.
 
 * `data.id`
   * Name of the listener
-
 * `data.type`
   * Type of the object, must be `listeners`
-
 * `data.attributes.parameters.port` OR `data.attributes.parameters.socket`
-  * The TCP port or UNIX Domain Socket the listener listens on. Only one of the
-    fields can be defined.
-
+  * The TCP port or UNIX Domain Socket the listener listens on. Only one of the fields can be defined.
 * `data.relationships.services.data`
-  * The service relationships data, must define a JSON object with an `id` value
-    that defines the service to use and a `type` value set to `services`.
+  * The service relationships data, must define a JSON object with an `id` value that defines the service to use and a `type` value set to `services`.
 
 The following is the minimal required JSON object for defining a new listener.
 
@@ -324,8 +322,7 @@ The following is the minimal required JSON object for defining a new listener.
 }
 ```
 
-Refer to the [Configuration Guide](../../maxscale-management/deployment/maxscale-configuration-guide.md) for
-a full list of listener parameters.
+Refer to the [Configuration Guide](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md) for a full list of listener parameters.
 
 #### Response
 
@@ -339,16 +336,11 @@ Listener is created:
 PATCH /v1/listeners/:name
 ```
 
-The request body must be a JSON object which represents a set of new definitions
-for the listener.
+The request body must be a JSON object which represents a set of new definitions for the listener.
 
-All parameters marked as modifiable at runtime can be modified. Currently, all
-TLS/SSL parameters and the `connection_init_sql_file` and `sql_mode` parameters
-can be modified at runtime.
+All parameters marked as modifiable at runtime can be modified. Currently, all TLS/SSL parameters and the `connection_init_sql_file` and `sql_mode` parameters can be modified at runtime.
 
-Parameters that affect the network address or the port the listener listens on
-cannot be modified at runtime. To modify these parameters, recreate the
-listener.
+Parameters that affect the network address or the port the listener listens on cannot be modified at runtime. To modify these parameters, recreate the listener.
 
 #### Response
 
@@ -362,8 +354,7 @@ Listener is modified:
 DELETE /v1/listeners/:name
 ```
 
-The _:name_ must be a valid listener name. When a listener is destroyed, the
-network port it listens on is available for reuse.
+The _:name_ must be a valid listener name. When a listener is destroyed, the network port it listens on is available for reuse.
 
 #### Response
 
@@ -381,16 +372,14 @@ Listener cannot be deleted:
 PUT /v1/listeners/:name/stop
 ```
 
-Stops a started listener. When a listener is stopped, new connections are no
-longer accepted and are queued until the listener is started again.
+Stops a started listener. When a listener is stopped, new connections are no longer accepted and are queued until the listener is started again.
 
 #### Parameters
 
 This endpoint supports the following parameters:
 
-- `force=yes`
-
-  - Close all existing connections that were created through this listener.
+* `force=yes`
+  * Close all existing connections that were created through this listener.
 
 #### Response
 

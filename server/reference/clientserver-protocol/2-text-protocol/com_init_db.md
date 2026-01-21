@@ -1,3 +1,9 @@
+---
+description: >-
+  This command selects the default database for the current connection,
+  functionally equivalent to the USE statement.
+---
+
 # COM\_INIT\_DB
 
 `COM_INIT_DB` is used to specify the default schema for the connection.
@@ -5,7 +11,7 @@
 ## Fields
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) `0x02` : `COM_INIT_DB` Header.
-* [string<nul>](../protocol-data-types.md#null-terminated-strings) schema name.
+* [string](../protocol-data-types.md#null-terminated-strings) schema name.
 
 ## Response
 
