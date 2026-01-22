@@ -8,7 +8,6 @@ We believe we are making a better database that remains application compatible w
 
 * [Current GSoC 2026](google-summer-of-code-2026.md)
 * [GSoC 2025](google-summer-of-code-2025.md)
-* [GSoC 2025](google-summer-of-code-2025.md)
 * [GSoC 2024](google-summer-of-code-2024.md)
 * [GSoC 2023](google-summer-of-code-2023.md)
 * [GSoC 2022](google-summer-of-code-2022.md)
