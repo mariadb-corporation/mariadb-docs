@@ -10,7 +10,7 @@ To improve your chances of being accepted, it is a good idea to submit a pull re
 
 Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/?jql=status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC) from the MariaDB Issue Tracker.
 
-## List of Tasks
+## List of Tasks (work in progress, check again tomorrow)
 
 ### MariaDB Server
 
@@ -22,7 +22,8 @@ Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/
 
 This project is to implement support for LOAD plugins and refactor the current LOAD code accordingly. There are two kind of plugins — data parser plugin (CSV-like and XML) and transfer plugin (file and LOCAL). Implementing new plugins is not in the scope of this task, this task is mainly about moving existing code around, creating a _possibility_ for new plugins (like JSON or S3).
 
-**Skills needed:** C++, bison**Mentors:** Sergei Golubchik
+**Skills needed:** C++, bison
+**Mentors:** Sergei Golubchik
 
 #### [MDEV-7924](https://jira.mariadb.org/browse/MDEV-7924) START SLAVE UNTIL to Support Timestamps
 
@@ -32,7 +33,8 @@ Users can control a point at which a replica will automatically stop applying ev
 
 This project is to implement support for timestamps in `START SLAVE UNTIL`, to simplify the aforementioned process. To define inclusive/exclusive behaviors, it would be good to be consistent with the existing GTID-based keywords `SQL_BEFORE_GTIDS` and `SQL_AFTER_GTIDS`, i.e. to define `SQL_BEFORE_TIMESTAMP` and `SQL_AFTER_TIMESTAMP`, respectively.
 
-**Skills needed:** C++, Lex/Yacc **Mentors:** Brandon Nesterenko
+**Skills needed:** C++, Lex/Yacc
+**Mentors:** Brandon Nesterenko
 
 ## Suggest a Task
 
