@@ -130,6 +130,10 @@ SELECT id FROM v
 +----+
 ```
 
+{% hint style="info" %}
+There is no function for *dot product* (also called *inner product*) distance available in many other vector databases. Dot product is not a proper distance measure (for example, vector's closest match is not necessarily itself) and is only used for performance reasons, because it is often faster than cosine or euclidean and produces the same results if vectors are normalized. In MariaDB optimized implementation euclidean and cosine measures are the fastest, and dot product, if implemented, would not provide any performance benefits. Use euclidean or cosine (they are equally fast) for normalized vectors.
+{% endhint %}
+
 ## System Variables
 
 There are a number of system variables used for vectors. See [Vector System Variables](vector-system-variables.md).
