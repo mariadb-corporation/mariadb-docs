@@ -24,7 +24,7 @@ If the primary crashes or loses network connection, failover may lose data. This
 1. If the primary managed to send all committed transactions to a replica, all is still well. The replica has all the data, and can be promoted to primary e.g. by MaxScale (which, in that case, promotes the most up-to-date replica). Once the old primary returns, it can rejoin the cluster.
 2. If the primary crashes just after it committed a transaction and updated its binary log, but before it sent the binary log event to a replica, failover loses data and the old primary can no longer rejoin the cluster.
 
-Let’s look at situation B in more detail. _server1_ is the original primary as and its replicas are _server2_ and _server3_, with server ids 1,2 and 3, respectively. _server1_ is at gtid 1-1-101 when it crashes, while the others have replicated to the previous event 1-1-100. The example server status output below is for demonstration only, since in reality it would be unlikely that the monitor would manage to update the gtid-position of _server1_ right at the moment of crash.
+Let’s look at situation 2 in more detail. _server1_ is the original primary and _server2_ and _server3_ are its replicas, with server ids 1, 2 and 3, respectively. _server1_ is at gtid 1-1-101 when it crashes, while the others have replicated to the previous event 1-1-100. The example server status output below is for demonstration only, since in reality it would be unlikely that the monitor would manage to update the gtid-position of _server1_ right at the moment of crash.
 
 ```bash
 $ maxctrl list servers
@@ -62,7 +62,7 @@ If the old primary returns before failover activates, replication can continue r
 
 [Semi-synchronous replication](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication) offers a more reliable, but also a more complicated way to keep the cluster in sync. Semi-sync replication means that after the primary commits a transaction, it does not immediately return an OK to the client. Instead, the primary sends the binary log update to the replicas and waits for an acknowledgement from at least one replica before sending the OK message back to the client. This means that once the client gets the OK, the transaction data is typically on at least two servers. This is not absolutely certain, though, as the primary does not wait forever for the replica acknowledgement. If no replica responds in time, the primary switches to normal replication and returns OK to the client. This timeout is controlled by MariaDB Server setting **rpl\_semi\_sync\_master\_timeout**. If this limit is being hit, the client should notice it by the transaction visibly stalling. Even if this limit is not hit, throughput suffers compared to normal replication, due to the additional waiting.
 
-Semi-synchronous replication by itself does not remove the possibility of the primary diverging after a crash. The scenario B presented in the previous section can still happen if the primary crashes after applying the transaction but before sending it to replicas. To increase crash safety, a few settings need to be tuned to change the behavior of the primary server both during replication and during startup after a crash (crash recovery).
+Semi-synchronous replication by itself does not remove the possibility of the primary diverging after a crash. Scenario 2 presented in the previous section can still happen if the primary crashes after applying the transaction but before sending it to replicas. To increase crash safety, a few settings need to be tuned to change the behavior of the primary server both during replication and during startup after a crash (crash recovery).
 
 ### Enable Semi-Synchronous Replication
 
@@ -145,7 +145,7 @@ If the client does not get an OK due to primary crash, the situation is more amb
 2. Primary crashed just before receiving the replica acknowledgement
 3. Primary crashed just as it was about to send the OK
 
-In case A, the transaction is lost. In case B, the transaction is present on the replica and will become visible at some point. In case C, the transaction is present on both servers. Since MaxScale cannot know which case is in effect, it does not attempt transaction replay (even if configured) and disconnects the client. It’s up to the client to then reconnect and figure out the status of the transaction.
+In case 1, the transaction is lost. In case 2, the transaction is present on the replica and will become visible at some point. In case 3, the transaction is present on both servers. Since MaxScale cannot know which case is in effect, it does not attempt transaction replay (even if configured) and disconnects the client. It’s up to the client to then reconnect and figure out the status of the transaction.
 
 ### Test Summary
 
