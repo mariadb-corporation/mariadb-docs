@@ -34,6 +34,16 @@ This project is to implement support for timestamps in `START SLAVE UNTIL`, to s
 
 **Skills needed:** C++, Lex/Yacc **Mentors:** Brandon Nesterenko
 
+#### [MDEV-37591](https://jira.mariadb.org/browse/MDEV-37591) Binlog Table Map Event to be a Sequential Index
+
+**Part-time project 175h**
+
+The mapping defined by a binary log `Table_map_log_event` can be revamped to improve slave efficiency. Currently, when a transaction is binlogged using `binlog_format=ROW`, a `Table_map` event is written in the binary log to declare a table that the transaction is updating, and includes information to identify this table on the slave. In particular, this information includes an identification number (`table_id`) that is used by a `Rows log event` in this transactions, which specifies that the given row event is targeting that given table. This `table_id` is only applicable for the server which actually logged the event, and is meaningless to the slave for execution, outside of its use to identify the table to target. However, when the slave uses this `table_id` to identify a table, it does so by searching/iterating through a list of all tables targeted by the transaction.
+
+This search for a table can be optimized by changing the assignment strategy of the `table_id` to effectively work as an index into the list of tables targeted by the transaction. That is, instead of using the actual `table_id` of the given table on the master server, the value can be filled in using some 0-indexed counter. Then when the slave needs to find the table that a given row event is targeting, it would use this index to simply access the table directly (rather than iteratively search).
+
+**Skills needed:** C++ **Mentors:** Brandon Nesterenko
+
 ## Suggest a Task
 
 Do you have an idea of your own, not listed above? Do let us know in the comments below (Click 'Login' on the top of the page first)!
