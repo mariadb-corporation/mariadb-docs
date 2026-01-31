@@ -22,7 +22,8 @@ Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/
 
 This project is to implement support for LOAD plugins and refactor the current LOAD code accordingly. There are two kind of plugins — data parser plugin (CSV-like and XML) and transfer plugin (file and LOCAL). Implementing new plugins is not in the scope of this task, this task is mainly about moving existing code around, creating a _possibility_ for new plugins (like JSON or S3).
 
-**Skills needed:** C++, bison **Mentors:** Sergei Golubchik
+**Skills needed:** C++, bison\
+**Mentors:** Sergei Golubchik
 
 #### [MDEV-7924](https://jira.mariadb.org/browse/MDEV-7924) START SLAVE UNTIL to Support Timestamps
 
@@ -32,7 +33,115 @@ Users can control a point at which a replica will automatically stop applying ev
 
 This project is to implement support for timestamps in `START SLAVE UNTIL`, to simplify the aforementioned process. To define inclusive/exclusive behaviors, it would be good to be consistent with the existing GTID-based keywords `SQL_BEFORE_GTIDS` and `SQL_AFTER_GTIDS`, i.e. to define `SQL_BEFORE_TIMESTAMP` and `SQL_AFTER_TIMESTAMP`, respectively.
 
-**Skills needed:** C++, Lex/Yacc **Mentors:** Brandon Nesterenko
+**Skills needed:** C++, Lex/Yacc\
+**Mentors:** Brandon Nesterenko
+
+#### [MDEV-38721](https://jira.mariadb.org/browse/MDEV-38721) one-pass HNSW search
+
+**Full-time project 350h**
+
+The idea here is to treat HNSW graph as a flat one-level non-hierarchical graph and search on all layers at once. Without actual flattening, so let's call it VF-HNSW, Virtually Flattened Hierarchical Navigable Small World.
+
+This project is to implement this algorithm and benchmark it using ann-benchmarks.
+
+**Skills needed:** C++, Python\
+**Mentors:** Sergei Golubchik
+
+
+#### [MDEV-33411](https://jira.mariadb.org/browse/MDEV-33411) OPTIMIZE TABLE for graph indexes
+
+**Full-time project 350h**
+
+Bulk insert into mHNSW index. There are various optimizations we can implement when all vectors are available in advance.
+
+**Skills needed:** C++\
+**Mentors:** Sergei Golubchik
+
+#### [MDEV-31342](https://jira.mariadb.org/browse/MDEV-31342) I_S optimization: avoid temp table
+
+**Part-time project 175h** or can be combined with MDEV-31535 for a Full-time project 350h
+
+Currently information_schema tables work like:
+
+1. prepare information_schema table
+   - this creates a temporary table
+2. call the information_schema implementation code
+   - it sets values using `Field::store()` and calls `schema_table_store_record()` per row
+   - `schema_table_store_record()` uses `handler::ha_write_row()` to store the row in he temporary table
+3. when the temporary table is filled with data, it's used in the query.
+
+For queries like `SELECT f1, f2, ... FROM INFORMATION_SCHEMA.tbl` the above adds a lot of overhead. The server can recognize that case, not create a temporary table in the step 1. And modify `schema_table_store_record()` to send results directly to the client.
+
+**Skills needed:** C++\
+**Mentors:** Oleksandr Byelkin
+
+#### [MDEV-31535](https://jira.mariadb.org/browse/MDEV-31535) optimize directory listing for information_schema tables based on privileges
+
+**Part-time project 175h** or can be combined with MDEV-31342 for a Full-time project 350h
+
+Usually when `INFORMATION_SCHEMA.TABLES` (or any other table that is implemented via `get_all_tables()` function) is queried, it creates a list of all schemas first, then for every schema it creates a list of all files in that schema.
+
+In certain cases the above is optimized:
+* when a specific table is requested via `TABLE_SCHEMA=xxx AND TABLE_NAME=yyy` in the `WHERE` clase — in this case only that one table is opened
+* when a specific schema is requested via `TABLE_SCHEMA=xxx` — tables for only that schema are listed, the list of all schemas is not created
+* when privileges only allow access to certain schemas — the list of all schemas is created, but tables are listed only for those schemas that pass the privilege check
+
+Note that in the last case the server still creates a list of all schemas. This can be expensive, if there're thousands of them and the privileges only allow access to one specific schema. It makes sense to treat this case as if the schema name was explicitly specified on the `WHERE` clause. Almost, because the user will also have access to the `INFORMATION_SCHEMA` itself, but it's already treated specially anyway.
+
+That is:
+* if the user does not have global grants that allow to see all schemas, then
+* for every schema-level (and table-level?) grant:
+  * if the schema name is not a pattern (does not contain wildcards), directly append this schema name to the list, if the schema exists
+* append "INFORMATION_SCHEMA"
+
+if the above isn't true — fallback to the directory listing.
+
+**Skills needed:** C++\
+**Mentors:** Oleksandr Byelkin
+
+#### [MDEV-38329](https://jira.mariadb.org/browse/MDEV-38329) Named parameters in invocation of stored routines
+
+**Full-time project 350h**
+
+Add support for the syntax like
+```sql
+CALL proc(param3 => 10, param5 => "foo");
+SELECT func(param2 => 3.1415);
+```
+not explicitly mentioned parameters get their default values.
+
+**Skills needed:** C++\
+**Mentors:** Alexander Barkov
+
+#### [MDEV-12320](https://jira.mariadb.org/browse/MDEV-12320) configurable default authentication plugin for the server
+
+**Full-time project 350h**
+
+configurable default authentication plugin for the server.
+
+"default" applies to the plugin name that the server uses for the first handshake packet, what plugin the server uses when no username is yet known.
+
+**Skills needed:** C, C++\
+**Mentors:** Nikita Malyavin
+
+#### [MDEV-13594](https://jira.mariadb.org/browse/MDEV-13594) Support for JSON operators column->path and column->>path
+
+**Part-time project 175h** or can be combined with MDEV-38591 for a Full-time project 350h
+
+Implement this syntax sugar in MariaDB for MySQL compatibility
+
+**Skills needed:** C++\
+**Mentors:** Rucha Deodhar
+
+
+#### [MDEV-38591](https://jira.mariadb.org/browse/MDEV-38591) MEMBER OF json operator
+
+**Part-time project 175h** or can be combined with MDEV-13594 for a Full-time project 350h
+
+Implement {{MEMBER OF}} operator for MySQL compatibility.
+
+**Skills needed:** C++\
+**Mentors:** Rucha Deodhar
 
 ## Suggest a Task
 
