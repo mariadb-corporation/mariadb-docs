@@ -156,7 +156,7 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 ### Chile
 
-- Insacom (Valparaíso)
+- Insacom (Santiago de Chile)
 
 ### China - 中国
 
