@@ -8,7 +8,7 @@ Please join us on [Zulip](https://mariadb.zulipchat.com/) to mingle with the com
 
 To improve your chances of being accepted, it is a good idea to submit a pull request with a bug fix to the server.
 
-Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/?jql=status%20%3D%20Open%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC) from the MariaDB Issue Tracker.
+Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/?jql=status%20%3D%20Confirmed%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC) from the MariaDB Issue Tracker.
 
 ## List of Tasks (work in progress, check again tomorrow)
 
@@ -153,7 +153,8 @@ The mapping defined by a binary log `Table_map_log_event` can be revamped to imp
 
 This search for a table can be optimized by changing the assignment strategy of the `table_id` to effectively work as an index into the list of tables targeted by the transaction. That is, instead of using the actual `table_id` of the given table on the master server, the value can be filled in using some 0-indexed counter. Then when the slave needs to find the table that a given row event is targeting, it would use this index to simply access the table directly (rather than iteratively search).
 
-**Skills needed:** C++ **Mentors:** Brandon Nesterenko
+**Skills needed:** C++\
+**Mentors:** Brandon Nesterenko
 
 ## Suggest a Task
 
