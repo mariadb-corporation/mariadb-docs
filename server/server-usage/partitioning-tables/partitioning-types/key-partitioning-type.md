@@ -19,7 +19,7 @@ Partitioning by key is a type of partitioning that is similar to and can be used
 
 `KEY` takes an optional list of _`column_names`_, and the hashing function is given by the server.
 
-Just like `HASH` partitioning, in `KEY` partitioning the server takes care of the partition and ensures an even distribution among the partitions. However, the largest difference is that KEY partitioning makes use of _column\_names_, and cannot accept a _partitioning\_expression_ which is based on _column\_names_, in contrast to `HASH` partitioning, which can.
+Compared to `HASH` partitioning, `KEY` partitioning distributes data using a preset hash algorithms on the specified columns, rather than an expression specified by the user.
 
 If no _`column_names`_ are specified, the table's primary key is used if present, or not null unique key if no primary key is present. If neither of these keys are present, not specifying any _column\_names_ will result in an error:
 
