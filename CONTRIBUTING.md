@@ -27,18 +27,18 @@ Instead of using a full internal URL, use the following syntax: [Link Text]({ali
 
 Example:
 
-You write: [Securing Communications]({galera}/galera-security/securing-communications-in-galera-cluster)
+You write: [Securing Communications](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
 
 The Bot expands it to: [Securing Communications](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
 
 Available Aliases
 
 Alias	Target Space	Alias	Target Space
-{server}	MariaDB Server	{maxscale}	MariaDB MaxScale
-{galera}	Galera Cluster	{analytics}	Analytics
-{tools}	Tools	{connectors}	Connectors
-{skysql}	SkySQL	{platform}	Enterprise Platform
-{home}	Home / Landing	{mariadb-cloud}	MariaDB Cloud
+https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV	MariaDB Server	https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX	MariaDB MaxScale
+https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7	Galera Cluster	https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14	Analytics
+https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD	Tools	https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L	Connectors
+https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb	SkySQL	https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn	Enterprise Platform
+https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1	Home / Landing	https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd	MariaDB Cloud
 
 ⚠️ Important: Link Validity
 
