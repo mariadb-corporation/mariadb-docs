@@ -351,10 +351,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - Universidad de la República - Facultad de Derecho (Montevideo)
 
-### Vietnam
-
-- BKNS.VN (Hanoi)
-
 ## The MariaDB Archive
 
 The distributed mirrors above only hold the most recent 3-4 releases of each MariaDB series (10.6, 10.11, etc...). If you need to access older MariaDB releases, there is an archive server that contains every MariaDB release. This server is available via the web at [archive.mariadb.org](https://archive.mariadb.org) and via rsync at:
