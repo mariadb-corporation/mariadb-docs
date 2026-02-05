@@ -41,8 +41,10 @@ The `/etc/nslcd.conf` is the configuration file for LDAP nameservice daemon.
 ```ini
 # /etc/nslcd.conf: Configuration file for nslcd(8)
 # The user/group nslcd will run as. Note that these should not be LDAP users.
-uid mysql # required to be `mysql`
-gid mysql # required to be `mysql`
+# required to be `mysql`
+uid mysql
+# required to be `mysql`
+gid mysql
 
 # The location of the LDAP server.
 uri ldap://openldap-service.default.svc.cluster.local:389
