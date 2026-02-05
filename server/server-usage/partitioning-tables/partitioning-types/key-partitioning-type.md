@@ -8,10 +8,28 @@ description: >-
 
 ## Syntax
 
+{% tabs %}
+{% tab title="Current" %}
 ```sql
 PARTITION BY KEY ([column_names])
+ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3} 
+          (<column1>, <column2>, ...)
 [PARTITIONS (number_of_partitions)]
 ```
+
+* `CRC32C`, `XXH32`, and `XXH3` use the established hash algorithms of the same names. These are recommended algorithms to use.
+* `BASE31` uses a base-31 representation of the bytes and serves as a simple baseline that is more evenly distributed than `MYSQL51` or `MYSQL55` for simple sequential data.
+{% endtab %}
+
+{% tab title="< 12.3" %}
+```sql
+PARTITION BY KEY ([column_names])
+ALGORITHM={MYSQL51|MYSQL55} 
+          (<column1>, <column2>, ...)
+[PARTITIONS (number_of_partitions)]
+```
+{% endtab %}
+{% endtabs %}
 
 ## Description
 
@@ -19,7 +37,7 @@ Partitioning by key is a type of partitioning that is similar to and can be used
 
 `KEY` takes an optional list of _`column_names`_, and the hashing function is given by the server.
 
-Just like `HASH` partitioning, in `KEY` partitioning the server takes care of the partition and ensures an even distribution among the partitions. However, the largest difference is that KEY partitioning makes use of _column\_names_, and cannot accept a _partitioning\_expression_ which is based on _column\_names_, in contrast to `HASH` partitioning, which can.
+Compared to `HASH` partitioning, `KEY` partitioning distributes data using a preset hash algorithms on the specified columns, rather than an expression specified by the user.
 
 If no _`column_names`_ are specified, the table's primary key is used if present, or not null unique key if no primary key is present. If neither of these keys are present, not specifying any _column\_names_ will result in an error:
 

@@ -170,6 +170,7 @@ page.
 
 | Date        | Release        | Status      | Release Notes              | Changelog                                 |
 | ----------- | -------------- | ----------- | -------------------------- | ----------------------------------------- |
+| 4 Feb 2026  | MariaDB 11.4.10 | Stable (GA) | [Release Notes](11.4.10.md) | [Changelog](../changelogs/11.4/11.4.10.md) |
 | 6 Nov 2025  | MariaDB 11.4.9 | Stable (GA) | [Release Notes](11.4.9.md) | [Changelog](../changelogs/11.4/11.4.9.md) |
 | 6 Aug 2025  | MariaDB 11.4.8 | Stable (GA) | [Release Notes](11.4.8.md) | [Changelog](../changelogs/11.4/11.4.8.md) |
 | 22 May 2025 | MariaDB 11.4.7 | Stable (GA) | [Release Notes](11.4.7.md) | [Changelog](../changelogs/11.4/11.4.7.md) |
