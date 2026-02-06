@@ -1,0 +1,41 @@
+name: Generate Help Tables SQL
+
+on:
+  push:
+    paths:
+      - 'server/reference/**/*.md'
+      - 'markdown_extractor.py'
+  pull_request:
+    paths:
+      - 'server/reference/**/*.md'
+      - 'markdown_extractor.py'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run generator
+        run: python markdown_extractor.py
+
+      - name: Verify output exists
+        run: |
+          if [ ! -f fill_help_tables.sql ]; then
+            echo "Error: fill_help_tables.sql was not generated"
+            exit 1
+          fi
+          echo "Generated $(wc -l < fill_help_tables.sql) INSERT statements"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fill_help_tables
+          path: fill_help_tables.sql
+          retention-days: 30
