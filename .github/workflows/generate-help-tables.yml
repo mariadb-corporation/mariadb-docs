@@ -32,6 +32,15 @@ jobs:
             exit 1
           fi
           echo "Generated $(wc -l < fill_help_tables.sql) INSERT statements"
+          echo ""
+          echo "=== First 5 statements ==="
+          head -5 fill_help_tables.sql
+          echo ""
+          echo "=== Last 5 statements ==="
+          tail -5 fill_help_tables.sql
+
+      - name: Validate SQL output
+        run: python validate_sql.py fill_help_tables.sql
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
