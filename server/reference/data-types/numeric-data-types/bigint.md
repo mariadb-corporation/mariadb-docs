@@ -15,7 +15,7 @@ BIGINT[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 
 ## Description
 
-A large integer. The signed range is `-9223372036854775808` to`9223372036854775807`. The unsigned range is `0` to`18446744073709551615`.
+A large integer that uses 8 bytes of storage. The signed range is `-9223372036854775808` to`9223372036854775807`. The unsigned range is `0` to`18446744073709551615`.
 
 If a column has been set to `ZEROFILL`, all values will be prepended by zeros so that the `BIGINT` value contains a number of M digits.
 
