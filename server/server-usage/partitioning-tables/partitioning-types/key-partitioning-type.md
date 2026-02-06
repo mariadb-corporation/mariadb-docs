@@ -11,12 +11,13 @@ description: >-
 {% tabs %}
 {% tab title="Current" %}
 ```sql
-PARTITION BY KEY ([column_names])
-ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3} 
-          (<column1>, <column2>, ...)
+PARTITION BY KEY
+[ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3}]
+([column_names])
 [PARTITIONS (number_of_partitions)]
 ```
 
+* `MYSQL51` and `MYSQL55` are existing algorithms, with `MYSQL55` being the default, also used by default before 12.3
 * `CRC32C`, `XXH32`, and `XXH3` use the established hash algorithms of the same names. These are recommended algorithms to use.
 * `BASE31` uses a base-31 representation of the bytes and serves as a simple baseline that is more evenly distributed than `MYSQL51` or `MYSQL55` for simple sequential data.
 {% endtab %}
@@ -24,8 +25,6 @@ ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3}
 {% tab title="< 12.3" %}
 ```sql
 PARTITION BY KEY ([column_names])
-ALGORITHM={MYSQL51|MYSQL55} 
-          (<column1>, <column2>, ...)
 [PARTITIONS (number_of_partitions)]
 ```
 {% endtab %}
