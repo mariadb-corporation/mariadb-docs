@@ -1,4 +1,13 @@
 import re
+from pathlib import Path
+
+# Directories to exclude (per Stefan's guidance)
+EXCLUDED_DIRS = [
+    "system-tables",
+    "error-codes",
+    "clientserver-protocol",
+    "product-development",
+]
 
 # Maps directory path segments to help_category_id from mysql.help_category
 CATEGORY_MAP = {
@@ -39,6 +48,27 @@ def get_category_id(path: str) -> int:
         if key in path:
             return cat_id
     return 35  # Default: Contents
+
+
+def get_files(base_path: str = "server/reference") -> list:
+    """Find all .md files in base_path, excluding EXCLUDED_DIRS and README files."""
+    files = []
+    base = Path(base_path)
+    
+    for md_file in base.rglob("*.md"):
+        path_str = str(md_file)
+        
+        # Skip excluded directories
+        if any(excluded in path_str for excluded in EXCLUDED_DIRS):
+            continue
+        
+        # Skip README files
+        if md_file.name == "README.md":
+            continue
+            
+        files.append(path_str)
+    
+    return sorted(files)
 
 
 def open_file(file_path: str):
@@ -83,24 +113,48 @@ def extract_sections(content: list):
     example_start = None
     
     syntax_pattern = re.compile(r'^#{2,}\s*syntax', re.IGNORECASE)
-    desc_pattern = re.compile(r'^#{2,}\s*description', re.IGNORECASE)
+    desc_pattern = re.compile(r'^#{2,}\s*(description|overview)', re.IGNORECASE)
     example_pattern = re.compile(r'^#{2,}\s*examples?', re.IGNORECASE)
     
     for line in range(len(content)):
         if syntax_pattern.match(content[line]):
             syntax_start = line
-        elif desc_pattern.match(content[line]):
+        elif desc_pattern.match(content[line]) and desc_start is None:
             desc_start = line
-        elif example_pattern.match(content[line]):
+        elif example_pattern.match(content[line]) and example_start is None:
             example_start = line
 
-    desc = content[desc_start+2:example_start-1] if desc_start and example_start else []
-    syntax = content[syntax_start:desc_start-1] if syntax_start and desc_start else []
+    # Standard case: has Syntax and Description/Overview
+    if syntax_start is not None and desc_start is not None:
+        syntax = content[syntax_start:desc_start]
+        syntax_content = extract_code_block(syntax)
+        if example_start:
+            desc = content[desc_start+1:example_start]
+        else:
+            desc = content[desc_start+1:]
+    # Has Description/Overview but no Syntax
+    elif desc_start is not None:
+        syntax_content = []
+        if example_start:
+            desc = content[desc_start+1:example_start]
+        else:
+            desc = content[desc_start+1:]
+    # Fallback: no Syntax, no Description - use prose after title
+    else:
+        syntax_content = []
+        if example_start:
+            desc = content[1:example_start]  # Skip title line
+        else:
+            desc = content[1:]  # Everything after title
     
-    syntax_content = extract_code_block(syntax)
+    # Extract example code block
     example_content = extract_code_block(content[example_start+1:] if example_start else [])
     
-    description = "\n".join(syntax_content) + "\n\n" + "\n".join(desc)
+    # Build description string
+    if syntax_content:
+        description = "\n".join(syntax_content) + "\n\n" + "\n".join(desc)
+    else:
+        description = "\n".join(desc)
  
     return description, example_content
 
@@ -138,7 +192,10 @@ def build_output(name, desc: str, example: list, path: str):
     return content
 
 def escape_sql(text):
-    return text.replace("'", "''")
+    # Escape single quotes and convert newlines to \n literal
+    text = text.replace("'", "''")
+    text = text.replace("\n", "\\n")
+    return text
 
 def generate_insert(name, description, example, help_topic_id, url, help_category_id):
 
@@ -149,17 +206,13 @@ def generate_insert(name, description, example, help_topic_id, url, help_categor
     return sql
 
 
-def main():
-    path = 'server/server-usage/stored-routines/stored-procedures/alter-procedure.md'
-
-    help_topic_id = 1000
-
+def process_single_file(path: str, help_topic_id: int) -> str:
+    """Process a single file and return INSERT statement or None on failure."""
     try:
         data = open_file(path)
         content, name = find_line_range(data)
         
         if content is None:
-            print(f"Failed to parse {path}: No H1 heading found")
             return None
             
         desc, example = extract_sections(content)
@@ -170,15 +223,60 @@ def main():
         example_ = escape_sql(full_content["example"])
         url_ = escape_sql(full_content["url"])
         category_id = get_category_id(path)
-        insert_statement = generate_insert(name_, description_, example_, help_topic_id, url_, category_id)
-
-        # print("insert statement", insert_statement)
+        
+        return generate_insert(name_, description_, example_, help_topic_id, url_, category_id)
         
     except Exception as e:
         print(f"Failed to parse {path}: {e}")
         return None
 
+
+def process_batch(file_list: list, start_id: int = 1000) -> list:
+    """Process all files and return list of INSERT statements."""
+    statements = []
+    help_topic_id = start_id
+    failed = []
+    
+    for path in file_list:
+        result = process_single_file(path, help_topic_id)
+        if result:
+            statements.append(result)
+            help_topic_id += 1
+        else:
+            failed.append(path)
+    
+    print(f"Processed: {len(statements)} files")
+    print(f"Failed: {len(failed)} files")
+    
+    return statements, failed
+
+
+def write_output(statements: list, output_file: str = "fill_help_tables.sql"):
+    """Write all INSERT statements to a SQL file."""
+    with open(output_file, 'w', encoding='utf-8') as f:
+        for stmt in statements:
+            f.write(stmt + "\n")
+    print(f"Written to {output_file}")
+
+
+def main():
+    # Get all files to process
+    files = get_files("server/reference")
+    print(f"Found {len(files)} files to process")
+    
+    # Process all files
+    statements, failed = process_batch(files)
+    
+    # Write output
+    write_output(statements)
+    
+    # Optionally write failed files for review
+    if failed:
+        with open("failed_files.txt", 'w') as f:
+            for path in failed:
+                f.write(path + "\n")
+        print(f"Failed files written to failed_files.txt")
+
+
 if __name__ == "__main__":
     main()
-
-       
