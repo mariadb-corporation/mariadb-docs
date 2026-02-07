@@ -4,7 +4,7 @@ In 2026, we are again participating in the [Google Summer of Code](https://summe
 
 ## Where to Start
 
-Please join us on [Zulip](https://mariadb.zulipchat.com/) to mingle with the community. You should also subscribe to the [developers mailing list](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org) (this is the main list where we discuss development - there are also [other mailing lists](../../joining-the-community.md#mailing-lists)).
+Please join us on [Zulip](https://mariadb.zulipchat.com/#narrow/channel/118760-New-Members/topic/GSoC.202026.3A.20welcome.20here!/) to mingle with the community. You should also subscribe to the [developers mailing list](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org) (this is the main list where we discuss development - there are also [other mailing lists](../../joining-the-community.md#mailing-lists)).
 
 To improve your chances of being accepted, it is a good idea to submit a pull request with a bug fix to the server.
 
