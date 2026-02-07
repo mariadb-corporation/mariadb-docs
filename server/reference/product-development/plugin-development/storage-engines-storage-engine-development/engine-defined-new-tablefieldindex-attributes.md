@@ -72,7 +72,15 @@ The array ends with a `HA_TOPTION_END` macro.
 
 Field and index (key) attributes are declared similarly using `HA_FOPTION_*` and `HA_IOPTION_*` macros.
 
+{% tabs %}
+{% tab title="Current" %}
+When in a `CREATE TABLE` statement, the `::create()` handler method is called, the table attributes are available in the `option_struct` member of the handler, field attributes - in the `option_struct` member of the individual fields (objects of the `Field` class), index attributes - in the `option_struct` member of the individual keys (objects of the `KEY` class).
+{% endtab %}
+
+{% tab title="< 12.3" %}
 When in a `CREATE TABLE` statement, the `::create()` handler method is called, the table attributes are available in the `table_arg->s->option_struct`, field attributes - in the `option_struct` member of the individual fields (objects of the `Field` class), index attributes - in the `option_struct` member of the individual keys (objects of the `KEY` class).
+{% endtab %}
+{% endtabs %}
 
 Additionally, they are available in most other handler methods: the attributes are stored in the `.frm` file and on every open MySQL makes them available to the engine by filling the corresponding `option_struct` members of the table, fields, and keys.
 
@@ -101,15 +109,9 @@ CREATE TABLE ... (
 ) ...  [attribute=value [attribute=value ...]]
 ```
 
-All values must be specified as literals, not expressions. The value of a boolean option may be specified as one of YES, NO, ON, OFF, 1, or 0. A string value may be specified either quoted or not, as an identifier (if it is a valid identifier, of course). Compare with the old behavior:
+All values must be specified as literals, not expressions. The value of a boolean option may be specified as one of YES, NO, ON, OFF, TRUE, FALSE, 1, or 0. A string value may be specified either quoted or not, as an identifier (if it is a valid identifier, of course — for example `ON` is a reserved keyword and must always be quoted, when used as a value). Additionally, when an enum option expects values of YES or NO, all other boolean aliases will automatically be recognized as well.
 
-```
-CREATE TABLE ... ENGINE=FEDERATED CONNECTION='mysql://root@127.0.0.1';
-```
-
-where the value of the ENGINE attribute is specified not quoted, while the value of the CONNECTION is quoted.
-
-When an attribute is set, it are stored with the table definition and shown in the `SHOW CREATE TABLE;`. To remove an attribute from a table definition use `ALTER TABLE` to set its value to a `DEFAULT`.
+When an attribute is set, it is stored with the table definition and shown in the `SHOW CREATE TABLE;`. To remove an attribute from a table definition use `ALTER TABLE` to set its value to a `DEFAULT`.
 
 The values of unknown attributes or attributes with the illegal values cause an error by default. But with [ALTER TABLE](../../../sql-statements/data-definition/alter/alter-table/) one can change the storage engine and some previously valid attributes may become unknown — to the new engine. They are not removed automatically, though, because the table might be altered back to the first engine, and these attributes are valid again. Still [SHOW CREATE TABLE](../../../sql-statements/administrative-sql-statements/show/show-create-table.md) will comment these unknown attributes out in the output, otherwise they would make a generated [CREATE TABLE](../../../sql-statements/data-definition/create/create-table.md) statement invalid.
 
