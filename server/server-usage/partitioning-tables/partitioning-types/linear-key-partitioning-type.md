@@ -8,6 +8,8 @@ description: >-
 
 ## Syntax
 
+{% tabs %}
+{% tab title="Current" %}
 ```sql
 PARTITION BY LINEAR KEY [ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3}]
 ([column_names])
@@ -15,6 +17,15 @@ PARTITION BY LINEAR KEY [ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3}]
 ```
 
 For a description of the different `ALGORITHM` types, see [KEY Partitioning](key-partitioning-type.md).
+{% endtab %}
+
+{% tab title="< 12.3" %}
+```sql
+PARTITION BY LINEAR KEY ([column_names])
+[PARTITIONS (number_of_partitions)]
+```
+{% endtab %}
+{% endtabs %}
 
 ## Description
 
