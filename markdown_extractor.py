@@ -241,13 +241,11 @@ def extract_sections(content: list):
     # Extract example code block
     example_content = extract_code_block(content[example_start+1:] if example_start else [])
     
-    # Build description string
-    if syntax_content:
-        description = "\n".join(syntax_content) + "\n\n" + "\n".join(desc)
-    else:
-        description = "\n".join(desc)
+    # Return syntax and description separately
+    syntax_str = "\n".join(syntax_content) if syntax_content else ""
+    desc_str = "\n".join(desc)
  
-    return description, example_content
+    return syntax_str, desc_str, example_content
 
 
 def extract_code_block(lines: list):
@@ -267,23 +265,65 @@ def extract_code_block(lines: list):
     return []
 
 
-def build_output(name, desc: str, example: list, path: str):
-    example_str = "\n".join(example)
-    desc_str = f"Syntax:\n{desc}"
+def strip_markdown(text: str) -> str:
+    """Convert markdown to plain text for clean HELP output."""
+    # Remove {% ... %} template tags (tabs, hints, etc.)
+    text = re.sub(r'\{%.*?%\}', '', text)
+    # Convert markdown links [text](url) to just text
+    text = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', text)
+    # Remove backtick code formatting
+    text = re.sub(r'`([^`]+)`', r'\1', text)
+    # Remove escaped underscores
+    text = text.replace('\\_', '_')
+    # Remove markdown bold/italic
+    text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
+    text = re.sub(r'\*([^*]+)\*', r'\1', text)
+    # Remove markdown heading markers
+    text = re.sub(r'^#{1,6}\s+', '', text, flags=re.MULTILINE)
+    # Collapse multiple blank lines into two
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    return text.strip()
+
+
+def truncate_to_bytes(text: str, max_bytes: int = 60000) -> str:
+    """Truncate a string so its UTF-8 encoding fits within max_bytes."""
+    encoded = text.encode('utf8')
+    if len(encoded) <= max_bytes:
+        return text
+    truncated = encoded[:max_bytes].decode('utf8', errors='ignore')
+    return truncated.rstrip() + '\n\n[Truncated — full content at mariadb.com/docs]'
+
+def build_output(name, syntax: str, desc: str, example: list, path: str):
+    parts = []
+    if syntax:
+        parts.append(f"Syntax\n------\n\n{syntax}")
+    if desc.strip():
+        parts.append(f"Description\n-----------\n\n{desc}")
+    if example:
+        example_str = "\n".join(example)
+        parts.append(f"Examples\n--------\n\n{example_str}")
+    desc_str = "\n\n".join(parts) if parts else ""
+    desc_str = strip_markdown(desc_str)
     url_path = path.removesuffix(".md")
     url = f"https://mariadb.com/docs/{url_path}"
+    desc_str += f"\n\nURL: {url}"
+    desc_str = truncate_to_bytes(desc_str)
+
+    if len(name) > 64:
+        name = name[:64]
 
     content = {
         "name": name,
         "description": desc_str, 
-        "example": example_str, 
+        "example": "", 
         "url": url,
     }
 
     return content
 
 def escape_sql(text):
-    # Escape single quotes and convert newlines to \n literal
+    # Escape backslashes first, then single quotes, then newlines
+    text = text.replace("\\", "\\\\")
     text = text.replace("'", "''")
     text = text.replace("\n", "\\n")
     return text
@@ -306,14 +346,14 @@ def process_single_file(path: str, help_topic_id: int) -> dict:
         if content is None:
             return None
             
-        desc, example = extract_sections(content)
+        syntax, desc, example = extract_sections(content)
         
         # Skip files with no meaningful content
         desc_stripped = desc.strip()
         if not desc_stripped and not example:
             return None
         
-        full_content = build_output(name, desc, example, path)
+        full_content = build_output(name, syntax, desc, example, path)
 
         name_ = escape_sql(full_content["name"])
         description_ = escape_sql(full_content["description"])
@@ -336,12 +376,18 @@ def process_single_file(path: str, help_topic_id: int) -> dict:
 def process_batch(file_list: list, start_id: int = 0) -> list:
     """Process all files and return list of topic dicts."""
     topics = []
+    seen_names = set()
     help_topic_id = start_id
     failed = []
     
     for path in file_list:
         result = process_single_file(path, help_topic_id)
         if result:
+            name_lower = result['name'].lower()
+            if name_lower in seen_names:
+                failed.append(path)
+                continue
+            seen_names.add(name_lower)
             topics.append(result)
             help_topic_id += 1
         else:
@@ -375,6 +421,7 @@ def build_keywords_and_relations(topics):
     keyword_to_id = {}
     next_keyword_id = 0
     relations = []
+    seen_relations = set()
     
     for topic in topics:
         name = topic['name']
@@ -385,7 +432,10 @@ def build_keywords_and_relations(topics):
             if kw not in keyword_to_id:
                 keyword_to_id[kw] = next_keyword_id
                 next_keyword_id += 1
-            relations.append((topic_id, keyword_to_id[kw]))
+            pair = (topic_id, keyword_to_id[kw])
+            if pair not in seen_relations:
+                seen_relations.add(pair)
+                relations.append(pair)
     
     keyword_inserts = []
     for kw, kid in sorted(keyword_to_id.items(), key=lambda x: x[1]):
