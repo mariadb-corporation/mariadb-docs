@@ -117,7 +117,7 @@ SHOW VARIABLES LIKE 'slave_ty%';
 +-------+------------+------+-----+---------+-------+
 ```
 
-The following query will fail:
+The following query fails:
 
 ```sql
 INSERT INTO r VALUES (3,'c');
@@ -244,6 +244,24 @@ SELECT * FROM r;
 +------+------+------+
 ```
 
+## ALTER TABLE Issues
+
+### Row-Based Replication
+
+In row-based replication, [`ALTER TABLE`](../../reference/sql-statements/data-definition/alter/alter-table/) statements can make replication fail.
+
+`ALTER TABLE` works fine when columns are added to the end of the table definition. When columns are deleted or added in the middle of a table, though, this causes subsequent DML[^1] queries to fail.
+
+{% hint style="info" %}
+The following functionality is available from MariaDB 12.3.
+{% endhint %}
+
+The solution to this problem is to **start the master server with** [**`--binlog_row_metadata`**](replication-and-binary-log-system-variables.md#binlog_row_metadata)**`=full`**. With that setting, the master writes column names to the [binary log](../../server-management/server-monitoring-logs/binary-log/). The replicas receiving binlog events can then look up the columns using column names.
+
+The solution to the other problem, deleting columns in the middle of a table, is addressed by **configuring the replica with** [**`--slave_type_conversions`**](replication-and-binary-log-system-variables.md#slave_type_conversions)**`=ignore_missing_columns`**.
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+
+[^1]: DML (Data Manipulation Language): The subset of SQL commands used to add, modify, retrieve, or delete data within existing database tables.

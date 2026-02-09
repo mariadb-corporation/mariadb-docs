@@ -1146,7 +1146,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Description: Determines the type conversion mode on the replica when using [row-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based) [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md), including replications in MariaDB Galera cluster. Multiple options can be set, delimited by commas. If left empty, the default, type conversions are disallowed. The variable is dynamic and a change in its value takes effect immediately. This variable tells the server what to do if the table definition is different between the primary and replica (for example a column has a data type of `INT` on the primary and `BIGINT` on the replica).
   * `ALL_NON_LOSSY` means that all safe conversions (no data loss) are allowed.
   * `ALL_LOSSY` means that all lossy conversions are allowed (for example 'bigint' to 'int'). This, however, does not imply that safe conversions (non-lossy) are allowed as well. In order to allow all conversions, one needs to allow both lossy as well as non-lossy conversions by setting this variable to `ALL_NON_LOSSY,ALL_LOSSY`.
-  * Empty (default) means that the server should give an error and replication should stop if the table definition is different between the primary and replica.
+  * Empty (default) means that the server gives an error and replication stops if the table definition is different between the primary and replica.
 * Command line: `--slave-type-conversions=set`
 * Scope: Global
 * Dynamic: Yes

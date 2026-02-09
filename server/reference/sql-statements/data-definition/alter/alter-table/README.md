@@ -727,17 +727,29 @@ Aborting `ALTER TABLE ... ALGORITHM=COPY` was made faster by removing excessive 
 
 ## Atomic ALTER TABLE
 
-\{% tabs %\} \{% tab title="Current" %\} `ALTER TABLE` is atomic for most engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-25180](https://jira.mariadb.org/browse/MDEV-25180)). This means that if there is a crash (server down or power outage) during an `ALTER TABLE` operation, after recovery, either the old table and associated triggers and status will be intact, or the new table will be active. In older MariaDB versions one could get leftover #sql-alter..', '#sql-backup..' or 'table\_name.frm˝' files if the system crashed during the `ALTER TABLE` operation.
+{% tabs %}
+{% tab title="Current" %}
+`ALTER TABLE` is atomic for most engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-25180](https://jira.mariadb.org/browse/MDEV-25180)). This means that if there is a crash (server down or power outage) during an `ALTER TABLE` operation, after recovery, either the old table and associated triggers and status will be intact, or the new table will be active. In older MariaDB versions one could get leftover #sql-alter..', '#sql-backup..' or 'table\_name.frm˝' files if the system crashed during the `ALTER TABLE` operation.
 
-See [Atomic DDL](../../atomic-ddl.md) for more information. \{% endtab %\}
+See [Atomic DDL](../../atomic-ddl.md) for more information.
+{% endtab %}
 
-\{% tab title="< 10.6.1" %\} Atomic `ALTER TABLE` is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.6" %}
+Atomic `ALTER TABLE` is not available.
+{% endtab %}
+{% endtabs %}
 
 ## Replication
 
-\{% tabs %\} \{% tab title="Current" %\} `ALTER TABLE` got fully executed on the primary first, and only then was it replicated and started executing on replicas. [An option](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) was added to replicate sooner and begin executing on replicas, directly when it _starts_ executing on the primary, not when it _finishes_. This way the replication lag caused by a heavy `ALTER TABLE` can be completely eliminated ([MDEV-11675](https://jira.mariadb.org/browse/MDEV-11675)). \{% endtab %\}
+{% tabs %}
+{% tab title="Current" %}
+`ALTER TABLE` got fully executed on the primary first, and only then was it replicated and started executing on replicas. [An option](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) was added to replicate sooner and begin executing on replicas, directly when it _starts_ executing on the primary, not when it _finishes_. This way the replication lag caused by a heavy `ALTER TABLE` can be completely eliminated ([MDEV-11675](https://jira.mariadb.org/browse/MDEV-11675)).
+{% endtab %}
 
-\{% tab title="< 10.8.1" %\} The [binlog\_alter\_two\_phase](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) option is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.8" %}
+The [binlog\_alter\_two\_phase](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) option is not available.
+{% endtab %}
+{% endtabs %}
 
 ## Examples
 
