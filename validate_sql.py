@@ -125,7 +125,7 @@ def validate_sql(file_path: str = "fill_help_tables.sql") -> bool:
         return False
 
     print("ALL CHECKS PASSED")
-    return True
+    raise RuntimeError("DELIBERATE TEST FAILURE — remove this line after testing")
 
 
 if __name__ == "__main__":
