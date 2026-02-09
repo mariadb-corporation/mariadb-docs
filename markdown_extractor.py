@@ -307,6 +307,12 @@ def process_single_file(path: str, help_topic_id: int) -> dict:
             return None
             
         desc, example = extract_sections(content)
+        
+        # Skip files with no meaningful content
+        desc_stripped = desc.strip()
+        if not desc_stripped and not example:
+            return None
+        
         full_content = build_output(name, desc, example, path)
 
         name_ = escape_sql(full_content["name"])
