@@ -19,16 +19,16 @@ mariadb -u user_name -p -h ip_address db_name
 ```
 
 * Replace `user_name` with your MariaDB username.
-* Replace `ip_address` with the hostname or IP address of your MariaDB server. If you are accessing MariaDB from the same server you're logged into (i.e., locally), you can usually omit the `-h ip_address` part.
-* Replace `db_name` with the name of the database you wish to access (e.g., `test`). Some setups may have a `test` database by default; others might not, or it might have been removed (e.g., by `mariadb-secure-installation`). If unsure, or if you want to connect without selecting a specific database initially, you can omit `db_name`.
+* Replace `ip_address` with the hostname or IP address of your MariaDB server. If you are accessing MariaDB from the same server you're logged into (locally = `localhost`), you can usually omit the `-h ip_address` part.
+* Replace `db_name` with the name of the database you wish to access (for instance, `test`). Some setups may have a `test` database by default; others might not, or it might have been removed (for instance, by `mariadb-secure-installation`). If unsure, or if you want to connect without selecting a specific database initially, you can omit `db_name`.
 
-You will be prompted to enter your password. If your login is successful, you will see a prompt similar to this:
+You are prompted to enter your password. If your login is successful, you see a prompt similar to this:
 
 ```bash
 MariaDB [test]>
 ```
 
-The "MariaDB" indicates you are connected to a MariaDB server. The name within the brackets (e.g., `test`) is your current default database. If no database was specified or successfully connected to, it might show `[(none)]`.
+"MariaDB" indicates you are connected to a MariaDB server. The name within the brackets (for instance, `test`) is your current default database. If no database was specified or successfully connected to, it shows `[(none)]`.
 
 ### Understanding Database Basics and Setup
 

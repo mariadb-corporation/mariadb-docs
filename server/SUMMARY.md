@@ -22,6 +22,7 @@
   * [MariaDB String Functions Guide](mariadb-quickstart-guides/mariadb-string-functions-guide.md)
   * [Restoring Data from Dump Files Guide](mariadb-quickstart-guides/mariadb-restore-guide.md)
   * [Changing Times in MariaDB](mariadb-quickstart-guides/mariadb-time-guide.md)
+  * [System & Status Variables Guide](mariadb-quickstart-guides/system-and-status-variables-guide.md)
   * [Making Backups with mariadb-dump Guide](mariadb-quickstart-guides/mariadb-backup-guide.md)
   * [A MariaDB Primer Guide](mariadb-quickstart-guides/mariadb-usage-guide.md)
   * [Creating & Using Views Guide](mariadb-quickstart-guides/mariadb-views-guide.md)
