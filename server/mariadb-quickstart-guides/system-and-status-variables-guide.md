@@ -45,44 +45,34 @@ Here is the comprehensive list of pages that document variables.
 
 ### Core Server Variables
 
-* Server System Variables (The main list for general server configuration)
-  * [https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables](https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables)
-* Server Status Variables (Real-time monitoring metrics)
-  * [https://mariadb.com/docs/server/server-management/variables-and-modes/server-status-variables](https://mariadb.com/docs/server/server-management/variables-and-modes/server-status-variables)
-* Performance Schema System Variables
-  * [https://mariadb.com/docs/server/reference/system-tables/performance-schema/performance-schema-system-variables](https://mariadb.com/docs/server/reference/system-tables/performance-schema/performance-schema-system-variables)
+* [Server System Variables](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) (The main list for general server configuration)
+* [Server Status Variables](../ha-and-performance/optimization-and-tuning/system-variables/server-status-variables.md) (Real-time monitoring metrics)
+* [Performance Schema System Variables](../reference/system-tables/performance-schema/performance-schema-system-variables.md)
 
 ### Storage Engine Specific Variables
 
-* Aria System Variables
-  * [https://mariadb.com/docs/server/server-usage/storage-engines/aria/aria-system-variables](https://mariadb.com/docs/server/server-usage/storage-engines/aria/aria-system-variables)
-* InnoDB System Variables
-  * [https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables)
-* MyISAM System Variables
-  * [https://mariadb.com/docs/server/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables](https://mariadb.com/docs/server/server-usage/storage-engines/myisam-storage-engine/myisam-system-variables)
-* CONNECT System Variables
-  * [https://mariadb.com/docs/server/server-usage/storage-engines/connect/connect-system-variables](https://mariadb.com/docs/server/server-usage/storage-engines/connect/connect-system-variables)
-* Spider System Variables
-  * [https://mariadb.com/docs/server/server-usage/storage-engines/spider/spider-system-variables](https://mariadb.com/docs/server/server-usage/storage-engines/spider/spider-system-variables)
+* [Aria System Variables](../server-usage/storage-engines/aria/aria-system-variables.md)
+* [Aria Status Variables](../server-usage/storage-engines/aria/aria-status-variables.md)
+* [InnoDB System Variables](../server-usage/storage-engines/innodb/innodb-system-variables.md)
+* [MyISAM System Variables](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md)
+* [CONNECT System Variables](../server-usage/storage-engines/connect/connect-system-variables.md)
+* [Spider System Variables](../server-usage/storage-engines/spider/spider-system-variables.md)
+* [Spider Status Variables](../ha-and-performance/optimization-and-tuning/system-variables/spider-status-variables.md)
 
 ### Replication & Performance Variables
 
-* Replication and Binary Log System Variables
-  * [https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables)
-* Thread Pool System and Status Variables
-  * [https://mariadb.com/docs/server/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables](https://mariadb.com/docs/server/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables)
+* [Replication and Binary Log System Variables](../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md)
+* [Replication and Binary Log Status Variables](../ha-and-performance/standard-replication/replication-and-binary-log-status-variables.md)
+* [Thread Pool System and Status Variables](../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md)
 
 ### Plugin Specific Variables
 
-* Audit Plugin Options and System Variables
-  * [https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables](https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables)
-* Audit Plugin Status Variables
-  * [https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-status-variables](https://mariadb.com/docs/server/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-status-variables)
-* Encryption Plugin System Variables (for instance, File Key Management)
-  * [https://mariadb.com/docs/server/reference/plugins/encryption-plugins/file-key-management-plugin-system-variables](https://www.google.com/search?q=https://mariadb.com/docs/server/reference/plugins/encryption-plugins/file-key-management-plugin-system-variables\&authuser=1)
+* [Audit Plugin Options and System Variables](../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md)
+* [Audit Plugin Status Variables](../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-status-variables.md)
+* Encryption Plugin System Variables (for instance, [File Key Management](../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#system-variables))
 
 ### Index / Master List
 
-* Full list of MariaDB options, system and status variables
-  * [https://mariadb.com/docs/server/server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables](https://mariadb.com/docs/server/server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables)
-  * _Note: This page acts as a directory that links back to the detailed pages above._
+* [Full list of MariaDB options, system and status variables](../reference/full-list-of-mariadb-options-system-and-status-variables.md)\
+  &#xNAN;_&#x4E;ote: This page acts as a directory that links back to the detailed pages above._
+
