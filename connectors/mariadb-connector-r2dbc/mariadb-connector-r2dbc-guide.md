@@ -11,8 +11,8 @@
 Java developers can use MariaDB Connector/R2DBC to connect to MariaDB database products using the Reactive Relational Database Connectivity (R2DBC) API. R2DBC operations are non-blocking, which makes the R2DBC API more scalable than Java's standard JDBC API. MariaDB Connector/R2DBC has a native R2DBC implementation and the Spring Data R2DBC framework.
 
 | Connector                    | MariaDB Connector/R2DBC                                                                                           |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Supported Versions           | 1.2                                                                                                               |
+| ---------------------------- |-------------------------------------------------------------------------------------------------------------------|
+| Supported Versions           | 1.4                                                                                                               |
 | Programming Language         | JAVA                                                                                                              |
 | Programming Language Version | Java 8+                                                                                                           |
 | API                          | [R2DBC 0.9.1](https://r2dbc.io/spec/0.9.1.RELEASE/api/) , [R2DBC 1.0.0](https://r2dbc.io/spec/1.0.0.RELEASE/api/) |
@@ -37,17 +37,7 @@ Current connector supporting 1.0.0 R2DBC spec is:
 <dependency>
     <groupId>org.mariadb</groupId>
     <artifactId>r2dbc-mariadb</artifactId>
-    <version>1.2.x</version>
-</dependency>
-```
-
-To support R2DBC 0.9.1 spec that is incompatible with 1.0.0 spec:
-
-```xml
-<dependency>
-    <groupId>org.mariadb</groupId>
-    <artifactId>r2dbc-mariadb-0.9.1-spec</artifactId>
-    <version>1.2.x</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
