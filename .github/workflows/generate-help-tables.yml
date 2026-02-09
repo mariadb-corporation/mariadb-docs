@@ -48,3 +48,18 @@ jobs:
           name: fill_help_tables
           path: fill_help_tables.sql
           retention-days: 30
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: generate
+    if: failure()
+    steps:
+      - name: Notify Slack on failure
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "❌ *Help Tables SQL generation failed*\n*Repo:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Pushed by:* ${{ github.actor }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
