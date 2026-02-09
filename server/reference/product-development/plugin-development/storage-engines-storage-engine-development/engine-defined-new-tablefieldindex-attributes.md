@@ -53,9 +53,9 @@ And it describes these attributes to MySQL by creating an array of`HA_TOPTION_*`
 
 There are five supported kinds of attributes:
 
-| macro name          | attribure value type                    | corresponding C type           | additional parameters of a macro                                                                                   |
+| macro name          | attribute value type                    | corresponding C type           | additional parameters of a macro                                                                                   |
 | ------------------- | --------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| macro name          | attribure value type                    | corresponding C type           | additional parameters of a macro                                                                                   |
+| macro name          | attribute value type                    | corresponding C type           | additional parameters of a macro                                                                                   |
 | HA\_TOPTION\_NUMBER | an integer number                       | unsigned long long             | a default value, minimal allowed value, maximal allowed value, a factor, that any allowed should be a multiple of. |
 | HA\_TOPTION\_STRING | a string                                | char \*                        | none. The default value is a null pointer.                                                                         |
 | HA\_TOPTION\_ENUM   | one value from a list of allowed values | unsigned int                   | a string with a comma-separated list of allowed values, and a default value as a number, starting from 0.          |
