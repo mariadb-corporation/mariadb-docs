@@ -21,7 +21,7 @@ Stop MaxScale with `sudo systemctl stop maxscale`. The log file is written at `/
 
 A functional configuration of MaxScale should include a listener, a service, a monitor and one or more servers. An incoming client connects to a listener port. Once the connection is established, the listener passes the client to a service. The service then handles all client traffic, from authentication to disconnection. Client queries are routed to servers and query results from servers back to the client. A monitor regularly checks the status of the servers.
 
-!\[]\(<../.gitbook/assets/service\_example.png)
+![MaxScale service structure](../.gitbook/assets/service_example.png)
 
 MaxScale configuration files use the common [INI](https://en.wikipedia.org/wiki/INI_file) file format. The files contain sections and each section can contain multiple key-value pairs. The MaxScale installer creates an example configuration file to `/etc/maxscale.cnf`.
 
