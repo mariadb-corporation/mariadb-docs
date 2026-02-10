@@ -89,10 +89,10 @@ This list includes features from the short-term releases [MariaDB 10.7](../old-r
 
 * InnoDB performance improvements ([MDEV-27557](https://jira.mariadb.org/browse/MDEV-27557), [MDEV-28185](https://jira.mariadb.org/browse/MDEV-28185), [MDEV-27767](https://jira.mariadb.org/browse/MDEV-27767), [MDEV-28313](https://jira.mariadb.org/browse/MDEV-28313), [MDEV-28137](https://jira.mariadb.org/browse/MDEV-28137), [MDEV-28465](https://jira.mariadb.org/browse/MDEV-28465), [MDEV-26789](https://jira.mariadb.org/browse/MDEV-26789), [MariaDB 10.9](../old-releases/10.9/what-is-mariadb-109.md))
 * In bulk insert, pre-sort and build indexes one page at a time ([MDEV-24621](https://jira.mariadb.org/browse/MDEV-24621), [MariaDB 10.7](../old-releases/10.7/what-is-mariadb-107.md))
+* Reorganize [InnoDB buffer pool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-buffer-pool) and remove chunks ([MDEV-29445](https://jira.mariadb.org/browse/MDEV-29445), [MariaDB 10.11.12](10.11.12.md))
 
 #### InnoDB Redo Log Improvements
 
-* Reorganize InnoDB buffer pool and remove chunks (MDEV-29445, MariaDB 10.11.12)
 * Improve the [redo log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-redo-log) for concurrency ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425), [MariaDB 10.8](../old-releases/10.8/what-is-mariadb-108.md)).
 * Remove FIL\_PAGE\_FILE\_FLUSH\_LSN ([MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199), [MariaDB 10.8](../old-releases/10.8/what-is-mariadb-108.md)).
 
