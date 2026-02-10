@@ -1743,7 +1743,7 @@
       * [DROP FUNCTION](server-usage/stored-routines/stored-functions/drop-function.md)
     * [Table Statements](reference/sql-statements/table-statements/README.md)
       * [ALTER](reference/sql-statements/data-definition/alter/README.md)
-      * [ALTER TABLE](<reference/sql-statements/data-definition/alter/alter-table/README (1).md>)
+      * [ALTER TABLE](reference/sql-statements/data-definition/alter/alter-table/README.md)
       * [ANALYZE TABLE](reference/sql-statements/table-statements/analyze-table.md)
       * [CHECK TABLE](reference/sql-statements/table-statements/check-table.md)
       * [CHECK VIEW](reference/sql-statements/table-statements/check-view.md)

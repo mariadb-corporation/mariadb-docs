@@ -267,7 +267,7 @@ Get the SQL statement to recreate a table. This statement shows the complete `CR
 {% endcolumn %}
 
 {% column %}
-Complete `SHOW INDEX` reference: `SHOW INDEX`` ``FROM`` `_`tbl_name`_ syntax, output fields, and `WHERE`/`LIKE` filters.
+Complete `SHOW INDEX` reference: `SHOW INDEX FROM`` `_`tbl_name`_ syntax, output fields, and `WHERE`/`LIKE` filters.
 {% endcolumn %}
 {% endcolumns %}
 

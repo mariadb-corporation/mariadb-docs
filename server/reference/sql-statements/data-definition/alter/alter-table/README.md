@@ -613,7 +613,7 @@ The [old\_alter\_table](../../../../../ha-and-performance/optimization-and-tunin
 
 #### ALGORITHM=COPY
 
-`ALGORITHM=COPY` is the name for the original [ALTER TABLE](<README (1).md>) algorithm from early MariaDB versions.
+`ALGORITHM=COPY` is the name for the original [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) algorithm from early MariaDB versions.
 
 When `ALGORITHM=COPY` is set, MariaDB essentially does the following operations:
 
@@ -636,7 +636,7 @@ RENAME TABLE tmp_tab TO original_tab;
 
 This algorithm is very inefficient, but it is generic, so it works for all storage engines.
 
-If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if it is not necessary. This can result in a lengthy table copy. If multiple [ALTER TABLE](<README (1).md>) operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single [ALTER TABLE](<README (1).md>) statement, so that the table is only rebuilt once.
+If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if it is not necessary. This can result in a lengthy table copy. If multiple [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) statement, so that the table is only rebuilt once.
 
 \{% tabs %\} \{% tab title="Current" %\} `ALTER TABLE` can perform most operations with `ALGORITHM=COPY`, `LOCK=NONE`. See [LOCK=NONE](./#none). \{% endtab %\}
 
@@ -650,7 +650,7 @@ When `ALGORITHM=INPLACE` is set, the underlying storage engine uses optimization
 
 A more accurate name would have been `ALGORITHM=ENGINE`, where `ENGINE` refers to an "engine-specific" algorithm.
 
-If an [ALTER TABLE](<README (1).md>) operation supports `ALGORITHM=INPLACE`, then it can be performed using optimizations by the underlying storage engine, but it may rebuilt.
+If an [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) operation supports `ALGORITHM=INPLACE`, then it can be performed using optimizations by the underlying storage engine, but it may rebuilt.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INPLACE](../../../../../server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md) for more.
 
