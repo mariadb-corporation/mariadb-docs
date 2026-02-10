@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```bnf
+```sql
 OPTIMIZE [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
     [WAIT n | NOWAIT]
@@ -25,9 +25,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../../../reference/sql-statemen
 
 ### Defragmenting
 
-`OPTIMIZE TABLE` works for [InnoDB](../../../server-usage/storage-engines/innodb/) (before [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1), only if the [innodb\_file\_per\_table](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is set), [Aria](../../../server-usage/storage-engines/aria/), [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) and [ARCHIVE](../../../server-usage/storage-engines/archive.md) tables, and should be used if you have deleted a large part of a table or if you have made many changes to a table with variable-length\
-rows (tables that have [VARCHAR](../../../reference/data-types/string-data-types/varchar.md), [VARBINARY](../../../reference/data-types/string-data-types/varbinary.md), [BLOB](../../../reference/data-types/string-data-types/blob.md), or [TEXT](../../../reference/data-types/string-data-types/text.md) columns). Deleted rows are maintained in a\
-linked list and subsequent `INSERT` operations reuse old row positions.
+`OPTIMIZE TABLE` works for [InnoDB](../../../server-usage/storage-engines/innodb/) (before [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1), only if the [innodb\_file\_per\_table](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is set), [Aria](../../../server-usage/storage-engines/aria/), [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) and [ARCHIVE](../../../server-usage/storage-engines/archive.md) tables, and should be used if you have deleted a large part of a table or if you have made many changes to a table with variable-length rows (tables that have [VARCHAR](../../../reference/data-types/string-data-types/varchar.md), [VARBINARY](../../../reference/data-types/string-data-types/varbinary.md), [BLOB](../../../reference/data-types/string-data-types/blob.md), or [TEXT](../../../reference/data-types/string-data-types/text.md) columns). Deleted rows are maintained in a linked list and subsequent `INSERT` operations reuse old row positions.
 
 This statement requires [SELECT and INSERT privileges](../../../reference/sql-statements/account-management-sql-statements/grant.md) for the table.
 
@@ -35,9 +33,7 @@ By default, `OPTIMIZE TABLE` statements are written to the [binary log](../../..
 
 `OPTIMIZE TABLE` statements are not logged to the binary log if [read\_only](../system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Replicas](../../standard-replication/read-only-replicas.md).
 
-`OPTIMIZE TABLE` is also supported for partitioned tables. You\
-can use`[ALTER TABLE](../../../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... OPTIMIZE PARTITION`\
-to optimize one or more partitions.
+`OPTIMIZE TABLE` is also supported for partitioned tables. You can use [ALTER TABLE ... OPTIMIZE PARTITION](../../../reference/sql-statements/data-definition/alter/alter-table/#optimize-partition) to optimize one or more partitions.
 
 You can use `OPTIMIZE TABLE` to reclaim the unused space and to defragment the data file. With other storage engines, `OPTIMIZE TABLE` does nothing by default, and returns this message: " The storage engine for the table doesn't support optimize". However, if the server has been started with the `--skip-new` option, `OPTIMIZE TABLE` is linked to [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), and recreates the table. This operation frees the unused space and updates index statistics.
 
