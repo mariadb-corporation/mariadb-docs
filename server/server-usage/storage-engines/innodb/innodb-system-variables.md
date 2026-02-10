@@ -467,6 +467,10 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_buffer_pool_size_auto_min`
 
+{% hint style="warning" %}
+If the variable is not set at startup, upward dynamic resizing is disabled at runtime because the variable is read-only and defaults to the startup size
+{% endhint %}
+
 * Description: Minimum `innodb_buffer_pool_size` in bytes for dynamic shrinking on memory pressure. Only affects Linux. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
 * Command line: `--innodb-buffer-pool-size-auto-min=#`
 * Scope: Global
