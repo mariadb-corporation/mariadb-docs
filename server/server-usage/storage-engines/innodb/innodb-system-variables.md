@@ -467,10 +467,6 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_buffer_pool_size_auto_min`
 
-{% hint style="warning" %}
-If the variable is not set at startup, upward dynamic resizing is disabled at runtime because the variable is read-only and defaults to the startup size
-{% endhint %}
-
 * Description: Minimum `innodb_buffer_pool_size` in bytes for dynamic shrinking on memory pressure. Only affects Linux. If a memory pressure event is reported by Linux, the `innodb_buffer_pool_size` may be automatically shrunk towards this value. By default, set to [`innodb_buffer_pool_size_max`](innodb-system-variables.md#innodb_buffer_pool_size_max), that is, memory pressure events will be ignored. `0` sets no minimum value.
 * Command line: `--innodb-buffer-pool-size-auto-min=#`
 * Scope: Global
@@ -482,6 +478,14 @@ If the variable is not set at startup, upward dynamic resizing is disabled at ru
 * Introduced: MariaDB 10.11.12, MariaDB 11.4.6, MariaDB 11.8.2
 
 #### `innodb_buffer_pool_size_max`
+
+{% hint style="danger" %}
+&#x20;`innodb_buffer_pool_size_max` is a **read-only** variable. If not specified at startup, it defaults to the initial `innodb_buffer_pool_size`, which effectively disables upward dynamic resizing at runtime (attempts to increase size will result in Warning 1292).
+{% endhint %}
+
+{% hint style="warning" %}
+Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://jira.mariadb.org/browse/MDEV-36197)). This variable currently serves only as a pre-allocated virtual address ceiling for **manual** resizing operations.
+{% endhint %}
 
 * Description: Maximum `innodb_buffer_pool_size` value.
 * Command line: `--innodb-buffer-pool-size-max=#`
