@@ -1030,6 +1030,7 @@
       * [Pagination Optimization](ha-and-performance/optimization-and-tuning/query-optimizations/pagination-optimization.md)
       * [Pivoting in MariaDB](ha-and-performance/optimization-and-tuning/query-optimizations/pivoting-in-mariadb.md)
       * [Query Limits and Timeouts](ha-and-performance/optimization-and-tuning/query-optimizations/query-limits-and-timeouts.md)
+      * [reorder\_outer\_joins](ha-and-performance/optimization-and-tuning/query-optimizations/reorder_outer_joins.md)
       * [Rollup Unique User Counts](ha-and-performance/optimization-and-tuning/query-optimizations/rollup-unique-user-counts.md)
       * [Rowid Filtering Optimization](ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization.md)
       * [Sargable DATE and YEAR](ha-and-performance/optimization-and-tuning/query-optimizations/sargable-date-and-year.md)
