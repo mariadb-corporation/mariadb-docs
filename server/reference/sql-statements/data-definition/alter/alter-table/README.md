@@ -133,19 +133,9 @@ See [InnoDB Online DDL Overview](../../../../../server-usage/storage-engines/inn
 
 ### ALTER ONLINE TABLE
 
-ALTER ONLINE TABLE also works for partitioned tables.
+`ALTER ONLINE TABLE` also works for partitioned tables.
 
-Online `ALTER TABLE` is available by executing the following:
-
-````sql
-ALTER ONLINE TABLE ...;
-</code></pre>
-
-This statement is equivalent to the following:
-
-```sql
-ALTER TABLE ... LOCK=NONE;
-````
+`ALTER ONLINE TABLE ...` is equivalent to the `ALTER TABLE ... LOCK = NONE`.
 
 See the [LOCK](./#lock) alter specification for more information.
 
@@ -273,27 +263,35 @@ ALTER TABLE t1 ALTER b SET DEFAULT 'hello';
 
 ### RENAME INDEX/KEY
 
-\{% tabs %\} \{% tab title="Current" %\} You can rename an index using the `RENAME INDEX` (or `RENAME KEY`) syntax, for example:
+{% tabs %}
+{% tab title="Current" %}
+You can rename an index using the `RENAME INDEX` (or `RENAME KEY`) syntax:
 
 ```sql
 ALTER TABLE t1 RENAME INDEX i_old TO i_new;
 ```
+{% endtab %}
 
-\{% endtab %\}
-
-\{% tab title="< 10.5.3" %\} `RENAME INDEX/KEY` is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.5.3" %}
+`RENAME INDEX/KEY` is not available.
+{% endtab %}
+{% endtabs %}
 
 ### RENAME COLUMN
 
-\{% tabs %\} \{% tab title="Current" %\} You can rename a column using the `RENAME COLUMN` syntax, for example:
+{% tabs %}
+{% tab title="Current" %}
+You can rename a column using the `RENAME COLUMN` syntax:
 
 ```sql
 ALTER TABLE t1 RENAME COLUMN c_old TO c_new;
 ```
+{% endtab %}
 
-\{% endtab %\}
-
-\{% tab title="< 10.5.3" %\} `RENAME COLUMN` is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.5.3" %}
+`RENAME COLUMN` is not available.
+{% endtab %}
+{% endtabs %}
 
 ### ADD PRIMARY KEY
 
@@ -440,7 +438,7 @@ WHERE TABLE_NAME = 't';
 +-----------------+----------------+-----------------+
 ```
 
-To remove a constraint from the table, issue an `ALTER TABLE...DROP CONSTRAINT` statement. For example:
+To remove a constraint from the table, issue an `ALTER TABLE...DROP CONSTRAINT` statement:
 
 ```sql
 ALTER TABLE t DROP CONSTRAINT is_unique;
@@ -499,7 +497,9 @@ Reduces the number of HASH or KEY partitions in a table. See [Partitioning Overv
 
 #### CONVERT PARTITION / TABLE
 
-\{% tabs %\} \{% tab title="Current" %\} `CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
+{% tabs %}
+{% tab title="Current" %}
+`CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
 
 ```sql
 ALTER TABLE partitioned_table CONVERT PARTITION part1 TO TABLE normal_table;
@@ -514,9 +514,11 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details. \{% endtab %\}
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+{% endtab %}
 
-\{% tab title="< 11.4" %\} `CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
+{% tab title="< 11.4" %}
+`CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
 
 ```sql
 ALTER TABLE partitioned_table CONVERT PARTITION part1 TO TABLE normal_table;
@@ -531,9 +533,13 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional clause `[{WITH | WITHOUT} VALIDATION]` is not available.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details. \{% endtab %\}
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+{% endtab %}
 
-\{% tab title="< 10.7.1" %\} `CONVERT PARTITION` and `CONVERT TABLE` are not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.7" %}
+`CONVERT PARTITION` and `CONVERT TABLE` are not available.
+{% endtab %}
+{% endtabs %}
 
 #### DROP PARTITION
 
@@ -541,21 +547,27 @@ Used to drop specific partitions (and discard all data within the specified part
 
 #### EXCHANGE PARTITION
 
-\{% tabs %\} \{% tab title="Current" %\} This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
+{% tabs %}
+{% tab title="Current" %}
+This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
 
 See [Partitioning Overview: Exchanging Partitions](../../../../../server-usage/partitioning-tables/partitioning-overview.md#exchanging-partitions) for more details.
 
-See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces). \{% endtab %\}
+See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces).
+{% endtab %}
 
-\{% tab title="< 11.4" %\} This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
+{% tab title="< 11.4" %}
+This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is not permitted.
 
 See [Partitioning Overview: Exchanging Partitions](../../../../../server-usage/partitioning-tables/partitioning-overview.md#exchanging-partitions) for more details.
 
-See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces). \{% endtab %\} \{% endtabs %\}
+See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces).&#x20;
+{% endtab %}
+{% endtabs %}
 
 #### OPTIMIZE PARTITION
 
@@ -638,9 +650,15 @@ This algorithm is very inefficient, but it is generic, so it works for all stora
 
 If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if it is not necessary. This can result in a lengthy table copy. If multiple [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) statement, so that the table is only rebuilt once.
 
-\{% tabs %\} \{% tab title="Current" %\} `ALTER TABLE` can perform most operations with `ALGORITHM=COPY`, `LOCK=NONE`. See [LOCK=NONE](./#none). \{% endtab %\}
+{% tabs %}
+{% tab title="Current" %}
+`ALTER TABLE` can perform most operations with `ALGORITHM=COPY`, `LOCK=NONE`. See [LOCK=NONE](./#none).
+{% endtab %}
 
-\{% tab title="< 11.2" %\} `ALTER TABLE` cannot perform operations with `ALGORITHM=COPY`, `LOCK=NONE`. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 11.2" %}
+`ALTER TABLE` cannot perform operations with `ALGORITHM=COPY`, `LOCK=NONE`.
+{% endtab %}
+{% endtabs %}
 
 #### ALGORITHM=INPLACE
 
@@ -650,7 +668,7 @@ When `ALGORITHM=INPLACE` is set, the underlying storage engine uses optimization
 
 A more accurate name would have been `ALGORITHM=ENGINE`, where `ENGINE` refers to an "engine-specific" algorithm.
 
-If an [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) operation supports `ALGORITHM=INPLACE`, then it can be performed using optimizations by the underlying storage engine, but it may rebuilt.
+If an `ALTER TABLE` operation supports `ALGORITHM=INPLACE`, it can be performed using optimizations by the underlying storage engine, but it may rebuilt.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INPLACE](../../../../../server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md) for more.
 
