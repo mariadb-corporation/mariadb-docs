@@ -26,10 +26,10 @@ jobs:
 
       - name: Run generator
         working-directory: docs
-        run: python markdown_extractor.py
+        run: python help-tables/markdown_extractor.py
 
       - name: Copy generated file to server repo
-        run: cp docs/fill_help_tables.sql server/scripts/fill_help_tables.sql
+        run: cp docs/help-tables/fill_help_tables.sql server/scripts/fill_help_tables.sql
 
       - name: Check for changes
         id: diff

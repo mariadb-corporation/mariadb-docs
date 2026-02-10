@@ -1,6 +1,9 @@
 import re
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent
+
 # Directories to exclude (per Stefan's guidance)
 EXCLUDED_DIRS = [
     "system-tables",
@@ -483,21 +486,23 @@ def write_output(topics: list, output_file: str = "fill_help_tables.sql"):
 
 def main():
     # Get all files to process
-    files = get_files("server/reference")
+    files = get_files(str(REPO_ROOT / "server" / "reference"))
     print(f"Found {len(files)} files to process")
     
     # Process all files
     topics, failed = process_batch(files)
     
     # Write complete output
-    write_output(topics)
+    output_file = str(SCRIPT_DIR / "fill_help_tables.sql")
+    write_output(topics, output_file)
     
     # Optionally write failed files for review
     if failed:
-        with open("failed_files.txt", 'w') as f:
+        failed_file = str(SCRIPT_DIR / "failed_files.txt")
+        with open(failed_file, 'w') as f:
             for path in failed:
                 f.write(path + "\n")
-        print(f"Failed files written to failed_files.txt")
+        print(f"Failed files written to {failed_file}")
 
 
 if __name__ == "__main__":
