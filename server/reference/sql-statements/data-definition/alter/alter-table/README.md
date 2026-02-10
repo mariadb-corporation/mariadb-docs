@@ -625,7 +625,7 @@ The [old\_alter\_table](../../../../../ha-and-performance/optimization-and-tunin
 
 #### ALGORITHM=COPY
 
-`ALGORITHM=COPY` is the name for the original [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) algorithm from early MariaDB versions.
+`ALGORITHM=COPY` is the name for the original `ALTER TABLE` algorithm from early MariaDB versions.
 
 When `ALGORITHM=COPY` is set, MariaDB essentially does the following operations:
 
@@ -648,7 +648,7 @@ RENAME TABLE tmp_tab TO original_tab;
 
 This algorithm is very inefficient, but it is generic, so it works for all storage engines.
 
-If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if it is not necessary. This can result in a lengthy table copy. If multiple [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single [ALTER TABLE](/broken/pages/TQSMYIOnWAvu7SVO1yY6) statement, so that the table is only rebuilt once.
+If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if it is not necessary. This can result in a lengthy table copy. If multiple `ALTER TABLE` operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single `ALTER TABLE` statement, so that the table is only rebuilt once.
 
 {% tabs %}
 {% tab title="Current" %}
