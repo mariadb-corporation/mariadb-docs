@@ -4,11 +4,11 @@ on:
   push:
     paths:
       - 'server/reference/**/*.md'
-      - 'markdown_extractor.py'
+      - 'help-tables/markdown_extractor.py'
   pull_request:
     paths:
       - 'server/reference/**/*.md'
-      - 'markdown_extractor.py'
+      - 'help-tables/markdown_extractor.py'
 
 jobs:
   generate:
@@ -23,30 +23,30 @@ jobs:
           python-version: '3.11'
 
       - name: Run generator
-        run: python markdown_extractor.py
+        run: python help-tables/markdown_extractor.py
 
       - name: Verify output exists
         run: |
-          if [ ! -f fill_help_tables.sql ]; then
+          if [ ! -f help-tables/fill_help_tables.sql ]; then
             echo "Error: fill_help_tables.sql was not generated"
             exit 1
           fi
-          echo "Generated $(wc -l < fill_help_tables.sql) INSERT statements"
+          echo "Generated $(wc -l < help-tables/fill_help_tables.sql) INSERT statements"
           echo ""
           echo "=== First 5 statements ==="
-          head -5 fill_help_tables.sql
+          head -5 help-tables/fill_help_tables.sql
           echo ""
           echo "=== Last 5 statements ==="
-          tail -5 fill_help_tables.sql
+          tail -5 help-tables/fill_help_tables.sql
 
       - name: Validate SQL output
-        run: python validate_sql.py fill_help_tables.sql
+        run: python help-tables/validate_sql.py help-tables/fill_help_tables.sql
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: fill_help_tables
-          path: fill_help_tables.sql
+          path: help-tables/fill_help_tables.sql
           retention-days: 30
 
   notify:
