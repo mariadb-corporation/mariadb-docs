@@ -3016,7 +3016,7 @@ nosqlprotocol.authentication_password=my_password
 
 #### Settings for File-based Key Manager
 
-**`file.keyfile`**
+##### `file.keyfile`
 
 * Type: path
 * Mandatory: Yes
@@ -3037,7 +3037,7 @@ The KMIP key manager has been verified to work with the PyKMIP server.
 
 #### Settings for KMIP Key Manager
 
-**`kmip.host`**
+##### `kmip.host`
 
 * Type: string
 * Mandatory: Yes
@@ -3045,7 +3045,7 @@ The KMIP key manager has been verified to work with the PyKMIP server.
 
 The host where the KMIP server is.
 
-**`kmip.port`**
+##### `kmip.port`
 
 * Type: integer
 * Mandatory: Yes
@@ -3053,7 +3053,7 @@ The host where the KMIP server is.
 
 The port on which the KMIP server listens on.
 
-**`kmip.cert`**
+##### `kmip.cert`
 
 * Type: path
 * Mandatory: Yes
@@ -3061,7 +3061,7 @@ The port on which the KMIP server listens on.
 
 The client public certificate used when connecting to the KMIP server.
 
-**`kmip.key`**
+##### `kmip.key`
 
 * Type: path
 * Mandatory: Yes
@@ -3069,7 +3069,7 @@ The client public certificate used when connecting to the KMIP server.
 
 The client private key used when connecting to the KMIP server.
 
-**`kmip.ca`**
+##### `kmip.ca`
 
 * Type: path
 * Default: `""`
@@ -3106,7 +3106,7 @@ version            1
 
 #### Settings for HashiCorp Vault Key Manager
 
-**`vault.token`**
+##### `vault.token`
 
 * Type: password
 * Mandatory: Yes
@@ -3114,7 +3114,7 @@ version            1
 
 The authentication token used to connect to the Vault server. This can be encrypted using `maxpasswd`, similar to how other passwords are encrypted.
 
-**`vault.host`**
+##### `vault.host`
 
 * Type: string
 * Default: `localhost`
@@ -3122,7 +3122,7 @@ The authentication token used to connect to the Vault server. This can be encryp
 
 The host where the Vault server is.
 
-**`vault.port`**
+##### `vault.port`
 
 * Type: integer
 * Default: `8200`
@@ -3130,7 +3130,7 @@ The host where the Vault server is.
 
 The port on which the Vault server listens on.
 
-**`vault.ca`**
+##### `vault.ca`
 
 * Type: path
 * Default: `""`
@@ -3138,7 +3138,7 @@ The port on which the Vault server listens on.
 
 The CA certificate to use. By default the system default certificates are used.
 
-**`vault.tls`**
+##### `vault.tls`
 
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
 * Default: true
@@ -3146,7 +3146,7 @@ The CA certificate to use. By default the system default certificates are used.
 
 Whether to use encrypted connections (i.e. HTTPS or HTTP) when communicating with the Vault server.
 
-**`vault.mount`**
+##### `vault.mount`
 
 * Type: string
 * Default: `secret`
@@ -3154,7 +3154,7 @@ Whether to use encrypted connections (i.e. HTTPS or HTTP) when communicating wit
 
 The Key-Value mount where the secret is stored. By default the `secret` mount is used which is present by default in most Vault installations.
 
-**`vault.timeout`**
+##### `vault.timeout`
 
 * Type: [duration](maxscale-configuration-guide.md#durations)
 * Default: 30s
