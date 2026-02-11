@@ -2,7 +2,7 @@
 description: >-
   Detailed comparison of the three binary logging formats: Statement-based
   (SBR), Row-based (RBR), and Mixed, including their pros, cons, and
-  configuration via `binlog_format`.
+  configuration via binlog_format.
 ---
 
 # Binary Log Formats
@@ -88,17 +88,17 @@ When that happens, the only way to recover is by manually extracting the transac
 **This issue has been addressed in MariaDB 12.3**, and is described in the following.
 {% endhint %}
 
-### Splitting Transactions
+### Splitting Large Row-Format Replication Events
 
 {% hint style="info" %}
 This functionality is available from MariaDB 12.3.
 {% endhint %}
 
-The maximum value of the  [`max_allowed_packet`](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) system variable is 1GB. It can be set to smaller values, but not values bigger than that. For row-based replication, this means that a transaction bigger than the configured variable value cannot be written to the primary server's binary log. As a consequence, replication breaks. (See the warning above.)
+The maximum value of the  [`max_allowed_packet`](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) system variable is 1GB. It can be set to smaller values, but not values bigger than that. For row-based replication, this means that a `ROW`-format replication event bigger than the configured variable value cannot be written to the primary server's binary log. As a consequence, replication breaks. (See the warning above.)
 
 To overcome this limitation (and breakage), a variable named [`binlog_row_event_fragment_threshold`](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_fragment_threshold) can be configured. The value should obviously be smaller than the value of `max_allowed_packet`.
 
-Once configured, the primary (master) server behaves differently when encountering large transactions: When writing a transaction to the binary log that exceeds `binlog_row_event_fragment_threshold`, it splits up the transaction event into smaller chunks. (Those chunks have a type of `Partial_rows_log_event`.) None of those chunks exceed the value of the variable, and so replica servers can read binary log entries without issues.
+Once configured, the primary (master) server behaves differently when encountering large `ROW`-format replication events: When writing a transaction to the binary log that exceeds `binlog_row_event_fragment_threshold`, it splits up the transaction event into smaller chunks. (Those chunks have a type of `Partial_rows_log_event`.) None of those chunks exceed the value of the variable, and so replica servers can read binary log entries without issues.
 
 ### Caveats of Row-Based Logging
 
