@@ -18,7 +18,7 @@ YEAR[(4)]
 
 ## Description
 
-A year in four-digit format. The two-digit format, while supported, is error prone and deprecated since 2012.
+A year in four-digit format. The two-digit format, while supported, is error-prone and deprecated since 2012.
 
 In four-digit format, the allowable values are 1901 to 2155, and 0000. In two-digit format, the allowable values are 70 to 69, representing years from 1970 to 2069. MariaDB displays YEAR values in YYYY format, but allows you to assign values to `YEAR` columns using either strings or numbers.
 
