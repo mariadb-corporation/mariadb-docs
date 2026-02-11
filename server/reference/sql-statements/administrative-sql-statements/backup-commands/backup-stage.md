@@ -32,16 +32,16 @@ In the following text, a transactional table means InnoDB, or specifically an In
 
 The `START` stage is designed for the following tasks:
 
-* Blocks purge of redo files for storage engines that needs this (Aria)
-* Start logging of DDL commands into 'datadir'/ddl.log. This may take a short time as the command has to wait until there are no active DDL commands.
+* Blocks purge of redo files for storage engines that needs this (Aria).
+* Start logging of DDL commands into _`datadir`_`/ddl.log`. This may take a short time as the command has to wait until there are no active DDL commands.
 
 ### `BACKUP STAGE FLUSH`
 
 The `FLUSH` stage is designed for the following tasks:
 
-* FLUSH all changes for inactive non-transactional tables, except for statistics and log tables.
+* `FLUSH` all changes for inactive non-transactional tables, except for statistics and log tables.
 * Close all tables that are not in use, to ensure they are marked as closed for the backup.
-* BLOCK all new write locks for all non transactional tables (except statistics and log tables). The command will not wait for tables that are in use by read-only transactions.
+* `BLOCK` all new write locks for all non transactional tables (except statistics and log tables). The command will not wait for tables that are in use by read-only transactions.
 
 DDLs don't have to be blocked at this stage as they can't cause the table to be in an inconsistent state. This is true also for non-transactional tables.
 
@@ -78,15 +78,15 @@ The `END` stage is designed for the following tasks:
 
 {% tabs %}
 {% tab title="Current" %}
-The `BACKUP STAGE` commands are a set of commands to make it possible to make an efficient external backup tool.
+The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool.
 {% endtab %}
 
 {% tab title="< 11.2.4 / 11.1.5 / 11.0.6" %}
-The `BACKUP STAGE` commands are a set of commands to make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these commands depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md).
+The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md).
 {% endtab %}
 
 {% tab title="< 10.11.8" %}
-The `BACKUP STAGE` commands are a set of commands to make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these commands depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md).
+The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md).
 {% endtab %}
 {% endtabs %}
 
@@ -105,14 +105,14 @@ The `BACKUP STAGE` commands are a set of commands to make it possible to make an
 * Only one connection can run `BACKUP STAGE START`. If a second connection tries, it will wait until the first one has executed `BACKUP STAGE END`.
 * If the user skips a `BACKUP STAGE`, then all intermediate backup stages will automatically be run. This will allow us to add new stages within the `BACKUP STAGE` hierarchy in the future with even more precise locks without causing problems for tools using an earlier version of the `BACKUP STAGE` implementation.
 * One can use the [max\_statement\_time](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_statement_time) or [lock\_wait\_timeout](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#lock_wait_timeout) system variables to ensure that a `BACKUP STAGE` command doesn't block the server too long.
-* DDL logging is only be available from [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-8-release-notes), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5) and [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4), or in [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md).
-* A disconnect will automatically release backup stages.
-* There is no easy way to see which is the current stage.
+* DDL logging is available from [MariaDB 10.11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-8-release-notes), [MariaDB 11.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.6), [MariaDB 11.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.5) and [MariaDB 11.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.4), and in [MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md).
+* A disconnect automatically releases backup stages.
+* There is no easy way to see what the current stage is.
 
 ## See Also
 
 * [BACKUP LOCK](backup-lock.md) Locking a table from DDL.
-* [MDEV-5336](https://jira.mariadb.org/browse/MDEV-5336). Implement BACKUP STAGE for safe external backups.
+* [MDEV-5336](https://jira.mariadb.org/browse/MDEV-5336). Implement `BACKUP STAGE` for safe external backups.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
