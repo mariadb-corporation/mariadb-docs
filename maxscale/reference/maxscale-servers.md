@@ -122,12 +122,12 @@ When a MariaDB-protocol connection is taken from the pool to be used in a new se
 
 ### `persistmaxtime`
 
-* Type: [duration](maxscale-servers.md#durations)
+* Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `0s`
 
-The `persistmaxtime` parameter defaults to zero but can be set to a duration as documented [here](maxscale-servers.md#durations). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the parameter is seconds, a value specified in milliseconds will be rejected, even if the duration is longer than a second.
+The `persistmaxtime` parameter defaults to zero but can be set to a duration as documented [here](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations). If no explicit unit is provided, the value is interpreted as seconds in MaxScale 2.4. In subsequent versions a value without a unit may be rejected. Note that since the granularity of the parameter is seconds, a value specified in milliseconds will be rejected, even if the duration is longer than a second.
 
 A DCB placed in the persistent pool for a server will only be reused if the elapsed time since it joined the pool is less than the given value. Otherwise, the DCB will be discarded and the connection closed.
 
@@ -154,7 +154,7 @@ max_routing_connections=1234
 
 ### `proxy_protocol`
 
-* Type: [boolean](maxscale-servers.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
@@ -215,7 +215,7 @@ There is no default value, but this parameter must be explicitly specified if th
 
 ### `rank`
 
-* Type: [enum](maxscale-servers.md#enumerations)
+* Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `secondary`
@@ -290,7 +290,7 @@ See [MariaDB Monitor documentation](maxscale-monitors/mariadb-monitor.md#replica
 
 ### `use_service_credentials`
 
-* Type: [boolean](maxscale-servers.md#booleans)
+* Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
 * Default: `true`
