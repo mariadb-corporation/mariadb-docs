@@ -88,7 +88,7 @@ When that happens, the only way to recover is by manually extracting the transac
 **This issue has been addressed in MariaDB 12.3**, and is described in the following.
 {% endhint %}
 
-### Splitting Large Row-Format Replication Events
+### Splitting Large Row-Format Replication Events <a href="#splitting-large-row-format-replication-events" id="splitting-large-row-format-replication-events"></a>
 
 {% hint style="info" %}
 This functionality is available from MariaDB 12.3.
