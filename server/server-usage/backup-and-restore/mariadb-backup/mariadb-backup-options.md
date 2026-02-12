@@ -569,19 +569,21 @@ Information is written to `PERCONA_SCHEMA.xtrabackup_history`.
 
 ### `-H, --host`
 
-Defines the hostname for the MariaDB Server you want to backup.
+Defines the hostname for the MariaDB Server you want to back up.
 
 ```bash
---host=name
+--host=name_or_ip-address
 ```
 
-Using this option, you can define the hostname or IP address to use when connecting to a local MariaDB Server over TCP/IP. By default, `mariadb-backup` attempts to connect to `localhost`.
+This option defines the hostname or IP address to use when **connecting to a local MariaDB Server over TCP/IP**. By default, `mariadb-backup` attempts to connect to `localhost`.
 
-Warning: No Remote Backups. This option does not allow you to back up a remote server. mariabackup must be run on the same server where the database files reside. The --host option is used only to establish the client connection for managing locks and retrieving metadata. The actual data files are always read from the local filesystem. Attempting to use this option to back up a remote host will result in a backup of the local machine's data, associated with the remote machine's binary log coordinates.
+{% hint style="warning" %}
+**The mariadb-backup client cannot create backups from a remote server.** Therefore, this option does not allow you to back up a remote server. `mariadb-backup` must always be run on the same server where the database files reside. The `--host` option is used only to establish the client connection for managing locks and retrieving metadata. The actual data files are always read from the local filesystem. Attempting to use this option to back up a remote host results in a backup of the local machine's data, associated with the remote machine's binary log coordinates.
+{% endhint %}
 
 ```bash
 mariadb-backup --backup \
-      --host="example.com"
+      --host="192.168.0.33"
 ```
 
 ### `--include`
