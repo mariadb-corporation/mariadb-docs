@@ -617,6 +617,7 @@
       * [Overview of the Binary Log](server-management/server-monitoring-logs/binary-log/overview-of-the-binary-log.md)
       * [Activating the Binary Log](server-management/server-monitoring-logs/binary-log/activating-the-binary-log.md)
       * [Binary Log Formats](server-management/server-monitoring-logs/binary-log/binary-log-formats.md)
+      * [Row Binlog Events](server-management/server-monitoring-logs/binary-log/row-binlog-events.md)
       * [Compressing Events to Reduce Size of the Binary Log](server-management/server-monitoring-logs/binary-log/compressing-events-to-reduce-size-of-the-binary-log.md)
       * [Flashback](server-management/server-monitoring-logs/binary-log/flashback.md)
       * [Group Commit for the Binary Log](server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md)

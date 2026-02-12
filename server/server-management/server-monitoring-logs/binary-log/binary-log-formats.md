@@ -9,19 +9,30 @@ description: >-
 
 ## Supported Binary Log Formats
 
-There are three supported formats for [binary log](./) events:
+There are three supported formats for binary log events:
 
 * Statement-Based Logging
 * Row-Based Logging
 * Mixed Logging
 
-Regardless of the format, [binary log](./) events are always stored in a binary format, rather than in plain text. MariaDB includes the [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) utility that can be used to output [binary log](./) events in a human-readable format.
+To see which log format is used, issue this statement:
+
+```sql
+SHOW VARIABLES LIKE 'binlog_format';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| binlog_format | MIXED |
++---------------+-------+
+```
+
+Regardless of the format, binary log events are always stored in a binary format, rather than in plain text. MariaDB includes the [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) utility that can be used to output binary log events in a human-readable format.
 
 You may want to set the binary log format in the following cases:
 
-* If you execute single statements that update many rows, then statement-based logging will be more efficient than row-based logging for the replica to download.
-* If you execute many statements that don't affect any rows, then row-based logging will be more efficient than statement-based logging for the replica to download.
-* If you execute statements that take a long time to complete, but they ultimately only insert, update, or delete a few rows in the table, then row-based logging will be more efficient than statement-based logging for the replica to apply.
+* If you execute single statements that update many rows, statement-based logging is more efficient than row-based logging for the replica to download.
+* If you execute many statements that don't affect any rows, row-based logging is more efficient than statement-based logging for the replica to download.
+* If you execute statements that take a long time to complete, but they ultimately only insert, update, or delete a few rows in the table, row-based logging is more efficient than statement-based logging for the replica to apply.
 
 The default is [mixed logging](binary-log-formats.md#mixed-logging) which is replication-safe and requires less storage space than [row logging](binary-log-formats.md#row-based-logging).
 
