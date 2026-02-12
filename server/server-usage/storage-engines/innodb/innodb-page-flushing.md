@@ -31,7 +31,7 @@ InnoDB employs a streamlined I/O subsystem with just one cleaner thread dedicate
 {% hint style="info" %}
 **For versions prior to MariaDB 10.5**
 
-Note for Older Versions (Pre-MariaDB 10.5): In versions prior to MariaDB 10.5, InnoDB utilized multiple page cleaner threads to flush dirty pages from the buffer pool to reduce internal mutex contention during high-concurrency workloads. This behavior was controlled by the `innodb_page_cleaners` system variable, which could be configured with a default value of either `4` or the configured number of `innodb_buffer_pool_instances`, whichever was lower.
+InnoDB utilized multiple page cleaner threads to flush dirty pages from the buffer pool to reduce internal mutex contention during high-concurrency workloads. This behavior was controlled by the `innodb_page_cleaners` system variable, which could be configured with a default value of either `4` or the configured number of `innodb_buffer_pool_instances`, whichever was lower.
 
 Architectural improvements in MariaDB 10.5—such as splitting the buffer pool mutex and implementing read-write locks for the page hash—rendered these multiple partitions and threads unnecessary. Consequently, the architecture was simplified to improve system resource efficiency and reduce context-switching overhead.
 
