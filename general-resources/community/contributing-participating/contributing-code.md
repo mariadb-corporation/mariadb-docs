@@ -1,6 +1,6 @@
 # Contributing Code
 
-_For contributors interested in MariaDB development, explore open projects via_ [_JIRA_](https://jira.mariadb.org) _and check for_ [_beginner-friendly tasks_](https://jira.mariadb.org/issues/?jql=resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC)_. Engage with the community on the_ [_maria-developers_](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org/) _mailing list,_ [_Slack_](https://r.mariadb.com/join-community-slack) _,_ [_Zulip_](https://mariadb.zulipchat.com)_, or_ [_IRC_](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc/README.md) _channel for guidance._
+_For contributors interested in MariaDB development, explore open projects via_ [_JIRA_](https://jira.mariadb.org) _and check for_ [_beginner-friendly tasks_](https://jira.mariadb.org/issues/?jql=resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC)_. Engage with the community on the_ [_maria-developers_](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org/) _mailing list,_ [_Slack_](https://r.mariadb.com/join-community-slack) _,_ [_Zulip_](https://mariadb.zulipchat.com)_, or_ _IRC_ _channel for guidance._
 
 General information about contributing to MariaDB (for developers and non-developers) can be found on the [Contributing to the MariaDB Project](contributing-to-the-mariadb-project.md) page.
 
@@ -8,15 +8,15 @@ General information about contributing to MariaDB (for developers and non-develo
 
 There are many open development projects for MariaDB which you can contribute to (in addition to any ideas you may have yourself).
 
-* We are using [JIRA](/broken/pages/8H2QW24PZkCSvuwPkQtB) to manage the MariaDB project. Go to [jira.mariadb.org](https://jira.mariadb.org) and click on "Projects" to get to the MariaDB project. Browse around the [unresolved and unassigned](https://jira.mariadb.org/secure/IssueNavigator.jspa?reset=true\&jqlQuery=project+%3D+MDEV+AND+resolution+%3D+Unresolved+AND+assignee+is+EMPTY+ORDER+BY+priority+DESC\&mode=hide) issues to see if there is something that interests you. Some issues have sponsors and you can be paid for doing them!
+* We are using [JIRA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/jira) to manage the MariaDB project. Go to [jira.mariadb.org](https://jira.mariadb.org) and click on "Projects" to get to the MariaDB project. Browse around the [unresolved and unassigned](https://jira.mariadb.org/secure/IssueNavigator.jspa?reset=true\&jqlQuery=project+%3D+MDEV+AND+resolution+%3D+Unresolved+AND+assignee+is+EMPTY+ORDER+BY+priority+DESC\&mode=hide) issues to see if there is something that interests you. Some issues have sponsors and you can be paid for doing them!
 * A list of [beginner friendly](https://jira.mariadb.org/issues/?jql=resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20beginner-friendly%20ORDER%20BY%20updated%20DESC) tasks is also available.
-* Check the [development plans](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/broken-reference/README.md) for the next MariaDB version.
+* Check the [development plans](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/mariadb-server-roadmap#plans) for the next MariaDB version.
 * Join [maria-developers](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org/) and ask for suggestions of tasks you could do. Please include your programming experience and your knowledge of the MariaDB source and how much you know about using MySQL/MariaDB with the email so that we know which tasks we can suggest to you.
-* If this is your first project, check out the [Suggested Development](broken-reference/) page. It lists projects that will make a good start.
+* If this is your first project, check out the Suggested Development page. It lists projects that will make a good start.
 * Join MariaDB's Zulip instance at [mariadb.zulipchat.com](https://mariadb.zulipchat.com) and ask for suggestions.
-* Join #/maria on [IRC](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc/README.md) and ask for suggestions.
+* Join #/maria on IRC and ask for suggestions.
 
-If you have your own ideas, please submit them to [JIRA](/broken/pages/8H2QW24PZkCSvuwPkQtB) so other MariaDB developers can comment on them and suggest how to implement them. You can of course also use the [maria-developers](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org/) list for this.
+If you have your own ideas, please submit them to [JIRA](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/jira) so other MariaDB developers can comment on them and suggest how to implement them. You can of course also use the [maria-developers](https://lists.mariadb.org/postorius/lists/developers.lists.mariadb.org/) list for this.
 
 ## What to Expect From a MariaDB Server Developer
 
@@ -44,7 +44,7 @@ Add code comments for anything that is not obvious. When possible, use assertion
   * Reviewed-by: email
   * Co-authored-by: email
   * See [creating-a-commit-with-multiple-authors](https://docs.github.com/en/free-pro-team@latest/github/committing-changes-to-your-project/creating-a-commit-with-multiple-authors) for details
-* The default is that all code should be reviewed. Only in really extraordinary cases, like merge (where the original code was already reviewed) then it can be self-reviewed, which should clear from the commit. In this case the code should of course be tested extra carefully both locally and in buildbot before pushing.
+* The default is that all code should be reviewed. Only in really extraordinary cases, like merge (where the original code was already reviewed) then it can be self-reviewed, which should clear from the commit. In this case the code should of course be tested extra carefully both locally and in [buildbot](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/server-development/tools/buildbot) before pushing.
 
 ### Testing
 
@@ -66,7 +66,7 @@ All code in MariaDB comes from one of the following sources:
 * Code shared with the MariaDB Foundation under the [MCA](../community/legal-documents/mca.md).
 * Code with a known origin that is under a permissive license (BSD or public domain).
 
-If you want the code to be part of the main [MariaDB](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb/README.md) tree, you also have to give the MariaDB Foundation a shared copyright to your code. This is needed so that the foundation can offer the code to other projects (like MySQL).
+If you want the code to be part of the main [MariaDB](https://app.gitbook.com/s/gmXC0YXB3rRhXvpg5mb1/) tree, you also have to give the MariaDB Foundation a shared copyright to your code. This is needed so that the foundation can offer the code to other projects (like MySQL).
 
 You do this by either:
 

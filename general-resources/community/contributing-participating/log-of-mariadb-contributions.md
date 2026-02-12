@@ -24,21 +24,21 @@ Feature/Patch name
 
 (Please enhance the example with anything that makes sense.)
 
-### [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117) Log of Contributions
+### [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117) Log of Contributions
 
 * [MariaDB 11.7.1 contributors](https://mariadb.org/mariadb-11-6-2-and-mariadb-11-7-1-now-available/)
 
-### [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/what-is-mariadb-116) Log of Contributions
+### [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/what-is-mariadb-116) Log of Contributions
 
 * [MariaDB 11.6.2 contributors](https://mariadb.org/mariadb-11-6-2-and-mariadb-11-7-1-now-available/)
 * [MariaDB 11.6.1 contributors](https://mariadb.org/mariadb-11-6-1-11-5-2-11-4-3-11-2-5-11-1-6-10-11-9-10-6-19-and-10-5-26-now-available/)
 
-### [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) Log of Contributions
+### [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) Log of Contributions
 
 * [MariaDB 11.5.2 contributors](https://mariadb.org/mariadb-11-6-1-11-5-2-11-4-3-11-2-5-11-1-6-10-11-9-10-6-19-and-10-5-26-now-available/)
 * [MariaDB 11.5.1 contributors](https://mariadb.org/mariadb-11-4-2-and-mariadb-11-5-1-now-available/)
 
-### [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114) Log of Contributions
+### [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) Log of Contributions
 
 * [MariaDB 11.4.5 contributors](https://mariadb.org/mariadb-11-4-5-10-11-11-10-6-21-and-10-5-28-now-available/)
 * [MariaDB 11.4.4 contributors](https://mariadb.org/mariadb-11-4-4-11-2-6-10-11-10-10-6-20-and-10-5-27-now-available/)
@@ -49,12 +49,12 @@ Feature/Patch name
 * New system variable [max\_binlog\_total\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#max_binlog_total_size) enables binary log purging when the total size of all binary logs exceeds the specified threshold. The implementation is based on the patch from Percona ([MDEV-31404](https://jira.mariadb.org/browse/MDEV-31404))
 * FULL\_NODUP is a new value for the [binlog\_row\_image system variable](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#binlog_row_image). It essentially works like FULL, that is all columns are included in the event, but it takes less space, because the after image omits columns that were not changed by the UPDATE statement, and have same values as in the before image. This is a contribution from Alibaba ([MDEV-32589](https://jira.mariadb.org/browse/MDEV-32589))
 
-### [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113) Log of Contributions
+### [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113) Log of Contributions
 
 * [MariaDB 11.3.2 contributors](https://mariadb.org/mariadb-11-4-1-11-3-2-now-available/)
 * [MariaDB 11.3.1 contributors](https://mariadb.org/mariadb-11-3-1-11-2-2-now-available/)
 
-### [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112) Log of Contributions
+### [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112) Log of Contributions
 
 * [MariaDB 11.2.6 contributors](https://mariadb.org/mariadb-11-4-4-11-2-6-10-11-10-10-6-20-and-10-5-27-now-available/)
 * [MariaDB 11.2.5 contributors](https://mariadb.org/mariadb-11-6-1-11-5-2-11-4-3-11-2-5-11-1-6-10-11-9-10-6-19-and-10-5-26-now-available/)
@@ -63,7 +63,7 @@ Feature/Patch name
 * [MariaDB 11.2.2 contributors](https://mariadb.org/mariadb-11-3-1-11-2-2-now-available/)
 * [MariaDB 11.2.1 contributors](https://mariadb.org/mariadb-11-2-1-11-1-2-now-available/)
 
-### [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111) Log of Contributions
+### [MariaDB 11.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/what-is-mariadb-111) Log of Contributions
 
 * [MariaDB 11.1.6 contributors](https://mariadb.org/mariadb-11-6-1-11-5-2-11-4-3-11-2-5-11-1-6-10-11-9-10-6-19-and-10-5-26-now-available/)
 * [MariaDB 11.1.5 contributors](https://mariadb.org/mariadb-11-2-4-11-1-5-11-0-6-10-11-8-10-6-18-10-5-25-10-4-34-now-available/)
@@ -72,7 +72,7 @@ Feature/Patch name
 * [MariaDB 11.1.2 contributors](https://mariadb.org/mariadb-11-2-1-11-1-2-now-available/)
 * [MariaDB 11.1.1 contributors](https://mariadb.org/mariadb-11-1-1-11-0-2-now-available/)
 
-### [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110) Log of Contributions
+### [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) Log of Contributions
 
 * [MariaDB 11.0.6 contributors](https://mariadb.org/mariadb-11-2-4-11-1-5-11-0-6-10-11-8-10-6-18-10-5-25-10-4-34-now-available/)
 * [MariaDB 11.0.5 contributors](https://mariadb.org/mariadb-11-2-3-11-1-4-11-0-5-10-11-7-10-6-17-10-5-24-10-4-33-now-available/)
@@ -81,7 +81,7 @@ Feature/Patch name
 * [MariaDB 11.0.2 contributors](https://mariadb.org/mariadb-11-1-1-11-0-2-now-available/)
 * [MariaDB 11.0.1 contributors](https://mariadb.org/mariadb-11-0-1-rc-short-term-support-now-available/)
 
-### [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011) Log of Contributions
+### [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) Log of Contributions
 
 * [MariaDB 10.11.11 contributors](https://mariadb.org/mariadb-11-4-5-10-11-11-10-6-21-and-10-5-28-now-available/)
 * [MariaDB 10.11.10 contributors](https://mariadb.org/mariadb-11-4-4-11-2-6-10-11-10-10-6-20-and-10-5-27-now-available/)
@@ -95,7 +95,7 @@ Feature/Patch name
 * [MariaDB 10.11.2 contributors](https://mariadb.org/mariadb-10-11-2-ga-now-available/)
 * [MariaDB 10.11.1 contributors](https://mariadb.org/mariadb-10-11-1-rc-and-10-10-2-ga-now-available/)
 
-### [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010) Log of Contributions
+### [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010) Log of Contributions
 
 * [MariaDB 10.10.7 contributors](https://mariadb.org/mariadb-11-1-3-11-0-4-10-11-6-10-10-7-10-6-16-10-5-23-10-4-32-now-available/)
 * [MariaDB 10.10.6 contributors](https://mariadb.org/mariadb-11-0-3-10-11-5-10-10-6-10-9-8-10-6-15-10-5-22-10-4-31-now-available/)
@@ -105,7 +105,7 @@ Feature/Patch name
 * [MariaDB 10.10.3 contributors](https://mariadb.org/mariadb-10-10-3-10-9-5-10-8-7-10-7-8-10-6-12-10-5-19-10-4-28-and-10-3-38-now-available/)
 * [MariaDB 10.10.1 contributors](https://mariadb.org/mariadb-10-10-1-rc-and-10-9-2-ga-now-available/)
 
-### [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109) Log of Contributions
+### [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109) Log of Contributions
 
 * [MariaDB 10.9.8 contributors](https://mariadb.org/mariadb-11-0-3-10-11-5-10-10-6-10-9-8-10-6-15-10-5-22-10-4-31-now-available/)
 * [MariaDB 10.9.7 contributors](https://mariadb.org/mariadb-10-11-4-10-10-5-10-9-7-10-6-14-10-5-21-10-4-30-now-available/).
@@ -116,7 +116,7 @@ Feature/Patch name
 * [MariaDB 10.9.2 contributors](https://mariadb.org/mariadb-10-10-1-rc-and-10-9-2-ga-now-available/)
 * [MariaDB 10.9.1 contributors](https://mariadb.org/mariadb-10-9-1-10-8-3-10-7-4-10-6-8-10-5-16-10-4-25-10-3-35-and-10-2-44-now-available/)
 
-### [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108) Log of Contributions
+### [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108) Log of Contributions
 
 * [MariaDB 10.8.8 contributors](https://mariadb.org/mariadb-10-11-3-10-10-4-10-9-6-10-8-8-10-6-13-10-5-20-10-4-29-and-10-3-39-now-available/)
 * [MariaDB 10.8.7 contributors](https://mariadb.org/mariadb-10-10-3-10-9-5-10-8-7-10-7-8-10-6-12-10-5-19-10-4-28-and-10-3-38-now-available/)
@@ -127,7 +127,7 @@ Feature/Patch name
 * [MariaDB 10.8.2 contributors](https://mariadb.org/mariadb-10-8-2-rc-and-mariadb-10-7-3-10-6-7-10-5-15-10-4-24-10-3-34-and-10-2-43-now-available/)
 * [MariaDB 10.8.1 contributors](https://mariadb.org/mariadb-10-8-1-rc-and-mariadb-10-7-2-10-6-6-10-5-14-10-4-23-10-3-33-and-10-2-42-now-available/)
 
-### [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107) Log of Contributions
+### [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107) Log of Contributions
 
 * [MariaDB 10.7.8 contributors](https://mariadb.org/mariadb-10-10-3-10-9-5-10-8-7-10-7-8-10-6-12-10-5-19-10-4-28-and-10-3-38-now-available/)
 * [MariaDB 10.7.7 contributors](https://mariadb.org/mariadb-10-9-4-10-8-6-10-7-7-10-6-11-10-5-18-10-4-27-and-10-3-37-now-available/)
@@ -138,7 +138,7 @@ Feature/Patch name
 * [MariaDB 10.7.2 contributors](https://mariadb.org/mariadb-10-8-1-rc-and-mariadb-10-7-2-10-6-6-10-5-14-10-4-23-10-3-33-and-10-2-42-now-available/)
 * [MariaDB 10.7.1 contributors](https://mariadb.org/mariadb-10-7-1-rc-and-mariadb-10-6-5-10-5-13-10-4-22-10-3-32-and-10-2-41-now-available/)
 
-### [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106). Log of Contributions
+### [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) Log of Contributions
 
 * [MariaDB 10.6.21 contributors](https://mariadb.org/mariadb-11-4-5-10-11-11-10-6-21-and-10-5-28-now-available/)
 * [MariaDB 10.6.20 contributors](https://mariadb.org/mariadb-11-4-4-11-2-6-10-11-10-10-6-20-and-10-5-27-now-available/)
@@ -163,7 +163,7 @@ Feature/Patch name
 * [MariaDB 10.6.1 contributors](https://mariadb.org/mariadb-10-6-1-now-available/)
 * [MariaDB 10.6.0 contributors](https://mariadb.org/mariadb-10-6-0-now-available/)
 
-### [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) Log of Contributions
+### [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) Log of Contributions
 
 * [MariaDB 10.5.28 contributors](https://mariadb.org/mariadb-11-4-5-10-11-11-10-6-21-and-10-5-28-now-available/)
 * [MariaDB 10.5.27 contributors](https://mariadb.org/mariadb-11-4-4-11-2-6-10-11-10-10-6-20-and-10-5-27-now-available/)
@@ -195,7 +195,7 @@ Feature/Patch name
 * [MariaDB 10.5.1 contributors](https://mariadb.org/mariadb-10-5-1-now-available/)
 * [MariaDB 10.5.0 contributors](https://mariadb.org/mariadb-10-5-0-now-available/)
 
-### [MariaDB 10.4](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/broken-reference/README.md) Log of Contributions
+### [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) Log of Contributions
 
 * [MariaDB 10.4.34 contributors](https://mariadb.org/mariadb-11-2-4-11-1-5-11-0-6-10-11-8-10-6-18-10-5-25-10-4-34-now-available/)
 * [MariaDB 10.4.33 contributors](https://mariadb.org/mariadb-11-2-3-11-1-4-11-0-5-10-11-7-10-6-17-10-5-24-10-4-33-now-available/)
@@ -234,7 +234,7 @@ Feature/Patch name
 * [MariaDB 10.4.1 contributors](https://mariadb.org/mariadb-10-4-1-and-mariadb-connector-node-js-2-0-2-now-available/)
 * [MariaDB 10.4.0 contributors](https://mariadb.org/first-mariadb-10-4-alpha-release/)
 
-### [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) Log of Contributions
+### [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) Log of Contributions
 
 [Instant ADD COLUMN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-online-ddl/instant-add-column-for-innodb) ([MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369))
 
@@ -248,7 +248,7 @@ Per-engine mysql.gtid\_slave\_pos tables ([MDEV-12179](https://jira.mariadb.org/
 
 * Kristian Nielsen funded by Booking.com.
 
-The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1035-release-notes)
+The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.3.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.5)
 
 * [MariaDB 10.3.39 contributors](https://mariadb.org/mariadb-10-11-3-10-10-4-10-9-6-10-8-8-10-6-13-10-5-20-10-4-29-and-10-3-39-now-available/)
 * [MariaDB 10.3.38 contributors](https://mariadb.org/mariadb-10-10-3-10-9-5-10-8-7-10-7-8-10-6-12-10-5-19-10-4-28-and-10-3-38-now-available/)
@@ -286,7 +286,7 @@ The MariaDB Foundation website provides a more detailed list of contributors by 
 * [MariaDB 10.3.6 contributors](https://mariadb.org/mariadb-10-3-6-now-available/)
 * [MariaDB 10.3.5 contributors](https://mariadb.org/mariadb-10-3-5-mariadb-connector-j-2-2-2-1-7-2-now-available/)
 
-### [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) Log of Contributions
+### [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) Log of Contributions
 
 New variable [read\_binlog\_speed\_limit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) permits restricting the speed at which the slave reads the binlog from the master ([MDEV-11064](https://jira.mariadb.org/browse/MDEV-11064))
 
@@ -314,7 +314,7 @@ Backporting Delayed replication ([MDEV-7145](https://jira.mariadb.org/browse/MDE
 
 * Kristian Nielsen funded by Booking.com
 
-The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.2.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10214-release-notes)
+The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.2.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.14)
 
 * [MariaDB 10.2.43 contributors](https://mariadb.org/mariadb-10-8-2-rc-and-mariadb-10-7-3-10-6-7-10-5-15-10-4-24-10-3-34-and-10-2-43-now-available/)
 * [MariaDB 10.2.42 contributors](https://mariadb.org/mariadb-10-8-1-rc-and-mariadb-10-7-2-10-6-6-10-5-14-10-4-23-10-3-33-and-10-2-42-now-available/)
@@ -347,9 +347,9 @@ The MariaDB Foundation website provides a more detailed list of contributors by 
 * [MariaDB 10.2.15 contributors](https://mariadb.org/mariadb-10-2-15-and-mariadb-connector-j-2-2-4-now-available/)
 * [MariaDB 10.2.14 contributors](https://mariadb.org/mariadb-10-2-14-mariadb-10-1-32-and-mariadb-connector-j-2-2-3-and-1-7-3-now-available/)
 
-### [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) Log of Contributions
+### [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) Log of Contributions
 
-[Replication](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/broken-reference/README.md), optimizer, security, speed enhancements, bug fixing, etc
+[Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication), optimizer, security, speed enhancements, bug fixing, etc
 
 * [MariaDB Corporation](https://mariadb.com)
 
@@ -375,7 +375,7 @@ Power8 optimization
 
 * [MariaDB Foundation](https://mariadb.org)
 
-Reviews for [replication](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/broken-reference/README.md), [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption), compression, [Galera](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-galera-cluster/README.md), [Connect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/connect) storage engine, [Mroonga](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/mroonga) storage engine, [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider), [OR REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create) etc.
+Reviews for [replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication), [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption), compression, [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/), [Connect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/connect) storage engine, [Mroonga](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/mroonga) storage engine, [Spider](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/spider), [OR REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create) etc.
 
 * [MariaDB Foundation](https://mariadb.org)
 
@@ -383,7 +383,7 @@ Reviews for [replication](https://github.com/mariadb-corporation/docs-server/blo
 
 * Google
 
-Table level [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption), [plugin for secure encryption](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/encryption-plugins/)
+Table level [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption), [plugin for secure encryption](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/about/mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/encryption-plugins)
 
 * [Eperi GmbH](https://eperi.de/)
 
@@ -391,7 +391,7 @@ Table level [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security
 
 * [Kakao Inc](https://www.kakao.com)
 
-[Galera (wsrep patches)](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-galera-cluster/README.md)
+[Galera (wsrep patches)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/)
 
 * [Codership](https://galeracluster.com/)
 
@@ -415,7 +415,7 @@ Atomic writes, page compression, trim, multi-threaded flush for XtraDB/InnoDB
 
 * In cooperation with FusionIO
 
-The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.1.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10132-release-notes)
+The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.1.32](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.32)
 
 * [MariaDB 10.1.48 contributors](https://mariadb.org/mariadb-10-5-7-10-4-16-10-3-26-10-2-35-and-10-1-48-now-available/)
 * [MariaDB 10.1.47 contributors](https://mariadb.org/mariadb-10-5-6-10-4-15-10-3-25-10-2-34-and-10-1-47-now-available/)
@@ -449,7 +449,7 @@ Oracle
 
 * [UNION ALL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/union) optimization, [default\_tmp\_storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#default_tmp_storage_engine)
 
-### [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) Log of Contributions
+### [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) Log of Contributions
 
 Per thread memory counting and usage
 
@@ -490,7 +490,7 @@ Per thread memory counting and usage
 
 * Some patches by Pavel Ivanov, Google
 
-The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.0.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10035-release-notes)
+The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 10.0.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.35)
 
 * [MariaDB Galera Cluster 10.0.38 contributors](https://mariadb.org/mariadb-galera-cluster-10-0-38-now-available/)
 * [MariaDB 10.0.38 contributors](https://mariadb.org/mariadb-10-0-38-mariadb-connector-j-2-4-0-and-mariadb-connector-node-js-2-0-3-now-available/)
@@ -501,7 +501,7 @@ The MariaDB Foundation website provides a more detailed list of contributors by 
 * [MariaDB Galera Cluster 10.0.35 contributors](https://mariadb.org/mariadb-10-1-33-and-mariadb-galera-cluster-10-0-35-now-available/)
 * [MariaDB 10.0.35 contributors](https://mariadb.org/mariadb-10-0-35-mariadb-galera-cluster-5-5-60-and-mariadb-connector-c-3-0-4-now-available/)
 
-### [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) Log of Contributions
+### [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) Log of Contributions
 
 Function last\_value() which returns the last value but evaluates all arguments as a side effect.
 
@@ -521,7 +521,7 @@ Coverity scans
 
 * Work by Christian Convey
 
-The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 5.5.60](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5560-release-notes)
+The MariaDB Foundation website provides a more detailed list of contributors by release, starting from [MariaDB 5.5.60](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.60)
 
 * [MariaDB 5.5.68 contributors](https://mariadb.org/mariadb-10-4-13-10-3-23-10-2-32-10-1-45-and-5-5-68-now-available)
 * [MariaDB 5.5.67 contributors](https://mariadb.org/mariadb-10-4-12-10-3-22-and-10-2-31-10-1-44-and-5-5-67-now-available/)
@@ -537,7 +537,7 @@ The MariaDB Foundation website provides a more detailed list of contributors by 
 * [MariaDB Galera Cluster 5.5.60 contributors](https://mariadb.org/mariadb-10-0-35-mariadb-galera-cluster-5-5-60-and-mariadb-connector-c-3-0-4-now-available/)
 * [MariaDB 5.5.60 contributors](https://mariadb.org/mariadb-5-5-60-now-available/)
 
-### [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2) Log of Contributions
+### [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) Log of Contributions
 
 Virtual Columns
 
@@ -582,7 +582,7 @@ Various bug fixes
 
 * Stewart Smith, Percona
 
-### [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) Log of Contributions (Outside of Monty Program Ab)
+### [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/changes-improvements-in-mariadb-5-1) Log of Contributions (Outside of Monty Program Ab)
 
 Microsecond precision in process list
 
@@ -630,13 +630,13 @@ Google has sponsored:
 Facebook has sponsored many features, including:
 
 * [LIMIT ROWS EXAMINED](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/limit-rows-examined)
-* The [non-blocking client library](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/contributing-participating/broken-reference/README.md)
+* The [non-blocking client library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library)
 * Facebook employees do frequent the mailing list
 
 ### See Also
 
 * [SHOW CONTRIBUTORS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-contributors) lists [all members and sponsors of the MariaDB Foundation](https://mariadb.org/en/supporters) and other sponsors.
-* [SHOW AUTHORS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-authors) lists the authors of MariaDB (including documentation, QA etc).
+* [SHOW AUTHORS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-authors) lists the authors of MariaDB (including documentation, QA etc.).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
