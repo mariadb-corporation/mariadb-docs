@@ -31,20 +31,20 @@ InnoDB employs a streamlined I/O subsystem with just one cleaner thread dedicate
 {% hint style="info" %}
 **For versions prior to MariaDB 10.5**
 
-InnoDB utilized multiple page cleaner threads to flush dirty pages from the buffer pool to reduce internal mutex contention during high-concurrency workloads. This behavior was controlled by the `innodb_page_cleaners` system variable, which could be configured with a default value of either `4` or the configured number of `innodb_buffer_pool_instances`, whichever was lower.
+InnoDB utilized multiple page cleaner threads to flush dirty pages from the buffer pool to reduce internal mutex contention during high-concurrency workloads. This behavior was controlled by the `innodb_page_cleaners` [system variable](innodb-system-variables.md#innodb_page_cleaners), which could be configured with a default value of either `4` or the [configured number](innodb-system-variables.md#innodb_buffer_pool_instances) of `innodb_buffer_pool_instances`, whichever was lower.
 
-Architectural improvements in MariaDB 10.5—such as splitting the buffer pool mutex and implementing read-write locks for the page hash—rendered these multiple partitions and threads unnecessary. Consequently, the architecture was simplified to improve system resource efficiency and reduce context-switching overhead.
+Architectural improvements in MariaDB 10.5—such as splitting the [buffer pool mutex](innodb-buffer-pool.md) and implementing read-write locks for the page hash—rendered these multiple partitions and threads unnecessary. Consequently, the architecture was simplified to improve system resource efficiency and reduce context-switching overhead.
 
 Please note the following status for legacy parameters:
 
-* `innodb_page_cleaners`: Deprecated and ignored since MariaDB 10.5.1; removed entirely in MariaDB 10.6.
-* `innodb_buffer_pool_instances`: Parameter removed in MariaDB 10.5 as the buffer pool now runs in a single instance.
-* `innodb_mtflush_threads`: This Fusion-io specific parameter was removed in MariaDB 10.3.2.
+* [innodb\_page\_cleaners](innodb-system-variables.md#innodb_page_cleaners): Deprecated and ignored since [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-105-series/mariadb-1051-changelog); removed entirely in MariaDB 10.6.
+* [innodb\_buffer\_pool\_instances](innodb-system-variables.md#innodb_buffer_pool_instances): Parameter removed in [MariaDB 10.5 ](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)as the buffer pool now runs in a single instance.
+* [innodb\_mtflush\_threads](innodb-system-variables.md#innodb_mtflush_threads): This [Fusion-io](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-100-series/mariadb-10015-fusion-io-changelog) specific parameter was removed in MariaDB [10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/11.3/mariadb-11-3-2-changelog).
 {% endhint %}
 
 ## Configuring the InnoDB I/O Capacity
 
-ncreasing the amount of I/O capacity available to InnoDB can help increase the performance of page flushing. The unit of [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) is the number of data pages (of the size defined by `innodb_page_size`) that can be written per second.
+increasing the amount of I/O capacity available to InnoDB can help increase the performance of page flushing. The unit of [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity) is the number of data pages (of the size [defined by](innodb-system-variables.md#innodb_page_size) `innodb_page_size`) that can be written per second.
 
 ### Scope of Throttling
 
