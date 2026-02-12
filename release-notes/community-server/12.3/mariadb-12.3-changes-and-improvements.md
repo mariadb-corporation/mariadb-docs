@@ -36,8 +36,9 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 
 ## List of All MariaDB 12.3 Releases
 
-| Date        | Release              | Status  | Release Notes | Changelog |
-| ----------- | -------------------- | ------- | ------------- | --------- |
-| 22 Dec 2025 | MariaDB 12.3 Preview | Preview |               |           |
+| Date        | Release              | Status      | Release Notes              | Changelog                                 |
+| ----------- | -------------------- | ----------- | -------------------------- | ----------------------------------------- |
+| 12 Feb 2026 | 12.3.1               | RC          | [Release Notes](12.3.1.md) | [Changelog](../changelogs/12.3/12.3.1.md) |
+| 22 Dec 2025 | MariaDB 12.3 Preview | Preview     |                            |                                           |
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
