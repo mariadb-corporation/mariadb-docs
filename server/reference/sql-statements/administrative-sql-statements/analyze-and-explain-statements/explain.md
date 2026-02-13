@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```sql
-EXPLAIN tbl_name [col_name | wild]
+EXPLAIN tbl_name [col_name | wildcard]
 ```
 
 or
@@ -25,14 +25,14 @@ or
 EXPLAIN [FORMAT=JSON] FOR CONNECTION <connection_id>
 ```
 
-## Description
+## Overview
 
-The `EXPLAIN` statement can be used either as a synonym for [DESCRIBE](../describe.md) or as a way to obtain information about how MariaDB executes a `SELECT`, `UPDATE` or `DELETE` statement:
+The `EXPLAIN` statement can be used either as a synonym for [DESCRIBE](../describe.md), or as a way to obtain information about how MariaDB executes a `SELECT`, `UPDATE` or `DELETE` statement:
 
-* `'EXPLAIN tbl_name'` is synonymous with`'[DESCRIBE](../describe.md) tbl_name'` or`'[SHOW COLUMNS](../show/show-columns.md) FROM tbl_name'`.
-* When you precede a `SELECT`, `UPDATE` or a `DELETE` statement with the keyword`EXPLAIN`, MariaDB displays information from the optimizer about the query execution plan. That is, MariaDB explains how it would process the `SELECT`, `UPDATE` or `DELETE`, including information about how tables are joined and in which order. `EXPLAIN EXTENDED` can be used to provide additional information.
+* `'EXPLAIN tbl_name'` is synonymous with [DESCRIBE](../describe.md) or [SHOW COLUMNS ... FROM _mytable_](../show/show-columns.md).
+* When you precede a `SELECT`, `UPDATE` or a `DELETE` statement with the keyword `EXPLAIN`, MariaDB displays information from the optimizer about the query execution plan. That is, MariaDB explains how it would process the `SELECT`, `UPDATE` or `DELETE`, including information about how tables are joined and in which order. `EXPLAIN EXTENDED` can be used to provide additional information.
 * `EXPLAIN PARTITIONS` is useful only when examining queries involving partitioned tables. For details, see [Partition pruning and selection](../../../../server-usage/partitioning-tables/partition-pruning-and-selection.md).
-* The [ANALYZE statement](analyze-statement.md) is also supported in MariaDB 10.1.0 and later. The ANALYZE statement is similar to EXPLAIN ones, but it runs the query rather than only estimating the execution path. Hence, ANALYZE statement provides both estimated and real execution statistics. This includes the `r_rows` and `r_filtered` columns, which reflect the actual number of rows evaluated and filtered during query execution.
+* The [ANALYZE statement](analyze-statement.md) is similar to `EXPLAIN`, but it runs the query rather than only estimating the execution path. Hence, the `ANALYZE` statement provides both estimated and real execution statistics. This includes the `r_rows` and `r_filtered` columns, which reflect the actual number of rows evaluated and filtered during query execution.
 * `EXPLAIN` output can be printed in the [slow query log](../../../../server-management/server-monitoring-logs/slow-query-log/). See [EXPLAIN in the Slow Query Log](../../../../server-management/server-monitoring-logs/slow-query-log/explain-in-the-slow-query-log.md) for details.
 * `EXPLAIN FOR CONNECTION` is an alias for `SHOW EXPLAIN FOR`.
 
@@ -44,7 +44,7 @@ There is an online [EXPLAIN Analyzer](../../../../clients-and-utilities/analyzin
 
 `EXPLAIN` can acquire metadata locks in the same way that `SELECT` does, as it needs to know table metadata and, sometimes, data as well.
 
-### Columns in EXPLAIN ... SELECT
+## Columns in EXPLAIN ... SELECT
 
 | Column name    | Description                                                                                         |
 | -------------- | --------------------------------------------------------------------------------------------------- |
@@ -61,7 +61,7 @@ There is an online [EXPLAIN Analyzer](../../../../clients-and-utilities/analyzin
 
 Here are descriptions of the values for some of the more complex columns in `EXPLAIN ... SELECT`:
 
-#### "Select\_type" Column
+### Select\_type Column
 
 The `select_type` column can have the following values:
 
@@ -80,7 +80,7 @@ The `select_type` column can have the following values:
 | UNION RESULT         | The result of the `UNION`.                                                                                                                                                                      |                                                                                                                                                                                      |
 | LATERAL DERIVED      | The `SELECT` uses a [Lateral Derived optimization](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimizations-for-derived-tables/lateral-derived-optimization.md) |                                                                                                                                                                                      |
 
-#### "Type" Column
+### Type Column
 
 This column contains information on how the table is accessed.
 
@@ -100,7 +100,7 @@ This column contains information on how the table is accessed.
 | system           | The table has 0 or 1 rows.                                                                                                                                                                                                       |
 | unique\_subquery | This is similar as eq\_ref, but used for sub queries that are transformed to key lookups                                                                                                                                         |
 
-#### "Extra" Column
+### Extra Column
 
 This column consists of one or more of the following values, separated by ';'
 
@@ -147,10 +147,11 @@ The optimization phase can do the following changes to the `WHERE` clause:
 | Using sort\_union(...)                               | For index\_merge joins. Shows which index are part of the union.                                                                                                                                                                                                                                                                                                                                                                                                     |
 | Using temporary                                      | A temporary table is created to hold the result. This typically happens if you are using `GROUP BY`, `DISTINCT` or `ORDER BY`.                                                                                                                                                                                                                                                                                                                                       |
 | Using where                                          | A `WHERE` expression (in additional to the possible key lookup) is used to check if the row should be accepted. If you don't have 'Using where' together with a join type of `ALL`, you are probably doing something wrong!                                                                                                                                                                                                                                          |
+| Using where; FirstMatch(_mytable_)                   | When one matching record combination has been found, shortcut the execution and jump back to the _mytable_ table. See [this page](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimization-strategies/firstmatch-strategy.md) for details on the `FirstMatch` Strategy.                                                                                                                                                               |
 | Using where with pushed condition                    | Like 'Using where' but the where condition is pushed down to the table engine for internal optimization at the row level.                                                                                                                                                                                                                                                                                                                                            |
 | Using buffer                                         | The `UPDATE` statement will first buffer the rows, and then run the updates, rather than do updates on the fly. See [Using Buffer UPDATE Algorithm](using-buffer-update-algorithm.md) for a detailed explanation.                                                                                                                                                                                                                                                    |
 
-### EXPLAIN EXTENDED
+## EXPLAIN EXTENDED
 
 The `EXTENDED` keyword adds another column, _filtered_, to the output. This is a percentage estimate of the table rows that will be filtered by the condition.
 
