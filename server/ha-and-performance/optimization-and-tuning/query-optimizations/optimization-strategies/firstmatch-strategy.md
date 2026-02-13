@@ -2,9 +2,9 @@
 
 `FirstMatch` is an execution strategy for [Semi-join subqueries](../subquery-optimizations/semi-join-subquery-optimizations.md).
 
-## The idea
+## The Idea
 
-It is very similar to how `IN/EXISTS` subqueries were executed in MySQL 5.x.
+It is similar to how `IN/EXISTS` subqueries were executed in MySQL 5.x.
 
 Let's take the usual example of a search for countries with big cities:
 
@@ -16,7 +16,7 @@ WHERE Country.code IN (SELECT City.Country
       AND Country.continent='Europe'
 ```
 
-Suppose, our execution plan is to find countries in Europe, and then, for each found country, check if it has any big cities. Regular inner join execution will look as follows:
+Suppose our execution plan is to find countries in Europe, and then, for each found country, check if it has any big cities. Regular inner join execution will look as follows:
 
 ![firstmatch-inner-join](../../../../.gitbook/assets/firstmatch-inner-join.png)
 
@@ -24,11 +24,11 @@ Since Germany has two big cities (in this diagram), it will be put into the quer
 
 ![firstmatch-firstmatch](../../../../.gitbook/assets/firstmatch-firstmatch.png)
 
-Note that the short-cutting has to take place after "Using where" has been applied. It would have been wrong to short-cut after we found Trier.
+Note that the short-cutting has to take place after `Using where` has been applied. It would have been wrong to short-cut after we found _Trier_.
 
-## FirstMatch in action
+## FirstMatch in Action
 
-The `EXPLAIN` for the above query will look as follows:
+The `EXPLAIN` for the above query looks as follows:
 
 ```sql
 MariaDB [world]> EXPLAIN SELECT * FROM Country WHERE Country.code IN 
@@ -45,7 +45,7 @@ MariaDB [world]> EXPLAIN SELECT * FROM Country WHERE Country.code IN
 
 `FirstMatch(Country)` in the Extra column means that _as soon as we have produced one matching record combination, short-cut the execution and jump back to the Country_ table.
 
-`FirstMatch`'s query plan is very similar to one you would get in MySQL:
+The `FirstMatch` query plan is similar to one you would get in MySQL:
 
 ```sql
 MySQL [world]> EXPLAIN SELECT * FROM Country  WHERE Country.code IN 
@@ -60,16 +60,16 @@ MySQL [world]> EXPLAIN SELECT * FROM Country  WHERE Country.code IN
 2 rows in set (0.01 sec)
 ```
 
-and these two particular query plans will execute in the same time.
+These two particular query plans will execute in the same time.
 
 ## Difference between FirstMatch and IN->EXISTS
 
 The general idea behind the `FirstMatch` strategy is the same as the one behind the `IN->EXISTS` transformation, however, `FirstMatch` has several advantages:
 
-* Equality propagation works across semi-join bounds, but not subquery bounds. Therefore, converting a subquery to semi-join and using `FirstMatch` can still give a better execution plan. (TODO example)
-* There is only one way to apply the `IN->EXISTS` strategy and MySQL will do it unconditionally. With `FirstMatch`, the optimizer can make a choice between whether it should run the `FirstMatch` strategy as soon as all tables used in the subquery are in the join prefix, or at some later point in time. (TODO: example)
+* Equality propagation works across semi-join bounds, but not subquery bounds. Therefore, converting a subquery to semi-join and using `FirstMatch` can still give a better execution plan.
+* There is only one way to apply the `IN->EXISTS` strategy and MySQL will do it unconditionally. With `FirstMatch`, the optimizer can make a choice between whether it should run the `FirstMatch` strategy as soon as all tables used in the subquery are in the join prefix, or at some later point in time.
 
-## FirstMatch factsheet
+## FirstMatch Factsheet
 
 * The `FirstMatch` strategy works by executing the subquery and short-cutting its execution as soon as the first match is found.
 * This means, subquery tables must be after all of the parent select's tables that are referred from the subquery predicate.
@@ -81,10 +81,6 @@ The general idea behind the `FirstMatch` strategy is the same as the one behind 
 ## See Also
 
 * [Semi-join subquery optimizations](../subquery-optimizations/semi-join-subquery-optimizations.md)
-
-In-depth material:
-
-* [WL#3750: initial specification for FirstMatch](https://forge.mysql.com/worklog/task.php?id=3750)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
