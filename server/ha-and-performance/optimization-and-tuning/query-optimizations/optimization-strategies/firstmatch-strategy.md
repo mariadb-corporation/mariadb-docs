@@ -1,3 +1,10 @@
+---
+description: >-
+  FirstMatch is a semi-join execution strategy that avoids duplicate results by
+  short-cutting subquery execution as soon as the first matching record is
+  found, improving performance.
+---
+
 # FirstMatch Strategy
 
 `FirstMatch` is an execution strategy for [Semi-join subqueries](../subquery-optimizations/semi-join-subquery-optimizations.md).
