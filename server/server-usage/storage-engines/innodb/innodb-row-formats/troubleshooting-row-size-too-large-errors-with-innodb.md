@@ -28,9 +28,9 @@ These messages indicate that the table definition allows rows that InnoDB row fo
 
 These messages are raised in the following cases:
 
-* If [InnoDB strict mode](../innodb-strict-mode.md) is enabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), then InnoDB will raise an error with this message
-* If [InnoDB strict mode](../innodb-strict-mode.md) is disabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), then InnoDB will raise a warning with this message.
-* Regardless of whether [InnoDB strict mode](../innodb-strict-mode.md) is enabled, if a [DML](../../../../reference/sql-statements/data-manipulation/) statement is executed that attempts to write a row that the table's InnoDB row format can't store, then InnoDB will raise an error with this message.
+* If [InnoDB strict mode](../innodb-strict-mode.md) is enabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), InnoDB raises an error with the above message.
+* If [InnoDB strict mode](../innodb-strict-mode.md) is disabled and if a [DDL](../../../../reference/sql-statements/data-definition/) statement is executed that touches the table, such as [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) or [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/), InnoDB raises a warning with the above message.
+* Regardless of whether [InnoDB strict mode](../innodb-strict-mode.md) is enabled, if a [DML](../../../../reference/sql-statements/data-manipulation/) statement is executed that attempts to write a row that the table's InnoDB row format can't store, InnoDB raises an error with the above message.
 
 ## Does the Problem Affect me?
 
@@ -40,6 +40,16 @@ The cause of the problem is described [here](troubleshooting-row-size-too-large-
 * The tables weren't changed by any DML[^1] statements in a newer MariaDB version since then.
 
 If that's the case, you could still face the `Row size too large` error, particularly when issuing statements like [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) or [OPTIMIZE TABLE](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md).
+
+{% hint style="info" %}
+Take into account that the `Row size too large` error can come up for a good reason, for instance, when issuing DDL statements that actually exceed the row size.
+{% endhint %}
+
+{% hint style="info" %}
+For tables created in old MariaDB versions, an additional issue could come up: Tables were created whose row size wasn't calculated correctly. Creating those tables should have failed with the `Row size too large error`, but didn't.
+
+With such tables, you can get failures, both for DML (when inserted or updated data actually exceed the row size limit), and for DDL operations that should not affect the row size, like [`TRUNCATE TABLE`](../../../../reference/sql-statements/table-statements/truncate-table.md), [`CREATE TABLE LIKE`](../../../../reference/sql-statements/data-definition/create/create-table.md#create-table-...-like), or [`OPTIMIZE TABLE`](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md), or even dropping columns with [`ALTER TABLE ... DROP COLUMN`](../../../../reference/sql-statements/data-definition/alter/alter-table/#drop-column) which makes the row size shorter.
+{% endhint %}
 
 ## Example of the Problem
 
