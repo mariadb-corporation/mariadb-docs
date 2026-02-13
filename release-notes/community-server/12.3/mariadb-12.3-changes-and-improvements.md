@@ -34,6 +34,11 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 * New hash algorithms for `PARTITION BY KEY` ([MDEV-9826](https://jira.mariadb.com/browse/MDEV-9826))
 * Optimise reorderable LEFT JOINs ([MDEV-36055](https://jira.mariadb.com/browse/MDEV-36055))
 
+## Notable Items
+
+### Galera
+* The Galera package dependency has been removed from server packages and the Galera package is no longer included in the MariaDB repositories ([MDEV-38744](https://jira.mariadb.org/browse/MDEV-38744))
+
 ## List of All MariaDB 12.3 Releases
 
 | Date        | Release              | Status      | Release Notes              | Changelog                                 |
