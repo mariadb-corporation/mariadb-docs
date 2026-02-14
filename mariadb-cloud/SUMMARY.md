@@ -10,6 +10,7 @@
   * [Launch DB Using Terraform Provider](quickstart/launch-db-using-the-terraform-provider.md)
   * [Launch DB Using Python](quickstart/launch-db-using-python.md)
   * [Bring Your Own Account (BYOA)](quickstart/bring-your-own-account-byoa.md)
+  * [MariaDB Cloud: Galera Clusters](quickstart/mariadb-cloud-galera-clusters.md)
 * [Connection Methods](connecting-to-mariadb-cloud-dbs/README.md)
   * [Connection Overview](connecting-to-mariadb-cloud-dbs/connection-overview.md)
   * [Connect using MariaDB Client](connecting-to-mariadb-cloud-dbs/connect-using-mariadb-cli.md)

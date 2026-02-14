@@ -1,0 +1,156 @@
+---
+hidden: true
+noIndex: true
+---
+
+# MariaDB Cloud: Galera Clusters
+
+Galera Clusters allow you to run highly available database deployments using a synchronous multi-primary architecture instead of relying on standard asynchronous replication.
+
+MariaDB Cloud typically uses an asynchronous primary/replica model, which provides excellent scalability and read performance for most workloads. However, you might need a different configuration if your business or application requires strict data consistency and zero data loss failover. With Galera Clusters, your MariaDB Cloud deployment utilizes synchronous replication, allowing multi-primary write capabilities and strong consistency guarantees while preserving our core value proposition of automation and operational simplicity.
+
+## How it works
+
+A Galera cluster is a specialized, highly available environment within MariaDB Cloud designed for workloads that cannot tolerate replica lag.
+
+* Synchronous replication: Data is replicated synchronously across all nodes using write-set certification, ensuring transactions are committed everywhere simultaneously.
+* Multi-primary routing: All nodes in the cluster act as primary nodes, capable of accepting both reads and writes.
+* Automated failover: If a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention or data loss.
+* Quorum management: The cluster automatically maintains a voting system (quorum) to prevent split-brain scenarios and preserve data integrity during network partitions.
+
+## Why use Galera Clusters
+
+Consider using Galera Clusters if you have specific business needs or strict application requirements, such as:
+
+* Regulated industries: If you operate in finance, healthcare, or other sectors requiring deterministic behavior during failures and absolute data consistency (RPO 0).
+* Active-active OLTP systems: If your SaaS platform or legacy enterprise application was architected around multi-primary Galera semantics on-premise and requires a lift-and-shift to the cloud.
+* Zero tolerance for replica lag: If your application logic fails when reading stale data and requires immediate consistency across all database nodes.
+* Automated operations: If you want the benefits of a complex synchronous cluster but need the operational burden (patching, upgrades, and failover) abstracted away into a fully managed service.
+
+## Who is eligible for Galera Clusters
+
+Galera is a premium deployment topology designed for advanced, mission-critical workloads. You can provision a Galera cluster if:
+
+* You are subscribed to the PowerPlus tier on MariaDB Cloud.
+* You are deploying in Amazon Web Services (AWS), Google Cloud, or Microsoft Azure.
+
+{% hint style="info" %}
+A detailed comparison of the feature sets across our service tiers is available in the [MariaDB Cloud pricing documentation](../reference/pricing.md).
+{% endhint %}
+
+## When to use the regular Replicated deployment
+
+Galera clusters inherently introduce slight commit latency because all nodes must acknowledge a write before it is finalized. Furthermore, unsafe or highly sensitive Galera configuration variables are strictly system-managed to ensure stability.
+
+In most cases, if your application is highly write-intensive, distributed across large geographic distances, or can tolerate standard asynchronous replication lag, you can meet your performance requirements by utilizing a standard Replicated topology.
+
+{% hint style="success" %}
+If you are unsure whether your workload requires synchronous Galera replication or standard asynchronous replication, contact our team for a sizing and architecture review.
+{% endhint %}
+
+## Galera pricing and billing
+
+Galera clusters follow the standard unit compute, storage, and backup pricing for the PowerPlus tier. This means that databases running either standard Replicated or Galera topologies with a similar node size, count, and storage will incur the same base cost.
+
+Data transfer charges for replication traffic are passed through similarly to other topologies.
+
+## Galera architecture
+
+Galera clusters are designed for high availability, fault tolerance, and uniform operational behavior. When deployed, the cluster provisions a set of uniform nodes distributed across your chosen cloud infrastructure. At the edge of the cluster sits MariaDB MaxScale, which acts as the intelligent routing and high-availability layer for your database traffic.
+
+To maximize resiliency, multi-node clusters can be spread across multiple Availability Zones within a single cloud region.
+
+```mermaid
+flowchart TD
+    App[Client Application] -->|Read/Write Traffic| MS(MariaDB MaxScale)
+    
+    subgraph Region [Cloud Region]
+        MS
+        
+        subgraph AZ1 [Availability Zone 1]
+            Node1[(Node 1: Primary)]
+        end
+        
+        subgraph AZ2 [Availability Zone 2]
+            Node2[(Node 2: Primary)]
+        end
+        
+        subgraph AZ3 [Availability Zone 3]
+            Node3[(Node 3: Primary)]
+        end
+        
+        MS -.->|Routes Traffic| Node1
+        MS -.->|Routes Traffic| Node2
+        MS -.->|Routes Traffic| Node3
+        
+        Node1 <==>|Synchronous Replication| Node2
+        Node2 <==>|Synchronous Replication| Node3
+        Node3 <==>|Synchronous Replication| Node1
+    end
+```
+
+As illustrated above, MaxScale receives read and write connections from your application and can route them to any of the available primary nodes. Because all nodes participate in synchronous replication, data is kept strictly consistent across all availability zones.
+
+If a single node or an entire zone fails, MaxScale immediately redirects traffic to the surviving nodes. As long as a mathematical majority of nodes remain online, the cluster maintains "quorum" and ensures uninterrupted, writable database service without manual intervention.
+
+Galera clusters consist of a minimum of 3 and a maximum of 5 nodes to maintain this quorum. (A single-node cluster option is available strictly for dev/test purposes). When deployed, instances start at 4 vCPU and 16 GB RAM.
+
+### Synchronous Replication Write Path
+
+Unlike asynchronous replication where the primary commits first and replicas catch up later, Galera requires certification from the cluster before a transaction is finalized.
+
+
+
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant NA as Node A
+    participant NB as Node B
+    participant NC as Node C
+
+    App->>NA: 1. Send Write Transaction
+    NA->>NB: 2a. Broadcast Write-Set
+    NA->>NC: 2b. Broadcast Write-Set
+    Note over NB,NC: 3. Certify Write-Set (Conflict Check)
+    NB-->>NA: Certification OK
+    NC-->>NA: Certification OK
+    Note over NA,NC: 4. Quorum Reached
+    NA->>NA: Commit
+    NB->>NB: Commit
+    NC->>NC: Commit
+    NA-->>App: 5. Acknowledge Success
+```
+
+Configuration & Monitoring: MariaDB Cloud exposes a curated, safe subset of `wsrep_` variables (such as those controlling flow control and certification) through the Configuration Manager. Monitoring dashboards automatically include cluster status, node health, quorum state, and transaction conflict alerts.
+
+### Galera service backups
+
+Because Galera uses synchronous multi-primary replication, backup and restore operations must be cluster-aware to preserve consistency and avoid data divergence.
+
+* Snapshots: Galera clusters default to cloud-native snapshots. Because Galera ensures write-set consistency, a snapshot from any single healthy node safely represents the entire cluster state.
+* Physical Backups: Both on-demand and scheduled physical backups are supported. Logical backups are not supported.
+* Point-in-Time Recovery (PITR): _Support for PITR in multi-primary environments introduces transaction replay complexity and will be introduced in a future phase._
+
+### Cluster Restores
+
+To ensure safe re-formation, restores are initialized on a single node to bootstrap the cluster, followed by automated transfers to bring additional nodes online.
+
+```mermaid
+flowchart LR
+    Snap[("Cloud Snapshot or<br>Physical Backup")] -->|1. Restore| N1("Node 1")
+    N1 -->|2. Safe-To-Bootstrap| C["New Galera Cluster"]
+    C -->|3. Managed SST| N2("Node 2")
+    C -->|3. Managed SST| N3("Node 3")
+    
+    style Snap fill:#f9f,stroke:#333,stroke-width:2px
+```
+
+## Dev tools for Galera Clusters
+
+You can manage, provision, and scale your Galera clusters using any standard MariaDB Cloud method, including the MariaDB Cloud Portal, REST APIs, and the Terraform Provider. Galera is presented as a distinct deployment topology alongside Single Node and Replicated topologies, providing a unified management experience.
+
+## Related pages
+
+* MariaDB Cloud PowerPlus Tier Pricing
+* Migrating from On-Premises Galera
+* Configuring `wsrep` Variables in MariaDB Cloud
