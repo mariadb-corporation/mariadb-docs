@@ -121,7 +121,57 @@ sequenceDiagram
     NA-->>App: 5. Acknowledge Success
 ```
 
-Configuration & Monitoring: MariaDB Cloud exposes a curated, safe subset of `wsrep_` variables (such as those controlling flow control and certification) through the Configuration Manager. Monitoring dashboards automatically include cluster status, node health, quorum state, and transaction conflict alerts.
+### Node Failure and Quorum Resolution
+
+Because Galera relies on a mathematical majority to maintain cluster state, it automatically handles node failures without manual intervention or data loss.
+
+If a node goes offline unexpectedly, MariaDB MaxScale detects the failure and immediately stops routing application traffic to it. The remaining active nodes check their voting pool; as long as more than half of the cluster remains online (e.g., 2 out of 3 nodes), the cluster maintains "quorum" and continues accepting reads and writes.
+
+```mermaid
+flowchart TD
+    App["Client Application"] -->|"Read/Write"| MS{"MariaDB MaxScale"}
+    
+    subgraph Cluster ["Galera Cluster"]
+        NA[("Node A<br>Active")]
+        NB[("Node B<br>Active")]
+        NC[("Node C<br>Failed")]
+        
+        NA <-->|"Quorum Maintained<br>(2 of 3 Votes)"| NB
+    end
+    
+    MS -->|"Routes Traffic"| NA
+    MS -->|"Routes Traffic"| NB
+    MS -.->|"Routing Stopped"| NC
+    
+    style NC fill:#ffe6e6,stroke:#ff3333,stroke-width:2px,stroke-dasharray: 5 5
+```
+
+Code snippet
+
+```
+flowchart TD
+    App["Client Application"] -->|"Read/Write"| MS{"MariaDB MaxScale"}
+    
+    subgraph Cluster ["Galera Cluster"]
+        NA[("Node A<br>Active")]
+        NB[("Node B<br>Active")]
+        NC[("Node C<br>Failed")]
+        
+        MS -->|"Routes Traffic"| NA
+        MS -->|"Routes Traffic"| NB
+        MS -.x|"Node Offline"| NC
+        
+        NA <==>|"Quorum Maintained<br>(2 of 3 Votes)"| NB
+    end
+    
+    style NC fill:#ffe6e6,stroke:#ff3333,stroke-width:2px,stroke-dasharray: 5 5
+```
+
+Once the failed node is recovered or replaced by the managed service, it automatically rejoins the cluster, synchronizes its state using a State Snapshot Transfer (SST) or Incremental State Transfer (IST), and resumes accepting traffic from MaxScale.
+
+### Configuration & Monitoring
+
+MariaDB Cloud exposes a curated, safe subset of `wsrep_` variables (such as those controlling flow control and certification) through the Configuration Manager. Monitoring dashboards automatically include cluster status, node health, quorum state, and transaction conflict alerts.
 
 ### Galera service backups
 
