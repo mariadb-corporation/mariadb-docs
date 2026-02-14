@@ -146,34 +146,13 @@ flowchart TD
     style NC fill:#ffe6e6,stroke:#ff3333,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
-Code snippet
-
-```
-flowchart TD
-    App["Client Application"] -->|"Read/Write"| MS{"MariaDB MaxScale"}
-    
-    subgraph Cluster ["Galera Cluster"]
-        NA[("Node A<br>Active")]
-        NB[("Node B<br>Active")]
-        NC[("Node C<br>Failed")]
-        
-        MS -->|"Routes Traffic"| NA
-        MS -->|"Routes Traffic"| NB
-        MS -.x|"Node Offline"| NC
-        
-        NA <==>|"Quorum Maintained<br>(2 of 3 Votes)"| NB
-    end
-    
-    style NC fill:#ffe6e6,stroke:#ff3333,stroke-width:2px,stroke-dasharray: 5 5
-```
-
 Once the failed node is recovered or replaced by the managed service, it automatically rejoins the cluster, synchronizes its state using a State Snapshot Transfer (SST) or Incremental State Transfer (IST), and resumes accepting traffic from MaxScale.
 
 ### Configuration & Monitoring
 
 MariaDB Cloud exposes a curated, safe subset of `wsrep_` variables (such as those controlling flow control and certification) through the Configuration Manager. Monitoring dashboards automatically include cluster status, node health, quorum state, and transaction conflict alerts.
 
-### Galera service backups
+## Galera service backups
 
 Because Galera uses synchronous multi-primary replication, backup and restore operations must be cluster-aware to preserve consistency and avoid data divergence.
 
@@ -181,7 +160,7 @@ Because Galera uses synchronous multi-primary replication, backup and restore op
 * Physical Backups: Both on-demand and scheduled physical backups are supported. Logical backups are not supported.
 * Point-in-Time Recovery (PITR): _Support for PITR in multi-primary environments introduces transaction replay complexity and will be introduced in a future phase._
 
-### Cluster Restores
+## Cluster Restores
 
 To ensure safe re-formation, restores are initialized on a single node to bootstrap the cluster, followed by automated transfers to bring additional nodes online.
 
