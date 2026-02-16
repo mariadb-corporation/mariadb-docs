@@ -61,7 +61,7 @@ The table contains the following columns:
   * `VARCHAR(32)`
   * Null: No
   * Default: `NULL`
-  * Description: Lock type. One of [`BACKUP_FTWRL1`](performance-schema-metadata_locks-table.md#backup_ftwrl1), [`BACKUP_START`](performance-schema-metadata_locks-table.md#backup_start), [`BACKUP_TRANS_DML`](performance-schema-metadata_locks-table.md#backup_trans_dml), `EXCLUSIVE`, `INTENTION_EXCLUSIVE`, `SHARED`, `SHARED_HIGH_PRIO`, `SHARED_NO_READ_WRITE`, `SHARED_NO_WRITE`, `SHARED_READ`, `SHARED_UPGRADABLE`, or `SHARED_WRITE`.
+  * Description: Lock type. One of `BACKUP_ALTER_COPY`, `BACKUP_BLOCK_DDL`, `BACKUP_COMMIT`, `BACKUP_DDL`, `BACKUP_DML`, `BACKUP_END`, `BACKUP_FLUSH`, [`BACKUP_FTWRL1`](performance-schema-metadata_locks-table.md#backup_ftwrl1), [`BACKUP_START`](performance-schema-metadata_locks-table.md#backup_start), [`BACKUP_TRANS_DML`](performance-schema-metadata_locks-table.md#backup_trans_dml), `BACKUP_WAIT_COMMIT`, `BACKUP_WAIT_DDL`, `BACKUP_WAIT_FLUSH`, `EXCLUSIVE`, `INTENTION_EXCLUSIVE`, `SHARED`, `SHARED_HIGH_PRIO`, `SHARED_NO_READ_WRITE`, `SHARED_NO_WRITE`, `SHARED_READ`, `SHARED_UPGRADABLE`, or `SHARED_WRITE`.
 * `LOCK_DURATION`
   * `VARCHAR(32)`
   * Null: No
