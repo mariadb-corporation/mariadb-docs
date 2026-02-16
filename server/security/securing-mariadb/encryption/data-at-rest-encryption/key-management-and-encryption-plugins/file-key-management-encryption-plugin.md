@@ -219,6 +219,12 @@ CREATE TABLE t (i INT) ENGINE=InnoDB ENCRYPTED=YES
 
 Now, table `t` will be encrypted using the encryption key from the key file. For more information on how to use encryption, see [Data at Rest Encryption](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
 
+{% hint style="info" %}
+The following Information Schema table is available from MariaDB 11.8.
+{% endhint %}
+
+The [Information Schema FILE\_KEY\_MANAGEMENT\_KEYS table](../../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-files-table/information-schema-file_key_management_keys.md) provides information about files stored in tablespaces, such as those used by the InnoDB storage engine.
+
 ## Using Multiple Encryption Keys
 
 The File Key Management Plugin supports [using multiple encryption keys](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#using-multiple-encryption-keys). Each encryption key can be defined with a different 32-bit integer as a key identifier.
