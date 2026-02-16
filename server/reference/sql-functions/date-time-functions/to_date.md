@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # TO\_DATE
 
 {% hint style="info" %}
