@@ -26,7 +26,57 @@ The main differences are as follows:
 
 ### `mariadb-backup`
 
-The [mariadb-backup](mariadb-backup/) program is a fork of [Percona XtraBackup](../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) with added support for [compression](../../ha-and-performance/optimization-and-tuning/optimization-and-tuning-compression/) and [data-at-rest encryption](../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+The mariadb-backup program is a physical online backup tool and a fork of Percona XtraBackup with added support for compression and data-at-rest encryption.
+
+#### **Storage Engines and Backup Types**
+
+MariaDB Backup creates a file-level backup of data from the MariaDB Server data directory. This backup includes temporal data, and the encrypted and unencrypted tablespaces of supported storage engines (e.g., InnoDB, MyRocks, Aria).
+
+MariaDB Server implements:
+
+* Full backups, which contain all data in the database.
+* Incremental backups, which contain modifications since the last backup.
+* Partial backups, which contain a subset of the tables in the database.
+
+Backup support is specific to storage engines. All supported storage engines enable full backup. The InnoDB storage engine additionally supports incremental backup.
+
+#### **Non-Blocking Backups**
+
+A feature of MariaDB Backup and MariaDB Server, non-blocking backups minimize workload impact during backups. When MariaDB Backup connects to MariaDB Server, staging operations are initiated to protect data during read.
+
+Non-blocking backup functionality differs from historical backup functionality in the following ways:
+
+* MariaDB Backup includes optimizations to backup staging, including DDL statement tracking, which reduces lock-time during backups.
+* MariaDB Backup in MariaDB Community Server 10.4 and later will block writes, log tables, and statistics.
+* Older releases used `FLUSH TABLES WITH READ LOCK`, which closed open tables and only allowed tables to be reopened with a read lock during the duration of backups.
+
+#### **Understanding Recovery**
+
+Full backups produced using MariaDB Server are not initially point-in-time consistent, and an attempt to restore from a raw full backup will cause InnoDB to crash to protect the data. Incremental backups contain only the changes since the last backup and cannot be used standalone to perform a restore.
+
+To restore from a backup, you first need to prepare the backup for point-in-time consistency using the `--prepare` command:
+
+* Running `--prepare` on a _full backup_ synchronizes the tablespaces, ensuring they are point-in-time consistent.
+* Running `--prepare` on an _incremental backup_ synchronizes the tablespaces and applies the updated data into the previous full backup.
+* Running `--prepare` on data used for a _partial restore_ requires the `--export` option to create the necessary `.cfg` files.
+
+#### **Restore Requires Empty Data Directory**
+
+For MariaDB Backup to safely restore data from full and incremental backups, the data directory must be empty. When MariaDB Backup restores from a backup using `--copy-back` or `--move-back`, it copies or moves the backup files into the MariaDB Server data directory.
+
+#### **Creating the Backup User**
+
+When MariaDB Backup performs a backup operation, it connects to the running MariaDB Server to manage locks and backup staging that prevent the Server from writing to a file while being read. It is recommended that a dedicated user be created and authorized to perform backups:
+
+```sql
+CREATE USER 'mariabackup'@'localhost' IDENTIFIED BY 'mbu_passwd';
+GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR
+      ON * TO 'mariabackup'@'localhost';
+```
+
+{% hint style="info" %}
+While MariaDB Backup requires a user for backup operations, no user is required for restore operations since restores occur while MariaDB Server is not running.
+{% endhint %}
 
 ### `mariadb-dump`
 
