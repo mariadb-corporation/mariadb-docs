@@ -60,7 +60,7 @@ For compatibility reasons, the TLS system variables in MariaDB still use the `ss
 
 #### `ssl_cipher`
 
-* Description: List of permitted ciphers or cipher suites to use for [TLS](./). Besides cipher names, if MariaDB was compiled with OpenSSL, this variable could be set to "SSLv3" or "TLSv1.2" to allow all SSLv3 or all TLSv1.2 ciphers. Note that the TLSv1.3 ciphers cannot be excluded when using OpenSSL, even by using this system variable. See [Using TLSv1.3](using-tlsv13.md) for details. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#ssl) option.
+* Description: List of permitted ciphers or cipher suites to use for [TLS](./). Besides cipher names, if MariaDB was compiled with OpenSSL, this variable could be set to `SSLv3` or `TLSv1.2` to allow all SSLv3 or all `TLSv1.2` ciphers. `TLSv1.3` ciphers can be used, too – see [Using TLSv1.3](using-tlsv13.md) for details. This system variable implies the [ssl](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#ssl) option.
 * Command line: `--ssl-cipher=name`
 * Scope: Global
 * Dynamic: No
