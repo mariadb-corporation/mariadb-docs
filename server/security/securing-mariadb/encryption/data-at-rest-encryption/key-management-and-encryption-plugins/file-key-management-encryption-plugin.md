@@ -66,9 +66,11 @@ Entries look like this:
 
 {% tabs %}
 {% tab title="Current Enterprise Server" %}
+{% code overflow="wrap" %}
 ```
 <encryption_key_id>;<encryption_key_version>;<hex-encoded_encryption_key>
 ```
+{% endcode %}
 {% endtab %}
 
 {% tab title="Community Server & Enterprise Server < 11.8" %}
@@ -151,14 +153,22 @@ Generate a random encryption password using the [openssl rand](https://www.opens
 $ sudo openssl rand -hex 128 > /etc/mysql/encryption/keyfile.key
 ```
 
-Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute, for example, one of the following commands:
+Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute one of the following commands:
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 -pass pass:secret -in /tmp/keys.txt -out /tmp/keys.enc
-$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 -pass pass:secret -in /tmp/keys.txt -out /tmp/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 -pass -in /tmp/keys.txt -out /etc/mysql/encryption/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 -pass -in /tmp/keys.txt -out /etc/mysql/encryption/keys.enc
 ```
 {% endcode %}
+
+{% hint style="info" %}
+Using the `-iter` (iterations) parameter in combination with `-pbkdf2` makes sense, to specify a higher number of iterations than the OpenSSL default of `10k`.
+{% endhint %}
+
+{% hint style="warning" %}
+When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails.
+{% endhint %}
 
 The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
 
@@ -169,14 +179,20 @@ The `file_key_management_filekey` variable can be provided in two forms:
 * As a plain-text encryption password. This is not recommended, since the plain-text encryption password would be visible in the output of the [SHOW VARIABLES](../../../../../reference/sql-statements/administrative-sql-statements/show/show-variables.md) statement.
 * Prefixed with `FILE:`, it can be a path to a file that contains the plain-text encryption password.
 
+{% hint style="info" %}
+`FILE:` must be in uppercase in MariaDB. If you use lowercase instead (like OpenSSL does), errors occur (for instance, `mariadbd: Cannot decrypt ../key.enc. Wrong key?`).
+{% endhint %}
+
 These variables can be specified as command-line arguments to `mariadbd`, or they can be specified in a relevant server [option group](../../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
+{% code overflow="wrap" %}
 ```ini
 [mariadb]
 ...
 loose_file_key_management_filename = /etc/mysql/encryption/keyfile.enc
 loose_file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
 ```
+{% endcode %}
 
 {% include "../../../../../.gitbook/includes/to-avoid-startup-failures-....md" %}
 
@@ -270,7 +286,7 @@ The File Key Management plugin does not support [key rotation](../../../securing
 
 * This system variable is used to determine which algorithm the plugin will use to encrypt data.
   * The recommended algorithm is `AES_CTR`, but this algorithm is only available when MariaDB is built with [OpenSSL](https://www.openssl.org/). If the server is built with [wolfSSL](https://www.wolfssl.com/products/wolfssl/) then this algorithm is not available. See [TLS and Cryptography Libraries Used by MariaDB](../../tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
-* Command line: `--file-key-management-encryption-algorithm=value`
+* Command line: `--file-key-management-encryption-algorithm=`_`value`_
 * Scope: Global
 * Dynamic: No
 * Data Type: `enumerated`
@@ -280,7 +296,7 @@ The File Key Management plugin does not support [key rotation](../../../securing
 ### `file_key_management_digest`
 
 * Specifies the digest function to use in key derivation of the key used for decrypting the key file.
-* Command line: --file-key-management-digest=_value_
+* Command line: `--file-key-management-digest=`_`value`_
 * Scope: Global
 * Dynamic: No
 * Data type: enumerated
@@ -295,7 +311,7 @@ The File Key Management plugin does not support [key rotation](../../../securing
   * If this system variable's value is not prefixed with `FILE:`, then it is interpreted as the plain-text encryption password. However, this is not recommended.
   * The encryption password has a max length of 256 characters.
   * The only algorithm that MariaDB currently supports when decrypting the key file is [Cipher Block Chaining (CBC)](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC) mode of [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard). The encryption key size can be 128-bits, 192-bits, or 256-bits. The encryption key is calculated by taking a [SHA-1](https://en.wikipedia.org/wiki/SHA-1) hash of the encryption password. Instead of SHA-1, SHA-2 can be used as well.
-* Command line: `--file-key-management-filekey=value`
+* Command line: `--file-key-management-filekey=`_`value`_
 * Scope: Global
 * Dynamic: No
 * Data type: `string`
