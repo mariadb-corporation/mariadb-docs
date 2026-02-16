@@ -20,7 +20,7 @@ TO_DATE(string_expression [DEFAULT string_expression ON CONVERSION ERROR],
 `TO_DATE` was added for Oracle support.
 
 * `format_string` has the same format elements as [TO\_CHAR()](../string-functions/to_char.md), except a few elements that are not supported (see below). `TO_DATE()` returns a [datetime](../../data-types/date-and-time-data-types/datetime.md) value.
-* The allowed separators are the same as for `TO_CHAR()`: space ( ), tab (`\t`), and any of `!`, `#`,`%`, `'`, `()`, `*`, `+`,`-`, `.`, `/`, `:`, `;`, `<=>`.
+* The allowed separators are the same as for `TO_CHAR()`: space ( ), tab (`\t`), and any of `!`, `#`, `%`, `'`, `(`, `)`, `*`, `+`, `-`, `.`, `/`, `:`, `;`, `<`, `=`, or `>`.
 * `&` can be used if the next character is not a character in the `a-z` or `A-Z` range. `text` indicates a text string that is used verbatim in the format. You cannot use the double-quote (`"`) as a separator.
 * `NLS_FORMAT_STRING` supports these options: `NLS_CALENDAR=GREGORIAN` and `NLS_DATE_LANGUAGE=`_`language`_, where _`language`_ can be one of the following:
   * All MariaDB short locales, like `en_AU`.
