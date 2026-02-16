@@ -19,12 +19,12 @@ TO_DATE(string_expression [DEFAULT string_expression ON CONVERSION ERROR],
 
 `TO_DATE` was added for Oracle support.
 
-* `format_string` has the same format elements as [TO\_CHAR()](../string-functions/to_char.md), except a few elements that are not supported (see below). `TO_DATE()` returns a [datetime](../../data-types/date-and-time-data-types/datetime.md) or [date](../../data-types/date-and-time-data-types/date.md) value, depending on if the format element `FF` is used.
+* `format_string` has the same format elements as [TO\_CHAR()](../string-functions/to_char.md), except a few elements that are not supported (see below). `TO_DATE()` returns a [datetime](../../data-types/date-and-time-data-types/datetime.md) value.
 * The allowed separators are the same as for `TO_CHAR()`: space ( ), tab (`\t`), and any of `!`, `#`,`%`, `'`, `()`, `*`, `+`,`-`, `.`, `/`, `:`, `;`, `<=>`.
 * `&` can be used if the next character is not a character in the `a-z` or `A-Z` range. `text` indicates a text string that is used verbatim in the format. You cannot use the double-quote (`"`) as a separator.
 * `NLS_FORMAT_STRING` supports these options: `NLS_CALENDAR=GREGORIAN` and `NLS_DATE_LANGUAGE=`_`language`_, where _`language`_ can be one of the following:
   * All MariaDB short locales, like `en_AU`.
-  * The following Oracle language names: ALBANIAN, AMERICAN, ARABIC, BASQUE, BELARUSIAN, BRAZILIAN PORTUGUESE BULGARIAN, CANADIAN FRENCH, CATALAN, CROATIAN, CYRILLIC SERBIAN CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN, GREEK, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN ITALIAN, JAPANESE, KANNADA, KOREAN, LATIN AMERICAN SPANISH, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MEXICAN SPANISH, NORWEGIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SIMPLIFIED CHINESE, SLOVAK, SLOVENIAN, SPANISH, SWAHILI, SWEDISH, TAMIL, THAI, TRADITIONAL CHINESE, TURKISH, UKRAINIAN, VIETNAMESE
+  * The following Oracle language names: ALBANIAN, AMERICAN, ARABIC, BASQUE, BELARUSIAN, BRAZILIAN PORTUGUESE, BULGARIAN, CANADIAN FRENCH, CATALAN, CROATIAN, CYRILLIC SERBIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN, GREEK, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN, ITALIAN, JAPANESE, KANNADA, KOREAN, LATIN AMERICAN SPANISH, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MEXICAN SPANISH, NORWEGIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SIMPLIFIED CHINESE, SLOVAK, SLOVENIAN, SPANISH, SWAHILI, SWEDISH, TAMIL, THAI, TRADITIONAL CHINESE, TURKISH, UKRAINIAN, VIETNAMESE
 
 ### Supported Format Elements
 
@@ -56,13 +56,13 @@ TO_DATE(string_expression [DEFAULT string_expression ON CONVERSION ERROR],
 * `YYYY` – 4 digit year
 
 {% hint style="info" %}
-If no date is given, the current date is used. For example, if `'MM-DD HH-MM-SS'` is given, the current year is used. (This is Oracle behavior.)
+If no datetime is given, the current datetime is used. For example, if `'MM-DD HH-MM-SS'` is given, the current year is used. (This is Oracle behavior.)
 {% endhint %}
 
 ### Unsupported Options
 
 * `BC`, `D`, `DL`, `DS`, `E`, `EE`, `FM`, `FX`, `RM`, `SSSSS`, `TS`, `TZD`, `TZH`, `TZR`, `X`, and `SY BC` are not supported by MariaDB [datetime](../../data-types/date-and-time-data-types/datetime.md).
-* Most other formats do not make sense in a MariaDB context, as we return `date` or `datetime` with fractions, not as a string.
+* Most other formats do not make sense in a MariaDB context, as we return  `datetime` with fractions, not as a string.
 * `D` (day-of-week) is not supported as it is not clear how it would map to MariaDB. This element depends on the NLS territory of the session.
 * `RR` only works with 2-digit years. (In Oracle, `RR` may also work with 4-digit years in some context, but the rules are not clear.)
 
@@ -70,7 +70,7 @@ If no date is given, the current date is used. For example, if `'MM-DD HH-MM-SS'
 
 * MariaDB supports `FF` (fractional seconds). If `FF[#]` is used, `TO_DATE`  returns a `datetime` with `#` of subseconds. If `FF` is not used, a `datetime` is returned. A warning (but no error) is issued if the string contains more digits than specified with `F(#]`.
 * Names can be shortened to their unique prefixes. For example, both `January` and `Ja` work fine.
-* No error is issued if the `date` string is shorter than `format_string` and the next unused character is not a number. This is useful to get a `date` from a mixed set of strings in [date](../../data-types/date-and-time-data-types/date.md) or datetime format. By contrast, Oracle gives an error if the `date` string is too short.
+* No error is issued if the datetime string is shorter than `format_string` and the next unused character is not a number. This is useful to get a `datetime` from a mixed set of strings in `datetime` format. By contrast, Oracle gives an error if the `datetime` string is too short.
 * MariaDB supports short locales as language names.
 * `NLS_DATE_FORMAT` can use double-quote (`"`) and single-quote (`'`) for quoting.
 * `NLS_DATE_FORMAT` must be a constant string. This is to ensure that the server knows which locale to use when executing the function.

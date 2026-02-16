@@ -26,18 +26,8 @@ The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-a
 
 * An odd number of `FM`s disables padding.
 * An even number of `FM`s enables padding.
-{% endtab %}
 
-{% tab title="< MariaDB 12.0" %}
-The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _`fmt`_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`.
-{% endtab %}
-{% endtabs %}
-
-In Oracle, `TO_CHAR` can also be used to convert numbers to strings, but this is not supported in MariaDB and gives an error.
-
-{% hint style="info" %}
-The following formats (_`fmt`_) are available from MariaDB 12.3.
-{% endhint %}
+These additional formats (for _`fmt`_) are available:
 
 * `FF[1-6]` – Fractional seconds
 * `DDD` – Day (1-366)
@@ -47,6 +37,23 @@ The following formats (_`fmt`_) are available from MariaDB 12.3.
 * `IYY` – 3-digit year according to ISO 8601
 * `IYYY` – 4-digit year according to ISO 8601
 * `SYYY` – 4-digit year according to ISO 8601 (Oracle can use signed years)
+{% endtab %}
+
+{% tab title="< 12.3" %}
+The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _fmt_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`. `TO_CHAR` also accepts `FM` in the format string, which disables padding of all components following it.
+
+`FM` can be specified multiple times, with each time disabling the previous state:
+
+* An odd number of `FM`s disables padding.
+* An even number of `FM`s enables padding.
+{% endtab %}
+
+{% tab title="< 12.0" %}
+The `TO_CHAR` function converts an _expr_ of type [date](../../data-types/date-and-time-data-types/date.md), [datetime](../../data-types/date-and-time-data-types/datetime.md), [time](../../data-types/date-and-time-data-types/time.md) or [timestamp](../../data-types/date-and-time-data-types/timestamp.md) to a string. The optional _`fmt`_ argument supports `YYY/YYY/YY/RRRR/RR/MM/MON/MONTH/MI/DD/DY/HH/HH12/HH24/SS` and special characters. The default value is `YYYY-MM-DD HH24:MI:SS`.
+{% endtab %}
+{% endtabs %}
+
+In Oracle, `TO_CHAR` can also be used to convert numbers to strings, but this is not supported in MariaDB and gives an error.
 
 ## Examples
 
