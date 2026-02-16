@@ -134,6 +134,7 @@
     * [MaxScale Readwritesplit](reference/maxscale-routers/maxscale-readwritesplit.md)
     * [MaxScale SchemaRouter](reference/maxscale-routers/maxscale-schemarouter.md)
     * [MaxScale SmartRouter](reference/maxscale-routers/maxscale-smartrouter.md)
+    * [MariaDB MaxScale Exasol Router](reference/maxscale-routers/mariadb-maxscale-exasol-router.md)
   * [MaxScale Servers](reference/maxscale-servers.md)
   * [MaxScale Listeners](reference/maxscale-listeners.md)
 
