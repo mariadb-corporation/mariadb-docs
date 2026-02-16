@@ -29,7 +29,7 @@ The `API_KEY` environment variable will be used in the subsequent steps.
 Launch two MariaDB Cloud services - a Primary that your application(s) will connect to and a Secondary that will act as a globally available service. If you already have your Primary service running, you simply need to create a new Secondary service.
 
 {% hint style="info" %}
-You can launch these services using the [Portal](https://app.skysql.com) or [Using the REST API](../High%20Availability,%20DR/Launch%20DB%20using%20the%20REST%20API/), as shown below. Launching a new service will take about 5 minutes.
+You can launch these services using the [Portal](https://app.skysql.com) or [Using the REST API](../quickstart/launch-db-using-the-rest-api.md), as shown below. Launching a new service will take about 5 minutes.
 {% endhint %}
 
 The following API requests will create two services in Google Cloud - 'skysql-primary' in the Virginia region and 'skysql-secondary' in the Oregon region.
