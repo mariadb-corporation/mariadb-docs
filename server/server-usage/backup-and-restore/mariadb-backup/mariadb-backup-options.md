@@ -907,7 +907,11 @@ mariadb-backup --backup \
 
 ### `--innodb-log-file-mmap`
 
-**MariaDB starting with** 10.11.10, 11.4.4: When this option is enabled, `mariadb-backup` will read the `ib_logfile0` via a memory mapping, rather than by reading into a separately allocated buffer of `--innodb-log-buffer-size`.
+{% hint style="info" %}
+This variable is available from MariaDB 11.4.4 and 10.11.10.
+{% endhint %}
+
+When this option is enabled, `mariadb-backup` reads the `ib_logfile0` via a memory mapping, rather than by reading into a separately allocated buffer of `--innodb-log-buffer-size`.
 
 ### `--innodb-log-files-in-group`
 
