@@ -1,14 +1,63 @@
 ---
 description: >-
-  Complete mariadb-backup options: --backup/--target-dir, --prepare/--apply-log,
-  --copy-back/--move-back, and --incremental-basedir/--incremental-dir syntax.
+  Reference for mariadb-backup (mariabackup) command-line options. Covers
+  --backup, --prepare, --copy-back, --move-back, streaming, and incremental
+  backups.
 ---
 
 # mariadb-backup Options
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
 
-## List of `mariadb-backup` Options
+## `mariadb-backup` Options (mariabackup)
+
+Use this page as a reference for **`mariadb-backup` / `mariabackup` command-line options**. It focuses on the options (flags) you use for **physical (file-based) MariaDB backups**, including **hot online backups** for InnoDB.
+
+### Quick Reference (Most Searched Options)
+
+* Take a physical backup: [`--backup`](mariadb-backup-options.md#backup) + [`--target-dir`](mariadb-backup-options.md#target-dir)
+* Prepare a backup: [`--prepare`](mariadb-backup-options.md#prepare) (or legacy [`--apply-log`](mariadb-backup-options.md#apply-log))
+* Restore a backup: [`--copy-back`](mariadb-backup-options.md#copy-back) or [`--move-back`](mariadb-backup-options.md#move-back)
+* Incremental backups: [`--incremental-basedir`](mariadb-backup-options.md#incremental-basedir) + [`--incremental-dir`](mariadb-backup-options.md#incremental-dir)
+* Replication/Galera metadata: [`--slave-info`](mariadb-backup-options.md#slave-info), [`--binlog-info`](mariadb-backup-options.md#binlog-info), [`--galera-info`](mariadb-backup-options.md#galera-info)
+* Stream output (pipes to gzip/gpg/etc): [`--stream`](mariadb-backup-options.md#stream) + [`--extra-lsndir`](mariadb-backup-options.md#extra-lsndir)
+
+### Common Command Patterns
+
+Full backup (physical):
+
+```bash
+mariadb-backup --backup --target-dir=/backups/full \
+  --user=mariadb-backup --password=...
+```
+
+Prepare (make files consistent for restore):
+
+```bash
+mariadb-backup --prepare --target-dir=/backups/full
+```
+
+Restore:
+
+```bash
+mariadb-backup --copy-back --target-dir=/backups/full
+```
+
+Incremental backup (delta against an existing base backup):
+
+```bash
+mariadb-backup --backup --target-dir=/backups/inc1 \
+  --incremental-basedir=/backups/full
+```
+
+### Related Pages
+
+* [mariadb-backup Overview](mariadb-backup-overview.md)
+* [Full Backup and Restore (mariadb-backup)](full-backup-and-restore-with-mariadb-backup.md)
+* [Incremental Backup and Restore (mariadb-backup)](incremental-backup-and-restore-with-mariadb-backup.md)
+* [Using Encryption and Compression Tools With mariadb-backup](using-encryption-and-compression-tools-with-mariadb-backup.md)
+
+## Options
 
 ### `--apply-log`
 
