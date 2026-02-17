@@ -5,7 +5,7 @@ description: >-
   and PCI DSS.
 ---
 
-# Why Encrypt MariaDB Data?
+# Why to Encrypt MariaDB Data
 
 Nearly everyone owns data of immense value: customer data, construction plans, recipes, product designs and other information. These data are stored in clear text on your storage media. Everyone with file system access is able to read and modify the data. If this data falls into the wrong hands (criminals or competitors) this may result in serious consequences.
 
@@ -16,7 +16,7 @@ With encryption you protect Data At Rest (see the [Wikipedia article](https://en
 Encryption helps in case of threats against the database files:
 
 * An attacker gains access to the system and copies the database files to avoid the MariaDB authorization check.
-* MariaDB is operated by a service provider who should not gain access to the sensitive data.
+* MariaDB is operated by a service provider who should not gain access to  sensitive data.
 
 ## When is Encryption No Help?
 

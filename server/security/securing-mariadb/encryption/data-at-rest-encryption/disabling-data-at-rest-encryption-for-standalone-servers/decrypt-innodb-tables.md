@@ -1,7 +1,7 @@
 ---
 description: >-
-  Procedure to decrypt InnoDB tables by setting `innodb_encrypt_tables=OFF` and
-  executing `ALTER TABLE ... ENCRYPTION='N'`.
+  Procedure to decrypt InnoDB tables by setting innodb_encrypt_tables=OFF and
+  executing ALTER TABLE ... ENCRYPTION='N'.
 ---
 
 # Decrypt InnoDB Tables

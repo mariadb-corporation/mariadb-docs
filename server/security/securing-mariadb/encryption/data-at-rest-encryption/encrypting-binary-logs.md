@@ -1,7 +1,7 @@
 ---
 description: >-
   Instructions for enabling encryption for binary logs and relay logs using the
-  `encrypt_binlog` system variable to protect data modifications stored on disk.
+  encrypt_binlog system variable to protect data modifications stored on disk.
 ---
 
 # Encrypting Binary Logs
@@ -10,14 +10,12 @@ MariaDB Server can encrypt the server's [binary logs](../../../../server-managem
 
 ## Basic Configuration
 
-Since [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7), MariaDB can also encrypt [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md)). Encryption of binary logs is configured by the [encrypt\_binlog](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog) system variable.
+MariaDB can encrypt [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md)). Encryption of binary logs is configured by the [encrypt\_binlog](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#encrypt_binlog) system variable.
 
 Users of data-at-rest encryption will also need to have a [key management and encryption plugin](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) configured. Some examples are the [File Key Management Plugin](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) and [AWS Key Management Plugin](key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md).
 
-```
+```ini
 [mariadb]
-...
-
 # File Key Management
 plugin_load_add = file_key_management
 file_key_management_filename = /etc/mysql/encryption/keyfile.enc
@@ -70,13 +68,11 @@ Each event's header and footer are created and processed to produce encrypted bl
 
 When using encrypted binary logs with [replication](../../../../ha-and-performance/standard-replication/replication-overview.md), it is completely supported to have different encryption keys on the master and slave. The master decrypts encrypted binary log events as it reads them from disk, and before its [binary log dump thread](../../../../ha-and-performance/standard-replication/replication-threads.md#binary-log-dump-thread) sends them to the slave, so the slave actually receives the unencrypted binary log events.
 
-If you want to ensure that binary log events are encrypted as they are transmitted between the master and slave, then you will have to use [TLS with the replication connection](../data-in-transit-encryption/replication-with-secure-connections.md).
+If you want to ensure that binary log events are encrypted as they are transmitted between the master and slave, you have to use [TLS with the replication connection](../data-in-transit-encryption/replication-with-secure-connections.md).
 
 ### Effects of Data-at-Rest Encryption on mariadb-binlog
 
-[mariadb-binlog](../../../../clients-and-utilities/logging-tools/mariadb-binlog/) does not currently have the ability to decrypt encrypted [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) on its own (see [MDEV-8813](https://jira.mariadb.org/browse/MDEV-8813) about that). In order to use mariadb-binlog with encrypted [binary logs](../../../../server-management/server-monitoring-logs/binary-log/), you have to use the [--read-from-remote-server](../../../../clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options.md) command-line option, so that the server can decrypt the [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) for mariadb-binlog.
-
-Note, using the `--read-from-remote-server` option on versions of the `mariadb-binlog` utility that do not have the [MDEV-20574](https://jira.mariadb.org/browse/MDEV-20574) fix (<=[MariaDB 10.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.9), [MariaDB 10.3.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.19), [MariaDB 10.2.28](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.28)) can corrupt binlog positions when the binary log is encrypted.
+[mariadb-binlog](../../../../clients-and-utilities/logging-tools/mariadb-binlog/) does not have the ability to decrypt encrypted [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) on its own (see [MDEV-8813](https://jira.mariadb.org/browse/MDEV-8813)). In order to use `mariadb-binlog` with encrypted [binary logs](../../../../server-management/server-monitoring-logs/binary-log/), you have to use the [--read-from-remote-server](../../../../clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options.md) command-line option, so that the server can decrypt the [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) for `mariadb-binlog`.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

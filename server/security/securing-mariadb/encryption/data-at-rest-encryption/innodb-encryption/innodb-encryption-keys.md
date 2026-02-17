@@ -1,8 +1,8 @@
 ---
 description: >-
   How InnoDB manages encryption keys using 32-bit integer IDs, including the
-  default key ID (`innodb_default_encryption_key_id`), assigning specific keys
-  to tables, and the process of key rotatation.
+  default key ID (innodb_default_encryption_key_id), assigning specific keys to
+  tables, and the process of key rotation.
 ---
 
 # InnoDB Encryption Keys

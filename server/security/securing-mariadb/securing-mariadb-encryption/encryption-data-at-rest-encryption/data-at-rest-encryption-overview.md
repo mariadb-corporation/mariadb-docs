@@ -88,11 +88,11 @@ MariaDB can also encrypt [binary logs](../../../../server-management/server-moni
 
 ### Binary and Relay Log Encryption Behavior
 
-#### When is an event encrypted?
+#### When is an Event Encrypted?
 
 When binary log and relay log events are written to the `IO_CACHE`, they are encrypted. This happens regardless of whether the cache is stored on disk or in memory, depending on the transaction size and the values of `binlog_cache_size` and `binlog_stmt_cache_size`. Hence, before events are written to the actual binary log and relay log files, they are encrypted.
 
-#### When is an event decrypted?
+#### When is an Event Decrypted?
 
 When a `START_ENCRYPTION_EVENT` appears in the binary log or relay log, events are decrypted as they are read. This event comes right after the `FORMAT_DESCRIPTION_EVENT` in encrypted binary logs and relay logs, making it the second event in the log file.
 

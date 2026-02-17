@@ -5,56 +5,102 @@ description: >-
   plugins.
 ---
 
-# Aria Disabling Encryption
+# Aria: Disabling Encryption
 
-The process involved in safely disabling data-at-rest encryption for your Aria tables is very similar to that of enabling encryption. To disable, you need to set the relevant system variables and then rebuild each table into an unencrypted state.
+## Overview
 
-Don't remove the [Encryption Key Management](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) plugin from your configuration file until you have unencrypted all tables in your database. MariaDB cannot read encrypted tables without the relevant encryption key.
+This guide provides instructions for safely disabling encryption for the Aria storage engine, including user-created tables and internal on-disk temporary tables.
 
-## Disabling Encryption on User-Created Tables
+To fully disable encryption, you must set the relevant system variables and then rebuild each table to an unencrypted state.
 
-For user-created tables, you can disable encryption by setting the [aria\_encrypt\_tables](../../../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables) system variable to `OFF`. Once this is set, MariaDB no longer encrypts new tables created with the Aria storage engine.
+{% hint style="warning" %}
+**Important Safety Precautions**
+
+* Do not remove your Encryption Key Management plugin yet. MariaDB must be able to read the existing encrypted data to rewrite it in an unencrypted state.
+* Maintain configurations. Keep your key management settings in place until the very last step of the process.
+{% endhint %}
+
+{% stepper %}
+{% step %}
+### Disable encryption for new data.
+
+First, prevent MariaDB from encrypting any new data by updating the global system variables.
+
+#### User-Created Tables
+
+Set `aria_encrypt_tables` to `OFF`. This ensures that any new Aria tables created or existing tables rebuilt from this point forward will be unencrypted.
 
 ```sql
 SET GLOBAL aria_encrypt_tables = OFF;
 ```
 
-{% hint style="info" %}
-Unlike [InnoDB](../innodb-encryption/), Aria does not currently use background encryption threads. Before removing the [Encryption Key Management](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) plugin from the configuration file, you  need to manually rebuild each table to an unencrypted state.
-{% endhint %}
+To make this change persistent across server restarts, add the following to your [MariaDB configuration file](../../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) (for instance, `my.cnf`):
 
-To find the encrypted tables, query the Information Schema, filtering the [TABLES](../../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-tables-table.md) table for those that use the Aria storage engine and the `PAGE` [ROW\_FORMAT](../../../../../reference/sql-statements/data-definition/create/create-table.md#row_format).
-
-```sql
-SELECT TABLE_SCHEMA, TABLE_NAME
-FROM information_schema.TABLES
-WHERE ENGINE = 'Aria'
-  AND ROW_FORMAT = 'PAGE'
-  AND TABLE_SCHEMA != 'information_schema'
-  AND CREATE_OPTIONS LIKE '%`encrypted`=yes%';
+```ini
+[mysqld]
+aria_encrypt_tables = OFF
 ```
 
-Each table in that result set was written to disk in an encrypted state.
+#### Internal On-Disk Temporary Tables
 
-To remove the encryption of those tables,
-
-* Set the `aria_encrypt_tables` variable to `OFF`;
-* Leave the configuration for the encryption keys in place (otherwise, you cannot decrypt tables!);
-* Run the following [ALTER TABLE](../../../../../reference/sql-statements/data-definition/alter/alter-table/) statement for each encrypted table.
+MariaDB creates internal temporary tables using the Aria engine when `aria_used_for_temp_tables` is set to `ON`. To ensure these are no longer encrypted, set:
 
 ```sql
-ALTER TABLE test.aria_table ENGINE = Aria ROW_FORMAT = PAGE;
+SET GLOBAL encrypt_tmp_disk_tables = OFF;
+```
+{% endstep %}
+
+{% step %}
+### Identify encrypted Aria tables.
+
+Aria does not use background encryption threads (unlike InnoDB). Therefore, tables already on disk will remain encrypted until you manually rebuild them.
+
+Run the following query to identify which tables need to be rebuilt:
+
+```sql
+SELECT TABLE_SCHEMA, TABLE_NAME 
+FROM information_schema.TABLES 
+WHERE ENGINE = 'Aria' 
+  AND ROW_FORMAT = 'PAGE' 
+  AND TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys')
+  AND (CREATE_OPTIONS LIKE '%`encrypted`=yes%' OR CREATE_OPTIONS LIKE '%`encrypted`=1%');
+```
+{% endstep %}
+
+{% step %}
+### Rebuild tables to decrypt.
+
+To decrypt the tables identified in the previous step, you must rebuild them using an `ALTER TABLE` statement. This causes MariaDB to rewrite the data (`.MAD`) and index (`.MAI`) files in an unencrypted format.
+
+#### Option A: Manual Rebuild (Single Table)
+
+Use the following statement to rebuild a specific table:
+
+```sql
+ALTER TABLE db_name.table_name ENGINE=Aria, ALGORITHM=COPY;
 ```
 
-Once all of the Aria tables are rebuilt, they're unencrypted.
+#### Option B: Generate Rebuild Statements (Bulk)
 
-Optionally, you can remove the configuration for the encryption keys now.
+You can generate the DDL for all encrypted Aria tables at once using this query:
 
-## Disabling Encryption for Internal On-Disk Temporary Tables
+```sql
+SELECT CONCAT('ALTER TABLE `', table_schema, '`.`', table_name, 
+              '` ENGINE=Aria, ALGORITHM=COPY;') AS ddl
+FROM information_schema.tables
+WHERE ENGINE='Aria' 
+  AND TABLE_SCHEMA NOT IN ('mysql','information_schema','performance_schema','sys')
+  AND (CREATE_OPTIONS LIKE '%`encrypted`=yes%' OR CREATE_OPTIONS LIKE '%`encrypted`=1%');
+```
+{% endstep %}
 
-MariaDB routinely creates internal temporary tables. When these temporary tables are written to disk and the [aria\_used\_for\_temp\_tables](../../../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) system variable is set to `ON`, MariaDB uses the Aria storage engine.
+{% step %}
+### Verify and clean up.
 
-To decrypt these tables, set the [encrypt\_tmp\_disk\_tables](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables) to `OFF`. Once set, all internal temporary tables that are created from that point on are written unencrypted to disk.
+* Verify: Run the query from Step 2 again to ensure no encrypted Aria tables remain.
+* Remove Plugins (optional): Once all Aria tables (and any InnoDB tables or binary logs) are decrypted, you can safely remove the Encryption Key Management plugin from your configuration file and restart the server.
+{% endstep %}
+{% endstepper %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

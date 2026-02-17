@@ -1,7 +1,7 @@
 ---
 description: >-
-  Techniques to read encrypted binary logs using `mysqlbinlog` with key access,
-  as they cannot be decrypted in-place.
+  Techniques to read encrypted binary logs using mysqlbinlog with key access, as
+  they cannot be decrypted in-place.
 ---
 
 # Decrypt Binary Logs

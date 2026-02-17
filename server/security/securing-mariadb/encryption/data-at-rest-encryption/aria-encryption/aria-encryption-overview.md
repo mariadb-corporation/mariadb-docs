@@ -1,11 +1,11 @@
 ---
 description: >-
   Introduction to encrypting Aria tables, covering the necessary system
-  variables (`aria_encrypt_tables`, `encrypt_tmp_disk_tables`) and how to verify
+  variables (aria_encrypt_tables, encrypt_tmp_disk_tables) and how to verify
   encryption status by inspecting data files.
 ---
 
-# Aria Encryption Overview
+# Aria: Encryption Overview
 
 MariaDB can encrypt data in tables that use the [Aria storage engine](../../../../../server-usage/storage-engines/aria/). This includes both user-created tables and internal on-disk temporary tables that use the Aria storage engine. This ensures that your Aria data is only accessible through MariaDB.
 
@@ -17,10 +17,8 @@ In order to enable encryption for tables using the [Aria storage engine](../../.
 
 Users of data-at-rest encryption will also need to have a [key management and encryption plugin](../../../securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) configured. Some examples are [File Key Management Plugin](../key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) and [AWS Key Management Plugin](../key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md).
 
-```
+```ini
 [mariadb]
-...
-
 # File Key Management
 plugin_load_add = file_key_management
 file_key_management_filename = /etc/mysql/encryption/keyfile.enc
@@ -61,7 +59,7 @@ If you can find the plain text of the string, then you know that the table is no
 
 ## Encryption and the Aria Log
 
-Only Aria tables are currently encrypted. The [Aria log](../../../../../server-usage/storage-engines/aria/aria-faq.md#differences-between-aria-and-myisam) is not yet encrypted. See [MDEV-8587](https://jira.mariadb.org/browse/MDEV-8587) about that.
+Only Aria tables are currently encrypted. The [Aria log](../../../../../server-usage/storage-engines/aria/aria-faq.md#differences-between-aria-and-myisam) is not yet encrypted. See [MDEV-8587](https://jira.mariadb.org/browse/MDEV-8587).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -1,7 +1,7 @@
 ---
 description: >-
   Details the operation of background threads (configured via
-  `innodb_encryption_threads`) which handle key rotation, and the
+  innodb_encryption_threads) which handle key rotation, and the
   encryption/decryption of tablespaces when global settings.
 ---
 

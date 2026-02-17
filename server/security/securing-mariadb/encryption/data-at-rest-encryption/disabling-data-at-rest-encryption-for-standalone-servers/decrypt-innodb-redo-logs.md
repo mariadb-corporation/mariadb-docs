@@ -1,7 +1,7 @@
 ---
 description: >-
-  Steps to decrypt InnoDB redo logs by setting `innodb_redo_log_encrypt=OFF` and
-  restarting the server to generate plaintext logs.
+  Steps to decrypt InnoDB redo logs by setting innodb_redo_log_encrypt=OFF and
+  restarting the server to generate plain-text logs.
 ---
 
 # Decrypt InnoDB Redo Logs
