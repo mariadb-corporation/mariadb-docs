@@ -18,7 +18,7 @@ MariaDB Cloud typically uses an asynchronous primary/replica model, which provid
 A Galera cluster is a specialized, highly available environment within MariaDB Cloud designed for workloads that cannot tolerate replica lag.
 
 * Synchronous replication: Data is replicated synchronously across all nodes using write-set certification, ensuring transactions are committed everywhere simultaneously.
-* Multi-primary routing: All nodes in the cluster act as primary nodes, capable of accepting both reads and writes.
+* Single-writer routing: MariaDB MaxScale is configured to route all write traffic to a single active writer node at any given time to prevent transaction conflicts. Reads can be load-balanced across the remaining nodes.
 * Automated failover: If a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention or data loss.
 * Quorum management: The cluster automatically maintains a voting system (quorum) to prevent split-brain scenarios and preserve data integrity during network partitions.
 
@@ -72,20 +72,20 @@ flowchart TD
         MS
         
         subgraph AZ1 [Availability Zone 1]
-            Node1[(Node 1: Primary)]
+            Node1[(Node 1: Writer / Active)]
         end
         
         subgraph AZ2 [Availability Zone 2]
-            Node2[(Node 2: Primary)]
+            Node2[(Node 2: Reader / Standby)]
         end
         
         subgraph AZ3 [Availability Zone 3]
-            Node3[(Node 3: Primary)]
+            Node3[(Node 3: Reader / Standby)]
         end
         
-        MS -.->|Routes Traffic| Node1
-        MS -.->|Routes Traffic| Node2
-        MS -.->|Routes Traffic| Node3
+        MS -.->|Routes Writes & Reads| Node1
+        MS -.->|Routes Reads| Node2
+        MS -.->|Routes Reads| Node3
         
         Node1 <==>|Synchronous Replication| Node2
         Node2 <==>|Synchronous Replication| Node3
