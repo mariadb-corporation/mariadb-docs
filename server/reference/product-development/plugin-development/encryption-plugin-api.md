@@ -4,15 +4,15 @@ description: >-
   rest, including key management and encryption schemes.
 ---
 
-# Encryption Plugin API
+# Encryption Plugin Development
 
 {% include "../../../.gitbook/includes/this-page-contains-backgrou....md" %}
 
-MariaDB's [data-at-rest encryption](../../../security/securing-mariadb/encryption/data-at-rest-encryption/) requires the use of a [key management and encryption plugin](../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/). These plugins are responsible both for the management of encryption keys and for the actual encryption and decryption of data.
+MariaDB's [data-at-rest encryption](../../../security/encryption/data-at-rest-encryption/) requires the use of a [key management and encryption plugin](../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/). These plugins are responsible both for the management of encryption keys and for the actual encryption and decryption of data.
 
-MariaDB supports the use of [multiple encryption keys](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#using-multiple-encryption-keys). Each encryption key uses a 32-bit integer as a key identifier. If the specific plugin supports [key rotation](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#key-rotation),  encryption keys can also be rotated, which creates a new version of the encryption key.
+MariaDB supports the use of [multiple encryption keys](../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#using-multiple-encryption-keys). Each encryption key uses a 32-bit integer as a key identifier. If the specific plugin supports [key rotation](../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md#key-rotation),  encryption keys can also be rotated, which creates a new version of the encryption key.
 
-See [Data at Rest Encryption](../../../security/securing-mariadb/encryption/data-at-rest-encryption/) and [Encryption Key Management](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) for more information.
+See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/) and [Encryption Key Management](../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md) for more information.
 
 ## Encryption Plugin API
 
@@ -140,13 +140,13 @@ The MariaDB source tree has four encryption plugins. All these plugins are fairl
 ### file\_key\_management
 
 It reads encryption keys from a plain-text file. It supports two different encryption algorithms. It supports multiple encryption keys. It does not support key rotation.\
-See [File Key Management Plugin](../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#using-the-file-key-management-plugin) for details.
+See [File Key Management Plugin](../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#using-the-file-key-management-plugin) for details.
 
 ### aws\_key\_management
 
 The AWS Key Management plugin uses the [Amazon Web Services (AWS) Key Management Service (KMS)](https://aws.amazon.com/kms/) to generate and store AES keys on disk, in encrypted form, using the Customer Master Key (CMK) kept in AWS KMS. When MariaDB Server starts, the plugin will decrypt the encrypted keys, using the AWS KMS "Decrypt" API function. MariaDB data will then be encrypted and decrypted using the AES key. It supports multiple encryption keys. It supports key rotation.
 
-See [AWS Key Management Plugin](../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) for details.
+See [AWS Key Management Plugin](../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) for details.
 
 ### example\_key\_management
 

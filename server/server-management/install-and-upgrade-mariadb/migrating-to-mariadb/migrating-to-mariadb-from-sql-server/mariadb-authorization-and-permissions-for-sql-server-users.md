@@ -113,9 +113,9 @@ A particular user can be required to use TLS connections. Additional requirement
 
 These requirements can be set with `CREATE USER`, `ALTER USER` or `GRANT`. For the syntax, see [CREATE USER](../../../../reference/sql-statements/account-management-sql-statements/create-user.md#tls-options).
 
-MariaDB can be bundled with several cryptography libraries, depending on its version. For more information about the libraries, see [TLS and Cryptography Libraries Used by MariaDB](../../../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md).
+MariaDB can be bundled with several cryptography libraries, depending on its version. For more information about the libraries, see [TLS and Cryptography Libraries Used by MariaDB](../../../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md).
 
-For more information about secure connections, see [Secure Connections Overview](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+For more information about secure connections, see [Secure Connections Overview](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
 ## Permissions
 

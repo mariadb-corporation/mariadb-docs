@@ -507,35 +507,35 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_encryption_rotation_estimated_iops`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_flushed`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_modified`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_read_from_cache`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_read_from_disk`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -921,13 +921,13 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_num_pages_decrypted`
 
-* Description: Number of pages page decrypted. See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Number of pages page decrypted. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 
 #### `Innodb_num_pages_encrypted`
 
-* Description: Number of pages page encrypted. See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Number of pages page encrypted. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 
@@ -951,7 +951,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_num_pages_page_encryption_error`
 
-* Description: Number of page encryption errors. See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Number of page encryption errors. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1234,7 +1234,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_reorganizations`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1242,7 +1242,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_split_failures_missing_index`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1250,7 +1250,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_split_failures_out_of_filespace`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1258,21 +1258,21 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_split_failures_underflow`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
 
 #### `Innodb_scrub_background_page_split_failures_unknown`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
 
 #### `Innodb_scrub_background_page_splits`
 
-* Description: See [Table and Tablespace Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)

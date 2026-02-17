@@ -154,7 +154,7 @@ The directory containing binary logs should be restricted at the OS[^1] level.
 If your disk is compromised or a backup of the logs is stolen, raw binary logs are vulnerable.
 
 * MariaDB Encryption: Enable the built-in MariaDB transparent encryption for binary logs. This ensures that even if someone copies the `.000001` file, they cannot decode it without the encryption keys.
-* See detailed instructions for [encrypting binary logs](../../../security/securing-mariadb/encryption/data-at-rest-encryption/encrypting-binary-logs.md).
+* See detailed instructions for [encrypting binary logs](../../../security/encryption/data-at-rest-encryption/encrypting-binary-logs.md).
 
 ### Secure Transport
 

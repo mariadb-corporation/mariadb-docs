@@ -21,7 +21,7 @@ The return value is a nonbinary string in the connection [character set and coll
 `NULL` is returned if the hash length is not valid, or the string `str` is `NULL`.
 
 {% hint style="warning" %}
-`SHA2` only works if MariaDB is configured with [TLS support](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+`SHA2` only works if MariaDB is configured with [TLS support](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 {% endhint %}
 
 ## Examples

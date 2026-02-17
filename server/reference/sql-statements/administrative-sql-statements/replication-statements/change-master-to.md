@@ -331,15 +331,15 @@ If the [slave\_net\_timeout](../../../../ha-and-performance/standard-replication
 
 ### TLS Options
 
-The TLS options are used for providing information about [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). The options can be set even on replicas that are compiled without TLS support. The TLS options are saved to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, but these TLS options are ignored unless the replica supports TLS.
+The TLS options are used for providing information about [TLS](../../../../security/encryption/data-in-transit-encryption/). The options can be set even on replicas that are compiled without TLS support. The TLS options are saved to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, but these TLS options are ignored unless the replica supports TLS.
 
-See [Replication with Secure Connections](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/replication-with-secure-connections.md) for more information.
+See [Replication with Secure Connections](../../../../security/encryption/data-in-transit-encryption/replication-with-secure-connections.md) for more information.
 
 Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options, enabling replication channels to share a central configuration specified in the server's option file. When `DEFAULT` is used, values are derived from corresponding system variables (e.g., `MASTER_SSL_CA` derives from `replication_ssl_ca`). See [Default System Variables](change-master-to.md#default-system-variables) for a full list of supported variables.
 
 #### MASTER\_SSL
 
-The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since 12.3). Required to be set to `1` for the other `MASTER_SSL*` options to have any effect.&#x20;
+The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since 12.3). Required to be set to `1` for the other `MASTER_SSL*` options to have any effect.&#x20;
 
 For example:
 
@@ -354,7 +354,7 @@ START SLAVE;
 
 #### MASTER\_SSL\_CA
 
-The `MASTER_SSL_CA` option for `CHANGE MASTER` defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
+The `MASTER_SSL_CA` option for `CHANGE MASTER` defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
 
 For example:
 
@@ -368,13 +368,13 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-See [Secure Connections Overview: Certificate Authorities (CAs)](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. The maximum length of `MASTER_SSL_CA` string is 511 characters.
+See [Secure Connections Overview: Certificate Authorities (CAs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. The maximum length of `MASTER_SSL_CA` string is 511 characters.
 
 > This option accepts a path or `DEFAULT` (available since 12.3). If `DEFAULT` is used, the value is inherited from `replication_ssl_ca`.
 
 #### MASTER\_SSL\_CAPATH
 
-The `MASTER_SSL_CAPATH` option for `CHANGE MASTER` defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
+The `MASTER_SSL_CAPATH` option for `CHANGE MASTER` defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
 
 For example:
 
@@ -388,13 +388,13 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-See [Secure Connections Overview: Certificate Authorities (CAs)](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. The maximum length of `MASTER_SSL_CA_PATH` string is 511 characters.
+See [Secure Connections Overview: Certificate Authorities (CAs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. The maximum length of `MASTER_SSL_CA_PATH` string is 511 characters.
 
 > This option accepts a path or `DEFAULT` (available since 12.3). If `DEFAULT` is used, the value is inherited from `replication_ssl_capath`.
 
 #### MASTER\_SSL\_CERT
 
-The `MASTER_SSL_CERT` option for `CHANGE MASTER` defines a path to the X509 certificate file to use for [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
+The `MASTER_SSL_CERT` option for `CHANGE MASTER` defines a path to the X509 certificate file to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
 
 For example:
 
@@ -414,9 +414,9 @@ The maximum length of `MASTER_SSL_CERT` string is 511 characters.&#x20;
 
 #### MASTER\_SSL\_CRL
 
-The `MASTER_SSL_CRL` option for `CHANGE MASTER` defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
+The `MASTER_SSL_CRL` option for `CHANGE MASTER` defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
 
-This option is only supported if the server was built with OpenSSL. If the server was built with yaSSL, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+This option is only supported if the server was built with OpenSSL. If the server was built with yaSSL, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 For example:
 
@@ -431,15 +431,15 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. The maximum length of `MASTER_SSL_CRL` string is 511 characters.
+See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. The maximum length of `MASTER_SSL_CRL` string is 511 characters.
 
 > Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is derived from the `replication_ssl_crl` system variable.
 
 #### MASTER\_SSL\_CRLPATH
 
-The `MASTER_SSL_CRLPATH` option for `CHANGE MASTER` defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this variable needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
+The `MASTER_SSL_CRLPATH` option for `CHANGE MASTER` defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this variable needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command.
 
-This option is only supported if the server was built with OpenSSL. If the server was built with yaSSL, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+This option is only supported if the server was built with OpenSSL. If the server was built with yaSSL, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 For example:
 
@@ -454,13 +454,13 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. The maximum length of `MASTER_SSL_CRL_PATH` string is 511 characters.
+See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. The maximum length of `MASTER_SSL_CRL_PATH` string is 511 characters.
 
 > This option accepts the `DEFAULT` keyword (available since 12.3). When set to `DEFAULT`, the value is inherited from the `replication_ssl_crlpath` system variable.
 
 #### MASTER\_SSL\_KEY
 
-The `MASTER_SSL_KEY` option for `CHANGE MASTER` defines a path to a private key file to use for [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
+The `MASTER_SSL_KEY` option for `CHANGE MASTER` defines a path to a private key file to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
 
 For example:
 
@@ -480,7 +480,7 @@ The maximum length of `MASTER_SSL_KEY` string is 511 characters.
 
 #### MASTER\_SSL\_CIPHER
 
-The `MASTER_SSL_CIPHER` option for `CHANGE MASTER` defines the list of permitted ciphers or cipher suites to use for [TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/). Besides cipher names, if MariaDB was compiled with OpenSSL, this option could be set to "SSLv3" or "TLSv1.2" to allow all SSLv3 or all TLSv1.2 ciphers. Note that the TLSv1.3 ciphers cannot be excluded when using OpenSSL, even by using this option. See [Using TLSv1.3](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/using-tlsv13.md) for details.
+The `MASTER_SSL_CIPHER` option for `CHANGE MASTER` defines the list of permitted ciphers or cipher suites to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). Besides cipher names, if MariaDB was compiled with OpenSSL, this option could be set to "SSLv3" or "TLSv1.2" to allow all SSLv3 or all TLSv1.2 ciphers. Note that the TLSv1.3 ciphers cannot be excluded when using OpenSSL, even by using this option. See [Using TLSv1.3](../../../../security/encryption/data-in-transit-encryption/using-tlsv13.md) for details.
 
 For example:
 
@@ -503,11 +503,11 @@ The maximum length of `MASTER_SSL_CIPHER` string is 511 characters.
 
 {% tabs %}
 {% tab title="Current" %}
-The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default.
+The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default.
 {% endtab %}
 
 {% tab title="< 11.4" %}
-The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
+The `MASTER_SSL_VERIFY_SERVER_CERT` option for `CHANGE MASTER` enables [server certificate verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 {% endtab %}
 {% endtabs %}
 
@@ -523,7 +523,7 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-See [Secure Connections Overview: Server Certificate Verification](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) for more information.
+See [Secure Connections Overview: Server Certificate Verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) for more information.
 
 > Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is inherited from the `replication_ssl_verify_server_cert` system variable.
 

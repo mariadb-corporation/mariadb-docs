@@ -149,7 +149,7 @@ Even if MariaDB is configured for remote access, a firewall on the server (softw
 
 ### Important Considerations and Reverting Changes
 
-* **Security:** Opening MariaDB to remote connections, especially to the internet, increases security risks. Always use strong passwords, grant minimal necessary privileges, and restrict host access as much as possible. Consider using TLS/SSL for encrypted connections (see [Secure Connections Overview](../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md)).
+* **Security:** Opening MariaDB to remote connections, especially to the internet, increases security risks. Always use strong passwords, grant minimal necessary privileges, and restrict host access as much as possible. Consider using TLS/SSL for encrypted connections (see [Secure Connections Overview](../security/encryption/data-in-transit-encryption/secure-connections-overview.md)).
 * **Reverting:** To disable remote access and revert to a more secure local-only setup:
   1. Edit your MariaDB configuration file.
   2. Ensure `skip-networking` is not enabled (or is `0`).

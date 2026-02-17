@@ -111,7 +111,7 @@ For connections to localhost, this specifies either the Unix socket file to use 
 
 ### TLS Options
 
-A brief listing is provided below. See [Secure Connections Overview](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) and [TLS System Variables](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md) for more detail.
+A brief listing is provided below. See [Secure Connections Overview](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) and [TLS System Variables](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md) for more detail.
 
 #### ssl
 
