@@ -2,10 +2,9 @@
 
 [MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) is no longer maintained. Please use a [more recent release](../../../latest-releases.md).
 
-The most recent release in the [MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) series is: [**MariaDB 10.0.38**](10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) is a previous stable series of MariaDB. It is built on the [MariaDB 5.5 series](../5.5/changes-improvements-in-mariadb-5-5.md) with backported features from MySQL 5.6\
-and entirely new features not found anywhere else. The first stable release was in March 2014, and the final release was in January 2019.
+[MariaDB 10.0](changes-improvements-in-mariadb-10-0.md) is a previous stable series of MariaDB. It is built on the [MariaDB 5.5 series](../5.5/changes-improvements-in-mariadb-5-5.md) with backported features from MySQL 5.6 and entirely new features not found anywhere else. The first stable release was in March 2014, and the final release was in January 2019.
 
 For details on upgrading from [MariaDB 5.5](../5.5/changes-improvements-in-mariadb-5-5.md), see [Upgrading from MariaDB 5.5 to MariaDB 10.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5).
 
