@@ -2,20 +2,6 @@
 description: >-
   Documentation for the embedded MariaDB server library, which allows for a full
   MariaDB server to run inside a client application process.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # libmysqld

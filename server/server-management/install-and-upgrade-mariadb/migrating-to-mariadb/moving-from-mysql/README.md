@@ -2,20 +2,6 @@
 description: >-
   Complete MySQL to MariaDB migration: mysqldump/mysql import steps, SQL syntax
   compatibility, user/privilege migration, and replication configuration.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Migrating to MariaDB from MySQL

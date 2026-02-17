@@ -2,20 +2,6 @@
 description: >-
   Details the processes and methodologies used to ensure code quality, focusing
   on testing frameworks and bug verification during development.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Quality Assurance

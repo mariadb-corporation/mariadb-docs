@@ -77,24 +77,23 @@ Starting from [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/comm
 
 To enable one-way TLS manually (for older clients or if you want verification with CA certificate) you can specify these options in a relevant client [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
-```
+```ini
 [client-mariadb]
-...
 ssl_ca = /etc/my.cnf.d/certificates/ca.pem
 ssl-verify-server-cert
 ```
 
 Or if you wanted to specify them on the command-line with the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client, then you could execute something like this:
 
-```
+```bash
 $ mariadb -u myuser -p -h myserver.mydomain.com \
    --ssl-ca=/etc/my.cnf.d/certificates/ca.pem \
    --ssl-verify-server-cert
 ```
 
-You can disable server certificate verification with
+You can disable server certificate verification by configuring this:
 
-```
+```ini
 [client-mariadb]
 disable-ssl-verify-server-cert
 ```
@@ -107,9 +106,8 @@ Two-way TLS means that both the client and server provide a private key and an X
 
 For example, to specify these options in a relevant client [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), you could set the following:
 
-```
+```ini
 [client-mariadb]
-...
 ssl_cert = /etc/my.cnf.d/certificates/client-cert.pem
 ssl_key = /etc/my.cnf.d/certificates/client-key.pem
 ssl_ca = /etc/my.cnf.d/certificates/ca.pem
@@ -118,7 +116,7 @@ ssl-verify-server-cert
 
 Or if you wanted to specify them on the command-line with the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client, then you could execute something like this:
 
-```
+```bash
 $ mariadb -u myuser -p -h myserver.mydomain.com \
    --ssl-cert=/etc/my.cnf.d/certificates/client-cert.pem \
    --ssl-key=/etc/my.cnf.d/certificates/client-key.pem \
@@ -156,7 +154,7 @@ SHOW SESSION STATUS LIKE 'Ssl_version';
 
 ## Requiring TLS
 
-From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [require\_secure\_transport](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#require_secure_transport) system variable is available. When set (by default it is off), connections attempted using insecure transport will be rejected. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that requirements set for specific user accounts will take precedence over this setting.
+The [require\_secure\_transport](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#require_secure_transport) system variable can be set (by default it is off) to reject connections attempted using insecure transport. Secure transports are SSL/TLS, Unix sockets or named pipes. Note that requirements set for specific user accounts will take precedence over this setting.
 
 ### Requiring TLS for Specific User Accounts
 

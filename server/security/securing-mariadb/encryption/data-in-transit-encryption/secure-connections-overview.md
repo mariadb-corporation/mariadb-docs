@@ -1,7 +1,7 @@
 ---
 description: >-
   Conceptual overview of data-in-transit encryption in MariaDB, discussing
-  supported TLS libraries (OpenSSL, wolfSSL), protocol versions (`tls_version`),
+  supported TLS libraries (OpenSSL, wolfSSL), protocol versions (tls_version),
   and certificate verification.
 ---
 
@@ -55,9 +55,8 @@ The [PCI DSS v3.2](https://blog.pcisecuritystandards.org/resource-guide-migratin
 
 On the **server** side, users can enable specific TLS protocol versions by setting the [tls\_version](ssltls-system-variables.md#tls_version) system variable. This system variable accepts a comma-separated list of TLS protocol versions. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. This system variable can be specified as a command-line argument to [mariadbd](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
-```
+```ini
 [mariadb]
-...
 tls_version = TLSv1.2,TLSv1.3
 ```
 
@@ -69,15 +68,14 @@ SHOW GLOBAL VARIABLES LIKE 'tls_version';
 
 On the **client** side, users can enable specific TLS protocol versions by setting the `--tls-version` option. This option accepts a comma-separated list of TLS protocol versions. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. For example, to specify this option in a relevant client [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), you could set the following:
 
-```
+```ini
 [client-mariadb]
-...
 tls_version = TLSv1.2,TLSv1.3
 ```
 
 Or if you wanted to specify it on the command-line with the [mariadb](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) client, then you could execute something like this:
 
-```
+```bash
 $ mariadb -u myuser -p -h myserver.mydomain.com \
    --ssl \
    --tls-version="TLSv1.2,TLSv1.3"
@@ -99,15 +97,15 @@ See [TLS and Cryptography Libraries Used by MariaDB](../tls-and-cryptography-lib
 
 #### TLS Protocol Version Support in OpenSSL
 
-MariaDB binaries built with the [OpenSSL](https://www.openssl.org/) library ([OpenSSL 1.0.1](https://www.openssl.org/news/changelog.html) or later) support TLSv1.1 and TLSv1.2 since [MariaDB 5.5.41](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.41), [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.15), and [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.4).
+MariaDB binaries built with the [OpenSSL](https://www.openssl.org/) library ([OpenSSL 1.0.1](https://www.openssl.org/news/changelog.html) or later) support TLSv1.1 and TLSv1.2.
 
-MariaDB binaries built with the [OpenSSL](https://www.openssl.org/) library ([OpenSSL 1.1.1](https://www.openssl.org/news/changelog.html) or later) support TLSv1.3 since [MariaDB 10.2.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.16) and [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8).
+MariaDB binaries built with the [OpenSSL](https://www.openssl.org/) library ([OpenSSL 1.1.1](https://www.openssl.org/news/changelog.html) or later) support TLSv1.3.
 
 If your MariaDB Server binary is built with [OpenSSL](https://www.openssl.org/), then you can set the [ssl\_cipher](ssltls-system-variables.md) system variable to values like `SSLv3` or `TLSv1.2` to allow all SSLv3.0 or all TLSv1.2 ciphers. However, this does not necessarily limit the protocol version to TLSv1.2. See [MDEV-14101](https://jira.mariadb.org/browse/MDEV-14101) for more information about that.
 
 Note that the `TLSv1.3` ciphers cannot be excluded when using [OpenSSL](https://www.openssl.org/), even by using the [ssl\_cipher](ssltls-system-variables.md) system variable. See [Using TLSv1.3](using-tlsv13.md) for details.
 
-SSLv3.0 is known to be vulnerable to the [POODLE attack](https://en.wikipedia.org/wiki/POODLE), so it should not be used. SSLv2.0 and SSLv3.0 are disabled for MariaDB Server binaries linked with [OpenSSL](https://www.openssl.org/) since [MariaDB 5.5.41](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.41), [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.15), and [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.4). If you are using a MariaDB version older than that and you cannot upgrade, then please see the section titled "SSL 3.0 Fallback protection" in [OpenSSL Security Advisory - 15 Oct 2014](https://www.openssl.org/news/secadv/20141015.txt).
+SSLv3.0 is known to be vulnerable to the [POODLE attack](https://en.wikipedia.org/wiki/POODLE), so it should not be used. SSLv2.0 and SSLv3.0 are disabled for MariaDB Server binaries linked with [OpenSSL](https://www.openssl.org/).
 
 #### TLS Protocol Version Support in wolfSSL
 
@@ -117,7 +115,7 @@ MariaDB binaries built with the bundled [wolfSSL](https://www.wolfssl.com/produc
 
 MariaDB binaries built with the bundled [yaSSL](https://www.wolfssl.com/products/yassl/) library support SSLv3.0, TLSv1.0, and TLSv1.1.
 
-SSLv3.0 is known to be vulnerable to the [POODLE attack](https://en.wikipedia.org/wiki/POODLE), so it should not be used. SSLv2.0 and SSLv3.0 are disabled for MariaDB Server binaries linked with [yaSSL](https://www.wolfssl.com/products/yassl/) since [MariaDB 5.5.41](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.41), [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.15), and [MariaDB 10.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.4).
+SSLv3.0 is known to be vulnerable to the [POODLE attack](https://en.wikipedia.org/wiki/POODLE), so it should not be used. SSLv2.0 and SSLv3.0 are disabled for MariaDB Server binaries linked with [yaSSL](https://www.wolfssl.com/products/yassl/).
 
 #### TLS Protocol Version Support in Schannel
 
@@ -154,13 +152,13 @@ See [TLS and Cryptography Libraries Used by MariaDB](../tls-and-cryptography-lib
 
 The directory specified by [ssl\_capath](ssltls-system-variables.md#ssl_capath) needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. For example, if the following is configured:
 
-```
+```ini
 ssl_capath=/etc/my.cnf.d/certificates/ca/
 ```
 
-Then you would have to execute the following:
+Then execute the following command:
 
-```
+```bash
 openssl rehash /etc/my.cnf.d/certificates/ca/
 ```
 
@@ -182,13 +180,13 @@ See [TLS and Cryptography Libraries Used by MariaDB](../tls-and-cryptography-lib
 
 The directory specified by [ssl\_crlpath](ssltls-system-variables.md#ssl_crlpath) needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. For example, if the following is configured:
 
-```
+```ini
 ssl_crlpath=/etc/my.cnf.d/certificates/crl/
 ```
 
-Then you would have to execute the following:
+Then execute the following command:
 
-```
+```bash
 openssl rehash /etc/my.cnf.d/certificates/crl/
 ```
 
@@ -210,9 +208,9 @@ See [TLS and Cryptography Libraries Used by MariaDB](../tls-and-cryptography-lib
 
 **SAN Support with OpenSSL, wolfSSL, and yaSSL**
 
-For [clients and utilities](../../../../clients-and-utilities/) built with [OpenSSL](https://www.openssl.org/) ([OpenSSL 1.0.2](https://www.openssl.org/news/changelog.html) or later), support for server certificate verification with **subjectAltName** fields that contain the server's **host name** was added in [MariaDB 10.1.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.23) and [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6). See [MDEV-10594](https://jira.mariadb.org/browse/MDEV-10594) for more information.
+For [clients and utilities](../../../../clients-and-utilities/) built with [OpenSSL](https://www.openssl.org/) ([OpenSSL 1.0.2](https://www.openssl.org/news/changelog.html) or later), support for server certificate verification with **subjectAltName** fields that contain the server's **host name** was added.
 
-For [clients and utilities](../../../../clients-and-utilities/) built with [OpenSSL](https://www.openssl.org/) ([OpenSSL 1.0.2](https://www.openssl.org/news/changelog.html) or later), support for server certificate verification with **subjectAltName** fields that contain the server's **IP address** was added in [MariaDB 10.1.39](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.39), [MariaDB 10.2.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.24), [MariaDB 10.3.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.15), and [MariaDB 10.4.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.5). See [MDEV-18131](https://jira.mariadb.org/browse/MDEV-18131) for more information.
+For [clients and utilities](../../../../clients-and-utilities/) built with [OpenSSL](https://www.openssl.org/) ([OpenSSL 1.0.2](https://www.openssl.org/news/changelog.html) or later), support for server certificate verification with **subjectAltName** fields that contain the server's **IP address** was added.
 
 This support also applies to other TLS libraries that use OpenSSL's API. In OpenSSL's API, server certificate verification with **subjectAltName** fields depends on the [X509\_check\_host](https://www.openssl.org/docs/man1.1.1/man3/X509_check_host.html) and [X509\_check\_ip](https://www.openssl.org/docs/man1.1.1/man3/X509_check_host.html) functions. These functions are supported in the following TLS libraries:
 
@@ -223,7 +221,7 @@ And they are **not** supported in the following TLS libraries:
 
 * [yaSSL](https://www.wolfssl.com/products/yassl/)
 
-MariaDB's [RPM packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) were built with [OpenSSL](https://www.openssl.org/) 1.0.1 on RHEL 7 and CentOS 7, even after OpenSSL 1.0.2 became available on those distributions. As a side effect, the [clients and utilities](../../../../clients-and-utilities/) bundled in these packages did not support server certificate verification with the **subjectAltName** field, even if the packages were installed on a system that had OpenSSL 1.0.2 installed. Starting with MariaDB [MariaDB 10.1.39](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.39), [MariaDB 10.2.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.23), [MariaDB 10.3.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.14), and [MariaDB 10.4.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.4), MariaDB's [RPM packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) on RHEL 7 and CentOS 7 are built with OpenSSL 1.0.2. See [MDEV-18277](https://jira.mariadb.org/browse/MDEV-18277) for more information.
+MariaDB's [RPM packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) were built with [OpenSSL](https://www.openssl.org/) 1.0.1 on RHEL 7 and CentOS 7, even after OpenSSL 1.0.2 became available on those distributions. As a side effect, the [clients and utilities](../../../../clients-and-utilities/) bundled in these packages did not support server certificate verification with the **subjectAltName** field, even if the packages were installed on a system that had OpenSSL 1.0.2 installed. MariaDB's [RPM packages](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) on RHEL 7 and CentOS 7 are built with OpenSSL 1.0.2.
 
 **SAN Support with Schannel**
 
@@ -247,7 +245,7 @@ The server verifies a client certificate by checking the client's known `SUBJECT
 * [Securing Communications in Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
 * [SSL/TLS System Variables](ssltls-system-variables.md)
 * [Data-at-Rest Encryption](../../securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md)
-* [Cyberciti tutorial: How to setup MariaDB SSL and secure connections from clients](https://www.cyberciti.biz/faq/how-to-setup-mariadb-ssl-and-secure-connections-from-clients/)
+* [Cyberciti tutorial: How to set up MariaDB SSL and secure connections from clients](https://www.cyberciti.biz/faq/how-to-setup-mariadb-ssl-and-secure-connections-from-clients/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

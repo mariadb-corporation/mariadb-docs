@@ -3,20 +3,6 @@ description: >-
   Details the APIs and processes for extending MariaDB functionality through
   custom plugins, such as authentication, logging, or specialized server
   enhancements.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Plugin Development
@@ -56,4 +42,3 @@ This section contains background information, mostly aimed at engineers developi
 {% content-ref url="storage-engines-storage-engine-development/" %}
 [storage-engines-storage-engine-development](storage-engines-storage-engine-development/)
 {% endcontent-ref %}
-

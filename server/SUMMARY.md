@@ -654,7 +654,6 @@
       * [Data-in-Transit Encryption](security/securing-mariadb/encryption/data-in-transit-encryption/README.md)
         * [Certificate Creation with OpenSSL](security/securing-mariadb/encryption/data-in-transit-encryption/certificate-creation-with-openssl.md)
         * [Enabling TLS on MariaDB Server](security/securing-mariadb/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server.md)
-        * [Requiring TLS on MariaDB Server](security/securing-mariadb/encryption/data-in-transit-encryption/data-in-transit-encryption-requiring-tls-on-mariadb-server.md)
         * [Replication with Secure Connections](security/securing-mariadb/encryption/data-in-transit-encryption/replication-with-secure-connections.md)
         * [Secure Connections Overview](security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md)
         * [Securing Connections for Client and Server](security/securing-mariadb/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md)

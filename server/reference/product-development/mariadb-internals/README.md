@@ -3,20 +3,6 @@ description: >-
   Explores the low-level architecture of MariaDB, documenting source code
   internals, merging procedures, and how to use internal APIs in external
   programs.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # MariaDB Internals

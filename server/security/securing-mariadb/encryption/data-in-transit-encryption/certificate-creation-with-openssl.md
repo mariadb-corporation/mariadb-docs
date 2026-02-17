@@ -6,12 +6,13 @@ description: >-
 
 # Certificate Creation with OpenSSL
 
-**Warning**: the instructions below generate version 1 certificates only. These work fine with servers and clients using OpenSSL, but fail if WolfSSL is used instead, as is the case for our Windows MSI packages and our binary tarballs for Linux.
+{% hint style="warning" %}
+The instructions below generate version 1 certificates only. These work fine with servers and clients using OpenSSL, but fail if WolfSSL is used instead, as is the case for our Windows MSI packages and our binary tarballs for Linux.
 
 WolfSSL requires version 3 certificates instead when using TLS v1.2 or higher, and so won't work with certificates generated as shown here when using two-way TLS with explicit client certificates.
 
-Generating version 3 certificates requires a few more minor steps, we will upgrade the instructions below soon to include these.\
-See also: [MDEV-25701](https://jira.mariadb.org/browse/MDEV-25701)
+Generating version 3 certificates requires a few more steps. See also: [MDEV-25701](https://jira.mariadb.org/browse/MDEV-25701)
+{% endhint %}
 
 In order to secure communications with the MariaDB Server using TLS, you need to create a private key and an X509 certificate for the server. You may also want to create additional private keys and X509 certificates for any clients that need to connect to the server with TLS. This guide covers how to create a private key and a self-signed X509 certificate with OpenSSL.
 
@@ -38,7 +39,7 @@ After that, you can use the private key to generate the X509 certificate for the
 
 The above commands create two files in the working directory: The `ca-key.pem` private key and the `ca.pem` X509 certificate are both are used by the CA to create self-signed X509 certificates below.
 
-### Creating a Private Key and a Self-signed Certificate
+### Creating a Private Key and a Self-Signed Certificate
 
 Once you have the CA's private key and X509 certificate, you can create the self-signed X509 certificates to use for the MariaDB Server, client, replication and other purposes.
 

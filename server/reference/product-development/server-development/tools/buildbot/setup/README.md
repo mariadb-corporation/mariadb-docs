@@ -2,20 +2,6 @@
 description: >-
   A comprehensive guide on the requirements and steps necessary to configure and
   deploy a Buildbot instance for MariaDB.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Buildbot Setup

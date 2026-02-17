@@ -2,20 +2,6 @@
 description: >-
   A guide to the essential software and utilities recommended for building,
   testing, and optimizing MariaDB Server code.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # MariaDB Development Tools

@@ -2,20 +2,6 @@
 description: >-
   Guide to safely disabling data-at-rest encryption on a standalone server by
   systematically decrypting tables and logs.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Disabling Data-at-Rest Encryption for Standalone Servers

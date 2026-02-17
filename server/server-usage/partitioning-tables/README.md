@@ -3,20 +3,6 @@ description: >-
   Optimize large tables in MariaDB Server with partitioning. Learn how to divide
   tables into smaller, manageable parts for improved performance, easier
   maintenance, and scalability.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Partitioning Tables

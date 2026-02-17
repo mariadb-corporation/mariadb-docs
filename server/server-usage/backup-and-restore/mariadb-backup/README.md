@@ -3,20 +3,6 @@ description: >-
   Get an overview of MariaDB Backup. This section introduces the hot physical
   backup tool, explaining its capabilities for efficient and consistent backups
   of your MariaDB Server.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # mariadb-backup

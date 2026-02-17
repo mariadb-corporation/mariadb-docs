@@ -3,20 +3,6 @@ description: >-
   Details the asynchronous API used to perform database operations without
   blocking the execution thread, improving performance in high-concurrency
   applications.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Non-Blocking Client Library

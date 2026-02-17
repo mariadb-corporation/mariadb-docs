@@ -2,20 +2,6 @@
 description: >-
   Serves as the primary category overview explaining the processes and
   strategies used to merge various source trees into the MariaDB codebase.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Merging into MariaDB

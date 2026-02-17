@@ -3,20 +3,6 @@ description: >-
   Covers foundational engineering topics, including the server roadmap, GitHub
   collaboration workflows, and quality assurance protocols for core
   contributions.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Server Development

@@ -2,20 +2,6 @@
 description: >-
   This section covers SQL commands for creating, altering, and dropping stored
   procedures and functions, essential for programmatic database logic.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Stored Routine Statements

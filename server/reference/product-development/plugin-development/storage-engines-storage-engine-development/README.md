@@ -2,20 +2,6 @@
 description: >-
   A dedicated resource for engineers to learn how to build or modify storage
   engines, detailing the pluggable API and data handling at the physical level.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Storage Engine Development

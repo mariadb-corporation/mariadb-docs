@@ -3,20 +3,6 @@ description: >-
   Understand MariaDB Server's storage engines. Explore the features and use
   cases of InnoDB, Aria, MyISAM, and other engines to choose the best option for
   your specific data needs.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Storage Engines

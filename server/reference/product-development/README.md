@@ -2,20 +2,6 @@
 description: >-
   Provides background information and high-level resources aimed at engineers
   developing new MariaDB features and contributing to the ecosystem.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Product Development

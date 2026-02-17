@@ -2,20 +2,6 @@
 description: >-
   Overview of the continuous integration system used to automate the building
   and testing of MariaDB across various platforms.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Buildbot

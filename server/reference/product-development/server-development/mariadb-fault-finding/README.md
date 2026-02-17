@@ -3,20 +3,6 @@ description: >-
   Offers deep-dive technical guides for diagnosing server issues, including
   trace file generation, debugger usage, and analyzing core dumps or memory
   usage.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Debugging & Troubleshooting
