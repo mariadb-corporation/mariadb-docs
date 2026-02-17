@@ -40,7 +40,7 @@ SET GLOBAL innodb_encryption_rotate_key_age = 1;
 To make these changes persistent, update your [MariaDB configuration file](../../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
 ```ini
-[mysqld]
+[mariadb]
 innodb_encrypt_tables = OFF
 innodb_encryption_threads = 4
 innodb_encryption_rotate_key_age = 1
@@ -77,14 +77,30 @@ ALTER TABLE db_name.table_name ENCRYPTION='N';
 
 The Redo Log must be decrypted separately. This requires a server restart.
 
-1.  Add the following to your MariaDB configuration file:
+The Redo Log is decrypted by ensuring the server can read the existing logs at startup and then configuring it to write new logs in plaintext.
+
+1. Ensure keys are active: Before attempting to disable Redo Log encryption, verify that your [key management plugin](../key-management-and-encryption-plugins/) is fully functional. MariaDB must be able to decrypt the current `ib_logfile` members during the startup/recovery phase.
+2.  Update Configuration: Change the `innodb_redo_log_encrypt` system variable to `OFF` in your server option file (for instance, `my.cnf`):
 
     ```ini
-    [mysqld]
-    innodb_encrypt_log = OFF
+    [mariadb]
+    # Ensure the plugin remains loaded for this restart!
+    innodb_redo_log_encrypt = OFF
     ```
-2. Restart the MariaDB Server.&#x20;
-3. Upon restart, MariaDB begins writing unencrypted data to the Redo Log.
+3.  Restart the server – perform a clean restart:
+
+    ```bash
+    sudo systemctl restart mariadb
+    ```
+
+    During this restart, MariaDB uses the existing keys to read the encrypted Redo Logs, completes any necessary crash recovery, and then begins writing new Redo Log events in plaintext.
+4.  Verification: Confirm the status by running:
+
+    ```sql
+    SHOW GLOBAL VARIABLES LIKE 'innodb_redo_log_encrypt';
+    ```
+
+    The value should now be `OFF`.
 {% endstep %}
 
 {% step %}

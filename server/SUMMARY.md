@@ -684,7 +684,6 @@
           * [Hashicorp Key Management Plugin](security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md)
         * [Disabling Data-at-Rest Encryption](security/securing-mariadb/encryption/data-at-rest-encryption/disabling-data-at-rest-encryption-for-standalone-servers/README.md)
           * [Decrypt Binary Logs](security/securing-mariadb/encryption/data-at-rest-encryption/disabling-data-at-rest-encryption-for-standalone-servers/decrypt-binary-logs.md)
-          * [Decrypt InnoDB Redo Logs](security/securing-mariadb/encryption/data-at-rest-encryption/disabling-data-at-rest-encryption-for-standalone-servers/decrypt-innodb-redo-logs.md)
           * [Uninstall Key Management Plugins](security/securing-mariadb/encryption/data-at-rest-encryption/disabling-data-at-rest-encryption-for-standalone-servers/uninstall-key-management-plugins.md)
     * [Security Vulnerabilities Fixed in MariaDB](security/securing-mariadb/security.md)
     * [Security Vulnerabilities Fixed in Oracle MySQL That Did Not Exist in MariaDB](security/securing-mariadb/security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md)
