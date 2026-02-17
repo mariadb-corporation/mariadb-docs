@@ -11,7 +11,8 @@ description: A list of all MariaDB Connector/Node.js releases
 ## 3.5
 
 | Release               | Release Date | Release Status         |
-| --------------------- | ------------ | ---------------------- |
+|-----------------------|--------------|------------------------|
+| [3.51](3.x/3.5.1.md)  | 2026-02-XX   | Stable (GA)            |
 | [3.5.0](3.x/3.5.0.md) | 2025-10-10   | Release Candidate (RC) |
 
 ## 3.4
