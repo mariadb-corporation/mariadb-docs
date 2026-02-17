@@ -5,7 +5,9 @@ description: >-
   active library and version.
 ---
 
-# TLS and Cryptography Libraries Used by MariaDB
+# TLS and Cryptography Libraries
+
+> These libraries provide the cryptographic foundations for both network (or data-in-transit) encryption (TLS) and data-at-rest encryption (TDE).
 
 When MariaDB Server is compiled with TLS[^1] and cryptography support, it is usually either statically linked with MariaDB's bundled TLS and cryptography library or dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library. MariaDB's bundled TLS library is either [wolfSSL](https://www.wolfssl.com/products/wolfssl/) or [yaSSL](https://www.wolfssl.com/products/yassl/), depending on the server version.
 

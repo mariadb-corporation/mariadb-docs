@@ -1,7 +1,7 @@
 ---
 description: >-
   Reference list of system variables related to TLS configuration, such as
-  `ssl_cipher`, `ssl_crl`, and `have_ssl`, used to manage and monitor encryption
+  ssl_cipher, ssl_crl, and have_ssl, used to manage and monitor encryption
   settings.
 ---
 
