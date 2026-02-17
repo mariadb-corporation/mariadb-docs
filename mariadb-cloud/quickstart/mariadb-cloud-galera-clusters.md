@@ -5,7 +5,11 @@ noIndex: true
 
 # MariaDB Cloud: Galera Clusters
 
-Galera Clusters allow you to run highly available database deployments using a synchronous multi-primary architecture instead of relying on standard asynchronous replication.
+{% hint style="info" %}
+**Tech Preview Advisory:** MariaDB Galera Clusters are now available as a _Tech Preview_. During this phase, support for this configuration is limited, and some advanced features may be unavailable.
+{% endhint %}
+
+Galera Clusters allow you to run highly available database deployments using a synchronous architecture instead of relying on standard asynchronous replication. While the underlying Galera technology supports multi-primary writes, during the Tech Preview, MariaDB MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability.
 
 MariaDB Cloud typically uses an asynchronous primary/replica model, which provides excellent scalability and read performance for most workloads. However, you might need a different configuration if your business or application requires strict data consistency and zero data loss failover. With Galera Clusters, your MariaDB Cloud deployment utilizes synchronous replication, allowing multi-primary write capabilities and strong consistency guarantees while preserving our core value proposition of automation and operational simplicity.
 
@@ -132,8 +136,8 @@ flowchart TD
     App["Client Application"] -->|"Read/Write"| MS{"MariaDB MaxScale"}
     
     subgraph Cluster ["Galera Cluster"]
-        NA[("Node A<br>Active")]
-        NB[("Node B<br>Active")]
+        NA[("Node A<br>Writer")]
+        NB[("Node B<br>Reader")]
         NC[("Node C<br>Failed")]
         
         NA <-->|"Quorum Maintained<br>(2 of 3 Votes)"| NB
@@ -154,11 +158,13 @@ MariaDB Cloud exposes a curated, safe subset of `wsrep_` variables (such as thos
 
 ## Galera service backups
 
-Because Galera uses synchronous multi-primary replication, backup and restore operations must be cluster-aware to preserve consistency and avoid data divergence.
+Because Galera uses synchronous replication, backup and restore operations must be cluster-aware to preserve consistency and avoid data divergence.
 
-* Snapshots: Galera clusters default to cloud-native snapshots. Because Galera ensures write-set consistency, a snapshot from any single healthy node safely represents the entire cluster state.
-* Physical Backups: Both on-demand and scheduled physical backups are supported. Logical backups are not supported.
-* Point-in-Time Recovery (PITR): _Support for PITR in multi-primary environments introduces transaction replay complexity and will be introduced in a future phase._
+* Snapshots (Only): During the Tech Preview, Galera clusters support only cloud-native snapshots. Because Galera ensures write-set consistency, a snapshot from any single healthy node safely represents the entire cluster state.
+
+{% hint style="info" %}
+Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not supported in this release.
+{% endhint %}
 
 ## Cluster Restores
 
@@ -166,7 +172,7 @@ To ensure safe re-formation, restores are initialized on a single node to bootst
 
 ```mermaid
 flowchart LR
-    Snap[("Cloud Snapshot or<br>Physical Backup")] -->|1. Restore| N1("Node 1")
+    Snap[("Cloud Snapshot")] -->|1. Restore| N1("Node 1")
     N1 -->|2. Safe-To-Bootstrap| C["New Galera Cluster"]
     C -->|3. Managed SST| N2("Node 2")
     C -->|3. Managed SST| N3("Node 3")
@@ -176,7 +182,13 @@ flowchart LR
 
 ## Dev tools for Galera Clusters
 
-You can manage, provision, and scale your Galera clusters using any standard MariaDB Cloud method, including the MariaDB Cloud Portal, REST APIs, and the Terraform Provider. Galera is presented as a distinct deployment topology alongside Single Node and Replicated topologies, providing a unified management experience.
+You can manage, provision, and scale your Galera clusters using standard MariaDB Cloud methods, including the MariaDB Cloud Portal and REST APIs.&#x20;
+
+{% hint style="info" %}
+Terraform Provider support is not available during the Tech Preview phase.&#x20;
+{% endhint %}
+
+Galera is presented as a distinct deployment topology alongside Single Node and Replicated topologies, providing a unified management experience.
 
 ## Related pages
 
