@@ -182,7 +182,7 @@ The Connector uses the Node.js implementation of TLS. For more information, see 
 
 #### Trusted CA
 
-By default, Node.js trusts the well-known root Certificate Authorities (CA), based on Mozilla. For a complete list, (including the popular and free Let's Encrypt), see the [CA Certificate List](https://ccadb-public.secure.force.com/mozilla/IncludedCACertificateReport).
+By default, Node.js trusts the well-known root Certificate Authorities (CA), based on Mozilla. For a complete list, (including the popular and free Let's Encrypt), see the [CA Certificate List](https://wiki.mozilla.org/CA/Included_Certificates).
 
 When using a certificate signed with a certificate chain from a root CA known to Node.js, the only configuration you need to do is enable the `ssl` option.
 
