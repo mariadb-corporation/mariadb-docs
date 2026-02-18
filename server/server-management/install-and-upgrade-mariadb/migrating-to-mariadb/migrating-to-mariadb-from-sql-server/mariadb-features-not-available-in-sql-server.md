@@ -18,7 +18,7 @@ This page has a list of MariaDB features that are not supported in SQL Server. T
 
 * [Storage engines](../../../../server-usage/storage-engines/).
 * [Authentication plugins](../../../../reference/plugins/authentication-plugins/).
-* [Encryption plugins](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/).
+* [Encryption plugins](../../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/).
 * [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) is a columnar storage engine designed to scale horizontally. It runs on a specific edition of MariaDB, so currently it cannot be used in combination with other engines.
 
 ## SQL

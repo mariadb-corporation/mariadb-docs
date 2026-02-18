@@ -360,7 +360,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 
 #### `encrypt_binlog`
 
-* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Encrypting Binary Logs](../../security/securing-mariadb/encryption/data-at-rest-encryption/encrypting-binary-logs.md).
+* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Encrypting Binary Logs](../../security/encryption/data-at-rest-encryption/encrypting-binary-logs.md).
 * Command line: `--encrypt-binlog[={0|1}]`
 * Scope: Global
 * Dynamic: No

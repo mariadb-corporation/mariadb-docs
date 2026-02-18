@@ -284,7 +284,7 @@ The following options are related to [replication](../../server-usage/storage-en
 #### `--master-ssl`
 
 * Command line: `--master-ssl`
-* Description: Enable the replica to [connect to the master using TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+* Description: Enable the replica to [connect to the master using TLS](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
 #### `--master-ssl-ca`
 
@@ -1273,7 +1273,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--skip-ssl`
 
 * Command line: `--skip-ssl`
-* Description: Disable [TLS connections](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+* Description: Disable [TLS connections](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
 #### `--skip-symlink`
 
@@ -1296,7 +1296,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 #### `--ssl`
 
 * Command line: `--ssl`
-* Description: Enable [TLS for connection](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) (automatically enabled with other flags). Disable with '`--skip-ssl`'.
+* Description: Enable [TLS for connection](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) (automatically enabled with other flags). Disable with '`--skip-ssl`'.
 
 #### `--stack-trace`
 
@@ -1495,14 +1495,14 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [sort-buffer-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sort_buffer_size)
 * [sql-if-exists](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_if_exists)
 * [sql-mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_mode)
-* [ssl-ca](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-capath](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-cert](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-cipher](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-crl](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-crlpath](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-key](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
-* [ssl-passphrase](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md#ssl_passphrase)
+* [ssl-ca](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-capath](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-cert](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-cipher](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-crl](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-crlpath](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-key](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [ssl-passphrase](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md#ssl_passphrase)
 * [standards\_compliant\_cte](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#standards_compliant_cte)
 * [stored-program-cache](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#stored_program_cache)
 * [strict\_password\_validation](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#strict_password_validation)
@@ -1532,7 +1532,7 @@ Because the [Event Scheduler](../../server-usage/triggers-events/event-scheduler
 * [thread-stack](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#thread_stack)
 * [timed-mutexes](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#timed_mutexes)
 * [time-format](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#time_format)
-* [tls-version](../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md)
+* [tls-version](../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md)
 * [tmpdir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmpdir)
 * [transaction-isolation](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tx_isolation)
 * [transaction-alloc-block-size](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#transaction_alloc_block_size)
@@ -1573,15 +1573,15 @@ The options related to the [unix\_socket](../../reference/plugins/authentication
 
 ### Encryption Plugin - `aws_key_management`
 
-The system variables related to the [aws\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#system-variables).
+The system variables related to the [aws\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#system-variables).
 
-The options elated to the [aws\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#options).
+The options elated to the [aws\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin.md#options).
 
 ### Encryption Plugin - `file_key_management`
 
-The system variables related to the [file\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#system-variables).
+The system variables related to the [file\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#system-variables).
 
-The options related to the [file\_key\_management](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#options).
+The options related to the [file\_key\_management](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) encryption plugin can be found [here](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#options).
 
 ## Password Validation Plugins - Options and System Variables
 

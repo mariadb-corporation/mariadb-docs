@@ -5,7 +5,7 @@ description: >-
   deployments on Linux systems.
 ---
 
-# SELinux
+# MariaDB on SELinux
 
 [Security-Enhanced Linux (SELinux)](https://selinuxproject.org/page/Main_Page) is a Linux kernel module that provides a framework for configuring [mandatory access control (MAC)](https://en.wikipedia.org/wiki/Mandatory_access_control) system for many resources on the system. It is enabled by default on some Linux distributions, including RHEL, CentOS, Fedora, and other similar Linux distribution. SELinux prevents programs from accessing files, directories or ports unless it is configured to access those resources.
 
@@ -25,7 +25,7 @@ When you are troubleshooting issues that you think SELinux might be causing, it 
 sudo semanage permissive -a mysqld_t
 ```
 
-If that solved the problem, then it means that the current SELinux policy is the culprit. You need to adjust the SELinux policy or labels for MariaDB.
+If that solved the problem, it means that the current SELinux policy is the culprit. You need to adjust the SELinux policy or labels for MariaDB.
 
 ## Configuring a MariaDB Server SELinux Policy
 
@@ -35,7 +35,7 @@ MariaDB Server should work with your default distribution policy (which is usual
 /usr/sbin/semodule -i /usr/share/mariadb/policy/selinux/mariadb.pp
 ```
 
-Note that this policy file extends, but not replaces the system policy.
+Note that this policy file extends, rather than replaces the system policy.
 
 ## Setting File Contexts
 

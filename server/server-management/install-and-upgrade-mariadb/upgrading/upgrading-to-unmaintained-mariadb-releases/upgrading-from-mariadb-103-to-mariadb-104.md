@@ -65,7 +65,7 @@ The following options should be removed or renamed if you use them in your [opti
 
 * See [Authentication from MariaDB 10.4](../../../../security/user-account-management/authentication-from-mariadb-10-4.md) for an overview of the changes.
 * The [unix\_socket authentication plugin](../../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) is now default on Unix-like systems.
-* TLSv1.0 is disabled by default in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104). See [tls\_version](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) and [TLS Protocol Versions](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions).
+* TLSv1.0 is disabled by default in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104). See [tls\_version](../../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) and [TLS Protocol Versions](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions).
 
 ### Major New Features To Consider
 

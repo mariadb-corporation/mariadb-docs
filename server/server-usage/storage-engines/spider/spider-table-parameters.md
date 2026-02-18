@@ -307,7 +307,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 
 #### `ssl_cipher`
 
-* Description: List of allowed ciphers to use with [TLS encryption](../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+* Description: List of allowed ciphers to use with [TLS encryption](../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 * Default Table Value: `none`
 * DSN Parameter Name: `sch`
 * Table Option Name: `SSL_CIPHER`

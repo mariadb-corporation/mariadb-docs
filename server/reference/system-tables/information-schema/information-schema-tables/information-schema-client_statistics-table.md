@@ -38,7 +38,7 @@ It contains the following columns:
 | LOST\_CONNECTIONS              | BIGINT(21)  | The number of this client's connections that were terminated uncleanly.                                                                                                                                                   |
 | ACCESS\_DENIED                 | BIGINT(21)  | The number of times this client's connections issued commands that were denied.                                                                                                                                           |
 | EMPTY\_QUERIES                 | BIGINT(21)  | The number of times this client's connections sent queries that returned no results to the server.                                                                                                                        |
-| TOTAL\_SSL\_CONNECTIONS        | BIGINT(21)  | The number of [TLS connections](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) created for this client.                                                      |
+| TOTAL\_SSL\_CONNECTIONS        | BIGINT(21)  | The number of [TLS connections](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) created for this client.                                                                       |
 | MAX\_STATEMENT\_TIME\_EXCEEDED | BIGINT(21)  | The number of times a statement was aborted, because it was executed longer than its [MAX\_STATEMENT\_TIME](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/aborting-statements.md) threshold. |
 
 #### Example

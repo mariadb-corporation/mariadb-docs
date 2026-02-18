@@ -2624,6 +2624,7 @@
         * [Connector/Python 0.9.54-beta Changelog](connectors/python/changelogs/0.9/0.9.54.md)
   * [Connector/R2DBC](connectors/r2dbc/README.md)
     * [Connector/R2DBC All Releases](connectors/r2dbc/all-releases.md)
+    * [Connector/R2DBC 1.4.0 Release Notes](connectors/r2dbc/1.4.0.md)
     * [Connector/R2DBC 1.3.0 Release Notes](connectors/r2dbc/1.3.0.md)
     * [Connector/R2DBC 1.2.2 Release Notes](connectors/r2dbc/1.2.2.md)
     * [Connector/R2DBC 1.2.1 Release Notes](connectors/r2dbc/1.2.1.md)

@@ -665,19 +665,19 @@ MyISAM uses `MAX_ROWS` and `AVG_ROW_LENGTH` to decide the maximum size of a tabl
 
 ### ENCRYPTED
 
-The `ENCRYPTED` table option can be used to manually set the encryption status of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
+The `ENCRYPTED` table option can be used to manually set the encryption status of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
 
 Aria does not support the `ENCRYPTED` table option. See [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
 
-See [Data-at-Rest Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/) for more information.
+See [Data-at-Rest Encryption](../../../../security/encryption/data-at-rest-encryption/) for more information.
 
 ### ENCRYPTION\_KEY\_ID
 
-The `ENCRYPTION_KEY_ID` table option can be used to manually set the encryption key of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
+The `ENCRYPTION_KEY_ID` table option can be used to manually set the encryption key of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
 
 Aria does not support the `ENCRYPTION_KEY_ID` table option. See [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
 
-See [Data-at-Rest Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/) for more information.
+See [Data-at-Rest Encryption](../../../../security/encryption/data-at-rest-encryption/) for more information.
 
 ### IETF\_QUOTES
 

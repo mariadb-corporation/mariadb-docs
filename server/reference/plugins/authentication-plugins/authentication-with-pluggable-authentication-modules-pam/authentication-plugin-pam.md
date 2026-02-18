@@ -181,7 +181,7 @@ When connecting with a [client or utility](../../../../clients-and-utilities/) t
 mariadb --plugin-dir=/usr/local/mysql/lib64/mysql/plugin --user=alice
 ```
 
-Both the `dialog` and the `mysql_clear_password` client authentication plugins transmit the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is very important to [encrypt client connections using TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
+Both the `dialog` and the `mysql_clear_password` client authentication plugins transmit the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is very important to [encrypt client connections using TLS](../../../../security/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
 
 ### `dialog`
 
@@ -197,7 +197,7 @@ For some libraries or applications, this problem can be fixed by copying `dialog
 
 If your client does not support the `dialog` client authentication plugin, then you may need to use the [mysql\_clear\_password](authentication-plugin-pam.md#mysql_clear_password) client authentication plugin instead.
 
-The `dialog` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
+The `dialog` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
 
 ### `mysql_clear_password`
 
@@ -215,7 +215,7 @@ It is important to note that the `mysql_clear_password` plugin has very limited 
 * The `mysql_clear_password` client authentication plugin also only supports PAM services that ask the user a single question.
 * If the PAM service requires challenge-responses, multiple questions, or other similar complicated authentication schemes, then the PAM service is not compatible with `mysql_clear_password` client authentication plugin. In that case, the [dialog](authentication-plugin-pam.md#dialog) client authentication plugin will have to be used instead.
 
-The `mysql_clear_password` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
+The `mysql_clear_password` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
 
 #### Compatiblity with MySQL Clients and Client Libraries
 

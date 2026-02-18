@@ -69,7 +69,7 @@ Here is the comprehensive list of pages that document variables.
 
 * [Audit Plugin Options and System Variables](../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md)
 * [Audit Plugin Status Variables](../reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-status-variables.md)
-* Encryption Plugin System Variables (for instance, [File Key Management](../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#system-variables))
+* Encryption Plugin System Variables (for instance, [File Key Management](../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#system-variables))
 
 ### Index / Master List
 

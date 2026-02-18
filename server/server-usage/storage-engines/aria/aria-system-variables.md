@@ -46,7 +46,7 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 
 #### `aria_encrypt_tables`
 
-* Description: Enables automatic encryption of all user-created Aria tables that have the [ROW\_FORMAT](../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option set to [PAGE](aria-storage-formats.md#page). See [Data at Rest Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling Encryption for User-created Tables](../../../security/securing-mariadb/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
+* Description: Enables automatic encryption of all user-created Aria tables that have the [ROW\_FORMAT](../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option set to [PAGE](aria-storage-formats.md#page). See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling Encryption for User-created Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
 * Command line: `aria-encrypt-tables={0|1}`
 * Scope: Global
 * Dynamic: Yes

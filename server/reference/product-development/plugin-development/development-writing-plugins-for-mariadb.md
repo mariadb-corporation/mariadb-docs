@@ -27,7 +27,7 @@ Information Schema plugins can have their own [FLUSH](../../sql-statements/admin
 
 ## Encryption Plugins
 
-[Encryption plugins](encryption-plugin-api.md) in MariaDB are used for the [data at rest encryption](../../../security/securing-mariadb/encryption/data-at-rest-encryption/) feature. They are responsible for both key management and for the actual encryption and decryption of data.
+[Encryption plugins](encryption-plugin-api.md) in MariaDB are used for the [data at rest encryption](../../../security/encryption/data-at-rest-encryption/) feature. They are responsible for both key management and for the actual encryption and decryption of data.
 
 ## Function Plugins
 

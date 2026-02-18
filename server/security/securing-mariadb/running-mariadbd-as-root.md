@@ -5,11 +5,11 @@ description: >-
   to operate with less privileged user accounts.
 ---
 
-# Running mariadbd as root
+# Running MariaDB as root
 
-MariaDB should never normally be run as the system's root user (this is unrelated to the MariaDB root user). If it is, any user with the FILE privilege can create or modify any files on the server as root.
+MariaDB should never be run as the system root user (this is unrelated to the MariaDB root user). If it is, any user with the `FILE` privilege can create or modify any files on the server as root.
 
-MariaDB will normally return the error **Fatal error: Please read "Security" section of the manual to find out how to run mariadbd as root!** if you attempt to run mariadbd as root. If you need to override this restriction for some reason, start mariadbd with the [user=root](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#--user) option.
+If you attempt to run the server (`mariadbd`) as root, MariaDB normally returns the error **Fatal error: Please read "Security" section of the manual to find out how to run mariadbd as root!**. If you need to override this restriction, start `mariadbd` with the [user=root](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#--user) option.
 
 Better practice, and the default in most situations, is to use a separate user, exclusively used for MariaDB. In most distributions, this user is called `mysql`.
 

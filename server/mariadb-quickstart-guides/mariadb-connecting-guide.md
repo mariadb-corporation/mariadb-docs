@@ -128,7 +128,7 @@ See the GRANT command for information on creating MariaDB user accounts.
 
 ### TLS Options
 
-These options control the use of TLS (Transport Layer Security) for secure connections. For comprehensive details, see [Secure Connections Overview](../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) and [TLS System Variables](../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md).
+These options control the use of TLS (Transport Layer Security) for secure connections. For comprehensive details, see [Secure Connections Overview](../security/encryption/data-in-transit-encryption/secure-connections-overview.md) and [TLS System Variables](../security/encryption/data-in-transit-encryption/ssltls-system-variables.md).
 
 * **`--ssl`**: Enable TLS for the connection. Automatically enabled if other `--ssl-*` flags are used. Disable with `--skip-ssl`.
 * **`--ssl-ca=name`**: CA (Certificate Authority) file in PEM format. (Implies `--ssl`).

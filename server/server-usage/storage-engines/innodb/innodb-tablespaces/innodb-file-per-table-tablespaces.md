@@ -361,7 +361,7 @@ IMPORT on the other hand does not enforce foreign key constraints. So when impor
 
 MariaDB supports data-at-rest encryption for the InnoDB storage engine. When enabled, the Server encrypts data before writing it to the tablespace and decrypts reads from the tablespace before returning result-sets. This means that a malicious user attempting to exfiltrate sensitive data won't be able to import the tablespace onto a different server as shown above without the encryption key.
 
-For more information on data encryption, see [Encrypting Data for InnoDB](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-overview.md).
+For more information on data encryption, see [Encrypting Data for InnoDB](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-overview.md).
 
 ## See Also
 
