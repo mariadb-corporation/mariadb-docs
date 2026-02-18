@@ -81,6 +81,8 @@ asyncFunction().then(() => {
 });
 ```
 
-The MariaDB Connector can use different APIs on the back-end: [Promise](connector-nodejs-promise-api.md) and [Callback](connector-nodejs-callback-api.md). The default API is Promise. The callback API is provided for compatibility with the mysql and mysql2 APIs.
+The MariaDB Connector can use different APIs on the back-end: [Promise](connector-nodejs-promise-api.md) and [Callback](connector-nodejs-callback-api.md).
+API is the same for TypeScript, but please read specific   
+The default API is Promise. The callback API is provided for compatibility with the mysql and mysql2 APIs.
 
 {% @marketo/form formId="4316" %}
