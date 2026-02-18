@@ -592,6 +592,33 @@ seconds is considered when deciding whether work should be moved.
 
 The minimum value is 1 and the maximum 60.
 
+#### `worker_assignment`
+
+* Type: [enum](#enumerations)
+* Mandatory: No
+* Dynamic: No
+* Values: `local`, `roundrobin`
+* Default: `local`
+
+Set the thread assignment method for new connections.
+
+Whenever MaxScale accepts a new connection, the client connection is assigned to
+one of the worker threads. All threads attempt to accept new connections and
+with the default `local` mode, the worker thread that accepts the connection is
+the one that the connection is assigned to. The benefit of this mode is that
+threads that are busy doing work have a smaller chance of accepting new
+connections and under a constant stream of new connections, threads with less
+work will naturally pick up more clients. Under bursty loads where connections
+come in batches and stay alive for a long time, the distribution of the
+connections may not be optimal.
+
+With the `roundrobin` mode, all worker threads still accept connections but the
+worker thread is assigned in a round-robin manner so that each thread gets an
+equal number of connections. This mode works well when clients connect to
+MaxScale in batches and the sessions stay alive for a long time. This is also a
+good mode for doing performance evaluations with load generation frameworks that
+open up the connections on startup.
+
 #### `skip_name_resolve`
 
 * Type: [boolean](#booleans)
