@@ -520,6 +520,7 @@
           * [Upgrading from MariaDB 10.1 to MariaDB 10.2](server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-101-to-mariadb-102.md)
           * [Upgrading from MariaDB 10.0 to MariaDB 10.1](server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-100-to-mariadb-101.md)
           * [Upgrading from MariaDB 5.3 to MariaDB 5.5](server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-53-to-mariadb-55.md)
+        * [General Upgrade Information](server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/general-upgrade-information.md)
     * [Downgrading MariaDB](server-management/install-and-upgrade-mariadb/downgrading-between-major-versions-of-mariadb.md)
     * [Migrating to MariaDB](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/README.md)
       * [Differences Between MariaDB and Other DBMSs](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/differences-between-mariadb-and-other-dbmss.md)
