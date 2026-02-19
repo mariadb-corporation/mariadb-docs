@@ -13,18 +13,19 @@ For details on using the binary log for replication, see the [Replication](../..
 
 ## Purging Log Files
 
-To delete all binary log files on the server, run the [RESET MASTER](../../../reference/sql-statements/administrative-sql-statements/replication-statements/reset-master.md) command. To delete all binary logs before a certain datetime, or up to a certain number, use [PURGE BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/purge-binary-logs.md).
+To delete all binary logs on the server, run the [RESET MASTER](../../../reference/sql-statements/administrative-sql-statements/replication-statements/reset-master.md) command. To delete all binary logs before a certain datetime, or up to a certain number, use [PURGE BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/purge-binary-logs.md).
 
-If a replica is active but has yet to read from a binary log file you attempt to delete, the statement will fail with an error. However, if the replica is not connected and has yet to read from a log file you delete, the file will be deleted, but the replica will be unable to continue replicating once it connects again.
+If a replica is active but has yet to read from a binary log you attempt to delete, the statement fails with an error. However, if the replica is not connected and has yet to read from a log you delete, the file is deleted, but the replica is unable to continue replicating once it connects again.
 
-Log files can also be removed automatically with the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) system variable. This is set to 0 by default (no removal), but can be set to a time, in days, after which a binary log file will be automatically removed. Log files will only be checked for being older than [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) upon log rotation, so if your binary log only fills up slowly and does not reach [max\_binlog\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_size) on a daily basis, you may see older log files still being kept. You can also force log rotation, and so expiry deletes, by running [FLUSH BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) on a regular basis.\
-Always set [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) higher than any possible replica lag.
+Logs can also be removed automatically with the [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) system variable. This is set to `0` by default (no removal). It can be set to a time, in days, after which a binary log file is automatically removed. Log files are only checked for being older than [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) upon log rotation, so if your binary log fills up slowly and does not reach [max\_binlog\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_size) on a daily basis, you may see older logs still being kept. You can also force log rotation, and so expiry deletes, by running [FLUSH BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) on a regular basis. Always set [expire\_logs\_days](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) higher than any possible replica lag.
 
 From [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), the [binlog\_expire\_logs\_seconds](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) variable allows more precise control over binlog deletion and takes precedence if both are non-zero.
 
-If the binary log index file has been removed, or incorrectly manually edited, all of the above forms of purging log files will fail. The .index file is a plain text file and can be manually recreated or edited so that it lists only the binary log files that are present, in numeric/age order.
+{% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
 
-### Examples
+If the binary log index file has been removed, or incorrectly manually edited, all of the above forms of purging logs fail. The .index file is a plain text file and can be manually recreated or edited so that it lists only the binary log files that are present, in numeric/age order.
+
+### Examples of Log File Purging
 
 ```sql
 PURGE BINARY LOGS TO 'mariadb-bin.000063';
@@ -39,7 +40,7 @@ PURGE BINARY LOGS BEFORE '2013-04-22 09:55:22';
 To be sure replication is not broken while deleting log files, perform the following steps:
 
 * Get a listing of binary log files on the primary by running [SHOW BINARY LOGS](../../../reference/sql-statements/administrative-sql-statements/show/show-binary-logs.md).
-* Go to each replica server and run [SHOW SLAVE STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md) to check which binary log file each replica is currently reading.
+* Go to each replica server and run [SHOW REPLICA STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md) to check which binary log file each replica is currently reading.
 * Find the earliest log file still being read by a replica. No log files before this one will be needed.
 * If you wish, make a backup of the log files to be deleted
 * Purge all log files before (not including) the file identified above.
@@ -51,10 +52,6 @@ This feature is available from MariaDB 11.4.
 {% endhint %}
 
 You can limit the size of the binlog by setting the [max\_binlog\_total\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_total_size) system variable. If not set to zero, the total size of the binlog is stored in the [binlog\_disk\_use](../../../ha-and-performance/standard-replication/replication-and-binary-log-status-variables.md#binlog_disk_use) status variable. It's also possible to limit the size of a single binlog file by setting [max\_binlog\_size](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#max_binlog_size).
-
-## Binary Log Format
-
-There are three formats for the binary log. The default is statement-based logging, while row-based logging and a mix of the two formats are also possible. See [Binary Log Formats](binary-log-formats.md) for a full discussion.
 
 ## Selectively Logging to the Binary Log
 
@@ -72,7 +69,7 @@ For statement-based logging, the server will only log statement where the _defau
 
 For row-based logging, the server will log any updates to any tables in the named database/s, irrespective of the current database.
 
-### Examples
+### Examples of Selective Logging
 
 Assume the server has started with the option `--binlog-ignore-db=employees`. The following example _is_ logged if statement-based logging is used, and _is not_ logged with row-based logging.
 
@@ -81,18 +78,20 @@ USE customers;
 UPDATE employees.details SET bonus=bonus*1.2;
 ```
 
-This is because statement-based logging examines the default database, in this case, `customers`. Since `customers` is not specified in the ignore list, the statement will be logged. If row-based logging is used, the example will not be logged as updates are written to the tables in the `employees` database.
+This is because statement-based logging examines the default database, in this case, `customers`. Since `customers` is not specified in the ignore list, the statement is logged. If row-based logging is used, the example is not logged, because updates are written to the tables in the `employees` database.
 
-Assume instead the server started with the option `--binlog-do-db=employees`. The following example _is not_ logged if statement-based logging is used, and _is_ logged with row-based logging.
+Assume now that the server started with the option `--binlog-do-db=employees`. The following example _is not_ logged if statement-based logging is used, and _is_ logged with row-based logging.
 
 ```sql
 USE customers;
 UPDATE employees.details SET bonus=bonus*1.2;
 ```
 
-This is again because statement-based logging examines the default database, in this case, `customers`. Since `customers` is not specified in the do list, the statement will not be logged. If row-based logging is used, the example will be logged as updates are written to the tables in the `employees` database.
+This is again because statement-based logging examines the default database, in this case, `customers`. Since `customers` is not specified in the do list, the statement is not logged. If row-based logging is used, the example is logged as updates are written to the tables in the `employees` database.
 
 ## Effects of Full Disk Errors on Binary Logging
+
+{% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
 
 If MariaDB encounters a full disk error while trying to write to a binary log file, then it will keep retrying the write every 60 seconds. Log messages will get written to the error log every 600 seconds. For example:
 

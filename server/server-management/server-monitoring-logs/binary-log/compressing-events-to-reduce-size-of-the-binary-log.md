@@ -6,7 +6,7 @@ description: >-
 
 # Compressing Events to Reduce Size of the Binary Log
 
-Selected events in the [binary log](./) can be optionally compressed, to save space in the binary log on disk and in network transfers.
+Selected events in the [binary log](./) can be optionally compressed, to save space in the binary log on disk (or, from MariaDB 12.3, in InnoDB tablespaces) and in network transfers.
 
 Events that can be compressed are those that can be of significant size:&#x20;
 

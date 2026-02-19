@@ -141,7 +141,6 @@ It can also be set in a server [option group](../../install-and-upgrade-mariadb/
 
 ```ini
 [mariadb]
-...
 binlog_format=ROW
 ```
 
@@ -149,23 +148,21 @@ binlog_format=ROW
 Be careful when changing the binary log format when using [replication](../../../ha-and-performance/standard-replication/). When you change the binary log format on a server, it only changes the format for that server. Changing the binary log format on a primary has no effect on the replica's binary log format. This can cause replication to give inconsistent results or to fail.
 {% endhint %}
 
-Be careful changing the binary log format dynamically when the server is a replica and [parallel replication](../../../ha-and-performance/standard-replication/parallel-replication.md) is enabled. If you change the global value dynamically, then that does not also affect the session values of any currently running threads. This can cause problems with [parallel replication](../../../ha-and-performance/standard-replication/parallel-replication.md), because the [worker threads](../../../ha-and-performance/standard-replication/replication-threads.md#worker-threads) will remain running even after [STOP SLAVE](../../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) is executed. This can be worked around by resetting the [slave\_parallel\_threads](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_parallel_threads) system variable. For example:
+Be careful changing the binary log format dynamically when the server is a replica and [parallel replication](../../../ha-and-performance/standard-replication/parallel-replication.md) is enabled. If you change the global value dynamically, then that does not also affect the session values of any currently running threads. This can cause problems with [parallel replication](../../../ha-and-performance/standard-replication/parallel-replication.md), because the [worker threads](../../../ha-and-performance/standard-replication/replication-threads.md#worker-threads) will remain running even after [STOP REPLICA](../../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) is executed. This can be worked around by resetting the [slave\_parallel\_threads](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_parallel_threads) system variable. For example:
 
 ```sql
-STOP SLAVE;
+STOP REPLICA;
 SET GLOBAL slave_parallel_threads=0;
 SET GLOBAL binlog_format='ROW';
 SET GLOBAL slave_parallel_threads=4;
-START SLAVE
+START REPLICA;
 ```
 
 For considerations when replicating temporary tables, see [Replicating temporary tables](../../../reference/sql-statements/data-definition/create/create-table.md#replicating-temporary-tables).
 
 ## Effect of the Binary Log Format on Replicas
 
-A replica will apply any events it gets from the primary, regardless of the binary log format. The [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) system variable only applies to normal (not replicated) updates.
-
-If you are running MySQL or an older MariaDB than 10.0.22, you should be aware of that if you are running the replica in `binlog_format=STATEMENT` mode, the replica will stop if the primary is used with `binlog_format` set to anything else than `STATEMENT`.
+A replica applies any events it gets from the primary, regardless of the binary log format. The [binlog\_format](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_format) system variable only applies to normal (not replicated) updates.
 
 The binary log format is upwards-compatible. This means replication should always work if the replica is the same or a newer version of MariaDB than the primary.
 

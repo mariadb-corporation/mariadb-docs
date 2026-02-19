@@ -46,6 +46,8 @@ SHOW VARIABLES LIKE 'log_bin';
 
 ## Viewing Log Files
 
+{% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
+
 To view the log files created by the server, issue this statement:
 
 ```sql
@@ -85,6 +87,8 @@ Variable_name: log_bin_basename
 
 ## Log File Organization
 
+{% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
+
 Knowing the **basename**, you can view the log files on the file system, too. Change directory (`cd`) to the **storage location**, and issue this command:
 
 ```bash
@@ -118,6 +122,8 @@ SET sql_log_bin = 1; -- turns on logging
 
 ## Reading Log Files
 
+{% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
+
 Log files, with the exception of the _index_ log file, are binary-encoded. To display them in a human-readable format, change directory to the [storage location](activating-the-binary-log.md#viewing-log-files) of the log files, and issue this [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) command:
 
 ```bash
@@ -139,6 +145,8 @@ mariadb-binlog c525d37c-b2ff-4543-b06f-87012d142d44-bin.000001 > binlog.sql
 ```
 
 ## Log File Security
+
+{% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
 
 Since it's trivial to [read logs files as plain text](activating-the-binary-log.md#reading-log-files), to store that output permanently, and even to use it to import logged data into another database server, ensure that the [storage location](activating-the-binary-log.md#viewing-log-files) is safe. Binary logs are effectively a mirrored copy of your data. If you have encrypted or sensitive data in your tables, it is sitting in those logs in a plain (or easily decodable) format.
 
