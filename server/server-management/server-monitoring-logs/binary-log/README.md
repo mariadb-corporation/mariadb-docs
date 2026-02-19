@@ -63,6 +63,30 @@ Detailed comparison of the three binary logging formats: Statement-based (SBR), 
 
 {% columns %}
 {% column %}
+{% content-ref url="using-and-maintaining-the-binary-log.md" %}
+[using-and-maintaining-the-binary-log.md](using-and-maintaining-the-binary-log.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Complete binary log maintenance: `PURGE BINARY LOGS`/`RESET MASTER`, `expire_logs_days` & `binlog_expire_logs_seconds`, `FLUSH BINARY LOGS`, and `SHOW SLAVE STATUS`.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="../../../ha-and-performance/standard-replication/innodb-based-binary-log.md" %}
+[innodb-based-binary-log.md](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB 12.3 introduces a new binary log implementation that stores binlog events directly in InnoDB-managed tablespaces instead of separate files on disk.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="compressing-events-to-reduce-size-of-the-binary-log.md" %}
 [compressing-events-to-reduce-size-of-the-binary-log.md](compressing-events-to-reduce-size-of-the-binary-log.md)
 {% endcontent-ref %}
@@ -111,13 +135,13 @@ Overview of the relay log, a set of log files created by a replica server to sto
 
 {% columns %}
 {% column %}
-{% content-ref url="using-and-maintaining-the-binary-log.md" %}
-[using-and-maintaining-the-binary-log.md](using-and-maintaining-the-binary-log.md)
+{% content-ref url="../../../ha-and-performance/standard-replication/selectively-skipping-replication-of-binlog-events.md" %}
+[selectively-skipping-replication-of-binlog-events.md](../../../ha-and-performance/standard-replication/selectively-skipping-replication-of-binlog-events.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Complete binary log maintenance: `PURGE BINARY LOGS`/`RESET MASTER`, `expire_logs_days` & `binlog_expire_logs_seconds`, `FLUSH BINARY LOGS`, and `SHOW SLAVE STATUS`.
+Learn techniques to bypass specific replication events. This guide explains how to ignore individual transactions or errors to restore replication flow after a stoppage.
 {% endcolumn %}
 {% endcolumns %}
 
