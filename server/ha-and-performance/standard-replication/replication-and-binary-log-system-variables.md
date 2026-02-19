@@ -1148,7 +1148,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
   * `ALL_NON_LOSSY` means that all safe conversions (no data loss) are allowed.
   * `ALL_LOSSY` means that all lossy conversions are allowed (for example 'bigint' to 'int'). This, however, does not imply that safe conversions (non-lossy) are allowed as well. In order to allow all conversions, one needs to allow both lossy as well as non-lossy conversions by setting this variable to `ALL_NON_LOSSY,ALL_LOSSY`.
   * Empty (default) means that the server gives an error and replication stops if the table definition is different between the primary and replica.
-  * `ERROR_IF_MISSING_FIELD`. This value is available from MariaDB 12.3.
+  * `ERROR_IF_MISSING_FIELD`. This value is available from MariaDB 12.3. When provided, the replica aborts replication if it is missing a field that exists on the primary server. When absent, replication continues, although if [`log_warnings`](../optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is set to `1` or greater, a warning is logged to the error log.
 * Command line: `--slave-type-conversions=set`
 * Scope: Global
 * Dynamic: Yes

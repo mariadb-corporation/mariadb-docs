@@ -154,15 +154,16 @@ SHOW SLAVE STATUS\G;
 
 #### Supported Conversions
 
-* Between [TINYINT](../../reference/data-types/numeric-data-types/tinyint.md), [SMALLINT](../../reference/data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../reference/data-types/numeric-data-types/mediumint.md), [INT](../../reference/data-types/numeric-data-types/int.md) and [BIGINT](../../reference/data-types/numeric-data-types/bigint.md). If lossy conversion is supported, the value from the primary will be converted to the maximum or minimum permitted on the replica, which non-lossy conversions require the replica column to be large enough. For example, SMALLINT UNSIGNED can be converted to MEDIUMINT, but not SMALLINT SIGNED.
+* Between [TINYINT](../../reference/data-types/numeric-data-types/tinyint.md), [SMALLINT](../../reference/data-types/numeric-data-types/smallint.md), [MEDIUMINT](../../reference/data-types/numeric-data-types/mediumint.md), [INT](../../reference/data-types/numeric-data-types/int.md) and [BIGINT](../../reference/data-types/numeric-data-types/bigint.md). If lossy conversion is supported, the value from the primary will be converted to the maximum or minimum permitted on the replica, which non-lossy conversions require the replica column to be large enough. For example, `SMALLINT UNSIGNED` can be converted to `MEDIUMINT`, but not `SMALLINT SIGNED`.
 
 ## Different Number or Order of Columns
 
 Replication can also take place when the primary and replica have a different number of columns if the following criteria are met:
 
-* columns must be in the same order on the primary and replica
-* common columns must be defined with the same data type
-* extra columns must be defined after the common columns
+* Columns are in the same order on the primary and replica.
+* Common columns are defined with the same data type.
+* Extra columns are defined after the common columns.
+* The primary is configured with `binlog_row_metadata=FULL` and the replica runs on MariaDB 12.3 or higher (note option `slave_type_conversions=ERROR_IF_MISSING_FIELD`).
 
 ### Row-Based
 
