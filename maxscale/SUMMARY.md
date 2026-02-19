@@ -31,6 +31,7 @@
     * [Creating a REST API User for MaxScale with MaxCtrl](maxscale-management/administrative-tools-for-mariadb-maxscale-maxctrl/creating-a-rest-api-user-for-maxscale-with-maxctrl.md)
     * [Deleting a REST API User for MaxScale with MaxCtrl](maxscale-management/administrative-tools-for-mariadb-maxscale-maxctrl/deleting-a-rest-api-user-for-maxscale-with-maxctrl.md)
     * [Setting a Server to Maintenance Mode in MaxScale with MaxCtrl](maxscale-management/administrative-tools-for-mariadb-maxscale-maxctrl/maxctrl-setting-a-server-to-maintenance-mode-in-maxscale-with-maxctrl.md)
+    * [Removing a Server using MaxCtrl](maxscale-management/administrative-tools-for-mariadb-maxscale-maxctrl/removing-a-server-using-maxctrl.md)
   * [MaxGUI](maxscale-management/maxgui/README.md)
     * [Configuring MaxScale for MaxGUI](maxscale-management/maxgui/configuring-maxscale-for-maxgui.md)
     * [Setting a Server to Maintenance Mode in MaxScale with MaxGUI](maxscale-management/maxgui/maxgui-setting-a-server-to-maintenance-mode-in-maxscale-with-maxgui.md)
