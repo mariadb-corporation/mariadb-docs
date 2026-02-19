@@ -2,7 +2,7 @@
 
 Choosing the right replication strategy in MariaDB is less about the underlying technology itself and more about which specific "pain point" your architecture needs to solve: preventing downtime, accelerating slow reads, securing data across distances, or aggregating data for analytics.
 
-This guide will help you determine which replication method and format you should choose for your cluster, and what trade-offs you will make.
+This guide helps you determine which replication method and format to choose for your cluster, and what trade-offs you will make.
 
 ## Choosing a Replication Format
 
@@ -10,7 +10,7 @@ Before choosing a cluster topology, you must establish how the data changes are 
 
 * [Row-Based Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/row-based-replication-with-no-primary-key) (RBR) \[Recommended]: This format replicates the actual row changes rather than the SQL statements. If your goal is "carrier-grade" reliability and absolute data consistency across replicas, RBR is the required choice. While it can consume more memory and network bandwidth, this overhead is negligible for typical OLTP workloads.
 * Mixed Format \[Default]: MariaDB makes a best-effort approach, defaulting to Statement-Based Replication but automatically switching to Row-Based Replication when it detects a statement that is not safe to replicate consistently.
-* [Statement-Based Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/unsafe-statements-for-statement-based-replication) (SBR) \[Fallback Only]: SBR replicates the exact SQL queries executed. While it uses very little CPU and network bandwidth, SBR is generally considered unreliable for modern high-availability setups due to the high risk of data inconsistency. It should only be used as a fallback solution in edge cases where RBR fails (e.g., executing a single query that updates a massive number of rows at once, which would otherwise bloat the binary log).
+* [Statement-Based Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/unsafe-statements-for-statement-based-replication) (SBR) \[Fallback Only]: SBR replicates the exact SQL queries executed. While it uses very little CPU and network bandwidth, SBR is generally considered unreliable for modern high-availability setups due to the high risk of data inconsistency. It should only be used as a fallback solution in edge cases where RBR fails (e.g., executing a single query that updates a massive number of rows at once, which would otherwise bloat the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log)).
 
 ## Choosing a Strategy by Use Case
 
@@ -65,7 +65,7 @@ This is where [MariaDB MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/
 * [Automated Failover](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor): If a primary node fails, MaxScale can automatically promote a replica and reroute traffic without application downtime.
 
 {% hint style="info" %}
-MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the [MaxScale documentation](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/)
+MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the [MaxScale documentation](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/).
 {% endhint %}
 
 ## Quick Comparison Decision Matrix
