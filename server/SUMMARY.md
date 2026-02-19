@@ -1138,7 +1138,7 @@
           * [Status Variables Added in MariaDB 10.0](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/status-variables-added-in-mariadb-100.md)
           * [System Variables Added in MariaDB 5.5](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-and-status-variables-added-by-major-unmaintained-release/system-variables-added-in-mariadb-55.md)
   * [Replication](ha-and-performance/standard-replication/README.md)
-    * [Architectural Decision Guide: Choosing a Replication Strategy](/broken/spaces/3VYeeVGUV4AMqrA3zwy7/pages/IQFMDWNgAYln2bHTRSrN)
+    * [Architectural Decision Guide: Choosing a Replication Strategy](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-architecture/architectural-decision-guide-choosing-a-replication-strategy)
     * [Replication Overview](ha-and-performance/standard-replication/replication-overview.md)
     * [Binary Log Formats](server-management/server-monitoring-logs/binary-log/binary-log-formats.md)
     * [Replication Statements](ha-and-performance/standard-replication/replication-statements.md)

@@ -7,13 +7,17 @@ description: >-
 
 # InnoDB-Based Binary Log
 
+{% hint style="info" %}
+This feature is available from MariaDB 12.3.
+{% endhint %}
+
 ## Description
 
-Traditionally, MariaDB treated the binary log and the InnoDB storage engine as separate components, requiring a complex two-phase commit (2PC) protocol to keep them synchronized. With this new binlog implementation, binlog transactions are stored within InnoDB-managed pages. This change eliminates the need for an expensive 2PC between the binlog and InnoDB, allowing significant performance improvements and simplified crash recovery behavior.
+Traditionally, MariaDB treated the [binary log](../../server-management/server-monitoring-logs/binary-log/) (binlog) and the [InnoDB storage engine](../../server-usage/storage-engines/innodb/) as separate components, requiring a complex two-phase commit (2PC) protocol to keep them synchronized. With this new binlog implementation, binlog transactions are stored within InnoDB-managed pages. This change eliminates the need for an expensive 2PC between the binlog and InnoDB, allowing significant performance improvements and simplified crash recovery behavior.
 
 ## Enabling the InnoDB Binlog
 
-```
+```bash
 --binlog-storage-engine
 ```
 
@@ -21,7 +25,7 @@ Traditionally, MariaDB treated the binary log and the InnoDB storage engine as s
 
 The InnoDB-based binlog offers two key performance advantages:
 
-1. **Crash safe recovery without sync operations**: The binlog seamlessly integrates with InnoDB's crash recovery mechanism. This enables you to set `--innodb-flush-log-at-trx-commit=0` or `--innodb-flush-log-at-trx-commit=2` for better performance while maintaining crash safety and consistency.
+1. **Crash-safe recovery without sync operations**: The binlog seamlessly integrates with InnoDB's crash recovery mechanism. This enables you to set `--innodb-flush-log-at-trx-commit=0` or `--innodb-flush-log-at-trx-commit=2` for better performance while maintaining crash safety and consistency.
 2. **Efficient commits with reduced** `fsync` **operations**: When using the `--innodb-flush-log-at-trx-commit=1` setting, the system performs only a single coordinated `fsync` per commit, instead of the multiple syncs required by the traditional 2PC.
 3. The `sync_binlog` option is no longer required as the binlog files are now crash-safe.
 
@@ -35,7 +39,7 @@ The InnoDB-based binlog offers two key performance advantages:
 | Positioning     | Filename/Offset or [Global Transaction ID](gtid.md) (GTID) | GTID Only                             |
 | File Allocation | Incremental                                                | Pre-allocated (`max_binlog_size`)     |
 
-## When to Use InnoDb-Based Binlogs
+## When to Use InnoDB-Based Binlogs
 
 Use **InnoDB-based binlogs** when:
 
@@ -55,7 +59,8 @@ Stay with **traditional binlogs** when:
 
 To enable the InnoDB-based binlog, add these options to your MariaDB configuration file:
 
-```
+```ini
+[mariadb]
 log_bin
 binlog_storage_engine=innodb
 ```
@@ -71,7 +76,8 @@ For additional configuration options, see [Replication and Binary Log System Var
 
 The directory for binary log files can be configured with:
 
-```
+```ini
+[mariadb]
 binlog_directory=/path/to/binlog
 ```
 
@@ -97,11 +103,12 @@ binlog-000001.ibb
 
 The new binlog implementation requires GTID-based replication. The GTID state is written to the binary log on a regular basis. The following regulates the interval:
 
-```
+```ini
+[mariadb]
 innodb-binlog-state-interval
 ```
 
-The binary log from the last GTID state record is scanned when a slave connects in order to find the determined location.
+The binary log from the last GTID state record is scanned when a replica connects in order to find the determined location.
 
 For additional configuration options, see [Replication and Binary Log System Variables](replication-and-binary-log-system-variables.md).
 
@@ -109,19 +116,19 @@ For additional configuration options, see [Replication and Binary Log System Var
 
 Using the new binlog, [replication](./) configuration from the master can be performed as usual. For that:
 
-* Slaves must use GTID to connect to the master (default).
-* Slaves should run MariaDB 12.3 or later when replicating from master
+* Replicas must use GTID to connect to the master (default).
+* Replicas should run MariaDB 12.3 or later when replicating from master.
 * The master and slave can independently use either the traditional or new binlog format.
 
 ### Viewing Binlog Events
 
 Binary log events can be verified from within the server using SQL statements, or from outside the server using the `mariadb-binlog` client utility.
 
-1. Within the server
+#### Within the Server
 
 To inspect binary log events directly from a running server instance, use SQL statements:
 
-```
+```sql
 -- View all binlog events
 SHOW BINLOG EVENTS;
 
@@ -134,11 +141,11 @@ SHOW BINLOG EVENTS FROM GTID_POS('0-1-1024');
 
 Note that event offsets are generally reported as zero; GTID positions can be used instead for navigation.
 
-2. Using the `mariadb-binlog` utility
+#### Using the `mariadb-binlog` Utility
 
 The `mariadb-binlog` utility allows inspection of binary log files either locally or remotely:
 
-```
+```bash
 # Read binary log from a remote server
 mariadb-binlog --read-from-remote-server \
 
@@ -157,7 +164,7 @@ When viewing events across multiple binlog files, all binlog files should be pas
 
 To regulate the file size and disk use, binary log files can be manually rotated or purged:
 
-```
+```sql
 -- Flush the current binary log file and create a new one
 FLUSH BINARY LOGS;
 
@@ -168,7 +175,7 @@ FLUSH BINARY LOGS DELETE_DOMAIN_ID=N;
 PURGE BINARY LOGS TO 'binlog-000001.ibb';
 ```
 
-* Pads current file to next page boundary
+* Pads current file to next page boundary.
 * `FLUSH BINARY LOGS` creates new `.ibb` files and terminates the existing one.
 * `PURGE BINARY LOGS TO` removes older files that are no longer required.
 
@@ -176,7 +183,7 @@ PURGE BINARY LOGS TO 'binlog-000001.ibb';
 
 Binary log files can be automatically removed according to disk consumption or age.
 
-```
+```sql
 -- Retain binary logs for 7 days (in seconds)
 SET GLOBAL binlog_expire_log_seconds = 604800;
 
@@ -192,8 +199,8 @@ slave_connections_needed_for_purge=0
 
 Note that binary log files are only deleted when:
 
-* Limits on time and size are exceeded
-* Files are not required for crash recovery or by active replicas
+* Limits on time and size are exceeded.
+* Files are not required for crash recovery or by active replicas.
 
 ## Backup using mariadb-backup
 
@@ -205,11 +212,11 @@ Key features:
 
 * Consistent transactional backup for binlog files, similar to other [InnoDB](../../server-usage/storage-engines/innodb/) data.
 * Backups are non-blocking, meaning the server continues running normally. By default, only `RESET MASTER`**,** `PURGE BINARY LOGS`, and `FLUSH BINARY LOGS` are blocked during backup. This blocking can be disabled with the `--no-lock` option.
-* Restored backups can serve as slaves for replication.
+* Restored backups can serve as replicas for replication.
 
-### Setting Up Slave from Backup
+### Setting Up Replica from Backup
 
-```
+```bash
 # Default backup includes binlog files
 mariadb-backup --backup --target-dir=/backup/path
 
@@ -241,9 +248,10 @@ Note that the restored server will behave as if `RESET MASTER` was executed at b
 
 ### New Installations (Simple)
 
-For new MariaDB 12.3 and later installations, simply enable the below options in your configuration:
+For new MariaDB 12.3 and later installations, enable the below options in your configuration:
 
-```
+```ini
+[mariadb]
 --log-bin 
 --binlog-storage-engine=innodb
 ```
@@ -256,11 +264,11 @@ Starting with MariaDB 12.3, there are three primary methods to migrate from the 
 
 #### Method 1: Direct Restart Migration (Simple)
 
-This is the most simplest approach, appropriate for cases where point-in-time recovery does not require maintaining old binary log files.
+This is the simplest approach, appropriate for cases where point-in-time recovery does not require maintaining old binary log files.
 
 1. Stop the MariaDB server.
 2. &#x20;Add `--log-bin` and `--binlog-storage-engine=innodb` to your configuration.
-3. The new binlog will begin empty if the server is restarted.
+3. The new binlog begins empty if the server is restarted.
 4. Remove the old binlog files from the storage directory manually.
 
 #### Method 2: Replication State Migration (GTID Preservation)
@@ -268,35 +276,36 @@ This is the most simplest approach, appropriate for cases where point-in-time re
 This approach is used to switch a master server while ensuring that connected replicas can continue replicating without the need for a full reconfiguration.
 
 1. Stop all writing to the master.
-2. Wait for all slaves to catch up to the master's current position.
+2. Wait for all replicas to catch up to the master's current position.
 3. Capture the current GTID state by noting down the value of `@@binlog_gtid_state`.
-4. Restart the master with
+4. Restart the master with this configuration:
 
-```
+```ini
+[mariadb]
 --log_bin
 --binlog-storage-engine=innodb
 ```
 
-5. Immediately execute `SET GLOBAL binlog_gtid_state=<old value>` using the value saved in Step 3.
-6. Allow slaves to reconnect; they will continue from where they left off.
+5. Immediately execute `SET GLOBAL binlog_gtid_state=<old value>` using the value saved in step 3.
+6. Allow replicas to reconnect; they will continue from where they left off.
 
 #### Method 3: Live Migration (Zero downtime)
 
 This is the most robust method for production environments, as it avoids master downtime during the format transition.
 
 1. Ensure that all replicas are upgraded to at least MariaDB version 12.3 before switching the master.
-2. Choose a slave and restart it with `--binlog-storage-engine=innodb`.
-3. Allow the slave to replicate from the old-format master until it has enough binlog data.
-4. Promote this slave to be the new master.
-5. Restart the remaining slaves to point to the new master after stopping them one at a time and changing their configuration to the new binlog format.
+2. Choose a replica and restart it with `--binlog-storage-engine=innodb`.
+3. Allow the replica to replicate from the old-format master until it has enough binlog data.
+4. Promote this replica to be the new master.
+5. Restart the remaining replicas to point to the new master after stopping them one at a time and changing their configuration to the new binlog format.
 
 ## Performance Characteristics
 
 The InnoDB-based binary log eliminates the traditional 2PC protocol between the binary log and the InnoDB storage engine, which results in:
 
-* Reduced commit latency
-* Removal of `sync_binlog` overhead
-* When `--innodb-flush-log-at-trx-commit=1`, a single synchronized flush occurs.
+* Reduced commit latency.
+* Removal of `sync_binlog` overhead.
+* When `--innodb-flush-log-at-trx-commit=1` is set, a single synchronized flush occurs.
 
 Commit durability is now controlled solely by the [--innodb-flush-log-at-trx-commit](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_flush_log_at_trx_commit) setting.
 
@@ -305,11 +314,11 @@ Commit durability is now controlled solely by the [--innodb-flush-log-at-trx-com
 * `--innodb-flush-log-at-trx-commit=1`: Performs a single coordinated flush of both table data and binary log, offering greater efficiency compared to the traditional binlog implementation
 * `--innodb-flush-log-at-trx-commit=2`: Provides higher throughput with acceptable crash trade-offs
 
-The `sync_binlog` option is effectively ignored when using the InnoDB-based binary log,
+The `sync_binlog` option is effectively ignored when using the InnoDB-based binary log.
 
 ### GTID State Interval
 
-The `--innodb-binlog-state-interval` configuration option controls how often GTID state records are written to the binary log. Lowering this value helps slaves reconnect faster during high traffics.
+The `--innodb-binlog-state-interval` configuration option controls how often GTID state records are written to the binary log. Lowering this value helps replicas reconnect faster during high traffics.
 
 ## Limitations and Unsupported Features
 
