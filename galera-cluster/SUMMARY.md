@@ -40,6 +40,7 @@
   * [Certification-Based Replication](galera-architecture/certification-based-replication.md)
   * [Quorum Control with Weighted Votes](galera-architecture/quorum-control-with-weighted-votes.md)
   * [Galera Cluster Deployment Variants](galera-architecture/galera-cluster-deployment-variants.md)
+  * [Architectural Decision Guide: Choosing a Replication Strategy](galera-architecture/architectural-decision-guide-choosing-a-replication-strategy.md)
 * [Galera Security](galera-security/README.md)
   * [Securing Communications in Galera Cluster](galera-security/securing-communications-in-galera-cluster.md)
   * [MariaDB Enterprise Cluster Security](galera-security/mariadb-enterprise-cluster-security.md)
