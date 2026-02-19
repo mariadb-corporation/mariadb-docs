@@ -305,7 +305,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Singapore
 
 - Daan van Gorkum
-- National University of Singapore
 
 ### South Korea
 
