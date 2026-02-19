@@ -17,7 +17,7 @@ log_bin
 
 Optionally, you can specify a **basename** (with or without a path). If you don't, MariaDB assigns a default basename (for instance, `c525d37c-b2ff-4543-b06f-87012d142d44-bin)`, derived from the UUID or hostname of the computer the server runs on. To the basename, file extensions are added, determining the nature of the log files. See [this section](activating-the-binary-log.md#log-file-organization) for details.
 
-
+{% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
 
 On server start, you can set a basename (in the example, with a path) like this:
 
