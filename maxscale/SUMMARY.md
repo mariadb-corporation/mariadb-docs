@@ -313,7 +313,6 @@
       * [MaxScale 24.02 Avrorouter](maxscale-archive/archive/mariadb-maxscale-24-02/maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-avrorouter.md)
       * [MaxScale 24.02 Binlogrouter](maxscale-archive/archive/mariadb-maxscale-24-02/maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-binlogrouter.md)
       * [MaxScale 24.02 Cat](maxscale-archive/archive/mariadb-maxscale-24-02/maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-cat.md)
-      * [MaxScale 24.02 Diff - router for comparing servers](maxscale-archive/archive/mariadb-maxscale-24-02/maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-diff-router-for-comparing-servers.md)
       * [MaxScale 24.02 HintRouter](maxscale-archive/archive/mariadb-maxscale-24-02/maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-hintrouter.md)
       * [MaxScale 24.02 KafkaCDC](maxscale-archive/archive/mariadb-maxscale-24-02/maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-kafkacdc.md)
       * [MaxScale 24.02 KafkaImporter](maxscale-archive/archive/mariadb-maxscale-24-02/maxscale-24-02routers/mariadb-maxscale-2402-maxscale-2402-kafkaimporter.md)
