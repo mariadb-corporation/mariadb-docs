@@ -25,7 +25,7 @@ For changes made in [MariaDB 10.0.30](../../10.0/10.0.30.md), see the [MariaDB 1
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.19.
 * As per the [MariaDB Deprecation Policy](../../../about/platform-deprecation-policy.md), this will be the last release of MariaDB Galera Cluster 10.0 for Fedora 23, CentOS 5, RHEL 5, and openSUSE 13
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2017-3313](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3313)
   * [CVE-2017-3302](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3302)
 * See the [MariaDB 10.0.30 Release Notes](../../10.0/10.0.30.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10030-changelog.md) for more information on the changes in\

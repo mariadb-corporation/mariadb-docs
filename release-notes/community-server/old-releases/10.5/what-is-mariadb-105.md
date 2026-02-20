@@ -213,7 +213,7 @@ See the [Differences in MariaDB Enterprise Server 10.5](../../../enterprise-serv
 ## Security Vulnerabilities Fixed in [MariaDB 10.5](what-is-mariadb-105.md)
 
 For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security)\
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
 page.
 
 * [CVE-2025-21490](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-21490): [MariaDB 10.5.28](10.5.28.md)

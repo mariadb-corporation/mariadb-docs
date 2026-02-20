@@ -977,9 +977,9 @@ MariaDB Enterprise Server 10.5 improves SQL functionality in several areas:
 
 ## Security
 
-MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security) improvements:
+MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve) improvements:
 
-* It allows a server to be configured to [require secure connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview) by configuring the [require\_secure\_transport](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#require_secure_transport) system variable.
+* It allows a server to be configured to [require secure connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview) by configuring the [require\_secure\_transport](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#require_secure_transport) system variable.
   * If this mode is enabled, then all TCP connections must use TLS.
   * Local connections that connect using a Unix socket or a named pipe are also allowed.
 * It adds the `CONNECTION_TYPE` column to the [performance\_schema.threads table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables), which can be used to determine which connections are using TLS.
@@ -1160,7 +1160,7 @@ MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.c
 
 MariaDB Enterprise Server 10.5 introduces an encryption plugin to support for [HashiCorp Vault](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb):
 
-* It allows HashiCorp Vault to manage encryption keys for [data-at-rest encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption).
+* It allows HashiCorp Vault to manage encryption keys for [data-at-rest encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption).
 * It communicates with the remote KMS using TLS.
 * It supports key rotation.
 
@@ -1259,7 +1259,7 @@ MariaDB Enterprise Server 10.5 includes some internal improvements:
 * Its internal regular expression library has been upgraded from PCRE to PCRE2.
 * It adds support for a new Data Type API, so that plugins can define custom data types.
 
-For a complete list of changes, see [MariaDB Enterprise Server 10.5.4-2 release notes](release-notes-for-mariadb-enterprise-server-10-5-4-2.md).
+For a complete list of changes, see [MariaDB Enterprise Server 10.5.4-2 release notes](10.5.4-2.md).
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

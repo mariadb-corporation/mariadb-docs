@@ -38,7 +38,7 @@ The following lists the major new features in [MariaDB 10.2](what-is-mariadb-102
 * [ed25519 authentication plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-ed25519) ([MDEV-12160](https://jira.mariadb.org/browse/MDEV-12160))
 * Better InnoDB crash recovery progress reporting ([MDEV-11027](https://jira.mariadb.org/browse/MDEV-11027))
 * Improvements to InnoDB startup/shutdown to make it more robust
-* [AWS Key Management plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin) added for Windows, CentOS, RHEL, and Fedora packages
+* [AWS Key Management plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin) added for Windows, CentOS, RHEL, and Fedora packages
 * [Atomic writes support made more general](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/atomic-write-support). [Shannon system SSD cards](https://www.shannon-sys.com) are now supported.
 
 ### Incompatible Changes
@@ -146,7 +146,7 @@ For a list of all new status variables, see [Status Variables Added in MariaDB 1
 #### Security Vulnerabilities Fixed in [MariaDB 10.2](what-is-mariadb-102.md)
 
 For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security)\
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
 page.
 
 * [CVE-2022-32088](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32088): [MariaDB 10.2.44](10.2.44.md)

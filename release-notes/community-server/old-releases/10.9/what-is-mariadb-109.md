@@ -26,7 +26,7 @@ The most recent release of [MariaDB 10.9](what-is-mariadb-109.md) is:[**MariaDB 
 
 ### Hashicorp Key Management Plugin
 
-* [Hashicorp Key Management Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) for implementing [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption) using keys stored in the Hashicorp Vault KMS ([MDEV-19281](https://jira.mariadb.org/browse/MDEV-19281))
+* [Hashicorp Key Management Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin) for implementing [encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption) using keys stored in the Hashicorp Vault KMS ([MDEV-19281](https://jira.mariadb.org/browse/MDEV-19281))
 
 ### Replication and Galera
 
@@ -55,7 +55,7 @@ and [Status Variables Added in MariaDB 10.9](what-is-mariadb-109.md).
 ## Security Vulnerabilities Fixed in [MariaDB 10.9](what-is-mariadb-109.md)
 
 For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security)\
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
 page.
 
 * [CVE-2022-47015](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-47015): [MariaDB 10.9.6](10.9.6.md)

@@ -24,7 +24,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 * As per the [MariaDB Deprecation Policy](../../../about/platform-deprecation-policy.md), this will be\
   the last release of MariaDB Galera Cluster 5.5 for Ubuntu 12.04 LTS\
   "Precise" and Mint 13 LTS "Maya"
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2017-3302](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3302)
   * [CVE-2017-3313](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3313)
   * [CVE-2017-3308](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3308)

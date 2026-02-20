@@ -40,7 +40,7 @@ The most recent release of [MariaDB 11.1](what-is-mariadb-111.md) is:[**MariaDB 
 ## Security Vulnerabilities Fixed in [MariaDB 11.1](what-is-mariadb-111.md)
 
 For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security)\
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
 page.
 
 * [CVE-2024-21096](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21096): [MariaDB 11.1.5](11.1.5.md)

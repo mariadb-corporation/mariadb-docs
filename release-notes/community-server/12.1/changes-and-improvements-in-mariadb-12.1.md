@@ -57,7 +57,7 @@ This feature was only available in the 12.1 development releases, and will be im
 
 ### Security Vulnerabilities Fixed in MariaDB 12.1
 
-For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security) page.
+For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve) page.
 
 * [CVE-2026-21968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968): [MariaDB 12.1.2](12.1.2.md)
 

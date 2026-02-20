@@ -83,7 +83,7 @@ The following deprecated features and system variables have been removed ([MDEV-
 ## Security Vulnerabilities Fixed in [MariaDB 11.3](what-is-mariadb-113.md)
 
 For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security)\
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
 page.
 
 ## List of All [MariaDB 11.3](what-is-mariadb-113.md) Releases

@@ -21,7 +21,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 * The [Galera library](https://codership.com/content/using-galera-cluster) used\
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.22.
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2018-2562](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-2562)
   * [CVE-2018-2622](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-2622)
   * [CVE-2018-2640](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-2640)

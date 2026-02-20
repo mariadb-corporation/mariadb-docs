@@ -26,7 +26,7 @@ For changes made in [MariaDB 10.0.38](../../10.0/10.0.38.md), see the [MariaDB 1
 * The [Galera library](https://codership.com/content/using-galera-cluster) used\
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.25.
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2019-2537](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-2537)
   * [CVE-2019-2529](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-2529)
 * See the [MariaDB 10.0.38 Release Notes](../../10.0/10.0.38.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10038-changelog.md) for more information on the changes in\
