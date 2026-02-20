@@ -31,6 +31,14 @@ The larger the size, the longer it takes to initialize.&#x20;
 Make sure that the size is not too large, because this can cause swapping, which more than undoes the benefits of a large buffer pool.
 {% endhint %}
 
+{% hint style="warning" %}
+**Using ColumnStore?**
+
+The 75-80% recommendation does not apply if you are also running MariaDB ColumnStore on the same server, as ColumnStore reserves 75% of system RAM by default. Using the standard InnoDB sizing rule in a combined environment will likely trigger the Linux OOM killer.
+
+Please refer to the [ColumnStore Memory Requirements](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/high-availability/mariadb-columnstore-performance-related-configuration-settings#innodb-buffer-pool-sizing-with-columnstore) for accurate sizing and validation instructions.
+{% endhint %}
+
 The buffer pool can be set dynamically. See [Setting Innodb Buffer Pool Size Dynamically](../../../ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md).
 
 ## Buffer Pool Changes
