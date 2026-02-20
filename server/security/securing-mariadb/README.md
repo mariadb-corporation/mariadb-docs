@@ -52,8 +52,8 @@ Secure MariaDB Server with SELinux. This section guides you through configuring 
 
 {% columns %}
 {% column %}
-{% content-ref url="security.md" %}
-[security.md](security.md)
+{% content-ref url="../cve/" %}
+[cve](../cve/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -64,8 +64,8 @@ This is is the master list of CVEs fixed across all versions of MariaDB.
 
 {% columns %}
 {% column %}
-{% content-ref url="security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md" %}
-[security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md](security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md)
+{% content-ref url="../cve/security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md" %}
+[security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md](../cve/security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
