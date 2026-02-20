@@ -95,7 +95,7 @@ transit. Follow these steps to configure SSL:
 
 **1. Set Up SSL Keys and Certificates:**
 
-* Generate SSL keys and certificates. See [Certificate Creation with OpenSSL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/certificate-creation-with-openssl)
+* Generate SSL keys and certificates. See [Certificate Creation with OpenSSL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/certificate-creation-with-openssl)
 * Add them to the MaxScale configuration file.
 
 **2. Update the MaxScale Configuration:**

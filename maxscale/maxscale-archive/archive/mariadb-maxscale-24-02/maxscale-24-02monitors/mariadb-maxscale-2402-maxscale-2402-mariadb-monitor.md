@@ -1029,7 +1029,7 @@ replication_custom_options=MASTER_SSL_CERT = '/tmp/certs/client-cert.pem',
                            MASTER_SSL_VERIFY_SERVER_CERT=0
 ```
 
-**`failover_timeout` and `switchover_timeout`**
+#### **`failover_timeout` and `switchover_timeout`**
 
 * Type: [duration](../maxscale-24-02getting-started/mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -1051,7 +1051,7 @@ If no successful failover/switchover takes place within the configured time\
 period, a message is logged and automatic failover is disabled. This prevents\
 further automatic modifications to the misbehaving cluster.
 
-**`verify_master_failure`**
+#### **`verify_master_failure`**
 
 * Type: [boolean](../maxscale-24-02getting-started/mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -1080,7 +1080,7 @@ faster failover when the primary properly disconnects.
 For automatic failover to activate, the `failcount` requirement must also be\
 met.
 
-**`master_failure_timeout`**
+#### **`master_failure_timeout`**
 
 * Type: [duration](../maxscale-24-02getting-started/mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No
@@ -1093,7 +1093,7 @@ versions a value without a unit may be rejected. Note that since the granularity
 of the timeout is seconds, a timeout specified in milliseconds will be rejected,\
 even if the duration is longer than a second.
 
-**`servers_no_promotion`**
+#### **`servers_no_promotion`**
 
 * Type: string
 * Mandatory: No
@@ -1116,7 +1116,7 @@ server selection during MaxScale startup or due to replication topology\
 changes. A server listed in `servers_no_promotion` will thus not be\
 selected as primary unless manually designated in a _switchover_-command.
 
-**`promotion_sql_file` and `demotion_sql_file`**
+#### **`promotion_sql_file` and `demotion_sql_file`**
 
 * Type: string
 * Mandatory: No
@@ -1155,7 +1155,7 @@ promotion_sql_file=/home/root/scripts/promotion.sql
 demotion_sql_file=/home/root/scripts/demotion.sql
 ```
 
-**`handle_events`**
+#### **`handle_events`**
 
 * Type: [boolean](../maxscale-24-02getting-started/mariadb-maxscale-2402-maxscale-2402-mariadb-maxscale-configuration-guide.md)
 * Mandatory: No

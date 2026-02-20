@@ -1,36 +1,41 @@
 ---
 description: >-
-  Learn how to configure the Exasol router in MariaDB MaxScale to route
+  Learn how to configure the Exasolrouter in MariaDB MaxScale to route
   analytical queries to Exasol while maintaining transactional workloads in
   MariaDB
 ---
 
-# MariaDB MaxScale Exasol Router
+# MariaDB MaxScale Exasolrouter
+
+{% hint style="info" %}
+This functionality is available from MaxScale 25.10.1.
+{% endhint %}
+
+> In MaxScale configuration, this module is referred to as `exasolrouter`. For documentation purposes, it is styled as `Exasolrouter` to enhance readability.
 
 ## Description
 
-The [Exasol Router](maxscale-exasolrouter.md) enables MariaDB MaxScale to execute analytical SQL queries directly against the Exasol analytics engine.
+The [Exasolrouter](maxscale-exasolrouter.md) module is primarily intended to be used in combination with SmartRouter within hybrid transactional/analytical processing (HTAP) environments, where:
 
-When used together with SmartRouter:
+* **Write queries** are routed to MariaDB
+* **Read queries** are routed to either MariaDB or Exasol, based on runtime performance measurements
 
-* **Write queries** are routed to MariaDB to mainatain transactional integrity.
-* **Read queries** are dynamically routed to either MariaDB or Exasol, based on runtime performance measurements.
+The Exasolrouter module can also be used in standalone mode to expose Exasol through a MariaDB client protocol listener. In this configuration, MaxScale acts a protocol bridge between MariaDB clients and the Exasol ODBC driver. This mode is primarily designed for debugging or specialized deployments.
 
-SmartRouter measures execution time using the canonical form of queries (constants replaced with placeholders). When a new canonical query is encountered:
-
-1. The query is sent to all clusters.
-2. The first cluster to respond is selected as the preferred backend.
-3. Other in-flight queries are cancelled.
-4. Performance metrics are periodically re-evaluated.
+SmartRouter measures query performance using canonical query forms (with constants replaced by placeholders). When a new canonical query is encountered, the preferred backend based on measured response times and periodically reevaluates its decision.
 
 For a detailed explanation of the routing algorithm, see [SmartRouter](maxscale-smartrouter.md#cluster-selection-how-queries-are-routed).
 
-This architecture allows applications to use a single connection endpoint for both OLTP and analytics workloads without application-level routing logic.
+This architecture allows applications to use a single connection endpoint for both Online Transactional Processing (OLTP) and analytics workloads without application-level routing logic.
 
 ## Prerequisites
 
 * MariaDB MaxScale **25.10.1 or later** must be installed. \
   See the [installation guide](../../maxscale-quickstart-guides/mariadb-maxscale-installation-guide.md) if required.
+* MaxScale running on x86\_64 architecture
+  * The Exasolrouter module uses the Exasol ODBC driver to establish communication with Exasol.
+  * The Exasol ODBC driver currently requires x86\_64.
+  * So, MaxScale must run on x86\_64 when using `exasolrouter`.&#x20;
 * Operational MariaDB deployment
 * Operational Exasol deployment
 * Network connectivity between MaxScale, MariaDB, and Exasol
@@ -41,14 +46,14 @@ Default ports:
 * MaxScale: 3306
 * Exasol: 8563
 
-## Configuring the Exasol router in MariaDB MaxScale
+## Configuring the Exasolrouter in MariaDB MaxScale
 
 1. Install the Exasol ODBC driver on the MaxScale host.\
    \
-   MaxScale’s Exasol router leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.
-   1. Download the latest ODBC driver.\
-      Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) to identify the latest version for Linux x86\_64.
-   2. Install the driver.
+   The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
+   1. Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) and select the driver version that matches the operating system of the MaxScale host.
+   2. Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).&#x20;
+   3. Install the downloaded driver according to the platform-specific installation instructions.
 
 &#x20;      Replace the version number in the commands below with the version you downloaded:&#x20;
 
@@ -92,7 +97,7 @@ exaplus -c 192.168.1.100/nocertcheck:8563 -u sys -p 'syspassword' \
    -sql "GRANT CREATE SESSION, CREATE TABLE, SELECT ANY TABLE, INSERT
 ```
 
-**Important**: For all connections to Exasol, the Exasol router uses a **single service user**. Exasol does not currently receive user‑level authentication from MariaDB clients.
+**Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not currently receive user‑level authentication from MariaDB clients.
 
 3. Configure the MaxScale server and monitor.
 
@@ -107,9 +112,9 @@ maxctrl create monitor mariadb_monitor mariadbmon \
   monitor_interval=1s ;
 ```
 
-4.  Configure the MaxScale Exasol router.\
+4.  Configure the MaxScale Exasolrouter.\
     \
-    Create the Exasol router service. This service contains the connection information for Exasol, including the ODBC driver path and credentials.<br>
+    Create the Exasolrouter service. This service contains the connection information for Exasol, including the ODBC driver path and credentials.<br>
 
     ```
     maxctrl create service mariadb_exasolrouter exasolrouter \
@@ -126,10 +131,13 @@ Replace the following placeholders with values that match your actual environmen
 * `EXAHOST`: Your Exasol host and port
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
 
+
+
 5.  Configure the MaxScale SmartRouter.<br>
 
-    The SmartRouter integrates the MariaDB server with the Exasol Router and is responsible for distributing queries between the two backends.
+    The SmartRouter integrates the MariaDB server with the Exasolrouter and is responsible for distributing queries between the two backends.
 
+    \
     Replace the password to match your environment:
 
 
@@ -177,7 +185,7 @@ Replace the following placeholders with values that match your actual environmen
         Replace:
 
         * `<maxscale-ip>` with the IP address of your MaxScale host.
-        * `<exa-listener-port>` with the port you configured for the Exasol router listener.
+        * `<exa-listener-port>` with the port you configured for the `exasolrouter` listener.
         * `<username>` with a valid MariaDB username that MaxScale can authenticate. <br>
 
         To perform a very basic connectivity test:<br>
@@ -218,10 +226,11 @@ Replace the following placeholders with values that match your actual environmen
 
         \
         These messages indicate which backend is being evaluated. \
+        \
         Another way to determine how a query was executed is by using the [Hint Filter](../maxscale-filters/maxscale-hintfilter.md). You can force routing to a specific backend by adding a SQL comment.
     3. Data synchronizing requirements
 
-    The Exasol Router does not automatically synchronize data between MariaDB and Exasol.&#x20;
+    The Exasolrouter does not automatically synchronize data between MariaDB and Exasol.&#x20;
 
 In the event that [Change Data Capture](../../maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-protocols/mariadb-maxscale-2302-change-data-capture-cdc-users.md) (CDC) is not set up:
 
@@ -254,6 +263,6 @@ The MariaDB MaxScale–Exasol integration includes some limitations. It includes
 
 ## See Also
 
-* [MaxScale Exasol Router](maxscale-exasolrouter.md)
+* [MaxScale Exasolrouter](maxscale-exasolrouter.md)
 * [MaxScale SmartRouter](maxscale-smartrouter.md)
 * [Hint Filter](../maxscale-filters/maxscale-hintfilter.md)
