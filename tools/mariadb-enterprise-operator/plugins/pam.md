@@ -372,7 +372,7 @@ kubectl create secret generic mariadb-ldap-tls --from-file=./tls.crt
 
 #### With MaxScale
 
-If you want to have MaxScale in front of your pam-enabled MariaDB cluster, you need to configure MaxScale like to skip checking if passwords of incoming clients are correct and assume they are. The failure will then comes when MaxScale tries to authenticate to the backend servers.
+To put MaxScale in front of your PAM-enabled MariaDB cluster, configure MaxScale so that it skips checking if passwords of incoming clients are correct, but rather assumes they are. The failure still occurs, but at the time when MaxScale tries to authenticate to the backend servers.
 
 **maxscale-ldap.yaml:**
 ```diff
@@ -386,7 +386,7 @@ spec:
       router: readwritesplit
       listener:
         port: 3306
-+        params: # Configure the following options for all services you want to have pam enabled.
++        params: # Configure the following options for all services that should be PAM-enabled.
 +          authenticator: pamauth
 +          authenticator_options: "skip_authentication=true"
 ```
