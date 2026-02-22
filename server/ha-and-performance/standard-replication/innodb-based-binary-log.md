@@ -15,6 +15,10 @@ This feature is available from MariaDB 12.3.
 
 Traditionally, MariaDB treated the [binary log](../../server-management/server-monitoring-logs/binary-log/) (binlog) and the [InnoDB storage engine](../../server-usage/storage-engines/innodb/) as separate components, requiring a complex two-phase commit (2PC) protocol to keep them synchronized. With this new binlog implementation, binlog transactions are stored within InnoDB-managed pages. This change eliminates the need for an expensive 2PC between the binlog and InnoDB, allowing significant performance improvements and simplified crash recovery behavior.
 
+InnoDB-based binary logs entirely replace traditional file-based binary logs. When enabled, the server stops writing traditional binlog files, and the new format becomes the only binary log implementation in use.
+
+Additionally, this feature is limited to the binary log on the server. Replicas continue to use the traditional relay log implementation, therefore it does not affect them.
+
 ## Enabling the InnoDB Binlog
 
 ```bash
@@ -348,7 +352,7 @@ Rather, the command begins at the first GTID event that comes after the designat
 
 #### Multiple Storage Engines
 
-During the initial implementation, only InnoDB is available as an engine for the binlog (`--binlog-storage-engine=innodb`). The other engines can be added in future versions.
+During the initial implementation, only InnoDB is available as an engine for the binlog (`--binlog-storage-engine=innodb`).&#x20;
 
 ## See Also
 

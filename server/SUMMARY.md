@@ -1175,6 +1175,7 @@
       * [LOAD TABLE FROM MASTER (removed)](ha-and-performance/standard-replication/obsolete-replication-information/load-table-from-master-removed.md)
       * [MariaDB 5.2 Replication Feature Preview](ha-and-performance/standard-replication/obsolete-replication-information/mariadb-52-replication-feature-preview.md)
       * [XtraDB option --innodb-release-locks-early](ha-and-performance/standard-replication/obsolete-replication-information/xtradb-option-innodb-release-locks-early.md)
+    * [InnoDB-Based Binary Log](ha-and-performance/standard-replication/innodb-based-binary-log.md)
   * [Benchmarking](ha-and-performance/benchmarking.md)
   * [MariaDB Memory Allocation](ha-and-performance/mariadb-memory-allocation.md)
   * [Hardware Optimization](ha-and-performance/hardware-optimization.md)
