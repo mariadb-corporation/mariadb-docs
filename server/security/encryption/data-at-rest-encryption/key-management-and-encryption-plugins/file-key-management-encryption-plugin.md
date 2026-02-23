@@ -167,7 +167,7 @@ Using the `-iter` (iterations) parameter in combination with `-pbkdf2` makes sen
 {% endhint %}
 
 {% hint style="warning" %}
-When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--` [`file_key_management_use_pbkdf2`](file-key-management-encryption-plugin.md#file_key_management_use_pbkdf2)`=`_`number_of_iterations`_ option to MariaDB Server.
+When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--[file_key_management_use_pbkdf2](file-key-management-encryption-plugin.md#file_key_management_use_pbkdf2)=\_number_of_iterations\_` option to MariaDB Server.
 {% endhint %}
 
 The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
