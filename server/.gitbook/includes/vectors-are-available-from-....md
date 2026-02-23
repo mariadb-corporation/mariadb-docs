@@ -1,5 +1,5 @@
 ---
-title: Vectors are available from ...
+title: Vectors from11.7
 ---
 
 {% hint style="info" %}

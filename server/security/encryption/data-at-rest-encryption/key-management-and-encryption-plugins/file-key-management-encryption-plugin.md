@@ -11,7 +11,7 @@ MariaDB's [data-at-rest encryption](../data-at-rest-encryption-overview.md) requ
 
 MariaDB supports the use of [multiple encryption keys](encryption-key-management.md#using-multiple-encryption-keys). Each encryption key uses a 32-bit integer as a key identifier. If the specific plugin supports [key rotation](encryption-key-management.md#key-rotation), then encryption keys can also be rotated, which creates a new version of the encryption key.
 
-The File Key Management plugin that ships with MariaDB is a [key management and encryption plugin](encryption-key-management.md) that reads encryption keys from a plain-text file.
+The File Key Management plugin that ships with MariaDB is a [key management and encryption plugin](encryption-key-management.md) that reads encryption keys from a plaintext file.
 
 ## Overview
 
@@ -23,7 +23,7 @@ The File Key Management plugin is the [key management and encryption plugin](enc
 * It supports key rotation with MariaDB Enterprise Server from MariaDB Enterprise Server 11.8.
 * It supports two different algorithms for encrypting data.
 
-It can also serve as an example and as a starting point when developing a key management and encryption plugin with the [encryption plugin API](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/5UGvvjnJpWY0JXBeD4Hc).
+It can also serve as an example and as a starting point when developing a key management and encryption plugin with the encryption plugin API.
 
 ## Installing the File Key Management Plugin's Package
 
@@ -31,12 +31,10 @@ The File Key Management plugin is included in MariaDB packages as the `file_key_
 
 ## Installing the Plugin
 
-Although the plugin's shared library is distributed with MariaDB by default, the plugin is not actually installed by MariaDB by default. The plugin can be installed by providing the\
-[--plugin-load](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../../server-management/starting-and-stopping-mariadb/mariadbd.md) or it can be specified in a relevant server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
+Although the plugin's shared library is distributed with MariaDB by default, the plugin is not actually installed by MariaDB by default. The plugin can be installed by providing the [--plugin-load](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load) or the [--plugin-load-add](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#plugin-load-add) options. This can be specified as a command-line argument to [mariadbd](../../../../server-management/starting-and-stopping-mariadb/mariadbd.md) or it can be specified in a relevant server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
 ```ini
 [mariadb]
-...
 plugin_load_add = file_key_management
 ```
 
@@ -128,7 +126,6 @@ This system variable can be specified as a command-line argument to `mariadbd` ,
 
 ```ini
 [mariadb]
-...
 loose_file_key_management_filename = /etc/mysql/encryption/keyfile
 ```
 
@@ -167,7 +164,7 @@ Using the `-iter` (iterations) parameter in combination with `-pbkdf2` makes sen
 {% endhint %}
 
 {% hint style="warning" %}
-When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--[file_key_management_use_pbkdf2](file-key-management-encryption-plugin.md#file_key_management_use_pbkdf2)=\_number_of_iterations\_` option to MariaDB Server.
+When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--file_key_management_use_pbkdf2=`_`number_of_iterations`_ option to MariaDB Server.
 {% endhint %}
 
 The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
