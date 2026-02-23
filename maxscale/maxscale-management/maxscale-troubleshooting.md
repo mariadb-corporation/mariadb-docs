@@ -44,9 +44,9 @@ The instructions on the [profiling-memory-usage](../../general-resources/communi
 
 Valgrind can be used to analyze memory usage problems but usually it is left as the last resort due to the heavy performance penalty that it incurs. However, the use of Valgrind is simple as it is widely available and can be used with existing MaxScale binaries.
 
-To use `valgrind` for memory leak detection, edit the systemd service file with `systemctl edit maxscale.service` and add the following values to it:
+To use `valgrind` for memory leak detection, edit the systemd service file with `systemctl edit maxscale.service`, and add the following values to it:
 
-```
+```ini
 [Service]
 ExecStart=valgrind --leak-check=full /usr/bin/maxscale -d
 Type=simple
@@ -104,7 +104,7 @@ If you want to connect as root, you'll need to add [enable\_root\_user=true](dep
 
 There seems to be a bug for databases containing underscores. Connect as root and use "SHOW GRANTS FOR user".
 
-```
+```sql
 GRANT SELECT ON `my\_database`.\* TO 'user'@'%' <-- bad
 
 GRANT SELECT ON `my_database`.\* TO 'user'@'%' <-- good
@@ -134,7 +134,7 @@ If this is still seen even after upgrading to the latest release, the pipe buffe
 
 To set the pipe buffer size, execute the following command.
 
-```
+```bash
 sudo sysctl -w fs.pipe-max-size=8388608
 ```
 
@@ -215,13 +215,13 @@ Create the user with `maxadmin call command cdc add_user <service name> <user> <
 
 Check that `sysctl kernel.core_pattern` is set to forward coredupms to systemd-coredump:
 
-```
+```bash
 sysctl -w kernel.core_pattern='|/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %e'
 ```
 
 Also make sure that SystemD is configured to allow coredumps. In External images are disabled suitable size limits must be set as they are set to zero by default.
 
-```
+```bash
 $ cat /etc/systemd/coredump.conf
 #  This file is part of systemd.
 #
@@ -246,7 +246,7 @@ JournalSizeMax=1G
 #KeepFree=
 ```
 
-Read the MariaDB documentation for [enabling-core-dumps](../../general-resources/development-articles/debugging-mariadb/enabling-core-dumps.md) and [how-to-produce-a-full-stack-trace-for-mysqld](../../general-resources/development-articles/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd.md) Most of the operating system level documentation applies to MaxScale as well except that MaxScale is always run as a SystemD service and it only supports Linux as the platform.
+Read the MariaDB documentation for [enabling core dumps](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-fault-finding/enabling-core-dumps) and [how to produce a full stack trace for mysqld](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-fault-finding/how-to-produce-a-full-stack-trace-for-mariadbd). Most of the operating system level documentation applies to MaxScale as well except that MaxScale is always run as a SystemD service and it only supports Linux as the platform.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
