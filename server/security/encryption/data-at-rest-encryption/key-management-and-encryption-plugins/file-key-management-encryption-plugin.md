@@ -91,13 +91,13 @@ $ openssl rand -hex 32
 a7addd9adea9978fda19f21e6be987880e68ac92632ca052e5bb42b1a506939a
 ```
 
-The key file needs to have a key identifier for each encryption key added to the beginning of each line. Key identifiers do not have to be contiguous. For example, to append three new encryption keys to a new key file, issue this command:
+The key file needs to have a key identifier for each encryption key added to the beginning of each line. Key identifiers do not have to be contiguous. For example, to append three new encryption keys to a new key file, issue these commands:
 
 ```bash
 mkdir -p /etc/mysql/encryption
-echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile
-echo $(echo -n "2;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile
-echo $(echo -n "100;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile
+echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile.txt
+echo $(echo -n "2;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile.txt
+echo $(echo -n "100;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile.txt
 ```
 
 The resulting key file looks like this:
@@ -157,8 +157,8 @@ Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1
 
 {% code overflow="wrap" %}
 ```bash
-$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 -pass -in /tmp/keys.txt -out /etc/mysql/encryption/keys.enc
-$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 -pass -in /tmp/keys.txt -out /etc/mysql/encryption/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 -pass -in /etc/mysql/encryption/keyfile.txt -out /etc/mysql/encryption/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 -pass -in /etc/mysql/encryption/keyfile.txt -out /etc/mysql/encryption/keys.enc
 ```
 {% endcode %}
 
@@ -167,7 +167,7 @@ Using the `-iter` (iterations) parameter in combination with `-pbkdf2` makes sen
 {% endhint %}
 
 {% hint style="warning" %}
-When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails.
+When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--` [`file_key_management_use_pbkdf2`](file-key-management-encryption-plugin.md#file_key_management_use_pbkdf2)`=`_`number_of_iterations`_ option to MariaDB Server.
 {% endhint %}
 
 The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
