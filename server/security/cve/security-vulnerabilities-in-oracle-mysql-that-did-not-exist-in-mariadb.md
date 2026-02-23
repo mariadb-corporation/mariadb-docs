@@ -21,6 +21,10 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 ## Full List of CVEs Fixed in Oracle MySQL That Never Existed in MariaDB
 
+<details>
+
+<summary>January 2026</summary>
+
 ### [January 2026](https://www.oracle.com/security-alerts/cpujan2026.html#AppendixMSQL)
 
 * [CVE-2025-6965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6965)
@@ -42,6 +46,8 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 * [CVE-2026-21952](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21952)
 * [CVE-2026-21964](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21964)
 * [CVE-2026-21965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21965)
+
+</details>
 
 ### [October 2025](https://www.oracle.com/security-alerts/cpuoct2025.html#AppendixMSQL)
 
