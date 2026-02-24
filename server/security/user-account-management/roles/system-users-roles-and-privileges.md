@@ -1,3 +1,9 @@
+---
+description: >-
+  Details default system users like mariadb.sys and the PUBLIC role, including
+  their creation, purpose, and special management behaviors.
+---
+
 # System Users, Roles, Privileges
 
 {% hint style="warning" %}

@@ -1,8 +1,17 @@
+---
+description: >-
+  Overview of the feature introduced in MariaDB 11.5 to limit disk space used by
+  temporary files and internal on-disk temporary tables to prevent disk
+  exhaustion.
+---
+
 # Limiting Size of Created Disk Temporary Files and Tables Overview
 
-**MariaDB starting with** [**11.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
+{% hint style="info" %}
+This functionality is available from MariaDB 11.5.
+{% endhint %}
 
-From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), it's possible to limit the size of created disk temporary files and tables.\
+You can limit the size of created disk temporary files and tables.\
 When the internal in-memory temporary table is oversize and converting to MyISAM/Aria table to store on disk, this option will limit the max space of tmp\_dir. If a new disk temporary table will cause tmp\_dir over the limitation, then this query will return an error.
 
 ## Temporary Space

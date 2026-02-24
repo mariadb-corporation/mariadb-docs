@@ -1,5 +1,5 @@
 ---
-description: Lists of Security Vulnerabilities (CVE) fixed in MariaDB products
+description: Lists of Security Vulnerabilities (CVE) fixed in MariaDB products.
 ---
 
 # Security Vulnerabilities (CVE) Fixed in MariaDB

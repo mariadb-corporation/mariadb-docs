@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for installing and configuring the gssapi plugin to validate user
+  credentials against services like Kerberos or NTLM.
+---
+
 # Authentication with gssapi
 
 ## Overview

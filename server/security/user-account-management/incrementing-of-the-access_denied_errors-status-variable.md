@@ -1,6 +1,6 @@
 ---
 description: >-
-  Describes the conditions that trigger the `access_denied_errors` status
+  Describes the conditions that trigger the access_denied_errors status
   variable, such as failed logins, invalid privileges, or missing SSL
   requirements, aiding in security monitoring.
 ---

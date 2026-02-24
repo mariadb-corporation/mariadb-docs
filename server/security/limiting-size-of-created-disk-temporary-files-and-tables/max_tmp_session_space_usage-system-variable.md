@@ -1,3 +1,9 @@
+---
+description: >-
+  Documentation for the system variable that restricts the maximum total size of
+  temporary files and tables allowed for an individual user session.
+---
+
 # max\_tmp\_session\_space\_usage System Variable
 
 #### `max_tmp_session_space_usage`

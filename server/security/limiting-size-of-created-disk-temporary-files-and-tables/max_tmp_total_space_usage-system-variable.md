@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference for the global system variable that defines the maximum cumulative
+  disk space all user connections can consume for temporary files and tables.
+---
+
 # max\_tmp\_total\_space\_usage System Variable
 
 #### `max_tmp_total_space_usage`

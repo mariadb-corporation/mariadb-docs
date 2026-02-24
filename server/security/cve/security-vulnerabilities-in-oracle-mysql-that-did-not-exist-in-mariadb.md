@@ -1,6 +1,6 @@
 ---
 description: >-
-  A reference list of security vulnerabilities (CVEs) found in Oracle MySQL that
+  Reference list of security vulnerabilities (CVEs) found in Oracle MySQL that
   do not affect MariaDB, helping administrators distinguish relevant threats.
 ---
 
@@ -25,7 +25,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>January 2026</summary>
 
-### [January 2026](https://www.oracle.com/security-alerts/cpujan2026.html#AppendixMSQL)
+#### [January 2026](https://www.oracle.com/security-alerts/cpujan2026.html#AppendixMSQL)
 
 * [CVE-2025-6965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6965)
 * [CVE-2025-9230](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-9230)
@@ -53,7 +53,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>October 2025</summary>
 
-### [October 2025](https://www.oracle.com/security-alerts/cpuoct2025.html#AppendixMSQL)
+#### [October 2025](https://www.oracle.com/security-alerts/cpuoct2025.html#AppendixMSQL)
 
 * [CVE-2025-6965](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6965)
 * [CVE-2025-4517](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-4517)
@@ -78,7 +78,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>July 2025</summary>
 
-### [July 2025](https://www.oracle.com/security-alerts/cpujul2025.html#AppendixMSQL)
+#### [July 2025](https://www.oracle.com/security-alerts/cpujul2025.html#AppendixMSQL)
 
 * [CVE-2024-9287](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-9287)
 * [CVE-2025-32415](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-32415)
@@ -123,7 +123,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>April 2025</summary>
 
-### [April 2025](https://www.oracle.com/security-alerts/cpuapr2025.html#AppendixMSQL)
+#### [April 2025](https://www.oracle.com/security-alerts/cpuapr2025.html#AppendixMSQL)
 
 * [CVE-2024-40896](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-40896)
 * [CVE-2025-30706](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-30706)
@@ -164,7 +164,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>January 2025</summary>
 
-### [January 2025](https://www.oracle.com/security-alerts/cpujan2025.html#AppendixMSQL)
+#### [January 2025](https://www.oracle.com/security-alerts/cpujan2025.html#AppendixMSQL)
 
 * [CVE-2024-11053](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-11053)
 * [CVE-2024-37371](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-37371)
@@ -206,7 +206,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>October 2024</summary>
 
-### [October 2024](https://www.oracle.com/security-alerts/cpuoct2024.html#AppendixMSQL)
+#### [October 2024](https://www.oracle.com/security-alerts/cpuoct2024.html#AppendixMSQL)
 
 * [CVE-2024-37371](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-37371)
 * [CVE-2024-5535](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-5535)
@@ -249,7 +249,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>July 2024</summary>
 
-### [July 2024](https://www.oracle.com/security-alerts/cpujul2024.html#AppendixMSQL)
+#### [July 2024](https://www.oracle.com/security-alerts/cpujul2024.html#AppendixMSQL)
 
 * [CVE-2023-37920](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-37920)
 * [CVE-2024-22257](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-22257)
@@ -295,7 +295,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>April 2024</summary>
 
-### [April 2024](https://www.oracle.com/security-alerts/cpuapr2024.html#AppendixMSQL)
+#### [April 2024](https://www.oracle.com/security-alerts/cpuapr2024.html#AppendixMSQL)
 
 * [CVE-2023-44487](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-44487)
 * [CVE-2024-21090](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21090)
@@ -333,7 +333,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>January 2024</summary>
 
-### [January 2024](https://www.oracle.com/security-alerts/cpujan2024.html#AppendixMSQL)
+#### [January 2024](https://www.oracle.com/security-alerts/cpujan2024.html#AppendixMSQL)
 
 * [CVE-2023-38545](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-38545)
 * [CVE-2023-50164](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-50164)
@@ -375,7 +375,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>October 2023</summary>
 
-### [October 2023](https://www.oracle.com/security-alerts/cpuoct2023.html#AppendixMSQL)
+#### [October 2023](https://www.oracle.com/security-alerts/cpuoct2023.html#AppendixMSQL)
 
 * [CVE-2023-34034](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-34034)
 * [CVE-2022-42898](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42898)
@@ -418,7 +418,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>July 2023</summary>
 
-### [July 2023](https://www.oracle.com/security-alerts/cpujul2023.html#AppendixMSQL)
+#### [July 2023](https://www.oracle.com/security-alerts/cpujul2023.html#AppendixMSQL)
 
 * [CVE-2023-20862](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-20862)
 * [CVE-2022-37865](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-37865)
@@ -451,7 +451,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>April 2023</summary>
 
-### [April 2023](https://www.oracle.com/security-alerts/cpuapr2023.html#AppendixMSQL)
+#### [April 2023](https://www.oracle.com/security-alerts/cpuapr2023.html#AppendixMSQL)
 
 * [CVE-2022-37434](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-37434)
 * [CVE-2022-43548](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-43548)
@@ -490,7 +490,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>January 2023</summary>
 
-### [January 2023](https://www.oracle.com/security-alerts/cpujan2023.html#AppendixMSQL)
+#### [January 2023](https://www.oracle.com/security-alerts/cpujan2023.html#AppendixMSQL)
 
 * [CVE-2022-31692](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-31692)
 * [CVE-2022-32221](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-32221)
@@ -536,7 +536,7 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <summary>October 2022</summary>
 
-### [October 2022](https://www.oracle.com/security-alerts/cpuoct2022.html#AppendixMSQL)
+#### [October 2022](https://www.oracle.com/security-alerts/cpuoct2022.html#AppendixMSQL)
 
 * [CVE-2022-2097](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-2097)
 * [CVE-2022-21594](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-21594)
@@ -579,7 +579,7 @@ Not a vulnerability:
 
 <summary>July 2022</summary>
 
-### [July 2022](https://www.oracle.com/security-alerts/cpujul2022.html#AppendixMSQL)
+#### [July 2022](https://www.oracle.com/security-alerts/cpujul2022.html#AppendixMSQL)
 
 * [CVE-2021-31805](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-31805)
 * [CVE-2022-1292](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1292)
@@ -621,7 +621,7 @@ Not a vulnerability:
 
 <summary>April 2022</summary>
 
-### [April 2022](https://www.oracle.com/security-alerts/cpuapr2022.html#AppendixMSQL)
+#### [April 2022](https://www.oracle.com/security-alerts/cpuapr2022.html#AppendixMSQL)
 
 * [CVE-2021-22570](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-22570)
 * [CVE-2021-41184](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-41184)
@@ -666,7 +666,7 @@ Not a vulnerability:
 
 <summary>January 2022</summary>
 
-### [January 2022](https://www.oracle.com/security-alerts/cpujan2022.html#AppendixMSQL)
+#### [January 2022](https://www.oracle.com/security-alerts/cpujan2022.html#AppendixMSQL)
 
 * [CVE-2021-22946](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-22946)
 * [CVE-2021-3712](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3712)
@@ -752,7 +752,7 @@ Not a vulnerability:
 
 <summary>October 2021</summary>
 
-### [October 2021](https://www.oracle.com/security-alerts/cpuoct2021.html#AppendixMSQL)
+#### [October 2021](https://www.oracle.com/security-alerts/cpuoct2021.html#AppendixMSQL)
 
 * [CVE-2021-22931](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-22931)
 * [CVE-2021-3711](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3711)
@@ -825,7 +825,7 @@ Not a vulnerability:
 
 <summary>July 2021</summary>
 
-### [July 2021](https://www.oracle.com/security-alerts/cpujul2021.html#AppendixMSQL)
+#### [July 2021](https://www.oracle.com/security-alerts/cpujul2021.html#AppendixMSQL)
 
 * [CVE-2021-22884](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-22884)
 * [CVE-2021-22901](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-22901)
@@ -871,7 +871,7 @@ Not a vulnerability:
 
 <summary>April 2021</summary>
 
-### [Apr 2021](https://www.oracle.com/security-alerts/cpuapr2021.html#AppendixMSQL)
+#### [Apr 2021](https://www.oracle.com/security-alerts/cpuapr2021.html#AppendixMSQL)
 
 * [CVE-2019-7317](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-7317)
 * [CVE-2020-1971](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1971)
@@ -922,7 +922,7 @@ Not a vulnerability:
 
 <summary>January 2021</summary>
 
-### [Jan 2021](https://www.oracle.com/security-alerts/cpujan2021.html#AppendixMSQL)
+#### [Jan 2021](https://www.oracle.com/security-alerts/cpujan2021.html#AppendixMSQL)
 
 * [CVE-2019-10086](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10086)
 * [CVE-2020-1971](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1971)
@@ -970,7 +970,7 @@ Not a vulnerability:
 
 <summary>October 2020</summary>
 
-### [Oct 2020](https://www.oracle.com/security-alerts/cpuoct2020.html#AppendixMSQL)
+#### [Oct 2020](https://www.oracle.com/security-alerts/cpuoct2020.html#AppendixMSQL)
 
 * [CVE-2020-1730](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1730)
 * [CVE-2020-1967](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1967)
@@ -1028,7 +1028,7 @@ Not a vulnerability:
 
 <summary>July 2020</summary>
 
-### [Jul 2020](https://www.oracle.com/security-alerts/cpujul2020.html#AppendixMSQL)
+#### [Jul 2020](https://www.oracle.com/security-alerts/cpujul2020.html#AppendixMSQL)
 
 * [CVE-2019-1551](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1551)
 * [CVE-2020-1938](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1938)
@@ -1074,7 +1074,7 @@ Not a vulnerability:
 
 <summary>April 2020</summary>
 
-### [Apr 2020](https://www.oracle.com/security-alerts/cpuapr2020.html#AppendixMSQL)
+#### [Apr 2020](https://www.oracle.com/security-alerts/cpuapr2020.html#AppendixMSQL)
 
 * [CVE-2019-1547](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1547)
 * [CVE-2019-5482](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-5482)
@@ -1121,7 +1121,7 @@ Not a vulnerability:
 
 <summary>January 2020</summary>
 
-### [Jan 2020](https://www.oracle.com/security-alerts/cpujan2020.html#AppendixMSQL)
+#### [Jan 2020](https://www.oracle.com/security-alerts/cpujan2020.html#AppendixMSQL)
 
 * [CVE-2019-1547](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1547)
 * [CVE-2019-1547](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1547)
@@ -1148,7 +1148,7 @@ Not a vulnerability:
 
 <summary>October 2019</summary>
 
-### [Oct 2019](https://www.oracle.com/technetwork/security-advisory/cpuoct2019-5072832.html#AppendixMSQL)
+#### [Oct 2019](https://www.oracle.com/technetwork/security-advisory/cpuoct2019-5072832.html#AppendixMSQL)
 
 * [CVE-2019-1543](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1543)
 * [CVE-2019-1549](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1549)
@@ -1185,7 +1185,7 @@ Not a vulnerability:
 
 <summary>July 2019</summary>
 
-### [July 2019](https://www.oracle.com/technetwork/security-advisory/cpujul2019-5072835.html)
+#### [July 2019](https://www.oracle.com/technetwork/security-advisory/cpujul2019-5072835.html)
 
 * [CVE-2018-15756](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-15756)
 * [CVE-2019-1559](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-1559)
@@ -1234,7 +1234,7 @@ Not a vulnerability:
 
 <summary>April 2019</summary>
 
-### [April 2019](https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html)
+#### [April 2019](https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html)
 
 * [CVE-2018-0734](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0734)
 * [CVE-2018-3123](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3123)
@@ -1284,7 +1284,7 @@ Not a vulnerability:
 
 <summary>January 2019</summary>
 
-### [January 2019](https://www.oracle.com/technetwork/security-advisory/cpujan2019-5072801.html)
+#### [January 2019](https://www.oracle.com/technetwork/security-advisory/cpujan2019-5072801.html)
 
 * [CVE-2018-0732](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0732)
 * [CVE-2018-0732](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0732)
@@ -1317,7 +1317,7 @@ Not a vulnerability:
 
 <summary>October 2018</summary>
 
-### [October 2018](https://www.oracle.com/technetwork/security-advisory/cpuoct2018-4428296.html)
+#### [October 2018](https://www.oracle.com/technetwork/security-advisory/cpuoct2018-4428296.html)
 
 * [CVE-2018-1258](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1258)
 * [CVE-2018-3137](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3137)
@@ -1351,7 +1351,7 @@ Not a vulnerability:
 
 <summary>July 2018</summary>
 
-### [July 2018](https://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html)
+#### [July 2018](https://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html)
 
 * [CVE-2017-0379](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0379)
 * [CVE-2017-5645](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-5645)
@@ -1381,7 +1381,7 @@ Not a vulnerability:
 
 <summary>April 2018</summary>
 
-### [April 2018](https://www.oracle.com/technetwork/security-advisory/cpuapr2018-3678067.html)
+#### [April 2018](https://www.oracle.com/technetwork/security-advisory/cpuapr2018-3678067.html)
 
 * [CVE-2016-9878](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-9878)
 * [CVE-2017-3737](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3737)
@@ -1408,7 +1408,7 @@ Not a vulnerability:
 
 <summary>January 2018</summary>
 
-### [January 2018](https://www.oracle.com/technetwork/security-advisory/cpujan2018-3236628.html)
+#### [January 2018](https://www.oracle.com/technetwork/security-advisory/cpujan2018-3236628.html)
 
 * [CVE-2017-3736](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3736)
 * [CVE-2017-3736](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3736)
@@ -1436,7 +1436,7 @@ Not a vulnerability:
 
 <summary>October 2017</summary>
 
-### [October 2017](https://www.oracle.com/technetwork/security-advisory/cpuoct2017-3236626.html)
+#### [October 2017](https://www.oracle.com/technetwork/security-advisory/cpuoct2017-3236626.html)
 
 * [CVE-2017-3731](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3731)
 * [CVE-2017-5664](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-5664)
@@ -1463,7 +1463,7 @@ Not a vulnerability:
 
 <summary>July 2017</summary>
 
-### [July 2017](https://www.oracle.com/technetwork/security-advisory/cpujul2017-3236622.html)
+#### [July 2017](https://www.oracle.com/technetwork/security-advisory/cpujul2017-3236622.html)
 
 * [CVE-2014-1912](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1912)
 * [CVE-2016-4436](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-4436)
@@ -1497,7 +1497,7 @@ Not a vulnerability:
 
 <summary>April 2017</summary>
 
-### [April 2017](https://www.oracle.com/technetwork/security-advisory/cpuapr2017-3236618.html)
+#### [April 2017](https://www.oracle.com/technetwork/security-advisory/cpuapr2017-3236618.html)
 
 * [CVE-2016-2176](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-2176)
 * [CVE-2016-2176](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-2176)
@@ -1539,7 +1539,7 @@ Not a vulnerability:
 
 <summary>January 2017</summary>
 
-### [January 2017](https://www.oracle.com/technetwork/security-advisory/cpujan2017-2881727.html)
+#### [January 2017](https://www.oracle.com/technetwork/security-advisory/cpujan2017-2881727.html)
 
 * [CVE-2015-7501](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-7501)
 * [CVE-2016-0635](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-0635)
@@ -1564,7 +1564,7 @@ Not a vulnerability:
 
 <summary>October 2016</summary>
 
-### [October 2016](https://www.oracle.com/technetwork/security-advisory/cpuoct2016-2881722.html)
+#### [October 2016](https://www.oracle.com/technetwork/security-advisory/cpuoct2016-2881722.html)
 
 * [CVE-2016-3495](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-3495)
 * [CVE-2016-5507](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-5507)
@@ -1593,7 +1593,7 @@ Not a vulnerability:
 
 <summary>July 2016</summary>
 
-### [July 2016](https://www.oracle.com/technetwork/security-advisory/cpujul2016-2881720.html)
+#### [July 2016](https://www.oracle.com/technetwork/security-advisory/cpujul2016-2881720.html)
 
 * [CVE-2016-2105](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-2105)
 * [CVE-2016-3424](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-3424)
@@ -1616,7 +1616,7 @@ Not a vulnerability:
 
 <summary>April 2016</summary>
 
-### [April 2016](https://www.oracle.com/technetwork/security-advisory/cpuapr2016v3-2985753.html)
+#### [April 2016](https://www.oracle.com/technetwork/security-advisory/cpuapr2016v3-2985753.html)
 
 * [CVE-2015-3194](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3194)
 * [CVE-2016-0639](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-0639)
@@ -1641,7 +1641,7 @@ Not a vulnerability:
 
 <summary>January 2016</summary>
 
-### [January 2016](https://www.oracle.com/technetwork/topics/security/cpujan2016-2367955.html)
+#### [January 2016](https://www.oracle.com/technetwork/topics/security/cpujan2016-2367955.html)
 
 * [CVE-2016-0503](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-0503)
 * [CVE-2016-0504](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-0504)
@@ -1659,7 +1659,7 @@ Not a vulnerability:
 
 <summary>October 2015</summary>
 
-### [October 2015](https://www.oracle.com/technetwork/topics/security/cpuoct2015-2367953.html)
+#### [October 2015](https://www.oracle.com/technetwork/topics/security/cpuoct2015-2367953.html)
 
 * [CVE-2015-0286](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0286)
 * [CVE-2015-1793](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-1793)
@@ -1681,7 +1681,7 @@ Not a vulnerability:
 
 <summary>July 2015</summary>
 
-### [July 2015](https://www.oracle.com/technetwork/topics/security/cpujul2015-2367936.html)
+#### [July 2015](https://www.oracle.com/technetwork/topics/security/cpujul2015-2367936.html)
 
 * [CVE-2015-2611](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-2611)
 * [CVE-2015-2617](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-2617)
@@ -1702,7 +1702,7 @@ Not a vulnerability:
 
 <summary>April 2015</summary>
 
-### [April 2015](https://www.oracle.com/technetwork/topics/security/cpuapr2015-2365600.html)
+#### [April 2015](https://www.oracle.com/technetwork/topics/security/cpuapr2015-2365600.html)
 
 * [CVE-2014-0112](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0112)
 * [CVE-2014-3569](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3569)
@@ -1729,7 +1729,7 @@ Not a vulnerability:
 
 <summary>October 2015</summary>
 
-### [October 2015](https://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html)
+#### [October 2015](https://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html)
 
 * [CVE-2015-0385](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0385)
 * [CVE-2015-0409](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0409)
@@ -1740,7 +1740,7 @@ Not a vulnerability:
 
 <summary>July 2014</summary>
 
-### [July 2014](https://www.oracle.com/technetwork/topics/security/cpujul2014-1972956.html)
+#### [July 2014](https://www.oracle.com/technetwork/topics/security/cpujul2014-1972956.html)
 
 * [CVE-2014-2484](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-2484)
 * [CVE-2014-4214](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4214)
@@ -1754,7 +1754,7 @@ Not a vulnerability:
 
 <summary>April 2014</summary>
 
-### [April 2014](https://www.oracle.com/technetwork/topics/security/cpuapr2014-1972952.html)
+#### [April 2014](https://www.oracle.com/technetwork/topics/security/cpuapr2014-1972952.html)
 
 * [CVE-2014-2434](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-2434)
 * [CVE-2014-2435](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-2435)
@@ -1769,7 +1769,7 @@ Not a vulnerability:
 
 <summary>January 2014</summary>
 
-### [January 2014](https://www.oracle.com/technetwork/topics/security/cpujan2014-1972949.html)
+#### [January 2014](https://www.oracle.com/technetwork/topics/security/cpujan2014-1972949.html)
 
 * [CVE-2013-4316](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4316)
 * [CVE-2013-5860](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-5860)
@@ -1787,7 +1787,7 @@ Not a vulnerability:
 
 <summary>October 2013</summary>
 
-### [October 2013](https://www.oracle.com/technetwork/topics/security/cpuoct2013-1899837.html)
+#### [October 2013](https://www.oracle.com/technetwork/topics/security/cpuoct2013-1899837.html)
 
 * [CVE-2013-2251](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-2251)
 * [CVE-2013-5767](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-5767)
@@ -1801,7 +1801,7 @@ Not a vulnerability:
 
 <summary>July 2013</summary>
 
-### [July 2013](https://www.oracle.com/technetwork/topics/security/cpujuly2013-1899826.html)
+#### [July 2013](https://www.oracle.com/technetwork/topics/security/cpujuly2013-1899826.html)
 
 * [CVE-2013-3795](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-3795)
 * [CVE-2013-3796](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-3796)
@@ -1816,7 +1816,7 @@ Not a vulnerability:
 
 <summary>April 2013</summary>
 
-### [April 2013](https://www.oracle.com/technetwork/topics/security/cpuapr2013-1899555.html)
+#### [April 2013](https://www.oracle.com/technetwork/topics/security/cpuapr2013-1899555.html)
 
 * [CVE-2013-1566](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1566)
 * [CVE-2013-1567](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1567)
@@ -1830,7 +1830,7 @@ Not a vulnerability:
 
 <summary>October 2012</summary>
 
-### [October 2012](https://www.oracle.com/technetwork/topics/security/cpuoct2012-1515893.html)
+#### [October 2012](https://www.oracle.com/technetwork/topics/security/cpuoct2012-1515893.html)
 
 * [CVE-2012-3144](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3144)
 * [CVE-2012-3147](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3147)
@@ -1843,7 +1843,7 @@ Not a vulnerability:
 
 <summary>April 2012</summary>
 
-### [April 2012](https://www.oracle.com/technetwork/topics/security/cpuapr2012-366314.html)
+#### [April 2012](https://www.oracle.com/technetwork/topics/security/cpuapr2012-366314.html)
 
 * [CVE-2012-0583](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0583)
 * [CVE-2012-1696](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-1696)

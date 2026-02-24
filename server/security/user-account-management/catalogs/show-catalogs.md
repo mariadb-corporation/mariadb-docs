@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference for the SHOW CATALOGS statement, which lists all available catalogs
+  on the server.
+---
+
 # SHOW CATALOGS
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

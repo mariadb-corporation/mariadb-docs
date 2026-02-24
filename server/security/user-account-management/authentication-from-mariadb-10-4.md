@@ -1,8 +1,8 @@
 ---
 description: >-
   Details the authentication changes introduced in MariaDB 10.4, including
-  multiple authentication plugins per user, the `mysql.global_priv` table, and
-  the default unix_socket authentication for root.
+  multiple authentication plugins per user, the mysql.global_priv table, and the
+  default unix_socket authentication for root.
 ---
 
 # Authentication

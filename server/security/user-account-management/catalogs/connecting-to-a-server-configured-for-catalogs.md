@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how to connect to a specific catalog using the --catalog client
+  option or the catalog_name.database_name syntax.
+---
+
 # Connecting to a Server Configured for Catalogs
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

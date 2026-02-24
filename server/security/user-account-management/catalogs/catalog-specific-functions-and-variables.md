@@ -1,3 +1,10 @@
+---
+description: >-
+  Documents the catalog() function, which returns the current catalog name, and
+  the @@catalogs system variable, which indicates if the server is configured
+  for catalogs.
+---
+
 # Catalog-Specific Functions and Variables
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

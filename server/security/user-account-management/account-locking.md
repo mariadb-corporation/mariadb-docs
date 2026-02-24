@@ -1,14 +1,14 @@
 ---
 description: >-
-  Explains how to lock and unlock user accounts using `CREATE USER` and `ALTER
-  USER` statements to prevent login access without deleting the account.
+  Explains how to lock and unlock user accounts using CREATE USER and ALTER USER
+  statements to prevent login access without deleting the account.
 ---
 
 # Account Locking
 
 ## Syntax
 
-```
+```sql
  CREATE USER [...]
  [lock_option] [password_option] 
  

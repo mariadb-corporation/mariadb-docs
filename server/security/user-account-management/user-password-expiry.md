@@ -1,7 +1,7 @@
 ---
 description: >-
   Guide to configuring password expiration policies, including setting global
-  lifetimes via `default_password_lifetime` or per-user limits, and handling
+  lifetimes via default_password_lifetime or per-user limits, and handling
   expired password connections.
 ---
 

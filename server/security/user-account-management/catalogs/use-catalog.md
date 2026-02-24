@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference for the USE CATALOG statement, allowing a user to switch their
+  current session's context to a different catalog.
+---
+
 # USE CATALOG
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Overview of user account authentication using plugins like pam or unix_socket
+  and managing security with password validation plugins.
+---
+
 # Authentication for MariaDB Enterprise Server
 
 ## Overview

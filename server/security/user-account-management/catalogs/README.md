@@ -2,6 +2,22 @@
 description: >-
   Introduction to Catalogs, a multi-tenancy feature for isolating database
   objects and users, planned for future MariaDB releases.
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Catalogs

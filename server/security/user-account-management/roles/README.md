@@ -3,12 +3,32 @@ description: >-
   Manage roles in MariaDB Server for streamlined user access control. This
   section explains how to create, assign, and manage roles to simplify privilege
   management and enhance security.
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Roles
 
 {% content-ref url="roles_overview.md" %}
 [roles\_overview.md](roles_overview.md)
+{% endcontent-ref %}
+
+{% content-ref url="system-users-roles-and-privileges.md" %}
+[system-users-roles-and-privileges.md](system-users-roles-and-privileges.md)
 {% endcontent-ref %}
 
 {% content-ref url="../../../reference/sql-statements/account-management-sql-statements/create-role.md" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Covers status variables related to catalog operations and performance, useful
+  for monitoring multi-tenant environments.
+---
+
 # Catalog Status Variables
 
 {% include "../../../.gitbook/includes/catalogs.md" %}
