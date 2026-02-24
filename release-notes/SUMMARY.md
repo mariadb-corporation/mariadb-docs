@@ -1654,6 +1654,8 @@
   * [All Releases](columnstore/all-releases.md)
 * [Galera Cluster Release Notes](galera-cluster/README.md)
   * [Galera Cluster 26.4 Release Notes](galera-cluster/26.4/README.md)
+    * [Galera 26.4.25 Release Notes](galera-cluster/26.4/26.4.25.md)
+    * [Galera 26.4.24 Release Notes](galera-cluster/26.4/26.4.24.md)
     * [Galera 26.4.23 Release Notes](galera-cluster/26.4/26.4.23.md)
     * [Galera 26.4.22 Release Notes](galera-cluster/26.4/26.4.22.md)
     * [Galera 26.4.21 Release Notes](galera-cluster/26.4/26.4.21.md)
