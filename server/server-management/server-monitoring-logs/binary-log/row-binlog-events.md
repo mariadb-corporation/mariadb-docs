@@ -167,7 +167,7 @@ You can monitor how often fragmentation is occurring by checking the binary log 
 The introduction of `Partial_rows_log_event` does _not_ change the transactional nature of MariaDB. The fragments are part of a single unit of work; if the connection is lost mid-fragment, the replica discards the partial buffer and waits for a re-transmission or restart of that event group.
 {% endhint %}
 
-## InnoDB-based Binary Log (Binlog-in-Engine)
+## InnoDB-Based Binary Log (Binlog-in-Engine)
 
 {% hint style="info" %}
 This feature is available from MariaDB 12.3.
