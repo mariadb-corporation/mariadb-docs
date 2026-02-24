@@ -20,9 +20,9 @@ The [Exasolrouter](maxscale-exasolrouter.md) module is primarily intended to be 
 * **Write queries** are routed to MariaDB
 * **Read queries** are routed to either MariaDB or Exasol, based on runtime performance measurements
 
-The Exasolrouter module can also be used in standalone mode to expose Exasol through a MariaDB client protocol listener. In this configuration, MaxScale acts a protocol bridge between MariaDB clients and the Exasol ODBC driver. This mode is primarily designed for debugging or specialized deployments.
+The Exasolrouter module can also be used in standalone mode to expose Exasol through a MariaDB client protocol listener. In this configuration, MaxScale acts as a protocol bridge between MariaDB clients and the Exasol ODBC driver. This mode is primarily designed for debugging or specialized deployments.
 
-SmartRouter measures query performance using canonical query forms (with constants replaced by placeholders). When a new canonical query is encountered, the preferred backend based on measured response times and periodically reevaluates its decision.
+SmartRouter measures query performance using canonical query forms (with constants replaced by placeholders). When a new canonical query is encountered, the preferred backend is based on measured response times and periodically reevaluates its decision.
 
 For a detailed explanation of the routing algorithm, see [SmartRouter](maxscale-smartrouter.md#cluster-selection-how-queries-are-routed).
 
@@ -48,58 +48,74 @@ Default ports:
 
 ## Configuring the Exasolrouter in MariaDB MaxScale
 
-1. Install the Exasol ODBC driver on the MaxScale host.\
-   \
-   The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
-   1. Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) and select the driver version that matches the operating system of the MaxScale host.
-   2. Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).&#x20;
-   3. Install the downloaded driver according to the platform-specific installation instructions.
+#### Step 1. Install the Exasol ODBC driver on the MaxScale host.
+
+The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
+
+* Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) and select the driver version that matches the operating system of the MaxScale host.
+* Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).&#x20;
+* Install the downloaded driver according to the platform-specific installation instructions.
 
 &#x20;      Replace the version number in the commands below with the version you downloaded:&#x20;
 
 ```
-curl https://x-up.s3.amazonaws.com/7_x/25.2.4/Exasol_ODBC-25.2.4-Linux_x86_64.tar.gz \
-     -o Exasol_ODBC-25.2.4-Linux_x86_64.tar.gz
-tar -xvf Exasol_ODBC-25.2.4-Linux_x86_64.tar.gz
-chmod -R 755 Exasol_ODBC-25.2.4-Linux_x86_64
+curl https://x-up.s3.amazonaws.com/7.x/26.2.6/Exasol_ODBC-26.2.6-Linux_x86_64.tar.gz \
+-o Exasol_ODBC-26.2.6-Linux_x86_64.tar.gz
+tar -xvf Exasol_ODBC-26.2.6-Linux_x86_64.tar.gz
+chmod -R 755 Exasol_ODBC-26.2.6-Linux_x86_64
 ```
 
-2.  Create the required users in both MariaDB and Exasol.\
-    \
-    **MariaDB User**\
-    If you do not already have a MaxScale monitor and service user, create one using the following commands.<br>
+#### Step 2. Create the required users in both MariaDB and Exasol.
 
-    ```
-    mariadb -e "DROP USER IF EXISTS maxuser@'%'"
-    mariadb -e "CREATE USER maxuser@'%' IDENTIFIED BY 'aBcd123%'"
-    mariadb -e "GRANT SUPER, RELOAD, REPLICATION CLIENT, REPLICATION SLAVE, SHOW DATABASES ON *.* TO maxuser@'%'"
-    mariadb -e "GRANT SELECT ON mysql.db TO maxuser@'%'"
-    mariadb -e "GRANT SELECT ON mysql.user TO maxuser@'%'"
-    mariadb -e "GRANT SELECT ON mysql.roles_mapping TO maxuser@'%'"
-    mariadb -e "GRANT SELECT ON mysql.tables_priv TO maxuser@'%'"
-    mariadb -e "GRANT SELECT ON mysql.columns_priv TO maxuser@'%'"
-    mariadb -e "GRANT SELECT ON mysql.proxies_priv TO maxuser@'%'"
-    mariadb -e "GRANT SELECT ON mysql.procs_priv TO maxuser@'%'"
+**MariaDB User**\
+\
+If you do not already have a MaxScale monitor and service user, create one using the following commands. These grants allow MaxScale to monitor the health of the MariaDB node and handle user authentication.
 
-    ```
+```
+mariadb -e "DROP USER IF EXISTS maxuser@'%'"
+mariadb -e "CREATE USER maxuser@'%' IDENTIFIED BY 'aBcd123%'"
+mariadb -e "GRANT SUPER, RELOAD, REPLICATION CLIENT, REPLICATION SLAVE, SHOW DATABASES ON *.* TO maxuser@'%'"
+mariadb -e "GRANT SELECT ON mysql.db TO maxuser@'%'"
+mariadb -e "GRANT SELECT ON mysql.user TO maxuser@'%'"
+mariadb -e "GRANT SELECT ON mysql.roles_mapping TO maxuser@'%'"
+mariadb -e "GRANT SELECT ON mysql.tables_priv TO maxuser@'%'"
+mariadb -e "GRANT SELECT ON mysql.columns_priv TO maxuser@'%'"
+mariadb -e "GRANT SELECT ON mysql.proxies_priv TO maxuser@'%'"
+mariadb -e "GRANT SELECT ON mysql.procs_priv TO maxuser@'%'"
 
-&#x20;    **Exasol User**&#x20;
+```
 
-It is best practice to avoid using the `sys` user for application access. Create a dedicated user with the appropriate privileges.
+&#x20;**Exasol User**\
+\
+It is considered best practice to avoid using the `sys` user for application access. Instead, create a dedicated user with the appropriate privileges.\
+\
+If `exaplus` utility is not available in your PATH or if you are not confirm where this utility is located on your system, you can locate it using the following command:
+
+```
+sudo su
+find / -name exaplus
+```
+
+This command searches your entire system and suppresses permission-denied errors. A typical path looks like:&#x20;
+
+```
+/home/mariadbexa/.ccc/x/u/branchr/db+Titzi90-patch-2-e01f9219-64r/install/opt/exasol/db-2025.2.0/bin/Console/exaplus
+```
 
 Replace the IP address, port, and passwords to match your environment:
 
 ```
-exaplus -c 192.168.1.100/nocertcheck:8563 -u sys -p 'syspassword' \
-   -sql "CREATE USER admin_user IDENTIFIED BY 'aBcd123%'"
+exaplus -c 127.0.0.1/nocertcheck:8563 -u sys -p syspassword \
+--sql "CREATE USER admin_user IDENTIFIED BY \"aBc123%%\";"
 
-exaplus -c 192.168.1.100/nocertcheck:8563 -u sys -p 'syspassword' \
-   -sql "GRANT CREATE SESSION, CREATE TABLE, SELECT ANY TABLE, INSERT
+exaplus -c 127.0.0.1/nocertcheck:8563 -u sys -p syspassword \
+--sql "GRANT CREATE SESSION, CREATE TABLE, SELECT ANY TABLE, \
+INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE TO admin_user;"
 ```
 
 **Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not currently receive user‑level authentication from MariaDB clients.
 
-3. Configure the MaxScale server and monitor.
+#### Step 3. Configure the MaxScale server and monitor.
 
 Define the MariaDB server that will handle primary OLTP workloads. Replace the IP address and password to match your environment:
 
@@ -112,18 +128,18 @@ maxctrl create monitor mariadb_monitor mariadbmon \
   monitor_interval=1s ;
 ```
 
-4.  Configure the MaxScale Exasolrouter.\
-    \
-    Create the Exasolrouter service. This service contains the connection information for Exasol, including the ODBC driver path and credentials.<br>
+#### Step 4. Configure the MaxScale Exasolrouter.
 
-    ```
-    maxctrl create service mariadb_exasolrouter exasolrouter \
-    user=maxuser \
-    password=aBcd123% p \
-    reprocessor=auto  ' \
-    connection_string=DRIVER=/home/rocky/Exasol_ODBC-25.2.4-Linux_x86_64/lib/libexaodbc.so;
-    EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
-    ```
+Create the Exasolrouter service. This service contains the connection information for Exasol, including the ODBC driver path and credentials.<br>
+
+```
+maxctrl create service mariadb_exasolrouter exasolrouter \
+user=maxuser \
+password=aBcd123% p \
+reprocessor=auto  ' \
+connection_string=DRIVER=/home/rocky/Exasol_ODBC-26.2.6-Linux_x86_64/lib/libexaodbc.so;
+EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
+```
 
 Replace the following placeholders with values that match your actual environment:
 
@@ -131,106 +147,100 @@ Replace the following placeholders with values that match your actual environmen
 * `EXAHOST`: Your Exasol host and port
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
 
+#### Step 5. Configure the MaxScale SmartRouter.
+
+The SmartRouter integrates the MariaDB server with the Exasolrouter and is responsible for distributing queries between the two backends.\
+\
+Replace the password to match your environment:
+
+```
+maxctrl create service mariadb_smartrouter smartrouter \
+  user=maxuser \
+  password='aBcd123%' \
+  targets=mariadb1,mariadb_exasolrouter \
+  master=mariadb1
+```
+
+\
+The `master` parameter designates the cluster that receives all write operations. In this configuration, all writes are directed to MariaDB.
+
+#### Step 6: Configure the MaxScale service and listeners.
+
+Create a listener that defines the port on which MaxScale will accept client connections for the SmartRouter service.\
+\
+Replace the port number if a different port is required:
+
+```
+maxctrl create listener mariadb_smartrouter mariadb_smartrouter_listener 3306
+```
+
+#### Step 7: Test and verify the configuration.
+
+This step provides guidance on verifying whether the Exasol and SmartRouter components are connected and functioning correctly. It also explains how to enable logging for verification purposes and outlines data synchronization requirements.
+
+*   Connecting to the service.
 
 
-5.  Configure the MaxScale SmartRouter.<br>
 
-    The SmartRouter integrates the MariaDB server with the Exasolrouter and is responsible for distributing queries between the two backends.
+    First, verify that you can connect to MaxScale on the configured listener port:<br>
+
+    <pre><code><strong>mariadb \
+    </strong>  -h &#x3C;maxscale-ip> \
+      -P &#x3C;mariadb exa port> \
+      -u &#x3C;user> \
+      -p 
+    </code></pre>
 
     \
-    Replace the password to match your environment:
+    Replace:
 
+    * `<maxscale-ip>` with the IP address of your MaxScale host.
+    * `<exa-listener-port>` with the port you configured for the `exasolrouter` listener.
+    * `<username>` with a valid MariaDB username that MaxScale can authenticate. <br>
 
+    To perform a very basic connectivity test:<br>
 
     ```
-    maxctrl create service mariadb_smartrouter smartrouter \
-      user=maxuser \
-      password='aBcd123%' \
-      targets=mariadb1,mariadb_exasolrouter \
-      master=mariadb1
+    mariadb \
+    -h <maxscale-ip> \
+    -P <mariadb exa port> \
+    -u <user> \
+    -p -e “select 1 as connected”
     ```
 
     \
-    The `master` parameter designates the cluster that receives all write operations. In this configuration, all writes are directed to MariaDB.
-6.  Configure the MaxScale service and listeners.<br>
-
-    Create a listener that defines the port on which MaxScale will accept client connections for the SmartRouter service.
-
+    If the connection is established successfully, the result will return as `connected = 1`. This confirms that the client can reach MaxScale and that the router is actively listening.
+*   Enabling debug logs for verification\
     \
-    Replace the port number if a different port is required:
-
-
+    To verify which backend (MariaDB or Exasol) executed a query and inspect routing decisions, enable debug and info logging in MaxScale, and then tail the main logs:<br>
 
     ```
-    maxctrl create listener mariadb_smartrouter mariadb_smartrouter_listener 3306
+    maxctrl alter maxscale log_debug true
+    maxctrl alter maxscale log_info true
     ```
-7.  Test and verify the configuration.\
+
+    &#x20;\
+    Then, monitor the MaxScale log:<br>
+
+    ```
+    tail -f /var/log/maxscale/maxscale.log
+    ```
+
     \
-    This step provides guidance on verifying whether the Exasol and SmartRouter components are connected and functioning correctly. It also explains how to enable logging for verification purposes and outlines data synchronization requirements.
+    When SmartRouter re-measures a query, you will see log output messages similar to:<br>
 
-    1.  Connecting to the service.
+    ```
+    2026-02-13 18:14:49   info   : (3) [smartrouter] (mariadb_smartrouter); Trigger re-measure, schedule 2min, perf: mariadb1, 15.2181s, SELECT DISTINCT( IF( domain_new IS NOT NULL, domain_new, IF( username ...
+    2026-02-13 18:15:04   info   : (3) [smartrouter] (mariadb_smartrouter); Update perf: from mariadb1, 15.2181s to mariadb1, 14.5416s, SELECT DISTINCT( IF( domain_new IS NOT NULL, domain_new, IF( username ...
+    ```
 
+    \
+    These messages indicate which backend is being evaluated. \
+    \
+    Another way to determine how a query was executed is by using the [Hint Filter](../maxscale-filters/maxscale-hintfilter.md). You can force routing to a specific backend by adding a SQL comment.
+* Data synchronizing requirements
 
-
-        First, verify that you can connect to MaxScale on the configured listener port:<br>
-
-        <pre><code><strong>mariadb \
-        </strong>  -h &#x3C;maxscale-ip> \
-          -P &#x3C;mariadb exa port> \
-          -u &#x3C;user> \
-          -p 
-        </code></pre>
-
-        \
-        Replace:
-
-        * `<maxscale-ip>` with the IP address of your MaxScale host.
-        * `<exa-listener-port>` with the port you configured for the `exasolrouter` listener.
-        * `<username>` with a valid MariaDB username that MaxScale can authenticate. <br>
-
-        To perform a very basic connectivity test:<br>
-
-        ```
-        mariadb \
-        -h <maxscale-ip> \
-        -P <mariadb exa port> \
-        -u <user> \
-        -p -e “select 1 as connected”
-        ```
-
-        \
-        If the connection is established successfully, the result will return as `connected = 1`. This confirms that the client can reach MaxScale and that the router is actively listening.
-    2.  Enabling debug logs for verification\
-        \
-        To verify which backend (MariaDB or Exasol) executed a query and inspect routing decisions, enable debug and info logging in MaxScale, and then tail the main logs:<br>
-
-        ```
-        maxctrl alter maxscale log_debug true
-        maxctrl alter maxscale log_info true
-        ```
-
-        &#x20;\
-        Then, monitor the MaxScale log:<br>
-
-        ```
-        tail -f /var/log/maxscale/maxscale.log
-        ```
-
-        \
-        When SmartRouter re-measures a query, you will see log output messages similar to:<br>
-
-        ```
-        2026-02-13 18:14:49   info   : (3) [smartrouter] (mariadb_smartrouter); Trigger re-measure, schedule 2min, perf: mariadb1, 15.2181s, SELECT DISTINCT( IF( domain_new IS NOT NULL, domain_new, IF( username ...
-        2026-02-13 18:15:04   info   : (3) [smartrouter] (mariadb_smartrouter); Update perf: from mariadb1, 15.2181s to mariadb1, 14.5416s, SELECT DISTINCT( IF( domain_new IS NOT NULL, domain_new, IF( username ...
-        ```
-
-        \
-        These messages indicate which backend is being evaluated. \
-        \
-        Another way to determine how a query was executed is by using the [Hint Filter](../maxscale-filters/maxscale-hintfilter.md). You can force routing to a specific backend by adding a SQL comment.
-    3. Data synchronizing requirements
-
-    The Exasolrouter does not automatically synchronize data between MariaDB and Exasol.&#x20;
+The Exasolrouter does not automatically synchronize data between MariaDB and Exasol.&#x20;
 
 In the event that [Change Data Capture](../../maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-protocols/mariadb-maxscale-2302-change-data-capture-cdc-users.md) (CDC) is not set up:
 
