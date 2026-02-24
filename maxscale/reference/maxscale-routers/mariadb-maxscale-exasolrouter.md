@@ -48,7 +48,7 @@ Default ports:
 
 ## Configuring the Exasolrouter in MariaDB MaxScale
 
-#### Step 1. Install the Exasol ODBC driver on the MaxScale host.
+### Step 1. Install the Exasol ODBC driver on the MaxScale host.
 
 The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
 
@@ -65,7 +65,7 @@ tar -xvf Exasol_ODBC-26.2.6-Linux_x86_64.tar.gz
 chmod -R 755 Exasol_ODBC-26.2.6-Linux_x86_64
 ```
 
-#### Step 2. Create the required users in both MariaDB and Exasol.
+### Step 2. Create the required users in both MariaDB and Exasol.
 
 **MariaDB User**\
 \
@@ -115,7 +115,7 @@ INSERT ANY TABLE, UPDATE ANY TABLE, DELETE ANY TABLE TO admin_user;"
 
 **Important**: For all connections to Exasol, the Exasolrouter uses a **single service user**. Exasol does not currently receive user‑level authentication from MariaDB clients.
 
-#### Step 3. Configure the MaxScale server and monitor.
+### Step 3. Configure the MaxScale server and monitor.
 
 Define the MariaDB server that will handle primary OLTP workloads. Replace the IP address and password to match your environment:
 
@@ -128,7 +128,7 @@ maxctrl create monitor mariadb_monitor mariadbmon \
   monitor_interval=1s ;
 ```
 
-#### Step 4. Configure the MaxScale Exasolrouter.
+### Step 4. Configure the MaxScale Exasolrouter.
 
 Create the Exasolrouter service. This service contains the connection information for Exasol, including the ODBC driver path and credentials.<br>
 
@@ -147,7 +147,7 @@ Replace the following placeholders with values that match your actual environmen
 * `EXAHOST`: Your Exasol host and port
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
 
-#### Step 5. Configure the MaxScale SmartRouter.
+### Step 5. Configure the MaxScale SmartRouter.
 
 The SmartRouter integrates the MariaDB server with the Exasolrouter and is responsible for distributing queries between the two backends.\
 \
@@ -164,7 +164,7 @@ maxctrl create service mariadb_smartrouter smartrouter \
 \
 The `master` parameter designates the cluster that receives all write operations. In this configuration, all writes are directed to MariaDB.
 
-#### Step 6: Configure the MaxScale service and listeners.
+### Step 6: Configure the MaxScale service and listeners.
 
 Create a listener that defines the port on which MaxScale will accept client connections for the SmartRouter service.\
 \
@@ -174,7 +174,7 @@ Replace the port number if a different port is required:
 maxctrl create listener mariadb_smartrouter mariadb_smartrouter_listener 3306
 ```
 
-#### Step 7: Test and verify the configuration.
+### Step 7: Test and verify the configuration.
 
 This step provides guidance on verifying whether the Exasol and SmartRouter components are connected and functioning correctly. It also explains how to enable logging for verification purposes and outlines data synchronization requirements.
 
