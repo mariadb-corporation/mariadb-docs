@@ -39,6 +39,12 @@ During [Service Launch](../cloud-usage/launch-page.md):
 
 After service launch, [manage Autonomous settings](autonomously-scale-compute-storage.md#manage-autonomous-settings) and enable the desired auto-scaling features.
 
+{% hint style="warning" %}
+**Tech Preview Limitation: Galera Cluster Scaling Limits**&#x20;
+
+For services deployed using the **MariaDB Galera Cluster** topology, node auto-scaling (In/Out) is strictly limited to a **minimum of 3 nodes** and a **maximum of 5 nodes**. This requirement ensures the cluster always maintains a [mathematical quorum for synchronous replication and automated failover](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery).
+{% endhint %}
+
 ## Manage Autonomous Settings
 
 To manage Autonomous settings:

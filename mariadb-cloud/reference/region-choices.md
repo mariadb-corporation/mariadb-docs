@@ -54,3 +54,15 @@
 | northeurope        | Dublin, Ireland          | Provisioned, Serverless |
 | germanywestcentral | Frankfurt, Germany       | Provisioned             |
 | southeastasia      | Jurong West, Singapore   | Provisioned             |
+
+### Availability Zones and Latency Considerations
+
+When deploying a highly available database service, nodes are distributed across multiple Availability Zones (AZs) within your selected region to maximize fault tolerance and protect against datacenter-level failures.
+
+**Standard Replicated Topology:** Because standard Replicated topologies use asynchronous or semi-synchronous replication, deploying replicas across multiple AZs has a negligible impact on primary write latency.
+
+**MariaDB Galera Clusters (Synchronous HA):** When deploying a MariaDB Galera Cluster across multiple AZs, you must account for inter-AZ network latency. Because Galera uses synchronous write-set certification, a transaction is not committed until all nodes in the cluster acknowledge it. The physical distance between Availability Zones in a given region will therefore introduce a slight commit latency to your write transactions.
+
+{% hint style="warning" %}
+**Tech Preview Advisory:** MariaDB Galera Clusters are currently available as a _Tech Preview_.
+{% endhint %}

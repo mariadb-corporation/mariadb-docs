@@ -4,20 +4,6 @@ description: >-
   settings for your MariaDB Cloud database services, ensuring optimal
   performance and compliance.
 icon: database
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Configuring Database Servers

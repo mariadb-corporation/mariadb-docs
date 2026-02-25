@@ -18,6 +18,9 @@ To launch a MariaDB Cloud service from the Portal:
 
     * MariaDB Server Single Node
     * MariaDB Server with Replicas
+    *   MariaDB Galera Cluste&#x72;**:** Synchronous, multi-node cluster for zero data loss.
+
+        <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Tech Preview Limitation: Galera Clusters</strong> MariaDB Galera Clusters are currently available as a <em>Tech Preview</em>. The feature is exclusively available on the <strong>PowerPlus</strong> tier and require a minimum of 3 nodes to <a href="https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery">maintain quorum</a>.</p></div>
 
     `Serverless` option:
 

@@ -28,6 +28,11 @@ icon: clouds
 * **Resilient Infrastructure:** Multi-layered protection across disks, compute, zones/regions, network, and load balancing.
 * **Intelligent Proxy through MaxScale:** Ensures seamless failover and monitors replication lag, maintaining service continuity.
 * **Rapid Failover:** Employs real-time health checks for swift, automated recovery.
+* **Synchronous Replication:** Provision multi-node MariaDB Galera clusters for workloads demanding absolute data consistency, multi-primary capabilities, and zero data loss. _(Available exclusively on the PowerPlus tier)._
+
+{% hint style="warning" %}
+**Tech Preview Limitation: Galera Clusters** MariaDB Galera Clusters are currently [available as a _Tech Preview_](../quickstart/mariadb-cloud-galera-clusters.md). During this phase, MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability. Multi-primary write routing will be unlocked in a future phase.
+{% endhint %}
 
 ### Disaster Recovery
 
