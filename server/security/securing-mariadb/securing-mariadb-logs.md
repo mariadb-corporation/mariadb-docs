@@ -357,10 +357,6 @@ SET GLOBAL slow_query_log = ON;
 -- sudo tail /var/log/mariadb/audit.log
 ```
 
-###
-
-
-
 ## Common Configuration Pitfalls
 
 ### Hardcoding Credentials in Configuration Files
