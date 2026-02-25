@@ -614,6 +614,7 @@
       * [Vagrant Security](server-management/automated-mariadb-deployment-and-administration/vagrant-and-mariadb/vagrant-security-concerns.md)
   * [Server Monitoring & Logs](server-management/server-monitoring-logs/README.md)
     * [Overview of MariaDB Logs](server-management/server-monitoring-logs/overview-of-mariadb-logs.md)
+    * [Securing MariaDB Logs](security/securing-mariadb/securing-mariadb-logs.md)
     * [Binary Log](server-management/server-monitoring-logs/binary-log/README.md)
       * [Overview of the Binary Log](server-management/server-monitoring-logs/binary-log/overview-of-the-binary-log.md)
       * [Activating the Binary Log](server-management/server-monitoring-logs/binary-log/activating-the-binary-log.md)

@@ -1,3 +1,10 @@
+---
+description: >-
+  Learn how to harden MariaDB log files by implementing at-rest encryption, TLS
+  for transit, strict OS permissions, and automated rotation to ensure data
+  integrity and regulatory compliance.
+---
+
 # Securing MariaDB Logs
 
 ## Introduction

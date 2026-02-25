@@ -7,7 +7,9 @@ description: >-
 
 # Using and Maintaining the Binary Log
 
-See [Overview of the Binary Log](overview-of-the-binary-log.md) for a general overview of what the binary log is and [Activating the Binary Log](activating-the-binary-log.md) for how to make sure it's running on your system.
+See [Overview of the Binary Log](overview-of-the-binary-log.md) for a general overview of what the binary log is, and [Activating the Binary Log](activating-the-binary-log.md) for how to make sure it's running on your system.
+
+Binary log file security is documented on [Securing MariaDB Logs](../../../security/securing-mariadb/securing-mariadb-logs.md).
 
 For details on using the binary log for replication, see the [Replication](../../../ha-and-performance/standard-replication/) section.
 
