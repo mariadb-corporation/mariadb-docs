@@ -13,9 +13,10 @@ Log security involves protecting data in two distinct states:
 
 MariaDB provides several native features to help you secure this information:
 
-* Access Control: Replication relies on a strictly defined username and password. Both the primary and the replica require specific privileges (`REPLICATION SLAVE` and `REPLICATION CLIENT`) to transfer, receive, and read log data.
+* Access Control: Replication relies on a strictly defined username and password. Both the primary and the replica require specific privileges (`REPLICATION REPLICA`) to transfer, receive, and read log data.
 * Native Encryption: You can protect the contents of your binary logs and relay logs at the storage level by enabling the `encrypt_binlog=ON` system variable.
 * Database Table Security: While this guide focuses on file-based logging, MariaDB allows the General and Slow Query logs to be written to internal database tables. When logged to tables, these records inherit the same robust security, backup, and access control (via `GRANT` statements) as any other data in your database.
+* On Linux, specifying `log_error` without a log file location is secure by default, because the systemd journal is used. See [this section](securing-mariadb-logs.md#changing-the-log-location) for context.
 
 ### Log File Locations
 
@@ -40,7 +41,7 @@ Since MariaDB is cross-platform, securing the physical log files requires a "def
 
 #### Implementation Pro-Tip: The Principle of Least Privilege
 
-When setting up these logs, always remember that the MariaDB Service Account (for instance, `mysql` or `NetworkService`) is the only entity that needs write access. Human administrators should only have read access, and only when necessary for troubleshooting.
+When setting up these logs, always remember that the MariaDB Service Account (for instance, `mysql` or `NT Service\MariaDB`) is the only entity that needs write access. Human administrators should only have read access, and only when necessary for troubleshooting.
 
 ## Summary of This Guide
 
@@ -56,8 +57,9 @@ By following this guide, you move from default, "open" logging to a hardened arc
 
 If you only have five minutes to harden your MariaDB logging environment, focus on these five pillars:
 
-* Isolation: Move all log files (`log_error`, `general_log_file`, etc.) out of the default data directory and onto a dedicated, encrypted partition to prevent "Disk Full" crashes and unauthorized access.
-* Encryption: Enable `encrypt_binlog = ON` to protect your data-at-rest and enforce `require_secure_transport = ON` to ensure log data-in-transit (replication) is wrapped in TLS/SSL.
+* Isolation: Move all log files (`log_error`, `general_log_file`, etc.) out of the default data directory and onto a dedicated, encrypted partition to prevent "Disk Full" stalls and unauthorized access.
+* Encryption: Enable `encrypt_binlog = ON` to protect your data-at-rest and enforce `require_secure_transport = ON` to ensure log data-in-transit (replication) is wrapped in TLS/SSL.\
+  **As of MariaDB 11.4**, TLS is enabled, even on a replication connection, by default (certificate-free TLS).
 * Least Privilege: Restrict file-system permissions so that only the MariaDB service account can write to logs, and only high-level administrators can read them.
 * Automated Rotation: Use `logrotate` (Linux) or scripts (Windows) for file-based logs, and `binlog_expire_logs_seconds` for binary logs to ensure you don't run out of storage.
 * Integrity Monitoring: Use the MariaDB Audit Plugin to log any attempts to disable logging or modify security-sensitive system variables.
@@ -134,6 +136,10 @@ general_log_file = /var/log/mariadb/general.log
 When moving logs on Linux, you must manually create the new directory and set the ownership to `mysql` before restarting the service, or MariaDB will fail to start due to "Permission Denied."
 {% endhint %}
 
+{% hint style="info" %}
+On **Linux**, adding `log_error` without specifying a location logs to the `systemd` journal. This is a viable alternative to the above, and even more secure than a log file on disk, since it cannot be changed by the MariaDB process.&#x20;
+{% endhint %}
+
 Because logs can grow indefinitely, an unmanaged log file is a security risk—not just for data exposure, but as a Denial of Service (DoS) vector. If a log file fills the storage partition, the MariaDB server will crash or hang.
 
 ## Log Rotation and Retention Strategies
@@ -148,6 +154,7 @@ On Linux, the standard way to handle this is the [`logrotate`](https://linux.die
 
 A typical MariaDB `logrotate` configuration (usually found in `/etc/logrotate.d/mariadb`) looks like this:
 
+{% code overflow="wrap" %}
 ```bash
 /var/lib/mysql/*.log {
     daily
@@ -157,10 +164,11 @@ A typical MariaDB `logrotate` configuration (usually found in `/etc/logrotate.d/
     sharedscripts
     postrotate
         # Tell MariaDB to close and reopen log files
-        mariadb-admin flush-logs
+        mariadb-admin --local flush-error-log  flush-engine-log flush-general-log flush-slow-log
     endscript
 }
 ```
+{% endcode %}
 
 * `compress`: Encrypting logs is good, but compressing them is essential for storage.
 * `postrotate`: This is critical. MariaDB holds a file handle on the log. If you move the file without telling MariaDB, it will keep writing to the old (now renamed) file. `flush-logs` forces it to start writing to the new filename.
@@ -193,7 +201,8 @@ Instead, use these system variables in your configuration file:
 
 ### Security Best Practices for Rotated Logs
 
-* Off-site Logging: For high-security environments, don't just rotate logs locally. Use a logging agent (like [Fluentd](https://www.fluentd.org/) or [Logstash](https://www.elastic.co/logstash)) to stream logs to a centralized, hardened log server or a SIEM (Security Information and Event Management) system.
+* Off-site Logging: For high-security environments, don't just rotate logs locally. Use a logging agent (like [Fluentd](https://www.fluentd.org/) or [Logstash](https://www.elastic.co/logstash)) to stream logs to a centralized, hardened log server or a SIEM (Security Information and Event Management) system.\
+  On Linux, an alternative is to log to systemd-journal-remote.
 * Read-Only Archives: Once a log file is rotated/archived, change its permissions to Read-Only. There is no reason for the MariaDB process to have write access to a log from last month.
 * Checksums: Periodically generate SHA-256 checksums of archived logs. This allows you to prove in an audit that the logs have not been tampered with since they were rotated.
 
@@ -364,7 +373,7 @@ SET GLOBAL slow_query_log = ON;
 When setting up replication or automated log rotation, it is tempting to put the username and password directly into the `[client]` or `[mariadb-dump]` sections of `my.cnf` or `my.ini`.
 
 * This is risky since any user with read access to the config file (often world-readable by default in some environments) can steal the replication or administrative password.
-* To close that loophole, use a [Secret Store](../../server-management/automated-mariadb-deployment-and-administration/a-comparison-between-automation-systems.md#storing-secrets) or restricted-access option files (for instance, `.mylogin.cnf` created via `mariadb-config-editor`). If you must use a file, ensure its permissions are set to `400` or `600` and owned by the `mysql` user.
+* To close that loophole, use a [Secret Store](../../server-management/automated-mariadb-deployment-and-administration/a-comparison-between-automation-systems.md#storing-secrets) or restricted-access option files. If you must use a file, ensure its permissions are set to `400` or `600` and owned by the `mysql` user.
 
 ### Leaving the General Log Enabled in Production
 
