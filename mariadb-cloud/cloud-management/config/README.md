@@ -43,3 +43,7 @@ Available configuration parameters differ by cloud database topology.
 {% content-ref url="maxscale.md" %}
 [maxscale.md](maxscale.md)
 {% endcontent-ref %}
+
+{% content-ref url="../../quickstart/mariadb-cloud-galera-clusters.md" %}
+[mariadb-cloud-galera-clusters.md](../../quickstart/mariadb-cloud-galera-clusters.md)
+{% endcontent-ref %}
