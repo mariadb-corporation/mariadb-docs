@@ -88,7 +88,6 @@ While the [standard Replicated topology](https://app.gitbook.com/s/SsmexDFPv2xG2
 Galera clusters provide [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) through synchronous replication using write-set certification. This ensures that a transaction is committed on all nodes or none.
 
 * **Quorum-Based Health:** The cluster maintains a [voting system to prevent split-brain scenarios](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery). A standard 3-node cluster can tolerate the loss of one node; if a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention.
-* **Multi-Primary Routing:** The underlying Galera technology inherently supports multi-primary writes, allowing all nodes in the cluster to accept both read and write traffic simultaneously.
 
 {% hint style="info" %}
 **Tech Preview Limitation: Single-Writer Routing**&#x20;
