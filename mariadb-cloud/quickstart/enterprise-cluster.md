@@ -168,7 +168,7 @@ To ensure safe re-formation, restores are initialized on a single node to bootst
 ```mermaid
 flowchart LR
     Snap[("Cloud Snapshot")] -->|1. Restore| N1("Node 1")
-    N1 -->|2. Safe-To-Bootstrap| C["New Galera Cluster"]
+    N1 -->|2. Safe-To-Bootstrap| C["New Enterprise Cluster"]
     C -->|3. Managed SST| N2("Node 2")
     C -->|3. Managed SST| N3("Node 3")
     
@@ -184,9 +184,3 @@ Terraform Provider support is not available during the Tech Preview phase.&#x20;
 {% endhint %}
 
 Enterprise Cluster is presented as a distinct deployment topology alongside Single Node and Replicated topologies, providing a unified management experience.
-
-## Related pages
-
-* MariaDB Cloud PowerPlus Tier Pricing
-* Migrating from On-Premises Enterprise Cluster
-* Configuring `wsrep` Variables in MariaDB Cloud
