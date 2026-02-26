@@ -31,7 +31,7 @@ icon: clouds
 * **Synchronous Replication:** Provision multi-node MariaDB Galera clusters for workloads demanding absolute data consistency, multi-primary capabilities, and zero data loss. _(Available exclusively on the PowerPlus tier)._
 
 {% hint style="warning" %}
-**Tech Preview Limitation: Galera Clusters** MariaDB Galera Clusters are currently [available as a _Tech Preview_](../quickstart/mariadb-cloud-galera-clusters.md). During this phase, MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability. Multi-primary write routing will be unlocked in a future phase.
+**Tech Preview Limitation: Galera Clusters** MariaDB Galera Clusters are currently [available as a _Tech Preview_](../quickstart/enterprise-cluster.md). During this phase, MaxScale is configured to route all write traffic to a single active writer node to ensure maximum stability. Multi-primary write routing will be unlocked in a future phase.
 {% endhint %}
 
 ### Disaster Recovery

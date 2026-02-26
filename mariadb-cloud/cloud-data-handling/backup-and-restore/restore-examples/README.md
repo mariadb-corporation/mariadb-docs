@@ -1,20 +1,3 @@
----
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
----
-
 # Restore Examples
 
 MariaDB Cloud supports flexible restore options to meet various use cases, from managed storage to external buckets to point-in-time recovery. All restore operations are supported by MariaDB SkySQL Backup API, which requires authentication.

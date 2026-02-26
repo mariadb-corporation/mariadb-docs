@@ -138,7 +138,7 @@ Backup and restore operations for Galera Clusters must be cluster-aware to prese
 {% hint style="danger" %}
 **Tech Preview Limitation: Snapshots Only**&#x20;
 
-During the [Tech Preview phase](../../quickstart/mariadb-cloud-galera-clusters.md), Galera clusters support only cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
+During the [Tech Preview phase](../../quickstart/enterprise-cluster.md), Galera clusters support only cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
 {% endhint %}
 
 ## Limitations

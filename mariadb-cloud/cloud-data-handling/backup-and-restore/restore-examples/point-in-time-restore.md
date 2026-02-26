@@ -3,7 +3,7 @@
 {% hint style="danger" %}
 **Tech Preview Limitation: Galera Clusters**
 
-Point-in-Time Recovery (PITR) is not supported for MariaDB Galera Clusters during the [Tech Preview](../../../quickstart/mariadb-cloud-galera-clusters.md) phase. Galera clusters currently support restoration via cloud-native snapshots only.
+Point-in-Time Recovery (PITR) is not supported for MariaDB Galera Clusters during the [Tech Preview](../../../quickstart/enterprise-cluster.md) phase. Galera clusters currently support restoration via cloud-native snapshots only.
 {% endhint %}
 
 {% include "../../../.gitbook/includes/authentication.md" %}

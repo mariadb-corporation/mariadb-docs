@@ -80,7 +80,7 @@ In MariaDB Cloud, you can control routing using 2 strategies:
 ### **Synchronous HA using Galera Clusters**
 
 {% hint style="warning" %}
-**Tech Preview Advisory:** MariaDB Galera Clusters are currently available as a [_Tech Preview_](../quickstart/mariadb-cloud-galera-clusters.md).
+**Tech Preview Advisory:** MariaDB Galera Clusters are currently available as a [_Tech Preview_](../quickstart/enterprise-cluster.md).
 {% endhint %}
 
 While the [standard Replicated topology](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) utilizes semi-synchronous replication with causal reads, workloads that demand strict data consistency and zero data loss can utilize the [MariaDB Galera Cluster topology](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides/mariadb-galera-cluster-usage-guide).

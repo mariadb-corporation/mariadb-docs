@@ -99,7 +99,7 @@ This configuration is suitable for a quick test, but a more customized configura
   * `"replicated"`: MariaDB Server with Replicas
   *   `"galera"`: MariaDB Galera Cluster<br>
 
-      <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Tech Preview Limitation: Galera Clusters</strong></p><p>MariaDB Galera Clusters (<code>"galera"</code>) are <a href="mariadb-cloud-galera-clusters.md">currently available as a <em>Tech Preview</em></a>. When provisioning this topology via the API, you must specify a minimum <code>nodes</code> count of 3 and a <strong>PowerPlus</strong> tier instance <code>size</code>.</p></div>
+      <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Tech Preview Limitation: Galera Clusters</strong></p><p>MariaDB Galera Clusters (<code>"galera"</code>) are <a href="enterprise-cluster.md">currently available as a <em>Tech Preview</em></a>. When provisioning this topology via the API, you must specify a minimum <code>nodes</code> count of 3 and a <strong>PowerPlus</strong> tier instance <code>size</code>.</p></div>
 * For `provider`, choose a [Cloud Provider Selection](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_providers) (`aws`,`gcp` or `azure`)
 * For `region`, choose a [Region Selection](https://apidocs.skysql.com/#/Offering/get_provisioning_v1_regions)
 * For `architecture`, choose a [Hardware Architecture Selection](https://apidocs.skysql.com/#/CPU-Architectures/get_provisioning_v1_cpu_architectures)
