@@ -1,7 +1,3 @@
----
-noIndex: true
----
-
 # MariaDB Cloud: Galera Clusters
 
 {% hint style="info" %}
