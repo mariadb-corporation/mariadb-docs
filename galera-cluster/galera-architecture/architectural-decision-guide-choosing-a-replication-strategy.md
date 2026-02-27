@@ -13,7 +13,7 @@ Before mapping out specific use cases, it is important to understand the four pr
 The standard method where the primary node commits a transaction locally and streams it to replicas in the background. This method is ideal for read-heavy applications, such as a high-traffic news website where a single primary database handles content updates while multiple replicas serve read-only web traffic to millions of visitors.\
 While a momentary delay before a new article appears on all servers is an acceptable trade-off for massive read scalability, this inherent replication lag means users might occasionally read stale data. Furthermore, if the primary server crashes before the background stream catches up, the most recent updates will be permanently lost.
 
-### Semisynchronous Replication:&#x20;
+### Semisynchronous Replication
 
 A middle ground where the primary waits for at least one replica to acknowledge receipt of the data before confirming a commit. This setup is well-suited for systems like an e-commerce checkout spanning two nearby data centers, where ensuring at least one backup server has securely logged a transaction prevents a "lost order" if the primary loses power.&#x20;
 
@@ -25,11 +25,11 @@ A multi-primary solution where all active nodes must receive and accept a transa
 
 The trade-off for this consistency is that write performance is entirely dictated by the slowest node in the cluster. Additionally, high-contention workloads with multiple clients writing to the same rows on different nodes can result in frequent transaction rollbacks or cluster deadlocks.
 
-### Quorum Replication (MariaDB Advanced Cluster)
+### Quorum Replication (MariaDB Enterprise Cluster)
 
 A Raft-based solution that requires acknowledgment from a _majority_ of nodes (a quorum) rather than all of them, providing robust fault tolerance with faster write performance across wide-area networks.&#x20;
 
-For example, a globally distributed financial application spanning data centers in New York, London, and Tokyo only needs agreement from two of the three regions to commit data, keeping the application fast by effectively ignoring the network lag of the furthest data center. However, unlike Galera's true active-active multi-primary setup, all writes in a Raft cluster must be routed to a single Leader node, which can become a performance bottleneck under extremely heavy write loads.
+For example, a globally distributed financial application spanning data centers in New York, London, and Tokyo only needs agreement from two of the three regions to commit data, keeping the application fast by effectively ignoring the network lag of the furthest data center.&#x20;
 
 ### Replication Methods Comparison Matrix
 
@@ -39,14 +39,6 @@ For example, a globally distributed financial application spanning data centers 
 | Semisynchronous         | Fast (Waits for only 1 replica)           | Low Risk (Data is backed up before commit)         | No (Requires external tools like MaxScale) | Environments needing strong data safety without full clustering. |
 | Virtually Sync (Galera) | Slowest (Dictated by the slowest node)    | Zero Data Loss (All nodes are identical)           | Yes (Built-in cluster membership)          | Local High Availability (Single Data Center).                    |
 | Quorum (Raft)           | Fast / Moderate(Dictated by the majority) | Zero Data Loss(Majority quorum agreed)             | Yes (Automated leader election)            | Geo-Distributed High Availability (Multi-Data Center).           |
-
-## Choosing a Replication Format
-
-Before choosing a cluster topology, you must establish how the data changes are recorded in the binary log. MariaDB offers three primary replication formats:
-
-* [Row-Based Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/row-based-replication-with-no-primary-key) (RBR) \[Recommended]: This format replicates the actual row changes rather than the SQL statements. If your goal is "carrier-grade" reliability and absolute data consistency across replicas, RBR is the required choice. While it can consume more memory and network bandwidth, this overhead is negligible for typical OLTP workloads.
-* Mixed Format \[Default]: MariaDB makes a best-effort approach, defaulting to Statement-Based Replication but automatically switching to Row-Based Replication when it detects a statement that is not safe to replicate consistently.
-* [Statement-Based Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/unsafe-statements-for-statement-based-replication) (SBR) \[Fallback Only]: SBR replicates the exact SQL queries executed. While it uses very little CPU and network bandwidth, SBR is generally considered unreliable for modern high-availability setups due to the high risk of data inconsistency. It should only be used as a fallback solution in edge cases where RBR fails (e.g., executing a single query that updates a massive number of rows at once, which would otherwise bloat the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log)).
 
 ## Choosing a Strategy by Use Case
 
@@ -93,9 +85,9 @@ To pull data from many different live production databases into one centralized 
 
 Managing replication topologies manually can be highly complex. [MariaDB MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/maxscale-beginner-guide#introduction) is an advanced database proxy that sits between your application and your database cluster to automate traffic routing and failover across any replication method:
 
-* In Asynchronous / Semisynchronous Setups: MaxScale acts as a traffic cop, automatically routing `SELECT`queries to your replicas and `INSERT`/`UPDATE` queries to your primary. If the primary fails, MaxScale can automatically promote a replica and reroute traffic without application downtime.
+* In [Asynchronous / Semisynchronous Setups](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication): MaxScale acts as a traffic cop, automatically routing `SELECT`queries to your replicas and `INSERT`/`UPDATE` queries to your primary. If the primary fails, MaxScale can automatically promote a replica and reroute traffic without application downtime.
 * In Galera Cluster Setups: MaxScale transparently masks node failures or evictions by routing traffic only to healthy nodes. It can also perform intelligent read/write splitting across the cluster to optimize overall throughput.
-* In MariaDB Advanced Cluster Setups: MaxScale automatically detects the current Raft leader to ensure writes are routed appropriately, while load balancing read queries across the follower nodes.
+* In MariaDB Enterprise Cluster Setups: MaxScale automatically detects the current Raft leader to ensure writes are routed appropriately, while load balancing read queries across the follower nodes.
 
 {% hint style="info" %}
 MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the [MaxScale documentation](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/).
@@ -106,7 +98,7 @@ MaxScale is a commercial MariaDB Enterprise product, which should be factored in
 | Architectural Goal      | Recommended Solution       | Consistency Type              | Key Trade-off / Benefit                              |
 | ----------------------- | -------------------------- | ----------------------------- | ---------------------------------------------------- |
 | No Downtime (Local HA)  | Galera Cluster             | Synchronous                   | Guarantees zero data loss, but slower writes.        |
-| No Downtime (Geo HA)    | MariaDB Advanced Cluster   | Quorum (Raft)                 | Faster writes across WAN, but Enterprise-only.       |
+| No Downtime (Geo HA)    | MariaDB Enterprise Cluster | Quorum (Raft)                 | Faster writes across WAN, none                       |
 | Read Scaling            | Primary-Replica + MaxScale | Asynchronous                  | Maximum performance, but risks replication lag.      |
 | Disaster Recovery (WAN) | Hybrid Replication         | Sync (Local) / Async (Remote) | Safely bridges data centers, but setup is complex.   |
 | Reporting / BI          | Multi-Source Replication   | Asynchronous                  | Safely aggregates data without impacting production. |
