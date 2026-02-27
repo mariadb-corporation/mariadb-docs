@@ -659,6 +659,7 @@
     * [Data-in-Transit Encryption](security/encryption/data-in-transit-encryption/README.md)
       * [Secure Connections Overview](security/encryption/data-in-transit-encryption/secure-connections-overview.md)
       * [Securing Connections for Client and Server](security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md)
+      * [Zero-Configuration SSL](security/encryption/data-in-transit-encryption/zero-configuration-ssl.md)
       * [Replication with Secure Connections](security/encryption/data-in-transit-encryption/replication-with-secure-connections.md)
       * [Enabling TLS on MariaDB Server](security/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server.md)
       * [Certificate Creation with OpenSSL](security/encryption/data-in-transit-encryption/certificate-creation-with-openssl.md)
