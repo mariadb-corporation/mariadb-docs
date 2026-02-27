@@ -50,7 +50,7 @@ Identify your primary architectural challenge below to discover the best-fit rep
 Zero data loss and automatic failover. If one server dies, another takes over instantly without impacting the application.
 {% endhint %}
 
-* [Galera Cluster](../high-availability/understanding-quorum-monitoring-and-recovery.md) (Virtually Synchronous): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
+* [Galera Cluster](understanding-quorum-monitoring-and-recovery.md) (Virtually Synchronous): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
   * _Trade-off:_ Write latency is dictated by the slowest node, as all active nodes must acknowledge the transaction.
 * [MariaDB Enterprise Cluster](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/) (Quorum/Raft): _(Enterprise Technical Preview)_ Designed for environments that need HA but cannot afford Galera's write latency. It requires acknowledgment from only a _majority_ (quorum) of nodes to commit a write, effectively ignoring network lag from the slowest data centers.
 * [Semisynchronous Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication): A middle ground where the primary server waits for at least one replica to acknowledge receipt of the data before confirming a "success" to the client. It prevents data loss during a crash without the full performance overhead of Galera.
@@ -70,7 +70,7 @@ The application has thousands of users browsing (reading) but only a few writing
 You need a "Plan B" in a different geographic region to survive a total data center outage, or you need a safeguard against catastrophic human error.
 {% endhint %}
 
-* [Hybrid Replication (Geo-DR)](../high-availability/using-mariadb-replication-with-mariadb-galera-cluster/overview-of-hybrid-replication.md): Combines methods for the best of both worlds. A synchronous Galera Cluster is used locally for High Availability, while standard asynchronous replication streams data to a distant Disaster Recovery (DR) replica over a WAN.
+* [Hybrid Replication (Geo-DR)](using-mariadb-replication-with-mariadb-galera-cluster/overview-of-hybrid-replication.md): Combines methods for the best of both worlds. A synchronous Galera Cluster is used locally for High Availability, while standard asynchronous replication streams data to a distant Disaster Recovery (DR) replica over a WAN.
 * [Delayed Replication (Human Error DR)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/delayed-replication): A replica that intentionally stays a set amount of time (e.g., one hour) behind the primary. If a user accidentally runs a destructive command like `DROP TABLE`, you can recover the lost data from the delayed replica before the mistake replicates across your infrastructure.
 
 ### Data Aggregation & Analytics
@@ -95,14 +95,15 @@ MaxScale is a commercial MariaDB Enterprise product, which should be factored in
 
 ## Quick Comparison Decision Matrix
 
-| Architectural Goal      | Recommended Solution       | Consistency Type              | Key Trade-off / Benefit                              |
-| ----------------------- | -------------------------- | ----------------------------- | ---------------------------------------------------- |
-| No Downtime (Local HA)  | Galera Cluster             | Synchronous                   | Guarantees zero data loss, but slower writes.        |
-| No Downtime (Geo HA)    | MariaDB Enterprise Cluster | Quorum (Raft)                 | Faster writes across WAN, none                       |
-| Read Scaling            | Primary-Replica + MaxScale | Asynchronous                  | Maximum performance, but risks replication lag.      |
-| Disaster Recovery (WAN) | Hybrid Replication         | Sync (Local) / Async (Remote) | Safely bridges data centers, but setup is complex.   |
-| Reporting / BI          | Multi-Source Replication   | Asynchronous                  | Safely aggregates data without impacting production. |
-| Human Error Recovery    | Delayed Replication        | Asynchronous (Delayed)        | Saves against accidental `DROP TABLE`executions.     |
+| Architectural Goal            | Recommended Solution         | Consistency Type              | Key Trade-off / Benefit                                                   |
+| ----------------------------- | ---------------------------- | ----------------------------- | ------------------------------------------------------------------------- |
+| No Downtime (Local HA)        | Galera Cluster               | Synchronous                   | Guarantees zero data loss, but slower writes.                             |
+| No Downtime (Geo HA)          | MariaDB Enterprise Cluster   | Quorum (Raft)                 | Faster writes across WAN, none                                            |
+| Data Safety (Middle Ground)   | Semisynchronous Replication  | Semisynchronous               | Prevents data loss during crash, but introduces a slight latency penalty. |
+| Read Scaling                  | Primary-Replica + MaxScale   | Asynchronous                  | Maximum performance, but risks replication lag.                           |
+| Disaster Recovery (WAN)       | Hybrid Replication           | Sync (Local) / Async (Remote) | Safely bridges data centers, but setup is complex.                        |
+| Reporting / BI                | Multi-Source Replication     | Asynchronous                  | Safely aggregates data without impacting production.                      |
+| Human Error Recovery          | Delayed Replication          | Asynchronous (Delayed)        | Saves against accidental `DROP TABLE`executions.                          |
 
 ## Implementation Detail: Choosing a Binary Log Format
 
