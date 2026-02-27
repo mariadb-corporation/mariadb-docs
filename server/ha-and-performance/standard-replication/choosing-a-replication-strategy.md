@@ -10,6 +10,9 @@ Before mapping out specific use cases, it is important to understand the four pr
 
 ### Asynchronous Replication (Primary-Replica)
 
+The standard method where the primary node commits a transaction locally and streams it to replicas in the background. This method is ideal for read-heavy applications, such as a high-traffic news website where a single primary database handles content updates while multiple replicas serve read-only web traffic to millions of visitors.\
+While a momentary delay before a new article appears on all servers is an acceptable trade-off for massive read scalability, this inherent replication lag means users might occasionally read stale data. Furthermore, if the primary server crashes before the background stream catches up, the most recent updates will be permanently lost.
+
 ```mermaid
 graph TD
     subgraph Client Application
@@ -48,10 +51,9 @@ graph TD
     class W,R app;
 ```
 
-The standard method where the primary node commits a transaction locally and streams it to replicas in the background. This method is ideal for read-heavy applications, such as a high-traffic news website where a single primary database handles content updates while multiple replicas serve read-only web traffic to millions of visitors.\
-While a momentary delay before a new article appears on all servers is an acceptable trade-off for massive read scalability, this inherent replication lag means users might occasionally read stale data. Furthermore, if the primary server crashes before the background stream catches up, the most recent updates will be permanently lost.
-
 ### Semisynchronous Replication
+
+A middle ground where the primary waits for at least one replica to acknowledge receipt of the data before confirming a commit. This setup is well-suited for systems like an e-commerce checkout spanning two nearby data centers, where ensuring at least one backup server has securely logged a transaction prevents a "lost order" if the primary loses power.
 
 ```mermaid
 sequenceDiagram
@@ -77,11 +79,11 @@ sequenceDiagram
     Note over Primary, Replica: Crash Caveat: If Primary fails before/during commit, <br/> failover is complex and may require log truncation.
 ```
 
-A middle ground where the primary waits for at least one replica to acknowledge receipt of the data before confirming a commit. This setup is well-suited for systems like an e-commerce checkout spanning two nearby data centers, where ensuring at least one backup server has securely logged a transaction prevents a "lost order" if the primary loses power.
-
 However, this increased data integrity comes with a strict write latency penalty while the primary waits for the round-trip acknowledgment from the replica. Additionally, if the primary crashes, failover can be complex and might still involve data loss or require truncating the binary log, depending on the server's specific wait configuration.
 
 ### Virtually Synchronous Replication (Galera Cluster)
+
+A multi-primary solution where all active nodes must receive and accept a transaction before it commits, guaranteeing zero data loss and true high availability. This is the "gold standard" for environments like a critical healthcare records system hosted within a single enterprise data center, where every updated record is applied simultaneously across all nodes so users always see 100% up-to-date information.
 
 ```mermaid
 sequenceDiagram
@@ -130,11 +132,11 @@ sequenceDiagram
     end
 ```
 
-A multi-primary solution where all active nodes must receive and accept a transaction before it commits, guaranteeing zero data loss and true high availability. This is the "gold standard" for environments like a critical healthcare records system hosted within a single enterprise data center, where every updated record is applied simultaneously across all nodes so users always see 100% up-to-date information.
-
 The trade-off for this consistency is that write performance is entirely dictated by the slowest node in the cluster. Additionally, high-contention workloads with multiple clients writing to the same rows on different nodes can result in frequent transaction rollbacks or cluster deadlocks.
 
 ### Quorum Replication (MariaDB Enterprise Cluster)
+
+A Raft-based solution that requires acknowledgment from a _majority_ of nodes (a quorum) rather than all of them, providing robust fault tolerance with faster write performance across wide-area networks.
 
 ```mermaid
 sequenceDiagram
@@ -171,8 +173,6 @@ sequenceDiagram
         TOK->>TOK: Commit Transaction locally
     end
 ```
-
-A Raft-based solution that requires acknowledgment from a _majority_ of nodes (a quorum) rather than all of them, providing robust fault tolerance with faster write performance across wide-area networks.
 
 For example, a globally distributed financial application spanning data centers in New York, London, and Tokyo only needs agreement from two of the three regions to commit data, keeping the application fast by effectively ignoring the network lag of the furthest data center.
 
