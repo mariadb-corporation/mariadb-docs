@@ -63,7 +63,6 @@
     * [Configuring MariaDB Replication between MariaDB Galera Cluster and MariaDB Server](high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-mariadb-galera-cluster-and-mariadb.md)
     * [Configuring MariaDB Replication between Two MariaDB Galera Clusters](high-availability/using-mariadb-replication-with-mariadb-galera-cluster/configuring-mariadb-replication-between-two-mariadb-galera-clusters.md)
     * [Using MariaDB GTIDs with MariaDB Galera Cluster](high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-gtids-with-mariadb-galera-cluster.md)
-  * [Architectural Decision Guide: Choosing a Replication Strategy](high-availability/architectural-decision-guide-choosing-a-replication-strategy.md)
 * [Reference](reference/README.md)
   * [Galera Cluster Status Variables](reference/galera-cluster-status-variables.md)
   * [Galera Cluster System Variables](reference/galera-cluster-system-variables.md)
