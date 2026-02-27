@@ -114,6 +114,7 @@
       * [ColumnStore Batch Insert Mode](mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-batch-insert-mode.md)
       * [ColumnStore Bulk Data Loading](mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-bulk-data-loading.md)
       * [ColumnStore Streaming Data Adapters](mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-streaming-data-adapters.md)
+      * [ColumnStore Insert Cache](mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-insert-cache.md)
     * [Data Import](mariadb-columnstore/clients-and-tools/data-import/README.md)
       * [Data Loading with cpimport](mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md)
       * [Data Loading with INSERT .. SELECT](mariadb-columnstore/clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select.md)
