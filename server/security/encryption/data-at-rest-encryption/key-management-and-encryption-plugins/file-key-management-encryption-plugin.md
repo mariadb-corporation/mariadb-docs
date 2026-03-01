@@ -150,12 +150,30 @@ Generate a random encryption password using the [openssl rand](https://www.opens
 $ sudo openssl rand -hex 128 > /etc/mysql/encryption/keyfile.key
 ```
 
-Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute one of the following commands:
+Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute for example one of the following commands:
 
+{% tabs %}
+{% tab title="< 12.0" %}
 {% code overflow="wrap" %}
 ```bash
-$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 -pass -in /etc/mysql/encryption/keyfile.txt -out /etc/mysql/encryption/keys.enc
-$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 -pass -in /etc/mysql/encryption/keyfile.txt -out /etc/mysql/encryption/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha1 \
+   -pass file:/etc/mysql/encryption/keyfile.key \
+   -in /etc/mysql/encryption/keys.txt \
+   -out /etc/mysql/encryption/keys.enc
+```
+{% endcode %}
+{% endtab %}
+{% tab title="Current" %}
+{% code overflow="wrap" %}
+```bash
+$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 \
+   -pass file:/etc/mysql/encryption/keyfile.key \
+   -in /etc/mysql/encryption/keys.txt \
+   -out /etc/mysql/encryption/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 \
+   -pass file:/etc/mysql/encryption/keyfile.key \
+   -in /etc/mysql/encryption/keys.txt \
+   -out /etc/mysql/encryption/keys.enc
 ```
 {% endcode %}
 
@@ -166,6 +184,8 @@ Using the `-iter` (iterations) parameter in combination with `-pbkdf2` makes sen
 {% hint style="warning" %}
 When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--file_key_management_use_pbkdf2=`_`number_of_iterations`_ option to MariaDB Server.
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
 
