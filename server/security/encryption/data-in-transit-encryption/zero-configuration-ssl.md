@@ -22,13 +22,13 @@ Traditionally, enabling SSL/TLS required manual steps: generating private keys, 
 Zero-Configuration SSL eliminates these barriers:
 
 1. Automatic Server Setup: The server automatically generates a self-signed certificate if no certificate is configured.
-2. Implicit Trust: Clients verify the server’s identity using the existing account password as a shared secret, rather than relying on a third-party CA.
+2. Zero-trust validation: Clients verify the server’s identity using the existing account password as a shared secret, rather than relying on a trusted CA.
 
 ## Requirements and Defaults
 
 * MariaDB Version: Server and Client must be version 11.4 or higher.
 * Default Behavior: SSL is enabled and verified by default. The client has `--ssl-verify-server-cert` enabled by default.
-* Supported Authentication Plugins: This feature works with [mysql\_native\_password](../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md), [ed25519](../../../reference/plugins/authentication-plugins/authentication-plugin-ed25519.md), and [parsec](../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md). (Those plugins are MITM-safe.)
+* Supported Authentication Plugins: This feature works with [mysql\_native\_password](../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md), [ed25519](../../../reference/plugins/authentication-plugins/authentication-plugin-ed25519.md), and [parsec](../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) (that are MitM-proof even without SSL).
 
 ## Configuration Options
 
@@ -37,16 +37,15 @@ While designed to work automatically, the following options allow for manual con
 | Option                          | Description                                                                                                               |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `--disable-ssl`                 | Disables SSL entirely (not recommended).                                                                                  |
-| `--skip-ssl-verify-server-cert` | Makes SSL optional. The client attempts an encrypted connection but falls back to an unencrypted connection if SSL fails. |
+| `--skip-ssl-verify-server-cert` | A verified certificate is not required, the client will accept unverified certificates or even a completely unencrypted connection. This is not MitM safe, even if the server uses SSL. |
 
 ## Limitations
 
-* Insecure Plugins: External authentication plugins such as PAM, GSSAPI, and `cached_sha2_plugin` are MitM-insecure and cannot be used for Zero-Configuration SSL verification. These still require traditional CA-based verification to be secure.
-* Unix Socket: When using `unix_socket`, the transport is inherently secure. SSL is either not used or is automatically trusted; therefore, no certificate verification warnings apply.
+Authentication plugins such as PAM, GSSAPI, and `cached_sha2_plugin` are not MitM-proof without SSL, they require SSL to be secure and thus cannot be used to verify SSL itself. One should use traditional CA-based verification with these plugins.
 
 ## Verification
 
-To verify that Zero-Configuration SSL is being used, connect via TCP/IP (not via UNIX socket, because in that case SSL is not used or automatically trusted), and look at the status output:
+To verify that Zero-Configuration SSL is being used, connect via TCP/IP (not via UNIX socket, because in that case the certificate is automatically trusted), and look at the status output:
 
 {% code overflow="wrap" %}
 ```bash
@@ -85,22 +84,26 @@ MariaDB [(none)]> SHOW SESSION STATUS LIKE 'Ssl_cipher'; SHOW SESSION STATUS LIK
 ```
 {% endcode %}
 
-Verify the server's certificate fingerprint to ensure the "Implicit Trust" mechanism is functioning. Run the following to see the server's certificate details:
+Run the following to see the server's certificate details:
 
 {% code overflow="wrap" %}
-```sql
-MariaDB [(none)]> SHOW STATUS LIKE 'Ssl_server_not_before'; SHOW STATUS LIKE 'Ssl_server_not_after';
-+-----------------------+--------------------------+
-| Variable_name         | Value                    |
-+-----------------------+--------------------------+
-| Ssl_server_not_before | Feb 25 11:06:07 2026 GMT |
-+-----------------------+--------------------------+
+```
+$ openssl s_client -starttls mysql 127.0.0.1:3306
+Connecting to 127.0.0.1
+CONNECTED(00000003)
+Can't use SSL_get_servername
+depth=0 CN=MariaDB Server
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN=MariaDB Server
+verify return:1
+---
+Certificate chain
+ 0 s:CN=MariaDB Server
+   i:CN=MariaDB Server
+   a:PKEY: RSA, 4096 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Mar  2 16:19:15 2026 GMT; NotAfter: Feb 28 16:19:15 2036 GMT
 ...
-+----------------------+--------------------------+
-| Variable_name        | Value                    |
-+----------------------+--------------------------+
-| Ssl_server_not_after | Feb 23 11:06:07 2036 GMT |
-+----------------------+--------------------------+
 ```
 {% endcode %}
 
