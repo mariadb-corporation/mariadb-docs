@@ -14,7 +14,7 @@ BIT_AND(expr) [over_clause]
 
 ## Description
 
-This Returns the bitwise AND of all bits in _expr_. The calculation is performed with 64-bit ([BIGINT](../../data-types/numeric-data-types/bigint.md)) precision. It is an [aggregate function](./), and so can be used with the [GROUP BY](../../sql-statements/data-manipulation/selecting-data/group-by.md) clause.
+Returns the bitwise AND of all bits in _expr_. The calculation is performed with 64-bit ([BIGINT](../../data-types/numeric-data-types/bigint.md)) precision. It is an [aggregate function](./), and so can be used with the [GROUP BY](../../sql-statements/data-manipulation/selecting-data/group-by.md) clause.
 
 If no rows match, `BIT_AND` will return a value with all bits set to 1. NULL values have no effect on the result unless all results are NULL, which is treated as no match.
 
