@@ -167,21 +167,7 @@ You can monitor how often fragmentation is occurring by checking the binary log 
 The introduction of `Partial_rows_log_event` does _not_ change the transactional nature of MariaDB. The fragments are part of a single unit of work; if the connection is lost mid-fragment, the replica discards the partial buffer and waits for a re-transmission or restart of that event group.
 {% endhint %}
 
-## InnoDB-Based Binary Log (Binlog-in-Engine)
 
-{% hint style="info" %}
-This feature is available from MariaDB 12.3.
-{% endhint %}
-
-The server supports an alternative binary log implementation where log events are managed directly within the InnoDB storage engine. This feature is enabled by setting `binlog_storage_engine=innodb`. See [InnoDB-Based Binary Log](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md) and [binlog\_storage\_engine](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_storage_engine) for details.
-
-#### Memory Management Benefits
-
-Unlike the traditional file-based binary log, the InnoDB-based binary log allows transactions to be written "out-of-band" in page-sized chunks as they are generated. This has these benefits:
-
-* Reduced Memory Pressure: The server no longer needs to store the entire `Rows_log_event` contiguously in memory for the duration of a large transaction.
-* Direct Streaming: By using the InnoDB buffer pool and write-ahead log (WAL) infrastructure, large events are flushed to disk in fragments, significantly lowering the risk of `OOM` (Out of Memory) errors for multi-gigabyte transactions.
-* Crash Safety: This integration eliminates the need for the traditional two-phase commit (2PC) between the binary log and InnoDB, improving commit latency.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
