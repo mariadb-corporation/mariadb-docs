@@ -34,10 +34,10 @@ Zero-Configuration SSL eliminates these barriers:
 
 While designed to work automatically, the following options allow for manual control:
 
-| Option                          | Description                                                                                                               |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `--disable-ssl`                 | Disables SSL entirely (not recommended).                                                                                  |
-| `--skip-ssl-verify-server-cert` | A verified certificate is not required, the client will accept unverified certificates or even a completely unencrypted connection. This is not MitM safe, even if the server uses SSL. |
+| Option                          | Description                                                                                                                                                                             |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--disable-ssl`                 | Disables SSL entirely (not recommended).                                                                                                                                                |
+| `--skip-ssl-verify-server-cert` | A verified certificate is not required, the client will accept unverified certificates or even a completely unencrypted connection. This is not MitM-safe, even if the server uses SSL. |
 
 ## Limitations
 
@@ -87,7 +87,7 @@ MariaDB [(none)]> SHOW SESSION STATUS LIKE 'Ssl_cipher'; SHOW SESSION STATUS LIK
 Run the following to see the server's certificate details:
 
 {% code overflow="wrap" %}
-```
+```bash
 $ openssl s_client -starttls mysql 127.0.0.1:3306
 Connecting to 127.0.0.1
 CONNECTED(00000003)
