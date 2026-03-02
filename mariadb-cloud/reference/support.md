@@ -23,7 +23,7 @@ Power level support expands the Standard level offering with Problem Resolution 
 {% hint style="warning" %}
 **Tech Preview Advisory**
 
-Features and topologies released in [_Tech Preview_](../quickstart/mariadb-cloud-galera-clusters.md) (such as MariaDB Galera Clusters) receive limited Problem Resolution Support. For these deployments, support is provided on a best-effort basis and they are excluded from standard Support SLAs.
+Features and topologies released in [_Tech Preview_](../quickstart/enterprise-cluster.md) (such as MariaDB Galera Clusters) receive limited Problem Resolution Support. For these deployments, support is provided on a best-effort basis and they are excluded from standard Support SLAs.
 {% endhint %}
 
 A definitive description of MariaDB Cloud support can be found in the [MariaDB Cloud Support Policy](https://skysql.com/support-policy/).

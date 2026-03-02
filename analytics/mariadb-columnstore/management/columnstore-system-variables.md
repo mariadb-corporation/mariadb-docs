@@ -2,6 +2,30 @@
 
 ## Variables
 
+#### columnstore\_cache\_inserts
+
+**Scope:** Global\
+**Dynamic:** No (requires restart)\
+**Command Line**: `--columnstore-cache-inserts[={0|1}]`\
+**Default:** OFF\
+**Description**: The [insert cache](../clients-and-tools/data-ingestion/columnstore-insert-cache.md) feature can be enabled or disabled at the global level. When enabled, `INSERT` operations are directed to a memory‑optimized Aria cache table, which serves as a temporary buffer before the data is flushed into ColumnStore storage.
+
+#### columnstore\_cache\_flush\_threshold
+
+**Scope:** Global / Session\
+**Dynamic**: Yes\
+**Command Line**: `--columnstore-cache-flush-threshold=#`\
+**Default:** 500000\
+**Description**: Specifies the number of cached rows that trigger an automatic flush from the Aria cache table to the ColumnStore table. For tuning guidance, see [ColumnStore Insert Cache](../clients-and-tools/data-ingestion/columnstore-insert-cache.md).
+
+#### columnstore\_cache\_use\_import&#x20;
+
+**Scope:** Global\
+**Dynamic**: Yes\
+**Command Line**: `--columnstore-cache-use-import[={0|1}]`\
+**Default:** OFF\
+**Description**: When the insert cache is enabled, flush operations utilize the `cpimport` utility to achieve improved performance. When the feature is disabled, flushes are executed using ColumnStore’s internal batch processing mode. For details on performance trade-offs, see [ColumnStore Insert Cache](../clients-and-tools/data-ingestion/columnstore-insert-cache.md).
+
 #### columnstore\_diskjoin\_force\_run
 
 * Controls whether disk joins are forced to run even if they are not estimated to be the most efficient execution plan. This can be useful for debugging purposes or for situations where the optimizer's estimates are not accurate.

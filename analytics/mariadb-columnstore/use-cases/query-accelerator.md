@@ -69,21 +69,29 @@ Restart MariaDB Server for the change to take effect.
 {% endstep %}
 
 {% step %}
-**Run queries to turn on Query Accelerator**
+**Enable Query Accelerator in a client session**
 
-Set these parameters in a client session:
+Use the routines in the `queryacc` schema to enable and disable Query Accelerator. These are automatically created during ColumnStore installation.
 
 ```sql
-SET columnstore_unstable_optimizer=ON;
-SET optimizer_switch="index_merge=off,index_merge_union=off,index_merge_sort_union=off,index_merge_intersection=off,index_merge_sort_intersection=off,index_condition_pushdown=off,derived_merge=off,derived_with_keys=off,firstmatch=off,loosescan=off,materialization=on,in_to_exists=off,semijoin=off,partial_match_rowid_merge=off,partial_match_table_scan=off,subquery_cache=off,mrr=off,mrr_cost_based=off,mrr_sort_keys=off,outer_join_with_cache=off,semijoin_with_cache=off,join_cache_incremental=off,join_cache_hashed=off,join_cache_bka=off,optimize_join_buffer_size=off,table_elimination=off,extended_keys=off,exists_to_in=off,orderby_uses_equalities=off,condition_pushdown_for_derived=on,split_materialized=off,condition_pushdown_for_subquery=off,rowid_filter=off,condition_pushdown_from_having=on,not_null_range_scan=off,hash_join_cardinality=off,cset_narrowing=off,sargable_casefold=off";
+-- Enable Query Accelerator and save previous settings
+SET @old_settings = queryacc.enable_queryacc();
+
+-- Run your queries
+SELECT c_zip, SUM(c_payment_cnt) FROM test.customer_indexed GROUP BY c_zip;
+
+-- Disable and restore previous settings
+CALL queryacc.disable_queryacc(@old_settings);
 ```
 
-{% hint style="info" %}
-In future versions of Query Accelerator, those `SET` statements will be in stored procedures, allowing to turn Query Accelerator on and off with simpler commands.
-{% endhint %}
+To run a single query with Query Accelerator without manually managing enable/disable:
+
+```sql
+CALL queryacc.with_queryacc('SELECT c_zip, SUM(c_payment_cnt) FROM test.customer_indexed GROUP BY c_zip');
+```
 
 {% hint style="warning" %}
-To use Query Accelerator just for one query, you have to run those `SET` statements per query, not per session. Setting them per session effectively disables the MariaDB Optimizer for subsequent queries that ColumnStore cannot execute.
+Do not leave Query Accelerator enabled for an entire session. It changes `optimizer_switch` settings that effectively disable the MariaDB Optimizer for queries that ColumnStore cannot execute. Always call `disable_queryacc()` after your queries, or use `with_queryacc()` which handles this automatically.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
@@ -108,6 +116,10 @@ ANALYZE TABLE table_name PERSISTENT FOR COLUMNS (column_name) indexes();
 
 {% hint style="warning" %}
 Watch out for `max_connections`. If you set `columnstore_query_accel_parallel_factor` to a high value, you may need to increase `max_connections` to avoid connection pool exhaustion.
+{% endhint %}
+
+{% hint style="info" %}
+`enable_queryacc()` sets `columnstore_query_accel_parallel_factor` to 5 by default. To use a different value, set it manually after calling `enable_queryacc()`.
 {% endhint %}
 
 ## Verifying That Query Accelerator is Being Used
@@ -173,9 +185,9 @@ In mariadb (MariaDB command-line client), run these statements:
 
 {% code overflow="wrap" %}
 ```sql
-SET columnstore_unstable_optimizer=ON;
-SET optimizer_switch='index_merge=off,index_merge_union=off,index_merge_sort_union=off,index_merge_intersection=off,index_merge_sort_intersection=off,index_condition_pushdown=off,derived_merge=off,derived_with_keys=off,firstmatch=off,loosescan=off,materialization=on,in_to_exists=off,semijoin=off,partial_match_rowid_merge=off,partial_match_table_scan=off,subquery_cache=off,mrr=off,mrr_cost_based=off,mrr_sort_keys=off,outer_join_with_cache=off,semijoin_with_cache=off,join_cache_incremental=off,join_cache_hashed=off,join_cache_bka=off,optimize_join_buffer_size=off,table_elimination=off,extended_keys=off,exists_to_in=off,orderby_uses_equalities=off,condition_pushdown_for_derived=on,split_materialized=off,condition_pushdown_for_subquery=off,rowid_filter=off,condition_pushdown_from_having=on,not_null_range_scan=off,hash_join_cardinality=off,cset_narrowing=off,sargable_casefold=off';
+SET @old_settings = queryacc.enable_queryacc();
 SELECT c_zip, sum(c_payment_cnt)  FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ; -- 0.7s
+CALL queryacc.disable_queryacc(@old_settings);
 ```
 {% endcode %}
 {% endstep %}

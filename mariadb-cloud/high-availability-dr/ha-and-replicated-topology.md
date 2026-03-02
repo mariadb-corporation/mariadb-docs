@@ -80,7 +80,7 @@ In MariaDB Cloud, you can control routing using 2 strategies:
 ### **Synchronous HA using Galera Clusters**
 
 {% hint style="warning" %}
-**Tech Preview Advisory:** MariaDB Galera Clusters are currently available as a [_Tech Preview_](../quickstart/mariadb-cloud-galera-clusters.md).
+**Tech Preview Advisory:** MariaDB Galera Clusters are currently available as a [_Tech Preview_](../quickstart/enterprise-cluster.md).
 {% endhint %}
 
 While the [standard Replicated topology](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) utilizes semi-synchronous replication with causal reads, workloads that demand strict data consistency and zero data loss can utilize the [MariaDB Galera Cluster topology](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-cluster-quickstart-guides/mariadb-galera-cluster-usage-guide).
@@ -88,7 +88,6 @@ While the [standard Replicated topology](https://app.gitbook.com/s/SsmexDFPv2xG2
 Galera clusters provide [High Availability](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability) through synchronous replication using write-set certification. This ensures that a transaction is committed on all nodes or none.
 
 * **Quorum-Based Health:** The cluster maintains a [voting system to prevent split-brain scenarios](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/understanding-quorum-monitoring-and-recovery). A standard 3-node cluster can tolerate the loss of one node; if a node fails, MariaDB MaxScale automatically routes traffic to the remaining healthy nodes without customer intervention.
-* **Multi-Primary Routing:** The underlying Galera technology inherently supports multi-primary writes, allowing all nodes in the cluster to accept both read and write traffic simultaneously.
 
 {% hint style="info" %}
 **Tech Preview Limitation: Single-Writer Routing**&#x20;

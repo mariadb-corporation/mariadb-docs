@@ -52,6 +52,20 @@ Secure MariaDB Server with SELinux. This section guides you through configuring 
 
 {% columns %}
 {% column %}
+{% content-ref url="securing-mariadb-logs.md" %}
+[securing-mariadb-logs.md](securing-mariadb-logs.md)
+{% endcontent-ref %}
+
+
+{% endcolumn %}
+
+{% column %}
+Learn how to harden MariaDB log files by implementing at-rest encryption, TLS for transit, strict OS permissions, and automated rotation to ensure data integrity and regulatory compliance.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="../cve/" %}
 [cve](../cve/)
 {% endcontent-ref %}

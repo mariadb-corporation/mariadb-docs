@@ -1,20 +1,3 @@
----
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
----
-
 # Backup Examples
 
 MariaDB offers a complete API-based backup capability to meet the data protection and recovery options. You can create and manage various backup types, including snapshots, physical backups, logical backups, incremental backups, and binary log backups.

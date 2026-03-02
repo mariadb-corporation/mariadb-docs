@@ -69,4 +69,4 @@ When the `wsrep_ssl_mode` system variable is set to `SERVER` or `SERVER_X509`, e
 | Data Type             | ENUM (PROVIDER, SERVER, SERVER\_X509)               |
 | Product Default Value | SERVER                                              |
 
-\
+<br>

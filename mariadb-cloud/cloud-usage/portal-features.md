@@ -1,20 +1,3 @@
----
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
----
-
 # MariaDB Cloud UI Portal
 
 The MariaDB Cloud Portal provides a unified management interface to launch, manage, and monitor your MariaDB Cloud services.

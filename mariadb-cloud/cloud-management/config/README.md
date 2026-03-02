@@ -43,3 +43,7 @@ Available configuration parameters differ by cloud database topology.
 {% content-ref url="maxscale.md" %}
 [maxscale.md](maxscale.md)
 {% endcontent-ref %}
+
+{% content-ref url="../../quickstart/enterprise-cluster.md" %}
+[enterprise-cluster.md](../../quickstart/enterprise-cluster.md)
+{% endcontent-ref %}

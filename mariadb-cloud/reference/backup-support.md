@@ -22,7 +22,7 @@
 | -------------------------- | ----------- | ------------------ | ------------------------- | --------------- | ----------------------------- |
 | Single Node                | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
 | Replicated                 | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
-| **MariaDB Galera Cluster** | ✗           | ✗                  | ✗                         | ✓               | ✗                             |
+| MariaDB Galera Cluste**r** | ✗           | ✗                  | ✗                         | ✓               | ✗                             |
 
 {% hint style="danger" %}
 **Tech Preview Limitation: Snapshots Only**&#x20;

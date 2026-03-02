@@ -148,36 +148,7 @@ mariadb-binlog c525d37c-b2ff-4543-b06f-87012d142d44-bin.000001 > binlog.sql
 
 {% include "../../../.gitbook/includes/innodb-based-binlog-from-12.3.md" %}
 
-Since it's trivial to [read logs files as plain text](activating-the-binary-log.md#reading-log-files), to store that output permanently, and even to use it to import logged data into another database server, ensure that the [storage location](activating-the-binary-log.md#viewing-log-files) is safe. Binary logs are effectively a mirrored copy of your data. If you have encrypted or sensitive data in your tables, it is sitting in those logs in a plain (or easily decodable) format.
-
-Because binary logs capture every data modification (including sensitive personal info or password hashes), they must be treated with the same level of security as the database files themselves.
-
-### File-System Permissions (Least Privilege)
-
-The directory containing binary logs should be restricted at the OS[^1] level.
-
-* Ownership: Files should be owned strictly by the `mysql` (or `mariadb`) system user.
-* Permissions: Ensure directory permissions are set (typically `700` or `750`) so that non-privileged users on the server cannot list or read the files.
-
-### Encryption at Rest
-
-If your disk is compromised or a backup of the logs is stolen, raw binary logs are vulnerable.
-
-* MariaDB Encryption: Enable the built-in MariaDB transparent encryption for binary logs. This ensures that even if someone copies the `.000001` file, they cannot decode it without the encryption keys.
-* See detailed instructions for [encrypting binary logs](/broken/pages/qmWqVsVK0P5Ggx0MwFrf).
-
-### Secure Transport
-
-When binary logs are used for replication (sending data from a primary to a replica server):
-
-* SSL/TLS: Always use encrypted connections for replication traffic to prevent "sniffing" of the log data as it moves across the network.
-
-### Sanitization of Backups
-
-Logs are often backed up alongside data.
-
-* Redaction: Be mindful that logs converted to `.sql` files for auditing (see [example above](activating-the-binary-log.md#reading-log-files)) are now plain text and need to be deleted or encrypted immediately after use.
-* Retention: Implement an automated purge policy (`expire_logs_days`) to ensure sensitive data does not persist on disk longer than legally or operationally required.
+For instructions how to secure binary log **files**, see [Securing MariaDB Logs](../../../security/securing-mariadb/securing-mariadb-logs.md).&#x20;
 
 ## Binary Log Format
 
@@ -193,5 +164,3 @@ There are three formats for the binary log. The default is [mixed logging](binar
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
-
-[^1]: Operating system, like Linux, Windows, or macOS

@@ -37,7 +37,7 @@ Our process to set up replication is going to be similar to the process describe
 
 {% stepper %}
 {% step %}
-### Start the First Cluster
+#### Start the First Cluster
 
 The very first step is to start the nodes in the first cluster. The first node will have to be [bootstrapped](../../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md#bootstrapping-a-new-cluster). The other nodes can be started normally.
 
@@ -45,7 +45,7 @@ Once the nodes are started, you need to pick a specific node that will act as th
 {% endstep %}
 
 {% step %}
-### Backup the Database on the First Cluster's Primary Node and Prepare It
+#### Backup the Database on the First Cluster's Primary Node and Prepare It
 
 The first step is to simply take and prepare a fresh [full backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) of the node that you have chosen to be the replication primary. For example:
 
@@ -64,7 +64,7 @@ $ mariadb-backup --prepare \
 {% endstep %}
 
 {% step %}
-### Copy the Backup to the Second Cluster's Replica
+#### Copy the Backup to the Second Cluster's Replica
 
 Once the backup is done and prepared, you can copy it to the node in the second cluster that will be acting as replica. For example:
 
@@ -74,7 +74,7 @@ $ rsync -avrP /var/mariadb/backup c2dbserver:/var/mariadb/backup
 {% endstep %}
 
 {% step %}
-### Restore the Backup on the Second Cluster's Replica
+#### Restore the Backup on the Second Cluster's Replica
 
 At this point, you can restore the backup to the [datadir](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#datadir), as you normally would. For example:
 
@@ -91,13 +91,13 @@ $ chown -R mysql:mysql /var/lib/mysql/
 {% endstep %}
 
 {% step %}
-### Bootstrap the Second Cluster's Replica
+#### Bootstrap the Second Cluster's Replica
 
 Now that the backup has been restored to the second cluster's replica, you can start the server by [bootstrapping](../../galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster.md#bootstrapping-a-new-cluster) the node.
 {% endstep %}
 
 {% step %}
-### Create a Replication User on the First Cluster's Primary
+#### Create a Replication User on the First Cluster's Primary
 
 Before the second cluster's replica can begin replicating from the first cluster's primary, you need to [create a user account](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/authentication-with-enterprise-server/authentication-with-gssapi#create-user) on the primary that the replica can use to connect, and you need to [grant](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant) the user account the [REPLICATION SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave) privilege. For example:
 
@@ -108,7 +108,7 @@ GRANT REPLICATION SLAVE ON *.*  TO 'repl'@'c2dbserver1';
 {% endstep %}
 
 {% step %}
-### Start Replication on the Second Cluster's Replica
+#### Start Replication on the Second Cluster's Replica
 
 At this point, you need to get the replication coordinates of the primary from the original backup.
 
@@ -158,7 +158,7 @@ START SLAVE;
 {% endstep %}
 
 {% step %}
-### Check the Status of the Second Cluster's Replica
+#### Check the Status of the Second Cluster's Replica
 
 You should be done setting up the replica now, so you should check its status with [SHOW SLAVE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-show-slave-status). For example:
 
@@ -168,7 +168,7 @@ SHOW SLAVE STATUS\G
 {% endstep %}
 
 {% step %}
-### Start the Second Cluster
+#### Start the Second Cluster
 
 If the replica is replicating normally, then the next step would be to start the MariaDB Server process on the other nodes in the second cluster.
 
@@ -182,7 +182,7 @@ You can also set up [circular replication](https://app.gitbook.com/s/SsmexDFPv2x
 
 {% stepper %}
 {% step %}
-### Create a Replication User on the Second Cluster's Primary
+#### Create a Replication User on the Second Cluster's Primary
 
 Before circular replication can begin, you also need to [create a user account](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/authentication-with-enterprise-server/authentication-with-gssapi#create-user) on the second cluster's primary that the first cluster's replica can use to connect, and you need to [grant](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant) the user account the the [REPLICATION SLAVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#replication-slave) privilege. For example:
 
@@ -193,7 +193,7 @@ GRANT REPLICATION SLAVE ON *.*  TO 'repl'@'c1dbserver1';
 {% endstep %}
 
 {% step %}
-### Start Circular Replication on the First Cluster
+#### Start Circular Replication on the First Cluster
 
 How this is done would depend on whether you want to use the [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) coordinates or the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log) file and position coordinates.
 
@@ -240,14 +240,12 @@ CHANGE MASTER TO
    MASTER_LOG_POS=568;
 START SLAVE;
 ```
-
-
 {% endtab %}
 {% endtabs %}
 {% endstep %}
 
 {% step %}
-### Check the Status of the Circular Replication
+#### Check the Status of the Circular Replication
 
 You should be done setting up the circular replication on the node in the first cluster now, so you should check its status with [SHOW SLAVE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/replication-statements/legacy-replication-statements/legacy-commands-show-slave-status). For example:
 
