@@ -95,6 +95,29 @@ _Appears in:_
 | `basicAuth` [_BasicAuth_](api-reference.md#basicauth)                                                                         | BasicAuth to be used by the agent container                                                                                          |         |                                              |
 | `gracefulShutdownTimeout` [_Duration_](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#duration-v1-meta) | GracefulShutdownTimeout is the time we give to the agent container in order to gracefully terminate in-flight requests.              |         |                                              |
 
+#### AzureBlob
+
+
+
+
+
+
+
+_Appears in:_
+- [BootstrapFrom](#bootstrapfrom)
+- [PhysicalBackupStorage](#physicalbackupstorage)
+- [PointInTimeRecoveryStorage](#pointintimerecoverystorage)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `containerName` _string_ | ContainerName is the name of the storage container. |  | Required: \{\} <br /> |
+| `serviceURL` _string_ | ServiceURL is the full URL for connecting to Azure, usually in the form: http(s)://<account>.blob.core.windows.net/. |  | Required: \{\} <br /> |
+| `prefix` _string_ | Prefix indicates a folder/subfolder in the container. For example: mariadb/ or mariadb/backups. A trailing slash '/' is added if not provided. |  |  |
+| `storageAccountName` _string_ | StorageAccountName is the name of the storage account. Pairs with StorageAccountKey for static credential authentication |  |  |
+| `storageAccountKey` _[SecretKeySelector](#secretkeyselector)_ | StorageAccountKey is a reference to a Secret key containing the Azure Blob Storage Storage account Key. Pairs with StorageAccountKey for static credential authentication |  |  |
+| `tls` _[TLSConfig](#tlsconfig)_ | TLS provides the configuration required to establish TLS connections with Azure Blob Storage. |  |  |
+
+
 #### Backup
 
 Backup is the Schema for the backups API. It is used to define backup jobs and its storage.
@@ -239,6 +262,27 @@ _Appears in:_
 | `fsType` _string_                                                                      |             |         |            |
 | `volumeAttributes` _object (keys:string, values:string)_                               |             |         |            |
 | `nodePublishSecretRef` [_LocalObjectReference_](api-reference.md#localobjectreference) |             |         |            |
+
+#### CertConfig
+
+
+
+CertConfig defines parameters to configure a certificate.
+
+
+
+_Appears in:_
+- [ExternalTLS](#externaltls)
+- [MaxScaleTLS](#maxscaletls)
+- [TLS](#tls)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `caLifetime` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#duration-v1-meta)_ | CALifetime defines the CA certificate validity. |  |  |
+| `certLifetime` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#duration-v1-meta)_ | CertLifetime defines the certificate validity. |  |  |
+| `privateKeyAlgorithm` _string_ | PrivateKeyAlgorithm is the algorithm to be used for the CA and leaf certificate private keys.<br />One of: ECDSA or RSA |  | Enum: [ECDSA RSA] <br /> |
+| `privateKeySize` _integer_ | PrivateKeyAlgorithm is the key size to be used for the CA and leaf certificate private keys.<br />Supported values: ECDSA(256, 384, 521), RSA(2048, 3072, 4096) |  |  |
+
 
 #### CleanupPolicy
 
@@ -1839,6 +1883,64 @@ _Appears in:_
 | `priorityClassName` _string_                                                                                                  | PriorityClassName to be used in the Pod.                                           |         |            |
 | `topologySpreadConstraints` [_TopologySpreadConstraint_](api-reference.md#topologyspreadconstraint) _array_                   | TopologySpreadConstraints to be used in the Pod.                                   |         |            |
 
+#### PointInTimeRecovery
+
+
+
+PointInTimeRecovery is the Schema for the pointintimerecoveries API. It contains binlog archival and point-in-time restoration settings.
+
+
+
+
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `apiVersion` _string_ | `enterprise.mariadb.com/v1alpha1` | | |
+| `kind` _string_ | `PointInTimeRecovery` | | |
+| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |  |  |
+| `spec` _[PointInTimeRecoverySpec](#pointintimerecoveryspec)_ |  |  |  |
+
+
+#### PointInTimeRecoverySpec
+
+
+
+PointInTimeRecoverySpec defines the desired state of PointInTimeRecovery. It contains binlog archive and point-in-time restoration settings.
+
+
+
+_Appears in:_
+- [PointInTimeRecovery](#pointintimerecovery)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `physicalBackupRef` _[LocalObjectReference](#localobjectreference)_ | PhysicalBackupRef is a reference to a PhysicalBackup object that will be used as base backup. |  | Required: \{\} <br /> |
+| `storage` _[PointInTimeRecoveryStorage](#pointintimerecoverystorage)_ | PointInTimeRecoveryStorage is the storage where the point in time recovery data will be stored |  | Required: \{\} <br /> |
+| `compression` _[CompressAlgorithm](#compressalgorithm)_ | Compression algorithm to be used for compressing the binary logs.<br />This field is immutable, it cannot be updated after creation. |  | Enum: [none bzip2 gzip] <br /> |
+| `archiveTimeout` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#duration-v1-meta)_ | ArchiveTimeout defines the maximum duration for the binary log archival.<br />If this duration is exceeded, the sidecar agent will log an error and it will be retried in the next archive cycle.<br />It defaults to 1 hour. | 1h |  |
+| `strictMode` _boolean_ | StrictMode controls the behavior when a point-in-time restoration cannot reach the exact target time:<br />When enabled: Returns an error and avoids replaying binary logs if target time is not reached.<br />When disabled (default): Replays available binary logs until the last recoverable time. It logs logs an error if target time is not reached. |  |  |
+| `archiveInterval` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#duration-v1-meta)_ | ArchiveInterval defines the time interval at which the binary logs will be archived.<br />It defaults to 10 minutes. | 10m |  |
+| `maxParallel` _integer_ | MaxParallel defines the maximum number of parallel workers, both for archiving and restoring the binary logs.<br />It defaults to 1. | 1 | Minimum: 1 <br /> |
+| `maxRetention` _[Duration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#duration-v1-meta)_ | MaxRetention defines the retention policy for binary logs. Binary logs older than this duration will be cleaned up when the archival is completed.<br />It is not set by default, meaning that old binary logs will not be cleaned up.<br />This field is immutable, it cannot be updated after creation. |  |  |
+
+
+#### PointInTimeRecoveryStorage
+
+
+
+PointInTimeRecoveryStorage stores the different storage options for PITR
+
+
+
+_Appears in:_
+- [PointInTimeRecoverySpec](#pointintimerecoveryspec)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `s3` _[S3](#s3)_ | S3 is the S3-compatible storage where the binary logs will be kept. |  |  |
+| `azureBlob` _[AzureBlob](#azureblob)_ | AzureBlob is the Azure Blob Storage where the binary logs will be kept. |  |  |
+
+
 #### PreferredSchedulingTerm
 
 Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#preferredschedulingterm-v1-core
@@ -2366,6 +2468,27 @@ _Appears in:_
 | `backoffLimit` _integer_                                                                                                      | BackoffLimit defines the maximum number of attempts to successfully execute a SqlJob.                                                                                                                          | 5         |                                           |
 | `restartPolicy` [_RestartPolicy_](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#restartpolicy-v1-core) | RestartPolicy to be added to the SqlJob Pod.                                                                                                                                                                   | OnFailure | <p>Enum: [Always OnFailure Never]<br></p> |
 | `inheritMetadata` [_Metadata_](api-reference.md#metadata)                                                                     | InheritMetadata defines the metadata to be inherited by children resources.                                                                                                                                    |           |                                           |
+
+#### StagingStorage
+
+
+
+StagingStorage defines the temporary storage used to keep external backups (i.e. S3) while they are being processed.
+
+
+
+_Appears in:_
+- [BackupSpec](#backupspec)
+- [BootstrapFrom](#bootstrapfrom)
+- [PhysicalBackupSpec](#physicalbackupspec)
+- [RestoreSource](#restoresource)
+- [RestoreSpec](#restorespec)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `persistentVolumeClaim` _[PersistentVolumeClaimSpec](#persistentvolumeclaimspec)_ | PersistentVolumeClaim is a Kubernetes PVC specification. |  |  |
+| `volume` _[StorageVolumeSource](#storagevolumesource)_ | Volume is a Kubernetes volume specification. |  |  |
+
 
 #### StatefulSetPersistentVolumeClaimRetentionPolicy
 
