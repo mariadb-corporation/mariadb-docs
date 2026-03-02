@@ -1,6 +1,6 @@
 # Point-In-Time-Recovery
 
-Point-in-time recovery (PITR) is a feature that allows you to restore a MariaDB instance to a specific point in time. For achieving this, it combines a full base backup and the binary logs that record all changes made to the database after the backup. This is something fully automated by operator, covering archival and restoration up to a specific time, ensuring bussiness continuity and reduced RTO and RPO.
+Point-in-time recovery (PITR) is a feature that allows you to restore a MariaDB instance to a specific point in time. For achieving this, it combines a full base backup and the binary logs that record all changes made to the database after the backup. This is something fully automated by operator, covering archival and restoration up to a specific time, ensuring business continuity and reduced RTO and RPO.
 
 ## Supported MariaDB topologies
 
@@ -236,7 +236,7 @@ The supported compression algorithms are:
 
 The are some important considerations regarding compression:
 - Compression is immutable, which means that once configured and binary logs have been archived with a specific algorithm, it cannot be changed. This also applies to restoration, the same compression algorithm should be configured as the one used for archival.
-- Although it saves storage space and bandwidth, the restoration process may take longer when compression is enabled, leading to an increased RTO. This can migated by enabling [parallelization](#parallelization).
+- Although it saves storage space and bandwidth, the restoration process may take longer when compression is enabled, leading to an increased RTO. This can migrated by enabling [parallelization](#parallelization).
 
 
 ## Server-Side Encryption with Customer-Provided Keys (SSE-C) For S3
@@ -540,7 +540,7 @@ NAME   PHYSICAL BACKUP        LAST RECOVERABLE TIME   STRICT MODE   AGE
 pitr   physicalbackup-daily   2026-02-27T20:10:42Z    true          43h
 ```
 
-If we atempt to provision the following `MariaDB` instance:
+If we attempt to provision the following `MariaDB` instance:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
