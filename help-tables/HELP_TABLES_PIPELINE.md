@@ -12,7 +12,6 @@ This document describes the automated pipeline that generates `fill_help_tables.
   - [markdown_extractor.py](#markdown_extractorpy)
   - [validate_sql.py](#validate_sqlpy)
   - [generate-help-tables.yml](#generate-help-tablesyml)
-  - [sync-help-tables.yml](#sync-help-tablesyml)
 - [Output Format](#output-format)
 - [How It Works](#how-it-works)
 - [Data Constraints & Edge Cases](#data-constraints--edge-cases)
@@ -33,7 +32,7 @@ When documentation authors edit Markdown files under `server/reference/`, a CI p
 4. Uploads the artifact for review
 5. Notifies Slack on failure
 
-A separate manually-triggered workflow syncs the generated SQL to the MariaDB server repository via pull request.
+When a release is approaching, a team member downloads the artifact from the latest successful CI run and delivers it to the server team manually.
 
 ---
 
@@ -64,15 +63,13 @@ A separate manually-triggered workflow syncs the generated SQL to the MariaDB se
 │  (webhook)           │
 └──────────────────────┘
 
+           Pre-release:
 ┌──────────────────────┐
-│  Manual trigger      │
-│  sync-help-          │
-│  tables.yml          │
-│                      │
-│  1. Generate SQL     │
-│  2. Copy to server   │
-│     repo             │
-│  3. Open PR          │
+│  Team member         │
+│  downloads artifact  │
+│  from Actions tab    │
+│  and delivers to     │
+│  server team         │
 └──────────────────────┘
 ```
 
@@ -173,25 +170,6 @@ python validate_sql.py fill_help_tables.sql
 
 ---
 
-### sync-help-tables.yml
-
-**Location:** `.github/workflows/sync-help-tables.yml`
-
-**Trigger:** Manual (`workflow_dispatch`) — must be triggered explicitly from the Actions tab
-
-**What it does:**
-
-1. Checks out this docs repo and the server repo (`mariadb-ElijahOduba/mariadb-columnstore-server`)
-2. Runs `markdown_extractor.py` to generate fresh SQL
-3. Copies `fill_help_tables.sql` to `server/scripts/fill_help_tables.sql`
-4. If there are changes, opens a PR on the server repo titled "Update fill_help_tables.sql from docs"
-5. If no changes, logs a message and exits
-
-**Required secrets:**
-- `SERVER_REPO_TOKEN` — GitHub PAT with write access to the server repository
-
----
-
 ## Output Format
 
 The generated `fill_help_tables.sql` matches the format of MariaDB's original `fill_help_tables.sql` shipped with the server. Structure:
@@ -260,7 +238,7 @@ The `example` field is left empty (all content is in `description`), matching th
 
 5. **Output assembly:** `build_output()` combines sections with formatted headers (`Syntax\n------`), strips all Markdown formatting, appends the URL, and truncates if needed.
 
-6. **Deduplication:** `process_batch()` performs case-insensitive deduplication of topic names (MariaDB's `CHAR` columns are case-insensitive by default).
+6. **Deduplication:** `process_batch()` performs case-insensitive deduplication of topic names. When two files share the same name, plugin stub pages (descriptions starting with phrases like "This plugin implements") are discarded in favour of the real reference page. If neither candidate is a stub, the alphabetically earlier path wins.
 
 7. **Keyword generation:** `build_keywords_and_relations()` splits each topic name into tokens, assigns keyword IDs, and creates relation mappings (with deduplication).
 
@@ -353,23 +331,24 @@ docker stop webops-mariadb && docker rm webops-mariadb
 
 ### Automatic (on every push)
 
-1. Developer edits a `.md` file under `server/reference/` or `markdown_extractor.py`
+1. Developer edits a `.md` file under `server/reference/`
 2. On push/PR, `generate-help-tables.yml` runs automatically
 3. If generation or validation fails, Slack notification is sent
 4. On success, `fill_help_tables.sql` is uploaded as a GitHub Actions artifact
 
-### Manual sync to server repo
+### Pre-release artifact download
 
-1. Go to **Actions** → **Sync Help Tables to Server Repo** → **Run workflow**
-2. The workflow generates fresh SQL and opens a PR on the server repo if there are changes
-3. Review and merge the PR in the server repo
+1. Go to **Actions** → **Generate Help Tables**
+2. Open the latest successful run on the `main` branch
+3. Scroll to **Artifacts** at the bottom of the run summary
+4. Download **fill_help_tables** — this is the ready-to-use SQL file
+5. Deliver the file to the server team or upload it directly to the server repo
 
 ### Required GitHub Secrets
 
 | Secret | Purpose |
 |---|---|
 | `SLACK_WEBHOOK_URL` | Slack incoming webhook for failure notifications |
-| `SERVER_REPO_TOKEN` | GitHub PAT for pushing to the server repo and creating PRs |
 
 ---
 
@@ -421,8 +400,7 @@ Add the directory name to `EXCLUDED_DIRS` in `markdown_extractor.py`.
 | `help-tables/fill_help_tables.sql` | Generated output (git-ignored or committed as needed) |
 | `help-tables/failed_files.txt` | List of unprocessed files (generated on each run) |
 | `help-tables/HELP_TABLES_PIPELINE.md` | This documentation |
-| `.github/workflows/generate-help-tables.yml` | CI validation workflow |
-| `.github/workflows/sync-help-tables.yml` | Manual sync-to-server workflow |
+| `.github/workflows/generate-help-tables.yml` | CI validation and artifact upload workflow |
 
 ### Dependencies
 
