@@ -17,7 +17,7 @@ This project replaces the legacy scraper with a new pipeline that reads the Mark
 | Source: KB articles rendered as HTML | Source: Markdown files in the `mariadb-docs` Git repo |
 | Method: Python script scrapes HTML | Method: Python script parses Markdown directly |
 | Location: Separate `mariadb-documentation` repo | Location: Lives alongside the docs in `mariadb-docs/help-tables/` |
-| Trigger: Manual | Trigger: Automated CI on every push + manual pre-release sync |
+| Trigger: Manual | Trigger: Automated CI on every push to the repo |
 
 The output (`fill_help_tables.sql`) is the same format the MariaDB server has always expected — no changes needed downstream.
 
@@ -43,7 +43,7 @@ Validator checks the SQL for errors
         └── Fail → Slack notification sent
 ```
 
-Before a MariaDB release, a team member manually triggers a second workflow that opens a pull request on the server repository with the updated SQL file.
+Before a MariaDB release, a team member downloads the generated artifact from GitHub Actions and uploads it to the server repository manually.
 
 ---
 
@@ -53,17 +53,23 @@ Before a MariaDB release, a team member manually triggers a second workflow that
 
 **When it runs:** Every time someone pushes changes to documentation Markdown files or the generator script.
 
-**What it does:** Generates the SQL, validates it, and uploads it as an artifact. This is a dry run — it doesn't update the server repo. If something breaks, the team is notified via Slack.
+**What it does:** Generates the SQL, validates it, and uploads it as an artifact. This is the canonical output — it doesn't touch any other repository. If something breaks, the team is notified via Slack.
 
 **Purpose:** Catch problems early so they don't pile up before a release.
 
-### Workflow B — Pre-Release Sync (manual)
+### Workflow B — Pre-Release Artifact Download (manual)
 
-**When it runs:** Manually triggered from the GitHub Actions tab, typically before a release.
+**When it runs:** Before each MariaDB release, when the updated SQL needs to ship with the server.
 
-**What it does:** Generates the SQL from the current documentation, compares it with what's already in the server repo, and opens a pull request if anything changed.
+**What it does:** A team member downloads the `fill_help_tables` artifact from the most recent successful CI run on the `main` branch and uploads it to wherever it is needed (server repo, release package, etc.).
 
-**Purpose:** Get the updated help tables into the server release.
+**How to download the artifact:**
+1. Go to the **Actions** tab in the `mariadb-docs` GitHub repo
+2. Open the latest successful **Generate Help Tables** run on `main`
+3. Scroll to **Artifacts** at the bottom of the run summary
+4. Download **fill_help_tables** — this is the ready-to-use SQL file
+
+**Purpose:** Get the updated help tables into the server release without requiring an automated cross-repo workflow.
 
 ---
 
@@ -75,7 +81,7 @@ The SQL file should be updated before each MariaDB release. The release schedule
 - **Previews:** mid-March, June, September, December
 - **New major release:** annually (GA in early February)
 
-Before each release window, someone should trigger **Workflow B** (Pre-Release Sync) and merge the resulting PR in the server repo.
+Before each release window, someone should download the artifact from the latest successful CI run on `main` (see **Workflow B** above) and deliver it to the server team.
 
 ---
 
@@ -104,12 +110,11 @@ All pipeline files live in the `help-tables/` folder at the root of the docs rep
 | `HELP_TABLES_PIPELINE.md` | Technical reference for developers |
 | `HANDOVER.md` | This document |
 
-The GitHub Actions workflows live in `.github/workflows/`:
+The GitHub Actions workflow lives in `.github/workflows/`:
 
 | File | What it is |
 |---|---|
-| `generate-help-tables.yml` | Workflow A — automatic CI validation |
-| `sync-help-tables.yml` | Workflow B — manual pre-release sync |
+| `generate-help-tables.yml` | Workflow A — automatic CI validation and artifact upload |
 
 ---
 
@@ -120,7 +125,6 @@ These must be configured in the docs repo's GitHub settings under **Settings →
 | Secret | What it's for |
 |---|---|
 | `SLACK_WEBHOOK_URL` | Sends a Slack message when CI fails |
-| `SERVER_REPO_TOKEN` | Allows the sync workflow to push to the server repo and create PRs |
 
 ---
 
@@ -128,7 +132,7 @@ These must be configured in the docs repo's GitHub settings under **Settings →
 
 **As a docs author:** Nothing changes for you. Edit Markdown as usual. CI will automatically verify that the help tables can still be generated.
 
-**As a release manager:** Before a release, go to **Actions → Sync Help Tables to Server Repo → Run workflow**. If a PR appears on the server repo, review and merge it.
+**As a release manager:** Before a release, go to **Actions → Generate Help Tables**, open the latest successful run on `main`, and download the `fill_help_tables` artifact. Upload the SQL file to the server repo or wherever the release process requires it.
 
 **If CI fails:** Check the GitHub Actions log and the Slack notification. Common causes are unusual Markdown formatting in new or edited docs pages. The `failed_files.txt` artifact lists which files couldn't be processed.
 

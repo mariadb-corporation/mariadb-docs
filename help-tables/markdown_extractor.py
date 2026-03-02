@@ -1,10 +1,13 @@
 import re
 from pathlib import Path
 
+# Resolve paths relative to this script's location so the script works
+# correctly regardless of which directory it is run from.
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 
-# Directories to exclude (per Stefan's guidance)
+# Directories under server/reference/ that should never be included in the
+# help tables output (not user-facing SQL reference content).
 EXCLUDED_DIRS = [
     "system-tables",
     "error-codes",
@@ -12,7 +15,9 @@ EXCLUDED_DIRS = [
     "product-development",
 ]
 
-# Maps directory path segments to help_category_id from mysql.help_category
+# Maps a directory path segment to its help_category_id in mysql.help_category.
+# The first matching key wins, so more specific entries should come first.
+# If no key matches, the topic is assigned category 35 (Contents) by default.
 CATEGORY_MAP = {
     "string-functions": 37,
     "aggregate-functions": 16,
@@ -45,7 +50,9 @@ CATEGORY_MAP = {
     "administrative": 26,
 }
 
-# Static help_category definitions (id, name, parent_category_id, url)
+# The static set of help_category rows that must exist before any help_topic
+# rows are inserted (topics reference categories by ID). These mirror the
+# categories in the original MariaDB fill_help_tables.sql exactly.
 HELP_CATEGORIES = [
     (1, 'Geographic', 0, ''),
     (2, 'Polygon properties', 34, ''),
@@ -125,6 +132,7 @@ delete from help_relation;
 
 def get_category_id(path: str) -> int:
     """Match directory path to category ID. Returns 35 (Contents) if no match."""
+    # Walk CATEGORY_MAP in definition order; first matching segment wins.
     for key, cat_id in CATEGORY_MAP.items():
         if key in path:
             return cat_id
@@ -133,6 +141,8 @@ def get_category_id(path: str) -> int:
 
 def extract_keywords(name):
     """Extract keyword tokens from a topic name for help_keyword entries."""
+    # Strip escape characters (e.g. backslashes from markdown), then split on
+    # whitespace, commas, or slashes to get individual tokens.
     clean_name = name.replace('\\', '')
     words = re.split(r'[\s,/]+', clean_name)
     keywords = [w.upper() for w in words if len(w.strip()) > 0]
@@ -147,11 +157,12 @@ def get_files(base_path: str = "server/reference") -> list:
     for md_file in base.rglob("*.md"):
         path_str = str(md_file)
         
-        # Skip excluded directories
+        # Skip directories that contain non-reference content
         if any(excluded in path_str for excluded in EXCLUDED_DIRS):
             continue
         
-        # Skip READMEs that are empty or near-empty (≤3 lines)
+        # README files are navigation/index pages, not reference entries.
+        # Skip ones with ≤3 lines (they're effectively empty).
         if md_file.name == "README.md":
             try:
                 line_count = sum(1 for _ in open(md_file, 'r', encoding='utf-8'))
@@ -162,6 +173,7 @@ def get_files(base_path: str = "server/reference") -> list:
             
         files.append(path_str)
     
+    # Sort so processing order is deterministic (affects which duplicate wins)
     return sorted(files)
 
 
@@ -171,11 +183,18 @@ def open_file(file_path: str):
 
     
 def find_line_range(data: list):
+    """Find the useful content range in a file.
+
+    Returns (content_lines, topic_name) where content_lines runs from the
+    H1 title to the first end-marker (See Also / Marketo form / license sub).
+    Returns (None, None) if no H1 title is found.
+    """
     start = None
     end = None
     name = None
     data_length = len(data)
     
+    # Find the first top-level heading — this becomes the help topic name.
     for line in range(data_length):
         if data[line].startswith("# "):
             start = line
@@ -187,6 +206,7 @@ def find_line_range(data: list):
     
     see_also_pattern = re.compile(r'^#{2,}\s*see\s+also', re.IGNORECASE)
     
+    # Stop at the first end-marker so we don't include navigation boilerplate.
     for line in range(start, data_length):
         if (see_also_pattern.match(data[line]) 
             or data[line].lower().startswith("{% @marketo/form") 
@@ -202,6 +222,16 @@ def find_line_range(data: list):
 
 
 def extract_sections(content: list):
+    """Split page content into syntax, description, and example sections.
+
+    Looks for standard GitBook heading markers:
+      ## Syntax        → SQL syntax block
+      ## Description   → prose description (also accepts ## Overview)
+      ## Example(s)    → SQL example block
+
+    Falls back gracefully when headings are missing.
+    Returns (syntax_str, desc_str, example_lines).
+    """
     syntax_start = None
     desc_start = None
     example_start = None
@@ -233,7 +263,7 @@ def extract_sections(content: list):
             desc = content[desc_start+1:example_start]
         else:
             desc = content[desc_start+1:]
-    # Fallback: no Syntax, no Description - use prose after title
+    # Fallback: no Syntax, no Description — treat all prose after the title as description
     else:
         syntax_content = []
         if example_start:
@@ -241,10 +271,9 @@ def extract_sections(content: list):
         else:
             desc = content[1:]  # Everything after title
     
-    # Extract example code block
+    # Extract example code block (first ```sql block after the Examples heading)
     example_content = extract_code_block(content[example_start+1:] if example_start else [])
     
-    # Return syntax and description separately
     syntax_str = "\n".join(syntax_content) if syntax_content else ""
     desc_str = "\n".join(desc)
  
@@ -252,6 +281,10 @@ def extract_sections(content: list):
 
 
 def extract_code_block(lines: list):
+    """Return the lines inside the first ```sql ... ``` fenced code block.
+
+    Returns an empty list if no such block is found.
+    """
     start = None
     stop = None
     
@@ -269,27 +302,35 @@ def extract_code_block(lines: list):
 
 
 def strip_markdown(text: str) -> str:
-    """Convert markdown to plain text for clean HELP output."""
-    # Remove {% ... %} template tags (tabs, hints, etc.)
+    """Convert markdown to plain text for clean HELP output.
+
+    The MariaDB HELP command displays raw text, so markdown syntax like
+    links, backticks, bold, and template tags must be stripped out.
+    """
+    # Remove GitBook/Marketo template tags: {% hint %}, {% @marketo %}, etc.
     text = re.sub(r'\{%.*?%\}', '', text)
-    # Convert markdown links [text](url) to just text
+    # Convert [link text](url) → link text
     text = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', text)
-    # Remove backtick code formatting
+    # Remove backtick code formatting: `value` → value
     text = re.sub(r'`([^`]+)`', r'\1', text)
-    # Remove escaped underscores
+    # Remove escaped underscores (common in MariaDB docs for function names)
     text = text.replace('\\_', '_')
-    # Remove markdown bold/italic
+    # Remove bold and italic markers
     text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
     text = re.sub(r'\*([^*]+)\*', r'\1', text)
-    # Remove markdown heading markers
+    # Remove heading markers (## headings become plain text in HELP output)
     text = re.sub(r'^#{1,6}\s+', '', text, flags=re.MULTILINE)
-    # Collapse multiple blank lines into two
+    # Collapse 3+ blank lines into 2 to keep output readable
     text = re.sub(r'\n{3,}', '\n\n', text)
     return text.strip()
 
 
 def truncate_to_bytes(text: str, max_bytes: int = 60000) -> str:
-    """Truncate a string so its UTF-8 encoding fits within max_bytes."""
+    """Truncate a string so its UTF-8 encoding fits within max_bytes.
+
+    MariaDB's help_topic.description column is TEXT (max 65,535 bytes).
+    We use 60,000 as a conservative limit to leave headroom.
+    """
     encoded = text.encode('utf8')
     if len(encoded) <= max_bytes:
         return text
@@ -297,6 +338,28 @@ def truncate_to_bytes(text: str, max_bytes: int = 60000) -> str:
     return truncated.rstrip() + '\n\n[Truncated — full content at mariadb.com/docs]'
 
 def build_output(name, syntax: str, desc: str, example: list, path: str):
+    """Assemble the final description string and topic metadata.
+
+    Combines syntax, description, and examples into a single plain-text block
+    using the same section-header format as the original MariaDB help tables:
+
+        Syntax
+        ------
+        ...
+
+        Description
+        -----------
+        ...
+
+        Examples
+        --------
+        ...
+
+        URL: https://...
+
+    The 'example' field in the INSERT is left empty — all content lives in
+    'description', matching how the original fill_help_tables.sql is structured.
+    """
     parts = []
     if syntax:
         parts.append(f"Syntax\n------\n\n{syntax}")
@@ -312,23 +375,28 @@ def build_output(name, syntax: str, desc: str, example: list, path: str):
     desc_str += f"\n\nURL: {url}"
     desc_str = truncate_to_bytes(desc_str)
 
+    # help_topic.name is CHAR(64) — truncate if over limit
     if len(name) > 64:
         name = name[:64]
 
     content = {
         "name": name,
         "description": desc_str, 
-        "example": "", 
+        "example": "",  # Intentionally empty; all content is in description
         "url": url,
     }
 
     return content
 
 def escape_sql(text):
-    # Escape backslashes first, then single quotes, then newlines
-    text = text.replace("\\", "\\\\")
-    text = text.replace("'", "''")
-    text = text.replace("\n", "\\n")
+    """Escape text for safe embedding in a SQL single-quoted string.
+
+    Order matters: backslashes must be escaped before the other substitutions
+    so we don't double-escape characters introduced by later replacements.
+    """
+    text = text.replace("\\", "\\\\")  # \ → \\
+    text = text.replace("'", "''")      # ' → '' (SQL standard escaping)
+    text = text.replace("\n", "\\n")   # newline → literal \n for single-line INSERT
     return text
 
 def generate_insert(name, description, example, help_topic_id, url, help_category_id):
@@ -341,7 +409,13 @@ def generate_insert(name, description, example, help_topic_id, url, help_categor
 
 
 def process_single_file(path: str, help_topic_id: int) -> dict:
-    """Process a single file and return topic dict or None on failure."""
+    """Process a single Markdown file into a help_topic dict.
+
+    Returns a dict with keys: sql, topic_id, name, description_plain.
+    Returns None if the file has no title, no content, or raises an exception.
+    'description_plain' holds the unescaped description text and is used by
+    process_batch() to compare content quality when resolving duplicates.
+    """
     try:
         data = open_file(path)
         content, name = find_line_range(data)
@@ -351,7 +425,7 @@ def process_single_file(path: str, help_topic_id: int) -> dict:
             
         syntax, desc, example = extract_sections(content)
         
-        # Skip files with no meaningful content
+        # Skip files with no meaningful content (empty description and no examples)
         desc_stripped = desc.strip()
         if not desc_stripped and not example:
             return None
@@ -369,6 +443,7 @@ def process_single_file(path: str, help_topic_id: int) -> dict:
             'sql': sql,
             'topic_id': help_topic_id,
             'name': full_content['name'],
+            'description_plain': full_content['description'],  # unescaped, for dedup scoring
         }
         
     except Exception as e:
@@ -376,34 +451,83 @@ def process_single_file(path: str, help_topic_id: int) -> dict:
         return None
 
 
+# Phrases that identify a page as a plugin stub rather than a reference page.
+# Pages whose description starts with one of these are treated as low-quality
+# and will lose when competing with another page for the same topic name.
+_STUB_PHRASES = [
+    "this plugin implements",
+    "this plugin provides",
+    "this is a synonym for",
+    "a synonym for",
+]
+
+
+def _is_stub(description: str) -> bool:
+    """Return True if the description looks like a plugin stub or synonym page."""
+    first_line = description.strip().lower().splitlines()[0] if description.strip() else ""
+    return any(first_line.startswith(phrase) for phrase in _STUB_PHRASES)
+
+
 def process_batch(file_list: list, start_id: int = 0) -> list:
-    """Process all files and return list of topic dicts."""
-    topics = []
-    seen_names = set()
-    help_topic_id = start_id
+    """Process all files and return (topics, failed) lists.
+
+    Deduplication strategy:
+    - Topic names are case-insensitive (MariaDB CHAR columns are CI by default).
+    - When two files produce the same name, the one with more meaningful content
+      wins. Plugin stub pages (description starts with 'This plugin implements'
+      etc.) are always treated as lower-quality and discarded in favour of the
+      actual reference page.
+    - If neither or both are stubs, the one seen first (alphabetically earlier
+      path) wins — consistent with sorted file discovery order.
+    """
+    # First pass: collect all results keyed by lower-case topic name.
+    # We store (result, path) so we can compare and replace.
+    best: dict[str, tuple[dict, str]] = {}
     failed = []
-    
+
     for path in file_list:
-        result = process_single_file(path, help_topic_id)
-        if result:
-            name_lower = result['name'].lower()
-            if name_lower in seen_names:
+        # Use a placeholder ID of 0 for now; IDs are assigned in the second pass.
+        result = process_single_file(path, 0)
+        if result is None:
+            failed.append(path)
+            continue
+
+        name_lower = result['name'].lower()
+
+        if name_lower not in best:
+            best[name_lower] = (result, path)
+        else:
+            existing_result, existing_path = best[name_lower]
+            existing_is_stub = _is_stub(existing_result.get('description_plain', ''))
+            new_is_stub = _is_stub(result.get('description_plain', ''))
+
+            if existing_is_stub and not new_is_stub:
+                # Replace: current winner is a stub; the newcomer is real content
+                failed.append(existing_path)
+                best[name_lower] = (result, path)
+            else:
+                # Keep the existing winner (first alphabetically, or both stubs)
                 failed.append(path)
-                continue
-            seen_names.add(name_lower)
-            topics.append(result)
+
+    # Second pass: assign sequential IDs and rebuild SQL with correct IDs.
+    topics = []
+    help_topic_id = start_id
+    for result, path in best.values():
+        refreshed = process_single_file(path, help_topic_id)
+        if refreshed:
+            topics.append(refreshed)
             help_topic_id += 1
         else:
             failed.append(path)
-    
+
     print(f"Processed: {len(topics)} files")
     print(f"Failed: {len(failed)} files")
-    
+
     return topics, failed
 
 
 def generate_category_inserts():
-    """Generate INSERT statements for help_category."""
+    """Generate INSERT statements for the static help_category table."""
     inserts = []
     for cat_id, name, parent_id, url in HELP_CATEGORIES:
         escaped_name = name.replace("'", "''")
@@ -415,8 +539,15 @@ def generate_category_inserts():
 
 
 def build_keywords_and_relations(topics):
-    """Build help_keyword and help_relation data from processed topics.
-    
+    """Build help_keyword and help_relation INSERT statements from topics.
+
+    Each word in a topic name becomes a keyword. The help_relation table
+    then maps each topic to its keywords, enabling MariaDB's HELP command
+    to do keyword-based lookups (e.g. HELP 'SELECT' finds the SELECT topic).
+
+    Duplicate (topic_id, keyword_id) relations are deduplicated so that
+    MariaDB's composite primary key constraint is not violated at load time.
+
     Returns:
         keyword_inserts: list of SQL INSERT statements for help_keyword
         relation_inserts: list of SQL INSERT statements for help_relation
@@ -457,7 +588,15 @@ def build_keywords_and_relations(topics):
 
 
 def write_output(topics: list, output_file: str = "fill_help_tables.sql"):
-    """Write the complete fill_help_tables.sql file."""
+    """Write the complete fill_help_tables.sql file.
+
+    Output order matches the original MariaDB file:
+      1. GPL preamble + setup statements
+      2. help_category INSERTs (static)
+      3. help_topic INSERTs (one per doc page)
+      4. help_keyword INSERTs (one per unique keyword token)
+      5. help_relation INSERTs (topic ↔ keyword mappings)
+    """
     category_inserts = generate_category_inserts()
     topic_inserts = [t['sql'] for t in topics]
     keyword_inserts, relation_inserts = build_keywords_and_relations(topics)
@@ -485,18 +624,18 @@ def write_output(topics: list, output_file: str = "fill_help_tables.sql"):
 
 
 def main():
-    # Get all files to process
+    # Discover all eligible Markdown files under server/reference/
     files = get_files(str(REPO_ROOT / "server" / "reference"))
     print(f"Found {len(files)} files to process")
     
-    # Process all files
+    # Extract content and build topic dicts (with deduplication)
     topics, failed = process_batch(files)
     
-    # Write complete output
+    # Write fill_help_tables.sql next to this script in help-tables/
     output_file = str(SCRIPT_DIR / "fill_help_tables.sql")
     write_output(topics, output_file)
     
-    # Optionally write failed files for review
+    # Write failed/skipped file list for post-run review
     if failed:
         failed_file = str(SCRIPT_DIR / "failed_files.txt")
         with open(failed_file, 'w') as f:
