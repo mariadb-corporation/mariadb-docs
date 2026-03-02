@@ -134,7 +134,7 @@ These must be configured in the docs repo's GitHub settings under **Settings →
 
 **As a release manager:** Before a release, go to **Actions → Generate Help Tables**, open the latest successful run on `main`, and download the `fill_help_tables` artifact. Upload the SQL file to the server repo or wherever the release process requires it.
 
-**If CI fails:** Check the GitHub Actions log and the Slack notification. Common causes are unusual Markdown formatting in new or edited docs pages. The `failed_files.txt` artifact lists which files couldn't be processed.
+**If CI fails:** Check the GitHub Actions log and the Slack notification in `#docs-notifications`. Common causes are unusual Markdown formatting in new or edited docs pages. To generate the `failed_files.txt` list locally, run `python help-tables/markdown_extractor.py` from the repo root — it will write `help-tables/failed_files.txt` after the run.
 
 ---
 
