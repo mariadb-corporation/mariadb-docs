@@ -795,7 +795,7 @@ In the following cases, a query is routed to the same server where the previous 
 
 ### Maximum Number of Targets
 
-Starting with MaxScale 25.08, readwritesplit has a hard limit of 256 targets. If more than 256 targets are used in a service, only the first 256 are used.
+Starting with MaxScale 25.10, readwritesplit has a hard limit of 256 targets. If more than 256 targets are used in a service, only the first 256 are used.
 
 ### Routing of Read Queries to the Primary Server
 
