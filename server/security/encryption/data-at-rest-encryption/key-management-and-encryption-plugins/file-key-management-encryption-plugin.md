@@ -109,7 +109,7 @@ echo $(echo -n "100;2;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encrypt
 mkdir -p /etc/mysql/encryption
 echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
 echo $(echo -n "2;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
-echo $(echo -n "100;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt₹
+echo $(echo -n "100;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
 ```
 {% endcode %}
 {% endtab %}
@@ -195,10 +195,10 @@ To use `-pbkdf2` effectively, specify the iteration count on the MariaDB Server 
 {% tab title="< 12.0.1" %}
 {% code overflow="wrap" %}
 ```bash
-$ sudo openssl enc -aes-256-cbc -md sha1
--pass file:/etc/mysql/encryption/keyfile.key
--in /etc/mysql/encryption/keyfile.txt
--out /etc/mysql/encryption/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha1 \
+   -pass file:/etc/mysql/encryption/keyfile.key \
+   -in /etc/mysql/encryption/keyfile.txt \
+   -out /etc/mysql/encryption/keys.enc
 ```
 {% endcode %}
 {% endtab %}
