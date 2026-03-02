@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # Row Binlog Events
 
 A `Row_log_event` is a fundamental structure used in [Row-Based Replication (RBR)](binary-log-formats.md#row-based-logging).
