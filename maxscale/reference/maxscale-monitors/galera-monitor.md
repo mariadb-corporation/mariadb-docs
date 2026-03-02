@@ -186,7 +186,7 @@ This does not affect the Galera Cluster itself, just the roles MaxScale assigns 
 
 ## Bootstrap
 
-**Bootstrap** (added in MaxScale 25.08.0) bootstraps an empty monitor (no servers), adding servers from an existing Galera cluster. Bootstrap requires the address of a server in the cluster to start from. The monitor connects to the address and reads the _wsrep\_incoming\_addresses_ variable. The monitor adds the addresses listed as servers to both MaxScale and the monitor. Server names are auto-generated as in _\<monitor\_name>-server_, e.g. _MyGaleraMonitor-server1_.
+**Bootstrap** (added in MaxScale 25.10) bootstraps an empty monitor (no servers), adding servers from an existing Galera cluster. Bootstrap requires the address of a server in the cluster to start from. The monitor connects to the address and reads the _wsrep\_incoming\_addresses_ variable. The monitor adds the addresses listed as servers to both MaxScale and the monitor. Server names are auto-generated as in _\<monitor\_name>-server_, e.g. _MyGaleraMonitor-server1_.
 
 **Bootstrap** accepts the following key-value arguments:
 
@@ -210,7 +210,7 @@ Bootstrap is incompatible with [configuration synchronization](../../maxscale-ma
 
 ## Discover-replicas
 
-**Discover-replicas** (added in MaxScale 25.08.0) is a manual command which adds any missing Galera servers to MaxScale and the monitor. The servers are discovered by fetching the value of the _wsrep\_incoming\_addresses_ status variable (which contains the addresses of all Galera nodes) from the primary server and comparing it to the values of _wsrep\_node\_incoming\_address_ (which contains just the address of the current node) of already monitored servers. Any addresses listed in _wsrep\_incoming\_addresses_ but not found in any existing server are then assumed to be missing servers. The missing servers are then added to MaxScale configuration and the monitor. The command can also optionally remove servers that are shut down or not part of the Galera cluster.
+**Discover-replicas** (added in MaxScale 25.10) is a manual command which adds any missing Galera servers to MaxScale and the monitor. The servers are discovered by fetching the value of the _wsrep\_incoming\_addresses_ status variable (which contains the addresses of all Galera nodes) from the primary server and comparing it to the values of _wsrep\_node\_incoming\_address_ (which contains just the address of the current node) of already monitored servers. Any addresses listed in _wsrep\_incoming\_addresses_ but not found in any existing server are then assumed to be missing servers. The missing servers are then added to MaxScale configuration and the monitor. The command can also optionally remove servers that are shut down or not part of the Galera cluster.
 
 **Discover-replicas** accepts the following key-value arguments:
 

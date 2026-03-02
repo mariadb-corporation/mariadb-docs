@@ -2,7 +2,7 @@
 
 Choosing the right replication strategy in MariaDB is less about the underlying technology itself and more about which specific "pain point" your architecture needs to solve: preventing downtime, accelerating slow reads, securing data across distances, or aggregating data for analytics.
 
-This guide helps you determine which replication method and format to choose for your cluster, and what trade-offs you will make.
+This guide helps you determine which [replication method and format](./) to choose for your cluster, and what trade-offs you will make.
 
 ## Overview of Replication Methods
 
@@ -195,10 +195,10 @@ Identify your primary architectural challenge below to discover the best-fit rep
 Zero data loss and automatic failover. If one server dies, another takes over instantly without impacting the application.
 {% endhint %}
 
-* Galera Cluster (Virtually Synchronous): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
+* [Galera Cluster (Virtually Synchronous)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-guide): The "gold standard" for local high availability. It is a synchronous, multi-primary solution where every node has the exact same data at the same time.
   * _Trade-off:_ Write latency is dictated by the slowest node, as all active nodes must acknowledge the transaction.
-* MariaDB Enterprise Cluster (Quorum/Raft): _(Enterprise Technical Preview)_ Designed for environments that need HA but cannot afford Galera's write latency. It requires acknowledgment from only a _majority_ (quorum) of nodes to commit a write, effectively ignoring network lag from the slowest data centers.
-* Semisynchronous Replication: A middle ground where the primary server waits for at least one replica to acknowledge receipt of the data before confirming a "success" to the client. It prevents data loss during a crash without the full performance overhead of Galera.
+* [MariaDB Enterprise Cluster (Quorum/Raft](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/)): _(Enterprise Technical Preview)_ Designed for environments that need HA but cannot afford Galera's write latency. It requires acknowledgment from only a _majority_ (quorum) of nodes to commit a write, effectively ignoring network lag from the slowest data centers.
+* [Semisynchronous Replication](semisynchronous-replication.md): A middle ground where the primary server waits for at least one replica to acknowledge receipt of the data before confirming a "success" to the client. It prevents data loss during a crash without the full performance overhead of Galera.
 
 ### Read Scaling & Performance
 
@@ -206,7 +206,7 @@ Zero data loss and automatic failover. If one server dies, another takes over in
 The application has thousands of users browsing (reading) but only a few writing, and you need to offload the read workload to maintain performance.
 {% endhint %}
 
-* Primary-Replica (Asynchronous): One "Primary" handles all data changes, while changes are streamed in the background to multiple "Replicas" that handle the read queries. This offers the highest performance for scaling high-traffic apps.
+* [Primary-Replica (Asynchronous)](./): One "Primary" handles all data changes, while changes are streamed in the background to multiple "Replicas" that handle the read queries. This offers the highest performance for scaling high-traffic apps.
   * Trade-off: You risk momentary replication lag and potential data loss if the primary crashes before streaming its latest updates.
 
 ### Geographic Distribution & Disaster Recovery
@@ -216,7 +216,7 @@ You need a "Plan B" in a different geographic region to survive a total data cen
 {% endhint %}
 
 * Hybrid Replication (Geo-DR): Combines methods for the best of both worlds. A synchronous Galera Cluster is used locally for High Availability, while standard asynchronous replication streams data to a distant Disaster Recovery (DR) replica over a WAN.
-* Delayed Replication (Human Error DR): A replica that intentionally stays a set amount of time (e.g., one hour) behind the primary. If a user accidentally runs a destructive command like `DROP TABLE`, you can recover the lost data from the delayed replica before the mistake replicates across your infrastructure.
+* [Delayed Replication (Human Error DR)](delayed-replication.md): A replica that intentionally stays a set amount of time (e.g., one hour) behind the primary. If a user accidentally runs a destructive command like `DROP TABLE`, you can recover the lost data from the delayed replica before the mistake replicates across your infrastructure.
 
 ### Data Aggregation & Analytics
 
@@ -224,18 +224,18 @@ You need a "Plan B" in a different geographic region to survive a total data cen
 To pull data from many different live production databases into one centralized location for reporting, without slowing down your production apps.
 {% endhint %}
 
-* Multi-Source Replication: One replica is configured to receive data streams from several different primary servers concurrently. This is perfect for populating a centralized Data Warehouse where you can run heavy analytical queries entirely isolated from your live production environments.
+* [Multi-Source Replication](multi-source-replication.md): One replica is configured to receive data streams from several different primary servers concurrently. This is perfect for populating a centralized Data Warehouse where you can run heavy analytical queries entirely isolated from your live production environments.
 
 ## The Role of MariaDB MaxScale
 
 Managing replication topologies manually can be highly complex. MariaDB MaxScale is an advanced database proxy that sits between your application and your database cluster to automate traffic routing and failover across any replication method:
 
-* In Asynchronous / Semisynchronous Setups: MaxScale acts as a traffic cop, automatically routing `SELECT`queries to your replicas and `INSERT`/`UPDATE` queries to your primary. If the primary fails, MaxScale can automatically promote a replica and reroute traffic without application downtime.
-* In Galera Cluster Setups: MaxScale transparently masks node failures or evictions by routing traffic only to healthy nodes. It can also perform intelligent read/write splitting across the cluster to optimize overall throughput.
-* In MariaDB Enterprise Cluster Setups: MaxScale automatically detects the current Raft leader to ensure writes are routed appropriately, while load balancing read queries across the follower nodes.
+* In [Asynchronous / Semisynchronous Setups](semisynchronous-replication.md): MaxScale acts as a traffic cop, automatically routing `SELECT`queries to your replicas and `INSERT`/`UPDATE` queries to your primary. If the primary fails, MaxScale can automatically promote a replica and reroute traffic without application downtime.
+* In [Galera Cluster](../../architecture/topologies/galera-cluster/) Setups: MaxScale transparently masks node failures or evictions by routing traffic only to healthy nodes. It can also perform intelligent read/write splitting across the cluster to optimize overall throughput.
+* In [MariaDB Enterprise Cluster](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/) Setups: [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) automatically detects the current Raft leader to ensure writes are routed appropriately, while load balancing read queries across the follower nodes.
 
 {% hint style="info" %}
-MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the MaxScale documentation.
+MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/) documentation.
 {% endhint %}
 
 ### Quick Comparison Decision Matrix
@@ -243,7 +243,7 @@ MaxScale is a commercial MariaDB Enterprise product, which should be factored in
 | Architectural Goal          | Recommended Solution        | Consistency Type              | Key Trade-off / Benefit                                                   |
 | --------------------------- | --------------------------- | ----------------------------- | ------------------------------------------------------------------------- |
 | No Downtime (Local HA)      | Galera Cluster              | Synchronous                   | Guarantees zero data loss, but slower writes.                             |
-| No Downtime (Geo HA)        | MariaDB Enterprise Cluster  | Quorum (Raft)                 | Faster writes across WAN, none                                            |
+| No Downtime (Geo HA)        | MariaDB Enterprise Cluster  | Quorum (Raft)                 | Faster writes across WAN, but potential bottleneck at the leader.         |
 | Data Safety (Middle Ground) | Semisynchronous Replication | Semisynchronous               | Prevents data loss during crash, but introduces a slight latency penalty. |
 | Read Scaling                | Primary-Replica + MaxScale  | Asynchronous                  | Maximum performance, but risks replication lag.                           |
 | Disaster Recovery (WAN)     | Hybrid Replication          | Sync (Local) / Async (Remote) | Safely bridges data centers, but setup is complex.                        |
@@ -252,6 +252,6 @@ MaxScale is a commercial MariaDB Enterprise product, which should be factored in
 
 ## Choosing a Binary Log Format
 
-Once you select your replication strategy, you must configure how data changes are recorded in the MariaDB binary log. For most high-availability architectures, Row-Based Replication (RBR) or Mixed Format is required to ensure absolute data consistency across replicas.
+Once you select your replication strategy, you must configure how data changes are recorded in the MariaDB binary log. For most high-availability architectures, [Row-Based Replication (RBR)](row-based-replication-with-no-primary-key.md) or [Mixed Format](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#mixed-logging) is required to ensure absolute data consistency across replicas.
 
-Statement-Based Replication (SBR) should generally be avoided in HA setups due to reliability concerns, acting only as a fallback for specific bulk-update operations.
+[Statement-Based Replication (SBR)](unsafe-statements-for-statement-based-replication.md) should generally be avoided in HA setups due to reliability concerns, acting only as a fallback for specific bulk-update operations.

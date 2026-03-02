@@ -91,12 +91,29 @@ a7addd9adea9978fda19f21e6be987880e68ac92632ca052e5bb42b1a506939a
 
 The key file needs to have a key identifier for each encryption key added to the beginning of each line. Key identifiers do not have to be contiguous. For example, to append three new encryption keys to a new key file, issue these commands:
 
+{% tabs %}
+{% tab title="Current Enterprise Server" %}
+{% code overflow="wrap" %}
+```bash
+mkdir -p /etc/mysql/encryption 
+echo $(echo -n "1;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt 
+echo $(echo -n "2;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt 
+echo $(echo -n "100;2;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Community Server(All) & Enterprise Server < 11.8" %}
+{% code overflow="wrap" %}
 ```bash
 mkdir -p /etc/mysql/encryption
-echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile.txt
-echo $(echo -n "2;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile.txt
-echo $(echo -n "100;" ; openssl rand -hex 32) | sudo tee -a  /etc/mysql/encryption/keyfile.txt
+echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
+echo $(echo -n "2;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
+echo $(echo -n "100;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
 ```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 The resulting key file looks like this:
 
@@ -152,20 +169,40 @@ $ sudo openssl rand -hex 128 > /etc/mysql/encryption/keyfile.key
 
 Encrypt the key file using the [openssl enc](https://www.openssl.org/docs/man1.1.1/man1/enc.html) command. To encrypt the key file with the encryption password created in the previous step, execute one of the following commands:
 
-{% code overflow="wrap" %}
+{% tabs %}
+{% tab title="Current (>= 12.0.1)" %}
 ```bash
-$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 -pass -in /etc/mysql/encryption/keyfile.txt -out /etc/mysql/encryption/keys.enc
-$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 -pass -in /etc/mysql/encryption/keyfile.txt -out /etc/mysql/encryption/keys.enc
+$ sudo openssl enc -aes-256-cbc -md sha256 -pbkdf2 \
+   -pass file:/etc/mysql/encryption/keyfile.key \
+   -in /etc/mysql/encryption/keyfile.txt \
+   -out /etc/mysql/encryption/keys.enc
+
+$ sudo openssl enc -aes-256-cbc -md sha256 -iter 20000 \
+   -pass file:/etc/mysql/encryption/keyfile.key \
+   -in /etc/mysql/encryption/keyfile.txt \
+   -out /etc/mysql/encryption/keys.enc
 ```
-{% endcode %}
 
 {% hint style="info" %}
-Using the `-iter` (iterations) parameter in combination with `-pbkdf2` makes sense, to specify a higher number of iterations than the OpenSSL default of `10k`.
+Use the `-iter` (iterations) option with `-pbkdf2` to specify more iterations than the OpenSSL default of `10k`.
 {% endhint %}
 
 {% hint style="warning" %}
-When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--file_key_management_use_pbkdf2=`_`number_of_iterations`_ option to MariaDB Server.
+To use `-pbkdf2` effectively, specify the iteration count on the MariaDB Server side. Without this, key decryption will fail. Use the option `--file_key_management_use_pbkdf2=`_`number_of_iterations`_ to set it in MariaDB Server.
 {% endhint %}
+{% endtab %}
+
+{% tab title="< 12.0.1" %}
+{% code overflow="wrap" %}
+```bash
+$ sudo openssl enc -aes-256-cbc -md sha1 \
+   -pass file:/etc/mysql/encryption/keyfile.key \
+   -in /etc/mysql/encryption/keyfile.txt \
+   -out /etc/mysql/encryption/keys.enc
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
 
@@ -299,7 +336,7 @@ The File Key Management plugin does not support [key rotation](encryption-key-ma
 * Data type: enumerated
 * Default value: sha1
 * Valid values: sha1, sha224, sha256, sha384, sha512
-* Available from MariaDB 12.0
+* Available from MariaDB 12.0.1
 
 ### `file_key_management_filekey`
 
@@ -332,7 +369,7 @@ The File Key Management plugin does not support [key rotation](encryption-key-ma
 * Data type: `numeric`
 * Default value: 0
 * Valid values: integers ≥ 0 (reasonable value: 600000 for sha256, less for sha512)
-* Available from MariaDB 12.0
+* Available from MariaDB 12.0.1
 
 ## Options
 
