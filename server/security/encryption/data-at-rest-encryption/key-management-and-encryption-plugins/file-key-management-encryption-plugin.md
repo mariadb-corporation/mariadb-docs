@@ -204,14 +204,6 @@ $ sudo openssl enc -aes-256-cbc -md sha1
 {% endtab %}
 {% endtabs %}
 
-{% hint style="info" %}
-Using the `-iter` (iterations) parameter in combination with `-pbkdf2` makes sense, to specify a higher number of iterations than the OpenSSL default of `10k`.
-{% endhint %}
-
-{% hint style="warning" %}
-When using `-pbkdf2`, the number of iterations must be specified on the MariaDB Server side as well. Otherwise, key decryption fails. For this, you can use the `--file_key_management_use_pbkdf2=`_`number_of_iterations`_ option to MariaDB Server.
-{% endhint %}
-
 The resulting `keys.enc` file is the encrypted version of `keys.txt` file. Delete the unencrypted key file.
 
 Having the key file encrypted requires both the [file\_key\_management\_filename](file-key-management-encryption-plugin.md#file_key_management_filename) and the [file\_key\_management\_filekey](file-key-management-encryption-plugin.md#file_key_management_filekey) system variables to be configured.
