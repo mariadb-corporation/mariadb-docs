@@ -242,7 +242,9 @@ The following options are currently supported.
 #### **useServerPrepStmts**
 
 {% hint style="warning" %}
-Note for Upgraders: In version 3.x, enabling this option (or relying on defaults) often results in a significantly higher `prepared_stmt_count` on the server compared to version 2.7. This is due to more aggressive caching and the increased default `prepStmtCacheSqlLimit`. Monitor your server status variables after upgrading.
+**For Upgraders**
+
+In version 3.x, enabling this option (or relying on defaults) often results in a significantly higher `prepared_stmt_count` on the server compared to version 2.7. This is due to more aggressive caching. Monitor your server status variables after upgrading.
 {% endhint %}
 
 *   Description: The **Text protocol** (default) is a universally safe option that works reliably in all situations. The **Binary protocol** (`useServerPrepStmts=true`) can offer performance benefits, but its impact depends on whether the prepared statement cache is used:
