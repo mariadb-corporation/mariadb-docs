@@ -233,13 +233,15 @@ column type is TIME
 
 #### FIELD_TYPE.DATETIME
 
-column type is YEAR
+column type is DATETIME
 
 #### FIELD_TYPE.YEAR
 
+column type is YEAR
+
 #### FIELD_TYPE.VARCHAR
 
-column type is YEAR
+column type is VARCHAR
 
 #### FIELD_TYPE.BIT
 
@@ -391,6 +393,106 @@ The session status has been changed.
 
 #### STATUS.ANSI_QUOTES
 
-SQL mode ANSI_QUOTES is active,
+SQL mode ANSI_QUOTES is active.
+
+#### STATUS.METADATA_CHANGED
+
+Metadata has changed (e.g., table structure modified).
+
+#### STATUS.IN_TRANS_READONLY
+
+Pending read-only transaction.
+
+## EXT_FIELD_TYPE
+
+MariaDB Extended FIELD_TYPE Constants
+
+These constants represent the extended field types supported by MariaDB.
+Extended field types provide additional type information beyond standard SQL types.
+
+Extended field types are defined in module *mariadb.constants.EXT_FIELD_TYPE*
+
+*Since version 2.0*
+
+#### EXT_FIELD_TYPE.NONE
+
+No extended type information (value: 0)
+
+#### EXT_FIELD_TYPE.JSON
+
+JSON data type (value: 1)
+
+#### EXT_FIELD_TYPE.UUID
+
+UUID data type (value: 2)
+
+#### EXT_FIELD_TYPE.INET4
+
+IPv4 address data type (value: 3)
+
+#### EXT_FIELD_TYPE.INET6
+
+IPv6 address data type (value: 4)
+
+#### EXT_FIELD_TYPE.POINT
+
+Geometry POINT type (value: 5)
+
+#### EXT_FIELD_TYPE.MULTIPOINT
+
+Geometry MULTIPOINT type (value: 6)
+
+#### EXT_FIELD_TYPE.LINESTRING
+
+Geometry LINESTRING type (value: 7)
+
+#### EXT_FIELD_TYPE.MULTILINESTRING
+
+Geometry MULTILINESTRING type (value: 8)
+
+#### EXT_FIELD_TYPE.POLYGON
+
+Geometry POLYGON type (value: 9)
+
+#### EXT_FIELD_TYPE.MULTIPOLYGON
+
+Geometry MULTIPOLYGON type (value: 10)
+
+#### EXT_FIELD_TYPE.GEOMETRYCOLLECTION
+
+Geometry GEOMETRYCOLLECTION type (value: 11)
+
+**Example:**
+
+```python
+import mariadb
+from mariadb.constants import EXT_FIELD_TYPE
+
+conn = mariadb.connect("mariadb://user:password@localhost/mydb")
+cursor = conn.cursor()
+
+cursor.execute("SELECT id, data, location FROM test_table")
+metadata = cursor.metadata
+
+if metadata:
+    for i, ext_type in enumerate(metadata['ext_type_or_format']):
+        if ext_type == EXT_FIELD_TYPE.JSON:
+            print(f"Column {i} is JSON type")
+        elif ext_type == EXT_FIELD_TYPE.UUID:
+            print(f"Column {i} is UUID type")
+        elif ext_type == EXT_FIELD_TYPE.POINT:
+            print(f"Column {i} is POINT geometry type")
+
+cursor.close()
+conn.close()
+```
+
+## SESSION_TRACK
+
+Session tracking constants for monitoring session state changes.
+
+Session tracking constants are defined in module *mariadb.constants.SESSION_TRACK*
+
+*Since version 2.0*
 
 {% @marketo/form formId="4316" %}

@@ -5,6 +5,12 @@
 This is a list of frequently asked questions about MariaDB Connector/Python. Feel free to suggest new
 entries!
 
+## API Reference
+
+- **[Connection API](connection.md)** - Connection parameters, methods, and attributes
+- **[Cursor API](cursor.md)** - Cursor parameters, methods, and attributes  
+- **[Connection Pooling API](pooling.md)** - Pool configuration and usage
+
 <a id="installation-faq"></a>
 
 ## Installation
@@ -52,6 +58,42 @@ sudo zypper in python3-devel
 
 Note: The python3 development packages of your distribution might not cover all minor versions
 of python3. If you are using python3.10 you may need to install python3.10-dev.
+
+### Which installation option should I choose for version 2.0?
+
+**Version 2.0** offers three installation options:
+
+1. **Pure Python (default)** - `pip install mariadb`
+   - Works everywhere, no compiler required
+   - Good performance for most use cases
+   - Recommended for development and testing
+
+2. **Pre-compiled binary wheels** - `pip install mariadb[binary]`
+   - Best for production
+   - **MariaDB Connector/C is bundled** - no separate installation needed
+   - Maximum performance without compilation
+   - No compiler required
+
+3. **C extension from source** - `pip install mariadb[c]`
+   - **Requires MariaDB Connector/C 3.3.1+ to be pre-installed** on your system
+   - Maximum performance
+   - Requires C compiler for building
+   - For custom builds or platforms without binary wheels
+
+**For connection pooling**, add `[pool]` to any option:
+```console
+pip install mariadb[binary,pool]
+```
+
+### Do I need MariaDB Connector/C for version 2.0?
+
+**No, not anymore!** This is a major change in version 2.0:
+
+- **Pure Python** (default): No MariaDB Connector/C required
+- **Binary wheels** (`mariadb[binary]`): No separate installation needed - MariaDB Connector/C is bundled inside the wheel
+- **C extension from source** (`mariadb[c]`): Yes, requires MariaDB Connector/C 3.3.1+ to be pre-installed on your system
+
+For most users, `pip install mariadb[binary,pool]` provides the best experience with no external dependencies.
 
 ### ModuleNotFoundError: No module named ‘packaging’
 
@@ -164,10 +206,91 @@ python3 -m pip install .
    export MYSQL_UNIX_PORT=/path_to/mysql.sock
    ```
 
+### How do I migrate from version 1.1 to 2.0?
+
+See the comprehensive [Migration Guide](migration-from-1.1-to-2.0.md) for detailed instructions. Key changes:
+
+1. **Installation**: `pip install mariadb[binary,pool]` for best experience
+2. **Remove deprecated parameters**: `reconnect`, `auto_reconnect`, `cursor_type`, `prepared`
+3. **Update cursor creation**: Use `binary=True` instead of `prepared=True`
+4. **Update pooling**: Install `mariadb[pool]` and use `create_pool()` instead of `ConnectionPool()`
+5. **Consider URI connections**: `mariadb.connect("mariadb://user:pass@host/db")`
+
+### What happened to auto_reconnect?
+
+Automatic reconnection was removed in version 2.0 because it:
+- Silently hid connection failures
+- Lost session state and uncommitted transactions
+- Broke transaction isolation guarantees
+
+**Migration**: Use connection pools (recommended) or call `conn.reconnect()` manually when needed.
+
+### How do I use async/await with version 2.0?
+
+Version 2.0 introduces native async support:
+
+```python
+import asyncio
+import mariadb
+
+async def main():
+    conn = await mariadb.asyncConnect("mariadb://user:pass@host/db")
+    cursor = await conn.cursor()
+    await cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
+    row = await cursor.fetchone()
+    await cursor.close()
+    await conn.close()
+
+asyncio.run(main())
+```
+
+For connection pools:
+```python
+pool = await mariadb.create_async_pool(
+    "mariadb://user:pass@host/db",
+    min_size=5,
+    max_size=20
+)
+```
+
+See [Async/Await Support](async-usage.md) for detailed documentation.
+
+### What's the difference between prepared and binary?
+
+In version 1.1, the parameter was called `prepared`. In version 2.0, it's renamed to `binary` for clarity:
+
+**Version 1.1:**
+```python
+cursor = conn.cursor(prepared=True)
+```
+
+**Version 2.0:**
+```python
+cursor = conn.cursor(binary=True)
+```
+
+The functionality is the same - both use the MariaDB binary protocol (prepared statements).
+
+### Should I use text or binary protocol?
+
+**Text protocol (default):**
+- Predictable behavior
+- Good for ad-hoc queries
+- No preparation overhead
+
+**Binary protocol (`binary=True`):**
+- Better performance for repeated queries
+- Automatic prepared statement caching
+- Recommended for hot paths
+
+Enable at connection level for applications that mostly use parameterized queries:
+```python
+conn = mariadb.connect("mariadb://host/db?binary=true")
+```
+
 ### Q: Which authentication methods are supported by MariaDB Connector/Python?
 
-MariaDB Connector/Python uses MariaDB Connector/C for client-server communication. That means all authentication plugins shipped
-together with MariaDB Connector/C can be used for user authentication.
+MariaDB Connector/Python uses MariaDB Connector/C for client-server communication (C extension only). The pure Python implementation supports standard authentication methods. All authentication plugins shipped together with MariaDB Connector/C can be used for user authentication in the C extension.
 
 ## General
 

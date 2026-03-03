@@ -1,9 +1,17 @@
 # Basic usage
 
+## API Reference
+
+- **[Connection API](connection.md)** - Connection parameters, methods, and attributes
+- **[Cursor API](cursor.md)** - Cursor parameters, methods, and attributes  
+- **[Connection Pooling API](pooling.md)** - Pool configuration and usage
+
 ## Connecting
 
 The basic usage of MariaDB Connector/Python is similar to other database drivers which
 implement DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)).
+
+*Since version 2.0:* Connections can be established using URI strings or keyword arguments.
 
 Below is a simple example of a typical use of MariaDB Connector/Python
 
@@ -32,18 +40,10 @@ with mariadb.connect(**conn_params) as conn:
 ```python
 import mariadb
 
-# connection parameters
-conn_params= {
-    "user" : "example_user",
-    "password" : "GHbe_Su3B8",
-    "host" : "localhost",
-    "database" : "test"
-}
-
-# Establish a connection
-with mariadb.connect(**conn_params) as conn:
+# Establish a connection using URI
+with mariadb.connect("mariadb://example_user:GHbe_Su3B8@localhost/test") as conn:
     with conn.cursor() as cursor:
-        # Populate countries table  with some data
+        # Populate countries table with some data
         cursor.execute("INSERT INTO countries(name, country_code, capital) VALUES (?,?,?)",
             ("Germany", "GER", "Berlin"))
 
@@ -51,7 +51,30 @@ with mariadb.connect(**conn_params) as conn:
         cursor.execute("SELECT name, country_code, capital FROM countries")
 
         # print content
-        row= cursor.fetchone()
+        row = cursor.fetchone()
+        print(*row, sep=' ')
+```
+
+**Alternative - Keyword Arguments:**
+
+```python
+import mariadb
+
+# connection parameters
+conn_params = {
+    "user": "example_user",
+    "password": "GHbe_Su3B8",
+    "host": "localhost",
+    "database": "test"
+}
+
+# Establish a connection
+with mariadb.connect(**conn_params) as conn:
+    with conn.cursor() as cursor:
+        cursor.execute("INSERT INTO countries(name, country_code, capital) VALUES (?,?,?)",
+            ("Germany", "GER", "Berlin"))
+        cursor.execute("SELECT name, country_code, capital FROM countries")
+        row = cursor.fetchone()
         print(*row, sep=' ')
 ```
 
@@ -86,56 +109,56 @@ As shown in previous example, passing parameters to SQL statements happens by us
 MariaDB Connector/Python uses a question mark as a placeholder, for compatibility reason also %s placeholders are supported.
 Passing parameters is supported in methods `execute()` and `executemany()` of the cursor class.
 
-Since MariaDB Connector/Python uses binary protocol, escaping strings or binary data like in other database drivers is not required.
+*Since version 2.0:* By default, the text protocol is used for parameter binding. For binary protocol (prepared statements),
+set `binary=True` at connection or cursor level. Parameter escaping is handled automatically by the connector.
 
 ```python
 import mariadb
 
-# connection parameters
-conn_params= {
-    "user" : "example_user",
-    "password" : "GHbe_Su3B8",
-    "host" : "localhost",
-    "database" : "test"
-}
-
-# Establish a connection
-with mariadb.connect(**conn_params) as conn:
+# Establish a connection using URI
+with mariadb.connect("mariadb://example_user:GHbe_Su3B8@localhost/test") as conn:
     with conn.cursor() as cursor:
-        sql= "INSERT INTO countries (name, country_code, capital) VALUES (?,?,?)"
-        data= ("Germany", "GER", "Berlin")
+        sql = "INSERT INTO countries (name, country_code, capital) VALUES (?,?,?)"
+        data = ("Germany", "GER", "Berlin")
         cursor.execute(sql, data)
 
         conn.commit()
 
         # delete last entry
-        sql= "DELETE FROM countries WHERE country_code=?"
-        data= ("GER",)
+        sql = "DELETE FROM countries WHERE country_code=?"
+        data = ("GER",)
         cursor.execute(sql, data)
 
         conn.commit()
 ```
 
-Often there is a requirement to update, delete or insert multiple records. This could be done be using `execute()` in
-a loop, but much more effective is using the `executemany()` method, especially when using a MariaDB database server 10.2 and above, which supports a special “bulk” protocol. The executemany() works similar to execute(), but accepts data as a list of tuples:
+**Using Binary Protocol (Prepared Statements):**
 
 ```python
 import mariadb
 
-# connection parameters
-conn_params= {
-    "user" : "example_user",
-    "password" : "GHbe_Su3B8",
-    "host" : "localhost",
-    "database" : "test"
-}
+# Enable binary protocol at connection level
+with mariadb.connect("mariadb://example_user:GHbe_Su3B8@localhost/test?binary=true") as conn:
+    with conn.cursor() as cursor:
+        # All queries use binary protocol (prepared statements)
+        sql = "INSERT INTO countries (name, country_code, capital) VALUES (?,?,?)"
+        data = ("Germany", "GER", "Berlin")
+        cursor.execute(sql, data)
+        conn.commit()
+```
 
-# Establish a connection
-with mariadb.connect(**conn_params) as connection:
+Often there is a requirement to update, delete or insert multiple records. This could be done be using `execute()` in
+a loop, but much more effective is using the `executemany()` method. The executemany() works similar to execute(), but accepts data as a list of tuples:
+
+```python
+import mariadb
+
+# Establish a connection using URI
+with mariadb.connect("mariadb://example_user:GHbe_Su3B8@localhost/test") as connection:
     with connection.cursor() as cursor:
-        sql= "INSERT INTO countries (name, country_code, capital) VALUES (?,?,?)"
+        sql = "INSERT INTO countries (name, country_code, capital) VALUES (?,?,?)"
 
-        data= [("Ireland", "IE", "Dublin"),
+        data = [("Ireland", "IE", "Dublin"),
                ("Italy", "IT", "Rome"),
                ("Malaysia", "MY", "Kuala Lumpur"),
                ("France", "FR", "Paris"),
@@ -150,18 +173,18 @@ with mariadb.connect(**conn_params) as connection:
 
         # Instead of 3 letter country-code, we inserted 2 letter country code, so
         # let's fix this mistake by updating data
-        sql= "UPDATE countries SET country_code=? WHERE name=?"
-        data= [("Ireland", "IRL"),
-               ("Italy", "ITA"),
-               ("Malaysia", "MYS"),
-               ("France", "FRA"),
-               ("Iceland", "ISL"),
-               ("Nepal", "NPL")]
+        sql = "UPDATE countries SET country_code=? WHERE name=?"
+        data = [("IRL", "Ireland"),
+               ("ITA", "Italy"),
+               ("MYS", "Malaysia"),
+               ("FRA", "France"),
+               ("ISL", "Iceland"),
+               ("NPL", "Nepal")]
         cursor.executemany(sql, data)
 
         # Now let's delete all non European countries
-        sql= "DELETE FROM countries WHERE name=?"
-        data= [("Malaysia",), ("Nepal",)]
+        sql = "DELETE FROM countries WHERE name=?"
+        data = [("Malaysia",), ("Nepal",)]
         cursor.executemany(sql, data)
 
         # by default autocommit is off, so we need to commit
@@ -179,27 +202,18 @@ In certain situations, for example when inserting default values or NULL, specia
 
 ```python
 import mariadb
-from mariadb.constants import *
+from mariadb.constants import INDICATOR
 
-import mariadb
-
-# connection parameters
-conn_params= {
-    "user" : "example_user",
-    "password" : "GHbe_Su3B8",
-    "host" : "localhost",
-    "database" : "test"
-}
-
-# Establish a connection
-with mariadb.connect(**conn_params) as connection:
+# Establish a connection using URI
+with mariadb.connect("mariadb://example_user:GHbe_Su3B8@localhost/test") as connection:
     with connection.cursor() as cursor:
         cursor.execute("DROP TABLE IF EXISTS cakes")
         cursor.execute("CREATE TABLE cakes(id int, cake varchar(100), price decimal(10,2) default 1.99)")
 
-        sql= "INSERT INTO cakes (id, cake, price) VALUES (?,?,?)"
-        data= [(1, "Cherry Cake", 2.10), (2, "Apple Cake", INDICATOR.DEFAULT)]
+        sql = "INSERT INTO cakes (id, cake, price) VALUES (?,?,?)"
+        data = [(1, "Cherry Cake", 2.10), (2, "Apple Cake", INDICATOR.DEFAULT)]
         cursor.executemany(sql, data)
+        connection.commit()
 ```
 
 Beside the default indicator which inserts the default value of 1.99, the following indicators are supported:
