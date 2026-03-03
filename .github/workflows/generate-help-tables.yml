@@ -61,6 +61,6 @@ jobs:
           webhook-type: incoming-webhook
           payload: |
             {
-              "text": "Build status: [![Generate Help Tables SQL](https://github.com/mariadb-corporation/mariadb-docs/actions/workflows/generate-help-tables.yml/badge.svg)](https://github.com/mariadb-corporation/mariadb-docs/actions/workflows/generate-help-tables.yml)"
+              "text": "Build status: ![Generate Help Tables SQL](https://github.com/mariadb-corporation/mariadb-docs/actions/workflows/generate-help-tables.yml/badge.svg)"
             }
 #              "text": "❌ *Help Tables SQL generation failed*\n*Repo:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Pushed by:* ${{ github.actor }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
