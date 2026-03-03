@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```bnf
+```sql
 ALTER USER [IF EXISTS] 
  user_specification [,user_specification] ...
   [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
