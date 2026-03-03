@@ -1563,7 +1563,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `200`
-* Range: `100` to `18446744073709551615` (2<sup>64</sup>-1)
+* Range: `100` to `4294967295` (2<sup>32</sup>-1)
 
 #### `innodb_io_capacity_max`
 
@@ -1573,7 +1573,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `2000` or twice [innodb\_io\_capacity](innodb-system-variables.md#innodb_io_capacity), whichever is higher.
-* Range : `100` to `18446744073709551615` (2<sup>64</sup>-1)
+* Range : `100` to `4294967295` (2<sup>32</sup>-1)
 
 #### `innodb_kill_idle_transaction`
 

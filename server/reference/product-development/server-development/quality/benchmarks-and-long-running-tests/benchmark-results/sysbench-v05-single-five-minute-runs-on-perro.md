@@ -1,6 +1,6 @@
 # sysbench v0.5 - Single Five Minute Runs on perro
 
-MariDB/MySQL sysbench benchmark comparison in %\
+MariaDB/MySQL sysbench benchmark comparison in %\
 Each test was run for 5 minutes.
 
 ```
