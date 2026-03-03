@@ -270,7 +270,9 @@ IF a=10 THEN NULL; ELSE NULL; END IF
 
 In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), [CONCAT](../sql-functions/string-functions/concat.md) and the [Logical OR operator ||](../sql-structure/operators/logical-operators/or.md) ignore [null](null-values.md).
 
-When setting [sql\_mode=EMPTY\_STRING\_IS\_NULL](../../server-management/variables-and-modes/sql_mode.md), empty strings and `NULL` values are the same thing. For example:
+When setting [sql\_mode=EMPTY\_STRING\_IS\_NULL](../../server-management/variables-and-modes/sql_mode.md), empty strings and `NULL` values are the same thing.
+
+For example:
 
 ```sql
 SET sql_mode=EMPTY_STRING_IS_NULL;
