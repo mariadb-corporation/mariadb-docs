@@ -1,9 +1,9 @@
 # Launch DB Using Terraform Provider
 
 {% hint style="warning" %}
-**Tech Preview Limitation: Galera Clusters**&#x20;
+**Tech Preview Limitation**&#x20;
 
-Please note that launching and managing MariaDB Galera Clusters is **not supported** via the Terraform Provider during the [Tech Preview phase](enterprise-cluster.md). To provision a Galera cluster, please use the [MariaDB Cloud Portal](using-the-portal.md) or the [REST API](launch-db-using-the-rest-api.md).
+Please note that launching and managing MariaDB Enterprise Clusters is **not supported** via the Terraform Provider during the [Tech Preview phase](enterprise-cluster.md). To provision an Enterprise cluster, please use the [MariaDB Cloud Portal](using-the-portal.md) or the [REST API](launch-db-using-the-rest-api.md).
 {% endhint %}
 
 This walkthrough explains how to launch database services and manage the lifecycle of database services using the Terraform provider.

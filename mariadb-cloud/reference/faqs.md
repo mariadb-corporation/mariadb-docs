@@ -41,12 +41,12 @@ MariaDB Cloud is primarily designed for online applications and offers two topol
 
 ### Does MariaDB Cloud support synchronous replication?
 
-Yes. For workloads requiring strict data consistency and zero data loss failover, [MariaDB Cloud offers MariaDB Galera Clusters](../quickstart/enterprise-cluster.md). Unlike standard replicated topologies that use asynchronous or semi-synchronous replication, Galera Clusters utilize synchronous write-set certification, ensuring transactions are committed across all nodes simultaneously.
+Yes. For workloads requiring strict data consistency and zero data loss failover, [MariaDB Cloud offers MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md). Unlike standard replicated topologies that use asynchronous or semi-synchronous replication, Enterprise Clusters utilize synchronous write-set certification, ensuring transactions are committed across all nodes simultaneously.
 
 {% hint style="warning" %}
-**Tech Preview Advisory: Galera Clusters**
+**Tech Preview Advisory:**
 
-MariaDB Galera Clusters are currently available as a _Tech Preview_ and are exclusively available on the PowerPlus tier. During this phase, MaxScale routes all write traffic to a single active writer node to ensure maximum stability.
+MariaDB Enterprise Cluster is currently available as a _Tech Preview_ and are exclusively available on the PowerPlus tier. During this phase, [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) routes all write traffic to a single active writer node to ensure maximum stability.
 {% endhint %}
 
 ### What options are available for scaling and right-sizing MariaDB Cloud?

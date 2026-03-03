@@ -18,16 +18,16 @@
 
 ### **Backup Support by Topology**
 
-| Topology                   | Full Backup | Incremental Backup | Dump(mariadb-dump) Backup | Snapshot Backup | Point-in-Time Recovery (PITR) |
-| -------------------------- | ----------- | ------------------ | ------------------------- | --------------- | ----------------------------- |
-| Single Node                | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
-| Replicated                 | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
-| MariaDB Galera Cluste**r** | ✗           | ✗                  | ✗                         | ✓               | ✗                             |
+| Topology                       | Full Backup | Incremental Backup | Dump(mariadb-dump) Backup | Snapshot Backup | Point-in-Time Recovery (PITR) |
+| ------------------------------ | ----------- | ------------------ | ------------------------- | --------------- | ----------------------------- |
+| Single Node                    | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
+| Replicated                     | ✓           | ✓                  | ✓                         | ✓               | ✓                             |
+| MariaDB Enterprise Cluste**r** | ✗           | ✗                  | ✗                         | ✓               | ✗                             |
 
 {% hint style="danger" %}
 **Tech Preview Limitation: Snapshots Only**&#x20;
 
-During the Tech Preview phase, MariaDB Galera Clusters support **only** cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
+During the Tech Preview phase, MariaDB Enterprise Cluster supports **only** cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
 {% endhint %}
 
 Please contact us if you have any questions about backup support for specific MariaDB versions.

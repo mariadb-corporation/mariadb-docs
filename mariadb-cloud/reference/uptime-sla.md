@@ -48,7 +48,7 @@ A customer will forfeit their right to receive a Service Credit unless they:
 ## **Exclusions**
 
 * **Out-of-scope configurations and Tech Previews**\
-  The Performance Standard and resulting Service Credits do not apply to single-node MariaDB Cloud service configurations or any services and topologies released in **Tech Preview** (such as MariaDB Galera Clusters). Customers requiring financially backed High Availability guarantees should deploy using General Availability (GA) multi-node service configurations (such as the standard Replicated topology).
+  The Performance Standard and resulting Service Credits do not apply to single-node MariaDB Cloud service configurations or any services and topologies released in **Tech Preview** (such as MariaDB Enterprise Cluster). Customers requiring financially backed High Availability guarantees should deploy using General Availability (GA) multi-node service configurations (such as the standard Replicated topology).
 *   **Underlying infrastructure**
 
     Impact to service availability caused by availability or performance of cloud services used to operate MariaDB Cloud is excluded. This includes any such outages in Amazon Web Services (AWS) and Amazon Elastic Kubernetes Service (EKS), and Google Cloud Platform (GCP) and Google Kubernetes Engine (GKE).

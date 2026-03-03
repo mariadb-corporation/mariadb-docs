@@ -128,9 +128,9 @@ When restoring from a logical dump in MariaDB:
   2. Or use `mysqldump --dump-slave` to include GTID information in the backup
 * Consider using physical backups (mariabackup) instead, as they preserve GTID state
 
-### **Galera Cluster Backups**
+### **Enterprise Cluster Backups**
 
-Backup and restore operations for Galera Clusters must be cluster-aware to preserve synchronous consistency and avoid data divergence.
+Backup and restore operations for Enterprise Clusters must be cluster-aware to preserve synchronous consistency and avoid data divergence.
 
 * **Snapshots:** Galera clusters default to cloud-native snapshot backups. Because Galera ensures write-set consistency, a snapshot from any single healthy node safely represents the entire cluster state.
 * **Cluster Restores:** To ensure safe re-formation, restoring a Galera cluster initializes the backup on a single node to bootstrap the cluster. Once the primary node is healthy, MariaDB Cloud uses automated [State Snapshot Transfers (SST)](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method) to bring the remaining nodes online and sync their state. You can restore a Galera snapshot to the existing service or to a new service.
@@ -138,7 +138,7 @@ Backup and restore operations for Galera Clusters must be cluster-aware to prese
 {% hint style="danger" %}
 **Tech Preview Limitation: Snapshots Only**&#x20;
 
-During the [Tech Preview phase](../../quickstart/enterprise-cluster.md), Galera clusters support only cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
+During the [Tech Preview phase](../../quickstart/enterprise-cluster.md), MariaDB Enterprise cluster supports only cloud-native snapshot backups. Full (physical) backups, logical backups, and Point-in-Time Recovery (PITR) are not currently supported.
 {% endhint %}
 
 ## Limitations
