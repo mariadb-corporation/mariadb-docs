@@ -34,7 +34,7 @@ Make sure that the size is not too large, because this can cause swapping, which
 {% hint style="warning" %}
 **Using ColumnStore?**
 
-The 75-80% recommendation does not apply if you are also running MariaDB ColumnStore on the same server, as ColumnStore reserves 75% of system RAM by default. Using the standard InnoDB sizing rule in a combined environment will likely trigger the Linux OOM killer.
+The standard recommendation to use a large portion of your RAM for the InnoDB buffer pool does not apply if you are also running [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) on the same server. ColumnStore reserves 75% of system RAM by default. Over-allocating the InnoDB buffer pool in a combined environment will likely trigger the Linux OOM killer.
 
 Please refer to the [ColumnStore Memory Requirements](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/high-availability/mariadb-columnstore-performance-related-configuration-settings#innodb-buffer-pool-sizing-with-columnstore) for accurate sizing and validation instructions.
 {% endhint %}
