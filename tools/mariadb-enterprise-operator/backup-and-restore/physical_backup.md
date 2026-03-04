@@ -278,7 +278,8 @@ metadata:
 spec:
   bootstrapFrom:
     targetRecoveryTime: 2025-06-17T08:07:00Z
-``` 
+```
+Only backups strictly before or at `targetRecoveryTime` will be matched.
 
 ## Timeout
 
