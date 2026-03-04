@@ -35,7 +35,7 @@ This event is sent by the replica **only if** the semi-sync flag is set to `0x01
 
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) semi-sync indicator, always 0xef;
 * [uint<8>](../protocol-data-types.md#fixed-length-integers) the next position of received event;
-* [string](../protocol-data-types.md#fixed-length-integers) binlog file name.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-integers) binlog file name.
 
 {% hint style="info" %}
 This packet sent by the replica never includes the `CRC32`.

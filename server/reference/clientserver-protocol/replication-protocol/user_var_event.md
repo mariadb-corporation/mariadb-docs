@@ -15,13 +15,13 @@ A `USER_VAR_EVENT` is written every time a statement uses a user defined variabl
 ## Fields
 
 * [uint<4>](../protocol-data-types.md#fixed-length-integers) The length of the user variable name.
-* [string](../protocol-data-types.md#fixed-length-strings) The name of the user variable.
+* [string\<len>](../protocol-data-types.md#fixed-length-strings) The name of the user variable.
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) `NULL` indicator.
 * If (not null indicator):
   * [uint<1>](../protocol-data-types.md#fixed-length-integers) variable type.
   * [uint<4>](../protocol-data-types.md#fixed-length-integers) collation number.
   * [uint<4>](../protocol-data-types.md#fixed-length-integers) The length of value.
-  * [string](../protocol-data-types.md#fixed-length-strings) value.
+  * [string\<len>](../protocol-data-types.md#fixed-length-strings) value.
   * [uint<1>](../protocol-data-types.md#fixed-length-integers) flags.
 
 ## Variable type

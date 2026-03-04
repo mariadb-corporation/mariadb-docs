@@ -16,7 +16,7 @@ The payload is:
 * [uint<4>](../protocol-data-types.md#fixed-length-bytes) The requested binlog position.
 * [uint<2>](../protocol-data-types.md#fixed-length-bytes) Flags.
 * [uint<4>](../protocol-data-types.md#fixed-length-bytes) Slave server\_id.
-* [string](../protocol-data-types.md#fixed-length-bytes) The requested binlog file name.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The requested binlog file name.
 
 ## **Note**
 

@@ -20,7 +20,7 @@ This event is never written to the binary log file.
 
 ## Fields
 
-* [string](../protocol-data-types.md#fixed-length-bytes) The current master binary log name.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The current master binary log name.
 
 ## Example of Transmission (Without CRC32)
 
@@ -48,7 +48,7 @@ T 127.0.0.1:8808 -> 127.0.0.1:57157 [AP]
 * Next\_pos \[4] = ed 01 00 00 => 00 00 01 ed => 493.
 * Flags \[2] == 20 00 => 00 20 = > 32.
 
-### **Content, String**
+### **Content, String\<EOF>**
 
 * log-bin.1000139.
 

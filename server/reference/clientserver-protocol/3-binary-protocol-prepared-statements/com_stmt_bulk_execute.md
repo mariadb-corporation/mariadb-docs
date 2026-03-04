@@ -27,16 +27,16 @@ Client to server.
   * For each parameter (i.e `param_count` times):
     * byte<1>: [parameter indicator](com_stmt_bulk_execute.md#parameter-indicator).
     * If indicator == `NONE`:
-      * byte : binary parameter value.
+      * byte\<n> : binary parameter value.
 
 ## Flags
 
 ### Bulk Flags
 
-| Flag                    | Value | Details                                                                                                                                          |
-| ----------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| SEND\_UNIT\_RESULTS     | 64    | Return generated affected rows and auto-increment IDs as a result set (only when server supports `MARIADB_CLIENT_BULK_UNIT_RESULTS` capability). |
-| SEND\_TYPES\_TO\_SERVER | 128   | Send types to server.                                                                                                                            |
+| Flag                   | Value | Details                                                                                                                                          |
+| ---------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `SEND_UNIT_RESULTS`    | 64    | Return generated affected rows and auto-increment IDs as a result set (only when server supports `MARIADB_CLIENT_BULK_UNIT_RESULTS` capability). |
+| `SEND_TYPES_TO_SERVER` | 128   | Send types to server.                                                                                                                            |
 
 ### Parameter Type Flag
 
@@ -46,19 +46,19 @@ Client to server.
 
 ### Parameter Indicator
 
-|   |         |                                                    |
-| - | ------- | -------------------------------------------------- |
-| 0 | NONE    | Value follow                                       |
-| 1 | NULL    | Value is null                                      |
-| 2 | DEFAULT | For INSERT/UPDATE, value is default                |
-| 3 | IGNORE  | Value is default for insert, Is ignored for update |
+|   |           |                                                    |
+| - | --------- | -------------------------------------------------- |
+| 0 | `NONE`    | Value follow                                       |
+| 1 | `NULL`    | Value is null                                      |
+| 2 | `DEFAULT` | For `INSERT`/`UPDATE`, value is default            |
+| 3 | `IGNORE`  | Value is default for insert, Is ignored for update |
 
 ## Response
 
 The server can answer with 3 different responses:
 
-* 0xff: [ERR\_Packet](../4-server-response-packets/err_packet.md) if any errors occur.
-* 0x00: [OK\_packet](../4-server-response-packets/ok_packet.md) when query execution works without result set.
+* `0xff`: [ERR\_Packet](../4-server-response-packets/err_packet.md) if any errors occur.
+* `0x00`: [OK\_packet](../4-server-response-packets/ok_packet.md) when query execution works without result set.
 * A result set containing affected rows and auto-increment IDs when bulk flag `SEND_UNIT_RESULTS` is set.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

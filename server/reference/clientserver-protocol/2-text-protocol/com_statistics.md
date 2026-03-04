@@ -14,7 +14,7 @@ Get internal server statistics.
 
 ## Response
 
-[string](../protocol-data-types.md#end-of-file-length-strings) human-readable string.
+[string\<EOF>](../protocol-data-types.md#end-of-file-length-strings) human-readable string.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

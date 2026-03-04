@@ -15,12 +15,12 @@ Enables or disables server option.
 
 ## **Options**
 
-| Constant                              | Value |
-| ------------------------------------- | ----- |
-| MYSQL\_OPTION\_MULTI\_STATEMENTS\_ON  | 0     |
-| MYSQL\_OPTION\_MULTI\_STATEMENTS\_OFF | 1     |
+| Constant                            | Value |
+| ----------------------------------- | ----- |
+| `MYSQL_OPTION_MULTI_STATEMENTS_ON`  | 0     |
+| `MYSQL_OPTION_MULTI_STATEMENTS_OFF` | 1     |
 
-#### Response
+## Response
 
 [EOF Packet](../4-server-response-packets/eof_packet.md) on success or [ERR packet](../4-server-response-packets/err_packet.md).
 

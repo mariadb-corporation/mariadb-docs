@@ -5,13 +5,13 @@ description: >-
   exchange.
 ---
 
-# sha256\_password Plugin
+# Connecting via sha256\_password
 
 ## Overview
 
 `SHA256` authentication possible exchanges:
 
-* if connection use SSL (SSLRequest Packet sent):
+* If connection uses SSL (SSLRequest Packet sent):
   * Client sends a [clear password answer](sha256_password-plugin.md#client-clear-password-answer).
 * Else:
   * If client doesn't know server RSA public key:
@@ -24,18 +24,18 @@ description: >-
 
 ### Client Clear Password Answer
 
-* [string](../protocol-data-types.md#null-terminated-strings) password without encryption.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) password without encryption.
 
-### Public key request
-
-* [byte<1>](../protocol-data-types.md#fixed-length-bytes) fixed `0x01` value.
-
-### Public key response
+### Public Key Request
 
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) fixed `0x01` value.
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) public key data.
 
-### RSA encrypted password
+### Public Key Response
+
+* [byte<1>](../protocol-data-types.md#fixed-length-bytes) fixed `0x01` value.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) public key data.
+
+### RSA Encrypted Password
 
 * [byte<256>](../protocol-data-types.md#fixed-length-bytes) RSA encrypted password.
 

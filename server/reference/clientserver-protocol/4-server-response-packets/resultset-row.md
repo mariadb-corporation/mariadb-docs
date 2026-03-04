@@ -11,7 +11,7 @@ A result set row represents a database result set unit, which is usually generat
 ## Text Result Set Row
 
 * For each column:
-  * [string](../protocol-data-types.md#length-encoded-strings) column data.
+  * [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) column data.
 
 The byte representation of the string according to [client character collation](../1-connecting/connection.md).
 
@@ -34,7 +34,7 @@ The byte representation of the string according to [client character collation](
     * If `MYSQL_TYPE_DATETIME` type : [TIMESTAMP Binary encoding](resultset-row.md#timestamp-binary-encoding)
     * If `MYSQL_TYPE_TIME` type : [TIME Binary encoding](resultset-row.md#time-binary-encoding)
     * If `MYSQL_TYPE_NEWDECIMAL` type : [DECIMAL Binary encoding](resultset-row.md#decimal-binary-encoding)
-    * If `MYSQL_TYPE_TINY_BLOB`, `MYSQL_TYPE_MEDIUM_BLOB`, `MYSQL_TYPE_LONG_BLOB`, `MYSQL_TYPE_BLOB`, `MYSQL_TYPE_GEOMETRY`, `MYSQL_TYPE_STRING`, `MYSQL_TYPE_VARCHAR`, `MYSQL_TYPE_VAR_STRING`): [byte](../protocol-data-types.md#length-encoded-bytes) value
+    * If `MYSQL_TYPE_TINY_BLOB`, `MYSQL_TYPE_MEDIUM_BLOB`, `MYSQL_TYPE_LONG_BLOB`, `MYSQL_TYPE_BLOB`, `MYSQL_TYPE_GEOMETRY`, `MYSQL_TYPE_STRING`, `MYSQL_TYPE_VARCHAR`, `MYSQL_TYPE_VAR_STRING`): [byte\<lenenc>](../protocol-data-types.md#length-encoded-bytes) value
 
 ## NULL-Bitmap Values
 
@@ -42,7 +42,7 @@ The `NULL`-Bitmap indicates if a parameter for a column is null (one bit per par
 
 ## DECIMAL Binary Encoding
 
-`DECIMAL` has no fixed size, so will be encoded as [string](../protocol-data-types.md#length-encoded-strings). A `DECIMAL(10,2)` with a value of `-15.5` is stored as:
+`DECIMAL` has no fixed size, so will be encoded as [string\<lenenc>](../protocol-data-types.md#length-encoded-strings). A `DECIMAL(10,2)` with a value of `-15.5` is stored as:
 
 ```
 06 45 49 53 46 53 48      . - 1 5 . 5 0

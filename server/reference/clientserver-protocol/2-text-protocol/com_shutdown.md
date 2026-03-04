@@ -15,10 +15,9 @@ Shuts down the server. To execute this command, the [SHUTDOWN](../../sql-stateme
 
 ## **Options**
 
-|                   |       |
-| ----------------- | ----- |
-| Constant          | Value |
-| SHUTDOWN\_DEFAULT | 0     |
+| Constant           | Value |
+| ------------------ | ----- |
+| `SHUTDOWN_DEFAULT` | 0     |
 
 #### Response
 

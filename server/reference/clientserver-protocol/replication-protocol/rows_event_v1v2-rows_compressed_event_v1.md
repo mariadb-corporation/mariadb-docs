@@ -42,9 +42,9 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 * [uint<2>](../protocol-data-types.md#fixed-length-integers) Flags.
 * If `rows_event` is version 2:
   * [uint<2>](../protocol-data-types.md#fixed-length-integers) Extra data length.
-  * [string](../protocol-data-types.md#fixed-length-strings) Extra data.
+  * [string\<len>](../protocol-data-types.md#fixed-length-strings) Extra data.
 * [uint](../protocol-data-types.md#fixed-length-integers) Number of columns.
-* [byte](../protocol-data-types.md#fixed-length-bytes) Columns used. n = (number\_of\_columns + 7)/8.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Columns used. n = (number\_of\_columns + 7)/8.
 * If (event\_type == `UPDATE_ROWS_EVENT_v1`):
   * [byte](../protocol-data-types.md#fixed-length-bytes) Columns used (Update). n = (number\_of\_columns + 7)/8.
 * If `*_COMPRESSED_EVENT_V1` :
@@ -52,13 +52,14 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
     * algorithm: (header & 0x07) >> 4 (always 0=zlib).
     * header\_size: header & 0x07.
   * byte\<header\_size>uncompressed length, stored in MyISAM format.
-* [byte](../protocol-data-types.md#fixed-length-bytes) Null Bitmap (n = (number\_of\_columns + 7)/8).
-* [string](../protocol-data-types.md#fixed-length-strings) Column data. The length needs to be calculated by checking the column types from referring `TABLE_MAP_EVENT`.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Null Bitmap (n = (number\_of\_columns + 7)/8).
+* [string\<len>](../protocol-data-types.md#fixed-length-strings) Column data. The length needs to be calculated by checking the column types from referring `TABLE_MAP_EVENT`.
 * If (event\_type == `UPDATE_ROWS_EVENT_v1` ):
-  * [byte](../protocol-data-types.md#fixed-length-bytes) Null Bitmap\_Update. n = (number\_of\_columns + 7)/8.
-  * [string](../protocol-data-types.md#fixed-length-strings) Update Column data. The length needs to be calculated by checking the used colums bitmap and column types from referring `TABLE_MAP_EVENT`.
+  * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Null Bitmap\_Update. n = (number\_of\_columns + 7)/8.
+  * [string\<len>](../protocol-data-types.md#fixed-length-strings)
+  * [g](../protocol-data-types.md#fixed-length-strings) Update Column data. The length needs to be calculated by checking the used colums bitmap and column types from referring `TABLE_MAP_EVENT`.
 
-### Table id
+### Table ID
 
 Table id refers to a table defined by [TABLE\_MAP\_EVENT](table_map_event.md). The special value `0xFFFFFF` should have "end of statement flag" (`0x0001`) set and indicates that table maps can be freed.
 

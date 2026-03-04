@@ -24,16 +24,16 @@ This event precedes each row operation event and maps a table definition to a nu
 ### Variable Data Part
 
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) Database name length.
-* [string](../protocol-data-types.md#null-terminated-strings) The database name (null-terminated).
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) The database name (null-terminated).
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) Table name length.
-* [string](../protocol-data-types.md#null-terminated-strings) The table name (null-terminated).
-* [int](../protocol-data-types.md#length-encoded-integers) The number of columns in the table.
-* [byte](../protocol-data-types.md#fixed-length-bytes) An array of 'n' column types, one byte per column.
-* [int](../protocol-data-types.md#length-encoded-integers) The length of the metadata block.
-* [byte](../protocol-data-types.md#fixed-length-bytes) The metadata block;
-* [byte](../protocol-data-types.md#fixed-length-bytes) Bit-field indicating whether each column can be `NULL`, one bit per column.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) The table name (null-terminated).
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) The number of columns in the table.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) An array of 'n' column types, one byte per column.
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) The length of the metadata block.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) The metadata block;
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Bit-field indicating whether each column can be `NULL`, one bit per column.
 * If (more\_data\_available):
-  * [byte](../protocol-data-types.md#variable-length-bytes) Optional metadata block.
+  * [byte\<n>](../protocol-data-types.md#variable-length-bytes) Optional metadata block.
 
 #### Metadata Block
 
@@ -58,8 +58,8 @@ Optional metadata are available if the global server variable `BINLOG_ROW_METADA
 The metadata block consists of one or more of the following blocks:
 
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) Optional metadata type.
-* [int](../protocol-data-types.md#length-encoded-integers) Length.
-* [byte](../protocol-data-types.md#fixed-length-bytes) Data.
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) Length.
+* [byte\<len>](../protocol-data-types.md#fixed-length-bytes) Data.
 
 **Optional metadata types:**
 

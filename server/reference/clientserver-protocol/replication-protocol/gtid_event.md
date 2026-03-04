@@ -30,7 +30,7 @@ Else if flag & (`FL_PREPARED_XA` or `FL_COMPLETED_XA`):
 * [uint<4>](../protocol-data-types.md#fixed-length-integers) format\_id.
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) gtid\_length.
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) bqual\_length.
-* [byte](../protocol-data-types.md#fixed-length-bytes) xid, where n is sum of gtrid and bqual lengths.
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) xid, where n is sum of gtrid and bqual lengths.
 
 Else:
 

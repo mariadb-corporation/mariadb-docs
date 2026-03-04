@@ -10,7 +10,7 @@ description: >-
 
 ## Fields
 
-* [int<1>](../protocol-data-types.md#fixed-length-integers) 0x0e : `COM_PING` header.
+* [int<1>](../protocol-data-types.md#fixed-length-integers) `0x0e` : `COM_PING` header.
 
 ## Response
 

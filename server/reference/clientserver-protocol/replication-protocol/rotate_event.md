@@ -19,7 +19,7 @@ The `ROTATE_EVENT` is sent to the connected replica servers.
 ## Fields
 
 * [uint<8>](../protocol-data-types.md#fixed-length-bytes) The position of the first event in the next log file. It always contains the number `4` (meaning the next event starts at position 4 in the next binary log).
-* [string](../protocol-data-types.md#fixed-length-bytes) The next binary log name. The filename is not null-terminated.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The next binary log name. The filename is not null-terminated.
 
 ## Example of Transmission With CRC32 (The Last 4 Bytes)
 
