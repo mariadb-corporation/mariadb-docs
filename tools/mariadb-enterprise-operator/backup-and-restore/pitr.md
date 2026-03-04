@@ -92,7 +92,7 @@ spec:
 
 - `physicalBackupRef`: It is a reference to the `PhysicalBackup`  resource used as full base backup. See [full base backup](#full-base-backup).
 - `storage`: Object storage configuration for binary logs. See [storage types](#storage-types).
-- `compression`: Algorithm to be used for compressing binary logs. See [compression](#compression).
+- `compression`: Algorithm to be used for compressing binary logs. It is disabled by default. See [compression](#compression).
 - `archiveTimeout`: Maximum duration for the binary log archival. If exceeded, agent will return an error and archival will be retried in the next archive cycle. Defaults to 1h.
 - `archiveInterval`: Interval at which the binary logs will be archived. Defaults to 10m. See [archival](#archival) for additional details.
 - `maxParallel`: Maximum number of workers that can be used for parallel binary log archival and restoration. Defaults to 1. See [parallelization](#parallelization).
@@ -145,7 +145,7 @@ It is very important to note that a full physical backups should be completed be
 
 ## Archival
 
-The mariadb-enterprise-operator [sidecar agent](../topologies/data-plane.md) will periodically check for new binary logs and archive them to the configured object storage. The archival process is controlled by the `archiveInterval` and `archiveTimeout` settings in the `PointInTimeRecovery` configuration, which determine how often the archival process runs and how long it can take before it is considered failed.
+The mariadb-enterprise-operator [sidecar agent](../topologies/data-plane.md#agent-sidecar) will periodically check for new binary logs and archive them to the configured object storage. The archival process is controlled by the `archiveInterval` and `archiveTimeout` settings in the `PointInTimeRecovery` configuration, which determine how often the archival process runs and how long it can take before it is considered failed.
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -234,7 +234,7 @@ The supported compression algorithms are:
 - `gzip`: Good compression/decompression speed, but worse compression ratio compared to bzip2.
 - `none`: No compression.
 
-The are some important considerations regarding compression:
+Compression is disabled by default, and the are some important considerations before enabling it:
 - Compression is immutable, which means that once configured and binary logs have been archived with a specific algorithm, it cannot be changed. This also applies to restoration, the same compression algorithm should be configured as the one used for archival.
 - Although it saves storage space and bandwidth, the restoration process may take longer when compression is enabled, leading to an increased RTO. This can migrated by enabling [parallelization](#parallelization).
 
@@ -309,7 +309,7 @@ spec:
 This will create up to 4 workers, each of them responsible for the operations related to a single binary log, which means that up to 4 binary logs can be processed in parallel. This can significantly reduce the archival and restoration times, specially when [compression](#compression) is enabled.
 
 Parallelization is disabled by default (`maxParallel: 1`), and there are some important considerations to be taken into account when enabling it:
-- During archival, the workers will be spawn in the [agent sidecar](../topologies/data-plane.md) container, sharing storage with the primary database `Pod`. Using an elevated number of workers can exhaust IOPS and/or CPU resources of the primary `Pod`, which can impact the performance of the database.
+- During archival, the workers will be spawn in the [agent sidecar](../topologies/data-plane.md#agent-sidecar) container, sharing storage with the primary database `Pod`. Using an elevated number of workers can exhaust IOPS and/or CPU resources of the primary `Pod`, which can impact the performance of the database.
 - During both archival and restoration, using an elevated number of workers can saturate the network bandwidth when pulling/pushing multiple binary logs in parallel, something that can degrade the performance of the database.
 
 ## Retention policy
@@ -325,9 +325,9 @@ spec:
   maxRetention: 720h # 30 days
 ```
 
-The binary logs that exceed the defined retention will be automatically deleted from the object storage after each archival cycle. By default, binary logs are never purged from object storage.
+The binary logs that exceed the defined retention will be automatically deleted from the object storage after each archival cycle. 
 
-A few additional considerations regarding the retention policy:
+By default, binary logs are never purged from object storage, and there are few considerations regarding configuring a retention policy:
 - The date of the last event in the binary logs is used to determine its age, and therefore whether it should be purged or not.
 - The `maxRetention` field should not be set to a value lower than the `archiveInterval`, as it can lead to situations where binary logs are purged before they can be archived.
 
@@ -478,7 +478,7 @@ As you can see, the restoration process includes the following steps:
 1. Perform a rolling restore of the [full base backup](#full-base-backup), one `Pod` at a time.
 2. Configure replication in the `MariaDB` instance.
 3. Get the base backup GTID, to be used as the starting point for replaying the binary logs.
-4. Schedile the point-in-time restoration job, which will:
+4. Schedule the point-in-time restoration job, which will:
    1. Build the [binlog timeline](#binlog-timeline-and-last-recoverable-time) based on the base backup GTID and the [archived binary log inventory](#binlog-inventory).
    2. Pull the binary logs in the timeline into a [staging area](#staging-storage).
    3. Replay the binary logs using [mariadb-binlog](https://mariadb.com/docs/server/clients-and-utilities/logging-tools/mariadb-binlog) from the GTID position of the base backup up to the `targetRecoveryTime`.
@@ -532,7 +532,7 @@ spec:
   strictMode: true
 ```
 
-When strict mode is enabled (recommended), if the target recovery time cannot be met, the restoration process will return an error and the `MariaDB` instance will not be created. This can happen, for example, if the target recovery time is later than the [last recoverable time](#binlog-timeline-and-last-recoverable-time). Let's assume strict mode is enabled and the last recoverable time is:
+When strict mode is enabled (recommended), if the target recovery time cannot be met, the initialization process will return an error early, and the `MariaDB` instance will not be created. This can happen, for example, if the target recovery time is later than the [last recoverable time](#binlog-timeline-and-last-recoverable-time). Let's assume strict mode is enabled and the last recoverable time is:
 
 ```bash
 kubectl get pitr
@@ -583,9 +583,9 @@ NAME   PHYSICAL BACKUP        LAST RECOVERABLE TIME   STRICT MODE   AGE
 pitr   physicalbackup-daily   2026-02-27T20:10:42Z    false         43h
 ```
 
-After setting `strictMode=false`, if we attempt to create the same `MariaDB` instance as before, it will be successfully provisioned, but with a recovery time of `2026-02-27T20:10:42Z` instead of the requested `2026-02-28T20:10:42Z`.
+After setting `strictMode=false`, if we attempt to create the same `MariaDB` instance as before, it will be successfully provisioned, but with a recovery time of `2026-02-27T20:10:42Z` will be used instead of the requested `2026-02-28T20:10:42Z`.
 
-It is important to note that the last recoverable time is stored in the `PointInTimeRecovery` object, therefore if this object is deleted and recreated, the last recoverable time metadata will be lost, and it will not be available until recomputed. When it comes to restore, this implies that the error will be returned later in the process, when computing the binary log timeline, but the strict mode behaviour still applies. This is the error returned for that scenario:
+It is important to note that the last recoverable time is stored in the status field of the `PointInTimeRecovery` object, therefore if this object is deleted and recreated, the last recoverable time metadata will be lost, and it will not be available until recomputed. When it comes to restore, this implies that the error will be returned later in the process, when computing the binary log timeline, but the strict mode behaviour still applies. This is the error returned for that scenario:
 
 
 ```bash
@@ -728,9 +728,9 @@ spec:
           name: minio-ca
           key: ca.crt
 ```
-After updating the `PointInTimeRecovery` configuration, the error will be cleared in the next archival cycle, and a new archival will be attempted.
+After updating the `PointInTimeRecovery` configuration, the error will be cleared in the next archival cycle, and a new archival operation will be attempted.
 
-Alternatively, you can also consider manually deleting the existing binary logs if you have double checked that they are not needed for recovery.
+Alternatively, you can also consider deleting the existing binary logs and [`index.yaml` inventory file](#binlog-inventory), only after having double checked that they are not needed for recovery.
 
 ##### Target recovery time is after latest recoverable time
 
