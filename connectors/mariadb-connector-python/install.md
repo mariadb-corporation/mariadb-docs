@@ -118,14 +118,14 @@ Then install the C extension:
 pip install mariadb[c,pool]
 ```
 
-On success, you should see a message at the end "Successfully installed mariadb-2.0.0rc1".
+On success, you should see a message at the end "Successfully installed mariadb-2.0.0rc2".
 
 ```console
 Collecting mariadb
-Downloading mariadb-2.0.0rc1-cp311-cp311-win_amd64.whl (210 kB)
+Downloading mariadb-2.0.0rc2-cp311-cp311-win_amd64.whl (210 kB)
 ---------------------------------------- 210.0/210.0 kB 3.2 MB/s eta 0:00:00
 Installing collected packages: mariadb
-Successfully installed mariadb-2.0.0rc1
+Successfully installed mariadb-2.0.0rc2
 ```
 
 ## Installation from Source

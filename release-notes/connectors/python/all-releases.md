@@ -8,7 +8,7 @@ description: A list of all MariaDB Connector/Python releases
 
 | Release                             | Release Date | Release Status         |
 | ----------------------------------- | ------------ | ---------------------- |
-| [2.0.0rc1](2.0/2.0.0rc1.md)         | 2025-03-??   | Release Candidate (RC) |
+| [2.0.0rc2](2.0/2.0.0rc2.md)         | 2025-03-??   | Release Candidate (RC) |
 
 ## 1.1
 
