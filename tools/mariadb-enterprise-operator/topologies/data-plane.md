@@ -8,7 +8,7 @@ The mariadb-enterprise-operator data-plane components are implemented as lightwe
 
 #### Init container
 
-The init container is reponsible for dynamically generating the Pod-specifc configuration files before the MariaDB container starts. It also plays a crucial role in the MariaDB container startup, enabling replica recovery for the replication topolology and guaranteeing ordered deployment of Pods for the Galera topology.
+The init container is responsible for dynamically generating the Pod-specifc configuration files before the MariaDB container starts. It also plays a crucial role in the MariaDB container startup, enabling replica recovery for the replication topolology and guaranteeing ordered deployment of Pods for the Galera topology.
 
 #### Agent sidecar
 
