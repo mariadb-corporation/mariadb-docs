@@ -13,7 +13,7 @@ There are three supported formats for binary log events:
 
 * Statement-Based Logging
 * Row-Based Logging
-* Mixed Logging
+* Mixed Logging (Default)
 
 To see which log format is used, issue this statement:
 
@@ -107,7 +107,7 @@ This functionality is available from MariaDB 12.3.
 
 The maximum value of the  [`max_allowed_packet`](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) system variable is 1GB. It can be set to smaller values, but not values bigger than that. For row-based replication, this means that a `ROW`-format replication event bigger than the configured variable value cannot be written to the primary server's binary log. As a consequence, replication breaks. (See the warning above.)
 
-To overcome this limitation (and breakage), a variable named [`binlog_row_event_fragment_threshold`](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_fragment_threshold) can be configured. The value should obviously be smaller than the value of `max_allowed_packet`.
+To overcome this limitation (and breakage), a variable named [`binlog_row_event_fragment_threshold`](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_row_event_fragment_threshold) can be configured. A valid value for this variable would be equal to or smaller than a connecting replica's configured `slave_max_allowed_packet` value.
 
 Once configured, the primary (master) server behaves differently when encountering large `ROW`-format replication events: When writing a transaction to the binary log that exceeds `binlog_row_event_fragment_threshold`, it splits up the transaction event into smaller chunks. (Those chunks have a type of `Partial_rows_log_event`.) None of those chunks exceed the value of the variable, and so replica servers can read binary log entries without issues.
 
@@ -203,7 +203,7 @@ The structure and verbosity of `ROW` events are significantly altered by several
   * `MINIMAL`: Only logs data.
   * `FULL`: Includes column names and data types in the log. This is essential for parsers to decode the log without querying the live database schema.
 * **encrypt\_binlog**:
-  * If `ON`, events are encrypted on disk. `mariadb-binlog` will only display plain-text metadata if it has access to the encryption keys.
+  * If `ON`, events are encrypted on disk. For `mariadb-binlog` to display this data, it must directly connect to the server hosting the encrypted binlogs via option `--read-from-remote-server`. `mariadb-binlog` cannot directly decrypt binary logs (see [MDEV-8813|https://jira.mariadb.org/browse/MDEV-8813] for details).
 
 ## See Also
 
