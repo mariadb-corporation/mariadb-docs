@@ -2657,6 +2657,7 @@
   * [All Releases](enterprise-manager-release-notes/all-releases.md)
 * [AI Rag Release Notes](ai-rag-release-notes/README.md)
   * [MariaDB AI RAG 1.0.0 Release Notes](ai-rag-release-notes/mariadb-ai-rag-1.0.0-release-notes.md)
+  * [MariaDB AI RAG 1.1.0 Release Notes](ai-rag-release-notes/mariadb-ai-rag-1.1.0-release-notes.md)
 * [MCP Server Release Notes](mcp-server-release-notes/README.md)
   * [MariaDB MCP Server 1.0.0 Release Notes](mcp-server-release-notes/mariadb-mcp-server-1.0.0-release-notes.md)
 * [Test Page](test-page.md)
