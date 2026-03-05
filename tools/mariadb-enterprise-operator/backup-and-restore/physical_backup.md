@@ -87,7 +87,7 @@ spec:
 
 - `cron`: [Cron expression](https://en.wikipedia.org/wiki/Cron) to define the backup schedule.
 - `suspend`: Setting it to `true`, it will prevent new backups from being scheduled.
-- `immediate`: Setting it `true`, it will schedule a backup immediatly after creating the `PhysicalBackup` resource.
+- `immediate`: Setting it `true`, it will schedule a backup immediately after creating the `PhysicalBackup` resource.
 - `onDemand`: Schedule identifier for triggering an on-demand backup. If the identifier is different than the one tracked under `status.lastScheduleOnDemand`, a new physical backup will be triggered.
 - `onPrimaryChange`: Setting it `true`, it will schedule a new backup after the  primary `Pod` in the referred `MariaDB` instance is changed. This is particularly useful for [point-in-time recovery](./pitr.md#full-base-backup).
 
