@@ -1,3 +1,9 @@
+---
+description: >-
+  Highlights the administrative tools within the Workspace, including the Schema
+  Inspector, Object Browser, user management, and live process list viewing.
+---
+
 # Database Administration
 
 The MariaDB Enterprise Manager Workspace includes a powerful set of integrated tools that allow DBAs and developers to perform common administrative tasks graphically, without needing to write raw SQL commands. These features are primarily accessed through the **Schemas Sidebar** and dedicated tabs in the main worksheet area.

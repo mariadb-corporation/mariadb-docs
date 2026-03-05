@@ -1,3 +1,10 @@
+---
+description: >-
+  Extends standard server monitoring with Galera-specific metrics like flow
+  control pauses, write conflicts, replication queue depth, and individual node
+  cluster states.
+---
+
 # MariaDB Galera Cluster
 
 The [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) dashboard mirrors most sections from the [MariaDB Server](mariadb-server.md) dashboard extending it with **Galera Metrics** section and the **Galera Nodes** table. Use this dashboard when you need Galera-specific cluster health alongside the familiar server views.

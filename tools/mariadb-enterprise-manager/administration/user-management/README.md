@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the Role-Based Access Control (RBAC) system, including how to create
+  custom roles, manage base permissions (admin, edit, view, sql), and add or
+  modify users.
+---
+
 # User Management
 
 MariaDB Enterprise Manager uses a Role-Based Access Control (RBAC) system to manage user permissions. This guide explains how to manage users and create custom roles to fit your organization's security needs.

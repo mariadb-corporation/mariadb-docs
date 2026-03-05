@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how to manage database objects like users, databases, and privileges
+  natively through Kubernetes Custom Resources (CRDs).
+---
+
 # SQL Resources
 
 MariaDB Operator Enterprise enables you to manage SQL resources declaratively through CRs. By SQL resources, we refer to users, grants, and databases that are typically created using SQL statements.

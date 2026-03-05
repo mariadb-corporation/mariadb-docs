@@ -1,3 +1,9 @@
+---
+description: >-
+  Details the hardware sizing, system prerequisites (x86-64 Linux, Docker), and
+  supported OS versions for deploying the central server and monitoring agents.
+---
+
 # Hardware and System Requirements
 
 This guide outlines the system and hardware requirements for deploying the Enterprise Manager Server and the Enterprise Manager Agent.
@@ -26,15 +32,15 @@ The agent must be installed on each [MariaDB Server](https://app.gitbook.com/s/S
 
 ### Supported Platforms for MariaDB Server
 
-| MariaDB Server Version | Supported OS (x86\_64, ARM64)                                                                             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------- |
-| **10.6, 11.4, 11.8**   | <p>RHEL/Rocky/AlmaLinux/Oracle Linux 8, 9, 10 </p><p>Ubuntu LTS 22.04, 24.04 </p><p>Debian 11, 12, 13</p> |
+| MariaDB Server Version | Supported OS (x86\_64, ARM64)                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- |
+| **10.6, 11.4, 11.8**   | <p>RHEL/Rocky/AlmaLinux/Oracle Linux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04</p><p>Debian 11, 12, 13</p> |
 
 ### Supported Platforms for MariaDB MaxScale
 
-| MaxScale Version                                              | Supported OS (x86\_64, ARM64)                                                                |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| **23.02\***, **23.08\***, **24.02\***, **25.01\***, **25.10** | <p>RHEL/Rocky/AlmaLinux 8, 9, 10 </p><p>Ubuntu LTS 22.04, 24.04 </p><p>Debian 11, 12, 13</p> |
+| MaxScale Version                                              | Supported OS (x86\_64, ARM64)                                                              |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **23.02\***, **23.08\***, **24.02\***, **25.01\***, **25.10** | <p>RHEL/Rocky/AlmaLinux 8, 9, 10</p><p>Ubuntu LTS 22.04, 24.04</p><p>Debian 11, 12, 13</p> |
 
 \* Monitoring and Single Sign-On(SSO) are only supported for MaxScale versions 25.10 and Above
 

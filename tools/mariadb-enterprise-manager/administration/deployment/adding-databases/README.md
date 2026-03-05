@@ -1,3 +1,9 @@
+---
+description: >-
+  Guide to registering database topologies in the UI and using the integrated
+  helper tool to generate setup commands for installing monitoring agents.
+---
+
 # Adding Databases
 
 {% hint style="warning" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains the client/server architecture, central components (Supermax,
+  Grafana, Prometheus), and local agents (OpenTelemetry, exporters).
+---
+
 # Architecture Overview
 
 MariaDB Enterprise Manager is a client/server application for monitoring and managing MariaDB deployments. It provides topology-aware monitoring, visual schema management, and query editing across multiple database connections.

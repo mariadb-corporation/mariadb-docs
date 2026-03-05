@@ -1,3 +1,10 @@
+---
+description: >-
+  This guide details installing the MariaDB Enterprise Kubernetes Operator on
+  OpenShift, leveraging the Operator Lifecycle Manager, and configuring image
+  pull credentials.
+---
+
 # OpenShift
 
 This documentation provides guidance on installing the MariaDB Enterprise Kubernetes Operator operator in OpenShift. This operator has been [certified by Red Hat](https://connect.redhat.com/en/partner-with-us/what-are-operators) and it is available in the OpenShift console.
@@ -103,10 +110,10 @@ spec:
 
 We maintain support across a variety of OpenShift channels to ensure compatibility with different release schedules and stability requirements. Below, you will find an overview of the specific OpenShift channels we support.
 
-| Channel | Supported OpenShift Versions | Description |
-|---------|------------------------------|-------------|
-| `stable` | 4.18, 4.16 | Points to the latest stable version of the operator. This channel may span multiple major versions. |
-| `stable-v25.10` | 4.18, 4.16 | v25.10.x is an LTS release. This channel points to the latest **patch** release of 25.10. Use this if you require version pinning to a stable version of the operator without necessarily looking for newer features. |
+| Channel         | Supported OpenShift Versions | Description                                                                                                                                                                                                           |
+| --------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `stable`        | 4.18, 4.16                   | Points to the latest stable version of the operator. This channel may span multiple major versions.                                                                                                                   |
+| `stable-v25.10` | 4.18, 4.16                   | v25.10.x is an LTS release. This channel points to the latest **patch** release of 25.10. Use this if you require version pinning to a stable version of the operator without necessarily looking for newer features. |
 
 An example Subscription would look like this:
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Instructions for installing the mema-agent application using native OS package
+  managers, including prerequisite steps for creating a local monitor user in
+  MariaDB.
+---
+
 # Agent Installation
 
 {% hint style="warning" %}

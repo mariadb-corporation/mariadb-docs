@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of the metrics collected by Enterprise Manager, including MariaDB
+  Server counters, MaxScale performance data, and node-level system resource
+  utilization.
+---
+
 # Metrics
 
 ## MariaDB Server Metrics

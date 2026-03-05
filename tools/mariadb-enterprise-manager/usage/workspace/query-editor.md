@@ -1,3 +1,10 @@
+---
+description: >-
+  Details the Query Editor feature, providing a comprehensive multi-tabbed
+  environment for writing and debugging SQL, formatting code, and analyzing data
+  results.
+---
+
 # Query Editor
 
 The Query Editor is a powerful, integrated environment for database developers and administrators. It provides a comprehensive set of tools for writing and debugging SQL and analyzing query results, all from a single interface.

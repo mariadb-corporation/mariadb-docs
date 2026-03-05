@@ -1,7 +1,7 @@
 ---
 description: >-
-  Learn about the plugins supported by the MariaDB Enterprise Kubernetes Operator and how
-  to configure them.
+  Overview of available plugins and extensions that can be used to enhance the
+  functionality of the MariaDB Enterprise Kubernetes Operator.
 ---
 
 # Plugins
