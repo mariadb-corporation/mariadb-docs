@@ -41,15 +41,15 @@ Complete MariaDB security guide. Complete resource for user management, access c
 
 {% columns %}
 {% column %}
-{% content-ref url="replication-with-secure-connections.md" %}
-[replication-with-secure-connections.md](replication-with-secure-connections.md)
+{% content-ref url="data-in-transit-encryption-enabling-tls-on-mariadb-server.md" %}
+[zero-configuration-ssl.md](zero-configuration-ssl.md)
 {% endcontent-ref %}
 
 
 {% endcolumn %}
 
 {% column %}
-A guide to securing replication traffic between primary and replica servers, covering the use of `CHANGE MASTER TO` options (e.g., `MASTER_SSL`) and mutual authentication.
+Secure, automatic SSL in MariaDB 11.4+ which is enabled by default and does not require any configuration
 {% endcolumn %}
 {% endcolumns %}
 
@@ -63,7 +63,20 @@ A guide to securing replication traffic between primary and replica servers, cov
 {% endcolumn %}
 
 {% column %}
-Step-by-step instructions for configuring MariaDB Server to use TLS by setting system variables like `ssl_cert`, `ssl_key`, and `ssl_ca` in the configuration file.
+Step-by-step instructions for manual configuration of SSL in MariaDB via system variables like `ssl_cert`, `ssl_key`, and `ssl_ca` in the configuration file.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="replication-with-secure-connections.md" %}
+[replication-with-secure-connections.md](replication-with-secure-connections.md)
+{% endcontent-ref %}
+
+{% endcolumn %}
+
+{% column %}
+A guide to securing replication traffic between primary and replica servers, covering the use of `CHANGE MASTER TO` options (e.g., `MASTER_SSL`) and mutual authentication.
 {% endcolumn %}
 {% endcolumns %}
 
