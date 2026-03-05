@@ -14,7 +14,7 @@ PREPARE stmt_name FROM preparable_stmt
 
 ## Description
 
-The `PREPARE` statement prepares a statement and assigns it a name,`stmt_name`, by which to refer to the statement later. Statement names are not case sensitive. `preparable_stmt` is either a string literal or a [user variable](../../sql-structure/sql-language-structure/user-defined-variables.md) (not a [local variable](../programmatic-compound-statements/declare-variable.md), an SQL expression or a subquery) that contains the text of the statement. The text must represent a single SQL statement, not multiple statements. Within the statement, "?" characters can be used as parameter markers to indicate where data values are to be bound to the query later when you execute it. The "?" characters should not be enclosed within quotes, even if you intend to bind them to string values. Parameter markers can be used only where expressions should appear, not for SQL keywords, identifiers, and so forth.
+The `PREPARE` statement prepares a statement and assigns it a name,`stmt_name`, by which to refer to the statement later. Statement names are not case sensitive. `preparable_stmt` is an expression with the text of the statement. It cannot contain stored function calls or subqueries. The text must represent a single SQL statement, not multiple statements. Within the statement, `?` characters can be used as parameter markers to indicate where data values are to be bound to the query later when you execute it. The `?` characters should not be enclosed within quotes, even if you intend to bind them to string values. Parameter markers can be used only where expressions should appear, not for SQL keywords, identifiers, and so forth.
 
 The scope of a prepared statement is the session within which it is created. Other sessions cannot see it.
 
@@ -39,11 +39,11 @@ BEGIN
 END;
 ```
 
-The [FOUND\_ROWS()](../../sql-functions/secondary-functions/information-functions/found_rows.md) and [ROW\_COUNT()](../../sql-functions/secondary-functions/information-functions/row_count.md) functions, if called immediatly after EXECUTE, return the number of rows read or affected by the prepared statements; however, if they are called after DEALLOCATE PREPARE, they provide information about this statement. If the prepared statement produces errors or warnings, [GET DIAGNOSTICS](../programmatic-compound-statements/programmatic-compound-statements-diagnostics/get-diagnostics.md) return information about them. DEALLOCATE PREPARE shouldn't clear the [diagnostics area](../programmatic-compound-statements/programmatic-compound-statements-diagnostics/diagnostics-area.md), unless it produces an error.
+The [FOUND\_ROWS()](../../sql-functions/secondary-functions/information-functions/found_rows.md) and [ROW\_COUNT()](../../sql-functions/secondary-functions/information-functions/row_count.md) functions, if called immediately after `EXECUTE`, return the number of rows read or affected by the prepared statements; however, if they are called after `DEALLOCATE PREPARE`, they provide information about this statement. If the prepared statement produces errors or warnings, [GET DIAGNOSTICS](../programmatic-compound-statements/programmatic-compound-statements-diagnostics/get-diagnostics.md) return information about them. `DEALLOCATE PREPARE` shouldn't clear the [diagnostics area](../programmatic-compound-statements/programmatic-compound-statements-diagnostics/diagnostics-area.md), unless it produces an error.
 
 A prepared statement is executed with [EXECUTE](execute-statement.md) and released with [DEALLOCATE PREPARE](deallocate-drop-prepare.md).
 
-The [max\_prepared\_stmt\_count](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_prepared_stmt_count) server system variable determines the number of allowed prepared statements that can be prepared on the server. If it is set to 0, prepared statements are not allowed. If the limit is reached, an error similar to the following will be produced:
+The [max\_prepared\_stmt\_count](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_prepared_stmt_count) server system variable determines the number of allowed prepared statements that can be prepared on the server. If it is set to `0`, prepared statements are not allowed. If the limit is reached, an error similar to the following will be produced:
 
 ```sql
 ERROR 1461 (42000): Can't create more than max_prepared_stmt_count statements 
@@ -52,12 +52,12 @@ ERROR 1461 (42000): Can't create more than max_prepared_stmt_count statements
 
 ### Oracle Mode
 
-In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `PREPARE stmt FROM 'SELECT :1, :2'` is used, instead of `?`.
+In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `PREPARE stmt FROM 'SELECT :1, :2'` is used instead of `?`.
 
 ## Permitted Statements
 
 {% hint style="info" %}
-The following is valid only from MariaDB [**10.6.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1062-release-notes)**.**
+The following is valid from MariaDB **10.6.2.**
 {% endhint %}
 
 All statements can be prepared, except [PREPARE](prepare-statement.md), [EXECUTE](execute-statement.md), and [DEALLOCATE / DROP PREPARE](deallocate-drop-prepare.md).
@@ -128,7 +128,7 @@ Note that if a statement can be run in a stored routine, it will work even if it
 PREPARE stmt FROM CONCAT('SELECT * FROM ', table_name);
 ```
 
-When PREPARE is used with a statement which is not supported, the following error is produced:
+When `PREPARE` is used with a statement which is not supported, the following error is produced:
 
 ```sql
 ERROR 1295 (HY000): This command is not supported in the prepared statement protocol yet
