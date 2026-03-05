@@ -42,8 +42,6 @@ The authenticator parameter specifies which authentication plugin to use for a p
 
 **Example `maxscale.cnf` snippet (simplified):**
 
-Ini, TOML
-
 ```ini
 [my_service]
 type=service
@@ -73,8 +71,6 @@ Additional settings can be passed to the authenticator plugin using authenticato
 * **`lower_case_table_names=true/false`:** Controls how database names are matched during authentication, similar to the `lower_case_table_names` system variable in MariaDB Server.
 
 **Example with options:**
-
-Ini, TOML
 
 ```ini
 [my_listener]
