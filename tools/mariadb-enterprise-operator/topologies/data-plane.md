@@ -8,13 +8,13 @@ The mariadb-enterprise-operator data-plane components are implemented as lightwe
 
 #### Init container
 
-The init container is reponsible for dynamically generating the Pod-specifc configuration files before the MariaDB container starts. It also plays a crucial role in the MariaDB container startup, enabling replica recovery for the replication topolology and guaranteeing ordered deployment of Pods for the Galera topology.
+The init container is responsible for dynamically generating the Pod-specifc configuration files before the MariaDB container starts. It also plays a crucial role in the MariaDB container startup, enabling replica recovery for the replication topolology and guaranteeing ordered deployment of Pods for the Galera topology.
 
 #### Agent sidecar
 
-The agent sidecar provides an HTTP API that enables the operator to remotely manage MariaDB instances. Through this API, the operator is able to remotely operate the data directory and handle the instance lifecycle, including operations such as replica recovery for replication and cluster recovery for the Galera topology.
+The agent sidecar provides an HTTP API that enables the operator to remotely manage MariaDB instances. Through this API, the operator is able to remotely operate the data directory and handle the instance lifecycle, including operations such as replica recovery for replication and cluster recovery for the Galera topology. It supports [multiple authentication](#agent-auth-methods) methods to ensure that only the operator is able to call the agent API.
 
-It supports [multiple authentication](#agent-auth-methods) methods to ensure that only the operator is able to call the agent API.
+Since it has access to the data directory, it is also responsible for periodically archiving binary logs to be used for [point-in-time recovery](../backup-and-restore/pitr.md).
 
 ## Agent auth methods
 
