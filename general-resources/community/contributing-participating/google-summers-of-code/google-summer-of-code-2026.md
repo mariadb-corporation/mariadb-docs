@@ -127,18 +127,9 @@ configurable default authentication plugin for the server.
 **Skills needed:** C, C++\
 **Mentors:** Nikita Malyavin
 
-#### [MDEV-13594](https://jira.mariadb.org/browse/MDEV-13594) Support for JSON operators column->path and column->>path
-
-**Part-time project 175h** or can be combined with MDEV-38591 for a Full-time project 350h
-
-Implement this syntax sugar in MariaDB for MySQL compatibility
-
-**Skills needed:** C++\
-**Mentors:** Rucha Deodhar
-
 #### [MDEV-38591](https://jira.mariadb.org/browse/MDEV-38591) MEMBER OF json operator
 
-**Part-time project 175h** or can be combined with MDEV-13594 for a Full-time project 350h
+**Part-time project 175h** or can be combined with another MDEV for a Full-time project 350h
 
 Implement \{{MEMBER OF\}} operator for MySQL compatibility.
 
@@ -155,6 +146,45 @@ This search for a table can be optimized by changing the assignment strategy of 
 
 **Skills needed:** C++\
 **Mentors:** Brandon Nesterenko
+
+#### [MDEV-38970](https://jira.mariadb.org/browse/MDEV-38970) Streaming window functions
+
+**Full-time project 350h**
+
+This is a first part of implementing support for streaming window functions. Instead of storing window function results in a temporary table, they should work — under certain conditions — in a streaming fashion, reading one row at a time and immediately returning it to the consumer. See MDEV for details.
+
+**Skills needed:** C++\
+**Mentors:** Sergei Petrunia
+
+#### [MDEV-38992](https://jira.mariadb.org/browse/MDEV-38992) SQL Standard TABLESAMPLE clause
+
+**Full-time project 350h**
+
+Implement SQL Standard `table_name TABLESAMPLE { BERNOULLI | SYSTEM } ( <percentage> )`, see MDEV for details.
+The main goal of the project is to do a working random row API in the handler class.
+
+**Skills needed:** C++\
+**Mentors:** Sergei Petrunia
+
+#### [MDEV-35862](https://jira.mariadb.org/browse/MDEV-35862) Enable "inexpensive" PERFORMANCE_SCHEMA tables even when "performance_schema=OFF"
+
+**Full-time project 350h**
+
+Some P_S tables show information collected from the code instrumentation, which adds a noticeable run-time performance overhead and it makes perfect sense to be able to disable it.
+
+Other P_S tables, such as P_S.SESSION_CONNECT_ATTRS, only show the existing information and have zero overhead unless they're queried. It does not make sense to disable them, they should be always available.
+
+**Skills needed:** C++\
+**Mentors:** Sergei Golubchik
+
+#### [MDEV-38740](https://jira.mariadb.org/browse/MDEV-38740) JSON data type
+
+**Full-time project 350h**
+
+Implement a distinct data type for JSON, as required by SQL:2023.
+
+**Skills needed:** C++\
+**Mentors:** Alexander Barkov
 
 ## Suggest a Task
 
