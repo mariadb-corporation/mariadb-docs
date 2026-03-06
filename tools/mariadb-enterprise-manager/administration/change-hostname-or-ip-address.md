@@ -1,3 +1,9 @@
+---
+description: >-
+  Steps for safely modifying the hostname or IP address of the Enterprise
+  Manager server and ensuring all monitored agents remain connected.
+---
+
 # Change Hostname or IP Address
 
 To set the hostname or IP address for an existing MariaDB Enterprise Management instance, follow these instructions. Changing the hostname or IP address is useful if your server's IP changed or if you need to switch from an IP address to a public DNS name.

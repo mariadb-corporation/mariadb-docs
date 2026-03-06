@@ -1,3 +1,10 @@
+---
+description: >-
+  High-level dashboard providing an aggregated view of the entire database
+  fleet, highlighting overall health, critical alerts, and resource consumption
+  across multiple topologies.
+---
+
 # Database Fleet Overview
 
 The "fleet" dashboard is the central inventory for all your monitored database topologies. It provides a hierarchical, at-a-glance overview of the health, status, and configuration of your entire database environment.

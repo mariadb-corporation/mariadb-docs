@@ -1,5 +1,7 @@
 ---
-description: MariaDB Enterprise Manager installation and configuration guide
+description: >-
+  Installation and configuration steps for Enterprise Manager and agents,
+  covering standalone and MaxScale topologies.
 ---
 
 # Quickstart Guide

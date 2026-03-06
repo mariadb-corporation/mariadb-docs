@@ -1,3 +1,10 @@
+---
+description: >-
+  Comprehensive dashboard for monitoring MariaDB Server instances, covering
+  topology overviews, replication health, InnoDB metrics, query performance, and
+  active connections.
+---
+
 # MariaDB Server
 
 This dashboard provides a unified view of a database topology. It combines topology information, system health, replication or cluster metrics, and query performance in one place. Administrators can use it to monitor availability, troubleshoot issues, and optimize performance.
@@ -48,7 +55,7 @@ Provides insight into replication and cluster-related activity, including binary
 
 **Replication Status Table**
 
-This table provides a consolidated view of the health status of replication across instances. 
+This table provides a consolidated view of the health status of replication across instances.
 
 | Field Name             | Description                                                    |
 | ---------------------- | -------------------------------------------------------------- |

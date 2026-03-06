@@ -1,17 +1,7 @@
 ---
 description: >-
-  Configure multiple backup strategies and perform restoration.
-layout:
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
+  Procedures for configuring automated and on-demand backups using MariaDB
+  Enterprise Backup, including restoration steps to recover data.
 ---
 
 # Backup and Restore

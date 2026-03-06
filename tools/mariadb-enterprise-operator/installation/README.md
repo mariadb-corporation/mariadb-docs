@@ -1,7 +1,7 @@
 ---
 description: >-
-  Installation instructions for MariaDB Enterprise Kubernetes Operator in Kubernetes and
-  OpenShift
+  Detailed guide on installing the MariaDB Enterprise Kubernetes Operator using
+  Helm charts or manual manifests within a Kubernetes environment.
 ---
 
 # Installation

@@ -1,3 +1,10 @@
+---
+description: >-
+  Step-by-step instructions for deploying the Docker-based Enterprise Manager
+  Server, including standard online setups and air-gapped installation
+  procedures.
+---
+
 # Installing MariaDB Enterprise Manager
 
 {% hint style="info" %}
@@ -17,7 +24,7 @@ Prerequisites
 
 {% stepper %}
 {% step %}
-#### Log in to Docker registry
+**Log in to Docker registry**
 
 Login to the MariaDB Enterprise Docker Registry providing your [MariaDB ID](https://id.mariadb.com/) as a username and Customer Download Token as a password:
 
@@ -29,7 +36,7 @@ docker login docker.mariadb.com
 {% endstep %}
 
 {% step %}
-#### Download the installation script
+**Download the installation script**
 
 Insert your Customer Download Token into the download URL and download the installation script:
 
@@ -41,7 +48,7 @@ wget https://dlm.mariadb.com/<Customer_Download_Token>/enterprise-release-helper
 {% endstep %}
 
 {% step %}
-#### Make the installer executable
+**Make the installer executable**
 
 {% code title="# Make executable" %}
 ```bash
@@ -51,7 +58,7 @@ chmod +x install-enterprise-manager.sh
 {% endstep %}
 
 {% step %}
-#### Run the installer
+**Run the installer**
 
 Install Enterprise Manager by running the script:
 
@@ -71,7 +78,7 @@ After you provide the details, the script launches Enterprise Manager.
 {% endstep %}
 
 {% step %}
-#### Verify containers
+**Verify containers**
 
 Run `docker compose ps` in the `enterprise-manager` directory to check that all of the constituent Docker containers are running. The containers are:
 
@@ -90,7 +97,7 @@ docker compose ps
 {% endstep %}
 
 {% step %}
-#### Access the UI
+**Access the UI**
 
 Access Enterprise Manager UI at:
 
@@ -112,13 +119,13 @@ Follow these steps:
 
 {% stepper %}
 {% step %}
-#### Install on an Internet-connected machine
+**Install on an Internet-connected machine**
 
 First, install Enterprise Manager on an Internet-connected machine as explained in the normal installation section. When the installation script asks for the address and port that Enterprise Manager should listen at for incoming connections, enter the values for the final target machine.
 {% endstep %}
 
 {% step %}
-#### Save images and settings
+**Save images and settings**
 
 Once installation is complete, save all related Docker images and settings by running the following commands from the directory that contains the `enterprise-manager` folder:
 
@@ -135,13 +142,13 @@ The resulting archive `enterprise-manager.tar.gz` contains all components of Ent
 {% endstep %}
 
 {% step %}
-#### Transfer archive to target machine
+**Transfer archive to target machine**
 
 Copy `enterprise-manager.tar.gz` to the target (air-gapped) machine into the directory under which you want to install Enterprise Manager.
 {% endstep %}
 
 {% step %}
-#### Extract and load images on target machine
+**Extract and load images on target machine**
 
 On the target machine, extract the archive and load the Docker images:
 
@@ -155,7 +162,7 @@ docker image load -i images.tar
 {% endstep %}
 
 {% step %}
-#### Start Enterprise Manager
+**Start Enterprise Manager**
 
 Start Enterprise Manager with:
 

@@ -1,15 +1,7 @@
 ---
-layout:
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
+description: >-
+  General introduction to the Operator's capabilities, benefits for database
+  operations, and its role in managing MariaDB within Kubernetes clusters.
 ---
 
 # Introduction
@@ -60,7 +52,7 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 * Native Integration with prometheus-operator: Leverage [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) to scrape metrics from MariaDB and MaxScale instances.
 * Declarative User and Database Management: Manage users, grants, and logical databases in a declarative manner using Kubernetes resources.
 * Secure, immutable and lightweight images based on Red Hat UBI, available for multiple architectires (amd64, arm64 and ppc64le).
-* [Operator certified ](https://catalog.redhat.com/en/software/container-stacks/detail/65789bcbe17f1b31944acb1d#overview) by Red Hat.
+* [Operator certified ](https://catalog.redhat.com/en/software/container-stacks/detail/65789bcbe17f1b31944acb1d#overview)by Red Hat.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

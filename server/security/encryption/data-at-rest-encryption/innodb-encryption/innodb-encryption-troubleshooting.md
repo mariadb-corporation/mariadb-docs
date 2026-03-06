@@ -147,6 +147,102 @@ Support for encrypting [spatial indexes](../../../../reference/sql-structure/geo
 
 For more information, see [MDEV-12026](https://jira.mariadb.org/browse/MDEV-12026).
 
+### Managing CPU Usage During InnoDB Encryption Operations
+
+When encryption threads are enabled for InnoDB tables, the system initiates background threads to encrypt existing tablespace pages. During this initial process, you may see significant spikes in CPU and I/O usage. This can occur due to:
+
+* **Periodic key rotation checks** that trigger re‑encryption work.
+* **Large datasets** being encrypted, especially if many tables are enabled at once.
+* **Clustered environments** such as MariaDB Galera Cluster, where each node performs encryption operations independently.
+
+CPU usage can increase under several conditions. Common contributing factors are included below.
+
+#### Causes of CPU Spikes
+
+CPU usage increases during table encryption due to the following factors:
+
+* **CPU usage spikes after enabling encryption**: This is expected because InnoDB must begin encrypting existing tablespace pages in the background once encryption is turned on. The initial workload is heavy.
+* **Increased disk I/O activity**: The process involves reading unencrypted pages, encrypting them, and writing them back as encrypted. This read–encrypt–write cycle generates both CPU load (for encryption) and disk I/O load (for page movement).
+* **Background threads encrypting tablespace pages:** InnoDB background threads actively encrypt tablespace pages that were encrypted before encryption was enabled. If too many threads are active or configured aggressively, they compete for CPU resources, causing spikes.
+* **Performance degradation during initial encryption**: The initial stage of encrypting large tablespaces is the most resource-intensive phase. Once completed, ongoing CPU usage stabilizes, but during the initial encryption, performance can degrade significantly.
+
+This behavior is normal during the one‑time setup phase when InnoDB begins encrypting existing tablespace pages. However, the impact can be reduced through:
+
+* **Tuning** system variables such as `innodb_encryption_threads`, `innodb_encryption_rotation_iops`, and `innodb_encryption_rotate_key_age`.
+* **Monitoring** background encryption activity to check progress and identify bottlenecks.
+* **Phased rollout** of encryption, enabling it for a subset of tables at a time rather than all tables at once. See the [Operational Best Practices](innodb-encryption-troubleshooting.md#operational-best-practices) section.
+
+#### Configuration Options
+
+**Monitor Background Encryption Activity**
+
+MariaDB performs encryption in background threads. This helps determine if CPU usage is due to ongoing table encryption or key rotation.&#x20;
+
+Before changing configuration, verify whether background encryption is currently running by executing the following command:
+
+```
+SHOW ENGINE INNODB STATUS
+```
+
+You can review the encryption activity output.
+
+Additionally, you can check the essential encryption-related status variables, as detailed in [InnoDB: Background Encryption Threads](innodb-background-encryption-threads.md).
+
+#### Disable Key Rotation Checks
+
+The `innodb_encryption_rotate_key_age` system variable manages how often InnoDB checks tablespace pages to determine whether they need to be re‑encrypted with a new key.
+
+Setting this variable to `0` disables automatic key rotation checks if you do not require periodic re-encryption of old pages:
+
+```
+SET GLOBAL innodb_encryption_rotate_key_age=0;
+```
+
+Once disabled, key rotation checks can significantly reduce CPU usage. See [innodb\_encryption\_rotate\_key\_age](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_rotate_key_age).
+
+#### Limit Background Encryption Threads
+
+The `innodb_encryption_threads` system variable controls the number of background encryption threads.
+
+Lowering this value can prevent CPU contention at the cost of slower encryption progress.
+
+```
+SET GLOBAL innodb_encryption_threads=2;
+```
+
+&#x20;You can maintain the value based on available CPU capacity and workload requirements. See [innodb\_encryption\_threads](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads).
+
+#### Reduce Encryption Rotation IOPS
+
+The `innodb_encryption_rotation_iops` system variable defines the maximum number of I/O operations per second that InnoDB background threads can use for page encryption and key rotation tasks.
+
+**Effect of Lowering the Value:**
+
+* **Reduces CPU usage:** fewer encryption operations are performed per second, lowering the load on CPU resources.
+* **Lowers disk pressure:** decreases the number of read/write operations, reducing contention on storage I/O.
+
+```
+SET GLOBAL innodb_encryption_rotation_iops=50;
+```
+
+Setting a lower value (e.g., 25 or 50) limits the threads, making them read and write data more slowly, reducing both I/O and the associated CPU overhead. See [innodb\_encryption\_rotation\_iops](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_rotation_iops).
+
+#### Operational Best Practices
+
+In addition to configuration changes, you can also manage encryption more effectively by applying the following operational practices:
+
+* Encrypt table in batches: Instead of enabling encryption for all tables at once, apply it in stages. This allow background encryption to complete for one set of tables and then proceed with more. With this approach, peak CPU and I/O load can be reduced.&#x20;
+* Galera Cluster setup considerations:
+  * Encryption operations are performed independently on each node
+  * Use an odd number of nodes (3, 5, 7) to maintain quorum and prevent split-brain scenarios. See [Weighted Quorum](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-architecture/quorum-control-with-weighted-votes) for details.
+
+## See Also
+
+* [InnoDB Data-at-Rest Encryption](../)
+* [InnoDB Background Encryption Threads](innodb-background-encryption-threads.md)
+* [InnoDB System Variables](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md)
+* [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/)
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Overview of the integrated Grafana-based alerting engine used to detect
+  critical conditions and dispatch notifications to various destinations.
+---
+
 # Alerts and Notifications
 
 MariaDB Enterprise Manager provides a powerful and flexible alerting system, built on the capabilities of the integrated **Grafana Alerting** engine. It allows you to proactively monitor your entire database fleet, define custom rules for potential issues, and receive notifications through various channels to ensure you can respond quickly.

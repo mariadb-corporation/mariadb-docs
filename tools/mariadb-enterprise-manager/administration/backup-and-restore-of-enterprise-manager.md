@@ -1,3 +1,9 @@
+---
+description: >-
+  Procedures for backing up the Enterprise Manager configurations and metrics
+  data, as well as steps for restoring the system in case of failure.
+---
+
 # Backup & Restore of Enterprise Manager
 
 Note: This is about backing up the data, configuration and collected metrics of the Enterprise Manager (EM), not the databases.

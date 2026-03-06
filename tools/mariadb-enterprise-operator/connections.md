@@ -1,3 +1,9 @@
+---
+description: >-
+  Explains how application clients connect to databases managed by the Operator,
+  including the use of Kubernetes Services and MaxScale proxies.
+---
+
 # Connections
 
 MariaDB Enterprise Kubernetes Operator provides the `Connection` resource to configure connection strings for applications connecting to MariaDB. This resource creates and maintains a Kubernetes `Secret` containing the credentials and connection details needed by your applications.
@@ -47,7 +53,7 @@ spec:
   secretName: connection
 ```
 
-Please refer to the [Kubernetes `Service` documentation](./topologies/high-availability.md#kubernetes-services) to identify which `Services` are available.
+Please refer to the [Kubernetes `Service` documentation](topologies/high-availability.md#kubernetes-services) to identify which `Services` are available.
 
 ## Credential generation
 
@@ -122,12 +128,13 @@ spec:
 ```
 
 The resulting `Secret` will contain:
-- `dsn`: The full connection string
-- `username`: The database username
-- `password`: The database password
-- `host`: The database host
-- `port`: The database port
-- `database`: The database name
+
+* `dsn`: The full connection string
+* `username`: The database username
+* `password`: The database password
+* `host`: The database host
+* `port`: The database port
+* `database`: The database name
 
 ## Custom DSN format
 
@@ -156,12 +163,13 @@ spec:
 ```
 
 Available template variables:
-- `{{ .Username }}`: The database username
-- `{{ .Password }}`: The database password
-- `{{ .Host }}`: The database host
-- `{{ .Port }}`: The database port
-- `{{ .Database }}`: The database name
-- `{{ .Params }}`: Query parameters (e.g., `?parseTime=true&timeout=5s`)
+
+* `{{ .Username }}`: The database username
+* `{{ .Password }}`: The database password
+* `{{ .Host }}`: The database host
+* `{{ .Port }}`: The database port
+* `{{ .Database }}`: The database name
+* `{{ .Params }}`: Query parameters (e.g., `?parseTime=true&timeout=5s`)
 
 Refer to the [Go documentation](https://pkg.go.dev/text/template) for additional details about the template syntax.
 
@@ -308,8 +316,8 @@ spec:
     retryInterval: 3s
 ```
 
-- `interval`: How often to perform health checks (default: 30s)
-- `retryInterval`: How often to retry after a failed health check (default: 3s)
+* `interval`: How often to perform health checks (default: 30s)
+* `retryInterval`: How often to retry after a failed health check (default: 3s)
 
 The `Connection` status reflects the health check results, allowing you to monitor connectivity issues through Kubernetes.
 

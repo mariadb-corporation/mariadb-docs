@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains two methods for exporting metrics: scraping the built-in Prometheus
+  federation endpoint or configuring the agent to push data directly to
+  OTLP-compatible external systems.
+---
+
 # Export metrics
 
 MariaDB Enterprise Manager provides two primary methods for exporting metrics, allowing you to integrate with external observability platforms for aggregation or long-term retention.

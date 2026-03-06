@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for configuring SMTP credentials and server details in the
+  environment file to enable email alerts from the integrated alerting engine.
+---
+
 # SMTP Server Configuration
 
 This page explains how to configure email alerting for MariaDB Enterprise Manager using Grafana's integrated alerting engine. Configure SMTP credentials and server details in the main environment file so Enterprise Manager can send alert notifications via email.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions on how to temporarily pause the Operator's automated management
+  of a specific resource for maintenance or troubleshooting.
+---
+
 # Suspend Reconciliation
 
 ## Suspended state

@@ -1,3 +1,10 @@
+---
+description: >-
+  Dedicated dashboard for monitoring MaxScale proxies, detailing service status,
+  query routing efficiency, client connections, and resource usage across the
+  proxy layer.
+---
+
 # MariaDB MaxScale
 
 This dashboard shows MaxScale’s health and load, how backend servers are seen by each MaxScale, and the traffic/query volume flowing through it—plus cache efficiency from the Query Classifier.

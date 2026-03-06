@@ -1,4 +1,11 @@
-# Standalone MariaDB
+---
+description: >-
+  This guide covers configuring standalone MariaDB Enterprise Server with
+  minimal settings for development. Avoid using it in production due to risks
+  like single point of failure and necessary downtime
+---
+
+# Standalone
 
 This operator allows you to configure standalone MariaDB Enterprise Server instances. To achieve this, you can either omit the `replicas` field or set it to `1`:
 
@@ -45,8 +52,7 @@ Whilst this can be useful for development and testing, it is not recommended for
 * Upgrades require downtime
 * Only vertical scaling is possible
 
-For achieving high availability, we recommend deploying a highly available topology as described in the [high availability guide](./high-availability.md).
-
+For achieving high availability, we recommend deploying a highly available topology as described in the [high availability guide](high-availability.md).
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

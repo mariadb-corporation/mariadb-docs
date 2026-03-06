@@ -1,3 +1,9 @@
+---
+description: >-
+  Best practices and procedures for performing rolling updates and version
+  upgrades for MariaDB Enterprise Server and MaxScale without downtime.
+---
+
 # Updates
 
 By leveraging the automation provided by MariaDB Enterprise Kubernetes Operator, you can declaratively manage large fleets of databases using CRs. This also covers day two operations, such as upgrades, which can be risky when rolling out updates to thousands of instances simultaneously.
@@ -116,8 +122,7 @@ The operator will not perform updates on the `StatefulSet` whenever this update 
 
 ## Data-plane updates
 
-Highly available topologies rely on [data-plane containers](./topologies/data-plane.md) that run alongside MariaDB to enable the remote management of the database instances. These containers use the `mariadb-enterprise-operator` image, which can be automatically updated by the operator based on its image version:
-
+Highly available topologies rely on [data-plane containers](topologies/data-plane.md) that run alongside MariaDB to enable the remote management of the database instances. These containers use the `mariadb-enterprise-operator` image, which can be automatically updated by the operator based on its image version:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
