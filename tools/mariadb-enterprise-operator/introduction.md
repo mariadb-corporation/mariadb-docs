@@ -18,7 +18,7 @@ Kubernetes brings several key benefits to the table when managing applications i
 
 * Standardization: Kubernetes relies on standard APIs for managing applications and infrastructure, making it easier to ensure uniformity across various environments. It acts as a common denominator across cloud providers and on-premises.
 * Automation: Kubernetes APIs encapsulate operational best practises, minimizing the need for manual intervention and improving the efficiency of operations.
-* Cost Effectiveness: Having an standarized way to manage infrastructure across cloud providers and automation to streamline operations, Kubernetes helps reducing the infrastructure and operational costs.
+* Cost Effectiveness: Having an standardized way to manage infrastructure across cloud providers and automation to streamline operations, Kubernetes helps reducing the infrastructure and operational costs.
 
 ## What is a Kubernetes Operator?
 
