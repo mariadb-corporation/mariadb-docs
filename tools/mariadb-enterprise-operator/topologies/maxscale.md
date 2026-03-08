@@ -177,35 +177,6 @@ spec:
 
 Refer to the [API reference](../api-reference.md) for further detail.
 
-## `MaxScale` embedded in `MariaDB`
-
-To streamline the setup outlined in the [MaxScale CR](#maxscale-cr) and [MariaDB CR](#mariadb-cr) sections, you can provision a `MaxScale` to be used with `MariaDB` in just one resource:
-
-```yaml
-apiVersion: enterprise.mariadb.com/v1alpha1
-kind: MariaDB
-metadata:
-  name: mariadb-galera
-spec:
-...
-  maxScale:
-    enabled: true
-
-    kubernetesService:
-      type: LoadBalancer
-      metadata:
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 172.18.0.229
-
-  galera:
-    enabled: true
-```
-This will automatically set the references between `MariaDB` and `MaxScale` and [default](#defaults) the rest of the fields.
-
-It is important to note that, this is intended for simple use cases that only require a single replica and where no further modifications are done on the `spec.maxscale` field. If you need a more fine grained configuration and perform further updates to the `MaxScale` resource, please use a dedicated `MaxScale` as described in the [MaxScale CR](#maxscale-cr) section.
-
-Refer to the [API reference](../api-reference.md) for further detail.
-
 ## Defaults
 
 MariaDB Enterprise Kubernetes Operator aims to provide highly configurable CRs, but at the same time maximize its usability by providing reasonable defaults. In the case of `MaxScale`, the following defaulting logic is applied:

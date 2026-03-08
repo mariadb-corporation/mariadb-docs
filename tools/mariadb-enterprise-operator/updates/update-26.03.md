@@ -13,7 +13,9 @@ spec:
 +   autoUpdateDataPlane: true
 ```
 
-- Once set, you may proceed to update the operator. If you are using __Helm__:
+- `MaxScale` embedded definition inside the `MariaDB` has been deprecated, please refer to the [migration guide.](https://mariadb.com/docs/tools/mariadb-enterprise-operator/migrations/migrate-embedded-maxscale-to-maxscale-resource) to perform the migration.
+
+- At this point, you may proceed to update the operator. If you are using __Helm__:
 
 Upgrade the `mariadb-enterprise-operator-crds` helm chart to `26.3.0`:
 ```bash
