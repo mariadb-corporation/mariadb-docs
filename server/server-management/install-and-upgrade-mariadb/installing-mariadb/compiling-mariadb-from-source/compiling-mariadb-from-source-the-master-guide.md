@@ -195,6 +195,14 @@ The shortcut command itself varies by operating system:
 {% tab title="SLES / openSUSE" %}
 `sudo zypper source-install -d mariadb`
 {% endtab %}
+
+{% tab title="macOS" %}
+Homebrew does not have a direct `build-dep` command. You can install the standard MariaDB build stack using:
+
+```bash
+brew install cmake git bison flex openssl zlib boost
+```
+{% endtab %}
 {% endtabs %}
 
 ### **Manual Package Table**
@@ -221,6 +229,17 @@ Use `dnf` (or `yum`) to install these tools:
 * Terminal/UI: `ncurses-devel`
 * Security/SSL: `openssl-devel`
 * Compression: `zlib-devel`
+* Miscellaneous headers: `libaio-devel boost-devel`
+{% endtab %}
+
+{% tab title="SLES / openSUSE" %}
+Use `zypper` to install these tools:
+
+* Build tools: `gcc-c++ git cmake`
+* Parser tools: `bison flex`
+* Terminal/UI: `ncurses-devel`
+* Security/SSL: `libopenssl-devel`
+* Compression: `libzlib-devel`
 * Miscellaneous headers: `libaio-devel boost-devel`
 {% endtab %}
 
