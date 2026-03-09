@@ -443,6 +443,7 @@
           * [Why Source RPMs (SRPMs) Aren't Packaged For Some Platforms](server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/why-source-rpms-srpms-arent-packaged-for-some-platforms.md)
           * [Installing MariaDB with yum/dnf](server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum.md)
       * [Compiling MariaDB From Source](server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/README.md)
+        * [Compiling MariaDB From Source: The Master Guide](server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md)
         * [Build Environment Setup for macOS](server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/build_environment_setup_for_mac.md)
         * [Building MariaDB on Gentoo](server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/building_mariadb_on_gentoo.md)
         * [Building MariaDB on Windows](server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/building_mariadb_on_windows.md)
