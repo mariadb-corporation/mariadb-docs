@@ -1,17 +1,17 @@
 # MariaDB 11.2.1 Changelog
 
-The most recent release of [MariaDB 11.2](../../old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112.md) is:[**MariaDB 11.2.6**](../../old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.2.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.2.6/)
+The most recent release of [MariaDB 11.2](../../old-releases/11.2/what-is-mariadb-112.md) is:[**MariaDB 11.2.6**](../../old-releases/11.2/11.2.6.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.2.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.2.6/)
 
-[Download 11.2.1](https://downloads.mariadb.org/mariadb/11.2.1/)[Release Notes](../../old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-1-release-notes.md)[Changelog](mariadb-11-2-1-changelog.md)[Overview of 11.2](../../old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112.md)
+[Download 11.2.1](https://downloads.mariadb.org/mariadb/11.2.1/)[Release Notes](../../old-releases/11.2/11.2.1.md)[Changelog](mariadb-11-2-1-changelog.md)[Overview of 11.2](../../old-releases/11.2/what-is-mariadb-112.md)
 
 **Release date:** 21 Aug 2023
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-1-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/11.2/11.2.1.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.
 
-* Changes from [11.2.0](../../old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes.md) are also included in this changelog
+* Changes from [11.2.0](../../old-releases/11.2/11.2.0.md) are also included in this changelog
 * Includes all fixes from [MariaDB 11.1.2](../11.1/mariadb-11-1-2-changelog.md)
 * Merge [Revision #18ddde4826](https://github.com/MariaDB/server/commit/18ddde4826) 2023-08-17 17:27:05 +0200 - Merge branch '11.1' into 11.2
 * [Revision #8aa1a9e6a7](https://github.com/MariaDB/server/commit/8aa1a9e6a7)\

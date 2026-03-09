@@ -1,12 +1,12 @@
 # MariaDB 10.2.40 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download 10.2.40](https://downloads.mariadb.org/mariadb/10.2.40/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10240-release-notes.md)[Changelog](mariadb-10240-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download 10.2.40](https://downloads.mariadb.org/mariadb/10.2.40/)[Release Notes](../../old-releases/10.2/10.2.40.md)[Changelog](mariadb-10240-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 6 Aug 2021
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10240-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.40.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -321,7 +321,7 @@ in that revision.
   * [MDEV-25960](https://jira.mariadb.org/browse/MDEV-25960) yum update overwrites customized logrotation config (/etc/logrotate.d/mysql)
 * [Revision #19716ad5a8](https://github.com/MariaDB/server/commit/19716ad5a8)\
   2021-06-22 09:11:41 +0300
-  * [MDEV-25982](https://jira.mariadb.org/browse/MDEV-25982) Upgrade of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) log crashes due to missing encryption key
+  * [MDEV-25982](https://jira.mariadb.org/browse/MDEV-25982) Upgrade of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) log crashes due to missing encryption key
 * [Revision #cc0bd8431f](https://github.com/MariaDB/server/commit/cc0bd8431f)\
   2021-06-21 16:15:07 -0700
   * [MDEV-25679](https://jira.mariadb.org/browse/MDEV-25679) Wrong result selecting from simple view with LIMIT and ORDER BY

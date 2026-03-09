@@ -11,7 +11,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-2218](https://jira.mariadb.org/browse/MCOL-2218) - The base MariaDB server version is now [10.3.13](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10313-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-2218](https://jira.mariadb.org/browse/MCOL-2218) - The base MariaDB server version is now [10.3.13](../../../community-server/old-releases/10.3/10.3.13.md) which include several maintenance and security fixes.
 * [MCOL-2176](https://jira.mariadb.org/browse/MCOL-2176) - Jemalloc is a new dependency for MariaDB ColumnStore.
 * [MCOL-1822](https://jira.mariadb.org/browse/MCOL-1822) - The maximum possible value for AVG() and SUM() has significantly increased due to the usage of long double.
 
@@ -59,7 +59,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-2110](https://jira.mariadb.org/browse/MCOL-2110) - Cant build engine out-of-source
 * [MCOL-2120](https://jira.mariadb.org/browse/MCOL-2120) - Check NUMA devel package is installed on BuildBot instances
 * [MCOL-2176](https://jira.mariadb.org/browse/MCOL-2176) - Use jemalloc as the main memory allocator - testing for 1.2.3-1
-* [MCOL-2218](https://jira.mariadb.org/browse/MCOL-2218) - Rebase 1.2 on [MariaDB 10.3.13](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10313-release-notes.md)
+* [MCOL-2218](https://jira.mariadb.org/browse/MCOL-2218) - Rebase 1.2 on [MariaDB 10.3.13](../../../community-server/old-releases/10.3/10.3.13.md)
 
 In addition, all bugs fixed in MariaDB ColumnStore 1.2.2 and earlier are implicitly included in this release.
 

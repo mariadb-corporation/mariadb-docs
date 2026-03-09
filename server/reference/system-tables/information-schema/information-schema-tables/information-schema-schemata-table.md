@@ -10,14 +10,14 @@ The [Information Schema](../) `SCHEMATA` table stores information about database
 
 It contains the following columns:
 
-| Column                        | Description                                                                                                                                                           |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CATALOG\_NAME                 | Always def.                                                                                                                                                           |
-| SCHEMA\_NAME                  | Database name.                                                                                                                                                        |
-| DEFAULT\_CHARACTER\_SET\_NAME | Default [character set](../../../data-types/string-data-types/character-sets/) for the database.                                                                      |
-| DEFAULT\_COLLATION\_NAME      | Default [collation](../../../data-types/string-data-types/character-sets/).                                                                                           |
-| SQL\_PATH                     | Always NULL.                                                                                                                                                          |
-| SCHEMA\_COMMENT               | Database comment. From [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes). |
+| Column                        | Description                                                                                                                        |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| CATALOG\_NAME                 | Always def.                                                                                                                        |
+| SCHEMA\_NAME                  | Database name.                                                                                                                     |
+| DEFAULT\_CHARACTER\_SET\_NAME | Default [character set](../../../data-types/string-data-types/character-sets/) for the database.                                   |
+| DEFAULT\_COLLATION\_NAME      | Default [collation](../../../data-types/string-data-types/character-sets/).                                                        |
+| SQL\_PATH                     | Always NULL.                                                                                                                       |
+| SCHEMA\_COMMENT               | Database comment. From [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0). |
 
 ## Example
 

@@ -29,12 +29,12 @@ Fixed data part:
 
 Variable data part:
 
-* [byte](../protocol-data-types.md#fixed-length-bytes) Zero or more status variables. Each status variable consists of one byte code identifying the variable stored, followed by the value of the variable. The format of the value is variable-specific.\
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Zero or more status variables. Each status variable consists of one byte code identifying the variable stored, followed by the value of the variable. The format of the value is variable-specific.\
   The number of bytes 'n' is the length of the status variable block (read in fixed data part).
-* [string](../protocol-data-types.md#fixed-length-bytes) The default database name (null-terminated).
-* [string](../protocol-data-types.md#fixed-length-bytes) The SQL statement. By subtraction the size of the statement can be known.
+* [string\<NUL>](../protocol-data-types.md#fixed-length-bytes) The default database name (null-terminated).
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The SQL statement. By subtraction the size of the statement can be known.
 
-## Status variables
+## Status Variables
 
 ### Q\_FLAGS2\_CODE (0x00)
 
@@ -105,12 +105,12 @@ Variable data part:
 ### **Q\_TIMEZONE\_CODE** (0x05)
 
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) length
-* [string](../protocol-data-types.md#fixed-length-bytes) time zone
+* [string\<length>](../protocol-data-types.md#fixed-length-bytes) time zone
 
 ### **Q\_CATALOG\_NZ\_CODE** (0x06)
 
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) length
-* [string](../protocol-data-types.md#fixed-length-bytes) catalog
+* [string\<length>](../protocol-data-types.md#fixed-length-bytes) catalog
 
 ### **Q\_LC\_TIME\_NAMES\_CODE** (0x07)
 
@@ -134,9 +134,9 @@ Variable data part:
 ### **Q\_INVOKER** (0x0B|)
 
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) user name length
-* [string](../protocol-data-types.md#fixed-length-bytes) user name
+* [string\<length>](../protocol-data-types.md#fixed-length-bytes) user name
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) host name length
-* [string](../protocol-data-types.md#fixed-length-bytes) host name
+* [string\<length>](../protocol-data-types.md#fixed-length-bytes) host name
 
 ### **Q\_UPDATED\_DB\_NAMES** (0x0C)
 

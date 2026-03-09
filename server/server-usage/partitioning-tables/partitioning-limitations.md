@@ -16,7 +16,7 @@ The following limitations apply to partitioning in MariaDB:
 * The [query cache](../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/query-cache.md) is not aware of partitioning and partition pruning. Modifying a partition will invalidate the entries related to the whole table.
 * Updates can run more slowly when [binlog\_format=ROW](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging) and a partitioned table is updated than an equivalent update of a non-partitioned table.
 * All columns used in the partitioning expression for a partitioned table must be part of every unique key that the table may have.
-* In versions prior to [MariaDB 11.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-2-release-notes), it is not possible to create partitions on tables that contain [GEOMETRY types](../../reference/sql-structure/geometry/geometry-types.md).
+* In versions prior to [MariaDB 11.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.2), it is not possible to create partitions on tables that contain [GEOMETRY types](../../reference/sql-structure/geometry/geometry-types.md).
 
 ## See Also
 

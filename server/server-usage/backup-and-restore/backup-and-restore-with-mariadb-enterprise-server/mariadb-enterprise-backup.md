@@ -12,15 +12,6 @@ Regular and reliable backups are essential to successful recovery of mission cri
 
 MariaDB Enterprise Backup is compatible with MariaDB Enterprise Server.
 
-* [Storage Engines and Backup Types](mariadb-enterprise-backup.md#storage-engines-and-backup-types)
-* [Non-blocking Backups](mariadb-enterprise-backup.md#non-blocking-backups)
-* [Understanding Recovery](mariadb-enterprise-backup.md#understanding-recovery)
-* [Creating the Backup User](mariadb-enterprise-backup.md#creating-the-backup-user)
-* [Full Backup and Restore](mariadb-enterprise-backup.md#full-backup-and-restore)
-* [Incremental Backup and Restore](mariadb-enterprise-backup.md#incremental-backup-and-restore)
-* [Partial Backup and Restore](mariadb-enterprise-backup.md#partial-backup-and-restore)
-* [Point-in-Time Recoveries](mariadb-enterprise-backup.md#point-in-time-recoveries)
-
 ## Storage Engines and Backup Types
 
 MariaDB Backup creates a file-level backup of data from the MariaDB Community Server data directory. This backup includes [temporal data](../../../reference/sql-structure/temporal-tables/), and the encrypted and unencrypted tablespaces of supported storage engines (e.g., [InnoDB](../../storage-engines/innodb/), [MyRocks](../../storage-engines/myrocks/), [Aria](../../storage-engines/aria/)).
@@ -33,7 +24,7 @@ MariaDB Enterprise Server implements:
 
 Backup support is specific to storage engines. All supported storage engines enable full backup. The InnoDB storage engine additionally supports incremental backup.
 
-**Note:** MariaDB Enterprise Backup does not support backups of MariaDB ColumnStore. Backup of MariaDB ColumnStore can be performed using [MariaDB ColumnStore Tools](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-110-onwards). Backup of data ingested to MariaDB ColumnStore can also occur pre-ingestion, such as in the case of HTAP where backup could occur of transactional data in MariaDB Enterprise Server, and restore of data to MariaDB ColumnStore would then occur through reprocessing..
+**Note:** MariaDB Enterprise Backup does not support backups of MariaDB ColumnStore. Backup of MariaDB ColumnStore can be performed using [MariaDB ColumnStore Tools](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-110). Backup of data ingested to MariaDB ColumnStore can also occur pre-ingestion, such as in the case of HTAP where backup could occur of transactional data in MariaDB Enterprise Server, and restore of data to MariaDB ColumnStore would then occur through reprocessing..
 
 ## Nonblocking Backups
 
@@ -322,7 +313,7 @@ As partial restores are performed while the server is running, not stopped, care
 
 **Note:** You can also use data from a full backup in a partial restore operation if you have prepared the data using the `--export` option as described above.
 
-### Partial Restore Non-partitioned Tables
+### Partial Restore Nonpartitioned Tables
 
 To restore a non-partitioned table from a backup, first create a new table on MariaDB Community Server to receive the restored data. It should match the specifications of the table you're restoring.
 
@@ -524,61 +515,7 @@ Create Table: CREATE TABLE `t1` (
 
 ## Point-in-Time Recoveries
 
-Recovering from a backup restores the data directory at a specific point-in-time, but it does not restore the binary log. In a point-in-time recovery, you begin by restoring the data directory from a full or incremental backup, then use the mysqlbinlog utility to recover the binary log data to a specific point in time.
-
-1. First, prepare the backup as you normally would for a [full](../mariadb-backup/full-backup-and-restore-with-mariadb-backup.md) or [incremental](../mariadb-backup/incremental-backup-and-restore-with-mariadb-backup.md) backup:
-
-```bash
-mariadb-backup --prepare --target-dir=/data/backups/full
-```
-
-2. When MariaDB Backup runs on a MariaDB Community Server where binary logs is enabled, it stores binary log information in the `xtrabackup_binlog_info` file. Consult this file to find the name of the binary log position to use. In the following example, the log position is 321.
-
-```bash
-cat /data/backups/full/xtraback_binlog_info
-
-mariadb-node4.00001     321
-```
-
-3. Update the configuration file to use a new data directory.
-
-```bash
-[mysqld]
-datadir=/var/lib/mysql_new
-```
-
-4. Using MariaDB Backup, restore from the backup to the new data directory:
-
-```bash
-mariadb-backup --copy-back --target-dir=/data/backups/full
-```
-
-5. Then change the owner to the MariaDB Community Server system user:
-
-```bash
-chown -R mysql:mysql /var/lib/mysql_new
-```
-
-6. Start MariaDB Community Server:
-
-```bash
-sudo systemctl start mariadb
-```
-
-7. Using the binary log file in the old data directory, the start position in the `xtrabackup_binlog_info` file, the date and time you want to restore to, and the `mysqlbinlog` utility to create an SQL file with the binary log changes:
-
-```bash
-mysqlbinlog --start-position=321 \
-      --stop-datetime="2019-06-28 12:00:00" \
-      /var/lib/mysql/mariadb-node4.00001 \
-      > mariadb-binlog.sql
-```
-
-8. Lastly, run the binary log SQL to restore the databases:
-
-```bash
-mysql -u root -p < mariadb-binlog.sql
-```
+Point-in-time recovery (PITR) is [documented here](../mariadb-backup/point-in-time-recovery-pitr-mariadb-backup.md).
 
 <sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
 

@@ -1,12 +1,12 @@
 # MariaDB 5.5.37 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.37) |[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5537-release-notes.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.37) |[Release Notes](../../old-releases/5.5/5.5.37.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 17 Apr 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5537-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.37.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -127,7 +127,7 @@ modified in that revision.
   * rpl tests: move "include/master-slave.inc" down to be after all possible checks that can skip the test
 * [Revision #4118](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4118)\
   Mon 2014-03-24 20:01:37 +0100
-  * [MDEV-5831](https://jira.mariadb.org/browse/MDEV-5831) Upgrade from [MariaDB 5.5.36](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5536-release-notes.md) via yum fails
+  * [MDEV-5831](https://jira.mariadb.org/browse/MDEV-5831) Upgrade from [MariaDB 5.5.36](../../old-releases/5.5/5.5.36.md) via yum fails
 * [Revision #4117](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4117)\
   Wed 2014-03-19 10:03:34 +0100
   * [MDEV-5773](https://jira.mariadb.org/browse/MDEV-5773) symbol list\_add, version libmysqlclient\_18 not defined in file libmysqlclient.so.18 with link time reference [MDEV-5763](https://jira.mariadb.org/browse/MDEV-5763) libmyodbc.so: undefined symbol: int2str [MDEV-5739](https://jira.mariadb.org/browse/MDEV-5739) Symbol missing in libmysqlclient.so.18 (make\_scrambled\_password)

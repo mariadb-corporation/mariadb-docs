@@ -4,13 +4,13 @@ description: >-
   tablespaces, such as those used by the InnoDB storage engine.
 ---
 
-# Information Schema FILE\_KEY\_MANAGEMENT\_KEYS
+# Information Schema FILE\_KEY\_MANAGEMENT\_KEYS Table
 
 {% hint style="info" %}
 This table is available from MariaDB Enterprise Server 11.8.
 {% endhint %}
 
-The `INFORMATION_SCHEMA.FILE_KEY_MANAGEMENT_KEYS` table lists key ID and latest key version for keys managed by the [file\_key\_management](../../../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) plugin. The table's contents can be queried directly, or viewed using the `SHOW FILE_KEY_MANAGEMENT_KEYS` statement.
+The `INFORMATION_SCHEMA.FILE_KEY_MANAGEMENT_KEYS` table lists key ID and latest key version for keys managed by the [file\_key\_management](../../../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin.md) plugin. The table's contents can be queried directly, or viewed using the `SHOW FILE_KEY_MANAGEMENT_KEYS` statement.
 
 You can also can reload the data from the key file into the cache by issuing this statement:
 

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Set or change a user's password. This guide covers the syntax for updating
-  authentication credentials for yourself or other accounts.
+  Complete reference for SET PASSWORD in MariaDB. Complete syntax guide with all
+  options, clauses, and practical examples with comprehensive examples and best.
 ---
 
 # SET PASSWORD

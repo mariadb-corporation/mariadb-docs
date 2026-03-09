@@ -22,7 +22,7 @@ First, check everything listed in the Incompatibilities section of the article r
 
 MariaDB (and also MySQL) allows different versions of the product to co-exist\
 on the same machine, as long as these versions are different either in major or\
-minor version numbers. For example, it is possible to have say [MariaDB 5.1.51](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/mariadb-5151-release-notes)\
+minor version numbers. For example, it is possible to have say [MariaDB 5.1.51](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/5.1.51)\
 and 5.2.6 to be installed on the same machine.
 
 However only a single instance of 5.2 can exist. If for example 5.2.7 is\
@@ -35,7 +35,7 @@ this case special tools are requied. Traditionally, [mysql\_upgrade](../../../cl
 to accomplish this. On Windows, the[MySQL\
 upgrade](https://dev.mysql.com/doc/refman/5.5/en/windows-upgrading.html) is a complicated multiple-step manual process.
 
-Since [MariaDB 5.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/mariadb-526-release-notes), the Windows distribution includes tools that simplify\
+Since [MariaDB 5.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.6), the Windows distribution includes tools that simplify\
 migration between different versions and also allow migration between MySQL and\
 MariaDB.
 

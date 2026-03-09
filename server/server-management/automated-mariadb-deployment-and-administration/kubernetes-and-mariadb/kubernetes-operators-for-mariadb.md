@@ -1,8 +1,8 @@
 ---
 description: >-
-  Explains the role of Kubernetes Operators in automating complex database tasks
-  like provisioning, scaling, and backups, and references available operators
-  for MariaDB.
+  Official Kubernetes Operators for MariaDB: Enterprise Operator for MariaDB
+  Server+MaxScale, CRDs/controllers, HA topologies, and backup/restore
+  automation.
 ---
 
 # Kubernetes Operators for MariaDB

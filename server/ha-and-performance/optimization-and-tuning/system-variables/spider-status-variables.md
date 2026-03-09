@@ -15,7 +15,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 #### `Spider_direct_order_limit`
 
@@ -28,7 +28,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 #### `Spider_mon_table_cache_version`
 
@@ -49,7 +49,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes)
+* Introduced: [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -119,7 +119,7 @@ A package body provides implementations of the package public routines and can o
 ## Examples
 
 ```sql
-SET sql_mode=ORACLE; # unnecessary from MariaDB 11.4
+SET sql_mode=ORACLE;
 DELIMITER $$
 CREATE OR REPLACE PACKAGE employee_tools AS
   FUNCTION getSalary(eid INT) RETURN DECIMAL(10,2);

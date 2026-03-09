@@ -4,6 +4,12 @@ description: A list of all MariaDB Connector/Python releases
 
 # Connector/Python All Releases
 
+## 2.0
+
+| Release                             | Release Date | Release Status         |
+| ----------------------------------- | ------------ | ---------------------- |
+| [2.0.0rc2](2.0/2.0.0rc2.md)         | 2025-03-??   | Release Candidate (RC) |
+
 ## 1.1
 
 | Release                             | Release Date | Release Status         |

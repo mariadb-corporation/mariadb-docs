@@ -1,12 +1,12 @@
 # MariaDB 5.5.38 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.38)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5538-release-notes.md)[Changelog](mariadb-5538-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.38)[Release Notes](../../old-releases/5.5/5.5.38.md)[Changelog](mariadb-5538-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 9 Jun 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5538-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.38.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -104,10 +104,10 @@ modified in that revision.
   * 2 typo fixed
 * [Revision #4192](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4192)\
   Thu 2014-05-22 16:20:56 +0300
-  * [MDEV-6257](https://jira.mariadb.org/browse/MDEV-6257): [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) fails to start with 10.0 InnoDB log files
+  * [MDEV-6257](https://jira.mariadb.org/browse/MDEV-6257): [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) fails to start with 10.0 InnoDB log files
 * [Revision #4191](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4191)\
   Wed 2014-05-21 13:14:43 +0300
-  * [MDEV-6257](https://jira.mariadb.org/browse/MDEV-6257): [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) fails to start with 10.0 InnoDB log files
+  * [MDEV-6257](https://jira.mariadb.org/browse/MDEV-6257): [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) fails to start with 10.0 InnoDB log files
 * [Revision #4190](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4190)\
   Sat 2014-05-17 10:42:59 +0300
   * [MDEV-6245](https://jira.mariadb.org/browse/MDEV-6245) Certain compressed tables with myisampack are corrupted by "CHECK TABLE" - Fixed bug that we where using wrong checksum algorithm when using VARCHAR with fixed lenth rows - Ensure in myisampack that HA\_OPTION\_NULL\_FIELDS is set for tables with null fields.

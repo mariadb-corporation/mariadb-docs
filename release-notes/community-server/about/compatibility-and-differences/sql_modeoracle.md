@@ -1,3 +1,10 @@
+---
+description: >-
+  Documentation for the `ORACLE` SQL mode, which provides extensive
+  compatibility with Oracle Database PL/SQL syntax, data types, and sequences,
+  facilitating migration.
+---
+
 # SQL\_MODE=ORACLE
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/Dn7q74OYovrrC5l3cYgb/" %}
@@ -132,7 +139,7 @@ If one does a [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV
 
 ### Packages
 
-The following syntax has been supported since [MariaDB 10.3.5](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1035-release-notes.md):
+The following syntax has been supported since [MariaDB 10.3.5](../../old-releases/10.3/10.3.5.md):
 
 * [CREATE PACKAGE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-package)
 * [CREATE PACKAGE BODY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-package-body)

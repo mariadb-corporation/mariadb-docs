@@ -1,7 +1,14 @@
+---
+description: >-
+  Instructions for installing the mema-agent application using native OS package
+  managers, including prerequisite steps for creating a local monitor user in
+  MariaDB.
+---
+
 # Agent Installation
 
 {% hint style="warning" %}
-To install `mema-agent`, you need to setup [MariaDB Enterprise Repository - "MariaDB Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#repositories)
+To install `mema-agent`, you need to set up [MariaDB Enterprise Repository - "MariaDB Enterprise Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#repositories).
 {% endhint %}
 
 The `mema-agent` is a small application that must be installed on every server you wish to monitor with MariaDB Enterprise Manager, including MariaDB Server nodes and MaxScale nodes.

@@ -1,10 +1,10 @@
 # MariaDB 5.2.6 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.6) |[Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-526-release-notes.md) |**Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://downloads.askmonty.org/mariadb/5.2.6) |[Release Notes](../../old-releases/5.2/5.2.6.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 12 May 2011
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-526-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.6.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -23,7 +23,7 @@ modified in that revision.
   * Cygwin-specific klugde to workaround missing TEMP/TMP variables.
 * [Revision #2964](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2964) \[merge]\
   Mon 2011-05-09 15:09:40 +0200
-  * Automatic merge [Mariadb 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)->5.2.
+  * Automatic merge [Mariadb 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2.
     * [Revision #2643.127.9](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.9)\
       Mon 2011-05-09 15:06:16 +0200
       * Fix buildbot failure in rpl\_stop\_slave.test.
@@ -121,7 +121,7 @@ modified in that revision.
   * Fixed typo that caused compiler warning
 * [Revision #2953](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2953) \[merge]\
   Tue 2011-05-03 19:11:39 +0300
-  * Automatic merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+  * Automatic merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
     * [Revision #2643.114.76](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.114.76) \[merge]\
       Tue 2011-05-03 18:27:14 +0300
       * Automatic merge
@@ -138,7 +138,7 @@ modified in that revision.
 * portability error in bitmap-t.c ( variable size array in non-portable)
 * [Revision #2952](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2952) \[merge]\
   Tue 2011-05-03 19:10:10 +0300
-  * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+  * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
     * [Revision #2643.114.73](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.114.73) \[merge]\
       Mon 2011-05-02 21:42:52 +0300
       * Automatic merge
@@ -163,7 +163,7 @@ modified in that revision.
           * Merged: revid:ignacio.nin@percona.com-20110427224434-e5a4kpyfwvj641q3
 * [Revision #2951](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2951) \[merge]\
   Tue 2011-04-12 14:26:06 +0200
-  * Merge [Mariadb 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)->5.2
+  * Merge [Mariadb 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2
     * [Revision #2643.114.71](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.114.71)\
       Tue 2011-04-12 13:49:16 +0200
       * [Bug #732124](https://bugs.launchpad.net/bugs/732124): PBXT result file updates that were forgotten when patch was pushed.

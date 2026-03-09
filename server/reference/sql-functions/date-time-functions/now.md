@@ -1,7 +1,8 @@
 ---
 description: >-
-  Return the current date and time. This function returns the current timestamp
-  as a value in 'YYYY-MM-DD HH:MM:SS' or YYYYMMDDHHMMSS format.
+  Complete NOW() function reference: NOW([precision]) and CURRENT_TIMESTAMP
+  synonyms, TIMESTAMP vs DATETIME types, timezone/DST handling, and fractional
+  seconds.
 ---
 
 # NOW
@@ -21,7 +22,7 @@ LOCALTIMESTAMP([precision])
 
 Returns the current date and time as a value in `YYYY-MM-DD HH:MM:SS` or `YYYYMMDDHHMMSS.uuuuuu` format, depending on whether the function is used in a string or numeric context. The value is expressed in the current [time zone](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md).
 
-**MariaDB starting with** [**11.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117)
+**MariaDB starting with** [**11.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
 
 {% tabs %}
 {% tab title="Current" %}

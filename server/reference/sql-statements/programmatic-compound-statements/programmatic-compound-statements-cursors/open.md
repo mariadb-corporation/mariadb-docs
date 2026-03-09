@@ -5,8 +5,16 @@
 {% tabs %}
 {% tab title="Current" %}
 ```sql
-OPEN cursor_name [expression[,...]];
+OPEN cursor_name [[USING variable[,...]] | [expression[,...]]];
 ```
+{% endtab %}
+
+{% tab title="Oracle Mode" %}
+{% code title="-- From MariaDB 12.3" %}
+```sql
+OPEN cursor_variable FOR dynamic_sql_string;
+```
+{% endcode %}
 {% endtab %}
 
 {% tab title="< 10.3" %}

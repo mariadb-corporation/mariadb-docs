@@ -1,7 +1,7 @@
 ---
 description: >-
-  Return a substring. This function extracts a portion of a string starting at a
-  specific position for a given length.
+  Complete SUBSTRING() reference: syntax forms (pos,len, FROM/FOR), negative
+  position from end, NULL handling, and Oracle sql_mode position 0 behavior.
 ---
 
 # SUBSTRING

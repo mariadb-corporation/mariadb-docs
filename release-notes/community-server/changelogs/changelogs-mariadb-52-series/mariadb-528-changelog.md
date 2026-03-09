@@ -1,10 +1,10 @@
 # MariaDB 5.2.8 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.8) |[Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-528-release-notes.md) |**Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://downloads.askmonty.org/mariadb/5.2.8) |[Release Notes](../../old-releases/5.2/5.2.8.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 18 Aug 2011
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-528-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.8.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -94,7 +94,7 @@ modified in that revision.
         * Ensure that the last `--datadir` option is used from the my.cnf files.
       * [Revision #2643.127.30](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.30)\
         Sun 2011-07-24 01:25:28 -0700
-        * Fixes [Bug #805930](https://bugs.launchpad.net/bugs/805930) Sysbench breaks on multiple table test with [MariaDB 5.2.7](../../old-releases/release-notes-mariadb-5-2-series/mariadb-527-release-notes.md) + Aria\
+        * Fixes [Bug #805930](https://bugs.launchpad.net/bugs/805930) Sysbench breaks on multiple table test with [MariaDB 5.2.7](../../old-releases/5.2/5.2.7.md) + Aria\
           The bug happens when one uses `MAX_ROWS=#` with Aria & row\_format=page and one insert more than `#` rows.
   * [Revision #2643.127.29](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.29)\
     Thu 2011-07-21 18:32:44 +0300

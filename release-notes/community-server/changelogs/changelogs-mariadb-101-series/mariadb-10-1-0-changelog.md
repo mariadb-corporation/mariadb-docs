@@ -1,12 +1,12 @@
 # MariaDB 10.1.0 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.0)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-0-release-notes.md)[Changelog](mariadb-10-1-0-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.0)[Release Notes](../../old-releases/10.1/10.1.0.md)[Changelog](mariadb-10-1-0-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 30 Jun 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-0-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.0.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -309,7 +309,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-5335](https://jira.mariadb.org/browse/MDEV-5335): Force PK option. Added a new dynamic configuration variable innodb\_force\_primary\_key default off. If option is true, create table without primary key or unique key where all keyparts are NOT NULL is not accepted. Instead an error message is printed. Variable value can be changed with set global innodb\_force\_primary\_key = .
 * [Revision #e7df30b](https://github.com/MariaDB/server/commit/e7df30b)\
   2014-03-11 07:57:54 +0200
-  * Merge lp:maria/10.0 up to revision 4040 = [MariaDB 10.0.9](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1009-release-notes.md) RC
+  * Merge lp:maria/10.0 up to revision 4040 = [MariaDB 10.0.9](../../old-releases/10.0/10.0.9.md) RC
 * [Revision #c556b9d](https://github.com/MariaDB/server/commit/c556b9d)\
   2014-03-07 08:20:43 +0200
   * Changed so that innodb\_compress\_index pages means that if true also index pages are compressed if false index pages are not compressed.

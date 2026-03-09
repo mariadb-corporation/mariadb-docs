@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # JSON Sample Files
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 ### Expense.json
 
@@ -171,13 +167,13 @@ This storage engine has been deprecated.
 ]
 ```
 
-### OEM example
+### OEM Example
 
 This is an example showing how an OEM table can be implemented. It is out of the scope of this document to explain how it works and to be a full guide on writing OEM tables for CONNECT.
 
 #### tabfic.h
 
-The header File tabfic.h:
+The header File `tabfic.h`:
 
 ```cpp
 // TABFIC.H     Olivier Bertrand    2008-2010
@@ -272,7 +268,7 @@ class FICCOL : public DOSCOL {
 
 #### tabfic.cpp
 
-The source File tabfic.cpp:
+The source File `tabfic.cpp`:
 
 ```cpp
 /*******************************************************************/
@@ -505,7 +501,7 @@ void FICCOL::ReadColumn(PGLOBAL g)
 
 #### tabfic.def
 
-The file tabfic.def: (required only on Windows)
+The file `tabfic.def` (required only on Windows):
 
 ```
 LIBRARY     TABFIC
@@ -514,7 +510,7 @@ EXPORTS
    GetFIC       @1
 ```
 
-### JSON UDFs in a separate library
+### JSON UDFs in a Separate Library
 
 Although the JSON UDF’s can be nicely included in the CONNECT library module, there are cases when you may need to have them in a separate library.
 
@@ -530,7 +526,7 @@ To make it, you need to have access to the last MariaDB source code. Then, make 
 6. maputil.cpp
 7. jsonutil.cpp
 
-jsonutil.cpp is not distributed with the source code, you will have to make it from the following:
+`jsonutil.cpp` is not distributed with the source code, you will have to make it from the following:
 
 ```cpp
 #include "my_global.h"
@@ -607,13 +603,13 @@ void *PlgDBSubAlloc(PGLOBAL g, void *memp, size_t size)
 
 You can create the file by copy/paste from the above.
 
-Set all the additional include directories to the MariaDB include directories used in plugin compiling plus the reference of the storage/connect directories, and compile like any other UDF giving any name to the made library module (I used jsonudf.dll on Windows)
+Set all the additional include directories to the MariaDB include directories used in plugin compiling plus the reference of the storage/connect directories, and compile like any other UDF giving any name to the made library module (I used `jsonudf.dll` on Windows)
 
-Then you can create the functions using this name as the soname parameter.
+Then you can create the functions using this name as the `soname` parameter.
 
 There are some restrictions when using the UDF’s this way:
 
-* The connect\_json\_grp\_size variable cannot be accessed. The group size is set to 100.
+* The `connect_json_grp_size` variable cannot be accessed. The group size is set to 100.
 * In case of error, warnings are replaced by messages sent to stderr.
 * No trace.
 

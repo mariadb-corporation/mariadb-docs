@@ -1,7 +1,7 @@
 ---
 description: >-
-  Learn how to use the mariadb-dump utility to create logical backups of your
-  databases, with options for specific tables and data consistency.
+  Complete MariaDB backup and recovery guide. Complete resource for backup
+  methods, mariabackup usage, scheduling, and restoration for production use.
 ---
 
 # Making Backups with mariadb-dump Guide

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Variable-length character string type. VARCHAR columns store strings of
-  variable length up to a specified maximum (up to 65,535).
+  Complete VARCHAR reference: VARCHAR(M) syntax, length limits (0-65532 per
+  row), CHARACTER SET/COLLATE options, indexing rules, and trailing spaces.
 ---
 
 # VARCHAR

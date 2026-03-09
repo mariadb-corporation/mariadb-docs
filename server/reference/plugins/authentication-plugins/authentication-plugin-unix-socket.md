@@ -1,8 +1,7 @@
 ---
 description: >-
-  The unix_socket plugin authenticates users connecting via the local Unix
-  socket file by matching the operating system user ID to the database user
-  account.
+  Official Unix socket authentication: OS user login via SO_PEERCRED/uid
+  matching, CREATE USER IDENTIFIED VIA unix_socket, and unix_socket force modes.
 ---
 
 # Authentication Plugin - Unix Socket

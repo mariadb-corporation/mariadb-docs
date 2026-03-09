@@ -20,10 +20,10 @@ This page describes the main settings and examines when it makes sense or not to
 
 ## Options and Startup Parameters
 
-First of all, let’s look at what the different options for `innodb_flush_method` mean, and how they map to the new Boolean options that can be changed while the server is running. There are 2 sets of Boolean options, controlling how the InnoDB write-ahead log `ib_logfile0` as well as the persistent data files are written:
+First of all, let’s look at what the different options for `innodb_flush_method` mean, and how they map to the new Boolean options that can be changed while the server is running. Those new options are available from MariaDB 11.0. There are 2 sets of Boolean options, controlling how the InnoDB write-ahead log `ib_logfile0` as well as the persistent data files are written:
 
 1. `innodb_data_file_write_through`, `innodb_log_file_write_through`: Controls if each write is made durable without an additional system call, such as `fdatasync()` or `fsync()`. This can be useful if there is a battery-backed cache, or if the storage stack can make efficient use of FUA[^1].
-2. `innodb_data_file_buffering`, `innodb_log_file_buffering`: Controls if the operating system’s file system cache is used. Those options are disabled by default, to allow efficient writes by DMA[^2] from an aligned memory buffer. Starting with MariaDB Server 10.8, the log block size adapts to the underlying physical block size (typically 512 or 4096 bytes), to avoid an inefficient read-before-write anomaly.
+2. `innodb_data_file_buffering`, `innodb_log_file_buffering`: Controls if the operating system’s file system cache is used. Those options are disabled by default, to allow efficient writes by DMA[^2] from an aligned memory buffer. Starting with MariaDB Server 10.8, the log block size adapts to the underlying physical block size (typically 512 or 4096 bytes), to avoid an inefficient read-before-write anomaly. This is handled via the [`innodb_log_write_ahead_size`](innodb-system-variables.md#innodb_log_write_ahead_size) variable ([MDEV-33894](https://jira.mariadb.org/browse/MDEV-33894)).
 
 The non-default setting `innodb_flush_method=O_DSYNC` disables buffering and enables write-through on all persistent InnoDB files. On suitable hardware, this can provide the best write performance.
 
@@ -31,7 +31,7 @@ The old default setting `innodb_flush_method=fsync` disables write-through and e
 
 The MariaDB Server 10.6 default setting `innodb_flush_method=O_DIRECT`  leaves the new Boolean options at their default values. On Microsoft Windows, this option is also known as `unbuffered` and `async_unbuffered`.
 
-The unsafe setting `innodb_flush_method=O_DIRECT_NO_FSYNC` is treated like `O_DIRECT`. You can disable any use of `fdatasync()` or `fsync()` system calls, but that means you lose all crash-safety guarantees. To do that, set `debug_no_sync=ON`. Starting with MariaDB Server 11.0, this unsafe parameter  affects InnoDB as well.
+The unsafe setting [`innodb_flush_method`](innodb-system-variables.md#innodb_flush_method)`=O_DIRECT_NO_FSYNC` is treated like `O_DIRECT`. You can disable any use of `fdatasync()` or `fsync()` system calls, but that means you lose all crash-safety guarantees. To do that, set [`debug-no-sync`](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#debug-no-sync)`=ON`. Starting with MariaDB Server 11.0, this unsafe parameter  affects InnoDB as well.
 
 ## Behavior Change in MariaDB 10.6
 

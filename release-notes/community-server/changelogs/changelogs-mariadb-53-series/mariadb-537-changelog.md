@@ -1,10 +1,10 @@
 # MariaDB 5.3.7 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/5.3.7) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-537-release-notes.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.mariadb.org/mariadb/5.3.7) |[Release Notes](../../old-releases/5.3/5.3.7.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 **Release date:** 4 May 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-537-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.7.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -124,7 +124,7 @@ modified in that revision.
     * As part of derived tables redesign, values for VIEW\_ALGORITHM\_MERGE and VIEW\_ALGORITHM\_TMPTABLE have changed from (former values 1 rsp 2 , new values 5 rsp 9).
     * This lead to the problem that views, created with version 5.2 or earlier would not work in all situations (e.g "SHOW CREATE VIEW"), or with mysqldump.
     * The fix is to restore backward compatibility for the from file, and convert algorithm={1,2} in the frm to {5,9} when reading .frm from disk, and store backward compatible values when writing from to disk.
-    * Also allow processing correct processing for "invalid" .frms created with [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)/5.5 GA releases (where algorithm stored in memory matched the one stored in frm).
+    * Also allow processing correct processing for "invalid" .frms created with [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)/5.5 GA releases (where algorithm stored in memory matched the one stored in frm).
 * [Revision #3506](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3506)\
   Mon 2012-04-23 09:45:27 +0200
   * [MDEV-207](https://jira.mariadb.org/browse/MDEV-207) Install headers required to build external storage plugins

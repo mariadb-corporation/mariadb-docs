@@ -1,15 +1,15 @@
 ---
 description: >-
-  Modify existing user accounts. Learn how to change authentication plugins,
-  expire passwords, lock accounts, and adjust resource limits for specific
-  users.
+  Complete ALTER USER guide for MariaDB. Complete syntax for modifying
+  authentication, passwords, and account security settings with comprehensive
+  examples and.
 ---
 
 # ALTER USER
 
 ## Syntax
 
-```bnf
+```sql
 ALTER USER [IF EXISTS] 
  user_specification [,user_specification] ...
   [REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
@@ -81,7 +81,7 @@ ALTER USER CURRENT_USER() IDENTIFIED BY 'mariadb';
 
 From MariaDB 10.4, it is possible to use more than one authentication plugin for each user account. For example, this can be useful to slowly migrate users to the more secure ed25519 authentication plugin over time, while allowing the old mysql\_native\_password authentication plugin as an alternative for the transitional period. See [Authentication from MariaDB 10.4](../../../security/user-account-management/authentication-from-mariadb-10-4.md) for more.
 
-When running `ALTER USER`, not specifying an authentication option in the IDENTIFIED VIA clause will remove that authentication method. (However this was not the case before [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10413-release-notes), see [MDEV-21928](https://jira.mariadb.org/browse/MDEV-21928))
+When running `ALTER USER`, not specifying an authentication option in the IDENTIFIED VIA clause will remove that authentication method. (However this was not the case before [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.13), see [MDEV-21928](https://jira.mariadb.org/browse/MDEV-21928))
 
 For example, a user is created with the ability to authenticate via both a password and unix\_socket:
 
@@ -202,7 +202,7 @@ By default, MariaDB transmits data between the server and clients without encryp
 
 To mitigate this concern, MariaDB allows you to encrypt data in transit between the server and clients using the Transport Layer Security (TLS) protocol. TLS was formerly known as Secure Socket Layer (SSL), but strictly speaking the SSL protocol is a predecessor to TLS and, that version of the protocol is now considered insecure. The documentation still uses the term SSL often and for compatibility reasons TLS-related server system and status variables still use the prefix ssl\_, but internally, MariaDB only supports its secure successors.
 
-See [Secure Connections Overview](../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
+See [Secure Connections Overview](../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
 
 You can set certain TLS-related restrictions for specific user accounts. For instance, you might use this with user accounts that require access to sensitive data while sending it across networks that you do not control. These restrictions can be enabled for a user account with the [CREATE USER](create-user.md), [ALTER USER](alter-user.md), or [GRANT](grant.md) statements. The following options are available:
 
@@ -228,7 +228,7 @@ ALTER USER 'alice'@'%'
 
 If any of these options are set for a specific user account, then any client who tries to connect with that user account will have to be configured to connect with TLS.
 
-See [Securing Connections for Client and Server](../../../security/securing-mariadb/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
+See [Securing Connections for Client and Server](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
 
 ## Resource Limit Options
 

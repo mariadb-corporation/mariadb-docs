@@ -1,12 +1,12 @@
 # MariaDB 10.2.20 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.20/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10220-release-notes.md)[Changelog](mariadb-10220-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.20/)[Release Notes](../../old-releases/10.2/10.2.20.md)[Changelog](mariadb-10220-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 24 Dec 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10220-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.20.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -77,7 +77,7 @@ in that revision.
   * cleanup: small simplification
 * [Revision #2ec018b281](https://github.com/MariaDB/server/commit/2ec018b281)\
   2018-12-14 23:07:32 +0100
-  * [MDEV-17953](https://jira.mariadb.org/browse/MDEV-17953) [MariaDB 10.2.19](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10219-release-notes.md) with TokuDB incompatible with Jemalloc 5+
+  * [MDEV-17953](https://jira.mariadb.org/browse/MDEV-17953) [MariaDB 10.2.19](../../old-releases/10.2/10.2.19.md) with TokuDB incompatible with Jemalloc 5+
 * [Revision #f04bbed220](https://github.com/MariaDB/server/commit/f04bbed220)\
   2018-12-14 16:14:30 +0100
   * [MDEV-17755](https://jira.mariadb.org/browse/MDEV-17755) Assertion \`!table || (!table->read\_set || bitmap\_is\_set(table->read\_set, field\_index) || (!(ptr >= table->record\[0] && ptr < table->record\[0] + table->s->reclength)))' failed in Field\_bit::val\_int upon SELECT with JOIN, partitions, indexed virtual column

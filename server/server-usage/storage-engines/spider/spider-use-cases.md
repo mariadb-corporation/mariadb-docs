@@ -69,7 +69,7 @@ KEY (accountName)
 
 ### Create server entries on spider server
 
-While the connection information can also be specified inline in the comment or (from [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes)) as table options, it is cleaner to define a server object representing each remote backend server connection:
+While the connection information can also be specified inline in the comment or (from [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)) as table options, it is cleaner to define a server object representing each remote backend server connection:
 
 ```sql
 CREATE SERVER backend1 FOREIGN DATA WRAPPER MYSQL OPTIONS 
@@ -185,7 +185,7 @@ KEY(accountName)
 ) ;
 ```
 
-With [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) the following partition clause can be used to specify a default partition for all other values, however this must be a distinct partition / shard:
+With [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) the following partition clause can be used to specify a default partition for all other values, however this must be a distinct partition / shard:
 
 ```sql
 PARTITION partition_name DEFAULT

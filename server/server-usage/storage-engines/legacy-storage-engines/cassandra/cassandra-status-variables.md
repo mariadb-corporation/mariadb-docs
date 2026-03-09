@@ -33,7 +33,7 @@ This page documents status variables related to the [Cassandra storage engine](.
 * Description: Number of network exceptions.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1003-release-notes)
+* Introduced: [MariaDB 10.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.3)
 
 #### `Cassandra_row_insert_batches`
 

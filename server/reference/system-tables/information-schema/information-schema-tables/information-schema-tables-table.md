@@ -1,7 +1,8 @@
 ---
 description: >-
-  The Information Schema TABLES table provides metadata about tables in
-  databases, including row counts, storage engines, and creation times.
+  Complete Information Schema TABLES reference: TABLE_ROWS,
+  DATA_LENGTH/INDEX_LENGTH, CREATE_TIME/UPDATE_TIME columns, TEMPORARY='Y', and
+  WHERE clause queries.
 ---
 
 # Information Schema TABLES Table

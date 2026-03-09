@@ -18,7 +18,7 @@ This page has a list of MariaDB features that are not supported in SQL Server. T
 
 * [Storage engines](../../../../server-usage/storage-engines/).
 * [Authentication plugins](../../../../reference/plugins/authentication-plugins/).
-* [Encryption plugins](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/).
+* [Encryption plugins](../../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/).
 * [ColumnStore](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/) is a columnar storage engine designed to scale horizontally. It runs on a specific edition of MariaDB, so currently it cannot be used in combination with other engines.
 
 ## SQL
@@ -63,7 +63,7 @@ For compatibility with some other database systems, MariaDB supports the [JSON](
   * Tables can be partitioned based on [multiple columns](../../../../server-usage/partitioning-tables/partitioning-types/range-columns-and-list-columns-partitioning-types.md).
   * Several [partitioning types](../../../../server-usage/partitioning-tables/partitioning-overview.md#partitioning-types) are available.
   * Subpartitions.
-* [Progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for some typically expensive statements.
+* [Progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for some typically expensive statements.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -17,10 +17,10 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 * Oracle `TO_DATE()` function ([MDEV-19683](https://jira.mariadb.com/browse/MDEV-19683))
 * Support for cursors on prepared statements ([MDEV-33830](https://jira.mariadb.com/browse/MDEV-33830))
 * SQL Standard `SET PATH` statement ([MDEV-34391](https://jira.mariadb.com/browse/MDEV-34391))
-* SQL Standard Global Temporary Tables ([MDEV-35915](https://jira.mariadb.com/browse/MDEV-35915))
 * SQL Standard `IS JSON` predicate ([MDEV-37072](https://jira.mariadb.com/browse/MDEV-37072))
 * Allow `UPDATE`/`DELETE` to read from a CTE ([MDEV-37220](https://jira.mariadb.com/browse/MDEV-37220))
 * Basic XML data type ([MDEV-37261](https://jira.mariadb.com/browse/MDEV-37261))
+* Support for cursors on prepared statements ([MDEV-33830](https://jira.mariadb.org/browse/MDEV-33830))
 
 ### Replication
 
@@ -34,10 +34,16 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 * New hash algorithms for `PARTITION BY KEY` ([MDEV-9826](https://jira.mariadb.com/browse/MDEV-9826))
 * Optimise reorderable LEFT JOINs ([MDEV-36055](https://jira.mariadb.com/browse/MDEV-36055))
 
+## Notable Items
+
+### Galera
+* The Galera package dependency has been removed from server packages and the Galera package is no longer included in the MariaDB repositories ([MDEV-38744](https://jira.mariadb.org/browse/MDEV-38744))
+
 ## List of All MariaDB 12.3 Releases
 
-| Date        | Release              | Status  | Release Notes              | Changelog                                 |
-| ----------- | -------------------- | ------- | -------------------------- | ----------------------------------------- |
-| 22 Dec 2025 | MariaDB 12.3 Preview | Preview |                            |                                           |
+| Date        | Release              | Status      | Release Notes              | Changelog                                 |
+| ----------- | -------------------- | ----------- | -------------------------- | ----------------------------------------- |
+| 12 Feb 2026 | 12.3.1               | RC          | [Release Notes](12.3.1.md) | [Changelog](../changelogs/12.3/12.3.1.md) |
+| 22 Dec 2025 | MariaDB 12.3 Preview | Preview     |                            |                                           |
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}

@@ -49,7 +49,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `TokenBigram`
-* Deprecated: [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-6-release-notes), Mroonga 5.0.4
+* Deprecated: [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6), Mroonga 5.0.4
 
 #### `mroonga_default_tokenizer`
 
@@ -59,7 +59,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: `TokenBigram`
-* Introduced: [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-6-release-notes), Mroonga 5.0.4
+* Introduced: [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6), Mroonga 5.0.4
 
 #### `mroonga_default_wrapper_engine`
 
@@ -87,7 +87,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes), [MariaDB 10.1.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10129-release-notes)
+* Introduced: [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.11), [MariaDB 10.1.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.29)
 
 #### `mroonga_enable_optimization`
 
@@ -106,7 +106,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `ON`
-* Introduced: [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-6-release-notes)
+* Introduced: [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6)
 
 #### `mroonga_libgroonga_support_lz4`
 
@@ -134,7 +134,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes), [MariaDB 10.1.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10129-release-notes)
+* Introduced: [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.11), [MariaDB 10.1.29](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.29)
 
 #### `mroonga_libgroonga_version`
 
@@ -210,7 +210,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: (Empty string)
-* Introduced: [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes)
+* Introduced: [MariaDB 10.2.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.11)
 
 #### `mroonga_vector_column_delimiter`
 

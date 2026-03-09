@@ -1,8 +1,8 @@
 # MariaDB 10.0.25 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.25)[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/mariadb-10025-release-notes)[Changelog](mariadb-10025-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.25)[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/mariadb-10025-release-notes)[Changelog](mariadb-10025-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 30 Apr 2016
 
@@ -293,7 +293,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Use /bin/sh
 * [Revision #e69c6e8](https://github.com/MariaDB/server/commit/e69c6e8)\
   2016-02-18 21:43:19 +0100
-  * [MDEV-9560](https://jira.mariadb.org/browse/MDEV-9560) [Mariadb 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) Crashes when replicating from 10.0
+  * [MDEV-9560](https://jira.mariadb.org/browse/MDEV-9560) [Mariadb 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) Crashes when replicating from 10.0
 * [Revision #96a7e74](https://github.com/MariaDB/server/commit/96a7e74)\
   2016-03-18 00:28:18 +0200
   * Extra space in the result file

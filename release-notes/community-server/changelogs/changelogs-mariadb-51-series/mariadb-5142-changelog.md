@@ -1,10 +1,10 @@
 # MariaDB 5.1.42 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.42) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5142-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.42) | [Release Notes](../../old-releases/5.1/5.1.42.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 01 Feb 2010
 
-See the [MariaDB 5.1.42 Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5142-release-notes.md) for the\
+See the [MariaDB 5.1.42 Release Notes](../../old-releases/5.1/5.1.42.md) for the\
 highlights of this release.
 
 MariaDB-5.1.42 is based on MySQL-5.1.42, and in addition to the changes listed\

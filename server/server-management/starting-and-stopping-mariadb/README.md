@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn how to start and stop MariaDB Server. This section provides essential
-  commands and procedures for controlling your database instance's lifecycle,
-  ensuring proper operation.
+  Complete Starting & Stopping guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage with comprehensive
+  examples and.
 ---
 
 # Starting & Stopping

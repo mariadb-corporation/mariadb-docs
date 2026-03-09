@@ -56,7 +56,7 @@ The [mariadb-binlog](../../clients-and-utilities/logging-tools/mariadb-binlog/) 
 ## See Also
 
 * [Binlog Event Checksum Interoperability](binlog-event-checksum-interoperability.md)
-* [What is MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+* [What is MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

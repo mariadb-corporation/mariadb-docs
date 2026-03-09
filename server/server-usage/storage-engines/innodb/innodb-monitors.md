@@ -14,13 +14,13 @@ There are four types: the standard InnoDB monitor, the InnoDB Lock Monitor, Inno
 
 The standard InnoDB Monitor returns extensive InnoDB information, particularly lock, semaphore, I/O and buffer activity:
 
-To enable the standard InnoDB Monitor, from [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes), set the [innodb\_status\_output](innodb-system-variables.md) system variable to 1. Before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes), running the following statement was the method used:
+To enable the standard InnoDB Monitor, from [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.14), set the [innodb\_status\_output](innodb-system-variables.md) system variable to 1. Before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.14), running the following statement was the method used:
 
 ```sql
 CREATE TABLE innodb_monitor (a INT) ENGINE=INNODB;
 ```
 
-To disable the standard InnoDB monitor, either set the system variable to zero, or, before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes), drop the table
+To disable the standard InnoDB monitor, either set the system variable to zero, or, before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.14), drop the table
 
 ```sql
 DROP TABLE innodb_monitor;
@@ -34,14 +34,14 @@ For a description of the output, see [SHOW ENGINE INNODB STATUS](../../../refere
 
 The InnoDB Lock Monitor displays additional lock information.
 
-To enable the InnoDB Lock Monitor, the standard InnoDB monitor must be enabled. Then, from [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes), set the [innodb\_status\_output\_locks](innodb-system-variables.md) system variable to 1.\
-Before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes), running the following statement was the method used:
+To enable the InnoDB Lock Monitor, the standard InnoDB monitor must be enabled. Then, from [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.14), set the [innodb\_status\_output\_locks](innodb-system-variables.md) system variable to 1.\
+Before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.14), running the following statement was the method used:
 
 ```sql
 CREATE TABLE innodb_lock_monitor (a INT) ENGINE=INNODB;
 ```
 
-To disable the standard InnoDB monitor, either set the system variable to zero, or, before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes), drop the table
+To disable the standard InnoDB monitor, either set the system variable to zero, or, before [MariaDB 10.0.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.14), drop the table
 
 ```sql
 DROP TABLE innodb_lock_monitor;

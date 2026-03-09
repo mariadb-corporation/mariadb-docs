@@ -1,12 +1,12 @@
 # MariaDB 10.2.37 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download 10.2.37](https://downloads.mariadb.org/mariadb/10.2.37/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10237-release-notes.md)[Changelog](mariadb-10237-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download 10.2.37](https://downloads.mariadb.org/mariadb/10.2.37/)[Release Notes](../../old-releases/10.2/10.2.37.md)[Changelog](mariadb-10237-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 22 Feb 2021
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10237-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.37.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -371,7 +371,7 @@ in that revision.
   * [MDEV-16341](https://jira.mariadb.org/browse/MDEV-16341) Wrong length for USER columns in performance\_schema tables
 * [Revision #ad9a140d9b](https://github.com/MariaDB/server/commit/ad9a140d9b)\
   2021-01-10 20:35:27 +0100
-  * [MDEV-14884](https://jira.mariadb.org/browse/MDEV-14884) Failed to enable encryption of temporary files in [mariadb 10.3.3](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes.md)
+  * [MDEV-14884](https://jira.mariadb.org/browse/MDEV-14884) Failed to enable encryption of temporary files in [mariadb 10.3.3](../../old-releases/10.3/10.3.3.md)
 * [Revision #0d8bd7cc3a](https://github.com/MariaDB/server/commit/0d8bd7cc3a)\
   2021-01-10 00:57:02 +0100
   * [MDEV-18428](https://jira.mariadb.org/browse/MDEV-18428) Memory: If transactional=0 is specified in CREATE TABLE, it is not possible to ALTER TABLE
@@ -473,7 +473,7 @@ in that revision.
   * [MDEV-24444](https://jira.mariadb.org/browse/MDEV-24444): ASAN use-after-poison in Item\_func\_in::get\_func\_mm\_tree with NOT IN
 * [Revision #dfe8ef8bd8](https://github.com/MariaDB/server/commit/dfe8ef8bd8)\
   2020-04-21 18:40:15 +0200
-  * [MDEV-22630](https://jira.mariadb.org/browse/MDEV-22630) mysql\_upgrade ([MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md).X --> [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md).X) does not fix auth\_string to change it to authentication\_string
+  * [MDEV-22630](https://jira.mariadb.org/browse/MDEV-22630) mysql\_upgrade ([MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md).X --> [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md).X) does not fix auth\_string to change it to authentication\_string
 * [Revision #6f40d5c8d6](https://github.com/MariaDB/server/commit/6f40d5c8d6)\
   2020-12-16 20:12:04 +0100
   * Item\_func\_like::walk() was ignoring escape\_item

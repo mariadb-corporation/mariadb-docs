@@ -1,7 +1,7 @@
 ---
 description: >-
-  Export query results to a text file. This statement writes rows to a file on
-  the server, allowing customization of field and line terminators.
+  Complete guide to SELECT queries in MariaDB. Complete syntax reference for
+  joins, subqueries, WHERE clauses, GROUP BY, and aggregate functions.
 ---
 
 # SELECT INTO OUTFILE

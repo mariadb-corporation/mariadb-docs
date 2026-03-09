@@ -1,7 +1,8 @@
 ---
 description: >-
-  Learn to connect, create databases, and execute fundamental SQL commands like
-  INSERT, SELECT, and UPDATE.
+  Complete MariaDB basics guide: connect with mariadb -u/-p/-h, CREATE
+  DATABASE/USE, CREATE TABLE with AUTO_INCREMENT, INSERT/SELECT/UPDATE/DELETE
+  commands.
 ---
 
 # Basics Guide

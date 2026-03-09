@@ -1,19 +1,5 @@
 ---
 icon: chart-mixed
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # HA & DR
@@ -34,4 +20,12 @@ Configures and implements cross-region or multi-cloud disaster recovery with Glo
 
 {% content-ref url="setup-global-replication.md" %}
 [setup-global-replication.md](setup-global-replication.md)
+{% endcontent-ref %}
+
+## Synchronous Replication
+
+Set up cross-region or multi-cloud disaster recovery with Global Replication. This involves automating backup restoration, deploying necessary services, and configuring replication across different regions or cloud providers to maintain high availability and ensure failover beyond a single region.
+
+{% content-ref url="../quickstart/enterprise-cluster.md" %}
+[enterprise-cluster.md](../quickstart/enterprise-cluster.md)
 {% endcontent-ref %}

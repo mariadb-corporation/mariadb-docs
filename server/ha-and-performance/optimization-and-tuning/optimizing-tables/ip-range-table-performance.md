@@ -111,7 +111,7 @@ Notes on the [reference implementation for IPv6](https://mysql.rjweb.org/doc.php
 * You may need to decide on a canonical representation of IPv4 in IPv6.\
   See the comments in the code for more details.
 
-The INET6\* functions were first available in MySQL 5.6.3 and [MariaDB 10.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1003-release-notes)
+The INET6\* functions were first available in MySQL 5.6.3 and [MariaDB 10.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.3)
 
 Adapting to a different non-IP 'address range' data
 

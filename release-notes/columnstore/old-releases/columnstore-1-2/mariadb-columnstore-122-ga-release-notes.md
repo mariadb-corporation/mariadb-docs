@@ -11,7 +11,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-1952](https://jira.mariadb.org/browse/MCOL-1952) - The base MariaDB server version is now [10.3.11](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10311-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-1952](https://jira.mariadb.org/browse/MCOL-1952) - The base MariaDB server version is now [10.3.11](../../../community-server/old-releases/10.3/10.3.11.md) which include several maintenance and security fixes.
 * [MCOL-1847](https://jira.mariadb.org/browse/MCOL-1847) - NumBlocksPct and TotalUmMemory can take fixed memory sizes instead of percentages
 * [MCOL-1739](https://jira.mariadb.org/browse/MCOL-1739) - mcsapi has been split into separate packages for every programming language
 * [MCOL-1890](https://jira.mariadb.org/browse/MCOL-1890) - The kafka package has been renamed

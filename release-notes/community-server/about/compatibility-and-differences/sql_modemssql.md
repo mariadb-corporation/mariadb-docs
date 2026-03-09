@@ -1,3 +1,10 @@
+---
+description: >-
+  Documentation for the `MSSQL` SQL mode, which enables a subset of Microsoft
+  SQL Server syntax and behavior compatibility in MariaDB, such as using
+  brackets `[]` for quoting.
+---
+
 # SQL\_MODE=MSSQL
 
 `SET SQL_MODE=MSSQL` implies all the following [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) flags:

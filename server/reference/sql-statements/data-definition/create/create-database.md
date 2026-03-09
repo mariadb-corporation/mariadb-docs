@@ -1,7 +1,7 @@
 ---
 description: >-
-  Create a new database container. This command initializes a new database
-  namespace with optional character set and collation settings.
+  Complete reference for CREATE DATABASE in MariaDB. Complete syntax guide with
+  all options, clauses, and practical examples with comprehensive examples and.
 ---
 
 # CREATE DATABASE

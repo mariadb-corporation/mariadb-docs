@@ -49,9 +49,9 @@ ALTER DATABASE `#mysql50#a-b-c` UPGRADE DATA DIRECTORY NAME;
 After executing this statement, you can refer to the database as a-b-c without the special `#mysql50` prefix.
 
 {% hint style="info" %}
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
+**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
-From [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes), it is possible to add a comment of a maximum of 1024 bytes. If the comment length exceeds this length, a error/warning code 4144 is thrown. The database comment is also added to the db.opt file, as well as to the [information\_schema.schemata table](../../../system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md).
+From [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0), it is possible to add a comment of a maximum of 1024 bytes. If the comment length exceeds this length, a error/warning code 4144 is thrown. The database comment is also added to the db.opt file, as well as to the [information\_schema.schemata table](../../../system-tables/information-schema/information-schema-tables/information-schema-schemata-table.md).
 {% endhint %}
 
 ## Examples

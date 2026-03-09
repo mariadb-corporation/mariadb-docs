@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 **Release date:** 22 Mar 2017
 
 MariaDB Galera Cluster 10.0.30 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 10.0.30](../../release-notes-mariadb-10-0-series/mariadb-10030-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 10.0.30](../../10.0/10.0.30.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -15,7 +15,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 
 For a list of changes made in MariaDB Galera Cluster 10.0.30, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.30 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10030-changelog.md).\
-For changes made in [MariaDB 10.0.30](../../release-notes-mariadb-10-0-series/mariadb-10030-release-notes.md), see the [MariaDB 10.0.30 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10030-changelog.md)
+For changes made in [MariaDB 10.0.30](../../10.0/10.0.30.md), see the [MariaDB 10.0.30 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10030-changelog.md)
 
 ## Updates and fixes in this version
 
@@ -25,10 +25,10 @@ For changes made in [MariaDB 10.0.30](../../release-notes-mariadb-10-0-series/ma
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.19.
 * As per the [MariaDB Deprecation Policy](../../../about/platform-deprecation-policy.md), this will be the last release of MariaDB Galera Cluster 10.0 for Fedora 23, CentOS 5, RHEL 5, and openSUSE 13
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2017-3313](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3313)
   * [CVE-2017-3302](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3302)
-* See the [MariaDB 10.0.30 Release Notes](../../release-notes-mariadb-10-0-series/mariadb-10030-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10030-changelog.md) for more information on the changes in\
+* See the [MariaDB 10.0.30 Release Notes](../../10.0/10.0.30.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10030-changelog.md) for more information on the changes in\
   MariaDB.
 
 ## Notes

@@ -1,12 +1,12 @@
 # MariaDB 10.0.29 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.29)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10029-release-notes.md)[Changelog](mariadb-10029-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.29)[Release Notes](../../old-releases/10.0/10.0.29.md)[Changelog](mariadb-10029-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 13 Jan 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10029-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.29.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -181,7 +181,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-11317](https://jira.mariadb.org/browse/MDEV-11317): \`\`! is\_set()' or `!is_set() || (m_status == DA_OK_BULK && is_bulk_op())'` fails in `Diagnostics_area::set_ok_status` on CREATE OR REPLACE with ARCHIVE table
 * [Revision #eaf6b05](https://github.com/MariaDB/server/commit/eaf6b05)\
   2017-01-04 22:41:43 +0100
-  * [MDEV-11087](https://jira.mariadb.org/browse/MDEV-11087) Search path for my.ini is wrong for default installation Add \<install\_root>/data/my.ini to the search path - this my.ini location is used since [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+  * [MDEV-11087](https://jira.mariadb.org/browse/MDEV-11087) Search path for my.ini is wrong for default installation Add \<install\_root>/data/my.ini to the search path - this my.ini location is used since [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 * [Revision #82b8741](https://github.com/MariaDB/server/commit/82b8741)\
   2017-01-04 22:50:48 +0100
   * Windows : use meaningful DEFAULT\_MYSQL\_HOME - base directory for the default installation.
@@ -236,7 +236,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Revert "[MDEV-10713](https://jira.mariadb.org/browse/MDEV-10713): signal 11 error on multi-table update - crash in `handler::increment_statistics` or in make\_select or assertion failure `pfs_thread == ((PFS_thread*) pthread_getspecific((THR_PFS)))"`
 * [Revision #f5e0522](https://github.com/MariaDB/server/commit/f5e0522)\
   2016-12-07 13:06:14 +0100
-  * [MDEV-10388](https://jira.mariadb.org/browse/MDEV-10388) [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md).x keeps (deleted) ML\* files in tmpdir after LOAD DATA completes
+  * [MDEV-10388](https://jira.mariadb.org/browse/MDEV-10388) [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md).x keeps (deleted) ML\* files in tmpdir after LOAD DATA completes
 * [Revision #1d702ff](https://github.com/MariaDB/server/commit/1d702ff)\
   2016-12-07 14:42:08 +0400
   * [MDEV-8329](https://jira.mariadb.org/browse/MDEV-8329) MariaDB crashes when replicate\_wild\_ignore\_table is set to NULL.
@@ -326,7 +326,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Remove labs() warning from maria and myisam storage engines
 * [Revision #748d993](https://github.com/MariaDB/server/commit/748d993)\
   2016-11-29 11:28:15 -0800
-  * Fixed bug [MDEV-11364](https://jira.mariadb.org/browse/MDEV-11364). The function `Item_func_isnull::update_used_tables()` must handle the case when the predicate is over not nullable column in a special way. This is actually a bug of [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)/5.5, but it's probably hard to demonstrate that it can cause problems there.
+  * Fixed bug [MDEV-11364](https://jira.mariadb.org/browse/MDEV-11364). The function `Item_func_isnull::update_used_tables()` must handle the case when the predicate is over not nullable column in a special way. This is actually a bug of [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)/5.5, but it's probably hard to demonstrate that it can cause problems there.
 * [Revision #b209bc3](https://github.com/MariaDB/server/commit/b209bc3)\
   2016-11-29 09:01:46 +0200
   * [MDEV-10427](https://jira.mariadb.org/browse/MDEV-10427): innodb.innodb-wl5522-debug-zip fails sporadically in buildbot

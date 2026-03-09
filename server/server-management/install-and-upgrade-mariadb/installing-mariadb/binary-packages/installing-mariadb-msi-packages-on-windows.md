@@ -1,7 +1,7 @@
 ---
 description: >-
-  Step-by-step instructions for installing MariaDB on Windows using the MSI
-  installer, covering service configuration and security settings.
+  Complete MariaDB installation guide. Complete setup instructions for Linux,
+  Windows, and macOS with configuration and verification for production use.
 ---
 
 # Installing MariaDB MSI Packages on Windows
@@ -45,7 +45,7 @@ This dialog is shown if you selected the _Database instance_ feature. Here, you 
 
 * Install as service.
 * Defines whether the database should be run as a service. If it should be run as a service, then it also defines the service name. It is recommended to run your database instance as a service as it greatly\
-  simplifies database management. In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, the default service name used by the MSI installer is "MariaDB". In 10.3 and before, the default service name used by the MSI installer is "MySQL". Note that the default service name for the [--install](../../../starting-and-stopping-mariadb/mariadbd-options.md#install) and [--install-manual](../../../starting-and-stopping-mariadb/mariadbd-options.md#install-manual) options for `mysqld.exe` is "MySQL" in all versions of MariaDB.
+  simplifies database management. In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, the default service name used by the MSI installer is "MariaDB". In 10.3 and before, the default service name used by the MSI installer is "MySQL". Note that the default service name for the [--install](../../../starting-and-stopping-mariadb/mariadbd-options.md#install) and [--install-manual](../../../starting-and-stopping-mariadb/mariadbd-options.md#install-manual) options for `mysqld.exe` is "MySQL" in all versions of MariaDB.
 * Enable Networking.
 * Whether to enable TCP/IP (recommended) and which port MariaDB should listen to. If security is a concern, you can change the [bind-address](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#bind_address) parameter post-installation to bind to only local addresses. If the "Enable networking" checkbox is deselected, the database will use named pipes for\
   communication.

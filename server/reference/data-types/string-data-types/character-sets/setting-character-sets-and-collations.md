@@ -1,7 +1,7 @@
 ---
 description: >-
-  Learn how to configure character sets and collations at the server, table, and
-  column levels to ensure correct data handling.
+  Complete Setting Character Sets and Collations data type guide for MariaDB.
+  Complete reference for syntax, valid values, storage requirements, and range.
 ---
 
 # Setting Character Sets and Collations
@@ -17,6 +17,12 @@ The default [character set](./) is `latin1` and the default collation is `latin1
 This may differ in some distros, see for example [Differences in MariaDB in Debian](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md).
 {% endtab %}
 {% endtabs %}
+
+{% hint style="warning" %}
+In MariaDB 11.6, the default character set changed from `latin1` to `utf8mb4`.
+
+When upgrading to 11.6 or above from a previous release series, this can lead to behavior different from what you've been seeing in the old version.
+{% endhint %}
 
 The character sets and the collations can be specified from the server right down to the column level, as well as for client-server connections. When changing a character set and not specifying a collation, the default collation for the new character set is always used.
 

@@ -1,10 +1,10 @@
 # MariaDB 5.3.6 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.6) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-536-release-notes.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.askmonty.org/mariadb/5.3.6) |[Release Notes](../../old-releases/5.3/5.3.6.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 **Release date:** 9 Apr 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-536-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.6.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -340,7 +340,7 @@ modified in that revision.
   * [Revision #2732.53.16](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.53.16)\
     Fri 2012-03-09 15:37:16 -0800
     * Fixed [Bug #930814](https://bugs.launchpad.net/bugs/930814).
-    * This bug was introduced into [mariadb 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md) in the December 2010 with\
+    * This bug was introduced into [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) in the December 2010 with\
       the patch that added a new engine property: the ability to support\
       virtual columns.
     * As a result of this bug the information from frm files for tables\

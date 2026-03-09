@@ -216,7 +216,7 @@ details of the revision and view diffs of the code modified in that revision.
   * compilation error
 * [Revision #f65ba9aeb7](https://github.com/MariaDB/server/commit/f65ba9aeb7)\
   2019-04-17 15:50:59 +0200
-  * [MDEV-17124](https://jira.mariadb.org/browse/MDEV-17124): [mariadb 10.1.34](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10134-release-notes.md), views and prepared statements: ERROR 1615 (HY000): Prepared statement needs to be re-prepared
+  * [MDEV-17124](https://jira.mariadb.org/browse/MDEV-17124): [mariadb 10.1.34](../../old-releases/10.1/10.1.34.md), views and prepared statements: ERROR 1615 (HY000): Prepared statement needs to be re-prepared
 * [Revision #98e62e6317](https://github.com/MariaDB/server/commit/98e62e6317)\
   2018-11-13 09:12:55 +0100
   * Better declaration of the buffer size

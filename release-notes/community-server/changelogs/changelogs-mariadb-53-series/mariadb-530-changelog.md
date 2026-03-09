@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
 (page:`1 [2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)`\
 ) |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
@@ -869,7 +869,7 @@
     of st\_select\_lex\_unit::set\_limit that sets the value of\
     JOIN::unit->select\_limit\_cnt.
 
-[MariaDB 5.3.0](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) Changelog — page:`1 [2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)`
+[MariaDB 5.3.0](../../old-releases/5.3/5.3.0.md) Changelog — page:`1 [2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)`
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

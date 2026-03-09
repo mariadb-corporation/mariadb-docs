@@ -11,7 +11,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-3398](https://jira.mariadb.org/browse/MCOL-3398) - The base MariaDB server version is now [10.3.16](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10316-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-3398](https://jira.mariadb.org/browse/MCOL-3398) - The base MariaDB server version is now [10.3.16](../../../community-server/old-releases/10.3/10.3.16.md) which include several maintenance and security fixes.
 * [MCOL-3395](https://jira.mariadb.org/browse/MCOL-3395) - Critical regression in the dictionary storage of 1.2.4 fixed.
 
 ## Bugs and issues fixed
@@ -36,7 +36,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-3343](https://jira.mariadb.org/browse/MCOL-3343) - Window Functions don't work with arithmetic operators or other functions
 * [MCOL-1968](https://jira.mariadb.org/browse/MCOL-1968) - wrong string comparisation after dataimport and extents
 * [MCOL-1989](https://jira.mariadb.org/browse/MCOL-1989) - Querying view results in internal error: column is not found in info map
-* [MCOL-3398](https://jira.mariadb.org/browse/MCOL-3398) - Rebase 1.2 on [MariaDB 10.3.16](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10316-release-notes.md)
+* [MCOL-3398](https://jira.mariadb.org/browse/MCOL-3398) - Rebase 1.2 on [MariaDB 10.3.16](../../../community-server/old-releases/10.3/10.3.16.md)
 
 In addition, all bugs fixed in MariaDB ColumnStore 1.2.4 and earlier are implicitly included in this release.
 

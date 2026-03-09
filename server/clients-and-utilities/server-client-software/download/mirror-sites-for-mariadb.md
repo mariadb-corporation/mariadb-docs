@@ -156,7 +156,7 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 ### Chile
 
-- Insacom (Valparaíso)
+- Insacom (Santiago de Chile)
 
 ### China - 中国
 
@@ -350,10 +350,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Uruguay
 
 - Universidad de la República - Facultad de Derecho (Montevideo)
-
-### Vietnam
-
-- BKNS.VN (Hanoi)
 
 ## The MariaDB Archive
 

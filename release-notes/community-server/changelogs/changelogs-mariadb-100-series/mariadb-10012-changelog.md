@@ -1,12 +1,12 @@
 # MariaDB 10.0.12 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.12)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10012-release-notes.md)[Changelog](mariadb-10012-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.12)[Release Notes](../../old-releases/10.0/10.0.12.md)[Changelog](mariadb-10012-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 16 Jun 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10012-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.12.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -23,7 +23,7 @@ modified in that revision.
   * [MDEV-5995](https://jira.mariadb.org/browse/MDEV-5995) MySQL Bug#12750920: EMBEDDED SERVER START/STOP. Some variables weren't cleared properly so consequitive embedded server start/stop failed. Cleanups added. Also mysql\_client\_test.c extended to test that (taken from Mattias Johnson's patch)
 * [Revision #4249](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4249)\
   Wed 2014-06-11 10:09:29 +0200
-  * [MDEV-6253](https://jira.mariadb.org/browse/MDEV-6253) MySQL Users Break when Migrating from MySQL 5.1 to [MariaDB 10.0.10](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md)
+  * [MDEV-6253](https://jira.mariadb.org/browse/MDEV-6253) MySQL Users Break when Migrating from MySQL 5.1 to [MariaDB 10.0.10](../../old-releases/10.0/10.0.10.md)
 * [Revision #4248](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4248)\
   Wed 2014-06-11 10:09:24 +0200
   * [MDEV-6065](https://jira.mariadb.org/browse/MDEV-6065) MySQL Bug#13623473 "MISSING ROWS ON SELECT AND JOIN WITH TIME/DATETIME COMPARE
@@ -117,7 +117,7 @@ modified in that revision.
   * revert tokudb changes that caused crashes
 * [Revision #4231](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4231) \[merge]\
   Fri 2014-06-06 00:07:27 +0200
-  * [MariaDB 5.5.38](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5538-release-notes.md) merge
+  * [MariaDB 5.5.38](../../old-releases/5.5/5.5.38.md) merge
 * [Revision #4230](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4230) \[merge]\
   Thu 2014-06-05 16:05:08 +0200
   * pcre-8.35
@@ -150,7 +150,7 @@ modified in that revision.
   * [MDEV-6243](https://jira.mariadb.org/browse/MDEV-6243) mysql\_install\_db or mysql\_upgrade fails when default\_engine=archive
 * [Revision #4222](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4222)\
   Thu 2014-06-05 09:03:55 +0200
-  * [MDEV-6258](https://jira.mariadb.org/browse/MDEV-6258) [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) performance schema timestamps relative to epoch
+  * [MDEV-6258](https://jira.mariadb.org/browse/MDEV-6258) [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) performance schema timestamps relative to epoch
 * [Revision #4221](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4221)\
   Wed 2014-06-04 13:23:00 +0300
   * Fixed compiler warnings

@@ -13,14 +13,14 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-1206](https://jira.mariadb.org/browse/MCOL-1206) - The base MariaDB server version is now [10.1.31](../../../community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10131-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-1206](https://jira.mariadb.org/browse/MCOL-1206) - The base MariaDB server version is now [10.1.31](../../../community-server/old-releases/10.1/10.1.31.md) which include several maintenance and security fixes.
 * [MCOL-1085](https://jira.mariadb.org/browse/MCOL-1085) - MariaDB ColumnStore will automatically generate and save stack traces if a process crashes
 
 ## Bugs and issues fixed
 
 * [MCOL-1085](https://jira.mariadb.org/browse/MCOL-1085) - Add automatic stack trace to ColumnStore binaries
 * [MCOL-1106](https://jira.mariadb.org/browse/MCOL-1106) - multi-node install fails, mysqld didnt startup in time
-* [MCOL-1206](https://jira.mariadb.org/browse/MCOL-1206) - Merge [MariaDB 10.1.31](../../../community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10131-release-notes.md)
+* [MCOL-1206](https://jira.mariadb.org/browse/MCOL-1206) - Merge [MariaDB 10.1.31](../../../community-server/old-releases/10.1/10.1.31.md)
 * [MCOL-1086](https://jira.mariadb.org/browse/MCOL-1086) - ssh certificates aren't used in postConfigure nonDistributed installation with DataRedundancy between PMs enabled.
 * [MCOL-1114](https://jira.mariadb.org/browse/MCOL-1114) - Set cpack deb minimum version to 3.4
 

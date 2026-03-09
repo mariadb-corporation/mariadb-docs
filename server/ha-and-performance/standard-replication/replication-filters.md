@@ -19,7 +19,7 @@ MariaDB provides options that can be used on a [replication primary](replication
 
 ### Binary Log Filter Options
 
-The following options are available, and they are evaluated in the order that they are listed below. If there are conflicting settings, _binlog\_do\_db_ prevails. Before [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes), they are only available as options; from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes) they are also available as system variables.
+The following options are available, and they are evaluated in the order that they are listed below. If there are conflicting settings, _`binlog_do_db`_ prevails. Before [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), they are only available as options; from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0) they are also available as system variables.
 
 #### `binlog_do_db`
 
@@ -31,7 +31,7 @@ This option cannot be set dynamically.
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 binlog_do_db=db1
@@ -93,7 +93,7 @@ Until [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 replicate_rewrite_db=db1->db3
@@ -128,7 +128,7 @@ START SLAVE;
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 replicate_do_db=db1
@@ -164,7 +164,7 @@ START SLAVE;
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 replicate_ignore_db=db1
@@ -204,7 +204,7 @@ START SLAVE;
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 replicate_do_table=db1.tab
@@ -239,7 +239,7 @@ START SLAVE;
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 replicate_ignore_table=db1.tab
@@ -288,7 +288,7 @@ START SLAVE;
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 replicate_wild_do_table=db%.tab%
@@ -335,7 +335,7 @@ START SLAVE;
 
 When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times. For example:
 
-```
+```ini
 [mariadb]
 ...
 replicate_wild_ignore_table=db%.tab%
@@ -385,7 +385,7 @@ START SLAVE;
 
 If you are using [multi-source replication](multi-source-replication.md) and if you would like to make this filter persist server restarts by adding it to a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), then the option file can also include the connection name that each filter would apply to. For example:
 
-```
+```ini
 [mariadb]
 ...
 gandalf.replicate_do_db=database1

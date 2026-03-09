@@ -1,7 +1,7 @@
 ---
 description: >-
-  Learn the fundamentals of table partitioning in MariaDB, including its
-  benefits for performance, maintenance, and managing large datasets.
+  Complete Partitioning Overview guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage for production use.
 ---
 
 # Partitioning Overview

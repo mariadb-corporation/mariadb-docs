@@ -1,12 +1,12 @@
 # MariaDB 5.5.29 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.29) | [Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5529-release-notes.md) | **Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.29) | [Release Notes](../../old-releases/5.5/5.5.29.md) | **Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 30 Jan 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5529-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.29.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -21,7 +21,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * fix embedded build with for cmake 2.6.2 (older cmake could not handle IF(NOT MATCHES)
 * [Revision #3651](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3651)\
   Mon 2013-01-28 15:13:39 +0200
-  * Fix for [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948), and backport of the following collection of fixes and backports from [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md).
+  * Fix for [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948), and backport of the following collection of fixes and backports from [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md).
   * The bug in [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948) was an instance of the problem fixed by Sergey's patch in 10.0 - namely that the range optimizer could change table->\[read | write]\_set, and not restore it.
   * revno: 3471 committer: Sergey Petrunya [psergey@askmonty.org](mailto:psergey@askmonty.org) branch nick: 10.0-serg-fix-imerge timestamp: Sat 2012-11-03 12:24:36 +0400 message:
 

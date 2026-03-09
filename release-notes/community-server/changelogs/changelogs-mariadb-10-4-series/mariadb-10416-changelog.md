@@ -1,12 +1,12 @@
 # MariaDB 10.4.16 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-34-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download 10.4.16](https://downloads.mariadb.org/mariadb/10.4.16/)[Release Notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10416-release-notes.md)[Changelog](mariadb-10416-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download 10.4.16](https://downloads.mariadb.org/mariadb/10.4.16/)[Release Notes](../../old-releases/10.4/10.4.16.md)[Changelog](mariadb-10416-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
 
 **Release date:** 3 Nov 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10416-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.4/10.4.16.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -86,7 +86,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-20945](https://jira.mariadb.org/browse/MDEV-20945): BACKUP UNLOCK + FTWRL assertion failure
 * [Revision #ac8d205795](https://github.com/MariaDB/server/commit/ac8d205795)\
   2020-04-16 00:44:20 +0900
-  * [MDEV-20100](https://jira.mariadb.org/browse/MDEV-20100) [MariaDB 10.3.9](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes.md) Crash "\[ERROR] mysqld got signal 11 ;"
+  * [MDEV-20100](https://jira.mariadb.org/browse/MDEV-20100) [MariaDB 10.3.9](../../old-releases/10.3/10.3.9.md) Crash "\[ERROR] mysqld got signal 11 ;"
 * [Revision #fdf87973cb](https://github.com/MariaDB/server/commit/fdf87973cb)\
   2020-10-15 09:24:01 +0200
   * [MDEV-23081](https://jira.mariadb.org/browse/MDEV-23081) Stray XA transactions at startup, with wsrep\_on=OFF

@@ -1,10 +1,10 @@
 # MariaDB 10.0.15 Fusion-io Changelog
 
-[Download](https://archive.mariadb.org/mariadb-10.0.15-FusionIO/) | [Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10015-fusion-io-release-notes.md) | [Changelog](mariadb-10015-fusion-io-changelog.md) | [Fusion-io Introduction](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/fusion-io/fusion-io-introduction)
+[Download](https://archive.mariadb.org/mariadb-10.0.15-FusionIO/) | [Release Notes](../../old-releases/10.0/10.0.15-fusion-io.md) | [Changelog](mariadb-10015-fusion-io-changelog.md) | [Fusion-io Introduction](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/fusion-io/fusion-io-introduction)
 
 **Release date:** 12 Dec 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10015-fusion-io-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.15-fusion-io.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -24,7 +24,7 @@ modified in that revision.
   * Fix buildbot valgrind errors on test innodb.innodb-page\_compression\_tables
 * [Revision #4005](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/4005) \[merge]\
   Mon 2014-12-01 11:52:51 +0200
-  * Merge [MariaDB 10.0.15](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10015-release-notes.md) from lp:maria/10.0 up to revision 4521
+  * Merge [MariaDB 10.0.15](../../old-releases/10.0/10.0.15.md) from lp:maria/10.0 up to revision 4521
 * [Revision #4004](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/4004)\
   Mon 2014-11-24 12:08:45 +0200
   * [MDEV-7166](https://jira.mariadb.org/browse/MDEV-7166): innodb.innodb-page\_compression\_zip fails in buildbot
@@ -48,10 +48,10 @@ modified in that revision.
   * [MDEV-6648](https://jira.mariadb.org/browse/MDEV-6648): InnoDB: Add support for 4K sector size if supported
 * [Revision #3997](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3997) \[merge]\
   Mon 2014-10-20 11:34:21 +0300
-  * Merge [MariaDB 10.0.14](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes.md) from lp:maria/10.0 up to revision 4116.
+  * Merge [MariaDB 10.0.14](../../old-releases/10.0/10.0.14.md) from lp:maria/10.0 up to revision 4116.
 * [Revision #3996](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3996) \[merge]\
   Tue 2014-09-23 12:46:21 +0300
-  * Merge [MariaDB 10.0.13](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10013-release-notes.md) i.e. lp:maria/10.0 up to revision 4346.
+  * Merge [MariaDB 10.0.13](../../old-releases/10.0/10.0.13.md) i.e. lp:maria/10.0 up to revision 4346.
 * [Revision #3995](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3995)\
   Wed 2014-08-27 15:39:05 +0300
   * Fix small error on LZMA compression failure error message.
@@ -60,7 +60,7 @@ modified in that revision.
   * [MDEV-6548](https://jira.mariadb.org/browse/MDEV-6548): Incorrect compression on LZMA.
 * [Revision #3993](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3993)\
   Thu 2014-07-31 11:47:21 +0300
-  * Merge [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) -> 10.0-FusionIO
+  * Merge [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) -> 10.0-FusionIO
 * [Revision #3992](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3992)\
   Wed 2014-07-23 12:03:48 +0300
   * Fix default value for innodb-compression-algorithm to be 0 (uncompressed) to avoid test failures.
@@ -69,7 +69,7 @@ modified in that revision.
   * [MDEV-6354](https://jira.mariadb.org/browse/MDEV-6354): mplement a way to read MySQL 5.7.4-labs-tplc page compression format (Fusion-IO).
 * [Revision #3990](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3990) \[merge]\
   Sat 2014-06-28 13:10:57 +0300
-  * Merge lp:maria/10.0 up to [MariaDB 10.0.12](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10012-release-notes.md) i.e. revision 4252.
+  * Merge lp:maria/10.0 up to [MariaDB 10.0.12](../../old-releases/10.0/10.0.12.md) i.e. revision 4252.
 * [Revision #3989](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3989)\
   Fri 2014-06-27 17:32:03 +0300
   * [MDEV-6392](https://jira.mariadb.org/browse/MDEV-6392): Change innodb\_have\_lzo and innodb\_have\_lz4 as a static variables and reduce the number of ifdef's
@@ -117,7 +117,7 @@ modified in that revision.
   * Fixed bug on free buffer space calculation when LZO is used. Fixed bug on function call when InnoDB plugin is used.
 * [Revision #3974](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3974) \[merge]\
   Thu 2014-04-17 08:22:54 +0300
-  * Merge lp:maria/10.0 up to [MariaDB 10.0.10](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md) revision 4140.
+  * Merge lp:maria/10.0 up to [MariaDB 10.0.10](../../old-releases/10.0/10.0.10.md) revision 4140.
 * [Revision #3973](https://bazaar.launchpad.net/~maria-captains/maria/10.0-FusionIO/revision/3973)\
   Wed 2014-04-16 16:55:36 +0300
   * [MDEV-6070](https://jira.mariadb.org/browse/MDEV-6070): FusionIO: Failure to create a table with ATOMIC\_WRITES option leaves the database in inconsistent state,

@@ -1,12 +1,12 @@
 # MariaDB 5.5.28 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.28) |[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5528-release-notes.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.28) |[Release Notes](../../old-releases/5.5/5.5.28.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 22 Oct 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5528-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.28.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -25,7 +25,7 @@ modified in that revision.
   * [Revision #2502.567.30](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.30)\
     Wed 2012-10-10 09:21:22 +0400
     * Backport of: olav.sandstaa@oracle.com-20120516074923-vd0dhp183vqcp2ql\
-      .. into [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+      .. into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
     * Fix for [Bug #12667154](https://bugs.launchpad.net/bugs/12667154) SAME QUERY EXEC AS WHERE SUBQ GIVES DIFFERENT\
       RESULTS ON IN() & NOT IN() COMP #3
     * This bug causes a wrong result in mysql-trunk when ICP is used\

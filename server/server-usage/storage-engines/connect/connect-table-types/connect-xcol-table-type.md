@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT XCOL Table Type
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 `XCOL` tables are based on another table or view, like [PROXY](connect-proxy-table-type.md) tables. This type can be used when the object table has a column that contains a list of values.
 
@@ -22,7 +18,7 @@ Suppose we have a _'children'_ table that can be displayed as:
 
 We can have a different view on these data, where each child are associated with his/her mother by creating an `XCOL` table by:
 
-```
+```sql
 CREATE TABLE xchild (
   mother CHAR(12) NOT NULL,
   child CHAR(12) DEFAULT NULL flag=2
@@ -32,7 +28,7 @@ option_list='colname=child';
 
 The `COLNAME` option specifies the name of the column receiving the list items. This will return from:
 
-```
+```sql
 SELECT * FROM xchild;
 ```
 
@@ -61,7 +57,7 @@ Several things should be noted here:
 
 The "multiple" column _child_ can be used as any other column. For instance:
 
-```
+```sql
 SELECT * FROM xchild WHERE substr(child,1,1) = 'A';
 ```
 
@@ -75,7 +71,7 @@ This will return:
 If a query does not involve the "multiple" column, no row multiplication will\
 be done. For instance:
 
-```
+```sql
 SELECT mother FROM xchild;
 ```
 
@@ -115,7 +111,7 @@ Replies:
 
 While the query:
 
-```
+```sql
 SELECT mother, COUNT(child) FROM xchild GROUP BY mother;
 ```
 
@@ -136,11 +132,11 @@ Some more options are available for this table type:
 | Sep\_char | The separator character used in the "multiple" column, defaults to the comma.                                                                                   |
 | Mult      | Indicates the max number of multiple items. It is used to internally calculate the max size of the table and defaults to 10. (To be specified in OPTION\_LIST). |
 
-## Using Special Columns with XCOL
+## Using Special Columns With XCOL
 
 Special columns can be used in XCOL tables. The mostly useful one is ROWNUM that gives the rank of the value in the list of values. For instance:
 
-```
+```sql
 CREATE TABLE xchild2 (
 rank INT NOT NULL SPECIAL=ROWID,
 mother CHAR(12) NOT NULL,
@@ -165,7 +161,7 @@ This table are displayed as:
 
 To list only the first child of each mother you can do:
 
-```
+```sql
 SELECT mother, child FROM xchild2 WHERE rank = 1 ;
 ```
 
@@ -190,10 +186,10 @@ This is because with no row multiplication being done, the rank value is always 
 SELECT mother FROM xchild2 GROUP BY mother HAVING COUNT(child) > 2;
 ```
 
-## XCOL tables based on specified views
+## XCOL Tables Based on Specified Views
 
-Instead of specifying a source table name via the TABNAME option, it is possible to retrieve data from a\
-“view” whose definition is given in a new option SRCDEF . For instance:
+Instead of specifying a source table name via the `TABNAME` option, it is possible to retrieve data from a\
+“view” whose definition is given in a new option `SRCDEF` . For instance:
 
 ```
 CREATE TABLE xsvars ENGINE=CONNECT table_type=XCOL
@@ -203,7 +199,7 @@ option_list='Colname=Value';
 
 Then, for instance:
 
-```
+```sql
 SELECT value FROM xsvars LIMIT 10;
 ```
 

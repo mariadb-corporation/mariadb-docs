@@ -57,7 +57,7 @@ The result of `EXCEPT` is all records of the left `SELECT` result except records
 
 Parentheses can be used to specify precedence. Before this, a syntax error would be returned.
 
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
+**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
 #### ALL/DISTINCT
 

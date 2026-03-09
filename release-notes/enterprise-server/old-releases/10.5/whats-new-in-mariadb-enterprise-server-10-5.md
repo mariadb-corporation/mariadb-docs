@@ -6,6 +6,14 @@ description: >-
 
 # What's New in MariaDB Enterprise Server 10.5?
 
+{% hint style="info" %}
+#### Technical Compatibility Reference
+
+This guide provides an overview of new features and improvements across the series. For major version upgrades, which involve significant architectural changes, users should consult the [Compatibility and Breaking Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/upgrades/mariadb-enterprise-server-10.5/compatibility-and-breaking-changes-for-mariadb-enterprise-server-10.5) guide.
+
+The Compatibility guide includes critical technical insights found through engineering audits and support cases. It covers essential [pre-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/upgrades/mariadb-enterprise-server-10.5/upgrade-to-mariadb-enterprise-server-10.5#critical-pre-upgrade-requirements) shutdown requirements and details platform-specific configuration path changes for Debian and Ubuntu.
+{% endhint %}
+
 MariaDB Enterprise Server 10.5 introduces the new features listed below.
 
 ## Notable Features
@@ -68,6 +76,16 @@ MariaDB Enterprise Server 10.5 uses the "MariaDB" name in more places:
 | mysqltest                     | mariadb-test                                                                                                                            |
 | mysqltest\_embedded           | mariadb-test-embedded                                                                                                                   |
 
+{% hint style="info" %}
+#### Process Identity and Monitoring
+
+The server's main process identity is now `mariadbd`, replacing the legacy `mysql*` commands, though symbolic links have been provided for compatibility. When using `systemd` or `mariadbd-safe`, the server appears as `mariadbd` in system process tools.
+
+**Critical Impact**
+
+Any monitoring scripts, health checks, or high-availability (HA) tools using `ps`, `pidof`, or `pgrep` to find a `mysqld` process will become ineffective after the upgrade. Update these tools to search for `mariadbd` instead.Privileges Comparison
+{% endhint %}
+
 ### Packaging
 
 MariaDB Enterprise Server 10.5 includes some packaging improvements:
@@ -92,7 +110,7 @@ MariaDB Enterprise Server 10.5 includes many significant improvements to the [In
   * It reduces semaphore contention in several areas to help the system perform better under high concurrency:
   * It reduces semaphore contention when accessing the buffer pool.
   * It removes the ability to configure multiple buffer pool instances, since it does not reduce contention.
-  * It reduces semaphore contention when executing [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-table) statements.
+  * It reduces semaphore contention when executing [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/drop-table) statements.
   * It uses table metadata locks instead of internal InnoDB semaphores for certain background operations.
   * It adds instrumentation that informs the server's thread pool about semaphore waits, so that the thread pool can let other client connections perform work while a client connection is waiting on a semaphore.
 * It improves performance in several areas:
@@ -137,9 +155,31 @@ MariaDB Enterprise Server 10.5 contains several enhancements to the [S3 storage 
 * The S3 storage engine supports partitioning.
 * The S3 storage engine supports replication.
 
+{% hint style="info" %}
+#### Plugin Support and Repositories Update
+
+Starting with MariaDB Enterprise Server 10.5, some plugins like the CONNECT storage engine have been moved from the main Enterprise repository to an "unsupported" repository. To ensure these engines function during or after an upgrade, you need to enable the "unsupported" repository by including the `--include-unsupported` flag in the `mariadb_es_repo_setup` script. Without this flag, the plugin library (`ha_connect.so`) will be unavailable, resulting in "Unknown storage engine" errors for existing tables.
+{% endhint %}
+
 ## Privileges Comparison ES10.4 and ES10.5.8-5
 
 MariaDB Enterprise Server 10.5 adds privileges that allow operations that previously required the [SUPER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#super). The following table is a summary of the **changes** between MariaDB Enterprise Server 10.4 and MariaDB Enterprise Server 10.5.8-5. More specific detail is found in [MariaDB Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication), and in [MariaDB Reference](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb/README.md).
+
+{% hint style="info" %}
+### Administrative Automation and Privilege Audits
+
+#### Transition to Granular Roles in Version 10.5
+
+The shift from broad privileges like SUPER and REPLICATION CLIENT to more specific roles in version 10.5 can affect current administrative automations.
+
+#### Replication Monitoring
+
+External monitoring tools, such as MaxScale MariaDB Monitor, now require the REPLICA MONITOR or BINLOG MONITOR privilege. This allows them to execute status commands like `SHOW REPLICA STATUS`.
+
+#### Manual Verification Recommended
+
+Upgrading to version 10.5.8-5 or later will generally modify these privileges automatically for existing users. However, it is advisable to manually verify these privileges to prevent disruptions in third-party monitoring services.
+{% endhint %}
 
 ### [BINLOG ADMIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/grant#binlog-admin)
 
@@ -911,7 +951,7 @@ MariaDB Enterprise Server 10.5 improves support for [Temporal Data Tables](https
 
 MariaDB Enterprise Server 10.5 improves SQL functionality in several areas:
 
-* It changes the behavior of the [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-table) statement to forcefully drop the table, even if the storage engine can't find the table.
+* It changes the behavior of the [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/drop-table) statement to forcefully drop the table, even if the storage engine can't find the table.
 * It changes the behavior of the [ANALYZE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/analyze-table) statement, so that it no longer flushes the table definition cache, so that it performs better under concurrency.
 * It changes the behavior of the [ANALYZE](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-enterprise-server-release-notes/mariadb-enterprise-server-10-5/ANALYZE/README.md) statement to SHOW the time spent checking the WHERE clause.
 * It adds support for [INSERT ... RETURNING](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert) statements.
@@ -927,19 +967,19 @@ MariaDB Enterprise Server 10.5 improves SQL functionality in several areas:
 * It adds support for the `VISIBLE` option in index definitions, which can be needed to import dumps from MySQL.
 * It adds support for the `WITHOUT OVERLAP` option in index definitions that are defined for [application-time period tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/temporal-tables/application-time-periods).
 * It adds support for the `STARTS` option for system-versioned tables that are partitioned on an interval of `SYSTEM_TIME`.
-* It adds support for the [JSON\_ARRAYAGG()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_arrayagg) function.
-* It adds support for the [JSON\_OBJECTAGG()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_objectagg) function.
+* It adds support for the [JSON\_ARRAYAGG()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/aggregate-functions/json_arrayagg) function.
+* It adds support for the [JSON\_OBJECTAGG()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/aggregate-functions/json_objectagg) function.
 * It adds support for the `RELEASE_ALL_LOCKS()` function.
 * It adds support for the [OVERLAPS()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/geometry-constructors/geometry-relations/overlaps) function.
 * It adds support for a new Data Type API, so that plugins can define custom data types.
 * It adds support for the [INET6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/inet6) data type, which can be used to represent IPv4 and IPv6 addresses.
-* It changes the way that [TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp), [DATETIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime), and [TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/time) columns that use the pre-[MariaDB 10.0](../../../community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) format are displayed in the output of [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-create-table) and [DESCRIBE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/describe) and in the value of the [information\_schema.COLUMNS.COLUMN\_TYPE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema) column. Columns using the older format will have a comment that says `/* mariadb-5.3 */`.
+* It changes the way that [TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp), [DATETIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/datetime), and [TIME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/time) columns that use the pre-[MariaDB 10.0](../../../community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0.md) format are displayed in the output of [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-create-table) and [DESCRIBE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/describe) and in the value of the [information\_schema.COLUMNS.COLUMN\_TYPE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema) column. Columns using the older format will have a comment that says `/* mariadb-5.3 */`.
 
 ## Security
 
-MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security) improvements:
+MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve) improvements:
 
-* It allows a server to be configured to [require secure connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview) by configuring the [require\_secure\_transport](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#require_secure_transport) system variable.
+* It allows a server to be configured to [require secure connections](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview) by configuring the [require\_secure\_transport](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#require_secure_transport) system variable.
   * If this mode is enabled, then all TCP connections must use TLS.
   * Local connections that connect using a Unix socket or a named pipe are also allowed.
 * It adds the `CONNECTION_TYPE` column to the [performance\_schema.threads table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables), which can be used to determine which connections are using TLS.
@@ -1120,7 +1160,7 @@ MariaDB Enterprise Server 10.5 includes several [security](https://app.gitbook.c
 
 MariaDB Enterprise Server 10.5 introduces an encryption plugin to support for [HashiCorp Vault](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb):
 
-* It allows HashiCorp Vault to manage encryption keys for [data-at-rest encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption).
+* It allows HashiCorp Vault to manage encryption keys for [data-at-rest encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption).
 * It communicates with the remote KMS using TLS.
 * It supports key rotation.
 
@@ -1219,7 +1259,7 @@ MariaDB Enterprise Server 10.5 includes some internal improvements:
 * Its internal regular expression library has been upgraded from PCRE to PCRE2.
 * It adds support for a new Data Type API, so that plugins can define custom data types.
 
-For a complete list of changes, see [MariaDB Enterprise Server 10.5.4-2 release notes](release-notes-for-mariadb-enterprise-server-10-5-4-2.md).
+For a complete list of changes, see [MariaDB Enterprise Server 10.5.4-2 release notes](10.5.4-2.md).
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

@@ -1,10 +1,10 @@
 # MariaDB 5.2.11 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.11) |[Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5211-release-notes.md) |**Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://downloads.askmonty.org/mariadb/5.2.11) |[Release Notes](../../old-releases/5.2/5.2.11.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 2 Apr 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5211-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.11.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -71,7 +71,7 @@ modified in that revision.
 * [Revision #3122](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3122)\
   Fri 2012-03-09 15:37:16 -0800
   * Fixed [Bug #930814](https://bugs.launchpad.net/bugs/930814).
-    * This bug was introduced into [mariadb 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md) in the December 2010 with\
+    * This bug was introduced into [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) in the December 2010 with\
       the patch that added a new engine property: the ability to support\
       virtual columns.
     * As a result of this bug the information from frm files for tables\
@@ -180,7 +180,7 @@ modified in that revision.
     * Fixed compiler warnings
 * [Revision #3106](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3106) \[merge]\
   Mon 2012-02-20 17:49:21 +0200
-  * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1.61
+  * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1.61
   * [Revision #2643.127.72](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.127.72) \[merge]\
     Mon 2012-02-20 16:23:18 +0200
     * Merge with MYSQL 5.1.61

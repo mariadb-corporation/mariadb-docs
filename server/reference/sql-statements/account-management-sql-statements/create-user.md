@@ -1,7 +1,7 @@
 ---
 description: >-
-  Create new database accounts. This guide covers the syntax for defining users,
-  setting authentication methods, and establishing initial resource limits.
+  Complete guide to creating MariaDB user accounts. Complete CREATE USER syntax
+  for authentication methods and password policies with comprehensive examples.
 ---
 
 # CREATE USER
@@ -218,7 +218,7 @@ To mitigate this concern, MariaDB allows you to encrypt data in transit between 
 {% endtab %}
 {% endtabs %}
 
-See [Secure Connections Overview](../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
+See [Secure Connections Overview](../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md) for more information about how to determine whether your MariaDB server has TLS support.
 
 You can set certain TLS-related restrictions for specific user accounts. For instance, you might use this with user accounts that require access to sensitive data while sending it across networks that you do not control. These restrictions can be enabled for a user account with the [CREATE USER](create-user.md), [ALTER USER](alter-user.md), or [GRANT](grant.md) statements. The following options are available:
 
@@ -244,7 +244,7 @@ CREATE USER 'alice'@'%'
 
 If any of these options are set for a specific user account, then any client who tries to connect with that user account will have to be configured to connect with TLS.
 
-See [Securing Connections for Client and Server](../../../security/securing-mariadb/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
+See [Securing Connections for Client and Server](../../../security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server.md) for information on how to enable TLS on the client and server.
 
 ## Resource Limit Options
 
@@ -434,7 +434,7 @@ Prior to [MariaDB 10.4.7](https://mariadb.com/docs/release-notes/mariadb-communi
 {% endtab %}
 {% endtabs %}
 
-From [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes) and [MariaDB 10.5.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1058-release-notes), the _lock\_option_ and _password\_option_ clauses can occur in either order.
+From [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7) and [MariaDB 10.5.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.8), the _lock\_option_ and _password\_option_ clauses can occur in either order.
 
 ## See Also
 

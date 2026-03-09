@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn to import data into MariaDB with LOAD DATA INFILE and mariadb-import.
-  This guide covers bulk loading, handling duplicates, and converting foreign
-  data formats.
+  Complete Importing Data into MariaDB guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage for production use.
 ---
 
 # Importing Data into MariaDB
@@ -118,7 +117,7 @@ This SQL statement tells MariaDB the name of each table column associated with e
 
 #### mariadb-import
 
-For some clients and for certain situations it may be of value to be able to import data into MariaDB without using the [mariadb](../../clients-and-utilities/mariadb-client/) client. This could be necessary when constructing a shell script to import text files on an automated, regular schedule. To accomplish this, the [mariadb-import](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) (`mysqlimport` before [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)) utility may be used as it encompasses the [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statement and can easily be run from a script. So if one wants to enter the involved SQL statement at the end of the last section above, the following could be entered from the command-line (i.e., not in the [mariadb](../../clients-and-utilities/mariadb-client/) client):
+For some clients and for certain situations it may be of value to be able to import data into MariaDB without using the [mariadb](../../clients-and-utilities/mariadb-client/) client. This could be necessary when constructing a shell script to import text files on an automated, regular schedule. To accomplish this, the [mariadb-import](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) (`mysqlimport` before [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)) utility may be used as it encompasses the [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statement and can easily be run from a script. So if one wants to enter the involved SQL statement at the end of the last section above, the following could be entered from the command-line (i.e., not in the [mariadb](../../clients-and-utilities/mariadb-client/) client):
 
 ```sql
 mariadb-import --user='marie_dyer' --password='angelle1207' \

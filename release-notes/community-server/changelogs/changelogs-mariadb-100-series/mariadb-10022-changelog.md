@@ -1,12 +1,12 @@
 # MariaDB 10.0.22 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.22)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10022-release-notes.md)[Changelog](mariadb-10022-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.22)[Release Notes](../../old-releases/10.0/10.0.22.md)[Changelog](mariadb-10022-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 29 Oct 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10022-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.22.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -15,10 +15,10 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-8543](https://jira.mariadb.org/browse/MDEV-8543) mysql.server script not correctly handle --pid-file.
 * [Revision #d88aaaa](https://github.com/MariaDB/server/commit/d88aaaa)\
   2015-10-28 08:34:08 +0100
-  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10020-release-notes.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
+  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../old-releases/10.0/10.0.20.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
 * [Revision #b0e3f48](https://github.com/MariaDB/server/commit/b0e3f48)\
   2015-10-22 16:08:45 +0200
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/10.0/10.0.21.md) crashes during PREPARE
 * [Revision #ac67f9a](https://github.com/MariaDB/server/commit/ac67f9a)\
   2015-10-28 12:53:23 +0400
   * Removed mistakenly committed test file.

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn about MariaDB Connector/ODBC, enabling applications to connect to
-  MariaDB and MySQL databases using the Open Database Connectivity API. This
-  guide covers setup and usage.
+  Complete Connector/ODBC guide for MariaDB. Complete resource for installation,
+  configuration, query execution, and integration with comprehensive examples.
 icon: link
 ---
 

@@ -326,7 +326,7 @@ Both "Top-n" formulations probably take about the same amount of time.
 
 ## Windowing functions
 
-Hot off the press from Percona Live... [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) has "windowing functions", which make "groupwise max" much more straightforward.
+Hot off the press from Percona Live... [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) has "windowing functions", which make "groupwise max" much more straightforward.
 
 The code: TBD
 
@@ -356,4 +356,3 @@ Original source: [groupwise\_max](https://mysql.rjweb.org/doc.php/groupwise_max)
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
-

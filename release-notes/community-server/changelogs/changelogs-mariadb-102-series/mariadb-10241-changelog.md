@@ -1,12 +1,12 @@
 # MariaDB 10.2.41 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download 10.2.41](https://mariadb.org/download/?tab=mariadb\&release=10.2.41\&product=mariadb)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10241-release-notes.md)[Changelog](mariadb-10241-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download 10.2.41](https://mariadb.org/download/?tab=mariadb\&release=10.2.41\&product=mariadb)[Release Notes](../../old-releases/10.2/10.2.41.md)[Changelog](mariadb-10241-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 8 Nov 2021
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10241-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.41.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\

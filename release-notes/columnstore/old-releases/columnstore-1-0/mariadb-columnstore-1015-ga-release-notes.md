@@ -13,11 +13,11 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-1631](https://jira.mariadb.org/browse/MCOL-1631) - The base MariaDB server version is now [10.1.35](../../../community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10135-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-1631](https://jira.mariadb.org/browse/MCOL-1631) - The base MariaDB server version is now [10.1.35](../../../community-server/old-releases/10.1/10.1.35.md) which include several maintenance and security fixes.
 
 ## Bugs and issues fixed
 
-* [MCOL-1631](https://jira.mariadb.org/browse/MCOL-1631) - Merge [MariaDB 10.1.35](../../../community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10135-release-notes.md)
+* [MCOL-1631](https://jira.mariadb.org/browse/MCOL-1631) - Merge [MariaDB 10.1.35](../../../community-server/old-releases/10.1/10.1.35.md)
 
 ## Upgrade
 

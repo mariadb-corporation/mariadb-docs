@@ -1,14 +1,11 @@
+---
+description: >-
+  Details the authentication changes introduced in MariaDB 10.4, including
+  multiple authentication plugins per user, the mysql.global_priv table, and the
+  default unix_socket authentication for root.
+---
+
 # Authentication
-
-{% tabs %}
-{% tab title="Current" %}
-
-{% endtab %}
-
-{% tab title="< 10.4" %}
-MariaDB 10.4 introduced a number of changes to the authentication process, intended to make things easier and more intuitive. Those changes aren't available in earlier versions of MariaDB.
-{% endtab %}
-{% endtabs %}
 
 For Windows, see [Authentication Plugin - GSSAPI](../../reference/plugins/authentication-plugins/authentication-plugin-gssapi.md).
 
@@ -21,8 +18,8 @@ There are four **new main features in 10.4** relating to authentication:
   * First, it is configured to try to use the [unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin. This allows the `root@localhost` user to log in without a password via the local Unix socket file defined by the [socket](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#socket) system variable, as long as the login is attempted from a process owned by the operating system `root` user account.
   * Second, if authentication fails with the [unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin, then it is configured to try to use the [mysql\_native\_password](../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) authentication plugin. However, an invalid password is initially set, so in order to authenticate this way, a password must be set with [SET PASSWORD](../../reference/sql-statements/account-management-sql-statements/set-password.md).
   * However, just using the [unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin may be fine for many users, and it is very secure. You may want to try going without password authentication to see how well it works for you. Remember, the best way to keep your password safe is not to have one!
-* All user accounts, passwords, and global privileges are now stored in the [mysql.global\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table. The [mysql.user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md) table still exists and has exactly the same set of columns as before, but it’s now a view that references the [mysql.global\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table. Tools that analyze the [mysql.user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md) table should continue to work as before. From [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-10413-release-notes), the dedicated `mariadb.sys` user is created as the definer of this view. Previously, `root` was the definer, which resulted in privilege problems when this username was changed.
-* [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) adds support for [User Password Expiry](user-password-expiry.md), which is not active by default.
+* All user accounts, passwords, and global privileges are now stored in the [mysql.global\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table. The [mysql.user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md) table still exists and has exactly the same set of columns as before, but it’s now a view that references the [mysql.global\_priv](../../reference/system-tables/the-mysql-database-tables/mysql-global_priv-table.md) table. Tools that analyze the [mysql.user](../../reference/system-tables/the-mysql-database-tables/mysql-user-table.md) table should continue to work as before. From [MariaDB 10.4.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.13), the dedicated `mariadb.sys` user is created as the definer of this view. Previously, `root` was the definer, which resulted in privilege problems when this username was changed.
+* [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) adds support for [User Password Expiry](user-password-expiry.md), which is not active by default.
 
 ## Description
 
@@ -37,7 +34,7 @@ CREATE USER mysql@localhost IDENTIFIED VIA unix_socket
     OR mysql_native_password USING 'invalid'
 ```
 
-Using unix\_socket means that if you are the system root user, you can log in as root@locahost without a password. This technique was pioneered by Otto Kekäläinen in Debian MariaDB packages and has been successfully [used in Debian](../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md) since as early as [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0).
+Using unix\_socket means that if you are the system root user, you can log in as root@locahost without a password. This technique was pioneered by Otto Kekäläinen in Debian MariaDB packages and has been successfully [used in Debian](../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md) since as early as [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0).
 
 It is based on a simple fact that asking the system root for a password adds no extra security — root has full access to all the data files and all process memory anyway. But not asking for a password means there is no root password to forget (no need for the numerous tutorials on “how to reset MariaDB root password”). And if you want to script some tedious database work, there is no need to store the root password in plain text for the script to use (no need for debian-sys-maint user).
 
@@ -90,7 +87,7 @@ If you don't want the `root@localhost` user account created by [mariadb-install-
 
 ### Configuring mariadb-install-db to Revert to the Previous Authentication Method
 
-One way to revert to the previous [mysql\_native\_password](../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) authentication method for the `root@localhost` user account is to execute [mariadb-install-db](../../clients-and-utilities/deployment-tools/mariadb-install-db.md) with a special option. If [mariadb-install-db](../../clients-and-utilities/deployment-tools/mariadb-install-db.md) is executed while `--auth-root-authentication-method=normal` is specified, then it will create the default user accounts using the default behavior of [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) and before.
+One way to revert to the previous [mysql\_native\_password](../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) authentication method for the `root@localhost` user account is to execute [mariadb-install-db](../../clients-and-utilities/deployment-tools/mariadb-install-db.md) with a special option. If [mariadb-install-db](../../clients-and-utilities/deployment-tools/mariadb-install-db.md) is executed while `--auth-root-authentication-method=normal` is specified, then it will create the default user accounts using the default behavior of [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and before.
 
 This means that the `root@localhost` user account will use [mysql\_native\_password](../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) authentication by default. There are some other differences as well. See [mariadb-install-db: User Accounts Created by Default](../../clients-and-utilities/deployment-tools/mariadb-install-db.md#user-accounts-created-by-default) for more information.
 

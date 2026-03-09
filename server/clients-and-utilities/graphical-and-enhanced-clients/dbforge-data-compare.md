@@ -27,7 +27,7 @@ Features are described in the following.
 * Choose any database, connection, or script folder with the new Data Comparison Wizard.
 * See the data comparison results in a data result grid.
 
-![](/broken/files/K0Ym5YvXNHRHXwoKIrGW)
+![](<../../.gitbook/assets/script-folder-comparison (1).png>)
 
 ## Configurations for Data Comparison
 

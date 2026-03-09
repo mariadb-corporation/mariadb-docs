@@ -1,7 +1,7 @@
 ---
 description: >-
-  Strategies for backing up and restoring MariaDB data in containers, comparing
-  methods like `mariadb-dump` and physical volume backups.
+  Complete container backup guide: docker volume create, mariadb-dump
+  --all-databases, mariadb-backup --backup/--prepare/--copy-back operations.
 ---
 
 # Container Backup and Restoration

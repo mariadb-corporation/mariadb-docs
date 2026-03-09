@@ -1,8 +1,7 @@
 ---
 description: >-
-  Review the full syntax for SQL joins in MariaDB. This guide details the
-  structure of table references, index hints, and various join types supported
-  in SELECT, UPDATE, and DELETE statements.
+  Complete reference for JOIN Syntax in MariaDB. Complete syntax guide with all
+  options, clauses, and practical examples with comprehensive examples and best.
 ---
 
 # JOIN Syntax
@@ -143,13 +142,13 @@ Index hints can be specified to affect how the MariaDB optimizer makes use of in
 This feature is available from MariaDB 12.1.
 {% endhint %}
 
-When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active, the Oracle-style `+` syntax can be used. For example, the following two queries are identical:
+#### Overview
+
+When [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active, the Oracle-style `(+)`  syntax can be used. For example, the following two queries are identical:
 
 ```sql
 SELECT * FROM t1 LEFT JOIN t2 ON t1.a = t2.b;
 ```
-
-and
 
 ```sql
 SELECT * FROM t1, t2 WHERE t1.a = t2.b(+);
@@ -161,11 +160,88 @@ Similarly, the following two queries are identical:
 SELECT * FROM t1 RIGHT JOIN t2 ON t1.a = t2.b;
 ```
 
-and
-
 ```sql
 SELECT * FROM t1, t2 WHERE t1.a(+) = t2.b;
 ```
+
+With more than two tables, these two queries are identical:
+
+```sql
+SELECT * FROM t1 LEFT JOIN t2 ON t1.a = t2.a LEFT JOIN t3 ON t2.a = t3.a
+```
+
+```sql
+SELECT * FROM t1, t2, t3 WHERE t1.a = t2.a(+) AND t2.a = t3.a(+)
+```
+
+To "rewrite" a join query using the `(+)` syntax, use [EXPLAIN EXTENDED](../../../administrative-sql-statements/analyze-and-explain-statements/explain.md#explain-extended) (the last line is an approximation at using the "regular" `LEFT JOIN` syntax):
+
+{% code overflow="wrap" %}
+```sql
+EXPLAIN EXTENDED
+    SELECT * FROM t1, t2, t3 WHERE t1.a = t2.a(+) AND t2.a = t3.a(+);
+id	select_type	table	type	possible_keys	key	key_len	ref	rows	filtered	Extra
+1	SIMPLE	t1	ALL	NULL	NULL	NULL	NULL	3	100.00	
+1	SIMPLE	t2	ALL	NULL	NULL	NULL	NULL	3	100.00	Using where; Using join buffer (flat, BNL join)
+1	SIMPLE	t3	ALL	NULL	NULL	NULL	NULL	3	100.00	Using where; Using join buffer (incremental, BNL join)
+Warnings:
+Note	1003	select "test"."t1"."a" AS "a","test"."t2"."a" AS "a","test"."t3"."a" AS "a" from "test"."t1" left join "test"."t2" on("test"."t2"."a" = "test"."t1"."a") left join "test"."t3" on("test"."t3"."a" = "test"."t2"."a") where 1
+```
+{% endcode %}
+
+#### Limitations
+
+The table whose columns are marked with the `(+)` operator in a subexpression (a part of the `WHERE` clause divided by `AND`) are the **inner part** of the expression. A table whose columns are not marked with the operator belong to the **outer part**.
+
+Example of a single subexpression within a `WHERE` clause:
+
+```sql
+... WHERE t1.a = t2.a(+)
+```
+
+Example of two subexpressions within a `WHERE` clause – here, both `t1.a = t2.a(+)`  and `t2.a = t3.a(+)` are inner parts, because both contain a `(+)` operator:
+
+```sql
+... WHERE t1.a = t2.a(+) AND t2.a = t3.a(+)
+```
+
+Example of two subexpressions within a `WHERE` clause – here, `t1.a = t2.a(+)` is the inner part (because of the `(+)` operator), and `t2.a = 42` is the outer part (it doesn't have a `(+)` operator:
+
+```sql
+... WHERE t1.a = t2.a(+) AND t2.a = 42
+```
+
+"Rewritten" as a "regular" join, that clause looks like this:
+
+```sql
+... FROM t1 LEFT JOIN t2 ON (t1.a = t2.a) WHERE t2.a = 42
+```
+
+The following limitations apply:
+
+* The `(+)` operator can only be used in a `WHERE` clause.
+* The `(+)` operator can only be applied to a table column, and the column should be from the local `SELECT`, not from an outer `SELECT`.
+* The `(+)` operator cannot be used with other `JOIN` methods – it must be a comma-separated list in the `FROM` clause.
+* When the `WHERE` clause is split into subexpressions by `AND`, `(+)` cannot be used.
+* The `(+)` operator cannot be used on the right side of an `IN` function.
+* The `(+)` operator cannot be used in row operations.
+* The `(+)` operator cannot be used when two or more tables are on one side of and marked with the `(+)` operator and some are not.
+* The `(+)` operator cannot create loops (or cycles) of dependence, where the same table appears on both sides of the operator in one expression, or through a chain of expressions.
+
+#### Error Codes
+
+The following errors may occur when not adhering to the `(+)` operator limitations or for other reasons:
+
+* `ER_INVALID_USE_OF_ORA_JOIN`
+* `ER_INVALID_USE_OF_ORA_JOIN_OUTER_REF`
+* `ER_INVALID_USE_OF_ORA_JOIN_WRONG_FUNC`
+* `ER_INVALID_USE_OF_ORA_JOIN_ONE_TABLE`
+* `ER_INVALID_USE_OF_ORA_JOIN_CYCLE`
+
+You can find examples of the errors by error code in these files (which are [available on GitHub](https://github.com/MariaDB/server/tree/main/mysql-test/suite/compat/oracle/t)):
+
+* `mysql-test/suite/compat/oracle/t/ora_outer_join.test`
+* `mysql-test/suite/compat/oracle/t/ora_outer_join_err.test`
 
 ## Examples
 

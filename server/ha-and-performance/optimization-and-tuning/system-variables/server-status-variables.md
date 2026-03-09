@@ -1,3 +1,10 @@
+---
+description: >-
+  Documentation for server status variables, which provide information about the
+  server's current state and operation (e.g., `Aborted_connects`, `Uptime`),
+  accessed via `SHOW STATUS`.
+---
+
 # Server Status Variables
 
 {% include "../../../.gitbook/includes/for-a-full-list-of-server-v....md" %}
@@ -191,7 +198,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Number of [ALTER TABLESPACE](../../../reference/sql-statements/data-definition/alter/alter-tablespace.md) commands executed (unsupported by MariaDB).
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes)
+* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 #### `Com_alter_user`
 
@@ -216,21 +223,21 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1041-release-notes)
+* Removed: [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.1)
 
 #### `Com_backup_lock`
 
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1042-release-notes)
+* Removed: [MariaDB 10.4.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.2)
 
 #### `Com_backup_table`
 
-* Description: Removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5). In older versions, Com\_backup\_table contains the number of [BACKUP TABLE](../../../reference/sql-statements/table-statements/obsolete-table-commands/backup-table-removed.md) commands executed.
+* Description: Removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). In older versions, Com\_backup\_table contains the number of [BACKUP TABLE](../../../reference/sql-statements/table-statements/obsolete-table-commands/backup-table-removed.md) commands executed.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `Com_begin`
 
@@ -591,14 +598,14 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `Com_load_master_table`
 
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `Com_multi`
 
@@ -692,10 +699,10 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Com_restore_table`
 
-* Description: Removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5). In older versions, Com\_restore\_table contains the number of [RESTORE TABLE](../../../reference/sql-statements/table-statements/obsolete-table-commands/restore-table-removed.md) commands executed.
+* Description: Removed in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5). In older versions, Com\_restore\_table contains the number of [RESTORE TABLE](../../../reference/sql-statements/table-statements/obsolete-table-commands/restore-table-removed.md) commands executed.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `Com_revoke`
 
@@ -777,10 +784,10 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Com_show_client_statistics`
 
-* Description: Number of [SHOW CLIENT STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-client-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
+* Description: Number of [SHOW CLIENT STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-client-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes)
+* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)
 
 #### `Com_show_collations`
 
@@ -793,7 +800,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+* Removed: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 #### `Com_show_contributors`
 
@@ -929,10 +936,10 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Com_show_index_statistics`
 
-* Description: Number of [SHOW INDEX\_STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-index-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
+* Description: Number of [SHOW INDEX\_STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-index-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes)
+* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)
 
 #### `Com_show_open_tables`
 
@@ -1008,10 +1015,10 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Com_show_table_statistics`
 
-* Description: Number of [SHOW TABLE STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-table-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
+* Description: Number of [SHOW TABLE STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-table-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes)
+* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)
 
 #### `Com_show_table_status`
 
@@ -1033,10 +1040,10 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Com_show_user_statistics`
 
-* Description: Number of [SHOW USER STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-user-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
+* Description: Number of [SHOW USER STATISTICS](../../../reference/sql-statements/administrative-sql-statements/show/show-user-statistics.md) commands executed. Removed in [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1) when that statement was replaced by the generic [SHOW information\_schema\_table](../../../reference/system-tables/information-schema/information-schema-tables/).
 * Scope: Global, Session
 * Data Type: `numeric`
-* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-1-release-notes)
+* Removed: [MariaDB 10.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.1)
 
 #### `Com_show_variable`
 
@@ -1325,7 +1332,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description:
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
+* Introduced: [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
 #### `Feature_invisible_columns`
 
@@ -1386,7 +1393,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Number of [FLUSH](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md) statements executed, as well as due to internal server flush requests. This differs from [Com\_flush](server-status-variables.md#com_flush), which simply counts FLUSH statements, not internal server flush operations.
 * Scope: Global
 * Data Type: `numeric`
-* Removed: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
+* Removed: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
 
 #### `Handler_commit`
 
@@ -1540,13 +1547,13 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Handler_update`
 
-* Description: Number of requests to update a row in a table. Since [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), this no longer counts temporary tables - see [Handler\_tmp\_update](server-status-variables.md#handler_tmp_update).
+* Description: Number of requests to update a row in a table. Since [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), this no longer counts temporary tables - see [Handler\_tmp\_update](server-status-variables.md#handler_tmp_update).
 * Scope: Global, Session
 * Data Type: `numeric`
 
 #### `Handler_write`
 
-* Description: Number of requests to write a row to a table. Since [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), this no longer counts temporary tables - see [Handler\_tmp\_write](server-status-variables.md#handler_tmp_write).
+* Description: Number of requests to write a row to a table. Since [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), this no longer counts temporary tables - see [Handler\_tmp\_write](server-status-variables.md#handler_tmp_write).
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -1625,7 +1632,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Maximum temporary space used. See [Limiting Size of Created Disk Temporary Files and Tables Overview](../../../security/limiting-size-of-created-disk-temporary-files-and-tables/limiting-size-of-created-disk-temporary-files-and-tables-overview.md)
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
 
 #### `Max_used_connections`
 
@@ -1638,7 +1645,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: The time at which the last change of [max\_used\_connections](server-status-variables.md#max_used_connections) occured. The global value can be flushed by [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `datetime`
-* Introduced: [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-2-release-notes), [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-1-release-notes)
+* Introduced: [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.2), [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.1)
 
 #### `Memory_used`
 
@@ -1976,8 +1983,8 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 #### `Threads_running`
 
 * Description: Number of client connections that are actively running a command, and not just sleeping while waiting to receive the next command to execute. Some internal system threads also count towards this status variable if they would show up in the output of the [SHOW PROCESSLIST](../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md) statement.
-  * In [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1032-release-notes) and before, a global counter was updated each time a client connection dispatched a command. In these versions, the global and session status variable are always the same value.
-  * In [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes) and later, the global counter has been removed as a performance improvement. Instead, when the global status variable is queried, it is calculated dynamically by essentially adding up all the running client connections as they would appear in [SHOW PROCESSLIST](../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md) output. A client connection is only considered to be running if its thread [COMMAND](../buffers-caches-and-threads/thread-command-values.md) value is not equal to `Sleep`. When the session status variable is queried, it always returns `1`.
+  * In [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2) and before, a global counter was updated each time a client connection dispatched a command. In these versions, the global and session status variable are always the same value.
+  * In [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3) and later, the global counter has been removed as a performance improvement. Instead, when the global status variable is queried, it is calculated dynamically by essentially adding up all the running client connections as they would appear in [SHOW PROCESSLIST](../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md) output. A client connection is only considered to be running if its thread [COMMAND](../buffers-caches-and-threads/thread-command-values.md) value is not equal to `Sleep`. When the session status variable is queried, it always returns `1`.
 * Scope: Global
 * Data Type: `numeric`
 
@@ -1986,7 +1993,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Temporary space used. See [Limiting Size of Created Disk Temporary Files and Tables Overview](../../../security/limiting-size-of-created-disk-temporary-files-and-tables/limiting-size-of-created-disk-temporary-files-and-tables-overview.md)
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
 
 #### `Update_scan`
 

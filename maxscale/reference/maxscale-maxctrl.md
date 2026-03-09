@@ -1766,6 +1766,10 @@ The generated report contains the state of all the objects in MaxScale as well a
 
 #### destroy server
 
+{% hint style="info" %}
+For a complete, step-by-step tutorial on safely draining and removing a server from your topology, see [Removing a Server in MaxScale with MaxCtrl](../maxscale-management/administrative-tools-for-mariadb-maxscale-maxctrl/removing-a-server-using-maxctrl.md).
+{% endhint %}
+
 ```
 Usage: destroy server <name>
 

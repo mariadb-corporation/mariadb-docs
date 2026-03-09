@@ -1,10 +1,10 @@
 # MariaDB 5.3.10 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/5.3.10) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-5310-release-notes.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.mariadb.org/mariadb/5.3.10) |[Release Notes](../../old-releases/5.3/5.3.10.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 **Release date:** 13 Nov 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-5310-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.10.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -47,7 +47,7 @@ modified in that revision.
     * Fix mis-merge.
 * [Revision #3592](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3592) \[merge]\
   Fri 2012-11-09 10:11:20 +0200
-  * Merge [MariaDB 5.1.66](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5166-release-notes.md) -> 5.2 -> 5.3
+  * Merge [MariaDB 5.1.66](../../old-releases/5.1/5.1.66.md) -> 5.2 -> 5.3
   * [Revision #2732.57.30](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.57.30) \[merge]\
     Thu 2012-11-08 22:26:05 +0200
     * Merged and adjusted test cases from 5.1 after the merge with 5.1.
@@ -56,13 +56,13 @@ modified in that revision.
       * Updated test results after the mysql 5.1 merge.
   * [Revision #2732.57.29](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.57.29) \[merge]\
     Thu 2012-11-08 15:24:35 +0200
-    * Merge [MariaDB 5.1.66](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5166-release-notes.md) -> 5.2.12
+    * Merge [MariaDB 5.1.66](../../old-releases/5.1/5.1.66.md) -> 5.2.12
     * [Revision #2643.153.22](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.153.22) \[merge]\
       Tue 2012-11-06 11:52:55 +0200
       * Merge MySQL 5.1.66 -> MariaDB 5.1.65
     * [Revision #2643.153.21](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.153.21) \[merge]\
       Thu 2012-11-01 16:20:09 +0100
-      * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md).
+      * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md).
       * [Revision #0.6.48](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/0.6.48)\
         Thu 2012-11-01 15:16:42 +0100
         * Updated with changes from Percona Server 5.1.66-rel14.1 tarball.
@@ -126,7 +126,7 @@ modified in that revision.
 * [Revision #3586](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3586)\
   Wed 2012-10-10 09:21:22 +0400
   * Backport of: olav.sandstaa@oracle.com-20120516074923-vd0dhp183vqcp2ql
-  * .. into [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+  * .. into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 ```
 Fix for Bug#12667154 SAME QUERY EXEC AS WHERE SUBQ GIVES DIFFERENT

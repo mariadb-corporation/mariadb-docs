@@ -352,7 +352,7 @@ modified in that revision.
   * Remove duplicate code.
 * [Revision #13ad179](https://github.com/MariaDB/server/commit/13ad179)\
   2015-11-20 14:50:18 +0100
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../10.0/10.0.21.md) crashes during PREPARE
 * [Revision #2553f14](https://github.com/MariaDB/server/commit/2553f14)\
   2015-11-19 10:17:40 +0100
   * fix feedback plugin not to crash in debug builds
@@ -415,7 +415,7 @@ modified in that revision.
   * Remove compiler warning
 * [Revision #e8c1b35](https://github.com/MariaDB/server/commit/e8c1b35)\
   2015-11-12 14:51:01 +0200
-  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #83ed38d](https://github.com/MariaDB/server/commit/83ed38d)\
   2015-05-11 20:18:30 +0800
   * fix [MDEV-8140](https://jira.mariadb.org/browse/MDEV-8140)

@@ -17,21 +17,21 @@ jobs:
         id: changes
         uses: tj-actions/changed-files@v45
         with:
-           files: |
-             **.md
-             **.html
+          files: |
+            **.md
+            **.html
 
       - name: Scan for for common misspellings in text files
         if: steps.changes.outputs.any_changed == 'true'
         uses: codespell-project/actions-codespell@v2
         with:
           check_filenames: true
-          # ADDED: Ignore the acronym TOI (lowercase)
-          ignore_words_list: toi
           path: ${{ steps.changes.outputs.all_changed_files }}
+          ignore_words_file: .codespellignore # Ref: https://github.com/codespell-project/actions-codespell/tree/bca0a5887de255a8903221c67b6478c7501c5edc?tab=readme-ov-file#parameter-ignore_words_file
 
       - name: 📖 Help & Documentation
         if: failure()
         run: |
           echo "### ❌ Spell Check Failed?" >> $GITHUB_STEP_SUMMARY
           echo "👉 [**Read the SOP: How to Fix Spell Check Errors**](https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3284140040/Pull+Requests#Method-1%3A-The-%22Quick-Fix%22-(Recommended))" >> $GITHUB_STEP_SUMMARY
+

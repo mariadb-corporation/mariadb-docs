@@ -1,13 +1,13 @@
 # MariaDB 5.1.44 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.44) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5144-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.44) | [Release Notes](../../old-releases/5.1/5.1.44.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 24 Mar 2010
 
-See the [MariaDB 5.1.44 Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5144-release-notes.md) for the\
+See the [MariaDB 5.1.44 Release Notes](../../old-releases/5.1/5.1.44.md) for the\
 highlights of this release.
 
-[MariaDB 5.1.44](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5144-release-notes.md) is based on MySQL 5.1.44 and includes all changes made since\
+[MariaDB 5.1.44](../../old-releases/5.1/5.1.44.md) is based on MySQL 5.1.44 and includes all changes made since\
 MySQL 5.1.42, including MySQL 5.1.43. In addition to the changes listed in\
 previous [changelogs](../../../connectors/odbc/changelogs/) it includes the following changes and bug fixes:
 

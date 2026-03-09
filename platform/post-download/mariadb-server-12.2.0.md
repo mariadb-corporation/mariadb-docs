@@ -5,7 +5,7 @@
 ## About this Release
 
 * MariaDB Server 12.2.0 was released on 23 Sep 2025
-* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.2-rolling-release/mariadb-12.2-changes-and-improvements)
+* [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.2/mariadb-12.2-changes-and-improvements)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Release Candidate (RC) maturity
 
@@ -13,7 +13,7 @@
 
 * This release is part of the MariaDB 12.2 release series
 * MariaDB 12.2 is a rolling release series
-* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.2-rolling-release/mariadb-12.2-changes-and-improvements)
+* [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.2/mariadb-12.2-changes-and-improvements)
 
 ## Release History
 

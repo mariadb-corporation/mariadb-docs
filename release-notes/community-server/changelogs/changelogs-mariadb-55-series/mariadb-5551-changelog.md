@@ -1,12 +1,12 @@
 # MariaDB 5.5.51 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.51)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5551-release-notes.md)[Changelog](mariadb-5551-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.51)[Release Notes](../../old-releases/5.5/5.5.51.md)[Changelog](mariadb-5551-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 10 Aug 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5551-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.51.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -81,7 +81,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-10383](https://jira.mariadb.org/browse/MDEV-10383) Named pipes : multiple servers can listen on the same pipename
 * [Revision #5fdb3cf](https://github.com/MariaDB/server/commit/5fdb3cf)\
   2016-07-29 18:21:08 +0200
-  * [MDEV-10419](https://jira.mariadb.org/browse/MDEV-10419): crash in [mariadb 10.1.16](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10116-release-notes.md)-MariaDB-1trusty
+  * [MDEV-10419](https://jira.mariadb.org/browse/MDEV-10419): crash in [mariadb 10.1.16](../../old-releases/10.1/10.1.16.md)-MariaDB-1trusty
 * [Revision #c6aaa2a](https://github.com/MariaDB/server/commit/c6aaa2a)\
   2016-07-30 10:53:01 +0300
   * [MDEV-10228](https://jira.mariadb.org/browse/MDEV-10228): update test results

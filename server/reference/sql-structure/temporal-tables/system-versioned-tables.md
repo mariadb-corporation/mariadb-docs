@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete system-versioned tables: WITH SYSTEM VERSIONING syntax, FOR
+  SYSTEM_TIME AS OF/BETWEEN/ALL queries, and ROW_START/ROW_END columns.
+---
+
 # System-Versioned Tables
 
 MariaDB supports temporal data tables in the form of system-versioning tables (allowing you to query and operate on historic data, discussed below), [application-time periods](application-time-periods.md) (allow you to query and operate on a temporal range of data), and [bitemporal tables](bitemporal-tables.md) (which combine both system-versioning and [application-time periods](application-time-periods.md)).
@@ -98,7 +104,7 @@ Create Table: CREATE TABLE `t` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 WITH SYSTEM VERSIONING
 ```
 
-**MariaDB starting with** [**11.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117)
+**MariaDB starting with** [**11.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
 
 {% tabs %}
 {% tab title="Current" %}

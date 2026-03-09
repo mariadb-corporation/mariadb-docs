@@ -20,7 +20,7 @@ Fixed data part:
 
 Variable data part:
 
-* [byte](../protocol-data-types.md#fixed-length-bytes) Null terminated data block.
+* [byte\<NULL>](../protocol-data-types.md#fixed-length-bytes) Null terminated data block.
 
 ## Example
 

@@ -52,7 +52,7 @@ modified in that revision.
   * [MDEV-5309](https://jira.mariadb.org/browse/MDEV-5309) - RENAME TABLE does not check for existence of the table's engine
 * [Revision #5a4c5fa](https://github.com/MariaDB/server/commit/5a4c5fa)\
   2015-06-17 14:18:16 +0200
-  * [MDEV-5977](https://jira.mariadb.org/browse/MDEV-5977) [MariaDB 10.0](../../release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) is not installable on Trusty when "trusty-updates universe" is in sources.list
+  * [MDEV-5977](https://jira.mariadb.org/browse/MDEV-5977) [MariaDB 10.0](../../10.0/changes-improvements-in-mariadb-10-0.md) is not installable on Trusty when "trusty-updates universe" is in sources.list
 * [Revision #b56ad49](https://github.com/MariaDB/server/commit/b56ad49)\
   2015-06-16 17:27:53 +0200
   * [MDEV-8287](https://jira.mariadb.org/browse/MDEV-8287) DROP TABLE suppresses all engine errors

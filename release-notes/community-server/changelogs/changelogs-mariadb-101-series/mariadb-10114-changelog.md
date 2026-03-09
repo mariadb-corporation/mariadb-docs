@@ -1,8 +1,8 @@
 # MariaDB 10.1.14 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.14)[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-14-release-notes)[Changelog](mariadb-10114-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.14)[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-14-release-notes)[Changelog](mariadb-10114-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 10 May 2016
 
@@ -21,7 +21,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-10034](https://jira.mariadb.org/browse/MDEV-10034) Embedded server crashes on CREATE TABLE in PS protocol
 * [Revision #5534d81](https://github.com/MariaDB/server/commit/5534d81)\
   2016-05-06 13:56:25 +0300
-  * Merged change from MySQL 5.6 to [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) XtraDB including the test case
+  * Merged change from MySQL 5.6 to [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) XtraDB including the test case
 * [Revision #1512078](https://github.com/MariaDB/server/commit/1512078)\
   2016-04-29 10:50:39 -0400
   * [MDEV-9851](https://jira.mariadb.org/browse/MDEV-9851): CREATE USER w/o IDENTIFIED BY clause causes crash when using cracklib plugin
@@ -355,7 +355,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-9618](https://jira.mariadb.org/browse/MDEV-9618) solaris sparc build fails on 10.1.
 * [Revision #5dd0c77](https://github.com/MariaDB/server/commit/5dd0c77)\
   2016-05-03 20:53:29 +0300
-  * [MDEV-9362](https://jira.mariadb.org/browse/MDEV-9362): InnoDB tables using DATA\_DIRECTORY created using MySQL 5.6 do not work with [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * [MDEV-9362](https://jira.mariadb.org/browse/MDEV-9362): InnoDB tables using DATA\_DIRECTORY created using MySQL 5.6 do not work with [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #80da57c](https://github.com/MariaDB/server/commit/80da57c)\
   2016-05-03 20:13:58 +0200
   * remove the forgotten PARENT\_SCOPE
@@ -382,7 +382,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Moved mysqld\_server\_initialized to before galera is initialized.
 * [Revision #ea83c1d](https://github.com/MariaDB/server/commit/ea83c1d)\
   2016-04-28 15:21:10 +0300
-  * [MDEV-9977](https://jira.mariadb.org/browse/MDEV-9977): Crash when accessing large (>4G) InnoDB table on [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md).x 32-bit binaries.
+  * [MDEV-9977](https://jira.mariadb.org/browse/MDEV-9977): Crash when accessing large (>4G) InnoDB table on [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md).x 32-bit binaries.
 * [Revision #732adec](https://github.com/MariaDB/server/commit/732adec)\
   2016-04-28 13:39:05 +0300
   * Removed some not needed when doing delete thd, which caused warnings about wrong mutex usage from safe\_mutex. Ensure that LOCK\_status is always taken before LOCK\_thread\_count

@@ -1,12 +1,12 @@
 # MariaDB 10.5.16 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.16](https://mariadb.org/download/?tab=mariadb\&release=10.5.16\&product=mariadb)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10516-release-notes.md)[Changelog](mariadb-10516-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.16](https://mariadb.org/download/?tab=mariadb\&release=10.5.16\&product=mariadb)[Release Notes](../../old-releases/10.5/10.5.16.md)[Changelog](mariadb-10516-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 20 May 2022
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10516-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.16.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -161,7 +161,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Cleanup: have\_sanitizer='ASAN,UBSAN'
 * [Revision #9595ea8992](https://github.com/MariaDB/server/commit/9595ea8992)\
   2022-03-02 20:05:50 -0800
-  * Deb: Sync Salsa-CI from Debian [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) repository
+  * Deb: Sync Salsa-CI from Debian [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) repository
 * [Revision #06e3bc4390](https://github.com/MariaDB/server/commit/06e3bc4390)\
   2022-03-17 10:33:06 +0200
   * [MDEV-17841](https://jira.mariadb.org/browse/MDEV-17841) fixup: GCC -Wmaybe-uninitialized

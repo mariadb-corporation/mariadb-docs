@@ -1,10 +1,10 @@
 # MariaDB 10.0.8 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.8) |[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1008-release-notes.md) |**Changelog** |[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.8) |[Release Notes](../../old-releases/10.0/10.0.8.md) |**Changelog** |[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 10 Feb 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1008-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.8.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -253,7 +253,7 @@ modified in that revision.
         * Merge 5.3 -> 5.5
         * [Revision #2502.567.187](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.567.187)\
           Sat 2014-01-25 00:26:40 +0400
-          * \[Backport to 5.3] [MDEV-5337](https://jira.mariadb.org/browse/MDEV-5337): Wrong result in [mariadb 5.5.32](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md) with ORDER BY + LIMIT when index\_condition\_pushdown=on
+          * \[Backport to 5.3] [MDEV-5337](https://jira.mariadb.org/browse/MDEV-5337): Wrong result in [mariadb 5.5.32](../../old-releases/5.5/5.5.32.md) with ORDER BY + LIMIT when index\_condition\_pushdown=on
           * in test\_if\_skip\_sort\_order(), correct the condition under which we have the code that restores the previously pushed index condition.
         * [Revision #2502.567.186](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/2502.567.186)\
           Fri 2014-01-24 16:50:39 +0400
@@ -297,7 +297,7 @@ modified in that revision.
         * Merge
         * [Revision #3413.60.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.60.1)\
           Fri 2014-01-24 23:40:48 +0400
-          * [MDEV-5337](https://jira.mariadb.org/browse/MDEV-5337): Wrong result in [mariadb 5.5.32](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md) with ORDER BY + LIMIT when index\_condition\_pushdown=on
+          * [MDEV-5337](https://jira.mariadb.org/browse/MDEV-5337): Wrong result in [mariadb 5.5.32](../../old-releases/5.5/5.5.32.md) with ORDER BY + LIMIT when index\_condition\_pushdown=on
           * in test\_if\_skip\_sort\_order(), correct the condition under which we have the code that restores the previously pushed index condition.
       * [Revision #3413.21.487](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.487)\
         Fri 2014-01-24 19:44:13 +0200
@@ -364,7 +364,7 @@ modified in that revision.
         * remove an unused error message
       * [Revision #3413.21.470](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.470)\
         Wed 2014-01-22 15:16:57 +0200
-        * Fix for [MDEV-5547](https://jira.mariadb.org/browse/MDEV-5547): Bad error message when moving very old .frm files to [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md). mysql\_upgrade `--help` now also prints out `--default` options and variable values. mysql\_upgrade now prints permission errors. mysql\_upgrade doesn't print some non essential info if `--silent` is used. Added handler error message about incompatible versions Fixed that mysqlbug and mysql\_install\_db have the executable flag set. Removed executable flag for some non executable files. Changed in mysql\_install\_db askmonty.org to mariadb.com. Ensured that all client executables prints `--default` options the same way. Allow REPAIR ... USE\_FRM for old .frm files if the are still compatible. Extended shown error for storage engine messages.
+        * Fix for [MDEV-5547](https://jira.mariadb.org/browse/MDEV-5547): Bad error message when moving very old .frm files to [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md). mysql\_upgrade `--help` now also prints out `--default` options and variable values. mysql\_upgrade now prints permission errors. mysql\_upgrade doesn't print some non essential info if `--silent` is used. Added handler error message about incompatible versions Fixed that mysqlbug and mysql\_install\_db have the executable flag set. Removed executable flag for some non executable files. Changed in mysql\_install\_db askmonty.org to mariadb.com. Ensured that all client executables prints `--default` options the same way. Allow REPAIR ... USE\_FRM for old .frm files if the are still compatible. Extended shown error for storage engine messages.
       * [Revision #3413.21.469](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.469)\
         Tue 2014-01-21 17:27:36 +0400
         * [MDEV-4974](https://jira.mariadb.org/browse/MDEV-4974): memory leak in 5.5.32-MariaDB-1wheezy-log

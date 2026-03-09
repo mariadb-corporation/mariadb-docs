@@ -1,10 +1,10 @@
 # MariaDB 5.1.60 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.1.60) |[Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5160-release-notes.md) |**Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://downloads.askmonty.org/mariadb/5.1.60) |[Release Notes](../../old-releases/5.1/5.1.60.md) |**Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 5 Dec 2011
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5160-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.60.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -40,7 +40,7 @@ modified in that revision.
 * [Revision #3114](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3114)\
   Wed 2011-11-30 13:53:25 +0100
   * Cherrypick into XtraDB: Bug#13002783 PARTIALLY UNINITIALIZED CASCADE UPDATE VECTOR
-  * We merged the test case for this into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md), but the fix\
+  * We merged the test case for this into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md), but the fix\
     was not yet part of XtraDB.
 * [Revision #3113](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3113)\
   Wed 2011-11-30 00:34:05 +0200
@@ -70,7 +70,7 @@ modified in that revision.
   * Merge of XtraDB for 5.1.59
   * [Revision #3104.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3104.1.1) \[merge]\
     Mon 2011-11-21 14:21:13 +0100
-    * Merge XtraDB from Percona-Server-5.1.59-13 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md).
+    * Merge XtraDB from Percona-Server-5.1.59-13 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md).
     * [Revision #0.6.47](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/0.6.47)\
       mp: Mon 2011-11-21 13:20:15 +0100
       * Updated with changes from Percona Server 5.1.56-13, from
@@ -194,7 +194,7 @@ modified in that revision.
   * Ensure that the last `--datadir` option is used from the my.cnf files.
 * [Revision #3087](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/3087)\
   Sun 2011-07-24 01:25:28 -0700
-  * Fixes [Bug #805930](https://bugs.launchpad.net/bugs/805930) Sysbench breaks on multiple table test with [MariaDB 5.2.7](../../old-releases/release-notes-mariadb-5-2-series/mariadb-527-release-notes.md) + Aria
+  * Fixes [Bug #805930](https://bugs.launchpad.net/bugs/805930) Sysbench breaks on multiple table test with [MariaDB 5.2.7](../../old-releases/5.2/5.2.7.md) + Aria
   * The bug happens when one uses MAX\_ROWS=
 
 ## with Aria & row\_format=page and one insert more than

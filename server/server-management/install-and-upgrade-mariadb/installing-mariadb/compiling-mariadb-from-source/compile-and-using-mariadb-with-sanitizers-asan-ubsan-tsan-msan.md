@@ -311,7 +311,7 @@ The [MariaDB test system](../../../../clients-and-utilities/testing-tools/mariad
 
 ## See Also
 
-* [Compiling MariaDB for debugging](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging)
+* [Compiling MariaDB for debugging](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

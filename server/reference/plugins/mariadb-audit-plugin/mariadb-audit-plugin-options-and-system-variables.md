@@ -176,7 +176,7 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 
 * Description: Flushes the buffer to the log file.\
   While log records are in the buffer, they don't appear in the log file. To write them out from the buffer, issue this statement:\
-  `SET GLOBAL server_audit_log_file=1`
+  `SET GLOBAL server_audit_sync_log_file=1`
 * Command line: `--server-audit-sync-log-file`
 * Scope: Global
 * Dynamic: Yes

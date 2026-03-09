@@ -1,12 +1,12 @@
 # MariaDB 10.3.14 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.14)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10314-release-notes.md)[Changelog](mariadb-10314-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.14)[Release Notes](../../old-releases/10.3/10.3.14.md)[Changelog](mariadb-10314-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 **Release date:** 2 Apr 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10314-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.14.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -73,7 +73,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-13895](https://jira.mariadb.org/browse/MDEV-13895): GTID and Master\_Delay causes excessive initial delay
 * [Revision #05ad7fc3ed](https://github.com/MariaDB/server/commit/05ad7fc3ed)\
   2019-03-28 11:42:21 +0100
-  * [MDEV-19054](https://jira.mariadb.org/browse/MDEV-19054) : mysql\_upgrade\_service now allows MySQL 5.7 to [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) upgrade.
+  * [MDEV-19054](https://jira.mariadb.org/browse/MDEV-19054) : mysql\_upgrade\_service now allows MySQL 5.7 to [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) upgrade.
 * [Revision #0623cc7c16](https://github.com/MariaDB/server/commit/0623cc7c16)\
   2019-03-27 18:58:43 +0530
   * [MDEV-19051](https://jira.mariadb.org/browse/MDEV-19051) Avoid unnecessary writing MLOG\_INDEX\_LOAD

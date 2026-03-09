@@ -46,7 +46,7 @@ the command line prompt.
 
 ## Building Windows Binaries
 
-The above instructions assume [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) or higher.
+The above instructions assume [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) or higher.
 
 Branch the MariaDB repository, or unpack the source archive. On the command\
 prompt, switch to your source directory, then execute:
@@ -119,7 +119,7 @@ cmake --build . --config relwithdebinfo --target MSI
 
 ## Including HeidiSQL in the MSI Installer
 
-Starting with [MariaDB 5.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/mariadb-527-release-notes), it is possible to build an installer which\
+Starting with [MariaDB 5.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/5.2.7), it is possible to build an installer which\
 includes 3rd party products, as described in [MWL#200](https://askmonty.org/worklog/Other/?tid=200). Currently only [HeidiSQL](https://www.heidisql.com) support is implemented; it is also\
 included in the official builds. Use the `CMake` parameter`-DWITH_THIRD_PARTY=HeidiSQL` to include it in the installer.
 

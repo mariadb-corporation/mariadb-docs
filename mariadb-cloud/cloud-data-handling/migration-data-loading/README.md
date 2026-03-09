@@ -1,20 +1,3 @@
----
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
----
-
 # Migration, Data Loading
 
 MariaDB Cloud offers a comprehensive set of tools and methods for migrating existing databases and loading data efficiently into your cloud environment. Whether you are moving your database from platforms such as Oracle, MySQL, PostgreSQL, SQL Server to MariaDB Cloud or loading data incrementally, it supports both a fully managed migration solution and self-service options to align with your specific needs.

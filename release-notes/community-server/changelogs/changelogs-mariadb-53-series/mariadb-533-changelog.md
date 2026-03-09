@@ -1,10 +1,10 @@
 # MariaDB 5.3.3 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.3) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-533-release-notes.md) |**Changelog** |[Overview of 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+[Download](https://downloads.askmonty.org/mariadb/5.3.3) |[Release Notes](../../old-releases/5.3/5.3.3.md) |**Changelog** |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 21 Dec 2011
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-533-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.3.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -23,7 +23,7 @@ modified in that revision.
     * All test case differences have been reviewed one by one, and\
       care has been taken to restore the original plan so that each\
       test case executes the code path it was designed for.
-    * A bug was found and fixed in [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md) in\
+    * A bug was found and fixed in [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) in\
       Item\_allany\_subselect::cleanup().
     * ORDER BY is not removed because we are unsure of all effects,\
       and it would prevent enabling ORDER BY ... LIMIT subqueries.
@@ -315,7 +315,7 @@ modified in that revision.
       * [Revision #2643.143.57](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.143.57)\
         Wed 2011-11-30 13:53:25 +0100
         * Cherrypick into XtraDB: Bug#13002783 PARTIALLY UNINITIALIZED CASCADE UPDATE VECTOR<>
-        * We merged the test case for this into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md), but the fix was not\
+        * We merged the test case for this into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md), but the fix was not\
           yet part of XtraDB.
       * [Revision #2643.143.56](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.143.56)\
         Wed 2011-11-30 00:34:05 +0200
@@ -362,7 +362,7 @@ modified in that revision.
         * Added test case for [Bug #875797](https://bugs.launchpad.net/bugs/875797) Using 'innodb\_sys\_indexes' causes core dump
       * [Revision #2732.48.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.48.1) \[merge]\
         Thu 2011-11-24 18:48:58 +0200
-        * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+        * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
         * [Revision #2643.143.52](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.143.52)\
           Thu 2011-11-24 16:04:19 +0200
           * Fixes for build failuers found by buildbot
@@ -377,7 +377,7 @@ modified in that revision.
           * Merge of XtraDB for 5.1.59
           * [Revision #2643.149.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.149.1) \[merge]\
             Mon 2011-11-21 14:21:13 +0100
-            * Merge XtraDB from Percona-Server-5.1.59-13 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md).
+            * Merge XtraDB from Percona-Server-5.1.59-13 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md).
             * [Revision #0.6.47](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/0.6.47)\
               Mon 2011-11-21 13:20:15 +0100
               * Updated with changes from Percona Server 5.1.56-13, from\
@@ -1480,14 +1480,14 @@ modified in that revision.
 * [Revision #3283](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3283)\
   Mon 2011-11-14 19:24:36 +0200
   * Fix [Bug #889744](https://bugs.launchpad.net/bugs/889744)
-  * [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) merges changes from MySQL 5.5 where all constant\
+  * [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) merges changes from MySQL 5.5 where all constant\
     expressions are wrapped into an Item\_cache. As a result, constant\
     single-row subqueries were also wrapped in an Item\_cache.\
     When analyzing the where clause for constant expressions that\
     can be evaluated during optimization, subqueries wrapped into\
     an Item\_cache did not appear as expensive, and were therefore\
     evaluated during optimization. Such evaluation is against the\
-    current architecture of [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md) where subquries are executed\
+    current architecture of [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) where subquries are executed\
     during the execute phase.
   * The patch adds the is\_expensive() predicate to Item\_cache.
   * This makes Item\_cache consistent with other wrapping Item\

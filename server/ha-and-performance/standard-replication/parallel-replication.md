@@ -11,7 +11,7 @@ description: >-
 The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
 {% endhint %}
 
-Some writes, [replicated](./) from the primary can be executed in parallel (simultaneously) on the replica. Note that for parallel replication to work, both the primary and replica need to be [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes) or later.
+Some writes, [replicated](./) from the primary can be executed in parallel (simultaneously) on the replica. Note that for parallel replication to work, both the primary and replica need to be [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5) or later.
 
 ## Parallel Replication Overview
 
@@ -55,12 +55,12 @@ Parallel replication can be in-order or out-of-order:
 
 #### Optimistic Mode of In-Order Parallel Replication
 
-Optimistic mode of in-order parallel replication provides a lot of opportunities for parallel apply on the replica while still preserving exact transaction semantics from the point of view of applications. It is the default mode from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes).
+Optimistic mode of in-order parallel replication provides a lot of opportunities for parallel apply on the replica while still preserving exact transaction semantics from the point of view of applications. It is the default mode from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1).
 
 Optimistic mode of in-order parallel replication can be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `optimistic` on the replica.
 
 Any transactional DML (INSERT/UPDATE/DELETE) is allowed to run in parallel, up to the limit of [@@slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md). This may cause conflicts on the replica, e.g. if two transactions try to modify the same row. Any such conflict is detected, and the latter of the two transactions is rolled back, allowing the former to proceed. The latter transaction is then re-tried once\
-the former has completed. 
+the former has completed.
 
 The term "optimistic" is used for this mode, because the server optimistically assumes that few conflicts will occur, and that the extra work spent rolling back and retrying conflicting transactions is justified from the gain from running most transactions in parallel.
 
@@ -94,7 +94,7 @@ Aggressive mode of in-order parallel replication can be configured by setting th
 
 Conservative mode of in-order parallel replication uses the [group commit](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary to discover potential for parallel apply of events on the replica. If two transactions commit together in a [group commit](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary, they are written into the binlog with the same commit id. Such events are certain to not conflict with each other, and they can be scheduled by the parallel replication to run in different worker threads.
 
-Conservative mode of in-order parallel replication is the default mode until [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes), but it can also be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `conservative` on the replica.
+Conservative mode of in-order parallel replication is the default mode until [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0), but it can also be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `conservative` on the replica.
 
 Two transactions that were committed separately on the primary can potentially conflict (eg. modify the same row of a table). Thus, the worker that applies the second transaction will not start immediately but wait until the first transaction begins the commit step; at this point it is safe to start the second transaction, as it can no longer disrupt the execution of the first one.
 
@@ -118,7 +118,7 @@ Note that even if there is no parallelism available from the primary [group comm
 
 #### Minimal Mode of In-Order Parallel Replication
 
-Minimal mode of in-order parallel replication _only_allows the commit step of transactions to be applied in parallel; all other steps are applied serially.
+Minimal mode of in-order parallel replication \_only\_allows the commit step of transactions to be applied in parallel; all other steps are applied serially.
 
 Minimal mode of in-order parallel replication can be configured by setting the [slave\_parallel\_mode](replication-and-binary-log-system-variables.md) system variable to `minimal` on the replica.
 

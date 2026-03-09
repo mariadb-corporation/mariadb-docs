@@ -1,12 +1,12 @@
 # MariaDB 10.2.19 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.19/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10219-release-notes.md)[Changelog](mariadb-10219-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.19/)[Release Notes](../../old-releases/10.2/10.2.19.md)[Changelog](mariadb-10219-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 13 Nov 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10219-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.19.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -302,7 +302,7 @@ in that revision.
   * Follow-up to [MDEV-13407](https://jira.mariadb.org/browse/MDEV-13407): Remove fil\_wait\_crypt\_bg\_threads()
 * [Revision #980d1bf1a9](https://github.com/MariaDB/server/commit/980d1bf1a9)\
   2018-09-07 17:24:31 +0300
-  * [MDEV-14717](https://jira.mariadb.org/browse/MDEV-14717): Prevent crash-downgrade to earlier [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * [MDEV-14717](https://jira.mariadb.org/browse/MDEV-14717): Prevent crash-downgrade to earlier [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #73ed19e44f](https://github.com/MariaDB/server/commit/73ed19e44f)\
   2018-09-06 11:51:50 +0300
   * [MDEV-14585](https://jira.mariadb.org/browse/MDEV-14585) Automatically remove #sql- tables in InnoDB dictionary during recovery

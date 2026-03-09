@@ -1,7 +1,7 @@
 ---
 description: >-
-  Display information about columns in a table. View field names, types, default
-  values, and other attributes for a specific table.
+  Complete guide to displaying table columns in MariaDB. Complete SHOW COLUMNS
+  syntax with field types, keys, and filtering options for production use.
 ---
 
 # SHOW COLUMNS

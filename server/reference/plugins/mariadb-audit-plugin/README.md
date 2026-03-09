@@ -1,8 +1,8 @@
 ---
 description: >-
-  The MariaDB Community Audit Plugin (server_audit) records server activity,
-  including connections and queries, to a file or syslog to support auditing and
-  compliance.
+  Complete MariaDB Audit Plugin reference: server_audit activity logging,
+  connection/query event tracking, file/syslog output, and compliance
+  configuration.
 ---
 
 # MariaDB Community Audit Plugin

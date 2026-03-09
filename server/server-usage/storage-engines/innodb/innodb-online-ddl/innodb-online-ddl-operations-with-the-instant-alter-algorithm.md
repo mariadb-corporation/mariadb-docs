@@ -11,9 +11,9 @@ description: >-
 
 ### `ALTER TABLE ... ADD COLUMN`
 
-In [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1032-release-notes) and later, InnoDB supports adding columns to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the new column is the last column in the table. See [MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369) for more information. If the table has a hidden `FTS_DOC_ID` column is present, then this is not supported.
+In [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2) and later, InnoDB supports adding columns to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the new column is the last column in the table. See [MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369) for more information. If the table has a hidden `FTS_DOC_ID` column is present, then this is not supported.
 
-In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, InnoDB supports adding columns to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`, regardless of where in the column list the new column is added.
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, InnoDB supports adding columns to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`, regardless of where in the column list the new column is added.
 
 When this operation is performed with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`, the tablespace file will have a non-canonical storage format. See [Non-canonical Storage Format Caused by Some Operations](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#non-canonical-storage-format-caused-by-some-operations) for more information.
 
@@ -32,7 +32,7 @@ ALTER TABLE tab ADD COLUMN c VARCHAR(50);
 Query OK, 0 rows affected (0.004 sec)
 ```
 
-And this succeeds in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later:
+And this succeeds in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -51,7 +51,7 @@ See [Instant ADD COLUMN for InnoDB](instant-add-column-for-innodb.md) for more i
 
 ### `ALTER TABLE ... DROP COLUMN`
 
-In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, InnoDB supports dropping columns from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. See [MDEV-15562](https://jira.mariadb.org/browse/MDEV-15562) for more information.
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, InnoDB supports dropping columns from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. See [MDEV-15562](https://jira.mariadb.org/browse/MDEV-15562) for more information.
 
 When this operation is performed with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`, the tablespace file will have a non-canonical storage format. See [Non-canonical Storage Format Caused by Some Operations](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#non-canonical-storage-format-caused-by-some-operations) for more information.
 
@@ -79,7 +79,7 @@ This applies to [ALTER TABLE ... MODIFY COLUMN](../../../../reference/sql-statem
 
 #### Reordering Columns
 
-In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, InnoDB supports reordering columns within a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. See [MDEV-15562](https://jira.mariadb.org/browse/MDEV-15562) for more information.
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, InnoDB supports reordering columns within a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. See [MDEV-15562](https://jira.mariadb.org/browse/MDEV-15562) for more information.
 
 When this operation is performed with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`, the tablespace file will have a non-canonical storage format. See [Non-canonical Storage Format Caused by Some Operations](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md#non-canonical-storage-format-caused-by-some-operations) for more information.
 
@@ -104,8 +104,8 @@ Query OK, 0 rows affected (0.004 sec)
 InnoDB does **not** support modifying a column's data type with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` in most cases. There are some exceptions:
 
 * InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`, unless it would require changing the number of bytes requires to represent the column's length. A `VARCHAR` column that is between 0 and 255 bytes in size requires 1 byte to represent its length, while a `VARCHAR` column that is 256 bytes or longer requires 2 bytes to represent its length. This means that the length of a column cannot be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the original length was less than 256 bytes, and the new length is 256 bytes or more.
-* In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` with no restrictions if the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to [REDUNDANT](../innodb-row-formats/innodb-row-formats-overview.md). See [MDEV-15563](https://jira.mariadb.org/browse/MDEV-15563) for more information.
-* In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later, InnoDB also supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` in a more limited manner if the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to [COMPACT](../innodb-row-formats/innodb-row-formats-overview.md), [DYNAMIC](../innodb-row-formats/innodb-row-formats-overview.md), or [COMPRESSED](../innodb-row-formats/innodb-row-formats-overview.md). In this scenario, the following limitations apply:
+* In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` with no restrictions if the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to [REDUNDANT](../innodb-row-formats/innodb-row-formats-overview.md). See [MDEV-15563](https://jira.mariadb.org/browse/MDEV-15563) for more information.
+* In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later, InnoDB also supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` in a more limited manner if the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to [COMPACT](../innodb-row-formats/innodb-row-formats-overview.md), [DYNAMIC](../innodb-row-formats/innodb-row-formats-overview.md), or [COMPRESSED](../innodb-row-formats/innodb-row-formats-overview.md). In this scenario, the following limitations apply:
   * The length can be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the original length of the column is 127 bytes or less, and the new length of the column is 256 bytes or more.
   * The length can be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the original length of the column is 255 bytes or less, and the new length of the column is still 255 bytes or less.
   * The length can be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the original length of the column is 256 bytes or more, and the new length of the column is still 256 bytes or more.
@@ -156,7 +156,7 @@ ALTER TABLE tab MODIFY COLUMN c VARCHAR(256);
 ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
 ```
 
-But this succeeds in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later because the table has `ROW_FORMAT=REDUNDANT`:
+But this succeeds in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later because the table has `ROW_FORMAT=REDUNDANT`:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -170,7 +170,7 @@ ALTER TABLE tab MODIFY COLUMN c VARCHAR(300);
 Query OK, 0 rows affected (0.004 sec)
 ```
 
-And this succeeds in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later because the table has `ROW_FORMAT=DYNAMIC` and the column's original length is 127 bytes or less:
+And this succeeds in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later because the table has `ROW_FORMAT=DYNAMIC` and the column's original length is 127 bytes or less:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -185,7 +185,7 @@ ALTER TABLE tab MODIFY COLUMN c VARCHAR(300);
 Query OK, 0 rows affected (0.003 sec)
 ```
 
-And this succeeds in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later because the table has `ROW_FORMAT=COMPRESSED` and the column's original length is 127 bytes or less:
+And this succeeds in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later because the table has `ROW_FORMAT=COMPRESSED` and the column's original length is 127 bytes or less:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -200,7 +200,7 @@ ALTER TABLE tab MODIFY COLUMN c VARCHAR(300);
 Query OK, 0 rows affected (0.003 sec)
 ```
 
-But this fails even in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later because the table has `ROW_FORMAT=DYNAMIC` and the column's original length is between 128 bytes and 255 bytes:
+But this fails even in [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later because the table has `ROW_FORMAT=DYNAMIC` and the column's original length is between 128 bytes and 255 bytes:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -217,7 +217,7 @@ ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change co
 
 #### Changing a Column to NULL
 
-In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later, InnoDB supports modifying a column to allow [NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null) values with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to [REDUNDANT](../innodb-row-formats/innodb-row-formats-overview.md). See [MDEV-15563](https://jira.mariadb.org/browse/MDEV-15563) for more information.
+In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later, InnoDB supports modifying a column to allow [NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null) values with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT` if the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option is set to [REDUNDANT](../innodb-row-formats/innodb-row-formats-overview.md). See [MDEV-15563](https://jira.mariadb.org/browse/MDEV-15563) for more information.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 
@@ -329,7 +329,7 @@ ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Cannot change co
 
 #### Removing System Versioning from a Column
 
-In [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1038-release-notes) and later, InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. In order for this to work, the [system\_versioning\_alter\_history](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history) system variable must be set to `KEEP`. See [MDEV-16330](https://jira.mariadb.org/browse/MDEV-16330) for more information.
+In [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8) and later, InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. In order for this to work, the [system\_versioning\_alter\_history](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history) system variable must be set to `KEEP`. See [MDEV-16330](https://jira.mariadb.org/browse/MDEV-16330) for more information.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 
@@ -700,7 +700,7 @@ This applies to [KEY\_BLOCK\_SIZE=...](../../../../reference/sql-statements/data
 
 ### `ALTER TABLE ... PAGE_COMPRESSED=1` and `ALTER TABLE ... PAGE_COMPRESSION_LEVEL=...`
 
-In [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes) and later, InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
+In [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10) and later, InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
 
 In these versions, InnoDB also supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
 
@@ -775,7 +775,7 @@ This applies to [ALTER TABLE ... DROP SYSTEM VERSIONING](../../../../reference/s
 
 ### `ALTER TABLE ... DROP CONSTRAINT`
 
-In [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1036-release-notes) and later, InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. See [MDEV-16331](https://jira.mariadb.org/browse/MDEV-16331) for more information.
+In [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6) and later, InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`. See [MDEV-16331](https://jira.mariadb.org/browse/MDEV-16331) for more information.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 
@@ -963,12 +963,12 @@ ALTER TABLE tab ADD COLUMN c VARCHAR(50), FORCE;
 
 #### Closed Bugs
 
-* [MDEV-20066](https://jira.mariadb.org/browse/MDEV-20066): This bug could cause a table to become corrupt if a column was added instantly. It is fixed in [MariaDB 10.3.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10318-release-notes) and [MariaDB 10.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1048-release-notes).
-* [MDEV-20117](https://jira.mariadb.org/browse/MDEV-20117): This bug could cause a table to become corrupt if a column was dropped instantly. It is fixed in [MariaDB 10.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1049-release-notes).
-* [MDEV-19743](https://jira.mariadb.org/browse/MDEV-19743): This bug could cause a table to become corrupt during page reorganization if a column was added instantly. It is fixed in [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10317-release-notes) and [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes).
-* [MDEV-19783](https://jira.mariadb.org/browse/MDEV-19783): This bug could cause a table to become corrupt if a column was added instantly. It is fixed in [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10317-release-notes) and [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes)
-* [MDEV-20090](https://jira.mariadb.org/browse/MDEV-20090): This bug could cause a table to become corrupt if columns were added, dropped, or reordered instantly. It is fixed in [MariaDB 10.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1049-release-notes).
-* [MDEV-18519](https://jira.mariadb.org/browse/MDEV-18519): This bug could cause a table to become corrupt if a column was added instantly. It is fixed in [MariaDB 10.6.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1069-release-notes), [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1075-release-notes), [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1084-release-notes) and [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/mariadb-1092-release-notes).
+* [MDEV-20066](https://jira.mariadb.org/browse/MDEV-20066): This bug could cause a table to become corrupt if a column was added instantly. It is fixed in [MariaDB 10.3.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.18) and [MariaDB 10.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.8).
+* [MDEV-20117](https://jira.mariadb.org/browse/MDEV-20117): This bug could cause a table to become corrupt if a column was dropped instantly. It is fixed in [MariaDB 10.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.9).
+* [MDEV-19743](https://jira.mariadb.org/browse/MDEV-19743): This bug could cause a table to become corrupt during page reorganization if a column was added instantly. It is fixed in [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17) and [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7).
+* [MDEV-19783](https://jira.mariadb.org/browse/MDEV-19783): This bug could cause a table to become corrupt if a column was added instantly. It is fixed in [MariaDB 10.3.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.17) and [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7)
+* [MDEV-20090](https://jira.mariadb.org/browse/MDEV-20090): This bug could cause a table to become corrupt if columns were added, dropped, or reordered instantly. It is fixed in [MariaDB 10.4.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.9).
+* [MDEV-18519](https://jira.mariadb.org/browse/MDEV-18519): This bug could cause a table to become corrupt if a column was added instantly. It is fixed in [MariaDB 10.6.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1069-release-notes), [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5), [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.4) and [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.2).
 * [MDEV-18519](https://jira.mariadb.org/browse/MDEV-18519): This bug could cause a table to become corrupt if a column was added instantly. This isn't and won't be fixed in versions less than [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

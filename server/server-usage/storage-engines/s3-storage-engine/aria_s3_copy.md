@@ -7,7 +7,7 @@ description: >-
 # aria\_s3\_copy
 
 {% hint style="info" %}
-The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1054-release-notes).
+The [S3 storage engine](./) is available from [MariaDB 10.5.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.4).
 {% endhint %}
 
 `aria_s3_copy` is a tool for copying an [Aria](../aria/) table to and from [S3](./).

@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 **Release date:** 3 May 2018
 
 MariaDB Galera Cluster 5.5.60 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 5.5.60](../../release-notes-mariadb-5-5-series/mariadb-5560-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 5.5.60](../../5.5/5.5.60.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -21,7 +21,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 * The [Galera library](https://codership.com/content/using-galera-cluster) used\
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.23.
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2018-2755](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-2755)
   * [CVE-2018-2819](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-2819)
   * [CVE-2018-2817](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-2817)
@@ -32,7 +32,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
   * [CVE-2018-2767](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-2767)
   * [CVE-2019-2455](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-2455)
 
-See the [MariaDB 5.5.60 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5560-release-notes.md) for more\
+See the [MariaDB 5.5.60 Release Notes](../../5.5/5.5.60.md) for more\
 information on fixes in this version.
 
 ## Changelog

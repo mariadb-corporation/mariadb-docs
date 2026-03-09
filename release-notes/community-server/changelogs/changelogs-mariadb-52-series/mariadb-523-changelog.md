@@ -1,10 +1,10 @@
 # MariaDB 5.2.3 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.3) | [Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-523-release-notes.md) | **Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.3) | [Release Notes](../../old-releases/5.2/5.2.3.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 10 Nov 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-523-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.3.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -27,7 +27,7 @@ modified in that revision.
   * [Revision #2881.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2881.1.3)
     * Updated state and version number
   * [Revision #2881.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2881.1.2) \[merge]
-    * Automatic merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+    * Automatic merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
   * [Revision #2881.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2881.1.1) \[merge]
     * Automatic merge with 5.1
 * [Revision #2881](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2881)
@@ -47,7 +47,7 @@ modified in that revision.
 * [Revision #2875](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2875)
   * bugfix: engine defined table options were not showing up in INFORMATION\_SCHEMA.TABLES.CREATE\_OPTIONS
 * [Revision #2874](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2874) \[merge]
-  * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+  * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 * [Revision #2873](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2873) \[merge]
   * Automatic merge with 5.1
 * [Revision #2872](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2872)

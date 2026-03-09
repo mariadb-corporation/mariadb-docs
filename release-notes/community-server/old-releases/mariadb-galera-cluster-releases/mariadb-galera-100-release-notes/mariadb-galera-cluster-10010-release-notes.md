@@ -6,7 +6,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 
 **Release date:** 22 Apr 2014
 
-This is the 2nd release in the MariaDB Galera Cluster 10.0 series. It is a [_**Beta**_](../../../about/release-criteria.md) release. It is a merge of [MariaDB 10.0.10](../../release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md)\
+This is the 2nd release in the MariaDB Galera Cluster 10.0 series. It is a [_**Beta**_](../../../about/release-criteria.md) release. It is a merge of [MariaDB 10.0.10](../../10.0/10.0.10.md)\
 and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes. It is being released now to get it into the hands of any\
 who might want to test it. **Do not run Beta releases on production systems!**
@@ -29,7 +29,7 @@ detailed information on each push, see the [MariaDB Galera Cluster 10.0.10 Chang
 * New: This release includes a new method for snapshot state transfer, `wsrep_sst_xtrabackup-v2`. This method of state snapshot transfer can be configured using the `--wsrep_sst_method=xtrabackup-v2` option. Its use requires Xtrabackup (>= 2.1.6) and other software packages like socat, nc, and tar.
 * Note: Completely uninstall broken/partially installed 10.0.7-galera deb packages prior to installing this version, as they may conflict with 10.0.10-galera packages.
 
-See the [MariaDB 10.0.10 Release Notes](../../release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10010-changelog.md) for more information on the changes in\
+See the [MariaDB 10.0.10 Release Notes](../../10.0/10.0.10.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10010-changelog.md) for more information on the changes in\
 MariaDB.
 
 Note: If Galera v2 and v3 are both being used in the cluster, MariaDB with\

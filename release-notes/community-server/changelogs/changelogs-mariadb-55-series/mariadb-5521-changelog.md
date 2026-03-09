@@ -1,12 +1,12 @@
 # MariaDB 5.5.21 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.askmonty.org/mariadb/5.5.21) |[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5521-release-notes.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.askmonty.org/mariadb/5.5.21) |[Release Notes](../../old-releases/5.5/5.5.21.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 16 Mar 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5521-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.21.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -37,7 +37,7 @@ modified in that revision.
   * disable EXTRA\_DEBUG in non-dbug builds
 * [Revision #3320](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3320) \[merge]\
   Mon 2012-03-12 00:45:18 +0200
-  * Merged the implementation of [MDEV-28](https://jira.mariadb.org/browse/MDEV-28) LIMIT ROWS EXAMINED into [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md).
+  * Merged the implementation of [MDEV-28](https://jira.mariadb.org/browse/MDEV-28) LIMIT ROWS EXAMINED into [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
   * [Revision #2502.513.75](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.75)\
     Sun 2012-03-11 14:39:20 +0200
     * Implementation of [MDEV-28](https://jira.mariadb.org/browse/MDEV-28) LIMIT ROWS EXAMINED
@@ -180,7 +180,7 @@ modified in that revision.
   * misc test/result fixes
 * [Revision #3308](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3308) \[merge]\
   Fri 2012-03-02 07:45:06 +0100
-  * Merge [MWL#234](https://askmonty.org/worklog/?tid=234): @@skip\_replication, into latest [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) for push
+  * Merge [MWL#234](https://askmonty.org/worklog/?tid=234): @@skip\_replication, into latest [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) for push
   * [Revision #3283.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3283.1.3)\
     Thu 2012-03-01 16:06:27 +0100
     * replicate\_events\_marked\_for\_skip does not exist in embedded.
@@ -194,7 +194,7 @@ modified in that revision.
         statement or transaction.
   * [Revision #3283.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3283.1.1) \[merge]\
     Thu 2012-03-01 12:41:49 +0100
-    * Merge [MWL#234](https://askmonty.org/worklog/?tid=234): @@skip\_replication feature to [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md).
+    * Merge [MWL#234](https://askmonty.org/worklog/?tid=234): @@skip\_replication feature to [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
     * [Revision #2502.536.4](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.536.4)\
       Tue 2011-08-16 11:51:02 +0200
       * [MWL#234](https://askmonty.org/worklog/?tid=234): Implement option to switch between master-side and client-side filtering of @@skip\_replication events.
@@ -222,7 +222,7 @@ modified in that revision.
       actually were incorrect.
   * [Revision #2502.513.69](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.513.69)\
     Tue 2012-02-28 15:41:55 +0100
-    * [Bug #938977](https://bugs.launchpad.net/bugs/938977) - Query performance with join/index super slow on [MariaDB 5.3.4](../../old-releases/release-notes-mariadb-5-3-series/mariadb-534-release-notes.md) RC
+    * [Bug #938977](https://bugs.launchpad.net/bugs/938977) - Query performance with join/index super slow on [MariaDB 5.3.4](../../old-releases/5.3/5.3.4.md) RC
     * make sure that stored routines are evaluated (that is, de facto - cached) in convert\_const\_to\_int().
     * revert the fix for [Bug #806943](https://bugs.launchpad.net/bugs/806943) because it cannot be repeated anymore.
     * add few tests for convert\_const\_to\_int()
@@ -608,7 +608,7 @@ modified in that revision.
     * Fix Unix build
   * [Revision #3168.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3168.1.1)\
     Thu 2011-12-08 19:17:49 +0100
-    * Initial threadpool implementation for [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md)
+    * Initial threadpool implementation for [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 * [Revision #3281](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3281) \[merge]\
   Sun 2012-02-26 16:11:44 +0100
   * Merge [MWL#192](https://askmonty.org/worklog/?tid=192): non-blocking client library into MariaDB.
@@ -621,7 +621,7 @@ modified in that revision.
         removing #undef HAVE\_OPENSSL from my\_global.h).
   * [Revision #3253.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.3) \[merge]\
     Wed 2012-02-22 12:14:34 +0100
-  * Merge latest [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) into [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client library.
+  * Merge latest [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) into [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client library.
   * [Revision #3253.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.2)\
     Wed 2012-02-22 11:44:53 +0100
   * Fix [MWL#192](https://askmonty.org/worklog/?tid=192) build error: Remove SSL special case for embedded server.
@@ -632,7 +632,7 @@ modified in that revision.
   * But was apparenly lost by a mis-merge of [WL#5030](https://askmonty.org/worklog/?tid=5030).
   * [Revision #3253.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3253.1.1) \[merge]\
     Tue 2012-02-21 22:15:44 +0100
-    * Merge [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client library, into [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md).
+    * Merge [MWL#192](https://askmonty.org/worklog/?tid=192): Non-blocking client library, into [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
     * [Revision #2502.531.5](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/2502.531.5)\
       Mon 2012-01-30 13:45:58 +0100
       * [MWL#192](https://askmonty.org/worklog/?tid=192): Fix problem when we first enable MYSQL\_OPT\_NONBLOCK, then connect\

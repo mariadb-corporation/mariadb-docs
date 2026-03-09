@@ -194,7 +194,7 @@ files have exactly the same format as a suite `combinations` file.
 
 This can cause many combination files affecting one test file (if a test\
 includes two `.inc` files, and both of them have corresponding`.combinations` files). In this case, mtr will run the test for all\
-combinations of combinations from both files. In [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), for example,`rpl_init.inc` adds combinations for row/statement/mixed, and`have_innodb.inc` adds combinations for innodb/xtradb. Thus any replication\
+combinations of combinations from both files. In [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), for example,`rpl_init.inc` adds combinations for row/statement/mixed, and`have_innodb.inc` adds combinations for innodb/xtradb. Thus any replication\
 test that uses innodb is run six times.
 
 ## `suite.pm` file

@@ -1,12 +1,12 @@
 # MariaDB 10.1.16 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.16)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10116-release-notes.md)[Changelog](mariadb-10116-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.16)[Release Notes](../../old-releases/10.1/10.1.16.md)[Changelog](mariadb-10116-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 18 Jul 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10116-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.16.md).
 
 This changelog only details pushes made between 10.1.15 and 10.1.16. For changes made between 10.1.14 and 10.1.15, see the unreleased [MariaDB 10.1.15 Changelog](mariadb-10115-changelog.md)
 

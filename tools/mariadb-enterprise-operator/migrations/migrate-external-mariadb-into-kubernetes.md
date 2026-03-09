@@ -1,4 +1,3 @@
-
 # Migrate external MariaDB into Kubernetes
 
 In this guide, we will be migrating an external MariaDB into a new `MariaDB` instance running in Kubernetes and managed by MariaDB Enterprise Kubernetes Operator. We will be using [logical backups](../backup-and-restore/logical_backup.md) for achieving this migration.

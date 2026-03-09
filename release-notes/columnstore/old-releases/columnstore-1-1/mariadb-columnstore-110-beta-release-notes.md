@@ -17,7 +17,7 @@ For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/
 3. [MariaDB ColumnStore Data API to programmatically load data into PM nodes](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md).
 4. Text and Blob Data Types.
 5. [User defined distributed aggregate and window functions.](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/columnstore-user-defined-aggregate-and-window-functions)
-6. [ColumnStore Backup/Restore Tool](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-110-onwards).
+6. [ColumnStore Backup/Restore Tool](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-110).
 7. MariaDB Server [Audit Plugin Integration](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/columnstore-audit-plugin).
 8. Built-in data redundancy using GlusterFS integration for installations that use local disks for data storage on PMs. Please refer to [Preparing ColumnStore Installation](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md) for using GlusterFS with MariaDB ColumnStore.
 9. Several performance improvements in string handling, memory utilization and general area.
@@ -50,8 +50,8 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-561](https://jira.mariadb.org/browse/MCOL-561) - Can't create view by using ColumnStore's windowing funcion SQL
 * [MCOL-574](https://jira.mariadb.org/browse/MCOL-574) - Cross Engine step tries to use a bad UDS path for localhost
 * [MCOL-579](https://jira.mariadb.org/browse/MCOL-579) - Enabled harderning compile flags
-* [MCOL-622](https://jira.mariadb.org/browse/MCOL-622) - [MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) create front end for "VAR\_SAMP" window function
-* [MCOL-623](https://jira.mariadb.org/browse/MCOL-623) - [MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) create "STDDEV\_SAMP" Windows function
+* [MCOL-622](https://jira.mariadb.org/browse/MCOL-622) - [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) create front end for "VAR\_SAMP" window function
+* [MCOL-623](https://jira.mariadb.org/browse/MCOL-623) - [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) create "STDDEV\_SAMP" Windows function
 * [MCOL-628](https://jira.mariadb.org/browse/MCOL-628) - getSystemResourceUsage doesnt work on non-root install
 * [MCOL-636](https://jira.mariadb.org/browse/MCOL-636) - Performance improvement with string handling
 * [MCOL-642](https://jira.mariadb.org/browse/MCOL-642) - Add BLOB/TEXT detection
@@ -67,7 +67,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-799](https://jira.mariadb.org/browse/MCOL-799) - INSERT...SELECT with window functions fail
 * [MCOL-819](https://jira.mariadb.org/browse/MCOL-819) - mysqld not shutdown by shutdownsystem commands, sometimes
 * [MCOL-833](https://jira.mariadb.org/browse/MCOL-833) - could not open file for OID after a outage recover from pm2 PrimProc
-* [MCOL-887](https://jira.mariadb.org/browse/MCOL-887) - Merge [MariaDB 10.2.8](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes.md)
+* [MCOL-887](https://jira.mariadb.org/browse/MCOL-887) - Merge [MariaDB 10.2.8](../../../community-server/old-releases/10.2/10.2.8.md)
 * [MCOL-892](https://jira.mariadb.org/browse/MCOL-892) - 1.0.11 upgrade failed when base directory is nfs mounted
 
 In addition, all bugs fixed in MariaDB ColumnStore 1.0.11 and earlier are implicitly included in this release.
@@ -85,7 +85,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-271](https://jira.mariadb.org/browse/MCOL-271) empty string values are treated as NULL. This means you cannot insert empty values into a NOT NULL string column.
 * [MCOL-365](https://jira.mariadb.org/browse/MCOL-365): Log files created by load data infile remain in the bulk/data/log and /tmp directories. If storage is a concern these can safely be removed.
 * [MCOL-540](https://jira.mariadb.org/browse/MCOL-540) : In a non root Ubuntu install with local query enabled, the PM servers crash and restart on table creation.
-* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
+* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
 * [MCOL-631](https://jira.mariadb.org/browse/MCOL-631) :Create table caused primproc crashed for a specific configuration
 * [MCOL-643](https://jira.mariadb.org/browse/MCOL-643) :Implement ha\_calpont\_impl\_rnd\_pos. Sorting of long text columns may fail.
 * [MCOL-695](https://jira.mariadb.org/browse/MCOL-695) :Implement joins between CHAR/VARCHAR and INT columns. ColumnStore now fails more consistently on incompatible join types. Explicit type casts must be used if this error is hit.

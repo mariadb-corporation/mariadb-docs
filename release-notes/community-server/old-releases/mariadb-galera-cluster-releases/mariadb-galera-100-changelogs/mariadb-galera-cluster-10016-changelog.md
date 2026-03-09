@@ -21,7 +21,7 @@ modified in that revision.
   * [MDEV-7322](https://jira.mariadb.org/browse/MDEV-7322): Option to allow setting the binlog\_format with Galera
 * [Revision #3919](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3919) \[merge]\
   Mon 2015-01-26 22:54:27 -0500
-  * [MariaDB 10.0.16](../../release-notes-mariadb-10-0-series/mariadb-10016-release-notes.md) merge
+  * [MariaDB 10.0.16](../../10.0/10.0.16.md) merge
 * [Revision #3918](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3918)\
   Mon 2015-01-26 22:48:02 -0500
   * Minor test modifications.
@@ -33,10 +33,10 @@ modified in that revision.
   * [MDEV-7374](https://jira.mariadb.org/browse/MDEV-7374) : Losing connection to MySQL while running ALTER TABLE
 * [Revision #3915](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3915) \[merge]\
   Wed 2015-01-21 10:57:46 -0500
-  * [MDEV-7123](https://jira.mariadb.org/browse/MDEV-7123) : [MariaDB 10.0.14](../../release-notes-mariadb-10-0-series/mariadb-10014-release-notes.md) Galera node shutdown with signal 11
+  * [MDEV-7123](https://jira.mariadb.org/browse/MDEV-7123) : [MariaDB 10.0.14](../../10.0/10.0.14.md) Galera node shutdown with signal 11
   * [Revision #3911.1.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3911.1.1)\
     Fri 2015-01-09 00:32:28 -0500
-    * [MDEV-7123](https://jira.mariadb.org/browse/MDEV-7123) : [MariaDB 10.0.14](../../release-notes-mariadb-10-0-series/mariadb-10014-release-notes.md) Galera node shutdown with signal 11
+    * [MDEV-7123](https://jira.mariadb.org/browse/MDEV-7123) : [MariaDB 10.0.14](../../10.0/10.0.14.md) Galera node shutdown with signal 11
 * [Revision #3914](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3914)\
   Sun 2015-01-18 18:16:36 -0500
   * [MDEV-7470](https://jira.mariadb.org/browse/MDEV-7470): MariaDB-Galera-server uses 'tar', but 'tar' is not in the dependency list

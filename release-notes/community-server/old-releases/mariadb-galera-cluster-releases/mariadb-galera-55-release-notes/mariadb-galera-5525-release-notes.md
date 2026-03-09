@@ -18,9 +18,9 @@ information on each push, see the [MariaDB Galera 5.5.25 Changelog](../mariadb-g
 In most respects [MariaDB](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb/README.md) will work exactly as MySQL: all commands,\
 interfaces, libraries and APIs that exist in MySQL also exist in MariaDB.
 
-## Includes [MariaDB 5.5.25](../../release-notes-mariadb-5-5-series/mariadb-5525-release-notes.md) and Galera Cluster
+## Includes [MariaDB 5.5.25](../../5.5/5.5.25.md) and Galera Cluster
 
-[MariaDB Galera 5.5.25](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-galera-cluster-5525-release-notes/README.md) includes [MariaDB 5.5.25](../../release-notes-mariadb-5-5-series/mariadb-5525-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster). See the [MariaDB 5.5.25](../../release-notes-mariadb-5-5-series/mariadb-5525-release-notes.md) [Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5525-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5525-changelog.md) for more information on the changes in [MariaDB 5.5.25](../../release-notes-mariadb-5-5-series/mariadb-5525-release-notes.md).
+[MariaDB Galera 5.5.25](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-galera-cluster-5525-release-notes/README.md) includes [MariaDB 5.5.25](../../5.5/5.5.25.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster). See the [MariaDB 5.5.25](../../5.5/5.5.25.md) [Release Notes](../../5.5/5.5.25.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5525-changelog.md) for more information on the changes in [MariaDB 5.5.25](../../5.5/5.5.25.md).
 
 See the [MariaDB 5.5.25 Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5525-changelog.md) for full details.
 

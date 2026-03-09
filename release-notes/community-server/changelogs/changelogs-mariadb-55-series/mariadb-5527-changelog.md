@@ -1,12 +1,12 @@
 # MariaDB 5.5.27 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.27) |[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5527-release-notes.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.27) |[Release Notes](../../old-releases/5.5/5.5.27.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 07 Sep 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5527-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.27.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -569,7 +569,7 @@ modified in that revision.
       Mon 2012-06-18 22:32:17 -0700
       * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354).
       * Virtual columns of ENUM and SET data types were not supported properly\
-        in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md).
+        in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md).
       * The problem was that for any virtual column the patch used the\
         interval\_id field of the definition of the column in the frm file as\
         a reference to the virtual column expression.

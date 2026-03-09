@@ -1,7 +1,8 @@
 ---
 description: >-
-  Convert a value to a specific data type. This function explicitly converts a
-  value from one type to another, such as string to integer.
+  Complete CAST reference for MariaDB. Complete function guide with syntax,
+  parameters, return values, and usage examples with comprehensive examples and
+  best.
 ---
 
 # CAST
@@ -14,7 +15,7 @@ CAST(expr AS type)
 
 ## Description
 
-The `CAST()` function takes a value of one [type](../../data-types/) and produces a value of another type, similar to the [CONVERT()](convert.md) function.
+The `CAST()` function takes a value of one [data type](../../data-types/) and produces a value of another data type, similar to the [CONVERT()](convert.md) function.
 
 The type can be one of the following values:
 
@@ -22,17 +23,29 @@ The type can be one of the following values:
 * [CHAR](../../data-types/string-data-types/char.md)
 * [DATE](../../data-types/date-and-time-data-types/date.md)
 * [DATETIME](../../data-types/date-and-time-data-types/datetime.md)
-* \[DECIMAL [(M\[,D\])](../../data-types/numeric-data-types/decimal.md)]
+* [DECIMAL](../../data-types/numeric-data-types/decimal.md)
 * [DOUBLE](../../data-types/numeric-data-types/double.md)
 * [FLOAT](../../data-types/numeric-data-types/float.md)
-* [INTEGER](../../data-types/numeric-data-types/int.md)
-  * Short for `SIGNED INTEGER`
-* SIGNED \[INTEGER]
-* UNSIGNED \[INTEGER]
+* [INTEGER](../../data-types/numeric-data-types/int.md) (short for `SIGNED INTEGER` )
+* [SIGNED \[INTEGER\]](../../data-types/numeric-data-types/integer.md)
+* [UNSIGNED \[INTEGER\]](../../data-types/numeric-data-types/integer.md)
 * [TIME](../../data-types/date-and-time-data-types/time.md)
 * [VARCHAR](../../data-types/string-data-types/varchar.md)
+* [XMLTYPE](../../data-types/string-data-types/xmltype.md) (Available starting with MariaDB 12.3)
 
-The main difference between `CAST` and [CONVERT()](convert.md) is that [CONVERT(expr,type)](convert.md) is ODBC syntax while `CAST(expr as type)` and [CONVERT(... USING ...)](convert.md) are SQL92 syntax.
+The main difference between `CAST` and [CONVERT()](convert.md) is that [CONVERT(expr,type)](convert.md) is ODBC syntax, while `CAST(expr as type)` and [CONVERT(... USING ...)](convert.md) are SQL92 syntax.
+
+To cast a value to a string data type while specifying the character set, use this extended syntax:
+
+```sql
+ CAST(expr AS CHAR CHARACTER SET name)
+```
+
+See the [examples for casting to character sets](cast.md#casting-to-character-sets).
+
+{% hint style="info" %}
+Using an introducer like `_utf8mb4'text'` is often more efficient than `CAST('text' AS CHAR CHARACTER SET utf8mb4)`, but `CAST` is necessary when converting data types (like numbers to strings) into a specific encoding. See [this example](cast.md#using-an-introducer-inside-a-cast), too.
+{% endhint %}
 
 You can use the `CAST()` function with the `INTERVAL` keyword.
 
@@ -49,7 +62,7 @@ SELECT CAST(123 AS CHAR CHARACTER SET utf8)
 ```
 
 {% hint style="warning" %}
-Note that when one casts to [CHAR](../../data-types/string-data-types/char.md) without specifying the character set, the [collation\_connection](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_connection) character set collation will be used. When used with `CHAR CHARACTER SET`, the default collation for that character set will be used.
+When you casts to [CHAR](../../data-types/string-data-types/char.md) without specifying the character set, the [collation\_connection](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#collation_connection) character set collation is used. When used with `CHAR CHARACTER SET`, the default collation for that character set is used.
 {% endhint %}
 
 ```sql
@@ -111,7 +124,7 @@ ORDER BY CAST(enum_field AS CHAR);
 +------------+
 ```
 
-The following will trigger warnings, since `x'aa'` and `'X'aa'` doesn't behave as a number. In all versions of MySQL, no warnings are triggered since they did erroneously behave as a number:
+The following `CAST()` gives warnings, because  `x'aa'` and `'X'aa'` don't behave as a number. In all versions of MySQL, no warnings are triggered because they erroneously behave as a number:
 
 ```sql
 SELECT CAST(0xAA AS UNSIGNED), CAST(x'aa' AS UNSIGNED), CAST(X'aa' AS UNSIGNED);
@@ -136,6 +149,29 @@ SELECT CAST(2019-01-04 AS INTERVAL DAY_SECOND(2)) AS "Cast";
 +-------------+
 | 00:20:14.00 |
 +-------------+
+```
+
+### Casting to Character Sets
+
+#### Casting a Literal to a Specific Character Set
+
+```sql
+-- Converts the literal string 'abc' to the utf8mb4 character set
+SELECT CAST('abc' AS CHAR CHARACTER SET utf8mb4);
+```
+
+#### Casting a Binary Literal to a Readable Character Set
+
+```sql
+-- Converts a hexadecimal (binary) literal to a UTF-8 string
+SELECT CAST(0x68656c6c6f AS CHAR CHARACTER SET utf8mb4);
+```
+
+#### Using an Introducer Inside a CAST
+
+```sql
+-- Telling the parser the input is latin1, then casting the result to utf8mb4
+SELECT CAST(_latin1'text' AS CHAR CHARACTER SET utf8mb4);
 ```
 
 ## See Also

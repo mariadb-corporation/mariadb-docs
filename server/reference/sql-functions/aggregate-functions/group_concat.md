@@ -1,7 +1,7 @@
 ---
 description: >-
-  Concatenate strings from a group. This function joins non-NULL values from
-  multiple rows into a single string, with an optional separator.
+  Complete GROUP_CONCAT reference for MariaDB. Complete function guide with
+  syntax, parameters, return values, and usage examples for production use.
 ---
 
 # GROUP\_CONCAT

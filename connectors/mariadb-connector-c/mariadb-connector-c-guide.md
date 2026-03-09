@@ -1,5 +1,8 @@
 ---
-description: Quickstart Guide for Connector/C
+description: >-
+  Complete Connector/C reference: Windows MSI install, Linux packages
+  (yum/apt/zypper), MariaDB-shared/devel libraries, and option file
+  configuration.
 ---
 
 # MariaDB Connector/C Overview
@@ -71,7 +74,7 @@ sudo apt-get install libmariadb-dev
 
 **Installing with zypper**
 
-On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm) from MariaDB's repository using [zypper](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper). 
+On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM package](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm) from MariaDB's repository using [zypper](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper).
 
 For example:
 

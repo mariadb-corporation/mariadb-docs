@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT - External Table Types
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 Because so many ODBC and JDBC drivers exist and only the main ones have been heavily tested, these table types cannot be ranked as stable. Use them with care in production applications.
 
@@ -37,7 +33,7 @@ This is why, for SELECT queries, CONNECT uses the [cond\_push](../using-connect/
 
 However, more can be done. In addition to accessing a remote table, CONNECT offers the possibility to specify what the remote server must do. This is done by specifying it as a view in the srcdef option:
 
-```
+```sql
 CREATE TABLE custnum ENGINE=CONNECT TABLE_TYPE=XXX
 CONNECTION='connecton string'
 SRCDEF='select pays as country, count(*) as customers from custnum group by pays';
@@ -47,7 +43,7 @@ Doing so, the group by clause are done by the remote server considerably reducin
 
 This may even be increased by adding to the srcdef part of the “compatible” part of the query where clauses like this are done for table-based tables. Note that for MariaDB, this table has two columns, country and customers. Supposing the original query is:
 
-```
+```sql
 SELECT * FROM custnum WHERE (country = 'UK' OR country = 'USA') AND customers > 5;
 ```
 
@@ -67,7 +63,7 @@ The _%s_ in the srcdef are place holders for eventual compatible parts of the or
 
 The other problems must be solved by adding to the create table a list of columns that must be translated because they are aliases or/and aliases on aggregate functions that must become a having clause. For example, in this case:
 
-```
+```sql
 CREATE TABLE custnum ENGINE=CONNECT TABLE_TYPE=XXX
 CONNECTION='connecton string'
 SRCDEF='select pays as country, count(*) as customers from custnum where %s group by pays having %s'

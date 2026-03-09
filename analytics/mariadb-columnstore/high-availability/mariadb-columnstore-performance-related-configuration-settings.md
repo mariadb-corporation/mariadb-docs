@@ -1,9 +1,5 @@
 # Performance Related Configuration Settings
 
-## MariaDB ColumnStore
-
-## Introduction
-
 A number of system configuration variables exist to allow fine tuning of the system to suit the physical hardware and query characteristics. In general the default values will work relatively well for many cases.
 
 The configuration parameters are maintained in the `/etc/Columnstore.xml` file. In a multiple server deployment these should only be edited on the PM1 server as this will be automatically replicated to other servers by the system. A system restart will be required for the configuration change to take affect.
@@ -44,6 +40,26 @@ In a single server or combined deployment, the sum of `NumBlocksPct` and `TotalU
 From version 1.2.2, these can be set to static numeric limits instead of percentages by entering a number with 'M' or 'G' at the end to signify MiB or GiB.
 {% endhint %}
 
+### InnoDB Buffer Pool Sizing with ColumnStore
+
+When a MariaDB server runs both ColumnStore and InnoDB engines, the traditional rule of dedicating 75-80% of total RAM to the `innodb_buffer_pool_size` is outdated and can trigger the Linux Out-Of-Memory (OOM) killer.
+
+By default, ColumnStore utilizes 75% of the system's available RAM (50% for `NumBlocksPct` and 25% for `TotalUmMemory`). You must ensure that the combined memory allocated to ColumnStore and InnoDB does not exceed your system's total memory, leaving adequate room for the operating system and other overhead.
+
+**Example Sizing (256GB RAM Server):**
+
+* **Total RAM:** 256GB
+* **ColumnStore Allocation:** \~192GB (75% default)
+* **Remaining RAM:** 64GB
+
+In this scenario, you should set `innodb_buffer_pool_size` to **32GB**, leaving the remaining **32GB** for the OS and other system overhead.
+
+**Validation:** To prevent OOM issues, you must validate that the total memory allocation is less than the memory available to the machine. Verify that the sum of the following configurations is strictly less than your total server memory (checked via `free -g`):
+
+* `HashJoin TotalUmMemory` (checked via `mcsGetConfig`)
+* `DBBC NumBlocksPct` (checked via `mcsGetConfig`)
+* `innodb_buffer_pool_size` (checked via `mariadb -e "show variables like '%innodb_buffer_pool_size%'"`)
+
 ## Query Concurrency - MaxOutstandingRequests
 
 ColumnStore handles concurrent query execution by managing the rate of concurrent batch primitive steps. This is configured using the _MaxOutstandingRequests_ parameter and has a default value of 20. Each batch primitive step is executed within the context of 1 extent column according to this high level process:
@@ -65,7 +81,7 @@ SELECT calgetsqlcount();
 ColumnStore maintains statistics for table and utilizes this to determine which is the larger table of the two. This is based both on the number of blocks in that table and estimation of the predicate cardinality. The first step is to apply any filters as appropriate to the smaller table and returning this data set to memory. The size of this data set is compared against the configuration parameter _`PmMaxMemorySmallSide`_ which has a default value of 64 (MB). This value can be set all the way up to 4GB. This default allows for approximately 1M rows on the small table side to be joined against billions (or trillions) on the large table side. If the size of the small data set is less than _PmMaxMemorySmallSide_ the dataset is sent to PrimProc for creation of a distributed hashmap. Thus this setting is important to tuning of joins and whether the operation can be distributed or not. This should be set to support your largest expected small table join size up to available memory:
 
 * Although this will increase the size of data between nodes to support the join, it means that the join and subsequent aggregates are pushed down, scaled out, and a smaller data set is returned back.
-* In a multiple server deployment, the sizing should be based from available physical memory on the  servers, how much memory to reserve for block caching, and the number of simultaneous join operations that can be expected to run times the average small table join data size.
+* In a multiple server deployment, the sizing should be based from available physical memory on the servers, how much memory to reserve for block caching, and the number of simultaneous join operations that can be expected to run times the average small table join data size.
 
 ### Multi-Table Join Tuning
 

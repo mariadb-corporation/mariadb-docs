@@ -1,7 +1,7 @@
 ---
 description: >-
-  Troubleshooting steps for startup failures, covering issues like file
-  permissions, corrupted data directories, port conflicts, and systemd timeouts.
+  Complete What to Do if MariaDB Doesn't Start guide for MariaDB. Complete
+  reference documentation for implementation, configuration, and usage.
 ---
 
 # What to Do if MariaDB Doesn't Start

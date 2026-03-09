@@ -175,7 +175,7 @@ COMMENT='wrapper "mysql", srv "dataNode1", table "spider_example"';
 
 This configures Spider to use the server `dataNode1`, (defined above), as a remote table. Any data you write to this table is actually stored on the MariaDB server at 192.168.1.5.
 
-Alternatively, starting from [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes), one can specify spider table parameters using table options:
+Alternatively, starting from [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), one can specify spider table parameters using table options:
 
 ```sql
 CREATE TABLE test.spider_example (

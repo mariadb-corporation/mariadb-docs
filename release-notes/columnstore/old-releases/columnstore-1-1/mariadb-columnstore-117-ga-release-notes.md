@@ -13,7 +13,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-2158](https://jira.mariadb.org/browse/MCOL-2158) - The base MariaDB server version is now [10.2.22](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10222-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-2158](https://jira.mariadb.org/browse/MCOL-2158) - The base MariaDB server version is now [10.2.22](../../../community-server/old-releases/10.2/10.2.22.md) which include several maintenance and security fixes.
 * [MCOL-2136](https://jira.mariadb.org/browse/MCOL-2136) - Use jemalloc as the main memory allocator. Please ensure jemalloc is installed on each ColumnStore node prior to installation or upgrade.
 
 ## Bugs and issues fixed
@@ -79,10 +79,10 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1744](https://jira.mariadb.org/browse/MCOL-1744) - Remove unnecessary CentOS 7 mcsapi package dependencies
 * [MCOL-1754](https://jira.mariadb.org/browse/MCOL-1754) - Change libmysql dependency for Windows api tests to libmariadb
 * [MCOL-1974](https://jira.mariadb.org/browse/MCOL-1974) - Bug verification for [MCOL-1844](https://jira.mariadb.org/browse/MCOL-1844) for 1.1.7 and 1.0.16
-* [MCOL-2005](https://jira.mariadb.org/browse/MCOL-2005) - Merge [MariaDB 10.2.21](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10221-release-notes.md) into develop-1.1
+* [MCOL-2005](https://jira.mariadb.org/browse/MCOL-2005) - Merge [MariaDB 10.2.21](../../../community-server/old-releases/10.2/10.2.21.md) into develop-1.1
 * [MCOL-2107](https://jira.mariadb.org/browse/MCOL-2107) - execute tpc-ds performance test suite on dev v1.1.7 with purpose of regression performance testing
 * [MCOL-2120](https://jira.mariadb.org/browse/MCOL-2120) - Check NUMA devel package is installed on BuildBot instances
-* [MCOL-2158](https://jira.mariadb.org/browse/MCOL-2158) - Merge [MariaDB 10.2.22](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10222-release-notes.md)
+* [MCOL-2158](https://jira.mariadb.org/browse/MCOL-2158) - Merge [MariaDB 10.2.22](../../../community-server/old-releases/10.2/10.2.22.md)
 
 In addition, all bugs fixed in MariaDB ColumnStore 1.1.6 and earlier are implicitly included in this release.
 
@@ -101,7 +101,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-271](https://jira.mariadb.org/browse/MCOL-271) empty string values are treated as NULL. This means you cannot insert empty values into a NOT NULL string column.
 * [MCOL-365](https://jira.mariadb.org/browse/MCOL-365): Log files created by load data infile remain in the bulk/data/log and /tmp directories. If storage is a concern these can safely be removed.
 * [MCOL-540](https://jira.mariadb.org/browse/MCOL-540) : In a non root Ubuntu install with local query enabled, the PM servers crash and restart on table creation.
-* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
+* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
 * [MCOL-631](https://jira.mariadb.org/browse/MCOL-631) :Create table caused primproc crashed for a specific configuration
 * [MCOL-643](https://jira.mariadb.org/browse/MCOL-643) :Implement ha\_calpont\_impl\_rnd\_pos. Sorting of long text columns may fail.
 * [MCOL-695](https://jira.mariadb.org/browse/MCOL-695) :Implement joins between CHAR/VARCHAR and INT columns. ColumnStore now fails more consistently on incompatible join types. Explicit type casts must be used if this error is hit.

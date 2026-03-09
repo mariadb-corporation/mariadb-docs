@@ -1,3 +1,9 @@
+---
+description: >-
+  A fast-track guide to deploying your first MariaDB Enterprise instance using
+  the Operator, from initial configuration to a running database.
+---
+
 # Quickstart
 
 This guide aims to provide a quick way to get started with the MariaDB Enterprise Kubernetes Operator for Kubernetes. It will walk you through the process of deploying a MariaDB Enterprise Cluster and MaxScale via the `MariaDB` and `MaxScale` CRs ([Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)) respectively.

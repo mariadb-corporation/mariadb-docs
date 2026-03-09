@@ -1,12 +1,12 @@
 # MariaDB 10.1.8 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.8)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-8-release-notes.md)[Changelog](mariadb-10-1-8-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.8)[Release Notes](../../old-releases/10.1/10.1.8.md)[Changelog](mariadb-10-1-8-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 17 Oct 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-8-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.8.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -509,7 +509,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-8466](https://jira.mariadb.org/browse/MDEV-8466) CAST works differently for DECIMAL/INT vs DOUBLE for empty strings [MDEV-8468](https://jira.mariadb.org/browse/MDEV-8468) CAST and INSERT work differently for DECIMAL/INT vs DOUBLE for a string with trailing spaces
 * [Revision #c69cf93](https://github.com/MariaDB/server/commit/c69cf93)\
   2015-09-16 17:24:34 +0400
-  * [MDEV-8673](https://jira.mariadb.org/browse/MDEV-8673) - \[PATCH] Missing Sanity Check for strndup() in [MariaDB 10.0.2](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes.md) x
+  * [MDEV-8673](https://jira.mariadb.org/browse/MDEV-8673) - \[PATCH] Missing Sanity Check for strndup() in [MariaDB 10.0.2](../../old-releases/10.0/10.0.2.md) x
 * [Revision #173e486](https://github.com/MariaDB/server/commit/173e486)\
   2015-09-16 13:01:04 +0300
   * [MDEV-8576](https://jira.mariadb.org/browse/MDEV-8576): Bootstrap should ignore --enforce-storage-engine option
@@ -653,7 +653,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Unify virtual-\* package definitions with official Debian packaging
 * [Revision #7b344bf](https://github.com/MariaDB/server/commit/7b344bf)\
   2015-09-01 23:06:12 +0300
-  * Add [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) stanzas next to [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) in debian/control file
+  * Add [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) stanzas next to [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) in debian/control file
 * [Revision #cc08c13](https://github.com/MariaDB/server/commit/cc08c13)\
   2015-09-01 23:01:43 +0300
   * Add MySQL 5.6 stanzas next to MySQL 5.5 in debian/control file

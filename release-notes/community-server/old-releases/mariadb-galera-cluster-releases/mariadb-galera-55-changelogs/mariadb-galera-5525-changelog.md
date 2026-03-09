@@ -202,7 +202,7 @@ modified in that revision.
         Mon 2012-06-18 22:32:17 -0700
         * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354).
         * Virtual columns of ENUM and SET data types were not supported properly\
-          in the original patch that introduced virtual columns into [MariaDB 5.2](../../release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md).
+          in the original patch that introduced virtual columns into [MariaDB 5.2](../../5.2/changes-improvements-in-mariadb-5-2.md).
         * The problem was that for any virtual column the patch used the\
           interval\_id field of the definition of the column in the frm file as\
           a reference to the virtual column expression.
@@ -280,7 +280,7 @@ modified in that revision.
     * -r3741..3743
 * [Revision #3337](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3337) \[merge]\
   Thu 2012-04-26 13:59:35 +0300
-  * Merge with [mariaDB 5.5.23](../../release-notes-mariadb-5-5-series/mariadb-5523-release-notes.md): bzr merge lp:maria/5.5
+  * Merge with [mariaDB 5.5.23](../../5.5/5.5.23.md): bzr merge lp:maria/5.5
 * [Revision #3336](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3336)\
   Thu 2012-04-26 13:09:06 +0300
   * Added wsrep specific files

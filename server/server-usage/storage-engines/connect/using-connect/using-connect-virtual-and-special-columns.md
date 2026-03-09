@@ -1,18 +1,13 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # Using CONNECT - Virtual and Special Columns
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
 CONNECT supports MariaDB [virtual and persistent columns](../../../../reference/sql-statements/data-definition/create/generated-columns.md). It is also possible to declare a column as\
-being a CONNECT special column. Let us see on an example how this can be done. The boys table we\
-have seen previously can be recreated as:
+being a CONNECT special column. Let us see on an example how this can be done. The boys table we have seen previously can be recreated as:
 
-```
+```sql
 CREATE TABLE boys (
   linenum INT(6) NOT NULL DEFAULT 0 special=ROWID,
   name CHAR(12) NOT NULL,
@@ -25,18 +20,15 @@ CREATE TABLE boys (
 ENGINE=CONNECT table_type=FIX file_name='boys.txt' mapped=YES lrecl=47;
 ```
 
-We have defined two CONNECT special columns. You can give them any name; it is\
-the field SPECIAL option that specifies the special column functional name.
+We have defined two CONNECT special columns. You can give them any name; it is the field `SPECIAL` option that specifies the special column functional name.
 
-**Note:** the default values specified for the special columns do not mean\
-anything. They are specified just to prevent getting warning messages when\
-inserting new rows.
+**Note:** the default values specified for the special columns do not mean anything. They are specified just to prevent getting warning messages when inserting new rows.
 
 For the definition of the _agehired_ virtual column, no CONNECT options can be specified as it has no offset or length, not being stored in the file.
 
 The command:
 
-```
+```sql
 SELECT * FROM boys WHERE city = 'boston';
 ```
 
@@ -59,8 +51,7 @@ Existing special columns are listed in the following table:
 | PARTID                         | String  | The name of the partition this row belongs to. Specific to partitioned tables.                                                                                                                                         |
 | SERVID                         | String  | The name of the federated server or server host used by a MYSQL table. “ODBC” for an ODBC table, "JDBC" for a JDBC table and “Current” for all other tables.                                                           |
 
-**Note:** CONNECT does not currently support auto incremented columns. However,\
-a `ROWID` special column will do the job of a column auto incremented by 1.
+**Note:** CONNECT does not currently support auto incremented columns. However, a `ROWID` special column will do the job of a column auto incremented by 1.
 
 <sub>_This page is licensed: GPLv2_</sub>
 

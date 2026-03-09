@@ -1,7 +1,7 @@
 ---
 description: >-
-  Retrieve data from the database. This fundamental statement selects columns
-  and rows from tables, supporting filtering, joining, and aggregation.
+  Complete guide to SELECT queries in MariaDB. Complete syntax reference for
+  joins, subqueries, WHERE clauses, GROUP BY, and aggregate functions.
 ---
 
 # SELECT

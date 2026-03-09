@@ -19,7 +19,7 @@ Always ensure the MariaDB server has completed a clean shutdown before disabling
 
 MariaDB and Vault may relate to each other in several ways:
 
-* MariaDB has a [Hashicorp Key Management plugin](../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md), to manage and rotate SSH keys.
+* MariaDB has a [Hashicorp Key Management plugin](../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md), to manage and rotate SSH keys.
 * Users passwords can be stored in Vault.
 * MariaDB (and MySQL) can be used as a secret engine, a component which stores, generates, or encrypts data.
 * MariaDB (and MySQL) can be used as a backend storage, providing durability for Vault data.

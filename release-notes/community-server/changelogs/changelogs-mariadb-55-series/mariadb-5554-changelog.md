@@ -1,12 +1,12 @@
 # MariaDB 5.5.54 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.54)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5554-release-notes.md)[Changelog](mariadb-5554-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.54)[Release Notes](../../old-releases/5.5/5.5.54.md)[Changelog](mariadb-5554-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 24 Dec 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5554-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.54.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -82,7 +82,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Revert "[MDEV-10713](https://jira.mariadb.org/browse/MDEV-10713): signal 11 error on multi-table update - crash in handler::increment\_statistics or in make\_select or assertion failure pfs\_thread == ((PFS\_thread\*) pthread\_getspecific((THR\_PFS)))"
 * [Revision #f5e0522](https://github.com/MariaDB/server/commit/f5e0522)\
   2016-12-07 13:06:14 +0100
-  * [MDEV-10388](https://jira.mariadb.org/browse/MDEV-10388) [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md).x keeps (deleted) ML\* files in tmpdir after LOAD DATA completes
+  * [MDEV-10388](https://jira.mariadb.org/browse/MDEV-10388) [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md).x keeps (deleted) ML\* files in tmpdir after LOAD DATA completes
 * [Revision #1d702ff](https://github.com/MariaDB/server/commit/1d702ff)\
   2016-12-07 14:42:08 +0400
   * [MDEV-8329](https://jira.mariadb.org/browse/MDEV-8329) MariaDB crashes when replicate\_wild\_ignore\_table is set to NULL.

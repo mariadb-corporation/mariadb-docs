@@ -15,9 +15,9 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #3364](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3364) \[merge]\ Thu 2012-12-13 18:01:50 +0400
   * merging.
   * [Revision #3356.1.2](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3356.1.2) \[merge]\ Fri 2012-11-30 13:36:29 +0200
-    * References: [Bug #1066784](https://bugs.launchpad.net/bugs/1066784) - Merged with [MariaDB 5.5.28](../../release-notes-mariadb-5-5-series/mariadb-5528-release-notes.md) a bzr merge -r tag:mariadb-5.5.28a lp:maria/5.5 ...no conflicts
-    * This merges in [MariaDB 5.5.28](../../release-notes-mariadb-5-5-series/mariadb-5528-release-notes.md) a:
-      * [MariaDB 5.5.28a Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5528a-release-notes.md)
+    * References: [Bug #1066784](https://bugs.launchpad.net/bugs/1066784) - Merged with [MariaDB 5.5.28](../../5.5/5.5.28.md) a bzr merge -r tag:mariadb-5.5.28a lp:maria/5.5 ...no conflicts
+    * This merges in [MariaDB 5.5.28](../../5.5/5.5.28.md) a:
+      * [MariaDB 5.5.28a Release Notes](../../5.5/5.5.28a.md)
       * [MariaDB 5.5.28a Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5528a-changelog.md)
   * [Revision #3356.1.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3356.1.1)\ Wed 2012-11-28 17:38:32 +0200
     * References: [Bug #1066784](https://bugs.launchpad.net/bugs/1066784) - Merged revisions 3810-3827 from lp:codership-mysql
@@ -43,8 +43,8 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #3356](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3356) \[merge]\
   Wed 2012-10-24 23:13:43 +0300
   * References [Bug #1066784](https://bugs.launchpad.net/bugs/1066784) - bzr merge lp:maria/5.5 (rev: 3562)
-  * This merges in [MariaDB 5.5.28](../../release-notes-mariadb-5-5-series/mariadb-5528-release-notes.md):
-    * [MariaDB 5.5.28 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5528-release-notes.md)
+  * This merges in [MariaDB 5.5.28](../../5.5/5.5.28.md):
+    * [MariaDB 5.5.28 Release Notes](../../5.5/5.5.28.md)
     * [MariaDB 5.5.28 Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5528-changelog.md)
 * [Revision #3355](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3355)\
   Tue 2012-10-23 22:38:11 +0300
@@ -68,8 +68,8 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #3349](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3349) \[merge]\
   Mon 2012-09-17 12:31:38 +0300
   * References [Bug #1051808](https://bugs.launchpad.net/bugs/1051808) - merged with lp:maria/5.5 bzr merge lp:maria/5.5 ... Text conflict in CMakeLists.txt Text conflict in sql/mysqld.cc Text conflict in sql/sql\_class.h Text conflict in sql/sql\_truncate.cc 4 conflicts encountered.
-  * This merges in [MariadB 5.5.27](../../release-notes-mariadb-5-5-series/mariadb-5527-release-notes.md):
-    * [MariaDB 5.5.27 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5527-release-notes.md)
+  * This merges in [MariadB 5.5.27](../../5.5/5.5.27.md):
+    * [MariaDB 5.5.27 Release Notes](../../5.5/5.5.27.md)
     * [MariaDB 5.5.27 Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5527-changelog.md)
 * [Revision #3348](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3348)\
   Mon 2012-09-17 12:06:39 +0300

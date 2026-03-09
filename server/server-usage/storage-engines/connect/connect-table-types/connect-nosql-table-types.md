@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT - NoSQL Table Types
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 They are based on files that do not match the relational format but often represent hierarchical data. CONNECT can handle [JSON](connect-json-table-type.md), [INI-CFG](connect-ini-table-type.md), [XML](connect-xml-table-type.md), and some HTML files.
 

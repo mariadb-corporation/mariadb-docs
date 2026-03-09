@@ -1,8 +1,7 @@
 ---
 description: >-
-  Comprehensive guide to installing MariaDB using `yum` or `dnf` on RHEL,
-  CentOS, and Fedora, covering repository configuration, GPG key import, and
-  package installation.
+  Complete MariaDB installation guide. Complete setup instructions for Linux,
+  Windows, and macOS with configuration and verification for production use.
 ---
 
 # Installing MariaDB with yum/dnf
@@ -67,7 +66,7 @@ GPG public key that is used to verify the digital signatures of the packages in 
 
 If you wish to pin the `yum` repository to a specific minor release, or if you would like to do a `yum downgrade` to a specific minor release, then you can create a `yum` repository configuration with a `baseurl` option set to that specific minor release.
 
-For example, if you wanted to pin your repository to [MariaDB 10.8.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-8-release-notes) on CentOS 7, then you could use the following `yum` repository configuration in `/etc/yum.repos.d/MariaDB.repo`:
+For example, if you wanted to pin your repository to [MariaDB 10.8.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.8) on CentOS 7, then you could use the following `yum` repository configuration in `/etc/yum.repos.d/MariaDB.repo`:
 
 ```ini
 [mariadb]
@@ -183,7 +182,7 @@ sudo dnf install MariaDB-cracklib-password-check
 
 ### Installing Debug Info Packages with YUM
 
-The MariaDB `yum` repository also contains [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) packages. These package may be needed when [debugging a problem](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/how-to-produce-a-full-stack-trace-for-mariadbd).
+The MariaDB `yum` repository also contains [debuginfo](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/developing_c_and_cpp_applications_in_rhel_9/debugging-applications_developing-applications#debuginfo-packages_enabling-debugging-with-debugging-information) packages. These package may be needed when [debugging a problem](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/yt4NDbw3wL7QsDjQtA0H).
 
 #### Installing Debug Info for the Most Common Packages with YUM
 

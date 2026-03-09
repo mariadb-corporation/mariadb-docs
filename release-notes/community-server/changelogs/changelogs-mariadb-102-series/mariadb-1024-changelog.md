@@ -1,12 +1,12 @@
 # MariaDB 10.2.4 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.4)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes.md)[Changelog](mariadb-1024-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.4)[Release Notes](../../old-releases/10.2/10.2.4.md)[Changelog](mariadb-1024-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 17 Feb 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.4.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -24,7 +24,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-10694](https://jira.mariadb.org/browse/MDEV-10694) - SIGFPE and/or huge memory allocation in maria\_create ...
 * [Revision #24911cee4e](https://github.com/MariaDB/server/commit/24911cee4e)\
   2017-02-15 14:08:03 +0200
-  * [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) can now start from MySQL 5.7 data directory
+  * [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) can now start from MySQL 5.7 data directory
 * [Revision #eb54d86b58](https://github.com/MariaDB/server/commit/eb54d86b58)\
   2017-02-15 08:53:25 +0200
   * [MDEV-10700](https://jira.mariadb.org/browse/MDEV-10700): 10.2.2 windowing function returns incorrect result
@@ -81,10 +81,10 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-12057](https://jira.mariadb.org/browse/MDEV-12057) Embedded server shutdown hangs in InnoDB
 * [Revision #d731ce21a7](https://github.com/MariaDB/server/commit/d731ce21a7)\
   2017-02-13 14:40:51 +0200
-  * [MDEV-11170](https://jira.mariadb.org/browse/MDEV-11170): [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) cannot start on MySQL 5.7 datadir
+  * [MDEV-11170](https://jira.mariadb.org/browse/MDEV-11170): [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) cannot start on MySQL 5.7 datadir
 * [Revision #5ab93737be](https://github.com/MariaDB/server/commit/5ab93737be)\
   2017-02-13 03:15:33 +0200
-  * [MDEV-11170](https://jira.mariadb.org/browse/MDEV-11170): [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) cannot start on MySQL 5.7 datadir
+  * [MDEV-11170](https://jira.mariadb.org/browse/MDEV-11170): [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) cannot start on MySQL 5.7 datadir
 * [Revision #dc90e24978](https://github.com/MariaDB/server/commit/dc90e24978)\
   2017-02-10 12:46:44 +0200
   * Define a helper class to allow for saving sql\_mode using RAII
@@ -102,7 +102,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-10122](https://jira.mariadb.org/browse/MDEV-10122): MariaDB does not support group functions in some contexts where MySQL does
 * [Revision #fdfdea40f1](https://github.com/MariaDB/server/commit/fdfdea40f1)\
   2016-12-12 02:57:07 +0200
-  * [MDEV-11170](https://jira.mariadb.org/browse/MDEV-11170): [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) cannot start on MySQL 5.7 datadir:
+  * [MDEV-11170](https://jira.mariadb.org/browse/MDEV-11170): [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) cannot start on MySQL 5.7 datadir:
 * [Revision #e1f0f0dd06](https://github.com/MariaDB/server/commit/e1f0f0dd06)\
   2017-02-13 18:37:06 +0100
   * Revert "[MDEV-11439](https://jira.mariadb.org/browse/MDEV-11439) No data type JSON, but CAST(something AS JSON) pretends to work"
@@ -388,7 +388,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11681](https://jira.mariadb.org/browse/MDEV-11681): PARTITION BY LIST COLUMNS with default partition: Assertion \`part\_info->num\_list\_values' failed in get\_part\_iter\_for\_interval\_cols\_via\_map
 * [Revision #7b27465e10](https://github.com/MariaDB/server/commit/7b27465e10)\
   2017-02-07 15:55:01 +0200
-  * [MDEV-11974](https://jira.mariadb.org/browse/MDEV-11974): [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) encryption does not support spatial indexes
+  * [MDEV-11974](https://jira.mariadb.org/browse/MDEV-11974): [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) encryption does not support spatial indexes
 * [Revision #163ac07b93](https://github.com/MariaDB/server/commit/163ac07b93)\
   2017-02-08 06:47:39 +0400
   * [MDEV-12020](https://jira.mariadb.org/browse/MDEV-12020) ctype tests are non-deterministic due to missing sorting
@@ -397,7 +397,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11554](https://jira.mariadb.org/browse/MDEV-11554) innodb\_gis.precise fails in buildbot on Power.
 * [Revision #92bbf4ad04](https://github.com/MariaDB/server/commit/92bbf4ad04)\
   2017-02-06 18:44:35 +0200
-  * [MDEV-11782](https://jira.mariadb.org/browse/MDEV-11782) WIP: Support upgrade from [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md).
+  * [MDEV-11782](https://jira.mariadb.org/browse/MDEV-11782) WIP: Support upgrade from [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md).
 * [Revision #b40a1fbc93](https://github.com/MariaDB/server/commit/b40a1fbc93)\
   2017-01-24 10:29:29 +0200
   * [MDEV-11782](https://jira.mariadb.org/browse/MDEV-11782) WIP: Clean up the code, and add a test.

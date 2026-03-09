@@ -16,7 +16,7 @@ When the InnoDB plugin is compiled, the `innodb_plugin` test suite will test the
 ./mysql-test-run --suite=innodb_plugin
 ```
 
-To use the `innodb_plugin` instead of `xtradb` you can do (for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)):
+To use the `innodb_plugin` instead of `xtradb` you can do (for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)):
 
 ```bash
 mysqld --ignore-builtin-innodb --plugin-load=innodb=ha_innodb.so \

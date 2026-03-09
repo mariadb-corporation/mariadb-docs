@@ -6,7 +6,7 @@ description: >-
 
 # Aria Storage Engine
 
-The [Aria](./) storage engine is compiled in by default from [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) and it is required to be 'in use' when MariaDB is started.
+The [Aria](./) storage engine is compiled in by default from [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/changes-improvements-in-mariadb-5-1) and it is required to be 'in use' when MariaDB is started.
 
 All [system tables](../../../reference/system-tables/) are Aria.
 

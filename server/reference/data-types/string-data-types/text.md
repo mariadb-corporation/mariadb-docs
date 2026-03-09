@@ -1,7 +1,7 @@
 ---
 description: >-
-  Variable-length character string. A TEXT column can store up to 65,535
-  characters, often used for storing longer text content.
+  Complete TEXT type reference: TEXT(M) syntax, 65,535 byte maximum, 2-byte
+  length prefix, DEFAULT value support, and indexing constraints rules.
 ---
 
 # TEXT

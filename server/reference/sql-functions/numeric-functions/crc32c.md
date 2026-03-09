@@ -7,7 +7,7 @@ description: >-
 # CRC32C
 
 {% hint style="info" %}
-`CRC32C` is available from MariaDB [10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108).
+`CRC32C` is available from MariaDB [10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108).
 {% endhint %}
 
 `CRC32C` is used to compute a cyclic redundancy check (CRC) value using the Castagnoli polynomial.

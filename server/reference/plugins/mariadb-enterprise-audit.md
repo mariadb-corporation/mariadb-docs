@@ -1102,21 +1102,42 @@ Several syslog parameters can be changed for MariaDB Enterprise Audit by setting
 
 The audit log format for MariaDB Enterprise Audit depends on the [audit log destination](mariadb-enterprise-audit.md#audit-log-destinations).
 
-### Audit Log Format with File
+### Formal Specification
 
-When MariaDB Enterprise Audit is configured to use a dedicated audit log file, it uses the following format for each line:
+When MariaDB Enterprise Audit is configured to use a dedicated file, it records events in a comma-separated (CSV) format. For tool developers, it is critical to use standardized field mappings to correlate audit data with other server logs.
 
-```
-<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>
-```
+Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 
-### Audit Log Format with Syslog
+| Field | Component      | Data Type      | Standardized Name / Description                                                    |
+| ----- | -------------- | -------------- | ---------------------------------------------------------------------------------- |
+| 1     | `timestamp`    | `DateTime`     | Formatted as `YYYYMMDD HH:MM:SS`.                                                  |
+| 2     | `serverhost`   | `String`       | The hostname of the server instance.                                               |
+| 3     | `username`     | `String`       | The MariaDB user account triggering the event.                                     |
+| 4     | `host`         | `String`       | The client host from which the user connected.                                     |
+| 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs. |
+| 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query. Used to link Query and Table events.   |
+| 7     | `operation`    | `String`       | The type of action (e.g., `CONNECT`, `QUERY`, `WRITE`).                            |
+| 8     | `database`     | `String`       | The name of the database being accessed.                                           |
+| 9     | `object`       | `String`       | The specific table or object involved in the operation.                            |
+| 10    | `retcode`      | `Integer`      | The return code; `0` indicates success, non-zero indicates an error code.          |
 
-When MariaDB Enterprise Audit is configured to use the syslog, it uses the following format for each line:
+### **Value Mapping for Operations**
 
-```
-<timestamp> <syslog_host> <syslog_ident>: <syslog_info> <serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>
-```
+To build accurate filters and parsers, the `<operation>` field corresponds to the following standardized event types:
+
+| Operation        | Triggered By                                                |
+| ---------------- | ----------------------------------------------------------- |
+| `CONNECT`        | Successful user authentication and connection.              |
+| `FAILED_CONNECT` | Authentication failures or denied access.                   |
+| `DISCONNECT`     | Session termination.                                        |
+| `QUERY`          | Direct execution of a SQL statement.                        |
+| `READ`           | Table read access (e.g., `SELECT`).                         |
+| `WRITE`          | Table modification (e.g., `INSERT`, `UPDATE`, `DELETE`).    |
+| `AUDIT_CONFIG`   | Changes to audit settings via `SET GLOBAL` or log rotation. |
+
+### **Audit Log Format with Syslog**
+
+When configured to use `SYSLOG`, the standard CSV line is prefixed with syslog metadata: `<timestamp> <syslog_host> <syslog_ident>: <syslog_info> [Standard CSV Fields]`
 
 ## Messages in MariaDB Error Log
 

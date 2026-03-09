@@ -1,7 +1,8 @@
 ---
 description: >-
-  Empty a table completely. This DDL statement drops and re-creates the table,
-  offering a faster alternative to DELETE for removing all rows.
+  Complete TRUNCATE TABLE reference: TRUNCATE [TABLE] tbl_name [WAIT n|NOWAIT]
+  syntax, InnoDB FOREIGN KEY constraints, implicit commit, and AUTO_INCREMENT
+  reset.
 ---
 
 # TRUNCATE TABLE

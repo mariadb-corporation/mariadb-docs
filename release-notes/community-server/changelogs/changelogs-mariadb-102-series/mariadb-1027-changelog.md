@@ -1,12 +1,12 @@
 # MariaDB 10.2.7 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.7)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1027-release-notes.md)[Changelog](mariadb-1027-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.7)[Release Notes](../../old-releases/10.2/10.2.7.md)[Changelog](mariadb-1027-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 12 Jul 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1027-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.7.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -376,7 +376,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-13143](https://jira.mariadb.org/browse/MDEV-13143) Server crashes in srv\_init\_abort\_low() when started with inaccessible tmpdir
 * [Revision #8c71c6aa8b](https://github.com/MariaDB/server/commit/8c71c6aa8b)\
   2017-06-30 10:49:37 +0300
-  * [MDEV-12548](https://jira.mariadb.org/browse/MDEV-12548) Initial implementation of mariadb-backup for [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * [MDEV-12548](https://jira.mariadb.org/browse/MDEV-12548) Initial implementation of mariadb-backup for [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #dc722559cc](https://github.com/MariaDB/server/commit/dc722559cc)\
   2017-07-05 10:16:36 +0300
   * Correct a message
@@ -623,7 +623,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
 * Merge [Revision #9ed325efc1](https://github.com/MariaDB/server/commit/9ed325efc1) 2017-06-13 18:29:40 +0300 - Merge 10.0 into 10.1, plus fixup for [MDEV-12873](https://jira.mariadb.org/browse/MDEV-12873)
 * [Revision #1d5a306e38](https://github.com/MariaDB/server/commit/1d5a306e38)\
   2017-06-13 16:20:21 +0300
-  * [MDEV-12873](https://jira.mariadb.org/browse/MDEV-12873) InnoDB SYS\_TABLES.TYPE incompatibility for PAGE\_COMPRESSION in [MariaDB 10.2.2](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes.md) to 10.2.6
+  * [MDEV-12873](https://jira.mariadb.org/browse/MDEV-12873) InnoDB SYS\_TABLES.TYPE incompatibility for PAGE\_COMPRESSION in [MariaDB 10.2.2](../../old-releases/10.2/10.2.2.md) to 10.2.6
 * [Revision #74e4cf70d0](https://github.com/MariaDB/server/commit/74e4cf70d0)\
   2017-06-12 18:43:23 +0000
   * [MDEV-13059](https://jira.mariadb.org/browse/MDEV-13059) XtraDB hangs on Windows due to failing to release block->lock X-latch in innodb\_read\_only mode.
@@ -632,7 +632,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-13009](https://jira.mariadb.org/browse/MDEV-13009) 10.1.24 does not compile on architectures without 64-bit atomics
 * [Revision #72378a2583](https://github.com/MariaDB/server/commit/72378a2583)\
   2017-06-14 14:08:49 +0300
-  * [MDEV-12873](https://jira.mariadb.org/browse/MDEV-12873) InnoDB SYS\_TABLES.TYPE incompatibility for PAGE\_COMPRESSED=YES in [MariaDB 10.2.2](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes.md) to 10.2.6
+  * [MDEV-12873](https://jira.mariadb.org/browse/MDEV-12873) InnoDB SYS\_TABLES.TYPE incompatibility for PAGE\_COMPRESSED=YES in [MariaDB 10.2.2](../../old-releases/10.2/10.2.2.md) to 10.2.6
 * [Revision #227bfe4466](https://github.com/MariaDB/server/commit/227bfe4466)\
   2017-06-14 14:39:51 +0200
   * new connector version which correspond BULK command
@@ -641,7 +641,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-12471](https://jira.mariadb.org/browse/MDEV-12471): BULK Command
 * [Revision #e813fe8622](https://github.com/MariaDB/server/commit/e813fe8622)\
   2017-06-13 23:04:01 +0300
-  * [MDEV-13084](https://jira.mariadb.org/browse/MDEV-13084) [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) crashes on corrupted SYS\_TABLES.MIX\_LEN field
+  * [MDEV-13084](https://jira.mariadb.org/browse/MDEV-13084) [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) crashes on corrupted SYS\_TABLES.MIX\_LEN field
 * [Revision #a4efeabc43](https://github.com/MariaDB/server/commit/a4efeabc43)\
   2017-06-12 19:09:04 +0300
   * [MDEV-13061](https://jira.mariadb.org/browse/MDEV-13061) innodb\_encrypt\_log recovery is spamming the error log
@@ -1130,7 +1130,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-12651](https://jira.mariadb.org/browse/MDEV-12651): change error code to ER\_ILLEGAL\_HA in rnd\_pos (ha\_connect.cc)
 * [Revision #436070c6e1](https://github.com/MariaDB/server/commit/436070c6e1)\
   2017-05-12 00:33:33 +0200
-  * Fix failing test connect.json for [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) Suppressing Uri and dsn from json tables (was MGO) modified: storage/connect/ha\_connect.cc modified: storage/connect/tabdos.cpp modified: storage/connect/tabjson.cpp modified: storage/connect/tabjson.h
+  * Fix failing test connect.json for [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) Suppressing Uri and dsn from json tables (was MGO) modified: storage/connect/ha\_connect.cc modified: storage/connect/tabdos.cpp modified: storage/connect/tabjson.cpp modified: storage/connect/tabjson.h
 * [Revision #1c88b9a8d3](https://github.com/MariaDB/server/commit/1c88b9a8d3)\
   2017-05-11 21:57:21 +0200
   * Fix wrong value of JSON column When null and the column is NOT NULL the value was not reset. modified: storage/connect/tabjson.cpp

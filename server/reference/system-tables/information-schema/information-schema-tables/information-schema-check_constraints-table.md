@@ -10,14 +10,14 @@ The [Information Schema](../) `CHECK_CONSTRAINTS` table stores metadata about th
 
 It contains the following columns:
 
-| Column              | Description                                                                                                                                                                                         |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CONSTRAINT\_CATALOG | Always contains the string 'def'.                                                                                                                                                                   |
-| CONSTRAINT\_SCHEMA  | Database name.                                                                                                                                                                                      |
-| CONSTRAINT\_NAME    | Constraint name.                                                                                                                                                                                    |
-| TABLE\_NAME         | Table name.                                                                                                                                                                                         |
-| LEVEL               | Type of the constraint ('Column' or 'Table'). From [MariaDB 10.5.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10510-release-notes). |
-| CHECK\_CLAUSE       | Constraint clause.                                                                                                                                                                                  |
+| Column              | Description                                                                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CONSTRAINT\_CATALOG | Always contains the string 'def'.                                                                                                                                |
+| CONSTRAINT\_SCHEMA  | Database name.                                                                                                                                                   |
+| CONSTRAINT\_NAME    | Constraint name.                                                                                                                                                 |
+| TABLE\_NAME         | Table name.                                                                                                                                                      |
+| LEVEL               | Type of the constraint ('Column' or 'Table'). From [MariaDB 10.5.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.10). |
+| CHECK\_CLAUSE       | Constraint clause.                                                                                                                                               |
 
 ## Example
 

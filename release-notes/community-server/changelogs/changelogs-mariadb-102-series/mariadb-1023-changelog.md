@@ -1,12 +1,12 @@
 # MariaDB 10.2.3 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.3)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes.md)[Changelog](mariadb-1023-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.3)[Release Notes](../../old-releases/10.2/10.2.3.md)[Changelog](mariadb-1023-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 24 Dec 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.3.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -534,7 +534,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11168](https://jira.mariadb.org/browse/MDEV-11168): InnoDB: Failing assertion: !other\_lock || wsrep\_thd\_is\_BF(lock->trx->mysql\_thd, FALSE) || wsrep\_thd\_is\_BF(other\_lock->trx->mysql\_thd, FALSE)
 * [Revision #2c9bb42](https://github.com/MariaDB/server/commit/2c9bb42)\
   2016-12-01 08:28:59 +0200
-  * [MDEV-11432](https://jira.mariadb.org/browse/MDEV-11432) Change the informational redo log format tag to "[MariaDB 10.2.3](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes.md)"
+  * [MDEV-11432](https://jira.mariadb.org/browse/MDEV-11432) Change the informational redo log format tag to "[MariaDB 10.2.3](../../old-releases/10.2/10.2.3.md)"
 * [Revision #dc9f919](https://github.com/MariaDB/server/commit/dc9f919)\
   2016-12-01 06:42:59 +0200
   * [MDEV-11005](https://jira.mariadb.org/browse/MDEV-11005): Incorrect error message when using ONLINE alter table with GIS

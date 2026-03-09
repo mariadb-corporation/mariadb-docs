@@ -1,7 +1,7 @@
 ---
 description: >-
-  Add an index to an existing table. This statement improves query performance
-  by creating a data structure for rapid lookups on specific columns.
+  Complete reference for CREATE INDEX in MariaDB. Complete syntax guide with all
+  options, clauses, and practical examples with comprehensive examples and best.
 ---
 
 # CREATE INDEX
@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```sql
-CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL] INDEX 
+CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL|VECTOR] INDEX 
   [IF NOT EXISTS] index_name
     [index_type]
     ON tbl_name (index_col_name,...)
@@ -30,6 +30,8 @@ index_option:
   | COMMENT 'string'
   | CLUSTERING={YES| NO} ]
   [ IGNORED | NOT IGNORED ]
+  | DISTANCE={EUCLIDEAN| COSINE} ]
+  | M=number ]
 
 algorithm_option:
     ALGORITHM [=] {DEFAULT|INPLACE|COPY|NOCOPY|INSTANT}
@@ -99,7 +101,7 @@ Stage: 1 of 2 'copy to tmp table'    46% of stage
 
 The progress report is also shown in the output of the [SHOW PROCESSLIST](../../administrative-sql-statements/show/show-processlist.md) statement and in the contents of the [information\_schema.PROCESSLIST](../../../system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) table.
 
-See [Progress Reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for more information.
+See [Progress Reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for more information.
 
 ## WITHOUT OVERLAPS
 

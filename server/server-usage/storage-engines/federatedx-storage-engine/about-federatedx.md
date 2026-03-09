@@ -13,7 +13,7 @@ This storage engine has been deprecated.
 
 The FederatedX storage engine is a fork of MySQL's [Federated storage engine](https://dev.mysql.com/doc/refman/5.5/en/federated-storage-engine.html), which is no longer being developed by Oracle. The original purpose of FederatedX was to keep this storage engine's development progressing-- to both add new features as well as fix old bugs.
 
-Since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), the [CONNECT](../connect/) storage engine also allows access to a remote database via MySQL or ODBC connection (table types: [MYSQL](../connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [ODBC](../connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)). However, in the current implementation there are several limitations.
+Since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), the [CONNECT](../connect/) storage engine also allows access to a remote database via MySQL or ODBC connection (table types: [MYSQL](../connect/connect-table-types/connect-mysql-table-type-accessing-mysqlmariadb-tables.md), [ODBC](../connect/connect-table-types/connect-odbc-table-type-accessing-tables-from-another-dbms.md)). However, in the current implementation there are several limitations.
 
 ## What is the FederatedX storage engine?
 
@@ -30,7 +30,7 @@ When MySQL 5.1 became the production release of MySQL, Federated had more featur
 * Various bugs that needed to be fixed from MySQL 5.0
 * Plugin capability
 
-In [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes) FederatedX got support for assisted [table discovery](../storage-engines-storage-engine-development/table-discovery.md).
+In [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.2) FederatedX got support for assisted [table discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md).
 
 ## Installing the Plugin
 
@@ -390,7 +390,7 @@ FederatedX from a user point of view is the same for the most part. What is diff
 
 ## Where can I get FederatedX
 
-FederatedX is part of [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1) and later. MariaDB merged with the latest FederatedX when there is a need to get a bug fixed. You can get the latest code/follow/participate in the project from the [FederatedX home page](https://launchpad.net/federatedx).
+FederatedX is part of [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/changes-improvements-in-mariadb-5-1) and later. MariaDB merged with the latest FederatedX when there is a need to get a bug fixed. You can get the latest code/follow/participate in the project from the [FederatedX home page](https://launchpad.net/federatedx).
 
 ### What are the plans for FederatedX?
 

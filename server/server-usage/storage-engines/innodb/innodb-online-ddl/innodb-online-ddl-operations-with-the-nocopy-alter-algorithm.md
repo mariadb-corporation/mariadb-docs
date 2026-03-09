@@ -19,7 +19,7 @@ Therefore, when the [ALGORITHM](../../../../reference/sql-statements/data-defini
 
 ### `ALTER TABLE ... ADD COLUMN`
 
-In [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1032-release-notes) and later, InnoDB supports adding columns to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+In [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2) and later, InnoDB supports adding columns to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: ALTER TABLE ... ADD COLUMN](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 
@@ -27,7 +27,7 @@ This applies to [ALTER TABLE ... ADD COLUMN](../../../../reference/sql-statement
 
 ### `ALTER TABLE ... DROP COLUMN`
 
-In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, InnoDB supports dropping columns from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, InnoDB supports dropping columns from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: ALTER TABLE ... DROP COLUMN](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 
@@ -39,7 +39,7 @@ This applies to [ALTER TABLE ... MODIFY COLUMN](../../../../reference/sql-statem
 
 #### Reordering Columns
 
-In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104) and later, InnoDB supports reordering columns within a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, InnoDB supports reordering columns within a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: Reordering Columns](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 
@@ -51,7 +51,7 @@ See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: Changing the Data Type
 
 #### Changing a Column to NULL
 
-In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later, InnoDB supports modifying a column to allow [NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null) values with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later, InnoDB supports modifying a column to allow [NULL](../../../../reference/sql-statements/data-definition/create/create-table.md#null-and-not-null) values with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: Changing a Column to NULL](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 
@@ -87,7 +87,7 @@ See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: Adding a New SET Optio
 
 #### Removing System Versioning from a Column
 
-In [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1038-release-notes) and later, InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+In [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8) and later, InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: Removing System Versioning from a Column](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 
@@ -414,7 +414,7 @@ This applies to [KEY\_BLOCK\_SIZE=...](../../../../reference/sql-statements/data
 
 ### `ALTER TABLE ... PAGE_COMPRESSED=1` and `ALTER TABLE ... PAGE_COMPRESSION_LEVEL=...`
 
-In [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes) and later, InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+In [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10) and later, InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 InnoDB does **not** support changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY`.
 
@@ -446,7 +446,7 @@ This applies to [ALTER TABLE ... DROP SYSTEM VERSIONING](../../../../reference/s
 
 ### `ALTER TABLE ... DROP CONSTRAINT`
 
-In [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1036-release-notes) and later, InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+In [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6) and later, InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `NOCOPY` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: ALTER TABLE ... DROP CONSTRAINT](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 

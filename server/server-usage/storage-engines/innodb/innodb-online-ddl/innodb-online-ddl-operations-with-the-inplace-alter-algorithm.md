@@ -95,8 +95,8 @@ Query OK, 0 rows affected (0.022 sec)
 
 InnoDB does **not** support modifying a column's data type with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` in most cases. There are some exceptions:
 
-* In [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`, unless it would require changing the number of bytes requires to represent the column's length. A `VARCHAR` column that is between 0 and 255 bytes in size requires 1 byte to represent its length, while a `VARCHAR` column that is 256 bytes or longer requires 2 bytes to represent its length. This means that the length of a column cannot be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` if the original length was less than 256 bytes, and the new length is 256 bytes or more.
-* In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
+* In [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`, unless it would require changing the number of bytes requires to represent the column's length. A `VARCHAR` column that is between 0 and 255 bytes in size requires 1 byte to represent its length, while a `VARCHAR` column that is 256 bytes or longer requires 2 bytes to represent its length. This means that the length of a column cannot be increased with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` if the original length was less than 256 bytes, and the new length is 256 bytes or more.
+* In [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3) and later, InnoDB supports increasing the length of `VARCHAR` columns with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE` in the cases where the operation supports having the [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) clause set to `INSTANT`.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INSTANT: Changing the Data Type of a Column](innodb-online-ddl-operations-with-the-instant-alter-algorithm.md) for more information.
 
@@ -114,7 +114,7 @@ ALTER TABLE tab MODIFY COLUMN c INT;
 ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change column type INPLACE. Try ALGORITHM=COPY
 ```
 
-But this succeeds in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes) and later, because the original length of the column is less than 256 bytes, and the new length is still less than 256 bytes:
+But this succeeds in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, because the original length of the column is less than 256 bytes, and the new length is still less than 256 bytes:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -128,7 +128,7 @@ ALTER TABLE tab MODIFY COLUMN c VARCHAR(100);
 Query OK, 0 rows affected (0.005 sec)
 ```
 
-But this fails in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes) and later, because the original length of the column is less than 256 bytes, and the new length is greater than 256 bytes:
+But this fails in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) and later, because the original length of the column is less than 256 bytes, and the new length is greater than 256 bytes:
 
 ```sql
 CREATE OR REPLACE TABLE tab (
@@ -266,7 +266,7 @@ ERROR 1846 (0A000): ALGORITHM=INPLACE is not supported. Reason: Cannot change co
 
 #### Removing System Versioning from a Column
 
-In [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1038-release-notes) and later, InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. In order for this to work, the [system\_versioning\_alter\_history](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history) system variable must be set to `KEEP`. See [MDEV-16330](https://jira.mariadb.org/browse/MDEV-16330) for more information.
+In [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8) and later, InnoDB supports removing [system versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) from a column with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. In order for this to work, the [system\_versioning\_alter\_history](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md#system_versioning_alter_history) system variable must be set to `KEEP`. See [MDEV-16330](https://jira.mariadb.org/browse/MDEV-16330) for more information.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 
@@ -840,7 +840,7 @@ This applies to [KEY\_BLOCK\_SIZE=...](../../../../reference/sql-statements/data
 
 ### `ALTER TABLE ... PAGE_COMPRESSED=...` and `ALTER TABLE ... PAGE_COMPRESSION_LEVEL=...`
 
-In [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes) and later, InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. InnoDB also supports changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
+In [MariaDB 10.3.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.10) and later, InnoDB supports setting a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value to `1` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. InnoDB also supports changing a table's [PAGE\_COMPRESSED](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compressed) value from `1` to `0` with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
 
 In these versions, InnoDB also supports changing a table's [PAGE\_COMPRESSION\_LEVEL](../../../../reference/sql-statements/data-definition/create/create-table.md#page_compression_level) value with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`.
 
@@ -916,7 +916,7 @@ This applies to [ALTER TABLE ... DROP SYSTEM VERSIONING](../../../../reference/s
 
 ### `ALTER TABLE ... DROP CONSTRAINT`
 
-In [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1036-release-notes) and later, InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. See [MDEV-16331](https://jira.mariadb.org/browse/MDEV-16331) for more information.
+In [MariaDB 10.3.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.6) and later, InnoDB supports dropping a [CHECK](../../../../reference/sql-statements/data-definition/constraint.md#check-constraints) constraint from a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INPLACE`. See [MDEV-16331](https://jira.mariadb.org/browse/MDEV-16331) for more information.
 
 This operation supports the non-locking strategy. This strategy can be explicitly chosen by setting the [LOCK](../../../../reference/sql-statements/data-definition/alter/alter-table/#lock) clause to `NONE`. When this strategy is used, all concurrent DML is permitted.
 

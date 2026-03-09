@@ -17,7 +17,7 @@ If you don't want to run MariaDB as yourself, then you should create a `mysql` u
 
 ## Using cmake
 
-[MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5) and above is compiled using _cmake_.
+[MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) and above is compiled using _cmake_.
 
 It is recommended to create a build directory **beside** your source directory
 
@@ -104,15 +104,15 @@ The scripts are of type `compile-#cpu#-how_to_build`. Some common scripts:
 
 Some common suffixes used for the scripts:
 
-| Suffix      | Description                                                                                                                                                                                           |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `32`        | Compile for 32 bit cpu's                                                                                                                                                                              |
-| `64`        | Compile for 64 bit cpu's                                                                                                                                                                              |
-| `-max`      | Enable (almost) all features and plugins that MariaDB supports                                                                                                                                        |
-| `-gprof`    | binary is compiled with profiling (`gcc --pg`)                                                                                                                                                        |
-| `-gcov`     | binary is compiled with code coverage (`gcc -fprofile-arcs -ftest-coverage`)                                                                                                                          |
-| `-valgrind` | The binary is compiled for debugging and optimized to be used with [valgrind](https://www.valgrind.org/).                                                                                             |
-| `-debug`    | The binary is compiled with all symbols (`gcc -g`) and the [DBUG](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/creating-a-trace-file) log system is enabled. |
+| Suffix      | Description                                                                                                                                              |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `32`        | Compile for 32 bit cpu's                                                                                                                                 |
+| `64`        | Compile for 64 bit cpu's                                                                                                                                 |
+| `-max`      | Enable (almost) all features and plugins that MariaDB supports                                                                                           |
+| `-gprof`    | binary is compiled with profiling (`gcc --pg`)                                                                                                           |
+| `-gcov`     | binary is compiled with code coverage (`gcc -fprofile-arcs -ftest-coverage`)                                                                             |
+| `-valgrind` | The binary is compiled for debugging and optimized to be used with [valgrind](https://www.valgrind.org/).                                                |
+| `-debug`    | The binary is compiled with all symbols (`gcc -g`) and the [DBUG](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/NUEN5ddQGEvSv2bnyq5F) log system is enabled. |
 
 All `BUILD` scripts support the following options:
 

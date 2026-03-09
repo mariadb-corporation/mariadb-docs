@@ -1,3 +1,10 @@
+---
+description: >-
+  Details the pre-configured rules for monitoring MariaDB Server, Galera
+  Cluster, and system health, including sustained-duration triggers to prevent
+  alert fatigue.
+---
+
 # Built-in Alert Rules
 
 MariaDB Enterprise Manager includes a comprehensive set of pre-configured alert rules to provide production-ready monitoring for your entire database stack out-of-the-box. These alerts are built on the integrated Grafana Alerting engine and are designed to detect common issues across your MariaDB Servers, Galera Clusters, MaxScale instances, and the underlying operating systems.

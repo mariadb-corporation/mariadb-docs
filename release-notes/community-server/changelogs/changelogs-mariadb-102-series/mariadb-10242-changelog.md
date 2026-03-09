@@ -1,12 +1,12 @@
 # MariaDB 10.2.42 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download 10.2.42](https://mariadb.org/download/?tab=mariadb\&release=10.2.42\&product=mariadb)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10242-release-notes.md)[Changelog](mariadb-10242-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download 10.2.42](https://mariadb.org/download/?tab=mariadb\&release=10.2.42\&product=mariadb)[Release Notes](../../old-releases/10.2/10.2.42.md)[Changelog](mariadb-10242-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 9 Feb 2022
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10242-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.42.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -135,7 +135,7 @@ in that revision.
   * [MDEV-27544](https://jira.mariadb.org/browse/MDEV-27544) database() function should return 64 characters
 * [Revision #810ef9117a](https://github.com/MariaDB/server/commit/810ef9117a)\
   2022-01-19 11:15:22 +0700
-  * [MDEV-24827](https://jira.mariadb.org/browse/MDEV-24827): [MariaDB 10.5.5](../../old-releases/mariadb-10-5-series/mariadb-1055-release-notes.md) crash (sig 11) during a SELECT
+  * [MDEV-24827](https://jira.mariadb.org/browse/MDEV-24827): [MariaDB 10.5.5](../../old-releases/10.5/10.5.5.md) crash (sig 11) during a SELECT
 * [Revision #9cd6ecfe50](https://github.com/MariaDB/server/commit/9cd6ecfe50)\
   2022-01-17 16:26:47 +0100
   * [MDEV-18284](https://jira.mariadb.org/browse/MDEV-18284): JSON casting using JSON\_COMPACT doesn't always work with values from subqueries

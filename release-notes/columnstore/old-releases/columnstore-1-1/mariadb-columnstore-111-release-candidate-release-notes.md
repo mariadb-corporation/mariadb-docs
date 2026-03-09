@@ -50,12 +50,12 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-972](https://jira.mariadb.org/browse/MCOL-972) - PmMaxMemorySmallSide configuration value not carried forward in upgrade
 * [MCOL-973](https://jira.mariadb.org/browse/MCOL-973) - ArithmaticColumn parsing can cause crash
 * [MCOL-979](https://jira.mariadb.org/browse/MCOL-979) - Crash with LEAD function in ColumnStore with 'char' field type
-* [MCOL-982](https://jira.mariadb.org/browse/MCOL-982) - Merge [MariaDB 10.2.9](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1029-release-notes.md) into ColumnStore
+* [MCOL-982](https://jira.mariadb.org/browse/MCOL-982) - Merge [MariaDB 10.2.9](../../../community-server/old-releases/10.2/10.2.9.md) into ColumnStore
 * [MCOL-984](https://jira.mariadb.org/browse/MCOL-984) - Error 1815 after several executions of example/basic\_bulk\_insert having SMALLINT in t1
 * [MCOL-988](https://jira.mariadb.org/browse/MCOL-988) - 1um/2pm DataRep system starting up without a ProcessManager in HOT\_STANDBY state
 * [MCOL-990](https://jira.mariadb.org/browse/MCOL-990) - provide a resetRow method
 * [MCOL-992](https://jira.mariadb.org/browse/MCOL-992) - java binding for mcsapi
-* [MCOL-1000](https://jira.mariadb.org/browse/MCOL-1000) - Merge [MariaDB 10.2.10](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10210-release-notes.md)
+* [MCOL-1000](https://jira.mariadb.org/browse/MCOL-1000) - Merge [MariaDB 10.2.10](../../../community-server/old-releases/10.2/10.2.10.md)
 
 In addition, all bugs fixed in MariaDB ColumnStore 1.0.11 and earlier are implicitly included in this release.
 
@@ -72,7 +72,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-271](https://jira.mariadb.org/browse/MCOL-271) empty string values are treated as NULL. This means you cannot insert empty values into a NOT NULL string column.
 * [MCOL-365](https://jira.mariadb.org/browse/MCOL-365): Log files created by load data infile remain in the bulk/data/log and /tmp directories. If storage is a concern these can safely be removed.
 * [MCOL-540](https://jira.mariadb.org/browse/MCOL-540) : In a non root Ubuntu install with local query enabled, the PM servers crash and restart on table creation.
-* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
+* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
 * [MCOL-631](https://jira.mariadb.org/browse/MCOL-631) :Create table caused primproc crashed for a specific configuration
 * [MCOL-643](https://jira.mariadb.org/browse/MCOL-643) :Implement ha\_calpont\_impl\_rnd\_pos. Sorting of long text columns may fail.
 * [MCOL-695](https://jira.mariadb.org/browse/MCOL-695) :Implement joins between CHAR/VARCHAR and INT columns. ColumnStore now fails more consistently on incompatible join types. Explicit type casts must be used if this error is hit.

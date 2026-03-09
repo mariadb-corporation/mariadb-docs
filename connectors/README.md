@@ -1,8 +1,7 @@
 ---
 description: >-
-  Explore documentation for MariaDB Connectors. Learn about official client
-  libraries for various programming languages (e.g., C, Java, Python, ODBC) to
-  enable seamless application connectivity.
+  Complete MariaDB Connectors guide. Complete reference for client libraries in
+  Python, Java, Node.js, C, C++, ODBC, and R languages for production use.
 icon: nfc-symbol
 ---
 

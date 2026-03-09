@@ -20,9 +20,8 @@ An `INTVAR_EVENT` is written every time a statement uses an auto increment colum
 
 ## Type
 
-|      |                              |
-| ---- | ---------------------------- |
 | 0x00 | Invalid value.               |
+| ---- | ---------------------------- |
 | 0x01 | LAST\_INSERT\_ID.            |
 | 0x02 | Insert id (auto\_increment). |
 

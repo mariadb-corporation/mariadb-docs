@@ -1,12 +1,12 @@
 # MariaDB 11.5.2 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes.md)[Changelog](mariadb-11-5-2-changelog.md)[Overview of 11.5](../../old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115.md)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/11.5/11.5.2.md)[Changelog](mariadb-11-5-2-changelog.md)[Overview of 11.5](../../old-releases/11.5/what-is-mariadb-115.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.5.2/)
 
 **Release date:** 14 Aug 2024
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/11.5/11.5.2.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.

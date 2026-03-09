@@ -1,12 +1,12 @@
 # MariaDB 5.5.28a Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.28a) | [Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5528a-release-notes.md) | **Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.28a) | [Release Notes](../../old-releases/5.5/5.5.28a.md) | **Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 29 Nov 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5528a-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.28a.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -42,10 +42,10 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * [MDEV-736](https://jira.mariadb.org/browse/MDEV-736) [Bug #1004615](https://bugs.launchpad.net/bugs/1004615) - Unexpected warnings "Encountered illegal value '' when converting to DECIMAL" on a query with aggregate functions and GROUP BY
   * [Revision #2502.567.46](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.46) \[merge]\
     Tue 2012-11-20 13:57:49 +0100
-    * Merge [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)->5.3
+    * Merge [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)->5.3
     * [Revision #2502.566.25](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.566.25) \[merge]\
       Tue 2012-11-20 13:40:13 +0100
-      * Merge [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)->5.2.
+      * Merge [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2.
       * [Revision #2502.565.20](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.565.20)\
         Tue 2012-11-20 13:28:53 +0100
         * [MDEV-3861](https://jira.mariadb.org/browse/MDEV-3861): assertions in TC\_LOG\_MMAP.
@@ -105,7 +105,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
       * Fix mis-merge.
   * [Revision #2502.567.36](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.36) \[merge]\
     Fri 2012-11-09 10:11:20 +0200
-    * Merge [MariaDB 5.1.66](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5166-release-notes.md) -> 5.2 -> 5.3
+    * Merge [MariaDB 5.1.66](../../old-releases/5.1/5.1.66.md) -> 5.2 -> 5.3
     * [Revision #2502.566.20](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.566.20) \[merge]\
       Thu 2012-11-08 22:26:05 +0200
       * Merged and adjusted test cases from 5.1 after the merge with 5.1.
@@ -114,7 +114,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
         * Updated test results after the mysql 5.1 merge.
     * [Revision #2502.566.19](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.566.19) \[merge]\
       Thu 2012-11-08 15:24:35 +0200
-      * Merge [MariaDB 5.1.66](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5166-release-notes.md) -> 5.2.12
+      * Merge [MariaDB 5.1.66](../../old-releases/5.1/5.1.66.md) -> 5.2.12
       * [Revision #2502.565.13](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.565.13) \[merge]\
         Tue 2012-11-06 11:52:55 +0200
         * Merge MySQL 5.1.66 -> MariaDB 5.1.65
@@ -142,7 +142,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
           * Bug#14547952: DEBUG BUILD FAILS ASSERTION IN RECORDS\_IN\_RANGE()
       * [Revision #2502.565.12](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.565.12) \[merge]\
         Thu 2012-11-01 16:20:09 +0100
-        * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md).
+        * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md).
         * [Revision #0.16.2](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/0.16.2)\
           Thu 2012-11-01 15:16:42 +0100
           * Updated with changes from Percona Server 5.1.66-rel14.1 tarball.

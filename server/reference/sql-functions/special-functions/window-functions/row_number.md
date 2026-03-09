@@ -1,7 +1,7 @@
 ---
 description: >-
-  Assign a sequential integer to rows. This function numbers rows within a
-  partition starting at 1, based on the specified order.
+  Complete ROW_NUMBER() reference: ROW_NUMBER() OVER() window syntax, PARTITION
+  BY clauses, ORDER BY ordering, and RANK()/DENSE_RANK() comparisons.
 ---
 
 # ROW\_NUMBER

@@ -14,7 +14,7 @@ SELECT ...
 
 ## Description
 
-MariaDB has supported `INTERSECT` (as well as [EXCEPT](except.md)) in addition to [UNION](union.md) since [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103).
+MariaDB has supported `INTERSECT` (as well as [EXCEPT](except.md)) in addition to [UNION](union.md) since [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103).
 
 All behavior for naming columns, `ORDER BY` and `LIMIT` is the same as for [UNION](union.md).
 
@@ -59,7 +59,7 @@ Parentheses **cannot** be used to specify precedence.
 {% endtab %}
 {% endtabs %}
 
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
+**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
 ### ALL/DISTINCT
 

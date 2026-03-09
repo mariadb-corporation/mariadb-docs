@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 10.8 and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 10.8](../../../../old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.23 and the [MariaDB 10.8.7](../../../../old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-7-release-notes.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB 10.8 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-10-8-and-mysql-8.md)
+The following is a list of all function differences between [MariaDB 10.8](../../../../old-releases/10.8/what-is-mariadb-108.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.23 and the [MariaDB 10.8.7](../../../../old-releases/10.8/10.8.7.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB 10.8 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-10-8-and-mysql-8.md)
 
 ## Present in MariaDB Only
 

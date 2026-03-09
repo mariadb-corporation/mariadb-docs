@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete MariaDB installation guide. Complete setup instructions for Linux,
+  Windows, and macOS with configuration and verification for production use.
+---
+
 # Installing MariaDB Connector/J
 
 {% hint style="info" %}

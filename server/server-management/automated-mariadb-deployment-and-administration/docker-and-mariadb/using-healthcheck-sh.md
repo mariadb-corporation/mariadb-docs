@@ -1,7 +1,7 @@
 ---
 description: >-
-  Explains how to use the `healthcheck.sh` script included in the official image
-  to monitor the status and readiness of the MariaDB server.
+  Complete healthcheck.sh Docker reference: --connect, --innodb_initialized,
+  --replication_* checks, .my-healthcheck.cnf config, and environment variables.
 ---
 
 # Using Healthcheck

@@ -1,6 +1,14 @@
-# System\`s Users, Roles, and Privileges
+---
+description: >-
+  Details default system users like mariadb.sys and the PUBLIC role, including
+  their creation, purpose, and special management behaviors.
+---
 
-\{% hint style="info" %\} **Important:** The `PUBLIC` role is created implicitly by `GRANT` statements and its creation is not logged, distinguishing it from standard system principals. \{% endhint %\}
+# System Users, Roles, Privileges
+
+{% hint style="warning" %}
+The `PUBLIC` role is created implicitly by `GRANT` statements and its creation is not logged, distinguishing it from standard system principals.
+{% endhint %}
 
 MariaDB automatically creates several users and roles for administrative and internal server functions.
 

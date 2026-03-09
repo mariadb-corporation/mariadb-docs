@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 **Release date:** 31 Oct 2018
 
 MariaDB Galera Cluster 5.5.62 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 5.5.62](../../release-notes-mariadb-5-5-series/mariadb-5562-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 5.5.62](../../5.5/5.5.62.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -20,13 +20,13 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 * The [Galera library](https://codership.com/content/using-galera-cluster) used\
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.24.
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2018-3282](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3282)
   * [CVE-2016-9843](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-9843)
   * [CVE-2018-3174](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3174)
   * [CVE-2019-2503](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-2503)
 
-See the [MariaDB 5.5.62 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5562-release-notes.md) for more\
+See the [MariaDB 5.5.62 Release Notes](../../5.5/5.5.62.md) for more\
 information on fixes in this version.
 
 ## Changelog

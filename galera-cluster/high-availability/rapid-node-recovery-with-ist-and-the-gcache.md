@@ -35,7 +35,7 @@ However, during node joining, in IST and latter catch-up period, the node is sti
 To address that issue, you can relax FK checks for appliers during IST and catch-up periods. The relaxed FK check mode is configurable by [setting this flag](../reference/galera-cluster-system-variables.md#wsrep_mode):
 
 ```
-wsrep_mode=SKIP_APPLIER_FK_CHECKS_IN_IST
+wsrep_mode=APPLIER_SKIP_FK_CHECKS_IN_IST
 ```
 
 When this operation mode is set, and the node is processing IST or catch-up, appliers skip FK checking.
@@ -62,11 +62,11 @@ The node was disconnected for too long, and the required history has been purged
 
 You can control the GCache behavior with several [parameters](../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.dir) in the `[galera]` section of your configuration file (`my.cnf`).
 
-| Parameter                                                                                      | Description                                                                                                                                                                                                                                                                                      |
-| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [gcache.size](../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.size)       | Controls the size of the on-disk ring-buffer file. A larger GCache can hold more history, increasing the chance of a fast IST over SST.                                                                                                                                                          |
-| [gcache.dir](../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.dir)         | Specifies where GCache files are stored. Best practice is to place it on the fastest available storage like SSD or NVMe.                                                                                                                                                                         |
-| [gcache.recover](../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.recover) | Enabled by default in [modern Galera versions](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104#galera-4), it allows a node to recover its GCache post-restart, enabling immediate service as a donor for IST. |
+| Parameter                                                                                      | Description                                                                                                                                                                                                                                                         |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [gcache.size](../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.size)       | Controls the size of the on-disk ring-buffer file. A larger GCache can hold more history, increasing the chance of a fast IST over SST.                                                                                                                             |
+| [gcache.dir](../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.dir)         | Specifies where GCache files are stored. Best practice is to place it on the fastest available storage like SSD or NVMe.                                                                                                                                            |
+| [gcache.recover](../reference/wsrep-variable-details/wsrep_provider_options.md#gcache.recover) | Enabled by default in [modern Galera versions](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104#galera-4), it allows a node to recover its GCache post-restart, enabling immediate service as a donor for IST. |
 
 ### Tuning `gcache.size`
 
@@ -128,7 +128,7 @@ $$
 required\_cachesize = write\_rate \times desired\_time\_window\_in\_seconds
 $$
 
-* $$\text{Example: } 20346 \text{ bytes/sec} \times 7200 \text{ sec} \approx 146,491,200 \text{ bytes (or } \sim\text{140MiB)}$$&#x20;
+* $$\text{Example: } 20346 \text{ bytes/sec} \times 7200 \text{ sec} \approx 146,491,200 \text{ bytes (or } \sim\text{140MiB)}$$
 
 In this example, a `gcache.size` of 140M would allow a node to be down for 2 hours and still rejoin using IST.
 {% endstep %}

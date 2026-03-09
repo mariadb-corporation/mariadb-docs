@@ -9,7 +9,7 @@ This function computes selectivity of the restrictions on a certain table T.\
 
 Selectivity is computed from
 
-* selectivities of restrictions on different columns ( [histogram data](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics))
+* selectivities of restrictions on different columns ( [histogram data](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md))
 * selectivities of potential range accesses.
 
 Restrictions on different columns, as well as disjoint sets of columns, are considered independent, so their selectivities are multiplied.
@@ -45,7 +45,7 @@ rec_per_key[i-1]/rec_per_key[i]
 
 ### Data From Histograms
 
-Then, we want to take into account selectivity data from [histograms](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics). Each histogram covers one single column.
+Then, we want to take into account selectivity data from [histograms](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md). Each histogram covers one single column.
 
 If the selectivity of a column hasn't been taken into account on the previous step, we take it into account now by multiplying the selectivity by it. Otherwise, we assume that range access has fully taken the column selectivity into account and do nothing.
 

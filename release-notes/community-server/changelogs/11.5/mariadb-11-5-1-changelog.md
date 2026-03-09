@@ -1,17 +1,17 @@
 # MariaDB 11.5.1 Changelog
 
-The most recent release of [MariaDB 11.5](../../old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115.md) is:[**MariaDB 11.5.2**](../../old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-2-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.5.2/)
+The most recent release of [MariaDB 11.5](../../old-releases/11.5/what-is-mariadb-115.md) is:[**MariaDB 11.5.2**](../../old-releases/11.5/11.5.2.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.5.2/)
 
-[Download 11.5.1](https://downloads.mariadb.org/mariadb/11.5.1/)[Release Notes](../../old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-1-release-notes.md)[Changelog](mariadb-11-5-1-changelog.md)[Overview of 11.5](../../old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115.md)
+[Download 11.5.1](https://downloads.mariadb.org/mariadb/11.5.1/)[Release Notes](../../old-releases/11.5/11.5.1.md)[Changelog](mariadb-11-5-1-changelog.md)[Overview of 11.5](../../old-releases/11.5/what-is-mariadb-115.md)
 
 **Release date:** 30 May 2024
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-1-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/11.5/11.5.1.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.
 
-* Changes from [11.5.0](../../old-releases/release-notes-mariadb-11-5-rolling-releases/mariadb-11-5-0-release-notes.md) are also included in this changelog
+* Changes from [11.5.0](../../old-releases/11.5/11.5.0.md) are also included in this changelog
 * Includes all fixes from [MariaDB 11.4.2](../11.4/11.4.2.md)
 * [Revision #65079ece42](https://github.com/MariaDB/server/commit/65079ece42)\
   2024-05-28 07:27:30 +0400

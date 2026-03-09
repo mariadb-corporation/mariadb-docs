@@ -1,7 +1,7 @@
 ---
 description: >-
-  Very large character string. A LONGTEXT column can store up to 4GB of text
-  data, subject to protocol limits.
+  Complete LONGTEXT type reference: 4GB (2^32-1) storage limit, CHARACTER
+  SET/COLLATE syntax, max_allowed_packet constraints, and JSON/CLOB aliases.
 ---
 
 # LONGTEXT

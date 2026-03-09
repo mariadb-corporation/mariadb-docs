@@ -1,12 +1,12 @@
 # MariaDB 10.5.11 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.11](https://downloads.mariadb.org/mariadb/10.5.11/)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10511-release-notes.md)[Changelog](mariadb-10511-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.11](https://downloads.mariadb.org/mariadb/10.5.11/)[Release Notes](../../old-releases/10.5/10.5.11.md)[Changelog](mariadb-10511-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 23 Jun 2021
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10511-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.11.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -76,7 +76,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-25815](https://jira.mariadb.org/browse/MDEV-25815) mariadb-backup crash or debug assert with --backup --databases-exclude
 * [Revision #a70a5537e7](https://github.com/MariaDB/server/commit/a70a5537e7)\
   2021-05-23 21:23:18 -0700
-  * Deb: Innotop: Add support for [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)+
+  * Deb: Innotop: Add support for [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md)+
 * [Revision #08bc7ee068](https://github.com/MariaDB/server/commit/08bc7ee068)\
   2021-05-27 00:37:51 +0200
   * [MDEV-25792](https://jira.mariadb.org/browse/MDEV-25792) server hangs on early shutdown if InnoDB needs to purge indexed virtual columns

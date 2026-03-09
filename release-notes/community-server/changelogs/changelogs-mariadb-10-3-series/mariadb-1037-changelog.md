@@ -1,12 +1,12 @@
 # MariaDB 10.3.7 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.7)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes.md)[Changelog](mariadb-1037-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.7)[Release Notes](../../old-releases/10.3/10.3.7.md)[Changelog](mariadb-1037-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 **Release date:** 25 May 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1037-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.7.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -349,7 +349,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-16159](https://jira.mariadb.org/browse/MDEV-16159) Use atomic memory access for purge\_sys
 * [Revision #442a6e6b25](https://github.com/MariaDB/server/commit/442a6e6b25)\
   2018-05-15 08:57:21 +0300
-  * [MDEV-16172](https://jira.mariadb.org/browse/MDEV-16172) Remove InnoDB 5.7 version number from [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) onwards
+  * [MDEV-16172](https://jira.mariadb.org/browse/MDEV-16172) Remove InnoDB 5.7 version number from [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) onwards
 * [Revision #27f12c5d5b](https://github.com/MariaDB/server/commit/27f12c5d5b)\
   2018-05-15 22:48:40 +0300
   * [MDEV-16143](https://jira.mariadb.org/browse/MDEV-16143) Assertion failure in rec\_offs\_get\_n\_alloc() due to row\_trx\_id\_offset()

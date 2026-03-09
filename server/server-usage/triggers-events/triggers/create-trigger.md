@@ -1,7 +1,8 @@
 ---
 description: >-
-  Define a trigger on a table. This statement creates a routine that
-  automatically executes in response to INSERT, UPDATE, or DELETE events.
+  Complete CREATE TRIGGER reference: OR REPLACE, DEFINER, IF NOT EXISTS,
+  FOLLOWS/PRECEDES options for BEFORE/AFTER INSERT, UPDATE, or DELETE triggers
+  rules.
 ---
 
 # CREATE TRIGGER

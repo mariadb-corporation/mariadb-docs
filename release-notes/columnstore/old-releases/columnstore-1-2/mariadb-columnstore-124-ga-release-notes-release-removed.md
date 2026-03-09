@@ -13,7 +13,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-3315](https://jira.mariadb.org/browse/MCOL-3315) - The base MariaDB server version is now [10.3.15](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10315-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-3315](https://jira.mariadb.org/browse/MCOL-3315) - The base MariaDB server version is now [10.3.15](../../../community-server/old-releases/10.3/10.3.15.md) which include several maintenance and security fixes.
 * [MCOL-3270](https://jira.mariadb.org/browse/MCOL-3270) - cpimport performance for dictionary data is up to 2x faster.
 * [MCOL-2061](https://jira.mariadb.org/browse/MCOL-2061) - If you are performing a major version upgrade or have in the past there is a new stored procedure called columnstore\_info.columnstore\_upgrade() should be executed.
 
@@ -46,7 +46,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-3267](https://jira.mariadb.org/browse/MCOL-3267) - Support ORDER BY within UNION subqueries
 * [MCOL-3270](https://jira.mariadb.org/browse/MCOL-3270) - Improve cpimport ingest speed into Dictionary columns - Contributed by ABS Global
 * [MCOL-2068](https://jira.mariadb.org/browse/MCOL-2068) - add support for using and defaulting memory based settings to docker image
-* [MCOL-3315](https://jira.mariadb.org/browse/MCOL-3315) - Rebase on [MariaDB 10.3.15](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10315-release-notes.md)
+* [MCOL-3315](https://jira.mariadb.org/browse/MCOL-3315) - Rebase on [MariaDB 10.3.15](../../../community-server/old-releases/10.3/10.3.15.md)
 
 Additional typo fix contribution by Kabike
 

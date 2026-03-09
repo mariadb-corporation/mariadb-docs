@@ -15,7 +15,7 @@ Multiple `COM_STMT_SEND_LONG_DATA` commands with the same column ID append the d
 * [int<1>](../protocol-data-types.md#fixed-length-integers) `0x18` `COM_STMT_SEND_LONG_DATA` header.
 * [int<4>](../protocol-data-types.md#fixed-length-integers) statement id.
 * [int<2>](../protocol-data-types.md#fixed-length-integers) parameter number.
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) data.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) data.
 
 ## Response
 

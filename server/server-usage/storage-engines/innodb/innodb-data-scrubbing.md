@@ -7,7 +7,7 @@ description: >-
 # InnoDB Data Scrubbing
 
 {% hint style="warning" %}
-Most of the background and redo log scrubbing code has been removed in [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes). See [MDEV-15528](https://jira.mariadb.org/browse/MDEV-15528) and [MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870).
+Most of the background and redo log scrubbing code has been removed in [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2). See [MDEV-15528](https://jira.mariadb.org/browse/MDEV-15528) and [MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870).
 {% endhint %}
 
 Sometimes there is a requirement that when some data is deleted, it is really gone. This might be the case when one stores user's personal information or some other sensitive data. Normally though, when a row is deleted, the space is only marked as free on the page. It may eventually be overwritten, but there is no guarantee when that will happen. A copy of the deleted rows may also be present in the log files.
@@ -26,7 +26,7 @@ To configure scrubbing one can use the following variables:
 | [innodb-scrub-log](innodb-system-variables.md#innodb_scrub_log)                                                       | Boolean   | Enable redo log scrubbing. Deprecated and ignored.                                              |
 | [innodb-scrub-log-speed](innodb-system-variables.md#innodb_scrub_log_speed)                                           | Bytes/sec | Redo log scrubbing speed in bytes/sec. Deprecated and ignored.                                  |
 
-Redo log scrubbing did not fully work as intended, and was deprecated and ignored in [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes) ([MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870)). If old log contents should be kept secret, enabling [innodb\_encrypt\_log](innodb-system-variables.md#innodb_encrypt_log) or setting a smaller [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) could help.
+Redo log scrubbing did not fully work as intended, and was deprecated and ignored in [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2) ([MDEV-21870](https://jira.mariadb.org/browse/MDEV-21870)). If old log contents should be kept secret, enabling [innodb\_encrypt\_log](innodb-system-variables.md#innodb_encrypt_log) or setting a smaller [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) could help.
 
 The [Information Schema INNODB\_TABLESPACES\_SCRUBBING table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_scrubbing-table.md) contains scrubbing information.
 

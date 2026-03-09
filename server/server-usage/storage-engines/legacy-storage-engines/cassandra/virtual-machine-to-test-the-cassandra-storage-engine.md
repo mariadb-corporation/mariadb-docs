@@ -14,7 +14,7 @@ The virtual machine is based on:
 
 * Ubuntu 12.04
 * DataStax Cassandra
-* [MariaDB 5.5.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5527-release-notes) + Cassandra
+* [MariaDB 5.5.27](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.27) + Cassandra
 
 [Vagrant](https://www.vagrantup.com/) is used for setup. Full [instructions](https://julien.duponchelle.info/Cassandra-MariaDB-Virtual-Box.html) are at Julien's website.
 

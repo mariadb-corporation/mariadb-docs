@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete mariadb-upgrade reference: update mysql system tables, CHECK TABLE
+  FOR UPGRADE, ALTER TABLE FORCE, and --upgrade-system-tables option.
+---
+
 # mariadb-upgrade
 
 `mariadb-upgrade` is a tool that checks and updates your tables to the latest version.
@@ -14,7 +20,7 @@ You should run `mariadb-upgrade` after upgrading from one major MySQL/MariaDB re
 {% tab title="Current" %}
 `mariadb-upgrade` needs to be run as a user with write access to the data directory.
 
-Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the user running the upgrade tool must have write access to `datadir/mysql_upgrade_info`, so that the tool can write the current MariaDB version into the file. 
+Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the user running the upgrade tool must have write access to `datadir/mysql_upgrade_info`, so that the tool can write the current MariaDB version into the file.
 {% endtab %}
 
 {% tab title="< 10.7.2 / 10.6.6 / 10.5.14" %}
@@ -170,39 +176,39 @@ For connections to localhost, the Unix socket _file_ to use, or, on Windows, the
 
 #### --ssl
 
-Enables [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, you must specify the `--ssl-verify-server-cert` option.
+Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, you must specify the `--ssl-verify-server-cert` option.
 
 #### --ssl-ca=_path_
 
-Defines a _path_ to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
+Defines a _path_ to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
 
 #### --ssl-capath=_path_
 
-Defines a _path_ to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
+Defines a _path_ to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
 
 #### --ssl-cert=_path_
 
-Defines a _path_ to the X509 certificate file to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a _path_ to the X509 certificate file to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### --ssl-cipher=_ciphers_
 
-_List of permitted ciphers_ or cipher suites to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
+_List of permitted ciphers_ or cipher suites to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
 
 #### --ssl-crl=_path_
 
-Defines a _path_ to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a _path_ to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### --ssl-crlpath=_path_
 
-Defines a _path_ to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a _path_ to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### --ssl-key=_file_
 
-Defines a path to a _private key file_ to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a path to a _private key file_ to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### --ssl-verify-server-cert
 
-Enables [server certificate verification](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
+Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 
 #### -t, --tmpdir=_directory_
 
@@ -260,13 +266,13 @@ The following options relate to how MariaDB command line tools handles option fi
 
 `mariadb-upgrade` reads options from the following [option groups](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
-| Group              | Description                                                                                                                                                                                                           |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \[mysql\_upgrade]  | Options read by mariadb-upgrade, which includes both MariaDB Server and MySQL Server.                                                                                                                                 |
-| \[mariadb-upgrade] | Options read by mariadb-upgrade. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1046-release-notes). |
-| \[client]          | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                                                                         |
-| \[client-server]   | Options read by all MariaDB [client programs](../) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients.                                       |
-| \[client-mariadb]  | Options read by all MariaDB client programs.                                                                                                                                                                          |
+| Group              | Description                                                                                                                                                                     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| \[mysql\_upgrade]  | Options read by mariadb-upgrade, which includes both MariaDB Server and MySQL Server.                                                                                           |
+| \[mariadb-upgrade] | Options read by mariadb-upgrade. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6).            |
+| \[client]          | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                                   |
+| \[client-server]   | Options read by all MariaDB [client programs](../) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
+| \[client-mariadb]  | Options read by all MariaDB client programs.                                                                                                                                    |
 
 ## Differences Between mysql\_upgrade in MariaDB and MySQL
 

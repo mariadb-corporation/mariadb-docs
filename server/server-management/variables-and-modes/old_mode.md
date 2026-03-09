@@ -1,6 +1,13 @@
+---
+description: >-
+  Describes the `OLD_MODE` system variable, used to revert specific behaviors to
+  match older MariaDB or MySQL versions for compatibility purposes during
+  upgrades.
+---
+
 # OLD\_MODE
 
-The [old\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode) system variable was introduced in [MariaDB 5.5.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5535-release-notes) to replace the [old](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) variable with a new one with better granularity.
+The [old\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode) system variable was introduced to replace the [old](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) variable with a new one with better granularity.
 
 MariaDB supports several different modes which allow you to tune it to suit your needs.
 
@@ -24,7 +31,7 @@ SELECT @@OLD_MODE, @@GLOBAL.OLD_MODE;
 
 You can set the `OLD_MODE` either from the [command line](../starting-and-stopping-mariadb/mariadbd-options.md) (option `--old-mode`) or by setting the [old\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_mode) system variable.
 
-Non-default old mode features are deprecated by design, and from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113), a warning will be issued when set.
+Non-default old mode features are deprecated by design, and a warning is issued when set.
 
 ## Modes
 
@@ -32,15 +39,15 @@ The different values of `OLD_MODE` are:
 
 ### COMPAT\_5\_1\_CHECKSUM
 
-From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109), the [--old option](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) is deprecated. This option allows behaviour of the --old option for enabling the old-style checksum for `CHECKSUM TABLE` that MySQL 5.1 supports
+From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), the [--old option](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) is deprecated. This option allows behaviour of the --old option for enabling the old-style checksum for `CHECKSUM TABLE` that MySQL 5.1 supports
 
 ### IGNORE\_INDEX\_ONLY\_FOR\_JOIN
 
-From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109), the [--old option](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) is deprecated. This option allows behaviour of the --old option for disabling the index only for joins, but allow it for ORDER BY.
+From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), the [--old option](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old) is deprecated. This option allows behaviour of the --old option for disabling the index only for joins, but allow it for ORDER BY.
 
 ### LOCK\_ALTER\_TABLE\_COPY
 
-From [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112). The non-locking copy ALTER introduced in [MDEV-16329](https://jira.mariadb.org/browse/MDEV-16329) should be beneficial in the vast majority of cases, but scenarios can exist which significantly impact performance. For example, RBR on tables without a primary key. When non-locking ALTER is performed on such a table, and DML affecting a large number of records is run in parallel, the ALTER can become extremely slow, and further DML can also be affected. If there is a chance of such scenarios (and no possibility of improving the schema by immediately adding primary keys), ALTER should be performed with the explicit LOCK=SHARED clause. If this is also impossible, then LOCK\_ALTER\_TABLE\_COPY flag should be added to the old\_mode variable until the schema can be improved.
+From [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112). The non-locking copy ALTER introduced in [MDEV-16329](https://jira.mariadb.org/browse/MDEV-16329) should be beneficial in the vast majority of cases, but scenarios can exist which significantly impact performance. For example, RBR on tables without a primary key. When non-locking ALTER is performed on such a table, and DML affecting a large number of records is run in parallel, the ALTER can become extremely slow, and further DML can also be affected. If there is a chance of such scenarios (and no possibility of improving the schema by immediately adding primary keys), ALTER should be performed with the explicit LOCK=SHARED clause. If this is also impossible, then LOCK\_ALTER\_TABLE\_COPY flag should be added to the old\_mode variable until the schema can be improved.
 
 ### NO\_DUP\_KEY\_WARNINGS\_WITH\_IGNORE
 
@@ -48,7 +55,7 @@ Don't print duplicate key warnings when using INSERT [IGNORE](../../reference/sq
 
 ### NO\_NULL\_COLLATION\_IDS
 
-A compatibility setting to support connectors (in particular MySQL Connector/NET) that give an exception when collation ids returned by [SHOW COLLATION](../../reference/sql-statements/administrative-sql-statements/show/show-collation.md) are NULL. It is automatically set when a MySQL Connector/NET connection is determined. From [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-7-release-notes), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-5-release-notes), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-4-release-notes), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-3-release-notes).
+A compatibility setting to support connectors (in particular MySQL Connector/NET) that give an exception when collation ids returned by [SHOW COLLATION](../../reference/sql-statements/administrative-sql-statements/show/show-collation.md) are NULL. It is automatically set when a MySQL Connector/NET connection is determined. From [MariaDB 10.11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-7-release-notes), [MariaDB 11.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.5), [MariaDB 11.1.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.4), [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3).
 
 ### NO\_PROGRESS\_INFO
 
@@ -56,11 +63,11 @@ Don't show progress information in [SHOW PROCESSLIST](../../reference/sql-statem
 
 ### OLD\_FLUSH\_STATUS
 
-From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115), restores the pre-[MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) behavior of [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md#flush-status).
+From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115), restores the pre-[MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) behavior of [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md#flush-status).
 
 ### SESSION\_USER\_IS\_USER
 
-From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117), restores the pre-[MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117) behavior of [SESSION\_USER](../../reference/sql-functions/secondary-functions/information-functions/session_user.md).
+From [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117), restores the pre-[MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117) behavior of [SESSION\_USER](../../reference/sql-functions/secondary-functions/information-functions/session_user.md).
 
 ### UTF8\_IS\_UTF8MB3
 
@@ -115,7 +122,7 @@ SELECT @@OLD_MODE LIKE '%NO_PROGRESS_INFO';
 +------------------------------------+
 ```
 
-From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113):
+From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113):
 
 ```sql
 SET @@OLD_MODE = CONCAT(@@OLD_MODE, ',NO_PROGRESS_INFO');

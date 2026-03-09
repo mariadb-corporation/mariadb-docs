@@ -1,8 +1,8 @@
 ---
 description: >-
-  Discusses transaction handling and isolation levels in MariaDB (READ
-  COMMITTED, REPEATABLE READ) compared to SQL Server, including locking behavior
-  and deadlock handling.
+  Complete transaction isolation for SQL Server users: START
+  TRANSACTION/COMMIT/ROLLBACK, tx_isolation levels, WITH CONSISTENT SNAPSHOT,
+  innodb_lock_wait_timeout.
 ---
 
 # MariaDB Transactions and Isolation Levels for SQL Server Users

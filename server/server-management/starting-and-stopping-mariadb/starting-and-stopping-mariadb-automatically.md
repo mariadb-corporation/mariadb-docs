@@ -1,8 +1,7 @@
 ---
 description: >-
-  An overview of methods to start and stop MariaDB, distinguishing between
-  service managers (systemd, sysVinit, launchd) and manual commands (mariadbd,
-  mariadbd-safe).
+  Complete Starting and Stopping Overview guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage for production use.
 ---
 
 # Starting and Stopping Overview

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Modify table structures. This guide covers adding columns, changing data
-  types, managing indexes, and other schema changes for existing tables.
+  Complete ALTER TABLE guide for MariaDB. Complete syntax for modifying columns,
+  indexes, constraints, and table properties with comprehensive examples and.
 ---
 
 # ALTER TABLE
@@ -95,13 +95,15 @@ index_type:
     USING {BTREE | HASH | RTREE}
 
 index_option:
-  [ KEY_BLOCK_SIZE [=] value
+    KEY_BLOCK_SIZE [=] value
   | index_type
   | WITH PARSER parser_name
   | VISIBLE
   | COMMENT 'string'
-  | CLUSTERING={YES| NO} ]
-  [ IGNORED | NOT IGNORED ]
+  | CLUSTERING={YES | NO}
+  | { IGNORED | NOT IGNORED }
+  | DISTANCE={EUCLIDEAN | COSINE}
+  | M=number
 
   table_option [[,] table_option] ...
 
@@ -131,19 +133,9 @@ See [InnoDB Online DDL Overview](../../../../../server-usage/storage-engines/inn
 
 ### ALTER ONLINE TABLE
 
-ALTER ONLINE TABLE also works for partitioned tables.
+`ALTER ONLINE TABLE` also works for partitioned tables.
 
-Online `ALTER TABLE` is available by executing the following:
-
-````sql
-ALTER ONLINE TABLE ...;
-</code></pre>
-
-This statement is equivalent to the following:
-
-```sql
-ALTER TABLE ... LOCK=NONE;
-````
+`ALTER ONLINE TABLE ...` is equivalent to the `ALTER TABLE ... LOCK = NONE`.
 
 See the [LOCK](./#lock) alter specification for more information.
 
@@ -271,27 +263,35 @@ ALTER TABLE t1 ALTER b SET DEFAULT 'hello';
 
 ### RENAME INDEX/KEY
 
-\{% tabs %\} \{% tab title="Current" %\} You can rename an index using the `RENAME INDEX` (or `RENAME KEY`) syntax, for example:
+{% tabs %}
+{% tab title="Current" %}
+You can rename an index using the `RENAME INDEX` (or `RENAME KEY`) syntax:
 
 ```sql
 ALTER TABLE t1 RENAME INDEX i_old TO i_new;
 ```
+{% endtab %}
 
-\{% endtab %\}
-
-\{% tab title="< 10.5.3" %\} `RENAME INDEX/KEY` is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.5.3" %}
+`RENAME INDEX/KEY` is not available.
+{% endtab %}
+{% endtabs %}
 
 ### RENAME COLUMN
 
-\{% tabs %\} \{% tab title="Current" %\} You can rename a column using the `RENAME COLUMN` syntax, for example:
+{% tabs %}
+{% tab title="Current" %}
+You can rename a column using the `RENAME COLUMN` syntax:
 
 ```sql
 ALTER TABLE t1 RENAME COLUMN c_old TO c_new;
 ```
+{% endtab %}
 
-\{% endtab %\}
-
-\{% tab title="< 10.5.3" %\} `RENAME COLUMN` is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.5.3" %}
+`RENAME COLUMN` is not available.
+{% endtab %}
+{% endtabs %}
 
 ### ADD PRIMARY KEY
 
@@ -438,7 +438,7 @@ WHERE TABLE_NAME = 't';
 +-----------------+----------------+-----------------+
 ```
 
-To remove a constraint from the table, issue an `ALTER TABLE...DROP CONSTRAINT` statement. For example:
+To remove a constraint from the table, issue an `ALTER TABLE...DROP CONSTRAINT` statement:
 
 ```sql
 ALTER TABLE t DROP CONSTRAINT is_unique;
@@ -497,7 +497,9 @@ Reduces the number of HASH or KEY partitions in a table. See [Partitioning Overv
 
 #### CONVERT PARTITION / TABLE
 
-\{% tabs %\} \{% tab title="Current" %\} `CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
+{% tabs %}
+{% tab title="Current" %}
+`CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
 
 ```sql
 ALTER TABLE partitioned_table CONVERT PARTITION part1 TO TABLE normal_table;
@@ -512,9 +514,11 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details. \{% endtab %\}
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+{% endtab %}
 
-\{% tab title="< 11.4" %\} `CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
+{% tab title="< 11.4" %}
+`CONVERT PARTITION` can be used to remove a partition from a table and make this an ordinary table. For example:
 
 ```sql
 ALTER TABLE partitioned_table CONVERT PARTITION part1 TO TABLE normal_table;
@@ -529,9 +533,13 @@ ALTER TABLE partitioned_table CONVERT TABLE normal_table
 
 The optional clause `[{WITH | WITHOUT} VALIDATION]` is not available.
 
-See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details. \{% endtab %\}
+See [Partitioning Overview: Converting Partitions to/from Tables](../../../../../server-usage/partitioning-tables/partitioning-overview.md#converting-partitions-tofrom-tables) for more details.
+{% endtab %}
 
-\{% tab title="< 10.7.1" %\} `CONVERT PARTITION` and `CONVERT TABLE` are not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.7" %}
+`CONVERT PARTITION` and `CONVERT TABLE` are not available.
+{% endtab %}
+{% endtabs %}
 
 #### DROP PARTITION
 
@@ -539,21 +547,27 @@ Used to drop specific partitions (and discard all data within the specified part
 
 #### EXCHANGE PARTITION
 
-\{% tabs %\} \{% tab title="Current" %\} This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
+{% tabs %}
+{% tab title="Current" %}
+This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is permitted.
 
 See [Partitioning Overview: Exchanging Partitions](../../../../../server-usage/partitioning-tables/partitioning-overview.md#exchanging-partitions) for more details.
 
-See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces). \{% endtab %\}
+See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces).
+{% endtab %}
 
-\{% tab title="< 11.4" %\} This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
+{% tab title="< 11.4" %}
+This clause is used to exchange the contents of a partition with another table. This is performed by swapping the tablespaces of the partition with the other table.
 
 The optional `[{WITH | WITHOUT} VALIDATION]` is not permitted.
 
 See [Partitioning Overview: Exchanging Partitions](../../../../../server-usage/partitioning-tables/partitioning-overview.md#exchanging-partitions) for more details.
 
-See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces). \{% endtab %\} \{% endtabs %\}
+See also [copying InnoDB's transportable tablespaces](../../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces).&#x20;
+{% endtab %}
+{% endtabs %}
 
 #### OPTIMIZE PARTITION
 
@@ -601,7 +615,7 @@ See [InnoDB Online DDL Overview: ALGORITHM](../../../../../server-usage/storage-
 
 The default behavior, which occurs if `ALGORITHM=DEFAULT` is specified, or if `ALGORITHM` is not specified at all, usually only makes a copy if the operation doesn't support being done in-place at all. In this case, the most efficient available algorithm will usually be used.
 
-The [old\_alter\_table](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table) system variable is deprecated. Instead, the [alter\_algorithm](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable defines the default algorithm for `ALTER TABLE` operations. This was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) for the following reasons:
+The [old\_alter\_table](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table) system variable is deprecated. Instead, the [alter\_algorithm](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm) system variable defines the default algorithm for `ALTER TABLE` operations. This was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) for the following reasons:
 
 * alter\_algorithm was introduced as a replacement for the old\_alter\_table that was used to force the usage of the original alter table algorithm (copy) in cases where the new alter algorithm did not work. The new option was added as a way to force the usage of a specific algorithm when it should instead have made it possible to disable algorithms that would not work for some reason.
 * alter\_algorithm introduced some cases where ALTER TABLE would not work without specifying the ALGORITHM=XXX option together with ALTER TABLE.
@@ -611,7 +625,7 @@ The [old\_alter\_table](../../../../../ha-and-performance/optimization-and-tunin
 
 #### ALGORITHM=COPY
 
-`ALGORITHM=COPY` is the name for the original [ALTER TABLE](./) algorithm from early MariaDB versions.
+`ALGORITHM=COPY` is the name for the original `ALTER TABLE` algorithm from early MariaDB versions.
 
 When `ALGORITHM=COPY` is set, MariaDB essentially does the following operations:
 
@@ -634,11 +648,17 @@ RENAME TABLE tmp_tab TO original_tab;
 
 This algorithm is very inefficient, but it is generic, so it works for all storage engines.
 
-If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if it is not necessary. This can result in a lengthy table copy. If multiple [ALTER TABLE](./) operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single [ALTER TABLE](./) statement, so that the table is only rebuilt once.
+If `ALGORITHM=COPY` is specified, then the copy algorithm will be used even if it is not necessary. This can result in a lengthy table copy. If multiple `ALTER TABLE` operations are required that each require the table to be rebuilt, then it is best to specify all operations in a single `ALTER TABLE` statement, so that the table is only rebuilt once.
 
-\{% tabs %\} \{% tab title="Current" %\} `ALTER TABLE` can perform most operations with `ALGORITHM=COPY`, `LOCK=NONE`. See [LOCK=NONE](./#none). \{% endtab %\}
+{% tabs %}
+{% tab title="Current" %}
+`ALTER TABLE` can perform most operations with `ALGORITHM=COPY`, `LOCK=NONE`. See [LOCK=NONE](./#none).
+{% endtab %}
 
-\{% tab title="< 11.2" %\} `ALTER TABLE` cannot perform operations with `ALGORITHM=COPY`, `LOCK=NONE`. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 11.2" %}
+`ALTER TABLE` cannot perform operations with `ALGORITHM=COPY`, `LOCK=NONE`.
+{% endtab %}
+{% endtabs %}
 
 #### ALGORITHM=INPLACE
 
@@ -648,7 +668,7 @@ When `ALGORITHM=INPLACE` is set, the underlying storage engine uses optimization
 
 A more accurate name would have been `ALGORITHM=ENGINE`, where `ENGINE` refers to an "engine-specific" algorithm.
 
-If an [ALTER TABLE](./) operation supports `ALGORITHM=INPLACE`, then it can be performed using optimizations by the underlying storage engine, but it may rebuilt.
+If an `ALTER TABLE` operation supports `ALGORITHM=INPLACE`, it can be performed using optimizations by the underlying storage engine, but it may rebuilt.
 
 See [InnoDB Online DDL Operations with ALGORITHM=INPLACE](../../../../../server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md) for more.
 
@@ -682,7 +702,7 @@ Acquire the least restrictive lock on the table that is supported for the specif
 
 #### NONE
 
-Acquire no lock on the table. Permit **all** concurrent DML. If this locking strategy is not permitted for an operation, then an error is raised. From [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112), `ALTER TABLE` can do most operations with `ALGORITHM=COPY, LOCK=NONE`, that is, in most cases, unless the algorithm and lock level are explicitly specified, `ALTER TABLE` will be performed using the `COPY` algorithm while simultaneously allowing concurrent DML statements on the altered table. If this is not desired, one can explicitly specify a different lock level or set old\_mode to [LOCK\_ALTER\_TABLE\_COPY](../../../../../server-management/variables-and-modes/old_mode.md#lock_alter_table_copy) that will make `ALGORITHM=COPY` use `LOCK=SHARED` by default (but still allowing `LOCK=NONE` to be specified explicitly).
+Acquire no lock on the table. Permit **all** concurrent DML. If this locking strategy is not permitted for an operation, then an error is raised. From [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112), `ALTER TABLE` can do most operations with `ALGORITHM=COPY, LOCK=NONE`, that is, in most cases, unless the algorithm and lock level are explicitly specified, `ALTER TABLE` will be performed using the `COPY` algorithm while simultaneously allowing concurrent DML statements on the altered table. If this is not desired, one can explicitly specify a different lock level or set old\_mode to [LOCK\_ALTER\_TABLE\_COPY](../../../../../server-management/variables-and-modes/old_mode.md#lock_alter_table_copy) that will make `ALGORITHM=COPY` use `LOCK=SHARED` by default (but still allowing `LOCK=NONE` to be specified explicitly).
 
 #### SHARED
 
@@ -725,17 +745,29 @@ Aborting `ALTER TABLE ... ALGORITHM=COPY` was made faster by removing excessive 
 
 ## Atomic ALTER TABLE
 
-\{% tabs %\} \{% tab title="Current" %\} `ALTER TABLE` is atomic for most engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-25180](https://jira.mariadb.org/browse/MDEV-25180)). This means that if there is a crash (server down or power outage) during an `ALTER TABLE` operation, after recovery, either the old table and associated triggers and status will be intact, or the new table will be active. In older MariaDB versions one could get leftover #sql-alter..', '#sql-backup..' or 'table\_name.frm˝' files if the system crashed during the `ALTER TABLE` operation.
+{% tabs %}
+{% tab title="Current" %}
+`ALTER TABLE` is atomic for most engines, including InnoDB, MyRocks, MyISAM and Aria ([MDEV-25180](https://jira.mariadb.org/browse/MDEV-25180)). This means that if there is a crash (server down or power outage) during an `ALTER TABLE` operation, after recovery, either the old table and associated triggers and status will be intact, or the new table will be active. In older MariaDB versions one could get leftover #sql-alter..', '#sql-backup..' or 'table\_name.frm˝' files if the system crashed during the `ALTER TABLE` operation.
 
-See [Atomic DDL](../../atomic-ddl.md) for more information. \{% endtab %\}
+See [Atomic DDL](../../atomic-ddl.md) for more information.
+{% endtab %}
 
-\{% tab title="< 10.6.1" %\} Atomic `ALTER TABLE` is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.6" %}
+Atomic `ALTER TABLE` is not available.
+{% endtab %}
+{% endtabs %}
 
 ## Replication
 
-\{% tabs %\} \{% tab title="Current" %\} `ALTER TABLE` got fully executed on the primary first, and only then was it replicated and started executing on replicas. [An option](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) was added to replicate sooner and begin executing on replicas, directly when it _starts_ executing on the primary, not when it _finishes_. This way the replication lag caused by a heavy `ALTER TABLE` can be completely eliminated ([MDEV-11675](https://jira.mariadb.org/browse/MDEV-11675)). \{% endtab %\}
+{% tabs %}
+{% tab title="Current" %}
+`ALTER TABLE` got fully executed on the primary first, and only then was it replicated and started executing on replicas. [An option](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) was added to replicate sooner and begin executing on replicas, directly when it _starts_ executing on the primary, not when it _finishes_. This way the replication lag caused by a heavy `ALTER TABLE` can be completely eliminated ([MDEV-11675](https://jira.mariadb.org/browse/MDEV-11675)).
+{% endtab %}
 
-\{% tab title="< 10.8.1" %\} The [binlog\_alter\_two\_phase](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) option is not available. \{% endtab %\} \{% endtabs %\}
+{% tab title="< 10.8" %}
+The [binlog\_alter\_two\_phase](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) option is not available.
+{% endtab %}
+{% endtabs %}
 
 ## Examples
 

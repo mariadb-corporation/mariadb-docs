@@ -43,7 +43,7 @@ modified in that revision.
 * [Revision #86d31ce9f1](https://github.com/MariaDB/server/commit/86d31ce9f1)\
   2017-06-19 17:23:02 +0700
   * `MW-384` protect access to wsrep\_ready variable with mutex
-* Merge [Revision #8da6b4ef52](https://github.com/MariaDB/server/commit/8da6b4ef52) 2017-10-19 09:06:17 +0300 - Merge tag 'mariadb-5.5.58' ([MariaDB 5.5.58](../../release-notes-mariadb-5-5-series/mariadb-5558-release-notes.md)) into 5.5-galera
+* Merge [Revision #8da6b4ef52](https://github.com/MariaDB/server/commit/8da6b4ef52) 2017-10-19 09:06:17 +0300 - Merge tag 'mariadb-5.5.58' ([MariaDB 5.5.58](../../5.5/5.5.58.md)) into 5.5-galera
 * [Revision #2b811f0624](https://github.com/MariaDB/server/commit/2b811f0624)\
   2017-07-26 11:36:57 -0400
   * bump the VERSION

@@ -37,7 +37,7 @@ Client to server.
 
 Statement ID is the identifier of the prepared statement (from [COM\_STMT\_PREPARE answer](com_stmt_prepare.md#com_stmt_prepare_ok)).
 
-### Specific "-1" statement id value
+### Specific "-1" Statement ID Value
 
 Value `-1` (`0xFFFFFFFF`) can be used to indicate to use the last statement prepared on current connection if no `COM_STMT_PREPARE` has failed since.
 
@@ -67,9 +67,8 @@ Whether a cursor is actually opened is indicated by the `SERVER_STATUS_CURSOR_EX
 
 Parameter type flag byte:
 
-|     |          |
-| --- | -------- |
 | 128 | unsigned |
+| --- | -------- |
 
 ## NULL-Bitmap
 

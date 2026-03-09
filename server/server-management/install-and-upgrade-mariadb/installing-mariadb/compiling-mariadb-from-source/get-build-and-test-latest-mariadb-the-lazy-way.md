@@ -23,7 +23,7 @@ apt install -y build-essential bison libgnutls28-dev
 apt build-dep mariadb-server
 ```
 
-## [Set Up git](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/using-git-with-mariadb/using-git)
+## [Set Up git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM)
 
 Fetch and checkout the MariaDB source to a subdirectory of the current directory
 

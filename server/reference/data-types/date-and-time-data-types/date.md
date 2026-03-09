@@ -1,7 +1,7 @@
 ---
 description: >-
-  Store date values. This type stores dates in 'YYYY-MM-DD' format, with a
-  supported range from '1000-01-01' to '9999-12-31'.
+  Complete DATE type reference: YYYY-MM-DD format, YYMMDD input literals, date
+  range 1000-01-01 to 9999-12-31, and zero-date SQL_MODE handling.
 ---
 
 # DATE

@@ -1,12 +1,12 @@
 # MariaDB 10.1.10 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.10)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10110-release-notes.md)[Changelog](mariadb-10110-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.10)[Release Notes](../../old-releases/10.1/10.1.10.md)[Changelog](mariadb-10110-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 24 Dec 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10110-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.10.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -102,7 +102,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-9214](https://jira.mariadb.org/browse/MDEV-9214) Server miscalculates the number of XA-capable engines
 * [Revision #392d557](https://github.com/MariaDB/server/commit/392d557)\
   2015-12-16 19:33:53 +0100
-  * [MDEV-9183](https://jira.mariadb.org/browse/MDEV-9183) [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) crash on `mysqld --verbose --help`
+  * [MDEV-9183](https://jira.mariadb.org/browse/MDEV-9183) [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) crash on `mysqld --verbose --help`
 * [Revision #03245ec](https://github.com/MariaDB/server/commit/03245ec)\
   2015-12-18 08:37:24 +0100
   * bump the version
@@ -573,7 +573,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Remove duplicate code.
 * [Revision #13ad179](https://github.com/MariaDB/server/commit/13ad179)\
   2015-11-20 14:50:18 +0100
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/10.0/10.0.21.md) crashes during PREPARE
 * [Revision #406e3aa](https://github.com/MariaDB/server/commit/406e3aa)\
   2015-11-08 14:50:28 +0100
   * Merge branch 'ob-10.0' into 10.0

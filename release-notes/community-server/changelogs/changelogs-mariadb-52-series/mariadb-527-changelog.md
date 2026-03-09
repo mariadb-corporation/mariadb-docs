@@ -1,10 +1,10 @@
 # MariaDB 5.2.7 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.7) |[Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-527-release-notes.md) |**Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://downloads.askmonty.org/mariadb/5.2.7) |[Release Notes](../../old-releases/5.2/5.2.7.md) |**Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 14 Jun 2011
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-527-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.7.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -129,7 +129,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * HEAP is deprecated in favor of MEMORY.
 * [Revision #2975](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2975)\
   Fri 2011-05-20 14:36:13 +0300
-  * Ensure we don't read a [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md) errmsg.sys file or new errmsg.sys file\
+  * Ensure we don't read a [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) errmsg.sys file or new errmsg.sys file\
     with holes for not used error messages
 * [Revision #2974](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2974) \[merge]\
   Fri 2011-05-20 01:44:30 +0200

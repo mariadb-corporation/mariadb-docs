@@ -20,7 +20,7 @@ modified in that revision.
   * bzr merge -r4015..4026 codership/5.5
 * [Revision #3541](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3541) \[merge]\
   Thu 2014-10-09 17:25:08 -0400
-  * bzr merge -rtag:mariadb-5.5.40 maria/5.5 ([MariaDB 5.5.40](../../release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md))
+  * bzr merge -rtag:mariadb-5.5.40 maria/5.5 ([MariaDB 5.5.40](../../5.5/5.5.40.md))
 * [Revision #3540](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3540)\
   Wed 2014-09-24 12:16:09 -0400
   * Moved wsrep\_slave\_threads to optional settings.

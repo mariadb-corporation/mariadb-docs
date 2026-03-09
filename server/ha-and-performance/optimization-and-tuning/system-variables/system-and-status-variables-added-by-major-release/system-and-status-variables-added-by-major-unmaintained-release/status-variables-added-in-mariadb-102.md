@@ -1,18 +1,18 @@
 # Status Variables Added in MariaDB 10.2
 
-This is a list of [status variables](../../server-status-variables.md) that were added in the [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) series.
+This is a list of [status variables](../../server-status-variables.md) that were added in the [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) series.
 
-| Variable                                                                          | Added                                                                                                                                                       |
-| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Com\_alter\_user](../../server-status-variables.md#com_alter_user)               | [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes) |
-| [Com\_execute\_immediate](../../server-status-variables.md#com_execute_immediate) | [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes) |
-| [Com\_multi](../../server-status-variables.md#com_multi)                          | [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes) |
-| [Com\_show\_create\_user](../../server-status-variables.md#com_show_create_user)  | [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes) |
-| [Innodb\_buffer\_pool\_resize\_status](../../innodb-status-variables.md)          | [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes) |
-| [Innodb\_encryption\_num\_key\_requests](../../innodb-status-variables.md)        | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes) |
-| [Innodb\_have\_punch\_hole](../../innodb-status-variables.md)                     | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes) |
-| [Innodb\_pages0read](../../innodb-status-variables.md)                            | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes) |
-| [Innodb\_scrub\_log](../../innodb-status-variables.md)                            | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes) |
+| Variable                                                                          | Added                                                                                                      |
+| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| [Com\_alter\_user](../../server-status-variables.md#com_alter_user)               | [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0) |
+| [Com\_execute\_immediate](../../server-status-variables.md#com_execute_immediate) | [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3) |
+| [Com\_multi](../../server-status-variables.md#com_multi)                          | [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0) |
+| [Com\_show\_create\_user](../../server-status-variables.md#com_show_create_user)  | [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0) |
+| [Innodb\_buffer\_pool\_resize\_status](../../innodb-status-variables.md)          | [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) |
+| [Innodb\_encryption\_num\_key\_requests](../../innodb-status-variables.md)        | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4) |
+| [Innodb\_have\_punch\_hole](../../innodb-status-variables.md)                     | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4) |
+| [Innodb\_pages0read](../../innodb-status-variables.md)                            | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4) |
+| [Innodb\_scrub\_log](../../innodb-status-variables.md)                            | [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4) |
 
 ## See Also
 

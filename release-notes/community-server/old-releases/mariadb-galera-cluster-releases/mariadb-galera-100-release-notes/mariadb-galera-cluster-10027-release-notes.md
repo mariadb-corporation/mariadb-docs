@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 **Release date:** 29 Aug 2016
 
 MariaDB Galera Cluster 10.0.27 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 10.0.27](../../release-notes-mariadb-10-0-series/mariadb-10027-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 10.0.27](../../10.0/10.0.27.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -15,7 +15,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 
 For a list of changes made in MariaDB Galera Cluster 10.0.27, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.27 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10027-changelog.md).\
-For changes made in [MariaDB 10.0.27](../../release-notes-mariadb-10-0-series/mariadb-10027-release-notes.md), see the [MariaDB 10.0.27 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10027-changelog.md)
+For changes made in [MariaDB 10.0.27](../../10.0/10.0.27.md), see the [MariaDB 10.0.27 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10027-changelog.md)
 
 ## Updates and fixes in this version
 

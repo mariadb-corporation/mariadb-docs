@@ -1,7 +1,7 @@
 ---
 description: >-
-  Delete a database and all its contents. This command permanently removes the
-  database directory and all tables, routines, and data within it.
+  Complete guide to removing databases in MariaDB. Complete DROP DATABASE syntax
+  with IF EXISTS, permissions, and recovery options for production use.
 ---
 
 # DROP DATABASE

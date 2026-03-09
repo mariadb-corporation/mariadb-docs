@@ -1,7 +1,7 @@
 ---
 description: >-
-  Convert a value to a specific type or character set. This function converts
-  data between types or character sets using the USING keyword.
+  Complete CONVERT() reference: CONVERT(expr,type) and CONVERT(expr USING
+  charset) syntax, SIGNED/UNSIGNED/BINARY/CHAR types, and CAST() differences.
 ---
 
 # CONVERT

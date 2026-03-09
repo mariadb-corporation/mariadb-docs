@@ -65,7 +65,7 @@ Prior to this release, the [JSON\_VALUE()](https://app.gitbook.com/s/SsmexDFPv2x
 With `JSON_TABLE()`:
 
 * JSON data can `JOIN` with existing tables.
-* A table can be created from JSON data using [CREATE TABLE .. AS SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) against a `JSON_TABLE()`.
+* A table can be created from JSON data using [CREATE TABLE .. AS SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) against a `JSON_TABLE()`.
 * [NESTED PATH](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_table) enables extraction of nested data from JSON arrays and objects.
 
 ## Sys Schema

@@ -2,7 +2,7 @@
 
 The status variables listed on this page relate to encrypting data during transfer with the Transport Layer Security (TLS) protocol. Often, the term Secure Socket Layer (SSL) is used interchangeably with TLS, although strictly speaking, the SSL protocol is a predecessor to TLS and is no longer considered secure.
 
-For compatibility reasons, the TLS status variables in MariaDB still use the `Ssl_` prefix, but MariaDB only supports its more secure successors. For more information on SSL/TLS in MariaDB, see [Secure Connections Overview](../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md).
+For compatibility reasons, the TLS status variables in MariaDB still use the `Ssl_` prefix, but MariaDB only supports its more secure successors. For more information on SSL/TLS in MariaDB, see [Secure Connections Overview](../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md).
 
 Some of these status values are not under the control of the server, but are reporting back settings of the underlying SSL library used by the server.
 
@@ -86,14 +86,14 @@ Some of these status values are not under the control of the server, but are rep
 * Description: Last valid date for the server TLS certificate.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
+* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 #### `Ssl_server_not_before`
 
 * Description: First valid date for the server TLS certificate.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
+* Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
 #### `Ssl_session_cache_hits`
 

@@ -8,7 +8,7 @@ description: >-
 # FORMAT\_PICO\_TIME
 
 {% hint style="info" %}
-FORMAT\_PICO\_TIME is available from [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-2-release-notes).
+FORMAT\_PICO\_TIME is available from [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.2).
 {% endhint %}
 
 ## Syntax

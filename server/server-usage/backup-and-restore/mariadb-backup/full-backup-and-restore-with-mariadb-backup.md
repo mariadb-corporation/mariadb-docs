@@ -1,10 +1,10 @@
 ---
 description: >-
-  Learn how to perform and restore full physical backups of MariaDB databases
-  using the mariadb-backup tool, ensuring consistent data recovery.
+  Complete MariaDB backup and recovery guide. Complete resource for backup
+  methods, mariabackup usage, scheduling, and restoration for production use.
 ---
 
-# Full Backup and Restore with mariadb-backup
+# Full Backup and Restore (mariadb-backup)
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
 

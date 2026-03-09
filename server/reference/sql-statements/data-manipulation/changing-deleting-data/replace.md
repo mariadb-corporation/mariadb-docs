@@ -7,7 +7,7 @@ description: >-
 # REPLACE
 
 {% hint style="info" %}
-The RETURNING clause was introduced in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes).
+The RETURNING clause was introduced in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0).
 {% endhint %}
 
 ## Syntax

@@ -18,7 +18,7 @@ MariaDB 12.1 is a [rolling release](../about/release-model.md). It is an evoluti
   * The new [aria\_pagecache\_segments](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-system-variables#aria_pagecache_segments) system variable defines how many segments are used, default is `1`, maximum `128`
 * MDL scalability improvements ([MDEV-19749](https://jira.mariadb.org/browse/MDEV-19749))
 * Asynchronous replication between two [Galera Clusters](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) can now use parallel replication
-  * This is managed by the new [wsrep\_applier\_retry\_count](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable ([MDEV-20065](https://jira.mariadb.org/browse/MDEV-20065))
+  * This is managed by the [slave\_parallel\_threads](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica#parallel-replication-support) system variable ([MDEV-20065](https://jira.mariadb.org/browse/MDEV-20065))
 * The [audit plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin) now supports buffered logging
   * The size of the buffer is defined using the new system variable [server\_audit\_file\_buffer\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables#server_audit_file_buffer_size) ([MDEV-34680](https://jira.mariadb.org/browse/MDEV-34680))
 * Faster [vector](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/vectors) distance calculations via extrapolation ([MDEV-36205](https://jira.mariadb.org/browse/MDEV-36205))
@@ -54,6 +54,12 @@ MariaDB 12.1 is a [rolling release](../about/release-model.md). It is an evoluti
 This feature was only available in the 12.1 development releases, and will be implemented in a later series.
 
 * Add [semisynchronous replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication) variable, [rpl\_semi\_sync\_master\_wait\_for\_slave\_count](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_for_slave_count) ([MDEV-18983](https://jira.mariadb.org/browse/MDEV-18983))
+
+### Security Vulnerabilities Fixed in MariaDB 12.1
+
+For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve) page.
+
+* [CVE-2026-21968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968): [MariaDB 12.1.2](12.1.2.md)
 
 ## List of All MariaDB 12.1 Releases
 

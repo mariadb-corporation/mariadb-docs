@@ -20,13 +20,13 @@ Instructions how to install the packages can be found [here](../../../server-man
 ## Pre-Release Binaries
 
 Binaries from our [Buildbot](https://buildbot.askmonty.org) system (see also\
-the [Buildbot](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/buildbot) page), are available at [archive](https://hasky.askmonty.org/archive). They are not suitable for use in\
+the [Buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA) page), are available at [archive](https://hasky.askmonty.org/archive). They are not suitable for use in\
 production systems but may be of use for debugging.
 
 Once at the above URL you will need to click on the MariaDB tree you are\
 interested in, and then the build. The build number corresponds to the`tarbuildnum` variable in Buildbot.
 
-For example, if you were interested in the bsd9-64 build of the [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)\
+For example, if you were interested in the bsd9-64 build of the [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)\
 tree, revision 3497, the `tarbuildnum` is listed in the "Build Properties"\
 table of the [Buildbot build report](https://buildbot.askmonty.org/buildbot/builders/bsd9-64/builds/337).\
 In this case, the value is "2434".
@@ -35,7 +35,7 @@ In this case, the value is "2434".
 
 You can find all the source code at [server](https://github.com/MariaDB/server)
 
-To retrieve the code, the [Git](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/using-git-with-mariadb/using-git) source control software offers\
+To retrieve the code, the [Git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM) source control software offers\
 the path of least resistance. If you are unfamiliar with git, please refer to\
 the [git documentation](https://git-scm.com/doc) for an understanding\
 of version control with git.

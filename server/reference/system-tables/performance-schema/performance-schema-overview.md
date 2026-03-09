@@ -43,7 +43,7 @@ SHOW TABLES;
 80 rows in set (0.00 sec)
 ```
 
-See [List of Performance Schema Tables](performance-schema-tables/list-of-performance-schema-tables.md) for a full list and links to detailed descriptions of each table. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), there are 80 Performance Schema tables.
+See [List of Performance Schema Tables](performance-schema-tables/list-of-performance-schema-tables.md) for a full list and links to detailed descriptions of each table. From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), there are 80 Performance Schema tables.
 
 ## Activating the Performance Schema
 
@@ -64,7 +64,7 @@ The performance schema cannot be activated at runtime - it must be set when the 
 performance_schema=ON
 ```
 
-From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), some memory is allocated dynamically, depending on load, number of connections, number of tables open etc.
+From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), some memory is allocated dynamically, depending on load, number of connections, number of tables open etc.
 
 ## Enabling the Performance Schema
 

@@ -1,7 +1,8 @@
 ---
 description: >-
-  Count rows or values. This function returns the number of rows that match
-  criteria or the number of non-NULL values in an expression.
+  Complete COUNT() function reference: COUNT(*) and COUNT(expr) syntax,
+  COUNT(DISTINCT) usage, GROUP BY aggregation, and OVER(PARTITION BY) window
+  syntax.
 ---
 
 # COUNT

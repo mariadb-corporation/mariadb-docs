@@ -6,12 +6,12 @@ This page documents system and status variables related to the [OQGRAPH storage 
 
 #### `oqgraph_allow_create_integer_latch`
 
-* Description: Created when the [OQGRAPH](../../../server-usage/storage-engines/oqgraph-storage-engine/) storage engine is installed, if set to `1` (`0` is default), permits the `latch` field to be an integer (see [OQGRAPH Overview](../../../server-usage/storage-engines/oqgraph-storage-engine/oqgraph-overview.md#creating-a-table)). This deprecated feature was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115).
+* Description: Created when the [OQGRAPH](../../../server-usage/storage-engines/oqgraph-storage-engine/) storage engine is installed, if set to `1` (`0` is default), permits the `latch` field to be an integer (see [OQGRAPH Overview](../../../server-usage/storage-engines/oqgraph-storage-engine/oqgraph-overview.md#creating-a-table)). This deprecated feature was removed in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115).
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `0`
-* Removed: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115).
+* Removed: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115).
 
 ## Status Variables
 

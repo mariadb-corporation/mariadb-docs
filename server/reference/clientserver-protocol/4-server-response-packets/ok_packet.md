@@ -14,8 +14,8 @@ Server to client.
 
 ## Fields
 
-* [int<1>](../protocol-data-types.md#fixed-length-integers) 0x00 : `OK_Packet` header or (`0xFE` if `CLIENT_DEPRECATE_EOF` is set).
-* [int](../protocol-data-types.md#length-encoded-integers) affected rows.
+* [int<1>](../protocol-data-types.md#fixed-length-integers) `0x00` : `OK_Packet` header or (`0xFE` if `CLIENT_DEPRECATE_EOF` is set).
+* [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) affected rows.
 * [int](../protocol-data-types.md#length-encoded-integers) last insert id.
 * [int<2>](../protocol-data-types.md#fixed-length-integers) [server status](ok_packet.md#server-status-flag).
 * [int<2>](../protocol-data-types.md#fixed-length-integers) warning count.

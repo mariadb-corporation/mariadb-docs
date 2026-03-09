@@ -1,12 +1,12 @@
 # MariaDB 10.0.16 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.16)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10016-release-notes.md)[Changelog](mariadb-10016-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.16)[Release Notes](../../old-releases/10.0/10.0.16.md)[Changelog](mariadb-10016-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 27 Jan 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10016-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.16.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -427,7 +427,7 @@ modified in that revision.
   * [MDEV-7149](https://jira.mariadb.org/browse/MDEV-7149) Constant propagation erroneously applied for LIKE Simply disallowing equality propagation into LIKE. A more delicate fix is be possible, but it would need too many changes, which is not desirable in 10.0 at this point.
 * [Revision #4520](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4520)\
   Thu 2014-11-27 09:34:41 +0100
-  * [MDEV-7037](https://jira.mariadb.org/browse/MDEV-7037): [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) does not build on Debian / kfreebsd-i386/amd64 due to MTR failure: multi\_source.gtid [MDEV-7106](https://jira.mariadb.org/browse/MDEV-7106): Sporadic test failure in multi\_source.gtid [MDEV-7153](https://jira.mariadb.org/browse/MDEV-7153): Yet another sporadic failure of multi\_source.gtid in buildbot
+  * [MDEV-7037](https://jira.mariadb.org/browse/MDEV-7037): [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) does not build on Debian / kfreebsd-i386/amd64 due to MTR failure: multi\_source.gtid [MDEV-7106](https://jira.mariadb.org/browse/MDEV-7106): Sporadic test failure in multi\_source.gtid [MDEV-7153](https://jira.mariadb.org/browse/MDEV-7153): Yet another sporadic failure of multi\_source.gtid in buildbot
 * [Revision #4519](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4519)\
   Thu 2014-11-27 11:47:22 +0400
   * Backporting a cleanup in boolean function from 10.1: Moving Item\_bool\_func2 and Item\_func\_opt\_neg from Item\_int\_func to Item\_bool\_func. Now all functions that return is\_bool\_func()=true have a common root class Item\_bool\_func. This change is needed to fix [MDEV-7149](https://jira.mariadb.org/browse/MDEV-7149) properly.

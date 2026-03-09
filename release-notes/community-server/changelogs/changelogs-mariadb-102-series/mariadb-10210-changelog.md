@@ -1,12 +1,12 @@
 # MariaDB 10.2.10 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.10)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10210-release-notes.md)[Changelog](mariadb-10210-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.10)[Release Notes](../../old-releases/10.2/10.2.10.md)[Changelog](mariadb-10210-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 31 Oct 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10210-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.10.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -314,7 +314,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-13946](https://jira.mariadb.org/browse/MDEV-13946) Server RPMs have dependency on "which"
 * [Revision #9b11956e86](https://github.com/MariaDB/server/commit/9b11956e86)\
   2017-10-06 18:16:46 +0200
-  * [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #559dec33cc](https://github.com/MariaDB/server/commit/559dec33cc)\
   2017-10-06 19:38:56 +0200
   * cleanup: is\_show\_command(thd)
@@ -432,7 +432,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Fix truncation warnings in connect
 * [Revision #4de344a8d7](https://github.com/MariaDB/server/commit/4de344a8d7)\
   2017-10-10 19:04:54 +0300
-  * Reapply a MySQL 5.6.23/5.7.10 Oracle Bug#20029625 fix that was inadvertently reverted in [MariaDB 10.2.2](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes.md)
+  * Reapply a MySQL 5.6.23/5.7.10 Oracle Bug#20029625 fix that was inadvertently reverted in [MariaDB 10.2.2](../../old-releases/10.2/10.2.2.md)
 * [Revision #ac2ae901e8](https://github.com/MariaDB/server/commit/ac2ae901e8)\
   2017-10-10 23:56:13 +0530
   * [MDEV-13974](https://jira.mariadb.org/browse/MDEV-13974): Build failure in rocksdb/rdb\_datadic.cc

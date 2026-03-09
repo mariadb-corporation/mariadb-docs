@@ -28,12 +28,12 @@ This event is written to the binary log file for [LOAD DATA INFILE](../../sql-st
 
 ### Variable Data Part
 
-* [byte](../protocol-data-types.md#fixed-length-bytes) Zero or more status variables. Each status variable consists of one byte code identifying the variable stored, followed by the value of the variable. The format of the value is variable-specific.\
+* [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Zero or more status variables. Each status variable consists of one byte code identifying the variable stored, followed by the value of the variable. The format of the value is variable-specific.\
   The number of bytes 'n' is the length of the status variable block (read in fixed data part)
-* [string](../protocol-data-types.md#fixed-length-bytes) The default database name (null-terminated).
-* [string](../protocol-data-types.md#fixed-length-bytes) The SQL statement. By subtraction the size of the statement can be known.
+* [string\<NUL>](../protocol-data-types.md#fixed-length-bytes) The default database name (null-terminated).
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) The SQL statement. By subtraction the size of the statement can be known.
 
-## Example
+
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

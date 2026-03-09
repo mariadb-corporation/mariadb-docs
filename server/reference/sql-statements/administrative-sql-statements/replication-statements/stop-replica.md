@@ -21,7 +21,7 @@ thread_type: IO_THREAD | SQL_THREAD
 
 ## Description
 
-Stops the replica threads. `STOP REPLICA` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
+Stops the replica threads. `STOP REPLICA` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
 
 Like [START REPLICA](start-replica.md), this statement may be used with the `IO_THREAD` and`SQL_THREAD` options to name the thread or threads to be stopped. In almost all cases, one never need to use the `thread_type` options.
 
@@ -39,7 +39,7 @@ The `connection_name` option is used for [multi-source replication](../../../../
 
 If there is only one nameless master, or the default master (as specified by the [default\_master\_connection](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable) is intended, `connection_name` can be omitted. If provided, the `STOP REPLICA` statement will apply to the specified master. `connection_name` is case-insensitive.
 
-**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes)
+**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 {% tabs %}
 {% tab title="Current" %}

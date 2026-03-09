@@ -94,6 +94,8 @@ SELECT * FROM t1 LEFT JOIN t2 ON t1.a = t2.b;
 
 _Explanation:_ All rows from `t1` are present. For `t1.a = 1` and `t1.a = 3`, there are no matching `t2.b` values, so `b` is `NULL`. For `t1.a = 2`, a match is found (`t2.b = 2`), so `b` is `2`.
 
+> Starting with MariaDB 12.3, multiple independent `LEFT JOIN` operations can be reordered by the optimizer for better performance if the [reorder\_outer\_joins](../ha-and-performance/optimization-and-tuning/query-optimizations/reorder_outer_joins.md) flag is enabled in [optimizer\_switch](../ha-and-performance/optimization-and-tuning/query-optimizations/optimizer-switch.md)_._ It is also recommended to set `optimizer_prune_level=0` to prevent heuristic pruning from eliminating optimal join orders.
+
 #### RIGHT JOIN (t1 RIGHT JOIN t2)
 
 A `RIGHT JOIN` (or `RIGHT OUTER JOIN`) produces a result set with all rows from the "right" table (`t2` in this case). If a match is found in the "left" table (`t1`), the corresponding columns from the left table are included. If no match is found, these columns are filled with `NULL`.

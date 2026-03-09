@@ -18,7 +18,7 @@ InnoDB periodically performs **checkpoints**. During a checkpoint operation, Inn
 
 In the event of a server crash, InnoDB utilizes the Redo Log for **crash recovery** during the subsequent server startup. It locates the last checkpoint within the Redo Log and then replays the Redo Log records generated since that checkpoint, effectively flushing these pending changes to the InnoDB tablespace files.
 
-The redo log files are typically named `ib_logfileN`, where `N` is an integer. However, starting with [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), there is a single redo log file, consistently named `ib_logfile0`. The location of these redo log files is determined by the `innodb_log_group_home_dir` system variable, if configured. If this variable is not set, the redo log files are created in the directory specified by the `datadir` system variable. The redo log plays a crucial role during crash recovery and in the background process of flushing transactions to the tablespaces.
+The redo log files are typically named `ib_logfileN`, where `N` is an integer. However, starting with [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), there is a single redo log file, consistently named `ib_logfile0`. The location of these redo log files is determined by the `innodb_log_group_home_dir` system variable, if configured. If this variable is not set, the redo log files are created in the directory specified by the `datadir` system variable. The redo log plays a crucial role during crash recovery and in the background process of flushing transactions to the tablespaces.
 
 ## Feature Summary
 
@@ -67,8 +67,8 @@ When both [innodb\_flush\_log\_at\_trx\_commit=1](innodb-system-variables.md#inn
 
 The redo log group capacity is the total combined size of all InnoDB redo logs. The relevant factors are:
 
-* From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), there is 1 redo log.
-* The size of each redo log file is configured by the [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) system variable. This can safely be set to a much higher value from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105). Before [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109), resizing required the server to be restarted. From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109) the variable can be set dynamically.
+* From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), there is 1 redo log.
+* The size of each redo log file is configured by the [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_file_size) system variable. This can safely be set to a much higher value from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105). Before [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109), resizing required the server to be restarted. From [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109) the variable can be set dynamically.
 
 The redo log group capacity is determined by the following calculation:
 
@@ -82,7 +82,7 @@ For example, if [innodb\_log\_file\_size](innodb-system-variables.md#innodb_log_
 
 ### Changing the Redo Log Group Capacity
 
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)
+**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)
 
 The number of redo log files is fixed.
 
@@ -110,9 +110,9 @@ The checkpoint age is the amount of data written to the InnoDB redo log since th
 
 #### Determining the Checkpoint Age in InnoDB
 
-**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105)
+**MariaDB starting with** [**10.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)
 
-[MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) reintroduced the [Innodb\_checkpoint\_age](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_checkpoint_age) status variable for determining the checkpoint age.
+[MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) reintroduced the [Innodb\_checkpoint\_age](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_checkpoint_age) status variable for determining the checkpoint age.
 
 The checkpoint age can also be determined by the process shown below.
 
@@ -159,17 +159,17 @@ For example, if [innodb\_checkpoint\_age](innodb-redo-log.md#determining-the-che
 
 If the calculated value for redo log occupancy is too close to `1.0`, then the InnoDB redo log capacity may be too small for the current workload.
 
-## [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108) Updates
+## [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108) Updates
 
-A number of redo log improvements were made in [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108):
+A number of redo log improvements were made in [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108):
 
 * Autosize innodb\_buffer\_pool\_chunk\_size ([MDEV-25342](https://jira.mariadb.org/browse/MDEV-25342)).
 * Improve the redo log for concurrency ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425)).
 * Remove FIL\_PAGE\_FILE\_FLUSH\_LSN ([MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199)).
 
-Before [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes), [mariadb-backup --prepare](../../backup-and-restore/mariadb-backup/mariadb-backup-options.md#prepare) created a zero-length ib\_logfile0 as a dummy placeholder. From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes) ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425)), the size of that dummy file was increased to 12304 (0x3010) bytes, and all updates of FIL\_PAGE\_FILE\_FLUSH\_LSN in the first page of the system tablespace are removed.
+Before [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), [mariadb-backup --prepare](../../backup-and-restore/mariadb-backup/mariadb-backup-options.md#prepare) created a zero-length ib\_logfile0 as a dummy placeholder. From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1) ([MDEV-14425](https://jira.mariadb.org/browse/MDEV-14425)), the size of that dummy file was increased to 12304 (0x3010) bytes, and all updates of FIL\_PAGE\_FILE\_FLUSH\_LSN in the first page of the system tablespace are removed.
 
-From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes), if the server is started up with a zero-sized ib\_logfile0, it is assumed that an upgrade is being performed after a backup had been prepared. The start LSN will then be read from FIL\_PAGE\_FILE\_FLUSH\_LSN, and a new log file are created starting from exactly that LSN.
+From [MariaDB 10.8.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1), if the server is started up with a zero-sized ib\_logfile0, it is assumed that an upgrade is being performed after a backup had been prepared. The start LSN will then be read from FIL\_PAGE\_FILE\_FLUSH\_LSN, and a new log file are created starting from exactly that LSN.
 
 Manually creating a zero-sized ib\_logfile0 without manually updating the FIL\_PAGE\_FILE\_FLUSH\_LSN in the system tablespace to a recent enough LSN may result in error messages such as "page LSN is in the future". If a log was discarded while some changes had already been written to data pages, all sort of corruption may occur.
 

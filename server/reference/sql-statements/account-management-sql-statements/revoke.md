@@ -73,29 +73,55 @@ priv_level:
 
 ### Description
 
-The `REVOKE` statement enables system administrators to revoke privileges (or roles - see [section below](revoke.md#roles)) from MariaDB accounts. Each account is named using the same format as for the `GRANT` statement; for example, '`jeffrey'@'localhost`'. If you specify only the user name part of the account name, a host name part of '`%`' is used. For details on the levels at which privileges exist, the allowable`priv_type` and `priv_level` values, and the syntax for specifying users and passwords, see [GRANT](grant.md).
+The `REVOKE` statement enables system administrators to revoke privileges (or roles - see [section below](revoke.md#roles)) from MariaDB accounts. Each account is named using the same format as for the `GRANT` statement; for example, `jeffrey@localhost`. If you specify only the user name part of the account name, a host name part of `%` is used. For details on the levels at which privileges exist, the available `priv_type` and `priv_level` values, and the syntax for specifying users and passwords, see [GRANT](grant.md).
 
-To use the first `REVOKE` syntax, you must have the`GRANT OPTION` privilege, and you must have the privileges that you are revoking.
+To use the first syntax (`REVOKE ... ON ... FROM ...`), you must have the `GRANT OPTION` privilege, and you must have the privileges that you are revoking. Also, remember to specify the `ON` clause (in many cases, `ON *.*` to revoke privileges for all objects):
 
-To revoke all privileges, use the second syntax, which drops all global, database, table, column, and routine privileges for the named user or users:
+```sql
+REVOKE ALL ON *.* FROM 'myuser'@'localhost';
+```
+
+This leaves the `USAGE` privilege, and can leave other privileges, too. For that reason, the second syntax (`REVOKE ALL PRIVILEGES, GRANT OPTION FROM ...`) is preferable, which drops all global, database, table, column, and routine privileges for the named user or users:
 
 ```sql
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM user [, user] ...
 ```
 
-To use this `REVOKE` syntax, you must have the global [CREATE USER](create-user.md) privilege or the [UPDATE](../data-manipulation/changing-deleting-data/update.md) privilege for the mysql database. See [GRANT](grant.md).
+To use this `REVOKE` syntax, you must have the global [CREATE USER](create-user.md) privilege or the [UPDATE](../data-manipulation/changing-deleting-data/update.md) privilege for the mysql database. See [GRANT](grant.md). For that syntax, the `ON *.*` clause must not be used (it yields an error).
+
+{% hint style="info" %}
+Revoking all privileges doesn't remove _all_ privileges, not even with the second syntax. The user still keeps the `USAGE` privilege, making it possible to connect to the server (but nothing else). To remove that privilege, too, remove the user entirely with a `DROP USER` statement.
+{% endhint %}
 
 ### Examples
 
+Revoking a particular privilege (`SUPER`):
+
 ```sql
-REVOKE SUPER ON *.* FROM 'alexander'@'localhost';
+REVOKE SUPER ON *.* FROM 'myuser'@'localhost';
 ```
+
+Revoking all privileges (on all objects – note you must specify `ON *.*`):
+
+```sql
+REVOKE ALL ON *.* FROM 'myuser'@'localhost';
+```
+
+Revoking all privileges and the `GRANT` option (note that `ON *.*` cannot be specified here):
+
+```sql
+REVOKE ALL, GRANT OPTION FROM 'myuser'@'localhost';
+```
+
+{% hint style="info" %}
+The `PRIVILEGES` keyword is optional for `ALL PRIVILEGES`.
+{% endhint %}
 
 ## Roles
 
 ### Syntax
 
-```bnf
+```sql
 REVOKE role  [, role ...]
     FROM grantee [, grantee2 ... ]
 

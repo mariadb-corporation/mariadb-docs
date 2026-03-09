@@ -1,12 +1,12 @@
 # MariaDB 10.1.44 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.44)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10144-release-notes.md)[Changelog](mariadb-10144-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.44)[Release Notes](../../old-releases/10.1/10.1.44.md)[Changelog](mariadb-10144-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 28 Jan 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10144-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.44.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -42,7 +42,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Fix [MDEV-21450](https://jira.mariadb.org/browse/MDEV-21450) Failed compile when XML table type is not supported. Was because XMLDEF was unconditionally called from REST table.
 * [Revision #0b624debdf](https://github.com/MariaDB/server/commit/0b624debdf)\
   2020-01-09 16:10:25 +0100
-  * Update to version 1.07 (as for [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md))
+  * Update to version 1.07 (as for [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md))
 * Merge [Revision #f31bf6f094](https://github.com/MariaDB/server/commit/f31bf6f094) 2020-01-19 12:22:12 +0100 - Merge branch '5.5' into 10.1
 * [Revision #02af6278fb](https://github.com/MariaDB/server/commit/02af6278fb)\
   2020-01-17 17:39:20 +0200

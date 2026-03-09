@@ -1,10 +1,10 @@
 # MariaDB 10.1.23 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.23)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10123-release-notes.md)[Changelog](mariadb-10123-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.23)[Release Notes](../../old-releases/10.1/10.1.23.md)[Changelog](mariadb-10123-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 3 May 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10123-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.23.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 

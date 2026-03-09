@@ -23,7 +23,7 @@ The key differentiator between a Fusion-io and a legacy SSD/HDD is the following
 
 ## Atomic Writes
 
-Starting with [MariaDB 5.5.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5531-release-notes), MariaDB Server supports atomic writes on Fusion-io devices that use the NVMFS (formerly called DirectFS) file system. Unfortunately, NVMFS was never offered under ‘General Availability’, and SanDisk declared that NVMFS would reach end-of-life in December 2015. Therefore, NVMFS support is no longer offered by SanDisk.
+Starting with [MariaDB 5.5.31](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.31), MariaDB Server supports atomic writes on Fusion-io devices that use the NVMFS (formerly called DirectFS) file system. Unfortunately, NVMFS was never offered under ‘General Availability’, and SanDisk declared that NVMFS would reach end-of-life in December 2015. Therefore, NVMFS support is no longer offered by SanDisk.
 
 MariaDB Server does not currently support atomic writes on Fusion-io devices with any other file systems.
 

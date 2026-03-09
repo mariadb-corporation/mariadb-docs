@@ -15,9 +15,9 @@ MariaDB supports the following types of replication:
 * Semi-synchronous replication.
 * Galera Cluster.
 
-**MariaDB starting with** [**10.5.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
+**MariaDB starting with** [**10.5.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
 
-Note: in the snippets in this page, several SQL statements use the keyword `SLAVE`. This word is considered inappropriate by some persons or cultures, so from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) it is possible to use the `REPLICA` keyword, as a synonym.\
+Note: in the snippets in this page, several SQL statements use the keyword `SLAVE`. This word is considered inappropriate by some persons or cultures, so from [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) it is possible to use the `REPLICA` keyword, as a synonym.\
 Similar synonyms will be created in the future for status variables and system variables. See [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to track the status of these changes.
 
 ## Asynchronous Replication
@@ -32,7 +32,7 @@ The events can be written in two formats: as an SQL statement (_statement-based 
 
 For more details on replication formats, see [binary log formats](../../../server-monitoring-logs/binary-log/binary-log-formats.md).
 
-The replicas have an [I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) that receives the binary log events and writes them to the [relay log](../../../server-monitoring-logs/binary-log/relay-log.md). These events are then read by the [SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). This thread could directly apply the changes to the local databases, and this was the only option before [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes). If [parallel replication](mariadb-replication-overview-for-sql-server-users.md#parallel-replication-and-group-commit) is enabled, the SQL thread hands the events to the worker thread, that apply them to the databases. The latter method is recommended for performance reasons.
+The replicas have an [I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) that receives the binary log events and writes them to the [relay log](../../../server-monitoring-logs/binary-log/relay-log.md). These events are then read by the [SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). This thread could directly apply the changes to the local databases, and this was the only option before [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5). If [parallel replication](mariadb-replication-overview-for-sql-server-users.md#parallel-replication-and-group-commit) is enabled, the SQL thread hands the events to the worker thread, that apply them to the databases. The latter method is recommended for performance reasons.
 
 When a replica cannot apply an event to the local data, the SQL thread stops. This happens, for example, if the event is a row deletion but that row doesn't exist on the replica. There can be several reasons for this, for example non-deterministic statements, or a user deleted the row in the replica. To reduce the risk, it is recommended to set [read\_only](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) to 1 in the replicas.
 
@@ -86,7 +86,7 @@ See [Setting Up Replication](../../../../ha-and-performance/standard-replication
 
 MariaDB uses [group commit](../../../server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md), which means that a group of events are physically written in the binary log altogether. This reduces the number of IOPS (input/output operations per second). Group commit cannot be disabled, but it can be tuned with variables like [binlog\_commit\_wait\_count](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_commit_wait_count) and [binlog\_commit\_wait\_usec](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_commit_wait_usec).
 
-Replicas can apply the changes using multiple threads. This is known as [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md). Before [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes) only one thread was used to apply changes. Since a primary can use many threads to write data, mono-thread replication is a well-known bottleneck. Parallel replication is not enabled by default. To use it, set the [slave\_parallel\_threads](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_parallel_threads) variable to a number greater than 1. If replication is running, the replica threads must be stopped in order to change this value:
+Replicas can apply the changes using multiple threads. This is known as [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md). Before [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5) only one thread was used to apply changes. Since a primary can use many threads to write data, mono-thread replication is a well-known bottleneck. Parallel replication is not enabled by default. To use it, set the [slave\_parallel\_threads](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#slave_parallel_threads) variable to a number greater than 1. If replication is running, the replica threads must be stopped in order to change this value:
 
 ```sql
 STOP SLAVE SQL_THREAD;
@@ -186,7 +186,7 @@ See Sveta Smirnova's slides at MariaDB Day 2020: "[How Safe is Asynchronous Mast
 
 ## Semi-Synchronous Replication
 
-Semi-synchronous replication was initially implemented as a plugin, in MySQL. Two different plugins needed to be used, one on the primary and the other on the replicas. Starting from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes) it is built-in, which improved its performance.
+Semi-synchronous replication was initially implemented as a plugin, in MySQL. Two different plugins needed to be used, one on the primary and the other on the replicas. Starting from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3) it is built-in, which improved its performance.
 
 The problem with standard replication is that there is no guarantee that it will not lag, even by long amounts of time. [Semi-synchronous replication](../../../../ha-and-performance/standard-replication/semisynchronous-replication.md) reduces this problem, at the cost of reducing the speed of the primary.
 

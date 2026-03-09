@@ -1,12 +1,12 @@
 # MariaDB 10.4.7 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-34-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.7/)[Release Notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes.md)[Changelog](mariadb-1047-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.7/)[Release Notes](../../old-releases/10.4/10.4.7.md)[Changelog](mariadb-1047-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
 
 **Release date:** 31 Jul 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.4/10.4.7.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -189,7 +189,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-17402](https://jira.mariadb.org/browse/MDEV-17402) slave\_transaction\_retry\_errors="12701" won't be enabled (#1349)
 * [Revision #76200870ea](https://github.com/MariaDB/server/commit/76200870ea)\
   2019-06-29 03:42:35 +0900
-  * [MDEV-17204](https://jira.mariadb.org/browse/MDEV-17204) [Mariadb 10.3.9](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes.md) Spider DB SQL Alias no execute (#1348)
+  * [MDEV-17204](https://jira.mariadb.org/browse/MDEV-17204) [Mariadb 10.3.9](../../old-releases/10.3/10.3.9.md) Spider DB SQL Alias no execute (#1348)
 * [Revision #d4bdf1c0b6](https://github.com/MariaDB/server/commit/d4bdf1c0b6)\
   2019-06-29 03:35:48 +0900
   * [MDEV-16508](https://jira.mariadb.org/browse/MDEV-16508) spider: sql\_mode not maintained between spider node and data nodes (#1347)

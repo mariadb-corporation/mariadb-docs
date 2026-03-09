@@ -1,7 +1,7 @@
 ---
 description: >-
-  Understand the different types of indexes in MariaDB, such as Primary Keys and
-  Unique Indexes, and learn how to create and manage them for performance.
+  Definitive MariaDB indexes guide: PRIMARY KEY, UNIQUE INDEX, INDEX, FULLTEXT
+  types, CREATE/ALTER TABLE syntax, CREATE INDEX, SHOW INDEX, and EXPLAIN.
 ---
 
 # Getting Started with Indexes Guide

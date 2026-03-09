@@ -12,13 +12,11 @@ This command is deprecated and not used by MariaDB connectors any more. Use the 
 
 ## Fields
 
-* [int<1>](../protocol-data-types.md#fixed-length-integers) 0x04 : COM\_FIELD\_LIST header.
-* [string](../protocol-data-types.md#null-terminated-strings) Table name.
-* [string](../protocol-data-types.md#end-of-file-length-strings) Optional field list.
+* [int<1>](../protocol-data-types.md#fixed-length-integers) `0x04` : `COM_FIELD_LIST` header.
 
 ## Response
 
-* zero or more [result set rows](../4-server-response-packets/resultset-row.md).
+* Zero or more [result set rows](../4-server-response-packets/resultset-row.md).
 * [EOF packet](../4-server-response-packets/eof_packet.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

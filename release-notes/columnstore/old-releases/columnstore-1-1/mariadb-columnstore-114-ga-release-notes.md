@@ -14,7 +14,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 ## Notable changes
 
 * [Beta](../../../community-server/about/release-criteria.md) release of Pentaho Kettle Adapter for integration of MariaDB ColumnStore utilizing Pentaho Kettle.
-* [MCOL-1319](https://jira.mariadb.org/browse/MCOL-1319) - The base MariaDB server version is now [10.2.14](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10214-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-1319](https://jira.mariadb.org/browse/MCOL-1319) - The base MariaDB server version is now [10.2.14](../../../community-server/old-releases/10.2/10.2.14.md) which include several maintenance and security fixes.
 * [MCOL-1321](https://jira.mariadb.org/browse/MCOL-1321) - The Python bulk write SDK binding has an API change around setColumn() to return a status.
 
 ## Bugs and issues fixed
@@ -51,7 +51,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1312](https://jira.mariadb.org/browse/MCOL-1312) - PDI version number - include git
 * [MCOL-1318](https://jira.mariadb.org/browse/MCOL-1318) - Columnstore Cluster Tester tool is evaluating Failure if Firewall Services or SELINUX are enabled
 * [MCOL-1264](https://jira.mariadb.org/browse/MCOL-1264) - List of manual tests performed
-* [MCOL-1319](https://jira.mariadb.org/browse/MCOL-1319) - Merge [MariaDB 10.2.14](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10214-release-notes.md)
+* [MCOL-1319](https://jira.mariadb.org/browse/MCOL-1319) - Merge [MariaDB 10.2.14](../../../community-server/old-releases/10.2/10.2.14.md)
 * [MCOL-1333](https://jira.mariadb.org/browse/MCOL-1333) - Document that .tar.gz of RPM files is needed for addModule command
 * [MCOL-1261](https://jira.mariadb.org/browse/MCOL-1261) - mcsapi Python wrapper breaks on out of source builds
 * [MCOL-1325](https://jira.mariadb.org/browse/MCOL-1325) - rename table fails when database different than current database
@@ -74,7 +74,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-271](https://jira.mariadb.org/browse/MCOL-271) empty string values are treated as NULL. This means you cannot insert empty values into a NOT NULL string column.
 * [MCOL-365](https://jira.mariadb.org/browse/MCOL-365): Log files created by load data infile remain in the bulk/data/log and /tmp directories. If storage is a concern these can safely be removed.
 * [MCOL-540](https://jira.mariadb.org/browse/MCOL-540) : In a non root Ubuntu install with local query enabled, the PM servers crash and restart on table creation.
-* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
+* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
 * [MCOL-631](https://jira.mariadb.org/browse/MCOL-631) :Create table caused primproc crashed for a specific configuration
 * [MCOL-643](https://jira.mariadb.org/browse/MCOL-643) :Implement ha\_calpont\_impl\_rnd\_pos. Sorting of long text columns may fail.
 * [MCOL-695](https://jira.mariadb.org/browse/MCOL-695) :Implement joins between CHAR/VARCHAR and INT columns. ColumnStore now fails more consistently on incompatible join types. Explicit type casts must be used if this error is hit.

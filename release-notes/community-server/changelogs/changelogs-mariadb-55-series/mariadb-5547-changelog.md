@@ -1,12 +1,12 @@
 # MariaDB 5.5.47 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.47)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5547-release-notes.md)[Changelog](mariadb-5547-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.47)[Release Notes](../../old-releases/5.5/5.5.47.md)[Changelog](mariadb-5547-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 10 Dec 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5547-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.47.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -105,7 +105,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-7762](https://jira.mariadb.org/browse/MDEV-7762) InnoDB: Failing assertion: block->page.buf\_fix\_count > 0 in buf0buf.ic line 730
 * [Revision #13ad179](https://github.com/MariaDB/server/commit/13ad179)\
   2015-11-20 14:50:18 +0100
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/10.0/10.0.21.md) crashes during PREPARE
 * [Revision #43a5090](https://github.com/MariaDB/server/commit/43a5090)\
   2015-11-18 11:20:59 +0100
   * [MDEV-9051](https://jira.mariadb.org/browse/MDEV-9051) mysqld got signal 11, after upgrade to 10.1.8

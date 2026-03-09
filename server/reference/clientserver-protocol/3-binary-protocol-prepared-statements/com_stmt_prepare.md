@@ -20,7 +20,7 @@ Not all statements can be prepared. See [PREPARE](../../sql-statements/prepared-
 ## Fields
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) `0x16` `COM_STMT_PREPARE` header
-* [string](../protocol-data-types.md#end-of-file-length-strings) SQL Statement
+* [string\<EOF>](../protocol-data-types.md#end-of-file-length-strings) SQL Statement
 
 ## Example
 
@@ -32,10 +32,10 @@ Not all statements can be prepared. See [PREPARE](../../sql-statements/prepared-
 
 ## Response
 
-If anything goes wrong, the server will send an [ERR\_Packet](../4-server-response-packets/err_packet.md). If the command succeeds, different packets are received:
+If something goes wrong, the server sends an [ERR\_Packet](../4-server-response-packets/err_packet.md). If the command succeeds, different packets are received:
 
 * [COM\_STMT\_PREPARE\_OK](com_stmt_prepare.md#COM_STMT_PREPARE_OK).
-* If number of parameters (count of '?' placeholders) > `0`:
+* If number of parameters (count of `?` placeholders) > `0`:
   * For each parameter:
     * [column definition packet](../4-server-response-packets/result-set-packets.md).
   * If !`DEPRECATE_EOF` [eof\_packet](../4-server-response-packets/eof_packet.md).

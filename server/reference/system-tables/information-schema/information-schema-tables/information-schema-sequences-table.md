@@ -7,7 +7,7 @@ description: >-
 # Information Schema SEQUENCES Table
 
 {% hint style="info" %}
-This table is available as of MariaDB [11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115).
+This table is available as of MariaDB [11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115).
 {% endhint %}
 
 The [Information Schema](../) `SEQUENCES` table stores information about [sequences](../../../sql-structure/sequences/) on the server.

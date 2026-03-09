@@ -1,12 +1,12 @@
 # MariaDB 10.0.20 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.20)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10020-release-notes.md)[Changelog](mariadb-10020-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.20)[Release Notes](../../old-releases/10.0/10.0.20.md)[Changelog](mariadb-10020-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 18 Jun 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10020-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.20.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -15,7 +15,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-5309](https://jira.mariadb.org/browse/MDEV-5309) - RENAME TABLE does not check for existence of the table's engine
 * [Revision #5a4c5fa](https://github.com/MariaDB/server/commit/5a4c5fa)\
   2015-06-17 14:18:16 +0200
-  * [MDEV-5977](https://jira.mariadb.org/browse/MDEV-5977) [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) is not installable on Trusty when "trusty-updates universe" is in sources.list
+  * [MDEV-5977](https://jira.mariadb.org/browse/MDEV-5977) [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) is not installable on Trusty when "trusty-updates universe" is in sources.list
 * [Revision #b56ad49](https://github.com/MariaDB/server/commit/b56ad49)\
   2015-06-16 17:27:53 +0200
   * [MDEV-8287](https://jira.mariadb.org/browse/MDEV-8287) DROP TABLE suppresses all engine errors

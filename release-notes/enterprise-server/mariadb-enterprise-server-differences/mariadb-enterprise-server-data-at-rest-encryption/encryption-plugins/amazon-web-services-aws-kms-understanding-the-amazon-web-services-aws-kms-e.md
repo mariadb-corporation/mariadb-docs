@@ -18,7 +18,7 @@ The AWS KMS Encryption Plugin (aws\_key\_management) allows you to:
   * [Galera Cluster's GCache](../encrypting-galera-clusters-gcache.md)
 * Rotate encryption keys.
 
-Additional information is available [here](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin).
+Additional information is available [here](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/aws-key-management-encryption-plugin).
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

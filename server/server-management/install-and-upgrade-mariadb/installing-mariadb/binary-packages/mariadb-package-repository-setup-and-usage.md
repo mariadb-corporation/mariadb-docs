@@ -1,5 +1,7 @@
 ---
-description: Instructions on configuring and using the MariaDB package repository.
+description: >-
+  Complete guide to MariaDB package repositories. Complete setup instructions
+  for APT, YUM, Zypper with GPG keys and configurations for production use.
 ---
 
 # MariaDB Package Repository Setup and Usage
@@ -165,7 +167,7 @@ If you do not want to configure the **MariaDB Repository** on your system, for e
 ### MariaDB MaxScale Repository
 
 {% hint style="warning" %}
-### Note
+#### Note
 
 MaxScale releases, as of 2025-12-09, are now signed with a new key. The `mariadb_repo_setup` and `mariadb_es_repo_setup` scripts have been updated to automatically install the new key, but for existing repositories, you'll need to do the following.
 
@@ -203,7 +205,7 @@ For a comprehensive and current list of supported platforms, refer to:
 * [MariDB Engineering Policy](https://mariadb.com/engineering-policies/)
 * The [MariaDB Downloads](https://mariadb.com/downloads/) page for your specific version
 
-If the setup script does not support your distribution, you can install MariaDB using the  MariaDB Foundation's [Repository Configuration Tool](https://mariadb.org/download/?t=repo-config) or check your distribution's [native repositories](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb) for MariaDB packages.
+If the setup script does not support your distribution, you can install MariaDB using the MariaDB Foundation's [Repository Configuration Tool](https://mariadb.org/download/?t=repo-config) or check your distribution's [native repositories](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/distributions-including-mariadb) for MariaDB packages.
 
 ## Options
 
@@ -224,10 +226,10 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- -
 | `--skip-maxscale`             | Skip the 'MaxScale' repository                                                                                                                                                                    |
 | `--skip-server`               | Skip the 'MariaDB Server' repository                                                                                                                                                              |
 | `--skip-tools`                | Skip the 'Tools' repository                                                                                                                                                                       |
-| `--skip-verify`               | Skip verification of MariaDB Server versions. Use with caution, as this can lead to an invalid repository configuration file being created                                                         |
+| `--skip-verify`               | Skip verification of MariaDB Server versions. Use with caution, as this can lead to an invalid repository configuration file being created                                                        |
 | `--skip-check-installed`      | Skip tests for required prerequisites for this script                                                                                                                                             |
-| `--skip-eol-check`            | Skip tests for versions that are past their EOL date                                                                                                                                                 |
-| `--skip-os-eol-check`         | Skip tests for operating system versions past the EOL date                                                                                                                                      |
+| `--skip-eol-check`            | Skip tests for versions that are past their EOL date                                                                                                                                              |
+| `--skip-os-eol-check`         | Skip tests for operating system versions past the EOL date                                                                                                                                        |
 | `--write-to-stdout`           | Write output to stdout instead of to the OS's repository configuration file. This will also skip importing GPG public keys and updating the package cache on platforms where that behavior exists |
 
 #### `--mariadb-server-version`

@@ -39,7 +39,7 @@ The `mysql.proc` table contains the following fields:
 
 ## See Also
 
-* [Stored Procedure Internals](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-source-code-internals/stored-procedure-internals)
+* [Stored Procedure Internals](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/QKbsa2VohfMtMUhmmPcm)
 * [MySQL to MariaDB migration: handling privilege table differences when using mysqldump](https://mariadb.com/blog/mysql-mariadb-migration-handling-privilege-table-differences-when-using-mysqldump)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

@@ -1,12 +1,12 @@
 # MariaDB 10.0.10 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.10) |[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md) |**Changelog** |[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.10) |[Release Notes](../../old-releases/10.0/10.0.10.md) |**Changelog** |[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 31 Mar 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.10.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -122,7 +122,7 @@ modified in that revision.
     * Updated sponsors and authors
   * [Revision #4130.1.1](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4130.1.1)\
     Fri 2014-03-28 09:31:24 +0200
-    * Fixed that the we don't change CREATE to CREATE OR REPLACE, except if the slave removed an existing table as part of CREATE. This will help the following replicaition scenario: [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) master (statement replication) -> [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) slave (row based replication) -> MySQL or MariaDB 5.x slave
+    * Fixed that the we don't change CREATE to CREATE OR REPLACE, except if the slave removed an existing table as part of CREATE. This will help the following replicaition scenario: [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) master (statement replication) -> [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) slave (row based replication) -> MySQL or MariaDB 5.x slave
 * [Revision #4133](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4133)\
   Fri 2014-03-28 11:30:10 +0400
   * [MDEV-5964](https://jira.mariadb.org/browse/MDEV-5964) - main.[MDEV-504](https://jira.mariadb.org/browse/MDEV-504) unveils assertion failure in TABLE\_SHARE::visit\_subgraph
@@ -266,7 +266,7 @@ modified in that revision.
     * rpl tests: move "include/master-slave.inc" down to be after all possible checks that can skip the test
   * [Revision #3413.21.574](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.574)\
     Mon 2014-03-24 20:01:37 +0100
-    * [MDEV-5831](https://jira.mariadb.org/browse/MDEV-5831) Upgrade from [MariaDB 5.5.36](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5536-release-notes.md) via yum fails
+    * [MDEV-5831](https://jira.mariadb.org/browse/MDEV-5831) Upgrade from [MariaDB 5.5.36](../../old-releases/5.5/5.5.36.md) via yum fails
   * [Revision #3413.21.573](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.21.573)\
     Wed 2014-03-19 10:03:34 +0100
     * [MDEV-5773](https://jira.mariadb.org/browse/MDEV-5773) symbol list\_add, version libmysqlclient\_18 not defined in file libmysqlclient.so.18 with link time reference [MDEV-5763](https://jira.mariadb.org/browse/MDEV-5763) libmyodbc.so: undefined symbol: int2str [MDEV-5739](https://jira.mariadb.org/browse/MDEV-5739) Symbol missing in libmysqlclient.so.18 (make\_scrambled\_password)

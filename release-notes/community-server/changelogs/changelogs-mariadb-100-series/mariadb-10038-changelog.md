@@ -1,10 +1,10 @@
 # MariaDB 10.0.38 Changelog
 
-[Download](https://mariadb.com/downloads/?showall=1\&tab=mariadbtx\&group=mariadb_server\&version=10.0.38)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md)[Changelog](mariadb-10038-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://mariadb.com/downloads/?showall=1\&tab=mariadbtx\&group=mariadb_server\&version=10.0.38)[Release Notes](../../old-releases/10.0/10.0.38.md)[Changelog](mariadb-10038-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 31 Jan 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.38.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more\
 details of the revision and view diffs of the code modified in that revision.

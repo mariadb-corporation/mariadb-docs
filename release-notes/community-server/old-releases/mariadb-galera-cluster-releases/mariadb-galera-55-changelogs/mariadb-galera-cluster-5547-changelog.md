@@ -116,7 +116,7 @@ modified in that revision.
   * [MDEV-7762](https://jira.mariadb.org/browse/MDEV-7762) InnoDB: Failing assertion: block->page.buf\_fix\_count > 0 in buf0buf.ic line 730
 * [Revision #13ad179](https://github.com/MariaDB/server/commit/13ad179)\
   2015-11-20 14:50:18 +0100
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../10.0/10.0.21.md) crashes during PREPARE
 * [Revision #43a5090](https://github.com/MariaDB/server/commit/43a5090)\
   2015-11-18 11:20:59 +0100
   * [MDEV-9051](https://jira.mariadb.org/browse/MDEV-9051) mysqld got signal 11, after upgrade to 10.1.8

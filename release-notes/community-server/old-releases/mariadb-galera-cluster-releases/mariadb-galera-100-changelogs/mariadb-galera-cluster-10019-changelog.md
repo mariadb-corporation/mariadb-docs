@@ -523,7 +523,7 @@ modified in that revision.
   * [MDEV-7814](https://jira.mariadb.org/browse/MDEV-7814) Assertion \`args\[0]->fixed' fails in Item\_func\_conv\_charset::Item\_func\_conv\_charset Removing a wrong assertion.
 * [Revision #b9a7586](https://github.com/MariaDB/server/commit/b9a7586)\
   2015-03-05 16:34:13 +0100
-  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md) server crash on update table left join with a view
+  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../5.5/5.5.40.md) server crash on update table left join with a view
 * [Revision #a852355](https://github.com/MariaDB/server/commit/a852355)\
   2015-04-14 14:23:35 +0200
   * Merge [MDEV-7975](https://jira.mariadb.org/browse/MDEV-7975) into 10.0

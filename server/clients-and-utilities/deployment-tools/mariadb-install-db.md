@@ -1,3 +1,10 @@
+---
+description: >-
+  Definitive mariadb-install-db guide: initialize data directory,
+  --user/--datadir syntax, --auth-root-authentication-method=socket, and
+  --skip-test-db.
+---
+
 # mariadb-install-db
 
 {% hint style="warning" %}
@@ -38,19 +45,19 @@ $ scripts/mariadb-install-db --user=mysql \
 
 `mariadb-install-db` supports the following options:
 
-#### --auth-root-authentication-method={`normal`\|`socket`}
+#### --auth-root-authentication-method={`normal`|`socket`}
 
 If set to `normal`, it creates a `root@localhost` account that authenticates with the [`mysql_native_password`](../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) authentication plugin and that has no initial password set, which can be insecure. If set to `socket`, it creates a `root@localhost` account that authenticates with the [`unix_socket`](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin. Set to `socket` by default.
 
-#### --auth-root-socket-user=_username_ 
+#### --auth-root-socket-user=_username_
 
 Used with `--auth-root-authentication-method=`_`socket`_. It specifies the name of the second account to create with [SUPER](../../reference/sql-statements/account-management-sql-statements/grant.md#super) privileges in addition to root, as well as of the system account allowed to access it. Defaults to the value of `--user`.
 
-#### --basedir=_path_ 
+#### --basedir=_path_
 
 The _path_ to the MariaDB installation directory.
 
-#### --builddir=_directory_ 
+#### --builddir=_directory_
 
 If using `--srcdir` with out-of-directory builds, you will need to set this to the location of the _build directory_ where built files reside.
 
@@ -246,7 +253,7 @@ $ sudo mariadb
 MariaDB> SET PASSWORD = PASSWORD('XH4VmT3_jt');
 ```
 
-You may notice in the above example that the [mariadb](../mariadb-client/mariadb-command-line-client.md) command-line client is executed via [sudo](https://linux.die.net/man/8/sudo). This allows the `root@localhost` user account to successfully authenticate via the [unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md)  authentication plugin.
+You may notice in the above example that the [mariadb](../mariadb-client/mariadb-command-line-client.md) command-line client is executed via [sudo](https://linux.die.net/man/8/sudo). This allows the `root@localhost` user account to successfully authenticate via the [unix\_socket](../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin.
 
 ## Troubleshooting Issues
 

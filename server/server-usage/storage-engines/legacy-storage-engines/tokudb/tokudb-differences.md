@@ -15,9 +15,9 @@ On this page we list all the known differences between the TokuDB from [Tokutek]
 * TokuDB is not the default storage engine.
   * If you want to enable this, you have to start mysqld with: `--default-storage-engine=tokudb`.
 * Auto increment for second part of a key behaves as documented (and as it does in MyISAM and other storage engines).
-* The DDL syntax is different. While binaries from Tokutek have the patched SQL parser, TokuDB in MariaDB uses the special [Storage Engine API extension](../../storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md). Thus in Tokutek binaries you write `CLUSTERED KEY (columns)` and, for example, `ROW_FORMAT=TOKUDB_LZMA`. And in MariaDB you write `KEY (columns) CLUSTERING=YES` and `COMPRESSION=TOKUDB_LZMA`.
+* The DDL syntax is different. While binaries from Tokutek have the patched SQL parser, TokuDB in MariaDB uses the special [Storage Engine API extension](../../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md). Thus in Tokutek binaries you write `CLUSTERED KEY (columns)` and, for example, `ROW_FORMAT=TOKUDB_LZMA`. And in MariaDB you write `KEY (columns) CLUSTERING=YES` and `COMPRESSION=TOKUDB_LZMA`.
 
-## Features missing in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+## Features missing in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 * No online [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/).
   * All alter table that changes data or indexes requires a table copy.
@@ -26,13 +26,13 @@ On this page we list all the known differences between the TokuDB from [Tokutek]
 * No gdb stack trace on sigsegv
 * IMPORTANT: the compression type does not default to the [tokudb\_row\_format](tokudb-system-variables.md#tokudb_row_format) session variable as it does with Tokutek's builds. If `COMPRESSION=` is not included in `CREATE TABLE` or `ALTER TABLE ENGINE=TokuDB` then the TokuDB table are uncompressed (before 5.5.37) or zlib-compressed (5.5.37 and later).
 
-## Features missing in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0)
+## Features missing in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
 
-[MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) (starting from 10.0.5) has online [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/). So the features missing are:
+[MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) (starting from 10.0.5) has online [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/). So the features missing are:
 
 * No `INSERT NOAR` or `UPDATE NOAR` commands.
   * We are working with Tokutek to improve this feature before adding it to MariaDB.
-* No online [OPTIMIZE TABLE](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) before [10.0.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10011-release-notes) (r4199)
+* No online [OPTIMIZE TABLE](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md) before [10.0.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.11) (r4199)
 * No gdb stack trace on sigsegv
 * Before 10.0.10 the compression type did not default to the [tokudb\_row\_format](tokudb-system-variables.md#tokudb_row_format) session variable. If `COMPRESSION=` was not included in `CREATE TABLE` or `ALTER TABLE ENGINE=TokuDB` then the TokuDB table was created uncompressed.
 

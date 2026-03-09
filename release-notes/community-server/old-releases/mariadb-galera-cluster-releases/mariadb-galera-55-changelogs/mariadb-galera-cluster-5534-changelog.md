@@ -84,7 +84,7 @@ modified in that revision.
   * [MDEV-4108](https://jira.mariadb.org/browse/MDEV-4108) Compilation warnings with RelWithDebInfo only present in the Galera tree
 * [Revision #3434](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3434) \[merge]\
   Mon 2013-11-25 17:14:08 +0200
-  * Merge with [MariaDB 5.5.34](../../release-notes-mariadb-5-5-series/mariadb-5534-release-notes.md)
+  * Merge with [MariaDB 5.5.34](../../5.5/5.5.34.md)
 * [Revision #3433](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3433)\
   Mon 2013-11-25 14:04:49 +0200
   * Merged revisions 3931-3942 from lp:codership/codership-mysql/5.5-23.

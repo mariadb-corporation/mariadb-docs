@@ -1,7 +1,8 @@
 ---
 description: >-
-  Generate a Universally Unique Identifier (v1). This function returns a
-  standard 128-bit UUID as a 36-character string with hyphens.
+  Official UUID() function reference: generate UUIDv1 values, 128-bit
+  36-character format (aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee), and replication
+  safety.
 ---
 
 # UUID
@@ -14,7 +15,7 @@ UUID()
 
 ## Description
 
-Returns a Universally Unique Identifier (UUID) version 1. Functions to generate v4 and v7 UUIDs are available from [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/what-is-mariadb-117). See [UUIDv4](uuid_v4.md) and [UUIDv7](uuid_v7.md) respectively.
+Returns a Universally Unique Identifier (UUID) version 1. Functions to generate v4 and v7 UUIDs are available from [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117). See [UUIDv4](uuid_v4.md) and [UUIDv7](uuid_v7.md) respectively.
 
 A UUID is designed as a number that is globally unique in space and time. Two calls to `UUID()` are expected to generate two different values, even if these calls are performed on two separate computers that are not connected to each other.
 

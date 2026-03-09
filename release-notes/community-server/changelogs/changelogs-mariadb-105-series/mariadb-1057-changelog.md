@@ -1,12 +1,12 @@
 # MariaDB 10.5.7 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.7](https://downloads.mariadb.org/mariadb/10.5.7/)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-1057-release-notes.md)[Changelog](mariadb-1057-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.7](https://downloads.mariadb.org/mariadb/10.5.7/)[Release Notes](../../old-releases/10.5/10.5.7.md)[Changelog](mariadb-1057-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 3 Nov 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-1057-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.7.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -144,7 +144,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-23659](https://jira.mariadb.org/browse/MDEV-23659) Update Galera disabled.def file
 * [Revision #b30ad01d40](https://github.com/MariaDB/server/commit/b30ad01d40)\
   2020-04-16 00:44:20 +0900
-  * [MDEV-20100](https://jira.mariadb.org/browse/MDEV-20100) [MariaDB 10.3.9](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes.md) Crash "\[ERROR] mysqld got signal 11 ;"
+  * [MDEV-20100](https://jira.mariadb.org/browse/MDEV-20100) [MariaDB 10.3.9](../../old-releases/10.3/10.3.9.md) Crash "\[ERROR] mysqld got signal 11 ;"
 * [Revision #1668465f68](https://github.com/MariaDB/server/commit/1668465f68)\
   2020-10-21 10:56:26 +0300
   * [MDEV-23998](https://jira.mariadb.org/browse/MDEV-23998) Race between buf\_page\_optimistic\_get() and buf\_page\_t::init()

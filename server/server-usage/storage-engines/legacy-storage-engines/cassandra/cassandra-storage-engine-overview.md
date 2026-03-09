@@ -49,9 +49,9 @@ Now, this is easily possible. Cassandra SE makes Cassandra's column family appea
 
 ### Versions in MariaDB
 
-| Cassandra SE Version | Introduced                                                                                                                                                  | Maturity     |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Cassandra SE 1.8     | [MariaDB 10.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1001-release-notes) | Experimental |
+| Cassandra SE Version | Introduced                                                                                                 | Maturity     |
+| -------------------- | ---------------------------------------------------------------------------------------------------------- | ------------ |
+| Cassandra SE 1.8     | [MariaDB 10.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.1) | Experimental |
 
 ### What about CQL?
 

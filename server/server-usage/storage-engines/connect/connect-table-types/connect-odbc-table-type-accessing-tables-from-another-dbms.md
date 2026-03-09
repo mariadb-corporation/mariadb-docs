@@ -1,20 +1,14 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT ODBC Table Type: Accessing Tables From Another DBMS
-
-{% hint style="info" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 ODBC (Open Database Connectivity) is a standard API for accessing database management systems (DBMS). CONNECT uses this API to access data contained in other DBMS without having to implement a specific application for each one. An exception is the access to MySQL that should be done using the [MYSQL table type](connect-mysql-table-type-accessing-mysqlmariadb-tables.md).
 
 Note: On Linux, unixODBC must be installed.
 
-These tables are given the type ODBC. For example, if a "Customers" table is\
-contained in an Access™ database you can define it\
-with a command such as:
+These tables are given the type ODBC. For example, if a "Customers" table is contained in an Access™ database you can define it with a command such as:
 
 ```
 CREATE TABLE Customer (
@@ -35,30 +29,21 @@ CONNECTION='DSN=MS Access Database;DBQ=C:/Program
 Files/Microsoft Office/Office/1033/FPNWIND.MDB;';
 ```
 
-Tabname option defaults to the table name. It is required if the source table\
-name is different from the name of the CONNECT table. Note also that for some data sources this name is case sensitive.
+Tabname option defaults to the table name. It is required if the source table name is different from the name of the CONNECT table. Note also that for some data sources this name is case sensitive.
 
-Often, because CONNECT can retrieve the table description using ODBC catalog\
-functions, the column definitions can be unspecified. For instance this table\
-can be simply created as:
+Often, because CONNECT can retrieve the table description using ODBC catalog functions, the column definitions can be unspecified. For instance this table can be simply created as:
 
-```
+```sql
 CREATE TABLE Customer ENGINE=CONNECT table_type=ODBC
   block_size=10 tabname='Customers'
   CONNECTION='DSN=MS Access Database;DBQ=C:/Program Files/Microsoft Office/Office/1033/FPNWIND.MDB;';
 ```
 
-The `BLOCK_SIZE` specification are used later to set the RowsetSize when\
-retrieving rows from the ODBC table. A reasonably large RowsetSize can greatly\
-accelerate the fetching process.
+The `BLOCK_SIZE` specification are used later to set the RowsetSize when retrieving rows from the ODBC table. A reasonably large RowsetSize can greatly accelerate the fetching process.
 
-If you specify the column description, the column names of your table must\
-exist in the data source table. However, you are not obliged to define all the\
-data source columns and you can change the order of the columns. Some type\
-conversion can also be done if appropriate. For instance, to access the\
-FireBird sample table EMPLOYEE, you could define your table as:
+If you specify the column description, the column names of your table must exist in the data source table. However, you are not obliged to define all the data source columns and you can change the order of the columns. Some type conversion can also be done if appropriate. For instance, to access the FireBird sample table EMPLOYEE, you could define your table as:
 
-```
+```sql
 CREATE TABLE empodbc (
   EMP_NO SMALLINT(5) NOT NULL,
   FULL_NAME VARCHAR(37) NOT NULL),
@@ -80,7 +65,7 @@ Currently, some restrictions apply to ODBC tables:
 1. Cursor type is forward only (sequential reading).
 2. No indexing of ODBC tables (do not specify any columns as key). However,\
    because CONNECT can often add a where clause to the query sent to the data\
-   source, indexing are used by the data source if it supports it. (Remote indexing is available with version 1.04, released with [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-6-release-notes))
+   source, indexing are used by the data source if it supports it. (Remote indexing is available with version 1.04, released with [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6))
 3. CONNECT ODBC supports [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md) and [INSERT](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md). [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) and [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) are also supported\
    in a somewhat restricted way (see below). For other operations, use an ODBC\
    table with the EXECSRC option (see below) to directly send proper commands\
@@ -88,7 +73,7 @@ Currently, some restrictions apply to ODBC tables:
 
 ## Random Access of ODBC Tables
 
-In CONNECT version 1.03 (until [MariaDB 10.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-5-release-notes)) ODBC tables are not indexable. Version 1.04 (from [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-6-release-notes)) adds remote indexing facility to the ODBC table type.
+In CONNECT version 1.03 (until [MariaDB 10.1.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.5)) ODBC tables are not indexable. Version 1.04 (from [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6)) adds remote indexing facility to the ODBC table type.
 
 However, some queries require random access to an ODBC table; for instance when it is joined to another table or used in an order by queries applied to a long column or large tables.
 
@@ -112,7 +97,7 @@ Note that the best way to handle ORDER BY is to set the max\_length\_for\_sort\_
 
 For tables too large to be stored in memory another possibility is to make your table to use a scrollable cursor. In this case each randomly accessed row can be retrieved from the data source specifying its cursor position, which is reasonably fast. However, scrollable cursors are not supported by all data sources.
 
-With CONNECT version 1.04 (from [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-6-release-notes)), another way to provide random access is to specify some columns to be indexed. This should be done only when the corresponding column of the source table is also indexed. This should be used for tables too large to be stored in memory and is similar to the remote indexing used by the [MYSQL table type](connect-mysql-table-type-accessing-mysqlmariadb-tables.md) and by the [FEDERATED engine](../../federatedx-storage-engine/).
+With CONNECT version 1.04 (from [MariaDB 10.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.6)), another way to provide random access is to specify some columns to be indexed. This should be done only when the corresponding column of the source table is also indexed. This should be used for tables too large to be stored in memory and is similar to the remote indexing used by the [MYSQL table type](connect-mysql-table-type-accessing-mysqlmariadb-tables.md) and by the [FEDERATED engine](../../federatedx-storage-engine/).
 
 There remains the possibility to extract data from the external table and to construct\
 another table of any file format from the data source. For instance to construct\

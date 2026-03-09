@@ -22,7 +22,7 @@ The returned binary string will be [VARBINARY(16)](../../../data-types/string-da
 
 Returns `NULL` if the argument is not understood.
 
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)
+**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
 {% tabs %}
 {% tab title="Current" %}

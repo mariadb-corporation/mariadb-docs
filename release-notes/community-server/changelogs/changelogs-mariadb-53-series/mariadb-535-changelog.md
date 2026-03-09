@@ -1,10 +1,10 @@
 # MariaDB 5.3.5 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.5) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-535-release-notes.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.askmonty.org/mariadb/5.3.5) |[Release Notes](../../old-releases/5.3/5.3.5.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 **Release date:** 29 Feb 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-535-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.5.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -12,7 +12,7 @@ modified in that revision.
 
 * [Revision #3450](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3450)\
   Tue 2012-02-28 15:41:55 +0100
-  * [Bug #938977](https://bugs.launchpad.net/bugs/938977) - Query performance with join/index super slow on [MariaDB 5.3.4](../../old-releases/release-notes-mariadb-5-3-series/mariadb-534-release-notes.md) RC
+  * [Bug #938977](https://bugs.launchpad.net/bugs/938977) - Query performance with join/index super slow on [MariaDB 5.3.4](../../old-releases/5.3/5.3.4.md) RC
   * make sure that stored routines are evaluated (that is, de facto - cached) in convert\_const\_to\_int().\
     revert the fix for [Bug #806943](https://bugs.launchpad.net/bugs/806943) because it cannot be repeated anymore.\
     add few tests for convert\_const\_to\_int()
@@ -195,7 +195,7 @@ modified in that revision.
           is part of a exception handler, and sig parameter is an exception code.
   * [Revision #3429.1.2](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3429.1.2) \[merge]\
     Tue 2012-02-21 01:58:50 +0200
-    * Merge with [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+    * Merge with [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
     * [Revision #2732.46.75](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.46.75) \[merge]\
       Mon 2012-02-20 17:58:00 +0200
       * Merge with 5.1
@@ -204,7 +204,7 @@ modified in that revision.
         * Fixed compiler warnings
     * [Revision #2732.46.74](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.46.74) \[merge]\
       Mon 2012-02-20 17:49:21 +0200
-      * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1.61
+      * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) and MySQL 5.1.61
       * [Revision #2643.143.72](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.143.72) \[merge]\
         Mon 2012-02-20 16:23:18 +0200
         * Merge with MYSQL 5.1.61

@@ -1,7 +1,8 @@
 ---
 description: >-
-  Automatically generate unique identities for new rows. This attribute is
-  commonly used for primary keys to ensure sequential numbering.
+  Complete AUTO_INCREMENT data type guide for MariaDB. Complete reference for
+  syntax, valid values, storage requirements, and range limits for production
+  use.
 ---
 
 # AUTO\_INCREMENT
@@ -361,7 +362,7 @@ SELECT * FROM t1;
 ## See Also
 
 * [Getting Started with Indexes](../../mariadb-quickstart-guides/mariadb-indexes-guide.md)
-* [Sequences](../sql-structure/sequences/) - an alternative to auto\_increment available from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+* [Sequences](../sql-structure/sequences/) - an alternative to auto\_increment available from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)
 * [AUTO\_INCREMENT FAQ](auto_increment-faq.md)
 * [LAST\_INSERT\_ID()](../sql-functions/secondary-functions/information-functions/last_insert_id.md)
 * [AUTO\_INCREMENT handling in InnoDB](../../server-usage/storage-engines/innodb/auto_increment-handling-in-innodb.md)

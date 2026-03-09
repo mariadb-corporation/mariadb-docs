@@ -12,7 +12,13 @@ These instructions detail the **upgrade** from a previous version of **MariaDB E
 
 When MariaDB Enterprise Server is upgraded, the old version needs to be uninstalled, and the new version needs to be installed.
 
-See [What's New in MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5).
+See [What's New in MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5) & [Compatibility and Breaking Changes for MariaDB Enterprise Server 10.5](compatibility-and-breaking-changes-for-mariadb-enterprise-server-10.5.md)
+
+## Critical Pre-Upgrade Requirements
+
+* **Mandatory Clean Shutdown**: Upgrading to MariaDB Enterprise Server 10.5 after a server crash is not supported if the redo log was created with MariaDB Enterprise Server 10.4 or earlier. The server must be shut down cleanly before starting the upgrade process.
+* **Redo Log Preparation**: If your 10.4 configuration uses `innodb-log-files-in-group = 2` (or any value greater than 1), you **must** change this value to `1` in your configuration file, restart the 10.4 server once, and then perform a final clean shutdown before swapping the binaries to version 10.5. Failure to do so may result in InnoDB initialization errors during the upgrade.
+* **CONNECT Storage Engine**: Starting with version 10.5, the CONNECT storage engine is no longer included in the primary MariaDB Enterprise repository. To maintain access to this engine, you must add the `--include-unsupported` flag to the `mariadb_es_repo_setup` script when configuring your new repositories.
 
 ## Incompatible Changes
 

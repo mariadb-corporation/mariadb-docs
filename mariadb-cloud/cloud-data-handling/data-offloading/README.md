@@ -1,20 +1,3 @@
----
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
----
-
 # Data Offloading
 
 There are multiple options to copy/offload data from a MariaDB Cloud DB. You can do a logical dump(i.e. output all data and DDL as SQL) to your local machine. Or, dump large data sets securely using the MariaDB Cloud Backup service to your own S3 or GCS bucket.

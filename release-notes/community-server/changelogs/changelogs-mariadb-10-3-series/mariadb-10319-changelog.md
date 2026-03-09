@@ -1,16 +1,16 @@
 # MariaDB 10.3.19 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
 After an upgrade MariaDB Server can crash if InnoDB tables exist with a `FULLTEXT INDEX` and a `FOREIGN KEY` constraint attached to them. We got reports that the crash already will be encountered on startup, but a crash is also possible at a later stage. See [MDEV-20987](https://jira.mariadb.org/browse/MDEV-20987) for more details.**Do not download or use this release.**
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10319-release-notes.md)[Changelog](mariadb-10319-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.3/10.3.19.md)[Changelog](mariadb-10319-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.3.19/)
 
 **Release date:** 5 Nov 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10319-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.19.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.

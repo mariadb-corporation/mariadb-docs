@@ -1,8 +1,8 @@
 ---
 description: >-
-  Learn about date and time functions in MariaDB Server. This section details
-  SQL functions for manipulating, formatting, and calculating with date and time
-  values for various applications.
+  Complete MariaDB date and time functions guide. Complete reference for
+  formatting, calculations, conversions, time zones, and operations for
+  production use.
 ---
 
 # Date & Time Functions

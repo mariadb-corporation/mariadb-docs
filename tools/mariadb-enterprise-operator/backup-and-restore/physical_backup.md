@@ -110,6 +110,58 @@ spec:
 
 `compression` is defaulted to `none` by the operator.
 
+## Server-Side Encryption with Customer-Provided Keys (SSE-C)
+
+You can enable server-side encryption using your own encryption key (SSE-C) by providing a reference to a `Secret` containing a 32-byte (256-bit) key encoded in base64:
+
+```yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: ssec-key
+stringData:
+  # 32-byte key encoded in base64 (use: openssl rand -base64 32)
+  customer-key: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
+```
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: PhysicalBackup
+metadata:
+  name: physicalbackup
+spec:
+  mariaDbRef:
+    name: mariadb
+  storage:
+    s3:
+      bucket: physicalbackups
+      endpoint: minio.minio.svc.cluster.local:9000
+      accessKeyIdSecretKeyRef:
+        name: minio
+        key: access-key-id
+      secretAccessKeySecretKeyRef:
+        name: minio
+        key: secret-access-key
+      tls:
+        enabled: true
+        caSecretKeyRef:
+          name: minio-ca
+          key: ca.crt
+      ssec:
+        customerKeySecretKeyRef:
+          name: ssec-key
+          key: customer-key
+```
+
+{% hint style="warning" %}
+When using SSE-C, you are responsible for managing and securely storing the encryption key. If you lose the key, you will not be able to decrypt your backups. Ensure you have proper key management procedures in place.
+{% endhint %}
+
+{% hint style="info" %}
+When restoring from SSE-C encrypted backups via `bootstrapFrom`, the same key must be provided in the S3 configuration.
+{% endhint %}
+
 ## Retention policy
 
 You can define a retention policy both for backups based on `mariadb-backup` and for `VolumeSnapshots`. The retention policy allows you to specify how long backups should be retained before they are automatically deleted. This can be defined via the `maxRetention` field in the `PhysicalBackup` resource:
@@ -245,7 +297,7 @@ When timed out, the operator will delete the `Jobs` or `VolumeSnapshots` resourc
 
 ## Log level
 
-When taking backups based on `mariadb-backup`, you can specify the log level to be used by the `mariadb-operator` container using the `logLevel` field in the `PhysicalBackup` resource:
+When taking backups based on `mariadb-backup`, you can specify the log level to be used by the `mariadb-enterprise-operator` container using the `logLevel` field in the `PhysicalBackup` resource:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -438,7 +490,7 @@ Most of the fields described in this documentation apply to `VolumeSnapshots`, i
 In order to create consistent, point-in-time snapshots of the `MariaDB` data, the operator will perform the following steps:
 1. Execute a `BACKUP STAGE START` statement followed by `BACKUP STAGE BLOCK_COMMIT` in one of the secondary `Pods`.
 2. Create a `VolumeSnapshot` resource of the data PVC mounted by the `MariaDB` secondary `Pod`.
-3. Wait until the `VolumeSnapshot` resource becomes ready. When timing out, the operator will delete the `VolumeSnapshot` resource and retry the operation.
+3. Wait until the `VolumeSnapshot` is provisioned by the storage system. When timing out, the operator will delete the `VolumeSnapshot` resource and retry the operation.
 4. Issue a `BACKUP STAGE END` statement.
 
 This backup process is described in the [MariaDB documentation](https://mariadb.com/docs/server/server-usage/backup-and-restore/backup-optimization#taking-snapshots) and is designed to be [non-blocking](#non-blocking-physical-backups).
@@ -571,6 +623,12 @@ spec:
 ```
 
 Refer to [MDEV-36159](https://jira.mariadb.org/browse/MDEV-36237) for further details on this issue.
+
+#### `mariadb-backup` `Job` fails to start because the `Pod` cannot mount `MariaDB` PVC created with [openebs/lvm-localpv](https://github.com/openebs/lvm-localpv) `StorageClass` provider
+
+Without explicitly enabled [shared option](https://github.com/openebs/lvm-localpv/blob/develop/design%2Flvm%2Fstorageclass-parameters%2Fshared.md) the `ReadWriteOnce` access mode is treated as `ReadWriteOncePod`.
+
+Refer to [openebs/lvm-localpv#281](https://github.com/openebs/lvm-localpv/issues/281) for further details on this issue.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

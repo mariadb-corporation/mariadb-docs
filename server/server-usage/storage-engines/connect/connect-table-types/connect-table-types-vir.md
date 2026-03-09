@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT Table Types - VIR
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 ## VIR Type
 

@@ -1,10 +1,10 @@
 # MariaDB 5.1.41 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.41) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5141-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.41) | [Release Notes](../../old-releases/5.1/5.1.41.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 13 Jan 2010
 
-See the [MariaDB 5.1.41 Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5141-release-notes.md) for the\
+See the [MariaDB 5.1.41 Release Notes](../../old-releases/5.1/5.1.41.md) for the\
 highlights of this release.
 
 MariaDB-5.1.41 RC is based on MySQL-5.1.41, and in addition to the changes\

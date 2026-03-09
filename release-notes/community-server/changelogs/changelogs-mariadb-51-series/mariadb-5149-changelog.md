@@ -1,16 +1,16 @@
 # MariaDB 5.1.49 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.49) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5149-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.49) | [Release Notes](../../old-releases/5.1/5.1.49.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 09 Aug 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5149-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.49.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #2895](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2895) Ensure that xtradb & InnoDB plugin compiles if valgrind is installed but not valgrind debug libraries
 * [Revision #2894](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2894)\
-  This patch fixes [Bug #613408](https://bugs.launchpad.net/bugs/613408) Memory corruption with (M) aria storage engine and virtual columns in [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)\
+  This patch fixes [Bug #613408](https://bugs.launchpad.net/bugs/613408) Memory corruption with (M) aria storage engine and virtual columns in [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)\
   Fixed compiler warnings\
   Disabled some tests that doesn't work on windows (uses shell tools or strange characters)
 * [Revision #2893](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2893)\
@@ -109,7 +109,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
 * [Revision #2861](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2861)\
   fix questionable UNIV\_EXPECT's in the xtradb that confused old gcc.
 * [Revision #2860](https://bazaar.launchpad.net/~maria-captains/maria/5.1/revision/2860) \[merge]\
-  Automerge [MariaDB 5.1.47](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5147-release-notes.md) release into main.
+  Automerge [MariaDB 5.1.47](../../old-releases/5.1/5.1.47.md) release into main.
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

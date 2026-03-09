@@ -24,6 +24,9 @@ Go to [app.skysql.com](https://app.skysql.com) to sign up. You can sign up using
    * Provisioned:
      * MariaDB Server with Replicas
      * MariaDB Server Single Node
+     *   MariaDB Enterprise Cluster
+
+         <div data-gb-custom-block data-tag="hint" data-style="warning" class="hint hint-warning"><p><strong>Tech Preview Limitation</strong></p><p>MariaDB Enterprise Cluster is currently available as a <em>Tech Preview</em>. They are exclusively available on the <strong>PowerPlus</strong> tier and require a minimum of 3 nodes to maintain quorum.</p></div>
    * Serverless:&#x20;
      * MariaDB Serverless Single Node.
 3.  Select your cloud provider and region:\

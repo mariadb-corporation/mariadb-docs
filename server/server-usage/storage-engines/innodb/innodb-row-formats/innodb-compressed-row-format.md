@@ -249,7 +249,7 @@ The following `INFORMATION_SCHEMA` tables can be used to monitor the performance
 
 ## Index Prefixes with the `COMPRESSED` Row Format
 
-The `COMPRESSED` row format supports index prefixes up to 3072 bytes. In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) and before, the [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) system variable is used to configure the maximum index prefix length. In these versions, if [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) is set to `ON`, then the maximum prefix length is 3072 bytes, and if it is set to `OFF`, then the maximum prefix length is 767 bytes.
+The `COMPRESSED` row format supports index prefixes up to 3072 bytes. In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) and before, the [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) system variable is used to configure the maximum index prefix length. In these versions, if [innodb\_large\_prefix](../innodb-system-variables.md#innodb_large_prefix) is set to `ON`, then the maximum prefix length is 3072 bytes, and if it is set to `OFF`, then the maximum prefix length is 767 bytes.
 
 ## Overflow Pages with the `COMPRESSED` Row Format
 

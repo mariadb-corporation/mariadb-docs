@@ -60,7 +60,7 @@ SELECT * FROM t1;
 
 * [UUID()](uuid.md) ; Return full (128 bit) Universally Unique Identifier
 * [AUTO\_INCREMENT](../../../data-types/auto_increment.md)
-* [Sequences](../../../sql-structure/sequences/) - an alternative to auto\_increment available from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+* [Sequences](../../../sql-structure/sequences/) - an alternative to auto\_increment available from [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)
 * [SYS\_GUID](sys_guid.md) - UUID without the `-` character for Oracle compatibility
 * [UUID data type](../../../data-types/string-data-types/uuid-data-type.md)
 

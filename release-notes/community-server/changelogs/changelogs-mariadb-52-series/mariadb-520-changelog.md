@@ -1,6 +1,6 @@
 # MariaDB 5.2.0 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.0-beta) | [Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-520-release-notes.md) | **Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.0-beta) | [Release Notes](../../old-releases/5.2/5.2.0.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 10 Apr 2010
 

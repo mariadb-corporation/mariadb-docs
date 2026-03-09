@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete Galera Cluster System Variables reference for MariaDB. Complete guide
+  for configuration values, scope settings, and performance impact.
+---
+
 # Galera Cluster System Variables
 
 This page documents system variables related to Galera Cluster. For options that are not system variables, see [Galera Options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/mariadbd-options#galera-cluster-options). See [Server System Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables) for a complete list of system variables and instructions on setting them. Also see the [Full list of MariaDB options, system and status variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/full-list-of-mariadb-options-system-and-status-variables).
@@ -12,7 +18,7 @@ This page documents system variables related to Galera Cluster. For options that
 * Dynamic: No
 * Data Type: String
 * Default Value: None
-* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+* Introduced: [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 #### `wsrep_applier_retry_count`
 
@@ -42,7 +48,7 @@ This page documents system variables related to Galera Cluster. For options that
 * Dynamic: Yes
 * Data Type: Boolean
 * Default Value: `OFF`
-* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+* Removed: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 #### `wsrep_certificate_expiration_hours_warning`&#x20;
 
@@ -216,7 +222,7 @@ This variable is documented in detail here:
 * Dynamic: Yes
 * Data Type: `numeric`
 * Range: `0` to `18446744073709551615`
-* Introduced: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
+* Introduced: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
 
 #### `wsrep_ignore_apply_errors`
 
@@ -241,7 +247,7 @@ This variable is documented in detail here:
 * Data Type: Boolean
 * Default Value: `OFF`
 * Deprecated: MariaDB 10.4.2
-* Removed: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115)
+* Removed: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
 
 #### `wsrep_log_conflicts`
 
@@ -284,14 +290,14 @@ This variable is documented in detail here:
   * `REPLICATE_MYISAM`: Whether or not DML updates for a [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) tables will be replicated. This functionality is experimental and should not be relied upon in production systems.
   * `REQUIRED_PRIMARY_KEY`: Table should have PRIMARY KEY defined.
   * `STRICT_REPLICATION`: Same as the old [wsrep\_strict\_ddl](galera-cluster-system-variables.md#wsrep_strict_ddl) setting.
-  * `SKIP_APPLIER_FK_CHECKS_IN_IST`: When this operation mode is set, and the node is processing IST or catch-up, appliers skip FK[^1] checking. See [this page for details](../high-availability/rapid-node-recovery-with-ist-and-the-gcache.md#skipping-foreign-key-checks).\
+  * `APPLIER_SKIP_FK_CHECKS_IN_IST`: When this operation mode is set, and the node is processing IST or catch-up, appliers skip FK[^1] checking. See [this page for details](../high-availability/rapid-node-recovery-with-ist-and-the-gcache.md#skipping-foreign-key-checks).\
     This flag is available from MariaDB 12.0.
 * Command line: `--wsrep-mode=value`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: Enumeration
 * Default Value: (Empty)
-* Valid Values: `SKIP_APPLIER_FK_CHECKS_IN_IST`,  `BINLOG_ROW_FORMAT_ONLY`, `DISALLOW_LOCAL_GTID`, `REQUIRED_PRIMARY_KEY`, `REPLICATE_ARIA`, `REPLICATE_MYISAM` and `STRICT_REPLICATION`&#x20;
+* Valid Values: `APPLIER_SKIP_FK_CHECKS_IN_IST`,  `BINLOG_ROW_FORMAT_ONLY`, `DISALLOW_LOCAL_GTID`, `REQUIRED_PRIMARY_KEY`, `REPLICATE_ARIA`, `REPLICATE_MYISAM` and `STRICT_REPLICATION`&#x20;
 * Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 #### `wsrep_mysql_replication_bundle`
@@ -425,7 +431,7 @@ More details can be found on this page:
 
 #### `wsrep_replicate_myisam`
 
-* Description: Whether or not DML updates for [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) tables will be replicated. This functionality is still experimental and should not be relied upon in production systems. Deprecated in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), and removed in [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107), use [wsrep\_mode](galera-cluster-system-variables.md#wsrep_mode) instead.
+* Description: Whether or not DML updates for [MyISAM](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/myisam-storage-engine) tables will be replicated. This functionality is still experimental and should not be relied upon in production systems. Deprecated in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6), and removed in [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107), use [wsrep\_mode](galera-cluster-system-variables.md#wsrep_mode) instead.
 * Command line: `--wsrep-replicate-myisam[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
@@ -433,7 +439,7 @@ More details can be found on this page:
 * Data Type: Boolean
 * Valid Values: `ON`, `OFF`
 * Deprecated: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes)
+* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 #### `wsrep_restart_slave`
 
@@ -577,22 +583,22 @@ See this page for more information about this variable:
 * Dynamic: No
 * Data Type: String
 * Default Value: None
-* Introduced: [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-9-series/what-is-mariadb-109)
+* Introduced: [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109)
 
 #### `wsrep_strict_ddl`
 
-* Description: If set, reject DDL statements on affected tables not supporting Galera replication. This is done by checking if the table is InnoDB, which is the only table currently fully supporting Galera replication. MyISAM tables will not trigger the error if the experimental [wsrep\_replicate\_myisam](galera-cluster-system-variables.md#wsrep_replicate_myisam) setting is `ON`. If set, should be set on all tables in the cluster. Affected DDL statements include: [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) (e.g. CREATE TABLE t1(a int) engine=Aria) [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) [TRUNCATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/table-statements/truncate-table)[CREATE VIEW](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/views/create-view) [CREATE TRIGGER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger) [CREATE INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-index) [DROP INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-definition/drop/drop-index) [RENAME TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/rename-table) [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-table)\
+* Description: If set, reject DDL statements on affected tables not supporting Galera replication. This is done by checking if the table is InnoDB, which is the only table currently fully supporting Galera replication. MyISAM tables will not trigger the error if the experimental [wsrep\_replicate\_myisam](galera-cluster-system-variables.md#wsrep_replicate_myisam) setting is `ON`. If set, should be set on all tables in the cluster. Affected DDL statements include: [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) (e.g. CREATE TABLE t1(a int) engine=Aria) [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) [TRUNCATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/table-statements/truncate-table)[CREATE VIEW](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/views/create-view) [CREATE TRIGGER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger) [CREATE INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-index) [DROP INDEX](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-definition/drop/drop-index) [RENAME TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/rename-table) [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/drop-table)\
   Statements in [procedures](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/stored-routines/stored-procedures), [events](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/event-scheduler), and [functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/stored-routines/stored-functions) are permitted as the affected\
   tables are only known at execution. Furthermore, the various USER, ROLE, SERVER and\
-  DATABASE statements are also allowed as they do not have an affected table. Deprecated in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0) and removed in [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/what-is-mariadb-107). Use [wsrep\_mode=STRICT\_REPLICATION](galera-cluster-system-variables.md#wsrep_mode) instead.
+  DATABASE statements are also allowed as they do not have an affected table. Deprecated in [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0) and removed in [MariaDB 10.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/what-is-mariadb-107). Use [wsrep\_mode=STRICT\_REPLICATION](galera-cluster-system-variables.md#wsrep_mode) instead.
 * Command line: `--wsrep-strict-ddl[={0|1}`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)
+* Introduced: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)
 * Deprecated: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
-* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes)
+* Removed: [MariaDB 10.7.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 #### `wsrep_sync_wait`
 

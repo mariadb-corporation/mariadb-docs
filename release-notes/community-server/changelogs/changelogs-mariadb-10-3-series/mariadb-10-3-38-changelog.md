@@ -1,12 +1,12 @@
 # MariaDB 10.3.38 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-38-release-notes.md)[Changelog](mariadb-10-3-38-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.3/10.3.38.md)[Changelog](mariadb-10-3-38-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.3.38/)
 
 **Release date:** 6 Feb 2023
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-38-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.38.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.

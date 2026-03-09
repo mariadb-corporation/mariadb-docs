@@ -1,12 +1,12 @@
 # MariaDB 5.5.43 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.43)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5543-release-notes.md)[Changelog](mariadb-5543-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.43)[Release Notes](../../old-releases/5.5/5.5.43.md)[Changelog](mariadb-5543-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 1 May 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5543-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.43.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -129,7 +129,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-7814](https://jira.mariadb.org/browse/MDEV-7814) Assertion \`args\[0]->fixed' fails in Item\_func\_conv\_charset::Item\_func\_conv\_charset Removing a wrong assertion.
 * [Revision #b9a7586](https://github.com/MariaDB/server/commit/b9a7586)\
   2015-03-05 16:34:13 +0100
-  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md) server crash on update table left join with a view
+  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../old-releases/5.5/5.5.40.md) server crash on update table left join with a view
 * [Revision #83ce352](https://github.com/MariaDB/server/commit/83ce352)\
   2015-04-14 13:26:55 +1000
   * quote table name in mysql\_check:is\_view. increment version too

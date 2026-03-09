@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT Zipped File Tables
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 Connect can work on table files that are compressed in one or several zip files.
 

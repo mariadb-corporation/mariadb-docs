@@ -1,8 +1,7 @@
 ---
 description: >-
-  Add new rows to a table. This fundamental SQL command inserts explicit values
-  or query results into a database table, supporting various modifiers for
-  concurrency.
+  Complete guide to inserting data in MariaDB. Complete INSERT syntax for single
+  rows, bulk operations, and ON DUPLICATE KEY handling for production use.
 ---
 
 # INSERT

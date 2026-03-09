@@ -14,7 +14,7 @@ Caching `SHA256` first sends an `SHA256`-encrypted password. MySQL server has an
 Caching SHA256 authentication possible exchanges:
 
 * Client sends an [SHA-2 encrypted password](caching_sha2_password-authentication-plugin.md#sha-2-encrypted-password).
-* Server result is either [OK\_Packet](../4-server-response-packets/ok_packet.md) , [ERR\_Packet](../4-server-response-packets/err_packet.md) or ["fast" authentication result](caching_sha2_password-authentication-plugin.md#fast-authentication-result).
+* Server result is either [OK\_Packet](../4-server-response-packets/ok_packet.md) , [ERR\_Packet](../4-server-response-packets/err_packet.md), or ["fast" authentication result](caching_sha2_password-authentication-plugin.md#fast-authentication-result).
 * If fast authentication result:
   * If connection uses SSL ([SSLRequest](connection.md#sslrequest-packet) Packet sent):
     * Client sends a [clear password answer](caching_sha2_password-authentication-plugin.md#client-clear-password-answer).
@@ -27,26 +27,26 @@ Caching SHA256 authentication possible exchanges:
 
 ## Authentication
 
-### SHA-2 encrypted password
+### SHA-2 Encrypted Password
 
 Encryption is `XOR`(`SHA256`(password), `SHA256`(seed, `SHA256`(`SHA256`(password)))).
 
 * [byte<32>](../protocol-data-types.md#fixed-length-bytes) encrypted password.
 
-### "fast" authentication result
+### "Fast" Authentication Result
 
 Result of fast authentication.
 
-* [byte](../protocol-data-types.md#length-encoded-bytes) authentication result.
+* [byte\<lenenc>](../protocol-data-types.md#length-encoded-bytes) authentication result.
 
 `0x03` value means success authentication.\
 `0x04` value means continue.
 
-### Client clear password answer
+### Client Clear Password Answer
 
-* [string](../protocol-data-types.md#null-terminated-strings) password without encryption.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) password without encryption.
 
-### Public key request
+### Public Key Request
 
 {% hint style="warning" %}
 Value send is not `0x01` like sha256\_password use, but `0x02`.
@@ -54,16 +54,16 @@ Value send is not `0x01` like sha256\_password use, but `0x02`.
 
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) fixed 0x02 value.
 
-### Public key response
+### Public Key Response
 
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) fixed 0x01 value.
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) public key data.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) public key data.
 
-### RSA encrypted password
+### RSA Encrypted Password
 
 * [byte<256>](../protocol-data-types.md#fixed-length-bytes) RSA encrypted password.
 
-RSA encrypted value of `XOR`(password, seed) using server public key (`RSA_PKCS1_OAEP_PADDING`).
+RSA encrypted value of `XOR` (password, seed) using server public key (`RSA_PKCS1_OAEP_PADDING`).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

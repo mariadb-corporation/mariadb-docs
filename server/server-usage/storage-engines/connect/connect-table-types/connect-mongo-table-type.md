@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT MONGO Table Type: Accessing Collections from MongoDB
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 Classified as a NoSQL database program, MongoDB uses JSON-like documents (BSON) grouped in collections. The MONGO type is used to directly access MongoDB collections as tables.
 

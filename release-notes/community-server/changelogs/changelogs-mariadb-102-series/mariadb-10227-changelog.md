@@ -1,12 +1,12 @@
 # MariaDB 10.2.27 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.27/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10227-release-notes.md)[Changelog](mariadb-10227-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.27/)[Release Notes](../../old-releases/10.2/10.2.27.md)[Changelog](mariadb-10227-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 11 Sep 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10227-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.27.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -102,7 +102,7 @@ in that revision.
   * Remove test that where only applicable for MySQL
 * [Revision #2d85714448](https://github.com/MariaDB/server/commit/2d85714448)\
   2019-08-30 16:07:26 +0300
-  * Updated BUILD/SETUP from [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+  * Updated BUILD/SETUP from [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 * [Revision #d5a11a1f02](https://github.com/MariaDB/server/commit/d5a11a1f02)\
   2019-09-01 13:27:32 +0200
   * C/C

@@ -1,10 +1,10 @@
 # MariaDB 5.3.4 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.4) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-534-release-notes.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.askmonty.org/mariadb/5.3.4) |[Release Notes](../../old-releases/5.3/5.3.4.md) |**Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 **Release date:** 15 Feb 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-534-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.4.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -12,7 +12,7 @@ modified in that revision.
 
 * [Revision #3421](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3421)\
   Tue 2012-02-14 16:52:56 +0200
-  * Fix for [Bug #910123](https://bugs.launchpad.net/bugs/910123) [MariaDB 5.3.3](../../old-releases/release-notes-mariadb-5-3-series/mariadb-533-release-notes.md) causes 1093 error on Drupal
+  * Fix for [Bug #910123](https://bugs.launchpad.net/bugs/910123) [MariaDB 5.3.3](../../old-releases/5.3/5.3.3.md) causes 1093 error on Drupal
   * Problem was that now we can merge derived table (subquery in the FROM clause).
   * Fix: in case of detected conflict and presence of derived table "over" the table which cased the conflict - try materialization strategy.
 * [Revision #3420](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3420)\

@@ -19,7 +19,7 @@ There can be more than one event in a binlog file.
 ## Fields
 
 * [uint<4>](../protocol-data-types.md#fixed-length-integers) Log filename length.
-* [string](../protocol-data-types.md#fixed-length-bytes) Log filename.
+* [string\<EOF>](../protocol-data-types.md#fixed-length-bytes) Log filename.
 
 ## Example Without CRC32
 

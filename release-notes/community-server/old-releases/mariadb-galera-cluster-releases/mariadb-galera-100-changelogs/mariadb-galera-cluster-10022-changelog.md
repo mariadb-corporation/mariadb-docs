@@ -35,10 +35,10 @@ modified in that revision.
   * [MDEV-8543](https://jira.mariadb.org/browse/MDEV-8543) mysql.server script not correctly handle --pid-file.
 * [Revision #d88aaaa](https://github.com/MariaDB/server/commit/d88aaaa)\
   2015-10-28 08:34:08 +0100
-  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../release-notes-mariadb-10-0-series/mariadb-10020-release-notes.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
+  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../10.0/10.0.20.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
 * [Revision #b0e3f48](https://github.com/MariaDB/server/commit/b0e3f48)\
   2015-10-22 16:08:45 +0200
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../10.0/10.0.21.md) crashes during PREPARE
 * [Revision #ac67f9a](https://github.com/MariaDB/server/commit/ac67f9a)\
   2015-10-28 12:53:23 +0400
   * Removed mistakenly committed test file.
@@ -332,7 +332,7 @@ modified in that revision.
   * Fix assert error for where clause with UDF's was fixed in HA\_CONNECT::CondFilter moving res= pval->val\_str(\&tmp) but this was wrong. Now res is only used for strings. modified: storage/connect/ha\_connect.cc
 * [Revision #fd1b2e4](https://github.com/MariaDB/server/commit/fd1b2e4)\
   2015-09-15 17:07:41 -0400
-  * [MDEV-8803](https://jira.mariadb.org/browse/MDEV-8803): Debian jessie 8.2 + [MariaDB 10.1.7](../../release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes.md) + GaleraCluster
+  * [MDEV-8803](https://jira.mariadb.org/browse/MDEV-8803): Debian jessie 8.2 + [MariaDB 10.1.7](../../10.1/10.1.7.md) + GaleraCluster
 * [Revision #653aadc](https://github.com/MariaDB/server/commit/653aadc)\
   2015-09-15 16:27:04 -0400
   * [MDEV-8804](https://jira.mariadb.org/browse/MDEV-8804): bootstrap command missing in debian init script

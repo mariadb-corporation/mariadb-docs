@@ -24,7 +24,7 @@ AES_ENCRYPT(str,key_str)
 
 ## Description
 
-`AES_ENCRYPT()` and [AES\_DECRYPT()](aes_decrypt.md) allow encryption and decryption of data using the official AES (Advanced Encryption Standard) algorithm, previously known as "Rijndael." Encoding with a 128-bit key length is used (from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes), this is the default, and can be changed). 128 bits is much faster and is secure enough for most purposes.
+`AES_ENCRYPT()` and [AES\_DECRYPT()](aes_decrypt.md) allow encryption and decryption of data using the official AES (Advanced Encryption Standard) algorithm, previously known as "Rijndael." Encoding with a 128-bit key length is used (from [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), this is the default, and can be changed). 128 bits is much faster and is secure enough for most purposes.
 
 `AES_ENCRYPT()` encrypts a string _`str`_ using the key _`key_str`_, and returns a binary string.
 
@@ -40,7 +40,7 @@ Because AES is a block-level algorithm, padding is used to encode uneven length 
 
 If `AES_DECRYPT()` detects invalid data or incorrect padding, it returns `NULL`. However, it is possible for `AES_DECRYPT()` to return a non-`NULL` value (possibly garbage) if the input data or the key is invalid.
 
-**MariaDB starting with** [**11.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112)
+**MariaDB starting with** [**11.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112)
 
 {% tabs %}
 {% tab title="Current" %}

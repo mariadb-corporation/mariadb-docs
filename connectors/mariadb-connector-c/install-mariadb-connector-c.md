@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete MariaDB installation guide. Complete setup instructions for Linux,
+  Windows, and macOS with configuration and verification for production use.
+---
+
 # Install MariaDB Connector/C
 
 MariaDB Connector/C supports several Linux distributions and Microsoft Windows.
@@ -55,7 +61,7 @@ To configure the ES package repository:
     $ chmod +x mariadb_es_repo_setup
     ```
 
-    1. Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) page. Subsitute `${checksum}` in the example above with the latest checksum. 
+    1. Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) page. Subsitute `${checksum}` in the example above with the latest checksum.
 3. Retrieve your Customer Download Token at [Customer Download Token at the MariaDB Customer Portal](https://customers.mariadb.com/downloads/token/) and substitute your token for `CUSTOMER_DOWNLOAD_TOKEN` in the following step.
 4.  Configure the ES package repository using the [mariadb\_es\_repo\_setup](http://localhost:8000/docs/server/ref/repo/cli/mariadb_es_repo_setup/) utility:
 
@@ -109,7 +115,7 @@ To configure the CS package repository:
     chmod +x mariadb_repo_setup
     ```
 
-    1. Checksums of the various releases of the `mariadb_repo_setup` script can be found in the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) page. Subsitute `${checksum}` in the example above with the latest checksum. 
+    1. Checksums of the various releases of the `mariadb_repo_setup` script can be found in the [Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#versions) section at the bottom of the [MariaDB Package Repository Setup and Usage](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) page. Subsitute `${checksum}` in the example above with the latest checksum.
 3.  Configure the CS package repository using the [mariadb\_repo\_setup](http://localhost:8000/docs/server/ref/repo/cli/mariadb_repo_setup/) utility:
 
     ```bash

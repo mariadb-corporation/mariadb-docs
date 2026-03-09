@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT Table Types Overview
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 CONNECT can handle very many table formats; it is indeed one of its main\
 features. The Type option specifies the type and format of the table. The Type\

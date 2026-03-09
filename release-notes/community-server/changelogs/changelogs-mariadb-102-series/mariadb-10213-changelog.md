@@ -1,12 +1,12 @@
 # MariaDB 10.2.13 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.13)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10213-release-notes.md)[Changelog](mariadb-10213-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.13)[Release Notes](../../old-releases/10.2/10.2.13.md)[Changelog](mariadb-10213-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 13 Feb 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10213-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.13.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -394,7 +394,7 @@ in that revision.
   * Compilation speed (#546)
 * [Revision #fc65577873](https://github.com/MariaDB/server/commit/fc65577873)\
   2018-01-13 18:04:03 +0200
-  * [MDEV-14887](https://jira.mariadb.org/browse/MDEV-14887) On a 32-bit system, [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) mishandles data file sizes exceeding 4GiB
+  * [MDEV-14887](https://jira.mariadb.org/browse/MDEV-14887) On a 32-bit system, [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) mishandles data file sizes exceeding 4GiB
 * [Revision #09ef28abd7](https://github.com/MariaDB/server/commit/09ef28abd7)\
   2018-01-13 16:38:43 +0200
   * Fixed BUILD scripts
@@ -435,7 +435,7 @@ in that revision.
   * [MDEV-14130](https://jira.mariadb.org/browse/MDEV-14130) InnoDB messages should not refer to the MySQL 5.7 manual
 * [Revision #d1cf9b167c](https://github.com/MariaDB/server/commit/d1cf9b167c)\
   2018-01-10 13:18:02 +0200
-  * [MDEV-14909](https://jira.mariadb.org/browse/MDEV-14909) [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) refuses to start up after clean shutdown of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md)
+  * [MDEV-14909](https://jira.mariadb.org/browse/MDEV-14909) [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) refuses to start up after clean shutdown of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md)
 * [Revision #b132d4d749](https://github.com/MariaDB/server/commit/b132d4d749)\
   2018-01-09 22:52:01 +0000
   * Windows, compilation : Treat warning as error, if MYSQL\_MAINTAINER\_MODE is set to ERR
@@ -464,7 +464,7 @@ in that revision.
 * Merge [Revision #da39ca1f67](https://github.com/MariaDB/server/commit/da39ca1f67) 2018-01-06 17:39:19 +0000 - Merge branch '10.2' of [server](https://github.com/mariadb/server) into 10.2
 * [Revision #15b1840f43](https://github.com/MariaDB/server/commit/15b1840f43)\
   2018-01-05 12:13:23 -0800
-  * Added the test case from for [MDEV-14777](https://jira.mariadb.org/browse/MDEV-14777): Crash in [MariaDB 10.2.12](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10212-release-notes.md) on query using VIEW and WITH RECURSIVE.
+  * Added the test case from for [MDEV-14777](https://jira.mariadb.org/browse/MDEV-14777): Crash in [MariaDB 10.2.12](../../old-releases/10.2/10.2.12.md) on query using VIEW and WITH RECURSIVE.
 * [Revision #578345305e](https://github.com/MariaDB/server/commit/578345305e)\
   2018-01-05 10:17:29 -0800
   * Added a test case for [MDEV-13454](https://jira.mariadb.org/browse/MDEV-13454): Improper error in ONLY\_FULL\_GROUP\_BY sql\_mode with condition\_pushdown\_for\_derived=on

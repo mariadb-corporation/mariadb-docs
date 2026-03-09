@@ -2,7 +2,7 @@
 
 #### `optimizer_adjust_secondary_key_costs`
 
-* Description: Gives the user the ability to affect how the costs for secondary keys using `ref` are calculated in the few cases when [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) up to [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011) makes a sub-optimal choice when optimizing `ref` access, either for key lookups or `GROUP BY`. `ref`, as used by [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md), means that the optimizer is using key-lookup on one value to find the matching rows from a table. Unused from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110). In [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-18-release-notes) the variable was changed from a number to a set of strings and `disable_forced_index_in_group_by` (value 4) was added.
+* Description: Gives the user the ability to affect how the costs for secondary keys using `ref` are calculated in the few cases when [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) up to [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011) makes a sub-optimal choice when optimizing `ref` access, either for key lookups or `GROUP BY`. `ref`, as used by [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md), means that the optimizer is using key-lookup on one value to find the matching rows from a table. Unused from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110). In [MariaDB 10.6.18](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-18-release-notes) the variable was changed from a number to a set of strings and `disable_forced_index_in_group_by` (value 4) was added.
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `set`
@@ -27,9 +27,9 @@ MariaDB [securedb]> select @@optimizer_adjust_secondary_key_costs;
 +---------------------------------------------+
 ```
 
-**MariaDB starting with** [**11.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110)
+**MariaDB starting with** [**11.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)
 
-`optimizer_adjust_secondary_key_costs` will be obsolete starting from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110) as the new optimizer in 11.0 does not have max\_seek optimization and is already using cost based choices for index usage with GROUP BY.
+`optimizer_adjust_secondary_key_costs` will be obsolete starting from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) as the new optimizer in 11.0 does not have max\_seek optimization and is already using cost based choices for index usage with GROUP BY.
 
 The value for `optimizer_adjust_secondary_key_costs` is one of more of the following:
 

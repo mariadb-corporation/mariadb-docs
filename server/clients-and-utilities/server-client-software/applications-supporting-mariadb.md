@@ -10,8 +10,8 @@ Note: Every project we know of which works with MySQL also works with MariaDB. T
 
 * [dbForge Studio](https://www.devart.com/dbforge/mysql/studio/mariadb-gui-client.html) is a versatile and feature-rich IDE designed for MySQL and MariaDB professionals. It fully supports all individual features of MariaDB, such as support for Packages and Sequences, and other specificities.
 * [Dynamic Active Record](https://github.com/tom--/yii2-dynamic-ar) - The yii2-dynamic-ar extension uses MariaDB dynamic columns to add NoSQL-like documents to Yii 2 Framework's Active Record ORM.
-* [ocelotgui](https://ocelot.ca/) - supports [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) [window functions](../../reference/sql-functions/special-functions/window-functions/).
-* [Shard-query](https://mariadb.com/kb/en/) has special support for [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) features
+* [ocelotgui](https://ocelot.ca/) - supports [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) [window functions](../../reference/sql-functions/special-functions/window-functions/).
+* [Shard-query](https://mariadb.com/kb/en/) has special support for [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) features
 * [SQL Maestro for MySQL](https://www.sqlmaestro.com/products/mysql/maestro/) is a database management tool that provides direct support for a number of MariaDB features like [roles](../../security/user-account-management/roles/), [check constraints](../../reference/sql-statements/data-definition/constraint.md#check-constraint-expressions), and [virtual columns](../../reference/sql-statements/data-definition/create/generated-columns.md).
 
 ## Officially Supports MariaDB
@@ -41,6 +41,7 @@ Note: Every project we know of which works with MySQL also works with MariaDB. T
 * [ImpressCMS,a community-developed content-management system](https://impresscms.org)
 * [Jelastic - Java in the cloud](https://jelastic.com/docs/connection-to-mariadb)
 * [Kajona³ - Open Source Content Management Framework](https://www.kajona.de/) ([support announcement](https://www.kajona.de/newsdetails.Kajona-running-with-MariaDB.newsDetail.20ba9f14ce4227452730.en.html))
+* [Matomo](https://matomo.org/) – Matomo is an open-source web analytics platform that prioritizes user privacy and data ownership, providing a powerful, GDPR-compliant alternative to Google Analytics.
 * [MediaWiki](https://www.mediawiki.org/) ([installation guide](https://www.mediawiki.org/wiki/Manual:Installation_guide))
 * [MicroStrategy](https://www2.microstrategy.com/producthelp/current/FunctionsRef/Content/FuncRef/Maria_DB.htm)
 * [Moodle](https://docs.moodle.org/dev/Moodle_architecture#Requirements)

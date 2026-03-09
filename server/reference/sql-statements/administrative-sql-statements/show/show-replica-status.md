@@ -1,7 +1,8 @@
 ---
 description: >-
-  View the status of replication threads. This statement displays critical
-  metrics like log positions and error status for the replica.
+  Complete SHOW REPLICA STATUS: FOR CHANNEL/connection_name syntax, SHOW ALL
+  REPLICAS option, thread states (Slave_IO/SQL_Running), and lag/log/GTID
+  fields.
 ---
 
 # SHOW REPLICA STATUS
@@ -54,7 +55,7 @@ The rows are sorted according to `Connection_name`.
 
 If you specify a `connection_name`, you only get the information about that connection. If `connection_name` is not used, then the name set by `default_master_connection` is used. If the connection name doesn't exist you will get an error:`There is no master connection for 'xxx'`.
 
-**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes)
+**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical to using the channel\_name directly after `SHOW SLAVE`.
 

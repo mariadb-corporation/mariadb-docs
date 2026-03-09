@@ -2,7 +2,7 @@
 
 The NOT NULL range scan optimization enables the optimizer to construct range scans from NOT NULL conditions that it was able to infer from the WHERE clause.
 
-The optimization appeared in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes). It is not enabled by default; one needs to set an `optimizer_switch` flag to enable it.
+The optimization appeared in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0). It is not enabled by default; one needs to set an `optimizer_switch` flag to enable it.
 
 ## Description
 

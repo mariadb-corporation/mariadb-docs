@@ -1,12 +1,12 @@
 # MariaDB 5.5.25 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.25) |[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5525-release-notes.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.25) |[Release Notes](../../old-releases/5.5/5.5.25.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 22 Jun 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5525-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.25.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -403,7 +403,7 @@ modified in that revision.
       * skip `--plugin-load` if it has the empty soname part, not only if the whole argument is empty.
   * [Revision #3433.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3433.2.1)\
     Wed 2012-06-06 14:15:29 +0200
-    * [MDEV-302](https://jira.mariadb.org/browse/MDEV-302) [Bug #988204](https://bugs.launchpad.net/bugs/988204) [MariaDB 5.5.23](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5523-release-notes.md) binaries don't use libaio
+    * [MDEV-302](https://jira.mariadb.org/browse/MDEV-302) [Bug #988204](https://bugs.launchpad.net/bugs/988204) [MariaDB 5.5.23](../../old-releases/5.5/5.5.23.md) binaries don't use libaio
     * simplify debian/dist/\*/rules slightly.
     * move hard-coded config value to cmake files.
     * (the actual fix is -DBUILD\_CONFIG=mysql\_release)
@@ -488,7 +488,7 @@ modified in that revision.
   * Fixed [MDEV-331](https://jira.mariadb.org/browse/MDEV-331): last\_insert\_id() returns a signed number
 * [Revision #3429](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/3429)\
   Fri 2012-06-08 11:18:56 +0200
-  * [MDEV-329](https://jira.mariadb.org/browse/MDEV-329): [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) does not use fdatasync().
+  * [MDEV-329](https://jira.mariadb.org/browse/MDEV-329): [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) does not use fdatasync().
   * The `--debug-no-sync` incorrectly defaulted to ON, disabling sync calls\
     by default which can loose data or cause corruption. Also, the code\
     used fsync() instead of the sometimes more efficient fdatasync().

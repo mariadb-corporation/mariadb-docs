@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 **Release date:** 7 Aug 2018
 
 MariaDB Galera Cluster 10.0.36 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 10.0.36](../../release-notes-mariadb-10-0-series/mariadb-10036-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 10.0.36](../../10.0/10.0.36.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -15,7 +15,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 
 For a list of changes made in MariaDB Galera Cluster 10.0.36, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.36 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10036-changelog.md).\
-For changes made in [MariaDB 10.0.36](../../release-notes-mariadb-10-0-series/mariadb-10036-release-notes.md), see the [MariaDB 10.0.36 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10036-changelog.md)
+For changes made in [MariaDB 10.0.36](../../10.0/10.0.36.md), see the [MariaDB 10.0.36 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10036-changelog.md)
 
 ## Updates and fixes in this version
 
@@ -24,12 +24,12 @@ For changes made in [MariaDB 10.0.36](../../release-notes-mariadb-10-0-series/ma
 * The [Galera library](https://codership.com/content/using-galera-cluster) used\
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.23.
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2018-3064](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3064)
   * [CVE-2018-3063](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3063)
   * [CVE-2018-3058](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3058)
   * [CVE-2018-3066](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-3066)
-* See the [MariaDB 10.0.36 Release Notes](../../release-notes-mariadb-10-0-series/mariadb-10036-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10036-changelog.md) for more information on the changes in\
+* See the [MariaDB 10.0.36 Release Notes](../../10.0/10.0.36.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10036-changelog.md) for more information on the changes in\
   MariaDB.
 
 ## Notes

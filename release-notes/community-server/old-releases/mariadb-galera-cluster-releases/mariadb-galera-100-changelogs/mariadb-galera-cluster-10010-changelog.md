@@ -41,7 +41,7 @@ modified in that revision.
     * Fixes for some test failures.
   * [Revision #3808.2.5](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3808.2.5) \[merge]\
     Tue 2014-04-08 10:36:34 -0400
-    * Merging [MariaDB 10.0.10](../../release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md)
+    * Merging [MariaDB 10.0.10](../../10.0/10.0.10.md)
   * [Revision #3808.2.4](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3808.2.4) \[merge]\
     Fri 2014-03-28 08:26:08 -0400
     * Merged revision 3471, 3472 & 3473 from maria-5.5-galera.
@@ -87,7 +87,7 @@ modified in that revision.
       * Merging InnoDB changes to xtradb (r3783..3808).
   * [Revision #3808.2.1](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3808.2.1) \[merge]\
     Wed 2014-03-26 14:32:51 -0400
-    * Merging [MariaDB 10.0.9](../../release-notes-mariadb-10-0-series/mariadb-1009-release-notes.md)
+    * Merging [MariaDB 10.0.9](../../10.0/10.0.9.md)
 * [Revision #3811](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3811)\
   Wed 2014-04-02 22:35:12 -0400\
   \*

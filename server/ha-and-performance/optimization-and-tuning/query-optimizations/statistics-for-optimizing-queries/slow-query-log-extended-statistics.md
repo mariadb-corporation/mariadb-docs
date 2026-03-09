@@ -57,13 +57,13 @@ You can define which queries to log to the slow query log by setting the variabl
   * Log statement if it uses filesort
 * `filesort_on_disk`
   * Log statement if it uses filesort that needs temporary tables on disk
-* `filesort_priority_queue` (from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1032-release-notes))
+* `filesort_priority_queue` (from [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2))
   * Log statement if it uses filesort with priority\_queue (filesort can either use disk or priority queue).
 * `full_join`
   * Log statements that don't uses indexes to join tables
 * `full_scan`
   * Log statements that use full table scans
-* `not_using_index` (From [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes))
+* `not_using_index` (From [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1))
   * Logs queries that don't use an index, or that perform a full index scan where the index doesn't limit the number of rows
   * Disregards long\_query\_time, unlike other options!
   * [log\_queries\_not\_using\_indexes](../../system-variables/server-system-variables.md#log_queries_not_using_indexes) maps to this option
@@ -88,7 +88,7 @@ Note that in any case, only queries that takes longer than **log\_slow\_time** o
 
 **MariaDB starting with** [10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16)
 
-If one enables the warning option for `log_slow_verbosity`, all notes and warnings for a slow query will also be added to the slow query log. This is very usable when one has enabled warnings for [Notes when an index cannot be used](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/notes-when-an-index-cannot-be-used). `log_slow_max_warnings` limits the number of warnings printed to the slow query log per query. The default value is 10.
+If one enables the warning option for `log_slow_verbosity`, all notes and warnings for a slow query will also be added to the slow query log. This is very usable when one has enabled warnings for [Notes when an index cannot be used](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/6i8fZzcvmNSFbrzV3oWU). `log_slow_max_warnings` limits the number of warnings printed to the slow query log per query. The default value is 10.
 
 ## Credits
 
@@ -96,7 +96,7 @@ Part of this addition is based on the [microslow](https://www.percona.com/percon
 
 ## See also
 
-* [Notes when an index cannot be used because of type conversions](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/notes-when-an-index-cannot-be-used)
+* [Notes when an index cannot be used because of type conversions](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/6i8fZzcvmNSFbrzV3oWU)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

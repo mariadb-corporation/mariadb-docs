@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 **Release date:** 26 Jul 2017
 
 MariaDB Galera Cluster 5.5.57 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 5.5.57](../../release-notes-mariadb-5-5-series/mariadb-5557-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 5.5.57](../../5.5/5.5.57.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -21,12 +21,12 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 * The [Galera library](https://codership.com/content/using-galera-cluster) used\
   by MariaDB Galera Cluster and included in the MariaDB repositories is\
   currently at version 25.3.20.
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2017-3636](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3636)
   * [CVE-2017-3641](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3641)
   * [CVE-2017-3653](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3653)
 
-See the [MariaDB 5.5.57 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5557-release-notes.md) for more\
+See the [MariaDB 5.5.57 Release Notes](../../5.5/5.5.57.md) for more\
 information on fixes in this version.
 
 ## Changelog

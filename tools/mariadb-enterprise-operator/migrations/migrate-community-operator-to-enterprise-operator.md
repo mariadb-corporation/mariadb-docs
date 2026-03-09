@@ -1,4 +1,3 @@
-
 # Migrate Community operator to Enterprise operator
 
 In this guide, we will be migrating from the [MariaDB Community Operator](https://github.com/mariadb-operator/mariadb-operator) to the [MariaDB Enterprise Kubernetes Operator](../README.md) without downtime. This guide assumes:
@@ -7,7 +6,7 @@ In this guide, we will be migrating from the [MariaDB Community Operator](https:
 * `MariaDB` community resources will be migrated to its counterpart `MariaDB` enterprise resource. In this case, we will be using `11.4.4` version, which is supported in both community and enterprise versions. Check the supported [MariaDB Enterprise images](../docker-images.md) and migrate to a counterpart community version first if needed.
 * `MaxScale` resources cannot be migrated in a similar way, they need to be recreated. To avoid downtime, temporarily point your applications to `MariaDB` directly during the migration.
 
-**1.** Install the Enterprise CRDs as described in the [Helm documentation](../mariadb-enterprise-operator-installation/helm.md#installing-crds).
+**1.** Install the Enterprise CRDs as described in the [Helm documentation](../installation/helm.md#installing-crds).
 
 **2.** Get the [migration script](https://operator.mariadb.com/scripts/migrate_enterprise.sh) and grant execute permissions:
 
@@ -35,13 +34,13 @@ NEW_MARIADB_OPERATOR_IMAGE="docker.mariadb.com/mariadb-enterprise-operator:<oper
 helm uninstall mariadb-operator
 ```
 
-**6.** If your `MariaDB` Community had Galera enabled, delete the `<mariadb-name>` `Role`, as it will be specyfing the Community CRDs:
+**6.** If your `MariaDB` Community had Galera enabled, delete the `<mariadb-name>` `Role`, as it will be specifying the Community CRDs:
 
 ```sh
 kubectl delete role <mariadb-name>
 ```
 
-**7.** Install the Enterprise operator as described in the [Helm documentation](../mariadb-enterprise-operator-installation/helm.md#installing-the-operator). This will trigger a rolling upgrade, make sure it finishes successfully before proceeding with the next step.
+**7.** Install the Enterprise operator as described in the [Helm documentation](../installation/helm.md#installing-the-operator). This will trigger a rolling upgrade, make sure it finishes successfully before proceeding with the next step.
 
 **8.** Delete the finalizers and uninstall the Community CRDs:
 

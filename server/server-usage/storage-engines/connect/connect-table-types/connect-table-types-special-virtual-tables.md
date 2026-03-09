@@ -1,14 +1,10 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT Table Types - Special "Virtual" Tables
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
-The special table types supported by CONNECT are the Virtual table type ([VIR](connect-table-types-vir.md) - introduced in [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10015-release-notes)), Directory Listing table type (DIR), the Windows Management Instrumentation Table Type (WMI), and the “Mac Address” type (MAC).
+The special table types supported by CONNECT are the Virtual table type ([VIR](connect-table-types-vir.md) - introduced in [MariaDB 10.0.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.15)), Directory Listing table type (DIR), the Windows Management Instrumentation Table Type (WMI), and the “Mac Address” type (MAC).
 
 These tables are “virtual tables”, meaning they have no physical data but rather produce result data using specific algorithms. Note that this is close to what Views are, so they could be regarded as special views.
 
@@ -113,18 +109,10 @@ option_list='Namespace=root\\cli,Class=Msft_CliAlias';
 
 WMI tables returns one row for each instance of the related information. The above example is handy to get the class equivalent of the alias of the WMIC command and also to have a list of many classes commonly used.
 
-Because most of the useful classes belong to the 'root\cimv2' namespace, this\
-is the default value for WMI tables when the namespace is not specified. Some\
-classes have many properties whose name and type may not be known when creating\
-the table. To find them, you can use the WMI CMI Studio application but his\
-are rarely required because CONNECT is able to retrieve them.
+Because most of the useful classes belong to the 'root\cimv2' namespace, this is the default value for WMI tables when the namespace is not specified. Some classes have many properties whose name and type may not be known when creating the table. To find them, you can use the WMI CMI Studio application but his are rarely required because CONNECT is able to retrieve them.
 
-Actually, the class specification also has default values for some namespaces.\
-For the ‘root\cli’ namespace the class name defaults to ‘Msft\_CliAlias’ and for\
-the ‘root\_cimv2’ namespace the class default value is\
-‘Win32\_ComputerSystemProduct’. Because many class names begin with ‘Win32\_’ it\
-is not necessary to say it and specifying the class as ‘Product’ will\
-effectively use class ‘Win32\_Product’.
+Actually, the class specification also has default values for some namespaces. For the ‘root\cli’ namespace the class name defaults to ‘Msft\_CliAlias’ and for the ‘root\_cimv2’ namespace the class default value is ‘Win32\_ComputerSystemProduct’. Because many class names begin with ‘Win32\_’ it\
+is not necessary to say it and specifying the class as ‘Product’ will effectively use class  'Win32\_Product’.
 
 For example if you define a table as:
 
@@ -154,37 +142,21 @@ Will return a result such as:
 
 **Note:** This is a transposed display that can be obtained with some GUI.
 
-### Getting column information
+### Getting Column Information
 
-An issue, when creating a WMI table, is to make its column definition. Indeed,\
-even when you know the namespace and the class for the wanted information, it\
-is not easy to find what are the names and types of its properties. However,\
-because CONNECT can retrieve this information from the WMI provider, you can\
-simply omit defining columns and CONNECT will do the job.
+An issue, when creating a WMI table, is to make its column definition. Indeed, even when you know the namespace and the class for the wanted information, it is not easy to find what are the names and types of its properties. However, because CONNECT can retrieve this information from the WMI provider, you can simply omit defining columns and CONNECT will do the job.
 
 Alternatively, you can get this information using a catalog table (see below).
 
 ### Performance Consideration
 
-Some WMI providers can be very slow to answer. This is not an issue for those\
-that return few object instances, such as the ones returning computer,\
-motherboard, or Bios information. They generally return only one row\
-(instance). However, some can return many rows, in particular the\
-"CIM\_DataFile" class. This is why care must be taken about them.
+Some WMI providers can be very slow to answer. This is not an issue for those that return few object instances, such as the ones returning computer, motherboard, or Bios information. They generally return only one row (instance). However, some can return many rows, in particular the "CIM\_DataFile" class. This is why care must be taken about them.
 
-Firstly, it is possible to limit the allocated result size by using the\
-‘Estimate’ create table option. To avoid result truncation, CONNECT allocates a\
-result of 100 rows that is enough for almost all tables.The 'Estimate' option\
-permits to reduce this size for all classes that return only a few rows, and in\
-some rare case to increase it to avoid truncation.
+Firstly, it is possible to limit the allocated result size by using the ‘Estimate’ create table option. To avoid result truncation, CONNECT allocates a result of 100 rows that is enough for almost all tables.The 'Estimate' option permits to reduce this size for all classes that return only a few rows, and in some rare case to increase it to avoid truncation.
 
-However, it is not possible to limit the time taken by some WMI providers to\
-answer, in particular the CIM\_DATAFILE class. Indeed the Microsoft\
-documentation says about it:
+However, it is not possible to limit the time taken by some WMI providers to answer, in particular the CIM\_DATAFILE class. Indeed the Microsoft documentation says about it:
 
-"Avoid enumerating or querying for all instances of CIM\_DataFile on a\
-computer because the volume of data is likely to either affect performance or\
-cause the computer to stop responding."
+"Avoid enumerating or querying for all instances of CIM\_DataFile on a computer because the volume of data is likely to either affect performance or cause the computer to stop responding."
 
 Sure enough, even a simple query such as:
 
@@ -192,16 +164,11 @@ Sure enough, even a simple query such as:
 SELECT COUNT(*) FROM cim WHERE drive = 'D:' AND PATH like '\\MariaDB\\%';
 ```
 
-is prone to last almost forever (probably due to the LIKE clause). This is why,\
-when not asking for some specific items, you should consider using the DIR\
-table type instead.
+is prone to last almost forever (probably due to the LIKE clause). This is why, when not asking for some specific items, you should consider using the DIR table type instead.
 
 ### Syntax of WMI queries
 
-Queries to WMI providers are done using the WQL language, not the SQL language.\
-CONNECT does the job of making the WQL query. However, because of the\
-restriction of the WQL syntax, the WHERE clause are generated only when\
-respecting the following restrictions:
+Queries to WMI providers are done using the WQL language, not the SQL language. CONNECT does the job of making the WQL query. However, because of the restriction of the WQL syntax, the WHERE clause are generated only when respecting the following restrictions:
 
 1. No function.
 2. No comparison between two columns.

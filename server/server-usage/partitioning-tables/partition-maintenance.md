@@ -167,7 +167,7 @@ How many partitions?
 * [MyISAM](../storage-engines/myisam-storage-engine/), before version 5.6.6, would lock all partitions before pruning!
 * Partition pruning does not happen on INSERTs (until Version 5.6.7), so INSERT needs to open all the partitions.
 * A possible 2-partition use case: [read.php?24,633179,633179](https://forums.mysql.com/read.php?24,633179,633179)
-* 8192 partitions is a hard limit (1024 before [MariaDB 10.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1004-release-notes)).
+* 8192 partitions is a hard limit (1024 before [MariaDB 10.0.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.4)).
 * Before "native partitions" (5.7.6), each partition consumed a chunk of memory.
 
 ## Detailed Code

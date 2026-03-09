@@ -120,7 +120,7 @@ Here is the info about the feature:[recursive-common-table-expressions-overview]
 
 MariaDB Columnstore lacks UNION EXCEPT INTERSECT handling, so as of now Columnstore hands over the processing back to MariaDB Server if a query contains UNION EXCEPT or UNION INTERCEPT
 
-Here is the info about the feature:[except](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/except)[intersect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/intersect)
+Here is the info about the feature:[except](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/except)[intersect](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/set-operations/intersect)
 
 **Skills needed:** modern C++**Mentors:** Alexey Antipovsky
 

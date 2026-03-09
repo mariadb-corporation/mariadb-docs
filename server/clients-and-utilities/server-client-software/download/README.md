@@ -10,7 +10,7 @@ Instructions how to install the packages can be found [here](../../../server-man
 
 #### Pre-Release Binaries
 
-Binaries from our [Buildbot](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/buildbot) system at [buildbot.mariadb.org](https://buildbot.mariadb.org) are available as containers on quay.io/mariadb-foundation/mariadb-devel:{major version}. Tags available are listed [here](https://quay.io/repository/mariadb-foundation/mariadb-devel?tab=tags).
+Binaries from our [Buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA) system at [buildbot.mariadb.org](https://buildbot.mariadb.org) are available as containers on quay.io/mariadb-foundation/mariadb-devel:{major version}. Tags available are listed [here](https://quay.io/repository/mariadb-foundation/mariadb-devel?tab=tags).
 
 These haven't passed through a full release process; however changes there have been reviewed and are considered complete by the server developers. Its recommend to use these for testing.
 
@@ -18,7 +18,7 @@ These haven't passed through a full release process; however changes there have 
 
 The [mariadb.org/download](https://mariadb.org/download/) download page contains the source for all released binaries. You can find the latest source code at [server](https://github.com/MariaDB/server)
 
-To retrieve the code, the [Git](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/using-git-with-mariadb/using-git) source control software offers\
+To retrieve the code, the [Git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM) source control software offers\
 the path of least resistance. If you are unfamiliar with git, please refer to\
 the [git documentation](https://git-scm.com/doc) for an understanding\
 of version control with git.

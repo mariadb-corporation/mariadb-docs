@@ -1,7 +1,8 @@
 ---
 description: >-
-  A quickstart guide for getting a MariaDB instance running using `docker run`,
-  connecting with the client, and managing the container lifecycle.
+  Complete guide to MariaDB in Docker. Complete resource for container
+  deployment, volume management, networking, and environment setup for
+  production use.
 ---
 
 # Installing and Using MariaDB via Docker

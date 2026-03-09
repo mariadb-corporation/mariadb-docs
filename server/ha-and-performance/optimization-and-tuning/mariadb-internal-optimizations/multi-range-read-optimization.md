@@ -5,7 +5,7 @@ Multi Range Read is an optimization aimed at improving performance for IO-bound 
 Multi Range Read can be used with
 
 * `range` access
-* `ref` and `eq_ref` access, when they are using [Batched Key Access](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms#batch-key-access-join)
+* `ref` and `eq_ref` access, when they are using [Batched Key Access](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2#batch-key-access-join)
 
 as shown in this diagram:
 

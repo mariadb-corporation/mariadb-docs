@@ -1,6 +1,6 @@
 # MariaDB 5.5.33a Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
 [Download](https://downloads.mariadb.org/mariadb/5.5.33a) |[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
@@ -29,14 +29,14 @@ modified in that revision.
   * [MDEV-5026](https://jira.mariadb.org/browse/MDEV-5026) cannot use system jemalloc
 * [Revision #3908](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3908)\
   Wed 2013-09-18 17:25:10 +0200
-  * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5533-release-notes.md) with .frm from older MariaDB release
+  * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/5.5/5.5.33.md) with .frm from older MariaDB release
   * Don't fail when an frm is inconsistent (legacy DB\_TYPE\_xxx code doesn't match the engine name), use the engine name, ignore the legacy code.
 * [Revision #3907](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3907)\
   Wed 2013-09-18 10:30:23 +0200
   * fix upgrades when mariadb-galera-server-5.5 is installed
 * [Revision #3906](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3906)\
   Wed 2013-09-18 09:09:27 +0200
-  * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5533-release-notes.md) with .frm from older MariaDB release
+  * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../old-releases/5.5/5.5.33.md) with .frm from older MariaDB release
   * don't set TABLE\_SHARE::keys before TABLE\_SHARE::key\_info is set, otherwise an error might leave only the first property set and it will confuse TABLE\_SHARE::destroy()
 * [Revision #3905](https://bazaar.launchpad.net/~maria-captains/maria/5.5-release/revision/3905) \[merge]\
   Tue 2013-09-17 20:44:34 +0200

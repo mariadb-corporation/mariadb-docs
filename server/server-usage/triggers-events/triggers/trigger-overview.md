@@ -1,7 +1,7 @@
 ---
 description: >-
-  A comprehensive guide to triggers, explaining their execution timing
-  (BEFORE/AFTER), supported events, and how they interact with storage engines.
+  Complete MariaDB triggers overview: BEFORE/AFTER INSERT/UPDATE/DELETE timing,
+  CREATE TRIGGER syntax, FOLLOWS|PRECEDES ordering, and DROP/SHOW TRIGGERS.
 ---
 
 # Trigger Overview

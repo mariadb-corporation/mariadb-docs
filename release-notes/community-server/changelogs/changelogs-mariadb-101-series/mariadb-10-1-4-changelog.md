@@ -1,12 +1,12 @@
 # MariaDB 10.1.4 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.4)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-4-release-notes.md)[Changelog](mariadb-10-1-4-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.4)[Release Notes](../../old-releases/10.1/10.1.4.md)[Changelog](mariadb-10-1-4-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 13 Apr 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-4-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.4.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -456,7 +456,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Test result fixed.
 * [Revision #4ba16ea](https://github.com/MariaDB/server/commit/4ba16ea)\
   2015-03-17 09:24:22 +0100
-  * Merge [MDEV-6981](https://jira.mariadb.org/browse/MDEV-6981) and [MDEV-6981](https://jira.mariadb.org/browse/MDEV-6981) (from danblack) into [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * Merge [MDEV-6981](https://jira.mariadb.org/browse/MDEV-6981) and [MDEV-6981](https://jira.mariadb.org/browse/MDEV-6981) (from danblack) into [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #a3e68b4](https://github.com/MariaDB/server/commit/a3e68b4)\
   2015-03-13 14:18:07 +0200
   * [MDEV-7772](https://jira.mariadb.org/browse/MDEV-7772): SIGSEGV on my\_aes\_encrypt\_cbc when -DWITH\_SSL=bundled

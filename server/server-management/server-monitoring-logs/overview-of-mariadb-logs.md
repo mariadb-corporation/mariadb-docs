@@ -63,7 +63,37 @@ If you are a super user running a log batch job that you don't want to have logg
 SET LOCAL SQL_LOG_OFF=1, LOCAL SLOW_QUERY_LOG=0;
 ```
 
-[mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (previously mysqldump) since [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) will add this automatically to your dump file if you run it with the `--skip-log-queries` option.
+[mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (previously mysqldump) since [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) will add this automatically to your dump file if you run it with the `--skip-log-queries` option.
+
+### Parsing Reference for Tool Developers
+
+To support the development of log parsers (e.g., Fluentd, Logstash, Splunk), the following tables standardize identification fields and structural characteristics across all MariaDB Server logs.
+
+#### Cross-Log Field Standardization
+
+The following data points are represented differently across various logs but refer to the same internal identifiers.
+
+| Standardized Name | General/Slow Log Field | Audit Log Field     | Error Log Field       | Binary Log (Text) |
+| ----------------- | ---------------------- | ------------------- | --------------------- | ----------------- |
+| Thread ID         | `thread_id`            | `connectionid`      | `Thread ID`           | `at {ID}`         |
+| Server ID         | `server_id`            | N/A (Uses Hostname) | N/A (Uses Process ID) | `server id`       |
+
+#### Structural Characteristics for Parsers
+
+| Log Type          | Primary Format    | Record Start Indicator   | Multi-line Support       |
+| ----------------- | ----------------- | ------------------------ | ------------------------ |
+| Error Log         | Positional String | Timestamp (`YYYY-MM-DD`) | No (Except Stack Traces) |
+| General Query Log | Positional String | Timestamp                | Yes (SQL Payloads)       |
+| Slow Query Log    | Tagged Header     | `# User@Host:`           | Yes (Always)             |
+| Binary Log (Text) | Tagged Header     | `# at {Position}`        | Yes (Event Chunks)       |
+| Enterprise Audit  | CSV               | N/A (Standard Line)      | No                       |
+
+**Parser Developer Checklist**
+
+* Handle Multi-line Records: Assume that General and Slow Query logs will contain newlines within SQL statements.
+* Standardize Identifiers: Always map `connectionid` and `thread_id` to a single `thread_id` field in your monitoring backend to allow cross-log correlation.
+* Identify Record Starts: For Slow Query logs, use `# User@Host:` as the only reliable indicator of a new record.
+* Monitor Metadata Impacts: Note that settings like `binlog_row_image` can change the number of columns present in Binary Log events.
 
 ## See Also
 

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Implement complex conditional logic in stored programs. This control flow
-  statement executes specific SQL blocks based on matching conditions.
+  Complete reference for CASE Statement in MariaDB. Complete syntax guide with
+  all options, clauses, and practical examples with comprehensive examples and.
 ---
 
 # CASE Statement

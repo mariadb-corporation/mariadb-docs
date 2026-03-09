@@ -1,10 +1,10 @@
 # MariaDB 5.2.2 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.2-gamma) | [Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-522-release-notes.md) | **Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.2-gamma) | [Release Notes](../../old-releases/5.2/5.2.2.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 28 Sep 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-522-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.2.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -14,7 +14,7 @@ modified in that revision.
   * Move maria\_upgrade() out of maria\_init() as in standalone programs maria\_data\_root is not set.
   * Fixed failing pbxt test
 * [Revision #2869](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2869):
-  * Rename control file and log files from maria\_xxx to aria\_xxx when upgrading from [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+  * Rename control file and log files from maria\_xxx to aria\_xxx when upgrading from [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
   * Fix cleanup to really remove 'aria\_log' files. Fixes failures in maria unit tests on some platforms.
   * Fixed compiler warnings
 * [Revision #2868](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2868):
@@ -88,13 +88,13 @@ modified in that revision.
   * Changed to use longlong10\_to\_str() instead of longlong2str() when base is 10 or -10 as former is much faster than later
   * Changed my\_vsnprintf() to use longlong2str instead of int2str() to get rid of warnings and to get support for long pointers even when long is 32 bit.
 * [Revision #2840](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2840): \[merge]
-  * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+  * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 * [Revision #2839](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2839): \[merge]
   * Merge with 5.1
 * [Revision #2838](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2838):
   * Fixed compiler warnings and test failures
 * [Revision #2837](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2837): \[merge]
-  * Merge with [MariaDB 5.1.49](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5149-release-notes.md)
+  * Merge with [MariaDB 5.1.49](../../old-releases/5.1/5.1.49.md)
   * Removed references to HA\_END\_SPACE\_KEY (which has been 0 for a long time)
 * [Revision #2836](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2836):
   * Check of maria engine presence added.
@@ -164,7 +164,7 @@ modified in that revision.
       mem\_root as the expressions for virtual columns. So now the inserted\
       cached items are valid for any queries that use these virtual columns.
 * [Revision #2825](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2825): \[merge]
-  * Merge with [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md):
+  * Merge with [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md):
 * [Revision #2824](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2824): \[merge]
   * Merge patch for ha\_rnd\_init()
   * [Revision #2822.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2822.1.1):
@@ -204,7 +204,7 @@ modified in that revision.
 * [Revision #2820](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2820):
   * Initial import of SpinxSE, with fixes for MariaDB.
 * [Revision #2819](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2819): \[merge]
-  * Automerge [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)->5.2.
+  * Automerge [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2.
 * [Revision #2818](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2818):
   * Fixed [Bug #601164](https://bugs.launchpad.net/bugs/601164).
   * The functions mysql\_delete and mysql\_update lacked calls of\

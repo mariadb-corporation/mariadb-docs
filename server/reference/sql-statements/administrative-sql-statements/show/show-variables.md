@@ -1,7 +1,7 @@
 ---
 description: >-
-  View system variables. This statement displays the current values of global or
-  session configuration settings.
+  Complete SHOW VARIABLES reference: GLOBAL/SESSION scope syntax, LIKE 'pattern'
+  matching, WHERE expression filters, and INFORMATION_SCHEMA table queries.
 ---
 
 # SHOW VARIABLES

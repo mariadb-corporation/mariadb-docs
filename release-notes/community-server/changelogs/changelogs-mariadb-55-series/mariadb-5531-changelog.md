@@ -1,12 +1,12 @@
 # MariaDB 5.5.31 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.31) | [Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5531-release-notes.md) | **Changelog** | \[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.31) | [Release Notes](../../old-releases/5.5/5.5.31.md) | **Changelog** | \[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 23 May 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5531-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.31.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -294,7 +294,7 @@ modified in that revision.
   * Merge 5.3 -> 5.5
   * [Revision #2502.567.91](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.91)\
     Mon 2013-04-01 18:03:14 +0400
-    * [MDEV-4240](https://jira.mariadb.org/browse/MDEV-4240): [mariadb 5.3.12](../../old-releases/release-notes-mariadb-5-3-series/mariadb-5312-release-notes.md) using more memory than MySQL 5.1 for an inefficient query - Let index\_merge allocate table handlers on quick select's MEM\_ROOT, not on statement's MEM\_ROOT. This is crucial for big "range checked for each record" queries, where index\_merge can be created and deleted many times during query exection. We should not make O(#rows) allocations on statement's MEM\_ROOT.
+    * [MDEV-4240](https://jira.mariadb.org/browse/MDEV-4240): [mariadb 5.3.12](../../old-releases/5.3/5.3.12.md) using more memory than MySQL 5.1 for an inefficient query - Let index\_merge allocate table handlers on quick select's MEM\_ROOT, not on statement's MEM\_ROOT. This is crucial for big "range checked for each record" queries, where index\_merge can be created and deleted many times during query exection. We should not make O(#rows) allocations on statement's MEM\_ROOT.
   * [Revision #2502.567.90](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.567.90)\
     Fri 2013-03-29 19:27:06 +0400
     * [MDEV-4335](https://jira.mariadb.org/browse/MDEV-4335): Unexpected results when selecting on information\_schema - When converting a subquery to a semi-join, propagate OPTION\_SCHEMA\_TABLE.

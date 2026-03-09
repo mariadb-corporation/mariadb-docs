@@ -1,7 +1,8 @@
 ---
 description: >-
-  JSON document storage. While often implemented as an alias for LONGTEXT, this
-  type includes automatic validation to ensure valid JSON format.
+  Complete JSON Data Type data type guide for MariaDB. Complete reference for
+  syntax, valid values, storage requirements, and range limits for production
+  use.
 ---
 
 # JSON Data Type
@@ -126,7 +127,7 @@ MariaDB can't directly access MySQL's `JSON` format.
 
 There are a few different ways to move the table to MariaDB:
 
-* From [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1057-release-notes), you can use the [mysql\_json](../../plugins/other-plugins/mysql_json.md) plugin. See [Making MariaDB understand MySQL JSON](https://mariadb.org/making-mariadb-understand-mysql-json/) (blog post).
+* From [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7), you can use the [mysql\_json](../../plugins/other-plugins/mysql_json.md) plugin. See [Making MariaDB understand MySQL JSON](https://mariadb.org/making-mariadb-understand-mysql-json/) (blog post).
 * Change the JSON column to type `TEXT` in MySQL. After this, MariaDB can directly use the table without any need for a dump and restore.
 * [Use mysqldump to copy the table](../../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md#examples).
 

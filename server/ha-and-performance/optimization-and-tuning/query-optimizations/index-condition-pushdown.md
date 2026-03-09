@@ -1,6 +1,6 @@
 # Index Condition Pushdown
 
-Index Condition Pushdown is an optimization that is applied for access methods that access table data through indexes: `range`, `ref`, `eq_ref`, `ref_or_null`, and [Batched Key Access](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms#batch-key-access-join).
+Index Condition Pushdown is an optimization that is applied for access methods that access table data through indexes: `range`, `ref`, `eq_ref`, `ref_or_null`, and [Batched Key Access](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2#batch-key-access-join).
 
 The idea is to check part of the WHERE condition that refers to index fields (we call it _Pushed Index Condition_) as soon as we've accessed the index. If the _Pushed Index Condition_ is not satisfied, we won't need to read the whole table record.
 
@@ -99,7 +99,7 @@ That way, the value `Handler_icp_attempts - Handler_icp_match` shows the number 
 
 ## Partitioned Tables
 
-Index condition pushdown support for [partitioned tables](../../../server-usage/partitioning-tables/) was added in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115).
+Index condition pushdown support for [partitioned tables](../../../server-usage/partitioning-tables/) was added in [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

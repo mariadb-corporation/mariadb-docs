@@ -15,7 +15,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-1385](https://jira.mariadb.org/browse/MCOL-1385) - The base MariaDB server version is now [10.3.9](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-1385](https://jira.mariadb.org/browse/MCOL-1385) - The base MariaDB server version is now [10.3.9](../../../community-server/old-releases/10.3/10.3.9.md) which include several maintenance and security fixes.
 * [MCOL-392](https://jira.mariadb.org/browse/MCOL-392) - TIME data type is [now supported](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/columnstore-data-types)
 * [MCOL-320](https://jira.mariadb.org/browse/MCOL-320) - TIME and DATETIME data types [now support microseconds](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/columnstore-data-types)
 * [MCOL-497](https://jira.mariadb.org/browse/MCOL-497) - Cross Engine Joins now support SSL connections
@@ -76,7 +76,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1244](https://jira.mariadb.org/browse/MCOL-1244) - make postConfigure default install non-distributed
 * [MCOL-1281](https://jira.mariadb.org/browse/MCOL-1281) - mcsapi Windows support
 * [MCOL-1378](https://jira.mariadb.org/browse/MCOL-1378) - Hardening Flags pt 2
-* [MCOL-1385](https://jira.mariadb.org/browse/MCOL-1385) - Merge [MariaDB 10.3](../../../community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md)
+* [MCOL-1385](https://jira.mariadb.org/browse/MCOL-1385) - Merge [MariaDB 10.3](../../../community-server/old-releases/10.3/what-is-mariadb-103.md)
 * [MCOL-1392](https://jira.mariadb.org/browse/MCOL-1392) - Add time field support for PDI plugin
 * [MCOL-1424](https://jira.mariadb.org/browse/MCOL-1424) - Make the default installation option to separate instead of combined.
 * [MCOL-1577](https://jira.mariadb.org/browse/MCOL-1577) - ColumnStore to allow CREATE TABLE table\_name LIKE ... Syntax

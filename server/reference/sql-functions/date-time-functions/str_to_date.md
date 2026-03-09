@@ -1,7 +1,7 @@
 ---
 description: >-
-  Convert a string to a date. This function parses a string based on a specified
-  format string and returns a DATE, TIME, or DATETIME value.
+  Complete STR_TO_DATE() reference: parse strings to DATE/TIME/DATETIME, format
+  specifiers (%Y %m %d %H %i %s), invalid input handling, and SQL_MODE errors.
 ---
 
 # STR\_TO\_DATE

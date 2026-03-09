@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for integrating Enterprise Manager with an OpenID Connect (OIDC)
+  identity provider for centralized Single Sign-On (SSO) authentication.
+---
+
 # Configure OpenID Connect Identity Provider
 
 MariaDB Enterprise Manager can be integrated with external identity providers (like Okta, Keycloak, or Azure AD) using OpenID Connect (OIDC). This allows you to centralize user authentication, enforce your organization's security policies, and enable single sign-on (SSO).
@@ -43,9 +49,7 @@ Finally, you must configure your Identity Provider to pass the user's role in th
 
 ### Configuration Steps in Enterprise Manager
 {% endstep %}
-{% endstepper %}
 
-{% stepper %}
 {% step %}
 #### Navigate to Identity Provider settings
 

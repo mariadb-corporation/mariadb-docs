@@ -1,7 +1,7 @@
 ---
 description: >-
-  Sort query results. This clause arranges the returned rows in ascending or
-  descending order based on specified columns or expressions.
+  Complete ORDER BY clause: sort SELECT/UPDATE/DELETE results with ASC/DESC,
+  multiple expressions, integer column positions, GROUP BY/LIMIT usage.
 ---
 
 # ORDER BY

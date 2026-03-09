@@ -5,7 +5,7 @@
 {% tabs %}
 {% tab title="Current" %}
 ```sql
-DECLARE cursor_name CURSOR [(cursor_formal_parameter[,...])] FOR select_statement
+DECLARE cursor_name CURSOR [(cursor_formal_parameter[,...])] FOR {select_statement | prepared_statement_name}
 
 cursor_formal_parameter:
     [IN] name type [collate clause]
@@ -30,7 +30,48 @@ This statement declares a [cursor](./). Multiple cursors may be declared in a [s
 
 A `SELECT` associated to a cursor can use variables, but the query itself cannot be a variable, and cannot be dynamically composed. The `SELECT` statement cannot have an `INTO` clause.
 
+{% hint style="info" %}
+Starting with MariaDB 12.3, the query can also be a prepared statement name, which allows the query to be dynamically composed. The `SELECT` statement cannot have an `INTO` clause.
+{% endhint %}
+
 Cursors must be declared before [HANDLERs](../declare-handler.md), but after local variables and [CONDITIONs](../declare-condition.md).
+
+### **Dynamic Cursors**
+
+Starting with MariaDB 12.3, a cursor can be declared for a prepared statement. This allows the use of Dynamic SQL within stored routines. The cursor is bound to a prepared statement name, which must be defined using the `PREPARE` statement before the cursor is opened.
+
+```sql
+CREATE OR REPLACE PROCEDURE p1(tab VARCHAR(64), min_id INTEGER)
+BEGIN
+  DECLARE v_id INT;
+  DECLARE v_c1 VARCHAR(100);
+  DECLARE no_data BOOL DEFAULT FALSE;
+  
+  -- 1. Declare cursor for the statement name 's1'
+  DECLARE c1 CURSOR FOR s1;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_data = TRUE;
+
+  -- 2. Prepare the statement dynamically
+  PREPARE s1 FROM CONCAT('SELECT id, c1 FROM ', tab, ' WHERE id >= ?');
+  
+  -- 3. Open cursor and bind parameters
+  OPEN c1 USING min_id;
+  
+  fetch_loop: LOOP
+    FETCH c1 INTO v_id, v_c1;
+    IF no_data THEN
+      LEAVE fetch_loop;
+    END IF;
+    SELECT v_id, v_c1;
+  END LOOP;
+  
+  CLOSE c1;
+  DEALLOCATE PREPARE s1;
+END;
+$$
+
+DELIMITER ;
+```
 
 ### Parameters
 

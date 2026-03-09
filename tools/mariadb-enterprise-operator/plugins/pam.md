@@ -41,8 +41,10 @@ The `/etc/nslcd.conf` is the configuration file for LDAP nameservice daemon.
 ```ini
 # /etc/nslcd.conf: Configuration file for nslcd(8)
 # The user/group nslcd will run as. Note that these should not be LDAP users.
-uid mysql # required to be `mysql`
-gid mysql # required to be `mysql`
+# required to be `mysql`
+uid mysql
+# required to be `mysql`
+gid mysql
 
 # The location of the LDAP server.
 uri ldap://openldap-service.default.svc.cluster.local:389
@@ -367,6 +369,30 @@ kubectl create secret generic mariadb-ldap-tls --from-file=./tls.crt
     - name: nslcd-run
       mountPath: /var/run/nslcd
 ```
+
+#### With MaxScale
+
+To put MaxScale in front of your PAM-enabled MariaDB cluster, configure MaxScale so that it skips checking if passwords of incoming clients are correct, but rather assumes they are. The failure still occurs, but at the time when MaxScale tries to authenticate to the backend servers.
+
+**maxscale-ldap.yaml:**
+```diff
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MaxScale
+metadata:
+  name: maxscale-repl
+spec:
+  services:
+    - name: rw-router
+      router: readwritesplit
+      listener:
+        port: 3306
++        params: # Configure the following options for all services that should be PAM-enabled.
++          authenticator: pamauth
++          authenticator_options: "skip_authentication=true"
+```
+`kubectl apply -f maxscale-ldap.yaml`
+
+Ref: [skip_authentication](https://mariadb.com/docs/maxscale/maxscale-security/authentication-modules#skip_authentication)
 
 ### Known Issues
 

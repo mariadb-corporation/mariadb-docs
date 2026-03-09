@@ -1,6 +1,6 @@
 # MariaDB 5.1.39 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.39) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5139-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.39) | [Release Notes](../../old-releases/5.1/5.1.39.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 15 Nov 2009
 

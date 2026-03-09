@@ -1,10 +1,10 @@
 # MariaDB 5.3.1 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.1) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-531-release-notes.md) |**Changelog** |[Overview of 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+[Download](https://downloads.askmonty.org/mariadb/5.3.1) |[Release Notes](../../old-releases/5.3/5.3.1.md) |**Changelog** |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 10 Sep 2011
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-531-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.1.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -399,7 +399,7 @@ modified in that revision.
     * Identified all test cases in the MySQL file subquery.inc that are\
       not present in MariaDB. This patch adds the test cases that are:
       * not present in MySQL 5.5, and
-      * already fixed in [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+      * already fixed in [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
     * The patch adds test cases for the following mysql-trunk bugs:
       * bug 12763207 - not a bug, mysql-trunk, added test case
       * [MySQL Bug #50257](https://bugs.mysql.com/bug.php?id=50257) - not a bug, mysql-trunk, added test case
@@ -452,7 +452,7 @@ modified in that revision.
       * [MySQL Bug #59833](https://bugs.mysql.com/bug.php?id=59833) - not a bug in MariaDB, added test case
       * bug 11852644 - not a bug in MariaDB, added test case
       * bug 12668294 - not a bug in MariaDB, added test case
-    * All of these MySQL bugs are not present in [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md).
+    * All of these MySQL bugs are not present in [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md).
     *   The comparison was based on the following version of\
         mysql-trunk:
 

@@ -7,6 +7,10 @@ description: >-
 
 # MaxScale Firewall Filter
 
+{% hint style="info" %}
+This feature is available from MaxScale 25.10.
+{% endhint %}
+
 ## Overview
 
 The database firewall acts as a protective barrier for a database, ensuring that only expected queries are allowed through. It learns the typical patterns of queries during a training period and then uses this knowledge to block any queries that do not match what it has learned. This helps safeguard the database from unauthorized access or potentially harmful operations.
@@ -15,7 +19,7 @@ The firewall has two primary modes; a _learning_ mode during which it learns wha
 
 When in the learning mode a _representative_ workload should be run through the filter. While the learning mode is active, the filter collects the canonical form of all statements that pass through it. The canonical form of a statement is the statement with all literals replaced with a question mark. For instance, the following two statements
 
-```
+```sql
 SELECT * FROM t WHERE f = 10
 SELECT * FROM t WHERE f = 20
 ```
@@ -28,7 +32,7 @@ When in the enforcing mode, the filter checks whether the canonical form of a st
 
 As an example, suppose the firewall is in the learning mode and it encounters the following statements:
 
-```
+```sql
 SELECT * FROM t WHERE f > 5
 SELECT * FROM t WHERE f = 10
 INSERT INTO t VALUES (42)
@@ -38,7 +42,7 @@ SELECT * FROM users WHERE username = 'input' AND password = 'input'
 
 That results in the following canonical statements:
 
-```
+```sql
 SELECT * FROM t WHERE f > ?
 SELECT * FROM t WHERE f = ?
 INSERT INTO t VALUES (?)
@@ -48,7 +52,7 @@ SELECT * FROM users WHERE username = ? AND password = ?
 
 When switched to the enforcing mode, the following statements will be let through
 
-```
+```sql
 SELECT * FROM t WHERE f > 100
 SELECT * FROM t WHERE f = 42
 INSERT INTO t VALUES (84)
@@ -58,7 +62,7 @@ SELECT * FROM users WHERE username = 'joe' AND password = 'secret'
 
 but the following will not
 
-```
+```sql
 # != is neither > nor =
 SELECT * FROM t WHERE f != 10
 # During learning only one value was inserted
@@ -71,19 +75,19 @@ SELECT * FROM users WHERE username = '' OR '1'='1' AND password = ''
 
 While learning, the user information will be retained and saved together with the statements. When enforcing, the value of [user\_scope](maxscale-firewall-filter.md#user_scope) defines whether the allowed statements are user specific or whether the union of all statements will be allowed for all users.
 
-## Allow List
+## Allowlist
 
 The allowed canonical statements will be stored in a file in the sub-directory `firewall` in the data directory of MaxScale, which typically is `/var/lib/maxscale`. The name of the file will be `<Filter>-allowed_statements.json`, where `<Filter>` is the name of the firewall filter in the MaxScale configuration file.
 
-For instance, with a configuration like
+For instance, with a configuration like this:
 
-```
+```ini
 [MyFirewall]
 type=filter
 module=firewall
 ```
 
-the name of the file will be `MyFirewall-allowed_statements.json`.
+The name of the file will be `MyFirewall-allowed_statements.json`.
 
 The file is not specific to the MaxScale instance where it was created, but can, for instance, in an HA setup be copied to another MaxScale.
 
@@ -167,7 +171,7 @@ When the firewall is in 'enforce' mode, a firewall violation will cause the even
 
 The first step when taking the firewall into use, is to create the filter
 
-```
+```ini
 [MyFirewall]
 type=filter
 module=firewall
@@ -175,7 +179,7 @@ module=firewall
 
 and add it to the service
 
-```
+```ini
 [MyService]
 type=service
 router=readwritesplit

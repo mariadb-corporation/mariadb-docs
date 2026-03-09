@@ -1,3 +1,9 @@
+---
+description: >-
+  Complete MariaDB backup and recovery guide. Complete resource for backup
+  methods, mariabackup usage, scheduling, and restoration for production use.
+---
+
 # mariadb-dump
 
 The `mariadb-dump` client is a backup program originally written by Igor Romanenko.
@@ -11,10 +17,10 @@ Previously, the client used to be called `mysqldump`, and can still be accessed 
 `mariadb-dump` is used to dump a database or a collection of databases for backup, or transferring data to another database server (not necessarily MariaDB or MySQL). The dump contains SQL statements to create databases, tables, table data, and more. It can also be used to generate files in CSV, XML, or other formats that use delimiters.
 
 {% hint style="info" %}
-If you are doing a backup on the server and your tables all are [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) tables, consider using [mariadb-hotcopy](mariadb-hotcopy.md) instead, because it can accomplish faster backups and faster restores.
+If you are doing a backup on the server and all your tables are [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) tables, consider using [mariadb-hotcopy](mariadb-hotcopy.md) instead, because it can accomplish faster backups and faster restores.
 {% endhint %}
 
-`mariadb-dump` dumps triggers along with tables, as these are part of the table definition. However, [stored procedures](../../server-usage/stored-routines/stored-procedures/), [views](../../server-usage/views/), and [events](../../server-usage/triggers-events/event-scheduler/events.md) are not dumped, and need extra parameters to be recreated explicitly (for example, `--routines` and `--events`). [Procedures](../../server-usage/stored-routines/stored-procedures/) and [functions](../../server-usage/stored-routines/stored-functions/) are also part of the system tables (for example, [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md)).
+`mariadb-dump` dumps trigger along with tables, as these are part of the table definition. However, [stored procedures](../../server-usage/stored-routines/stored-procedures/), [views](../../server-usage/views/), and [events](../../server-usage/triggers-events/event-scheduler/events.md) are not dumped, and need extra parameters to be recreated explicitly (for example, `--routines` and `--events`). [Procedures](../../server-usage/stored-routines/stored-procedures/) and [functions](../../server-usage/stored-routines/stored-functions/) are also part of the system tables (for example, [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md)).
 
 `mariadb-dump` supports the [enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT](../../ha-and-performance/standard-replication/enhancements-for-start-transaction-with-consistent-snapshot.md#mariadb-dump).
 
@@ -28,7 +34,7 @@ Disk input/output per second (IOPS) can, however, increase for multiple reasons.
 It's recommended that you back up from a network location to remove disk IOPS on the database server, but it is vital to use a separate network card to keep network bandwidth available for regular traffic.
 {% endhint %}
 
-Although `mariadb-dump` by default preserves your resources for regular spindle disks and low-core hardware, this doesn't mean that concurrent dumps cannot benefit from hardware architecture like SAN, flash storage, low write workload. The backup time would benefit from a tool such as MyDumper.
+Although `mariadb-dump` by default preserves your resources for regular spindle disks and low-core hardware, this doesn't mean that concurrent dumps cannot benefit from hardware architecture like SAN, flash storage, or low write workload. The backup time would benefit from a tool such as MyDumper.
 
 ## Usage
 
@@ -41,7 +47,7 @@ shell> mariadb-dump [options] --all-databases
 shell> mariadb-dump [options] --system=[option_list]
 ```
 
-If you do not name any tables after specifying `db_name` , or if you use the `--databases` or `--all-databases` option, entire databases are dumped.
+If you do not name any tables after specifying `db_name`, or if you use the `--databases` or `--all-databases` option, entire databases are dumped.
 
 `mariadb-dump` does not dump the `INFORMATION_SCHEMA` (or `PERFORMANCE_SCHEMA`, if enabled) database by default. MariaDB dumps the `INFORMATION_SCHEMA` if you name it explicitly on the command line, although you must also use the `--skip-lock-tables` option.
 
@@ -105,11 +111,31 @@ Allow creation of column names that are keywords. This works by prefixing each c
 
 #### --apply-slave-statements
 
-Adds [STOP SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) prior to [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) and [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) to bottom of dump.
+Adds [STOP SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) prior to [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) and [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) to the bottom of the dump.
 
 #### --as-of=name
 
-Dump [system versioned table](../../reference/sql-structure/temporal-tables/system-versioned-tables.md) as of specified timestamp. Argument is interpreted according to the `--tz-utc` setting. Table structures are always dumped as of current timestamp. This option is available from MariaDB 10.7.
+As of the given timestamp, dump the [system versioned table(s)](../../reference/sql-structure/temporal-tables/system-versioned-tables.md). Note that table structures are always dumped regardless of the date/time specified; only the data is filtered by the timestamp. The `--tz-utc` setting is used to understand the timestamp argument; for important interaction details, see [--tz-utc](mariadb-dump.md#tz-utc). This option is available from MariaDB 10.7.
+
+If no data is available for the specified timestamp (for example, a date before any records were entered), only the table structure (CREATE, TABLE statement) will be dumped.
+
+For example:
+
+```
+CREATE TABLE t1 (a INT) WITH SYSTEM VERSIONING;
+INSERT t1 (a) VALUES (1),(2),(3);
+DELETE FROM t1 WHERE a=1;
+```
+
+Dump result:
+
+```
+./bin/mysqldump -uroot -S./socket.sock --compact --as-of="1990-01-01 00:01" test t1
+```
+
+This dumps the table structure but not the data (since no records existed at that time). See [MDEV-26943](https://jira.mariadb.org/browse/MDEV-26943) for more information regarding the interaction with `--tz-utc`.
+
+Note: When `--tz-utc` is enabled (which is the default), the timestamp value supplied to `--as-of` is interpreted in UTC. Remember that the effective filter time can differ if you are passing a local time. See [--tz-utc](mariadb-dump.md#tz-utc) and [--skip-tz-utc](mariadb-dump.md#skip-tz-utc).
 
 #### --character-sets-dir=name
 
@@ -117,7 +143,7 @@ Directory for [character set](../../reference/data-types/string-data-types/chara
 
 #### -i, --comments
 
-Write additional information in the dump file such as program version, server version, and host. Disable with `--skip-comments`.
+Write additional information in the dump file, such as program version, server version, and host. Disable with `--skip-comments`.
 
 #### --compact
 
@@ -125,7 +151,7 @@ Give less verbose output (useful for debugging). Disables structure comments and
 
 #### --compatible=name
 
-Change the dump to be compatible with a given mode. By default tables are dumped in a format optimized for MariaDB and MySQL. Legal modes are: ansi, `mysql323`, `mysql40`, `postgresql`, `oracle`, `mssql`, `db2`, `maxdb`, `no_key_options`, `no_table_options`, and `no_field_options`. You can use several modes, separated by commas. This option does not guarantee compatibility with other servers. It only enables those SQL mode values that are available for making dump output more compatible. For example, `--compatible=oracle` does not map data types to Oracle types or use Oracle comment syntax.
+Change the dump to be compatible with a given mode. By default, tables are dumped in a format optimized for MariaDB and MySQL. Legal modes are: ansi, `mysql323`, `mysql40`, `postgresql`, `oracle`, `mssql`, `db2`, `maxdb`, `no_key_options`, `no_table_options`, and `no_field_options`. You can use several modes, separated by commas. This option does not guarantee compatibility with other servers. It only enables those SQL mode values that are available for making dump output more compatible. For example, `--compatible=oracle` does not map data types to Oracle types or use Oracle comment syntax.
 
 #### -c, --complete-insert
 
@@ -133,7 +159,7 @@ Use complete [INSERT](../../reference/sql-statements/data-manipulation/inserting
 
 #### -C, --compress
 
-Use compression in server/client protocol. Both client and server must support compression for this to work.
+Use compression in the server/client protocol. Both client and server must support compression for this to work.
 
 #### --copy-s3-tables
 
@@ -141,11 +167,11 @@ By default, [S3](../../server-usage/storage-engines/s3-storage-engine/) tables a
 
 #### -a, --create-options
 
-Include all MariaDB and/or MySQL specific create options in `CREATE TABLE` statements. Use `--skip-create-options` to disable.
+Include all MariaDB and/or MySQL-specific create options in `CREATE TABLE` statements. Use `--skip-create-options` to disable.
 
 #### -B, --databases
 
-Dump several databases. Normally, `mariadb-dump` treats the first name argument on the command line as a database name and following names as table names. With this option, it treats all name arguments as database names. [CREATE DATABASE](../../reference/sql-statements/data-definition/create/create-database.md) and [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statements are included in the output before each new database.
+Dump several databases. Normally, `mariadb-dump` treats the first name argument on the command line as a database name and the following names as table names. With this option, it treats all name arguments as database names. [CREATE DATABASE](../../reference/sql-statements/data-definition/create/create-database.md) and [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statements are included in the output before each new database.
 
 #### -#, --debug\[=#]
 
@@ -193,7 +219,7 @@ Parallel dump of multiple databases. Works just like `--tab`, with regard to out
 
 #### -K, --disable-keys
 
-'` /*!40000 ALTER TABLE`` `` `_`tb_name`_` ``DISABLE KEYS`` `_`/;` and `'/`_` !40000 ALTER TABLE`` `` `_`tb_name`_` `` ``ENABLE KEYS */; ` are written to the output. This makes loading the dump file faster, because the indexes are created after all rows are inserted. This option is effective only for non-unique indexes of MyISAM tables. Disable with `--skip-disable-keys`.
+'` /*!40000 ALTER TABLE`` `` `_`tb_name`_` ``DISABLE KEYS`` `_`/;` and `'/`_` !40000 ALTER TABLE`` `` `_`tb_name`_` `` ``ENABLE KEYS */; ` are written to the output. This makes loading the dump file faster because the indexes are created after all rows are inserted. This option is effective only for non-unique indexes of MyISAM tables. Disable with `--skip-disable-keys`.
 
 #### --dump-date
 
@@ -223,7 +249,7 @@ Include [Event Scheduler events](../../server-usage/triggers-events/event-schedu
 
 #### -e, --extended-insert
 
-Use multiple-row [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) syntax that include several values lists. This results in a smaller dump file and speeds up inserts when the file is reloaded. Defaults to `ON`; use `--skip-extended-insert` to disable.
+Use multiple-row [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) syntax that includes several value lists. This results in a smaller dump file and speeds up inserts when the file is reloaded. Defaults to `ON`; use `--skip-extended-insert` to disable.
 
 #### --fields-terminated-by=_string_
 
@@ -255,11 +281,11 @@ Send a [FLUSH PRIVILEGES](../../reference/sql-statements/administrative-sql-stat
 
 #### -f, --force
 
-Continue even if an SQL error occurs during a table dump.One use for this option is to cause mariadb-dump to continue executing even when it encounters a view that has become invalid because the definition refers to a table that has been dropped. Without `--force` in this example, mariadb-dump exits with an error message. With `--force`, mariadb-dump prints the error message, but it also writes an SQL comment containing the view definition to the dump output and continues executing.
+Continue even if an SQL error occurs during a table dump. One use for this option is to cause mariadb-dump to continue executing even when it encounters a view that has become invalid because the definition refers to a table that has been dropped. Without `--force` in this example, mariadb-dump exits with an error message. With `--force`, mariadb-dump prints the error message, but it also writes an SQL comment containing the view definition to the dump output and continues executing.
 
 #### --gtid
 
-Used together with `--master-data` and `--dump-slave` to more conveniently set up a new [GTID](../../ha-and-performance/standard-replication/gtid.md) replica. It causes those options to output SQL statements that configure the replica to use the [global transaction ID](../../ha-and-performance/standard-replication/gtid.md) to connect to the primary instead of old-style filename/offset positions. The old-style positions are still included in comments when --gtid is used; likewise the GTID position is included in comments even if `--gtid` is not used.
+Used together with `--master-data` and `--dump-slave` to more conveniently set up a new [GTID](../../ha-and-performance/standard-replication/gtid.md) replica. It causes those options to output SQL statements that configure the replica to use the [global transaction ID](../../ha-and-performance/standard-replication/gtid.md) to connect to the primary instead of old-style filename/offset positions. The old-style positions are still included in comments when --gtid is used; likewise, the GTID position is included in comments even if `--gtid` is not used.
 
 #### -?, --help
 
@@ -279,11 +305,11 @@ Do not dump the specified _database_. To specify more than one database to ignor
 
 #### --ignore-table=_table_
 
-Do not dump the specified _table_. To specify more than one table to ignore, use the directive multiple times, once for each table. Each table must be specified with both database and table names, for example, `--ignore-table=`_`database.table`_. This option also can be used to ignore views.
+Do not dump the specified _table_. To specify more than one table to ignore, use the directive multiple times, once for each table. Each table must be specified with both database and table names, for example, `--ignore-table=`_`database.table`_. This option can also be used to ignore views.
 
 #### --ignore-table-data=_table_
 
-Do not dump the specified _table_ data (only the structure). To specify more than one table to ignore, use the directive multiple times, once for each table. Each table must be specified with both database and table names. See also `--no-data`.
+Do not dump the specified _table_ data (only the structure). To specify more than one table to ignore, use the directive multiple times, once for each table. Each table must be specified with both the database and table names. See also `--no-data`.
 
 #### --include-master-host-port
 
@@ -305,6 +331,14 @@ Lock all tables across all databases. This is achieved by acquiring a global rea
 #### -l, --lock-tables
 
 For each dumped database, lock all tables to be dumped before dumping them. The tables are locked with `READ LOCAL` to allow concurrent inserts in the case of [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) tables. For transactional tables such as [InnoDB](../../server-usage/storage-engines/innodb/), `--single-transaction` is a much better option than `--lock-tables` because it does not need to lock the tables at all. Because `--lock-tables` locks tables for each database separately, this option does not guarantee that the tables in the dump file are logically consistent between databases. Tables in different databases may be dumped in completely different states. Use `--skip-lock-tables` to disable.
+
+#### -L, --wildcards
+
+{% hint style="info" %}
+This option is available from MariaDB 12.1.
+{% endhint %}
+
+Usage of wildcards in the table or database name. Without the [--databases](mariadb-dump.md#b-databases) option, wildcards are only recognized in table names.
 
 #### --log-error=_file_
 
@@ -373,7 +407,7 @@ The `CHANGE MASTER TO` statement might also need other parameters, such as `MAST
 
 #### --max-allowed-packet=\#
 
-The maximum packet length to send to or receive from server. The maximum is 1GB.
+The maximum packet length to send to or receive from the server. The maximum is 1GB.
 
 #### --max-statement-time=\#
 
@@ -393,7 +427,7 @@ This option suppresses the [CREATE DATABASE ... IF EXISTS](../../reference/sql-s
 
 #### -t, --no-create-info
 
-Do not write [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md) statements which re-create each dumped table.
+Do not write [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md) statements, which re-create each dumped table.
 
 #### -d, --no-data
 
@@ -417,15 +451,15 @@ This option is shorthand. It is the same as specifying `--add-drop-table`, `--ad
 
 #### --order-by-primary
 
-Sorts each table's rows by primary key, or first unique key, if such a key exists. This is useful when dumping a [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) table to be loaded into an [InnoDB](../../server-usage/storage-engines/innodb/) table, but will make the dump itself take considerably longer.
+Sorts each table's rows by primary key, or first unique key, if such a key exists. This is useful when dumping a [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) table to be loaded into an [InnoDB](../../server-usage/storage-engines/innodb/) table, but it will make the dump itself take considerably longer.
 
 #### --order-by-size
 
-Dump each table according to their size, smallest first. Useful when using --single-transaction on tables which get truncated/altered often. The assumption here is that smaller tables get truncated more often, and by dumping those first, this reduces the chance that a --single-transaction dump will fail with 'Table definition has changed, please retry transaction'. This option is available from MariaDB 10.9.1.
+Dump each table according to its size, smallest first. Useful when using `--single-transaction` on tables which get truncated/altered often. The assumption here is that smaller tables get truncated more often, and by dumping those first, this reduces the chance that a `--single-transaction` dump will fail with 'Table definition has changed, please retry transaction'. This option is available from MariaDB 10.9.1.
 
 #### -j, --parallel=\#
 
-Number of dump table jobs executed in parallel (only for use with the `--tab` option). Testing indicates that performance can be increased (dump time decreased) up to 4 times on smaller size dumps, when the database fits into memory. There is a point at which the disk becomes the bottleneck, after which adding more parallel jobs does not bring better performance. From MariaDB 11.4.1.
+Number of dump table jobs executed in parallel (only for use with the `--tab` option). Testing indicates that performance can be increased (dump time decreased) up to 4 times on smaller-sized dumps, when the database fits into memory. There is a point at which the disk becomes the bottleneck, after which adding more parallel jobs does not bring better performance. From MariaDB 11.4.1.
 
 #### -p\[_password_], --password=_password_
 
@@ -453,7 +487,7 @@ The connection protocol to use for connecting to the server (`TCP`, `SOCKET`, `P
 
 #### -q, --quick
 
-This option is useful for dumping large tables. It forces `mariadb-dump` to retrieve rows for a table from the server a row at a time and to then dump the results directly to stdout rather than retrieving the entire row set and buffering it in memory before writing it out. Defaults to `ON`, use `--skip-quick` to disable.
+This option is useful for dumping large tables. It forces `mariadb-dump` to retrieve rows for a table from the server, a row at a time, and to then dump the results directly to stdout rather than retrieving the entire row set and buffering it in memory before writing it out. Defaults to `ON`, use `--skip-quick` to disable.
 
 #### -Q, --quote-names
 
@@ -465,11 +499,11 @@ Use [REPLACE INTO](../../reference/sql-statements/data-manipulation/changing-del
 
 #### -r, --result-file=_file_
 
-Direct output to a given _file_. This option should be used on Windows, to prevent newline (`\n`) characters from being converted to `\r\n` carriage return/newline sequences. The result file is created and its previous contents overwritten, even if an error occurs while generating the dump.
+Direct output to a given _file_. This option should be used on Windows to prevent newline (`\n`) characters from being converted to `\r\n` carriage return/newline sequences. The result file is created and its previous contents overwritten, even if an error occurs while generating the dump.
 
 #### -R, --routines
 
-Include stored routines ([procedures](../../server-usage/stored-routines/stored-procedures/) and [functions](../../server-usage/stored-routines/stored-functions/)) for the dumped databases in the output. Use of this option requires the SELECT privilege for the [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md) table. The output generated using --routines contains [CREATE PROCEDURE](../../server-usage/stored-routines/stored-procedures/create-procedure.md) and [CREATE FUNCTION](../../reference/sql-statements/data-definition/create/create-function.md) statements to re-create the routines. However, these statements do not include attributes such as the routine creation and modification timestamps. This means that when the routines are reloaded, they are created with the timestamps equal to the reload time.If you require routines to be re-created with their original timestamp attributes, do not use `--routines`. Instead, dump and reload the contents of the [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md) table directly, using a MariaDB account which has appropriate privileges for the mysql database.
+Include stored routines ([procedures](../../server-usage/stored-routines/stored-procedures/) and [functions](../../server-usage/stored-routines/stored-functions/)) for the dumped databases in the output. Use of this option requires the SELECT privilege for the [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md) table. The output generated using --routines contains [CREATE PROCEDURE](../../server-usage/stored-routines/stored-procedures/create-procedure.md) and [CREATE FUNCTION](../../reference/sql-statements/data-definition/create/create-function.md) statements to re-create the routines. However, these statements do not include attributes such as the routine creation and modification timestamps. This means that when the routines are reloaded, they are created with the timestamps equal to the reload time. If you require routines to be re-created with their original timestamp attributes, do not use `--routines`. Instead, dump and reload the contents of the [mysql.proc](../../reference/system-tables/the-mysql-database-tables/mysql-proc-table.md) table directly, using a MariaDB account, which has appropriate privileges for the mysql database.
 
 #### --set-charset
 
@@ -485,7 +519,7 @@ Shared-memory name to use for Windows connections using shared memory to a local
 
 #### --single-transaction
 
-This option sends a [START TRANSACTION](../../reference/sql-statements/transactions/start-transaction.md) SQL statement to the server before dumping data. It is useful only with transactional tables such as [InnoDB](../../server-usage/storage-engines/innodb/), because then it dumps the consistent state of the database at the time when `BEGIN` was issued, without blocking any applications. When using this option, you should keep in mind that only InnoDB tables are dumped in a consistent state. The single-transaction feature depends not only on the engine being transactional and capable of `REPEATABLE-READ`, but also on `START TRANSACTION WITH CONSISTENT SNAPSHOT`. The dump is not guaranteed to be consistent for other storage engines. For example, any [TokuDB](../../server-usage/storage-engines/legacy-storage-engines/tokudb/), [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) or [MEMORY](../../server-usage/storage-engines/memory-storage-engine.md) tables dumped while using this option may still change state. While a `--single-transaction` dump is in process, to ensure a valid dump file (correct table contents and binary log coordinates), no other connection should use the following statements: [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/), [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md), [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md), [RENAME TABLE](../../reference/sql-statements/data-definition/rename-table.md), or [TRUNCATE TABLE](../../reference/sql-statements/table-statements/truncate-table.md). A consistent read is not isolated from those statements, so use of them on a table to be dumped can cause the `SELECT` (performed by mariadb-dump to retrieve the table contents) to obtain incorrect contents or fail. The `--single-transaction` option and the `--lock-tables` option are mutually exclusive, because [LOCK TABLES](../../reference/sql-statements/transactions/lock-tables.md) causes any pending transactions to be committed implicitly. So this option automatically turns off `--lock-tables`. To dump large tables, you should combine the `--single-transaction` option with `--quick`.
+This option sends a [START TRANSACTION](../../reference/sql-statements/transactions/start-transaction.md) SQL statement to the server before dumping data. It is useful only with transactional tables such as [InnoDB](../../server-usage/storage-engines/innodb/), because then it dumps the consistent state of the database at the time when `BEGIN` was issued, without blocking any applications. When using this option, you should keep in mind that only InnoDB tables are dumped in a consistent state. The single-transaction feature depends not only on the engine being transactional and capable of `REPEATABLE-READ`, but also on `START TRANSACTION WITH CONSISTENT SNAPSHOT`. The dump is not guaranteed to be consistent for other storage engines. For example, any [TokuDB](../../server-usage/storage-engines/legacy-storage-engines/tokudb/), [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/), or [MEMORY](../../server-usage/storage-engines/memory-storage-engine.md) tables dumped while using this option may still change state. While a `--single-transaction` dump is in process, to ensure a valid dump file (correct table contents and binary log coordinates), no other connection should use the following statements: [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/), [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md), [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md), [RENAME TABLE](../../reference/sql-statements/data-definition/rename-table.md), or [TRUNCATE TABLE](../../reference/sql-statements/table-statements/truncate-table.md). A consistent read is not isolated from those statements, so use of them on a table to be dumped can cause the `SELECT` (performed by mariadb-dump to retrieve the table contents) to obtain incorrect contents or fail. The `--single-transaction` option and the `--lock-tables` option are mutually exclusive, because [LOCK TABLES](../../reference/sql-statements/transactions/lock-tables.md) causes any pending transactions to be committed implicitly. So, this option automatically turns off `--lock-tables`. To dump large tables, you should combine the `--single-transaction` option with `--quick`.
 
 #### --skip-add-locks
 
@@ -525,7 +559,7 @@ Disable the `--triggers` option.
 
 #### --skip-tz-utc
 
-Disable the `--tz-utc` option.
+Disables the `--tz-utc` option. When `--skip-tz-utc` is specified, the `--tz-utc` behavior is disabled. `mariadb-dump` will not set its connection time zone to UTC before the dump, and will not add `SET TIME_ZONE='+00:00'` to the top of the dump file. [TIMESTAMP](../../reference/data-types/date-and-time-data-types/timestamp.md) values will therefore be dumped in the local time zone of the server. When the dump is reloaded on a server in a different time zone or during daylight saving time transitions, remember that this may result in different timestamp values. See [--tz-utc](mariadb-dump.md#tz-utc).
 
 #### -S name, --socket={_socket|named-pipe}_
 
@@ -533,47 +567,47 @@ For connections to localhost, the Unix _socket file_ to use, or, on Windows, the
 
 #### --ssl
 
-Enables [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
+Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
 
 #### --ssl-ca=_pem-file_
 
-Defines a path to a _PEM file_ that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
+Defines a path to a _PEM file_ that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
 
 #### --ssl-capath=_pem-directory_
 
-Defines a _path to a directory that contains one or more PEM files_ that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
+Defines a _path to a directory that contains one or more PEM files_ that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
 
 #### --ssl-cert=_certificate-file_
 
-Defines a path to the _X509 certificate file_ to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a path to the _X509 certificate file_ to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### --ssl-cipher=_cipher-list_
 
-_List of permitted ciphers_ or cipher suites to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
+_List of permitted ciphers_ or cipher suites to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
 
 #### --ssl-crl=_pem-file_
 
-Defines a _path to a PEM file_ that should contain one or more revoked X509 certificates to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a _path to a PEM file_ that should contain one or more revoked X509 certificates to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### --ssl-crlpath=_pem-directory_
 
-Defines a _path to a directory that contains one or more PEM files_ that should each contain one revoked X509 certificate to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a _path to a directory that contains one or more PEM files_ that should each contain one revoked X509 certificate to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### --ssl-key=_private-key_
 
-Defines a _path to a private key file_ to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a _path to a private key file_ to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### --ssl-verify-server-cert
 
-Enables [server certificate verification](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
+Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 
 #### --system=_option_\[,_option_]]
 
-Dump the database's system tables in a logical form. With this option, the [mysql database](../../reference/system-tables/the-mysql-database-tables/) tables are dumped as [CREATE USER](../../reference/sql-statements/account-management-sql-statements/create-user.md), [CREATE SERVER](../../reference/sql-statements/data-definition/create/create-server.md) and other forms of logical portable SQL statements. The option values here are from the set of `all`, `users`, `plugins`, `udfs`, `servers`, `stats`, `timezones`.
+Dump the database's system tables in a logical form. With this option, the [mysql database](../../reference/system-tables/the-mysql-database-tables/) tables are dumped as [CREATE USER](../../reference/sql-statements/account-management-sql-statements/create-user.md), [CREATE SERVER](../../reference/sql-statements/data-definition/create/create-server.md), and other forms of logical portable SQL statements. The option values here are from the set of `all`, `users`, `plugins`, `udfs`, `servers`, `stats`, and `timezones`.
 
 #### -T, --tab=_name_
 
-Produce tab-separated text-format data files. With this option, for each dumped table, `mariadb-dump` creates a `tbl_name.sql` file containing the `CREATE TABLE` statement that creates the table, and a `tbl_name.txt` file containing the table's data. The option value is the directory in which to write the files. Note: This option can only be used when `mariadb-dump` is run on the same machine as the `mariadbd` server. You must have the `FILE` privilege, and the server must have permission to write files in the directory that you specify. By default, the `.txt` data files are formatted using tab characters between column values, and a newline at the end of each line. The format can be specified explicitly using the `--fields-`_`xxx`_ and `--lines-terminated-by` options. Column values are converted to the character set specified by the `--default-character-set` option.
+Produce tab-separated text-format data files. With this option, for each dumped table, `mariadb-dump` creates a `tbl_name.sql` file containing the `CREATE TABLE` statement that creates the table, and a `tbl_name.txt` file containing the table's data. The option value is the directory in which to write the files. Note: This option can only be used when `mariadb-dump` is run on the same machine as the `mariadbd` server. You must have the `FILE` privilege, and the server must have permission to write files in the directory that you specify. By default, the `.txt` data files are formatted using tab characters between column values and a newline at the end of each line. The format can be specified explicitly using the `--fields-`_`xxx`_ and `--lines-terminated-by` options. Column values are converted to the character set specified by the `--default-character-set` option.
 
 #### --tables
 
@@ -581,7 +615,7 @@ This option overrides the `--databases` (`-B`) option. `mariadb-dump` regards al
 
 #### --tls-version=_protocol_
 
-This option accepts a _comma-separated list of TLS protocol versions_. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. See [Secure Connections Overview: TLS Protocol Versions](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions) for more information.
+This option accepts a _comma-separated list of TLS protocol versions_. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. See [Secure Connections Overview: TLS Protocol Versions](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions) for more information.
 
 #### --triggers
 
@@ -589,7 +623,11 @@ Include [triggers](../../server-usage/triggers-events/triggers/) for each dumped
 
 #### --tz-utc
 
-This option enables [TIMESTAMP](../../reference/data-types/date-and-time-data-types/timestamp.md) columns to be dumped and reloaded between servers in different time zones. mariadb-dump sets its connection time zone to UTC and adds `SET TIME_ZONE=´+00:00´` to the dump file. Without this option, `TIMESTAMP` columns are dumped and reloaded in the time zones local to the source and destination servers, which can cause the values to change if the servers are in different time zones. `--tz-utc` also protects against changes due to daylight saving time. `--tz-utc` is enabled by default. To disable it, use `--skip-tz-utc`.
+This option enables [TIMESTAMP](../../reference/data-types/date-and-time-data-types/timestamp.md) columns to be dumped and reloaded between servers in different time zones. `mariadb-dump` sets its connection time zone to UTC before starting the dump and adds `SET TIME_ZONE=´+00:00´` to the top of the dump file. Without this option, `TIMESTAMP` columns are dumped and reloaded in the time zones local to the source and destination servers, which can cause the values to change if the servers are in different time zones. This option also protects against changes due to daylight saving time. The time zone setting affects how timestamp arguments (like those in `--as-of`) are interpreted.
+
+`--tz-utc` is enabled by default. To disable it, use `--skip-tz-utc`.
+
+Note the interaction of this option with `--as-of` when dumping versioned data.
 
 #### -u _username_, --user=_username_
 
@@ -620,22 +658,22 @@ Dump a database as well-formed XML.
 
 Some `mariadb-dump` options are shorthand for groups of other options:
 
-* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`,`--create-options`, `--disable-keys`,`--extended-insert`, `--lock-tables`,`--quick`, and `--set-charset`. All of the\
-  options that `--opt` stands for also are on by default because `--opt` is on by default.
-* Use of `--compact` is the same as specifying`--skip-add-drop-table`,`--skip-add-locks`, `--skip-comments`,`--skip-disable-keys`, and`--skip-set-charset` options.
+* Use of `--opt` is the same as specifying`--add-drop-table`, `--add-locks`, `--create-options`, `--disable-keys`, `--extended-insert`, `--lock-tables`, `--quick`, and `--set-charset`. All of the\
+  options that `--opt` stands for are also on by default because `--opt` is on by default.
+* Use of `--compact` is the same as specifying `--skip-add-drop-table`, `--skip-add-locks`, `--skip-comments`, `--skip-disable-keys`, and `--skip-set-charset` options.
 
-To reverse the effect of a group option, uses its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It\
+To reverse the effect of a group option, use its `--skip-xxx` form (`--skip-opt` or `--skip-compact`). It\
 is also possible to select only part of the effect of a group option by following it with options that enable or disable specific features. Here are some examples:
 
 * To select the effect of `--opt` except for some features, use the `--skip` option for each feature. To disable extended inserts and memory buffering, use `--opt--skip-extended-insert` `--skip-quick`.\
   (Actually, `--skip-extended-insert--skip-quick` is sufficient because`--opt` is on by default.)
 * To reverse `--opt` for all features except index disabling and table locking, use `--skip-opt--disable-keys` `--lock-tables`.
 
-When you selectively enable or disable the effect of a group option, the order is important, because options are processed first to last. For example,`--disable-keys` `--lock-tables--skip-opt` would not have the intended effect; it is the same as `--skip-opt` by itself.
+When you selectively enable or disable the effect of a group option, the order is important because options are processed first to last. For example, `--disable-keys` `--lock-tables--skip-opt` would not have the intended effect; it is the same as `--skip-opt` by itself.
 
 ### Special Characters in Option Values
 
-Some options, like `--lines-terminated-by`, accept a string. The string can be quoted, if necessary. For example, on Unix systems this is the option to enclose fields within double quotes:
+Some options, like `--lines-terminated-by`, accept a string. The string can be quoted, if necessary. For example, on Unix systems, this is the option to enclose fields within double quotes:
 
 ```
 --fields-enclosed-by='"'
@@ -651,7 +689,7 @@ An alternative is to specify the hexadecimal value of a character. For example, 
 
 In addition to reading options from the command line, `mariadb-dump` can also read options from [option files](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). If an unknown option is provided to `mariadb-dump` in an option file, then it is ignored.
 
-The following options relate to how MariaDB command line tools handles option files. They must be given as the first argument on the command line:
+The following options relate to how MariaDB command-line tools handle option files. They must be given as the first argument on the command line:
 
 | Option                    | Description                                                                         |
 | ------------------------- | ----------------------------------------------------------------------------------- |
@@ -661,19 +699,19 @@ The following options relate to how MariaDB command line tools handles option fi
 | --defaults-extra-file=#   | Read this file after the global files are read.                                     |
 | --defaults-group-suffix=# | In addition to the default option groups, also read option groups with this suffix. |
 
-`mariadb-dump` is linked with [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-c-guide). However, MariaDB Connector/C does not handle the parsing of option files for this client. That is performed by the server option file parsing code. See [MDEV-19035](https://jira.mariadb.org/browse/MDEV-19035) for more information.
+`mariadb-dump` is linked with [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-c-guide). However, MariaDB Connector/C does not handle the parsing of option files for this client. That is performed by the server's option file parsing code. See [MDEV-19035](https://jira.mariadb.org/browse/MDEV-19035) for more information.
 
 #### Option Groups
 
-`mariadb-dump` reads options from the following [option groups](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from [option files](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
+`mariadb-dump` reads options from the following [option groups](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) from the [option files](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
-| Group             | Description                                                                                                                                                                     |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \[mysqldump]      | Options read by mariadb-dump, which includes both MariaDB Server and MySQL Server.                                                                                              |
-| \[mariadb-dump]   | Options read by `mariadb-dump`.                                                                                                                                                 |
-| \[client]         | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                                   |
-| \[client-server]  | Options read by all MariaDB [client programs](../) and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
-| \[client-mariadb] | Options read by all MariaDB client programs.                                                                                                                                    |
+| Group             | Description                                                                                                                                                                      |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| \[mysqldump]      | Options read by mariadb-dump, which includes both MariaDB Server and MySQL Server.                                                                                               |
+| \[mariadb-dump]   | Options read by `mariadb-dump`.                                                                                                                                                  |
+| \[client]         | Options read by all MariaDB and MySQL client programs, which include both MariaDB and MySQL clients. For example, mysqldump.                                                     |
+| \[client-server]  | Options read by all MariaDB [client programs](../) and the MariaDB Server. This is useful for options like socket and port, which are common between the server and the clients. |
+| \[client-mariadb] | Options read by all MariaDB client programs.                                                                                                                                     |
 
 ## NULL, ´NULL´, and Empty Values in XML
 
@@ -687,7 +725,7 @@ For a column named `column_name`, the `NULL` value, an empty string, and the str
 
 The output from the mariadb client when run using the `--xml` option also follows the preceding rules.
 
-XML output from mariadb-dump includes the XML namespace, as shown here :
+XML output from mariadb-dump includes the XML namespace, as shown here:
 
 ```xml
 shell> mariadb-dump --xml -u root world City
@@ -866,7 +904,7 @@ For InnoDB tables, `mariadb-dump` provides a way of making an online backup:
 shell> mariadb-dump --all-databases --single-transaction all_databases.sql
 ```
 
-This backup acquires a global read lock on all tables (using`FLUSH TABLES WITH READ LOCK`) at the beginning of the dump. As soon as this lock has been acquired, the binary log coordinates are read and the lock is released. If long updating statements are running when the `FLUSH` statement is issued, the MariaDB server may get stalled until those statements finish. After that, the dump becomes lock free and does not disturb reads and writes on the tables. If the update statements that the MariaDB server receives are short (in terms of execution time), the initial lock period should not be noticeable, even with many updates.
+This backup acquires a global read lock on all tables (using`FLUSH TABLES WITH READ LOCK`) at the beginning of the dump. As soon as this lock has been acquired, the binary log coordinates are read, and the lock is released. If long updating statements are running when the `FLUSH` statement is issued, the MariaDB server may get stalled until those statements finish. After that, the dump becomes lock-free and does not disturb reads and writes on the tables. If the update statements that the MariaDB server receives are short (in terms of execution time), the initial lock period should not be noticeable, even with many updates.
 
 For point-in-time recovery (also known as “roll-forward,” when you need to restore an old backup and replay the changes that happened since that backup), it is often useful to rotate the [binary log](../../server-management/server-monitoring-logs/binary-log/) or at least know the binary log coordinates to which the dump corresponds:
 

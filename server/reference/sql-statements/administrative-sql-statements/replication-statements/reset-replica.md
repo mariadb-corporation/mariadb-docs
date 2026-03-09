@@ -28,7 +28,7 @@ The `connection_name` option is used for [multi-source replication](../../../../
 
 If there is only one nameless primary, or the default primary (as specified by the [default\_master\_connection](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable) is intended, `connection_name` can be omitted. If provided, the `RESET REPLICA` statement will apply to the specified primary. `connection_name` is case-insensitive.
 
-**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-7-series/mariadb-1070-release-notes)
+**MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
 {% tabs %}
 {% tab title="Current" %}
@@ -42,7 +42,7 @@ The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical t
 
 The `FOR CHANNEL` keyword was added for MySQL compatibility. This is identical as using the channel\_name directly after `RESET REPLICA`.
 
-**MariaDB starting with** [**11.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-0-release-notes)
+**MariaDB starting with** [**11.6.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.0)
 
 {% tabs %}
 {% tab title="Current" %}

@@ -12,18 +12,18 @@ This is part of the [User Statistics](../../../../ha-and-performance/optimizatio
 
 It contains the following columns:
 
-| Field                     | Type         | Notes                                                                                                                                                             |
-| ------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TABLE\_SCHEMA             | varchar(192) | The schema (database) name.                                                                                                                                       |
-| TABLE\_NAME               | varchar(192) | The table name.                                                                                                                                                   |
-| ROWS\_READ                | bigint(21)   | The number of rows read from the table.                                                                                                                           |
-| ROWS\_CHANGED             | bigint(21)   | The number of rows changed in the table.                                                                                                                          |
-| ROWS\_CHANGED\_X\_INDEXES | bigint(21)   | The number of rows changed in the table, multiplied by the number of indexes changed.                                                                             |
-| ROWS\_INSERTED            | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) |
-| ROWS\_UPDATED             | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) |
-| ROWS\_DELETED             | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) |
-| KEY\_READ\_HITS           | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) |
-| KEY\_READ\_MISSES         | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) |
+| Field                     | Type         | Notes                                                                                                                      |
+| ------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| TABLE\_SCHEMA             | varchar(192) | The schema (database) name.                                                                                                |
+| TABLE\_NAME               | varchar(192) | The table name.                                                                                                            |
+| ROWS\_READ                | bigint(21)   | The number of rows read from the table.                                                                                    |
+| ROWS\_CHANGED             | bigint(21)   | The number of rows changed in the table.                                                                                   |
+| ROWS\_CHANGED\_X\_INDEXES | bigint(21)   | The number of rows changed in the table, multiplied by the number of indexes changed.                                      |
+| ROWS\_INSERTED            | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) |
+| ROWS\_UPDATED             | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) |
+| ROWS\_DELETED             | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) |
+| KEY\_READ\_HITS           | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) |
+| KEY\_READ\_MISSES         | bigint(21)   | From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) |
 
 #### Example
 

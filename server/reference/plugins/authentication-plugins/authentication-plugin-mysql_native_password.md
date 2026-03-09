@@ -1,8 +1,7 @@
 ---
 description: >-
-  The mysql_native_password plugin is the default legacy authentication method,
-  using SHA-1 hashing to verify passwords stored in the internal mysql.user
-  table.
+  Complete Authentication Plugin - mysql_native_password guide for MariaDB.
+  Complete reference documentation for implementation, configuration, and usage.
 ---
 
 # Authentication Plugin - mysql\_native\_password

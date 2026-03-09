@@ -8,7 +8,7 @@ description: >-
 
 In the event that you are using the Linux-based operating system CentOS or any of its derivatives, you can optionally compile MariaDB from source code. This is useful in cases where you want use a more advanced release than the one that's available in the official repositories, or when you want to enable certain feature that are not otherwise accessible.
 
-## Installing Build Dependencies for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+## Installing Build Dependencies for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)
 
 Before you start building MariaDB, you first need to install the build dependencies required to run the compile. CentOS provides a tool for installing build dependencies. The `yum-builddep` utility reads a package and generates a list of the packages required to build from source, then calls YUM to install them for you. In the event that this utility is not available on your system, you can install it through the `yum-utils` package. Once you have it, install the MariaDB build dependencies.
 
@@ -17,7 +17,7 @@ yum install yum-utils
 yum-builddep mariadb-server
 ```
 
-Running the above command installs many of the build dependencies, but it **doesn't install all of them**. It will only install dependencies for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), which is not enough if you want to compile a newer MariaDB version!
+Running the above command installs many of the build dependencies, but it **doesn't install all of them**. It will only install dependencies for [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), which is not enough if you want to compile a newer MariaDB version!
 
 ## Installing Build Dependencies for newer MariaDB versions
 

@@ -1,8 +1,7 @@
 ---
 description: >-
-  Perform an upsert operation. If an insert violates a unique constraint, this
-  clause automatically updates the existing row with new values instead of
-  returning an error.
+  Complete guide to inserting data in MariaDB. Complete INSERT syntax for single
+  rows, bulk operations, and ON DUPLICATE KEY handling for production use.
 ---
 
 # INSERT ON DUPLICATE KEY UPDATE

@@ -2,7 +2,7 @@
 
 **Note:** This page is obsolete. The information is old, outdated, or otherwise currently incorrect. We are keeping the page for historical reasons only. **Do not** rely on the information in this article.
 
-This page describes a _"feature preview release"_ which previewed some replication-related features which are included in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3). If you would like to try out the features mentioned here, it is recommended that you use [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) ([download MariaDB 5.3 here](https://downloads.askmonty.org/mariadb/5.3/)) instead of the actual release described below. Likewise, the code is available in the [MariaDB 5.3 tree on Launchpad](https://launchpad.net/maria/5.3).
+This page describes a _"feature preview release"_ which previewed some replication-related features which are included in [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). If you would like to try out the features mentioned here, it is recommended that you use [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) ([download MariaDB 5.3 here](https://downloads.askmonty.org/mariadb/5.3/)) instead of the actual release described below. Likewise, the code is available in the [MariaDB 5.3 tree on Launchpad](https://launchpad.net/maria/5.3).
 
 ## About this release
 
@@ -11,14 +11,14 @@ quite a lot of interest in these features, and providing this feature preview\
 release allows the developers to get more and earlier feedback, as well as\
 allowing more users an early opportunity to evaluate the new features.
 
-This feature preview release is based on [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2), adding a number of fairly\
+This feature preview release is based on [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2), adding a number of fairly\
 isolated features that are considered complete and fairly well-tested. It is\
 however not a stable or GA release, nor is it planned to be so.
 
 The stable\
-release including these features will be [**MariaDB 5.3**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3). That being said, we\
+release including these features will be [**MariaDB 5.3**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3). That being said, we\
 greatly welcome any feedback / bug reports, and will strive to fix any issues\
-found and we will update the feature preview until [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) stable is ready.
+found and we will update the feature preview until [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) stable is ready.
 
 ## Download/Installation
 
@@ -102,7 +102,7 @@ Generic linux binary tarballs can be downloaded here:
 
 * [lp:\~maria-captains/maria/mariadb-5.2-rpl](https://code.launchpad.net/~maria-captains/maria/mariadb-5.2-rpl)
 
-## New Features in the [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2) replication feature preview
+## New Features in the [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) replication feature preview
 
 Here is a summary of the new features included in this preview release. The\
 headings link to more detailed information.

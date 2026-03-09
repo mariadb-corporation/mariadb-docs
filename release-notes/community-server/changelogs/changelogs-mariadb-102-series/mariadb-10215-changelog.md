@@ -1,12 +1,12 @@
 # MariaDB 10.2.15 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.15)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes.md)[Changelog](mariadb-10215-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.15)[Release Notes](../../old-releases/10.2/10.2.15.md)[Changelog](mariadb-10215-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 17 May 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10215-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.15.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -437,7 +437,7 @@ in that revision.
   * [MDEV-15575](https://jira.mariadb.org/browse/MDEV-15575) different results when using CTE and big\_tables=1.
 * [Revision #87af52d7dd](https://github.com/MariaDB/server/commit/87af52d7dd)\
   2018-04-16 13:21:13 +0200
-  * [MDEV-15866](https://jira.mariadb.org/browse/MDEV-15866) Mysql CRASH : Json connect + [MariaDB 10.3.4](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1034-release-notes.md)
+  * [MDEV-15866](https://jira.mariadb.org/browse/MDEV-15866) Mysql CRASH : Json connect + [MariaDB 10.3.4](../../old-releases/10.3/10.3.4.md)
 * Merge [Revision #29d4ac2ceb](https://github.com/MariaDB/server/commit/29d4ac2ceb) 2018-04-16 14:19:09 +0300 - Merge pull request #665 from codership/10.2-fix-mtr-wait
 * [Revision #72deed5988](https://github.com/MariaDB/server/commit/72deed5988)\
   2018-03-19 08:41:33 +0100

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Understand MariaDB Server memory allocation. This section explains how memory
-  is managed, key configuration parameters, and strategies for optimizing memory
-  usage for enhanced performance.
+  Complete MariaDB performance optimization guide. Complete reference for query
+  tuning, indexing strategies, and configuration improvements for production
+  use.
 ---
 
 # MariaDB Memory Allocation
@@ -91,7 +91,7 @@ then calculate [Key\_read\_requests](optimization-and-tuning/system-variables/se
 
 InnoDB does all its caching in the [buffer pool](../server-usage/storage-engines/innodb/innodb-buffer-pool.md), whose size is controlled by [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size). By default, it contains 16KB data and index blocks from the open tables (see [innodb\_page\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size)), plus some maintenance overhead.
 
-From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), multiple buffer pools are permitted; this can help because there is one mutex per pool, thereby relieving some of the mutex bottleneck.
+From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), multiple buffer pools are permitted; this can help because there is one mutex per pool, thereby relieving some of the mutex bottleneck.
 
 [More on InnoDB tuning](https://www.mysqlperformanceblog.com/2007/11/01/innodb-performance-optimization-basics/)
 
@@ -179,7 +179,7 @@ If you have a mixture of engines, lower both numbers.
 max\_connections, thread\_stack\
 Each "thread" takes some amount of RAM. This used to be about 200KB; 100 threads would be 20MB, not a significant size. If you have [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) = 1000, then you are talking about 200MB, maybe more. Having that many connections probably implies other issues that should be addressed.
 
-In 5.6 (or [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)), optional thread pooling interacts with [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections). This is a more advanced topic.
+In 5.6 (or [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)), optional thread pooling interacts with [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections). This is a more advanced topic.
 
 Thread stack overrun rarely happens. If it does, do something like thread\_stack=256K. [More on max\_connections, wait\_timeout, connection pooling, etc](https://www.mysqlperformanceblog.com/2013/11/28/mysql-error-too-many-connections/)
 
@@ -195,7 +195,7 @@ In \*nix, ulimit tells you what the file limit is. The maximum value is in the t
 
 You can see how well your system is performing via [SHOW GLOBAL STATUS](../reference/sql-statements/administrative-sql-statements/show/show-status.md); and computing the opens/second via [Opened\_files](optimization-and-tuning/system-variables/server-status-variables.md#opened_files) / [Uptime](optimization-and-tuning/system-variables/server-status-variables.md#uptime) If this is more than, say, 5, [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) should be increased. If it is less than, say, 1, you might get improvement by decreasing [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache).
 
-From [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1), [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) defaults to 2000.
+From [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) defaults to 2000.
 
 ### Query Cache
 
@@ -231,7 +231,7 @@ If you decide the QC is right for you, then I recommend
 
 ### thread\_cache\_size
 
-It is not necessary to tune [thread\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size) from [MariaD](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) Previously, it was minor tunable variable. Zero will slow down thread (connection) creation. A small (say, 10), non-zero number is good. The setting has essentially no impact on RAM usage.
+It is not necessary to tune [thread\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size) from [MariaD](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) Previously, it was minor tunable variable. Zero will slow down thread (connection) creation. A small (say, 10), non-zero number is good. The setting has essentially no impact on RAM usage.
 
 It is the number of extra processes to hang onto. It does not restrict the number of threads; [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) does.
 

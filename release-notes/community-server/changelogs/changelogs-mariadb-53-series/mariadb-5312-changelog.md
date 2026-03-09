@@ -1,10 +1,10 @@
 # MariaDB 5.3.12 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/5.3.12) | [Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-5312-release-notes.md) | **Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.mariadb.org/mariadb/5.3.12) | [Release Notes](../../old-releases/5.3/5.3.12.md) | **Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 **Release date:** 30 Jan 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-5312-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.12.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 

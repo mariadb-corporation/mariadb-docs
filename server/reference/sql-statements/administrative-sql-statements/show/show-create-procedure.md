@@ -19,7 +19,7 @@ This statement is a MariaDB extension. It returns the exact string that can be u
 Both statements require that:
 
 * you are the owner of the routine;
-* you have the [SHOW CREATE ROUTINE](../../account-management-sql-statements/grant.md#database-privileges) privilege (from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)); or
+* you have the [SHOW CREATE ROUTINE](../../account-management-sql-statements/grant.md#database-privileges) privilege (from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)); or
 * you have the [SELECT](../../account-management-sql-statements/grant.md) privilege on the [mysql.proc](../../../system-tables/the-mysql-database-tables/mysql-proc-table.md) table.
 
 When none of the above statements are true, the statements display `NULL` for the `Create Procedure` or `Create Function` field.

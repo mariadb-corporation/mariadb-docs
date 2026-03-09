@@ -1,7 +1,7 @@
 ---
 description: >-
-  Deletes binary log files from the server. Removes logs based on a specific
-  filename or date timestamp to reclaim disk space and manage storage.
+  Official PURGE BINARY LOGS syntax: delete binlogs using TO 'log_name' or
+  BEFORE datetime_expr, replica read constraints, and SHOW BINARY LOGS commands.
 ---
 
 # PURGE BINARY LOGS

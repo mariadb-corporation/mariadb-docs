@@ -34,7 +34,7 @@ MariaDB Enterprise Server uses an [enterprise lifecycle](../../enterprise-server
 
 ## Data-at-Rest Encryption
 
-With [data-at-rest encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security), data is encrypted before writing to the disk and decrypted when read from disk. MariaDB Enterprise Server extends data-at-rest encryption support to include:
+With [data-at-rest encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve), data is encrypted before writing to the disk and decrypted when read from disk. MariaDB Enterprise Server extends data-at-rest encryption support to include:
 
 * Encryption of Spatial indexes
 * Key rotation when encrypting the InnoDB Redo Log
@@ -59,7 +59,7 @@ MariaDB Enterprise Server includes changes to improve data reliability and SQL f
 
 ## Enhanced Credential Management
 
-MariaDB Enterprise Server features [security](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security) improvements, including:
+MariaDB Enterprise Server features [security](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve) improvements, including:
 
 * Ability to reload SSL certificates without server restart.
 * SET PASSWORD option to specify authentication plugins.

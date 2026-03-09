@@ -1,3 +1,9 @@
+---
+description: >-
+  Official MariaDB Vector reference: VECTOR(n) data type, VECTOR INDEX (M,
+  DISTANCE=euclidean|cosine), VEC_FromText() inserts, VEC_DISTANCE() queries.
+---
+
 # Vector Overview
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}
@@ -22,7 +28,7 @@ CREATE TABLE v (
 );
 ```
 
-The distance function used to build the vector index can be `euclidean` (the default) or `cosine`. An additional option, `M`, can be used to configure the vector index. Larger values mean slower `SELECT`  and `INSERT` statements, larger index size and higher memory consumption but more accurate results. The valid range is from `3` to `200`.
+The distance function used to build the vector index can be `euclidean` (the default) or `cosine`. An additional option, `M`, can be used to configure the vector index. Larger values mean slower `SELECT` and `INSERT` statements, larger index size and higher memory consumption but more accurate results. The valid range is from `3` to `200`.
 
 ```sql
 CREATE TABLE embeddings (
@@ -130,6 +136,10 @@ SELECT id FROM v
 +----+
 ```
 
+{% hint style="info" %}
+There is no function for _dot product_ (also called _inner product_) distance available in many other vector databases. Dot product is not a proper distance measure (for example, vector's closest match is not necessarily itself) and is only used for performance reasons, because it is often faster than cosine or euclidean and produces the same results if vectors are normalized. In MariaDB optimized implementation euclidean and cosine measures are the fastest, and dot product, if implemented, would not provide any performance benefits. Use euclidean or cosine (they are equally fast) for normalized vectors.
+{% endhint %}
+
 ## System Variables
 
 There are a number of system variables used for vectors. See [Vector System Variables](vector-system-variables.md).
@@ -138,13 +148,42 @@ There are a number of system variables used for vectors. See [Vector System Vari
 
 MariaDB Vector is integrated in several frameworks, see [Vector Framework Integrations](vector-framework-integrations.md).
 
+## What is a Vector?
+
+{% columns %}
+{% column %}
+{% embed url="https://www.youtube.com/shorts/VrG8H53KJZY" %}
+What exactly is a vector in AI and RAG (1 minute • 2026)
+{% endembed %}
+{% endcolumn %}
+
+{% column %}
+{% hint style="info" %}
+**Video summary**
+
+* A vector (an _embedding_) is an ordered list of numbers.
+* AI models map content (like text) into vectors.
+* Similar meanings end up close together in vector space.
+* RAG and semantic search retrieve relevant items by finding the nearest vectors.
+{% endhint %}
+
+
+{% endcolumn %}
+{% endcolumns %}
+
 ## See Also
 
-* [Get to know MariaDB’s Rocket-Fast Native Vector Search - Sergei Golubchyk](https://www.youtube.com/watch?v=gNyzcy_6qJM) (video)
-* [MariaDB Vector, a new Open Source vector database that you are already familiar by Sergei Golubchik](https://www.youtube.com/watch?v=r9af4bvF7jI) (video)
-* [AI first applications with MariaDB Vector - Vicentiu Ciorbaru](https://www.youtube.com/watch?v=vp126N1QOws) (video)
-* [MariaDB Vector: A storage engine for LLMs - Kaj Arnö and Jonah Harris](https://www.youtube.com/watch?v=3y-yWoH-CF8) (video)
-* [Try RAG with MariaDB Vector on your own MariaDB data!](https://mariadb.org/rag-with-mariadb-vector/)
+* [Everything you need to know to start building apps with AI and RAG](https://youtu.be/ZlLV7rda9GY) (video • 40 minutes • 2026)
+* [What exactly is a vector in AI and RAG?](https://www.youtube.com/shorts/VrG8H53KJZY) (video • 1 minute • 2026)
+* [Get to know MariaDB’s Rocket-Fast Native Vector Search - Sergei Golubchyk](https://www.youtube.com/watch?v=gNyzcy_6qJM) (video • 37 minutes • 2025)
+* [MariaDB Vector, a new Open Source vector database that you are already familiar by Sergei Golubchik](https://www.youtube.com/watch?v=r9af4bvF7jI) (video • 27 minutes • 2025)
+* [AI first applications with MariaDB Vector - Vicentiu Ciorbaru](https://www.youtube.com/watch?v=vp126N1QOws) (video • 22 minutes • 2025)
+* [MariaDB Vector: A storage engine for LLMs - Kaj Arnö and Jonah Harris](https://www.youtube.com/watch?v=3y-yWoH-CF8) (video • 12 minutes • 2025)
+* [Try RAG with MariaDB Vector on your own MariaDB data!](https://mariadb.org/rag-with-mariadb-vector/) (blog post • 5 minutes • 2024)
+  * The post, written by Robert Silén, explains how to build a Retrieval-Augmented Generation (RAG) system using MariaDB's native vector storage. It covers:
+    1. Preparation: Setting up a MariaDB 11.7+ environment and creating a table with the `VECTOR` data type.
+    2. Indexing: Using OpenAI's embedding model to vectorize documentation and store it in MariaDB.
+    3. Search & Generation: Performing a nearest-neighbor search (`VEC_DISTANCE_EUCLIDEAN`) to find relevant context for a user's question and feeding that context into an LLM for an accurate response.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

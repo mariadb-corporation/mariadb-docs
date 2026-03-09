@@ -1,6 +1,6 @@
 # Sargable UPPER
 
-Starting from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113), expressions in the form
+Starting from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113), expressions in the form
 
 ```sql
 UPPER(key_col) = expr

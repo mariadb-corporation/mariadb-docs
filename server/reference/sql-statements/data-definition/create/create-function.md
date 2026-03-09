@@ -1,8 +1,7 @@
 ---
 description: >-
-  Define a stored function. This command creates a routine that accepts
-  parameters, executes logic, and returns a single value for use in SQL
-  expressions.
+  Complete CREATE FUNCTION reference: OR REPLACE/IF NOT EXISTS, DEFINER/SQL
+  SECURITY clauses, RETURNS type, DETERMINISTIC/NO SQL characteristics.
 ---
 
 # CREATE FUNCTION
@@ -19,7 +18,8 @@ CREATE [OR REPLACE]
     [RETURN SYS_REFCURSOR]
 
 func_parameter:
-    [ IN | OUT | INOUT | IN OUT ]  param_name type
+    [ OUT | INOUT | IN OUT ] param_name type |
+    [ IN ] param_name type [DEFAULT value or expression]
 
 type:
     Any valid MariaDB data type

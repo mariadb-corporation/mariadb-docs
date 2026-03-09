@@ -15,7 +15,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 
 ## Notable changes
 
-* [MCOL-1804](https://jira.mariadb.org/browse/MCOL-1804) - The base MariaDB server version is now [10.3.10](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-1804](https://jira.mariadb.org/browse/MCOL-1804) - The base MariaDB server version is now [10.3.10](../../../community-server/old-releases/10.3/10.3.10.md) which include several maintenance and security fixes.
 * [MCOL-520](https://jira.mariadb.org/browse/MCOL-520) - Non-root install now does not require sudo for the installation tools
 * [MCOL-1846](https://jira.mariadb.org/browse/MCOL-1846) - Amazon AMI support for Instances with ENA drivers
 
@@ -48,7 +48,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1593](https://jira.mariadb.org/browse/MCOL-1593) - Add Windows builder to buildbot for API
 * [MCOL-1744](https://jira.mariadb.org/browse/MCOL-1744) - Remove unnecessary CentOS 7 mcsapi package dependencies
 * [MCOL-1754](https://jira.mariadb.org/browse/MCOL-1754) - Change libmysql dependency for Windows api tests to libmariadb
-* [MCOL-1804](https://jira.mariadb.org/browse/MCOL-1804) - Rebase 1.2 on [MariaDB 10.3.10](../../../community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes.md)
+* [MCOL-1804](https://jira.mariadb.org/browse/MCOL-1804) - Rebase 1.2 on [MariaDB 10.3.10](../../../community-server/old-releases/10.3/10.3.10.md)
 * [MCOL-1846](https://jira.mariadb.org/browse/MCOL-1846) - AMI support for Instances with ENA drivers
 * [MCOL-1860](https://jira.mariadb.org/browse/MCOL-1860) - cannot insert symbols in column using the mcsimport with escape\_character option
 * [MCOL-1654](https://jira.mariadb.org/browse/MCOL-1654) - Querystats table is broken

@@ -1,12 +1,12 @@
 # MariaDB 10.3.26 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download 10.3.26](https://downloads.mariadb.org/mariadb/10.3.26/)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10326-release-notes.md)[Changelog](mariadb-10326-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download 10.3.26](https://downloads.mariadb.org/mariadb/10.3.26/)[Release Notes](../../old-releases/10.3/10.3.26.md)[Changelog](mariadb-10326-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 **Release date:** 3 Nov 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10326-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.26.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -54,7 +54,7 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #e3d692aa09](https://github.com/MariaDB/server/commit/e3d692aa09) 2020-10-22 08:26:28 +0300 - Merge 10.2 into 10.3
 * [Revision #88d22f0e65](https://github.com/MariaDB/server/commit/88d22f0e65)\
   2020-04-16 00:44:20 +0900
-  * [MDEV-20100](https://jira.mariadb.org/browse/MDEV-20100) [MariaDB 10.3.9](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1039-release-notes.md) Crash "\[ERROR] mysqld got signal 11 ;"
+  * [MDEV-20100](https://jira.mariadb.org/browse/MDEV-20100) [MariaDB 10.3.9](../../old-releases/10.3/10.3.9.md) Crash "\[ERROR] mysqld got signal 11 ;"
 * [Revision #9b46d8e5c4](https://github.com/MariaDB/server/commit/9b46d8e5c4)\
   2020-10-20 10:49:54 +0300
   * [MDEV-23968](https://jira.mariadb.org/browse/MDEV-23968) CREATE TEMPORARY TABLE .. LIKE (system versioned table) returns error if unique index is defined in the table

@@ -1,3 +1,9 @@
+---
+description: >-
+  Overview of security best practices within Enterprise Manager, including
+  securing the UI, managing audit logs, and enforcing strict access controls.
+---
+
 # Security in Enterprise Manager
 
 MariaDB Enterprise Manager provides security at multiple levels, including transport-layer encryption for all components, secure authentication, and a detailed audit log.

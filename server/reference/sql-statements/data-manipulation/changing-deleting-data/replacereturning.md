@@ -7,7 +7,7 @@ description: >-
 # REPLACE...RETURNING
 
 {% hint style="info" %}
-`REPLACE ... RETURNING` was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes), and returns a result set of the replaced rows.
+`REPLACE ... RETURNING` was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0), and returns a result set of the replaced rows.
 {% endhint %}
 
 ## Syntax

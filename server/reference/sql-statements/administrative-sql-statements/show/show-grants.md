@@ -1,7 +1,8 @@
 ---
 description: >-
-  View privileges assigned to a user. This statement displays the GRANT
-  statements required to replicate a user's permissions.
+  Complete SHOW GRANTS reference for MariaDB. Complete syntax guide with
+  filtering, pattern matching, and access control options with comprehensive
+  examples.
 ---
 
 # SHOW GRANTS

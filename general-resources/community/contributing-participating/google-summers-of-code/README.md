@@ -2,12 +2,11 @@
 
 MariaDB has participated in [Google Summer of Code](https://summerofcode.withgoogle.com/) since 2013. This section contains pages providing information for each year.
 
-We believe we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently [C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c), [ODBC](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc), [Java](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j), [Node.js](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-nodejs)) and on [MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/), which allows you to scale your reads & writes. Lately, we also have [MariaDB ColumnsStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
+We believe we are making a better database that remains application compatible with MySQL. We also work on making LGPL connectors (currently [C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c), [ODBC](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-odbc), [Java](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-j), [Node.js](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-nodejs)) and on [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), which allows you to scale your reads & writes. Lately, we also have [MariaDB ColumnsStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore), which is a columnar storage engine, designed to process petabytes of data with real-time response to analytical queries.
 
 ## Project Ideas Pages:
 
 * [Current GSoC 2026](google-summer-of-code-2026.md)
-* [GSoC 2025](google-summer-of-code-2025.md)
 * [GSoC 2025](google-summer-of-code-2025.md)
 * [GSoC 2024](google-summer-of-code-2024.md)
 * [GSoC 2023](google-summer-of-code-2023.md)

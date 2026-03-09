@@ -1,12 +1,12 @@
 # MariaDB 10.1.9 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.9)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-9-release-notes.md)[Changelog](mariadb-10-1-9-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.9)[Release Notes](../../old-releases/10.1/10.1.9.md)[Changelog](mariadb-10-1-9-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 23 Nov 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-9-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.9.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -198,7 +198,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Remove compiler warning
 * [Revision #e8c1b35](https://github.com/MariaDB/server/commit/e8c1b35)\
   2015-11-12 14:51:01 +0200
-  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #83ed38d](https://github.com/MariaDB/server/commit/83ed38d)\
   2015-05-11 20:18:30 +0800
   * fix [MDEV-8140](https://jira.mariadb.org/browse/MDEV-8140)
@@ -381,7 +381,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Test debug\_key\_management fails sporadically in buildbot.
 * [Revision #0fe5eb5](https://github.com/MariaDB/server/commit/0fe5eb5)\
   2015-10-29 08:21:28 +0200
-  * [MDEV-9032](https://jira.mariadb.org/browse/MDEV-9032): [MariaDB 10.1.8](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-8-release-notes.md) crashes at startup
+  * [MDEV-9032](https://jira.mariadb.org/browse/MDEV-9032): [MariaDB 10.1.8](../../old-releases/10.1/10.1.8.md) crashes at startup
 * [Revision #56f04e0](https://github.com/MariaDB/server/commit/56f04e0)\
   2015-10-28 21:32:07 +0100
   * [MDEV-9014](https://jira.mariadb.org/browse/MDEV-9014) SHOW TRIGGERS not case sensitive
@@ -393,10 +393,10 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-8543](https://jira.mariadb.org/browse/MDEV-8543) mysql.server script not correctly handle --pid-file.
 * [Revision #d88aaaa](https://github.com/MariaDB/server/commit/d88aaaa)\
   2015-10-28 08:34:08 +0100
-  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10020-release-notes.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
+  * [MDEV-8525](https://jira.mariadb.org/browse/MDEV-8525) [mariadb 10.0.20](../../old-releases/10.0/10.0.20.md) crashing when data is read by Kodi media center ([kodi.tv](https://kodi.tv)).
 * [Revision #b0e3f48](https://github.com/MariaDB/server/commit/b0e3f48)\
   2015-10-22 16:08:45 +0200
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/10.0/10.0.21.md) crashes during PREPARE
 * [Revision #ac67f9a](https://github.com/MariaDB/server/commit/ac67f9a)\
   2015-10-28 12:53:23 +0400
   * Removed mistakenly committed test file.
@@ -597,7 +597,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Fix assert error for where clause with UDF's was fixed in HA\_CONNECT::CondFilter moving res= pval->val\_str(\&tmp) but this was wrong. Now res is only used for strings.
 * [Revision #fd1b2e4](https://github.com/MariaDB/server/commit/fd1b2e4)\
   2015-09-15 17:07:41 -0400
-  * [MDEV-8803](https://jira.mariadb.org/browse/MDEV-8803): Debian jessie 8.2 + [MariaDB 10.1.7](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes.md) + GaleraCluster
+  * [MDEV-8803](https://jira.mariadb.org/browse/MDEV-8803): Debian jessie 8.2 + [MariaDB 10.1.7](../../old-releases/10.1/10.1.7.md) + GaleraCluster
 * [Revision #653aadc](https://github.com/MariaDB/server/commit/653aadc)\
   2015-09-15 16:27:04 -0400
   * [MDEV-8804](https://jira.mariadb.org/browse/MDEV-8804): bootstrap command missing in debian init script

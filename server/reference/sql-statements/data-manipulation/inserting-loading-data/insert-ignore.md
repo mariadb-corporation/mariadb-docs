@@ -1,8 +1,7 @@
 ---
 description: >-
-  Insert rows while ignoring specific errors. This statement allows bulk inserts
-  to continue even if some rows fail due to duplicate keys or data conversion
-  issues.
+  Complete INSERT IGNORE reference: ignore insert errors and warnings, duplicate
+  key error handling, invalid value coercion, and SHOW WARNINGS compatibility.
 ---
 
 # INSERT IGNORE

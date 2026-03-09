@@ -1088,11 +1088,14 @@ ALTER TABLE t2 IMPORT TABLESPACE;
 * `SHOW EXPLAIN` for `<conn_id>`, which returns an `EXPLAIN` for a query running in another connection, has been extended to return the more detailed JSON output by using the syntax `SHOW EXPLAIN [FORMAT=JSON] FOR <conn_id>`.
   * Syntax EXPLAIN `[ FORMAT=JSON] FOR CONNECTION <conn_id>` is also supported.
 * New status monitoring features for MariaDB Enterprise Cluster:
-  * New thread states in `PROCESSLIST` for MariaDB Galera Cluster allow better tracking of a session status
-    * "waiting to execute in isolation"
-    * "waiting for TOI DDL"
-    * "waiting for flow control"
-    * "waiting for certification"
+  *   New thread states in `PROCESSLIST` for MariaDB Galera Cluster allow better tracking of a session status
+
+      * "waiting to execute in isolation"
+      * "waiting for TOI DDL"
+      * "waiting for flow control"
+      * "waiting for certification"
+
+      For detailed information about these states, see [Galera Cluster Thread States](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states).
   * MariaDB Enterprise Cluster has added a new feature to save wsrep node status changes in a dedicated machine readable JSON file. This allows an easier way for reading and interpreting the status file by an external monitoring tool. A filename needs to be specified via the option `wsrep_status_file` to enable the feature.
     * This JSON file also includes details about a node eviction status to the JSON file to report that a Galera node needs to be restarted to join the cluster.
   * MariaDB Enterprise Cluster now includes progress reporting of MariaDB Enterprise Backup based SST when `wsrep-debug=1` is set and the tool `pv` is installed. The SST progress report is then written into the server log:

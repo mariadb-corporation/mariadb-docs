@@ -9,6 +9,8 @@
   * [Launch DB Using REST API](quickstart/launch-db-using-the-rest-api.md)
   * [Launch DB Using Terraform Provider](quickstart/launch-db-using-the-terraform-provider.md)
   * [Launch DB Using Python](quickstart/launch-db-using-python.md)
+  * [Bring Your Own Account (BYOA)](quickstart/bring-your-own-account-byoa.md)
+  * [Enterprise Cluster](quickstart/enterprise-cluster.md)
 * [Connection Methods](connecting-to-mariadb-cloud-dbs/README.md)
   * [Connection Overview](connecting-to-mariadb-cloud-dbs/connection-overview.md)
   * [Connect using MariaDB Client](connecting-to-mariadb-cloud-dbs/connect-using-mariadb-cli.md)

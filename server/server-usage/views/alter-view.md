@@ -20,11 +20,7 @@ ALTER
 
 ## Description
 
-This statement changes the definition of a [view](./), which must exist. The\
-syntax is similar to that for [CREATE VIEW](create-view.md) and the effect is the same\
-as for `CREATE OR REPLACE VIEW` if the view exists. This statement\
-requires the `CREATE VIEW` and `DROP` [privileges](../../reference/sql-statements/account-management-sql-statements/grant.md#table-privileges) for the view, and some\
-privilege for each column referred to in the `SELECT` statement. `ALTER VIEW` is allowed only to the definer or users with the [SUPER](../../reference/sql-statements/account-management-sql-statements/grant.md#global-privileges) privilege.
+This statement changes the definition of a [view](./), which must exist. The syntax is similar to that for [CREATE VIEW](create-view.md) and the effect is the same as for `CREATE OR REPLACE VIEW` if the view exists. This statement requires the `CREATE VIEW` and `DROP` [privileges](../../reference/sql-statements/account-management-sql-statements/grant.md#table-privileges) for the view, and some privilege for each column referred to in the `SELECT` statement. `ALTER VIEW` is allowed only to the definer or users with the [SUPER](../../reference/sql-statements/account-management-sql-statements/grant.md#global-privileges) privilege.
 
 ## Example
 

@@ -41,13 +41,13 @@ modified in that revision.
     * [MDEV-5026](https://jira.mariadb.org/browse/MDEV-5026) cannot use system jemalloc
   * [Revision #3334.48.12](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.48.12)\
     Wed 2013-09-18 17:25:10 +0200
-    * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../release-notes-mariadb-5-5-series/mariadb-5533-release-notes.md) with .frm from older MariaDB release
+    * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../5.5/5.5.33.md) with .frm from older MariaDB release
   * [Revision #3334.48.11](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.48.11)\
     Wed 2013-09-18 10:30:23 +0200
     * fix upgrades when mariadb-galera-server-5.5 is installed
   * [Revision #3334.48.10](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.48.10)\
     Wed 2013-09-18 09:09:27 +0200
-    * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../release-notes-mariadb-5-5-series/mariadb-5533-release-notes.md) with .frm from older MariaDB release
+    * [MDEV-5029](https://jira.mariadb.org/browse/MDEV-5029) Crash in [MariaDB 5.5.33](../../5.5/5.5.33.md) with .frm from older MariaDB release
   * [Revision #3334.48.9](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.48.9) \[merge]\
     Tue 2013-09-17 20:44:34 +0200
     * merge with 5.5-release

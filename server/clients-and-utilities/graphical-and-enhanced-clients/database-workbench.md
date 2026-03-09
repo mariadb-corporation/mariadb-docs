@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete Database Workbench guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage with comprehensive
+  examples and.
+---
+
 # Database Workbench
 
 [Database Workbench](https://www.upscene.com/database_workbench/) is a Windows application (_which works fine under Wine on Linux_) for database design, development, maintenance and testing for several database systems, including MySQL and MariaDB.

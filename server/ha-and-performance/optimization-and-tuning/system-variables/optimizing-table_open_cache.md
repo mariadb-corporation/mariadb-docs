@@ -8,7 +8,7 @@ _table\_open\_cache_ indicates the maximum number of tables the server can keep 
 
 However, note that this is not a hard limit. When the server needs to open a table, it evicts the least recently used closed table from the cache, and adds the new table. If all tables are used, the server adds the new table and does not evict any table. As soon as a table is not used anymore, it will be evicted from the list even if no table needs to be open, until the number of open tables will be equal to _table\_open\_cache_
 
-_table\_open\_cache_ has defaulted to 2000 since [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes). Before that, the default was 400.
+_table\_open\_cache_ has defaulted to 2000 since [MariaDB 10.1.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.7). Before that, the default was 400.
 
 You can view the current setting in the my.cnf file, or by running:
 

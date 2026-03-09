@@ -1,8 +1,8 @@
 ---
 description: >-
-  Define one or more Common Table Expressions (CTEs). The WITH clause starts a
-  statement by declaring named temporary result sets that can be referenced in
-  the main query.
+  Complete WITH clause reference: WITH [RECURSIVE] AS (SELECT...) syntax,
+  recursive CTE support, CYCLE...RESTRICT cycle detection, and
+  max_recursive_iterations.
 ---
 
 # WITH

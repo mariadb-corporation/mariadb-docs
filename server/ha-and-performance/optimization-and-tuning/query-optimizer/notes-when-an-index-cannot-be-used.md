@@ -26,11 +26,11 @@ Note   1105    Cannot use key `s2` part[0] for lookup: `test`.`t1`.`s2` of
   collation `latin1_swedish_ci` = "'a' collate latin1_german1_ci" of collation `latin1_german1_ci`
 ```
 
-Note that in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) to [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113) we will use the error 1105 (Unknown error), as we cannot add an new error code in a GA version. In [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114) we will change this to be a unique error code.
+Note that in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) to [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113) we will use the error 1105 (Unknown error), as we cannot add an new error code in a GA version. In [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114) we will change this to be a unique error code.
 
 ## Enabling the Note
 
-By default, the warning is only shown when executing [EXPLAIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain) on a query.\
+By default, the warning is only shown when executing [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) on a query.\
 To enable for all queries, use the option/server variable:
 
 ```

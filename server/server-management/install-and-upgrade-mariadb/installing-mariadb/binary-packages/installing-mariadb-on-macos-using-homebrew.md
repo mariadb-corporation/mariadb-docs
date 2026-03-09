@@ -16,6 +16,10 @@ Install MariaDB Server:
 brew install mariadb
 ```
 
+{% hint style="info" %}
+This can take several minutes to complete, depending on hardware, network, and other factors.
+{% endhint %}
+
 Start MariaDB Server:
 
 ```bash

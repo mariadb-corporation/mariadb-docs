@@ -41,7 +41,7 @@ modified in that revision.
   * bzr merge -r3997..4010 codership-mysql/5.5
 * [Revision #3516](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3516) \[merge]\
   Wed 2014-08-06 14:06:11 -0400
-  * Local merge of [MariaDB 5.5.39](../../release-notes-mariadb-5-5-series/mariadb-5539-release-notes.md)
+  * Local merge of [MariaDB 5.5.39](../../5.5/5.5.39.md)
 * [Revision #3515](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3515)\
   Tue 2014-08-05 18:55:05 -0400
   * [MDEV-6495](https://jira.mariadb.org/browse/MDEV-6495): innodb\_flush\_log\_at\_trx\_commit=0 as suggestion for galera vs =2

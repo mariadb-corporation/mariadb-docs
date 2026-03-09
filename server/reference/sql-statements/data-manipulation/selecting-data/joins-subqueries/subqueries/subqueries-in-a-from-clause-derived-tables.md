@@ -26,7 +26,7 @@ If a subquery is used in this way, you must also use an AS clause to name the re
 
 ## Correlation Column List
 
-**MariaDB starting with** [**11.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-11-7-rolling-releases/mariadb-11-7-0-release-notes)
+**MariaDB starting with** [**11.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/11.7.0)
 
 {% tabs %}
 {% tab title="Current" %}

@@ -1,20 +1,13 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engined.
 ---
 
 # Using CONNECT - Partitioning and Sharding
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
 CONNECT supports the MySQL/MariaDB partition specification. It is done similar to the way [MyISAM](../../myisam-storage-engine/) or [InnoDB](../../innodb/) do by using the PARTITION engine that must be enabled for this to work. This type of partitioning is sometimes referred as “horizontal partitioning”.
 
 Partitioning enables you to distribute portions of individual tables across a file system according to\
-rules which you can set largely as needed. In effect, different portions of a table are stored as separate\
-tables in different locations. The user-selected rule by which the division of data is accomplished is\
-known as a partitioning function, which in MariaDB can be the modulus, simple matching against a set\
-of ranges or value lists, an internal hashing function, or a linear hashing function.
+rules which you can set largely as needed. In effect, different portions of a table are stored as separate tables in different locations. The user-selected rule by which the division of data is accomplished is known as a partitioning function, which in MariaDB can be the modulus, simple matching against a set of ranges or value lists, an internal hashing function, or a linear hashing function.
 
 CONNECT takes this notion a step further, by providing two types of partitioning:
 
@@ -25,7 +18,7 @@ CONNECT takes this notion a step further, by providing two types of partitioning
 
 Using partitions sometimes requires creating the tables in an unnatural way to avoid some error due to several partition engine bugs:
 
-1. Engine specific column and index options are not recognized and cause a syntax error when the table is created. The workaround is to create the table in two steps, a CREATE TABLE statement followed by an ALTER TABLE statement.
+1. Engine specific column and index options are not recognized and cause a syntax error when the table is created. The workaround is to create the table in two steps, a `CREATE TABLE` statement followed by an `ALTER TABLE` statement.
 2. The connection string, when specified for the table, is lost by the partition engine. The workaround is to specify the connection string in the option\_list.
 3. [MySQL upstream bug #71095](https://bugs.mysql.com/bug.php?id=71095). In case of list columns partitioning it sometimes causes a false “impossible where” clause to be raised. This makes a wrong void result returned when it should not be void. There is no workaround but this bug should be hopefully fixed.
 
@@ -86,13 +79,9 @@ Note: If sub-partitioning is used, inward table files and index files are named:
 
 ### Outward Tables
 
-The real problems occur with outward tables, in particular when they are created from already existing\
-files. The first issue is to make the partition table use the correct existing file names. The second one,\
-only for already existing not void tables, is to be sure the partitioning function match the distribution of\
-the data already existing in the files.
+The real problems occur with outward tables, in particular when they are created from already existing files. The first issue is to make the partition table use the correct existing file names. The second one, only for already existing not void tables, is to be sure the partitioning function match the distribution of the data already existing in the files.
 
-The first issue is addressed by the way data file names are constructed. For instance let us suppose we\
-want to make a table from the fixed formatted files:
+The first issue is addressed by the way data file names are constructed. For instance let us suppose we want to make a table from the fixed formatted files:
 
 ```
 E:\Data\part1.txt
@@ -248,7 +237,7 @@ This query returns:
 
 Everything works as if the city column was a real column contained in the table data files.
 
-#### Partitioning of zipped tables
+#### Partitioning of Zipped Tables
 
 Two cases are currently supported:\
 If a table is based on several zipped files, portioning is done the standard way as above. This is the _file\_name_ option specifying the name of the zip files that shall contain the ‘%s’ part used to generate the file names.\
@@ -377,16 +366,13 @@ On a query like this one, it does not change much because the where clause could
 anyway by the cond\_push function, but it does make a difference in case of joins. The main thing to\
 understand is that real indexing is done by the called table and therefore that it should be indexed.
 
-This also means that the xt1, xt2, and xt3 table indexes should be made separately because creating the\
-t2 table as indexed does not make the indexes on the sub-tables.
+This also means that the `xt1`, `xt2`, and `xt3` table indexes should be made separately because creating the `t2` table as indexed does not make the indexes on the sub-tables.
 
 ### Sharding with Table Partitioning
 
 Using table partitioning can have one more advantage. Because the sub-tables can address a table\
 located on another server, it is possible to shard a table on separate servers and hardware machines.\
-This may be required to access as one table data already located on several remote machines, such as\
-servers of a company branches. Or it can be just used to split a huge table for performance reason.\
-For instance, supposing we have created the following tables:
+This may be required to access as one table data already located on several remote machines, such as servers of a company branches. Or it can be just used to split a huge table for performance reason. For instance, supposing we have created the following tables:
 
 ```sql
 CREATE TABLE rt1 (id INT KEY NOT NULL, msg VARCHAR(32))
@@ -412,11 +398,7 @@ PARTITION `2` VALUES LESS THAN(50),
 PARTITION `3` VALUES LESS THAN(MAXVALUE));
 ```
 
-.
-
-The only difference is the tabname option now referring to the rt1, rt2, and rt3 tables. However, even if\
-it works, this is not the best way to do it. This is because accessing a table via the MySQL API is done\
-twice per table. Once by CONNECT to access the FEDERATED table on the local server, then a\
+The only difference is the tabname option now referring to the rt1, rt2, and rt3 tables. However, even if it works, this is not the best way to do it. This is because accessing a table via the MySQL API is done twice per table. Once by CONNECT to access the FEDERATED table on the local server, then a\
 second time by FEDERATED engine to access the remote table.
 
 The CONNECT MYSQL table type being used anyway, you’d rather use it to directly access the\
@@ -530,7 +512,7 @@ id is no more a key.
 Because the partition engine was written before some other engines were added to MariaDB, the way it\
 works is sometime incompatible with these engines, in particular with CONNECT.
 
-### Update statement
+### Update Statement
 
 With the sample tables above, you can do update statements such as:
 
@@ -558,24 +540,20 @@ DELETE FROM t2 WHERE id = 4;
 INSERT INTO t2 VALUES(41, 'four');
 ```
 
-### Alter Table statement
+### Alter Table Statement
 
-For all CONNECT outward tables, the ALTER TABLE statement does not make any change in the table\
-data. This is why ALTER TABLE should not be used; in particular to modify the partition definition,\
-except of course to correct a wrong definition. Note that using ALTER TABLE to create a partition table\
-in two steps because column options would be lost is valid as it applies to a table that is not yet\
+For all CONNECT outward tables, the `ALTER TABLE` statement does not make any change in the table\
+data. This is why `ALTER TABLE` should not be used; in particular to modify the partition definition,\
+except of course to correct a wrong definition. Note that using `ALTER TABLE` to create a partition table in two steps because column options would be lost is valid as it applies to a table that is not yet\
 partitioned.
 
-As we have seen, it is also safe to use it to create or drop indexes. Otherwise, a simple rule of thumb is\
-to avoid altering a table definition and better drop and re-create a table whose definition must be\
+As we have seen, it is also safe to use it to create or drop indexes. Otherwise, a simple rule of thumb is to avoid altering a table definition and better drop and re-create a table whose definition must be\
 modified. Just remember that for outward CONNECT tables, dropping a table does not erase the data\
 and that creating it does not modify existing data.
 
-### Rowid special column
+### Rowid Special Column
 
-Each partition being handled separately as one table, the ROWID special column returns the rank of the\
-row in its partition, not in the whole table. This means that for partition tables ROWID and ROWNUM are\
-equivalent.
+Each partition being handled separately as one table, the `ROWID` special column returns the rank of the row in its partition, not in the whole table. This means that for partition tables `ROWID` and `ROWNUM` are equivalent.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

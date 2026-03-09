@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 **Release date:** 22 Apr 2017
 
 MariaDB Galera Cluster 5.5.55 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 5.5.55](../../release-notes-mariadb-5-5-series/mariadb-5555-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 5.5.55](../../5.5/5.5.55.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -24,7 +24,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 * As per the [MariaDB Deprecation Policy](../../../about/platform-deprecation-policy.md), this will be\
   the last release of MariaDB Galera Cluster 5.5 for Ubuntu 12.04 LTS\
   "Precise" and Mint 13 LTS "Maya"
-* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security):
+* Fixes for the following [security vulnerabilities](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve):
   * [CVE-2017-3302](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3302)
   * [CVE-2017-3313](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3313)
   * [CVE-2017-3308](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3308)
@@ -33,7 +33,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
   * [CVE-2017-3456](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3456)
   * [CVE-2017-3464](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3464)
 
-See the [MariaDB 5.5.55 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5555-release-notes.md) for more\
+See the [MariaDB 5.5.55 Release Notes](../../5.5/5.5.55.md) for more\
 information on fixes in this version.
 
 ## Changelog

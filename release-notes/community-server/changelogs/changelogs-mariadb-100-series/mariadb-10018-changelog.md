@@ -1,12 +1,12 @@
 # MariaDB 10.0.18 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.18)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10018-release-notes.md)[Changelog](mariadb-10018-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.18)[Release Notes](../../old-releases/10.0/10.0.18.md)[Changelog](mariadb-10018-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 7 May 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10018-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.18.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -335,7 +335,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-7814](https://jira.mariadb.org/browse/MDEV-7814) Assertion \`args\[0]->fixed' fails in Item\_func\_conv\_charset::Item\_func\_conv\_charset Removing a wrong assertion.
 * [Revision #b9a7586](https://github.com/MariaDB/server/commit/b9a7586)\
   2015-03-05 16:34:13 +0100
-  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md) server crash on update table left join with a view
+  * [MDEV-7613](https://jira.mariadb.org/browse/MDEV-7613): [MariaDB 5.5.40](../../old-releases/5.5/5.5.40.md) server crash on update table left join with a view
 * [Revision #a852355](https://github.com/MariaDB/server/commit/a852355)\
   2015-04-14 14:23:35 +0200
   * Merge [MDEV-7975](https://jira.mariadb.org/browse/MDEV-7975) into 10.0

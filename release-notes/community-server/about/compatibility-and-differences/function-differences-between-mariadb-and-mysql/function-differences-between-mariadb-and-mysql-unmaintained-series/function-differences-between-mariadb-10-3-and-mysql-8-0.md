@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 10.3 and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 10.3](../../../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) and MySQL 8.0. It is based on functions available in the stable versions MySQL 8.0.11 and [MariaDB 10.3.20](../../../../old-releases/release-notes-mariadb-10-3-series/mariadb-10320-release-notes.md).
+The following is a list of all function differences between [MariaDB 10.3](../../../../old-releases/10.3/what-is-mariadb-103.md) and MySQL 8.0. It is based on functions available in the stable versions MySQL 8.0.11 and [MariaDB 10.3.20](../../../../old-releases/10.3/10.3.20.md).
 
 ## Present in MariaDB Only
 

@@ -71,7 +71,7 @@ $ ulimit -Hn
 
 ### Configuring the Core File Size
 
-By default, the system limits the size of core files that could be created. It has both a soft and hard limit. On many systems, the soft limit defaults to 0. If you want to [enable core dumps](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/enabling-core-dumps), then you may need to increase this. Therefore, you may need to increase the soft and hard limits. There are a few ways to do so.
+By default, the system limits the size of core files that could be created. It has both a soft and hard limit. On many systems, the soft limit defaults to 0. If you want to [enable core dumps](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YszphlxXpuc64pTHiGem), then you may need to increase this. Therefore, you may need to increase the soft and hard limits. There are a few ways to do so.
 
 If you are using [mysqld\_safe or mariadbd-safe](../starting-and-stopping-mariadb/mariadbd-safe.md) to start `mysqld`, then see the instructions at [mariadb-safe: Configuring the Core File Size](../../../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-the-core-file-size).
 

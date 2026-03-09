@@ -1,7 +1,7 @@
 ---
 description: >-
-  Add a time interval to a date. This function calculates a new date by adding a
-  specified unit, such as days or seconds, to a starting value.
+  Complete DATE_ADD() reference: DATE_ADD(date, INTERVAL expr unit) syntax,
+  negative interval support, unit keywords (DAY/MONTH/YEAR), and return types.
 ---
 
 # DATE\_ADD

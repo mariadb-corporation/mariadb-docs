@@ -1,7 +1,7 @@
 ---
 description: >-
-  View currently executing threads. This statement displays the ID, user, host,
-  database, statement, time, and state of active connections.
+  Complete SHOW PROCESSLIST reference: FULL keyword for complete queries,
+  PROCESS privilege, columns (Id, User, Host, db, Command, Time, State, Info).
 ---
 
 # SHOW PROCESSLIST

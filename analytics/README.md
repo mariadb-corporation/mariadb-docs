@@ -3,20 +3,6 @@ description: >-
   MariaDB Enterprise offers powerful solutions to break down the barriers to
   insight. Whether you need to run ad hoc queries on massive datasets or power
   the most demanding AI workloads.
-layout:
-  width: default
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: false
-  metadata:
-    visible: true
 ---
 
 # Analytics

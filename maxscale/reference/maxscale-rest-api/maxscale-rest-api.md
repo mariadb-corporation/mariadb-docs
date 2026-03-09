@@ -189,7 +189,7 @@ The MaxScale REST API provides the following resources. All resources conform to
 * [maxscale](maxscale-maxscale-resource.md)
 * [objects](maxscale-object-resource.md)
 * [services](maxscale-service-resource.md)
-* [servers](maxscale-service-resource.md)
+* [servers](maxscale-server-resource.md)
 * [listeners](maxscale-listener-resource.md)
 * [filters](maxscale-filter-resource.md)
 * [monitors](maxscale-monitor-resource.md)

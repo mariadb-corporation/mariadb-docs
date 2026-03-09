@@ -12,13 +12,13 @@ This is part of the [User Statistics](../../../../ha-and-performance/optimizatio
 
 It contains the following columns:
 
-| Field         | Type         | Notes                                                                                                                                                                                                                                                                  |
-| ------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TABLE\_SCHEMA | VARCHAR(192) | The schema (database) name.                                                                                                                                                                                                                                            |
-| TABLE\_NAME   | VARCHAR(192) | The table name.                                                                                                                                                                                                                                                        |
-| INDEX\_NAME   | VARCHAR(192) | The index name (as visible in [SHOW CREATE TABLE](../../../sql-statements/administrative-sql-statements/show/show-create-table.md)).                                                                                                                                   |
-| ROWS\_READ    | BIGINT(21)   | The number of rows read from this index.                                                                                                                                                                                                                               |
-| QUERIES       | BIGINT(21)   | Incremented for each index the query is part of. This assists one to see how effective the index is. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115) |
+| Field         | Type         | Notes                                                                                                                                                                                                                           |
+| ------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TABLE\_SCHEMA | VARCHAR(192) | The schema (database) name.                                                                                                                                                                                                     |
+| TABLE\_NAME   | VARCHAR(192) | The table name.                                                                                                                                                                                                                 |
+| INDEX\_NAME   | VARCHAR(192) | The index name (as visible in [SHOW CREATE TABLE](../../../sql-statements/administrative-sql-statements/show/show-create-table.md)).                                                                                            |
+| ROWS\_READ    | BIGINT(21)   | The number of rows read from this index.                                                                                                                                                                                        |
+| QUERIES       | BIGINT(21)   | Incremented for each index the query is part of. This assists one to see how effective the index is. From [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115) |
 
 ## Example
 

@@ -1,8 +1,8 @@
 # MariaDB 5.3.0 Changelog p6
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
 (page:`[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md) 6`\
-) |[Overview of 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+) |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 26 July 2011
 
@@ -45,7 +45,7 @@
     * Fix a crash in nested semi-join subquery processing
 * [Revision #2829](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2829)\
   Sun 2010-10-17 18:05:29 +0400
-  * [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md) -> 5.2 post-merge fixes:
+  * [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) -> 5.2 post-merge fixes:
     * When building multiple-equalities for HAVING, don't set JOIN::cond\_equal, set\
       join\_having\_equal instead. Setting JOIN::cond\_equal based on HAVING makes\
       equality propagation data self-inconsistent
@@ -65,7 +65,7 @@
     * version of mysqld changed.
 * [Revision #2825](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2825)\
   Thu 2010-10-14 01:48:03 +0400
-  * Merge [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md) -> [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+  * Merge [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) -> [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
     * post-merge fixes
 * [Revision #2824](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2824)\
   Wed 2010-10-13 16:26:58 +0400
@@ -241,7 +241,7 @@
       handler cares about "sorted" parameter of h->index\_init() call)
 * [Revision #2790](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2790) \[merge]\
   Sat 2010-06-26 14:05:41 +0400
-  * [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md) -> [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md) merge
+  * [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md) -> [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) merge
 * [Revision #2789](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2789)\
   Mon 2010-06-14 15:17:54 +0400
   * More comments
@@ -281,7 +281,7 @@
     * Fix for the PBXT copy of subselect.test.
 * [Revision #2780](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2780) \[merge]\
   Sat 2010-03-20 15:01:47 +0300
-  * Merge MariaDB-5.2 -> [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+  * Merge MariaDB-5.2 -> [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 * [Revision #2779](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2779) \[merge]\
   Mon 2010-03-15 21:52:58 +0200
   * Merge in [MWL#68](https://askmonty.org/worklog/?tid=68): Subquery optimization: Efficient NOT IN execution with NULLs
@@ -666,7 +666,7 @@
       2. Conditions for ref access were not eliminated from on expressions\
          though such conditions were eliminated from the where condition.
 
-[MariaDB 5.3.0](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) Changelog — page:`[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md) 6`
+[MariaDB 5.3.0](../../old-releases/5.3/5.3.0.md) Changelog — page:`[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md) 6`
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

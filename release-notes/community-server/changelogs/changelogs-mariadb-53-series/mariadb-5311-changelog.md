@@ -1,10 +1,10 @@
 # MariaDB 5.3.11 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/5.3.11) | [Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-5310-release-notes.md) | **Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
+[Download](https://downloads.mariadb.org/mariadb/5.3.11) | [Release Notes](../../old-releases/5.3/5.3.10.md) | **Changelog** |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
 **Release date:** 29 Nov 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-5311-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.11.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -22,10 +22,10 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * [MDEV-736](https://jira.mariadb.org/browse/MDEV-736) [Bug #1004615](https://bugs.launchpad.net/bugs/1004615) - Unexpected warnings "Encountered illegal value '' when converting to DECIMAL" on a query with aggregate functions and GROUP BY
 * [Revision #3602](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3602) \[merge]\
   Tue 2012-11-20 13:57:49 +0100
-  * Merge [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)->5.3
+  * Merge [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)->5.3
   * [Revision #2732.57.35](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.57.35) \[merge]\
     Tue 2012-11-20 13:40:13 +0100
-    * Merge [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)->5.2.
+    * Merge [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2.
     * [Revision #2643.153.29](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2643.153.29)\
       Tue 2012-11-20 13:28:53 +0100
       * [MDEV-3861](https://jira.mariadb.org/browse/MDEV-3861): assertions in TC\_LOG\_MMAP.

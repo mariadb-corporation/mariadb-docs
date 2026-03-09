@@ -1,7 +1,7 @@
 ---
 description: >-
-  Universally Unique Identifier data type. This type is optimized for storing
-  128-bit UUID values efficiently.
+  Official UUID data type reference: 128-bit storage optimization, CAST from
+  CHAR/VARCHAR/BINARY types, RFC4122 string format, and UUIDv6/v7 support.
 ---
 
 # UUID Data Type
@@ -42,7 +42,7 @@ nnnnnnnnnnnn-vsss-Vhhh-mmmm-llllllll
 
 This provides a sorting order, assuming a UUIDv1 (node and timestamp) is used, of the node, followed by the timestamp. The key aspect is the timestamps are sequential.
 
-**MariaDB starting with** [**10.10**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-10-series/what-is-mariadb-1010)
+**MariaDB starting with** [**10.10**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/what-is-mariadb-1010)
 
 {% tabs %}
 {% tab title="Current" %}

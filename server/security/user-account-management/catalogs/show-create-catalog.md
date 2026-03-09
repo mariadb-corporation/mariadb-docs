@@ -1,3 +1,9 @@
+---
+description: >-
+  Reference for the SHOW CREATE CATALOG statement, which displays the SQL
+  statement used to create a specific catalog.
+---
+
 # SHOW CREATE CATALOG
 
 {% include "../../../.gitbook/includes/catalogs.md" %}

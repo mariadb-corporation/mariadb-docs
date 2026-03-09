@@ -17,12 +17,12 @@ The setting is controlled by the [slave\_run\_triggers\_for\_rbr](replication-an
 
 Possible values are:
 
-| Value        | Meaning                                                                                                                                                                                                                                                                 |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NO (Default) | Don't invoke triggers for row-based events                                                                                                                                                                                                                              |
-| YES          | Invoke triggers for row-based events, don't log their effect into the binary log                                                                                                                                                                                        |
-| LOGGING      | Invoke triggers for row-based events, and log their effect into the binary log                                                                                                                                                                                          |
-| ENFORCE      | From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes) only. Triggers will always be run on the replica, even if there are triggers on the master. ENFORCE implies LOGGING. |
+| Value        | Meaning                                                                                                                                                                                                                              |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| NO (Default) | Don't invoke triggers for row-based events                                                                                                                                                                                           |
+| YES          | Invoke triggers for row-based events, don't log their effect into the binary log                                                                                                                                                     |
+| LOGGING      | Invoke triggers for row-based events, and log their effect into the binary log                                                                                                                                                       |
+| ENFORCE      | From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2) only. Triggers will always be run on the replica, even if there are triggers on the master. ENFORCE implies LOGGING. |
 
 **Note that if you just want to use triggers together with replication, you most likely don't need this option.** Read below for details.
 

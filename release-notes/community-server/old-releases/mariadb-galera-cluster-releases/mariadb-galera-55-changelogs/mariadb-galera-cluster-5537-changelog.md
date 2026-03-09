@@ -43,7 +43,7 @@ modified in that revision.
   * Merge lp:codership-mysql/5.5 -r3961..3980.
 * [Revision #3477](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3477) \[merge]\
   Wed 2014-04-16 12:13:43 +0300
-  * Merge from lp:maria/5.5 to [MariaDB 5.5.37](../../release-notes-mariadb-5-5-series/mariadb-5537-release-notes.md) release revision 4154.
+  * Merge from lp:maria/5.5 to [MariaDB 5.5.37](../../5.5/5.5.37.md) release revision 4154.
 * [Revision #3476](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3476)\
   Thu 2014-03-20 18:33:23 -0400
   * [MDEV-5903](https://jira.mariadb.org/browse/MDEV-5903) mariadb-galera tree builds too many rpm packages

@@ -1,12 +1,12 @@
 # MariaDB 10.3.10 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.10)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes.md)[Changelog](mariadb-10310-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.10)[Release Notes](../../old-releases/10.3/10.3.10.md)[Changelog](mariadb-10310-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 **Release date:** 4 Oct 2018
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10310-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.10.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -134,7 +134,7 @@ details of the revision and view diffs of the code modified in that revision.
 * Merge [Revision #5a1868b58d](https://github.com/MariaDB/server/commit/5a1868b58d) 2018-09-07 22:15:06 +0300 - [MDEV-13564](https://jira.mariadb.org/browse/MDEV-13564) mariadb-backup does not work with TRUNCATE
 * [Revision #980d1bf1a9](https://github.com/MariaDB/server/commit/980d1bf1a9)\
   2018-09-07 17:24:31 +0300
-  * [MDEV-14717](https://jira.mariadb.org/browse/MDEV-14717): Prevent crash-downgrade to earlier [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * [MDEV-14717](https://jira.mariadb.org/browse/MDEV-14717): Prevent crash-downgrade to earlier [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #73ed19e44f](https://github.com/MariaDB/server/commit/73ed19e44f)\
   2018-09-06 11:51:50 +0300
   * [MDEV-14585](https://jira.mariadb.org/browse/MDEV-14585) Automatically remove #sql- tables in InnoDB dictionary during recovery

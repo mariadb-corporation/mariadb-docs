@@ -11,7 +11,7 @@ If the client sends a `LOAD DATA LOCAL INFILE` statement via [com\_query](../2-t
 ## Fields
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) `0xFB` : `LOCAL_INFILE` header.
-* [string](../protocol-data-types.md#end-of-file-length-strings) filename.
+* [string\<EOF>](../protocol-data-types.md#end-of-file-length-strings) filename.
 
 ## Client Response
 

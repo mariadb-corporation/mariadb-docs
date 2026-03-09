@@ -19,17 +19,16 @@ Multi-source replication means that one server has many primaries from which it 
 
 You specify which primary connection you want to work with by either specifying the connection name in the command or setting [default\_master\_connection](replication-and-binary-log-system-variables.md) to the connection you want to work with.
 
-The connection name may include any characters and should be less than 64\
-characters. Connection names are compared without regard to case (case\
-insensitive). You should preferably keep the connection name short, as it will\
-be used as a suffix for relay logs and primary info index files.
+The connection name may include any characters and should be less than 64 characters. Connection names are compared without regard to case (case insensitive). You should preferably keep the connection name short, as it will be used as a suffix for relay logs and primary info index files.
 
 The new syntax was introduced to handle many connections:
 
-* [CHANGE MASTER \['connection\_name'\] TO ....](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) This creates or modifies a connection to a primary.
+* [CHANGE MASTER \['connection\_name'\] TO ....](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) \
+  Creates or modifies a connection to a primary.
 * [FLUSH RELAY LOGS \['connection\_name'\]](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md#flush-relay-logs)
 * [MASTER\_POS\_WAIT(....,\['connection\_name'\])](../../reference/sql-functions/secondary-functions/miscellaneous-functions/master_pos_wait.md)
-* [\[RESET SLAVE \['connection\_name'\] \[ALL\]](../../reference/sql-statements/administrative-sql-statements/replication-statements/reset-replica.md) This is used to reset a replica's replication position or to remove a replica permanently.
+* [\[RESET SLAVE \['connection\_name'\] \[ALL\]](../../reference/sql-statements/administrative-sql-statements/replication-statements/reset-replica.md) \
+  Used to reset a replica's replication position or to remove a replica permanently.
 * [SHOW RELAYLOG \['connection\_name'\] EVENTS](../../reference/sql-statements/administrative-sql-statements/show/show-relaylog-events.md)
 * [SHOW SLAVE \['connection\_name'\] STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md)
 * [SHOW ALL SLAVES STATUS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-status.md)
@@ -44,15 +43,13 @@ You create new primary connections with [CHANGE MASTER](../../reference/sql-stat
 
 ## Replication Variables for Multi-Source
 
-The new replication variable [default\_master\_connection](replication-and-binary-log-system-variables.md)\
-specifies which connection will be used for commands and variables if you don't specify a connection. By default, this is `''` (the default connection name).
+The new replication variable [default\_master\_connection](replication-and-binary-log-system-variables.md) specifies which connection will be used for commands and variables if you don't specify a connection. By default, this is `''` (the default connection name).
 
-The following replication variables are local for the connection. (In other\
-words, they show the value for the`@@default_master_connection` connection). We are working on making all the important ones local for the connection.
+The following replication variables are local for the connection. (In other words, they show the value for the`@@default_master_connection` connection). We are working on making all the important ones local for the connection.
 
 | Type     | Name                                                                                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | -------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Variable | [max\_relay\_log\_size](replication-and-binary-log-system-variables.md)                                 | Max size of relay log. Is set at startup to max\_binlog\_size if 0                                                                                                                                                                                                                                                                                                                                                                                          |
+| Variable | [max\_relay\_log\_size](replication-and-binary-log-system-variables.md)                                 | Maximum size of relay log. Is set at startup to max\_binlog\_size if 0                                                                                                                                                                                                                                                                                                                                                                                      |
 | Variable | [replicate\_do\_db](replication-and-binary-log-system-variables.md)                                     | Tell the replica to restrict replication to updates of tables whose names appear in the comma-separated list. For statement-based replication, only the default database (that is, the one selected by USE) is considered, not any explicitly mentioned tables in the query. For row-based replication, the actual names of the table(s) being updated are checked.                                                                                         |
 | Variable | [replicate\_do\_table](replication-and-binary-log-system-variables.md)                                  | Tells the replica to restrict replication to tables in the comma-separated list.                                                                                                                                                                                                                                                                                                                                                                            |
 | Variable | [replicate\_ignore\_db](replication-and-binary-log-system-variables.md)                                 | Tell the replica to restrict replication to updates of tables whose names do not appear in the comma-separated list. For statement-based replication, only the default database (that is, the one selected by USE) is considered, not any explicitly mentioned tables in the query. For row-based replication, the actual names of the table(s) being updated are checked.                                                                                  |
@@ -67,8 +64,7 @@ words, they show the value for the`@@default_master_connection` connection). We 
 
 You can access all of the above variables with either `SESSION` or `GLOBAL`.
 
-Note that in contrast to MySQL, all variables always show the correct active\
-value!
+Note that in contrast to MySQL, all variables always show the correct active value!
 
 Example:
 
@@ -79,11 +75,9 @@ set @@default_master_connection='other_connection';
 show status like 'Slave_running';
 ```
 
-If `@@default_master_connection` contains a non existing name,\
-you will get a warning.
+If `@@default_master_connection` contains a non existing name, you will get a warning.
 
-All other primary-related variables are global and affect either only the ''\
-connections or all connections. For example, [Slave\_retried\_transactions](replication-and-binary-log-status-variables.md#slave_retried_transactions) now shows the total number of retried transactions over all replicas.
+All other primary-related variables are global and affect either only the default (`''`) connections or all connections. For example, [Slave\_retried\_transactions](replication-and-binary-log-status-variables.md#slave_retried_transactions) now shows the total number of retried transactions over all replicas.
 
 If you need to set [gtid\_slave\_pos](gtid.md), you need to set this for all primaries at the same time.
 
@@ -110,8 +104,7 @@ New status variables:
 
 ## New Files
 
-The basic principle of the new files used by multi-source replication is that\
-they have the same name as the original relay log files, suffixed with `connection_name` before the extension. The main exception is that the file that holds all connections is named as the normal `master-info-file` with a `multi-` prefix.
+The basic principle of the new files used by multi-source replication is that they have the same name as the original relay log files, suffixed with `connection_name` before the extension. The main exception is that the file that holds all connections is named as the normal `master-info-file` with a `multi-` prefix.
 
 When you are using multi-source, the following new files are created:
 
@@ -123,13 +116,11 @@ When you are using multi-source, the following new files are created:
 | relay-log-index-connection\_name.extension     | Contains the name of the active relay-log-connection\_name.xxxxx files. Extension is normally .index                                            |
 | relay-log-info-file-connection\_name.extension | Contains the current primary position for the relay log. Extension is normally .info                                                            |
 
-When creating the file, the connection name is converted to lowercase, and all\
-special characters in the connection name are converted, the same way as MySQL table names are converted. This is done to make the file name portable across different systems.
+When creating the file, the connection name is converted to lowercase, and all special characters in the connection name are converted, the same way as MySQL table names are converted. This is done to make the file name portable across different systems.
 
-Hint:
-
-Instead of specifying names for `mysqld` with [--relay-log](replication-and-binary-log-system-variables.md#relay_log), [--relay-log-index](replication-and-binary-log-system-variables.md#relay_log_index), [--general-log-file](../optimization-and-tuning/system-variables/server-system-variables.md#general_log_file), [--slow-query-log-file](../optimization-and-tuning/system-variables/server-system-variables.md#slow_query_log_file),[--log-bin](replication-and-binary-log-system-variables.md#log_bin), and [--log-bin-index](replication-and-binary-log-system-variables.md#log_bin_index), you can just specify [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), and all the other variables are set\
-with this as a prefix.
+{% hint style="info" %}
+Instead of specifying names for `mysqld` with [--relay-log](replication-and-binary-log-system-variables.md#relay_log), [--relay-log-index](replication-and-binary-log-system-variables.md#relay_log_index), [--general-log-file](../optimization-and-tuning/system-variables/server-system-variables.md#general_log_file), [--slow-query-log-file](../optimization-and-tuning/system-variables/server-system-variables.md#slow_query_log_file),[--log-bin](replication-and-binary-log-system-variables.md#log_bin), and [--log-bin-index](replication-and-binary-log-system-variables.md#log_bin_index), you can just specify [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), and all the other variables are set with this as a prefix.
+{% endhint %}
 
 ## Other Things
 
@@ -165,7 +156,7 @@ One can also use this syntax to set `replicate-rewrite-db` for a given connectio
 ## Limitations
 
 * Each active connection will create 2 threads (as is normal for MariaDB replication).
-* You should ensure that all primaries have different `server-id`'s. If you don't do this, you will get into trouble if you try to replicate from the multi-source replica back to your primaries.
+* You should ensure that all primaries have different `server-id`'s. If you don't do this, you get into trouble if you try to replicate from the multi-source replica back to your primaries.
 * One can change [max\_relay\_log\_size](replication-and-binary-log-system-variables.md) for any active connection, but new connections will always use the server startup value for `max_relay_log_size`, which can't be changed at runtime.
 * Option [innodb-recovery-update-relay-log](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_recovery_update_relay_log) (xtradb feature to store and restore relay log position for replicas) only works for the default connection ''. As this option is not really safe and can easily cause loss of data if you use storage engines other than InnoDB, we don't recommend using this option.
 * [slave\_net\_timeout](replication-and-binary-log-system-variables.md) affects all connections. We don't check anymore if it's less than [Slave\_heartbeat\_period](replication-and-binary-log-status-variables.md), as this doesn't make sense in a multi-source setup.

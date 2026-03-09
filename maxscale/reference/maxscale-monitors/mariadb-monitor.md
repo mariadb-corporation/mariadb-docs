@@ -512,7 +512,7 @@ maxctrl call command mariadbmon reset-replication MONITOR [NEW_PRIMARY]
 
 #### Scan topology
 
-**Scan-topology** (added in MaxScale 25.08.0) scans the replication topology and outputs the results in json format. Topology scan begins by running `SHOW ALL REPLICAS STATUS` and `SHOW REPLICA HOSTS` on any existing monitored servers. These queries show connected primary and replica servers. The monitor then expands the search, performing the same queries on the discovered servers until no new servers can be found. This command can be useful in determining if all servers in the replication topology are configured in MaxScale and monitored.
+**Scan-topology** (added in MaxScale 25.10) scans the replication topology and outputs the results in json format. Topology scan begins by running `SHOW ALL REPLICAS STATUS` and `SHOW REPLICA HOSTS` on any existing monitored servers. These queries show connected primary and replica servers. The monitor then expands the search, performing the same queries on the discovered servers until no new servers can be found. This command can be useful in determining if all servers in the replication topology are configured in MaxScale and monitored.
 
 **Scan-topology** accepts the following key-value arguments:
 
@@ -559,7 +559,7 @@ The resulting json-object contains an array with an element for each scanned ser
 
 #### Discover replicas
 
-**Discover-replicas** (added in MaxScale 25.08.0) scans the replication topology (as in _scan-topology_) and adds any new discovered servers to MaxScale and the monitor. Only servers directly replicating from the current primary server are added, i.e. any external primaries or replicas behind relays are ignored. The command can also optionally remove servers that are shut down or non-replicating.
+**Discover-replicas** (added in MaxScale 25.10) scans the replication topology (as in _scan-topology_) and adds any new discovered servers to MaxScale and the monitor. Only servers directly replicating from the current primary server are added, i.e. any external primaries or replicas behind relays are ignored. The command can also optionally remove servers that are shut down or non-replicating.
 
 **Discover-replicas** accepts the following key-value arguments:
 
@@ -581,7 +581,7 @@ Discover-replicas is incompatible with [configuration synchronization](../../max
 
 #### Bootstrap
 
-**Bootstrap** (added in MaxScale 25.08.0) bootstraps an empty monitor (no servers), adding servers to it. Bootstrap requires the address of a server in the cluster to start from. The monitor connects to the address given and scans the replication topology as in _scan-topology_. Any server successfully connected to is added to the monitor and monitored normally. Server names are auto-generated as in _\<monitor\_name>-server_, e.g. _MyMonitor-server3_.
+**Bootstrap** (added in MaxScale 25.10) bootstraps an empty monitor (no servers), adding servers to it. Bootstrap requires the address of a server in the cluster to start from. The monitor connects to the address given and scans the replication topology as in _scan-topology_. Any server successfully connected to is added to the monitor and monitored normally. Server names are auto-generated as in _\<monitor\_name>-server_, e.g. _MyMonitor-server3_.
 
 **Bootstrap** accepts the following key-value arguments:
 

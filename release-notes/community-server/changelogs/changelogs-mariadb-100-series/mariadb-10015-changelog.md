@@ -1,12 +1,12 @@
 # MariaDB 10.0.15 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.15)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10015-release-notes.md)[Changelog](mariadb-10015-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.15)[Release Notes](../../old-releases/10.0/10.0.15.md)[Changelog](mariadb-10015-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 25 Nov 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10015-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.15.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -229,7 +229,7 @@ modified in that revision.
         * Merge branch 'master' into releases/tokudb-7.5
         * [Revision #0.79.23](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/0.79.23)\
           Wed 2014-11-05 11:24:27 -0500
-          * DB-754 include my\_config.h first for [mariadb 5.5.40](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md)
+          * DB-754 include my\_config.h first for [mariadb 5.5.40](../../old-releases/5.5/5.5.40.md)
       * [Revision #0.28.1705](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/0.28.1705) \[merge]\
         Wed 2014-11-05 09:28:29 -0500
         * Merge branch 'master' into releases/tokudb-7.5
@@ -460,7 +460,7 @@ modified in that revision.
   * [MDEV-4396](https://jira.mariadb.org/browse/MDEV-4396): Fix innodb.innodb\_bug14676111 test.
 * [Revision #4471](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4471) \[merge]\
   Mon 2014-11-03 17:47:37 +0100
-  * [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) merge
+  * [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) merge
 * [Revision #4470](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4470)\
   Sun 2014-11-02 01:08:09 +0400
   * [MDEV-7001](https://jira.mariadb.org/browse/MDEV-7001) Bad result for NOT NOT STRCMP('a','b') and NOT NOT NULLIF(2,3) The bug is not very important per se, but it was helpful to move Item\_func\_strcmp out of Item\_bool\_func2 (to Item\_int\_func), for the purposes of "[MDEV-4912](https://jira.mariadb.org/browse/MDEV-4912) Add a plugin to field types (column types)".
@@ -783,7 +783,7 @@ modified in that revision.
         * [MDEV-6528](https://jira.mariadb.org/browse/MDEV-6528) review debian patches for mysql
       * [Revision #3413.65.37](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.65.37)\
         Thu 2014-10-02 11:58:13 +0200
-        * [MDEV-6800](https://jira.mariadb.org/browse/MDEV-6800) auth\_socket plugin fails to build on OpenBSD with [MariaDB 10.0.14](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes.md)
+        * [MDEV-6800](https://jira.mariadb.org/browse/MDEV-6800) auth\_socket plugin fails to build on OpenBSD with [MariaDB 10.0.14](../../old-releases/10.0/10.0.14.md)
       * [Revision #3413.65.36](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3413.65.36)\
         Thu 2014-10-02 11:57:40 +0200
         * [MDEV-5120](https://jira.mariadb.org/browse/MDEV-5120) Test suite test maria-no-logging fails
@@ -869,7 +869,7 @@ modified in that revision.
     * Update Mroonga to the latest version on 2014-09-21T00:33:44+0900
 * [Revision #4425](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4425)\
   Wed 2014-10-01 13:03:50 +0300
-  * Fixed compiler warning. Now [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) compiles without warnings for me. (Except Instantiation notices from oqgraph that I don't know what to do with)
+  * Fixed compiler warning. Now [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) compiles without warnings for me. (Except Instantiation notices from oqgraph that I don't know what to do with)
 * [Revision #4424](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4424) \[merge]\
   Wed 2014-10-01 11:16:50 +0400
   * Merge 10.0-connect -> 10.0
@@ -912,7 +912,7 @@ modified in that revision.
   * [MDEV-6808](https://jira.mariadb.org/browse/MDEV-6808), part#2.
 * [Revision #4420](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4420)\
   Tue 2014-09-30 21:11:03 +0400
-  * [MDEV-6808](https://jira.mariadb.org/browse/MDEV-6808): [MariaDB 10.0.13](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10013-release-notes.md) crash with optimizer\_use\_condition\_selectivity > 1
+  * [MDEV-6808](https://jira.mariadb.org/browse/MDEV-6808): [MariaDB 10.0.13](../../old-releases/10.0/10.0.13.md) crash with optimizer\_use\_condition\_selectivity > 1
 * [Revision #4419](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4419)\
   Fri 2014-09-26 18:48:40 +0400
   * [MDEV-6799](https://jira.mariadb.org/browse/MDEV-6799): Crash in field\_conv, memcpy\_field\_possible - Fix the crash, dont call from->type() at the start of the function because it might be unsafe. - Unfortunately there is no testcase - And this is also the reason we can't fix it properly (it should be safe to call from->type() here).

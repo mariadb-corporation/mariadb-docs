@@ -2,7 +2,7 @@
 
 ## Optimization Description
 
-When `n` is sufficiently small, the optimizer will use a [priority queue](https://en.wikipedia.org/wiki/Priority_queue) for sorting. Before the optimization's porting to [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0), the alternative was, roughly speaking, to sort the entire output and then pick only first `n` rows.
+When `n` is sufficiently small, the optimizer will use a [priority queue](https://en.wikipedia.org/wiki/Priority_queue) for sorting. Before the optimization's porting to [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), the alternative was, roughly speaking, to sort the entire output and then pick only first `n` rows.
 
 NOTE: The problem of choosing which index to use for query with ORDER BY ... LIMIT is a different problem, see [optimizer\_join\_limit\_pref\_ratio-optimization](optimizer_join_limit_pref_ratio-optimization.md).
 

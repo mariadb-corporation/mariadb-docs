@@ -10,7 +10,7 @@ When the user creates a temporary table using the [CREATE TEMPORARY TABLE](../..
 
 Internal temporary tablespaces, (that is, temporary tables that cannot be kept in memory) use either Aria or MyISAM, depending on the [aria\_used\_for\_temp\_tables](../../aria/aria-system-variables.md#aria_used_for_temp_tables) system variable. You can set the default storage engine for user-created temporary tables using the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable.
 
-Prior to [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102), temporary tablespaces existed as part of the InnoDB [system](innodb-system-tablespaces.md) tablespace or were file-per-table depending on the configuration of the [innodb\_file\_per\_table](../innodb-system-variables.md#innodb_file_per_table) system variable.
+Prior to [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), temporary tablespaces existed as part of the InnoDB [system](innodb-system-tablespaces.md) tablespace or were file-per-table depending on the configuration of the [innodb\_file\_per\_table](../innodb-system-variables.md#innodb_file_per_table) system variable.
 
 ## Syntax for the value of the innodb\_temp\_data\_file\_path variable
 
@@ -55,7 +55,7 @@ Unlike normal tablespaces, temporary tablespaces are deleted when you stop Maria
 
 ## Shrinking the Tablespace
 
-From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes), the temporary tablespace can be shrunk by setting [innodb\_truncate\_temporary\_tablespace\_now](../innodb-system-variables.md#innodb_truncate_temporary_tablespace_now) to `ON`:
+From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0), the temporary tablespace can be shrunk by setting [innodb\_truncate\_temporary\_tablespace\_now](../innodb-system-variables.md#innodb_truncate_temporary_tablespace_now) to `ON`:
 
 ```sql
 SET GLOBAL innodb_truncate_temporary_tablespace_now=1;

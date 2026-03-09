@@ -50,7 +50,7 @@ SET GLOBAL event_scheduler = ON;
 
 to activate it. If `event_scheduler` has been set to `Disabled`, you cannot change the value at runtime. Changing the value of the `event_scheduler` variable requires the SUPER privilege.
 
-Since [MariaDB 10.0.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10022-release-notes), setting the [event\_scheduler](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#event_scheduler) system variable will also try to reload the [mysql.event table](../../../reference/system-tables/the-mysql-database-tables/mysql-event-table.md) if it was not properly loaded at startup.
+Since [MariaDB 10.0.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.22), setting the [event\_scheduler](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#event_scheduler) system variable will also try to reload the [mysql.event table](../../../reference/system-tables/the-mysql-database-tables/mysql-event-table.md) if it was not properly loaded at startup.
 
 ## Viewing Current Events
 

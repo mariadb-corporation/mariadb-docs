@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 11.1 and MySQL 8.0
 
-The following is a list of all function differences between [MariaDB 11.1](../../../../old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.34 and the [MariaDB 11.1.1](../../../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-1-release-notes.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB 11.1 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-1-and-mysql-8.md)
+The following is a list of all function differences between [MariaDB 11.1](../../../../old-releases/11.1/what-is-mariadb-111.md) and MySQL 8.0. It is based on functions available in the MySQL 8.0.34 and the [MariaDB 11.1.1](../../../../old-releases/11.1/11.1.1.md) releases. For a more complete list of differences, see [Incompatibilities and Feature Differences Between MariaDB 11.1 and MySQL 8.0](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/incompatibilities-and-feature-differences-between-mariadb-11-1-and-mysql-8.md)
 
 ## Present in MariaDB Only
 

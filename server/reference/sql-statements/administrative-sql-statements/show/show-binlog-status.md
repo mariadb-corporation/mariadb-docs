@@ -37,9 +37,15 @@ This statement requires the [SUPER](../../account-management-sql-statements/gran
 {% endtab %}
 {% endtabs %}
 
-To see information about the current [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) in the binary log, use the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md) variable.
+{% hint style="info" %}
+The following improved functionality is available from MariaDB 12.3.
+{% endhint %}
+
+To see information about the current [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) in the binary log, use the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md) variable. It is enabled by default, and helps find the current state of the master server. (Previously, this required two statements, `SHOW MASTER STATUS` and `SELECT @@global.gtid_binlog_pos`.)
 
 ## Example
+
+The following example works in all MariaDB versions. From MariaDB 12.3, the second statement doesn't have to be run, though, because `SHOW BINLOG STATUS` shows the value of `@@global.gtid_binlog_pos`, too.
 
 ```sql
 SHOW BINLOG STATUS;

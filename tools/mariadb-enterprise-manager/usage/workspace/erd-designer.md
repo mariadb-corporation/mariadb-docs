@@ -1,3 +1,10 @@
+---
+description: >-
+  Explains the ERD Designer tool, a visual interface for creating
+  entity-relationship diagrams, generating models from live databases, and
+  modeling tables and indexes.
+---
+
 # ERD Designer
 
 Enterprise manager provides a visual interface for creating entity relationship diagrams (ERD) and for observing existing database schemas, so you can quickly understand table relationships, identify dependencies, and visually assess the impact of schema changes before implementation.

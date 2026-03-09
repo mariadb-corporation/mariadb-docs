@@ -1,8 +1,8 @@
 ---
 description: >-
-  Detailed reference for environment variables used to configure the container
-  on startup, such as `MARIADB_ROOT_PASSWORD`, `MARIADB_DATABASE`, and
-  `MARIADB_USER`.
+  Complete guide to MariaDB in Docker. Complete resource for container
+  deployment, volume management, networking, and environment setup for
+  production use.
 ---
 
 # MariaDB Server Docker Official Image Environment Variables

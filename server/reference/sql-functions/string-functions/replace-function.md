@@ -1,7 +1,7 @@
 ---
 description: >-
-  Replace occurrences of a substring. This function replaces all instances of a
-  specified search string within a string with a replacement string.
+  Complete REPLACE Function reference for MariaDB. Complete function guide with
+  syntax, parameters, return values, and usage examples for production use.
 ---
 
 # REPLACE Function

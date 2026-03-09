@@ -1,12 +1,12 @@
 # MariaDB 10.2.8 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.8)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes.md)[Changelog](mariadb-1028-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.8)[Release Notes](../../old-releases/10.2/10.2.8.md)[Changelog](mariadb-1028-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 18 Aug 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1028-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.8.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -263,7 +263,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Bug #25573565 TABLE REBUILD USES EXCESSIVE MEMORY
 * [Revision #a72f34c0a2](https://github.com/MariaDB/server/commit/a72f34c0a2)\
   2017-08-09 15:21:42 +0300
-  * [MDEV-12868](https://jira.mariadb.org/browse/MDEV-12868) MySQL bug #84038 also affects [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * [MDEV-12868](https://jira.mariadb.org/browse/MDEV-12868) MySQL bug #84038 also affects [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #067ee84d67](https://github.com/MariaDB/server/commit/067ee84d67)\
   2017-08-04 11:02:13 +0200
   * [MDEV-13300](https://jira.mariadb.org/browse/MDEV-13300) Query cache doesn't take in account CLIENT\_DEPRECATE\_EOF capability
@@ -305,7 +305,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Deterministically wait for purge using wait\_all\_purged.inc
 * [Revision #6f623907cd](https://github.com/MariaDB/server/commit/6f623907cd)\
   2017-08-07 17:21:30 +0300
-  * Backport [MDEV-13430](https://jira.mariadb.org/browse/MDEV-13430) recovery improvement to [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * Backport [MDEV-13430](https://jira.mariadb.org/browse/MDEV-13430) recovery improvement to [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #34eef269eb](https://github.com/MariaDB/server/commit/34eef269eb)\
   2017-08-04 13:57:26 +0300
   * [MDEV-11939](https://jira.mariadb.org/browse/MDEV-11939): innochecksum mistakes a file for an encrypted one (page 0 invalid)

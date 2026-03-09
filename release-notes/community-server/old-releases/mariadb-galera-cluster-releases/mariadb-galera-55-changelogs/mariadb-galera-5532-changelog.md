@@ -1266,7 +1266,7 @@ Tue 2013-03-05 12:19:07 +0100
   * References [Bug #1012138](https://bugs.launchpad.net/bugs/1012138) - merged fix from lp:codership-mysql
 * [Revision #3395](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3395) \[merge]\
   Sun 2013-05-26 11:26:58 +0300
-  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.31](../../release-notes-mariadb-5-5-series/mariadb-5531-release-notes.md) bzr merge lp:maria/5.5 -rtag:mariadb-5.5.31
+  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.31](../../5.5/5.5.31.md) bzr merge lp:maria/5.5 -rtag:mariadb-5.5.31
   * [Revision #3334.1.444](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.444)\
     Tue 2013-05-21 18:56:35 +0200
     * fix for compiled-in FederatedX
@@ -2030,7 +2030,7 @@ Tue 2013-03-05 12:19:07 +0100
     * Merge 5.3 -> 5.5
     * [Revision #2502.567.91](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.567.91)\
       Mon 2013-04-01 18:03:14 +0400
-      * [MDEV-4240](https://jira.mariadb.org/browse/MDEV-4240): [mariadb 5.3.12](../../release-notes-mariadb-5-3-series/mariadb-5312-release-notes.md) using more memory than MySQL 5.1 for an inefficient query - Let index\_merge allocate table handlers on quick select's MEM\_ROOT, not on statement's MEM\_ROOT. This is crucial for big "range checked for each record" queries, where index\_merge can be created and deleted many times during query exection. We should not make O(#rows) allocations on statement's MEM\_ROOT.
+      * [MDEV-4240](https://jira.mariadb.org/browse/MDEV-4240): [mariadb 5.3.12](../../5.3/5.3.12.md) using more memory than MySQL 5.1 for an inefficient query - Let index\_merge allocate table handlers on quick select's MEM\_ROOT, not on statement's MEM\_ROOT. This is crucial for big "range checked for each record" queries, where index\_merge can be created and deleted many times during query exection. We should not make O(#rows) allocations on statement's MEM\_ROOT.
     * [Revision #2502.567.90](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/2502.567.90)\
       Fri 2013-03-29 19:27:06 +0400
       * [MDEV-4335](https://jira.mariadb.org/browse/MDEV-4335): Unexpected results when selecting on information\_schema - When converting a subquery to a semi-join, propagate OPTION\_SCHEMA\_TABLE.
@@ -2171,7 +2171,7 @@ Tue 2013-03-05 12:19:07 +0100
   * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with lp:codership-mysql/5.5-23 revisions 3858..3867
 * [Revision #3393](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3393) \[merge]\
   Fri 2013-05-24 15:29:01 +0300
-  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.30](../../release-notes-mariadb-5-5-series/mariadb-5530-release-notes.md)
+  * References: [MDEV-4572](https://jira.mariadb.org/browse/MDEV-4572) - merge with [mariaDB 5.5.30](../../5.5/5.5.30.md)
   * [Revision #3334.1.356](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.356)\
     Mon 2013-03-11 13:50:17 +0400
     * The i386 specific code improving character set conversion on the ASCII range was not enabled on x86\_64 machines. Enabling it. Gives up to 18 times conversion performance improvement.

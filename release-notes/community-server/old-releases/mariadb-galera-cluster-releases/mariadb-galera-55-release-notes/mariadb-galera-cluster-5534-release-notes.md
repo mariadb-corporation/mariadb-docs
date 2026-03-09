@@ -16,9 +16,9 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 For a list of changes made in MariaDB Galera Cluster 5.5.34, with links to detailed\
 information on each push, see the [MariaDB Galera Cluster 5.5.34 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-cluster-5534-changelog.md).
 
-## Includes [MariaDB 5.5.34](../../release-notes-mariadb-5-5-series/mariadb-5534-release-notes.md) and Galera Cluster
+## Includes [MariaDB 5.5.34](../../5.5/5.5.34.md) and Galera Cluster
 
-MariaDB Galera Cluster 5.5.34 includes [MariaDB 5.5.34](../../release-notes-mariadb-5-5-series/mariadb-5534-release-notes.md) with Codership additions (`lp:codership-mysql/5.5-23` till revision `3942`) and [Galera Cluster 23.2.7](https://codership.com/content/using-galera-cluster). See the [MariaDB 5.5.34 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5534-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5534-changelog.md) for more information on the changes in\
+MariaDB Galera Cluster 5.5.34 includes [MariaDB 5.5.34](../../5.5/5.5.34.md) with Codership additions (`lp:codership-mysql/5.5-23` till revision `3942`) and [Galera Cluster 23.2.7](https://codership.com/content/using-galera-cluster). See the [MariaDB 5.5.34 Release Notes](../../5.5/5.5.34.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5534-changelog.md) for more information on the changes in\
 MariaDB.
 
 ## Bug Fixes

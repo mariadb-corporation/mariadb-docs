@@ -1,8 +1,7 @@
 ---
 description: >-
-  Explore graphical and enhanced clients for the Server. This section details
-  various tools, such as command-line clients and GUIs, to simplify database
-  administration, development, and data management.
+  Complete Graphical and Enhanced Clients guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage for production use.
 ---
 
 # Graphical and Enhanced Clients

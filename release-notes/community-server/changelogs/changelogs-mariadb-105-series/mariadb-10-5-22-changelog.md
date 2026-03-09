@@ -1,12 +1,12 @@
 # MariaDB 10.5.22 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-22-release-notes.md)[Changelog](mariadb-10-5-22-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.5/10.5.22.md)[Changelog](mariadb-10-5-22-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.22/)
 
 **Release date:** 14 Aug 2023
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-22-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.22.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.

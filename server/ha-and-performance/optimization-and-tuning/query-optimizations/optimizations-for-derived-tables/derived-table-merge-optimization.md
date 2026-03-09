@@ -69,7 +69,7 @@ From the above, one can see that:
 SET @@optimizer_switch='derived_merge=OFF'
 ```
 
-* Versions of MySQL and MariaDB which do not have support for this optimization will execute subqueries even when running `EXPLAIN`. This can result in a well-known problem (see e.g. [MySQL Bug #44802](https://bugs.mysql.com/bug.php?id=44802)) of `EXPLAIN` statements taking a very long time. Starting from [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)+ and MySQL 5.6+ `EXPLAIN` commands execute instantly, regardless of the `derived_merge` setting.
+* Versions of MySQL and MariaDB which do not have support for this optimization will execute subqueries even when running `EXPLAIN`. This can result in a well-known problem (see e.g. [MySQL Bug #44802](https://bugs.mysql.com/bug.php?id=44802)) of `EXPLAIN` statements taking a very long time. Starting from [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3)+ and MySQL 5.6+ `EXPLAIN` commands execute instantly, regardless of the `derived_merge` setting.
 
 ## See Also
 

@@ -1,12 +1,17 @@
 ---
 description: >-
-  Modify existing data in a table. This statement changes the values of
-  specified columns in rows that match a given condition.
+  Complete UPDATE statement guide for MariaDB. Complete syntax reference with
+  WHERE conditions, JOIN operations, CTEs, and multi-table updates for
+  production use.
 ---
 
 # UPDATE
 
 ## Syntax
+
+{% hint style="info" %}
+For the CTE[^1] syntax, available from MariaDB 12.3, see [here](update.md#cte-syntax).
+{% endhint %}
 
 Single-table syntax:
 
@@ -27,6 +32,25 @@ UPDATE [LOW_PRIORITY] [IGNORE] table_references
     SET col1={expr1|DEFAULT} [, col2={expr2|DEFAULT}] ...
     [WHERE where_condition]
 ```
+
+### CTE Syntax
+
+{% hint style="info" %}
+This syntax is available from MariaDB 12.3.
+{% endhint %}
+
+```sql
+WITH [RECURSIVE] table_reference [(columns_list)] AS  (
+  SELECT ...
+)
+UPDATE non_cte_table expression
+```
+
+* `non_cte_table` is a table not defined by a CTE (common table expression).
+* `expression` is a `WHERE` clause.
+* Supporting CTEs with `UPDATE` is an extension of the SQL standard, similar to how MySQL does it.
+* With `UPDATE`, CTEs are read-only, like other derived tables – you cannot update columns from tables in the CTE expression.
+* For use cases, see the [CTE examples](update.md#single-table).
 
 ## Description
 
@@ -49,15 +73,14 @@ An `UPDATE` can also reference tables which are located in different databases; 
 
 `table_references` and `where_condition` are as specified as described in [SELECT](../selecting-data/select.md).
 
-For single-table updates, assignments are evaluated in left-to-right order, while for multi-table updates, there is no guarantee of a particular order. If the `SIMULTANEOUS_ASSIGNMENT` [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) is set, UPDATE statements evaluate all assignments simultaneously.
+For single-table updates, assignments are evaluated in left-to-right order, while for multi-table updates, there is no guarantee of a particular order. If the `SIMULTANEOUS_ASSIGNMENT` [sql\_mode](../../../../server-management/variables-and-modes/sql_mode.md) is set, `UPDATE` statements evaluate all assignments simultaneously.
 
 You need the `UPDATE` privilege only for columns referenced in an `UPDATE` that are actually updated. You need only the [SELECT](../selecting-data/select.md) privilege for any columns that are read but not modified. See [GRANT](../../account-management-sql-statements/grant.md).
 
 The `UPDATE` statement supports the following modifiers:
 
 * If you use the `LOW_PRIORITY` keyword, execution of the `UPDATE` is delayed until no other clients are reading from the table. This affects only storage engines that use only table-level locking (MyISAM, MEMORY, MERGE). See [HIGH\_PRIORITY and LOW\_PRIORITY clauses](high_priority-and-low_priority.md) for details.
-* If you use the `IGNORE` keyword, the update statement does not abort even if errors occur during the update. Rows for which duplicate-key conflicts occur are not updated. Rows for which columns are\
-  updated to values that would cause data conversion errors are updated to the closest valid values instead.
+* If you use the `IGNORE` keyword, the update statement does not abort even if errors occur during the update. Rows for which duplicate-key conflicts occur are not updated. Rows for which columns are updated to values that would cause data conversion errors are updated to the closest valid values instead.
 
 ### PARTITION
 
@@ -87,18 +110,40 @@ SELECT * FROM t1;
 +------+------+
 ```
 
-## Example
+## Examples
 
-Single-table syntax:
+### Single-Table
 
 ```sql
 UPDATE table_name SET column1 = value1, column2 = value2 WHERE id=100;
 ```
 
-Multiple-table syntax:
+### Multi-Table
 
 ```sql
 UPDATE tab1, tab2 SET tab1.column1 = value1, tab1.column2 = value2 WHERE tab1.id = tab2.id;
+```
+
+### CTE Single-Table
+
+```sql
+WITH cte1 AS (SELECT * FROM t1 WHERE c < 5), 
+     cte2 AS (SELECT * FROM t2 WHERE b < 5) 
+     UPDATE t3 SET t3.a = (SELECT a FROM cte1 WHERE b IN (SELECT b FROM cte2));
+```
+
+### CTE Multi-Table
+
+```sql
+WITH cte1 AS (SELECT * FROM t1 WHERE c < 5),
+     cte2 AS (SELECT * FROM t2 WHERE b < 5)
+     UPDATE t3, cte1 SET t3.a = cte1.a WHERE cte1.b IN (SELECT b FROM cte2);
+```
+
+```sql
+WITH cte1 AS (SELECT * FROM t1 WHERE c < 5),
+     cte2 AS (SELECT * FROM t2 WHERE b < 5)
+     UPDATE t3, cte1, cte2 SET t3.a = cte1.a WHERE cte1.b = cte2.b;
 ```
 
 ## See Also
@@ -112,3 +157,5 @@ UPDATE tab1, tab2 SET tab1.column1 = value1, tab1.column2 = value2 WHERE tab1.id
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
 {% @marketo/form formId="4316" %}
+
+[^1]: CTE (Common Table Expression): A temporary, named result set that exists only for the duration of a single `SELECT`, `INSERT`, `UPDATE`, or `DELETE` statement, used to make complex queries more readable.

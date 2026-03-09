@@ -1,7 +1,8 @@
 ---
 description: >-
-  Restrict the number of rows returned. This clause specifies the maximum number
-  of records to return and can optionally set an offset.
+  Complete LIMIT clause reference: LIMIT n, LIMIT offset,row_count, LIMIT
+  row_count OFFSET offset syntax, ORDER BY result handling, and UPDATE
+  replication safety.
 ---
 
 # LIMIT
@@ -111,7 +112,7 @@ SELECT * FROM members ORDER BY name LIMIT 2,1;
 +-------+
 ```
 
-From [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1032-release-notes), `LIMIT` can be used in a multi-table update:
+From [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2), `LIMIT` can be used in a multi-table update:
 
 ```sql
 CREATE TABLE warehouse (product_id INT, qty INT);

@@ -1,14 +1,14 @@
 # MariaDB 10.1.27 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-A regression was discovered after the release of [MariaDB 10.1.27](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10127-release-notes.md). It has been pulled from the downloads system, but some mirrors may still have it. **Do not download or install this version.** Stay with [MariaDB 10.1.26](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10126-release-notes.md) until 10.1.28 is released.
+A regression was discovered after the release of [MariaDB 10.1.27](../../old-releases/10.1/10.1.27.md). It has been pulled from the downloads system, but some mirrors may still have it. **Do not download or install this version.** Stay with [MariaDB 10.1.26](../../old-releases/10.1/10.1.26.md) until 10.1.28 is released.
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.27)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10127-release-notes.md)[Changelog](mariadb-10127-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.27)[Release Notes](../../old-releases/10.1/10.1.27.md)[Changelog](mariadb-10127-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 25 Sep 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10127-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.27.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.

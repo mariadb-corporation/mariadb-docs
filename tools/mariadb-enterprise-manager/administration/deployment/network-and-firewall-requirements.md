@@ -1,3 +1,10 @@
+---
+description: >-
+  Outlines the necessary network ports and firewall configurations (such as
+  ports 8090 and 4318) required for UI access and agent telemetry data
+  collection.
+---
+
 # Network and Firewall Requirements
 
 {% hint style="warning" %}

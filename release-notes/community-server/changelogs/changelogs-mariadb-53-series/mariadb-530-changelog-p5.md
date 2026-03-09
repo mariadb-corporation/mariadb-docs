@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog p5
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
 (page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md) 5 [6](mariadb-530-changelog-p6.md)\
 ) |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
@@ -39,7 +39,7 @@
       using a join buffer.
 * [Revision #2877](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2877) \[merge]\
   Fri 2011-01-14 13:07:50 +0300
-  * Merge backported subquery bugfixes/testcases into [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+  * Merge backported subquery bugfixes/testcases into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
   * [Revision #2869.2.5](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2869.2.5)\
     Fri 2011-01-14 00:47:03 +0300
     * Backport testcase for: [MySQL Bug #43360](https://bugs.mysql.com/bug.php?id=43360) - Server crash with a simple multi-table update
@@ -483,7 +483,7 @@
 * [Revision #2833](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2833)\
   Tue 2010-10-26 14:55:42 +0300
   * Fixed [Bug #601156](https://bugs.launchpad.net/bugs/601156)
-  * The cause for this bug is that [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md) still processes derived tables\
+  * The cause for this bug is that [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md) still processes derived tables\
     (subqueries in the FROM clause) by fully executing them during the parse\
     phase. This will be remedied by [MWL#106](https://askmonty.org/worklog/?tid=106) once merged into the main 5.3.
   * The assert statement is triggered when MATERIALIZATION is ON for EXPLAIN\
@@ -505,7 +505,7 @@
       for execution, hence there is no implementation of this print() method.
   * The fix temporarily removes the assert, until this code is merged with [MWL#106](https://askmonty.org/worklog/?tid=106).
 
-[MariaDB 5.3.0](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) Changelog — page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md) 5 [6](mariadb-530-changelog-p6.md)
+[MariaDB 5.3.0](../../old-releases/5.3/5.3.0.md) Changelog — page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md)[3](mariadb-530-changelog-p3.md)[4](mariadb-530-changelog-p4.md) 5 [6](mariadb-530-changelog-p6.md)
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

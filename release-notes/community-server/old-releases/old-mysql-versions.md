@@ -1,6 +1,6 @@
 # Old MySQL Versions
 
-[MariaDB 5.1](release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md) was the first release of MariaDB. It was based on MySQL 5.1.
+[MariaDB 5.1](5.1/changes-improvements-in-mariadb-5-1.md) was the first release of MariaDB. It was based on MySQL 5.1.
 
 In a sense, users can think about MySQL 5.0 and older releases (or even older releases of the MySQL 5.1 tree) as old versions of MariaDB.
 
@@ -52,7 +52,7 @@ This page lists the main features that were added in very old MySQL trees, befor
 * [Prepared statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/prepared-statements).
 * [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/geometry) support for MyISAM
 * B-TREE for MEMORY tables.
-* Replication over [SSL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview).
+* Replication over [SSL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview).
 * UTF-8 character set.
 * New storage engines:
   * [ARCHIVE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/archive)

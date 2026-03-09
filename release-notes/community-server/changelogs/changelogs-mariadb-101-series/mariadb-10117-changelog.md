@@ -1,12 +1,12 @@
 # MariaDB 10.1.17 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.17)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10117-release-notes.md)[Changelog](mariadb-10117-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.17)[Release Notes](../../old-releases/10.1/10.1.17.md)[Changelog](mariadb-10117-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 30 Aug 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10117-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.17.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -391,7 +391,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-10383](https://jira.mariadb.org/browse/MDEV-10383) Named pipes : multiple servers can listen on the same pipename
 * [Revision #5fdb3cf](https://github.com/MariaDB/server/commit/5fdb3cf)\
   2016-07-29 18:21:08 +0200
-  * [MDEV-10419](https://jira.mariadb.org/browse/MDEV-10419): crash in [mariadb 10.1.16](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10116-release-notes.md)-MariaDB-1trusty
+  * [MDEV-10419](https://jira.mariadb.org/browse/MDEV-10419): crash in [mariadb 10.1.16](../../old-releases/10.1/10.1.16.md)-MariaDB-1trusty
 * [Revision #c6aaa2a](https://github.com/MariaDB/server/commit/c6aaa2a)\
   2016-07-30 10:53:01 +0300
   * [MDEV-10228](https://jira.mariadb.org/browse/MDEV-10228): update test results
@@ -441,7 +441,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-10518](https://jira.mariadb.org/browse/MDEV-10518): Large wsrep\_gtid\_domain\_id may break IST
 * [Revision #3ac0721](https://github.com/MariaDB/server/commit/3ac0721)\
   2016-08-22 19:06:32 -0400
-  * [MDEV-10507](https://jira.mariadb.org/browse/MDEV-10507): [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) + wsrep fails to start under systemd post-reboot
+  * [MDEV-10507](https://jira.mariadb.org/browse/MDEV-10507): [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) + wsrep fails to start under systemd post-reboot
 * [Revision #294961c](https://github.com/MariaDB/server/commit/294961c)\
   2016-08-22 18:38:06 -0400
   * [MDEV-10538](https://jira.mariadb.org/browse/MDEV-10538): MariaDB fails to start without galera\_recovery in systemd mode

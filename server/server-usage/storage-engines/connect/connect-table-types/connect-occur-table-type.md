@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT OCCUR Table Type
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 Similarly to the [XCOL](connect-xcol-table-type.md) table type, `OCCUR` is an extension to the [PROXY](connect-proxy-table-type.md) type when\
 referring to a table or view having several columns containing the same kind of\
@@ -25,7 +21,7 @@ generated from one row of the object table. For example, supposing we have a\_pe
 
 We can create an occur table by:
 
-```
+```sql
 CREATE TABLE xpet (
   name VARCHAR(12) NOT NULL,
   race CHAR(6) NOT NULL,
@@ -37,7 +33,7 @@ Colist='dog,cat,rabbit,bird,fish';
 
 When displaying it by
 
-```
+```sql
 SELECT * FROM xpet;
 ```
 
@@ -55,19 +51,11 @@ We will get the result:
 | Donald  | dog    | 1      |
 | Donald  | fish   | 3      |
 
-First of all, the values of the column listed in the Colist option have been\
-put in a unique column whose name is given by the OccurCol option. When several\
-columns have non null (or pseudo-null) values, several rows are generated, with\
-the other normal columns values repeated.
+First of all, the values of the column listed in the Colist option have been put in a unique column whose name is given by the OccurCol option. When several columns have non null (or pseudo-null) values, several rows are generated, with the other normal columns values repeated.
 
-In addition, an optional special column was added whose name is given by the\
-RankCol option. This column contains the name of the source column from which\
-the value of the OccurCol column comes from. It permits here to know the race\
-of the pets whose number is given in _number_.
+In addition, an optional special column was added whose name is given by the RankCol option. This column contains the name of the source column from which the value of the OccurCol column comes from. It permits here to know the race of the pets whose number is given in _number_.
 
-This table type permit to make queries that would be more complicated to make\
-on the original tables. For instance to know who as more than 1 pet of a kind,\
-you can simply ask:
+This table type permit to make queries that would be more complicated to make on the original tables. For instance to know who as more than 1 pet of a kind, you can simply ask:
 
 ```
 SELECT * FROM xpet WHERE NUMBER > 1;
@@ -83,18 +71,13 @@ You will get the result:
 | Kevin   | bird   | 6      |
 | Donald  | fish   | 3      |
 
-**Note 1:** Like for [XCOL tables](connect-xcol-table-type.md), no\
-row multiplication for queries not implying the Occur column.
+**Note 1:** Like for [XCOL tables](connect-xcol-table-type.md), no row multiplication for queries not implying the Occur column.
 
-**Note 2:** Because the OccurCol was declared "not null" no rows were generated\
-for null or pseudo-null values of the column list. If the OccurCol is declared\
-as nullable, rows are also generated for columns containing null or pseudo-null\
-values.
+**Note 2:** Because the OccurCol was declared "not null" no rows were generated for null or pseudo-null values of the column list. If the OccurCol is declared as nullable, rows are also generated for columns containing null or pseudo-null values.
 
-Occur tables can be also defined from views or source definition. Also, CONNECT\
-is able to generate the column definitions if not specified:
+Occur tables can be also defined from views or source definition. Also, CONNECT is able to generate the column definitions if not specified:
 
-```
+```sql
 CREATE TABLE ocsrc ENGINE=CONNECT table_type=occur
 colist='january,february,march,april,may,june,july,august,september,
 october,november,december' option_list='rankcol=month,occurcol=day'

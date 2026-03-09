@@ -1,3 +1,10 @@
+---
+description: >-
+  Definitive full-text index guide: MATCH() AGAINST syntax, FULLTEXT index
+  creation, NATURAL/BOOLEAN/QUERY EXPANSION modes, stopwords,
+  ft_min_word_length.
+---
+
 # Full-Text Index Overview
 
 MariaDB has support for full-text indexing and searching:

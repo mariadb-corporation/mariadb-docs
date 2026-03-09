@@ -1,7 +1,8 @@
 ---
 description: >-
-  An overview of changes, improvements, and what's new in MariaDB Community
-  Server 10.6
+  Official MariaDB 10.6 release notes: atomic DDL (CREATE/ALTER/DROP),
+  JSON_TABLE syntax, ROWNUM Oracle mode, utf8→utf8mb3 alias, and
+  old_mode=utf8mb4.
 ---
 
 # MariaDB 10.6 Changes & Improvements
@@ -20,7 +21,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 
 ### Atomic DDL
 
-* [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table), [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table), [RENAME TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/rename-table), [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-table), [DROP DATABASE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-database) and related DDL statements [are now atomic](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/atomic-ddl). Either the statement is fully completed, or everything is reverted to it's original state. Note that when deleting multiple tables with DROP TABLE, only each individual drop is atomic, not the full list of tables). ([MDEV-23842](https://jira.mariadb.org/browse/MDEV-23842)).
+* [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table), [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table), [RENAME TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/rename-table), [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/drop-table), [DROP DATABASE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-database) and related DDL statements [are now atomic](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/atomic-ddl). Either the statement is fully completed, or everything is reverted to it's original state. Note that when deleting multiple tables with DROP TABLE, only each individual drop is atomic, not the full list of tables). ([MDEV-23842](https://jira.mariadb.org/browse/MDEV-23842)).
 
 ### SQL Syntax
 
@@ -44,7 +45,7 @@ See the [Differences in MariaDB Enterprise Server 10.6](../../enterprise-server/
 * We intended to deprecate and eventually remove the [InnoDB's COMPRESSED row format](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-row-formats/innodb-compressed-row-format). The first step was to make the tables [read-only by default](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-row-formats/innodb-compressed-row-format#read-only), but this plan was abandoned from [MariaDB 10.6.6](10.6.6.md) ([MDEV-23497](https://jira.mariadb.org/browse/MDEV-23497)) ([MDEV-27736](https://jira.mariadb.org/browse/MDEV-27736))
 * [Information Schema SYS\_TABLESPACES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_sys_tablespaces-table) now directly reflects the filesystem, and [SYS\_DATAFILES](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_sys_datafiles-table) has been removed ([MDEV-22343](https://jira.mariadb.org/browse/MDEV-22343))
 * Defer writes to the InnoDB temporary tablespace ([MDEV-12227](https://jira.mariadb.org/browse/MDEV-12227))
-* The old [MariaDB 5.5](../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md)-compatible `innodb` checksum is no longer supported, only `crc32`. Removed the `*innodb` and `*none` options from [innodb\_checksum\_algorithm](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_checksum_algorithm), and the `--strict-check`/`-C` and `--write`/`-w` options from [innochecksum](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/innochecksum) ([MDEV-25105](https://jira.mariadb.org/browse/MDEV-25105))
+* The old [MariaDB 5.5](../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)-compatible `innodb` checksum is no longer supported, only `crc32`. Removed the `*innodb` and `*none` options from [innodb\_checksum\_algorithm](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_checksum_algorithm), and the `--strict-check`/`-C` and `--write`/`-w` options from [innochecksum](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/administrative-tools/innochecksum) ([MDEV-25105](https://jira.mariadb.org/browse/MDEV-25105))
 
 ### Replication, Galera and Binlog
 
@@ -119,9 +120,10 @@ The following deprecated variables have been removed ([MDEV-23397](https://jira.
 ## Security Vulnerabilities Fixed in [MariaDB 10.6](what-is-mariadb-106.md)
 
 For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/security)\
+versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
 page.
 
+* [CVE-2026-21968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968): [MariaDB 10.6.24](10.6.24.md)
 * [CVE-2025-21490](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-21490): [MariaDB 10.6.21](10.6.21.md)
 * [CVE-2024-21096](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21096): [MariaDB 10.6.18](10.6.18.md)
 * [CVE-2023-5157](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5157): [MariaDB 10.6.9](10.6.9.md)
@@ -188,6 +190,7 @@ page.
 
 | Date        | Release         | Status      | Release Notes               | Changelog                                  |
 | ----------- | --------------- | ----------- | --------------------------- | ------------------------------------------ |
+| 4 Feb 2026  | MariaDB 10.6.25 | Stable (GA) | [Release Notes](10.6.25.md) | [Changelog](../changelogs/10.6/10.6.25.md) |
 | 6 Nov 2025  | MariaDB 10.6.24 | Stable (GA) | [Release Notes](10.6.24.md) | [Changelog](../changelogs/10.6/10.6.24.md) |
 | 6 Aug 2025  | MariaDB 10.6.23 | Stable (GA) | [Release Notes](10.6.23.md) | [Changelog](../changelogs/10.6/10.6.23.md) |
 | 8 May 2025  | MariaDB 10.6.22 | Stable (GA) | [Release Notes](10.6.22.md) | [Changelog](../changelogs/10.6/10.6.22.md) |

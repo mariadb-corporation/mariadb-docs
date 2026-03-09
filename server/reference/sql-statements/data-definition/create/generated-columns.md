@@ -1,5 +1,7 @@
 ---
-description: Generated columns can be virtual or persistent (stored).
+description: >-
+  Complete generated columns reference: VIRTUAL vs PERSISTENT/STORED syntax,
+  CREATE/ALTER TABLE, index/foreign key constraints, sql_mode consistency.
 ---
 
 # Generated Columns
@@ -331,7 +333,7 @@ If you try to update a virtual column, you will get an error if the default [str
 
 ## Development History
 
-Generated columns was originally developed by Andrey Zhakov. It was then modified by Sanja Byelkin and Igor Babaev at Monty Program for inclusion in MariaDB. Monty did the work on [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) to lift some of the limitations.
+Generated columns was originally developed by Andrey Zhakov. It was then modified by Sanja Byelkin and Igor Babaev at Monty Program for inclusion in MariaDB. Monty did the work on [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) to lift some of the limitations.
 
 ## Examples
 

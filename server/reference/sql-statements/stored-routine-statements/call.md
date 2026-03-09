@@ -26,7 +26,7 @@ If parentheses are used, any number of spaces, tab characters and newline charac
 `CALL` can pass back values to its caller using parameters that are declared as `OUT` or `INOUT`\
 parameters. If no value is assigned to an `OUT` parameter, `NULL` is assigned (and its former value is lost). To pass such values from another stored program you can use [user-defined variables](../../sql-structure/sql-language-structure/user-defined-variables.md), [local variables](../programmatic-compound-statements/declare-variable.md) or routine's parameters; in other contexts, you can only use user-defined variables.
 
-`CALL` can also be executed as a prepared statement. Placeholders can be used for `IN` parameters in all versions of MariaDB; for `OUT` and `INOUT` parameters, placeholders can be used since [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5).
+`CALL` can also be executed as a prepared statement. Placeholders can be used for `IN` parameters in all versions of MariaDB; for `OUT` and `INOUT` parameters, placeholders can be used since [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
 
 When the procedure returns, a client program can also obtain the number of rows affected for the final statement executed within the routine: At the SQL level, call the [ROW\_COUNT()](../built-in-functions/secondary-functions/information-functions/row_count.md) function; from the C\
 API, call the `mysql_affected_rows()` function.

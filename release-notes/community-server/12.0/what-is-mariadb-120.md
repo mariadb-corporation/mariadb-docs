@@ -15,7 +15,7 @@ MariaDB 12.0 is a [rolling release](../about/release-model.md). It is an evoluti
 ### Security <a href="#security" id="security"></a>
 
 * Support for passphrase protected keys ([MDEV-14091](https://jira.mariadb.org/browse/MDEV-14091))
-  * [ssl\_passphrase system](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) variable
+  * [ssl\_passphrase system](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) variable
 * New statement [SET SESSION AUTHORIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) for performing actions as another user ([MDEV-20299](https://jira.mariadb.org/browse/MDEV-20299))
 * Implement SHA2 support for file\_key\_management.so plugin (TDE) ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
 
@@ -34,6 +34,7 @@ MariaDB 12.0 is a [rolling release](../about/release-model.md). It is an evoluti
 * [mariadb-check](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/table-tools/mariadb-check) and [CHECK TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/check-table) now support [SEQUENCE tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/sequence-storage-engine) ([MDEV-22491](https://jira.mariadb.org/browse/MDEV-22491))
 
 ### Optimizer <a href="#optimizer" id="optimizer"></a>
+
 * [Rowid Filtering](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/rowid-filtering-optimization) optimization can now be applied for reverse-ordered scans ([MDEV-36094](https://jira.mariadb.org/browse/MDEV-36094))
 * [Index Condition Pushdown](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/query-optimizations/index-condition-pushdown) optimization can now applied for reverse-ordered scans ([MDEV-34413](https://jira.mariadb.org/browse/MDEV-34413))
 * Loose Index Scan ("Use index for group-by") optimization can now use indexes with DESC key parts ([MDEV-32732](https://jira.mariadb.org/browse/MDEV-32732))
@@ -41,6 +42,7 @@ MariaDB 12.0 is a [rolling release](../about/release-model.md). It is an evoluti
 * If the join\_condition is specified via USING (column\_list), the query plan depends on the sequence of tables in the query ([MDEV-36592](https://jira.mariadb.org/browse/MDEV-36592))
 
 ### Optimizer hints <a href="#optimizer-hints" id="optimizer-hints"></a>
+
 * Add support for [optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints) ([MDEV-35504](https://jira.mariadb.org/browse/MDEV-35504))
   * [QB\_NAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#query-block-naming)
   * [NO\_RANGE\_OPTIMIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints#no_range_optimization)
@@ -107,9 +109,9 @@ For a list of all new variables, see [System Variables Added in MariaDB 12.0](ht
 
 #### Removed
 
-* [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables), deprecated in [MariaDB 10.5.0](../old-releases/mariadb-10-5-series/mariadb-1050-release-notes.md)
-* [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size), deprecated in [MariaDB 10.5.3](../old-releases/mariadb-10-5-series/mariadb-1053-release-notes.md)
-* [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine), deprecated in [MariaDB 5.5](../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md).
+* [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables), deprecated in [MariaDB 10.5.0](../old-releases/10.5/10.5.0.md)
+* [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size), deprecated in [MariaDB 10.5.3](../old-releases/10.5/10.5.3.md)
+* [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine), deprecated in [MariaDB 5.5](../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
 
 ## List of All MariaDB 12.0 Releases
 

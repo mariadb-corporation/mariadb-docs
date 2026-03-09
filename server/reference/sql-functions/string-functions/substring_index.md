@@ -1,7 +1,7 @@
 ---
 description: >-
-  Return a substring before a delimiter. This function returns the substring
-  from a string before a specified number of occurrences of a delimiter.
+  Complete SUBSTRING_INDEX() reference: SUBSTRING_INDEX(str,delim,count) syntax,
+  positive/negative count, case-sensitive delimiter, NULL rules.
 ---
 
 # SUBSTRING\_INDEX

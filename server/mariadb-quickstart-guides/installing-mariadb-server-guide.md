@@ -1,5 +1,8 @@
 ---
-description: 'Quickstart Guide: Installing MariaDB Server'
+description: >-
+  Official MariaDB Server install guide: Linux apt/dnf/yum commands,
+  mariadb-secure-installation setup, systemctl status/start checks, Windows .msi
+  installer.
 ---
 
 # Installing MariaDB Server Guide

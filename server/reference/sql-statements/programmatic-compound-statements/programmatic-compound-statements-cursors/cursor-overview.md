@@ -20,7 +20,15 @@ ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
 
 To avoid problems, a [DECLARE HANDLER](../declare-handler.md) statement is generally used. The `HANDLER` should handler the 1329 error, or the '02000' [SQLSTATE](../programmatic-compound-statements-diagnostics/sqlstate.md), or the `NOT FOUND` error class.
 
-Only [SELECT](../../data-manipulation/selecting-data/select.md) statements are allowed for cursors, and they cannot be contained in a variable - so, they cannot be composed dynamically. However, it is possible to `SELECT` from a view. Since the [CREATE VIEW](../../../../server-usage/views/create-view.md) statement can be executed as a prepared statement, it is possible to dynamically create the view that is queried by the cursor.
+{% tabs %}
+{% tab title="Current" %}
+Cursors can be declared for a **prepared statement** name, enabling full support for **Dynamic SQL** within stored routines. The SQL Standard syntax for  `<dynamic declare cursor>` is supported: a cursor is declared with the `FOR` clause to bind it to a prepared statement name, which is then prepared and opened normally. Cursors may also still SELECT from views, which can be created dynamically via prepared statements.&#x20;
+{% endtab %}
+
+{% tab title="< 12.3" %}
+Only **SELECT** statements are allowed for cursors, and they cannot be contained in a variable - so, they cannot be composed dynamically. However, it is possible to **SELECT** from a view. Since the **CREATE VIEW** statement can be executed as a prepared statement, it is possible to dynamically create the view that is queried by the cursor.&#x20;
+{% endtab %}
+{% endtabs %}
 
 {% tabs %}
 {% tab title="Current" %}
@@ -80,6 +88,9 @@ INSERT INTO c2 VALUES(10),(20),(30);
 CALL p1;
 
 SELECT * FROM c3;
+```
+
+```
 +------+
 | i    |
 +------+
@@ -121,6 +132,9 @@ DELIMITER ;
 CALL p1(2,4);
 
 SELECT * FROM t1;
+```
+
+```
 +------+------+
 | a    | b    |
 +------+------+

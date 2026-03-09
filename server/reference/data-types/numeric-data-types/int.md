@@ -1,7 +1,7 @@
 ---
 description: >-
-  Standard integer type. An INT column uses 4 bytes and stores values from
-  -2147483648 to 2147483647 (signed) or 0 to 4294967295 (unsigned).
+  Complete INT type reference: INT(M) syntax, signed (-2147483648 to 2147483647)
+  vs unsigned (0 to 4294967295) ranges, and ZEROFILL padding guidelines.
 ---
 
 # INT

@@ -6,7 +6,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 
 **Release date:** 11 Jun 2014
 
-This is the 3rd release in the MariaDB Galera Cluster 10.0 series. It is a [_**Beta**_](../../../about/release-criteria.md) release. It is a merge of [MariaDB 10.0.10](../../release-notes-mariadb-10-0-series/mariadb-10010-release-notes.md)\
+This is the 3rd release in the MariaDB Galera Cluster 10.0 series. It is a [_**Beta**_](../../../about/release-criteria.md) release. It is a merge of [MariaDB 10.0.10](../../10.0/10.0.10.md)\
 and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes. It is being released now to get it into the hands of any\
 who might want to test it. **Do not run Beta releases on production systems!**

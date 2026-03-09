@@ -51,7 +51,7 @@ If `START REPLICA` succeeds in starting the replica threads, it returns without 
 
 `START REPLICA UNTIL master_gtid_pos=xxx` is also supported. See [Global Transaction ID/START REPLICA UNTIL master\_gtid\_pos=xxx](../../../../ha-and-performance/standard-replication/gtid.md) for more details.
 
-**MariaDB starting with** [**11.3.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes)
+**MariaDB starting with** [**11.3.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
 {% tabs %}
 {% tab title="Current" %}

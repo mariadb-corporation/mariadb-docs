@@ -1,12 +1,12 @@
 # MariaDB 10.2.25 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.25/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10225-release-notes.md)[Changelog](mariadb-10225-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.25/)[Release Notes](../../old-releases/10.2/10.2.25.md)[Changelog](mariadb-10225-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 17 Jun 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10225-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.25.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -335,7 +335,7 @@ in that revision.
   * [MDEV-17167](https://jira.mariadb.org/browse/MDEV-17167) - InnoDB: Failing assertion: table->get\_ref\_count() == 0 upon truncating a temporary table
 * [Revision #43bbf88dcb](https://github.com/MariaDB/server/commit/43bbf88dcb)\
   2019-05-14 16:06:55 +0530
-  * [MDEV-19158](https://jira.mariadb.org/browse/MDEV-19158): [MariaDB 10.2.22](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10222-release-notes.md) is writing duplicate entries into binary log
+  * [MDEV-19158](https://jira.mariadb.org/browse/MDEV-19158): [MariaDB 10.2.22](../../old-releases/10.2/10.2.22.md) is writing duplicate entries into binary log
 * Merge [Revision #d0d663f3db](https://github.com/MariaDB/server/commit/d0d663f3db) 2019-05-14 16:05:09 +0530 - Merge branch '10.1' into 10.2
 * [Revision #47637a3dd1](https://github.com/MariaDB/server/commit/47637a3dd1)\
   2019-05-14 13:03:06 +0530
@@ -383,7 +383,7 @@ in that revision.
   * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): race condition in fts\_get\_table\_name()
 * [Revision #f3718a112a](https://github.com/MariaDB/server/commit/f3718a112a)\
   2019-05-09 09:31:30 +0300
-  * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): Backport some code from [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): Backport some code from [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #f92749ed36](https://github.com/MariaDB/server/commit/f92749ed36)\
   2019-05-08 12:18:52 +0300
   * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): heap-use-after-free in fts\_get\_table\_name\_prefix()

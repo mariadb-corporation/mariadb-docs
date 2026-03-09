@@ -49,7 +49,7 @@ Loose scan is possible in the following cases:
 * The only aggregated functions in the `SELECT` part are `MIN()` and `MAX()` functions and all of them using the same column which is the next index part after the used `GROUP BY` columns.
 * Partial indexed columns cannot be used (like only indexing 10 characters of a `VARCHAR(20)` column).
 
-Loose scan will apply for your query if [EXPLAIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain) shows `Using index for group-by` in the `Extra` column.\
+Loose scan will apply for your query if [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) shows `Using index for group-by` in the `Extra` column.\
 In this case the optimizer will do only one extra row fetch to calculate the value for `MIN()` or `MAX()` for every unique key prefix.
 
 The following examples assume that the table `t1` has an index on `(a,b,c)`.

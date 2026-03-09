@@ -1,8 +1,7 @@
 ---
 description: >-
-  Learn to select data in MariaDB Server using SQL. This section covers various
-  SELECT statement clauses, including WHERE, GROUP BY, and ORDER BY, to retrieve
-  and filter your data effectively.
+  Complete reference for SQL Statements in MariaDB. Complete syntax guide with
+  all options, clauses, and practical examples with comprehensive examples.
 ---
 
 # SQL Statements

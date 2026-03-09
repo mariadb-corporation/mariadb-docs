@@ -1,12 +1,12 @@
 # MariaDB 10.0.31 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.31)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10031-release-notes.md)[Changelog](mariadb-10031-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.31)[Release Notes](../../old-releases/10.0/10.0.31.md)[Changelog](mariadb-10031-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 23 May 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10031-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.31.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -149,7 +149,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-12651](https://jira.mariadb.org/browse/MDEV-12651): change error code to ER\_ILLEGAL\_HA in rnd\_pos (ha\_connect.cc)
 * [Revision #436070c6e1](https://github.com/MariaDB/server/commit/436070c6e1)\
   2017-05-12 00:33:33 +0200
-  * Fix failing test connect.json for [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) Suppressing Uri and dsn from json tables (was MGO) modified: storage/connect/ha\_connect.cc modified: storage/connect/tabdos.cpp modified: storage/connect/tabjson.cpp modified: storage/connect/tabjson.h
+  * Fix failing test connect.json for [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) Suppressing Uri and dsn from json tables (was MGO) modified: storage/connect/ha\_connect.cc modified: storage/connect/tabdos.cpp modified: storage/connect/tabjson.cpp modified: storage/connect/tabjson.h
 * [Revision #1c88b9a8d3](https://github.com/MariaDB/server/commit/1c88b9a8d3)\
   2017-05-11 21:57:21 +0200
   * Fix wrong value of JSON column When null and the column is NOT NULL the value was not reset. modified: storage/connect/tabjson.cpp

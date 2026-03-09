@@ -36,7 +36,7 @@ Requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#
 {% endtab %}
 
 {% tab title="< 10.5.9 / 10.5.2 / 10.5.1" %}
-Requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege (>= [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1059-release-notes)), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes)) or the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege (<= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1051-release-notes)).
+Requires the [REPLICA MONITOR](../../account-management-sql-statements/grant.md#replica-monitor) privilege (>= [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9)), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)) or the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege (<= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)).
 {% endtab %}
 {% endtabs %}
 

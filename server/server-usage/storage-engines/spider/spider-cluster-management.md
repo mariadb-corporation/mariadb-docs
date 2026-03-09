@@ -62,7 +62,7 @@ SELECT spider_bg_direct_sql( 'SELECT count(*) ,min(NOW(6)),min(DATABASE())) FROM
 
 ## Direct Handler Socket
 
-**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes)
+**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)
 
 The Spider Handler Socket support has been removed, see [MDEV-26858](https://jira.mariadb.org/browse/MDEV-26858).
 
@@ -107,7 +107,7 @@ SELECT spider_direct_sql('1\t=\t1\t2\t100000\t0','res', 'host "192.168.0.202", t
 
 ## Inter Nodes Copy Table
 
-**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-1081-release-notes)
+**MariaDB starting with** [**10.8.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.1)
 
 The UDF spider\_copy\_tables relies on Spider's high availability feature, which has been deprecated ([MDEV-28479](https://jira.mariadb.org/browse/MDEV-28479)), and are deleted. Please use other high availability solutions like [replication](../../../ha-and-performance/standard-replication/replication-overview.md) or [galera-cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide).
 
@@ -139,7 +139,7 @@ SET GLOBAL spider_log_result_error_with_sql=3;
 
 ## Compiling in Debug Mode
 
-See [Compiling MariaDB for Debugging](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging) and [Creating a Trace File](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/creating-a-trace-file).
+See [Compiling MariaDB for Debugging](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7) and [Creating a Trace File](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/NUEN5ddQGEvSv2bnyq5F).
 
 Report the issue in [MariaDB JIRA](https://jira.mariadb.org) (see [Reporting Bugs](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/reporting-bugs)) or to the MariaDB Corporation support center.
 
@@ -174,7 +174,7 @@ A number of new [status variables](../../../ha-and-performance/optimization-and-
 +-------------------+---------------------+------+-----+---------+-------+
 ```
 
-From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), Spider installs another Information Schema table, [SPIDER\_WRAPPER\_PROTOCOLS](information-schema-spider_wrapper_protocols-table.md).
+From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), Spider installs another Information Schema table, [SPIDER\_WRAPPER\_PROTOCOLS](information-schema-spider_wrapper_protocols-table.md).
 
 ## Performance Schema
 

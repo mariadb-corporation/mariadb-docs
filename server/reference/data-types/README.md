@@ -1,8 +1,7 @@
 ---
 description: >-
-  Explore data types in MariaDB Server. This section details the various
-  numeric, string, date/time, and spatial data types available, crucial for
-  designing efficient database schemas.
+  Comprehensive MariaDB data types reference. Complete guide for numeric,
+  string, date/time, spatial, and JSON types with storage specifications.
 ---
 
 # Data Types

@@ -7,35 +7,26 @@ description: >-
 
 # Audit Plugin Log Format
 
-The audit plugin logs user access to MariaDB and its objects. The audit trail (that is, the audit log) is a set of records, written as a list of fields to a file in a plain‐text format. The fields in the log are separated by commas. The format used for the plugin's own log file is slightly different from the format used if it logs to the system log because it has its own standard format. The general format for the logging to the plugin's own file is defined like the following:
+The audit plugin logs user access to MariaDB and its objects. The audit trail (that is, the audit log) is a set of records, written as a list of fields to a file in a plain‐text format. The fields in the log are separated by commas. The format used for the plugin's own log file is slightly different from the format used if it logs to the system log because it has its own standard format.&#x20;
 
-```ini
-[timestamp],[serverhost],[username],[host],[connectionid],
-[queryid],[operation],[database],[object],[retcode]
-```
+## Formal Specification
 
-If the [server\_audit\_output\_type](mariadb-audit-plugin-options-and-system-variables.md) variable is set to `syslog` instead of the default, `file`, the audit log file format is as follows:
+When the MariaDB Audit Plugin (v1) writes to a dedicated file, it uses a comma-separated (CSV) format. For tool developers, it is essential to map the `connectionid` to the server's global connection identifier to enable cross-log analysis.
 
-```ini
-[timestamp][syslog_host][syslog_ident]:[syslog_info][serverhost],[username],[host],
-[connectionid],[queryid],[operation],[database],[object],[retcode]
-```
+Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 
-| Item logged   | Description                                                                                                                                                                                                                                                                                                       |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| timestamp     | Time at which the event occurred. If syslog is used, the format is defined by syslogd.                                                                                                                                                                                                                            |
-| syslog\_host  | Host from which the syslog entry was received.                                                                                                                                                                                                                                                                    |
-| syslog\_ident | For identifying a system log entry, including the MariaDB server.                                                                                                                                                                                                                                                 |
-| syslog\_info  | For providing information for identifying a system log entry.                                                                                                                                                                                                                                                     |
-| serverhost    | The MariaDB server host name.                                                                                                                                                                                                                                                                                     |
-| username      | Connected user.                                                                                                                                                                                                                                                                                                   |
-| host          | Host from which the user connected.                                                                                                                                                                                                                                                                               |
-| connectionid  | Connection ID number for the related operation.                                                                                                                                                                                                                                                                   |
-| queryid       | Query ID number, which can be used for finding the relational table events and related queries. For TABLE events, multiple lines will be added.                                                                                                                                                                   |
-| operation     | Recorded action type: CONNECT, QUERY, READ, WRITE, CREATE, ALTER, RENAME, DROP.                                                                                                                                                                                                                                   |
-| database      | Active database (as set by [USE](../../sql-statements/administrative-sql-statements/use-database.md)).                                                                                                                                                                                                            |
-| object        | Executed query for QUERY events, or the table name in the case of TABLE events. From [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.0-rolling-releases/what-is-mariadb-120), CONNECTION events also contain the tls version used, for example `TLSv1.3`. |
-| retcode       | Return code of the logged operation.                                                                                                                                                                                                                                                                              |
+| Field | Component      | Data Type      | Standardized Name / Description                                                           |
+| ----- | -------------- | -------------- | ----------------------------------------------------------------------------------------- |
+| 1     | `timestamp`    | `DateTime`     | Formatted as `YYYYMMDD HH:MM:SS`.                                                         |
+| 2     | `serverhost`   | `String`       | Hostname of the originating server.                                                       |
+| 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.        |
+| 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query, used to correlate `QUERY` and `TABLE` events. |
+| 7     | `operation`    | `String`       | Action type (e.g., `CONNECT`, `QUERY`, `READ`, `WRITE`).                                  |
+| 10    | `retcode`      | `Integer`      | Result code (`0` for success).                                                            |
+
+### Audit Log Format with Syslog
+
+If `server_audit_output_type` is set to `SYSLOG`, the standard CSV line is prefixed with syslog metadata: `<timestamp> <syslog_host> <syslog_ident>: <syslog_info> [Standard CSV Fields]`
 
 Various events result in different audit records. Some events do not return a value for some fields (for instance, when the active database is not set when connecting to the server).
 

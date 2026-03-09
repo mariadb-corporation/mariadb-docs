@@ -1,7 +1,8 @@
 ---
 description: >-
-  Delete one or more user accounts. Understand how to remove users and their
-  associated privileges from the database system safely.
+  Complete DROP statement reference for MariaDB. Complete guide for safely
+  removing database objects with CASCADE options with comprehensive examples and
+  best.
 ---
 
 # DROP USER
@@ -28,7 +29,7 @@ The `DROP USER` statement removes one or more MariaDB accounts. It removes privi
 
 {% tabs %}
 {% tab title="Current" %}
-If you specify an account that is currently connected, it is not deleted until the connection is closed. The connection is not automatically closed. The statement completes with a warning:
+If you specify an account that is currently connected, it is deleted, but the statement completes with a warning:
 
 {% code overflow="wrap" %}
 ```sql
@@ -36,13 +37,15 @@ Dropped users 'user'@'host[,...]' have active connections. Use KILL CONNECTION i
 ```
 {% endcode %}
 
+This means that the user account with all its privileges is still active until the connection is terminated. As the warning implies, use a `KILL CONNECTION` statement to terminate a connection, or (more proactively) use the `FORCE` clause to forcibly close connections of the users named in the `DROP USER` statement. This ends connections, and immediately deletes the users.
+
 In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), if a user is connected, the `DROP USER` statement fails with an error:
 
 ```sql
 Operation DROP USER failed for 'foo'@'localhost'.
 ```
 
-Use the `FORCE` clause to forcibly close connections of the users named in the `DROP USER` statement. This ends connections, and immediately deletes the users.
+Again, use the `FORCE` clause to prevent that error.
 {% endtab %}
 
 {% tab title="< 12.1" %}

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Pattern matching operator. This function tests whether a string matches a
-  specified SQL pattern using wildcards like '%' and '_'.
+  Complete LIKE operator reference: LIKE/NOT LIKE pattern matching syntax, % and
+  _ wildcards, ESCAPE clause, NULL behavior, and collation case-sensitivity.
 ---
 
 # LIKE

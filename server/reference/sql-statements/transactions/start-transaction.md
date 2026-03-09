@@ -1,7 +1,8 @@
 ---
 description: >-
-  Begin a new transaction. This statement initiates a transaction, optionally
-  setting characteristics like consistent snapshots or read-only mode.
+  Complete START TRANSACTION reference: BEGIN/COMMIT/ROLLBACK syntax, WITH
+  CONSISTENT SNAPSHOT option, READ ONLY/WRITE modes, AND [NO] CHAIN/RELEASE
+  modifiers.
 ---
 
 # START TRANSACTION

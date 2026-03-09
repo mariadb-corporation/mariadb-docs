@@ -1,7 +1,8 @@
 ---
 description: >-
-  A comprehensive guide to the InnoDB Buffer Pool, the key memory area for
-  caching data and indexes, including configuration and resizing tips.
+  Complete InnoDB Buffer Pool guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage with comprehensive
+  examples and.
 ---
 
 # InnoDB Buffer Pool
@@ -24,10 +25,18 @@ When information is accessed that appears in the _old_ list, it is moved to the 
 
 The most important [server system variable](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) is [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size). This size should contain most of the active data set of your server so that SQL request can work directly with information in the buffer pool cache. Starting at several gigabytes of memory is a good starting point if you have that RAM available. Once warmed up to its normal load there should be very few [innodb\_buffer\_pool\_reads](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_reads) compared to [innodb\_buffer\_pool\_read\_requests](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_read_requests). Look how these values change over a minute. If the change in [innodb\_buffer\_pool\_reads](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_reads) is less than 1% of the change in [innodb\_buffer\_pool\_read\_requests](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_pool_read_requests) then you have a good amount of usage. If you are getting the status variable [innodb\_buffer\_pool\_wait\_free](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_buffer_wait_free) increasing then you don't have enough buffer pool (or your flushing isn't occurring frequently enough).
 
-The larger the size, the longer it takes to initialize. On a 64-bit server with a 10GB memory pool, this can take five seconds or longer.
+The larger the size, the longer it takes to initialize.&#x20;
 
 {% hint style="info" %}
 Make sure that the size is not too large, because this can cause swapping, which more than undoes the benefits of a large buffer pool.
+{% endhint %}
+
+{% hint style="warning" %}
+**Using ColumnStore?**
+
+The standard recommendation to use a large portion of your RAM for the InnoDB buffer pool does not apply if you are also running [MariaDB ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore) on the same server. ColumnStore reserves 75% of system RAM by default. Over-allocating the InnoDB buffer pool in a combined environment will likely trigger the Linux OOM killer.
+
+Please refer to the [ColumnStore Memory Requirements](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/high-availability/mariadb-columnstore-performance-related-configuration-settings#innodb-buffer-pool-sizing-with-columnstore) for accurate sizing and validation instructions.
 {% endhint %}
 
 The buffer pool can be set dynamically. See [Setting Innodb Buffer Pool Size Dynamically](../../../ha-and-performance/optimization-and-tuning/system-variables/setting-innodb-buffer-pool-size-dynamically.md).

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Return one of two values based on a condition. This function evaluates a
-  boolean expression and returns the first value if true, or the second if
-  false.
+  Complete IF() function reference: IF(expr1,expr2,expr3) conditional syntax,
+  TRUE/NULL evaluation rules, return type context (numeric/string), and
+  examples.
 ---
 
 # IF Function

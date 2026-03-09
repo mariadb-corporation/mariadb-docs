@@ -1,12 +1,12 @@
 # MariaDB 10.2.23 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.23)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10223-release-notes.md)[Changelog](mariadb-10223-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.23)[Release Notes](../../old-releases/10.2/10.2.23.md)[Changelog](mariadb-10223-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 25 Mar 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10223-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.23.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -138,7 +138,7 @@ in that revision.
   * [MDEV-18907](https://jira.mariadb.org/browse/MDEV-18907) Slow log: RENAME TABLE is not "admin", while ALTER TABLE..RENAME is
 * [Revision #691c306953](https://github.com/MariaDB/server/commit/691c306953)\
   2019-03-13 11:38:09 +0200
-  * [MDEV-14033](https://jira.mariadb.org/browse/MDEV-14033): wsrep\_on=off + binlog = mixed on [MariaDB 10.2.9](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1029-release-notes.md)
+  * [MDEV-14033](https://jira.mariadb.org/browse/MDEV-14033): wsrep\_on=off + binlog = mixed on [MariaDB 10.2.9](../../old-releases/10.2/10.2.9.md)
 * [Revision #90ce95de4b](https://github.com/MariaDB/server/commit/90ce95de4b)\
   2019-03-12 18:46:37 +0400
   * Tests for [MDEV-18892](https://jira.mariadb.org/browse/MDEV-18892) Regression in slow log and admin statements

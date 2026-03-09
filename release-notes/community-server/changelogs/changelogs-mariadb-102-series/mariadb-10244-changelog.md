@@ -1,12 +1,12 @@
 # MariaDB 10.2.44 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md)[Changelog](mariadb-10244-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/10.2/10.2.44.md)[Changelog](mariadb-10244-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 [_Alternate download from mariadb.org_](https://mariadb.org/download/?tab=mariadb\&release=10.2.44\&product=mariadb)
 
 **Release date:** 20 May 2022
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.44.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2)\
 you can view more details of the revision and view diffs of the code modified\
@@ -318,7 +318,7 @@ in that revision.
   * [MDEV-27722](https://jira.mariadb.org/browse/MDEV-27722) innodb\_fts.innodb-fts-ddl fails with a wrong message on FreeBSD
 * [Revision #9f429a2dd1](https://github.com/MariaDB/server/commit/9f429a2dd1)\
   2022-02-16 15:53:38 +0100
-  * fix: Fix 'unknown type usermodehelper\_t' issue after upgrading to [MariaDB 10.4.24](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10424-release-notes.md)
+  * fix: Fix 'unknown type usermodehelper\_t' issue after upgrading to [MariaDB 10.4.24](../../old-releases/10.4/10.4.24.md)
 * [Revision #e195685ce6](https://github.com/MariaDB/server/commit/e195685ce6)\
   2022-02-03 14:21:29 +0100
   * [MDEV-27548](https://jira.mariadb.org/browse/MDEV-27548) session\_tracker\_last\_gtid.test fails with --repeat, added cleanup after the test

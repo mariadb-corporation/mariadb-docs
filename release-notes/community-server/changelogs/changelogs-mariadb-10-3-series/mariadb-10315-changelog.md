@@ -1,12 +1,12 @@
 # MariaDB 10.3.15 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.15/)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10315-release-notes.md)[Changelog](mariadb-10315-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.15/)[Release Notes](../../old-releases/10.3/10.3.15.md)[Changelog](mariadb-10315-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 **Release date:** 14 May 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10315-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.15.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -31,7 +31,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): race condition in fts\_get\_table\_name()
 * [Revision #f3718a112a](https://github.com/MariaDB/server/commit/f3718a112a)\
   2019-05-09 09:31:30 +0300
-  * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): Backport some code from [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+  * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): Backport some code from [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 * [Revision #f92749ed36](https://github.com/MariaDB/server/commit/f92749ed36)\
   2019-05-08 12:18:52 +0300
   * [MDEV-18220](https://jira.mariadb.org/browse/MDEV-18220): heap-use-after-free in fts\_get\_table\_name\_prefix()

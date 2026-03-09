@@ -52,7 +52,7 @@ This page has a list of SQL Server features that MariaDB implements in a differe
 
 * The list of [permissions](../../../../reference/sql-statements/account-management-sql-statements/grant.md#privilege-levels) is different.
 * Security policies. MariaDB allows one to achieve the same results by assigning permissions on views and stored procedures. However, this is not a common practice and it's more complicated than defining security policies. See [Other Uses of Views](../../../../server-usage/views/).
-* MariaDB does not support an `OUTPUT` clause. Instead, we can use [DELETE RETURNING](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) and, since [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105), [INSERT RETURNING](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning.md) and [REPLACE RETURNING](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/replacereturning.md).
+* MariaDB does not support an `OUTPUT` clause. Instead, we can use [DELETE RETURNING](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) and, since [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), [INSERT RETURNING](../../../../reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning.md) and [REPLACE RETURNING](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/replacereturning.md).
 
 ## Other Features
 

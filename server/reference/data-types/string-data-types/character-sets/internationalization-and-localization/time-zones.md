@@ -1,7 +1,8 @@
 ---
 description: >-
-  Manage time zone settings in MariaDB, including the global server time zone,
-  session time zone, and system time zone configurations.
+  Complete Time Zones data type guide for MariaDB. Complete reference for
+  syntax, valid values, storage requirements, and range limits for production
+  use.
 ---
 
 # Time Zones

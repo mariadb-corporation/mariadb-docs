@@ -1,14 +1,14 @@
 # MariaDB 10.5.20 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.20](https://downloads.mariadb.org/mariadb/10.5.20/)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-20-release-notes.md)[Changelog](mariadb-10-5-20-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.20](https://downloads.mariadb.org/mariadb/10.5.20/)[Release Notes](../../old-releases/10.5/10.5.20.md)[Changelog](mariadb-10-5-20-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.20/)
 
 **Release date:** 10 May 2023
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-20-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.20.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -93,7 +93,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-30775](https://jira.mariadb.org/browse/MDEV-30775) Performance regression in fil\_space\_t::try\_to\_close() introduced in [MDEV-23855](https://jira.mariadb.org/browse/MDEV-23855)
 * [Revision #08267ba0c8](https://github.com/MariaDB/server/commit/08267ba0c8)\
   2023-03-09 16:16:58 +0200
-  * [MDEV-30819](https://jira.mariadb.org/browse/MDEV-30819) InnoDB fails to start up after downgrading from [MariaDB 11.0](../../old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110.md)
+  * [MDEV-30819](https://jira.mariadb.org/browse/MDEV-30819) InnoDB fails to start up after downgrading from [MariaDB 11.0](../../old-releases/11.0/what-is-mariadb-110.md)
 * [Revision #231c0eb7a6](https://github.com/MariaDB/server/commit/231c0eb7a6)\
   2023-03-02 21:21:46 +0100
   * [MDEV-23000](https://jira.mariadb.org/browse/MDEV-23000): Ensure we get a warning from THD::drop\_temporary\_table() in case of disk errors

@@ -125,7 +125,7 @@ The thread pool's **timer thread** creates a new **worker thread** for a thread 
 
 In some of the scenarios listed above, a thread is only created within a thread group if no new threads have been created for the thread group within the _throttling interval_. The throttling interval depends on the number of threads that are already in the thread group.
 
-In [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/what-is-mariadb-105) and later, thread creation is not throttled until a thread group has more than 1 + [thread\_pool\_oversubscribe](thread-pool-system-status-variables.md#thread_pool_oversubscribe) threads:
+In [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) and later, thread creation is not throttled until a thread group has more than 1 + [thread\_pool\_oversubscribe](thread-pool-system-status-variables.md#thread_pool_oversubscribe) threads:
 
 | Number of Threads in Thread Group                                                                       | Throttling Interval (milliseconds) |
 | ------------------------------------------------------------------------------------------------------- | ---------------------------------- |

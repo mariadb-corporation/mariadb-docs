@@ -1,12 +1,12 @@
 # MariaDB 11.1.4 Changelog
 
-The most recent release of [MariaDB 11.1](../../old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111.md) is:[**MariaDB 11.1.6**](../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.1.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.1.6/)
+The most recent release of [MariaDB 11.1](../../old-releases/11.1/what-is-mariadb-111.md) is:[**MariaDB 11.1.6**](../../old-releases/11.1/11.1.6.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.1.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.1.6/)
 
-[Download 11.1.4](https://downloads.mariadb.org/mariadb/11.1.4/)[Release Notes](../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-4-release-notes.md)[Changelog](mariadb-11-1-4-changelog.md)[Overview of 11.1](../../old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111.md)
+[Download 11.1.4](https://downloads.mariadb.org/mariadb/11.1.4/)[Release Notes](../../old-releases/11.1/11.1.4.md)[Changelog](mariadb-11-1-4-changelog.md)[Overview of 11.1](../../old-releases/11.1/what-is-mariadb-111.md)
 
 **Release date:** 7 Feb 2024
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-4-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/11.1/11.1.4.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.

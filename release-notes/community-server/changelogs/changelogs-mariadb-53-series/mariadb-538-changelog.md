@@ -1,10 +1,10 @@
 # MariaDB 5.3.8 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/5.3.8) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-538-release-notes.md) |**Changelog** |[Overview of 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+[Download](https://downloads.mariadb.org/mariadb/5.3.8) |[Release Notes](../../old-releases/5.3/5.3.8.md) |**Changelog** |[Overview of 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 
 **Release date:** 28 Aug 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-538-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.3/5.3.8.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -154,7 +154,7 @@ modified in that revision.
     Mon 2012-06-18 22:32:17 -0700
     * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354).
     * Virtual columns of ENUM and SET data types were not supported properly\
-      in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md).
+      in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md).
     * The problem was that for any virtual column the patch used the\
       interval\_id field of the definition of the column in the frm file as\
       a reference to the virtual column expression.
@@ -528,7 +528,7 @@ modified in that revision.
       Sat 2012-05-12 11:53:14 +0400
       * [Bug #997747](https://bugs.launchpad.net/bugs/997747): Assertion \`join->best\_read < ((double) 1.79..5e+308L)' failed\
         in greedy\_search with LEFT JOINs and unique keys
-      * Backport the fix for [Bug #806524](https://bugs.launchpad.net/bugs/806524) from [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+      * Backport the fix for [Bug #806524](https://bugs.launchpad.net/bugs/806524) from [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 * [Revision #3520](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/3520) \[merge]\
   Fri 2012-05-11 11:40:23 +0300
   * Merge 5.2->5.3

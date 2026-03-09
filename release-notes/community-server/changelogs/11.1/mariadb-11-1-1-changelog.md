@@ -1,19 +1,19 @@
 # MariaDB 11.1.1 Changelog
 
-The most recent release of [MariaDB 11.1](../../old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111.md) is:[**MariaDB 11.1.6**](../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-6-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.1.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.1.6/)
+The most recent release of [MariaDB 11.1](../../old-releases/11.1/what-is-mariadb-111.md) is:[**MariaDB 11.1.6**](../../old-releases/11.1/11.1.6.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.1.6/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.1.6/)
 
-[Download 11.1.1](https://downloads.mariadb.org/mariadb/11.1.1/)[Release Notes](../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-1-release-notes.md)[Changelog](mariadb-11-1-1-changelog.md)[Overview of 11.1](../../old-releases/release-notes-mariadb-11-1-series/what-is-mariadb-111.md)
+[Download 11.1.1](https://downloads.mariadb.org/mariadb/11.1.1/)[Release Notes](../../old-releases/11.1/11.1.1.md)[Changelog](mariadb-11-1-1-changelog.md)[Overview of 11.1](../../old-releases/11.1/what-is-mariadb-111.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.1.1/)
 
 **Release date:** 6 Jun 2023
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-1-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/11.1/11.1.1.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.
 
-* Changes from [11.1.0](../../old-releases/release-notes-mariadb-11-1-series/mariadb-11-1-0-release-notes.md) are also included in this changelog
+* Changes from [11.1.0](../../old-releases/11.1/11.1.0.md) are also included in this changelog
 * Includes all fixes from [MariaDB 11.0.2](../11.0/mariadb-11-0-2-changelog.md)
 * [Revision #51b93a096e](https://github.com/MariaDB/server/commit/51b93a096e)\
   2023-05-25 11:42:25 +0200

@@ -14,7 +14,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 ## Notable changes
 
 * [MCOL-792](https://jira.mariadb.org/browse/MCOL-792) - Debian 9 is now a supported platform.
-* [MCOL-868](https://jira.mariadb.org/browse/MCOL-868) - The base MariaDB server version is now [10.1.26](../../../community-server/old-releases/release-notes-mariadb-10-1-series/mariadb-10126-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-868](https://jira.mariadb.org/browse/MCOL-868) - The base MariaDB server version is now [10.1.26](../../../community-server/old-releases/10.1/10.1.26.md) which include several maintenance and security fixes.
 
 ## Bugs and issues fixed
 

@@ -59,7 +59,7 @@ T 127.0.0.1:8808 -> 127.0.0.1:57157 [AP]
 ### [Heartbeat event](heartbeat_log_event.md)
 
 * Header, 19 bytes.
-* Content, string.
+* Content, string\<EOF>.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

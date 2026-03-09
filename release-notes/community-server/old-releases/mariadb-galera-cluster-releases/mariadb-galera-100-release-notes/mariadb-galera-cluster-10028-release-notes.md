@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 **Release date:** 7 Nov 2016
 
 MariaDB Galera Cluster 10.0.28 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 10.0.28](../../release-notes-mariadb-10-0-series/mariadb-10028-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 10.0.28](../../10.0/10.0.28.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -15,7 +15,7 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 
 For a list of changes made in MariaDB Galera Cluster 10.0.28, with links to\
 detailed information on each push, see the [MariaDB Galera Cluster 10.0.28 Changelog](../mariadb-galera-100-changelogs/mariadb-galera-cluster-10028-changelog.md).\
-For changes made in [MariaDB 10.0.28](../../release-notes-mariadb-10-0-series/mariadb-10028-release-notes.md), see the [MariaDB 10.0.28 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10028-changelog.md)
+For changes made in [MariaDB 10.0.28](../../10.0/10.0.28.md), see the [MariaDB 10.0.28 Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10028-changelog.md)
 
 ## Updates and fixes in this version
 
@@ -33,7 +33,7 @@ For changes made in [MariaDB 10.0.28](../../release-notes-mariadb-10-0-series/ma
   MariaDB Galera Cluster can be used with either a 25.2.x or 25.3.x\
   Galera `wsrep` provider. A 25.3.x `wsrep` provider is included in the\
   MariaDB repositories and is also available from the [downloads](https://downloads.mariadb.org/mariadb-galera/10.0) page.
-* See the [MariaDB 10.0.28 Release Notes](../../release-notes-mariadb-10-0-series/mariadb-10028-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10028-changelog.md) for more information on the changes in\
+* See the [MariaDB 10.0.28 Release Notes](../../10.0/10.0.28.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10028-changelog.md) for more information on the changes in\
   MariaDB.
 * On Ubuntu and Debian, the Galera Arbitrator daemon (garbd) and the galera\
   library are in two separate packages. The packages are named galera-3\

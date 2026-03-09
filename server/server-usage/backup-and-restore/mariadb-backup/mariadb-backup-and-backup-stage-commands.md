@@ -1,20 +1,20 @@
 ---
 description: >-
   Understand backup locking stages. This page explains how mariadb-backup uses
-  BACKUP STAGE commands to minimize locking during operation.
+  BACKUP STAGE statements to minimize locking during operation.
 ---
 
-# mariadb-backup and BACKUP STAGE Commands
+# mariadb-backup and BACKUP STAGE
 
 {% include "../../../.gitbook/includes/mariadb-backup-was-previous....md" %}
 
-The [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) commands are a set of commands to make it possible to make an efficient external backup tool. How mariadb-backup uses these commands depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
+The [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements make it possible to make an efficient external backup tool. How `mariadb-backup` uses these statements depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
 
 {% include "../../../.gitbook/includes/for-a-complete-list-of-mari....md" %}
 
-## mariadb-backup and `BACKUP STAGE` Commands in MariaDB Community Server
+## `BACKUP STAGE` in MariaDB Community Server
 
-The [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) commands are supported. However, the version of `mariadb-backup` that is bundled with MariaDB Community Server does not yet use the `BACKUP STAGE` statement in the most efficient way. mariadb-backup simply executes the following `BACKUP STAGE` statement to lock the database:
+The [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements are supported. However, the version of `mariadb-backup` that is bundled with MariaDB Community Server does not yet use the `BACKUP STAGE` statement in the most efficient way. `mariadb-backup` simply executes the following `BACKUP STAGE` statement to lock the database:
 
 ```sql
 BACKUP STAGE START;
@@ -27,7 +27,9 @@ When the backup is complete, it executes the following `BACKUP STAGE` statement 
 BACKUP STAGE END;
 ```
 
-If you would like to use a version of `mariadb-backup` that uses the [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements in the most efficient way, your best option is to use MariaDB Backup that is bundled with MariaDB Enterprise Server.
+{% hint style="info" %}
+To use a version of `mariadb-backup` that uses the [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statements in the most efficient way, use MariaDB Backup bundled with MariaDB Enterprise Server.
+{% endhint %}
 
 ### Tasks Performed Prior to `BACKUP STAGE` in MariaDB Community Server
 
@@ -38,7 +40,7 @@ If you would like to use a version of `mariadb-backup` that uses the [BACKUP STA
 
 ### `BACKUP STAGE START` in MariaDB Community Server
 
-`mariadb-backup` from MariaDB Community Server does not currently perform any tasks in the `START` stage.
+`mariadb-backup` from MariaDB Community Server does not perform any tasks in the `START` stage.
 
 ### `BACKUP STAGE FLUSH` in MariaDB Community Server
 
@@ -69,13 +71,13 @@ If you would like to use a version of `mariadb-backup` that uses the [BACKUP STA
 
 ### `BACKUP STAGE END` in MariaDB Community Server
 
-mariadb-backup from MariaDB Community Server performs the following tasks in the `END` stage:
+`mariadb-backup` from MariaDB Community Server performs the following tasks in the `END` stage:
 
 * Copy the MyRocks checkpoint into the backup.
 
-## mariadb-backup and `BACKUP STAGE` Commands in MariaDB Enterprise Server
+## `BACKUP STAGE` in MariaDB Enterprise Server
 
-The following sections describe how the MariaDB Backup version of mariadb-backup that is bundled with MariaDB Enterprise Server uses each [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) command in an efficient way.
+The following sections describe how the MariaDB Backup version of mariadb-backup that is bundled with MariaDB Enterprise Server uses each [BACKUP STAGE](../../../reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage.md) statement in an efficient way.
 
 ### `BACKUP STAGE START` in MariaDB Enterprise Server
 

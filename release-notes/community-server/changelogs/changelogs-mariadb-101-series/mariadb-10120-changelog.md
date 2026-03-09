@@ -1,12 +1,12 @@
 # MariaDB 10.1.20 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.20)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10120-release-notes.md)[Changelog](mariadb-10120-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.20)[Release Notes](../../old-releases/10.1/10.1.20.md)[Changelog](mariadb-10120-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 15 Dec 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10120-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.20.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -53,7 +53,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Revert "[MDEV-10713](https://jira.mariadb.org/browse/MDEV-10713): signal 11 error on multi-table update - crash in handler::increment\_statistics or in make\_select or assertion failure pfs\_thread == ((PFS\_thread\*) pthread\_getspecific((THR\_PFS)))"
 * [Revision #f5e0522](https://github.com/MariaDB/server/commit/f5e0522)\
   2016-12-07 13:06:14 +0100
-  * [MDEV-10388](https://jira.mariadb.org/browse/MDEV-10388) [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md).x keeps (deleted) ML\* files in tmpdir after LOAD DATA completes
+  * [MDEV-10388](https://jira.mariadb.org/browse/MDEV-10388) [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md).x keeps (deleted) ML\* files in tmpdir after LOAD DATA completes
 * [Revision #1d702ff](https://github.com/MariaDB/server/commit/1d702ff)\
   2016-12-07 14:42:08 +0400
   * [MDEV-8329](https://jira.mariadb.org/browse/MDEV-8329) MariaDB crashes when replicate\_wild\_ignore\_table is set to NULL.
@@ -143,7 +143,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Remove labs() warning from maria and myisam storage engines
 * [Revision #748d993](https://github.com/MariaDB/server/commit/748d993)\
   2016-11-29 11:28:15 -0800
-  * Fixed bug [MDEV-11364](https://jira.mariadb.org/browse/MDEV-11364). The function Item\_func\_isnull::update\_used\_tables() must handle the case when the predicate is over not nullable column in a special way. This is actually a bug of [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)/5.5, but it's probably hard to demonstrate that it can cause problems there.
+  * Fixed bug [MDEV-11364](https://jira.mariadb.org/browse/MDEV-11364). The function Item\_func\_isnull::update\_used\_tables() must handle the case when the predicate is over not nullable column in a special way. This is actually a bug of [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)/5.5, but it's probably hard to demonstrate that it can cause problems there.
 * [Revision #b209bc3](https://github.com/MariaDB/server/commit/b209bc3)\
   2016-11-29 09:01:46 +0200
   * [MDEV-10427](https://jira.mariadb.org/browse/MDEV-10427): innodb.innodb-wl5522-debug-zip fails sporadically in buildbot

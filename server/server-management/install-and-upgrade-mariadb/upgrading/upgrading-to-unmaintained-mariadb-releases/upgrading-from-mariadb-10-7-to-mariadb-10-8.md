@@ -12,7 +12,7 @@ Before you upgrade, it would be best to take a backup of your database. This is 
 
 The suggested upgrade procedure is:
 
-1. Modify the repository configuration, so the system's package manager installs [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108). For example,
+1. Modify the repository configuration, so the system's package manager installs [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108). For example,
 
 * On Debian, Ubuntu, and other similar Linux distributions, see [Updating the MariaDB APT repository to a New Major Release](../../installing-mariadb/binary-packages/installing-mariadb-deb-files.md#updating-the-mariadb-apt-repository-to-a-new-major-release) for more information.
 * On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Updating the MariaDB YUM repository to a New Major Release](../../installing-mariadb/binary-packages/rpm/yum.md#updating-the-mariadb-yum-repository-to-a-new-major-release) for more information.
@@ -68,7 +68,7 @@ The following options have been deprecated. They have not yet been removed, but 
 
 ### Major New Features To Consider
 
-You might consider using the following major new features in [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108):
+You might consider using the following major new features in [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108):
 
 * Stored procedures already have support for the [IN, OUT and INOUT](../../../../server-usage/stored-routines/stored-procedures/create-procedure.md#inoutinout) parameter qualifiers. Added as well for [stored functions](../../../../reference/sql-statements/data-definition/create/create-function.md#in-out-inout-in-out) and (IN only) [cursors](../../../../reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors/declare-cursor.md#in) ([MDEV-10654](https://jira.mariadb.org/browse/MDEV-10654)).
 * Individual columns in the [index](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/) can now be explicitly sorted in the ascending or descending order. This can be useful for optimizing certain [ORDER BY](../../../../reference/sql-statements/data-manipulation/selecting-data/order-by.md) cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)).
@@ -76,7 +76,7 @@ You might consider using the following major new features in [MariaDB 10.8](http
 
 ### See Also
 
-* [The features in MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108)
+* [The features in MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108)
 * [Upgrading from MariaDB 10.7 to MariaDB 10.7 with Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/getting-installing-and-upgrading-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-107-to-mariadb-108-with-galera-cluster/README.md)
 * [Upgrading from MariaDB 10.6 to MariaDB 10.7](upgrading-from-mariadb-10-6-to-mariadb-10-7.md)
 * [Upgrading from MariaDB 10.5 to MariaDB 10.6](../upgrading-from-to-specific-versions/upgrading-from-mariadb-10-5-to-mariadb-10-6.md)

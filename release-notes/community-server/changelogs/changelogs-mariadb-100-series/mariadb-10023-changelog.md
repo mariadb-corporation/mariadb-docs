@@ -1,12 +1,12 @@
 # MariaDB 10.0.23 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.23)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10023-release-notes.md)[Changelog](mariadb-10023-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.23)[Release Notes](../../old-releases/10.0/10.0.23.md)[Changelog](mariadb-10023-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 18 Dec 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10023-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.23.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -305,7 +305,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Fixed compiler warnings
 * [Revision #13ad179](https://github.com/MariaDB/server/commit/13ad179)\
   2015-11-20 14:50:18 +0100
-  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10021-release-notes.md) crashes during PREPARE
+  * [MDEV-8756](https://jira.mariadb.org/browse/MDEV-8756) [MariaDB 10.0.21](../../old-releases/10.0/10.0.21.md) crashes during PREPARE
 * [Revision #2553f14](https://github.com/MariaDB/server/commit/2553f14)\
   2015-11-19 10:17:40 +0100
   * fix feedback plugin not to crash in debug builds
@@ -368,7 +368,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Remove compiler warning
 * [Revision #e8c1b35](https://github.com/MariaDB/server/commit/e8c1b35)\
   2015-11-12 14:51:01 +0200
-  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * [MDEV-8476](https://jira.mariadb.org/browse/MDEV-8476) Race condition in slave SQL thread shutdown Patch backported from [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #83ed38d](https://github.com/MariaDB/server/commit/83ed38d)\
   2015-05-11 20:18:30 +0800
   * fix [MDEV-8140](https://jira.mariadb.org/browse/MDEV-8140)

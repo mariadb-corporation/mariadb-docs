@@ -25,7 +25,7 @@ modified in that revision.
   * Merged patch for [Bug #1167368](https://bugs.launchpad.net/bugs/1167368) from maria-5.5-galera.
 * [Revision #3902](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3902) \[merge]\
   Fri 2014-12-05 12:33:02 -0500
-  * bzr merge -rtag:mariadb-10.0.15 maria/10.0 (merge in [MariaDB 10.0.15](../../release-notes-mariadb-10-0-series/mariadb-10015-release-notes.md))
+  * bzr merge -rtag:mariadb-10.0.15 maria/10.0 (merge in [MariaDB 10.0.15](../../10.0/10.0.15.md))
 * [Revision #3901](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3901)\
   Wed 2014-11-19 13:33:37 -0500
   * [MDEV-7131](https://jira.mariadb.org/browse/MDEV-7131): \[PATCH] wsrep\_guess\_ip doesn't compile on OpenBSD

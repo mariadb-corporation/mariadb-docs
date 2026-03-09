@@ -1,7 +1,8 @@
 ---
 description: >-
-  The mysql.user table stores user account information, global privileges,
-  authentication details, and resource limits.
+  Complete mysql.user table reference: mysql.global_priv view, Host/User
+  identifiers, plugin/authentication_string fields, and GRANT/CREATE USER
+  integration.
 ---
 
 # mysql.user Table

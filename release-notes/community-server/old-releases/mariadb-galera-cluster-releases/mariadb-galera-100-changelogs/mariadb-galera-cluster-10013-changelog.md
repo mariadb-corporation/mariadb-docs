@@ -50,7 +50,7 @@ modified in that revision.
   * bzr merge -r4101..4103 codership/5.6/
 * [Revision #3870](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3870) \[merge]\
   Mon 2014-08-11 23:55:41 -0400
-  * bzr merge -r4346 maria/10.0 ([MariaDB 10.0.13](../../release-notes-mariadb-10-0-series/mariadb-10013-release-notes.md))
+  * bzr merge -r4346 maria/10.0 ([MariaDB 10.0.13](../../10.0/10.0.13.md))
 * [Revision #3869](https://bazaar.launchpad.net/~maria-captains/maria/maria-10.0-galera/revision/3869)\
   Mon 2014-08-11 14:31:30 -0400
   * Added 'have\_innodb\_disallow\_writes.inc'.

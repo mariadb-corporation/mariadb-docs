@@ -1,12 +1,12 @@
 # MariaDB 10.0.9 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.9) |[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1009-release-notes.md) |**Changelog** |[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.9) |[Release Notes](../../old-releases/10.0/10.0.9.md) |**Changelog** |[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 10 Mar 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1009-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.9.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -48,7 +48,7 @@ modified in that revision.
   * [Revision #3427.43.13](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.43.13)\
     Wed 2014-03-05 02:10:06 +0400
     * [MDEV-5723](https://jira.mariadb.org/browse/MDEV-5723): `mysqldump -uroot` unusable for multi-database operations, checks all databases
-    * MariaDB-5.5 part of the fix: since we can't easily fix query optimization for `I_S` tables, run the affected-tablespaces query with `semijoin=off`. It happens to have a good query plan with that setting. \[This is a forward-port to [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)]
+    * MariaDB-5.5 part of the fix: since we can't easily fix query optimization for `I_S` tables, run the affected-tablespaces query with `semijoin=off`. It happens to have a good query plan with that setting. \[This is a forward-port to [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)]
   * [Revision #3427.43.12](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.43.12) \[merge]\
     Wed 2014-03-05 01:57:57 +0400
     * Merge
@@ -101,7 +101,7 @@ modified in that revision.
   * Merge [MDEV-5754](https://jira.mariadb.org/browse/MDEV-5754), [MDEV-5769](https://jira.mariadb.org/browse/MDEV-5769), and [MDEV-5764](https://jira.mariadb.org/browse/MDEV-5764) into 10.0
   * [Revision #3427.35.245](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.35.245)\
     Tue 2014-03-04 13:10:14 +0100
-    * [MDEV-5754](https://jira.mariadb.org/browse/MDEV-5754): MySQL 5.5 slaves cannot replicate from [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+    * [MDEV-5754](https://jira.mariadb.org/browse/MDEV-5754): MySQL 5.5 slaves cannot replicate from [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
   * [Revision #3427.35.244](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.35.244)\
     Tue 2014-03-04 08:48:32 +0100
     * [MDEV-5769](https://jira.mariadb.org/browse/MDEV-5769): Slave crashes on attempt to do parallel replication from an older master
@@ -146,7 +146,7 @@ modified in that revision.
     * [MDEV-4955](https://jira.mariadb.org/browse/MDEV-4955) discover of table non-existance on CREATE
   * [Revision #4007.1.9](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4007.1.9)\
     Thu 2014-02-27 12:25:51 +0100
-    * [MDEV-5672](https://jira.mariadb.org/browse/MDEV-5672) [MariaDB 10.0.8](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1008-release-notes.md) doesn't compile without perfschema
+    * [MDEV-5672](https://jira.mariadb.org/browse/MDEV-5672) [MariaDB 10.0.8](../../old-releases/10.0/10.0.8.md) doesn't compile without perfschema
   * [Revision #4007.1.8](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4007.1.8)\
     Thu 2014-02-27 12:00:16 +0100
     * [MDEV-4447](https://jira.mariadb.org/browse/MDEV-4447) MariaDB sources should have unix-style line endings everywhere
@@ -277,7 +277,7 @@ modified in that revision.
   * Increase version number
 * [Revision #3995](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3995) \[merge]\
   Mon 2014-02-10 15:12:17 +0100
-  * Merge [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)-base to 10.0.
+  * Merge [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)-base to 10.0.
   * [Revision #3427.35.238](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427.35.238)\
     Mon 2014-02-10 12:53:04 +0100
     * Fix `check_testcase` complaints due to missing `SET debug_sync=RESET` in a few tests.

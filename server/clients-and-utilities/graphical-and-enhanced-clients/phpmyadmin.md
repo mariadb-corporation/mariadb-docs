@@ -1,3 +1,9 @@
+---
+description: >-
+  Official phpMyAdmin reference: web-based MariaDB/MySQL administration, PHP/web
+  server requirements, browser compatibility, and GUI database management.
+---
+
 # phpMyAdmin
 
 phpMyAdmin is a web-based tool for administering MariaDB and MySQL.

@@ -1,12 +1,12 @@
 # MariaDB 10.1.12 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.12)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10112-release-notes.md)[Changelog](mariadb-10112-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.12)[Release Notes](../../old-releases/10.1/10.1.12.md)[Changelog](mariadb-10112-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 25 Feb 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10112-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.12.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -83,7 +83,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-9500](https://jira.mariadb.org/browse/MDEV-9500) Bug after upgrade to 10.1.10 (and 10.1.11)
 * [Revision #a38b705](https://github.com/MariaDB/server/commit/a38b705)\
   2016-02-20 19:30:14 +0100
-  * [MDEV-9560](https://jira.mariadb.org/browse/MDEV-9560) [Mariadb 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) Crashes when replicating from 10.0
+  * [MDEV-9560](https://jira.mariadb.org/browse/MDEV-9560) [Mariadb 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) Crashes when replicating from 10.0
 * [Revision #4cabc60](https://github.com/MariaDB/server/commit/4cabc60)\
   2016-02-19 14:17:35 +0100
   * correct temporal fields in max\_display\_length\_for\_field()

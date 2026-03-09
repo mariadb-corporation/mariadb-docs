@@ -24,7 +24,11 @@ Client to server.
 
 ## Example
 
+{% code overflow="wrap" %}
+```
 05 00 00 00 19 04 00 00 00
+```
+{% endcode %}
 
 ## Response
 

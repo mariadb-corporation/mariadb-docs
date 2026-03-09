@@ -1,7 +1,8 @@
 ---
 description: >-
-  Tutorial on using Docker Compose to orchestrate a full LAMP stack (Linux,
-  Apache, MariaDB, PHP) environment.
+  Complete LAMP stack Docker Compose: define docker-compose.yml services
+  (web/mariadb), set volumes/env vars (${MARIADB_VERSION}), docker-compose
+  up/down.
 ---
 
 # Setting Up a LAMP Stack with Docker Compose

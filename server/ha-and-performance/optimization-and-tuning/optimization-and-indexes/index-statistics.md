@@ -47,11 +47,11 @@ SELECT 1 = 1, NULL = NULL, 1 = NULL;
 
 ## Engine-Independent Statistics
 
-[MariaDB 10.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1001-release-notes) introduced a way to gather statistics independently of the storage engine. See [Engine-independent table statistics](../query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics.md).
+[MariaDB 10.0.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.1) introduced a way to gather statistics independently of the storage engine. See [Engine-independent table statistics](../query-optimizations/statistics-for-optimizing-queries/engine-independent-table-statistics.md).
 
 ## Histogram-Based Statistics
 
-[Histogram-Based Statistics](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md) were introduced in [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1002-release-notes), and are collected by default from [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes).
+[Histogram-Based Statistics](../query-optimizations/statistics-for-optimizing-queries/histogram-based-statistics.md) were introduced in [MariaDB 10.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.2), and are collected by default from [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3).
 
 ## See Also
 

@@ -1,12 +1,12 @@
 # MariaDB 10.4.19 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-34-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download 10.4.19](https://downloads.mariadb.org/mariadb/10.4.19/)[Release Notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10419-release-notes.md)[Changelog](mariadb-10419-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download 10.4.19](https://downloads.mariadb.org/mariadb/10.4.19/)[Release Notes](../../old-releases/10.4/10.4.19.md)[Changelog](mariadb-10419-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
 
 **Release date:** 7 May 2021
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10419-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.4/10.4.19.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -92,7 +92,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-21402](https://jira.mariadb.org/browse/MDEV-21402) : sql\_safe\_updates breaks Galera 4
 * [Revision #f8488370d6](https://github.com/MariaDB/server/commit/f8488370d6)\
   2021-03-31 14:59:50 +0200
-  * [MDEV-24956](https://jira.mariadb.org/browse/MDEV-24956): ALTER TABLE not replicated with Galera in [MariaDB 10.5.9](../../old-releases/mariadb-10-5-series/mariadb-1059-release-notes.md)
+  * [MDEV-24956](https://jira.mariadb.org/browse/MDEV-24956): ALTER TABLE not replicated with Galera in [MariaDB 10.5.9](../../old-releases/10.5/10.5.9.md)
 * [Revision #915983e1cc](https://github.com/MariaDB/server/commit/915983e1cc)\
   2021-03-24 10:55:27 +0100
   * [MDEV-25226](https://jira.mariadb.org/browse/MDEV-25226) Assertion when wsrep\_on set OFF with SR transaction

@@ -1,3 +1,9 @@
+---
+description: >-
+  Details how to customize Kubernetes metadata, such as labels and annotations,
+  for the resources generated and managed by the Operator.
+---
+
 # Metadata
 
 This documentation shows how to configure metadata in the MariaDB Enterprise Kubernetes Operator CRs.

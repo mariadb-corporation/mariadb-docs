@@ -14,11 +14,11 @@ The following sections detail how to install and enable TokuDB.
 
 Until MariaDB versions 5.5.39 and 10.0.13, before upgrading TokuDB, the server needed to be cleanly shut down. If the server was not cleanly shut down, TokuDB would fail to start. Since 5.5.40 and 10.0.14, this has no longer been necessary. See [MDEV-6173](https://jira.mariadb.org/browse/MDEV-6173).
 
-TokuDB has been included with MariaDB since [MariaDB 5.5.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5534-release-notes) and [MariaDB 10.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1006-release-notes) and does not require separate installation. Proceed straight to [Check for Transparent HugePage Support on Linux](installing-tokudb.md#check-for-transparent-hugepage-support-on-linux). For older versions, see the distro-specific instructions below.
+TokuDB has been included with MariaDB since [MariaDB 5.5.34](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.34) and [MariaDB 10.0.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.6) and does not require separate installation. Proceed straight to [Check for Transparent HugePage Support on Linux](installing-tokudb.md#check-for-transparent-hugepage-support-on-linux). For older versions, see the distro-specific instructions below.
 
 ### Installing TokuDB on Fedora, RedHat, & CentOS
 
-In [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5533-release-notes), [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes), and starting from [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1025-release-notes) TokuDB is in a separate RPM package\
+In [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.33), [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5), and starting from [MariaDB 10.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.5) TokuDB is in a separate RPM package\
 called `MariaDB-tokudb-engine` and is installed as follows:
 
 ```
@@ -37,7 +37,7 @@ The package is installed as follows:
 sudo apt-get install mariadb-plugin-tokudb
 ```
 
-In some earlier versions, from [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/mariadb-5533-release-notes) and [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes), TokuDB is in a separate package called`mariadb-tokudb-engine-x.x`, where `x.x` is the MariaDB series (`5.5` or`10.0`). The package is installed, for example on `5.5`, as follows:
+In some earlier versions, from [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.33) and [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5), TokuDB is in a separate package called`mariadb-tokudb-engine-x.x`, where `x.x` is the MariaDB series (`5.5` or`10.0`). The package is installed, for example on `5.5`, as follows:
 
 ```
 sudo apt-get install mariadb-tokudb-engine-5.5

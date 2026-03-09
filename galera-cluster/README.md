@@ -1,8 +1,7 @@
 ---
 description: >-
-  MariaDB Galera Cluster is a virtually synchronous multi-master cluster that
-  runs on Linux only. Its Enterprise version is MariaDB Enterprise Cluster
-  (powered by Galera).
+  Complete MariaDB Galera Cluster guide for MariaDB. Complete reference
+  documentation for implementation, configuration, and usage for production use.
 icon: circle-nodes
 ---
 

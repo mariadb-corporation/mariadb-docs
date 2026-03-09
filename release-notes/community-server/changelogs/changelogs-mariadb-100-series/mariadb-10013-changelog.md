@@ -1,12 +1,12 @@
 # MariaDB 10.0.13 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.13)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10013-release-notes.md)[Changelog](mariadb-10013-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.13)[Release Notes](../../old-releases/10.0/10.0.13.md)[Changelog](mariadb-10013-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 11 Aug 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10013-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.13.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -131,7 +131,7 @@ modified in that revision.
     * Fix rpl.rpl\_semi\_sync\_uninstall\_plugin to work reliably
   * [Revision #4339.1.4](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4339.1.4) \[merge]\
     Thu 2014-08-07 18:06:56 +0200
-    * [MariaDB 5.5.39](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5539-release-notes.md) merge
+    * [MariaDB 5.5.39](../../old-releases/5.5/5.5.39.md) merge
   * [Revision #4339.1.3](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4339.1.3) \[merge]\
     Wed 2014-08-06 20:05:10 +0200
     * innodb-5.6.19
@@ -236,7 +236,7 @@ modified in that revision.
   * Try to fix compiler error seen on Labrador.
 * [Revision #4314](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4314)\
   Thu 2014-07-31 09:51:05 +0200
-  * [MDEV-6340](https://jira.mariadb.org/browse/MDEV-6340) [Mariadb 10.0.12](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10012-release-notes.md) fatal "Lost connection" error w/ GCC 4.9 'Release' build; workaround \~ CFLAGS="-fno-delete-null-pointer-checks"
+  * [MDEV-6340](https://jira.mariadb.org/browse/MDEV-6340) [Mariadb 10.0.12](../../old-releases/10.0/10.0.12.md) fatal "Lost connection" error w/ GCC 4.9 'Release' build; workaround \~ CFLAGS="-fno-delete-null-pointer-checks"
 * [Revision #4313](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/4313)\
   Thu 2014-07-31 10:32:52 +0300
   * [MDEV-6506](https://jira.mariadb.org/browse/MDEV-6506): InnoDB: Assertion failure in thread 2810182464 in file buf0flu.cc line 549.

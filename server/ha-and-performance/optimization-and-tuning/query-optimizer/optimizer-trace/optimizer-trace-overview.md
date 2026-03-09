@@ -2,23 +2,20 @@
 
 ## Usage
 
-This feature produces a trace as a JSON document for any [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select)/[UPDATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update)/[DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete) containing information about decisions taken by the optimizer during the optimization phase (choice of table access method, various costs, transformations, etc). This feature helps to explain why some decisions were taken by the optimizer and why some were rejected.
+This feature produces a trace as a JSON document for any [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md)/[UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md)/[DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) containing information about decisions taken by the optimizer during the optimization phase (choice of table access method, various costs, transformations, etc). This feature helps to explain why some decisions were taken by the optimizer and why some were rejected.
 
 ## Associated System Variables
 
-* [optimizer\_trace=’enabled=on/off’](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_trace)
+* [optimizer\_trace=’enabled=on/off’](../../system-variables/server-system-variables.md#optimizer_trace)
   * Default value is off
-* [optimizer\_trace\_max\_mem\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_trace_max_mem_size)= value
+* [optimizer\_trace\_max\_mem\_size](../../system-variables/server-system-variables.md#optimizer_trace_max_mem_size)= value
   * Default value: 1048576
-*   [optimizer\_record\_context](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_record_context){=1|0}&#x20;
-
-    * Default value: OFF. From [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1).
-
-
+* [optimizer\_record\_context](../../system-variables/server-system-variables.md#optimizer_record_context){=1|0}
+  * Default value: OFF. From [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1).
 
 ## INFORMATION\_SCHEMA.OPTIMIZER\_TRACE
 
-Each connection stores a trace from the last executed statement. One can view the trace by reading the [Information Schema OPTIMIZER\_TRACE table](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-optimizer_trace-table).
+Each connection stores a trace from the last executed statement. One can view the trace by reading the [Information Schema OPTIMIZER\_TRACE table](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-optimizer_trace-table.md).
 
 Structure of the optimizer trace table:
 
@@ -40,7 +37,7 @@ See [Optimizer Trace Guide](optimizer-trace-guide.md) for an overview of what on
 
 ## Traceable Queries
 
-These include [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select), [UPDATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update), [DELETE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete) as well as their multi-table variants and all of the preceding prefixed by [EXPLAIN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain) and [ANALYZE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement).
+These include [SELECT](../../../../reference/sql-statements/data-manipulation/selecting-data/select.md), [UPDATE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md), [DELETE](../../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) as well as their multi-table variants and all of the preceding prefixed by [EXPLAIN](../../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) and [ANALYZE](../../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/analyze-statement.md).
 
 ## Enabling Optimizer Trace
 
@@ -52,7 +49,7 @@ SET optimizer_trace='enabled=on';
 
 ## Memory Usage
 
-Each trace is stored as a string. It is extended (with realloc()) as the optimization progresses and appends data to it. The [optimizer\_trace\_max\_mem\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#optimizer_trace_max_mem_size) variable sets a limit on the total amount of memory used by the current trace.
+Each trace is stored as a string. It is extended (with realloc()) as the optimization progresses and appends data to it. The [optimizer\_trace\_max\_mem\_size](../../system-variables/server-system-variables.md#optimizer_trace_max_mem_size) variable sets a limit on the total amount of memory used by the current trace.
 
 \
 If this limit is reached, the current trace isn't extended (so it will be incomplete), and the MISSING\_BYTES\_BEYOND\_MAX\_MEM\_SIZE column will show the number of bytes missing from this trace.

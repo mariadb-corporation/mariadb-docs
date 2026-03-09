@@ -90,7 +90,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * [Revision #3334.1.317](https://bazaar.launchpad.net/~maria-captains/maria/maria-5.5-galera/revision/3334.1.317)\
     Mon 2013-01-28 15:13:39 +0200
     * Fix for [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948), and backport of the following collection of fixes and backports\
-      from [MariaDB 10.0](../../release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md).
+      from [MariaDB 10.0](../../10.0/changes-improvements-in-mariadb-10-0.md).
     * The bug in [MDEV-3948](https://jira.mariadb.org/browse/MDEV-3948) was an instance of the problem fixed by Sergey's patch\
       in 10.0 - namely that the range optimizer could change `table->[read | write]_set`,\
       and not restore it.

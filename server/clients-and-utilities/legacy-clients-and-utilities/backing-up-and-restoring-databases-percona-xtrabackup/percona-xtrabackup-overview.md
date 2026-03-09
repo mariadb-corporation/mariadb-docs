@@ -157,41 +157,41 @@ If you are using Linux and if you installed MariaDB with a package manager, then
 
 ## Compatibility with MariaDB
 
-### Compatibility with [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) and Later
+### Compatibility with [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and Later
 
 {% hint style="success" %}
-In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) and later, [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) is the recommended backup method to use instead of Percona XtraBackup.
+In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and later, [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) is the recommended backup method to use instead of Percona XtraBackup.
 {% endhint %}
 
-In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103) and later, Percona XtraBackup is not supported.
+In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and later, Percona XtraBackup is not supported.
 
 This limitation is being tracked by Percona XtraBackup bug [PXB-1550](https://jira.percona.com/browse/PXB-1550). However, it does not appear that there are plans to fix it.
 
-### Compatibility with [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102)
+### Compatibility with [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
 
 {% hint style="success" %}
-In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102), [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) is the recommended backup method to use instead of Percona XtraBackup.
+In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) is the recommended backup method to use instead of Percona XtraBackup.
 {% endhint %}
 
-In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102), Percona XtraBackup 2.4 is supported in some cases if [InnoDB page compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md) is not used, and if [data at rest encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) is not used, and if [innodb\_page\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size) is set to `16k`.
+In [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), Percona XtraBackup 2.4 is supported in some cases if [InnoDB page compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md) is not used, and if [data at rest encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) is not used, and if [innodb\_page\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size) is set to `16k`.
 
-However, users should be aware that problems are likely due to the MySQL 5.7 undo log format incompatibility bug that was fixed in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes) in [MDEV-12289](https://jira.mariadb.org/browse/MDEV-12289). Due to this bug, backups prepared with Percona XtraBackup 2.4 may fail to recover some transactions. Only if you ran the server with the setting [innodb\_undo\_logs](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_logs)=1 this would not be a problem. Percona XtraBackup 2.4 may also fail to work entirely with [MariaDB 10.2.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10219-release-notes) and later if [innodb\_safe\_truncate=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_safe_truncate) is set due to changes in the redo log format introduced by [MDEV-14717](https://jira.mariadb.org/browse/MDEV-14717). In that case, you may see the following error:
+However, users should be aware that problems are likely due to the MySQL 5.7 undo log format incompatibility bug that was fixed in [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2) in [MDEV-12289](https://jira.mariadb.org/browse/MDEV-12289). Due to this bug, backups prepared with Percona XtraBackup 2.4 may fail to recover some transactions. Only if you ran the server with the setting [innodb\_undo\_logs](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_undo_logs)=1 this would not be a problem. Percona XtraBackup 2.4 may also fail to work entirely with [MariaDB 10.2.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.19) and later if [innodb\_safe\_truncate=ON](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_safe_truncate) is set due to changes in the redo log format introduced by [MDEV-14717](https://jira.mariadb.org/browse/MDEV-14717). In that case, you may see the following error:
 
 ```
 InnoDB: Unsupported redo log format. The redo log was created with MariaDB 10.2.19. Please follow the instructions at http://dev.mysql.com/doc/refman/5.7/en/upgrading-downgrading.html
 ```
 
-### Compatibility with [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1)
+### Compatibility with [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1)
 
 {% hint style="success" %}
-In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1), [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) is the recommended backup method to use instead of Percona XtraBackup.
+In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md) is the recommended backup method to use instead of Percona XtraBackup.
 {% endhint %}
 
-In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1), Percona XtraBackup 2.3 is supported if [InnoDB page compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md) is not used, and if [data at rest encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) is not used, and if [innodb\_page\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size) is set to `16k`.
+In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), Percona XtraBackup 2.3 is supported if [InnoDB page compression](../../../server-usage/storage-engines/innodb/innodb-page-compression.md) is not used, and if [data at rest encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) is not used, and if [innodb\_page\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size) is set to `16k`.
 
-### Compatibility with [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) and Before
+### Compatibility with [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and Before
 
-In [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) and before, Percona XtraBackup 2.3 is supported.
+In [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) and before, Percona XtraBackup 2.3 is supported.
 
 ## Using Percona XtraBackup for Galera SSTs
 

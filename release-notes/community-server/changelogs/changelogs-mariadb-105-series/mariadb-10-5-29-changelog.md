@@ -1,13 +1,13 @@
 # MariaDB 10.5.29 Changelog
 
-**Note:** This page describes features in the source repository for [**MariaDB 10.5**](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md). There are currently no official packages or\
+**Note:** This page describes features in the source repository for [**MariaDB 10.5**](../../old-releases/10.5/what-is-mariadb-105.md). There are currently no official packages or\
 binaries available for download which contain the features. If you want to try out any of the new features described here you will\
 need to [get](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code) and [compile](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source) the\
 code yourself.
 
-[Download](https://mariadb.com/downloads/) [Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-29-release-notes.md) [Changelog](mariadb-10-5-29-changelog.md) [Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.29/) **Release date:** 6 May 2025
+[Download](https://mariadb.com/downloads/) [Release Notes](../../old-releases/10.5/10.5.29.md) [Changelog](mariadb-10-5-29-changelog.md) [Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md) [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.29/) **Release date:** 6 May 2025
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10-5-29-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.29.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.

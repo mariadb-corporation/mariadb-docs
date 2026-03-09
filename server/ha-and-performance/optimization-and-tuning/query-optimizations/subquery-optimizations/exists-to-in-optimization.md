@@ -2,7 +2,7 @@
 
 MySQL (including MySQL 5.6) has only one execution strategy for EXISTS subqueries. The strategy is essentially the straightforward, "naive" execution, without any rewrites.
 
-[MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) introduced a rich set of optimizations for IN subqueries. Since then, it makes sense to convert an EXISTS subquery into an IN so that the new optimizations can be used.
+[MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) introduced a rich set of optimizations for IN subqueries. Since then, it makes sense to convert an EXISTS subquery into an IN so that the new optimizations can be used.
 
 `EXISTS` will be converted into `IN` in two cases:
 
@@ -62,7 +62,7 @@ TODO: rephrase this:
 
 ## Control
 
-The optimization is controlled by the `exists_to_in` flag in [optimizer\_switch](../../system-variables/server-system-variables.md#optimizer_switch). Before [MariaDB 10.0.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10012-release-notes), the optimization was OFF by default. Since [MariaDB 10.0.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-10012-release-notes), it has been ON by default.
+The optimization is controlled by the `exists_to_in` flag in [optimizer\_switch](../../system-variables/server-system-variables.md#optimizer_switch). Before [MariaDB 10.0.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.12), the optimization was OFF by default. Since [MariaDB 10.0.12](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.12), it has been ON by default.
 
 ## Limitations
 

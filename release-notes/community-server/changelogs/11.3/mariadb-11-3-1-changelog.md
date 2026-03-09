@@ -1,17 +1,17 @@
 # MariaDB 11.3.1 Changelog
 
-The most recent release of [MariaDB 11.3](../../old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113.md) is:[**MariaDB 11.3.2**](../../old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-2-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.3.2/)
+The most recent release of [MariaDB 11.3](../../old-releases/11.3/what-is-mariadb-113.md) is:[**MariaDB 11.3.2**](../../old-releases/11.3/11.3.2.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/11.3.2/)
 
-[Download 11.3.1](https://downloads.mariadb.org/mariadb/11.3.1/)[Release Notes](../../old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-1-release-notes.md)[Changelog](mariadb-11-3-1-changelog.md)[Overview of 11.3](../../old-releases/release-notes-mariadb-11-3-rolling-releases/what-is-mariadb-113.md)
+[Download 11.3.1](https://downloads.mariadb.org/mariadb/11.3.1/)[Release Notes](../../old-releases/11.3/11.3.1.md)[Changelog](mariadb-11-3-1-changelog.md)[Overview of 11.3](../../old-releases/11.3/what-is-mariadb-113.md)
 
 **Release date:** 21 Nov 2023
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-1-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/11.3/11.3.1.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.
 
-* Changes from [11.3.0](../../old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes.md) are also included in this changelog
+* Changes from [11.3.0](../../old-releases/11.3/11.3.0.md) are also included in this changelog
 * Includes all fixes from [MariaDB 11.2.2](../11.2/mariadb-11-2-2-changelog.md)
 * Merge [Revision #67a0224a3e](https://github.com/MariaDB/server/commit/67a0224a3e) 2023-11-19 08:44:35 +0100 - Merge branch '11.2' into 11.3
 * Merge [Revision #34272bd6a5](https://github.com/MariaDB/server/commit/34272bd6a5) 2023-11-14 18:33:03 +0100 - Merge branch '11.2' into 11.3

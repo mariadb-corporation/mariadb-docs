@@ -1,10 +1,10 @@
 # MariaDB 10.3.1 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.1)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes.md)[Changelog](mariadb-1031-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.1)[Release Notes](../../old-releases/10.3/10.3.1.md)[Changelog](mariadb-1031-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 **Release date:** 29 Aug 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.1.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -431,7 +431,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-12288](https://jira.mariadb.org/browse/MDEV-12288) Reset DB\_TRX\_ID when the history is removed, to speed up MVCC
 * [Revision #bae0844f65](https://github.com/MariaDB/server/commit/bae0844f65)\
   2017-07-07 00:55:01 +0300
-  * Introduce a new InnoDB redo log format for [MariaDB 10.3.1](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes.md)
+  * Introduce a new InnoDB redo log format for [MariaDB 10.3.1](../../old-releases/10.3/10.3.1.md)
 * Merge [Revision #57fea53615](https://github.com/MariaDB/server/commit/57fea53615) 2017-07-07 12:39:43 +0300 - Merge bb-10.2-ext into 10.3
 * Merge [Revision #9e53a6bdfd](https://github.com/MariaDB/server/commit/9e53a6bdfd) 2017-07-07 12:00:27 +0300 - Merge 10.2 into bb-10.2-ext
 * Merge [Revision #8b2c7c9444](https://github.com/MariaDB/server/commit/8b2c7c9444) 2017-07-07 12:43:10 +0400 - Merge remote-tracking branch 'origin/10.2' into bb-10.2-ext

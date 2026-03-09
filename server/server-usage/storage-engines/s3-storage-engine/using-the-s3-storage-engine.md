@@ -83,7 +83,7 @@ To be able to use S3 for storage one _**must**_ define how to access S3 and wher
 
 For compatibility tweaks with different providers:
 
-* [s3\_provider](s3-storage-engine-system-variables.md#s3_provider): Enable S3 provider specific compatibility tweaks. "Default", "Amazon", or "Huawei". From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-2-release-notes).
+* [s3\_provider](s3-storage-engine-system-variables.md#s3_provider): Enable S3 provider specific compatibility tweaks. "Default", "Amazon", or "Huawei". From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2).
 
 If you are using an S3 service that is using HTTP to connect (like) you also need the set the following variables:
 
@@ -103,8 +103,8 @@ Other, less critical options, are:
 * [s3\_protocol\_version](s3-storage-engine-system-variables.md#s3_protocol_version): Protocol used to communication with S3. One of "Auto", "Amazon" or "Original" where "Auto" is the default. If you get errors like "8 Access Denied" when you are connecting to another service provider, then try to change this option. The reason for this variable is that Amazon has changed some parts of the S3 protocol since they originally introduced it but other service providers are still using the original protocol.
 * [s3\_block\_size](s3-storage-engine-system-variables.md#s3_block_size): Set to 4M as default. This is the default block size for a table, if not specified in [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md).
 * [s3\_pagecache\_buffer\_size](s3-storage-engine-system-variables.md#s3_pagecache_buffer_size): Default 128M. The size of the buffer used for data and index blocks for S3 tables. Increase this to get better index handling (for all reads and multiple writes) to as much as you can afford.
-* [s3\_ssl\_no\_verify](s3-storage-engine-system-variables.md#s3_ssl_no_verify): If true, SSL certificate verification for the S3 endpoint is disabled. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-2-release-notes).
-* [ss3\_no\_content\_type](s3-storage-engine-system-variables.md#s3_no_content_type): If true (false is default), disables the Content-Type header, required for some providers. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-6-rolling-releases/mariadb-11-6-2-release-notes).
+* [s3\_ssl\_no\_verify](s3-storage-engine-system-variables.md#s3_ssl_no_verify): If true, SSL certificate verification for the S3 endpoint is disabled. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2).
+* [ss3\_no\_content\_type](s3-storage-engine-system-variables.md#s3_no_content_type): If true (false is default), disables the Content-Type header, required for some providers. From [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.6/11.6.2).
 
 Last some options you probably don't have to ever touch:
 
@@ -182,7 +182,7 @@ The main benefit of storing things in an S3 compatible storage is that the cost 
 
 ## Discovery
 
-The S3 storage engine supports full [MariaDB discovery](../storage-engines-storage-engine-development/table-discovery.md). This means that if\
+The S3 storage engine supports full [MariaDB discovery](../../../reference/product-development/plugin-development/storage-engines-storage-engine-development/table-discovery.md). This means that if\
 you have the S3 storage engine enabled and properly configured, the\
 table stored in S3 will automatically be discovered when it's accessed with [SHOW TABLES](../../../reference/sql-statements/administrative-sql-statements/show/show-tables.md), [SELECT](../../../reference/sql-statements/data-manipulation/selecting-data/select.md) or any other operation that\
 tries to access it. In the case of SELECT, the .frm file from S3 will\
@@ -217,13 +217,13 @@ S3 works with [replication](../../../ha-and-performance/standard-replication/rep
 
 ## ANALYZE TABLE
 
-As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10514-release-notes), [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) is supported for S3 tables.\
+As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) is supported for S3 tables.\
 As the S3 tables are read-only, a normal `ANALYZE TABLE` will not do anything. However\
 using `ANALYZE TABLE table_name PERSISTENT FOR...` will now work.
 
 ## CHECK TABLE
 
-As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10514-release-notes), [CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) will work. As S3 tables are read only\
+As of [MariaDB 10.5.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.14), [CHECK TABLE](../../../reference/sql-statements/table-statements/check-table.md) will work. As S3 tables are read only\
 it is very unlikely that they can become corrupted. The only known way an S3 table could be corrupted if either the original table copied to S3 was corrupted or the process of copying the original table to S3 was somehow interrupted.
 
 ## Current Limitations

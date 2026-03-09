@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete Connector/ODBC setup guide: Windows ODBC Administrator,
+  odbcinst.ini/odbc.ini configuration, isql DSN testing, and DSN-less connection
+  strings.
+---
+
 # About MariaDB Connector/ODBC
 
 [Download MariaDB Connector/ODBC](https://mariadb.com/downloads/#connectors)

@@ -246,7 +246,7 @@ Without `SQL_BUFFER_RESULT`, the above query would not use a temporary table for
 
 ## Optimizer Switch
 
-In [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) we added an [optimizer switch](../system-variables/server-system-variables.md#optimizer_switch) which allows you to specify which algorithms will be considered when optimizing a query.
+In [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) we added an [optimizer switch](../system-variables/server-system-variables.md#optimizer_switch) which allows you to specify which algorithms will be considered when optimizing a query.
 
 See the [optimizer](./) section for more information about the different algorithms which are used.
 

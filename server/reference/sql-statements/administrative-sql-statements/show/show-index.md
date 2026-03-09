@@ -1,7 +1,7 @@
 ---
 description: >-
-  List index information for a table. View key names, column sequences,
-  cardinality, and other index attributes.
+  Complete SHOW INDEX reference: SHOW {INDEX|INDEXES|KEYS} FROM tbl_name syntax,
+  output fields (Key_name, Seq_in_index, Cardinality), and WHERE/LIKE filters.
 ---
 
 # SHOW INDEX

@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 **Release date:** 24 Dec 2015
 
 MariaDB Galera Cluster 5.5.47 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 5.5.47](../../release-notes-mariadb-5-5-series/mariadb-5547-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 5.5.47](../../5.5/5.5.47.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -33,7 +33,7 @@ information on each push, see the [MariaDB Galera Cluster 5.5.47 Changelog](../m
   MariaDB Galera Cluster can be used with either a 25.2.x or 25.3.x\
   Galera `wsrep` provider. A 25.3.x `wsrep` provider is included in the\
   MariaDB repositories and is also available from the [downloads](https://downloads.mariadb.org/mariadb-galera/5.5) page.
-* See the [MariaDB 5.5.47 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5547-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5547-changelog.md) for more information on the changes in\
+* See the [MariaDB 5.5.47 Release Notes](../../5.5/5.5.47.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5547-changelog.md) for more information on the changes in\
   MariaDB.
 
 Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB\

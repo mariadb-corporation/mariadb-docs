@@ -1,12 +1,12 @@
 # MariaDB 10.1.7 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.7)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes.md)[Changelog](mariadb-10-1-7-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.7)[Release Notes](../../old-releases/10.1/10.1.7.md)[Changelog](mariadb-10-1-7-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 9 Sep 2015
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-7-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.7.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -552,7 +552,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-8240](https://jira.mariadb.org/browse/MDEV-8240) : Unknown option 'table\_type' when using Connect Engine on MGC
 * [Revision #79deefc](https://github.com/MariaDB/server/commit/79deefc)\
   2015-07-31 12:31:37 +0200
-  * [MDEV-8340](https://jira.mariadb.org/browse/MDEV-8340) Add "mysqlbinlog --binlog-row-event-max-size" support for [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md)
+  * [MDEV-8340](https://jira.mariadb.org/browse/MDEV-8340) Add "mysqlbinlog --binlog-row-event-max-size" support for [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
 * [Revision #4d5772c](https://github.com/MariaDB/server/commit/4d5772c)\
   2015-07-31 10:13:01 +0200
   * [MDEV-7810](https://jira.mariadb.org/browse/MDEV-7810) Wrong result on execution of a query as a PS (both 1st and further executions)

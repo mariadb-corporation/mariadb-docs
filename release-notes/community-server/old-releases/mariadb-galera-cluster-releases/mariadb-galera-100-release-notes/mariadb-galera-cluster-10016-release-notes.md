@@ -6,7 +6,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 
 **Release date:** 29 Jan 2015
 
-This is a release in the MariaDB Galera Cluster 10.0 series. It is a [_**Stable**_](../../../about/release-criteria.md) (GA) release. It is a merge of [MariaDB 10.0.16](../../release-notes-mariadb-10-0-series/mariadb-10016-release-notes.md)\
+This is a release in the MariaDB Galera Cluster 10.0 series. It is a [_**Stable**_](../../../about/release-criteria.md) (GA) release. It is a merge of [MariaDB 10.0.16](../../10.0/10.0.16.md)\
 and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
@@ -38,7 +38,7 @@ detailed information on each push, see the [MariaDB Galera Cluster 10.0.16 Chang
 * Compatibility: If Galera v2 and v3 are both being used in the cluster,\
   MariaDB with Galera v3 must be started with [wsrep\_provider\_options='socket.checksum=1'](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/wsrep-variable-details/wsrep_provider_options#socketchecksum)\
   in order to make it backward compatible with Galera v2.
-* See the [MariaDB 10.0.16 Release Notes](../../release-notes-mariadb-10-0-series/mariadb-10016-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10016-changelog.md) for more information on the changes in\
+* See the [MariaDB 10.0.16 Release Notes](../../10.0/10.0.16.md) and [Changelog](../../../changelogs/changelogs-mariadb-100-series/mariadb-10016-changelog.md) for more information on the changes in\
   MariaDB.
 
 Thanks, and enjoy MariaDB Galera Cluster!

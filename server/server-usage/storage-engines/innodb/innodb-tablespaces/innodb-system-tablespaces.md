@@ -36,9 +36,9 @@ Under this configuration, when the last system tablespace grows beyond the size 
 
 ### Decreasing the Size
 
-**MariaDB starting with** [**11.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112)
+**MariaDB starting with** [**11.2**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112)
 
-From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes), when MariaDB starts up, unused InnoDB tablespace can be reclaimed, reducing the file size ([MDEV-14795](https://jira.mariadb.org/browse/MDEV-14795)). This is disabled by default and is enabled by adding the `:autoshrink` attribute to the [innodb\_data\_file\_path](../innodb-system-variables.md#innodb_data_file_path) system variable, e.g.:
+From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), when MariaDB starts up, unused InnoDB tablespace can be reclaimed, reducing the file size ([MDEV-14795](https://jira.mariadb.org/browse/MDEV-14795)). This is disabled by default and is enabled by adding the `:autoshrink` attribute to the [innodb\_data\_file\_path](../innodb-system-variables.md#innodb_data_file_path) system variable, e.g.:
 
 ```
 [mariadb]
@@ -46,7 +46,7 @@ From [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 innodb_data_file_path=ibdata1:12M;ibdata2:50M:autoextend:autoshrink
 ```
 
-Alternatively, starting with [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-3-release-notes), the shrinking can be set to happen during a slow shutdown (e.g. after `SET GLOBAL innodb_fast_shutdown=0`) ([MDEV-32452](https://jira.mariadb.org/browse/MDEV-32452)).\
+Alternatively, starting with [MariaDB 11.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.3), the shrinking can be set to happen during a slow shutdown (e.g. after `SET GLOBAL innodb_fast_shutdown=0`) ([MDEV-32452](https://jira.mariadb.org/browse/MDEV-32452)).\
 Technically, how this works is:
 
 1. Find the last used extent in the system tablespace by iterating through the BITMAP in the extent descriptor page.
@@ -57,9 +57,9 @@ Technically, how this works is:
 6. Update the FSP\_SIZE and FSP\_FREE\_LIMIT in header page.
 7. In case of multiple files, calculate the truncated last file size and do the truncation in last file.
 
-**MariaDB until** [**11.2.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/mariadb-11-2-0-release-notes)
+**MariaDB until** [**11.2.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0)
 
-In cases where the InnoDB system tablespace has grown too large, before [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-2-series/what-is-mariadb-112), the process to reduce it in size is a little more complicated than increasing the size. MariaDB does not allow you to remove data from the tablespace file itself. Instead you need to delete the tablespace files themselves, then restore the database from backups.\
+In cases where the InnoDB system tablespace has grown too large, before [MariaDB 11.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/what-is-mariadb-112), the process to reduce it in size is a little more complicated than increasing the size. MariaDB does not allow you to remove data from the tablespace file itself. Instead you need to delete the tablespace files themselves, then restore the database from backups.\
 The backup utility [mariadb-dump](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) produces backup files containing the SQL statements needed to recreate the database. As a result, it restores a database with the bare minimum data rather than any additional information that might have built up in the tablespace file.\
 Use mariadb-dump to backup all of your InnoDB database tables, including the system tables in the `mysql` database that use InnoDB. You can find out what they are using the Information Schema.
 

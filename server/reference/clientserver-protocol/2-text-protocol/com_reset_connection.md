@@ -17,11 +17,11 @@ The command does this:
 * Remove temporary tables.
 * Remove all `PREPARE` statements.
 
-Database will `NOT` be reset to initial value.
+Database will _not_ be reset to initial value.
 
 ## Fields
 
-* [int<1>](../protocol-data-types.md#fixed-length-integers) 0x1f : `COM_RESET_CONNECTION` Header
+* [int<1>](../protocol-data-types.md#fixed-length-integers) `0x1f` : `COM_RESET_CONNECTION` Header
 
 ## Response
 

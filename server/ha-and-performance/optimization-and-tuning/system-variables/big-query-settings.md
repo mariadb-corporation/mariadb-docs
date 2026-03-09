@@ -32,7 +32,7 @@ Turn on [index\_merge/sort-intersection](../query-optimizations/index_merge-sort
 optimizer_switch='index_merge_sort_intersection=on'
 ```
 
-If your queries examine big fraction of the tables (somewhere more than \~ 30%), turn on [hash join](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/block-based-join-algorithms#block-hash-join):
+If your queries examine big fraction of the tables (somewhere more than \~ 30%), turn on [hash join](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2#block-hash-join):
 
 ```sql
 # Turn on both Hash Join and Batched Key Access

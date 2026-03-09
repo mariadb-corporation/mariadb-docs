@@ -16,7 +16,7 @@ Links to more complete instructions for specific platforms can be found on the [
 
 ## Using `cmake`
 
-[MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) and above is compiled using _`cmake`_. You can configure your\
+[MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and above is compiled using _`cmake`_. You can configure your\
 build simply by running _`cmake`_ using special option, i.e.
 
 ```bash

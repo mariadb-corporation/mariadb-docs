@@ -1,7 +1,7 @@
 ---
 description: >-
-  String object with a value chosen from a predefined list. An ENUM column
-  allows only one value selected from a list of permitted strings.
+  Complete ENUM type reference: ENUM('v1','v2') syntax, CHARACTER SET/COLLATE
+  options, NULL/empty string defaults, and numeric index sorting guidelines.
 ---
 
 # ENUM

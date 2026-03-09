@@ -1,8 +1,7 @@
 ---
 description: >-
-  Manipulate JSON documents natively. Use these functions to extract values,
-  modify structures, and query data stored in JSON format directly within your
-  SQL statements.
+  Complete JSON Functions reference: JSON_EXTRACT(), JSON_SET(), JSON_REPLACE(),
+  JSON_SEARCH() syntax for path queries, document updates, and value retrieval.
 ---
 
 # JSON Functions

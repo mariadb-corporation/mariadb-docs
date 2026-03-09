@@ -1,12 +1,12 @@
 # MariaDB 10.2.2 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.2)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes.md)[Changelog](mariadb-1022-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.2)[Release Notes](../../old-releases/10.2/10.2.2.md)[Changelog](mariadb-1022-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 27 Sep 2016
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.2.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -415,7 +415,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-10707](https://jira.mariadb.org/browse/MDEV-10707) Tokudb tokudb\_parts test suites failing (#229)
 * [Revision #a6fb647](https://github.com/MariaDB/server/commit/a6fb647)\
   2016-07-29 18:21:08 +0200
-  * [MDEV-10419](https://jira.mariadb.org/browse/MDEV-10419): crash in [mariadb 10.1.16](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10116-release-notes.md)-MariaDB-1trusty
+  * [MDEV-10419](https://jira.mariadb.org/browse/MDEV-10419): crash in [mariadb 10.1.16](../../old-releases/10.1/10.1.16.md)-MariaDB-1trusty
 * [Revision #82626d7](https://github.com/MariaDB/server/commit/82626d7)\
   2016-09-07 08:51:18 -0700
   * Adjusted test results.

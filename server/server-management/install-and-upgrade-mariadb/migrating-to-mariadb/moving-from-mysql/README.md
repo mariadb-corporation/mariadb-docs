@@ -1,8 +1,7 @@
 ---
 description: >-
-  Move from MySQL to MariaDB Server seamlessly. This section provides detailed
-  instructions, tools, and best practices for migrating your databases and
-  applications with ease.
+  Complete MySQL to MariaDB migration: mysqldump/mysql import steps, SQL syntax
+  compatibility, user/privilege migration, and replication configuration.
 ---
 
 # Migrating to MariaDB from MySQL
@@ -54,4 +53,3 @@ description: >-
 {% content-ref url="migrating-to-mariadb-from-mysql-obsolete-articles/" %}
 [migrating-to-mariadb-from-mysql-obsolete-articles](migrating-to-mariadb-from-mysql-obsolete-articles/)
 {% endcontent-ref %}
-

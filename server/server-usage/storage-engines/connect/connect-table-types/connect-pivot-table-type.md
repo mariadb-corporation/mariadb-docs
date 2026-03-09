@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT PIVOT Table Type
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 This table type can be used to transform the result of another table or view (called the source table) into a pivoted table along “pivot” and “facts” columns. A pivot table is a great reporting tool that sorts and sums (by default) independent of the original data layout in the source table.
 
@@ -208,34 +204,24 @@ There are principally two ways to define a PIVOT table:
 
 ### Defining a Pivot Table from a Source Table
 
-The **tabname** standard table option is used to give the name of the source\
-table or view.
+The **tabname** standard table option is used to give the name of the source table or view.
 
-For tables, the internal Group By are internally generated, except when the\
-GROUPBY option is specified as true. Do it only when the table or view has a\
-valid GROUP BY format.
+For tables, the internal Group By are internally generated, except when the `GROUP BY` option is specified as true. Do it only when the table or view has a valid `GROUP BY` format.
 
 ### Directly Defining the Source of a Pivot Table in SQL
 
-Alternatively, the internal source can be directly defined using the **SrcDef**\
-option that must have the proper group by format.
+Alternatively, the internal source can be directly defined using the **SrcDef** option that must have the proper group by format.
 
-As we have seen above, a proper Pivot Table is made from an internal\
-intermediate table resulting from the execution of a `GROUP BY` statement. In\
-many cases, it is simpler or desirable to directly specify this when creating\
-the pivot table. This may be because the source is the result of a complex\
+As we have seen above, a proper Pivot Table is made from an internal intermediate table resulting from the execution of a `GROUP BY` statement. In many cases, it is simpler or desirable to directly specify this when creating the pivot table. This may be because the source is the result of a complex\
 process including filtering and/or joining tables.
 
-To do this, use the **SrcDef** option, often replacing all other options. For\
-instance, suppose that in the first example we are only interested in weeks 4\
-and 5. We could of course display it by:
+To do this, use the **SrcDef** option, often replacing all other options. For instance, suppose that in the first example we are only interested in weeks 4 and 5. We could of course display it by:
 
 ```sql
 SELECT * FROM pivex WHERE week IN (4,5);
 ```
 
-However, what if this table is a huge table? In this case, the correct way to\
-do it is to define the pivot table as this:
+However, what if this table is a huge table? In this case, the correct way to do it is to define the pivot table as this:
 
 ```sql
 CREATE TABLE pivex4
@@ -245,15 +231,9 @@ SrcDef='select who, week, what, sum(amount) from expenses
 where week in (4,5) group by who, week, what';
 ```
 
-If your source table has millions of records and you plan to pivot only a small\
-subset of it, doing so will make a lot of a difference performance wise. In\
-addition, you have entire liberty to use expressions, scalar functions,\
-aliases, join, where and having clauses in your SQL statement. The only\
-constraint is that you are responsible for the result of this statement to have\
-the correct format for the pivot processing.
+If your source table has millions of records and you plan to pivot only a small subset of it, doing so will make a lot of a difference performance wise. In addition, you have entire liberty to use expressions, scalar functions, aliases, join, where and having clauses in your SQL statement. The only constraint is that you are responsible for the result of this statement to have the correct format for the pivot processing.
 
-Using SrcDef also permits to use expressions and/or scalar functions. For\
-instance:
+Using SrcDef also permits to use expressions and/or scalar functions. For instance:
 
 ```sql
 CREATE TABLE xpivot (
@@ -288,24 +268,18 @@ Will display the result:
 | Joe   | Car  | 131.20 | 0.00   | 0.00   |
 | Joe   | Food | 203.36 | 223.04 | 78.72  |
 
-**Note 1:** to avoid multiple lines having the same fixed column values, it is\
-mandatory in **SrcDef** to place the pivot column at the end of the group by\
+**Note 1:** to avoid multiple lines having the same fixed column values, it is mandatory in **SrcDef** to place the pivot column at the end of the group by\
 list.
 
-**Note 2:** in the create statement **SrcDef**, it is mandatory to give aliases**to** the columns containing expressions so they are recognized by the other\
-options.
+**Note 2:** in the create statement **SrcDef**, it is mandatory to give aliases **to** the columns containing expressions so they are recognized by the other options.
 
-**Note 3:** in the **SrcDef** select statement, quotes must be escaped because\
-the entire statement is passed to MariaDB between quotes. Alternatively, specify it between double quotes.
+**Note 3:** in the **SrcDef** select statement, quotes must be escaped because the entire statement is passed to MariaDB between quotes. Alternatively, specify it between double quotes.
 
-**Note 4:** We could have left CONNECT do the column definitions. However,\
-because they are defined from the sorted names, the Middle column had been\
-placed at the end of them.
+**Note 4:** We could have left CONNECT do the column definitions. However, because they are defined from the sorted names, the Middle column had been placed at the end of them.
 
 ## Specifying the Columns Corresponding to the Pivot Column
 
-These columns must be named from the values existing in the “pivot” column. For\
-instance, supposing we have the following _pet_ table:
+These columns must be named from the values existing in the “pivot” column. For instance, supposing we have the following _pet_ table:
 
 | name    | race   | number |
 | ------- | ------ | ------ |
@@ -338,12 +312,9 @@ This gives the result:
 | Kevin   | 0   | 2   | 0      | 6    | 0    |
 | Donald  | 1   | 0   | 0      | 0    | 3    |
 
-By the way, does this ring a bell? It shows that in a way PIVOT tables are\
-doing the opposite of what OCCUR tables do.
+By the way, does this ring a bell? It shows that in a way PIVOT tables are doing the opposite of what OCCUR tables do.
 
-We can alternatively define specifically the table columns but what happens if\
-the Pivot column contains values that is not matching a “data” column? There\
-are three cases depending on the specified options and flags.
+We can alternatively define specifically the table columns but what happens if the Pivot column contains values that is not matching a “data” column? There are three cases depending on the specified options and flags.
 
 **First case:** If no specific options are specified, this is an error an when trying to display the table. The query will abort with an error message stating that a non-matching value was met. Note that because the column list is established when creating the table, this is prone to occur if some rows containing new values for the pivot column are inserted in the source table. If this happens, you should re-create the table or manually add the new columns to the pivot table.
 
@@ -358,8 +329,7 @@ ENGINE=connect table_type=pivot tabname=pet
 option_list='PivotCol=race,groupby=1,Accept=1';
 ```
 
-No error are raised and the non-matching values are ignored. This table\
-are displayed as:
+No error are raised and the non-matching values are ignored. This table are displayed as:
 
 | name    | dog | cat |
 | ------- | --- | --- |
@@ -370,8 +340,7 @@ are displayed as:
 | Kevin   | 0   | 2   |
 | Donald  | 1   | 0   |
 
-**Third case:** A “dump” column was specified with the flag value equal to 2.\
-All non-matching values are added in this column. For instance:
+**Third case:** A “dump” column was specified with the flag value equal to 2. All non-matching values are added in this column. For instance:
 
 ```sql
 CREATE TABLE xpivet (
@@ -399,13 +368,9 @@ rows that can have a value for the pivot column that did not exist when the pivo
 
 ## Pivoting Big Source Tables
 
-This may sometimes be risky. If the pivot column contains too many distinct values, the resulting table\
-may have too many columns. In all cases the process involved, finding distinct values when creating the table or doing the group by when using it, can be very long and sometimes can fail because of\
-exhausted memory.
+This may sometimes be risky. If the pivot column contains too many distinct values, the resulting table may have too many columns. In all cases the process involved, finding distinct values when creating the table or doing the group by when using it, can be very long and sometimes can fail because of exhausted memory.
 
-Restrictions by a where clause should be applied to the source table when creating the pivot table rather\
-than to the pivot table itself. This can be done by creating an intermediate table or using as source a\
-view or a srcdef option.
+Restrictions by a where clause should be applied to the source table when creating the pivot table rather than to the pivot table itself. This can be done by creating an intermediate table or using as source a view or a srcdef option.
 
 All PIVOT tables are read only.
 

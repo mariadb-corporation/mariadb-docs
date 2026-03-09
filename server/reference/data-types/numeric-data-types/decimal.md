@@ -1,7 +1,7 @@
 ---
 description: >-
-  Exact fixed-point number. DECIMAL(M,D) stores values with M total digits and D
-  decimal places, preventing rounding errors common with floating-point types.
+  Complete DECIMAL type reference: DECIMAL(M,D) syntax, precision limits (M≤65,
+  D≤38), SIGNED/UNSIGNED/ZEROFILL options, and rounding behavior.
 ---
 
 # DECIMAL
@@ -19,7 +19,7 @@ A packed "exact" fixed-point number. `M` is the total number of digits (the prec
 * The decimal point and (for negative numbers) the "-" sign are not counted in `M`.
 * If `D` is `0`, values have no decimal point or fractional part, and on [INSERT](../../sql-statements/data-manipulation/inserting-loading-data/insert.md), the value will be rounded to the nearest `DECIMAL`.
 * The maximum number of digits (`M`) for `DECIMAL` is 65.
-* The maximum number of supported decimals (`D`) is `30` before [MariadB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1021-release-notes) and `38` afterwards.
+* The maximum number of supported decimals (`D`) is `30` before [MariadB 10.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.1) and `38` afterwards.
 * If `D` is omitted, the default is `0`. If `M` is omitted, the default is `10`.
 
 `UNSIGNED`, if specified, disallows negative values.

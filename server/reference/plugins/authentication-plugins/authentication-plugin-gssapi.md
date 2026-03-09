@@ -1,8 +1,7 @@
 ---
 description: >-
-  The gssapi authentication plugin enables passwordless single sign-on by
-  authenticating users via the Generic Security Services API, supporting
-  Kerberos on Unix and Windows.
+  Complete GSSAPI authentication setup: Kerberos/SSPI single sign-on, INSTALL
+  SONAME 'auth_gssapi', gssapi_keytab_path/principal_name, CREATE USER syntax.
 ---
 
 # Authentication Plugin - GSSAPI

@@ -1,7 +1,8 @@
 ---
 description: >-
-  Extract data from a JSON document. This function returns data from a JSON
-  document selected by a given path.
+  Complete JSON_EXTRACT() reference: JSON_EXTRACT(json_doc, path[, path]...)
+  syntax, JSONPath arguments, NULL/error behavior, and multi-match array
+  autowrap.
 ---
 
 # JSON\_EXTRACT

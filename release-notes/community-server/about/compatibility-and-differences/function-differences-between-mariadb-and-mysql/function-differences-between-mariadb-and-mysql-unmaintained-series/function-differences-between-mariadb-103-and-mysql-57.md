@@ -1,6 +1,6 @@
 # Function Differences Between MariaDB 10.3 and MySQL 5.7
 
-The following is a list of all function differences between [MariaDB 10.3](../../../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) and MySQL 5.7. It is based on functions available in the stable versions MySQL 5.7.18 and [MariaDB 10.3.29](../../../../old-releases/release-notes-mariadb-10-3-series/mariadb-10329-release-notes.md).
+The following is a list of all function differences between [MariaDB 10.3](../../../../old-releases/10.3/what-is-mariadb-103.md) and MySQL 5.7. It is based on functions available in the stable versions MySQL 5.7.18 and [MariaDB 10.3.29](../../../../old-releases/10.3/10.3.29.md).
 
 For a description of all differences, see [Incompatibilities and Feature Differences Between MariaDB 10.3 and MySQL 5.7](../../incompatibilities-and-feature-differences-between-mariadb-and-mysql-unmaint/compatibility-differences-incompatibilities-and-feature-differences-between.md).
 

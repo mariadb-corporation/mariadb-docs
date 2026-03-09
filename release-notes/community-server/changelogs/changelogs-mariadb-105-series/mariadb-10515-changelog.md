@@ -1,12 +1,12 @@
 # MariaDB 10.5.15 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.15](https://mariadb.org/download/?tab=mariadb\&release=10.5.15\&product=mariadb)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10515-release-notes.md)[Changelog](mariadb-10515-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.15](https://mariadb.org/download/?tab=mariadb\&release=10.5.15\&product=mariadb)[Release Notes](../../old-releases/10.5/10.5.15.md)[Changelog](mariadb-10515-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 12 Feb 2022
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10515-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.15.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.

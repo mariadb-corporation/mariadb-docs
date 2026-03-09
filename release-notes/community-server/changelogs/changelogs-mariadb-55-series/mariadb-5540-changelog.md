@@ -1,12 +1,12 @@
 # MariaDB 5.5.40 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.mariadb.org/mariadb/5.5.40)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md)[Changelog](mariadb-5540-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.mariadb.org/mariadb/5.5.40)[Release Notes](../../old-releases/5.5/5.5.40.md)[Changelog](mariadb-5540-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 9 Oct 2014
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5540-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.40.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -82,7 +82,7 @@ modified in that revision.
   * [MDEV-6528](https://jira.mariadb.org/browse/MDEV-6528) review debian patches for mysql
 * [Revision #4301](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4301)\
   Thu 2014-10-02 11:58:13 +0200
-  * [MDEV-6800](https://jira.mariadb.org/browse/MDEV-6800) auth\_socket plugin fails to build on OpenBSD with [MariaDB 10.0.14](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10014-release-notes.md)
+  * [MDEV-6800](https://jira.mariadb.org/browse/MDEV-6800) auth\_socket plugin fails to build on OpenBSD with [MariaDB 10.0.14](../../old-releases/10.0/10.0.14.md)
 * [Revision #4300](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/4300)\
   Thu 2014-10-02 11:57:40 +0200
   * [MDEV-5120](https://jira.mariadb.org/browse/MDEV-5120) Test suite test maria-no-logging fails

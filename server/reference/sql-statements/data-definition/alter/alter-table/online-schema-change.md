@@ -34,9 +34,40 @@ If the `INSERT` statement starts after the `ALTER TABLE` statement, it is not bl
 
 `ALTER TABLE` always allows concurrent [SELECT](../../../data-manipulation/selecting-data/select.md) statements. If the `LOCK=NONE` locking strategy is chosen, it allows concurrent modifications via DML[^1] statements like `INSERT`, `DELETE`, or `UPDATE`. `LOCK=NONE` is supported by the InnoDB and the Partition engine when `ALGORITHM=NOCOPY` is chosen, and is a default locking strategy when available.
 
+```mermaid
+graph TD
+    subgraph "Legacy Behavior (Blocking)"
+        direction TB
+        L1[1. Start ALTER TABLE] --> L2(fa:fa-lock SHARED LOCK)
+        L3[fa:fa-user Connection B: DML] -- "Wait..." --> L2
+        L2 --> L4[2. Finish ALTER TABLE]
+        L4 --> L5[3. Connection B: DML Resumes]
+    end
+
+    subgraph "Online Behavior (Non-Blocking)"
+        direction TB
+        O1[1. Start ALTER TABLE] --> O2{Online Change Buffer}
+        
+        subgraph "Concurrent Processing"
+            direction LR
+            O2 --- DML[fa:fa-bolt Connection B: DML]
+        end
+        
+        DML --> O3[2. Apply Buffer Changes]
+        O3 --> O4[3. Finish ALTER TABLE]
+    end
+
+    style L2 fill:#fdd,stroke:#900,stroke-width:2px
+    style O2 fill:#ddf,stroke:#009,stroke-width:2px
+    style DML fill:#dfd,stroke:#060,stroke-width:2px
+```
+
 ### New Behavior
 
-With Online Schema Change, `LOCK=NONE` support is available for `ALGORITHM=COPY`, which means that almost all `ALTER TABLE` operations allow concurrent DML[^1] statements. A few exceptions to this rule are described under [Limitations](online-schema-change.md#limitations).
+* From MariaDB 11.2, ALTER TABLE is universally online.
+* In most cases, unless explicitly specified otherwise, `ALTER TABLE` implicitly operates as if `ALGORITHM=COPY, LOCK=NONE` is set.
+* This means it uses the `COPY` algorithm while simultaneously allowing concurrent DML statements on the altered table.
+* A few exceptions to this rule are described under [Limitations](online-schema-change.md#limitations).
 
 ## Mechanism
 
@@ -53,6 +84,20 @@ The online change buffer works like this:
 {% hint style="info" %}
 While all copying and online changes application happens without blocking concurrent `DML`, `ALTER TABLE` acquires an `EXCLUSIVE` lock on the table for a short amount of time, which is necessary to synchronize with all parallel operations that have not yet finished.
 {% endhint %}
+
+### Online Change Buffer Details
+
+* Storage and Scope: Despite the name, the buffer is not purely in-memory; it is implemented as a temporary file on the filesystem using MariaDB's `create_temp_file` function. It is created on a per-table basis, rather than globally or per-session. The file is typically stored in the directory defined by the `TMPDIR` environment variable, or the OS default temporary path (like `GetTempPath` on Windows).
+* Size Limits: The online schema change re-uses the temporary buffer mechanism used in the binlog for transaction/statement caches. There is currently no way to explicitly limit its maximum size via a system variable; it is only bounded by available disk space and OS-specific limits, such as a 4GB limit on a 32-bit machine.
+* Disk Full Risks: Because there is no explicit size limit, heavy concurrent DML during a long schema change can fill up the disk hosting the temporary directory. This behaves similarly to a sort buffer for unindexed `SELECT`statements causing a disk full event, which could hang operations.
+* Crash Behavior: If the server crashes during the `ALTER` statement, no manual cleanup is required. The temporary files are created with OS-level ephemeral flags (like `O_TMPFILE` on supported Linux systems or `O_TEMPORARY | O_SHORT_LIVED` on Windows) or are unlinked immediately upon creation. This ensures the operating system automatically reclaims the file space.
+
+## Monitoring and Troubleshooting
+
+* Currently, MariaDB does not provide a native mechanism to monitor or troubleshoot the online change buffer.
+* There are no specific `STATUS` variables available to track the size or usage of this buffer.
+* Furthermore, there are no corresponding tables in the `information_schema` or `performance_schema` to collect this data from a running server.
+* Administrators must proactively monitor the available disk space of the filesystem hosting the temporary directory (`tmpdir`) during large `ALTER TABLE` operations to prevent disk exhaustion.
 
 ## Supported Storage Engines
 

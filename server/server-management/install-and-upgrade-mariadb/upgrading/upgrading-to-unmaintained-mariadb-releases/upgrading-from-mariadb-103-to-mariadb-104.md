@@ -14,7 +14,7 @@ Before you upgrade, it would be best to take a backup of your database. This is 
 
 The suggested upgrade procedure is:
 
-1. Modify the repository configuration, so the system's package manager installs [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104). For example,
+1. Modify the repository configuration, so the system's package manager installs [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104). For example,
 
 * On Debian, Ubuntu, and other similar Linux distributions, see [Updating the MariaDB APT repository to a New Major Release](../../installing-mariadb/binary-packages/installing-mariadb-deb-files.md#updating-the-mariadb-apt-repository-to-a-new-major-release) for more information.
 * On RHEL, CentOS, Fedora, and other similar Linux distributions, see [Updating the MariaDB YUM repository to a New Major Release](../../installing-mariadb/binary-packages/rpm/yum.md#updating-the-mariadb-yum-repository-to-a-new-major-release) for more information.
@@ -65,11 +65,11 @@ The following options should be removed or renamed if you use them in your [opti
 
 * See [Authentication from MariaDB 10.4](../../../../security/user-account-management/authentication-from-mariadb-10-4.md) for an overview of the changes.
 * The [unix\_socket authentication plugin](../../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) is now default on Unix-like systems.
-* TLSv1.0 is disabled by default in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104). See [tls\_version](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) and [TLS Protocol Versions](../../../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions).
+* TLSv1.0 is disabled by default in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104). See [tls\_version](../../../../security/encryption/data-in-transit-encryption/ssltls-system-variables.md#tls_version) and [TLS Protocol Versions](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions).
 
 ### Major New Features To Consider
 
-You might consider using the following major new features in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104):
+You might consider using the following major new features in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104):
 
 * [Galera](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) has been upgraded from [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 3 to [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) 4.
 * [System-versioning](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md) extended with support for [application-time periods](../../../../reference/sql-structure/temporal-tables/system-versioned-tables.md).
@@ -79,7 +79,7 @@ You might consider using the following major new features in [MariaDB 10.4](http
 
 ### See Also
 
-* [The features in MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+* [The features in MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104)
 * [Upgrading from MariaDB 10.3 to MariaDB 10.4 with Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster/upgrading-from-mariadb-10-3-to-mariadb-10-4-with-galera-cluster)
 * [Upgrading from MariaDB 10.2 to MariaDB 10.3](upgrading-from-mariadb-102-to-mariadb-103.md)
 * [Upgrading from MariaDB 10.1 to MariaDB 10.2](upgrading-from-mariadb-101-to-mariadb-102.md)

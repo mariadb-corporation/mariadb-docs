@@ -1,6 +1,6 @@
 # MariaDB 5.3.0 Changelog p3
 
-[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) |**Changelog**\
+[Download](https://downloads.askmonty.org/mariadb/5.3.0) |[Release Notes](../../old-releases/5.3/5.3.0.md) |**Changelog**\
 (page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md) 3 [4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)\
 ) |[Overview of 5.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3)
 
@@ -108,7 +108,7 @@
     * Merge with dynamic column code
   * [Revision #2982.2.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2982.2.1) \[merge]\
     Tue 2011-05-10 18:17:43 +0300
-    * Merge with [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+    * Merge with [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 * [Revision #2988](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2988)\
   Fri 2011-05-13 18:27:43 +0300
   * Directories with .dylib files added to DYLD\_LOIBRARY\_PATH to allow plugins to use them.
@@ -160,7 +160,7 @@
   * Fixed compiler warnings
 * [Revision #2981](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2981) \[merge]\
   Sat 2011-05-07 15:48:45 +0200
-  * Merge [MWL#180](https://askmonty.org/worklog/?tid=180) into main [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md).
+  * Merge [MWL#180](https://askmonty.org/worklog/?tid=180) into main [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md).
   * [Revision #2977.1.3](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2977.1.3) \[merge]\
     Thu 2011-05-05 16:35:02 +0200
     * [MWL#180](https://askmonty.org/worklog/?tid=180): Merge bugfix from 5.2 to 5.3 codebase + really fix version from which mariadb supports binlog checksums.
@@ -169,7 +169,7 @@
     * [MWL#180](https://askmonty.org/worklog/?tid=180): merge fixes from 5.2-rpl + forgot to adjust revision from which checksums are supported when merging into 5.3-based tree.
   * [Revision #2977.1.1](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2977.1.1) \[merge]\
     Tue 2011-05-03 14:44:25 +0200
-    * Merge [MWL#180](https://askmonty.org/worklog/?tid=180), binlog checksum backport, into [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)-based tree.
+    * Merge [MWL#180](https://askmonty.org/worklog/?tid=180), binlog checksum backport, into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)-based tree.
 * [Revision #2980](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2980)\
   Wed 2011-05-04 18:08:44 -0700
   * Fixed [Bug #776295](https://bugs.launchpad.net/bugs/776295).\
@@ -260,7 +260,7 @@
       global -fno-implicit-templates
 * [Revision #2969](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2969) \[merge]\
   Thu 2011-04-14 13:25:18 +0200
-  * Merge test case fix from [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)-rpl into 5.3.
+  * Merge test case fix from [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)-rpl into 5.3.
   * [Revision #2732.26.19](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.19)\
     Thu 2011-04-14 13:23:02 +0200
     * Fix race in testcase innodb\_plugin.group\_commit
@@ -278,7 +278,7 @@
   * merge
 * [Revision #2966](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2966) \[merge]\
   Fri 2011-04-08 09:39:33 +0200
-  * Merge various replication-related patches into [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md):
+  * Merge various replication-related patches into [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md):
     * [MWL#116](https://askmonty.org/worklog/?tid=116) Group commit
     * [MWL#136](https://askmonty.org/worklog/?tid=136) Enhancements for START TRANSACTION WITH CONSISTENT SNAPSHOT
     * [MWL#47](https://askmonty.org/worklog/?tid=47) Annotate\_rows\_log\_event
@@ -306,7 +306,7 @@
     * Merge `--`binlog\_optimize\_thread\_scheduling into mariadb-5.2-rpl.
   * [Revision #2732.26.13](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.13) \[merge]\
     Fri 2011-04-01 15:07:10 +0200
-    * Merge [MariaDB 5.2.5](../../old-releases/release-notes-mariadb-5-2-series/mariadb-525-release-notes.md) release into MariaDB-5.2-rpl.
+    * Merge [MariaDB 5.2.5](../../old-releases/5.2/5.2.5.md) release into MariaDB-5.2-rpl.
   * [Revision #2732.26.12](https://bazaar.launchpad.net/~maria-captains/maria/5.3/revision/2732.26.12) \[merge]\
     Fri 2011-04-01 10:25:45 +0200
     * Merge [MWL#136](https://askmonty.org/worklog/?tid=136) after-review fixes into mariadb-5.2-rpl
@@ -518,7 +518,7 @@
         construction at parse time in the same way as with aggregate function\
         use.
 
-[MariaDB 5.3.0](../../old-releases/release-notes-mariadb-5-3-series/mariadb-530-release-notes.md) Changelog — page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md) 3 [4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)
+[MariaDB 5.3.0](../../old-releases/5.3/5.3.0.md) Changelog — page:[1](mariadb-530-changelog.md)[2](mariadb-530-changelog-p2.md) 3 [4](mariadb-530-changelog-p4.md)[5](mariadb-530-changelog-p5.md)[6](mariadb-530-changelog-p6.md)
 
 {% include "../../../.gitbook/includes/announce.md" %}
 

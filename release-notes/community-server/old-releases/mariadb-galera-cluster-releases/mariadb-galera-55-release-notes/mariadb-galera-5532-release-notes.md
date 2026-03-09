@@ -16,9 +16,9 @@ available in the [**Galera**](https://github.com/mariadb-corporation/docs-releas
 For a list of changes made in [MariaDB Galera 5.5.32](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-galera-cluster-5532-release-notes/README.md), with links to detailed\
 information on each push, see the [MariaDB Galera 5.5.32 Changelog](../mariadb-galera-55-changelogs/mariadb-galera-5532-changelog.md).
 
-## Includes [MariaDB 5.5.32](../../release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md) and Galera Cluster
+## Includes [MariaDB 5.5.32](../../5.5/5.5.32.md) and Galera Cluster
 
-[MariaDB Galera 5.5.32](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-galera-cluster-5532-release-notes/README.md) includes [MariaDB 5.5.32](../../release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster). See the [MariaDB 5.5.32](../../release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md) [Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5532-changelog.md) for more information on the changes in [MariaDB 5.5.32](../../release-notes-mariadb-5-5-series/mariadb-5532-release-notes.md).
+[MariaDB Galera 5.5.32](https://github.com/mariadb-corporation/docs-release-notes/blob/test/kb/en/mariadb-galera-cluster-5532-release-notes/README.md) includes [MariaDB 5.5.32](../../5.5/5.5.32.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster). See the [MariaDB 5.5.32](../../5.5/5.5.32.md) [Release Notes](../../5.5/5.5.32.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5532-changelog.md) for more information on the changes in [MariaDB 5.5.32](../../5.5/5.5.32.md).
 
 ## Includes Galera wsrep provider version 23.2.6
 

@@ -36,7 +36,7 @@ Source repositories for the MariaDB Connectors are:
 
 See also:
 
-* [Using git](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/using-git-with-mariadb/using-git) page for instructions on how to use git to check out the source code and switch between the various branches.
+* [Using git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM) page for instructions on how to use git to check out the source code and switch between the various branches.
 * [Compiling MariaDB from source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/)
 
 {% hint style="danger" %}
@@ -162,7 +162,7 @@ bzr pull
 ## Alternate Bazaar Instructions
 
 The following alternative instructions are what we have used for setting up\
-repositories on our build machines in [buildbot](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/general-info/tools/buildbot).
+repositories on our build machines in [buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA).
 
 ### Shell Variables
 
@@ -209,7 +209,7 @@ $BZR branch $MARIA_REPO $MARIA_MASTER
 $BZR branch $MARIA_MASTER $MARIA_WORK
 ```
 
-Check out packaging sources (only for [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3) and below):
+Check out packaging sources (only for [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3) and below):
 
 ```
 $BZR branch $PACKAGING_REPO $PACKAGING_MASTER

@@ -1,12 +1,12 @@
 # MariaDB 10.1.21 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.21)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10121-release-notes.md)[Changelog](mariadb-10121-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.21)[Release Notes](../../old-releases/10.1/10.1.21.md)[Changelog](mariadb-10121-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 18 Jan 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10121-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.21.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -71,7 +71,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * Updated list of unstable tests for 10.1.21
 * [Revision #ab1e6fef](https://github.com/MariaDB/server/commit/ab1e6fef)\
   2017-01-14 00:13:16 +0200
-  * [MDEV-11623](https://jira.mariadb.org/browse/MDEV-11623) [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) fails to start datadir created with [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)/MySQL 5.6 using innodb-page-size!=16K
+  * [MDEV-11623](https://jira.mariadb.org/browse/MDEV-11623) [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) fails to start datadir created with [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)/MySQL 5.6 using innodb-page-size!=16K
 * [Revision #a9d00db](https://github.com/MariaDB/server/commit/a9d00db)\
   2017-01-15 14:20:16 +0200
   * [MDEV-11799](https://jira.mariadb.org/browse/MDEV-11799) InnoDB can abort if the doublewrite buffer contains a bad and a good copy
@@ -323,7 +323,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11317](https://jira.mariadb.org/browse/MDEV-11317): `! is_set()' or` !is\_set() || (m\_status == DA\_OK\_BULK && is\_bulk\_op())' fails in Diagnostics\_area::set\_ok\_status on CREATE OR REPLACE with ARCHIVE table
 * [Revision #eaf6b05](https://github.com/MariaDB/server/commit/eaf6b05)\
   2017-01-04 22:41:43 +0100
-  * [MDEV-11087](https://jira.mariadb.org/browse/MDEV-11087) Search path for my.ini is wrong for default installation Add \<install\_root>/data/my.ini to the search path - this my.ini location is used since [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+  * [MDEV-11087](https://jira.mariadb.org/browse/MDEV-11087) Search path for my.ini is wrong for default installation Add \<install\_root>/data/my.ini to the search path - this my.ini location is used since [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 * [Revision #82b8741](https://github.com/MariaDB/server/commit/82b8741)\
   2017-01-04 22:50:48 +0100
   * Windows : use meaningful DEFAULT\_MYSQL\_HOME - base directory for the default installation.

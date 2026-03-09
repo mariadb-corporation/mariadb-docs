@@ -54,9 +54,12 @@ In the descriptions below, `M` is the declared column length (in characters or i
 | [BLOB](string-data-types/blob.md), [TEXT](string-data-types/text.md)                         | len + 2 bytes                                                                                              |
 | [MEDIUMBLOB](string-data-types/mediumblob.md), [MEDIUMTEXT](string-data-types/mediumtext.md) | len + 3 bytes                                                                                              |
 | [LONGBLOB](string-data-types/longblob.md), [LONGTEXT](string-data-types/longtext.md)         | len + 4 bytes                                                                                              |
+| [XMLTYPE](string-data-types/xmltype.md)                                                      | len + 4 bytes (same as LONGBLOB)                                                                           |
 | [SET](string-data-types/set-data-type.md)                                                    | Given M members of the set, (M+7)/8 bytes, rounded up to 1, 2, 3, 4, or 8 bytes                            |
 | [INET6](string-data-types/inet6.md)                                                          | 16 bytes                                                                                                   |
 | [UUID](string-data-types/uuid-data-type.md)                                                  | 16 bytes                                                                                                   |
+
+**Note**: Introduced in MariaDB 12.3, the `XMLTYPE` data type has a maximum storage capacity of 4GB, similar to `LONGBLOB`_._
 
 In some [character sets](string-data-types/character-sets/), not all characters use the same number of bytes. utf8 encodes characters with one to three bytes per character, while `utf8mb4` requires one to four bytes per character.
 

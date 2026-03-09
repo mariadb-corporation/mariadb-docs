@@ -1,8 +1,8 @@
 # MariaDB 10.0.11 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.11)[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/mariadb-10011-release-notes)[Changelog](mariadb-10011-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.11)[Release Notes](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-0-series/mariadb-10011-release-notes)[Changelog](mariadb-10011-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 12 May 2014
 
@@ -340,7 +340,7 @@ modified in that revision.
     * Spider 3.2
   * [Revision #3758.1.44](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.44)\
     Tue 2014-03-25 05:38:08 +0900
-    * fix for [MariaDB 10.0.9](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1009-release-notes.md)
+    * fix for [MariaDB 10.0.9](../../old-releases/10.0/10.0.9.md)
   * [Revision #3758.1.43](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.43)\
     Tue 2014-03-25 05:36:22 +0900
     * fix invalid memory access
@@ -352,7 +352,7 @@ modified in that revision.
     * lock tables
   * [Revision #3758.1.40](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.40)\
     Tue 2014-03-25 05:32:12 +0900
-    * fix for [MariaDB 10.0.8](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1008-release-notes.md)
+    * fix for [MariaDB 10.0.8](../../old-releases/10.0/10.0.8.md)
   * [Revision #3758.1.39](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.39)\
     Tue 2014-03-25 05:25:47 +0900
     * add information for MariaDB
@@ -397,7 +397,7 @@ modified in that revision.
     * fix crash at using spider\_copy\_tables()
   * [Revision #3758.1.25](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.25)\
     Tue 2014-03-25 04:48:23 +0900
-    * fix for [MariaDB 10.0.7](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1007-release-notes.md) building errors
+    * fix for [MariaDB 10.0.7](../../old-releases/10.0/10.0.7.md) building errors
   * [Revision #3758.1.24](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.24)\
     Tue 2014-03-25 04:46:43 +0900
     * log spider warnings
@@ -430,7 +430,7 @@ modified in that revision.
     * bka and count
   * [Revision #3758.1.14](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.14)\
     Tue 2014-03-25 04:29:52 +0900
-    * fix for [MariaDB 10.0.6](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1006-release-notes.md) building error
+    * fix for [MariaDB 10.0.6](../../old-releases/10.0/10.0.6.md) building error
   * [Revision #3758.1.13](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3758.1.13)\
     Tue 2014-03-25 04:26:48 +0900
     * append group by for no order by

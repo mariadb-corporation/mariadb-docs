@@ -1,8 +1,7 @@
 ---
 description: >-
-  This section details the different ways to add non-executable comments to your
-  SQL statements and script files, including single-line & multi-line comments,
-  and MariaDB-specific conditional comments.
+  Complete SQL comment syntax: single-line # and -- (space required), multi-line
+  /* */ blocks, MySQL /*!##### */ and MariaDB /*M!##### */ executable comments.
 ---
 
 # Comment Syntax
@@ -63,7 +62,7 @@ For example, if you want to embed some code that should only execute on MySQL or
 /*!50100 MySQL and MariaDB 5.1.0 (and above) code goes here. */
 ```
 
-MariaDB-only executable comment syntax (starting from [MariaDB 5.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-3-series/mariadb-531-release-notes)):
+MariaDB-only executable comment syntax (starting from [MariaDB 5.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/5.3.1)):
 
 ```sql
 /*M! MariaDB-specific code */

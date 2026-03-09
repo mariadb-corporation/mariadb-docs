@@ -7,7 +7,7 @@ description: >-
 # KDF
 
 {% hint style="info" %}
-`KDF()` is a key derivation function available from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-3-rolling-releases/mariadb-11-3-0-release-notes).
+`KDF()` is a key derivation function available from [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0).
 {% endhint %}
 
 ## Syntax

@@ -86,7 +86,7 @@ The following statements are not deterministic, but are considered safe for bina
 
 ## Isolation Levels
 
-Even when using safe statements, not all [transaction isolation levels](../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) are safe with statement-based or mixed binary logging. While the REPEATABLE READ and SERIALIZABLE isolation levels can be used with both statement- and row-based replication, the READ COMMITTED and READ UNCOMMITTED isolation levels only support row-based replication, as with them isolation between transactions is not guaranteed at all, and different transaction orders on a replica, or when doing point-in-time recovery, would lead to different results than on the original master.
+Even when using safe statements, not all [transaction isolation levels](../../reference/sql-statements/transactions/set-transaction.md#isolation-levels) are safe with statement-based or mixed binary logging. While the `REPEATABLE READ` and `SERIALIZABLE` isolation levels can be used with both statement- and row-based replication, the `READ COMMITTED` and `READ UNCOMMITTED` isolation levels only support row-based replication, as with them isolation between transactions is not guaranteed at all, and different transaction orders on a replica, or when doing point-in-time recovery, would lead to different results than on the original master.
 
 This restriction does not apply if only non-transactional storage engines are used.
 

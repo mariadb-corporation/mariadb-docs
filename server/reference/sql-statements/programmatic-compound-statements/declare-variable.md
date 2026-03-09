@@ -36,6 +36,12 @@ The real data type of a `ROW TYPE OF cursor_name` variable will become known whe
 
 The tables referenced in `TYPE OF` and `ROW TYPE OF` declarations will be checked for existence at the beginning of the stored routine call. [CREATE PROCEDURE](../../../server-usage/stored-routines/stored-procedures/create-procedure.md) or [CREATE FUNCTION](../data-definition/create/create-function.md) will not check the referenced tables for existence.
 
+{% hint style="info" %}
+**Dynamic Cursors Limitation**&#x20;
+
+`ROW TYPE OF` is not supported for dynamic cursors (cursors declared for a prepared statement). This is because the cursor's structure is dependent on the prepared statement, which is not known at the time the stored procedure context is created.
+{% endhint %}
+
 ## Examples
 
 ```sql

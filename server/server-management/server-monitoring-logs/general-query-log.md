@@ -1,8 +1,7 @@
 ---
 description: >-
-  Describes the General Query Log, a comprehensive record of every query and
-  connection event received by the server, useful for auditing and debugging but
-  potentially high-volume.
+  Complete General Query Log guide for MariaDB. Complete reference documentation
+  for implementation, configuration, and usage with comprehensive examples.
 ---
 
 # General Query Log
@@ -132,6 +131,25 @@ command_type: Query
 
 See [Writing logs into tables](writing-logs-into-tables.md) for more information.
 
+#### Formal Specification (File Format)
+
+When the General Query Log is written to a file, it follows a positional format. For tool developers (e.g., Fluentd, Logstash), it is important to treat this log as a continuous stream of events that can contain multi-line data.
+
+**Template:** `Timestamp ThreadID Command Argument`
+
+| Field | Component | Data Type          | Description                                                                                                     |
+| ----- | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| **1** | Timestamp | `DateTime`         | The time the query was received. Format varies by version (e.g., `yymmdd h:mm:ss` or ISO 8601).                 |
+| **2** | Thread ID | `Unsigned Integer` | The standardized connection identifier. This matches the `Thread ID` field in the Error Log and Slow Query Log. |
+| **3** | Command   | `String`           | The command type (e.g., `Connect`, `Query`, `Quit`, `Prepare`).                                                 |
+| **4** | Argument  | `String`           | The raw SQL statement or command details.                                                                       |
+
+**Parsing Considerations for Tool Developers**
+
+* **Multi-line SQL:** The `Argument` field contains the literal SQL query received by the server. Because SQL queries often contain newlines, a single log entry can span multiple lines. Parsers must be configured to handle multiline events, typically by identifying a new record when a line begins with a valid timestamp.
+* **Standardized Identification:** While the log file header may label the second column as `Id`, it is functionally identical to the `thread_id` found in system tables (e.g., `mysql.general_log`) and the `Thread ID` in other server logs.
+* **Immediate Logging:** Unlike the Binary Log, which logs at commit time, the General Query Log records queries immediately upon receipt.
+
 ## Disabling the General Query Log for a Session
 
 A user with the [SUPER](../../reference/sql-statements/account-management-sql-statements/grant.md#global-privileges) privilege can disable logging to the general query log for a connection by setting the [SQL\_LOG\_OFF](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#sql_log_off) system variable to `1`. For example:
@@ -142,7 +160,7 @@ SET SESSION SQL_LOG_OFF=1;
 
 ## Disabling the General Query Log for Specific Statements
 
-In [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-3-series/mariadb-1031-release-notes) and later, it is possible to disable logging to the general query log for specific types of statements by setting the [log\_disabled\_statements](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_disabled_statements) system variable. This option cannot be set dynamically. It can be set in a server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
+In [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1) and later, it is possible to disable logging to the general query log for specific types of statements by setting the [log\_disabled\_statements](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#log_disabled_statements) system variable. This option cannot be set dynamically. It can be set in a server [option group](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
 ```
 [mariadb]

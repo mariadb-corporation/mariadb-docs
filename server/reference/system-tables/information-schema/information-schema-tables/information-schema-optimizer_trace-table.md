@@ -8,7 +8,7 @@ description: >-
 
 ## Description
 
-The [Information Schema](../) `OPTIMIZER_TRACE` table contains [Optimizer Trace](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/mariadb-internals-documentation-query-optimizer/mariadb-internals-documentation-optimizer-trace) information.
+The [Information Schema](../) `OPTIMIZER_TRACE` table contains [Optimizer Trace](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/wIjY1kOpUvbr3Rbr8GXl) information.
 
 It contains the following columns:
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Instructions for customers to authenticate and gain access to the private
+  MariaDB Enterprise Docker registry to pull protected container images.
+---
+
 # Customer access to docker.mariadb.com
 
 This documentation aims to provide guidance on how to configure access to `docker.mariadb.com` in your MariaDB Enterprise Kubernetes Operator resources.

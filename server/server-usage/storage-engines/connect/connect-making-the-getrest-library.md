@@ -1,14 +1,10 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # Making the GetRest Library
 
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
-
-To enable the REST feature with binary distributions of MariaDB, the function calling the cpprestsdk package is not included in CONNECT, thus allowing CONNECT normal operation when the cpprestsdk package is not installed. Therefore, it must be compiled separately as a library (so or dll) that are loaded by CONNECT when needed.
+To enable the REST feature with binary distributions of MariaDB, the function calling the cpprestsdk package is not included in CONNECT, thus allowing CONNECT normal operation when the `cpprestsdk` package is not installed. Therefore, it must be compiled separately as a library (so or dll) that are loaded by CONNECT when needed.
 
 This library will contain only one file shown here:
 
@@ -106,7 +102,7 @@ int restGetFile(char *m, bool xt, PCSZ http, PCSZ uri, PCSZ fn)
 
 This file exists in the source of CONNECT as `restget.cpp`. If you have no access to the source, use your favorite editor to make it by copy/pasting from the above.
 
-Then, on Linux, compile the GetRest.so library:
+Then, on Linux, compile the `GetRest.so` library:
 
 ```
 g++ -o GetRest.so -O3 -Wall -std=c++11 -fPIC -shared restget.cpp -lcpprest
@@ -124,7 +120,9 @@ EXPORTS
    restGetFile     @1
 ```
 
-Important: This file must be specified in the property linker input page.
+{% hint style="info" %}
+This file must be specified in the property linker input page.
+{% endhint %}
 
 Once compiled, the release or debug versions can be copied in the `cpprestsdk` corresponding directories, bin or debug\bin.
 
@@ -132,9 +130,7 @@ That is all. It is a once-off job. Once done, it will work with all new MariaDB 
 
 Note: the xt tracing variable is true when connect\_xtrace setting includes the value “MONGO” (512).
 
-Caution: If your server crashes when using this feature, this is likely because the GetRest lib is linked to the wrong cpprestsdk lib (this may only apply on Windows)\
-A Release version of GetRest must be linked to the release version of the cpprestsdk lib (cpprest\_2\_10.dll) but if you make a Debug version of GetRest, make sure it is linked to the Debug version of cpprestsdk lib (cpprest\_2\_10d.dll)\
-This may be automatic if you use Visual Studio to make the GetRest.dll.
+Caution: If your server crashes when using this feature, this is likely because the GetRest lib is linked to the wrong cpprestsdk lib (this may only apply on Windows). A Release version of GetRest must be linked to the release version of the `cpprestsdk lib` (cpprest\_2\_10.dll) but if you make a Debug version of GetRest, make sure it is linked to the Debug version of `cpprestsdk.lib` (or `cpprest_2_10d.dll`). This may be automatic if you use Visual Studio to make the GetRest.dll.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

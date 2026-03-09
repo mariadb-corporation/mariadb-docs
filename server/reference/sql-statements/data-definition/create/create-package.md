@@ -125,7 +125,7 @@ A package whose specification was created by the `CREATE PACKAGE` statement, sho
 
 ## Function parameter quantifiers IN | OUT | INOUT | IN OUT
 
-**MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/mariadb-10-8-0-release-notes)
+**MariaDB starting with** [**10.8.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
 
 {% tabs %}
 {% tab title="Current" %}

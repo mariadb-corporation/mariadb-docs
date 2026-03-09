@@ -1,8 +1,7 @@
 ---
 description: >-
-  Follow this step-by-step guide to configure standard replication. Learn how to
-  prepare the primary, configure the replica, and establish a connection for
-  data synchronization.
+  Complete guide to MariaDB replication setup. Complete walkthrough for
+  primary-replica topology with binary logging and GTID configuration.
 ---
 
 # Setting Up Replication
@@ -13,7 +12,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 Getting [replication](./) working involves steps on both the master server/s and steps on the replica server/s.
 
-## Setting up a Replication Replica with MariaDB-Backup
+## Setting up a Replica with mariadb-backup
 
 If you want to use [mariadb-backup](../../server-usage/backup-and-restore/mariadb-backup/) to set up a replication replica, review the information under [Setting up a Replication Replica with MariaDB-Backup](../../server-usage/backup-and-restore/mariadb-backup/setting-up-a-replica-with-mariadb-backup.md).
 

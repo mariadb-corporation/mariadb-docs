@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete MariaDB command-line client guide. Complete reference for server
+  connections, query execution, data import, and batch processing for production
+  use.
+---
+
 # mariadb Command-Line Client
 
 `mariadb` is a simple SQL shell with GNU readline capabilities.
@@ -242,7 +249,7 @@ Print the program argument list and exit. Must be given as the first option.
 
 #### `--progress-reports`
 
-Get [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
+Get [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
 
 #### `--prompt=`_`name`_
 
@@ -284,7 +291,7 @@ Allow only those [UPDATE](../../reference/sql-statements/data-manipulation/chang
 
 {% tabs %}
 {% tab title="Current" %}
-Disallow commands that access the file system (except `\P` without an argument and `\e`). Disabled commands include system (`\!`), tee (`\T`), pager with an argument(`\P`` `_`foo`_), source (`\.`). Using a disabled command is an error, which can be ignored with `--force`. A sandbox command (`\-`) enables the sandbox mode until EOF (current file or the session, if interactive).
+Disallow commands that access the file system (except `\P` without an argument and `\e`). Disabled commands include system (`\!`), tee (`\T`), pager with an argument(` \P`` `` `_`foo`_), source (`\.`). Using a disabled command is an error, which can be ignored with `--force`. A sandbox command (`\-`) enables the sandbox mode until EOF (current file or the session, if interactive).
 {% endtab %}
 
 {% tab title="< 11.4.2 / 11.2.4 / 11.1.5 / 11.0.6 / 10.11.8 / 10.6.18 / 10.5.25" %}
@@ -354,7 +361,7 @@ Don't write line number for errors. See `--line-numbers`.
 
 #### `--skip-progress-reports`
 
-Disables getting [progress reports](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for long running commands. See `--progress-reports`.
+Disables getting [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for long running commands. See `--progress-reports`.
 
 #### `--skip-reconnect`
 
@@ -373,53 +380,53 @@ For connections to localhost, the Unix socket file to use, or, on Windows, the n
 
 {% tabs %}
 {% tab title="Current" %}
-Enables [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
+Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
 
 TLS with `--ssl` is enabled by default.
 {% endtab %}
 
 {% tab title="< 10.10" %}
-Enables [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
+Enables [TLS](../../security/encryption/data-in-transit-encryption/). TLS is also enabled even without setting this option when certain other TLS options are set. The `--ssl` option does not enable [verifying the server certificate](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option.
 {% endtab %}
 {% endtabs %}
 
 #### `--ssl-ca=`_`name`_
 
-Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
+Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option implies the `--ssl` option.
 
 #### `--ssl-capath=`_`name`_
 
-Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
+Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. This option is only supported if the client was built with OpenSSL or yaSSL. If the client was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms. This option implies the `--ssl` option.
 
 #### `--ssl-cert=`_`name`_
 
-Defines a path to the X509 certificate file to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a path to the X509 certificate file to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### `--ssl-cipher=`_`name`_
 
-List of permitted ciphers or cipher suites to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
+List of permitted ciphers or cipher suites to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option implies the `--ssl` option.
 
 #### `--ssl-crl=`_`name`_
 
-Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL or Schannel. If the client was built with yaSSL or GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### `--ssl-crlpath=`_`name`_
 
-Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
+Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
 #### `--ssl-key=`_`name`_
 
-Defines a path to a private key file to use for [TLS](../../security/securing-mariadb/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
+Defines a path to a private key file to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
 
 #### `--ssl-verify-server-cert`
 
 {% tabs %}
 {% tab title="Current" %}
-Enables [server certificate verification](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default. Use `--disable-ssl` or `--disable-ssl-verify-server-cert` to revert this behavior.
+Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is enabled by default. Use `--disable-ssl` or `--disable-ssl-verify-server-cert` to revert this behavior.
 {% endtab %}
 
 {% tab title="< 11.4" %}
-Enables [server certificate verification](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
+Enables [server certificate verification](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification). This option is disabled by default.
 {% endtab %}
 {% endtabs %}
 
@@ -433,7 +440,7 @@ Append everything into outfile. See interactive help (`\h`) also. Does not work 
 
 #### `--tls-version=`_`name`_
 
-This option accepts a comma-separated list of TLS protocol versions. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. See [Secure Connections Overview: TLS Protocol Versions](../../security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions) for more information.
+This option accepts a comma-separated list of TLS protocol versions. A TLS protocol version will only be enabled if it is present in this list. All other TLS protocol versions will not be permitted. See [Secure Connections Overview: TLS Protocol Versions](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#tls-protocol-versions) for more information.
 
 #### `--ssl-fp=`_`name`_
 
@@ -686,7 +693,7 @@ The prompt command reconfigures the default prompt `\N [\d]>`. The string for de
 | \Y     | The current year, four digits.                                      |
 | \y     | The current year, two digits.                                       |
 | \_     | A space.                                                            |
-| \      | A space (a space follows the backslash).                            |
+| \\     | A space (a space follows the backslash).                            |
 | '      | Single quote.                                                       |
 | "      | Double quote.                                                       |
 | \\\\   | A literal “\” backslash character.                                  |

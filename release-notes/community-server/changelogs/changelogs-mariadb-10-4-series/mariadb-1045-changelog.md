@@ -1,12 +1,12 @@
 # MariaDB 10.4.5 Changelog
 
-The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/release-notes-mariadb-10-4-series/mariadb-10-4-34-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
+The most recent release of [MariaDB 10.4](../../../mariadb-community-server-release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/) is:[**MariaDB 10.4.34**](../../old-releases/10.4/10.4.34.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.4.34/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.4.5)[Release Notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-1045-release-notes.md)[Changelog](mariadb-1045-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
+[Download](https://downloads.mariadb.org/mariadb/10.4.5)[Release Notes](../../old-releases/10.4/10.4.5.md)[Changelog](mariadb-1045-changelog.md)[Overview of 10.4](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/what-is-mariadb-104)
 
 **Release date:** 21 May 2019
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-4-series/mariadb-1045-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.4/10.4.5.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.4) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -104,7 +104,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-17167](https://jira.mariadb.org/browse/MDEV-17167) - InnoDB: Failing assertion: table->get\_ref\_count() == 0 upon truncating a temporary table
 * [Revision #43bbf88dcb](https://github.com/MariaDB/server/commit/43bbf88dcb)\
   2019-05-14 16:06:55 +0530
-  * [MDEV-19158](https://jira.mariadb.org/browse/MDEV-19158): [MariaDB 10.2.22](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10222-release-notes.md) is writing duplicate entries into binary log
+  * [MDEV-19158](https://jira.mariadb.org/browse/MDEV-19158): [MariaDB 10.2.22](../../old-releases/10.2/10.2.22.md) is writing duplicate entries into binary log
 * Merge [Revision #d0d663f3db](https://github.com/MariaDB/server/commit/d0d663f3db) 2019-05-14 16:05:09 +0530 - Merge branch '10.1' into 10.2
 * [Revision #47637a3dd1](https://github.com/MariaDB/server/commit/47637a3dd1)\
   2019-05-14 13:03:06 +0530
@@ -419,7 +419,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-17508](https://jira.mariadb.org/browse/MDEV-17508) Fix bug for spider when using "not like" (#1282)
 * [Revision #645f77a6bc](https://github.com/MariaDB/server/commit/645f77a6bc)\
   2019-04-08 11:21:53 -0700
-  * [MDEV-19195](https://jira.mariadb.org/browse/MDEV-19195) Active Record unit test fails with [MariaDB 10.4.3](../../old-releases/release-notes-mariadb-10-4-series/mariadb-1043-release-notes.md)
+  * [MDEV-19195](https://jira.mariadb.org/browse/MDEV-19195) Active Record unit test fails with [MariaDB 10.4.3](../../old-releases/10.4/10.4.3.md)
 * [Revision #d9d79e4d01](https://github.com/MariaDB/server/commit/d9d79e4d01)\
   2019-04-16 16:35:21 +0300
   * [MDEV-17494](https://jira.mariadb.org/browse/MDEV-17494) Refuse ALGORITHM=INSTANT when the row size is too large

@@ -5,7 +5,7 @@
 **Release date:** 25 Jun 2014
 
 MariaDB Galera Cluster 5.5.38 is a [_**Stable**_](../../../about/release-criteria.md) (GA) release.\
-It is a merge of [MariaDB 5.5.38](../../release-notes-mariadb-5-5-series/mariadb-5538-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+It is a merge of [MariaDB 5.5.38](../../5.5/5.5.38.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\
@@ -16,7 +16,7 @@ information on each push, see the [MariaDB Galera Cluster 5.5.38 Changelog](../m
 
 ## Notes about this release
 
-* MariaDB Galera Cluster 5.5.38 includes [MariaDB 5.5.38](../../release-notes-mariadb-5-5-series/mariadb-5538-release-notes.md) with Codership\
+* MariaDB Galera Cluster 5.5.38 includes [MariaDB 5.5.38](../../5.5/5.5.38.md) with Codership\
   additions (`lp:codership-mysql/5.5` till revision `3997`) and [Galera 25.3.5](https://codership.com/content/using-galera-cluster).
 * This version of MariaDB Galera Cluster supports `wsrep` API v25 which means\
   MariaDB Galera Cluster can be used with either a 25.2.x or 25.3.x\
@@ -26,7 +26,7 @@ information on each push, see the [MariaDB Galera Cluster 5.5.38 Changelog](../m
 * wsrep\_sst\_rsync (sst script) in MariaDB Galera Cluster 5.5.38 uses `lsof` which might not be installed by default on some linux distributions. It has to be installed if the `wsrep_sst_method` is set to `rsync` (default). Package managers should be able to automatically resolve this dependency ([MDEV-6264](https://jira.mariadb.org/browse/MDEV-6264)).
 * Galera rpm packages had a file conflicting with Filesystem package ([MDEV-4218](https://jira.mariadb.org/browse/MDEV-4218)), which caused installation to fail. Fixed Galera packages are now available for the following flavors : Fedora 19, Fedora 20 and CentOS 6.
 
-See the [MariaDB 5.5.38 Release Notes](../../release-notes-mariadb-5-5-series/mariadb-5538-release-notes.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5538-changelog.md) for more information on the changes in\
+See the [MariaDB 5.5.38 Release Notes](../../5.5/5.5.38.md) and [Changelog](../../../changelogs/changelogs-mariadb-55-series/mariadb-5538-changelog.md) for more information on the changes in\
 MariaDB.
 
 Note: If Galera 25.2.x and 25.3.x are both being used in the cluster, MariaDB\

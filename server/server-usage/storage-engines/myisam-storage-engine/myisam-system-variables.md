@@ -132,8 +132,8 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Dynamic: No
 * Data Type: `enumeration`
 * Default Value:
-  * `BACKUP,QUICK` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes))
-  * `DEFAULT` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes))
+  * `BACKUP,QUICK` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4))
+  * `DEFAULT` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3))
   * `OFF`
 * Valid Values: `OFF`, `DEFAULT`, `BACKUP`, `BACKUP_ALL`, `FORCE` or `QUICK`
 

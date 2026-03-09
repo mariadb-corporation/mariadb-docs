@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 5.5](https://github.com/mariadb-corporat
 **Release date:** 21 Dec 2012
 
 [MariaDB Galera 5.5.28](mariadb-galera-5528a-release-notes.md) a is a [_**Release Candidate**_](../../../about/release-criteria.md) (RC) release. It is\
-a merge of [MariaDB 5.5.28a](../../release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) and Galera Cluster with some\
+a merge of [MariaDB 5.5.28a](../../5.5/changes-improvements-in-mariadb-5-5.md) and Galera Cluster with some\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\

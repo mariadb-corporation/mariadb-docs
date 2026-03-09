@@ -1,7 +1,7 @@
 ---
 description: >-
-  Calculate the difference between two dates. This function returns the number
-  of days between two date values, ignoring the time component.
+  Complete DATEDIFF() reference: DATEDIFF(expr1,expr2) syntax, date vs datetime
+  expression handling, time component ignore, and positive/negative results.
 ---
 
 # DATEDIFF

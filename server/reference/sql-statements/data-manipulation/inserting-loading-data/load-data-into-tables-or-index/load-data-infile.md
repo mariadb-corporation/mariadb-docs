@@ -1,8 +1,7 @@
 ---
 description: >-
-  Read rows from a text file into a table. This high-speed data loading command
-  parses structured text files and inserts records, often much faster than
-  INSERT statements.
+  Complete reference for LOAD DATA INFILE in MariaDB. Complete syntax guide with
+  all options, clauses, and practical examples with comprehensive examples and.
 ---
 
 # LOAD DATA INFILE
@@ -62,7 +61,7 @@ The used command is not allowed with this MariaDB version
 
 Note that it is not entirely accurate to say that the MariaDB version does not support the command. It would be more accurate to say that the MariaDB configuration does not support the command. See [MDEV-20500](https://jira.mariadb.org/browse/MDEV-20500) for more information.
 
-From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1052-release-notes), the error message is more accurate:
+From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the error message is more accurate:
 
 ```
 The used command is not allowed because the MariaDB server or client 
@@ -108,7 +107,7 @@ The `LOW_PRIORITY` and `CONCURRENT` keywords are mutually exclusive. They cannot
 
 ### Progress Reporting
 
-The `LOAD DATA INFILE` statement supports [progress reporting](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
+The `LOAD DATA INFILE` statement supports [progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
 
 ### Using mariadb-import
 

@@ -17,7 +17,7 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [GA](../../../community-server/about/release-criteria.md) release of [MaxScale CDC Adapter](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-streaming-data-adapters)
 * [GA](../../../community-server/about/release-criteria.md) release of [Aache Kafka Data Adapter](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/data-ingestion/columnstore-streaming-data-adapters)
 * [MCOL-1121](https://jira.mariadb.org/browse/MCOL-1121) - The Kafka adapter has been made to work with more generic streams
-* [MCOL-1214](https://jira.mariadb.org/browse/MCOL-1214) - The base MariaDB server version is now [10.2.13](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10213-release-notes.md) which include several maintenance and security fixes.
+* [MCOL-1214](https://jira.mariadb.org/browse/MCOL-1214) - The base MariaDB server version is now [10.2.13](../../../community-server/old-releases/10.2/10.2.13.md) which include several maintenance and security fixes.
 
 ## Bugs and issues fixed
 
@@ -91,15 +91,15 @@ For general "how to questions" ask questions [here](https://app.gitbook.com/o/di
 * [MCOL-1200](https://jira.mariadb.org/browse/MCOL-1200) - Forward Bulk Write API C++ Exceptions to Python
 * [MCOL-304](https://jira.mariadb.org/browse/MCOL-304) - MariaDB ColumnStore Package Repository
 * [MCOL-1060](https://jira.mariadb.org/browse/MCOL-1060) - ColumnStore Cluster Test tool - wording improvmenets
-* [MCOL-1069](https://jira.mariadb.org/browse/MCOL-1069) - Merge [MariaDB 10.2.11](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10211-release-notes.md)
+* [MCOL-1069](https://jira.mariadb.org/browse/MCOL-1069) - Merge [MariaDB 10.2.11](../../../community-server/old-releases/10.2/10.2.11.md)
 * [MCOL-1075](https://jira.mariadb.org/browse/MCOL-1075) - Clarifications for the Bulk Write SDK documentation
 * [MCOL-1099](https://jira.mariadb.org/browse/MCOL-1099) - Clarification for the Bulk Write SDK documentation
 * [MCOL-1121](https://jira.mariadb.org/browse/MCOL-1121) - Generic Kafka Data Adapter
 * [MCOL-1122](https://jira.mariadb.org/browse/MCOL-1122) - build api for both python 2 and 3
 * [MCOL-1142](https://jira.mariadb.org/browse/MCOL-1142) - support group install of ColumnStore
 * [MCOL-1143](https://jira.mariadb.org/browse/MCOL-1143) - package build of mariadb-columnstore-tools
-* [MCOL-1159](https://jira.mariadb.org/browse/MCOL-1159) - Merge [MariaDB 10.2.12](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10212-release-notes.md)
-* [MCOL-1214](https://jira.mariadb.org/browse/MCOL-1214) - Merge [MariaDB 10.2.13](../../../community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-10213-release-notes.md)
+* [MCOL-1159](https://jira.mariadb.org/browse/MCOL-1159) - Merge [MariaDB 10.2.12](../../../community-server/old-releases/10.2/10.2.12.md)
+* [MCOL-1214](https://jira.mariadb.org/browse/MCOL-1214) - Merge [MariaDB 10.2.13](../../../community-server/old-releases/10.2/10.2.13.md)
 
 In addition, all bugs fixed in MariaDB ColumnStore 1.1.2 and earlier are implicitly included in this release.
 
@@ -118,7 +118,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-271](https://jira.mariadb.org/browse/MCOL-271) empty string values are treated as NULL. This means you cannot insert empty values into a NOT NULL string column.
 * [MCOL-365](https://jira.mariadb.org/browse/MCOL-365): Log files created by load data infile remain in the bulk/data/log and /tmp directories. If storage is a concern these can safely be removed.
 * [MCOL-540](https://jira.mariadb.org/browse/MCOL-540) : In a non root Ubuntu install with local query enabled, the PM servers crash and restart on table creation.
-* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
+* [MCOL-624](https://jira.mariadb.org/browse/MCOL-624) :[MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) WF create MEDIAN, PERCENTILE\_CONT and PERCENTILE\_DISC Window functions. MariaDB ColumnStore 1.1 was rewritten to use the [MariaDB 10.2](../../../community-server/old-releases/10.2/what-is-mariadb-102.md) server parser code which does not support the percentile window functions. This will be added in a later release. A median function has been provided instead as part of the User Defined Aggregate Function framework that provides similar functionality or can be adapted to support percentiles other than 0.5.
 * [MCOL-631](https://jira.mariadb.org/browse/MCOL-631) :Create table caused primproc crashed for a specific configuration
 * [MCOL-643](https://jira.mariadb.org/browse/MCOL-643) :Implement ha\_calpont\_impl\_rnd\_pos. Sorting of long text columns may fail.
 * [MCOL-695](https://jira.mariadb.org/browse/MCOL-695) :Implement joins between CHAR/VARCHAR and INT columns. ColumnStore now fails more consistently on incompatible join types. Explicit type casts must be used if this error is hit.

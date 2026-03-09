@@ -1,7 +1,7 @@
 ---
 description: >-
-  Concatenate strings. This function joins two or more string arguments into a
-  single string. Returns NULL if any argument is NULL.
+  Complete CONCAT reference for MariaDB. Complete function guide with syntax,
+  parameters, return values, and usage examples with comprehensive examples and.
 ---
 
 # CONCAT

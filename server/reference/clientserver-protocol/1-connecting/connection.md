@@ -38,9 +38,9 @@ Connection is done by many exchanges:
 ## Initial Handshake Packet
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) protocol version.
-* [string](../protocol-data-types.md#null-terminated-strings) server version
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) server version:
   * MariaDB Server 10.X versions are by default prefixed "5.5.5-".
-  * [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110) and later versions do not have a "5.5.5-" default prefix.
+  * [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) and later versions do not have a "5.5.5-" default prefix.
 * [int<4>](../protocol-data-types.md#fixed-length-integers) connection id.
 * [string<8>](../protocol-data-types.md#fixed-length-strings) authentication plugin data (1st part).
 * [string<1>](../protocol-data-types.md#fixed-length-strings) reserved byte.
@@ -51,17 +51,17 @@ Connection is done by many exchanges:
 * If (`server_capabilities` & `PLUGIN_AUTH`):
   * [int<1>](../protocol-data-types.md#fixed-length-integers) plugin data length.
 * Else:
-  * [int<1>](../protocol-data-types.md#fixed-length-integers) 0x00.
+  * [int<1>](../protocol-data-types.md#fixed-length-integers) `0x00`.
 * [string<6>](../protocol-data-types.md#fixed-length-strings) filler.
 * If (`server_capabilities` & `CLIENT_MYSQL`):
   * [string<4>](../protocol-data-types.md#fixed-length-strings) filler.
 * Else:
-  * [int<4>](../protocol-data-types.md#fixed-length-integers) server capabilities 3rd part. MariaDB specific flags `/*` [`MariaDB 10.2`](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) `or later */`.
+  * [int<4>](../protocol-data-types.md#fixed-length-integers) server capabilities 3rd part. MariaDB specific flags `/*` [`MariaDB 10.2`](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) `or later */`.
 * If (`server_capabilities` & `CLIENT_SECURE_CONNECTION`):
-  * [string](../protocol-data-types.md#fixed-length-strings) authentication plugin data 2nd part. Length = max(12, plugin data length - 9).
+  * [string\<n>](../protocol-data-types.md#fixed-length-strings) authentication plugin data 2nd part. Length = max(12, plugin data length - 9).
   * [string<1>](../protocol-data-types.md#fixed-length-strings) reserved byte.
 * If (server\_capabilities & PLUGIN\_AUTH):
-  * [string](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
+  * [string\<NUL>](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
 
 ## Client Handshake Response
 
@@ -88,11 +88,11 @@ Previously, failed SSL connections due to self-signed certificates prevented com
 
 Even without a valid SSL certificate, the connector can still authenticate by remembering the server's fingerprint (unique identifier). However, it needs to confirm the connection is secure.
 
-#### **Verifying a Secure Connection:**
+#### **Verifying a Secure Connection**
 
 The confirmation method depends on the connection type. When using secure MitM-proof methods, like Unix sockets, connector can automatically validate the connection. Otherwise, a shared secret is used.
 
-#### **Shared Secret for Secure Connection:**
+#### **Shared Secret for Secure Connection**
 
 The shared secret is only used if the authentication plugin password is hashable (for instance, `mysql_native_password` , `client_ed25519`, or `parsec`) and not empty.
 
@@ -104,12 +104,12 @@ Password hash is generated depending on authentication plugin:
 * `mysql_native_password` : identical to password encryption.
 * `parsec`: ext-salt + raw ed25519 public key.
 
-#### **Server 11.4+ Confirmation Details:**
+#### **Server 11.4+ Confirmation Details**
 
 For servers running [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) or later, the final confirmation packet contains:
 
 * [int<1>](../protocol-data-types.md#fixed-length-integers) encryption (actually only 0x01 = SHA256 encryption)
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) shared secret.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) shared secret.
 
 #### **Matching the Shared Secret**
 
@@ -125,26 +125,26 @@ If the calculated shared secret matches the received one, the SSL connection is 
   * [int<4>](../protocol-data-types.md#fixed-length-integers) extended client capabilities.
 * Else:
   * [string<4>](../protocol-data-types.md#fixed-length-strings) reserved.
-* [string](../protocol-data-types.md#null-terminated-strings) username.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) username.
 * If (password):
   * If (`server_capabilities` & `PLUGIN_AUTH_LENENC_CLIENT_DATA`):
-    * [string](../protocol-data-types.md#length-encoded-strings) authentication data.
+    * [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) authentication data.
   * Else if (`server_capabilities` & `CLIENT_SECURE_CONNECTION`):
     * [int<1>](../protocol-data-types.md#fixed-length-integers) length of authentication response.
-    * [string](../protocol-data-types.md#fixed-length-strings) authentication response (length is indicated by previous field).
+    * [string\<fix>](../protocol-data-types.md#fixed-length-strings) authentication response (length is indicated by previous field).
   * Else:
-    * [string](../protocol-data-types.md#null-terminated-strings) authentication response null ended.
+    * [string\<NUL>](../protocol-data-types.md#null-terminated-strings) authentication response null ended.
 * Else:
-  * string<1>\0 (empty password).
+  * `string<1>\0` (empty password).
 * If (`server_capabilities` & `CLIENT_CONNECT_WITH_DB`):
-  * [string](../protocol-data-types.md#null-terminated-strings) default database name.
+  * [string\<NUL>](../protocol-data-types.md#null-terminated-strings) default database name.
 * If (`server_capabilities` & `CLIENT_PLUGIN_AUTH`):
-  * [string](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
+  * [string\<NUL>](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
 * If (`server_capabilities` & `CLIENT_CONNECT_ATTRS`):
-  * [int](../protocol-data-types.md#length-encoded-integers) size of connection attributes.
+  * [int\<lenenc>](../protocol-data-types.md#length-encoded-integers) size of connection attributes.
   * While packet has remaining data:
-    * [string](../protocol-data-types.md#length-encoded-strings) key.
-    * [string](../protocol-data-types.md#length-encoded-strings) value.
+    * [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) key.
+    * [string\<lenenc>](../protocol-data-types.md#length-encoded-strings) value.
 
 ## Server Response to Handshake Response Packet
 
@@ -156,9 +156,9 @@ The server responds with an [OK\_packet](../4-server-response-packets/ok_packet.
 
 (If client and server support `CLIENT_AUTH` capability):
 
-* [int<1>](../protocol-data-types.md#fixed-length-integers) 0xFE : Authentication switch request header.
-* [string](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) authentication plugin data.
+* [int<1>](../protocol-data-types.md#fixed-length-integers) `0xFE` : Authentication switch request header.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) authentication plugin name.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) authentication plugin data.
 
 ## Plugin List
 
@@ -172,19 +172,19 @@ Authentication plugin data format:
 
 Client response:
 
-* [string](../protocol-data-types.md#null-terminated-strings) old format encrypted password.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) old format encrypted password.
 
 #### mysql\_clear\_password Plugin
 
 {% hint style="danger" %}
-Since password is transmitted in clear, this has been used only when using SSL connection
+Since the password is transmitted in clear, this must be used only when using SSL connections.
 {% endhint %}
 
 Send clear password to server.
 
 Client response:
 
-* [string](../protocol-data-types.md#null-terminated-strings) password without encryption.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) password without encryption.
 
 #### mysql\_native\_password Plugin
 
@@ -192,11 +192,11 @@ SHA-1 encrypted password with server seed.
 
 Authentication plugin data format:
 
-* [string](../protocol-data-types.md#null-terminated-strings) seed.
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) seed.
 
 Client response:
 
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) `SHA1`-encrypted password.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) `SHA1`-encrypted password.
 
 The password is encrypted with: `SHA1( password ) ^ SHA1( seed + SHA1( SHA1( password ) ) )` .
 
@@ -207,9 +207,9 @@ Interactive exchanges to permit fill passwords — for example for 2-step authen
 Authentication plugin data format:
 
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) password type.
-* [string](../protocol-data-types.md#end-of-file-length-strings) prompt message.
+* [string\<EOF>](../protocol-data-types.md#end-of-file-length-strings) prompt message.
 
-The server can send one or many requests. For each of them, the client must display this prompt message to the user, to permit the user to type requested information, then send it to the server in [string](../protocol-data-types.md#null-terminated-strings) format. Password type indicates the answer format (`2` means "read the input with the echo enabled", `4` means "password-like input, echo disabled")
+The server can send one or many requests. For each of them, the client must display this prompt message to the user, to permit the user to type requested information, then send it to the server in [string\<NUL>](../protocol-data-types.md#null-terminated-strings) format. Password type indicates the answer format (`2` means "read the input with the echo enabled", `4` means "password-like input, echo disabled").
 
 First authentication format (from authentication switch packet) can be empty.
 
@@ -221,8 +221,8 @@ GSSAPI implementation.
 
 Authentication plugin data format:
 
-* [string](../protocol-data-types.md#null-terminated-strings) serverPrincipalName (UTF-8 format).
-* [string](../protocol-data-types.md#null-terminated-strings) mechanisms (UTF-8 format).
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) serverPrincipalName (UTF-8 format).
+* [string\<NUL>](../protocol-data-types.md#null-terminated-strings) mechanisms (UTF-8 format).
 
 Client must exchange packet with server until having a mutual [GSSAPI](https://en.wikipedia.org/wiki/Generic_Security_Services_Application_Program_Interface) authentication.\
 The only difference compared to standard client-server GSSAPI authentication is that exchanges contain standard protocol with packet headers.
@@ -237,11 +237,11 @@ The server sends a random nonce that the client signs.
 
 authentication plugin data format:
 
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) seed.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) seed.
 
 Client response:
 
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) `ed25519` encrypted password.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) `ed25519` encrypted password.
 
 ### parsec Plugin
 
@@ -255,7 +255,7 @@ Format of ext-salt is:
 
 * [string<1>](../protocol-data-types.md#fixed-length-strings) 'P' (denotes KDF algorithm = PBKDF2).
 * [byte<1>](../protocol-data-types.md#fixed-length-bytes) iteration factor. number of iterations correspond to 1024 << iteration factor (0x0 means 1024, 0x1 means 2048, etc.).
-* [byte](../protocol-data-types.md#end-of-file-length-bytes) salt.
+* [byte\<EOF>](../protocol-data-types.md#end-of-file-length-bytes) salt.
 
 The client must then:
 
@@ -301,7 +301,7 @@ client with capabilities CLIENT\_MYSQL + CONNECT\_WITH\_DB will have a value of 
 | CLIENT\_SSL\_VERIFY\_SERVER\_CERT       | 1 << 30 | Client verify server certificate. Deprecated, client has options to indicate if server certificate must be verified.                                                                 |
 | CLIENT\_REMEMBER\_OPTIONS               | 1 << 31 |                                                                                                                                                                                      |
 | MARIADB\_CLIENT\_PROGRESS               | 1 << 32 | Client support progress indicator.                                                                                                                                                   |
-| MARIADB\_CLIENT\_COM\_MULTI             | 1 << 33 | Permit `COM_MULTI` protocol.                                                                                                                                                         |
+| MARIADB\_CLIENT\_COM\_MULTI             | 1 << 33 | deprecated - did permit `COM_MULTI` protocol.                                                                                                                                        |
 | MARIADB\_CLIENT\_STMT\_BULK\_OPERATIONS | 1 << 34 | Permit bulk insert.                                                                                                                                                                  |
 | MARIADB\_CLIENT\_EXTENDED\_METADATA     | 1 << 35 | Add extended metadata information.                                                                                                                                                   |
 | MARIADB\_CLIENT\_CACHE\_METADATA        | 1 << 36 | Permit skipping metadata.                                                                                                                                                            |
@@ -309,7 +309,7 @@ client with capabilities CLIENT\_MYSQL + CONNECT\_WITH\_DB will have a value of 
 
 ## Native Password Authentication
 
-The 20-byte string 'seed' is calculated by concatenating scramble first part (8 bytes) and scramble second part from [Initial handshake packet](connection.md#initial-handshake-packet). After that, the client calculates a password hash using the password and seed by using ^ (bitwise xor), + (string concatenation) and SHA1 as follows:
+The 20-byte string 'seed' is calculated by concatenating scramble first part (8 bytes) and scramble second part from [Initial handshake packet](connection.md#initial-handshake-packet). After that, the client calculates a password hash using the password and seed by using `^` (bitwise xor), `+` (string concatenation), and SHA1 as follows:
 
 ```
 SHA1( passwd) ^ SHA1( seed + SHA1( SHA1( passwd ) ) )

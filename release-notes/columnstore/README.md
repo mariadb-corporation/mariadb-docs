@@ -4,8 +4,8 @@ description: MariaDB ColumnStore and CMAPI release notes
 
 # ColumnStore Release Notes
 
-{% content-ref url="mariadb-columnstore-25.10-release-notes/" %}
-[mariadb-columnstore-25.10-release-notes](mariadb-columnstore-25.10-release-notes/)
+{% content-ref url="25.10/" %}
+[25.10](25.10/)
 {% endcontent-ref %}
 
 {% content-ref url="23.10/" %}

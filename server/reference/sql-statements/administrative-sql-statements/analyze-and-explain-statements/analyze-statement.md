@@ -54,6 +54,8 @@ Compared to `EXPLAIN`, `ANALYZE` produces two extra columns:
 * `r_rows` is an observation-based counterpart of the rows column. It shows how many rows were actually read from the table.
 * `r_filtered` is an observation-based counterpart of the filtered column. It shows which fraction of rows was left after applying the WHERE condition.
 
+> These `r_rows` and `r_filtered` columns are also included in the EXPLAIN output written to the [slow query log](../../../../server-management/server-monitoring-logs/slow-query-log/) in MariaDB 10.1.0 and later. This explains why, even though they are not displayed by a standard EXPLAIN statement, some columns may appear in slow query log data.
+
 ## Interpreting the Output
 
 ### Joins

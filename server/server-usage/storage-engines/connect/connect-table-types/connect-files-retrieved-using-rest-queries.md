@@ -1,5 +1,5 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # CONNECT - Files Retrieved Using Rest Queries
@@ -20,7 +20,7 @@ Note: If you want to use this feature with an older distributed version of Maria
 
 To do so, specify the HTTP of the web client and eventually the URI of the request in the [CREATE TABLE](../../../../reference/sql-statements/data-definition/create/create-table.md) statement. For example, for a query returning JSON data:
 
-```
+```sql
 CREATE TABLE webusers (
   id BIGINT(2) NOT NULL,
   name CHAR(24) NOT NULL,
@@ -36,7 +36,7 @@ TABLE_TYPE=JSON FILE_NAME='users.json' HTTP='http://jsonplaceholder.typicode.com
 
 As with standard JSON tables, discovery is possible, meaning that you can leave CONNECT to define the columns by analyzing the JSON file. Here you could just do:
 
-```
+```sql
 CREATE TABLE webusers
 ENGINE=CONNECT DEFAULT CHARSET=utf8
 TABLE_TYPE=JSON FILE_NAME='users.json'
@@ -45,7 +45,7 @@ HTTP='http://jsonplaceholder.typicode.com' URI='/users';
 
 For example, executing:
 
-```
+```sql
 SELECT name, address FROM webusers2 LIMIT 1;
 ```
 
@@ -57,7 +57,7 @@ returns:
 
 Here we see that for some complex elements such as _address_, which is a Json object containing values and objects, CONNECT by default has just listed their texts separated by blanks. But it is possible to ask it to analyze in more depth the json result by adding the DEPTH option. For instance:
 
-```
+```sql
 CREATE OR REPLACE TABLE webusers
 ENGINE=CONNECT DEFAULT CHARSET=utf8
 TABLE_TYPE=JSON FILE_NAME='users.json'
@@ -67,7 +67,7 @@ OPTION_LIST='Depth=2';
 
 Then the table are created as:
 
-```
+```sql
 CREATE TABLE `webusers3` (
   `id` BIGINT(2) NOT NULL,
   `name` CHAR(24) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `webusers3` (
 
 Allowing one to get all the values of the Json result, for example:
 
-```
+```sql
 SELECT name, address_city city, company_name company FROM webusers3;
 ```
 

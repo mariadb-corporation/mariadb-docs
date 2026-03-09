@@ -7,7 +7,7 @@ The most recent [MariaDB Galera Cluster 10.0](https://github.com/mariadb-corpora
 **Release date:** 1 Jul 2016
 
 MariaDB Galera Cluster 10.0.26 is a [_**Stable**_](../../../about/release-criteria.md) (GA)\
-release. It is a merge of [MariaDB 10.0.26](../../release-notes-mariadb-10-0-series/mariadb-10026-release-notes.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
+release. It is a merge of [MariaDB 10.0.26](../../10.0/10.0.26.md) and [Galera Cluster](https://codership.com/content/using-galera-cluster) with\
 additional bug fixes.
 
 Various articles about MariaDB Galera Cluster, including [known limitations](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/mariadb-galera-cluster-known-limitations) and [how to get started](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster) are\

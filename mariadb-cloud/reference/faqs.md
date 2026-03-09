@@ -39,6 +39,16 @@ MariaDB Cloud is primarily designed for online applications and offers two topol
 * Replicated: Useful for mission-critical, production workloads requiring read scaling. Replicated services feature 1 primary and up to 4 replicas and uses MariaDB MaxScale for load balancing and automatic zero-interruption failover.
 * Single Node: Useful for low-cost development and test transactional workloads. Single Node services cannot be scaled to Replicated topologies.
 
+### Does MariaDB Cloud support synchronous replication?
+
+Yes. For workloads requiring strict data consistency and zero data loss failover, [MariaDB Cloud offers MariaDB Enterprise Cluster](../quickstart/enterprise-cluster.md). Unlike standard replicated topologies that use asynchronous or semi-synchronous replication, Enterprise Clusters utilize synchronous write-set certification, ensuring transactions are committed across all nodes simultaneously.
+
+{% hint style="warning" %}
+**Tech Preview Advisory:**
+
+MariaDB Enterprise Cluster is currently available as a _Tech Preview_ and are exclusively available on the PowerPlus tier. During this phase, [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) routes all write traffic to a single active writer node to ensure maximum stability.
+{% endhint %}
+
 ### What options are available for scaling and right-sizing MariaDB Cloud?
 
 You can choose [topologies](../high-availability-dr/ha-and-replicated-topology.md) to match your workload requirements, cloud regions to match your latency and operating requirements, instance sizes, and [support plan](/broken/pages/mrlrXCY7fpHqI35WY9j7).

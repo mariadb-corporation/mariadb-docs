@@ -1,12 +1,12 @@
 # MariaDB 10.3.3 Changelog
 
-The most recent release of [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/release-notes-mariadb-10-3-series/mariadb-10-3-39-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
+The most recent release of [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) is:[**MariaDB 10.3.39**](../../old-releases/10.3/10.3.39.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.3.39/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.3.3)[Release Notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes.md)[Changelog](mariadb-1033-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
+[Download](https://downloads.mariadb.org/mariadb/10.3.3)[Release Notes](../../old-releases/10.3/10.3.3.md)[Changelog](mariadb-1033-changelog.md)[Overview of 10.3](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103)
 
 **Release date:** 23 Dec 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-3-series/mariadb-1033-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.3/10.3.3.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.3) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -412,7 +412,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-12837](https://jira.mariadb.org/browse/MDEV-12837): WSREP: BF lock wait long
 * [Revision #3eaca005ff](https://github.com/MariaDB/server/commit/3eaca005ff)\
   2017-12-05 17:05:05 +0200
-  * Ensure that mysqladmin also works with [MariaDB 10.3](../../old-releases/release-notes-mariadb-10-3-series/what-is-mariadb-103.md) + more
+  * Ensure that mysqladmin also works with [MariaDB 10.3](../../old-releases/10.3/what-is-mariadb-103.md) + more
 * [Revision #a61fbf87ed](https://github.com/MariaDB/server/commit/a61fbf87ed)\
   2017-12-08 09:44:53 +0400
   * Adding the -Wnon-virtual-dtor GCC/CLang flag in maintainer mode
@@ -878,7 +878,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Post-merge fixes for [MDEV-12172](https://jira.mariadb.org/browse/MDEV-12172), [MDEV-12176](https://jira.mariadb.org/browse/MDEV-12176).
 * [Revision #9ada5a3c1a](https://github.com/MariaDB/server/commit/9ada5a3c1a)\
   2017-11-02 22:28:04 +0400
-  * Cleanup tests for [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * Cleanup tests for [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #3a9b7f4ecd](https://github.com/MariaDB/server/commit/3a9b7f4ecd)\
   2017-11-02 17:49:36 +0400
   * A cleanup for [MDEV-12172](https://jira.mariadb.org/browse/MDEV-12172): Fixing "mtr --suite=compat/oracle" test failures
@@ -1056,7 +1056,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-11153](https://jira.mariadb.org/browse/MDEV-11153) - Introduce status variables for table cache monitoring and tuning
 * [Revision #5d3ed9acdd](https://github.com/MariaDB/server/commit/5d3ed9acdd)\
   2017-10-31 13:00:20 +0400
-  * (Part#2) [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * (Part#2) [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * Merge [Revision #835cbbcc7b](https://github.com/MariaDB/server/commit/835cbbcc7b) 2017-10-30 20:47:39 +0400 - Merge remote-tracking branch 'origin/bb-10.2-ext' into 10.3
 * Merge [Revision #003cb2f424](https://github.com/MariaDB/server/commit/003cb2f424) 2017-10-30 16:42:46 +0400 - Merge remote-tracking branch 'origin/10.2' into bb-10.2-ext
 * [Revision #84ed288f68](https://github.com/MariaDB/server/commit/84ed288f68)\

@@ -1,16 +1,16 @@
 # MariaDB 5.2.13 Changelog
 
-[Download](https://downloads.askmonty.org/mariadb/5.2.13) | [Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5213-release-notes.md) | **Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://downloads.askmonty.org/mariadb/5.2.13) | [Release Notes](../../old-releases/5.2/5.2.13.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 29 Nov 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5213-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.13.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 
 * [Revision #3188](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3188) \[merge]\
   Tue 2012-11-20 13:40:13 +0100
-  * Merge [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)->5.2.
+  * Merge [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2.
   * [Revision #2643.137.29](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.137.29)\
     Tue 2012-11-20 13:28:53 +0100
     * [MDEV-3861](https://jira.mariadb.org/browse/MDEV-3861): assertions in TC\_LOG\_MMAP.
@@ -49,7 +49,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
     * Updated test results after the mysql 5.1 merge.
 * [Revision #3182](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3182) \[merge]\
   Thu 2012-11-08 15:24:35 +0200
-  * Merge [MariaDB 5.1.66](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5166-release-notes.md) -> 5.2.12
+  * Merge [MariaDB 5.1.66](../../old-releases/5.1/5.1.66.md) -> 5.2.12
   * [Revision #2643.137.22](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.137.22) \[merge]\
     Tue 2012-11-06 11:52:55 +0200
     * Merge MySQL 5.1.66 -> MariaDB 5.1.65
@@ -182,7 +182,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
       * Raise version number after cloning 5.1.65
   * [Revision #2643.137.21](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.137.21) \[merge]\
     Thu 2012-11-01 16:20:09 +0100
-    * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md).
+    * Merge XtraDB from Percona-Server 5.1.66-rel14.1 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md).
     * [Revision #0.6.48](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/0.6.48)\
       Thu 2012-11-01 15:16:42 +0100
       * Updated with changes from Percona Server 5.1.66-rel14.1 tarball.
@@ -473,7 +473,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * Fixed bug [MDEV-360](https://jira.mariadb.org/browse/MDEV-360). The bug was the result of the incomplete fix for bug lp bug 1008293.
 * [Revision #3161](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3161)\
   Mon 2012-06-18 22:32:17 -0700
-  * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354). Virtual columns of ENUM and SET data types were not supported properly in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md). The problem was that for any virtual column the patch used the interval\_id field of the definition of the column in the frm file as a reference to the virtual column expression. The fix stores the optional interval\_id of the virtual column in the extended header of the virtual column expression.
+  * Fixed bug [MDEV-354](https://jira.mariadb.org/browse/MDEV-354). Virtual columns of ENUM and SET data types were not supported properly in the original patch that introduced virtual columns into [MariaDB 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md). The problem was that for any virtual column the patch used the interval\_id field of the definition of the column in the frm file as a reference to the virtual column expression. The fix stores the optional interval\_id of the virtual column in the extended header of the virtual column expression.
 * [Revision #3160](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3160)\
   Tue 2012-06-12 10:06:26 -0700
   * Adjusted results in pbxt.negation\_elimination after the fix for lp bug 992380.
@@ -695,7 +695,7 @@ The revision number links will take you to the revision's page on Launchpad. On 
   * Merge 5.2->5.3
   * [Revision #2643.137.6](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.137.6)\
     Sat 2012-05-12 11:53:14 +0400
-    * BUG#997747: Assertion \`join->best\_read < ((double)1.79..5e+308L)' failed in greedy\_search with LEFT JOINs and unique keys - Backport the fix for BUG#806524 from [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+    * BUG#997747: Assertion \`join->best\_read < ((double)1.79..5e+308L)' failed in greedy\_search with LEFT JOINs and unique keys - Backport the fix for BUG#806524 from [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
 * [Revision #3150](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/3150)\
   Fri 2012-05-11 09:35:46 +0300
   * fix for LP bug#994392

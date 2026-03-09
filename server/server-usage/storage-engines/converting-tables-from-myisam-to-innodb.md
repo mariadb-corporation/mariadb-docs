@@ -133,7 +133,7 @@ bytes are in the record, the rest is in some other block. So, it may (or may\
 not) be worth putting the tables back together. Caution: An InnoDB row is\
 limited to 8KB, and the 767 counts against that.
 
-_Fact._ FULLTEXT (prior to [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/mariadb-1005-release-notes)) and SPATIAL indexes are not available in InnoDB. Note that MyISAM and InnoDB [FULLTEXT indexes](../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/) use different [stopword](../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/full-text-index-stopwords.md) lists and different system variables.
+_Fact._ FULLTEXT (prior to [MariaDB 10.0.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.5)) and SPATIAL indexes are not available in InnoDB. Note that MyISAM and InnoDB [FULLTEXT indexes](../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/) use different [stopword](../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/full-text-index-stopwords.md) lists and different system variables.
 
 _Recommendation._ Search for such indexes. Keep such tables in MyISAM.\
 Better yet, do Vertical Partitioning (see above) to split out the minimum\
@@ -209,11 +209,11 @@ InnoDB has essentially no need for CHECK, OPTIMIZE, or ANALYZE. Remove them\
 from your maintenance scripts. (No real harm if you keep them.)
 
 Backup scripts may need checking. A MyISAM table can be backed up by copying\
-three files. With InnoDB this is only possible if [innodb\_file\_per\_table](innodb/innodb-system-variables.md) is set to 1. Before [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0),\
+three files. With InnoDB this is only possible if [innodb\_file\_per\_table](innodb/innodb-system-variables.md) is set to 1. Before [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0),\
 capturing a table or database for copying from production to a development\
-environment was not possible. Change to [mysqldump](../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md). Since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0) a hot copy can be created - see [Backup and restore overview](../backup-and-restore/backup-and-restore-overview.md).
+environment was not possible. Change to [mysqldump](../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md). Since [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0) a hot copy can be created - see [Backup and restore overview](../backup-and-restore/backup-and-restore-overview.md).
 
-Before [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5), the DATA DIRECTORY [table option](../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) was not supported for InnoDB. Since [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) it is supported, but only in CREATE TABLE. INDEX DIRECTORY has no effect, since InnoDB does not use separate files for indexes. To better balance the workload through several disks, the paths of some InnoDB log files can also be changed.
+Before [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), the DATA DIRECTORY [table option](../../reference/sql-statements/data-definition/create/create-table.md#data-directory-index-directory) was not supported for InnoDB. Since [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) it is supported, but only in CREATE TABLE. INDEX DIRECTORY has no effect, since InnoDB does not use separate files for indexes. To better balance the workload through several disks, the paths of some InnoDB log files can also be changed.
 
 Understand autocommit and BEGIN/COMMIT.
 

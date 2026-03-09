@@ -1,10 +1,10 @@
 # MariaDB 5.2.14 Changelog
 
-[Download](https://downloads.mariadb.org/mariadb/5.2.14) | [Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5214-release-notes.md) | **Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://downloads.mariadb.org/mariadb/5.2.14) | [Release Notes](../../old-releases/5.2/5.2.14.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 30 Jan 2013
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-5214-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.14.md).
 
 The revision number links will take you to the revision's page on Launchpad. On Launchpad you can view more details of the revision and view diffs of the code modified in that revision.
 

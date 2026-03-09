@@ -1,12 +1,12 @@
 # MariaDB 10.0.32 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.32)[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10032-release-notes.md)[Changelog](mariadb-10032-changelog.md)[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.32)[Release Notes](../../old-releases/10.0/10.0.32.md)[Changelog](mariadb-10032-changelog.md)[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 7 Aug 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10032-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.32.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.0) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -178,7 +178,7 @@ details of the revision and view diffs of the code modified in that revision.
   * Update MariaDB Foundation sponsors
 * [Revision #1d5a306e38](https://github.com/MariaDB/server/commit/1d5a306e38)\
   2017-06-13 16:20:21 +0300
-  * [MDEV-12873](https://jira.mariadb.org/browse/MDEV-12873) InnoDB SYS\_TABLES.TYPE incompatibility for PAGE\_COMPRESSION in [MariaDB 10.2.2](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1022-release-notes.md) to 10.2.6
+  * [MDEV-12873](https://jira.mariadb.org/browse/MDEV-12873) InnoDB SYS\_TABLES.TYPE incompatibility for PAGE\_COMPRESSION in [MariaDB 10.2.2](../../old-releases/10.2/10.2.2.md) to 10.2.6
 * [Revision #74e4cf70d0](https://github.com/MariaDB/server/commit/74e4cf70d0)\
   2017-06-12 18:43:23 +0000
   * [MDEV-13059](https://jira.mariadb.org/browse/MDEV-13059) XtraDB hangs on Windows due to failing to release block->lock X-latch in innodb\_read\_only mode.

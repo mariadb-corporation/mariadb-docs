@@ -1,10 +1,10 @@
 # MariaDB 5.1.51 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.51) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5151-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.51) | [Release Notes](../../old-releases/5.1/5.1.51.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 19 Nov 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5151-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.51.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\

@@ -21,8 +21,8 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Data Type: `numeric`
 * Default Value: `8192`
 * Range:
-  * > \= [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1047-release-notes): `4096` to `32768` in increments of `1024`
-  * <= [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-4-series/mariadb-1046-release-notes): `1024` to `32768` in increments of `1024`
+  * > \= [MariaDB 10.4.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.7): `4096` to `32768` in increments of `1024`
+  * <= [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6): `1024` to `32768` in increments of `1024`
 
 #### `aria_checkpoint_interval`
 
@@ -46,7 +46,7 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 
 #### `aria_encrypt_tables`
 
-* Description: Enables automatic encryption of all user-created Aria tables that have the [ROW\_FORMAT](../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option set to [PAGE](aria-storage-formats.md#page). See [Data at Rest Encryption](../../../security/securing-mariadb/securing-mariadb-encryption/encryption-data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling Encryption for User-created Tables](../../../security/securing-mariadb/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
+* Description: Enables automatic encryption of all user-created Aria tables that have the [ROW\_FORMAT](../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option set to [PAGE](aria-storage-formats.md#page). See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling Encryption for User-created Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
 * Command line: `aria-encrypt-tables={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -102,7 +102,7 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Dynamic: No
 * Data Type: `string`
 * Default Value: Same as DATADIR
-* Introduced: [MariaDB 10.5.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-10-5-20-release-notes), [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-13-release-notes), [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-3-release-notes) (as a system variable, existed as an option only before that)
+* Introduced: [MariaDB 10.5.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.20), [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-13-release-notes), [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-3-release-notes) (as a system variable, existed as an option only before that)
 
 #### `aria_log_file_size`
 
@@ -195,12 +195,12 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 
 #### `aria_recover`
 
-* Description: `aria_recover` has been renamed to `aria_recover_options` in [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes). See [aria\_recover\_options](aria-system-variables.md#aria_recover_options) for the description.
+* Description: `aria_recover` has been renamed to `aria_recover_options` in [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0). See [aria\_recover\_options](aria-system-variables.md#aria_recover_options) for the description.
 
 #### `aria_recover_options`
 
 * Description: Specifies how corrupted tables should be automatically repaired. More than one option can be specified, for example `FORCE,BACKUP`.
-  * `NORMAL`: Normal automatic repair, the default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes)
+  * `NORMAL`: Normal automatic repair, the default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3)
   * `OFF`: Autorecovery is disabled, the equivalent of not using the option
   * `QUICK`: Does not check rows in the table if there are no delete blocks.
   * `FORCE`: Runs the recovery even if it determines that more than one row from the data file are lost.
@@ -210,10 +210,10 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Dynamic: Yes
 * Data Type: `enumeration`
 * Default Value:
-  * `BACKUP,QUICK` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1024-release-notes))
-  * `NORMAL` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1023-release-notes))
+  * `BACKUP,QUICK` (>= [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.4))
+  * `NORMAL` (<= [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.3))
 * Valid Values: `NORMAL`, `BACKUP`, `FORCE`, `QUICK`, `OFF`
-* Introduced: [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/mariadb-1020-release-notes)
+* Introduced: [MariaDB 10.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.0)
 
 #### `aria_repair_threads`
 

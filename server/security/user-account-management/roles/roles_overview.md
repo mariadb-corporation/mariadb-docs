@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of Role-Based Access Control (RBAC) in MariaDB, which simplifies
+  privilege management by allowing permissions to be grouped into roles and
+  assigned to users.
+---
+
 # Roles Overview
 
 ## Description

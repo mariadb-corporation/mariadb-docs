@@ -1,12 +1,12 @@
 # MariaDB 5.5.24 Changelog
 
-The most recent release in the [MariaDB 5.5](../../old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
+The most recent release in the [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md) series is:[**MariaDB 5.5.68**](../../old-releases/5.5/5.5.68.md) [Download Now](https://downloads.mariadb.org/mariadb/5.5.68/)
 
-[Download](https://downloads.askmonty.org/mariadb/5.5.24) |[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5524-release-notes.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://downloads.askmonty.org/mariadb/5.5.24) |[Release Notes](../../old-releases/5.5/5.5.24.md) |**Changelog** |\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 **Release date:** 31 May 2012
 
-For the highlights of this release, see the[release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5524-release-notes.md).
+For the highlights of this release, see the[release notes](../../old-releases/5.5/5.5.24.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -104,7 +104,7 @@ modified in that revision.
         Sat 2012-05-12 11:53:14 +0400
         * [Bug #997747](https://bugs.launchpad.net/bugs/997747): Assertion \`join->best\_read < ((double)1.79..5e+308L)' failed\
           in greedy\_search with LEFT JOINs and unique keys
-        * Backport the fix for [Bug #806524](https://bugs.launchpad.net/bugs/806524) from [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)
+        * Backport the fix for [Bug #806524](https://bugs.launchpad.net/bugs/806524) from [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)
   * [Revision #2502.546.60](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.60) \[merge]\
     Fri 2012-05-11 11:40:23 +0300
     * Merge 5.2->5.3
@@ -412,7 +412,7 @@ modified in that revision.
         * As part of derived tables redesign, values for VIEW\_ALGORITHM\_MERGE and VIEW\_ALGORITHM\_TMPTABLE have changed from (former values 1 rsp 2 , new values 5 rsp 9).
         * This lead to the problem that views, created with version 5.2 or earlier would not work in all situations (e.g "SHOW CREATE VIEW"), or with mysqldump.
         * The fix is to restore backward compatibility for the from file, and convert algorithm={1,2} in the frm to {5,9} when reading .frm from disk, and store backward compatible values when writing from to disk.
-        * Also allow processing correct processing for "invalid" .frms created with [MariaDB 5.3](../../old-releases/release-notes-mariadb-5-3-series/changes-improvements-in-mariadb-5-3.md)/5.5 GA releases (where algorithm stored in memory matched the one stored in frm).
+        * Also allow processing correct processing for "invalid" .frms created with [MariaDB 5.3](../../old-releases/5.3/changes-improvements-in-mariadb-5-3.md)/5.5 GA releases (where algorithm stored in memory matched the one stored in frm).
     * [Revision #2502.546.46](https://bazaar.launchpad.net/~maria-captains/maria/5.5/revision/2502.546.46)\
       Mon 2012-04-23 09:45:27 +0200
       * [MDEV-207](https://jira.mariadb.org/browse/MDEV-207) Install headers required to build external storage plugins

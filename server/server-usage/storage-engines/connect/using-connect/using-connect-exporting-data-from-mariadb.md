@@ -1,12 +1,8 @@
 ---
-description: The CONNECT storage engine has been deprecated.
+description: The CONNECT storage engine.
 ---
 
 # Using CONNECT - Exporting Data From MariaDB
-
-{% hint style="warning" %}
-This storage engine has been deprecated.
-{% endhint %}
 
 Exporting data from MariaDB is obviously possible with CONNECT in particular for all formats not supported by the [SELECT INTO OUTFILE](../../../../reference/sql-statements/data-manipulation/selecting-data/select-into-outfile.md) statement. Let us consider the query:
 

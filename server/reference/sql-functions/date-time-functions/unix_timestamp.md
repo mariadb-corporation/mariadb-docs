@@ -15,9 +15,7 @@ UNIX_TIMESTAMP(date)
 
 ## Description
 
-If called with no argument, returns a Unix timestamp (seconds since `1970-01-01 00:00:00` [UTC](../../data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)) as an unsigned integer. If `UNIX_TIMESTAMP()`\
-is called with a date argument, it returns the value of the argument as seconds since `1970-01-01 00:00:00` UTC. date may be a [DATE](../../data-types/date-and-time-data-types/date.md) string, a [DATETIME](../../data-types/date-and-time-data-types/datetime.md) string, a [TIMESTAMP](timestamp-function.md), or a number in\
-the format `YYMMDD` or `YYYYMMDD`. The server interprets date as a value in the current [time zone](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md) and converts it to an internal value in [UTC](../../data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md). Clients can set their time zone as described in [time zones](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md).
+If called with no argument, returns a Unix timestamp (seconds since `1970-01-01 00:00:00` [UTC](../../data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md)) as an unsigned integer. If `UNIX_TIMESTAMP()` is called with a date argument, it returns the value of the argument as seconds since `1970-01-01 00:00:00` UTC. date may be a [DATE](../../data-types/date-and-time-data-types/date.md) string, a [DATETIME](../../data-types/date-and-time-data-types/datetime.md) string, a [TIMESTAMP](timestamp-function.md), or a number in the format `YYMMDD` or `YYYYMMDD`. The server interprets date as a value in the current [time zone](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md) and converts it to an internal value in [UTC](../../data-types/string-data-types/character-sets/internationalization-and-localization/coordinated-universal-time.md). Clients can set their time zone as described in [time zones](../../data-types/string-data-types/character-sets/internationalization-and-localization/time-zones.md).
 
 The inverse function of `UNIX_TIMESTAMP()` is [FROM\_UNIXTIME()](from_unixtime.md)
 
@@ -25,11 +23,11 @@ The inverse function of `UNIX_TIMESTAMP()` is [FROM\_UNIXTIME()](from_unixtime.m
 
 {% tabs %}
 {% tab title="Current" %}
-Timestamps in MariaDB have a maximum value of 4294967295, equivalent to `2106-02-07 06:28:15`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in `NULL` being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
+Timestamps in MariaDB have a maximum value of `4294967295`, equivalent to `2106-02-07 06:28:15`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in `NULL` being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 
 {% tab title="< 11.5" %}
-Timestamps in MariaDB have a maximum value of 2147483647, equivalent to `2038-01-19 05:14:07`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in `NULL` being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
+Timestamps in MariaDB have a maximum value of `2147483647`, equivalent to `2038-01-19 05:14:07`. This is due to the underlying 32-bit limitation. Using the function on a timestamp beyond this will result in `NULL` being returned. Use [DATETIME](../../data-types/date-and-time-data-types/datetime.md) as a storage type if you require dates beyond this.
 {% endtab %}
 {% endtabs %}
 

@@ -1,14 +1,14 @@
 # MariaDB 10.1.15 Changelog
 
-**MariaDB-10.1.15 was never released,** [**MariaDB 10.1.16**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10116-release-notes.md) **is the release that followed** [**MariaDB 10.1.14**](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-15-release-notes)**.**
+**MariaDB-10.1.15 was never released,** [**MariaDB 10.1.16**](../../old-releases/10.1/10.1.16.md) **is the release that followed** [**MariaDB 10.1.14**](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10-1-15-release-notes)**.**
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.15)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10115-release-notes.md)[Changelog](mariadb-10115-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.15)[Release Notes](../../old-releases/10.1/10.1.15.md)[Changelog](mariadb-10115-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** _unreleased_
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10115-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.15.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more details of the revision and view diffs of the code modified in that revision.
 

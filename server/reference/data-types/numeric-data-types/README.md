@@ -1,7 +1,8 @@
 ---
 description: >-
-  Store numerical data efficiently. This section details integer, fixed-point,
-  and floating-point types like INT, DECIMAL, and FLOAT.
+  Complete numeric types reference: INT/BIGINT ranges, DECIMAL(M,D)
+  precision/scale, FLOAT/DOUBLE storage sizes, and numeric type selection
+  guidelines.
 ---
 
 # Numeric Data Types

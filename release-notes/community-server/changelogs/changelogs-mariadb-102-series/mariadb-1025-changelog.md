@@ -1,12 +1,12 @@
 # MariaDB 10.2.5 Changelog
 
-The most recent release of [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/release-notes-mariadb-10-2-series/mariadb-10244-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
+The most recent release of [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) is:[**MariaDB 10.2.44**](../../old-releases/10.2/10.2.44.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.2.44/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.2.5)[Release Notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1025-release-notes.md)[Changelog](mariadb-1025-changelog.md)[Overview of 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md)
+[Download](https://downloads.mariadb.org/mariadb/10.2.5)[Release Notes](../../old-releases/10.2/10.2.5.md)[Changelog](mariadb-1025-changelog.md)[Overview of 10.2](../../old-releases/10.2/what-is-mariadb-102.md)
 
 **Release date:** 5 Apr 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-2-series/mariadb-1025-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.2/10.2.5.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.2) you can view more details of the revision and view diffs of the code modified in that revision.
 
@@ -872,7 +872,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11707](https://jira.mariadb.org/browse/MDEV-11707): Fix incorrect memset() for structures containing
 * [Revision #ddf2fac733](https://github.com/MariaDB/server/commit/ddf2fac733)\
   2017-02-06 10:47:55 +0200
-  * [MDEV-11759](https://jira.mariadb.org/browse/MDEV-11759): Encryption code in [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)/10.2 causes
+  * [MDEV-11759](https://jira.mariadb.org/browse/MDEV-11759): Encryption code in [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)/10.2 causes
 * [Revision #9ec8500998](https://github.com/MariaDB/server/commit/9ec8500998)\
   2017-03-30 09:25:16 +0200
   * update libmariadb, enable C/C unit tests
@@ -917,7 +917,7 @@ The revision number links will take you to the revision's page on GitHub. On [Gi
   * [MDEV-11703](https://jira.mariadb.org/browse/MDEV-11703) InnoDB background threads show up in the processlist
 * [Revision #98a5ee9d75](https://github.com/MariaDB/server/commit/98a5ee9d75)\
   2017-03-22 15:07:28 +0100
-  * [MDEV-12105](https://jira.mariadb.org/browse/MDEV-12105) MySQL 5.7 and [MariaDB 10.2](../../old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102.md) error codes are out of sync
+  * [MDEV-12105](https://jira.mariadb.org/browse/MDEV-12105) MySQL 5.7 and [MariaDB 10.2](../../old-releases/10.2/what-is-mariadb-102.md) error codes are out of sync
 * [Revision #bf40e8069c](https://github.com/MariaDB/server/commit/bf40e8069c)\
   2017-03-22 14:34:34 +0100
   * [MDEV-11059](https://jira.mariadb.org/browse/MDEV-11059) don't build the server with jemalloc

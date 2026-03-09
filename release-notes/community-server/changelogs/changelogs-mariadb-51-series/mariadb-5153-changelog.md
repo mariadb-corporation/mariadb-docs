@@ -1,10 +1,10 @@
 # MariaDB 5.1.53 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.53) | [Release Notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5153-release-notes.md) | **Changelog** |[Overview of 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.1.53) | [Release Notes](../../old-releases/5.1/5.1.53.md) | **Changelog** |[Overview of 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
 
 **Release date:** 6 Dec 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-1-series/mariadb-5153-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.1/5.1.53.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -117,7 +117,7 @@ modified in that revision.
 * [Revision #2914](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2914)
   * Fix test failure when the mysql-test/ directory is not writable.
 * [Revision #2913](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/2913) \[merge]
-  * Merge XtraDB from Percona-Server 5.1.52-11.6 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)
+  * Merge XtraDB from Percona-Server 5.1.52-11.6 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)
   * revid:oleg.tsarev@percona.com-20101118145125-wjhjrb5jwhi0g7sj
   * [Revision #0.6.44](https://bazaar.launchpad.net/~maria-captains/maria/5.1-release/revision/0.6.44)
     * Updated with changes from lp:percona-server/release-5.1.52-11 as of November 24, 2010

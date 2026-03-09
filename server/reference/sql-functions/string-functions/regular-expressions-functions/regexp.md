@@ -1,7 +1,8 @@
 ---
 description: >-
-  Test if a string matches a regex. This operator returns 1 if the pattern is
-  found in the string, and 0 otherwise.
+  Complete REGEXP operator reference: expr REGEXP/RLIKE pat syntax, 1/0/NULL
+  return values, NOT REGEXP aliases, BINARY case-sensitivity,
+  default_regex_flags.
 ---
 
 # REGEXP

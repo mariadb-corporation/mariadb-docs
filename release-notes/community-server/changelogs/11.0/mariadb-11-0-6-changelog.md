@@ -1,12 +1,12 @@
 # MariaDB 11.0.6 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-6-release-notes.md)[Changelog](mariadb-11-0-6-changelog.md)[Overview of 11.0](../../old-releases/release-notes-mariadb-11-0-series/what-is-mariadb-110.md)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/11.0/11.0.6.md)[Changelog](mariadb-11-0-6-changelog.md)[Overview of 11.0](../../old-releases/11.0/what-is-mariadb-110.md)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/11.0.6/)
 
 **Release date:** 16 May 2024
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-11-0-series/mariadb-11-0-6-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/11.0/11.0.6.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/11.0) you can view more\
 details of the revision and view diffs of the code modified in that revision.

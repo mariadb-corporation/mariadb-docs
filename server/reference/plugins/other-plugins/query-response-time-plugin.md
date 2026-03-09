@@ -251,7 +251,7 @@ It is **not** possible to specify flushing read and/or write statements with the
 ### `query_response_time_exec_time_debug`
 
 * Description: Pretend queries take this many microseconds. When 0 (the default) use the actual execution time.
-  * This system variable is only available when the plugin is a [debug build](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/development-articles/debugging-mariadb/compiling-mariadb-for-debugging).
+  * This system variable is only available when the plugin is a [debug build](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7).
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -267,7 +267,7 @@ It is **not** possible to specify flushing read and/or write statements with the
 * Data Type: `enum`
 * Default Value: `GLOBAL`
 * Valid Values: `GLOBAL`, `ON`, `OFF`
-* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-11-5-rolling-releases/what-is-mariadb-115)
+* Introduced: [MariaDB 11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.5/what-is-mariadb-115)
 
 ### `query_response_time_stats`
 

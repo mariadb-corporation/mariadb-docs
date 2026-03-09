@@ -1,7 +1,7 @@
 ---
 description: >-
-  Define a new table structure. This fundamental command specifies columns, data
-  types, indexes, and storage engine options for storing data.
+  Complete guide to creating tables in MariaDB. Complete CREATE TABLE syntax for
+  data types, constraints, indexes, and storage engines for production use.
 ---
 
 # CREATE TABLE
@@ -494,7 +494,7 @@ Index columns names are listed between parenthesis. After each column, a prefix 
 {% endtab %}
 
 {% tab title="< 11.4 / 10.8" %}
-Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Prior to [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108), this was only for compatibility with other DBMSs, but had no meaning in MariaDB. From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-8-series/what-is-mariadb-108), individual columns in the index can now be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). From [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes), not only ascending, but also descending, indexes can now be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
+Index columns names are listed between parenthesis. After each column, a prefix length can be specified. If no length is specified, the whole column will be indexed. `ASC` and `DESC` can be specified. Prior to [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), this was only for compatibility with other DBMSs, but had no meaning in MariaDB. From [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108), individual columns in the index can now be explicitly sorted in ascending or descending order. This can be useful for optimizing certain ORDER BY cases ([MDEV-13756](https://jira.mariadb.org/browse/MDEV-13756), [MDEV-26938](https://jira.mariadb.org/browse/MDEV-26938), [MDEV-26939](https://jira.mariadb.org/browse/MDEV-26939), [MDEV-26996](https://jira.mariadb.org/browse/MDEV-26996)). From [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes), not only ascending, but also descending, indexes can now be used to optimize [MIN()](../../../sql-functions/aggregate-functions/min.md) and [MAX()](../../../sql-functions/aggregate-functions/max.md) ([MDEV-27576](https://jira.mariadb.org/browse/MDEV-27576)).
 {% endtab %}
 {% endtabs %}
 
@@ -579,7 +579,7 @@ For each individual table you create (or alter), you can set some table options.
 
 The equal sign is optional.
 
-Some options are supported by the server and can be used for all tables, no matter what storage engine they use; other options can be specified for all storage engines, but have a meaning only for some engines. Also, engines can [extend CREATE TABLE with new options](../../../../server-usage/storage-engines/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md).
+Some options are supported by the server and can be used for all tables, no matter what storage engine they use; other options can be specified for all storage engines, but have a meaning only for some engines. Also, engines can [extend CREATE TABLE with new options](../../../product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md).
 
 If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled, wrong table options generate a warning; otherwise, they generate an error.
 
@@ -665,19 +665,19 @@ MyISAM uses `MAX_ROWS` and `AVG_ROW_LENGTH` to decide the maximum size of a tabl
 
 ### ENCRYPTED
 
-The `ENCRYPTED` table option can be used to manually set the encryption status of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
+The `ENCRYPTED` table option can be used to manually set the encryption status of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
 
 Aria does not support the `ENCRYPTED` table option. See [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
 
-See [Data-at-Rest Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/) for more information.
+See [Data-at-Rest Encryption](../../../../security/encryption/data-at-rest-encryption/) for more information.
 
 ### ENCRYPTION\_KEY\_ID
 
-The `ENCRYPTION_KEY_ID` table option can be used to manually set the encryption key of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
+The `ENCRYPTION_KEY_ID` table option can be used to manually set the encryption key of an [InnoDB](../../../../server-usage/storage-engines/innodb/) table. See [InnoDB Encryption](../../../../security/encryption/data-at-rest-encryption/innodb-encryption/) for more information.
 
 Aria does not support the `ENCRYPTION_KEY_ID` table option. See [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049).
 
-See [Data-at-Rest Encryption](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/) for more information.
+See [Data-at-Rest Encryption](../../../../security/encryption/data-at-rest-encryption/) for more information.
 
 ### IETF\_QUOTES
 
@@ -961,7 +961,7 @@ CREATE TABLE t1(
 * [Character Sets and Collations](../../../data-types/string-data-types/character-sets/supported-character-sets-and-collations.md)
 * [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md)
 * [CREATE TABLE with Vectors](../../../sql-structure/vectors/create-table-with-vectors.md)
-* Storage engines can add their own [attributes for columns, indexes and tables](../../../../server-usage/storage-engines/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md)
+* Storage engines can add their own [attributes for columns, indexes and tables](../../../product-development/plugin-development/storage-engines-storage-engine-development/engine-defined-new-tablefieldindex-attributes.md)
 * Variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md)
 * [InnoDB Limitations](../../../../server-usage/storage-engines/innodb/innodb-limitations.md)
 

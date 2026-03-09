@@ -1,8 +1,7 @@
 ---
 description: >-
-  Discover MaxScale, an advanced database proxy for high availability,
-  scalability, and security. Learn how it intelligently routes connections and
-  balances loads for optimal database performance.
+  Complete MariaDB MaxScale guide. Complete resource for intelligent query
+  routing, load balancing, connection pooling, and high availability.
 icon: maximize
 ---
 

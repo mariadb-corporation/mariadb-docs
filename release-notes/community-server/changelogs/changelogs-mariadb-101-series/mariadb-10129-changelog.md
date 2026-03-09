@@ -1,12 +1,12 @@
 # MariaDB 10.1.29 Changelog
 
-The most recent release of [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10148-release-notes.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
+The most recent release of [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md) is:[**MariaDB 10.1.48**](../../old-releases/10.1/10.1.48.md) Stable (GA) [Download Now](https://downloads.mariadb.org/mariadb/10.1.48/)
 
-[Download](https://downloads.mariadb.org/mariadb/10.1.29)[Release Notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10129-release-notes.md)[Changelog](mariadb-10129-changelog.md)[Overview of 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+[Download](https://downloads.mariadb.org/mariadb/10.1.29)[Release Notes](../../old-releases/10.1/10.1.29.md)[Changelog](mariadb-10129-changelog.md)[Overview of 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 
 **Release date:** 14 Nov 2017
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-1-series/mariadb-10129-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.1/10.1.29.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.1) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -217,7 +217,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-13946](https://jira.mariadb.org/browse/MDEV-13946) Server RPMs have dependency on "which"
 * [Revision #9b11956e86](https://github.com/MariaDB/server/commit/9b11956e86)\
   2017-10-06 18:16:46 +0200
-  * [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1.md)
+  * [MDEV-13049](https://jira.mariadb.org/browse/MDEV-13049) Querying INFORMATION\_SCHEMA becomes slow in [MariaDB 10.1](../../old-releases/10.1/changes-improvements-in-mariadb-10-1.md)
 * [Revision #559dec33cc](https://github.com/MariaDB/server/commit/559dec33cc)\
   2017-10-06 19:38:56 +0200
   * cleanup: is\_show\_command(thd)

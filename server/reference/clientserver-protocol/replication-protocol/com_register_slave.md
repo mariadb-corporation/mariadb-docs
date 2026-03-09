@@ -13,19 +13,18 @@ The payload is:
 * [uint<1>](../protocol-data-types.md#fixed-length-bytes) command (`COM_REGISTER_SLAVE` = `0x15`).
 * [uint<4>](../protocol-data-types.md#fixed-length-bytes) Replica server ID.
 * [uint<1>](../protocol-data-types.md#fixed-length-bytes) Replica hostname length.
-* [string](../protocol-data-types.md#fixed-length-bytes) Hostname.
+* [string\<n>](../protocol-data-types.md#fixed-length-bytes) Hostname.
 * [uint<1>](../protocol-data-types.md#fixed-length-bytes) Replica username length.
-* [string](../protocol-data-types.md#fixed-length-bytes) Username.
+* [string\<n>](../protocol-data-types.md#fixed-length-bytes) Username.
 * [uint<1>](../protocol-data-types.md#fixed-length-bytes) Replica password length.
-* [string](../protocol-data-types.md#fixed-length-bytes) Replica password.
+* [string\<n>](../protocol-data-types.md#fixed-length-bytes) Replica password.
 * [uint<2>](../protocol-data-types.md#fixed-length-bytes) Replica connection port.
 * [uint<4>](../protocol-data-types.md#fixed-length-bytes) Replication rank.
 * [uint<4>](../protocol-data-types.md#fixed-length-bytes) Master server ID.
 
 **Note**:
 
-* Replica hostname, replica user, replica password, and replica port are usually not set.\
-  Some replica [replication parameters](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) can be used for such settings (`report_host`, `report_port` etc).
+* Replica hostname, replica user, replica password, and replica port are usually not set. Some replica [replication parameters](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) can be used for such settings (`report_host`, `report_port`, and so forth).
 * Replication rank is not set.
 * Master server ID is not set either.
 

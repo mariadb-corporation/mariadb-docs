@@ -1,12 +1,12 @@
 # MariaDB 10.5.13 Changelog
 
-The most recent release of [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/mariadb-10-5-series/mariadb-10-5-28-release-notes.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
+The most recent release of [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) is:[**MariaDB 10.5.28**](../../old-releases/10.5/10.5.28.md) Stable (GA) [Download Now](https://mariadb.com/downloads/)[_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/10.5.28/)
 
-[Download 10.5.13](https://mariadb.org/download/?tab=mariadb\&release=10.5.13\&product=mariadb)[Release Notes](../../old-releases/mariadb-10-5-series/mariadb-10513-release-notes.md)[Changelog](mariadb-10513-changelog.md)[Overview of 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md)
+[Download 10.5.13](https://mariadb.org/download/?tab=mariadb\&release=10.5.13\&product=mariadb)[Release Notes](../../old-releases/10.5/10.5.13.md)[Changelog](mariadb-10513-changelog.md)[Overview of 10.5](../../old-releases/10.5/what-is-mariadb-105.md)
 
 **Release date:** 8 Nov 2021
 
-For the highlights of this release, see the [release notes](../../old-releases/mariadb-10-5-series/mariadb-10513-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.5/10.5.13.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/10.5) you can view more\
 details of the revision and view diffs of the code modified in that revision.
@@ -224,7 +224,7 @@ details of the revision and view diffs of the code modified in that revision.
   * [MDEV-25684](https://jira.mariadb.org/browse/MDEV-25684) Crash in THD::find\_temporary\_table while calling spider\_direct\_sql UDF without temporary table created
 * [Revision #a1b0f23586](https://github.com/MariaDB/server/commit/a1b0f23586)\
   2021-09-04 17:38:47 +0200
-  * [MDEV-26533](https://jira.mariadb.org/browse/MDEV-26533) [MariaDB 10.5](../../old-releases/mariadb-10-5-series/what-is-mariadb-105.md) crashes with key\_buffer\_size > 4Gb on Windows x64
+  * [MDEV-26533](https://jira.mariadb.org/browse/MDEV-26533) [MariaDB 10.5](../../old-releases/10.5/what-is-mariadb-105.md) crashes with key\_buffer\_size > 4Gb on Windows x64
 * [Revision #e38a05e20a](https://github.com/MariaDB/server/commit/e38a05e20a)\
   2021-09-02 19:41:54 +0200
   * Fix create\_background\_thd()

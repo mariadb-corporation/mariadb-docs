@@ -1,12 +1,12 @@
 # MariaDB 10.0.0 Changelog
 
-The most recent release in the [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/release-notes-mariadb-10-0-series/mariadb-10038-release-notes.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
+The most recent release in the [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md) series is:[**MariaDB 10.0.38**](../../old-releases/10.0/10.0.38.md) [Download Now](https://downloads.mariadb.org/mariadb/10.0.38)
 
-[Download](https://downloads.mariadb.org/mariadb/10.0.0) |[Release Notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1000-release-notes.md) |**Changelog** |[Overview of 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)
+[Download](https://downloads.mariadb.org/mariadb/10.0.0) |[Release Notes](../../old-releases/10.0/10.0.0.md) |**Changelog** |[Overview of 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)
 
 **Release date:** 12 Nov 2012
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-10-0-series/mariadb-1000-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/10.0/10.0.0.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -434,7 +434,7 @@ and
   * Fixed test failures (part of merge)
 * [Revision #3428](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3428)\
   Wed 2012-08-01 17:27:34 +0300
-  * Temporary commit of merge of [MariaDB 10.0](../../old-releases/release-notes-mariadb-10-0-series/changes-improvements-in-mariadb-10-0.md)-base and MySQL 5.6
+  * Temporary commit of merge of [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md)-base and MySQL 5.6
 * [Revision #3427](https://bazaar.launchpad.net/~maria-captains/maria/10.0/revision/3427)\
   Fri 2012-07-06 19:10:18 +0300
   * Fixed wrong error codes from InnoDB/XtraDB that caused %M to give system dependent error messages (for unknown error code)

@@ -1,10 +1,10 @@
 # MariaDB 5.2.4 Changelog
 
-[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.4) | [Release Notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-524-release-notes.md) | **Changelog** |[Overview of 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+[Download](https://askmonty.org/wiki/MariaDB:Download:MariaDB_5.2.4) | [Release Notes](../../old-releases/5.2/5.2.4.md) | **Changelog** |[Overview of 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
 
 **Release date:** 6 Dec 2010
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-2-series/mariadb-524-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.2/5.2.4.md).
 
 The revision number links will take you to the revision's page on Launchpad. On\
 Launchpad you can view more details of the revision and view diffs of the code\
@@ -153,7 +153,7 @@ modified in that revision.
         * [Revision #2643.96.23](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.96.23)
           * Fix test failure when the mysql-test/ directory is not writable.
         * [Revision #2643.96.22](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.96.22) \[merge]
-          * Merge XtraDB from Percona-Server 5.1.52-11.6 into [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)\
+          * Merge XtraDB from Percona-Server 5.1.52-11.6 into [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)\
             revid:oleg.tsarev@percona.com-20101118145125-wjhjrb5jwhi0g7sj
             * [Revision #0.6.44](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/0.6.44)
               * Updated with changes from lp:percona-server/release-5.1.52-11 as of November 24, 2010
@@ -168,11 +168,11 @@ modified in that revision.
 * [Revision #2887](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2887)
   * Use three digits after the decimal point for better resolution and comparability of results.
 * [Revision #2886](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2886) \[merge]
-  * Automerge [mariadb 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md) into [mariadb 5.2](../../old-releases/release-notes-mariadb-5-2-series/changes-improvements-in-mariadb-5-2.md)
+  * Automerge [mariadb 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md) into [mariadb 5.2](../../old-releases/5.2/changes-improvements-in-mariadb-5-2.md)
     * [Revision #2643.105.37](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.37)
     * Fix test failure with OpenSSL due to different error message than in YaSSL.
 * [Revision #2885](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2885) \[merge]
-  * Merge [MariaDB 5.1](../../old-releases/release-notes-mariadb-5-1-series/changes-improvements-in-mariadb-5-1.md)->5.2
+  * Merge [MariaDB 5.1](../../old-releases/5.1/changes-improvements-in-mariadb-5-1.md)->5.2
     * [Revision #2643.105.36](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.36)
       * Fix of the debugging print.
     * [Revision #2643.105.35](https://bazaar.launchpad.net/~maria-captains/maria/5.2/revision/2643.105.35)

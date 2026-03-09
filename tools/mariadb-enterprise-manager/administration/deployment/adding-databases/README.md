@@ -1,7 +1,13 @@
+---
+description: >-
+  Guide to registering database topologies in the UI and using the integrated
+  helper tool to generate setup commands for installing monitoring agents.
+---
+
 # Adding Databases
 
 {% hint style="warning" %}
-To install `mema-agent`, you need to setup [MariaDB Enterprise Repository - "MariaDB Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#repositories)
+To install `mema-agent`, you need to setup [MariaDB Enterprise Repository - "MariaDB Enterprise Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#repositories)
 {% endhint %}
 
 This guide outlines the two primary methods for registering and monitoring your database topologies in MariaDB Enterprise Manager: adding a standalone server directly or adding a full topology via its MaxScale instance.

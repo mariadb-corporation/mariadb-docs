@@ -1,12 +1,12 @@
 # MariaDB 5.5.68 Changelog
 
-[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md)[Changelog](mariadb-5568-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
+[Download](https://mariadb.com/downloads/)[Release Notes](../../old-releases/5.5/5.5.68.md)[Changelog](mariadb-5568-changelog.md)\[[Overview of 5.5](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/changes-improvements-in-mariadb-5-5)
 
 [_Alternate download from mariadb.org_](https://downloads.mariadb.org/mariadb/5.5.68/)
 
 **Release date:** 12 May 2020
 
-For the highlights of this release, see the [release notes](../../old-releases/release-notes-mariadb-5-5-series/mariadb-5568-release-notes.md).
+For the highlights of this release, see the [release notes](../../old-releases/5.5/5.5.68.md).
 
 The revision number links will take you to the revision's page on GitHub. On [GitHub](https://github.com/MariaDB/server/tree/5.5) you can view more details\
 of the revision and view diffs of the code modified in that revision.
