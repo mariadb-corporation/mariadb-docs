@@ -1160,6 +1160,8 @@ dbserver01
 
 If any additional text or unwanted output appears in the output (from `.bashrc`, `/etc/profile`, or any custom login scripts), the async rebuild server operation may fail without providing a clear descriptive error message.&#x20;
 
+**Rebuild Operation Steps**
+
 When launched, the rebuild operation proceeds as below. If any step fails, the operation is stopped and the target server will be left in an unspecified state.
 
 1. Log in to both servers with ssh and check that the tools listed above are present (e.g. `mariadb-backup -v` should succeed).
