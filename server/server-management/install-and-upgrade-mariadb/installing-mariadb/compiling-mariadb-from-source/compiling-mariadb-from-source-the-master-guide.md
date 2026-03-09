@@ -32,7 +32,11 @@ Decide whether you need the latest development branch or a specific stable relea
     ```
 *   Option B: Source Tarball (Best for Stability)
 
-    Download the `.tar.gz` from the [official MariaDB downloads](https://mariadb.org/download/) and extract it.
+    Download the `.tar.gz` from the [official MariaDB downloads](https://mariadb.org/download/) and extract it:
+* ```bash
+  tar -xf mariadb-11.4.x.tar.gz
+  cd mariadb-11.4.x
+  ```
 {% endstep %}
 
 {% step %}
@@ -55,9 +59,33 @@ MariaDB uses out-of-source builds to keep the source tree clean. This is where y
 
 Once configured, use the CMake build tool to compile the binaries. Using the `-j` flag speeds this up by using multiple CPU cores.
 
+{% tabs %}
+{% tab title="Linux" %}
 ```bash
 cmake --build . --parallel $(nproc)
 ```
+{% endtab %}
+
+{% tab title="macOS" %}
+{% code overflow="wrap" %}
+```bash
+cmake --build . --parallel $(sysctl -n hw.logicalcpu)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Universal" %}
+For CMake 3.13+, run this:
+
+{% code overflow="wrap" %}
+```bash
+cmake --build . --parallel 
+```
+{% endcode %}
+
+Without a number, modern CMake automatically picks an appropriate number of jobs.
+{% endtab %}
+{% endtabs %}
 {% endstep %}
 
 {% step %}
@@ -67,11 +95,14 @@ After a successful build, you must prepare the data directory and system tables 
 
 1. Install: `sudo cmake --install .` (or run directly from the build directory for testing).
 2. Create Data Directory: Ensure the `mysql` user exists and has permissions.
-3.  Initialize System Tables:
+3. Initialize System Tables.
+   1. If running from the build directory:\
+      ./scripts/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+   2.  If you installed to the system:
 
-    ```bash
-    ./scripts/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
-    ```
+       ```bash
+       mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+       ```
 {% endstep %}
 
 {% step %}
@@ -118,7 +149,7 @@ While your operating system's default repositories contain many build tools, the
 
 Use the [MariaDB Repository Configuration Tool](../binary-packages/mariadb-package-repository-setup-and-usage.md) to generate the setup commands for your specific operating system and desired MariaDB version.
 
-Example for Ubuntu 24.04 and MariaDB 11.8:
+Example for Ubuntu 24.04 and MariaDB 11.8 (don't copy this blindly – the example uses the 11.8 release and a specific mirror; adjust these strings based on the output of the Repository Configuration Tool):
 
 ```bash
 sudo apt-get install software-properties-common dirmngr
