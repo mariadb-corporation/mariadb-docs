@@ -44,7 +44,7 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 * Backup Management: Take, restore, and schedule backups with multiple storage types supported: S3, Azure Blob Storage, PVCs, Kubernetes volumes and VolumeSnapshots..
 * Policy-Driven Backup Retention: Implement backup retention policies with bzip2 and gzip compression.
 * Bootstrap New Instances: Initialize new MariaDB instances from backups, S3, Azure Blob Storage, PVCs or VolumeSnapshots to quickly spin up new clusters.
-* Point-In-Time-Recovery: Archive binary logs to enable point-in-time restorations and to minimize RPO.
+* Point-In-Time-Recovery: Archive binary logs to enable point-in-time restoration and significantly reduce RPO.
 * TLS Certificate Management: Issue, configure, and rotate TLS certificates and Certificate Authorities (CAs) for secure connections.
 * Advanced TLS Support: customize certificate lifetime, private key algorithm and TLS version.
 * Native Integration with cert-manager: Leverage [cert-manager](https://cert-manager.io/docs/), the de-facto standard for managing certificates in Kubernetes, to enable issuance with private CAs, public CAs and HashiCorp Vault.
