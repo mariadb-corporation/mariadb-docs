@@ -33,10 +33,11 @@ Decide whether you need the latest development branch or a specific stable relea
 *   Option B: Source Tarball (Best for Stability)
 
     Download the `.tar.gz` from the [official MariaDB downloads](https://mariadb.org/download/) and extract it:
-* ```bash
-  tar -xf mariadb-11.4.x.tar.gz
-  cd mariadb-11.4.x
-  ```
+
+    ```bash
+    tar -xf mariadb-11.4.x.tar.gz
+    cd mariadb-11.4.x
+    ```
 {% endstep %}
 
 {% step %}
@@ -45,7 +46,7 @@ Decide whether you need the latest development branch or a specific stable relea
 MariaDB uses out-of-source builds to keep the source tree clean. This is where you define installation paths and features.
 
 1. Create a build directory: `mkdir build && cd build`
-2.  Run CMake:
+2. Run CMake:
 
     ```bash
     cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
@@ -96,8 +97,11 @@ After a successful build, you must prepare the data directory and system tables 
 1. Install: `sudo cmake --install .` (or run directly from the build directory for testing).
 2. Create Data Directory: Ensure the `mysql` user exists and has permissions.
 3. Initialize System Tables.
-   1. If running from the build directory:\
+   1. If running from the build directory:
+      
+      ```bash
       ./scripts/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+      ```
    2.  If you installed to the system:
 
        ```bash
