@@ -16,10 +16,7 @@ This guide provides the universal workflow for building MariaDB Server from sour
 {% step %}
 ### Prepare Your Environment
 
-Before you begin, your system must have the necessary compilers, build tools, and library headers.
-
-* Core Requirements: You need `git`, `cmake`, `bison`, and a C++ compiler (GCC or Clang).
-* Platform Dependencies: For specific `apt`, `dnf`, or `brew` commands for your OS, see the \[System Dependencies Reference] (Placeholder).
+Before you begin, your system must have the necessary compilers, build tools, and library headers. For details, see [Install Build Dependencies](compiling-mariadb-from-source-the-master-guide.md#prepare-your-environment-install-build-dependencies).
 {% endstep %}
 
 {% step %}
@@ -98,6 +95,166 @@ Launch the server and check that it is responsive.
 | 3        | Configure Features  | `cmake`                |
 | 4        | Compile Binaries    | `cmake --build`        |
 | 5        | Initialize Database | `mariadb-install-db`   |
+
+## Prepare Your Environment: Install Build Dependencies
+
+Here are the details of the [Prepare Your Environment](compiling-mariadb-from-source-the-master-guide.md#prepare-your-environment) step.
+
+To compile MariaDB, you need a set of core build tools and development headers for various libraries.
+
+### Setting up the MariaDB Source Repository
+
+{% hint style="info" %}
+Setting up the MariaDB source repository is optional but recommended. If you want to build the MariaDB version that comes with your operating system, you can skip this subsection, though.
+{% endhint %}
+
+Adding the MariaDB Repository Tool into the workflow ensures that you are getting the dependencies specifically tailored for the version of MariaDB you want to build (for instance, 11.8), rather than whatever outdated version happens to be in your operating system's default upstream repository.
+
+#### Using the MariaDB Repository Tool
+
+While your operating system's default repositories contain many build tools, they may lack the specific library versions required for the latest MariaDB releases. Using the MariaDB Repository Tool ensures your environment is perfectly synced with the version you intend to build.
+
+**1. Configure the Repository**
+
+Use the [MariaDB Repository Configuration Tool](../binary-packages/mariadb-package-repository-setup-and-usage.md) to generate the setup commands for your specific operating system and desired MariaDB version.
+
+Example for Ubuntu 24.04 and MariaDB 11.8:
+
+```bash
+sudo apt-get install software-properties-common dirmngr
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+sudo add-apt-repository --update --yes --enable-source \
+'deb [arch=amd64] https://mirrors.xtom.com/mariadb/repo/11.8/ubuntu noble main'
+```
+
+**2. Install Tailored Dependencies**
+
+Once the repository is active and the `source` lines are enabled, you can use the package manager to pull exactly what that specific MariaDB version requires:
+
+{% tabs %}
+{% tab title="Ubuntu / Debian" %}
+```bash
+sudo apt-get build-dep mariadb-11.8  # Replace with your target version
+```
+{% endtab %}
+
+{% tab title="RHEL / CentOS / Fedora" %}
+```bash
+sudo dnf builddep mariadb-server
+```
+{% endtab %}
+{% endtabs %}
+
+**Advantages of Using the Repository Tool**
+
+1. Version Accuracy: If MariaDB 11.x requires a newer `libssl` or `zstd` than what your operating system provides by default, the MariaDB repo often provides the correct headers.
+2. Completeness: It automatically handles the "Source Repositories" issue because the `add-apt-repository` command includes the `--enable-source` flag by default.
+3. Automation: It reduces the "Manual Package Table" from a primary task to a fallback for users who cannot or will not add external repositories.
+
+### **The "Shortcut" Command**
+
+Most Linux distributions allow you to install all necessary dependencies for the "official" build with a single command.
+
+This requires that "source repositories" are enabled in your package manager. Enable them like this:
+
+{% tabs %}
+{% tab title="Ubuntu" %}
+Run this command:
+
+{% code overflow="wrap" %}
+```bash
+sudo add-apt-repository --update --yes --enable-source
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Debian" %}
+Edit `/etc/apt/sources.list` and uncomment lines starting with `deb-src`.
+{% endtab %}
+
+{% tab title="RHEL / Alma" %}
+Run `dnf config-manager --set-enabled baseos-source appstream-source` .
+{% endtab %}
+
+{% tab title="Fedora" %}
+Source repos are usually enabled by default, but check `dnf repolist` to verify.
+{% endtab %}
+{% endtabs %}
+
+The shortcut command itself varies by operating system:
+
+{% tabs %}
+{% tab title="Ubuntu / Debian" %}
+`sudo apt build-dep mariadb-server`
+{% endtab %}
+
+{% tab title="RHEL / CentOS / Fedora" %}
+`sudo dnf builddep mariadb` (or `yum-builddep mariadb-server`)
+{% endtab %}
+
+{% tab title="SLES / openSUSE" %}
+`sudo zypper source-install -d mariadb`
+{% endtab %}
+{% endtabs %}
+
+### **Manual Package Table**
+
+If you are building a specific version or don't want to use the shortcut, use the list below to install the mandatory packages.
+
+{% tabs %}
+{% tab title="Ubuntu / Debian" %}
+Use `apt` to install these tools:
+
+* Build tools: `build-essential git cmake`
+* Parser tools: `bison flex`
+* Terminal/UI: `libncurses-dev`
+* Security/SSL: `libssl-dev` or `gnutls-dev`
+* Compression: `zlib1g-dev`
+* Miscellaneous headers: `libaio-dev libboost-all-dev`
+{% endtab %}
+
+{% tab title="RHEL / CentOS / Fedora" %}
+Use `dnf` (or `yum`) to install these tools:
+
+* Build tools: `gcc-c++ git cmake`
+* Parser tools: `bison flex`
+* Terminal/UI: `ncurses-devel`
+* Security/SSL: `openssl-devel`
+* Compression: `zlib-devel`
+* Miscellaneous headers: `libaio-devel boost-devel`
+{% endtab %}
+
+{% tab title="macOS" %}
+Use `brew` to install these tools:
+
+* Build tools: `cmake git`
+* Parser tools: `bison flex`
+* Terminal/UI: `ncurses`
+* Security/SSL: `openssl`
+* Compression: `zlib`
+* Miscellaneous headers: `boost`&#x20;
+
+The system-provided version of `bison` on macOS is often too old. After running `brew install bison`, you may need to add it to your `PATH`:
+
+{% code overflow="wrap" %}
+```bash
+export PATH="/opt/homebrew/opt/bison/bin:$PATH"
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+### **Optional Dependencies (Plugins & Features)**
+
+If you plan to enable specific storage engines or features, install these additional packages:
+
+| **Feature**       | **Dependency**      | **Package Name (Generic)**                                                     |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------ |
+| S3 Storage Engine | `libcurl`           | `libcurl-devel` / `libcurl4-openssl-dev`                                       |
+| GSSAPI (Kerberos) | `krb5`              | `krb5-devel` / `libkrb5-dev`                                                   |
+| RocksDB / MyRocks | `snappy, lz4, zstd` | <p><code>snappy-devel, lz4-devel,</code> </p><p><code>libzstd-devel</code></p> |
+| Systemd Support   | `systemd`           | `systemd-devel` / `libsystemd-dev`                                             |
+| Authentication    | `pam`               | `pam-devel` / `libpam0g-dev`                                                   |
 
 ## Pro-Tip: The "Quick Way"
 
