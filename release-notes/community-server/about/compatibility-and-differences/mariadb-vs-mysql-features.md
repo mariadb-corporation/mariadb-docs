@@ -1,8 +1,16 @@
+---
+description: >-
+  Compare MariaDB vs. MySQL features. Learn about exclusive storage engines,
+  speed enhancements and binary compatibility.
+---
+
 # MariaDB versus MySQL - Features
 
-MariaDB Corporation has a [**MariaDB vs MySQL**](https://mariadb.com/resources/guides-whitepapers/MariaDB-vs-MySQL) white paper available for download.
+
 
 See also [**MariaDB vs MySQL - Compatibility**](mariadb-vs-mysql-compatibility.md)
+
+{% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/QK7HxXmqdFLVlavgl87n/" %}
 
 #### Differences Per Release
 
