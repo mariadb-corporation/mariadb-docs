@@ -1139,6 +1139,27 @@ mariadb-backup needs server credentials to log in and authenticate to the MariaD
 
 The rebuild server-operation replaces the contents of a database server with the contents of another server. The source server is effectively cloned and all data on the target server is lost. This is useful when a replica server has diverged from the primary server, or when adding a new server to the cluster. MaxScale performs this operation by running mariadb-backup on both the source and target servers.
 
+**Verify SSH Connectivity**
+
+The async rebuild server operation requires SSH to be correctly configured between the MaxScale host and all the database servers. \
+Before starting a rebuild operation, it is important to ensure that MaxScale can interact with the database servers over SSH without generating any unwanted or additional output during login or logout. The rebuild process may encounter a non-specific issue or fail without a descriptive error message due to interference from shell configuration files (such as, `.bashrc`, `.profile`, etc.) on the database servers that print text during login.
+
+Hence, before using the async rebuild server feature, verify that SSH output is clean by running the following command on the MaxScale host:
+
+```
+ssh -i /home/maxscale/.ssh/<private_key_filename> root@<db_host_ip> hostname
+```
+
+The output must contain only the hostname of the database server without any additional text, lines, or errors.&#x20;
+
+Example of correct output:
+
+```
+dbserver01
+```
+
+If any additional text or unwanted output appears in the output (from `.bashrc`, `/etc/profile`, or any custom login scripts), the async rebuild server operation may fail without providing a clear descriptive error message.&#x20;
+
 When launched, the rebuild operation proceeds as below. If any step fails, the operation is stopped and the target server will be left in an unspecified state.
 
 1. Log in to both servers with ssh and check that the tools listed above are present (e.g. `mariadb-backup -v` should succeed).
