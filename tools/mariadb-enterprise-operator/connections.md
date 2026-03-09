@@ -54,7 +54,7 @@ spec:
   secretName: connection
 ```
 
-Alternatively, you may provide a different `serviceName` to connect to another `Service`.
+Alternatively, you may override the default behaviour by setting `serviceName` and connect to another `Service`.
 
 Please refer to the [Kubernetes `Service` documentation](topologies/high-availability.md#kubernetes-services) to identify which `Services` are available.
 
