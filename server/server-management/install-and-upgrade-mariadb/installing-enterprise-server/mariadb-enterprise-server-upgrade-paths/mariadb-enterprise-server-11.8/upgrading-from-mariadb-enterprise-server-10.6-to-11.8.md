@@ -18,8 +18,6 @@ Before beginning the upgrade, ensure these defensive measures and environment ch
 
 *   Perform a Full Backup: Use `mariadb-backup` to create a complete copy of your current data.
 
-    Bash
-
     ```bash
     sudo mariadb-backup --backup \
           --user=mariadb-backup_user \
@@ -27,8 +25,6 @@ Before beginning the upgrade, ensure these defensive measures and environment ch
           --target-dir=/data/backup/preupgrade_10.6_to_11.8
     ```
 *   Prepare the Backup: Consolidate the backup files so they are ready for immediate restoration if required.
-
-    Bash
 
     ```bash
     sudo mariadb-backup --prepare --target-dir=/data/backup/preupgrade_10.6_to_11.8
@@ -38,8 +34,6 @@ Before beginning the upgrade, ensure these defensive measures and environment ch
 ### Service and Plugin Preparation
 
 *   Remove Legacy Audit Plugin: If the `server_audit` plugin is present, it must be uninstalled to prevent conflicts with the modern MariaDB Enterprise Audit Plugin.
-
-    SQL
 
     ```sql
     UNINSTALL SONAME 'server_audit';
