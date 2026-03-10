@@ -4,6 +4,10 @@ hidden: true
 
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8
 
+{% hint style="info" %}
+This guide is awaiting review from an SME and contains content to be removed before publication. Additionally, it does not include internal links to other documentation, as its content is subject to change.
+{% endhint %}
+
 This "multi-hop" upgrade path consolidates critical architectural changes, performance optimizations, and security enhancements from both the 11.4 and 11.8 release series into a single procedure.
 
 ## Prerequisites
