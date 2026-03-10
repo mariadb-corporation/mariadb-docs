@@ -6,10 +6,10 @@ description: >-
 
 # Generic Build Instructions
 
-The instructions on this page will help you compile [MariaDB](../../../../clients-and-utilities/mariadb-client/) from source.\
+The instructions on this page will help you compile [MariaDB](../../../clients-and-utilities/mariadb-client/) from source.\
 Links to more complete instructions for specific platforms can be found on the [source](./) page.
 
-First, [get a copy of the MariaDB source](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md).
+First, [get a copy of the MariaDB source](../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md).
 
 Next, [prepare your system to be able to compile the source](build-environment-setup-for-linux.md).
 
@@ -141,13 +141,13 @@ This configures the source for debugging and runs make. The server binary will b
 After installing MariaDB (using `sudo make install`), but prior to starting MariaDB for the first time, one should:
 
 1. Ensure the directory where you want MariaDB to store it's data is owned by the `mariadb` user (if the user doesn't exist, you'll need to create it)
-2.  Create a [MariaDB configuration config file](../../configuring-mariadb/configuring-mariadb-with-option-files.md) (`/.my.cnf` or `/etc/my.cnf`) with the configuration options you desire. A suggested minimum configuration file, to specify where you want your data to be stored, would be:\\
+2.  Create a [MariaDB configuration config file](../configuring-mariadb/configuring-mariadb-with-option-files.md) (`/.my.cnf` or `/etc/my.cnf`) with the configuration options you desire. A suggested minimum configuration file, to specify where you want your data to be stored, would be:\\
 
     ```ini
     [mariadbd]
     datadir=/usr/local/mariadb/data/
     ```
-3. run the [mariadb-install-db](../../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) script to generate the needed system tables
+3. run the [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) script to generate the needed system tables
 
 ```bash
 # The following assumes that the 'mariadb' user exists and that we installed MariaDB
@@ -192,8 +192,8 @@ MariaDB builds with `readline`; using an alternative such as `Editline` may resu
 
 ## Post-install Tasks
 
-* [Installing system tables (mariadb-install-db)](../installing-system-tables-mariadb-install-db/)
-* [Starting and Stopping MariaDB Automatically](../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md)
+* [Installing system tables (mariadb-install-db)](../installing-mariadb/installing-system-tables-mariadb-install-db/)
+* [Starting and Stopping MariaDB Automatically](../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -23,8 +23,8 @@ The following is a list of tools that are required for building MariaDB on Linux
 * [gnutls](https://www.gnutls.org) or [openssl](https://www.openssl.org)
 * [jemalloc](https://www.canonware.com/jemalloc) (optional)
 * [snappy](https://google.github.io/snappy) (compression library, optional)
-* [valgrind](https://www.valgrind.org/) (only needed if running [mysql-test-run --valgrind](../../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-run-pl-options.md))
-* [libcurl](https://curl.se/download.html) (only needed if you want to use the [S3 storage engine](../../../../server-usage/storage-engines/s3-storage-engine/))
+* [valgrind](https://www.valgrind.org/) (only needed if running [mysql-test-run --valgrind](../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-run-pl-options.md))
+* [libcurl](https://curl.se/download.html) (only needed if you want to use the [S3 storage engine](../../../server-usage/storage-engines/s3-storage-engine/))
 * `libxml2-devel` or `libxml-dev`
 * boost
 * `libaio-devel` or `libaio-dev`
@@ -90,7 +90,7 @@ sudo zypper mr -er repo-source
 
 After enabling it, you will be able to run the `zypper` command to install the build dependencies.
 
-You should now have your build environment set up and can proceed to [Getting the MariaDB Source Code](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) and then using the [Generic Build Instructions](generic-build-instructions.md) to build MariadB (or following the steps for your Linux distribution or [Creating a MariaDB Binary Tarball](creating-the-mariadb-binary-tarball.md)).
+You should now have your build environment set up and can proceed to [Getting the MariaDB Source Code](../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) and then using the [Generic Build Instructions](generic-build-instructions.md) to build MariadB (or following the steps for your Linux distribution or [Creating a MariaDB Binary Tarball](creating-the-mariadb-binary-tarball.md)).
 
 ## See Also
 

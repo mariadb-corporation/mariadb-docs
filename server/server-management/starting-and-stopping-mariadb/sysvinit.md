@@ -53,7 +53,7 @@ service mysql status
 
 ## Manually Installing mysql.server with SysVinit
 
-If you install MariaDB from [source](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md)\
+If you install MariaDB from [source](../install-and-upgrade-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md)\
 automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). See [mysql.server: Manually Installing with SysVinit](mysql-server.md) for more information.
 
 ## SysVinit and Galera Cluster

@@ -88,7 +88,7 @@ This template unit file allows you to interact with multiple MariaDB instances o
 sudo systemctl start mariadb@node1.service
 ```
 
-MariaDB's build system cannot include the `mariadb@.service` template unit file in [RPM](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) packages on platforms that have [cmake](../compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) versions older than 3.3.0, because these [cmake](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) versions have a [bug](https://public.kitware.com/Bug/view.php?id=14782) that causes it to encounter errors when packaging a file in RPMs if the file name contains the `@` character.  To use this functionality on a MariaDB version that does not have the file, you can copy the file from a package that contains the file.
+MariaDB's build system cannot include the `mariadb@.service` template unit file in [RPM](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/) packages on platforms that have [cmake](../compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) versions older than 3.3.0, because these [cmake](../install-and-upgrade-mariadb/compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) versions have a [bug](https://public.kitware.com/Bug/view.php?id=14782) that causes it to encounter errors when packaging a file in RPMs if the file name contains the `@` character.  To use this functionality on a MariaDB version that does not have the file, you can copy the file from a package that contains the file.
 
 #### Default Configuration of Multiple Instances
 

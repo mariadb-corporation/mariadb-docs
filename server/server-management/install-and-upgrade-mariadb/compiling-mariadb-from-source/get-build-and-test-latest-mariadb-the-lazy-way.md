@@ -41,29 +41,29 @@ The following command builds a server the same way that is used for building rel
 cmake . -DBUILD_CONFIG=mysql_release && cmake --build . --parallel=8
 ```
 
-## [Check the Server (If You Want To)](../../../../clients-and-utilities/testing-tools/mariadb-test/)
+## [Check the Server (If You Want To)](../../../clients-and-utilities/testing-tools/mariadb-test/)
 
 ```bash
 mysql-test/mtr --parallel=8 --force
 ```
 
-## [Install the Default Databases](../../../../clients-and-utilities/deployment-tools/mariadb-install-db.md)
+## [Install the Default Databases](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md)
 
 ```bash
 ./scripts/mariadb-install-db --srcdir=.
 ```
 
-(Older MariaDB version use [mysql\_install\_db](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_install_db.md))
+(Older MariaDB version use [mysql\_install\_db](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_install_db.md))
 
 ## Install the Server (If needed)
 
-You can also [run and test mariadb directly from the build directory](../../../starting-and-stopping-mariadb/running-mariadb-from-the-build-directory.md), in which case you can skip the rest of the steps below.
+You can also [run and test mariadb directly from the build directory](../../starting-and-stopping-mariadb/running-mariadb-from-the-build-directory.md), in which case you can skip the rest of the steps below.
 
 ```bash
 cmake --install .
 ```
 
-### [Start the Server](../../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md)
+### [Start the Server](../../starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md)
 
 Start the server in it's own terminal window for testing. Note that the directory depends on your system!
 

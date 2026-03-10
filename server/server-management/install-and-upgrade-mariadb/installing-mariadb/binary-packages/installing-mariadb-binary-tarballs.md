@@ -156,7 +156,7 @@ On systems using systemd, instead, enable automatic startup during system boot w
 systemctl enable mariadb.service
 ```
 
-For details on the exact steps used to build the binaries, see the [compiling MariaDB section](../compiling-mariadb-from-source/).
+For details on the exact steps used to build the binaries, see the [compiling MariaDB section](../../compiling-mariadb-from-source/).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

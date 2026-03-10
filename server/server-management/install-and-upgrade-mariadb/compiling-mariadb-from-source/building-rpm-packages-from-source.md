@@ -23,10 +23,10 @@ $ cmake --build . --target package
 
 ## See Also
 
-* [About the MariaDB RPM Files](../binary-packages/rpm/about-the-mariadb-rpm-files.md)
+* [About the MariaDB RPM Files](../installing-mariadb/binary-packages/rpm/about-the-mariadb-rpm-files.md)
 * [Building MariaDB on CentOS](source-building-mariadb-on-centos.md)
-* [Installing MariaDB RPM Files](../binary-packages/rpm/)
-* [MariaDB RPM Packages](../../../../clients-and-utilities/server-client-software/download/mariadb-rpm-packages.md)
+* [Installing MariaDB RPM Files](../installing-mariadb/binary-packages/rpm/)
+* [MariaDB RPM Packages](../../../clients-and-utilities/server-client-software/download/mariadb-rpm-packages.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

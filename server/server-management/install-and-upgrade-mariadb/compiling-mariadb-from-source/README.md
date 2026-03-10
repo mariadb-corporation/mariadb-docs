@@ -1,5 +1,7 @@
 ---
-description: Guide to upgrading MariaDB on Linux.
+description: >-
+  Instructions for compiling MariaDB Server from source code using CMake,
+  including obtaining the source and installing dependencies.
 layout:
   width: default
   title:
@@ -18,5 +20,5 @@ layout:
     visible: true
 ---
 
-# Upgrading on Linux
+# Compiling MariaDB From Source
 

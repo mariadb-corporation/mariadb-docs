@@ -135,7 +135,7 @@ Launch the server and check that it is responsive.
 {% step %}
 ### Test the Build
 
-Before putting your fresh build into production, verify it against the official test suite. MariaDB includes [MTR (MariaDB Test Run)](../../../../clients-and-utilities/testing-tools/mariadb-test/) for this purpose.
+Before putting your fresh build into production, verify it against the official test suite. MariaDB includes [MTR (MariaDB Test Run)](../../../clients-and-utilities/testing-tools/mariadb-test/) for this purpose.
 
 1.  Run Unit Tests: Quickly check the core logic.
 
@@ -190,7 +190,7 @@ While your operating system's default repositories contain many build tools, the
 
 **1. Configure the Repository**
 
-Use the [MariaDB Repository Configuration Tool](../binary-packages/mariadb-package-repository-setup-and-usage.md) to generate the setup commands for your specific operating system and desired MariaDB version.
+Use the [MariaDB Repository Configuration Tool](../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) to generate the setup commands for your specific operating system and desired MariaDB version.
 
 Example for Ubuntu 24.04 and MariaDB 11.8 (**don't copy this blindly** – the example uses the 11.8 release and a specific mirror; adjust these strings based on the output of the Repository Configuration Tool):
 
