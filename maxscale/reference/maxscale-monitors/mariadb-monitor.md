@@ -1139,6 +1139,8 @@ mariadb-backup needs server credentials to log in and authenticate to the MariaD
 
 The rebuild server-operation replaces the contents of a database server with the contents of another server. The source server is effectively cloned and all data on the target server is lost. This is useful when a replica server has diverged from the primary server, or when adding a new server to the cluster. MaxScale performs this operation by running mariadb-backup on both the source and target servers.
 
+#### **Prerequisites**
+
 **Verify SSH Connectivity**
 
 The async rebuild server operation requires SSH to be correctly configured between the MaxScale host and all the database servers. \
@@ -1160,6 +1162,37 @@ dbserver01
 
 If any additional text or unwanted output appears in the output (from `.bashrc`, `/etc/profile`, or any custom login scripts), the async rebuild server operation may fail without providing a clear descriptive error message.&#x20;
 
+**Verify Backup User Privileges**
+
+The MariaDB monitor user (specified by `user` and `password` parameters) must have sufficient privileges to run `mariadb-backup` command locally on both the source and target database nodes via SSH before starting the rebuild operation.
+
+Before launching the operation, run the following command to verify that the monitor user can perform a backup manually on the database server:
+
+```
+/usr/bin/mariabackup \
+  --user=<monitor_user> \
+  --password=<password> \
+  --backup \
+  --safe-slave-backup \
+  --target-dir=<backup_directory>
+```
+
+**Expected**\
+The command should run without errors and create a backup in the specified directory.
+
+In the event the command fails with authentication errors, you may need to grant privileges for `maxscale`@`%` and `maxscale`@`localhost`, as the backup command may connect locally. For example:
+
+```
+-- For remote connections
+GRANT RELOAD, PROCESS, FILE, SHOW DATABASES, SUPER, BINLOG MONITOR, EVENT, CONNECTION ADMIN, SLAVE MONITOR, REPLICATION MASTER ADMIN, REPLICATION SLAVE ADMIN ON *.* TO 'maxscale'@'%' IDENTIFIED BY 'password';
+
+-- For local connections during backup
+GRANT RELOAD, PROCESS, LOCK TABLES, BINLOG MONITOR ON *.*
+      TO 'maxscale'@'localhost' IDENTIFIED BY 'password';
+```
+
+Once the privileges are granted, you can run the test command again to verify it works properly.
+
 **Rebuild Operation Steps**
 
 When launched, the rebuild operation proceeds as below. If any step fails, the operation is stopped and the target server will be left in an unspecified state.
@@ -1167,13 +1200,17 @@ When launched, the rebuild operation proceeds as below. If any step fails, the o
 1. Log in to both servers with ssh and check that the tools listed above are present (e.g. `mariadb-backup -v` should succeed).
 2. Check that the port used for transferring the backup is free on the source server. If not, kill the process holding it. This requires running lsof and killing.
 3. Test the connection by streaming a short message from the source host to the target.
-4. Launch mariadb-backup on the source machine, compress the stream and listen for an incoming connection. This is performed with a command like`mariadb-backup --backup --safe-slave-backup --stream=xbstream --parallel=1 | pigz -c | socat - TCP-LISTEN:<port>`.
+4. Launch `mariadb-backup` on the source machine, compress the stream and listen for an incoming connection. This is performed with the following command:\
+   \
+   `mariadb-backup --backup --safe-slave-backup --stream=xbstream --parallel=1 | pigz -c | socat - TCP-LISTEN:<port>`.\
+   \
+   **Note**: MaxScale uses the `user` and `password` parameters specified in the monitor configuration to authenticate to MariaDB. Before initiating the async rebuild server process, ensure this user has the sufficient privileges on both the source and target servers. See the [Verify Backup User Privileges](mariadb-monitor.md#prerequisites) section for details and example grant statements.
 5. Ask the target server what its data directory is (`select @@datadir;`). Stop MariaDB Server on the target machine and delete all contents of the data directory.
 6. On the target machine, connect to the source machine, read the backup stream, decompress it and write to the data directory. This is performed with a command like `socat -u TCP:<host>:<port> STDOUT | pigz -dc | mbstream -x`. This step can take a long time if there is much data to transfer.
 7. Check that the data directory on the target machine is not empty, i.e. that the transfer at least appears to have succeeded.
-8. Prepare the backup on the target server with a command like`mariadb-backup --use-memory=1G --prepare`. This step can also take some time if the source server performs writes during data transfer.
+8. Prepare the backup on the target server with a command like: `mariadb-backup --use-memory=1G --prepare`. This step can also take some time if the source server performs writes during data transfer.
 9. On the target server, change ownership of datadir contents to the mysql-user and start MariaDB-server.
-10. Read gtid from the data directory. Have the target server start replicating from the primary if it is not one already.
+10. Read `gtid` from the data directory. Have the target server start replicating from the primary if it is not one already.
 
 The rebuild-operation is a monitor module command and takes four arguments:
 
