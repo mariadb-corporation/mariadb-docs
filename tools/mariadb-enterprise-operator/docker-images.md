@@ -21,22 +21,28 @@ All the Docker images used by this operator are based on [Red Hat UBI](https://c
 
 MariaDB Enterprise Kubernetes Operator is compatible with the following Docker images:
 
-| Component                                                | Image                                          | Supported Tags                                                                                                                      | CPU Architecture                     |
-| -------------------------------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| MariaDB Enterprise Kubernetes Operator (ppc64le support) | docker.mariadb.com/mariadb-enterprise-operator | <p>25.10.4<br>25.10.3<br>25.10.2<br>25.10.1<br>25.10.0<br>25.8.0<br></p>                                                            | <p>amd64<br>arm64<br>ppc64le<br></p> |
-| MariaDB Enterprise Kubernetes Operator                   | docker.mariadb.com/mariadb-enterprise-operator | <p>1.0.0<br></p>                                                                                                                    | <p>amd64<br>arm64<br></p>            |
-| MariaDB Enterprise Server (ppc64le support)              | docker.mariadb.com/enterprise-server           | <p>11.8.5-2<br>11.8.3-1<br>11.4.8-5<br>11.4.7-4.3<br>11.4.7-4.2<br>11.4.7-4.1<br>11.4<br>10.6.23-19<br>10.6.22-18.1<br>10.6<br></p> | <p>amd64<br>arm64<br>ppc64le<br></p> |
-| MariaDB Enterprise Server                                | docker.mariadb.com/enterprise-server           | <p>11.4.5-3<br>11.4.4-2<br>10.6.21-17<br>10.6.20-16.1<br>10.6.19-15.1<br>10.6.18-14.2<br>10.6.17-13.2<br></p>                       | <p>amd64<br>arm64<br></p>            |
-| MaxScale Enterprise (ppc64le support)                    | docker.mariadb.com/maxscale                    | <p>25.10.1<br>25.10.0<br>25.01.4<br>25.01.3-1<br>25.01<br></p>                                                                      | <p>amd64<br>arm64<br>ppc64le<br></p> |
-| MaxScale Enterprise                                      | docker.mariadb.com/maxscale-enterprise         | <p>25.01.2<br>25.01.1<br></p>                                                                                                       | <p>amd64<br>arm64<br></p>            |
-| MaxScale                                                 | mariadb/maxscale                               | <p>23.08.9-ubi<br>23.08-ubi<br>24.02.5-ubi<br>24.02-ubi<br></p>                                                                     | <p>amd64<br>arm64<br></p>            |
-| MariaDB Prometheus Exporter (ppc64le support)            | mariadb/mariadb-prometheus-exporter-ubi        | <p>1.1.0<br></p>                                                                                                                    | <p>amd64<br>arm64<br>ppc64le<br></p> |
-| MariaDB Prometheus Exporter                              | mariadb/mariadb-prometheus-exporter-ubi        | <p>1.0.0<br></p>                                                                                                                    | <p>amd64<br>arm64<br></p>            |
-| MaxScale Prometheus Exporter (ppc64le support)           | mariadb/maxscale-prometheus-exporter-ubi       | <p>1.1.0<br></p>                                                                                                                    | <p>amd64<br>arm64<br>ppc64le<br></p> |
-| MaxScale Prometheus Exporter                             | mariadb/maxscale-prometheus-exporter-ubi       | <p>1.0.0<br></p>                                                                                                                    | <p>amd64<br>arm64<br></p>            |
-| MariaDB Enterprise nslcd sidecar                         | docker.mariadb.com/nslcd                       | <p>0.9.10-13<br></p>                                                                                                                | <p>amd64<br>arm64<br>ppc64le<br></p> |
+| Component | Image | Supported Tags | CPU Architecture |
+|-----------|-------|----------------|------------------|
+| MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  25.10.4 <br>  25.10.3 <br>  25.10.2 <br>  25.10.1 <br>  25.10.0 <br>  25.8.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.5-2 <br>  11.8.3-1 <br>  11.4.8-5 <br>  11.4.7-4.3 <br>  11.4.7-4.2 <br>  11.4.7-4.1 <br>  11.4 <br>  10.6.23-19 <br>  10.6.22-18.1 <br>  10.6 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  11.8.5-2.1-minimal <br>  11.8.5-2.1-community <br>  11.8.5-2.1-standard <br>  11.8.5-2.1 <br>  11.8-minimal <br>  11.8-community <br>  11.8-standard <br>  11.8 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale Enterprise | docker.mariadb.com/maxscale |  25.10.1 <br>  25.10.0 <br>  25.01.4 <br>  25.01.3-1 <br>  25.01 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale | mariadb/maxscale |  23.08.9-ubi <br>  23.08-ubi <br>  24.02.5-ubi <br>  24.02-ubi <br>  |  amd64 <br>  arm64 <br>  |
+| MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.1.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MaxScale Prometheus Exporter | mariadb/maxscale-prometheus-exporter-ubi |  1.1.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise nslcd sidecar | docker.mariadb.com/nslcd |  0.9.10-13 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 
 Refer to the registry documentation to [access docker.mariadb.com with your customer credentials](customer-access-to-docker-mariadb-com.md).
+
+### MariaDB Enterprise Server Tiered Images.
+
+To accommodate diverse operational requirements, the MariaDB Server container images utilize a multi-tiered strategy offering three distinct flavors: `minimal`, `standard`, and `community`. The `minimal` tier serves as the highly secure default, providing a heavily reduced footprint tailored for automated, operator-driven environments. For broader enterprise workloads requiring additional storage engines, plugins, and in-container debugging utilities, the `standard` tier balances comprehensive capabilities with strict security hardening. Finally, the `community` tier mirrors the feature set and enterprise-grade hardening of the standard tier, but is built around the open-source MariaDB Community Server.
+
+| Tier | Description | Target |
+| --- | --- | --- |
+| `minimal` | The `minimal` tier of the MariaDB Enterprise Docker image offers an image where whole parts of the filesystem have been removed. This includes many MariaDB utility binaries, CLI binaries, utilities and irrelevant packages. | Ideal for highly secure environments and strict compliance use cases requiring a heavily reduced attack surface and minimal storage footprint. |
+| `standard` | The `standard` tier of the MariaDB Enterprise Docker image comes with additional storage engines and plugins, while not sacrificing on security and size. | Designed for general enterprise workloads that require a balance of comprehensive database capabilities and an optimized, secure footprint. |
+| `community` | The `community` tier of the MariaDB Enterprise Docker image comes with additional storage engines and plugins, while not sacrificing on security and size. This image has the community MariaDB server installed with enterprise hardening. | Targeted at developers and organizations wanting open-source Community Server features but with the added reliability of enterprise-grade security hardening. |
 
 ## Working With Air-Gapped Environments
 
