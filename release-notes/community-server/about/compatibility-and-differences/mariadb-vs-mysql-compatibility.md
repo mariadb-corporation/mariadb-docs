@@ -8,6 +8,8 @@ description: >-
 
 See also [**MariaDB vs MySQL - Features**](mariadb-vs-mysql-features.md)
 
+{% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/QK7HxXmqdFLVlavgl87n/" %}
+
 ## Replacement for MySQL
 
 Until [MariaDB 5.5](../../old-releases/5.5/changes-improvements-in-mariadb-5-5.md), MariaDB versions functioned as a "drop-in replacement" for the equivalent MySQL version, with some limitations. From [MariaDB 10.0](../../old-releases/10.0/changes-improvements-in-mariadb-10-0.md), it is usually still very easy to upgrade from MySQL.
