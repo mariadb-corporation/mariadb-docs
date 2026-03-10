@@ -20,7 +20,7 @@ make dist
 
 This creates a source file with a name like `mysql-5.3.2-MariaDB-beta.tar.gz`
 
-See also [the generic build instructions](generic-build-instructions.md).
+See also [the generic build instructions](/broken/pages/bjatfkHoY1LmiorFXFKZ).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

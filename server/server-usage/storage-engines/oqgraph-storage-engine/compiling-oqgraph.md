@@ -12,7 +12,7 @@ To compile OQGraph v2 you need to have the boost library with the versions not e
 
 OQGraph v3 compiles fine with the newer boost libraries, but it additionally needs the Judy library installed.
 
-When all build prerequisites are met, OQGraph is enabled and compiled automatically. To enable or disable OQGRAPH explicitly, see the generic [plugin build instructions](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-with-extra-modulesoptions/specifying-which-plugins-to-build.md).
+When all build prerequisites are met, OQGraph is enabled and compiled automatically. To enable or disable OQGRAPH explicitly, see the generic [plugin build instructions](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-with-extra-modulesoptions/specifying-which-plugins-to-build.md).
 
 ### Finding Out Why OQGRAPH Didn't Compile
 

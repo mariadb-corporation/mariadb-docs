@@ -8,8 +8,8 @@ description: >-
 
 The following two articles should help you get your Solaris machine prepared to build MariaDB (just ignore the parts about installing buildbot):
 
-* [Buildbot Setup for Solaris Sparc](../../../reference/product-development/server-development/tools/buildbot/setup/buildbot-setup-for-solaris-sparc.md)
-* [Buildbot Setup for Solaris x86](../../../reference/product-development/server-development/tools/buildbot/setup/buildbot-setup-for-solaris-x86.md)
+* [Buildbot Setup for Solaris Sparc](../../../../reference/product-development/server-development/tools/buildbot/setup/buildbot-setup-for-solaris-sparc.md)
+* [Buildbot Setup for Solaris x86](../../../../reference/product-development/server-development/tools/buildbot/setup/buildbot-setup-for-solaris-x86.md)
 
 ## Notes
 

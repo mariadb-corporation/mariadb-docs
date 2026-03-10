@@ -21,16 +21,16 @@ The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.co
 
 ### Installing from Source
 
-When [compiling MariaDB from source](../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/), the AWS Key Management plugin is built by default on systems that support it.
+When [compiling MariaDB from source](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/), the AWS Key Management plugin is built by default on systems that support it.
 
-Compilation is controlled by the `-DPLUGIN_AWS_KEY_MANAGEMENT=DYNAMIC -DAWS_SDK_EXTERNAL_PROJECT=1` [cmake](../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) arguments.
+Compilation is controlled by the `-DPLUGIN_AWS_KEY_MANAGEMENT=DYNAMIC -DAWS_SDK_EXTERNAL_PROJECT=1` [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) arguments.
 
 The plugin uses [AWS C++ SDK](https://github.com/awslabs/aws-sdk-cpp), which introduces the following restrictions:
 
 * The plugin can only be built on Windows, Linux, and macOS.
 * The plugin requires that one of the following compilers is used: `gcc` 4.8 or later, `clang` 3.3 or later, or Visual Studio 2013 or later.
 * On Unix, the `libcurl` development package (e.g., `libcurl3-dev` on Debian Jessie), the `uuid` development package, and `openssl` need to be installed.
-* You may need to use a newer version of [cmake](../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) than is provided by default in your OS.
+* You may need to use a newer version of [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) than is provided by default in your OS.
 
 ## Installing the Plugin
 

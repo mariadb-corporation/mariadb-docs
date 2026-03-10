@@ -183,7 +183,7 @@ The following options relate to how MariaDB command line tools handles option fi
 
 ### Installing System Tables From a Source Tree
 
-If you have just [compiled MariaDB from source](../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/), and if you want to use `mariadb-install-db` from your source tree, then that can be done without having to actually install MariaDB. This is very useful if you want to test your changes to MariaDB without disturbing any existing installations of MariaDB.
+If you have just [compiled MariaDB from source](../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/), and if you want to use `mariadb-install-db` from your source tree, then that can be done without having to actually install MariaDB. This is very useful if you want to test your changes to MariaDB without disturbing any existing installations of MariaDB.
 
 To do so, you would have to provide the `--srcdir` option. For example:
 

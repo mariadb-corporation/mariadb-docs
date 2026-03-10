@@ -26,7 +26,7 @@ First, install the upstream dependencies, then clone MariaDB.
 brew install bison byacc cmake git gnutls libxml2 m4 openssl pcre pcre2 zlib zstd
 ```
 
-Second, clone MariaDB from the GitHub repository: see the [Getting the MariaDB Source Code](../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) page for options.
+Second, clone MariaDB from the GitHub repository: see the [Getting the MariaDB Source Code](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) page for options.
 
 ## Set Up the Environment
 

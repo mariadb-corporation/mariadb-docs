@@ -53,7 +53,7 @@ The option files are each scanned once, in the order given by `--help --verbose`
 
 On Linux, Unix, or Mac OS X, the default option file is called `my.cnf`. MariaDB looks for the MariaDB option file in the locations and orders listed below.
 
-The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](../compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) option was defined when MariaDB was built. This option is usually defined as `/etc` when building [RPM packages](../installing-mariadb/binary-packages/rpm/), but it is usually not defined when building [DEB packages](../installing-mariadb/binary-packages/installing-mariadb-deb-files.md) or [binary tarballs](../installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md).
+The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) option was defined when MariaDB was built. This option is usually defined as `/etc` when building [RPM packages](../installing-mariadb/binary-packages/rpm/), but it is usually not defined when building [DEB packages](../installing-mariadb/binary-packages/installing-mariadb-deb-files.md) or [binary tarballs](../installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md).
 
 * If the `DEFAULT_SYSCONFDIR` `cmake` option is **undefined**, MariaDB looks for the MariaDB option file in the following locations, and in the following order:
 

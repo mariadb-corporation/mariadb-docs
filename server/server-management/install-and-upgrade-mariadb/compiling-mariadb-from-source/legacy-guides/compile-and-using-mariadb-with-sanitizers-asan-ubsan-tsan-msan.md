@@ -257,7 +257,7 @@ Likewise for ASAN, should use `ASAN` as the label with the short form of the ASA
 
 In the MSAN container, there is a build version of the latest `rr` at the time of the container build.
 
-A recording of the execution can be make with the [mariadb-test-run.pl option --rr](../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-run-pl-options.md). Or alternately you can execute:
+A recording of the execution can be make with the [mariadb-test-run.pl option --rr](../../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-run-pl-options.md). Or alternately you can execute:
 
 ```bash
 $ rr record sql/mariadbd ......
@@ -307,7 +307,7 @@ ASAN_OPTIONS=help=1 extra/perror 0
 
 ### Using Valgrind
 
-The [MariaDB test system](../../../clients-and-utilities/testing-tools/mariadb-test/) can use [Valgrind](https://www.valgrind.org) for finding memory leaks and wrong memory accesses. Valgrind is an instrumentation framework for building dynamic analysis tools. If Valgrind is installed on your system, you can simply use [mysql-test-run --valgrind](../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-run-pl-options.md) to run the test under Valgrind.
+The [MariaDB test system](../../../../clients-and-utilities/testing-tools/mariadb-test/) can use [Valgrind](https://www.valgrind.org) for finding memory leaks and wrong memory accesses. Valgrind is an instrumentation framework for building dynamic analysis tools. If Valgrind is installed on your system, you can simply use [mysql-test-run --valgrind](../../../../clients-and-utilities/testing-tools/mariadb-test/mariadb-test-run-pl-options.md) to run the test under Valgrind.
 
 ## See Also
 

@@ -38,9 +38,9 @@ The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.co
 
 ### Installing from Source
 
-When [compiling MariaDB from source](../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/), the AWS Key Management plugin is built by default, on systems that support it.
+When [compiling MariaDB from source](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/), the AWS Key Management plugin is built by default, on systems that support it.
 
-Compilation is controlled by the following [cmake](../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) arguments:
+Compilation is controlled by the following [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) arguments:
 
 * `-DPLUGIN_AWS_KEY_MANAGEMENT=DYNAMIC` to build a loadable plugin library
 * `-DAWS_SDK_EXTERNAL_PROJECT=ON` to download the AWS C++ SDK code
@@ -51,7 +51,7 @@ The plugin uses [AWS C++ SDK](https://github.com/awslabs/aws-sdk-cpp), which int
 * The plugin can only be built on Windows, Linux, and macOS.
 * The plugin requires that one of the following compilers is used: `gcc` 4.8 or later, `clang` 3.3 or later, Visual Studio 2013 or later.
 * On Unix, the `libcurl` development package (e.g. `libcurl3-dev` on Debian Jessie), `uuid` development package, and `openssl` need to be installed.
-* You may need to use a newer version of [cmake](../../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/generic-build-instructions.md#using-cmake) than is provided by default in your OS.
+* You may need to use a newer version of [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) than is provided by default in your OS.
 
 You do not need to download/install the AWS C++ SDK yourself; the correct version of the SDK GitHub repository will be cloned into the build directory at build time, and only the libraries for AWS components actually needed by the key management plugin will be built, which takes much less time than building the full AWS C++ SDK.
 

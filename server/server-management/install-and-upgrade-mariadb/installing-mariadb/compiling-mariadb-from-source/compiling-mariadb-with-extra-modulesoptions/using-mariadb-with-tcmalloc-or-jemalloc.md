@@ -94,7 +94,7 @@ Start a standard MariaDB server with `TCmalloc` like this:
 /usr/sbin/mariadbd-safe --malloc-lib=tcmalloc
 ```
 
-To configure [mariadbd-safe](../../../starting-and-stopping-mariadb/mariadbd-safe.md) to use `tcmalloc` or `jemalloc`, add this to your [configuration file](../../configuring-mariadb/configuring-mariadb-with-option-files.md):
+To configure [mariadbd-safe](../../../../starting-and-stopping-mariadb/mariadbd-safe.md) to use `tcmalloc` or `jemalloc`, add this to your [configuration file](../../../configuring-mariadb/configuring-mariadb-with-option-files.md):
 
 ```ini
 [mariadbd-safe]
@@ -149,7 +149,7 @@ systemctl restart mariadb
 
 ## Dockerfile
 
-If you run [MariaDB on Docker](../../../automated-mariadb-deployment-and-administration/docker-and-mariadb/) and use an image from a Dockerfile that is publicly available, most probably you have an entry point that is a bash script, which starts `mariadbd` directly. Edit that bash script, or set the `LD_PRELOAD` variable from the Dockerfile:
+If you run [MariaDB on Docker](../../../../automated-mariadb-deployment-and-administration/docker-and-mariadb/) and use an image from a Dockerfile that is publicly available, most probably you have an entry point that is a bash script, which starts `mariadbd` directly. Edit that bash script, or set the `LD_PRELOAD` variable from the Dockerfile:
 
 ```bash
 ENV LD_PRELOAD=<path-to-library>
@@ -174,7 +174,7 @@ docker run -P -d --name mariadb --env LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libj
 
 ## Vagrantfile
 
-Usually [Vagrant](../../../automated-mariadb-deployment-and-administration/vagrant-and-mariadb/) is used to start a complete system in a virtual machine. In that case, you can use one of the methods above, for example you can modify your Vagrantfile to copy a modified version of the `mariadb.service` file to the guest system to configure systemd.
+Usually [Vagrant](../../../../automated-mariadb-deployment-and-administration/vagrant-and-mariadb/) is used to start a complete system in a virtual machine. In that case, you can use one of the methods above, for example you can modify your Vagrantfile to copy a modified version of the `mariadb.service` file to the guest system to configure systemd.
 
 If you use Vagrant with the Docker provider, you can follow the instructions above to modify the Dockerfile.
 

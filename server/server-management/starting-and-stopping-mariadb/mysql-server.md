@@ -100,7 +100,7 @@ If you installed MariaDB on Linux using [RPMs](../install-and-upgrade-mariadb/in
 
 #### Manually Installing with SysVinit
 
-If you install MariaDB from [source](../install-and-upgrade-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md) automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). This is usually done by copying it to `/etc/init.d/` and then creating specially named symlinks in the appropriate `/etc/rcX.d/` directories (where 'X' is a number between 0 and 6).
+If you install MariaDB from [source](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) or from a [binary tarball](../install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) that does not install [mysql.server](mysql-server.md) automatically, and if you are on a system that uses [sysVinit](sysvinit.md), then you can manually install `mysql.server` with [sysVinit](sysvinit.md). This is usually done by copying it to `/etc/init.d/` and then creating specially named symlinks in the appropriate `/etc/rcX.d/` directories (where 'X' is a number between 0 and 6).
 
 In the examples below we will follow the historical convention of renaming the `mysql.server` script to '`mysql`' when we copy it to `/etc/init.d/`.
 

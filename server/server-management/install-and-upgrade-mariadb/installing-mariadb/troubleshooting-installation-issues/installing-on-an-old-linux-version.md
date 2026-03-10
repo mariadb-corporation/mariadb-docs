@@ -29,7 +29,7 @@ If you see either of the above errors, the binary MariaDB package you installed 
 The options you have are:
 
 * Find another MariaDB package or tar from the [download page](https://downloads.mariadb.org/) that matches your system.
-* Alternatively, [download the source](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) and [build it](../../compiling-mariadb-from-source/generic-build-instructions.md).
+* Alternatively, [download the source](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) and [build it](/broken/pages/bjatfkHoY1LmiorFXFKZ).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
