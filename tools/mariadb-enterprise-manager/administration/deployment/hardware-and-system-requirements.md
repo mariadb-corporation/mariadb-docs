@@ -23,8 +23,11 @@ Tip: Adjust storage size depending on your requirements for metrics retention.
 ### System Requirements
 
 * CPU Architecture: x86-64
-* Operating System: 64-bit Linux with Docker support.
-* Software: Docker Engine and Docker Compose must be installed.
+* 64-bit Linux OS with either of the supported container engines installed:
+  * Docker Engine with Docker Compose\
+    [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+  * Podman with Podman Compose
+    * The `podman-docker` compatibility package is required to enable the docker CLI for Podman. All commands in this guide documented for Docker work similarly with Podman.
 
 ## Enterprise Manager Agent🕵
 

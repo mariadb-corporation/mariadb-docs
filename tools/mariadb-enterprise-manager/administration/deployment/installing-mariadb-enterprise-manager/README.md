@@ -1,11 +1,13 @@
 ---
 description: >-
-  Step-by-step instructions for deploying the Docker-based Enterprise Manager
+  Step-by-step instructions for deploying the container-based Enterprise Manager
   Server, including standard online setups and air-gapped installation
   procedures.
 ---
 
 # Installing MariaDB Enterprise Manager
+
+
 
 {% hint style="info" %}
 Prerequisites
@@ -36,9 +38,9 @@ docker login docker.mariadb.com
 {% endstep %}
 
 {% step %}
-**Download the installation script**
+**Download the installer**
 
-Insert your Customer Download Token into the download URL and download the installation script:
+Insert your Customer Download Token into the download URL and download the installer:
 
 {% code title="# Download installer" %}
 ```bash
@@ -80,7 +82,7 @@ After you provide the details, the script launches Enterprise Manager.
 {% step %}
 **Verify containers**
 
-Run `docker compose ps` in the `enterprise-manager` directory to check that all of the constituent Docker containers are running. The containers are:
+Run `docker compose ps` in the `enterprise-manager` directory to check that all of the constituent containers are running. The containers are:
 
 * `enterprise-manager-grafana`
 * `enterprise-manager-nginx`
@@ -113,7 +115,7 @@ To modify metrics retention time, see [Metrics retention configuration](metrics-
 
 ## Enterprise Manager Server Air-Gapped Installation
 
-Installing Enterprise Manager to a machine without an Internet connection is possible by manually copying the Docker images and related settings from an Internet-connected machine to the final target machine.
+Installing Enterprise Manager to a machine without an Internet connection is possible by manually copying the container images and related settings from an Internet-connected machine to the final target machine.
 
 Follow these steps:
 
@@ -127,7 +129,7 @@ First, install Enterprise Manager on an Internet-connected machine as explained 
 {% step %}
 **Save images and settings**
 
-Once installation is complete, save all related Docker images and settings by running the following commands from the directory that contains the `enterprise-manager` folder:
+Once installation is complete, save all related container images and settings by running the following commands from the directory that contains the `enterprise-manager` folder:
 
 {% code title="# Save images and archive" %}
 ```bash
@@ -150,7 +152,7 @@ Copy `enterprise-manager.tar.gz` to the target (air-gapped) machine into the dir
 {% step %}
 **Extract and load images on target machine**
 
-On the target machine, extract the archive and load the Docker images:
+On the target machine, extract the archive and load the container images:
 
 {% code title="# Extract and load images" %}
 ```bash

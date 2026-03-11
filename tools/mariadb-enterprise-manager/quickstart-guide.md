@@ -24,7 +24,11 @@ This guide describes steps to install MariaDB Enterprise Manager for evaluation 
 
 Other requirements:
 
-* 64-bit Linux OS with installed Docker engine and Docker Compose: https://docs.docker.com/engine/install/
+* 64-bit Linux OS with either of the supported container engines installed:
+  * Docker Engine with Docker Compose\
+    [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+  * Podman with Podman Compose
+    * The `podman-docker` compatibility package is required to enable the docker CLI for Podman. All commands in this guide documented for Docker work similarly with Podman.
 * [Network ports](administration/deployment/network-and-firewall-requirements.md) 8090 and 4318 opened for inbound traffic
 {% endstep %}
 
@@ -57,9 +61,9 @@ docker login docker.mariadb.com
 {% endstep %}
 
 {% step %}
-#### Download the installation script
+#### Download the installer
 
-Insert your Customer Download Token into the download URL and download the installation script:
+Insert your Customer Download Token into the download URL and download the installer
 
 ```bash
 wget https://dlm.mariadb.com/<Customer_Download_Token>/enterprise-release-helpers/install-enterprise-manager.sh
@@ -67,7 +71,7 @@ wget https://dlm.mariadb.com/<Customer_Download_Token>/enterprise-release-helper
 {% endstep %}
 
 {% step %}
-#### Make the installation script executable
+#### Make the installer executable
 
 ```bash
 chmod +x install-enterprise-manager.sh

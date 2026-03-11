@@ -38,7 +38,7 @@ MEMA_TLS_KEYPATH=/certs/my-host.key
 {% endcode %}
 
 {% hint style="info" %}
-The path you provide must begin with `/certs/`. This is because the host's `certs/` directory is mounted inside the Docker containers at the `/certs` path.
+The path you provide must begin with `/certs/`. This is because the host's `certs/` directory is mounted inside the containers at the `/certs` path.
 {% endhint %}
 {% endstep %}
 
