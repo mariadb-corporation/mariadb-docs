@@ -241,16 +241,13 @@ Example output showing the problem:
 * **Solutions:**
   1.  Create a specific user for localhost:
 
-      ```sql
-      CREATE USER 'melisa'@'localhost' IDENTIFIED BY 'password_for_melisa_localhost';
+      <pre class="language-sql" data-overflow="wrap"><code class="lang-sql">CREATE USER 'melisa'@'localhost' IDENTIFIED BY 'password_for_melisa_localhost';
       GRANT ALL PRIVILEGES ON yourdatabase.* TO 'melisa'@'localhost'; -- Grant necessary privileges
-      FLUSH PRIVILEGES;
-      ```
+      </code></pre>
   2.  Remove the anonymous user for localhost (use with caution):
 
       ```sql
       DROP USER ''@'localhost';
-      FLUSH PRIVILEGES;
       ```
 
       Ensure this doesn't break other intended anonymous access, if any.
