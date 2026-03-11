@@ -4,6 +4,10 @@ hidden: true
 
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8
 
+{% hint style="danger" %}
+The content is subject to technical review by key stakeholders, MK and DK. While this draft is significantly improved from the initial versions, it should not be considered final.
+{% endhint %}
+
 Upgrade directly from version 10.6 to 11.8 with a unified procedure, bypassing the standard release transitions like 11.4.
 
 {% hint style="info" %}
@@ -33,14 +37,8 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 
 ### Service and Plugin Preparation
 
-*   Audit Plugin Transition: If you currently use the MariaDB 10.6 Audit Plugin (`server_audit.so`), it is recommended to transition to the MariaDB Enterprise Audit Plugin during this upgrade.
-
-    SQL
-
-    ```sql
-    UNINSTALL SONAME 'server_audit';
-    ```
-* Finalize Transactions: Run `XA RECOVER;` to identify any external XA transactions in a prepared state; commit or roll them back before the service is stopped.
+* Audit Plugin Transition: If you currently use the MariaDB 10.6 Audit Plugin (`server_audit.so`), it is recommended to transition to the MariaDB Enterprise Audit Plugin during this upgrade. If you maintain the Community version, ensure your configuration explicitly loads it to avoid conflicts.
+* Finalize Transactions: Run `XA RECOVER;` to identify any external XA transactions in a prepared state;Commit or Roll Back XA Transactions: Run XA RECOVER; to identify any external XA transactions in a prepared state; these must be finalized before the service is stopped.
 
 ### Environment Compatibility
 
@@ -55,14 +53,10 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 
 1.  Initiate Fast Shutdown to ensure the InnoDB engine closes cleanly.
 
-    SQL
-
     ```sql
     SET GLOBAL innodb_fast_shutdown = 1;
     ```
 2.  Stop the Service `mariadb`.
-
-    Bash
 
     ```bash
     sudo systemctl stop mariadb
@@ -108,7 +102,45 @@ The repository setup only configures the source; you must explicitly install the
 {% step %}
 ### **Implement Version-Specific Configuration Changes**
 
-Update your `my.cnf` file to address cumulative changes from both the 11.4 and 11.8 series. See the Recommended `my.cnf`for Version 11.8 section below.
+Update your `my.cnf` file to address cumulative changes from both the 11.4 and 11.8 series.
+
+{% hint style="success" %}
+**Recommended `my.cnf` for Version 11.8 section**
+
+```ini
+[mariadb]
+# --- CHARACTER SETS & COLLATIONS ---
+# utf8mb4 is now the modern default
+character-set-server  = utf8mb4
+collation-server      = utf8mb4_uca1400_ai_ci
+
+# --- INNODB STORAGE ENGINE ---
+# O_DIRECT is the modern default for better throughput
+innodb_flush_method   = O_DIRECT
+
+# MariaDB ES now uses 3 undo tablespaces by default (up from 0)
+# Manual enable is REQUIRED to reclaim space from undo logs
+innodb_undo_log_truncate = ON
+
+# Purge batch size default increased (300 -> 1000)
+innodb_purge_batch_size = 1000
+
+# --- REMOVED OR DEPRECATED OPTIONS ---
+# Use full names instead of legacy aliases
+transaction_isolation   = REPEATABLE-READ
+transaction_read_only   = OFF
+
+# REMOVE these if present in your 10.6 config:
+# debug_no_thread_alarm, old_alter_table, innodb_defragment_*
+
+# --- REPLICATION ---
+# Enable to reduce lag by starting ALTERS on replicas immediately
+binlog_alter_two_phase = 1
+
+# --- SECURITY ---
+# SSL is required by default; unencrypted logins are refused
+```
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -177,8 +209,6 @@ After the data upgrade is complete, verify the functionality of 11.8 features:
 * Confirm Version: `SELECT VERSION();` should reflect the 11.8 GA series.
 *   Confirm Vector Search: Verify the new `VECTOR(N)` data type and conversion functions.
 
-    SQL
-
     ```sql
     CREATE TABLE test_vector (v VECTOR(3));
     SELECT VEC_ToText(VEC_FromText('[1,2,3]'));
@@ -186,7 +216,7 @@ After the data upgrade is complete, verify the functionality of 11.8 features:
 * Verify Optimizer Performance: Run `ANALYZE FORMAT=JSON` on a complex query to see the new SSD-optimized cost model and engine-specific metrics (e.g., `pages_accessed`) in action.
 * Check Replication Lag Fields: On a replica server, run `SHOW REPLICA STATUS\G` and look for the new `Master_Slave_time_diff` field.
 
-## Footnotes
+## Footnotes (Not for publication)
 
 * Controlled Shutdown & Package Removal: Uses the `innodb_fast_shutdown = 1` command and platform-specific wildcards (`MariaDB-*`) identified in the official 11.8 upgrade guide.
 * Repository Configuration: Reflects the use of the `mariadb_es_repo_setup` script with the specific `--mariadb-server-version="11.8"` flag.
