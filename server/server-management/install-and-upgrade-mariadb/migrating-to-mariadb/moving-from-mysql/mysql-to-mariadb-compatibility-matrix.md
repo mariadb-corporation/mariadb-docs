@@ -90,3 +90,8 @@ This section helps the DBA avoid "Unknown variable" errors when they first try t
 | Repl. Syntax   | Uses `SOURCE` / `REPLICA` (8.0.22+). | Supports both `MASTER`/`SLAVE` and `SOURCE`/`REPLICA`. | None. MariaDB is bi-lingual regarding replication syntax.                      |
 | Binary Logging | Defaulted to `ON`.                   | Defaulted to `ON` in recent versions.                  | Low. Standard binary log events are generally compatible.                      |
 
+## Next Steps
+
+Now that you've reviewed the compatibility differences, you are ready to begin the migration.
+
+Proceed to [MySQL to MariaDB Migration: The Master Guide](mysql-to-mariadb-migration-the-master-guide.md)] for step-by-step instructions on performing an in-place upgrade or a logical migration.
