@@ -1,5 +1,7 @@
 ---
-hidden: true
+description: >-
+  Complete step-by-step guide for compiling and building MariaDB from source on
+  various flavors of Linux and on macOS.
 ---
 
 # Compiling MariaDB From Source: The Master Guide

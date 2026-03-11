@@ -174,13 +174,12 @@ You cannot connect to a running server because the root (or other administrative
   1. Stop the MariaDB server.
   2. Restart the server manually from the command line, adding the `--skip-grant-tables` option.
   3. Connect to the server (no password is required for `root@localhost`).
-  4. Execute `FLUSH PRIVILEGES;` to reload the grant tables (they are now active again).
-  5.  Change the password for the account you're connecting with (for example, `root`):
+  4.  Change the password for the account you're connecting with (for example, `root`):
 
       ```sql
       SET PASSWORD FOR 'root'@'localhost' = PASSWORD('your_new_strong_password');
       ```
-  6. Stop the server, and restart it normally (without `--skip-grant-tables`).
+  5. Stop the server, and restart it normally (without `--skip-grant-tables`).
 
 {% hint style="info" %}
 Before doing this, particularly if you cannot connect to a freshly installed MariaDB server, see if the next solution can solve your problem.
@@ -241,16 +240,13 @@ Example output showing the problem:
 * **Solutions:**
   1.  Create a specific user for localhost:
 
-      ```sql
-      CREATE USER 'melisa'@'localhost' IDENTIFIED BY 'password_for_melisa_localhost';
+      <pre class="language-sql" data-overflow="wrap"><code class="lang-sql">CREATE USER 'melisa'@'localhost' IDENTIFIED BY 'password_for_melisa_localhost';
       GRANT ALL PRIVILEGES ON yourdatabase.* TO 'melisa'@'localhost'; -- Grant necessary privileges
-      FLUSH PRIVILEGES;
-      ```
+      </code></pre>
   2.  Remove the anonymous user for localhost (use with caution):
 
       ```sql
       DROP USER ''@'localhost';
-      FLUSH PRIVILEGES;
       ```
 
       Ensure this doesn't break other intended anonymous access, if any.

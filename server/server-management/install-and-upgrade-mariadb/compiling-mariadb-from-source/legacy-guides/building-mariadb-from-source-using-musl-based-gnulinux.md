@@ -9,7 +9,7 @@ description: >-
 ## Instructions on compiling MariaDB on musl-based operating systems (Alpine)
 
 The instructions on this page will help you compile [MariaDB](../../../../clients-and-utilities/mariadb-client/) from source.\
-Links to more complete instructions for specific platforms can be found on the [source](./) page.
+Links to more complete instructions for specific platforms can be found on the [source](../../installing-mariadb/compiling-mariadb-from-source/) page.
 
 * First, [get a copy of the MariaDB source](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md).
 * Next, [prepare your system to be able to compile the source](build-environment-setup-for-linux.md).

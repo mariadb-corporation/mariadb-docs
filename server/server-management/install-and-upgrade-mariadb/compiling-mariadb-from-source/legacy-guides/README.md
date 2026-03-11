@@ -1,5 +1,8 @@
 ---
-description: Guide to upgrading MariaDB on Linux.
+description: >-
+  This section holds building-MariaDB-from-source instructions for building old
+  versions of MariaDB. Recent instructions are in the Compiling MariaDB From
+  Source: The Master Guide page.
 layout:
   width: default
   title:
@@ -18,5 +21,5 @@ layout:
     visible: true
 ---
 
-# Upgrading on Linux
+# Legacy Guides
 

@@ -122,7 +122,7 @@ tar -xvzf mariadb-10.4.8.tar.gz
 cd mariadb-10.4.8/
 ```
 
-* Configure the build using [cmake](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/generic-build-instructions.md#using-cmake):
+* Configure the build using [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake):
 
 ```bash
 cmake .

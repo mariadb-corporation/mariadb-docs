@@ -90,7 +90,7 @@ sudo zypper mr -er repo-source
 
 After enabling it, you will be able to run the `zypper` command to install the build dependencies.
 
-You should now have your build environment set up and can proceed to [Getting the MariaDB Source Code](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) and then using the [Generic Build Instructions](generic-build-instructions.md) to build MariadB (or following the steps for your Linux distribution or [Creating a MariaDB Binary Tarball](creating-the-mariadb-binary-tarball.md)).
+You should now have your build environment set up and can proceed to [Getting the MariaDB Source Code](../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) and then using the [Generic Build Instructions](/broken/pages/bjatfkHoY1LmiorFXFKZ) to build MariadB (or following the steps for your Linux distribution or [Creating a MariaDB Binary Tarball](creating-the-mariadb-binary-tarball.md)).
 
 ## See Also
 

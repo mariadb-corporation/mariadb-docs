@@ -12,7 +12,7 @@ The reason is that MariaDB's build process relies heavily on [cmake](https://cma
 
 Support for source RPMs in [CPackRPM](https://cmake.org/cmake/help/v3.10/module/CPackRPM.html) became usable with MariaDB's build system starting from around [cmake 3.10](https://cmake.org/cmake/help/v3.10/release/3.10.html). This means that we do not produce source RPMs on platforms where the installed [cmake](https://cmake.org) version is older than that.
 
-See also [Building MariaDB from a Source RPM](../../compiling-mariadb-from-source/building-mariadb-from-a-source-rpm.md).
+See also [Building MariaDB from a Source RPM](../../../compiling-mariadb-from-source/legacy-guides/building-mariadb-from-a-source-rpm.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

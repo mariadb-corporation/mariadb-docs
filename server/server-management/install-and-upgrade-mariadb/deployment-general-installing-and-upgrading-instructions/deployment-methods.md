@@ -3,6 +3,22 @@ description: >-
   Overview of different deployment architectures (single-node, primary/replica)
   & methods, including manual installation via repositories or tarballs, and
   automated deployment with tools like Ansible.
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Deployment Methods
