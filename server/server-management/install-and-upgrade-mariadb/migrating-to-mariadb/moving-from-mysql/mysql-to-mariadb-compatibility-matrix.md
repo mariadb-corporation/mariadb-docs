@@ -46,10 +46,22 @@ The table below provides a granular breakdown of these differences. We recommend
 
 > Target Version Tip: If you are migrating from MySQL 8.4 LTS, the most logical targets are MariaDB 10.11 LTS or MariaDB 11.4 LTS to ensure you are moving from one stable long-term environment to another.
 
-#### Key changes from the 8.4 Nutshell you should keep in mind:
+{% hint style="info" %}
+#### Key changes from the 8.4 Nutshell you should keep in mind
 
-1. Authentication: The fact that `mysql_native_password` is now "off" by default in 8.4 is a huge point of divergence. Most MariaDB installs still rely on it.
-2. Syntax: 8.4 officially removed `SET OPTION`, the `LOW_PRIORITY` prefix for some statements, and various SSL variables. If a user's app was updated to work with 8.4, it's "cleaner" but might be using syntax that MariaDB handles differently.
-3. Default Changes: Some InnoDB defaults changed in 8.4 that might not match MariaDB’s defaults.
+* Authentication: The fact that `mysql_native_password` is now "off" by default in 8.4 is a huge point of divergence. Most MariaDB installs still rely on it.
+* Syntax: 8.4 officially removed `SET OPTION`, the `LOW_PRIORITY` prefix for some statements, and various SSL variables. If a user's app was updated to work with 8.4, it's "cleaner" but might be using syntax that MariaDB handles differently.
+* Default Changes: Some InnoDB defaults changed in 8.4 that might not match MariaDB’s defaults.
+{% endhint %}
 
-Would you like to move on to the specific data rows for the "Authentication" section of the table now? (This will address the `mysql_native_password` vs `caching_sha2` gap in detail.)
+#### Step 1 of the Matrix: Security & Authentication
+
+If you're ready, let's start populating the first section of your table. I recommend using the columns: Component, MySQL 8.0/8.4 Behavior, MariaDB Behavior, and Migration Impact.
+
+| Component                     | MySQL 8.0 / 8.4 Behavior                                                                       | MariaDB Behavior                                              | Migration Impact                                                                                     |
+| ----------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Default Authentication Plugin | `caching_sha2_password` (MySQL 8.4 requires explicit config to even _enable_ native password). | `mysql_native_password` or `unix_socket`.                     | High. New MySQL users cannot connect to MariaDB without altering the account or updating the client. |
+| Connection Security           | `REQUIRE SSL` is common.                                                                       | Supports SSL/TLS but syntax for specific ciphers can vary.    | Medium. Review `GRANT` statements for SSL requirements.                                              |
+| Password Complexity           | `validate_password` component.                                                                 | `simple_password_check` or `cracklib_password_check` plugins. | Low. Logic is similar, but plugin names and variables differ.                                        |
+| User Locking                  | Supports `ACCOUNT LOCK` / `UNLOCK`.                                                            | Supports `ACCOUNT LOCK` / `UNLOCK` (10.4.2+).                 | None. Highly compatible syntax.                                                                      |
+
