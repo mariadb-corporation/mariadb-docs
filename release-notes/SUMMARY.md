@@ -1409,6 +1409,7 @@
     * [MaxScale 25.10.1 Release Notes](maxscale/25.10/25.10.1.md)
     * [MaxScale 25.10.0 Release Notes](maxscale/25.10/25.10.0.md)
   * [MariaDB MaxScale 25.01 Release Notes](maxscale/25.01/README.md)
+    * [MaxScale 25.01.6 Release Notes](maxscale/25.01/25.01.6.md)
     * [MaxScale 25.01.5 Release Notes](maxscale/25.01/25.01.5.md)
     * [MaxScale 25.01.4 Release Notes](maxscale/25.01/25.01.4.md)
     * [MaxScale 25.01.3 Release Notes](maxscale/25.01/25.01.3.md)
