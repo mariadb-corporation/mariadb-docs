@@ -54,9 +54,7 @@ The table below provides a granular breakdown of these differences. We recommend
 * Default Changes: Some InnoDB defaults changed in 8.4 that might not match MariaDB’s defaults.
 {% endhint %}
 
-#### Step 1 of the Matrix: Security & Authentication
-
-If you're ready, let's start populating the first section of your table. I recommend using the columns: Component, MySQL 8.0/8.4 Behavior, MariaDB Behavior, and Migration Impact.
+### Authentication & Security
 
 | Component                     | MySQL 8.0 / 8.4 Behavior                                                                       | MariaDB Behavior                                              | Migration Impact                                                                                     |
 | ----------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -65,3 +63,23 @@ If you're ready, let's start populating the first section of your table. I recom
 | Password Complexity           | `validate_password` component.                                                                 | `simple_password_check` or `cracklib_password_check` plugins. | Low. Logic is similar, but plugin names and variables differ.                                        |
 | User Locking                  | Supports `ACCOUNT LOCK` / `UNLOCK`.                                                            | Supports `ACCOUNT LOCK` / `UNLOCK` (10.4.2+).                 | None. Highly compatible syntax.                                                                      |
 
+### SQL Syntax & Data Types
+
+| Component               | MySQL 8.0 / 8.4 Behavior                                            | MariaDB Behavior                                                            | Migration Impact                                                                                   |
+| ----------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| JSON Support            | Native binary format (`JSON` type).                                 | Alias for `LONGTEXT` with `CHECK` constraints.                              | Medium. SQL syntax is compatible, but binary-level storage and some indexing optimizations differ. |
+| Reserved Words          | Frequent additions (e.g., `WINDOW`, `EXCEPT`, `INTERSECT` in 8.0+). | Also uses these reserved words, but some unique MariaDB keywords may exist. | Low. Most modern reserved words are now synchronized between both.                                 |
+| Invisible Columns       | Supported since 8.0.23.                                             | Supported since 10.3.3.                                                     | None. Highly compatible syntax.                                                                    |
+| Common Table Expr (CTE) | Non-recursive and Recursive support.                                | Non-recursive and Recursive support.                                        | None. Functionally identical for standard use cases.                                               |
+| Window Functions        | Standard support since 8.0.                                         | Standard support since 10.2.                                                | Low. Standard syntax is compatible; specific MySQL-only extensions are rare.                       |
+
+### System Variables & Defaults
+
+This section helps the DBA avoid "Unknown variable" errors when they first try to start the MariaDB service using a MySQL configuration file.
+
+| Feature / Variable | MySQL 8.0 / 8.4 Defaults                                      | MariaDB Defaults                                                                | Migration Impact                                                                        |
+| ------------------ | ------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Configuration File | Reads `my.cnf` / `my.ini`.                                    | Reads `my.cnf` / `my.ini` and `mariadb.cnf`.                                    | None. MariaDB maintains compatibility with existing MySQL config files.                 |
+| Removed Variables  | Many 5.7 variables removed in 8.4 (e.g., `expire_logs_days`). | Often retains these legacy variables as aliases.                                | Low. MariaDB is generally more forgiving of "old" variables than MySQL 8.4.             |
+| Default Charset    | `utf8mb4_0900_ai_ci` (MySQL 8.0+).                            | `utf8mb4_uca1400_ai_ci` (MariaDB 11.4+).                                        | Medium. Sorting/Collation behavior may differ slightly for modern Unicode characters.   |
+| Explicit Defaults  | `explicit_defaults_for_timestamp` is `ON`.                    | `explicit_defaults_for_timestamp` defaults to `OFF` (for legacy compatibility). | Medium. Can cause different behavior for `TIMESTAMP` columns without explicit defaults. |
