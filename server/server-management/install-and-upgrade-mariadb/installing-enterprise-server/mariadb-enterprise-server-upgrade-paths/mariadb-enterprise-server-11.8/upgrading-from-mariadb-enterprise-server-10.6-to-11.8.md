@@ -8,7 +8,7 @@ hidden: true
 The content is subject to technical review by key stakeholders, MK and DK. While this draft is significantly improved from the initial versions, it should not be considered final.
 {% endhint %}
 
-Upgrade directly from version 10.6 to 11.8 with a unified procedure, bypassing the standard release transitions like 11.4.
+This guide outlines the process for performing a major version upgrade from MariaDB Enterprise Server (ES) 10.6 directly to MariaDB Enterprise Server 11.8.
 
 {% hint style="info" %}
 This guide assumes you are running on a variant of Linux that uses `systemd` to manage services (such as RHEL, CentOS, AlmaLinux, Rocky Linux, Debian, Ubuntu, or SLES).
@@ -38,7 +38,7 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 ### Service and Plugin Preparation
 
 * Audit Plugin Transition: If you currently use the MariaDB 10.6 Audit Plugin (`server_audit.so`), it is recommended to transition to the MariaDB Enterprise Audit Plugin during this upgrade. If you maintain the Community version, ensure your configuration explicitly loads it to avoid conflicts.
-* Finalize Transactions: Run `XA RECOVER;` to identify any external XA transactions in a prepared state;Commit or Roll Back XA Transactions: Run XA RECOVER; to identify any external XA transactions in a prepared state; these must be finalized before the service is stopped.
+* Commit or Roll Back XA Transactions: Run XA RECOVER; to identify any external XA transactions in a prepared state; these must be finalized before the service is stopped.
 
 ### Environment Compatibility
 
@@ -156,6 +156,40 @@ binlog_alter_two_phase = 1
     ```
 {% endstep %}
 {% endstepper %}
+
+## Incompatible and Deprecated Options
+
+The following variables from version 10.6 have been removed, renamed, or deprecated in the 11.8 release series.
+
+### Options That Have Been Removed or Renamed
+
+| Option                  | Reason / Recommendation                               |
+| ----------------------- | ----------------------------------------------------- |
+| `old_alter_table`       | Superseded by `alter_algorithm`.                      |
+| `innodb_defragment_*`   | Manual InnoDB defragmentation is no longer supported. |
+| `debug_no_thread_alarm` | Unused code.                                          |
+| `DATETIME_FORMAT`       | Removed; use standard format strings.                 |
+| `WSREP_STRICT_DDL`      | Replaced by `wsrep_mode=STRICT_REPLICATION`.          |
+
+### Options That Have Changed Default Values
+
+| Option                            | 10.6 Default        | 11.8 Default            |
+| --------------------------------- | ------------------- | ----------------------- |
+| `character_set_server`            | `latin1`            | `utf8mb4`               |
+| `collation_server`                | `latin1_swedish_ci` | `utf8mb4_uca1400_ai_ci` |
+| `explicit_defaults_for_timestamp` | `OFF`               | `ON`                    |
+| `innodb_purge_batch_size`         | `300`               | `1000`                  |
+| `innodb_undo_tablespaces`         | `0`                 | `3`                     |
+| `innodb_snapshot_isolation`       | `OFF`               | `ON`                    |
+| `optimizer_prune_level`           | `1`                 | `2`                     |
+
+### Deprecated Options
+
+| Option                                 | Reason / Recommendation                        |
+| -------------------------------------- | ---------------------------------------------- |
+| `tx_isolation`                         | Replaced by `transaction_isolation`.           |
+| `tx_read_only`                         | Replaced by `transaction_read_only`.           |
+| `innodb_purge_rseg_truncate_frequency` | Obsolete due to lighter truncation operations. |
 
 ## Critical Cumulative Changes
 
