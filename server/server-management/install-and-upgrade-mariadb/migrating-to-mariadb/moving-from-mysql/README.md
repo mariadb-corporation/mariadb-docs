@@ -49,7 +49,3 @@ description: >-
 {% content-ref url="migration-from-mysql-to-mariadb-cluster-using-replication.md" %}
 [migration-from-mysql-to-mariadb-cluster-using-replication.md](migration-from-mysql-to-mariadb-cluster-using-replication.md)
 {% endcontent-ref %}
-
-{% content-ref url="migrating-to-mariadb-from-mysql-obsolete-articles/" %}
-[migrating-to-mariadb-from-mysql-obsolete-articles](migrating-to-mariadb-from-mysql-obsolete-articles/)
-{% endcontent-ref %}

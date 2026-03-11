@@ -4,16 +4,9 @@ description: >-
   Oracle Database, Microsoft SQL Server, MySQL, and IBM DB2.
 ---
 
-# DDL Export
+# DDL Export Guide
 
-This page covers DDL[^1] export instructions for several database management systems:
-
-* [Oracle Database](ddl-export.md#oracle-database)
-* [Microsoft SQL Server](ddl-export.md#microsoft-sql-server)
-* [MySQL](ddl-export.md#mysql)
-* [IBM DB2](ddl-export.md#ibm-db2)
-
-
+This page covers DDL[^1] export instructions for [Oracle Database](ddl-export.md#oracle-database), [Microsoft SQL Server](ddl-export.md#microsoft-sql-server), [MySQL](ddl-export.md#mysql), and [IBM DB2](ddl-export.md#ibm-db2).
 
 ## Oracle Database
 
