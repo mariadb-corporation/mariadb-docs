@@ -8,7 +8,7 @@ description: >-
 
 {% include "../../.gitbook/includes/latest-12-2.md" %}
 
-MariaDB 12.2 is a [rolling release](../about/release-model.md). It is an evolution of [MariaDB 12.1](../12.1/changes-and-improvements-in-mariadb-12.1.md) with several entirely new features.
+MariaDB 12.2 is a [rolling release](../about/release-model.md). It is an evolution of [MariaDB 12.1](../old-releases/12.1/changes-and-improvements-in-mariadb-12.1.md) with several entirely new features.
 
 ## New Features
 
@@ -26,7 +26,6 @@ MariaDB 12.2 is a [rolling release](../about/release-model.md). It is an evoluti
 * [Optimizer hint](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints): \[NO\_]ROWID\_FILTER ([MDEV-36089](https://jira.mariadb.org/browse/MDEV-36089)),
 * [Optimizer hint](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints): \[NO\_]INDEX\_MERGE ([MDEV-36125](https://jira.mariadb.org/browse/MDEV-36125))
 * [Optimizer hints](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimizer-hints): Implicit query block names ([MDEV-37511](https://jira.mariadb.org/browse/MDEV-37511))
-
 
 ### Miscellaneous <a href="#miscellaneous" id="miscellaneous"></a>
 

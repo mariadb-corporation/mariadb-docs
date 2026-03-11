@@ -1162,8 +1162,8 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
 ## Upgrade Instructions
 
-* [Upgrade to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/mariadb-enterprise-server-11.4/upgrade-to-mariadb-enterprise-server-11.4)
-* [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/mariadb-enterprise-server-11.4/upgrade-from-mariadb-community-server-to-mariadb-enterprise-server-11.4)
+* [Upgrade to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-to-mariadb-enterprise-server-11.4)
+* [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-from-mariadb-community-server-to-mariadb-enterprise-server-11.4)
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

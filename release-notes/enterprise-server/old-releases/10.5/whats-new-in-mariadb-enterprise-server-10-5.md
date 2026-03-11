@@ -9,9 +9,9 @@ description: >-
 {% hint style="info" %}
 #### Technical Compatibility Reference
 
-This guide provides an overview of new features and improvements across the series. For major version upgrades, which involve significant architectural changes, users should consult the [Compatibility and Breaking Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/upgrades/mariadb-enterprise-server-10.5/compatibility-and-breaking-changes-for-mariadb-enterprise-server-10.5) guide.
+This guide provides an overview of new features and improvements across the series. For major version upgrades, which involve significant architectural changes, users should consult the [Compatibility and Breaking Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/archived/mariadb-enterprise-server-10.5/compatibility-and-breaking-changes-for-mariadb-enterprise-server-10.5) guide.
 
-The Compatibility guide includes critical technical insights found through engineering audits and support cases. It covers essential [pre-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/upgrades/mariadb-enterprise-server-10.5/upgrade-to-mariadb-enterprise-server-10.5#critical-pre-upgrade-requirements) shutdown requirements and details platform-specific configuration path changes for Debian and Ubuntu.
+The Compatibility guide includes critical technical insights found through engineering audits and support cases. It covers essential [pre-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/archived/mariadb-enterprise-server-10.5/upgrade-to-mariadb-enterprise-server-10.5#critical-pre-upgrade-requirements) shutdown requirements and details platform-specific configuration path changes for Debian and Ubuntu.
 {% endhint %}
 
 MariaDB Enterprise Server 10.5 introduces the new features listed below.

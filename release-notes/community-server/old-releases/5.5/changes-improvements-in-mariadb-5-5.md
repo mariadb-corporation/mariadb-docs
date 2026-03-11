@@ -20,7 +20,7 @@ See also a detailed breakdown of [System variable differences between MariaDB 5.
 * Significantly more efficient [thread pool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb),\
   comparable in functionality to the closed source feature in MySQL Enterprise.
 * [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) ([MWL#192](https://askmonty.org/worklog/?tid=192))
-* [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/selectively-skipping-replication-of-binlog-events) ([MWL#234](https://askmonty.org/worklog/?tid=234))
+* [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) ([MWL#234](https://askmonty.org/worklog/?tid=234))
 * [SphinxSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
 * [Extended Keys](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/mariadb-internals-documentation-query-optimizer/extended-keys) support for XtraDB and InnoDB
 * New [INSTALL SONAME](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/plugin-sql-statements/install-soname) statement ([MWL#77](https://askmonty.org/worklog/?tid=77))
@@ -100,7 +100,7 @@ plugin-load=innodb=ha_innodb.so
 plugin_dir=/usr/local/mysql/lib/mysql/plugin
 ```
 
-If you want you can also compile MariaDB with [InnoDB as default](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-with-the-innodb-plugin-from-oracle).
+If you want you can also compile MariaDB with [InnoDB as default](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compiling-with-the-innodb-plugin-from-oracle).
 
 ## Security Vulnerabilities Fixed in [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md)
 

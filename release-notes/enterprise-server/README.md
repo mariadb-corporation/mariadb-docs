@@ -16,6 +16,7 @@ description: >-
 * [Enterprise Server Release Schedule](enterprise-server-release-schedule.md)
 * [Enterprise Server Differences](mariadb-enterprise-server-differences/)
 * [Software Bill of Materials (SBOM)](about/sbom.md)
+* [Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server)
 
 ## Current Releases
 

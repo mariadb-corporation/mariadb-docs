@@ -6,9 +6,9 @@ description: >-
 
 # MariaDB 12.0 Changes & Improvements
 
-{% include "../../.gitbook/includes/latest-12-0.md" %}
+{% include "../../../.gitbook/includes/latest-12-0.md" %}
 
-MariaDB 12.0 is a [rolling release](../about/release-model.md). It is an evolution of [MariaDB 11.8](../11.8/what-is-mariadb-118.md) with several entirely new features.
+MariaDB 12.0 is a [rolling release](../../about/release-model.md). It is an evolution of [MariaDB 11.8](../../11.8/what-is-mariadb-118.md) with several entirely new features.
 
 ## New Features
 
@@ -109,17 +109,17 @@ For a list of all new variables, see [System Variables Added in MariaDB 12.0](ht
 
 #### Removed
 
-* [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables), deprecated in [MariaDB 10.5.0](../old-releases/10.5/10.5.0.md)
-* [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size), deprecated in [MariaDB 10.5.3](../old-releases/10.5/10.5.3.md)
-* [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine), deprecated in [MariaDB 5.5](../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
+* [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables), deprecated in [MariaDB 10.5.0](../10.5/10.5.0.md)
+* [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size), deprecated in [MariaDB 10.5.3](../10.5/10.5.3.md)
+* [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine), deprecated in [MariaDB 5.5](../5.5/changes-improvements-in-mariadb-5-5.md).
 
 ## List of All MariaDB 12.0 Releases
 
-| Date          | Release                     | Status  | Release Notes              | Changelog                                 |
-| ------------- | --------------------------- | ------- | -------------------------- | ----------------------------------------- |
-| 7 Aug 2025    | [MariaDB 12.0.2](12.0.2.md) | GA      | [Release Notes](12.0.2.md) | [Changelog](../changelogs/12.0/12.0.2.md) |
-| 5 Jun 2025    | [MariaDB 12.0.1](12.0.1.md) | RC      | [Release Notes](12.0.1.md) | [Changelog](../changelogs/12.0/12.0.1.md) |
-| 26 March 2025 | [MariaDB 12.0.0](./)        | Preview |                            |                                           |
+| Date          | Release                     | Status  | Release Notes              | Changelog                                    |
+| ------------- | --------------------------- | ------- | -------------------------- | -------------------------------------------- |
+| 7 Aug 2025    | [MariaDB 12.0.2](12.0.2.md) | GA      | [Release Notes](12.0.2.md) | [Changelog](../../changelogs/12.0/12.0.2.md) |
+| 5 Jun 2025    | [MariaDB 12.0.1](12.0.1.md) | RC      | [Release Notes](12.0.1.md) | [Changelog](../../changelogs/12.0/12.0.1.md) |
+| 26 March 2025 | [MariaDB 12.0.0](./)        | Preview |                            |                                              |
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
 
