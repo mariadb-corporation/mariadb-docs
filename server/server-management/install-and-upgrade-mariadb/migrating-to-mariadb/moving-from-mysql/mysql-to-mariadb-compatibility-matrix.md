@@ -82,24 +82,6 @@ This section helps the DBA avoid "Unknown variable" errors when they first try t
 | Default Charset    | `utf8mb4_0900_ai_ci` (MySQL 8.0+).                            | `utf8mb4_uca1400_ai_ci` (MariaDB 11.4+).                                        | Medium. Sorting/Collation behavior may differ slightly for modern Unicode characters.   |
 | Explicit Defaults  | `explicit_defaults_for_timestamp` is `ON`.                    | `explicit_defaults_for_timestamp` defaults to `OFF` (for legacy compatibility). | Medium. Can cause different behavior for `TIMESTAMP` columns without explicit defaults. |
 
-### **SQL Syntax & Data Types**
-
-| Component         | MySQL 8.0 / 8.4 Behavior                                    | MariaDB Behavior                                             | Migration Impact                                                                          |
-| ----------------- | ----------------------------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| JSON Support      | Native binary format (`JSON` type).                         | Alias for `LONGTEXT` with `CHECK` constraints.               | Medium. Syntax is compatible, but binary-level storage and indexing optimizations differ. |
-| Reserved Words    | Frequent additions (e.g., `WINDOW`, `EXCEPT`, `INTERSECT`). | Also uses these, but some unique MariaDB keywords may exist. | Low. Standard SQL reserved words are largely synchronized.                                |
-| Invisible Columns | Supported (8.0.23+).                                        | Supported (10.3.3+).                                         | None. Highly compatible syntax.                                                           |
-| Window Functions  | Standard support.                                           | Standard support.                                            | None. Functionally identical for standard SQL use cases.                                  |
-
-### **System Variables & Defaults**
-
-| Feature / Variable | MySQL 8.0 / 8.4 Defaults                            | MariaDB Defaults                             | Migration Impact                                                                 |
-| ------------------ | --------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------- |
-| Config File        | Reads `my.cnf` / `my.ini`.                          | Reads `my.cnf`, `my.ini`, and `mariadb.cnf`. | None. MariaDB maintains compatibility with existing MySQL configuration files.   |
-| Default Charset    | `utf8mb4_0900_ai_ci`.                               | `utf8mb4_uca1400_ai_ci` (11.4+).             | Medium. Sorting/Collation behavior may differ for modern Unicode characters.     |
-| Timestamp Defaults | `explicit_defaults_for_timestamp` is `ON`.          | Defaults to `OFF` for legacy compatibility.  | Medium. May cause different auto-population behavior for `TIMESTAMP` columns.    |
-| Removed Vars       | Many vars removed in 8.4 (e.g. `expire_logs_days`). | Often retains legacy variables as aliases.   | Low. MariaDB is generally more forgiving of legacy configuration than MySQL 8.4. |
-
 ### Replication & GTIDs
 
 | Feature        | MySQL 8.0 / 8.4 Behavior             | MariaDB Behavior                                       | Migration Impact                                                               |
