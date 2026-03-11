@@ -1143,6 +1143,19 @@ MAX_MEMORY_USED: 392544
 
 * The SQL Error Log Plugin can be used to log errors sent to clients for later analysis. When option `sql_error_log_with_db_and_thread_info=ON` is set, the log file is now also showing thread id, and the current default schema for the error.
 
+## Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server 11.4
+
+For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
+
+| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 11.4 Release |
+| ----------------------------------------------------------------- | --------------- | ------------------------------ |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5             | [11.4.9-6](11.4.9-6.md)        |
+| [CVE-2025-30693](https://www.cve.org/CVERecord?id=CVE-2025-30693) | 5.5             | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52969](https://www.cve.org/CVERecord?id=CVE-2023-52969) | 4.9             | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52970](https://www.cve.org/CVERecord?id=CVE-2023-52970) | 4.9             | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52971](https://www.cve.org/CVERecord?id=CVE-2023-52971) | 4.9             | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2025-21490](https://www.cve.org/CVERecord?id=CVE-2025-21490) | 4.9             | [11.4.5-3](11.4.5-3.md)        |
+
 ## Available Versions
 
 * [MariaDB Enterprise Server 11.4.8-5](11.4.8-5.md)

@@ -255,9 +255,9 @@ The implementation supports the following associative array methods:
 
 For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
 
-| CVE ID (with cve.org link)                                                     | CVSS base score | Enterprise Server 11.8 Release |
-| ------------------------------------------------------------------------------ | --------------- | ------------------------------ |
-| [CVE-2026-21968](http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968) | 6.5             | [11.8.5-2](11.8.5-2.md)        |
+| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 11.8 Release |
+| ----------------------------------------------------------------- | --------------- | ------------------------------ |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5             | [11.8.5-2](11.8.5-2.md)        |
 
 ## Available Versions <a href="#available-versions" id="available-versions"></a>
 
