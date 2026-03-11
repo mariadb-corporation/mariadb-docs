@@ -86,12 +86,12 @@ spec:
 ```
 
 - `cron`: [Cron expression](https://en.wikipedia.org/wiki/Cron) to define the backup schedule.
-- `suspend`: Setting it to `true`, it will prevent new backups from being scheduled.
-- `immediate`: Setting it `true`, it will schedule a backup immediately after creating the `PhysicalBackup` resource.
-- `onDemand`: Schedule identifier for triggering an on-demand backup. If the identifier is different than the one tracked under `status.lastScheduleOnDemand`, a new physical backup will be triggered.
-- `onPrimaryChange`: Setting it `true`, it will schedule a new backup after the  primary `Pod` in the referred `MariaDB` instance is changed. This is particularly useful for [point-in-time recovery](./pitr.md#full-base-backup).
+- `suspend`: Setting it to `true`, it prevents new backups from being scheduled.
+- `immediate`: Setting it `true`, it schedules a backup immediately after creating the `PhysicalBackup` resource.
+- `onDemand`: Schedule identifier for triggering an on-demand backup. If the identifier is different from the one tracked under `status.lastScheduleOnDemand`, a new physical backup is triggered.
+- `onPrimaryChange`: By setting it to `true`, it schedules a new backup after the  primary `Pod` in the referred `MariaDB` instance is changed. This is particularly useful for [point-in-time recovery](./pitr.md#full-base-backup).
 
-It is very important to note that, by default, backups will only be scheduled if the referred `MariaDB` resource is in ready state. You can override this behavior by setting `mariaDbRef.waitForIt=false` which will allow backups to be scheduled even if the `MariaDB` resource is not ready.
+It is very important to note that, by default, backups are only scheduled if the referred `MariaDB` resource is in ready state. You can override this behavior by setting `mariaDbRef.waitForIt=false` which allows backups to be scheduled even if the `MariaDB` resource is not ready.
 
 ## Compression
 
