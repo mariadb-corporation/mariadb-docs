@@ -18,7 +18,7 @@ Kubernetes brings several key benefits to the table when managing applications i
 
 * Standardization: Kubernetes relies on standard APIs for managing applications and infrastructure, making it easier to ensure uniformity across various environments. It acts as a common denominator across cloud providers and on-premises.
 * Automation: Kubernetes APIs encapsulate operational best practises, minimizing the need for manual intervention and improving the efficiency of operations.
-* Cost Effectiveness: Having an standarized way to manage infrastructure across cloud providers and automation to streamline operations, Kubernetes helps reducing the infrastructure and operational costs.
+* Cost Effectiveness: Having an standardized way to manage infrastructure across cloud providers and automation to streamline operations, Kubernetes helps reducing the infrastructure and operational costs.
 
 ## What is a Kubernetes Operator?
 
@@ -41,10 +41,10 @@ Operational expertise is baked into the `MariaDB` and `MaxScale` APIs and seamle
 * Flexible Storage Configuration and Volume Expansion: Easily configure storage for MariaDB instances, including the ability to expand volumes as needed.
 * Physical Backups based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/). By leveraging the [BACKUP STAGE](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/backup-commands/backup-stage) feature, backups are taken without long read locks or service interruptions.
 * Logical Backups based on [mariadb-dump](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump).
-* Backup Management: Take, restore, and schedule backups with multiple storage types supported: S3, PVCs, Kubernetes volumes and VolumeSnapshots..
+* Backup Management: Take, restore, and schedule backups with multiple storage types supported: S3, Azure Blob Storage, PVCs, Kubernetes volumes and VolumeSnapshots..
 * Policy-Driven Backup Retention: Implement backup retention policies with bzip2 and gzip compression.
-* Target Recovery Time: Restore your database to the closest available backup based on a specified recovery time.
-* Bootstrap New Instances: Initialize new MariaDB instances from backups, S3, PVCs or VolumeSnapshots to quickly spin up new clusters.
+* Bootstrap New Instances: Initialize new MariaDB instances from backups, S3, Azure Blob Storage, PVCs or VolumeSnapshots to quickly spin up new clusters.
+* Point-In-Time-Recovery: Archive binary logs to enable point-in-time restoration and significantly reduce RPO.
 * TLS Certificate Management: Issue, configure, and rotate TLS certificates and Certificate Authorities (CAs) for secure connections.
 * Advanced TLS Support: customize certificate lifetime, private key algorithm and TLS version.
 * Native Integration with cert-manager: Leverage [cert-manager](https://cert-manager.io/docs/), the de-facto standard for managing certificates in Kubernetes, to enable issuance with private CAs, public CAs and HashiCorp Vault.

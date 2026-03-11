@@ -784,7 +784,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Description: The default path to a PEM file that contains trusted CA certificates for SSL/TLS replication connections. This value can be used as the default in the `CHANGE MASTER TO` statement when the  `MASTER_SSL_CA = DEFAULT`  is specified.
 * Command line: `--replication-ssl-ca=filename`   &#x20;
 * Scope: Global
-* Data Type: s`tring`
+* Data Type: `string`
 * Default Value: empty
 
 #### **`replication_ssl_capath`**
@@ -1092,7 +1092,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 #### `slave_skip_errors`
 
 * Description: When an error occurs on the replica, [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) usually halts. This option permits a list of [error codes](../../reference/error-codes/mariadb-error-code-reference.md) to ignore, and for which replication continues. This option should never be needed in normal use, and careless use could lead to replica that are out of sync with primaries. Error codes are in the format of the number from the replica error log. Using `all` as an option permits the replica the keep replicating no matter what error it encounters, an option you would never normally need in production, and which could rapidly lead to data inconsistencies. A count of these is kept in [slave\_skipped\_errors](replication-and-binary-log-status-variables.md#slave_skipped_errors).
-* Command line: `--slave-skip-errors=[error_code1,error_code2,...|all|ddl_exist_errors]`
+* Command line: `--slave-skip-errors=[error_code1,error_code2,...|all]`
 * Scope: Global
 * Dynamic: No
 * Data Type: `string`
