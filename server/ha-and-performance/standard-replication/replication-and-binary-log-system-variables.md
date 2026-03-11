@@ -784,7 +784,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Description: The default path to a PEM file that contains trusted CA certificates for SSL/TLS replication connections. This value can be used as the default in the `CHANGE MASTER TO` statement when the  `MASTER_SSL_CA = DEFAULT`  is specified.
 * Command line: `--replication-ssl-ca=filename`   &#x20;
 * Scope: Global
-* Data Type: s`tring`
+* Data Type: `string`
 * Default Value: empty
 
 #### **`replication_ssl_capath`**
