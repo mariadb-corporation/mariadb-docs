@@ -7,6 +7,8 @@ DbVisualizer has been carefully developed by a small and dedicated team. Develop
 Example of features:
 
 * Simple navigation of database objects and their properties.
+* Integrated AI Assistant, opt-in to ask questions, explain errors and analyze your code using a simple chat interface.
+* Version control using Git, track and share database scripts, collaborate, clone, switch branches, push changes and explore history.
 * Visual rendering of primary/foreign keys.
 * Table data editing in spreadsheet with Export and import database schema.
 * Flexible user interface in light and dark themes.
