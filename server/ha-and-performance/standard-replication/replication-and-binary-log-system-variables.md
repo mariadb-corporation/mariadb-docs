@@ -25,7 +25,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 This functionality is available from MariaDB 12.3.
 {% endhint %}
 
-The following variables serve as the global default for the corresponding `MASTER_*` option in the `CHANGE MASTER TO` statement. The value is inherited from this system variable when the user enters the `DEFAULT` keyword for that option.&#x20;
+The following variables serve as the global default for the corresponding `MASTER_*` option in the `CHANGE MASTER TO` statement. The value is inherited from this system variable when the user enters the `DEFAULT` keyword for that option.
 
 * [replication\_connect\_retry](replication-and-binary-log-system-variables.md#replication_connect_retry)
 * [replication\_retry\_count](replication-and-binary-log-system-variables.md#replication_retry_count)
@@ -261,7 +261,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Default Value: `ON`
 * Deprecated: [MariaDB 11.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
 
-#### `binlog_row_event_fragment_threshold`&#x20;
+#### `binlog_row_event_fragment_threshold`
 
 * Description: When a `Rows_log_event` exceeds this threshold, it is fragmented into multiple `Partial_rows_log_event` events in the binary log, each of it configured to maximum size. That is, all `Partial_rows_log_event` events up to the last in the group have this configured maximum size, and the last event takes the remaining size. This is relevant for events that would surpass the `slave_max_allowed_packet` length when sending to the replica, and thereby a sensible value would reflect the slave's configured `slave_max_allowed_packet` size.
 * Command line: `--binlog-row-event-fragment-threshold`
@@ -327,16 +327,16 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Data Type: `numeric`
 * Default Value: `32768`
 * Range - 32 bit: `4096` to `4294967295`
-* Range - 64 bit: `4096` to `18446744073709547520`&#x20;
+* Range - 64 bit: `4096` to `18446744073709547520`
 
-#### `binlog_storage_engine`&#x20;
+#### `binlog_storage_engine`
 
 * Description: Specifies the storage engine that manages the binary log.
-* Command line: `--binlog-storage-engine=name`&#x20;
+* Command line: `--binlog-storage-engine=name`
 * Scope: Global
 * Dynamic: No (requires server restart)
-* Data type: `enum`&#x20;
-* Default Value: `OFF`&#x20;
+* Data type: `enum`
+* Default Value: `OFF`
 
 #### `create_tmp_table_binlog_formats`
 
@@ -347,7 +347,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Data Type: `enum`
 * Default Value: `STATEMENT`
 * Valid Values: `STATEMENT` or `MIXED,STATEMENT`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.0/what-is-mariadb-120)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120)
 
 #### `default_master_connection`
 
@@ -374,7 +374,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
-* Default Value: `0.000000`&#x20;
+* Default Value: `0.000000`
 * Range: `0` to `99`
 
 #### `init_slave`
@@ -462,7 +462,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 
 #### `log_slow_slave_statements`
 
-* Description: Log slow statements executed by replica thread to the [slow log](../../server-management/server-monitoring-logs/slow-query-log/) if it is open.&#x20;
+* Description: Log slow statements executed by replica thread to the [slow log](../../server-management/server-monitoring-logs/slow-query-log/) if it is open.
 * Command line: `--log-slow-slave-statements`
 * Scope: Global
 * Dynamic: Yes
@@ -486,7 +486,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Dynamic: No
 * Data Type: `string`
 * Default Value: `master.info`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.0/what-is-mariadb-120) (as a system variable, previously it was just an option)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120) (as a system variable, previously it was just an option)
 
 #### `master_verify_checksum`
 
@@ -719,7 +719,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.0/what-is-mariadb-120) (as a system variable, previously just an option)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120) (as a system variable, previously just an option)
 
 #### `replicate_wild_do_table`
 
@@ -773,16 +773,16 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 
 #### **`replication_ssl`**
 
-* Description: By default, SLS/TLS is enabled or disabled for replication connections. This value is applied when `MASTER_SSL = DEFAULT`  is used in a `CHANGE MASTER TO` statement.
-* Command line: `--replication-ssl={0|1}`   &#x20;
+* Description: By default, SLS/TLS is enabled or disabled for replication connections. This value is applied when `MASTER_SSL = DEFAULT` is used in a `CHANGE MASTER TO` statement.
+* Command line: `--replication-ssl={0|1}`
 * Scope: Global
 * Data Type: `boolean`
 * Default Value: 0
 
 #### **`replication_ssl_ca`**
 
-* Description: The default path to a PEM file that contains trusted CA certificates for SSL/TLS replication connections. This value can be used as the default in the `CHANGE MASTER TO` statement when the  `MASTER_SSL_CA = DEFAULT`  is specified.
-* Command line: `--replication-ssl-ca=filename`   &#x20;
+* Description: The default path to a PEM file that contains trusted CA certificates for SSL/TLS replication connections. This value can be used as the default in the `CHANGE MASTER TO` statement when the `MASTER_SSL_CA = DEFAULT` is specified.
+* Command line: `--replication-ssl-ca=filename`
 * Scope: Global
 * Data Type: `string`
 * Default Value: empty
@@ -790,15 +790,15 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 #### **`replication_ssl_capath`**
 
 * Description: Specifies the path that contains trusted CA certificates for SSL/TLS replication connections. This value can be used as the default in the `CHANGE MASTER TO` statement when `MASTER_SSL_CAPATH = DEFAULT` is specified.
-* Command line: `--replication-ssl-capath=path_name`   &#x20;
+* Command line: `--replication-ssl-capath=path_name`
 * Scope: Global
 * Data Type: `string`
 * Default Value: empty
 
 #### **`replication_ssl_cert`**
 
-* Description: Sets the default path to the client SSL/TLS certificate file used for replication connections. When `MASTER_SSL_CERT = DEFAULT` is specified,  in a `CHANGE MASTER TO` statement, this value is used.
-* Command line: `--replication-ssl-cert=filename`   &#x20;
+* Description: Sets the default path to the client SSL/TLS certificate file used for replication connections. When `MASTER_SSL_CERT = DEFAULT` is specified, in a `CHANGE MASTER TO` statement, this value is used.
+* Command line: `--replication-ssl-cert=filename`
 * Scope: Global
 * Data Type: `string`
 * Default Value: empty
@@ -806,7 +806,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 #### **`replication_ssl_key`**
 
 * Description: Sets the default path to the client SSL/TLS private key file for replication connections. If `MASTER_SSL_KEY = DEFAULT` is specified in the `CHANGE MASTER TO` statement, the system applies this value.
-* Command line: `--replication-ssl-key=filename`   &#x20;
+* Command line: `--replication-ssl-key=filename`
 * Scope: Global
 * Data Type: `string`
 * Default Value: empty
@@ -814,7 +814,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 #### **`replication_ssl_cipher`**
 
 * Description: Specifies the default list of permitted SSL cipher suites for replication connections. When `MASTER_SSL_CIPHER = DEFAULT` is specified in a `CHANGE MASTER TO` statement, this value is used.
-* Command line: `--replication-ssl-cipher=filename`   &#x20;
+* Command line: `--replication-ssl-cipher=filename`
 * Scope: Global
 * Data Type: `string`
 * Default Value: empty
@@ -822,7 +822,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 #### **`replication_ssl_crl`**
 
 * Description: Specifies the default path to a certificate revocation list (CRL) file for SSL/TLS replication connections. When `MASTER_SSL_CRL = DEFAULT` is specified in a `CHANGE MASTER TO` statement, this value is used.
-* Command line: `--replication-ssl-crl=file_name`   &#x20;
+* Command line: `--replication-ssl-crl=file_name`
 * Scope: Global
 * Data Type: `string`
 * Default Value: empty
@@ -830,7 +830,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 #### **`replication_ssl_crlpath`**
 
 * Description: Specifies the default path containing CRL file for SSL/TLS replication connections. When `MASTER_SSL_CRLPATH = DEFAULT` is specified in a `CHANGE MASTER TO` statement, this value is used.
-* Command line: `--replication-ssl-crlpath=directoryname`   &#x20;
+* Command line: `--replication-ssl-crlpath=directoryname`
 * Scope: Global
 * Data Type: `string`
 * Default Value: empty
@@ -838,7 +838,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 #### **`replication_ssl_verify_server_cert`**
 
 * Description: When enabled, the replica verifies the server's SSL certificate on replication connections. When `MASTER_SSL_VERIFY_SERVER_CERT = DEFAULT` is mentioned in a `CHANGE MASTER TO` statement, this value is used.
-* Command line: `--replication-ssl-verify-server-cert={0|1}`   &#x20;
+* Command line: `--replication-ssl-verify-server-cert={0|1}`
 * Scope: Global
 * Data Type: `boolean`
 * Default Value: 1 (verify)
@@ -905,7 +905,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Dynamic: No
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.0/what-is-mariadb-120) (as a system variable, previously it was just an option)
+* Introduced: [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/what-is-mariadb-120) (as a system variable, previously it was just an option)
 
 #### `skip_parallel_replication`
 
@@ -1181,7 +1181,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `0`
-* Range: `0` to `4294967295`&#x20;
+* Range: `0` to `4294967295`
 
 **Note**: When you enable the [InnoDB-based Binary Log](innodb-based-binary-log.md) (`--binary-storage-engine=innodb`), the `sync_binlog` option is ignored. Instead, the durability of the binary log is controlled by `--innodb-flush-log-at-trx-commit`, which applies to both InnoDB data and binary log writes.
 
@@ -1211,7 +1211,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `10000`
-* Range: `0` to `4294967295`&#x20;
+* Range: `0` to `4294967295`
 
 ## See Also
 

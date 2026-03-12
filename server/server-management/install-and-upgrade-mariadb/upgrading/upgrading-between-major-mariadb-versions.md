@@ -92,7 +92,7 @@ MariaDB server is not designed for downgrading. That said, in most cases, as lon
 
 ## See Also
 
-* [Upgrading from MySQL to MariaDB](../migrating-to-mariadb/moving-from-mysql/upgrading-from-mysql-to-mariadb.md)
+* [Upgrading from MySQL to MariaDB](/broken/pages/Wvw3Hz582uZdUAGua5bc)
 * [Upgrading from MariaDB 10.11 to MariaDB 11.4](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-11-to-mariadb-11-4.md)
 * [Upgrading from MariaDB 10.6 to MariaDB 10.11](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-6-to-mariadb-10-11.md)
 * [Upgrading from MariaDB 10.6 to MariaDB 10.7](upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-6-to-mariadb-10-7.md)

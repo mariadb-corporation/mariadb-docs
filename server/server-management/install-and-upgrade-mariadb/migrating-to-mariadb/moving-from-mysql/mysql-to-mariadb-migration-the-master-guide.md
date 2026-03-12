@@ -1,17 +1,10 @@
----
-hidden: true
----
-
 # MySQL to MariaDB Migration: The Master Guide
 
 {% hint style="info" %}
-Environment Scope: This guide focuses on migrations within Linux-based environments (RHEL/CentOS/Alma, Debian/Ubuntu, etc.), as these represent the vast majority of production MySQL and MariaDB deployments.
-{% endhint %}
+#### Environment Scope
 
-* Preparation (Backup & SQL Validation)
-* Configuration (Using the new `mariadb-cfg-upgrade-helper`)
-* Execution (The "Slow Shutdown" and binary swap)
-* Verification (The `mariadb-upgrade` and `ANALYZE TABLE` steps)
+This guide focuses on **migrations within Linux-based environments** (RHEL/CentOS/Alma, Debian/Ubuntu, etc.), as these represent the vast majority of production MySQL and MariaDB deployments.
+{% endhint %}
 
 ## Preparation
 
@@ -156,6 +149,7 @@ mysqldump --user=root --password --all-databases \
 
 * `--single-transaction`: Ensures a consistent backup without locking your tables (for InnoDB).
 * `--hex-blob`: Properly handles binary data like images or encrypted strings.
+* `--routines` and `--events` ensures that the "logic" of the database moves, not just the "rows".
 {% endstep %}
 
 {% step %}
@@ -205,6 +199,8 @@ MariaDB uses a sophisticated cost-based optimizer that may differ from MySQL’s
 # Run on all tables to refresh statistics
 mariadb-admin -u root -p analyze
 ```
+
+This makes the difference between a migration that "works" and a migration that "works fast".
 {% endstep %}
 
 {% step %}
@@ -227,14 +223,103 @@ Verify that your application can connect. Pay special attention to:
 {% endstep %}
 {% endstepper %}
 
-## Notes
+## Troubleshooting & FAQ
 
-* The Dump method: By including `--routines` and `--events`, you ensure that the "logic" of the database moves, not just the "rows".
-* The `analyze` step: This makes the difference between a migration that "works" and a migration that "works fast".
+Even with careful preparation, migrations can encounter specific hurdles. Here are the most common issues and how to resolve them.
 
+### Common Troubleshooting Scenarios
 
+| Issue                                       | Likely Cause                      | Resolution                                                                                                                                                                      |
+| ------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "Access denied" for `root` after migration. | Authentication plugin mismatch.   | MySQL 8.0 `root` users often use `caching_sha2_password`. In MariaDB, use `ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('your_password');` |
+| "Unknown system variable" on startup.       | MySQL-only variables in `my.cnf`. | Run `mariadb-cfg-upgrade-helper` to identify legacy variables. Common culprits: `innodb_log_file_size` (now dynamic) or removed SSL variables.                                  |
+| "Table 'mysql.user' doesn't exist"          | Missing `mariadb-upgrade` step.   | The system tables must be converted. Run `sudo mariadb-upgrade -u root -p` immediately after starting the service.                                                              |
+| Replication fails with "relay log" errors.  | GTID Incompatibility.             | MariaDB cannot use MySQL GTIDs. You must switch to position-based replication (File and Position) to link the two systems.                                                      |
+| Slow queries after migration.               | Outdated optimizer statistics.    | MariaDB's optimizer needs fresh data. Run `ANALYZE TABLE` on all large tables or use `mariadb-admin analyze`.                                                                   |
 
+## Frequently Asked Questions
 
+Q: Can I go back to MySQL if the MariaDB migration fails? A: Yes, provided you took a physical backup (the `/var/lib/mysql` folder) before running `mariadb-upgrade`. Once `mariadb-upgrade` has modified the system tables, you cannot simply point MySQL binaries back at that data directory.
 
+Q: Do I need to change my application's client libraries? A: Usually, no. MariaDB is protocol-compatible with MySQL. Your existing MySQL connectors (JDBC, PHP PDO, Python mysqlclient) will continue to work. However, for the best performance and features (like IAM authentication), switching to the [official MariaDB Connectors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/) is recommended.
 
+Q: What about the JSON data type? A: Your `JSON` columns will be treated as `LONGTEXT` with a `CHECK` constraint. Your queries using `JSON_EXTRACT()` or the `->` operator will continue to work exactly as they did in MySQL.
+
+Q: Is MariaDB 11.4 compatible with MySQL 8.4? A: Yes, for standard SQL and data. However, MySQL 8.4 removed many "legacy" behaviors that MariaDB still supports. If your app relies on those removed features, MariaDB is actually a _more_ compatible home for your code than MySQL 8.4.
+
+## Further Reading
+
+{% columns %}
+{% column %}
+{% content-ref url="mysql-to-mariadb-compatibility-matrix.md" %}
+[mysql-to-mariadb-compatibility-matrix.md](mysql-to-mariadb-compatibility-matrix.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+The reference guide companion page to the Migration Master Guide.
+{% endcolumn %}
+{% endcolumns %}
+
+***
+
+{% columns %}
+{% column %}
+{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features" %}
+[MariaDB versus MySQL - Features](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Compare MariaDB vs. MySQL features. Learn about exclusive storage engines, speed enhancements and binary compatibility.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility" %}
+[MariaDB versus MySQL - Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Complete MariaDB Community Server release notes. Complete version history with features, bug fixes, and upgrade compatibility details for production use.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql" %}
+[Function Differences Between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Functions in MariaDB that are not present in MySQL, or vice versa.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql" %}
+[System Variable Differences between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explore system variable differences between MariaDB Rolling Release and MySQL 8.0. This section details how configuration options vary, aiding in compatibility and migration planning.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql" %}
+[Replication Compatibility Between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Describes replication compatibility between MariaDB and MySQL.
+{% endcolumn %}
+{% endcolumns %}
 
