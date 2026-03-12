@@ -24,7 +24,7 @@ A key difference in MySQL 8.4 is the removal of many system variables and syntax
 
 #### **Global Transaction IDs**
 
-MariaDB and MySQL use entirely different formats for GTIDs. In MySQL 8.4, replication syntax has been further modernized (e.g., removal of `MASTER` in favor of `SOURCE` keywords). MariaDB supports both sets of keywords but maintains its own unique GTID structure (`DomainID:ServerID:Sequence`).
+MariaDB and MySQL use entirely different formats for GTIDs. In MySQL 8.4, replication syntax has been further modernized (e.g., removal of `MASTER` in favor of `SOURCE` keywords). MariaDB maintains its own unique GTID structure (`DomainID:ServerID:Sequence`).
 
 * Action: You cannot "mix and match" GTID replication directly. Plan to use position-based replication if running a hybrid environment during your migration.
 

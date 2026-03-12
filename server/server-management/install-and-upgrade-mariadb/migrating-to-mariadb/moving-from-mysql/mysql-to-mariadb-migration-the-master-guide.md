@@ -87,7 +87,7 @@ sudo apt-get remove mysql-server
 {% step %}
 ### Install MariaDB
 
-Install the MariaDB version you selected in Phase 1. Refer to the [Installation Guide](https://www.google.com/search?q=link-to-install-page\&authuser=1) for specific repository setup and package names.
+Install the MariaDB version you selected in Phase 1. Refer to the [Installation Guide](../../../../mariadb-quickstart-guides/installing-mariadb-server-guide.md) for specific repository setup and package names.
 {% endstep %}
 
 {% step %}
