@@ -24,7 +24,7 @@ MariaDB Enterprise Server uses an [enterprise lifecycle](../../enterprise-server
 
 For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
 
-| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 11.4 Release |
+| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 10.3 Release |
 | ----------------------------------------------------------------- | --------------- | ------------------------------ |
 | [CVE-2022-47015](https://www.cve.org/CVERecord?id=CVE-2022-47015) | N/A (Medium) [<sup>#1</sup>](#id-1) | [10.3.39-20](10.3.39-20.md) |
 | [CVE-2018-25032](https://www.cve.org/CVERecord?id=CVE-2018-25032) | 7.5             | [10.3.36-17](10.3.36-17.md)    |

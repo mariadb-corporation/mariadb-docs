@@ -162,7 +162,7 @@ Enhanced compatibility with Sybase SQL Anywhere through \[sql\_mode=EXTENDED\_AL
 
 For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
 
-| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 11.4 Release |
+| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 10.6 Release |
 | ----------------------------------------------------------------- | --------------- | ------------------------------ |
 | [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5             | [10.6.24-20](10.6.24-20.md)    |
 | [CVE-2025-30693](https://www.cve.org/CVERecord?id=CVE-2025-30693) | 5.5             | [10.6.22-18](10.6.22-18.md)    |

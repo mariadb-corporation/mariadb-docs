@@ -1265,7 +1265,7 @@ For a complete list of changes, see [MariaDB Enterprise Server 10.5.4-2 release 
 
 For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
 
-| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 11.4 Release |
+| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 10.5 Release |
 | ------------------------------------------------------------------| --------------- | ------------------------------ |
 | [CVE-2024-21096](https://www.cve.org/CVERecord?id=CVE-2024-21096) | 4.9             | [10.5.25-19](10.5.25-19.md) |
 | [CVE-2023-22084](https://www.cve.org/CVERecord?id=CVE-2023-22084) | 4.9             | [10.5.23-17](10.5.23-17.md) |
