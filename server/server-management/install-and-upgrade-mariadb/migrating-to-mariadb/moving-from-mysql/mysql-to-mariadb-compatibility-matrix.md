@@ -80,11 +80,11 @@ This section helps the DBA avoid "Unknown variable" errors when they first try t
 
 ### Replication & GTIDs
 
-| Feature        | MySQL 8.0 / 8.4 Behavior             | MariaDB Behavior                                       | Migration Impact                                                               |
-| -------------- | ------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GTID Format    | `UUID:Sequence`                      | `Domain:ServerID:Sequence`                             | Critical. Formats are incompatible. GTID replication cannot be mixed directly. |
-| Repl. Syntax   | Uses `SOURCE` / `REPLICA` (8.0.22+). | Supports both `MASTER`/`SLAVE` and `SOURCE`/`REPLICA`. | None. MariaDB is bi-lingual regarding replication syntax.                      |
-| Binary Logging | Defaulted to `ON`.                   | Defaulted to `ON` in recent versions.                  | Low. Standard binary log events are generally compatible.                      |
+| Feature        | MySQL 8.0 / 8.4 Behavior             | MariaDB Behavior                      | Migration Impact                                                               |
+| -------------- | ------------------------------------ | ------------------------------------- | ------------------------------------------------------------------------------ |
+| GTID Format    | `UUID:Sequence`                      | `Domain:ServerID:Sequence`            | Critical. Formats are incompatible. GTID replication cannot be mixed directly. |
+| Repl. Syntax   | Uses `SOURCE` / `REPLICA` (8.0.22+). | Uses  `MASTER` and `REPLICA`.         | None. MariaDB is bi-lingual regarding replication syntax.                      |
+| Binary Logging | Defaulted to `ON`.                   | Defaulted to `ON` in recent versions. | Low. Standard binary log events are generally compatible.                      |
 
 ## Next Steps
 
