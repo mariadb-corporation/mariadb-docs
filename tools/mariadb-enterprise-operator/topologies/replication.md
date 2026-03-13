@@ -77,7 +77,7 @@ kubectl get mariadb mariadb-repl -o jsonpath="{.status.replication}" | jq
 
 The operator continuously monitors the replication status via [`SHOW SLAVE STATUS`](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/show/show-replica-status), taking it into account for internal operations and updating the CR status accordingly.
 
-## Asynchronous vs semi-syncrhonous replication
+## Asynchronous vs semi-synchronous replication
 
 By default, [semi-synchronous replication](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication) is configured, which requires an acknowledgement from at least one replica before committing the transaction back to the client. This trades off performance for better consistency and facilitates [failover](#primary-failover) and [switchover](#primary-switchover) operations.
 
