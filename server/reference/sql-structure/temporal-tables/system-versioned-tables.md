@@ -633,7 +633,7 @@ A number of system variables are related to system-versioned tables:
 
 * Versioning clauses cannot be applied to [generated (virtual and persistent) columns](../../sql-statements/data-definition/create/generated-columns.md).
 * [mariadb-dump](../../../clients-and-utilities/legacy-clients-and-utilities/mysqldump.md) did not read historical rows from versioned tables, and so historical data would not be backed up. Also, a restore of the timestamps would not be possible as they cannot be defined by an insert/a user. From [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), use the `-H` or `--dump-history` options to include the history.
-* Transaction-precise system-versioned tables do not support partitioning by `SYSTEM_TIME`.
+* Transaction-precise system-versioned tables do not support partitioning by `SYSTEM_TIME`. See [Transaction-Precise History in InnoDB](system-versioned-tables.md#transaction-precise-history-in-innodb) for details.
 
 ## See Also
 
