@@ -62,6 +62,7 @@ The following section provides a high-level overview detailing the specific comp
 | `mariadb-backup` | ✅ | ✅ | ✅ |
 | `mariadb-dump` | ✅ | ✅ | ✅ |
 | `mariadb-binlog` | ✅ | ✅ | ✅ |
+| `mariadb-tzinfo-to-sql` | ✅ | ✅ | ✅ |
 | `boost-program-options` | ✅ | ✅ | ✅ |
 | `jemalloc` | ✅ | ✅ | ✅ |
 | MariaDB utilities | ❌ | ✅ | ✅ |
