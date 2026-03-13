@@ -49,7 +49,7 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 
 {% stepper %}
 {% step %}
-### **Perform a Controlled Shutdown of 10.6**
+### Perform a Controlled Shutdown of 10.6
 
 1.  Initiate Fast Shutdown to ensure the InnoDB engine closes cleanly.
 
@@ -64,7 +64,7 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 {% endstep %}
 
 {% step %}
-### **Purge Legacy 10.6 Packages**
+### Purge Legacy 10.6 Packages
 
 Remove the old version to prevent package manager conflicts before installing 11.8.
 
@@ -74,7 +74,7 @@ Remove the old version to prevent package manager conflicts before installing 11
 {% endstep %}
 
 {% step %}
-### **Switch to 11.8 Enterprise Repositories**
+### Switch to 11.8 Enterprise Repositories
 
 Download and run the setup script, specifying version `11.8`.
 
@@ -88,7 +88,7 @@ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply --mariadb
 {% endstep %}
 
 {% step %}
-### **Install the 11.8 Release Series**
+### Install the 11.8 Release Series
 
 The repository setup only configures the source; you must explicitly install the new binaries.
 
@@ -100,7 +100,7 @@ The repository setup only configures the source; you must explicitly install the
 {% endstep %}
 
 {% step %}
-### **Implement Version-Specific Configuration Changes**
+### Implement Version-Specific Configuration Changes
 
 Update your `my.cnf` file to address cumulative changes from both the 11.4 and 11.8 series.
 
@@ -144,7 +144,7 @@ binlog_alter_two_phase = 1
 {% endstep %}
 
 {% step %}
-### **Bring the Service Online and Finalize Data**
+### Bring the Service Online and Finalize Data
 
 1. Start the New Service: `sudo systemctl start mariadb`.
 2.  Execute the Data Upgrade Utility: This corrects system table structures and marks data files as compatible with version 11.8.
@@ -159,11 +159,15 @@ binlog_alter_two_phase = 1
 
 The following variables from version 10.6 have been removed, renamed, or deprecated in the 11.8 release series.
 
-### Performance and Optimizer Risk
+### Optimizer Cost Model Variables
 
-These variables represent the most significant behavioral shifts between 10.6 and 11.8. Variables marked as New Architecture or New Feature indicate logic that was either hardcoded or non-existent in the 10.6 series.
+These variables define the weights of the new optimizer. If query execution plans change after the upgrade, these parameters are the primary audit points.
 
-<table><thead><tr><th width="264.5">Variable Name</th><th>10.6 Status/Default</th><th>11.8 Default</th><th>Impact / Note</th></tr></thead><tbody><tr><td><code>OPTIMIZER_DISK_READ_COST</code></td><td>New Architecture</td><td><code>10.24</code></td><td>New SSD-optimized cost model weight.</td></tr><tr><td><code>OPTIMIZER_ROW_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.130839</code></td><td>Impacts row fetch weight in join plans.</td></tr><tr><td><code>OPTIMIZER_DISK_READ_RATIO</code></td><td>New Architecture</td><td><code>0.02</code></td><td>Ratio for disk vs. memory reads.</td></tr><tr><td><code>OPTIMIZER_SCAN_SETUP_COST</code></td><td>New Architecture</td><td><code>10</code></td><td>Initial cost to initiate a table scan.</td></tr><tr><td><code>OPTIMIZER_WHERE_COST</code></td><td>New Architecture</td><td><code>0.032</code></td><td>Cost of evaluating row-level filters.</td></tr><tr><td><code>OPTIMIZER_KEY_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.435777</code></td><td>Index lookup weight in the cost model.</td></tr><tr><td><code>OPTIMIZER_KEY_COMPARE_COST</code></td><td>New Architecture</td><td><code>0.011361</code></td><td>Index comparison weight.</td></tr><tr><td><code>OPTIMIZER_ROW_COPY_COST</code></td><td>New Architecture</td><td><code>0.060866</code></td><td>Cost of copying rows to temporary tables.</td></tr><tr><td><code>OPTIMIZER_PRUNE_LEVEL</code></td><td><code>1</code></td><td><code>2</code></td><td>Changes join search depth and pruning strategy.</td></tr><tr><td><code>INNODB_PURGE_BATCH_SIZE</code></td><td><code>300</code></td><td><code>1000</code></td><td>Increased history cleanup; impacts long reads.</td></tr><tr><td><code>INNODB_LOG_FILE_BUFFERING</code></td><td><code>ON</code> (via 10.6)</td><td><code>OFF</code></td><td>Part of the new granular flush logic.</td></tr><tr><td><code>INNODB_DATA_FILE_BUFFERING</code></td><td><code>ON</code> (via 10.6)</td><td><code>OFF</code></td><td>Replaces legacy <code>O_DIRECT</code> behavior.</td></tr><tr><td><code>INNODB_LOG_FILE_WRITE_THRU</code></td><td><code>ON</code> (via 10.6)</td><td><code>OFF</code></td><td>Granular control over log file flushing.</td></tr><tr><td><code>INNODB_DATA_FILE_WRITE_THRU</code></td><td><code>ON</code> (via 10.6)</td><td><code>OFF</code></td><td>Granular control over data file flushing.</td></tr><tr><td><code>SKIP_GRANT_TABLES</code></td><td><code>OFF</code></td><td><code>OFF</code></td><td>The flag now automatically disables the Event Scheduler.</td></tr><tr><td><code>CHARACTER_SET_COLLATIONS</code></td><td>New Architecture</td><td><code>utf8mb4=...</code></td><td>Critical: Must be <code>''</code> for 10.6 reverse replication.</td></tr><tr><td><code>EXPLICIT_DEFAULTS_TIMESTAMP</code></td><td><code>OFF</code></td><td><code>ON</code></td><td>Changes how <code>NULL</code> is handled in <code>TIMESTAMP</code> fields.</td></tr><tr><td><code>INNODB_UNDO_TABLESPACES</code></td><td><code>0</code></td><td><code>3</code></td><td>Enables online truncation of undo logs.</td></tr><tr><td><code>INNODB_SNAPSHOT_ISOLATION</code></td><td><code>OFF</code></td><td><code>ON</code></td><td>Default for improved multi-statement consistency.</td></tr><tr><td><code>BINLOG_ALTER_TWO_PHASE</code></td><td>New Feature</td><td><code>OFF</code></td><td>Manual Enable: Reduces replica lag for DDL.</td></tr><tr><td><code>MHNSW_MAX_CACHE_SIZE</code></td><td>New Feature</td><td><code>16777216</code></td><td>Memory cache for Vector Search operations.</td></tr><tr><td><code>MHNSW_EF_SEARCH</code></td><td>New Feature</td><td><code>20</code></td><td>Candidate limit for HNSW Vector searches.</td></tr><tr><td><code>INNODB_LINUX_AIO</code></td><td><code>ON</code></td><td><code>auto</code></td><td>Modernized OS-level Async I/O handling.</td></tr><tr><td><code>MAX_TMP_SESSION_SPACE</code></td><td>New Architecture</td><td><code>1TB</code></td><td>Hard limit on session-level temporary disk usage.</td></tr><tr><td><code>BINLOG_ROW_EVENT_MAX_SIZE</code></td><td>New Architecture</td><td><code>8192</code></td><td>Controls splitting of large binlog row events.</td></tr></tbody></table>
+<table><thead><tr><th width="290.5">Variable Name</th><th>10.6 Status</th><th width="122">11.8 Default</th><th>Impact / Note</th></tr></thead><tbody><tr><td><code>NEW_MODE</code></td><td>New Architecture</td><td><code>OFF</code></td><td>Enables/disables newest optimizer features.</td></tr><tr><td><code>OPTIMIZER_DISK_READ_COST</code></td><td>New Architecture</td><td><code>10.24</code></td><td>Primary cost of a disk seek/read.</td></tr><tr><td><code>OPTIMIZER_DISK_READ_RATIO</code></td><td>New Architecture</td><td><code>0.02</code></td><td>Ratio of disk reads vs. page cache.</td></tr><tr><td><code>OPTIMIZER_EXTRA_PRUNING_DEPTH</code></td><td>New Architecture</td><td><code>128</code></td><td>Search depth for partition pruning.</td></tr><tr><td><code>OPTIMIZER_INDEX_BLOCK_COPY_COST</code></td><td>New Architecture</td><td><code>0.039266</code></td><td>Cost of copying index blocks.</td></tr><tr><td><code>OPTIMIZER_KEY_COMPARE_COST</code></td><td>New Architecture</td><td><code>0.011361</code></td><td>Weight for comparing index keys.</td></tr><tr><td><code>OPTIMIZER_KEY_COPY_COST</code></td><td>New Architecture</td><td><code>0.012627</code></td><td>Weight for copying index keys.</td></tr><tr><td><code>OPTIMIZER_KEY_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.435777</code></td><td>Weight for performing index lookups.</td></tr><tr><td><code>OPTIMIZER_KEY_NEXT_FIND_COST</code></td><td>New Architecture</td><td><code>0.032115</code></td><td>Cost of finding the next key in a range.</td></tr><tr><td><code>OPTIMIZER_ROWID_COMPARE_COST</code></td><td>New Architecture</td><td><code>0.005836</code></td><td>Cost of comparing Row IDs.</td></tr><tr><td><code>OPTIMIZER_ROWID_COPY_COST</code></td><td>New Architecture</td><td><code>0.006088</code></td><td>Cost of copying Row IDs.</td></tr><tr><td><code>OPTIMIZER_ROW_COPY_COST</code></td><td>New Architecture</td><td><code>0.060866</code></td><td>Cost of copying rows into temp tables.</td></tr><tr><td><code>OPTIMIZER_ROW_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.130839</code></td><td>Weight for fetching rows from data pages.</td></tr><tr><td><code>OPTIMIZER_ROW_NEXT_FIND_COST</code></td><td>New Architecture</td><td><code>0.060866</code></td><td>Cost of sequential row access.</td></tr><tr><td><code>OPTIMIZER_SCAN_SETUP_COST</code></td><td>New Architecture</td><td><code>10</code></td><td>Initial cost to start a table scan.</td></tr><tr><td><code>OPTIMIZER_WHERE_COST</code></td><td>New Architecture</td><td><code>0.032</code></td><td>Weight for evaluating WHERE filters.</td></tr></tbody></table>
+
+### Behavioral "Red Flags"
+
+<table><thead><tr><th width="251">Variable Name</th><th>10.6 Default</th><th width="124">11.8 Default</th><th>Impact / Note</th></tr></thead><tbody><tr><td><code>SKIP_GRANT_TABLES</code></td><td><code>OFF</code></td><td><code>OFF</code></td><td>Warning: Now disables the Event Scheduler.</td></tr><tr><td><code>INNODB_PURGE_BATCH_SIZE</code></td><td><code>300</code></td><td><code>1000</code></td><td>Higher cleanup rate; affects read consistency.</td></tr><tr><td><code>INNODB_DATA_FILE_BUFFERING</code></td><td><code>ON</code> (Legacy)</td><td><code>OFF</code></td><td>Replaces <code>O_DIRECT</code> functionality.</td></tr><tr><td><code>BINLOG_ALTER_TWO_PHASE</code></td><td>New Feature</td><td><code>OFF</code></td><td>Reduces replica lag for DDL if enabled.</td></tr></tbody></table>
 
 ### Options That Have Been Removed or Renamed
 
