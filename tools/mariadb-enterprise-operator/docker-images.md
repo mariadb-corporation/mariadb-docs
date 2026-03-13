@@ -44,6 +44,10 @@ To accommodate diverse operational requirements, the MariaDB Server container im
 | `standard` | The `standard` tier of the MariaDB Enterprise Docker image comes with additional storage engines and plugins, while not sacrificing on security and size. | Designed for general enterprise workloads that require a balance of comprehensive database capabilities and an optimized, secure footprint. |
 | `community` | The `community` tier of the MariaDB Enterprise Docker image comes with additional storage engines and plugins, while not sacrificing on security and size. This image has the community MariaDB server installed with enterprise hardening. | Targeted at developers and organizations wanting open-source Community Server features but with the added reliability of enterprise-grade security hardening. |
 
+{% hint style="info" %}
+The tiered images are based on [ubi-micro](https://www.redhat.com/en/blog/introduction-ubi-micro).
+{% endhint %}
+
 ## Working With Air-Gapped Environments
 
 This section outlines several methods for pulling official MariaDB container images from `docker.mariadb.com` and making them available in your private container registry. This is often necessary for air-gapped, offline, or secure environments.
