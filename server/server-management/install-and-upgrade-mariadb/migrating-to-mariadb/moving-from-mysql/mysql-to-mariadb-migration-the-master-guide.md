@@ -16,7 +16,7 @@ Before touching the production server, verify these requirements:
 * Version Target: Identify your destination.
   * _Coming from MySQL 5.7?_ MariaDB 10.6 or 10.11 are the most stable "long-term" jumps.
   * _Coming from MySQL 8.0/8.4?_ MariaDB 10.11 or 11.4 are recommended for modern feature parity.
-* Compatibility Check: Review the \[MySQL to MariaDB Compatibility Matrix] for potential high-impact differences in authentication and SQL syntax.
+* Compatibility Check: Review the [MySQL to MariaDB Compatibility Matrix](mysql-to-mariadb-compatibility-matrix.md) for potential high-impact differences in authentication and SQL syntax.
 
 ### **Mandatory Backup**
 
