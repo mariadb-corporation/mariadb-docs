@@ -654,6 +654,11 @@ spec:
 
 This will provision a PVC and attach it to the restoration job to be used as staging area.
 
+## Limitations
+
+- A `PointInTimeRecovery` object can only be referred by a single `MariaDB` object via the `pointInTimeRecoveryRef` field.
+- A combination object storage bucket + prefix can only be utilizied by a single `MariaDB` instance to archive binary logs.
+
 ## Troubleshooting
 
 The operator tracks the current archival status under the `MariaDB` status subresource. This status is updated after each archival cycle, and it contains metadata about the binary logs that have been archived, along with other useful information for troubleshooting:
