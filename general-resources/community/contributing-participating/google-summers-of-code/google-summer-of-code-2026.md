@@ -186,6 +186,15 @@ Implement a distinct data type for JSON, as required by SQL:2023.
 **Skills needed:** C++\
 **Mentors:** Alexander Barkov
 
+#### [MDEV-39060](https://jira.mariadb.org/browse/MDEV-39060) a tool to configure vector search
+
+**Part-time project 90h**
+
+A tool that helps users to configure their vector search application for the optimal performance.
+
+**Skills needed:** SQL, optionally Perl or Python\
+**Mentors:** Sergei Golubchik
+
 ## Suggest a Task
 
 Do you have an idea of your own, not listed above? Do let us know in the comments below (Click 'Login' on the top of the page first)!
