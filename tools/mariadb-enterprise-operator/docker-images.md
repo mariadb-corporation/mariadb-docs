@@ -48,6 +48,35 @@ To accommodate diverse operational requirements, the MariaDB Server container im
 The tiered images are based on [ubi-micro](https://www.redhat.com/en/blog/introduction-ubi-micro).
 {% endhint %}
 
+### `Hardened` images
+
+Enterprise images are specifically "hardened" to optimize security and resource efficiency. Because containers are fundamentally designed to run a single application and its required dependencies, the hardening process strips away any operating system components that are unnecessary for MariaDB to function. As a result, these hardened images contain significantly fewer binaries and files, and are strictly configured to execute as a non-root user to minimize potential attack surfaces.
+
+The following section provides a high-level overview detailing the specific components that are retained and removed across both image tiers.
+
+| Component | `minimal` | `standard` | `community` |
+| --- | --- | --- | --- |
+| MariaDB Enterprise Server | ✅ | ✅ | ❌ |
+| MariaDB Community Server | ❌ | ❌ | ✅ |
+| coreutils | ✅ | ✅ | ✅ |
+| `mariadb-backup` | ✅ | ✅ | ✅ |
+| `mariadb-dump` | ✅ | ✅ | ✅ |
+| `mariadb-binlog` | ✅ | ✅ | ✅ |
+| `boost-program-options` | ✅ | ✅ | ✅ |
+| `jemalloc` | ✅ | ✅ | ✅ |
+| MariaDB utilities | ❌ | ✅ | ✅ |
+| System Perl | ❌ | ✅ | ✅ |
+| S3 Engine | ❌ | ✅ | ✅ |
+| Cracklib Password Plugin | ❌ | ✅ | ✅ |
+| Hashicorp Key Plugin | ❌ | ✅ | ✅ |
+| LDAP/PAM Plugin Dependencies | ❌ | ✅ | ✅ |
+| Spider Engine | ❌ | ❌ | ✅ (bundled with community, not specifically installed) |
+| RocksDB Engine | ❌ | ❌ | ❌ |
+| Package Manager | ❌ | ❌ | ❌ |
+| Docs & Formatting | ❌ | ❌ | ❌ |
+| Unnecessary Binaries | ❌ | ❌ | ❌ |
+| `gosu` | ❌ | ❌ | ❌ |
+
 ## Working With Air-Gapped Environments
 
 This section outlines several methods for pulling official MariaDB container images from `docker.mariadb.com` and making them available in your private container registry. This is often necessary for air-gapped, offline, or secure environments.
