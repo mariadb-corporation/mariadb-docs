@@ -1,3 +1,10 @@
+---
+description: >-
+  Mastering the MySQL to MariaDB transition? This guide covers migrations from
+  MySQL 5.7, 8.0, and 8.4 LTS to MariaDB 11.4/12.3, featuring a full
+  Compatibility Matrix and safe dump/restore workflows.
+---
+
 # MySQL to MariaDB Migration: The Master Guide
 
 {% hint style="info" %}
@@ -6,27 +13,83 @@
 This guide focuses on **migrations within Linux-based environments** (RHEL/CentOS/Alma, Debian/Ubuntu, etc.), as these represent the vast majority of production MySQL and MariaDB deployments.
 {% endhint %}
 
+## **⚡ Pro Tip: Automated Migration**
+
+If you prefer an automated approach, MariaDB provides an open-source migration script that handles data dumping, user porting, and configuration checks in a single workflow.
+
+* Tool: [Mysql-to-MariaDB-Migration Script](https://github.com/mariadb-corporation/Mysql-to-MariaDB-Migration) (GitHub)
+* How to use it: If this script successfully completes your migration, you can skip the manual steps outlined in the rest of this page.
+
+**⚠️ Limitations & Considerations**
+
+While the script simplifies the process, be aware of the following:
+
+* Large Databases: For databases in the hundreds of gigabytes or terabytes, the script's "all-in-one" nature can make it difficult to resume if a network timeout occurs. In these cases, the manual workflow (logical migration – dump and restore) is often preferred for better granular control.
+* Complex Permissions: If you have highly custom or non-standard `GRANT` structures, the script may require manual intervention. Always verify your user privileges after the script completes.
+* Environment Support: Ensure your source and target servers have the necessary dependencies (like Python/Bash and network connectivity) as specified in the script's `README` file.
+
 ## Preparation
 
 ### **Pre-Migration Checklist**
 
 Before touching the production server, verify these requirements:
 
-* Operating System: Ensure your OS is not End-of-Life (EOL). If you are on an aging system (like RHEL 7), consider a "New Server" migration rather than an "In-Place" upgrade.
+* Operating System: Ensure your OS is not End-of-Life (EOL). If you are on an aging system (like RHEL 7), consider a "new server" migration rather than an "in-place" upgrade.
 * Version Target: Identify your destination.
-  * _Coming from MySQL 5.7?_ MariaDB 10.6 or 10.11 are the most stable "long-term" jumps.
-  * _Coming from MySQL 8.0/8.4?_ MariaDB 10.11 or 11.4 are recommended for modern feature parity.
+  * _Coming from MySQL 5.7?_ MariaDB 10.11 LTS or 11.4 LTS are safe harbors with the longest remaining support runways.
+  * _Coming from MySQL 8.0/8.4?_ MariaDB 11.4 LTS or the new 12.3 LTS are recommended. These versions have the most modern feature parity (window functions, CTEs, etc.) required for 8.x-era applications.
 * Compatibility Check: Review the [MySQL to MariaDB Compatibility Matrix](mysql-to-mariadb-compatibility-matrix.md) for potential high-impact differences in authentication and SQL syntax.
+
+#### **Automated Configuration Migration**
+
+If you are moving to MariaDB 11.4 LTS or later, you can automate the transition of your configuration files. The `mariadb-migrate-config-file` utility (technical preview at the time of writing this, March 2026) scans your existing MySQL `my.cnf` or `my.ini` and generates a MariaDB-compatible version, automatically handling renamed or deprecated variables.
 
 ### **Mandatory Backup**
 
 Never start a migration without two types of backups:
 
 1. Physical/Binary Backup: A copy of the `/var/lib/mysql` directory (while the server is stopped). This allows for the fastest "undo" if the binary swap fails.
-2.  Logical Backup: A full dump of your data.
+2.  Logical Backup: A full dump of your data. (Use the MySQL `mysqldump` program, not MariaDB's `mariadb-dump`, because the latter hasn't been extensively tested against MySQL.)
 
-    <pre class="language-bash" data-overflow="wrap"><code class="lang-bash">mariadb-dump --all-databases --user=root --password --single-transaction --routines --events > full_backup.sql
+    <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"># The Universal Master Dump Command
+    mysqldump --user=root --password --all-databases \
+    --single-transaction --routines --events \
+    --triggers --hex-blob > migration_dump.sql
     </code></pre>
+
+### Porting Users and Privileges
+
+Standard data dumps often fail to capture complex user permissions correctly when moving from MySQL 8.0+. Instead of migrating the entire `mysql` system database, use these scripts on your MySQL source server to generate the exact SQL commands needed to recreate your users and their permissions on MariaDB.
+
+#### Generate User Creation Script
+
+This script extracts all non-system users and automatically handles the conversion of the `caching_sha2_password` plugin to the MariaDB-compatible `mysql_native_password`.
+
+{% code overflow="wrap" %}
+```sql
+SELECT CONCAT('CREATE USER IF NOT EXISTS ''', user, '''@''', host, ''' IDENTIFIED WITH ''', 
+  IF(plugin='caching_sha2_password', 'mysql_native_password', plugin), ''' AS ''', authentication_string, ''';') 
+AS _sql FROM mysql.user WHERE user NOT IN ('root', 'mysql.sys', 'mysql.session', 'mysql.infoschema');
+```
+{% endcode %}
+
+#### Generate Privilege (GRANT) Script
+
+Run this next to generate the necessary `GRANT` statements for all database, table, and procedure-level permissions.
+
+```sql
+SELECT CONCAT('SHOW GRANTS FOR ''', user, '''@''', host, ''';') AS _sql FROM mysql.user 
+WHERE user NOT IN ('root', 'mysql.sys', 'mysql.session', 'mysql.infoschema');
+```
+
+> How to use: Copy the output (the generated SQL lines) from these queries and execute them on your new MariaDB instance after the data migration is complete.
+
+{% hint style="info" %}
+#### Notes on those steps (scripts generation)
+
+* The `root` exclusion: Notice we exclude the `root` user. This is a safety feature so you don't accidentally overwrite your new MariaDB root account with old MySQL credentials and lock yourself out.
+* Plugin Mapping: The `IF` statement is doing a "on-the-fly" translation of MySQL's new password format back to a format MariaDB can read.
+{% endhint %}
 
 ### **Proactive SQL Validation**
 
@@ -36,101 +99,11 @@ If your application is mission-critical:
 * Replay those queries against a MariaDB test instance.
 * Check the MariaDB error log for any "Syntax Error" or "Unknown Function" messages. This prevents surprises on migration night.
 
-## In-Place Upgrade (Binary Swap)
+## Logical Migration (Dump and Restore)
 
-An in-place upgrade involves replacing the MySQL software with MariaDB while keeping your existing data directory (`/var/lib/mysql`) intact. This is the fastest method but carries the highest risk if a backup isn't prepared.
-
-{% stepper %}
-{% step %}
-### Perform a Clean Shutdown
-
-Before switching binaries, you must ensure that MySQL has flushed all pending changes from memory to the disk. A _fast_ shutdown can leave the data files in an inconsistent state that MariaDB might struggle to recover.
-
-Log into your MySQL instance and run:
-
-```sql
--- Ensure all InnoDB redo logs are flushed to disk
-SET GLOBAL innodb_fast_shutdown = 0;
-```
-
-Then, stop the service:
-
-```bash
-sudo systemctl stop mysql
-```
-{% endstep %}
-
-{% step %}
-### Uninstall MySQL
-
-Once the service is stopped, remove the MySQL packages. This process varies by your Linux distribution's package manager.
-
-{% tabs %}
-{% tab title="RHEL / Alma / Fedora" %}
-{% code overflow="wrap" %}
-```bash
-sudo dnf remove mysql-server
-```
-{% endcode %}
-{% endtab %}
-
-{% tab title="Debian / Ubuntu" %}
-{% code overflow="wrap" %}
-```bash
-sudo apt-get remove mysql-server
-```
-{% endcode %}
-{% endtab %}
-{% endtabs %}
-{% endstep %}
-
-{% step %}
-### Install MariaDB
-
-Install the MariaDB version you selected in Phase 1. Refer to the [Installation Guide](../../../../mariadb-quickstart-guides/installing-mariadb-server-guide.md) for specific repository setup and package names.
-{% endstep %}
-
-{% step %}
-### Upgrade the Configuration
-
-MySQL 8.0 and 8.4 have removed many variables that MariaDB still uses, or renamed them. To prevent the MariaDB service from failing on its first start, use the Configuration Upgrade Helper (available in MariaDB 11.4+).
-
-```bash
-mariadb-cfg-upgrade-helper --config-file=/etc/my.cnf
-```
-
-This tool scans your configuration and provides a report on which variables need to be adjusted or renamed for compatibility.
-{% endstep %}
-
-{% step %}
-### Start MariaDB and Initialize the Upgrade
-
-Once your configuration is clean, start the MariaDB service. The server will start, but the internal system tables (the `mysql` database) will still be in the MySQL format.
-
-```bash
-sudo systemctl start mariadb
-```
-
-Immediately run the upgrade utility to convert the system tables and check all existing databases for compatibility:
-
-```bash
-sudo mariadb-upgrade -u root -p
-```
-{% endstep %}
-{% endstepper %}
-
-{% hint style="info" %}
-#### Why these steps matter
-
-* `innodb_fast_shutdown = 0`: This is your insurance policy. It guarantees the data files are "quiesced" (resting) and ready for a new engine.
-* `mariadb-upgrade`: This is the most critical step. Without it, you might be able to read your user data, but your permissions, stored procedures, and views might behave erratically because the underlying system metadata hasn't been updated.
-{% endhint %}
-
-While the "In-Place" method is fast, the Logical Migration is the "Gold Standard" for safety. It is the best choice if you are moving to a new server, a different Linux distribution, or a cloud-managed environment.
+The Logical Migration is the "Gold Standard" for safety. It is the best choice if you are moving to a new server, a different Linux distribution, or a cloud-managed environment.
 
 By exporting the data into a SQL script, you effectively "filter" out any binary-level incompatibilities between MySQL and MariaDB.
-
-## Logical Migration (Dump and Restore)
 
 A logical migration involves exporting your data into a text-based SQL file (a "dump") and importing it into a fresh MariaDB instance. This is the safest way to ensure data integrity, as it completely recreates your tables and indexes in the MariaDB format.
 
@@ -138,18 +111,31 @@ A logical migration involves exporting your data into a text-based SQL file (a "
 {% step %}
 ### Export Data from MySQL
 
-On your existing MySQL server, create a complete dump of all databases, including stored procedures, triggers, and events.
+On your existing MySQL server, create a complete dump of all databases, including stored procedures, triggers, and events. (Note this is the same dump command used in the Preparation step, so you can use that one instead of re-creating it.)
 
 ```bash
-# Export everything to a single file
+# The Universal Master Dump Command
 mysqldump --user=root --password --all-databases \
 --single-transaction --routines --events \
---triggers --hex-blob > mysql_full_dump.sql
+--triggers --hex-blob > migration_dump.sql
 ```
 
 * `--single-transaction`: Ensures a consistent backup without locking your tables (for InnoDB).
 * `--hex-blob`: Properly handles binary data like images or encrypted strings.
 * `--routines` and `--events` ensures that the "logic" of the database moves, not just the "rows".
+
+#### **Alternative: Direct Network Streaming (The Pipe Method)**
+
+If you have limited disk space or a high-speed network connection between your servers, you can "stream" the data directly from the MySQL source to the MariaDB target. This avoids creating a large intermediate `.sql` file on your local disk.
+
+Bash
+
+```
+mysqldump --user=root --password --all-databases --single-transaction --routines --events --triggers --hex-blob \
+| mariadb --host=new_server_ip --user=root --password
+```
+
+> Pro Tip: To monitor the progress of your transfer in real-time, install the `pv` (Pipe Viewer) utility and insert it into the command: `mysqldump ... | pv | mariadb ...`
 {% endstep %}
 
 {% step %}
@@ -177,11 +163,22 @@ mariadb -u root -p < mysql_full_dump.sql
 {% step %}
 ### Finalize with `mariadb-upgrade`
 
-Even with a logical dump, some system-level permissions or views might need a quick internal "refresh" to match the MariaDB structure.
+Even after a successful logical import, your new MariaDB instance is still using the system tables (permissions, stored procedures, and views) exactly as they were structured in MySQL. You must run the upgrade utility to "translate" these system tables into the MariaDB format.
 
 ```bash
+# Execute this on the new MariaDB server
 sudo mariadb-upgrade -u root -p
 ```
+
+{% hint style="info" %}
+#### What this does
+
+* Fixes System Tables: Aligns the `mysql` database schema with MariaDB's requirements.
+* Privilege Check: Ensures your migrated user permissions work correctly with MariaDB’s authentication plugins.
+* Version Stamp: Updates the internal versioning so MariaDB knows the migration is officially complete.
+{% endhint %}
+
+> Pro Tip: If you see "Already up to date" but still encounter permission issues, you can force the process using the `--force` flag.
 {% endstep %}
 {% endstepper %}
 
@@ -204,6 +201,28 @@ This makes the difference between a migration that "works" and a migration that 
 {% endstep %}
 
 {% step %}
+### **Character Set & Collation Validation**
+
+MySQL 8.0 uses `utf8mb4_0900_ai_ci` as its default collation. This specific collation is not supported by MariaDB. During a logical migration, MariaDB will typically map this to `utf8mb4_unicode_ci` or `utf8mb4_general_ci`.
+
+While the data will import correctly, this change can affect how your application performs joins or sorts data. If you notice unexpected behavior or performance drops in specific queries, verify your collations:
+
+```sql
+-- Check for collation mismatches in your migrated database
+SELECT table_name, column_name, collation_name 
+FROM information_schema.columns 
+WHERE table_schema = 'your_database_name'
+AND collation_name = 'utf8mb4_0900_ai_ci'; -- Look for remnants of the MySQL default
+```
+
+{% hint style="info" %}
+#### Why this matters
+
+If a user has one table set to the old MySQL default and another table set to a MariaDB default, a `JOIN` between them might suddenly stop using indexes because of the "collation mismatch." This snippet gives them the SQL command to find the problem immediately.
+{% endhint %}
+{% endstep %}
+
+{% step %}
 ### Check the Error Log
 
 Check for any "Deprecated Variable" or "Ignored Option" warnings that might have appeared during startup.
@@ -220,6 +239,17 @@ Verify that your application can connect. Pay special attention to:
 
 * Character Sets: Ensure your app and the server agree on `utf8mb4`.
 * Temporary Tables: If your app uses heavy temporary table logic, verify performance.
+{% endstep %}
+
+{% step %}
+### Security Hardening: Transition to PARSEC
+
+For migrations to MariaDB 11.4 LTS and later, consider transitioning your users to the PARSEC authentication plugin. While `mysql_native_password` is supported for compatibility, PARSEC is the modern successor designed for significantly stronger password hashing and better long-term security.
+
+```sql
+-- Example: Update a user to use PARSEC
+ALTER USER 'app_user'@'localhost' IDENTIFIED VIA parsec USING PASSWORD('secure_password');
+```
 {% endstep %}
 {% endstepper %}
 
@@ -246,6 +276,10 @@ Q: Do I need to change my application's client libraries? A: Usually, no. MariaD
 Q: What about the JSON data type? A: Your `JSON` columns will be treated as `LONGTEXT` with a `CHECK` constraint. Your queries using `JSON_EXTRACT()` or the `->` operator will continue to work exactly as they did in MySQL.
 
 Q: Is MariaDB 11.4 compatible with MySQL 8.4? A: Yes, for standard SQL and data. However, MySQL 8.4 removed many "legacy" behaviors that MariaDB still supports. If your app relies on those removed features, MariaDB is actually a _more_ compatible home for your code than MySQL 8.4.
+
+Q: Can I perform an in-place upgrade (binary swap)? A: No. MariaDB stores metadata (table structures etc.) in individual `.frm` files. In contrast, MySQL removed `.frm` files in MySQL 8.0, replacing it with a global data dictionary. If you stop a MySQL 8.0/8.4 server and point MariaDB binaries at that data directory, MariaDB will look for `.frm` files to understand what tables exist. Since those files no longer exist in MySQL 8.0+, MariaDB will see an "empty" data directory or throw critical errors. It has no way to read MySQL's new internal dictionary tables.
+
+Q: Can I perform an in-place upgrade for MySQL versions prior to 5.7? After all, those versions still use .frm files instead of a global data dictionary. A: In theory, that's possible, but in practice, you shouldn't do that either. Those old MySQL versions are built for operating systems like RHEL 6 which are out of support. You'd end up on an unsupported version of the operating system, on which you shouldn't install supported versions of MariaDB.
 
 ## Further Reading
 
