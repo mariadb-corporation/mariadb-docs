@@ -128,12 +128,11 @@ mysqldump --user=root --password --all-databases \
 
 If you have limited disk space or a high-speed network connection between your servers, you can "stream" the data directly from the MySQL source to the MariaDB target. This avoids creating a large intermediate `.sql` file on your local disk.
 
-Bash
-
+{% code overflow="wrap" %}
+```bash
+mysqldump --user=root --password --all-databases --single-transaction --routines --events --triggers --hex-blob | mariadb --host=new_server_ip --user=root --password
 ```
-mysqldump --user=root --password --all-databases --single-transaction --routines --events --triggers --hex-blob \
-| mariadb --host=new_server_ip --user=root --password
-```
+{% endcode %}
 
 > Pro Tip: To monitor the progress of your transfer in real-time, install the `pv` (Pipe Viewer) utility and insert it into the command: `mysqldump ... | pv | mariadb ...`
 {% endstep %}
