@@ -8,6 +8,8 @@ description: >-
 
 ## Syntax
 
+{% tabs %}
+{% tab title="Current" %}
 ```sql
 CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [AS { TINYINT | SMALLINT | |MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
@@ -18,6 +20,20 @@ CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [ CACHE [=] number | NOCACHE ] [ CYCLE | NOCYCLE] 
 [table_options](../sql-statements/data-definition/create/create-table.md#table-options)
 ```
+{% endtab %}
+
+{% tab title="< 11.5" %}
+```sql
+CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
+[ INCREMENT [ BY | = ] number ]
+[ MINVALUE [=] number | NO MINVALUE | NOMINVALUE ]
+[ MAXVALUE [=] number | NO MAXVALUE | NOMAXVALUE ]
+[ START [ WITH | = ] number ] 
+[ CACHE [=] number | NOCACHE ] [ CYCLE | NOCYCLE] 
+[table_options](../sql-statements/data-definition/create/create-table.md#table-options)
+```
+{% endtab %}
+{% endtabs %}
 
 The options for `CREATE SEQUENCE` can be given in any order, optionally followed by `table_options`.
 
