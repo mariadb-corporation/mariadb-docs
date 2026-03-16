@@ -303,7 +303,7 @@ This makes the difference between a migration that "works" and a migration that 
 {% step %}
 ### **Character Set & Collation Validation**
 
-MySQL 8.0 uses `utf8mb4_0900_ai_ci` as its default collation. This specific collation is not supported by MariaDB. During a logical migration, MariaDB will typically map this to `utf8mb4_unicode_ci` or `utf8mb4_general_ci`.
+MySQL 8.0 uses `utf8mb4_0900_ai_ci` as its default collation. This specific collation is also supported by MariaDB.
 
 While the data will import correctly, this change can affect how your application performs joins or sorts data. If you notice unexpected behavior or performance drops in specific queries, verify your collations:
 
