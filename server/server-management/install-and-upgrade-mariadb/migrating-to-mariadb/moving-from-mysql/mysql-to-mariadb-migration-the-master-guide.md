@@ -158,27 +158,6 @@ Transfer your `mysql_full_dump.sql` file to the new server and run the import:
 mariadb -u root -p < mysql_full_dump.sql
 ```
 {% endstep %}
-
-{% step %}
-### Finalize with `mariadb-upgrade`
-
-Even after a successful logical import, your new MariaDB instance is still using the system tables (permissions, stored procedures, and views) exactly as they were structured in MySQL. You must run the upgrade utility to "translate" these system tables into the MariaDB format.
-
-```bash
-# Execute this on the new MariaDB server
-sudo mariadb-upgrade -u root -p
-```
-
-{% hint style="info" %}
-#### What this does
-
-* Fixes System Tables: Aligns the `mysql` database schema with MariaDB's requirements.
-* Privilege Check: Ensures your migrated user permissions work correctly with MariaDB’s authentication plugins.
-* Version Stamp: Updates the internal versioning so MariaDB knows the migration is officially complete.
-{% endhint %}
-
-> Pro Tip: If you see "Already up to date" but still encounter permission issues, you can force the process using the `--force` flag.
-{% endstep %}
 {% endstepper %}
 
 ## Verification and Optimization
@@ -206,13 +185,16 @@ MySQL 8.0 uses `utf8mb4_0900_ai_ci` as its default collation. This specific coll
 
 While the data will import correctly, this change can affect how your application performs joins or sorts data. If you notice unexpected behavior or performance drops in specific queries, verify your collations:
 
+{% code overflow="wrap" %}
 ```sql
--- Check for collation mismatches in your migrated database
-SELECT table_name, column_name, collation_name 
-FROM information_schema.columns 
-WHERE table_schema = 'your_database_name'
-AND collation_name = 'utf8mb4_0900_ai_ci'; -- Look for remnants of the MySQL default
+-- Check for collation issues in your migrated database
+SHOW GLOBAL VARIABLES LIKE 'collation%';
+SHOW  VARIABLES LIKE 'collation%';
+SELECT table_schema, table_name, column_name, collation_name FROM information_schema.columns WHERE collation_name IS NOT NULL and table_schema not in('information_schema','performance_schema','mysql','sys') ORDER BY table_schema, table_name;
 ```
+{% endcode %}
+
+Check if you have queries that may lead to a mismatch error when joining 2 columns with different collations. Alter your table or database to use the same collation across all your databases. See [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) and [ALTER DATABASE](../../../../reference/sql-statements/data-definition/alter/alter-database.md) for details.
 
 {% hint style="info" %}
 #### Why this matters
