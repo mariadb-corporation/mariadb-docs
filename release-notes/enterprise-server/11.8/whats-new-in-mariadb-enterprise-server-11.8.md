@@ -162,7 +162,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
     ```
 * **New Option – `--slave-abort-blocking-timeout`**: Kills blocking non-replication queries after a timeout.
 * **Galera SST Automation**: SST user is now auto-created and managed internally.
-* **Backported** [MDEV-35304](https://jira.mariadb.org/browse/MDEV-35304) : Add `{{Connects_Tried}}` & `{{Master_Retry_Count}}` from [CS-12.0](../../community-server/12.0/what-is-mariadb-120.md)
+* **Backported** [MDEV-35304](https://jira.mariadb.org/browse/MDEV-35304) : Add `{{Connects_Tried}}` & `{{Master_Retry_Count}}` from [CS-12.0](../../community-server/old-releases/12.0/what-is-mariadb-120.md)
 
 ## Key Management <a href="#key-management" id="key-management"></a>
 
@@ -205,7 +205,7 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 
 ## PL/SQL <a href="#tool-improvements" id="tool-improvements"></a>
 
-Support for Oracle-stype `INDEX BY` tables (associative arrays) was backported from [MariaDB 12.1](../../community-server/12.1/changes-and-improvements-in-mariadb-12.1.md) in stored routines and anonymous blocks, with this declaration syntax:
+Support for Oracle-stype `INDEX BY` tables (associative arrays) was backported from [MariaDB 12.1](../../community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1.md) in stored routines and anonymous blocks, with this declaration syntax:
 
 ```sql
 TYPE type_name TABLE OF rec_type_name INDEX BY idx_type_name;
@@ -251,6 +251,14 @@ The implementation supports the following associative array methods:
   * New stats in `CLIENT_STATISTICS and USER_STATISTICS`.
   * Table I/O metrics: `PAGES_ACCESSED, PAGES_READ_FROM_DISK`.
 
+## Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server 11.8
+
+For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
+
+| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 11.8 Release |
+| ----------------------------------------------------------------- | --------------- | ------------------------------ |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5             | [11.8.5-2](11.8.5-2.md)        |
+
 ## Available Versions <a href="#available-versions" id="available-versions"></a>
 
 * [MariaDB Enterprise Server 11.8.5-2](11.8.5-2.md)
@@ -267,7 +275,7 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
 ## Upgrade Instructions <a href="#upgrade-instructions" id="upgrade-instructions"></a>
 
-* [Upgrade to MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/mariadb-enterprise-server-11.8/upgrade-to-mariadb-enterprise-server-11.8)
+* [Upgrade to MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/mariadb-enterprise-server-11.8/upgrade-to-mariadb-enterprise-server-11.8)
 
 ## What's new in older release series <a href="#whats-new-in-older-release-series" id="whats-new-in-older-release-series"></a>
 

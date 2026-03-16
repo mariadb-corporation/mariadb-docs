@@ -197,7 +197,7 @@ This only affects new installs. Upgrades from old versions will continue to use 
 * [Configuring MariaDB for optimal performance](../../../configuring-mariadb/mariadb-performance-advanced-configurations/configuring-mariadb-for-optimal-performance.md)
 * [New features in MariaDB you should considering using](https://mariadb.com/docs/release-notes/compatibility-and-differences/mariadb-vs-mysql-features)
 * [What is MariaDB 10.1](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1)
-* [General instructions for upgrading from MySQL to MariaDB](../../../migrating-to-mariadb/moving-from-mysql/upgrading-from-mysql-to-mariadb.md)
+* [General instructions for upgrading from MySQL to MariaDB](/broken/pages/Wvw3Hz582uZdUAGua5bc)
 
 ## Comments and suggestions
 

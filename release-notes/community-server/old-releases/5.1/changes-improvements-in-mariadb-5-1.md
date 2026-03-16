@@ -66,7 +66,7 @@ See also:
 
 ### Easier to upgrade
 
-We have made it [easy to upgrade from MySQL 5.0](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migrating-to-mariadb-from-mysql-obsolete-articles/upgrading-to-mariadb-from-mysql-50-or-older)\
+We have made it easy to upgrade from MySQL 5.0\
 to [MariaDB 5.1](changes-improvements-in-mariadb-5-1.md)
 
 * InnoDB and Archive tables are now upgraded properly.

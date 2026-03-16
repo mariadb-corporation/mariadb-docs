@@ -9,9 +9,9 @@ description: >-
 {% hint style="info" %}
 #### Technical Compatibility Reference
 
-This guide provides an overview of new features and improvements across the series. For major version upgrades, which involve significant architectural changes, users should consult the [Compatibility and Breaking Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/upgrades/mariadb-enterprise-server-10.5/compatibility-and-breaking-changes-for-mariadb-enterprise-server-10.5) guide.
+This guide provides an overview of new features and improvements across the series. For major version upgrades, which involve significant architectural changes, users should consult the [Compatibility and Breaking Changes](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/archived/mariadb-enterprise-server-10.5/compatibility-and-breaking-changes-for-mariadb-enterprise-server-10.5) guide.
 
-The Compatibility guide includes critical technical insights found through engineering audits and support cases. It covers essential [pre-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/mariadb-enterprise-server-upgrade-paths/upgrades/mariadb-enterprise-server-10.5/upgrade-to-mariadb-enterprise-server-10.5#critical-pre-upgrade-requirements) shutdown requirements and details platform-specific configuration path changes for Debian and Ubuntu.
+The Compatibility guide includes critical technical insights found through engineering audits and support cases. It covers essential [pre-upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/archived/mariadb-enterprise-server-10.5/upgrade-to-mariadb-enterprise-server-10.5#critical-pre-upgrade-requirements) shutdown requirements and details platform-specific configuration path changes for Debian and Ubuntu.
 {% endhint %}
 
 MariaDB Enterprise Server 10.5 introduces the new features listed below.
@@ -1260,6 +1260,85 @@ MariaDB Enterprise Server 10.5 includes some internal improvements:
 * It adds support for a new Data Type API, so that plugins can define custom data types.
 
 For a complete list of changes, see [MariaDB Enterprise Server 10.5.4-2 release notes](10.5.4-2.md).
+
+## Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server 10.5
+
+For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
+
+| CVE ID (with cve.org link)                                        | CVSS base score | Enterprise Server 10.5 Release |
+| ------------------------------------------------------------------| --------------- | ------------------------------ |
+| [CVE-2024-21096](https://www.cve.org/CVERecord?id=CVE-2024-21096) | 4.9             | [10.5.25-19](10.5.25-19.md) |
+| [CVE-2023-22084](https://www.cve.org/CVERecord?id=CVE-2023-22084) | 4.9             | [10.5.23-17](10.5.23-17.md) |
+| [CVE-2022-47015](https://www.cve.org/CVERecord?id=CVE-2022-47015) | N/A (Medium) [<sup>#1</sup>](#id-1) | [10.5.21-15](10.5.21-15.md) |
+| [CVE-2023-5157](https://www.cve.org/CVERecord?id=CVE-2023-5157)   | 7.5             | [10.5.17-12](10.5.17-12.md) |
+| [CVE-2018-25032](https://www.cve.org/CVERecord?id=CVE-2018-25032) | 7.5             | [10.5.17-12](10.5.17-12.md) |
+| [CVE-2022-32091](https://www.cve.org/CVERecord?id=CVE-2022-32091) | 6.5             | [10.5.17-12](10.5.17-12.md) |
+| [CVE-2022-32089](https://www.cve.org/CVERecord?id=CVE-2022-32089) | 6.5             | [10.5.17-12](10.5.17-12.md) |
+| [CVE-2022-32084](https://www.cve.org/CVERecord?id=CVE-2022-32084) | 6.5             | [10.5.17-12](10.5.17-12.md) |
+| [CVE-2022-32082](https://www.cve.org/CVERecord?id=CVE-2022-32082) | 6.5             | [10.5.17-12](10.5.17-12.md) |
+| [CVE-2022-32081](https://www.cve.org/CVERecord?id=CVE-2022-32081) | 6.5             | [10.5.17-12](10.5.17-12.md) |
+| [CVE-2022-27458](https://www.cve.org/CVERecord?id=CVE-2022-27458) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27457](https://www.cve.org/CVERecord?id=CVE-2022-27457) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27456](https://www.cve.org/CVERecord?id=CVE-2022-27456) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27455](https://www.cve.org/CVERecord?id=CVE-2022-27455) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27452](https://www.cve.org/CVERecord?id=CVE-2022-27452) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27451](https://www.cve.org/CVERecord?id=CVE-2022-27451) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27449](https://www.cve.org/CVERecord?id=CVE-2022-27449) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27448](https://www.cve.org/CVERecord?id=CVE-2022-27448) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27447](https://www.cve.org/CVERecord?id=CVE-2022-27447) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27446](https://www.cve.org/CVERecord?id=CVE-2022-27446) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27445](https://www.cve.org/CVERecord?id=CVE-2022-27445) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27444](https://www.cve.org/CVERecord?id=CVE-2022-27444) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27387](https://www.cve.org/CVERecord?id=CVE-2022-27387) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27386](https://www.cve.org/CVERecord?id=CVE-2022-27386) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27384](https://www.cve.org/CVERecord?id=CVE-2022-27384) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27383](https://www.cve.org/CVERecord?id=CVE-2022-27383) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27382](https://www.cve.org/CVERecord?id=CVE-2022-27382) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27381](https://www.cve.org/CVERecord?id=CVE-2022-27381) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27380](https://www.cve.org/CVERecord?id=CVE-2022-27380) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27379](https://www.cve.org/CVERecord?id=CVE-2022-27379) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27378](https://www.cve.org/CVERecord?id=CVE-2022-27378) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27377](https://www.cve.org/CVERecord?id=CVE-2022-27377) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-27376](https://www.cve.org/CVERecord?id=CVE-2022-27376) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-21451](https://www.cve.org/CVERecord?id=CVE-2022-21451) | 7.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-32088](https://www.cve.org/CVERecord?id=CVE-2022-32088) | 6.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-32087](https://www.cve.org/CVERecord?id=CVE-2022-32087) | 6.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-32086](https://www.cve.org/CVERecord?id=CVE-2022-32086) | 6.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-32085](https://www.cve.org/CVERecord?id=CVE-2022-32085) | 6.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2022-32083](https://www.cve.org/CVERecord?id=CVE-2022-32083) | 6.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2021-46669](https://www.cve.org/CVERecord?id=CVE-2021-46669) | 6.5             | [10.5.16-11](10.5.16-11.md) |
+| [CVE-2021-46668](https://www.cve.org/CVERecord?id=CVE-2021-46668) | 5.5             | [10.5.15-10](10.5.15-10.md) |
+| [CVE-2021-46665](https://www.cve.org/CVERecord?id=CVE-2021-46665) | 5.5             | [10.5.15-10](10.5.15-10.md) |
+| [CVE-2021-46664](https://www.cve.org/CVERecord?id=CVE-2021-46664) | 5.5             | [10.5.15-10](10.5.15-10.md) |
+| [CVE-2021-46663](https://www.cve.org/CVERecord?id=CVE-2021-46663) | 5.5             | [10.5.15-10](10.5.15-10.md) |
+| [CVE-2021-46661](https://www.cve.org/CVERecord?id=CVE-2021-46661) | 5.5             | [10.5.15-10](10.5.15-10.md) |
+| [CVE-2021-46659](https://www.cve.org/CVERecord?id=CVE-2021-46659) | 5.5             | [10.5.15-10](10.5.15-10.md) |
+| [CVE-2022-21595](https://www.cve.org/CVERecord?id=CVE-2022-21595) | 4.4             | [10.5.15-10](10.5.15-10.md) |
+| [CVE-2022-27385](https://www.cve.org/CVERecord?id=CVE-2022-27385) | 7.5             | [10.5.13-9](10.5.13-9.md)   |
+| [CVE-2021-46667](https://www.cve.org/CVERecord?id=CVE-2021-46667) | 7.5             | [10.5.13-9](10.5.13-9.md)   |
+| [CVE-2022-31624](https://www.cve.org/CVERecord?id=CVE-2022-31624) | 6.5             | [10.5.13-9](10.5.13-9.md)   |
+| [CVE-2021-46662](https://www.cve.org/CVERecord?id=CVE-2021-46662) | 5.5             | [10.5.13-9](10.5.13-9.md)   |
+| [CVE-2021-35604](https://www.cve.org/CVERecord?id=CVE-2021-35604) | 5.5             | [10.5.13-9](10.5.13-9.md)   |
+| [CVE-2021-2389](https://www.cve.org/CVERecord?id=CVE-2021-2389)   | 5.9             | [10.5.12-8](10.5.12-8.md)   |
+| [CVE-2021-46666](https://www.cve.org/CVERecord?id=CVE-2021-46666) | 5.5             | [10.5.12-8](10.5.12-8.md)   |
+| [CVE-2021-46658](https://www.cve.org/CVERecord?id=CVE-2021-46658) | 5.5             | [10.5.12-8](10.5.12-8.md)   |
+| [CVE-2021-46657](https://www.cve.org/CVERecord?id=CVE-2021-46657) | 5.5             | [10.5.12-8](10.5.12-8.md)   |
+| [CVE-2021-2372](https://www.cve.org/CVERecord?id=CVE-2021-2372)   | 4.4             | [10.5.12-8](10.5.12-8.md)   |
+| [CVE-2021-2166](https://www.cve.org/CVERecord?id=CVE-2021-2166)   | 4.9             | [10.5.10-7](10.5.10-7.md)   |
+| [CVE-2021-2154](https://www.cve.org/CVERecord?id=CVE-2021-2154)   | 4.9             | [10.5.10-7](10.5.10-7.md)   |
+| [CVE-2021-27928](https://www.cve.org/CVERecord?id=CVE-2021-27928) | N/A (Critical) [<sup>#1</sup>](#id-1) | [10.5.9-6](10.5.9-6.md) |
+| [CVE-2020-14765](https://www.cve.org/CVERecord?id=CVE-2020-14765) | 6.5             | [10.5.8-5](10.5.8-5.md)     |
+| [CVE-2022-21427](https://www.cve.org/CVERecord?id=CVE-2022-21427) | 4.9             | [10.5.8-5](10.5.8-5.md)     |
+| [CVE-2020-14812](https://www.cve.org/CVERecord?id=CVE-2020-14812) | 4.9             | [10.5.8-5](10.5.8-5.md)     |
+| [CVE-2020-14789](https://www.cve.org/CVERecord?id=CVE-2020-14789) | 4.9             | [10.5.8-5](10.5.8-5.md)     |
+| [CVE-2020-14776](https://www.cve.org/CVERecord?id=CVE-2020-14776) | 4.9             | [10.5.8-5](10.5.8-5.md)     |
+| [CVE-2020-28912](https://www.cve.org/CVERecord?id=CVE-2020-28912) | N/A (Critical) [<sup>#1</sup>](#id-1) | [10.5.8-5](10.5.8-5.md) |
+| [CVE-2020-15180](https://www.cve.org/CVERecord?id=CVE-2020-15180) | N/A (Critical) [<sup>#1</sup>](#id-1) | [10.5.6-4](10.5.6-4.md) |
+| [CVE-2021-2022](https://www.cve.org/CVERecord?id=CVE-2021-2022)   | 4.4             | [10.5.5-3](10.5.5-3.md)     |
+
+#### #1:
+
+MariaDB CVEs are assigned a word rating instead of a CVSS base score. See the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/) for details.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

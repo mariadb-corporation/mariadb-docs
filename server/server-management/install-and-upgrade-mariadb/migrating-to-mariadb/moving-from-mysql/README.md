@@ -6,46 +6,26 @@ description: >-
 
 # Migrating to MariaDB from MySQL
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features" %}
-[MariaDB versus MySQL - Features](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-features)
-{% endcontent-ref %}
+MariaDB Server is designed to be a high-performance, drop-in replacement for MySQL. Whether you are moving from legacy versions (5.5, 5.6, 5.7) or modern releases (8.0, 8.4 LTS), this section provides the tools and workflows needed for a successful transition.
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility" %}
-[MariaDB versus MySQL - Compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/mariadb-vs-mysql-compatibility)
-{% endcontent-ref %}
+## Evaluate Compatibility
 
-{% content-ref url="upgrading-from-mysql-to-mariadb.md" %}
-[upgrading-from-mysql-to-mariadb.md](upgrading-from-mysql-to-mariadb.md)
-{% endcontent-ref %}
+Before moving data, understand the technical differences between your current MySQL version and your target MariaDB version. Our Compatibility Matrix covers changes in authentication, SQL syntax, and system variables.
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql" %}
-[Replication Compatibility Between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/replication-compatibility-between-mariadb-and-mysql)
-{% endcontent-ref %}
+* [MySQL to MariaDB Compatibility Matrix](mysql-to-mariadb-compatibility-matrix.md) — A detailed reference for DBAs and developers.
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql" %}
-[Function Differences Between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql)
-{% endcontent-ref %}
+## Choose Your Migration Path
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql" %}
-[System Variable Differences between MariaDB and MySQL](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/system-variable-differences-between-mariadb-and-mysql)
-{% endcontent-ref %}
+The best method for migration depends on your downtime requirements and server architecture. We have consolidated these workflows into a single authoritative guide.
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql" %}
-[Incompatibilities and Feature Differences Between MariaDB Rolling and MySQL 8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-rolling-and-mysql)
-{% endcontent-ref %}
+* [MySQL to MariaDB Migration: The Master Guide](mysql-to-mariadb-migration-the-master-guide.md) — Step-by-step instructions for:
+  * In-Place Upgrades: Fast, same-server binary swaps.
+  * Logical Migrations: Safe, cross-server dump and restore.
+  * Cloud & RDS Migrations: Specialized paths for managed environments.
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-11-4-and-mysql-8" %}
-[Incompatibilities and Feature Differences Between MariaDB 11.4 and MySQL 8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-11-4-and-mysql-8)
-{% endcontent-ref %}
+## Specialized Migration Scenarios
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-11-and-mysql-8" %}
-[Incompatibilities and Feature Differences Between MariaDB 10.11 and MySQL 8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-11-and-mysql-8)
-{% endcontent-ref %}
+For complex architectures, refer to these dedicated pages:
 
-{% content-ref url="https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-6-and-mysql-8" %}
-[Incompatibilities and Feature Differences Between MariaDB 10.6 and MySQL 8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/incompatibilities-and-feature-differences-between-mariadb-10-6-and-mysql-8)
-{% endcontent-ref %}
+* [Migrating Galera Cluster](migration-from-mysql-to-mariadb-cluster-using-replication.md) — Moving from MySQL/Percona XtraDB Cluster to MariaDB Galera Cluster.
 
-{% content-ref url="migration-from-mysql-to-mariadb-cluster-using-replication.md" %}
-[migration-from-mysql-to-mariadb-cluster-using-replication.md](migration-from-mysql-to-mariadb-cluster-using-replication.md)
-{% endcontent-ref %}

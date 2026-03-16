@@ -21,19 +21,19 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 12.1
 
-| Name                     | Release date | Release status |
-| ------------------------ | ------------ | -------------- |
-| [12.1.2](12.1/12.1.2.md) | 2025-11-18   | Stable (GA)    |
-| [12.1.1](12.1/12.1.1.md) | 2025-08-07   | RC             |
-| 12.1.0                   | 2025-06-26   | Preview        |
+| Name                                  | Release date | Release status |
+| ------------------------------------- | ------------ | -------------- |
+| [12.1.2](old-releases/12.1/12.1.2.md) | 2025-11-18   | Stable (GA)    |
+| [12.1.1](old-releases/12.1/12.1.1.md) | 2025-08-07   | RC             |
+| 12.1.0                                | 2025-06-26   | Preview        |
 
 ## MariaDB Community Server 12.0
 
-| Name                     | Release date | Release status |
-| ------------------------ | ------------ | -------------- |
-| [12.0.2](12.0/12.0.2.md) | 2025-08-07   | Stable         |
-| [12.0.1](12.0/12.0.1.md) | 2025-06-05   | RC             |
-| 12.0.0                   | 2025-03-26   | Preview        |
+| Name                                  | Release date | Release status |
+| ------------------------------------- | ------------ | -------------- |
+| [12.0.2](old-releases/12.0/12.0.2.md) | 2025-08-07   | Stable         |
+| [12.0.1](old-releases/12.0/12.0.1.md) | 2025-06-05   | RC             |
+| 12.0.0                                | 2025-03-26   | Preview        |
 
 ## MariaDB Community Server 11.8
 
@@ -186,11 +186,11 @@ description: A list of all MariaDB Community Server releases
 | [10.8.8](old-releases/10.8/10.8.8.md) | 2023-05-10   | Stable         |
 | [10.8.7](old-releases/10.8/10.8.7.md) | 2023-02-06   | Stable         |
 | [10.8.6](old-releases/10.8/10.8.6.md) | 2022-11-08   | Stable         |
-| [10.8.5](old-releases/10.8/10.8.5.md)   | 2022-09-19   | Stable         |
+| [10.8.5](old-releases/10.8/10.8.5.md) | 2022-09-19   | Stable         |
 | [10.8.4](old-releases/10.8/10.8.4.md) | 2022-08-15   | Stable         |
 | [10.8.3](old-releases/10.8/10.8.3.md) | 2022-05-21   | Stable         |
 | [10.8.2](old-releases/10.8/10.8.2.md) | 2022-02-14   | RC             |
-| [10.8.0](old-releases/10.8/10.8.0.md)   | 2021-12-21   | Alpha          |
+| [10.8.0](old-releases/10.8/10.8.0.md) | 2021-12-21   | Alpha          |
 
 ## MariaDB Community Server 10.7
 
@@ -451,103 +451,102 @@ description: A list of all MariaDB Community Server releases
 
 ## MariaDB Community Server 10.0
 
-| Name | Release date | Release status |
-| ---- | ------------ | -------------- |
-| [10.0.38](old-releases/10.0/10.0.38.md) | 2019-01-31 | Stable |
-| [10.0.37](old-releases/10.0/10.0.37.md) | 2018-11-01 | Stable |
-| [10.0.36](old-releases/10.0/10.0.36.md) | 2018-08-01 | Stable |
-| [10.0.35](old-releases/10.0/10.0.35.md) | 2018-05-03 | Stable |
-| [10.0.34](old-releases/10.0/10.0.34.md) | 2018-01-30 | Stable |
-| [10.0.33](old-releases/10.0/10.0.33.md) | 2017-10-30 | Stable |
-| [10.0.32](old-releases/10.0/10.0.32.md) | 2017-08-07 | Stable |
-| [10.0.31](old-releases/10.0/10.0.31.md) | 2017-05-23 | Stable |
-| [10.0.30](old-releases/10.0/10.0.31.md) | 2017-03-08 | Stable |
-| [10.0.29](old-releases/10.0/10.0.29.md) | 2017-01-13 | Stable |
-| [10.0.28](old-releases/10.0/10.0.28.md) | 2016-10-28 | Stable |
-| [10.0.27](old-releases/10.0/10.0.27.md) | 2016-08-25 | Stable |
-| [10.0.26](old-releases/10.0/10.0.26.md) | 2016-06-24 | Stable |
-| [10.0.25](old-releases/10.0/10.0.25.md) | 2016-04-30 | Stable |
-| [10.0.24](old-releases/10.0/10.0.24.md) | 2016-02-19 | Stable |
-| [10.0.23](old-releases/10.0/10.0.23.md) | 2015-12-18 | Stable |
-| [10.0.22](old-releases/10.0/10.0.22.md) | 2015-10-29 | Stable |
-| [10.0.21](old-releases/10.0/10.0.21.md) | 2015-08-06 | Stable |
-| [10.0.20](old-releases/10.0/10.0.20.md) | 2015-06-18 | Stable |
-| [10.0.19](old-releases/10.0/10.0.19.md) | 2015-05-09 | Stable |
-| [10.0.18](old-releases/10.0/10.0.18.md) | 2015-05-07 | Stable |
-| [10.0.17](old-releases/10.0/10.0.17.md) | 2015-02-27 | Stable |
-| [10.0.16](old-releases/10.0/10.0.16.md) | 2015-01-27 | Stable |
-| [10.0.15](old-releases/10.0/10.0.15.md) | 2014-11-25 | Stable |
-| [10.0.14](old-releases/10.0/10.0.14.md) | 2014-09-23 | Stable |
-| [10.0.13](old-releases/10.0/10.0.13.md) | 2014-08-11 | Stable |
-| [10.0.12](old-releases/10.0/10.0.12.md) | 2014-06-16 | Stable |
-| [10.0.11](old-releases/10.0/10.0.11.md) | 2014-05-12 | Stable |
-| [10.0.10](old-releases/10.0/10.0.10.md) | 2014-03-31 | Stable |
-| [10.0.9](old-releases/10.0/10.0.9.md) | 2014-03-10 | RC  |
-| [10.0.8](old-releases/10.0/10.0.8.md) | 2014-02-10 | RC  |
-| [10.0.7](old-releases/10.0/10.0.7.md) | 2013-12-27 | Beta |
-| [10.0.6](old-releases/10.0/10.0.6.md) | 2013-11-18 | Beta |
-| [10.0.5](old-releases/10.0/10.0.5.md) | 2013-11-07 | Beta |
-| [10.0.4](old-releases/10.0/10.0.4.md) | 2013-08-16 | Alpha |
-| [10.0.3](old-releases/10.0/10.0.3.md) | 2013-06-11 | Alpha |
-| [10.0.2](old-releases/10.0/10.0.2.md) | 2013-04-24 | Alpha |
-| [10.0.1](old-releases/10.0/10.0.1.md) | 2013-02-06 | Alpha |
-| [10.0.0](old-releases/10.0/10.0.0.md) | 2012-11-12 | Alpha |
-
+| Name                                    | Release date | Release status |
+| --------------------------------------- | ------------ | -------------- |
+| [10.0.38](old-releases/10.0/10.0.38.md) | 2019-01-31   | Stable         |
+| [10.0.37](old-releases/10.0/10.0.37.md) | 2018-11-01   | Stable         |
+| [10.0.36](old-releases/10.0/10.0.36.md) | 2018-08-01   | Stable         |
+| [10.0.35](old-releases/10.0/10.0.35.md) | 2018-05-03   | Stable         |
+| [10.0.34](old-releases/10.0/10.0.34.md) | 2018-01-30   | Stable         |
+| [10.0.33](old-releases/10.0/10.0.33.md) | 2017-10-30   | Stable         |
+| [10.0.32](old-releases/10.0/10.0.32.md) | 2017-08-07   | Stable         |
+| [10.0.31](old-releases/10.0/10.0.31.md) | 2017-05-23   | Stable         |
+| [10.0.30](old-releases/10.0/10.0.31.md) | 2017-03-08   | Stable         |
+| [10.0.29](old-releases/10.0/10.0.29.md) | 2017-01-13   | Stable         |
+| [10.0.28](old-releases/10.0/10.0.28.md) | 2016-10-28   | Stable         |
+| [10.0.27](old-releases/10.0/10.0.27.md) | 2016-08-25   | Stable         |
+| [10.0.26](old-releases/10.0/10.0.26.md) | 2016-06-24   | Stable         |
+| [10.0.25](old-releases/10.0/10.0.25.md) | 2016-04-30   | Stable         |
+| [10.0.24](old-releases/10.0/10.0.24.md) | 2016-02-19   | Stable         |
+| [10.0.23](old-releases/10.0/10.0.23.md) | 2015-12-18   | Stable         |
+| [10.0.22](old-releases/10.0/10.0.22.md) | 2015-10-29   | Stable         |
+| [10.0.21](old-releases/10.0/10.0.21.md) | 2015-08-06   | Stable         |
+| [10.0.20](old-releases/10.0/10.0.20.md) | 2015-06-18   | Stable         |
+| [10.0.19](old-releases/10.0/10.0.19.md) | 2015-05-09   | Stable         |
+| [10.0.18](old-releases/10.0/10.0.18.md) | 2015-05-07   | Stable         |
+| [10.0.17](old-releases/10.0/10.0.17.md) | 2015-02-27   | Stable         |
+| [10.0.16](old-releases/10.0/10.0.16.md) | 2015-01-27   | Stable         |
+| [10.0.15](old-releases/10.0/10.0.15.md) | 2014-11-25   | Stable         |
+| [10.0.14](old-releases/10.0/10.0.14.md) | 2014-09-23   | Stable         |
+| [10.0.13](old-releases/10.0/10.0.13.md) | 2014-08-11   | Stable         |
+| [10.0.12](old-releases/10.0/10.0.12.md) | 2014-06-16   | Stable         |
+| [10.0.11](old-releases/10.0/10.0.11.md) | 2014-05-12   | Stable         |
+| [10.0.10](old-releases/10.0/10.0.10.md) | 2014-03-31   | Stable         |
+| [10.0.9](old-releases/10.0/10.0.9.md)   | 2014-03-10   | RC             |
+| [10.0.8](old-releases/10.0/10.0.8.md)   | 2014-02-10   | RC             |
+| [10.0.7](old-releases/10.0/10.0.7.md)   | 2013-12-27   | Beta           |
+| [10.0.6](old-releases/10.0/10.0.6.md)   | 2013-11-18   | Beta           |
+| [10.0.5](old-releases/10.0/10.0.5.md)   | 2013-11-07   | Beta           |
+| [10.0.4](old-releases/10.0/10.0.4.md)   | 2013-08-16   | Alpha          |
+| [10.0.3](old-releases/10.0/10.0.3.md)   | 2013-06-11   | Alpha          |
+| [10.0.2](old-releases/10.0/10.0.2.md)   | 2013-04-24   | Alpha          |
+| [10.0.1](old-releases/10.0/10.0.1.md)   | 2013-02-06   | Alpha          |
+| [10.0.0](old-releases/10.0/10.0.0.md)   | 2012-11-12   | Alpha          |
 
 ## MariaDB Community Server 5.5
 
-| Name                                 | Release date | Release status |
-| ------------------------------------ | ------------ | -------------- |
-| [5.5.68](old-releases/5.5/5.5.68.md) | 2020-05-12 | Stable |
-| [5.5.67](old-releases/5.5/5.5.67.md) | 2020-01-28 | Stable |
-| [5.5.66](old-releases/5.5/5.5.66.md) | 2019-11-05 | Stable |
-| [5.5.65](old-releases/5.5/5.5.65.md) | 2019-07-31 | Stable |
-| [5.5.64](old-releases/5.5/5.5.64.md) | 2019-04-29 | Stable |
-| [5.5.63](old-releases/5.5/5.5.63.md) | 2019-01-30 | Stable |
-| [5.5.62](old-releases/5.5/5.5.62.md) | 2018-10-26 | Stable |
-| [5.5.61](old-releases/5.5/5.5.61.md) | 2018-07-31 | Stable |
-| [5.5.60](old-releases/5.5/5.5.60.md) | 2018-04-23 | Stable |
-| [5.5.59](old-releases/5.5/5.5.59.md) | 2018-01-19 | Stable |
-| [5.5.58](old-releases/5.5/5.5.58.md) | 2017-10-18 | Stable |
-| [5.5.57](old-releases/5.5/5.5.57.md) | 2017-07-19 | Stable |
-| [5.5.56](old-releases/5.5/5.5.56.md) | 2017-05-03 | Stable |
-| [5.5.55](old-releases/5.5/5.5.55.md) | 2017-04-13 | Stable |
-| [5.5.54](old-releases/5.5/5.5.54.md) | 2016-12-24 | Stable |
-| [5.5.53](old-releases/5.5/5.5.53.md) | 2016-10-17 | Stable |
-| [5.5.52](old-releases/5.5/5.5.52.md) | 2016-09-13 | Stable |
-| [5.5.51](old-releases/5.5/5.5.51.md) | 2016-08-10 | Stable |
-| [5.5.50](old-releases/5.5/5.5.50.md) | 2016-06-17 | Stable |
-| [5.5.49](old-releases/5.5/5.5.49.md) | 2016-04-22 | Stable |
-| [5.5.48](old-releases/5.5/5.5.48.md) | 2016-02-11 | Stable |
-| [5.5.47](old-releases/5.5/5.5.47.md) | 2015-12-10 | Stable |
-| [5.5.46](old-releases/5.5/5.5.46.md) | 2015-10-12 | Stable |
-| [5.5.45](old-releases/5.5/5.5.45.md) | 2015-08-06 | Stable |
-| [5.5.44](old-releases/5.5/5.5.44.md) | 2015-06-11 | Stable |
-| [5.5.43](old-releases/5.5/5.5.43.md) | 2015-05-01 | Stable |
-| [5.5.42](old-releases/5.5/5.5.42.md) | 2015-02-19 | Stable |
-| [5.5.41](old-releases/5.5/5.5.41.md) | 2014-12-21 | Stable |
-| [5.5.40](old-releases/5.5/5.5.40.md) | 2014-10-09 | Stable |
-| [5.5.39](old-releases/5.5/5.5.39.md) | 2014-08-05 | Stable |
-| [5.5.38](old-releases/5.5/5.5.38.md) | 2014-06-09 | Stable |
-| [5.5.37](old-releases/5.5/5.5.37.md) | 2014-04-17 | Stable |
-| [5.5.36](old-releases/5.5/5.5.36.md) | 2014-02-25 | Stable |
-| [5.5.35](old-releases/5.5/5.5.35.md) | 2014-01-29 | Stable |
-| [5.5.34](old-releases/5.5/5.5.34.md) | 2013-11-21 | Stable |
-| [5.5.33a](old-releases/5.5/5.5.33a.md) | 2013-09-20 | Stable |
-| [5.5.33](old-releases/5.5/5.5.33.md) | 2013-09-17 | Stable |
-| [5.5.32](old-releases/5.5/5.5.32.md) | 2013-07-18 | Stable |
-| [5.5.31](old-releases/5.5/5.5.31.md) | 2013-05-23 | Stable |
-| [5.5.30](old-releases/5.5/5.5.30.md) | 2013-03-12 | Stable |
-| [5.5.29](old-releases/5.5/5.5.29.md) | 2013-01-30 | Stable |
-| [5.5.28a](old-releases/5.5/5.5.28a.md) | 2012-11-29 | Stable |
-| [5.5.28](old-releases/5.5/5.5.28.md) | 2012-10-22 | Stable |
-| [5.5.27](old-releases/5.5/5.5.27.md) | 2012-09-07 | Stable |
-| [5.5.25](old-releases/5.5/5.5.25.md) | 2012-06-22 | Stable |
-| [5.5.24](old-releases/5.5/5.5.24.md) | 2012-05-31 | Stable |
-| [5.5.23](old-releases/5.5/5.5.23.md) | 2012-04-11 | Stable |
-| [5.5.22](old-releases/5.5/5.5.22.md) | 2012-03-29 | RC  |
-| [5.5.21](old-releases/5.5/5.5.21.md) | 2012-03-16 | Beta |
-| [5.5.20](old-releases/5.5/5.5.20.md) | 2012-02-25 | Alpha |
+| Name                                   | Release date | Release status |
+| -------------------------------------- | ------------ | -------------- |
+| [5.5.68](old-releases/5.5/5.5.68.md)   | 2020-05-12   | Stable         |
+| [5.5.67](old-releases/5.5/5.5.67.md)   | 2020-01-28   | Stable         |
+| [5.5.66](old-releases/5.5/5.5.66.md)   | 2019-11-05   | Stable         |
+| [5.5.65](old-releases/5.5/5.5.65.md)   | 2019-07-31   | Stable         |
+| [5.5.64](old-releases/5.5/5.5.64.md)   | 2019-04-29   | Stable         |
+| [5.5.63](old-releases/5.5/5.5.63.md)   | 2019-01-30   | Stable         |
+| [5.5.62](old-releases/5.5/5.5.62.md)   | 2018-10-26   | Stable         |
+| [5.5.61](old-releases/5.5/5.5.61.md)   | 2018-07-31   | Stable         |
+| [5.5.60](old-releases/5.5/5.5.60.md)   | 2018-04-23   | Stable         |
+| [5.5.59](old-releases/5.5/5.5.59.md)   | 2018-01-19   | Stable         |
+| [5.5.58](old-releases/5.5/5.5.58.md)   | 2017-10-18   | Stable         |
+| [5.5.57](old-releases/5.5/5.5.57.md)   | 2017-07-19   | Stable         |
+| [5.5.56](old-releases/5.5/5.5.56.md)   | 2017-05-03   | Stable         |
+| [5.5.55](old-releases/5.5/5.5.55.md)   | 2017-04-13   | Stable         |
+| [5.5.54](old-releases/5.5/5.5.54.md)   | 2016-12-24   | Stable         |
+| [5.5.53](old-releases/5.5/5.5.53.md)   | 2016-10-17   | Stable         |
+| [5.5.52](old-releases/5.5/5.5.52.md)   | 2016-09-13   | Stable         |
+| [5.5.51](old-releases/5.5/5.5.51.md)   | 2016-08-10   | Stable         |
+| [5.5.50](old-releases/5.5/5.5.50.md)   | 2016-06-17   | Stable         |
+| [5.5.49](old-releases/5.5/5.5.49.md)   | 2016-04-22   | Stable         |
+| [5.5.48](old-releases/5.5/5.5.48.md)   | 2016-02-11   | Stable         |
+| [5.5.47](old-releases/5.5/5.5.47.md)   | 2015-12-10   | Stable         |
+| [5.5.46](old-releases/5.5/5.5.46.md)   | 2015-10-12   | Stable         |
+| [5.5.45](old-releases/5.5/5.5.45.md)   | 2015-08-06   | Stable         |
+| [5.5.44](old-releases/5.5/5.5.44.md)   | 2015-06-11   | Stable         |
+| [5.5.43](old-releases/5.5/5.5.43.md)   | 2015-05-01   | Stable         |
+| [5.5.42](old-releases/5.5/5.5.42.md)   | 2015-02-19   | Stable         |
+| [5.5.41](old-releases/5.5/5.5.41.md)   | 2014-12-21   | Stable         |
+| [5.5.40](old-releases/5.5/5.5.40.md)   | 2014-10-09   | Stable         |
+| [5.5.39](old-releases/5.5/5.5.39.md)   | 2014-08-05   | Stable         |
+| [5.5.38](old-releases/5.5/5.5.38.md)   | 2014-06-09   | Stable         |
+| [5.5.37](old-releases/5.5/5.5.37.md)   | 2014-04-17   | Stable         |
+| [5.5.36](old-releases/5.5/5.5.36.md)   | 2014-02-25   | Stable         |
+| [5.5.35](old-releases/5.5/5.5.35.md)   | 2014-01-29   | Stable         |
+| [5.5.34](old-releases/5.5/5.5.34.md)   | 2013-11-21   | Stable         |
+| [5.5.33a](old-releases/5.5/5.5.33a.md) | 2013-09-20   | Stable         |
+| [5.5.33](old-releases/5.5/5.5.33.md)   | 2013-09-17   | Stable         |
+| [5.5.32](old-releases/5.5/5.5.32.md)   | 2013-07-18   | Stable         |
+| [5.5.31](old-releases/5.5/5.5.31.md)   | 2013-05-23   | Stable         |
+| [5.5.30](old-releases/5.5/5.5.30.md)   | 2013-03-12   | Stable         |
+| [5.5.29](old-releases/5.5/5.5.29.md)   | 2013-01-30   | Stable         |
+| [5.5.28a](old-releases/5.5/5.5.28a.md) | 2012-11-29   | Stable         |
+| [5.5.28](old-releases/5.5/5.5.28.md)   | 2012-10-22   | Stable         |
+| [5.5.27](old-releases/5.5/5.5.27.md)   | 2012-09-07   | Stable         |
+| [5.5.25](old-releases/5.5/5.5.25.md)   | 2012-06-22   | Stable         |
+| [5.5.24](old-releases/5.5/5.5.24.md)   | 2012-05-31   | Stable         |
+| [5.5.23](old-releases/5.5/5.5.23.md)   | 2012-04-11   | Stable         |
+| [5.5.22](old-releases/5.5/5.5.22.md)   | 2012-03-29   | RC             |
+| [5.5.21](old-releases/5.5/5.5.21.md)   | 2012-03-16   | Beta           |
+| [5.5.20](old-releases/5.5/5.5.20.md)   | 2012-02-25   | Alpha          |
 
 ## MariaDB Community Server 5.3
 
@@ -605,7 +604,6 @@ description: A list of all MariaDB Community Server releases
 | [5.1.44](old-releases/5.1/5.1.44.md) | 2010-05-10   | Stable         |
 | [5.1.42](old-releases/5.1/5.1.42.md) | 2010-02-01   | Stable         |
 | [5.1.41](old-releases/5.1/5.1.41.md) | 2010-01-13   | RC             |
-
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
 

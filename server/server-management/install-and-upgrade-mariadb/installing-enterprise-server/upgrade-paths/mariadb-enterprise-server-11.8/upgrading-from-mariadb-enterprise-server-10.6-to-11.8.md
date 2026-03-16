@@ -5,7 +5,7 @@ hidden: true
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8
 
 {% hint style="danger" %}
-The content is subject to technical review by key stakeholders, MK and DK. While this draft is significantly improved from the initial versions, it should not be considered final.
+The content is subject to technical review by key stakeholders DK and should not be considered final.
 {% endhint %}
 
 This guide outlines the process for performing a major version upgrade from MariaDB Enterprise Server (ES) 10.6 directly to MariaDB Enterprise Server 11.8.
@@ -49,7 +49,7 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 
 {% stepper %}
 {% step %}
-### **Perform a Controlled Shutdown of 10.6**
+### Perform a Controlled Shutdown of 10.6
 
 1.  Initiate Fast Shutdown to ensure the InnoDB engine closes cleanly.
 
@@ -64,7 +64,7 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 {% endstep %}
 
 {% step %}
-### **Purge Legacy 10.6 Packages**
+### Purge Legacy 10.6 Packages
 
 Remove the old version to prevent package manager conflicts before installing 11.8.
 
@@ -74,7 +74,7 @@ Remove the old version to prevent package manager conflicts before installing 11
 {% endstep %}
 
 {% step %}
-### **Switch to 11.8 Enterprise Repositories**
+### Switch to 11.8 Enterprise Repositories
 
 Download and run the setup script, specifying version `11.8`.
 
@@ -88,7 +88,7 @@ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply --mariadb
 {% endstep %}
 
 {% step %}
-### **Install the 11.8 Release Series**
+### Install the 11.8 Release Series
 
 The repository setup only configures the source; you must explicitly install the new binaries.
 
@@ -100,7 +100,7 @@ The repository setup only configures the source; you must explicitly install the
 {% endstep %}
 
 {% step %}
-### **Implement Version-Specific Configuration Changes**
+### Implement Version-Specific Configuration Changes
 
 Update your `my.cnf` file to address cumulative changes from both the 11.4 and 11.8 series.
 
@@ -144,12 +144,10 @@ binlog_alter_two_phase = 1
 {% endstep %}
 
 {% step %}
-### **Bring the Service Online and Finalize Data**
+### Bring the Service Online and Finalize Data
 
 1. Start the New Service: `sudo systemctl start mariadb`.
 2.  Execute the Data Upgrade Utility: This corrects system table structures and marks data files as compatible with version 11.8.
-
-    Bash
 
     ```bash
     sudo mariadb-upgrade
@@ -157,9 +155,19 @@ binlog_alter_two_phase = 1
 {% endstep %}
 {% endstepper %}
 
-## Incompatible and Deprecated Options
+## Incompatible and Significant Changes
 
 The following variables from version 10.6 have been removed, renamed, or deprecated in the 11.8 release series.
+
+### Optimizer Cost Model Variables
+
+These variables define the weights of the new optimizer. If query execution plans change after the upgrade, these parameters are the primary audit points.
+
+<table><thead><tr><th width="290.5">Variable Name</th><th>10.6 Status</th><th width="122">11.8 Default</th><th>Impact / Note</th></tr></thead><tbody><tr><td><code>NEW_MODE</code></td><td>New Architecture</td><td><code>OFF</code></td><td>Enables/disables newest optimizer features.</td></tr><tr><td><code>OPTIMIZER_DISK_READ_COST</code></td><td>New Architecture</td><td><code>10.24</code></td><td>Primary cost of a disk seek/read.</td></tr><tr><td><code>OPTIMIZER_DISK_READ_RATIO</code></td><td>New Architecture</td><td><code>0.02</code></td><td>Ratio of disk reads vs. page cache.</td></tr><tr><td><code>OPTIMIZER_EXTRA_PRUNING_DEPTH</code></td><td>New Architecture</td><td><code>128</code></td><td>Search depth for partition pruning.</td></tr><tr><td><code>OPTIMIZER_INDEX_BLOCK_COPY_COST</code></td><td>New Architecture</td><td><code>0.039266</code></td><td>Cost of copying index blocks.</td></tr><tr><td><code>OPTIMIZER_KEY_COMPARE_COST</code></td><td>New Architecture</td><td><code>0.011361</code></td><td>Weight for comparing index keys.</td></tr><tr><td><code>OPTIMIZER_KEY_COPY_COST</code></td><td>New Architecture</td><td><code>0.012627</code></td><td>Weight for copying index keys.</td></tr><tr><td><code>OPTIMIZER_KEY_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.435777</code></td><td>Weight for performing index lookups.</td></tr><tr><td><code>OPTIMIZER_KEY_NEXT_FIND_COST</code></td><td>New Architecture</td><td><code>0.032115</code></td><td>Cost of finding the next key in a range.</td></tr><tr><td><code>OPTIMIZER_ROWID_COMPARE_COST</code></td><td>New Architecture</td><td><code>0.005836</code></td><td>Cost of comparing Row IDs.</td></tr><tr><td><code>OPTIMIZER_ROWID_COPY_COST</code></td><td>New Architecture</td><td><code>0.006088</code></td><td>Cost of copying Row IDs.</td></tr><tr><td><code>OPTIMIZER_ROW_COPY_COST</code></td><td>New Architecture</td><td><code>0.060866</code></td><td>Cost of copying rows into temp tables.</td></tr><tr><td><code>OPTIMIZER_ROW_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.130839</code></td><td>Weight for fetching rows from data pages.</td></tr><tr><td><code>OPTIMIZER_ROW_NEXT_FIND_COST</code></td><td>New Architecture</td><td><code>0.060866</code></td><td>Cost of sequential row access.</td></tr><tr><td><code>OPTIMIZER_SCAN_SETUP_COST</code></td><td>New Architecture</td><td><code>10</code></td><td>Initial cost to start a table scan.</td></tr><tr><td><code>OPTIMIZER_WHERE_COST</code></td><td>New Architecture</td><td><code>0.032</code></td><td>Weight for evaluating WHERE filters.</td></tr></tbody></table>
+
+### Behavioral "Red Flags"
+
+<table><thead><tr><th width="251">Variable Name</th><th>10.6 Default</th><th width="124">11.8 Default</th><th>Impact / Note</th></tr></thead><tbody><tr><td><code>SKIP_GRANT_TABLES</code></td><td><code>OFF</code></td><td><code>OFF</code></td><td>Warning: Now disables the Event Scheduler.</td></tr><tr><td><code>INNODB_PURGE_BATCH_SIZE</code></td><td><code>300</code></td><td><code>1000</code></td><td>Higher cleanup rate; affects read consistency.</td></tr><tr><td><code>INNODB_DATA_FILE_BUFFERING</code></td><td><code>ON</code> (Legacy)</td><td><code>OFF</code></td><td>Replaces <code>O_DIRECT</code> functionality.</td></tr><tr><td><code>BINLOG_ALTER_TWO_PHASE</code></td><td>New Feature</td><td><code>OFF</code></td><td>Reduces replica lag for DDL if enabled.</td></tr></tbody></table>
 
 ### Options That Have Been Removed or Renamed
 
@@ -219,22 +227,54 @@ The upgrade from 10.6 to 11.4 is generally a smooth transition; however, jumping
 * Optimistic ALTER TABLE: Replicas can now start `ALTER TABLE` operations in parallel with the primary server to reduce lag, enabled by setting `binlog_alter_two_phase=1`.
 * Vector Search Capabilities: Version 11.8 introduces native support for AI workloads via the `VECTOR(N)` data type and distance functions like `VEC_DISTANCE()`.
 
-### 10.6 Compatibility and Rollback Support
+## Reverse Replication (11.8 to 10.6)
 
-To maintain 10.6 behavior or support reverse replication for rollback capabilities during the upgrade window, you can apply legacy defaults via a supplemental configuration file (e.g., `/etc/my.cnf.d/10.6_compat.cnf`).
+If the 11.8 upgrade is completed but a critical regression is discovered in production, a "Point-in-Time" rollback is required. Since the 11.8 data files are physically incompatible with 10.6, the only viable path without significant data loss is Reverse Replication.
+
+{% hint style="danger" %}
+Replicating from a MariaDB 11.8 Primary to a MariaDB 10.6 Replica is NOT officially supported by MariaDB Engineering. This configuration should only be used as a temporary emergency safety net during the upgrade window.
+{% endhint %}
+
+### Required 11.8 Primary Configuration
+
+To prevent the 10.6 replica from crashing due to modern metadata (such as the `#2304` character set ID), the 11.8 Primary must be configured to "downgrade" its binary log output.
+
+Apply these settings to the 11.8 Primary `/etc/my.cnf.d/rollback_compat.cnf`:
 
 ```ini
 [mariadb]
-# --- Restore 10.6 Defaults ---
-character_set_server           = latin1
-collation_server               = latin1_swedish_ci
+# --- Core 10.6 Behavioral Reversion ---
+character_set_server            = latin1
+collation_server                = latin1_swedish_ci
 explicit_defaults_for_timestamp = OFF
-innodb_snapshot_isolation      = OFF
+innodb_snapshot_isolation       = OFF
 
-# --- Reverse Replication / Rollback support ---
-# Required to replicate 11.8 Primary to 10.6 Replica
-character_set_collations       = ''
+# --- Mandatory Metadata Compatibility (SME "Red" List) ---
+# Prevents "Character set #2304" (utf8mb4_uca1400_ai_ci) errors on 10.6
+character_set_collations        = ''
+
+# Forces session metadata to legacy-compatible versions
+collation_connection            = utf8mb3_general_ci
+collation_database              = latin1_swedish_ci
+
+# Standardizes log checksums for the 10.6 parser
+binlog_checksum                 = CRC32
 ```
+
+### Known "Breaking" Factors
+
+Certain 11.8 features will immediately break the 10.6 replication link if used:
+
+* Vector Data Types: Any `INSERT` or `UPDATE` involving a `VECTOR(N)` column.
+* New Functions: Use of `VEC_Distance` or other 11.8-specific SQL functions.
+* Large Row Events: If `binlog_row_event_max_size` is tuned significantly higher than 10.6 defaults.
+
+### Operational Steps for the Safety Net
+
+1. Post-Upgrade Sync: Immediately after `mariadb-upgrade` finishes on the 11.8 server, take a fresh backup.
+2. Provision 10.6: Restore that backup to a separate 10.6 instance (using `--skip-system-tables` if necessary, as system tables are now 11.8 format).
+3. Rotate Logs: Run `FLUSH LOGS;` on the 11.8 Primary to ensure a clean start with the compatibility settings active.
+4. Change Master: Point the 10.6 replica to the 11.8 Primary.
 
 ## Post-Upgrade Verification
 

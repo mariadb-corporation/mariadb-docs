@@ -1,8 +1,8 @@
 # 26.03 update guide
 
-This guide illustrates, step by step, how to update to `26.3.0` from previous versions. This guide only applies if you are updating from a version prior to `26.3.x`, otherwise you may upgrade directly (see [Helm](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/helm#updates) and [OpenShift](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/openshift#updates) docs)
+This guide illustrates, step by step, how to update to `26.3.1` from previous versions. This guide only applies if you are updating from a version prior to `26.3.x`, otherwise you may upgrade directly (see [Helm](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/helm#updates) and [OpenShift](https://mariadb.com/docs/tools/mariadb-enterprise-operator/installation/openshift#updates) docs)
 
-- The [data-plane](../topologies/data-plane.md) must be updated to the `26.3.0` version. You must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also be updating the data-plane based on its version:
+- The [data-plane](../topologies/data-plane.md) must be updated to the `26.3.1` version. You must set `updateStrategy.autoUpdateDataPlane=true` in your `MariaDB` resources before updating the operator. Then, once updated, the operator will also be updating the data-plane based on its version:
 ```diff
 apiVersion: enterprise.mariadb.com/v1alpha1
 kind: MariaDB
@@ -17,16 +17,16 @@ spec:
 
 - At this point, you may proceed to update the operator. If you are using __Helm__:
 
-Upgrade the `mariadb-enterprise-operator-crds` helm chart to `26.3.0`:
+Upgrade the `mariadb-enterprise-operator-crds` helm chart to `26.3.1`:
 ```bash
 helm repo update mariadb-enterprise-operator
-helm upgrade --install mariadb-enterprise-operator-crds  mariadb-enterprise-operator/mariadb-enterprise-operator-crds --version 26.3.0
+helm upgrade --install mariadb-enterprise-operator-crds  mariadb-enterprise-operator/mariadb-enterprise-operator-crds --version 26.3.1
 ```
 
-Upgrade the `mariadb-enterprise-operator` helm chart to `26.3.0`:
+Upgrade the `mariadb-enterprise-operator` helm chart to `26.3.1`:
 ```bash 
 helm repo update mariadb-enterprise-operator
-helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --version 26.3.0
+helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --version 26.3.1
 ```
 
 - If you are on __OpenShift__:

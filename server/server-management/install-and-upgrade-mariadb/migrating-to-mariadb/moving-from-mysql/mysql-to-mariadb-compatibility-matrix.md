@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # MySQL to MariaDB Compatibility Matrix
 
 ## Introduction & Executive Summary
@@ -28,7 +24,7 @@ A key difference in MySQL 8.4 is the removal of many system variables and syntax
 
 #### **Global Transaction IDs**
 
-MariaDB and MySQL use entirely different formats for GTIDs. In MySQL 8.4, replication syntax has been further modernized (e.g., removal of `MASTER` in favor of `SOURCE` keywords). MariaDB supports both sets of keywords but maintains its own unique GTID structure (`DomainID:ServerID:Sequence`).
+MariaDB and MySQL use entirely different formats for GTIDs. In MySQL 8.4, replication syntax has been further modernized (e.g., removal of `MASTER` in favor of `SOURCE` keywords). MariaDB maintains its own unique GTID structure (`DomainID:ServerID:Sequence`).
 
 * Action: You cannot "mix and match" GTID replication directly. Plan to use position-based replication if running a hybrid environment during your migration.
 
@@ -84,14 +80,14 @@ This section helps the DBA avoid "Unknown variable" errors when they first try t
 
 ### Replication & GTIDs
 
-| Feature        | MySQL 8.0 / 8.4 Behavior             | MariaDB Behavior                                       | Migration Impact                                                               |
-| -------------- | ------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| GTID Format    | `UUID:Sequence`                      | `Domain:ServerID:Sequence`                             | Critical. Formats are incompatible. GTID replication cannot be mixed directly. |
-| Repl. Syntax   | Uses `SOURCE` / `REPLICA` (8.0.22+). | Supports both `MASTER`/`SLAVE` and `SOURCE`/`REPLICA`. | None. MariaDB is bi-lingual regarding replication syntax.                      |
-| Binary Logging | Defaulted to `ON`.                   | Defaulted to `ON` in recent versions.                  | Low. Standard binary log events are generally compatible.                      |
+| Feature        | MySQL 8.0 / 8.4 Behavior             | MariaDB Behavior                      | Migration Impact                                                               |
+| -------------- | ------------------------------------ | ------------------------------------- | ------------------------------------------------------------------------------ |
+| GTID Format    | `UUID:Sequence`                      | `Domain:ServerID:Sequence`            | Critical. Formats are incompatible. GTID replication cannot be mixed directly. |
+| Repl. Syntax   | Uses `SOURCE` / `REPLICA` (8.0.22+). | Uses  `MASTER` and `REPLICA`.         | None. MariaDB is bi-lingual regarding replication syntax.                      |
+| Binary Logging | Defaulted to `ON`.                   | Defaulted to `ON` in recent versions. | Low. Standard binary log events are generally compatible.                      |
 
 ## Next Steps
 
 Now that you've reviewed the compatibility differences, you are ready to begin the migration.
 
-Proceed to [MySQL to MariaDB Migration: The Master Guide](mysql-to-mariadb-migration-the-master-guide.md)] for step-by-step instructions on performing an in-place upgrade or a logical migration.
+Proceed to [MySQL to MariaDB Migration: The Master Guide](mysql-to-mariadb-migration-the-master-guide.md) for step-by-step instructions on performing an in-place upgrade or a logical migration.

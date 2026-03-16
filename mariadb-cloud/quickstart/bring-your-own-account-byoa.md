@@ -21,6 +21,7 @@ flowchart LR
         direction TB
         Portal["Portal & API"]:::control
         Orch["Orchestrator"]:::control
+        Bastion["Secure Bastion"]:::control
     end
 
     %% 2. DATA PLANE (Right)
@@ -30,8 +31,8 @@ flowchart LR
         
         subgraph VPC ["Your Private VPC"]
             direction TB
-            Bastion["Secure Bastion"]:::data
             DB["Database Node"]:::data
+            Storage[("Storage")]:::data
         end
     end
 
@@ -42,13 +43,12 @@ flowchart LR
     Orch ==>|"3. Provision"| IAM
     IAM -.->|"Create"| VPC
     
-    Orch ===>|"4. Manage (TLS)"| Bastion
-    Bastion <==> DB
+    %% CORRECTED SECURE BASTION FLOW
+    Orch -.->|"Internal"| Bastion
+    Bastion ===>|"4. Manage (TLS)"| DB
 
     App ==>|"5. Connect"| DB
-    
-    %% Spacer to force width
-    Portal ~~~ Orch
+    DB <==> Storage
 ```
 
 ## How it works
