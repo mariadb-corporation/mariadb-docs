@@ -61,35 +61,157 @@ Never start a migration without two types of backups:
 
 Standard data dumps often fail to capture complex user permissions correctly when moving from MySQL 8.0+. Instead of migrating the entire `mysql` system database, use these scripts on your MySQL source server to generate the exact SQL commands needed to recreate your users and their permissions on MariaDB.
 
-#### Generate User Creation Script
+#### Creating Users on MariaDB&#x20;
 
-This script extracts all non-system users and automatically handles the conversion of the `caching_sha2_password` plugin to the MariaDB-compatible `mysql_native_password`.
+The following SQL can be used to generate [CREATE USER](../../../../reference/sql-statements/account-management-sql-statements/create-user.md) statements with a default password that can be executed on MariaDB. It does the following:
 
-{% code overflow="wrap" %}
+* Authentication method  [mysql\_native\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) - the script supports passwords porting.
+* Authentication method  [sha256\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-sha-256.md) or authentication string is `NULL` - passwords are reset to default with expiry.
+
+The [PARSEC](../../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) authentication plugin is intended to be the default in a future release, hence it is recommended to use this during user migration. &#x20;
+
+{% code overflow="wrap" expandable="true" %}
 ```sql
-SELECT CONCAT('CREATE USER IF NOT EXISTS ''', user, '''@''', host, ''' IDENTIFIED WITH ''', 
-  IF(plugin='caching_sha2_password', 'mysql_native_password', plugin), ''' AS ''', authentication_string, ''';') 
-AS _sql FROM mysql.user WHERE user NOT IN ('root', 'mysql.sys', 'mysql.session', 'mysql.infoschema');
+SELECT
+    CASE
+        WHEN plugin = 'mysql_native_password'
+             AND authentication_string IS NOT NULL
+             AND authentication_string <> ''
+        THEN CONCAT(
+            'CREATE USER IF NOT EXISTS ''', user, '''@''', host,
+            ''' IDENTIFIED VIA mysql_native_password USING ''',
+            authentication_string, ''';'
+        )
+
+        WHEN plugin = 'mysql_native_password'
+             AND (authentication_string IS NULL OR authentication_string = '')
+        THEN CONCAT(
+            'CREATE USER IF NOT EXISTS ''', user, '''@''', host,
+            ''' IDENTIFIED BY ''Welcome@123'' PASSWORD EXPIRE; ',
+            '-- no source hash available'
+        )
+
+        WHEN plugin IN ('caching_sha2_password', 'sha256_password')
+        THEN CONCAT(
+            'CREATE USER IF NOT EXISTS ''', user, '''@''', host,
+            ''' IDENTIFIED BY ''Welcome@123'' PASSWORD EXPIRE; ',
+            '-- original plugin: ', plugin
+        )
+
+        ELSE CONCAT(
+            '-- SKIPPED unsupported plugin for ''', user, '''@''', host,
+            ''': ', COALESCE(plugin, 'NULL')
+        )
+    END AS migration_sql
+FROM mysql.user
+WHERE user NOT IN ('mysql.sys','mysql.session','mysql.infoschema','root');
+
 ```
 {% endcode %}
 
-#### Generate Privilege (GRANT) Script
+#### Copying User Privileges to MariaDB&#x20;
 
-Run this next to generate the necessary `GRANT` statements for all database, table, and procedure-level permissions.
+Use the following SQL to generate user privilege statements for execution in MariaDB from MySQL.
 
-```sql
-SELECT CONCAT('SHOW GRANTS FOR ''', user, '''@''', host, ''';') AS _sql FROM mysql.user 
-WHERE user NOT IN ('root', 'mysql.sys', 'mysql.session', 'mysql.infoschema');
-```
+Privileges covered are:
 
-> How to use: Copy the output (the generated SQL lines) from these queries and execute them on your new MariaDB instance after the data migration is complete.
+* Global privileges&#x20;
+* Database privileges
+* Table privileges
+* Procedure privileges&#x20;
 
 {% hint style="info" %}
-#### Notes on those steps (scripts generation)
-
-* The `root` exclusion: Notice we exclude the `root` user. This is a safety feature so you don't accidentally overwrite your new MariaDB root account with old MySQL credentials and lock yourself out.
-* Plugin Mapping: The `IF` statement is doing a "on-the-fly" translation of MySQL's new password format back to a format MariaDB can read.
+The SQL may vary depending on the version of MySQL you're coming from.
 {% endhint %}
+
+{% code overflow="wrap" expandable="true" %}
+```sql
+SET SESSION group_concat_max_len = 1000000;
+
+SELECT '-- GLOBAL PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ',
+TRIM(TRAILING ',' FROM CONCAT(
+IF(Select_priv='Y','SELECT,',''),
+IF(Insert_priv='Y','INSERT,',''),
+IF(Update_priv='Y','UPDATE,',''),
+IF(Delete_priv='Y','DELETE,',''),
+IF(Create_priv='Y','CREATE,',''),
+IF(Drop_priv='Y','DROP,',''),
+IF(Grant_priv='Y','GRANT OPTION,',''),
+IF(References_priv='Y','REFERENCES,',''),
+IF(Index_priv='Y','INDEX,',''),
+IF(Alter_priv='Y','ALTER,',''),
+IF(Create_view_priv='Y','CREATE VIEW,',''),
+IF(Show_view_priv='Y','SHOW VIEW,',''),
+IF(Create_routine_priv='Y','CREATE ROUTINE,',''),
+IF(Alter_routine_priv='Y','ALTER ROUTINE,',''),
+IF(Execute_priv='Y','EXECUTE,',''),
+IF(Event_priv='Y','EVENT,',''),
+IF(Trigger_priv='Y','TRIGGER,','')
+)),
+' ON *.* TO ''', user, '''@''', host, ''';'
+)
+FROM mysql.user
+WHERE CONCAT(
+Select_priv,Insert_priv,Update_priv,Delete_priv,
+Create_priv,Drop_priv,Grant_priv,References_priv,
+Index_priv,Alter_priv,Create_view_priv,Show_view_priv,
+Create_routine_priv,Alter_routine_priv,Execute_priv,
+Event_priv,Trigger_priv
+) REGEXP 'Y';
+
+
+SELECT '-- DATABASE PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ',
+TRIM(TRAILING ',' FROM CONCAT(
+IF(Select_priv='Y','SELECT,',''),
+IF(Insert_priv='Y','INSERT,',''),
+IF(Update_priv='Y','UPDATE,',''),
+IF(Delete_priv='Y','DELETE,',''),
+IF(Create_priv='Y','CREATE,',''),
+IF(Drop_priv='Y','DROP,',''),
+IF(Grant_priv='Y','GRANT OPTION,',''),
+IF(References_priv='Y','REFERENCES,',''),
+IF(Index_priv='Y','INDEX,',''),
+IF(Alter_priv='Y','ALTER,',''),
+IF(Create_view_priv='Y','CREATE VIEW,',''),
+IF(Show_view_priv='Y','SHOW VIEW,',''),
+IF(Create_routine_priv='Y','CREATE ROUTINE,',''),
+IF(Alter_routine_priv='Y','ALTER ROUTINE,',''),
+IF(Execute_priv='Y','EXECUTE,',''),
+IF(Event_priv='Y','EVENT,',''),
+IF(Trigger_priv='Y','TRIGGER,','')
+)),
+' ON `', db, '`.* TO ''', user, '''@''', host, ''';'
+)
+FROM mysql.db;
+
+SELECT '-- TABLE PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ', Table_priv,
+' ON `', Db, '`.`', Table_name,
+'` TO ''', User, '''@''', Host, ''';'
+)
+FROM mysql.tables_priv;
+
+SELECT '-- PROCEDURE PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ', Proc_priv,
+' ON PROCEDURE `', Db, '`.`', Routine_name,
+'` TO ''', User, '''@''', Host, ''';'
+)
+FROM mysql.procs_priv;
+
+SELECT 'FLUSH PRIVILEGES;';
+
+```
+{% endcode %}
 
 ### **Proactive SQL Validation**
 
