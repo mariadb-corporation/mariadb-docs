@@ -134,11 +134,10 @@ Create the Exasolrouter service. This service contains the connection informatio
 
 ```
 maxctrl create service mariadb_exasolrouter exasolrouter \
-user=maxuser \
-password=aBcd123% p \
-reprocessor=auto  ' \
-connection_string=DRIVER=/home/rocky/Exasol_ODBC-26.2.6-Linux_x86_64/lib/libexaodbc.so;
-EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
+  user=maxuser \
+  password=aBcd123% \
+  preprocessor=auto \
+  connection_string='DRIVER=/home/rocky/Exasol_ODBC-26.2.6-Linux_x86_64/lib/libexaodbc.so;EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
 ```
 
 Replace the following placeholders with values that match your actual environment:
