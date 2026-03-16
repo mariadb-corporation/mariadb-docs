@@ -115,22 +115,22 @@ This table provides an overview of optimizer hints supported in MariaDB, showing
 | [`DERIVED_CONDITION_PUSHDOWN`, `NO_DERIVED_CONDITION_PUSHDOWN`](#-derived_condition_pushdown-no_derived_condition_pushdown) | Condition pushdown for derived tables | Query block, Table |
 | [`GROUP_INDEX`, `NO_GROUP_INDEX`](#index-level-hints) | Use of indexes for `GROUP BY` operations | Table, Index |
 | [`INDEX`, `NO_INDEX`](#index-level-hints) | Use of indexes | Table, Index |
-| [`INDEX_MERGE`, `NO_INDEX_MERGE`](#-index_merge-no_index_merge) | Index merge | Table, Index |
+| [`INDEX_MERGE`, `NO_INDEX_MERGE`](#index_merge-no_index_merge) | Index merge | Table, Index |
 | [`JOIN_FIXED_ORDER`](#join-order-hints) | Straight join order | Query block |
 | [`JOIN_INDEX`, `NO_JOIN_INDEX`](#join-order-hints) | Use of indexes for data access | Index |
 | [`JOIN_ORDER`](#join-order-hints) | Join order | Table |
 | [`JOIN_PREFIX`](#join-order-hints) | Join order for first tables | Table |
 | [`JOIN_SUFFIX`](#join-order-hints) | Join order for last tables | Table |
-| [`MAX_EXECUTION_TIME`](#-max_execution_time) | Query execution time limit | Global |
-| [`MERGE`, `NO_MERGE`](#-merge-no_merge) | Derived table/CTE merging | Query block, Table |
-| [`MRR`, `NO_MRR`](#-mrr-no_mrr) | Multi-Range Read | Table, Index |
-| [`NO_ICP`](#-no_icp) | Index Condition Pushdown | Table, Index |
-| [`NO_RANGE_OPTIMIZATION`](#-no_range_optimization) | Range optimization | Table, Index |
+| [`MAX_EXECUTION_TIME`](#max_execution_time) | Query execution time limit | Global |
+| [`MERGE`, `NO_MERGE`](#merge-no_merge) | Derived table/CTE merging | Query block, Table |
+| [`MRR`, `NO_MRR`](#mrr-no_mrr) | Multi-Range Read | Table, Index |
+| [`NO_ICP`](#no_icp) | Index Condition Pushdown | Table, Index |
+| [`NO_RANGE_OPTIMIZATION`](#no_range_optimization) | Range optimization | Table, Index |
 | [`ORDER_INDEX`, `NO_ORDER_INDEX`](#index-level-hints) | Use of indexes for sorting | Table, Index |
 | [`QB_NAME`](#query-block-naming) | Assigns name to query block | Query block |
-| [`ROWID_FILTER`, `NO_ROWID_FILTER`](#-rowid_filter-no_rowid_filter) | Rowid filtering | Table, Index |
+| [`ROWID_FILTER`, `NO_ROWID_FILTER`](#rowid_filter-no_rowid_filter) | Rowid filtering | Table, Index |
 | [`SEMIJOIN`, `NO_SEMIJOIN`](#subquery-hints) | Semi-join optimization | Query block |
-| [`SPLIT_MATERIALIZED`, `NO_SPLIT_MATERIALIZED`](#-split_materialized-no_split_materialized) | Lateral derived / split materialization | Table |
+| [`SPLIT_MATERIALIZED`, `NO_SPLIT_MATERIALIZED`](#split_materialized-no_split_materialized) | Lateral derived / split materialization | Table |
 | [`SUBQUERY`](#subquery-hints) | Subquery transformation | Query block |
 
 
