@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Deployment Checklist
 
 ## Pre-Deployment Checklist

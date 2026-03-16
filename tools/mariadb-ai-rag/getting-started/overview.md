@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Overview
 
 ## Introduction to MariaDB AI RAG

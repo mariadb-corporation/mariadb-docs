@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Service Management
 
 MariaDB AI RAG runs as a web service using Uvicorn/FastAPI. You can manage the service using standard system commands.
