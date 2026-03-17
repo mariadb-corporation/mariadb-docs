@@ -40,6 +40,14 @@ Before beginning the upgrade, ensure these precautionary measures and environmen
 * Audit Plugin Transition: If you currently use the MariaDB 10.6 Audit Plugin (`server_audit.so`), it is recommended to transition to the MariaDB Enterprise Audit Plugin during this upgrade. If you maintain the Community version, ensure your configuration explicitly loads it to avoid conflicts.
 * Commit or Roll Back XA Transactions: Run XA RECOVER; to identify any external XA transactions in a prepared state; these must be finalized before the service is stopped.
 
+### Compatibility & Legacy Support
+
+This ensures the team can maintain 10.6 behavior for applications that aren't ready for the new defaults.
+
+* Handling Non-Default Character Sets: If your 10.6 instance uses `latin1` or `utf8mb3`, do not switch to `utf8mb4` immediately. You must explicitly define your existing character set in the new `my.cnf` to override the 11.8 defaults.
+* The `OLD_MODE` Tip: Set `old_mode = UTF8_IS_UTF8MB3` in your configuration; this ensures that `utf8` remains an alias for the legacy 3-byte character set instead of the new 4-byte standard.
+* Maintaining SSL Compatibility: Version 11.4+ enables "Zero-configuration TLS" by default. If your application does not support SSL, set `require_secure_transport = OFF` in the `[mariadb]` section of your `my.cnf` to prevent connection refusals.
+
 ### Environment Compatibility
 
 * Engineering Policy: Verify your operating system version is still supported for the 11.8 series by checking the [MariaDB Engineering Policies](https://mariadb.com/engineering-policies).
@@ -102,7 +110,13 @@ The repository setup only configures the source; you must explicitly install the
 {% step %}
 ### Implement Version-Specific Configuration Changes
 
-Update your `my.cnf` file to address cumulative changes from both the 11.4 and 11.8 series.
+{% hint style="info" %}
+Do not apply 11.8-specific variables while the 10.6 service is active. During the package swap, update `my.cnf` to adopt the 11.8 defaults for the [Optimizer Cost Model](upgrading-from-mariadb-enterprise-server-10.6-to-11.8.md#optimizer-cost-model-variables). These variables replace legacy hardcoded logic and are essential for the new engine's performance.
+{% endhint %}
+
+* Scrub: Remove legacy 10.6 variables (`old_alter_table`, etc.).
+* Adopt: Add the new [Optimizer Cost Model variables](upgrading-from-mariadb-enterprise-server-10.6-to-11.8.md#optimizer-cost-model-variables) using their 11.8 defaults.
+* Stabilize: Set `NEW_MODE = OFF` to prevent unpredictable execution plan changes on Day 1.
 
 {% hint style="success" %}
 **Recommended `my.cnf` for Version 11.8 section**
@@ -157,19 +171,29 @@ binlog_alter_two_phase = 1
 
 ## Incompatible and Significant Changes
 
+{% hint style="info" %}
+In the following tables, **New Architecture** indicates that the variable controls a subsystem that was previously hardcoded or non-existent in 10.6.
+{% endhint %}
+
 The following variables from version 10.6 have been removed, renamed, or deprecated in the 11.8 release series.
 
 ### Optimizer Cost Model Variables
 
-These variables define the weights of the new optimizer. If query execution plans change after the upgrade, these parameters are the primary audit points.
+These variables define the weights of the new optimizer. If query execution plans change after the upgrade, these parameters are the primary audit points.&#x20;
+
+{% hint style="warning" %}
+Once the 11.8 binaries are installed, update your `my.cnf` to explicitly define these new variables to their 11.8 default values. Optimizer variables represent a _New Architecture_ designed for SSDs; using the 11.8 defaults is the safest strategy moving forward.
+{% endhint %}
 
 <table><thead><tr><th width="290.5">Variable Name</th><th>10.6 Status</th><th width="122">11.8 Default</th><th>Impact / Note</th></tr></thead><tbody><tr><td><code>NEW_MODE</code></td><td>New Architecture</td><td><code>OFF</code></td><td>Enables/disables newest optimizer features.</td></tr><tr><td><code>OPTIMIZER_DISK_READ_COST</code></td><td>New Architecture</td><td><code>10.24</code></td><td>Primary cost of a disk seek/read.</td></tr><tr><td><code>OPTIMIZER_DISK_READ_RATIO</code></td><td>New Architecture</td><td><code>0.02</code></td><td>Ratio of disk reads vs. page cache.</td></tr><tr><td><code>OPTIMIZER_EXTRA_PRUNING_DEPTH</code></td><td>New Architecture</td><td><code>128</code></td><td>Search depth for partition pruning.</td></tr><tr><td><code>OPTIMIZER_INDEX_BLOCK_COPY_COST</code></td><td>New Architecture</td><td><code>0.039266</code></td><td>Cost of copying index blocks.</td></tr><tr><td><code>OPTIMIZER_KEY_COMPARE_COST</code></td><td>New Architecture</td><td><code>0.011361</code></td><td>Weight for comparing index keys.</td></tr><tr><td><code>OPTIMIZER_KEY_COPY_COST</code></td><td>New Architecture</td><td><code>0.012627</code></td><td>Weight for copying index keys.</td></tr><tr><td><code>OPTIMIZER_KEY_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.435777</code></td><td>Weight for performing index lookups.</td></tr><tr><td><code>OPTIMIZER_KEY_NEXT_FIND_COST</code></td><td>New Architecture</td><td><code>0.032115</code></td><td>Cost of finding the next key in a range.</td></tr><tr><td><code>OPTIMIZER_ROWID_COMPARE_COST</code></td><td>New Architecture</td><td><code>0.005836</code></td><td>Cost of comparing Row IDs.</td></tr><tr><td><code>OPTIMIZER_ROWID_COPY_COST</code></td><td>New Architecture</td><td><code>0.006088</code></td><td>Cost of copying Row IDs.</td></tr><tr><td><code>OPTIMIZER_ROW_COPY_COST</code></td><td>New Architecture</td><td><code>0.060866</code></td><td>Cost of copying rows into temp tables.</td></tr><tr><td><code>OPTIMIZER_ROW_LOOKUP_COST</code></td><td>New Architecture</td><td><code>0.130839</code></td><td>Weight for fetching rows from data pages.</td></tr><tr><td><code>OPTIMIZER_ROW_NEXT_FIND_COST</code></td><td>New Architecture</td><td><code>0.060866</code></td><td>Cost of sequential row access.</td></tr><tr><td><code>OPTIMIZER_SCAN_SETUP_COST</code></td><td>New Architecture</td><td><code>10</code></td><td>Initial cost to start a table scan.</td></tr><tr><td><code>OPTIMIZER_WHERE_COST</code></td><td>New Architecture</td><td><code>0.032</code></td><td>Weight for evaluating WHERE filters.</td></tr></tbody></table>
 
 ### Behavioral "Red Flags"
 
-<table><thead><tr><th width="251">Variable Name</th><th>10.6 Default</th><th width="124">11.8 Default</th><th>Impact / Note</th></tr></thead><tbody><tr><td><code>SKIP_GRANT_TABLES</code></td><td><code>OFF</code></td><td><code>OFF</code></td><td>Warning: Now disables the Event Scheduler.</td></tr><tr><td><code>INNODB_PURGE_BATCH_SIZE</code></td><td><code>300</code></td><td><code>1000</code></td><td>Higher cleanup rate; affects read consistency.</td></tr><tr><td><code>INNODB_DATA_FILE_BUFFERING</code></td><td><code>ON</code> (Legacy)</td><td><code>OFF</code></td><td>Replaces <code>O_DIRECT</code> functionality.</td></tr><tr><td><code>BINLOG_ALTER_TWO_PHASE</code></td><td>New Feature</td><td><code>OFF</code></td><td>Reduces replica lag for DDL if enabled.</td></tr></tbody></table>
+<table><thead><tr><th width="244.5">Variable Name</th><th>10.6 Status/Default</th><th>11.8 Default</th><th>Note / Impact</th></tr></thead><tbody><tr><td><code>NEW_MODE</code></td><td>New Architecture</td><td><code>OFF</code></td><td>Toggles the latest optimizer enhancements; keep <code>OFF</code> initially for predictable plans.</td></tr><tr><td><code>OLD_MODE</code></td><td>Existing</td><td>(Empty)</td><td>Use <code>UTF8_IS_UTF8MB3</code> if the app requires legacy 3-byte <code>utf8</code> behavior.</td></tr><tr><td><code>SKIP_GRANT_TABLES</code></td><td><code>OFF</code></td><td><code>OFF</code></td><td>Warning: In 11.8, using this flag now automatically disables the Event Scheduler.</td></tr><tr><td><code>INNODB_PURGE_BATCH_SIZE</code></td><td><code>300</code></td><td><code>1000</code></td><td>Higher cleanup rate; impacts read consistency for long-running transactions.</td></tr><tr><td><code>INNODB_DATA_FILE_BUFFERING</code></td><td><code>ON</code> (Legacy)</td><td><code>OFF</code></td><td>Replaces legacy <code>O_DIRECT</code> functionality with granular buffering control.</td></tr><tr><td><code>innodb_flush_method</code></td><td>Deprecated</td><td><code>O_DIRECT</code></td><td>Now controlled by granular buffering options (see Section II).</td></tr><tr><td><code>BINLOG_ALTER_TWO_PHASE</code></td><td>New Feature</td><td><code>OFF</code></td><td>Reduces replica lag for DDL if manually enabled on both primary and replica.</td></tr><tr><td><code>slave_parallel_mode</code></td><td>Superseded</td><td>N/A</td><td>Replaced by modern 11.x replication options; should be audited during upgrade.</td></tr><tr><td><code>innodb_change_buffering</code></td><td>Removed</td><td>N/A</td><td>Removed in favor of faster SSD I/O logic; must be removed from <code>my.cnf</code>.</td></tr></tbody></table>
 
 ### Options That Have Been Removed or Renamed
+
+During the maintenance window (after stopping 10.6 and before starting 11.8), you must scrub your `my.cnf` of all removed or renamed options.
 
 | Option                  | Reason / Recommendation                               |
 | ----------------------- | ----------------------------------------------------- |
@@ -180,6 +204,10 @@ These variables define the weights of the new optimizer. If query execution plan
 | `WSREP_STRICT_DDL`      | Replaced by `wsrep_mode=STRICT_REPLICATION`.          |
 
 ### Options That Have Changed Default Values
+
+{% hint style="info" %}
+For variables that have existed in both versions but have different defaults (e.g., `innodb_purge_batch_size`), the 11.8 engine will automatically apply the new value. If you require identical behavior to your 10.6 environment during the initial cutover, you must explicitly hardcode the 10.6 values into your new configuration file.
+{% endhint %}
 
 | Option                            | 10.6 Default        | 11.8 Default            |
 | --------------------------------- | ------------------- | ----------------------- |
