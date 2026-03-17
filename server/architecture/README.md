@@ -4,16 +4,32 @@ description: >-
   engines, and how they interact to provide a high-performance, reliable
   database solution.
 icon: house-blank
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
 ---
 
 # Architecture
 
-Understand MariaDB Server's architecture. Explore its components, storage engines, and how they interact to provide a high-performance, reliable database solution.
+MariaDB Server's architecture.
 
 {% columns %}
 {% column %}
 {% content-ref url="server-constraints/" %}
-[Server Constraints](server-constraints/)
+[server-constraints](server-constraints/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -25,7 +41,7 @@ Details the various constraints within MariaDB Server, including primary keys, u
 {% columns %}
 {% column %}
 {% content-ref url="topologies/" %}
-[Topologies](topologies/)
+[topologies](topologies/)
 {% endcontent-ref %}
 {% endcolumn %}
 
