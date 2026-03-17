@@ -23,9 +23,9 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 
 | Component | Image | Supported Tags | CPU Architecture |
 |-----------|-------|----------------|------------------|
-| MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  25.10.4 <br>  25.10.3 <br>  25.10.2 <br>  25.10.1 <br>  25.10.0 <br>  25.8.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.5-2 <br>  11.8.3-1 <br>  11.4.8-5 <br>  11.4.7-4.3 <br>  11.4.7-4.2 <br>  11.4.7-4.1 <br>  11.4 <br>  10.6.23-19 <br>  10.6.22-18.1 <br>  10.6 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  11.8.5-2.1-minimal <br>  11.8.5-2.1-community <br>  11.8.5-2.1-standard <br>  11.8.5-2.1 <br>  11.8-minimal <br>  11.8-community <br>  11.8-standard <br>  11.8 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  26.3.1 <br>  26.3.0 <br>  25.10.4 <br>  25.10.3 <br>  25.10.2 <br>  25.10.1 <br>  25.10.0 <br>  25.8.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.5-2 <br>  11.8.3-1 <br>  11.4.8-5 <br>  11.4.7-4.3 <br>  11.4.7-4.2 <br>  11.4.7-4.1 <br>  10.6.23-19 <br>  10.6.22-18.1 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  11.8.5-2.1-minimal <br>  11.8.5-2.1-community <br>  11.8.5-2.1-standard <br>  11.8.5-2.1 <br>  11.8-minimal <br>  11.8-community <br>  11.8-standard <br>  11.8 <br>  11.4.8-5.1-minimal <br>  11.4.8-5.1-community <br>  11.4.8-5.1-standard <br>  11.4.8-5.1 <br>  11.4-minimal <br>  11.4-standard <br>  11.4-community <br>  11.4 <br>  10.6.23-19.1-minimal <br>  10.6.23-19.1-community <br>  10.6.23-19.1-standard <br>  10.6.23-19.1 <br>  10.6-minimal <br>  10.6-standard <br>  10.6-community <br>  10.6 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale Enterprise | docker.mariadb.com/maxscale |  25.10.1 <br>  25.10.0 <br>  25.01.4 <br>  25.01.3-1 <br>  25.01 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale | mariadb/maxscale |  23.08.9-ubi <br>  23.08-ubi <br>  24.02.5-ubi <br>  24.02-ubi <br>  |  amd64 <br>  arm64 <br>  |
 | MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.1.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
