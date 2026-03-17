@@ -29,7 +29,7 @@ This page documents system variables related to Galera Cluster. For options that
 * Data Type: `INT UNSIGNED`
 * Default Value: `0`
 * Range: `0` to `4294967295`
-* Introduced: [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.1/changes-and-improvements-in-mariadb-12.1)
+* Introduced: [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1)
 
 #### `wsrep_auto_increment_control`
 
@@ -337,12 +337,20 @@ This variable is documented in detail here:
 
 #### `wsrep_node_name`
 
-* Description: Name of this node. This name can be used in [wsrep\_sst\_donor](galera-cluster-system-variables.md#wsrep_sst_donor) as a preferred donor. Note that multiple nodes in a cluster can have the same name.
+{% hint style="info" %}
+Multiple nodes in a cluster can share the same name, but unique names are advised for clarity.
+{% endhint %}
+
+* Description:&#x20;
+  * Logical name for this node. This name is used in logs and within the cluster to identify the node by means other than its network address.
+  * It can be used in [wsrep\_sst\_donor](galera-cluster-system-variables.md#wsrep_sst_donor) to specify a preferred donor node.
+  * **Recommendation**: While the default is the server's hostname, it is highly recommended to set an explicit logical name for each node, independent of the hostname.
+  * **Multi-instance & Containers**: Explicit naming is essential when running multiple Galera nodes on the same host or in containerized environments (like Docker or FreeBSD jails) where the node might otherwise use the container name rather than a persistent hostname.
+  * **Stability**: Failing to set an explicit name can result in State Snapshot Transfer (SST) failures in specific configurations.
 * Command line: `--wsrep-node-name=value`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: String
-* Default Value: The server's hostname.
 
 #### `wsrep_notify_cmd`
 
