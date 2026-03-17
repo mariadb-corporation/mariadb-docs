@@ -218,9 +218,9 @@ If a node has only been out of a cluster for a little while, then an IST is gene
 MariaDB Galera Cluster supports [Data at Rest Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview). See [SSTs and Data at Rest Encryption](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#ssts-and-data-at-rest-encryption) for some disclaimers on how SSTs are affected when encryption is configured.
 
 {% hint style="info" %}
-Note on GCache Encryption:
+**GCache Encryption:**
 
-* MariaDB Enterprise Server: The disk-based [Galera gcache](https://galeracluster.com/library/documentation/state-transfer.html#write-set-cache-gcache) is fully encrypted ([MENT-109](https://jira.mariadb.org/browse/MENT-109)).
+* MariaDB Enterprise Server: The disk-based [Galera gcache](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) is fully encrypted ([MENT-109](https://jira.mariadb.org/browse/MENT-109)).
 * MariaDB Community Server: The disk-based Galera gcache remains unencrypted. Users requiring full end-to-end encryption for the gcache on Community Server may need to consider filesystem-level encryption as a workaround.
 {% endhint %}
 
