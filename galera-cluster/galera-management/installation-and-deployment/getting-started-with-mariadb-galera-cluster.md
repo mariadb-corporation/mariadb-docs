@@ -67,7 +67,7 @@ MariaDB Galera Cluster can be installed via a package manager on Linux. In order
 
 You can configure your package manager to install it from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage).
 
-You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-mariadb-source-configuration-options).
+You can also configure your package manager to install it from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/0B9HhpsUkjLe15Lk8wbL).
 
 #### Installing MariaDB Galera Cluster with yum/dnf
 
@@ -97,7 +97,7 @@ To make the location of the `libgalera_smm.so` library in binary tarballs more s
 
 ### Installing MariaDB Galera Cluster from Source
 
-To install MariaDB Galera Cluster by compiling it from source, you will have to compile both MariaDB Server and the Galera wsrep provider library. For some information on how to do this, see the pages at [Installing Galera From Source](advanced-installation-from-source/installing-galera-from-source.md). The pages at [Compiling MariaDB From Source](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source) and Galera Cluster Documentation: Building Galera Cluster for MySQL may also be helpful.
+To install MariaDB Galera Cluster by compiling it from source, you will have to compile both MariaDB Server and the Galera wsrep provider library. For some information on how to do this, see the pages at [Installing Galera From Source](advanced-installation-from-source/installing-galera-from-source.md). The pages at [Compiling MariaDB From Source](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source) and Galera Cluster Documentation: Building Galera Cluster for MySQL may also be helpful.
 
 ## Configuring MariaDB Galera Cluster
 
@@ -217,9 +217,14 @@ If a node has only been out of a cluster for a little while, then an IST is gene
 
 MariaDB Galera Cluster supports [Data at Rest Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview). See [SSTs and Data at Rest Encryption](../../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#ssts-and-data-at-rest-encryption) for some disclaimers on how SSTs are affected when encryption is configured.
 
-Some data still cannot be encrypted:
+{% hint style="info" %}
+Note on GCache Encryption:
 
-* The disk-based [Galera gcache](https://galeracluster.com/library/documentation/state-transfer.html#write-set-cache-gcache) is not encrypted ([MDEV-8072](https://jira.mariadb.org/browse/MDEV-8072)).
+* MariaDB Enterprise Server: The disk-based [Galera gcache](https://galeracluster.com/library/documentation/state-transfer.html#write-set-cache-gcache) is fully encrypted ([MENT-109](https://jira.mariadb.org/browse/MENT-109)).
+* MariaDB Community Server: The disk-based Galera gcache remains unencrypted. Users requiring full end-to-end encryption for the gcache on Community Server may need to consider filesystem-level encryption as a workaround.
+{% endhint %}
+
+*
 
 ## Monitoring
 
