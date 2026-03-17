@@ -1050,8 +1050,6 @@ SELECT /*+ QB_NAME(qb_outer) NO_ICP(@qb1 t1) BNL(@dt1) INDEX(t2@dt2 idx1) */ ...
 
 The scope of a query block name is the whole statement. It is invalid to use the same name for multiple query blocks. You can refer to the query block "down into subquery", "down into derived table", "up to the parent" and "to a right sibling in the `UNION`". You cannot refer "to a left sibling in a `UNION`".
 
-Hints inside views are not supported, yet. You can neither use hints in `VIEW` definitions, nor control query plans inside non-merged views.
-
 ### Explicit query block names with path
 {% hint style="info" %}
 Available from MariaDB 13.0.
