@@ -1,26 +1,85 @@
 ---
 description: >-
   Evaluate MariaDB MaxScale with the free Trial version. Learn about its
-  features installation steps, and specific limitations like connection counts
-  and runtime duration for testing purposes.
+  features and installation steps, limited only by a 30 day license key.
 ---
 
 # MaxScale Trial
 
-With the release of MaxScale 25.01 under a [proprietary license](https://mariadb.com/terms/),
-MariaDB has introduced MaxScale Trial, a free version that lets users explore the latest GA
-features in 24-hour increments, up to one week from install. MaxScale Trial offers limited
-performance capacity, providing a hands-on way to evaluate MaxScale’s capabilities before
-committing to an enterprise subscription
+With the release of MaxScale 25.10.2, MariaDB has updated the MaxScale Trial
+experience to provide a more flexible evaluation period. This free version
+allows users to explore the latest GA features of MaxScale under a
+[proprietary license](https://mariadb.com/terms/).
+
+Unlike previous versions, access to this trial is now managed via a specific
+license key. This key determines the duration of your evaluation period,
+providing a hands-on way to test MaxScale’s capabilities and performance
+within your environment before committing to an enterprise subscription.
+
+The next section explains how to obtain your license key.
+
+### Getting the License Key
+
+To use MaxScale 25.10.2 Trial mode, you must first obtain a trial license
+key from the MariaDB Customer Portal. This key validates your trial and
+determines the duration of your evaluation period.
+
+1. **Log in to MariaDB ID**: Navigate to the [MaxScale Trial License page](https://customers.mariadb.com/license/maxscale-trial/).
+   You will be prompted to sign in with your MariaDB ID. If you do not have an account,
+   you can create one using your email, Google, GitHub, or LinkedIn credentials.
+
+1. **Generate the Key**: Once logged in, follow the on-screen instructions
+   to generate your unique MaxScale Trial license key.
+
+1. **Save the Key**: Copy or download the generated key. You will need to provide
+   this key during the MaxScale configuration process.
+
+### Obtaining MaxScale Trial
+
+MaxScale Trial can be downloaded from the
+[MariaDB Download](https://mariadb.com/downloads/community/maxscale/) page.
+Choose the correct version for your OS.
+
+The downloaded file is a tar-package that must be extracted. Create
+a directory and extract the package into that.
+```
+mkdir maxscale
+cd maxscale
+tar -xf path/to/maxscale-25.10.2-trial-release.ubuntu.noble.x86_64.tar
+```
+The filename will be different for different OSs.
 
 ### Installing MaxScale Trial <a href="#installing-maxscale-trial" id="installing-maxscale-trial"></a>
 
+Enter the directory where the tar-package was extracted and execute
+on a Debian based system
+```
+sudo apt install ./*.deb
+```
+and on a RedHat based system
+```
+sudo dnf install ./*.rpm
+```
 When the MaxScale Trial package has been installed, a template MaxScale configuration file
 will be copied to `/etc/maxscale.cnf.template` and `/etc/maxscale.cnf`; the former for
 reference and the latter for actual use. The configuration file has been written with
 the assumption that a MariaDB server is running on the same machine where MaxScale is installed.
 
-Before starting MaxScale, the database users needed by MaxScale must be created.
+Before starting MaxScale, the license key must be specified and the database
+users needed by MaxScale must be created.
+
+#### Configuring the License Key
+
+Open `/etc/maxscale.cnf` and add a `license_key` entry to the `[maxscale]` section.
+```
+[maxscale]
+...
+license_key=...
+```
+The value of `license_key` can either be the license key itself or the
+_absolute_ path to a file containing the license.
+
+**NOTE** If the license is read from a file, it must be readable by the user `maxscale`.
 
 #### Database Users used by MaxScale <a href="#database-users-used-by-maxscale" id="database-users-used-by-maxscale"></a>
 
@@ -54,6 +113,7 @@ GRANT SELECT ON mysql.columns_priv TO 'service_user'@'%';
 GRANT SELECT ON mysql.procs_priv TO 'service_user'@'%';
 GRANT SELECT ON mysql.proxies_priv TO 'service_user'@'%';
 GRANT SELECT ON mysql.roles_mapping TO 'service_user'@'%';
+GRANT SELECT ON mysql.global_priv TO 'service_user'@'%';
 GRANT SHOW DATABASES ON *.* TO 'service_user'@'%';
 ```
 
@@ -62,7 +122,9 @@ GRANT SHOW DATABASES ON *.* TO 'service_user'@'%';
 Creating the monitor user is more complicated, because the required GRANTs depend
 both on what monitor is used and on the exact server version. The GRANTs needed
 by the MariaDB Monitor, used for monitoring a regular MariaDB primary/replica
-cluster can be found here, but for initial testing the user can be given blanket rights:
+cluster can be found
+[here](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/mariadb-monitor#required-grants),
+but for initial testing the user can be given blanket rights:
 
 ```sql
 CREATE USER 'monitor_user'@'%' IDENTIFIED BY 'monitor_pw';
@@ -71,19 +133,36 @@ GRANT ALL ON *.* TO 'monitor_user'@'%';
 
 In a non-trial context, the monitor user should be granted only the GRANTs it really needs.
 
+#### Configuring the REST-API
+
+The command line utility `maxctrl` and the web UI _MaxGUI_ communicate with
+MaxScale using a REST-API. By default, MaxGUI requires that TLS is enabled
+and it is configured as explained
+[here](https://mariadb.com/docs/maxscale/maxscale-security/securing-your-maxscale-deployment#secure-gui-and-admin-interface-connections).
+
+Alternatively, the requirement of TLS can be turned off by adding the entry
+```
+admin_secure_gui=false
+```
+to the `[maxscale]` section in the MaxScale configuration file.
+
+Please note that unless TLS is configured, your administrative credentials
+will be exposed in plain text over the network. Not using TLS should only
+be in a trial context in a controlled environment.
+
 #### Starting MaxScale Trial <a href="#starting-maxscale-trial" id="starting-maxscale-trial"></a>
 
 Once the database users have been created, MaxScale Trial can be started.
 
 ```bash
-sudo service maxscale start
+sudo systemctl start maxscale.service
 ```
 
 If no errors are shown by the command, which indicates that MaxScale started,
 the error log of MaxScale should be checked.
 
 ```bash
-cat /var/log/maxscale/maxscale.log
+sudo cat /var/log/maxscale/maxscale.log
 ```
 
 If there are no error entries, MaxScale is running and can be used.
@@ -102,8 +181,14 @@ and with the following command that the service is running
 maxctrl list services
 ```
 
+If TLS has been configured, the secure mode must be enabled with the flag `--secure`
+and the relevant parameters provided using the `--tls...` flags. Invoke `maxctrl`
+with the flag `--help` for the details.
+
 After that the web-browser can be pointed to [http://127.0.0.1:8989](http://127.0.0.1:8989/).
-Logging in is done using the username admin and the password mariadb.
+Logging in is done using the username `admin` and the password `mariadb`.
+If TLS has not been disabled by the setting `admin_secure_gui=false`, `https`
+must be used.
 
 Note that by default MaxScale listens only on the interface 127.0.0.1, which means that
 you must access MaxScale from the same machine on which MaxScale is running. If you want
@@ -117,75 +202,17 @@ to the `[maxscale]` section in `/etc/maxscale.cnf`.
 
 <figure><img src="../.gitbook/assets/MaxGUI_login.png" alt="MaxScale Trial login dialog, containing two form fields to input user name and password, a Remember me checkbox, and a Sign In button."><figcaption><p>MaxScale Trial Login Dialog</p></figcaption></figure>
 
-### Limitations of MaxScale Trial <a href="#limitations-of-maxscale-trial" id="limitations-of-maxscale-trial"></a>
-
-Apart from the following limitations, MaxScale Trial is identical to MaxScale.
-
-| #filters         | 2                                                               |
-| ---------------- | --------------------------------------------------------------- |
-| #servers         | 2                                                               |
-| #services        | 1                                                               |
-| #connections     | 15                                                              |
-| Capture          | Capture size limited to 10MB and capture duration to 5 minutes. |
-| Process lifetime | 24 hours after which the MaxScale Trial process will exit.      |
-| Trial period     | 1 week from installation date.                                  |
-
-At startup, if any of the limitations on the number of filters, servers or services is exceeded,
-MaxScale will not start and an error like the following will be logged:
-
-```
-2025-03-25 12:17:34   error  : (Read-Only-Service); The maximum limit of 1 services in MaxScale Trial has been reached. If insufficient, consider upgrading to MaxScale Enterprise: https://mariadb.com/maxscale-contact/
-2025-03-25 12:17:34   error  : (Read-Only-Service); Service 'Read-Only-Service' creation failed.
-2025-03-25 12:17:34   error  : 1 errors were encountered while processing configuration.
-2025-03-25 12:17:34   alert  : Failed to process the MaxScale configuration file /etc/maxscale.cnf.
-```
-
-If the limit is exceeded at runtime with maxctrl, the operation will fail with an error like the following:
-
-```
-maxctrl create service Read-Only-Service router=readconnroute user=service_users
-Error: Server at http://127.0.0.1:8989 responded with 400 Bad Request to `POST services`
-{
-    "errors": [
-        {
-            "detail": "The maximum limit of 1 services in MaxScale Trial has been reached. If insufficient, consider upgrading to MaxScale Enterprise: https://mariadb.com/maxscale-contact/"
-        },
-        {
-            "detail": "Could not create service 'Read-Only-Service' with module 'router=readconnroute'"
-        }
-    ]
-}
-```
-
-If the limit is exceeded at runtime using MaxGUI, the operation will fail with the following error message.
-
-![MaxGUI\_error-message](../.gitbook/assets/MaxGUI_error-message.png)
-
-If the connection limit is exceeded, the connection attempt will fail, and note that no error message will be displayed.
-
-An attempt to explicitly raise
-[max\_connections](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_connections)
-beyond the maximum of 15, will prevent MaxScale from running at startup and at runtime fail with a runtime error.
-
-If the configured capture [size](../reference/maxscale-filters/maxscale-workload-capture-and-replay.md#capture_size) or
-[duration](../reference/maxscale-filters/maxscale-workload-capture-and-replay.md#capture_duration)
-exceeds the maximum limit of MaxScale Trial, the value will be adjusted down to the allowed maximum
-value and an error will be logged.
-
 ### Upgrading to MaxScale <a href="#upgrading-to-maxscale" id="upgrading-to-maxscale"></a>
 
 The configuration file of MaxScale Trial is 100% compatible with MaxScale. To replace MaxScale Trial
-with MaxScale, only the following steps are needed:
+with MaxScale, the following steps are needed:
 
 * Uninstall MaxScale Trial.
-* Install MaxScale 25.01 or higher.
+* Install MaxScale 25.10.2 or higher.
 
 Although the uninstallation of MaxScale Trial will not cause the configuration file to be erased,
 it is recommended to make a backup of it before the operation.
 
-It is not possible to have MaxScale Trial and MaxScale installed simultaneously on the same machine.
-
-MaxScale configurations are not guaranteed to work in MaxScale Trial as MaxScale Trial has
-restrictions based on the documented limitations above which would block startup.\\
+It is not possible to have MaxScale Trial and MaxScale installed simultaneously on the same machine.\\
 
 {% @marketo/form formId="4316" %}
