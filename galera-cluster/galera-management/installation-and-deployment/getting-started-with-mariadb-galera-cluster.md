@@ -86,7 +86,7 @@ To install MariaDB Galera Cluster with `apt-get`, follow the instructions at [In
 
 On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to install the relevant [RPM packages](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/mariadb-rpm-packages) from MariaDB's repository using [zypper](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper).
 
-To install MariaDB Galera Cluster with `zypper`, follow the instructions at [Installing MariaDB Galera Cluster with ZYpper](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/installing-mariadb-with-zypper#installing-mariadb-galera-cluster-with-zypp).
+To install MariaDB Galera Cluster with `zypper`, follow the instructions at [Installing MariaDB Galera Cluster with ZYpp](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper#installing-mariadb-galera-cluster-with-zypp).
 
 ### Installing MariaDB Galera Cluster with a Binary Tarball
 
