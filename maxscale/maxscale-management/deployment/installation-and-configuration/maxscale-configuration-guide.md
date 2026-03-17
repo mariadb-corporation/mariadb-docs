@@ -317,6 +317,28 @@ path_list_parameter=/tmp/something.log:/var/log/maxscale/maxscale.log
 
 The global settings, in a section named `[MaxScale]`, allow various parameters that affect MariaDB MaxScale as a whole to be tuned. This section must be defined in the root configuration file which by default is `/etc/maxscale.cnf`.
 
+**Note**: MariaDB MaxScale providess multiple global diagnostic and debugging options (including `gdb-stacktrace` and `dump-network-traffic`), which can be used to diagnose and troubleshoot core behavior.&#x20;
+
+For convenience, here is a quick overview of available diagnostic and debugging settings:
+
+| Settings                    | Brief Description                                       |
+| --------------------------- | ------------------------------------------------------- |
+| `disable-module-unloading`  | Prevents modules from unloading during runtime          |
+| `enable-module-unloading`   | Allows the unloading of modules during runtime          |
+| `redirect-output-to-file`   | Reroutes `stdout` and `stderr` to a specified file.     |
+| `enable-statement-logging`  | Allows logging of all SQL statements                    |
+| `disable-statement-logging` | Disables SQL statement logging                          |
+| `enable-cors`               | Enables Cross-Origin Resource Sharing (CORS) support    |
+| `cors-allow-origin`         | Specifies COR's allowed origin                          |
+| `allow-duplicate-servers`   | Multiple servers can use the same address and port      |
+| `gdb-stacktrace`            | Enables the generation of gdb stacktraces upon crash    |
+| `sql-batch-size`            | Determines the batch size for processing SQL statements |
+| `disable-fcrdns`            | Disables the forward-confirmed reverse DNS lookup       |
+| `dump-network-traffic`      | Dumps network traffic for debugging purposes            |
+| `exception-frequency`       | Sets the frequency of generated API exceptions          |
+
+See the [MaxScale Configuration Settings](../../../reference/maxscale-configuration-settings.md) page for a comprehensive list of these configuration parameters.&#x20;
+
 #### `core_file`
 
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
@@ -3016,7 +3038,7 @@ nosqlprotocol.authentication_password=my_password
 
 #### Settings for File-based Key Manager
 
-##### `file.keyfile`
+**`file.keyfile`**
 
 * Type: path
 * Mandatory: Yes
@@ -3037,7 +3059,7 @@ The KMIP key manager has been verified to work with the PyKMIP server.
 
 #### Settings for KMIP Key Manager
 
-##### `kmip.host`
+**`kmip.host`**
 
 * Type: string
 * Mandatory: Yes
@@ -3045,7 +3067,7 @@ The KMIP key manager has been verified to work with the PyKMIP server.
 
 The host where the KMIP server is.
 
-##### `kmip.port`
+**`kmip.port`**
 
 * Type: integer
 * Mandatory: Yes
@@ -3053,7 +3075,7 @@ The host where the KMIP server is.
 
 The port on which the KMIP server listens on.
 
-##### `kmip.cert`
+**`kmip.cert`**
 
 * Type: path
 * Mandatory: Yes
@@ -3061,7 +3083,7 @@ The port on which the KMIP server listens on.
 
 The client public certificate used when connecting to the KMIP server.
 
-##### `kmip.key`
+**`kmip.key`**
 
 * Type: path
 * Mandatory: Yes
@@ -3069,7 +3091,7 @@ The client public certificate used when connecting to the KMIP server.
 
 The client private key used when connecting to the KMIP server.
 
-##### `kmip.ca`
+**`kmip.ca`**
 
 * Type: path
 * Default: `""`
@@ -3106,7 +3128,7 @@ version            1
 
 #### Settings for HashiCorp Vault Key Manager
 
-##### `vault.token`
+**`vault.token`**
 
 * Type: password
 * Mandatory: Yes
@@ -3114,7 +3136,7 @@ version            1
 
 The authentication token used to connect to the Vault server. This can be encrypted using `maxpasswd`, similar to how other passwords are encrypted.
 
-##### `vault.host`
+**`vault.host`**
 
 * Type: string
 * Default: `localhost`
@@ -3122,7 +3144,7 @@ The authentication token used to connect to the Vault server. This can be encryp
 
 The host where the Vault server is.
 
-##### `vault.port`
+**`vault.port`**
 
 * Type: integer
 * Default: `8200`
@@ -3130,7 +3152,7 @@ The host where the Vault server is.
 
 The port on which the Vault server listens on.
 
-##### `vault.ca`
+**`vault.ca`**
 
 * Type: path
 * Default: `""`
@@ -3138,7 +3160,7 @@ The port on which the Vault server listens on.
 
 The CA certificate to use. By default the system default certificates are used.
 
-##### `vault.tls`
+**`vault.tls`**
 
 * Type: [boolean](maxscale-configuration-guide.md#booleans)
 * Default: true
@@ -3146,7 +3168,7 @@ The CA certificate to use. By default the system default certificates are used.
 
 Whether to use encrypted connections (i.e. HTTPS or HTTP) when communicating with the Vault server.
 
-##### `vault.mount`
+**`vault.mount`**
 
 * Type: string
 * Default: `secret`
@@ -3154,7 +3176,7 @@ Whether to use encrypted connections (i.e. HTTPS or HTTP) when communicating wit
 
 The Key-Value mount where the secret is stored. By default the `secret` mount is used which is present by default in most Vault installations.
 
-##### `vault.timeout`
+**`vault.timeout`**
 
 * Type: [duration](maxscale-configuration-guide.md#durations)
 * Default: 30s
