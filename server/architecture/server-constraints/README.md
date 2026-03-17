@@ -25,8 +25,20 @@ layout:
 
 {% columns %}
 {% column %}
+{% content-ref url="server-constraints-overview.md" %}
+[server-constraints-overview.md](server-constraints-overview.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Provides a high-level overview of how MariaDB Server enforces data integrity through various architectural constraint types.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="auto_increment-constraints.md" %}
-[AUTO_INCREMENT Constraints](auto_increment-constraints.md)
+[auto\_increment-constraints.md](auto_increment-constraints.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -38,7 +50,7 @@ Explains the limitations and behavior of `AUTO_INCREMENT` columns, including how
 {% columns %}
 {% column %}
 {% content-ref url="foreign-key-constraints.md" %}
-[Foreign Key Constraints](foreign-key-constraints.md)
+[foreign-key-constraints.md](foreign-key-constraints.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -50,7 +62,7 @@ Details the requirements and limitations for defining foreign keys to ensure ref
 {% columns %}
 {% column %}
 {% content-ref url="not-null-constraints.md" %}
-[NOT NULL Constraints](not-null-constraints.md)
+[not-null-constraints.md](not-null-constraints.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -62,7 +74,7 @@ Describes how `NOT NULL` constraints prevent `NULL` values from being stored in 
 {% columns %}
 {% column %}
 {% content-ref url="primary-key-constraints.md" %}
-[Primary Key Constraints](primary-key-constraints.md)
+[primary-key-constraints.md](primary-key-constraints.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -73,20 +85,8 @@ Outlines the rules for primary keys, which uniquely identify each record in a ta
 
 {% columns %}
 {% column %}
-{% content-ref url="server-constraints-overview.md" %}
-[Server Constraints Overview](server-constraints-overview.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Provides a high-level overview of how MariaDB Server enforces data integrity through various architectural constraint types.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="unique-constraints-with-mariadb-enterprise-server.md" %}
-[Unique Constraints with MariaDB Enterprise Server](unique-constraints-with-mariadb-enterprise-server.md)
+[unique-constraints-with-mariadb-enterprise-server.md](unique-constraints-with-mariadb-enterprise-server.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -94,3 +94,4 @@ Provides a high-level overview of how MariaDB Server enforces data integrity thr
 Explains the specific implementation and considerations for unique constraints when using MariaDB Enterprise Server.
 {% endcolumn %}
 {% endcolumns %}
+
