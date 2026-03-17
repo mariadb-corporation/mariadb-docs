@@ -224,8 +224,6 @@ MariaDB Galera Cluster supports [Data at Rest Encryption](https://app.gitbook.co
 * MariaDB Community Server: The disk-based Galera gcache remains unencrypted. Users requiring full end-to-end encryption for the gcache on Community Server may need to consider filesystem-level encryption as a workaround.
 {% endhint %}
 
-*
-
 ## Monitoring
 
 ### Status Variables
