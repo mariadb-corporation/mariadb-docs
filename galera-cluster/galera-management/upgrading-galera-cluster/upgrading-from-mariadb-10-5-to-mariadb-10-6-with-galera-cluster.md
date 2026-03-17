@@ -77,7 +77,7 @@ Install the new version of MariaDB and the Galera wsrep provider.
 
 {% tabs %}
 {% tab title="Debian, Ubuntu, ..." %}
-see [Installing MariaDB Packages with APT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-alongside-mysql) for more information.
+see [Installing MariaDB Packages with APT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files#installing-mariadb-packages-with-apt) for more information.
 {% endtab %}
 
 {% tab title="RHEL, CentOS, Fedora, ..." %}
