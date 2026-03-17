@@ -7,7 +7,7 @@ hidden: true
 
 # Changelog for MariaDB Enterprise Server 10.6.25-21
 
-<a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="10.6.24-20.md" class="button secondary">Release Notes</a> <a href="changelog-10.6.24-20.md" class="button secondary">Changelog</a> <a href="whats-new.md" class="button secondary">Overview of Enterprise Server 10.6</a>
+<a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="10.6.25-21.md" class="button secondary">Release Notes</a> <a href="changelog-10.6.25-21.md" class="button secondary">Changelog</a> <a href="whats-new.md" class="button secondary">Overview of Enterprise Server 10.6</a>
 
 **Release date:** 17 Mar 2026
 
