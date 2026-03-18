@@ -1414,6 +1414,7 @@
   * [All Releases](community-server/all-releases.md)
 * [MaxScale Release Notes](maxscale/README.md)
   * [MariaDB MaxScale 25.10 Release Notes](maxscale/25.10/README.md)
+    * [MaxScale 25.10.2 Release Notes](maxscale/25.10/25.10.2.md)
     * [MaxScale 25.10.1 Release Notes](maxscale/25.10/25.10.1.md)
     * [MaxScale 25.10.0 Release Notes](maxscale/25.10/25.10.0.md)
   * [MariaDB MaxScale 25.01 Release Notes](maxscale/25.01/README.md)
