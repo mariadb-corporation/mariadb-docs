@@ -25,7 +25,7 @@ MariaDB Enterprise Kubernetes Operator is compatible with the following Docker i
 |-----------|-------|----------------|------------------|
 | MariaDB Enterprise Kubernetes Operator | docker.mariadb.com/mariadb-enterprise-operator |  26.3.1 <br>  26.3.0 <br>  25.10.4 <br>  25.10.3 <br>  25.10.2 <br>  25.10.1 <br>  25.10.0 <br>  25.8.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MariaDB Enterprise Server | docker.mariadb.com/enterprise-server |  11.8.5-2 <br>  11.8.3-1 <br>  11.4.8-5 <br>  11.4.7-4.3 <br>  11.4.7-4.2 <br>  11.4.7-4.1 <br>  10.6.23-19 <br>  10.6.22-18.1 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
-| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  11.8.5-2.1-minimal <br>  11.8.5-2.1-community <br>  11.8.5-2.1-standard <br>  11.8.5-2.1 <br>  11.8-minimal <br>  11.8-community <br>  11.8-standard <br>  11.8 <br>  11.4.8-5.1-minimal <br>  11.4.8-5.1-community <br>  11.4.8-5.1-standard <br>  11.4.8-5.1 <br>  11.4-minimal <br>  11.4-standard <br>  11.4-community <br>  11.4 <br>  10.6.23-19.1-minimal <br>  10.6.23-19.1-community <br>  10.6.23-19.1-standard <br>  10.6.23-19.1 <br>  10.6-minimal <br>  10.6-standard <br>  10.6-community <br>  10.6 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
+| MariaDB Enterprise Server (tiered) | docker.mariadb.com/enterprise-server |  11.8.5-2.1-minimal <br>  11.8.5-2.1-standard <br>  11.8.5-2.1 <br>  11.8-minimal <br>  11.8-standard <br>  11.8 <br>  11.4.8-5.1-minimal <br>  11.4.8-5.1-standard <br>  11.4.8-5.1 <br>  11.4-minimal <br>  11.4-standard <br>  11.4 <br>  10.6.23-19.1-minimal <br>  10.6.23-19.1-standard <br>  10.6.23-19.1 <br>  10.6-minimal <br>  10.6-standard <br>  10.6 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale Enterprise | docker.mariadb.com/maxscale |  25.10.1 <br>  25.10.0 <br>  25.01.4 <br>  25.01.3-1 <br>  25.01 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
 | MaxScale | mariadb/maxscale |  23.08.9-ubi <br>  23.08-ubi <br>  24.02.5-ubi <br>  24.02-ubi <br>  |  amd64 <br>  arm64 <br>  |
 | MariaDB Prometheus Exporter | mariadb/mariadb-prometheus-exporter-ubi |  1.1.0 <br>  |  amd64 <br>  arm64 <br>  ppc64le <br>  |
@@ -36,13 +36,12 @@ Refer to the registry documentation to [access docker.mariadb.com with your cust
 
 ### MariaDB Enterprise Server Tiered Images.
 
-To accommodate diverse operational requirements, the MariaDB Server container images utilize a multi-tiered strategy offering three distinct flavors: `minimal`, `standard`, and `community`. The `minimal` tier serves as the highly secure default, providing a heavily reduced footprint tailored for automated, operator-driven environments. For broader enterprise workloads requiring additional storage engines, plugins, and in-container debugging utilities, the `standard` tier balances comprehensive capabilities with strict security hardening. Finally, the `community` tier mirrors the feature set and enterprise-grade hardening of the standard tier, but is built around the open-source MariaDB Community Server.
+To accommodate diverse operational requirements, the MariaDB Server container images utilize a multi-tiered strategy offering three distinct flavors: `minimal` and `standard`. The `minimal` tier serves as the highly secure default, providing a heavily reduced footprint tailored for automated, operator-driven environments. For broader enterprise workloads requiring additional storage engines, plugins, and in-container debugging utilities, the `standard` tier balances comprehensive capabilities with strict security hardening.
 
 | Tier | Description | Target |
 | --- | --- | --- |
 | `minimal` | The `minimal` tier of the MariaDB Enterprise Docker image offers an image where whole parts of the filesystem have been removed. This includes many MariaDB utility binaries, CLI binaries, utilities and irrelevant packages. | Ideal for highly secure environments and strict compliance use cases requiring a heavily reduced attack surface and minimal storage footprint. |
 | `standard` | The `standard` tier of the MariaDB Enterprise Docker image comes with additional storage engines and plugins, while not sacrificing on security and size. | Designed for general enterprise workloads that require a balance of comprehensive database capabilities and an optimized, secure footprint. |
-| `community` | The `community` tier of the MariaDB Enterprise Docker image comes with additional storage engines and plugins, while not sacrificing on security and size. This image has the community MariaDB server installed with enterprise hardening. | Targeted at developers and organizations wanting open-source Community Server features but with the added reliability of enterprise-grade security hardening. |
 
 {% hint style="info" %}
 The tiered images are based on [ubi-micro](https://www.redhat.com/en/blog/introduction-ubi-micro).
@@ -54,29 +53,29 @@ Enterprise images are specifically "hardened" to optimize security and resource 
 
 The following section provides a high-level overview detailing the specific components that are retained and removed across both image tiers.
 
-| Component | `minimal` | `standard` | `community` |
-| --- | --- | --- | --- |
-| MariaDB Enterprise Server | ✅ | ✅ | ❌ |
-| MariaDB Community Server | ❌ | ❌ | ✅ |
-| coreutils | ✅ | ✅ | ✅ |
-| `mariadb-backup` | ✅ | ✅ | ✅ |
-| `mariadb-dump` | ✅ | ✅ | ✅ |
-| `mariadb-binlog` | ✅ | ✅ | ✅ |
-| `mariadb-tzinfo-to-sql` | ✅ | ✅ | ✅ |
-| `boost-program-options` | ✅ | ✅ | ✅ |
-| `jemalloc` | ✅ | ✅ | ✅ |
-| MariaDB utilities | ❌ | ✅ | ✅ |
-| System Perl | ❌ | ✅ | ✅ |
-| S3 Engine | ❌ | ✅ | ✅ |
-| Cracklib Password Plugin | ❌ | ✅ | ✅ |
-| Hashicorp Key Plugin | ❌ | ✅ | ✅ |
-| LDAP/PAM Plugin Dependencies | ❌ | ✅ | ✅ |
-| Spider Engine | ❌ | ❌ | ✅ (bundled with community, not specifically installed) |
-| RocksDB Engine | ❌ | ❌ | ❌ |
-| Package Manager | ❌ | ❌ | ❌ |
-| Docs & Formatting | ❌ | ❌ | ❌ |
-| Unnecessary Binaries | ❌ | ❌ | ❌ |
-| `gosu` | ❌ | ❌ | ❌ |
+| Component | `minimal` | `standard` |
+| --- | --- | --- |
+| MariaDB Enterprise Server | ✅ | ✅ |
+| MariaDB Community Server | ❌ | ❌ |
+| coreutils | ✅ | ✅ |
+| `mariadb-backup` | ✅ | ✅ |
+| `mariadb-dump` | ✅ | ✅ |
+| `mariadb-binlog` | ✅ | ✅ |
+| `mariadb-tzinfo-to-sql` | ✅ | ✅ |
+| `boost-program-options` | ✅ | ✅ |
+| `jemalloc` | ✅ | ✅ |
+| MariaDB utilities | ❌ | ✅ |
+| System Perl | ❌ | ✅ |
+| S3 Engine | ❌ | ✅ |
+| Cracklib Password Plugin | ❌ | ✅ |
+| Hashicorp Key Plugin | ❌ | ✅ |
+| LDAP/PAM Plugin Dependencies | ❌ | ✅ |
+| Spider Engine | ❌ | ❌ |
+| RocksDB Engine | ❌ | ❌ |
+| Package Manager | ❌ | ❌ |
+| Docs & Formatting | ❌ | ❌ |
+| Unnecessary Binaries | ❌ | ❌ |
+| `gosu` | ❌ | ❌ |
 
 ## Working With Air-Gapped Environments
 
