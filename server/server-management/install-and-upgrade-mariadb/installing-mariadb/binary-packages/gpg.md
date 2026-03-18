@@ -99,7 +99,7 @@ sudo rpmkeys --import https://supplychain.mariadb.com/MariaDB-Enterprise-GPG-KEY
 {% endtab %}
 
 {% tab title="RHEL 10+ , Debian 13+" %}
-For RHEL, AlmaLinux, Rocky, and Oracle Linux 10 and above, and for Debian 13 Trixie and above there are new requirements around GPG keys used to sign rpm packages. For these distributions we have created a stronger GPG key for our Enterprise Server releases.
+For RHEL, AlmaLinux, Rocky, and Oracle Linux 10 and above, and for Debian 13 Trixie and above there are new requirements around GPG keys used to sign packages. For these distributions we have created a stronger GPG key for our Enterprise Server releases.
 
 Information on this key:
 
