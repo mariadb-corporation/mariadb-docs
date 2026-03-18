@@ -18,6 +18,7 @@ description: >-
 * Type: filter
 * Mandatory: Yes
 * Dynamic: No
+* Description: The module parameter specifies the name of the filter module that is included in the routing chain.
 
 #### Global Settings
 
@@ -27,6 +28,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Enables the logging of incoming REST API requests for auditing and monitoring purposes.
 
 [**admin\_audit\_exclude\_methods**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_audit_exclude_methods)
 
@@ -35,41 +37,47 @@ description: >-
 * Dynamic: Yes
 * Values: `GET`, `PUT`, `POST`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `CONNECT`, `TRACE`
 * Default: No exclusions
+* Description: Provides a list of HTTP methods to be excluded from REST API audit logging, separated by commas.
 
 [**admin\_audit\_file**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_audit_file)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `/var/log/maxscale/admin_audit.csv`
+* Default: `/var/log/maxscale/admin_audit.csv`&#x20;
+* Description: Defines the location of the REST API audit logs.
 
 [**admin\_auth**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_auth)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Allows HTTP Basic authentication for the REST API.
 
 [**admin\_enabled**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_enabled)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Enables or disables the MaxScale admin interface.
 
 [**admin\_gui**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_gui)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Enables or disables the graphical user interface (GUI) for the admin interface.
 
 [**admin\_host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_host)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `"127.0.0.1"`
+* Default: `"127.0.0.1"`&#x20;
+* Description: Provides the network interface address that the REST API is listening to.
 
 [**admin\_jwt\_algorithm**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_jwt_algorithm)
 
@@ -77,56 +85,64 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `auto`, `HS256`, `HS384`, `HS512`, `RS256`, `RS384`, `RS512`, `PS256`, `PS384`, `PS512`, `ES256`, `ES384`, `ES512`, `ED25519`, `ED448`
-* Default: `auto`
+* Default: `auto`&#x20;
+* Description: Specifies the algorithm for signing JSON Web Tokens (JWTs) for the REST API.
 
 [**admin\_jwt\_issuer**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_jwt_issuer)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `maxscale`
+* Default: `maxscale`&#x20;
+* Description: Specifies the issuer ("iss") claim in the REST API-generated JSON Web Tokens.&#x20;
 
 [**admin\_jwt\_key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_jwt_key)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Identifies the encryption key that is used to sign JSON Web Tokens.
 
 [**admin\_jwt\_max\_age**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_jwt_max_age)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
-* Default: `24h`
+* Default: `24h`&#x20;
+* Description: Specifies the maximum duration of JWTs issued by the REST API.
 
 [**admin\_log\_auth\_failures**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_log_auth_failures)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Enables logging of authentication failures for the admin interface.
 
 [**admin\_oidc\_client\_id**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_client_id)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the client ID for OpenID Connect (OIDC) login authentication requests.
 
 [**admin\_oidc\_client\_secret**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_client_secret)
 
 * Type: password
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the client secret used for OIDC authentication requests.
 
 [**admin\_oidc\_extra\_options**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_extra_options)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""` &#x20;
+* Description: Defines additional parameters that should be included in authorization requests for OIDC. &#x20;
 
 [**admin\_oidc\_flow**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_flow)
 
@@ -134,7 +150,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `auto`, `implicit`, `code`
-* Default: `auto`
+* Default: `auto`&#x20;
+* Description: Describes the OIDC authentication flow used for SSO.
 
 [**admin\_oidc\_ssl\_insecure**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_ssl_insecure)
 
@@ -142,34 +159,39 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Disables TLS certificate validation while retrieving OIDC certificates.
 
 [**admin\_oidc\_url**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_oidc_url)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the OIDC provider's URL, which is needed to validate JWT.
 
 [**admin\_pam\_readonly\_service**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_pam_readonly_service)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Defines the PAM service that is used to verify read-only REST API users.
 
 [**admin\_pam\_readwrite\_service**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_pam_readwrite_service)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the PAM service used for authentication REST API users with read and write access.
 
 [**admin\_port**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_port)
 
 * Type: number
 * Mandatory: No
 * Dynamic: No
-* Default: `8989`
+* Default: `8989`&#x20;
+* Description: Defines the port at which the REST API waits for incoming connections.
 
 [**admin\_readwrite\_hosts**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_readwrite_hosts)
 
