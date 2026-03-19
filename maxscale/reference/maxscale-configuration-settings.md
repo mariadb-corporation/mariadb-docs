@@ -198,48 +198,55 @@ description: >-
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `%`
+* Default: `%`&#x20;
+* Description: Hosts can perform any REST API operation with read and write access.
 
 [**admin\_secure\_gui**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_secure_gui)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Manages whether the GUI are accessible only over secure HTTPS.
 
 [**admin\_ssl\_ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_ca)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Path to the CA sertificate for outgoing HTTPS requests.
 
 [**admin\_ssl\_cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_cert)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Provides the path of the TLS public certificate in PEM format used by the REST API.
 
 [**admin\_ssl\_cipher**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_cipher)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
+* Description: Defines additional TLS cipher configuration for the REST API.
 
 [**admin\_ssl\_key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_key)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Indicates the location of the TLS private key in PEM format that the admin interface uses.
 
 [**admin\_ssl\_passphrase**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_passphrase)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Provides the passphrase needed to decrypt the admin interface's TLS private key.
 
 [**admin\_ssl\_version**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_version)
 
@@ -247,7 +254,8 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `MAX`, `TLSv1.0`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`, `TLSv10`, `TLSv11`, `TLSv12`, `TLSv13`
-* Default: `MAX`
+* Default: `MAX`&#x20;
+* Description: Specifies the allowed TLS protocol versions for the REST API.
 
 [**admin\_verify\_url**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_verify_url)
 
@@ -255,6 +263,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`&#x20;
+* Description: Delegate the validation of tokens to an external server.
 
 **allow\_duplicate\_servers**
 
@@ -267,7 +276,8 @@ description: >-
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10s`
+* Default: `10s`&#x20;
+* Description: Sets the connection timeout for retrieving user authentication data from backend servers.
 
 [**auto\_tune**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#auto_tune)
 
@@ -276,6 +286,7 @@ description: >-
 * Default: No
 * Mandatory: No
 * Dynamic: No
+* Description: Allows automatic tuning of specified configuration parameters based on backend server values.
 
 [**config\_sync\_cluster**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#config_sync_cluster)
 
@@ -283,20 +294,23 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Monitor name used for configuration synchronization&#x20;
 
 [**config\_sync\_db**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#config_sync_db)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `mysql`
+* Default: `mysql`&#x20;
+* Description: Identifies the database that contains the `maxscale_config` table, which is used to synchronize configurations.
 
 [**config\_sync\_interval**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#config_sync_interval)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `5s`
+* Default: `5s`&#x20;
+* Description: Specifies how often MaxScale synchronizes configuration changes with the cluster.
 
 [**config\_sync\_password**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#config_sync_password)
 
@@ -304,13 +318,15 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description:&#x20;
 
 [**config\_sync\_timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#config_sync_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10s`
+* Default: `10s`&#x20;
+* Description: Timeout for config sync SQL operations.
 
 [**config\_sync\_user**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#config_sync_user)
 
@@ -318,6 +334,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Username used for configuration sync database access across MaxScale instances.
 
 [**connector\_plugindir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#connector_plugindir)
 
@@ -325,12 +342,14 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: OS Dependent
+* Description: Specifies the ditrectory that contains MaxScale's MariaDB Connector-C authentication plugins.
 
 [**core\_file**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#core_file)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: No
+* Description: Specifies whether a core dump file is generated in the event that MaxScale crashes.
 
 **cors\_allow\_origin**
 
@@ -343,7 +362,8 @@ description: >-
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `/var/lib/maxscale`
+* Default: `/var/lib/maxscale`&#x20;
+* Description: Specifies the location of MaxScale's data files directory.
 
 [**debug**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#debug)
 
@@ -351,6 +371,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`&#x20;
+* Description: Defines debug options equivalent to the `--debug` command line argument.
 
 **disable\_fcrdns**
 
@@ -377,6 +398,7 @@ description: >-
 * Dynamic: Yes
 * Values: `on_close`, `on_error`, `never`
 * Default: `never`&#x20;
+* Description: Manages when MaxScale logs the last statements executed by a client session.
 
 **dump\_network\_traffic**
 
@@ -419,13 +441,15 @@ description: >-
 * Type: integer
 * Default: 128
 * Dynamic: Yes
+* Description: Sets the number of entries in the reverse DNS lookup cache for client hostnames.
 
 [**key\_manager**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#key_manager)
 
 * Type: [enum](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
 * Dynamic: Yes
 * Values: `none`, `file`, `kmip`, `vault`
-* Default: `none`
+* Default: `none`&#x20;
+* Description: Defines the encrytion key manager that MaxScale uses.
 
 [**libdir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#libdir)
 
@@ -433,131 +457,150 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: OS Dependent
+* Description: Specifies the directory that MaxScale uses to locate modules.
 
 [**load\_persisted\_configs**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#load_persisted_configs)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `true`
+* Default: `true`&#x20;
+* &#x20;Description: Loads saved runtime changes at startup.
 
 [**local\_address**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#local_address)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Defines what specific local interface to use when connecting to servers.
 
 [**log\_augmentation**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_augmentation)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Includes function names to logged messages.
 
 [**log\_debug**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_debug)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Log debug messages when enabled.
 
 [**log\_info**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_info)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Log detailed info messages when enabled.
 
 [**log\_notice**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_notice)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Log notice level messages when enabled.
 
 [**log\_throttling**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_throttling)
 
 * Type: number, [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations), [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10, 1000ms, 10000ms`
+* Default: `10, 1000ms, 10000ms`&#x20;
+* Description: Manages how frequently repeated errors or warnings are logged.
 
 [**log\_warn\_super\_user**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_warn_super_user)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Log warning when a client with SUPER privilege connects.
 
 [**log\_warning**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_warning)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Enable service-level warning logging.
 
 [**logdir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#logdir)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `/var/log/maxscale`
+* Default: `/var/log/maxscale`&#x20;
+* Description: Defines the directory where log files are stored.
 
 [**max\_auth\_errors\_until\_block**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_auth_errors_until_block)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10`
+* Default: `10`&#x20;
+* Description: Maximum number of authentication failures before temprarily blocking a host.
 
 [**maxlog**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#maxlog)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Enables logging of messages to the MaxScale log file.
 
 [**module\_configdir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#module_configdir)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `/etc/maxscale.modules.d/`
+* Default: `/etc/maxscale.modules.d/`&#x20;
+* Description: Directory for module-specific configuration files.
 
 [**ms\_timestamp**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#ms_timestamp)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Adds millisecond precision to logfile timestamps.
 
 [**passive**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#passive)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Deprecated - use [cooperative monitoring](maxscale-monitors/mariadb-monitor.md#cooperative-monitoring) instead.&#x20;
 
 [**persist\_runtime\_changes**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#persist_runtime_changes)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: true
 * Dynamic: No
+* Description: Save runtime configuration changes to disk.
 
 [**persistdir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#persistdir)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `/var/lib/maxscale/maxscale.cnf.d/`
+* Default: `/var/lib/maxscale/maxscale.cnf.d/`&#x20;
+* Description: Directory where runtime configuration changes are stored.
 
 [**piddir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#piddir)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `/run/maxscale`
+* Default: `/run/maxscale`&#x20;
+* Description: Specifies the directory containing the MaxScale process ID (PID) file.
 
 [**query\_classifier\_cache\_size**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_classifier_cache_size)
 
@@ -565,34 +608,39 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: System Dependent
+* Description: Sets the maximum size of the query classifier cache.
 
 [**query\_retries**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_retries)
 
 * Type: number
 * Mandatory: No
 * Dynamic: No
-* Default: `1`
+* Default: `1`&#x20;
+* Description: Deprecated and ignored.
 
 [**query\_retry\_timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#query_retry_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `10s`
+* Default: `10s`&#x20;
+* Description: Deprecated and ignored.
 
 [**rebalance\_period**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#rebalance_period)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0s`
+* Default: `0s`&#x20;
+* Description: Defines the interval for monitoring and rebalancing worker thread load. A value of `0` disables this function.
 
 [**rebalance\_threshold**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#rebalance_threshold)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `20`
+* Default: `20`&#x20;
+* Description: Load difference percentage that triggers thread rebalancing.
 
 [**rebalance\_window**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#rebalance_window)
 
@@ -600,6 +648,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10`&#x20;
+* Description: Manages how many seconds of load to consider for rebalancing.
 
 **redirect\_output\_to\_file**
 
@@ -612,27 +661,31 @@ description: >-
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
 * Dynamic: No
+* Description: Requires SSL for all listeners, servers, and the REST API.
 
 [**retain\_last\_statements**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#retain_last_statements)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Specifies how many statements MaxScale can store per session.
 
 [**secretsdir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#secretsdir)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Location of the .secrets file for password encryption.
 
 [**session\_trace**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#session_trace)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Defines how many log entries are stored in the session trace log.
 
 [**session\_trace\_match**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#session_trace_match)
 
@@ -640,20 +693,23 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a refular expression pattern used to filter session trace logs.
 
 [**sharedir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sharedir)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `/usr/share/maxscale`
+* Default: `/usr/share/maxscale`&#x20;
+* Description: Defines the directory where static data assests are loaded.
 
 [**skip\_name\_resolve**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#skip_name_resolve)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Disables reverse DNS lookups of client IP addresses.
 
 [**sql\_mode**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sql_mode)
 
@@ -662,6 +718,7 @@ description: >-
 * Dynamic: No
 * Values: `default`, `oracle`
 * Default: `default`&#x20;
+* Description: Defines which SQL language mode the query classifier should ex&#x70;_&#x65;ct._
 
 **sql\_batch\_size**
 
@@ -674,14 +731,16 @@ description: >-
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Allows use of environment variables within MaxScale configuration files.
 
 [**syslog**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#syslog)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Writes log messages to the system journal via the system logging interface.
 
 [**telemetry**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry)
 
@@ -689,6 +748,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Enables sending metrics to OpenTelemetry Collector.
 
 [**telemetry\_attributes**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_attributes)
 
@@ -696,20 +756,23 @@ description: >-
 * Default: empty
 * Dynamic: Yes
 * Mandatory: No
+* Description: Global attributes to send with every metric.
 
 [**telemetry\_ssl\_ca**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_ssl_ca)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Path to trusted CA certificate (PEM) used for validating TLS connections in telemetry.
 
 [**telemetry\_ssl\_cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_ssl_cert)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the file path to the TLS public certificate in PEM format for telemetry.
 
 [**telemetry\_ssl\_insecure**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_ssl_insecure)
 
@@ -717,80 +780,92 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Disable TLS certificate validation for telemetry.
 
 [**telemetry\_ssl\_key**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_ssl_key)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: TLS private key for encrypted telemetry.
 
 [**telemetry\_update\_interval**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_update_interval)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `60s`
+* Default: `60s`&#x20;
+* Description: Defines the minimum interval between sending metrics to the telemetry collector.
 
 [**telemetry\_url**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#telemetry_url)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `http://localhost:4318/v1/metrics`
+* Default: `http://localhost:4318/v1/metrics`&#x20;
+* Description: Defines the OpenTelemetry endpoint where MaxScale pushes metrics.
 
 [**threads**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#threads)
 
 * Type: number or `auto`
 * Mandatory: No
 * Dynamic: No
-* Default: `auto`
+* Default: `auto`&#x20;
+* Description: Manages the number of worker threads for routing client traffic.
 
 [**threads\_max**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#threads_max)
 
 * Type: positive integer
 * Default: 256
 * Dynamic: No
+* Description: Hard limit for the number of worker threads.
 
 [**trace\_file\_dir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#trace_file_dir)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
+* Description: Directory for low-overhead trace log files.
 
 [**trace\_file\_size**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#trace_file_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Amount of log data to keep in trace files.
 
 [**users\_refresh\_interval**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#users_refresh_interval)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0s`
+* Default: `0s`&#x20;
+* Description: Defines the interval for automatically refreshing user accounts from backend servers.
 
 [**users\_refresh\_time**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#users_refresh_time)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `30s`
+* Default: `30s`&#x20;
+* Description: Maximum frequency for refreshing user accounts from backend servers after authentication failures.
 
 [**writeq\_high\_water**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#writeq_high_water)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `65536`
+* Default: `65536`&#x20;
+* Description: High water mark for network write buffer throttling.
 
 [**writeq\_low\_water**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#writeq_low_water)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `1024`
+* Default: `1024`&#x20;
+* Description: Low water mark to disable network write throttling.
 
 #### Service
 
