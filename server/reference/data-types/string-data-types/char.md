@@ -20,11 +20,23 @@ This page covers the `CHAR` data type. See [CHAR Function](../../sql-functions/s
 
 A fixed-length string that is always right-padded with spaces to the specified length when stored. `M` represents the column length in characters. The range of `M` is `0` to `255`. If `M` is omitted, the length is `1`.
 
-`CHAR(0)` columns can contain 2 values: an empty string or `NULL`. Such columns cannot be part of an index. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `CHAR(0)`.
-
-**Note:** Trailing spaces are removed when `CHAR` values are retrieved unless the `PAD_CHAR_TO_FULL_LENGTH` [SQL mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled.
+{% hint style="info" %}
+Trailing spaces are removed when `CHAR` values are retrieved unless the `PAD_CHAR_TO_FULL_LENGTH` [SQL mode](../../../server-management/variables-and-modes/sql_mode.md) is enabled.
+{% endhint %}
 
 If a unique index consists of a column where trailing pad characters are stripped or ignored, inserts into that column where values differ only by the number of trailing pad characters will result in a duplicate-key error.
+
+`CHAR(0)` columns can contain 2 values: an empty string or `NULL`. Such columns cannot be part of an index. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `CHAR(0)`.
+
+### Use Cases for Zero Length
+
+A `CHAR(0)` or `VARCHAR(0)` column occupies minimal space and is restricted to two possible values: an empty string (`''`) or `NULL`. You can use these columns for the following purposes:
+
+* **Legacy Compatibility**: Include these columns to maintain compatibility with older applications that require a specific table schema, even if the data is no longer collected.
+* **Two-State Flags**: A `CHAR(0) NULL` column can function as a boolean indicator. It uses only one bit of storage to distinguish between a "set" state (the empty string) and an "unset" state (`NULL`).
+* **Row Marking**: You can use a `CHAR(0)` column to mark a specific row in a table. For example, if you require only one "active" row, set that row to an empty string while keeping all other rows `NULL`.
+
+The following error occurs if you attempt to insert any character data into a 0-length column: `ERROR 1406 (22001): Data too long for column`.
 
 ## Examples
 

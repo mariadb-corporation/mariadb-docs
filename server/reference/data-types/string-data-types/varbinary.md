@@ -22,6 +22,15 @@ If the maximum length is exceeded, and [SQL strict mode](../../../server-managem
 
 Unlike [BINARY](binary.md) values, `VARBINARY` values are not right-padded when inserting.
 
+#### Use Cases for Zero Length
+
+A `BINARY(0)` or `VARBINARY(0)` column is restricted to an empty byte string or `NULL`.
+
+* **Schema Preservation**: Use these columns when a system expects a specific column to exist, but no data storage is required for your current application.
+* **Space-Efficient Indicators**: These columns can act as a two-state indicator where the presence of an empty byte string represents one state and `NULL` represents another.
+
+If you attempt to insert a value other than an empty string, MariaDB returns an `ERROR 1406 (22001)` indicating the data is too long for the column.
+
 ### Oracle Mode
 
 In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), `RAW` is a synonym for `VARBINARY`.

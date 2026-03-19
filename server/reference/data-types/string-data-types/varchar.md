@@ -16,22 +16,30 @@ description: >-
 
 A variable-length string. M represents the maximum column length in characters. The range of M is 0 to 65,532. The effective maximum length of a `VARCHAR` is subject to the maximum row size and the character set used. For example, utf-8 characters can require up to three bytes per character, so a `VARCHAR` column that uses the utf-8 character set can be declared to be a maximum of 21,844 characters.
 
-#### Note:
-
-For the [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) engine, M represents the maximum column length in bytes.
+`VARCHAR` is shorthand for `CHARACTER VARYING`. `NATIONAL VARCHAR` is the standard SQL way to define that a `VARCHAR` column should use some predefined character set. MariaDB uses utf-8 as its\
+predefined character set, as does MySQL. `NVARCHAR` is shorthand for `NATIONAL VARCHAR`.
 
 MariaDB stores `VARCHAR` values as a one-byte or two-byte length prefix plus data. The length prefix indicates the number of bytes in the value. A `VARCHAR` column uses one length byte if values require no more than 255 bytes, two length bytes if values may require more than 255 bytes.
 
 MariaDB follows the standard SQL specification and does not remove trailing spaces from `VARCHAR` values.
 
-`VARCHAR(0)` columns can contain 2 values: an empty string or `NULL`. Such columns cannot be part of an index. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `VARCHAR(0)`.
+If a unique index consists of a column where trailing pad characters are stripped or ignored, inserts into that column where values differ only by the number of trailing pad characters will result in a duplicate-key error.
 
-VARCHAR is shorthand for `CHARACTER VARYING`. `NATIONAL VARCHAR` is the standard SQL way to define that a `VARCHAR` column should use some predefined character set. MariaDB uses utf-8 as its\
-predefined character set, as does MySQL. `NVARCHAR` is shorthand for `NATIONAL VARCHAR`.
+For the [ColumnStore](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/columnstore) engine, M represents the maximum column length in bytes.
 
 For MariaDB, a number of [NO PAD collations](character-sets/supported-character-sets-and-collations.md#no-pad-collations) are available.
 
-If a unique index consists of a column where trailing pad characters are stripped or ignored, inserts into that column where values differ only by the number of trailing pad characters will result in a duplicate-key error.
+`VARCHAR(0)` columns can contain 2 values: an empty string or `NULL`. Such columns cannot be part of an index. The [CONNECT](../../../server-usage/storage-engines/connect/) storage engine does not support `VARCHAR(0)`.
+
+### Use Cases for Zero Length
+
+A `CHAR(0)` or `VARCHAR(0)` column occupies minimal space and is restricted to two possible values: an empty string (`''`) or `NULL`. You can use these columns for the following purposes:
+
+* **Legacy Compatibility**: Include these columns to maintain compatibility with older applications that require a specific table schema, even if the data is no longer collected.
+* **Two-State Flags**: A `CHAR(0) NULL` column can function as a boolean indicator. It uses only one bit of storage to distinguish between a "set" state (the empty string) and an "unset" state (`NULL`).
+* **Row Marking**: You can use a `CHAR(0)` column to mark a specific row in a table. For example, if you require only one "active" row, set that row to an empty string while keeping all other rows `NULL`.
+
+The following error occurs if you attempt to insert any character data into a 0-length column: `ERROR 1406 (22001): Data too long for column`.
 
 ### SYNONYMS
 
