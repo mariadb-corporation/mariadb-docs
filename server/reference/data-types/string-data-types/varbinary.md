@@ -22,7 +22,7 @@ If the maximum length is exceeded, and [SQL strict mode](../../../server-managem
 
 Unlike [BINARY](binary.md) values, `VARBINARY` values are not right-padded when inserting.
 
-#### Use Cases for Zero Length
+### Use Cases for Zero Length
 
 A `BINARY(0)` or `VARBINARY(0)` column is restricted to an empty byte string or `NULL`.
 
