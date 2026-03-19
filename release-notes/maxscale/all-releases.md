@@ -8,6 +8,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                     | Release Date | Release Status |
 | --------------------------- | ------------ | -------------- |
+| [25.10.2](25.10/25.10.2.md) | 2026-03-18   | Stable (GA)    |
 | [25.10.1](25.10/25.10.1.md) | 2026-01-09   | Stable (GA)    |
 | [25.10.0](25.10/25.10.0.md) | 2025-09-22   | Stable (GA)    |
 
@@ -15,6 +16,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                     | Release Date | Release Status |
 | --------------------------- | ------------ | -------------- |
+| [25.01.6](25.01/25.01.6.md) | 2025-03-16   | Stable (GA)    |
 | [25.01.5](25.01/25.01.5.md) | 2025-12-09   | Stable (GA)    |
 | [25.01.4](25.01/25.01.4.md) | 2025-09-08   | Stable (GA)    |
 | [25.01.3](25.01/25.01.3.md) | 2025-06-25   | Stable (GA)    |
@@ -25,6 +27,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                     | Release Date | Release Status |
 | --------------------------- | ------------ | -------------- |
+| [24.02.9](24.02/24.02.9.md) | 2026-03-16   | Stable (GA)    |
 | [24.02.8](24.02/24.02.8.md) | 2025-12-09   | Stable (GA)    |
 | [24.02.7](24.02/24.02.7.md) | 2025-09-02   | Stable (GA)    |
 | [24.02.6](24.02/24.02.6.md) | 2025-06-07   | Stable (GA)    |
@@ -39,6 +42,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                       | Release Date | Release Status |
 | ----------------------------- | ------------ | -------------- |
+| [23.08.13](23.08/23.08.13.md) | 2026-03-16   | Stable (GA)    |
 | [23.08.12](23.08/23.08.12.md) | 2025-12-09   | Stable (GA)    |
 | [23.08.11](23.08/23.08.11.md) | 2025-09-08   | Stable (GA)    |
 | [23.08.10](23.08/23.08.10.md) | 2025-06-06   | Stable (GA)    |
@@ -57,6 +61,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                       | Release Date | Release Status |
 | ----------------------------- | ------------ | -------------- |
+| [23.02.17](23.02/23.02.17.md) | 2026-03-16   | Stable (GA)    |
 | [23.02.16](23.02/23.02.16.md) | 2025-12-09   | Stable (GA)    |
 | [23.02.15](23.02/23.02.15.md) | 2025-09-08   | Stable (GA)    |
 | [23.02.14](23.02/23.02.14.md) | 2025-06-05   | Stable (GA)    |
