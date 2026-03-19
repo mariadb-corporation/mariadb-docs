@@ -5,7 +5,7 @@ hidden: true
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8
 
 {% hint style="danger" %}
-The content is subject to technical review by key stakeholders DK and should not be considered final.
+The content is pending final review by key stakeholders DK
 {% endhint %}
 
 This guide outlines the process for performing a major version upgrade from MariaDB Enterprise Server (ES) 10.6 directly to MariaDB Enterprise Server 11.8.
@@ -182,16 +182,12 @@ transaction_read_only    = OFF
 
 ## Incompatible and Significant Changes
 
-{% hint style="info" %}
-In the following tables, **New Architecture** indicates that the variable controls a subsystem that was previously hardcoded or non-existent in 10.6.
-{% endhint %}
-
 The following variables from version 10.6 have been removed, renamed, or deprecated in the 11.8 release series.
 
 ### New Variables Added in 11.8
 
-{% hint style="warning" %}
-Once the 11.8 binaries are installed, update your `my.cnf` to explicitly define these new variables to their 11.8 default values. Optimizer variables represent a _New Architecture_ designed for SSDs; using the 11.8 defaults is the safest strategy moving forward.
+{% hint style="info" %}
+Once the [11.8 binaries are installed](upgrading-from-mariadb-enterprise-server-10.6-to-11.8.md#install-the-11.8-release-series), update your [`my.cnf`](upgrading-from-mariadb-enterprise-server-10.6-to-11.8.md#implement-version-specific-configuration-changes) to define these new variables.
 {% endhint %}
 
 #### Optimizer Cost Model Variables
@@ -204,7 +200,7 @@ Because the 11.8 engine uses a completely new "weighting" system designed for mo
 
 These variables define the weights of the new optimizer. If query execution plans change after the upgrade, these parameters are the primary audit points and represent [the optimizer cost model](../../../../../ha-and-performance/optimization-and-tuning/query-optimizer/the-optimizer-cost-model-from-mariadb-11-0.md).
 
-<table><thead><tr><th width="430">Variable Name</th><th width="321.5">11.8 Default</th></tr></thead><tbody><tr><td><a href="../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#new_mode"><code>NEW_MODE</code></a></td><td><code>OFF</code></td></tr><tr><td><code>OPTIMIZER_DISK_READ_COST</code></td><td><code>10.24</code></td></tr><tr><td><code>OPTIMIZER_DISK_READ_RATIO</code></td><td><code>0.02</code></td></tr><tr><td><code>OPTIMIZER_EXTRA_PRUNING_DEPTH</code></td><td><code>8</code></td></tr><tr><td><code>OPTIMIZER_INDEX_BLOCK_COPY_COST</code></td><td><code>0.0356</code></td></tr><tr><td><code>OPTIMIZER_KEY_COMPARE_COST</code></td><td><code>0.011361</code></td></tr><tr><td><code>OPTIMIZER_KEY_COPY_COST</code></td><td><code>0.015685</code></td></tr><tr><td><code>OPTIMIZER_KEY_LOOKUP_COST</code></td><td><code>0.435777</code></td></tr><tr><td><code>OPTIMIZER_KEY_NEXT_FIND_COST</code></td><td><code>0.082347</code></td></tr><tr><td><code>OPTIMIZER_ROWID_COMPARE_COST</code></td><td><code>0.002653</code></td></tr><tr><td><code>OPTIMIZER_ROWID_COPY_COST</code></td><td><code>0.002653</code></td></tr><tr><td><code>OPTIMIZER_ROW_COPY_COST</code></td><td><code>0.060866</code></td></tr><tr><td><code>OPTIMIZER_ROW_LOOKUP_COST</code></td><td><code>0.130839</code></td></tr><tr><td><code>OPTIMIZER_ROW_NEXT_FIND_COST</code></td><td><code>0.045916</code></td></tr><tr><td><code>OPTIMIZER_SCAN_SETUP_COST</code></td><td><code>10</code></td></tr><tr><td><code>OPTIMIZER_WHERE_COST</code></td><td><code>0.032</code></td></tr></tbody></table>
+<table><thead><tr><th width="423.5">Variable Name</th><th width="321.5">11.8 Default</th></tr></thead><tbody><tr><td><a href="../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#new_mode"><code>NEW_MODE</code></a></td><td><code>OFF</code></td></tr><tr><td><code>OPTIMIZER_DISK_READ_COST</code></td><td><code>10.24</code></td></tr><tr><td><code>OPTIMIZER_DISK_READ_RATIO</code></td><td><code>0.02</code></td></tr><tr><td><code>OPTIMIZER_EXTRA_PRUNING_DEPTH</code></td><td><code>8</code></td></tr><tr><td><code>OPTIMIZER_INDEX_BLOCK_COPY_COST</code></td><td><code>0.0356</code></td></tr><tr><td><code>OPTIMIZER_KEY_COMPARE_COST</code></td><td><code>0.011361</code></td></tr><tr><td><code>OPTIMIZER_KEY_COPY_COST</code></td><td><code>0.015685</code></td></tr><tr><td><code>OPTIMIZER_KEY_LOOKUP_COST</code></td><td><code>0.435777</code></td></tr><tr><td><code>OPTIMIZER_KEY_NEXT_FIND_COST</code></td><td><code>0.082347</code></td></tr><tr><td><code>OPTIMIZER_ROWID_COMPARE_COST</code></td><td><code>0.002653</code></td></tr><tr><td><code>OPTIMIZER_ROWID_COPY_COST</code></td><td><code>0.002653</code></td></tr><tr><td><code>OPTIMIZER_ROW_COPY_COST</code></td><td><code>0.060866</code></td></tr><tr><td><code>OPTIMIZER_ROW_LOOKUP_COST</code></td><td><code>0.130839</code></td></tr><tr><td><code>OPTIMIZER_ROW_NEXT_FIND_COST</code></td><td><code>0.045916</code></td></tr><tr><td><code>OPTIMIZER_SCAN_SETUP_COST</code></td><td><code>10</code></td></tr><tr><td><code>OPTIMIZER_WHERE_COST</code></td><td><code>0.032</code></td></tr></tbody></table>
 
 #### **InnoDB Variables**
 
@@ -256,8 +252,6 @@ MariaDB 11.8 introduces a native Vector Search engine using the Metadata-HNSW (H
 | `MHNSW_DEFAULT_M`                                                                                                                        | `6`          |
 | `MHNSW_EF_SEARCH`                                                                                                                        | `20`         |
 | `MHNSW_MAX_CACHE_SIZE`                                                                                                                   | `16777216`   |
-
-\*
 
 #### **General Architecture Changes Variables**
 
@@ -323,7 +317,7 @@ For variables that have existed in both versions but have different defaults (e.
 
 If a critical regression is discovered, you can use an existing 10.6 machine in your setup as a failback safety net.
 
-{% hint style="danger" %}
+{% hint style="warning" %}
 Replicating from a MariaDB 11.8 Primary to a MariaDB 10.6 Replica is NOT officially supported by MariaDB Engineering. This configuration should only be used as a temporary emergency safety net during the upgrade window.
 {% endhint %}
 
