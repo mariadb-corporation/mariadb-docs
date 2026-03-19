@@ -874,7 +874,8 @@ description: >-
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Manages whether authentication data is loaded from one server or aggregated from all servers.
 
 [**cluster**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#cluster)
 
@@ -882,6 +883,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Monitor that defines servers for this service.
 
 [**connection\_keepalive**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#connection_keepalive)
 
@@ -890,6 +892,7 @@ description: >-
 * Dynamic: Yes
 * Default: `300s`
 * Auto tune: [Yes](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#auto_tune)
+* Description: Send pings to keep idle backend connections alive.
 
 [**disable\_sescmd\_history**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#disable_sescmd_history)
 
@@ -897,13 +900,15 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`
+* Description: Disable session command history entirely.
 
 [**enable\_root\_user**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enable_root_user)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Controls whether the root user is allowed to connect through MaxScale to backend servers.&#x20;
 
 [**filters**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#filters)
 
@@ -911,55 +916,63 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a list of filters applied to client requests before routing to backend servers.
 
 [**force\_connection\_keepalive**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#force_connection_keepalive)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Send keepalive pings to any backends even when client is idle.
 
 [**idle\_session\_pool\_time**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#idle_session_pool_time)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `-1s`
+* Default: `-1s`&#x20;
+* Description: Time idle before pooling backend connections.
 
 [**log\_auth\_warnings**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_auth_warnings)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Log authentication failures and warnings.
 
 [**log\_debug**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_debug)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Enable service-level debug logging.
 
 [**log\_info**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_info)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Enable service-level info logging.
 
 [**log\_notice**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_notice)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Enable service-level notice logging.
 
 [**log\_warning**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#log_warning)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Enable service-level warning logging.
 
 [**max\_connections**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_connections)
 
@@ -969,47 +982,54 @@ description: >-
 * Default: 0 in MaxScale, 15 in MaxScale Trial.
 * Minimum: 0 in MaxScale, 1 in MaxScale Trial.
 * Maximum: Unlimited in MaxScale, 15 in MaxScale Trial.
+* Description: Maximum number of simultaneous connections allowed to this service.
 
 [**max\_sescmd\_history**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#max_sescmd_history)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `50`
+* Default: `50`&#x20;
+* Description: Maximum session commands to store for replay.
 
 [**multiplex\_timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#multiplex_timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `60s`
+* Default: `60s`&#x20;
+* Description: Maximum wait time for backend connection.
 
 [**net\_write\_timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#net_write_timeout)
 
 * Type: [durations](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory No
 * Dynamic: Yes
-* Default: `0s`
+* Default: `0s`&#x20;
+* Description: Disconnects connection if data buffered longer than this duration.
 
 [**password**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#password)
 
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the password the service uses to retrieve user accounts from backends.
 
 [**prune\_sescmd\_history**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#prune_sescmd_history)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Prune old session commands when limit exceeded the configured value.
 
 [**retain\_last\_statements**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#retain_last_statements)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `-1`
+* Default: `-1`&#x20;
+* Description: Defines the number of statements MaxScale stores per session.
 
 [**role**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#role)
 
@@ -1017,12 +1037,14 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Role to activate after connecting to a server.
 
 [**router**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#router)
 
 * Type: router
 * Mandatory: Yes
 * Dynamic: No
+* Description: Defines the router module that a service uses to direct client connections to backend servers.
 
 [**servers**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#servers)
 
@@ -1030,20 +1052,23 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the backend servers associated with the service.
 
 [**session\_track\_trx\_state**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#session_track_trx_state)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Improves accuracy by enabling backend-based transaction state tracking.
 
 [**strip\_db\_esc**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#strip_db_esc)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Remove escape characters from database names when loading users grants from a backend server.
 
 [**targets**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#targets)
 
@@ -1051,19 +1076,22 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Nested services or servers for multi-level routing.
 
 [**user**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user)
 
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Username for retrieving user account information from backends.
 
 [**user\_accounts\_file**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_accounts_file)
 
 * Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the path to a JSON file containing additional user accounts for client authentication.
 
 [**user\_accounts\_file\_usage**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#user_accounts_file_usage)
 
@@ -1071,7 +1099,8 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `add_when_load_ok`, `file_only_always`
-* Default: `add_when_load_ok`
+* Default: `add_when_load_ok`&#x20;
+* Description: Specifies when the user accounts file is read instead of or alongside server data.
 
 [**version\_string**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#version_string)
 
@@ -1079,6 +1108,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: None
+* Description: Custom version string sent in MySQL handshake.
 
 [**wait\_timeout**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#wait_timeout)
 
@@ -1087,6 +1117,7 @@ description: >-
 * Dynamic: Yes
 * Default: `28800s` (>= MaxScale 24.02.5, 25.01.2), `0s` (<= MaxScale 24.02.4, 25.01.1)
 * Auto tune: [Yes](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#auto_tune)
+* Description: Specifies the idle timeout for client sessions before terminatio&#x6E;**.**
 
 #### Settings for File-based Key Manager
 
@@ -1095,6 +1126,7 @@ description: >-
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Path to file containing encryption keys.
 
 #### Settings for HashiCorp Vault Key Manager
 
@@ -1103,6 +1135,7 @@ description: >-
 * Type: path
 * Default: `""`
 * Dynamic: Yes
+* Description:&#x20;
 
 [**vault.host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#vault.host)
 
