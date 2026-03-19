@@ -1,0 +1,385 @@
+name: ai-rag-app-dockerhub-dev
+
+services:
+  # RAG API - Binary based (built from multi-stage Dockerfile.build-binaries)
+  rag-api:
+    image: mariadb/mariadb-ai-dev:rag-api-runtime
+    container_name: rag-api
+    environment:
+      # License Key (REQUIRED - obtain from MariaDB)
+      MARIADB_LICENSE_KEY: ${MARIADB_LICENSE_KEY}
+      
+      # API Configuration
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+      
+      # Database Configuration (EXTERNAL - cloud/host/server)
+      DB_HOST: ${DB_HOST:-mariadb}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-raguser}
+      DB_PASSWORD: ${DB_PASSWORD:-ragpass123}
+      DB_NAME: ${DB_NAME:-rag_db}
+      DATABASE_URL: mysql+aiomysql://${DB_USER:-raguser}:${DB_PASSWORD:-ragpass123}@${DB_HOST:-mariadb}:${DB_PORT:-3306}/${DB_NAME:-rag_db}?charset=utf8mb4
+      
+      # SSL Configuration (required for cloud databases like SkySQL)
+      DB_SSL_ENABLED: ${DB_SSL_ENABLED:-false}
+      DB_SSL_VERIFY_CERT: ${DB_SSL_VERIFY_CERT:-false}
+      DB_SSL_CA: ${DB_SSL_CA:-}
+
+      # Authentication
+      SECRET_KEY: ${SECRET_KEY:-your_secret_key_here_change_in_production}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+      AUTH_ENABLED: ${AUTH_ENABLED:-true}
+      
+      # Redis/Celery Configuration (MANDATORY)
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      CELERY_ENABLED: ${CELERY_ENABLED:-true}
+      
+      # Embedding Configuration
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-gemini}
+      embedding_model: ${EMBEDDING_MODEL:-gemini-embedding-001}
+      
+      # API Keys
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      VOYAGE_API_KEY: ${VOYAGE_API_KEY}
+      COHERE_API_KEY: ${COHERE_API_KEY}
+      
+      # LLM Configuration
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4.1-nano}
+      
+      # Table Names
+      DOCUMENTS_TABLE: ${DOCUMENTS_TABLE:-documents}
+      VDB_TABLE: ${VDB_TABLE:-vdb_tbl}
+      
+      # Ollama Configuration
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://ollama:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama2}
+      
+      # Processing Configuration
+      CHUNKING_METHOD: ${CHUNKING_METHOD:-recursive}
+      CHUNK_SIZE: ${CHUNK_SIZE:-512}
+      CHUNK_OVERLAP: ${CHUNK_OVERLAP:-128}
+      threshold: ${SEMANTIC_THRESHOLD:-0.8}
+      DOCUMENT_PROCESSING_BATCH_SIZE: ${DOC_BATCH_SIZE:-5}
+      EMBEDDING_BATCH_SIZE: ${EMBED_BATCH_SIZE:-32}
+      
+      # File Storage Configuration
+      FILE_STORAGE_TYPE: ${FILE_STORAGE_TYPE:-local}
+      LOCAL_STORAGE_PATH: /app/uploaded_files
+      MANAGED_S3_BUCKET: ${MANAGED_S3_BUCKET:-}
+      MANAGED_S3_REGION: ${MANAGED_S3_REGION:-us-east-1}
+      MANAGED_S3_PREFIX: ${MANAGED_S3_PREFIX:-uploads/}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      
+      # Docling Ray Service (EXTERNAL)
+      DOCLING_RAY_SERVICE_URL: ${DOCLING_RAY_SERVICE_URL:-http://docling-ray:8003}
+      DOCLING_RAY_REQUEST_TIMEOUT: ${DOCLING_RAY_REQUEST_TIMEOUT:-600}
+      
+      # CORS Configuration
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      
+      # Reranking Configuration
+      RERANKING_ENABLED: ${RERANKING_ENABLED:-true}
+      RERANKING_MODEL_TYPE: ${RERANKING_MODEL_TYPE:-flashrank}
+      RERANKING_MODEL_NAME: ${RERANKING_MODEL_NAME:-ms-marco-MiniLM-L-12-v2}
+      RERANKING_TOP_K_MULTIPLIER: ${RERANKING_TOP_K_MULTIPLIER:-2.0}
+      RERANKING_DEFAULT_TOP_K: ${RERANKING_DEFAULT_TOP_K:-5}
+      RERANKING_CACHE_MODELS: ${RERANKING_CACHE_MODELS:-true}
+      RERANKING_CACHE_MAX_SIZE: ${RERANKING_CACHE_MAX_SIZE:-3}
+      RERANKING_BATCH_SIZE: ${RERANKING_BATCH_SIZE:-32}
+      RERANKING_ENABLE_BATCHING: ${RERANKING_ENABLE_BATCHING:-true}
+      RERANKING_HYBRID_ALPHA: ${RERANKING_HYBRID_ALPHA:-0.7}
+      RERANKING_HYBRID_BETA: ${RERANKING_HYBRID_BETA:-0.3}
+      
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - ${LOCAL_STORAGE_HOST_PATH:-./uploaded_files}:/app/uploaded_files
+      - ./logs:/app/logs
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      docling-ray:
+        condition: service_healthy
+    networks:
+      - rag-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  # Celery Worker - Binary based (built from multi-stage Dockerfile.build-binaries)
+  celery-worker:
+    image: mariadb/mariadb-ai-dev:celery-worker-runtime
+    container_name: rag-celery-worker
+    environment:
+      # License Key (REQUIRED - obtain from MariaDB)
+      MARIADB_LICENSE_KEY: ${MARIADB_LICENSE_KEY}
+      
+      # Database Configuration (SAME AS rag-api)
+      DB_HOST: ${DB_HOST:-mariadb}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-raguser}
+      DB_PASSWORD: ${DB_PASSWORD:-ragpass123}
+      DB_NAME: ${DB_NAME:-rag_db}
+      DATABASE_URL: mysql+aiomysql://${DB_USER:-raguser}:${DB_PASSWORD:-ragpass123}@${DB_HOST:-mariadb}:${DB_PORT:-3306}/${DB_NAME:-rag_db}?charset=utf8mb4
+      
+      # SSL Configuration (required for cloud databases like SkySQL)
+      DB_SSL_ENABLED: ${DB_SSL_ENABLED:-false}
+      DB_SSL_VERIFY_CERT: ${DB_SSL_VERIFY_CERT:-false}
+      DB_SSL_CA: ${DB_SSL_CA:-}
+
+      # Redis/Celery Configuration (MANDATORY)
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      CELERY_AUTOSCALE: ${CELERY_AUTOSCALE:-8,2}
+      CELERY_POOL: ${CELERY_POOL:-threads}
+      
+      # Authentication
+      SECRET_KEY: ${SECRET_KEY:-your_secret_key_here_change_in_production}
+      
+      # App Host/Port for calling back to rag-api (CRITICAL for orchestration)
+      APP_HOST: ${APP_HOST:-rag-api}
+      APP_PORT: ${APP_PORT:-8000}
+      
+      # Embedding Configuration
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-gemini}
+      embedding_model: ${EMBEDDING_MODEL:-gemini-embedding-001}
+      
+      # API Keys
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      VOYAGE_API_KEY: ${VOYAGE_API_KEY}
+      COHERE_API_KEY: ${COHERE_API_KEY}
+      
+      # LLM Configuration
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4.1-nano}
+      
+      # Ollama Configuration (if using Ollama)
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://ollama:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama2}
+
+      # Table Names (same as rag-api)
+      DOCUMENTS_TABLE: ${DOCUMENTS_TABLE:-documents}
+      VDB_TABLE: ${VDB_TABLE:-vdb_tbl}
+      
+      # File Storage Configuration (must match rag-api)
+      FILE_STORAGE_TYPE: ${FILE_STORAGE_TYPE:-local}
+      LOCAL_STORAGE_PATH: /app/uploaded_files
+      MANAGED_S3_BUCKET: ${MANAGED_S3_BUCKET:-}
+      MANAGED_S3_REGION: ${MANAGED_S3_REGION:-us-east-1}
+      MANAGED_S3_PREFIX: ${MANAGED_S3_PREFIX:-uploads/}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      
+      # Docling Ray Service (EXTERNAL)
+      DOCLING_RAY_SERVICE_URL: ${DOCLING_RAY_SERVICE_URL:-http://docling-ray:8003}
+      DOCLING_RAY_REQUEST_TIMEOUT: ${DOCLING_RAY_REQUEST_TIMEOUT:-600}
+      
+      # CORS Configuration
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      
+      # Reranking Configuration
+      RERANKING_ENABLED: ${RERANKING_ENABLED:-true}
+      RERANKING_MODEL_TYPE: ${RERANKING_MODEL_TYPE:-flashrank}
+      RERANKING_MODEL_NAME: ${RERANKING_MODEL_NAME:-ms-marco-MiniLM-L-12-v2}
+      RERANKING_TOP_K_MULTIPLIER: ${RERANKING_TOP_K_MULTIPLIER:-2.0}
+      RERANKING_DEFAULT_TOP_K: ${RERANKING_DEFAULT_TOP_K:-5}
+      RERANKING_CACHE_MODELS: ${RERANKING_CACHE_MODELS:-true}
+      RERANKING_CACHE_MAX_SIZE: ${RERANKING_CACHE_MAX_SIZE:-3}
+      RERANKING_BATCH_SIZE: ${RERANKING_BATCH_SIZE:-32}
+      RERANKING_ENABLE_BATCHING: ${RERANKING_ENABLE_BATCHING:-true}
+      RERANKING_HYBRID_ALPHA: ${RERANKING_HYBRID_ALPHA:-0.7}
+      RERANKING_HYBRID_BETA: ${RERANKING_HYBRID_BETA:-0.3}
+      
+    volumes:
+      - ${LOCAL_STORAGE_HOST_PATH:-./uploaded_files}:/app/uploaded_files
+      - ./logs:/app/logs
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      docling-ray:
+        condition: service_healthy
+      rag-api:
+        condition: service_healthy
+    networks:
+      - rag-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-h", "redis", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  # MCP Server - Binary based (built from multi-stage Dockerfile.build-binaries)
+  mcp-server:
+    image: mariadb/mariadb-ai-dev:mcp-server-runtime
+    container_name: rag-mcp-server
+    environment:
+      # License Key (REQUIRED - obtain from MariaDB)
+      MARIADB_LICENSE_KEY: ${MARIADB_LICENSE_KEY}
+      
+      # MCP Configuration
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 8002
+      
+      # How MCP reaches the API
+      RAG_API_BASE_URL: http://rag-api:8000
+      
+      # Database Configuration (if MCP uses it)
+      DB_HOST: ${DB_HOST:-mariadb}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-raguser}
+      DB_PASSWORD: ${DB_PASSWORD:-ragpass123}
+      DB_NAME: ${DB_NAME:-rag_db}
+
+      # SSL Configuration (required for cloud databases like SkySQL)
+      DB_SSL_ENABLED: ${DB_SSL_ENABLED:-false}
+      DB_SSL_VERIFY_CERT: ${DB_SSL_VERIFY_CERT:-false}
+      DB_SSL_CA: ${DB_SSL_CA:-}
+      
+      # Redis (if MCP uses it)
+      REDIS_URL: redis://redis:6379/0
+      
+      # Authentication
+      SECRET_KEY: ${SECRET_KEY:-your_secret_key_here_change_in_production}
+      
+      # Embedding Configuration
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-gemini}
+      embedding_model: ${EMBEDDING_MODEL:-gemini-embedding-001}
+      
+      # API Keys
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      VOYAGE_API_KEY: ${VOYAGE_API_KEY}
+      COHERE_API_KEY: ${COHERE_API_KEY}
+      
+      # LLM Configuration
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4.1-nano}
+      
+      # Table Names
+      DOCUMENTS_TABLE: ${DOCUMENTS_TABLE:-documents}
+      VDB_TABLE: ${VDB_TABLE:-vdb_tbl}
+      
+      # File Storage Configuration
+      FILE_STORAGE_TYPE: ${FILE_STORAGE_TYPE:-local}
+      LOCAL_STORAGE_PATH: /app/uploaded_files
+      MANAGED_S3_BUCKET: ${MANAGED_S3_BUCKET:-}
+      MANAGED_S3_REGION: ${MANAGED_S3_REGION:-us-east-1}
+      MANAGED_S3_PREFIX: ${MANAGED_S3_PREFIX:-uploads/}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      
+    ports:
+      - "8002:8002"
+    volumes:
+      - ${LOCAL_STORAGE_HOST_PATH:-./uploaded_files}:/app/uploaded_files
+      - ./logs:/app/logs
+    depends_on:
+      rag-api:
+        condition: service_healthy
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      docling-ray:
+        condition: service_healthy
+    networks:
+      - rag-network
+    restart: unless-stopped
+
+  # MariaDB Database - SEPARATE SERVICE (can run on different host/server)
+  # IMPORTANT: MariaDB 11.8 GA LTS includes Vector support
+  # This service is optional - you can use an external MariaDB instead
+  mariadb:
+    image: mariadb:11.8
+    container_name: rag-mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD:-ragpass123}
+      MARIADB_DATABASE: ${DB_NAME:-rag_db}
+      MARIADB_USER: ${DB_USER:-raguser}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-ragpass123}
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "false"
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - rag-network
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    restart: unless-stopped
+
+  # Redis - MANDATORY for Celery broker and result backend
+  redis:
+    image: redis:7-alpine
+    container_name: rag-redis
+    command: redis-server --appendonly yes --appendfsync everysec
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - rag-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+  # Docling Ray Service - EXTERNAL document processing with OCR
+  docling-ray:
+    image: mariadb/mariadb-ai-dev:docling-ray
+    container_name: rag-docling-ray
+    environment:
+      RAY_NUM_CPUS: ${RAY_NUM_CPUS:-4}
+      RAY_OBJECT_STORE_MEMORY: ${RAY_OBJECT_STORE_MEMORY:-2000000000}
+      DOCLING_RAY_SERVICE_HOST: 0.0.0.0
+      DOCLING_RAY_SERVICE_PORT: ${DOCLING_RAY_SERVICE_PORT:-8003}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - ${LOCAL_STORAGE_HOST_PATH:-./uploaded_files}:/app/uploaded_files
+    networks:
+      - rag-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  rag-network:
+    driver: bridge
