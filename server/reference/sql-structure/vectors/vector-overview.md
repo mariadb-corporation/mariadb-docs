@@ -173,6 +173,7 @@ What exactly is a vector in AI and RAG (1 minute • 2026)
 
 ## See Also
 
+* [MariaDB Vector: How it works](https://mariadb.org/mariadb-vector-how-it-works/) (blog post • 5 minutes • 2026)
 * [Everything you need to know to start building apps with AI and RAG](https://youtu.be/ZlLV7rda9GY) (video • 40 minutes • 2026)
 * [What exactly is a vector in AI and RAG?](https://www.youtube.com/shorts/VrG8H53KJZY) (video • 1 minute • 2026)
 * [Get to know MariaDB’s Rocket-Fast Native Vector Search - Sergei Golubchyk](https://www.youtube.com/watch?v=gNyzcy_6qJM) (video • 37 minutes • 2025)
