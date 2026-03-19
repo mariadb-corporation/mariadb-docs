@@ -4,7 +4,9 @@ hidden: true
 
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8
 
+{% hint style="danger" %}
 The content is subject to technical review by key stakeholders DK and should not be considered final.
+{% endhint %}
 
 This guide outlines the process for performing a major version upgrade from MariaDB Enterprise Server (ES) 10.6 directly to MariaDB Enterprise Server 11.8.
 
@@ -120,37 +122,48 @@ Do not apply 11.8-specific variables while the 10.6 service is active. During th
 **Recommended `my.cnf` for Version 11.8 section**
 
 ```ini
-[mariadb]x
+[mariadb]
 # --- CHARACTER SETS & COLLATIONS ---
-# utf8mb4 is now the modern default
+# utf8mb4 is the modern default; UCA 14.0.0 is ID #2304
 character-set-server  = utf8mb4
 collation-server      = utf8mb4_uca1400_ai_ci
+# Use old_mode if your app requires 3-byte utf8 aliases
+old_mode              = UTF8_IS_UTF8MB3
+
+# --- OPTIMIZER COST MODEL (CRITICAL #) ---
+# Adopting 11.8 defaults replaces legacy hardcoded logic.
+# Set NEW_MODE = OFF to stabilize query plans during initial cutover.
+new_mode                      = OFF
+optimizer_disk_read_cost      = 10.24
+optimizer_disk_read_ratio     = 0.02
+optimizer_extra_pruning_depth = 8
+optimizer_index_block_copy_cost = 0.0356
+optimizer_key_compare_cost    = 0.011361
+optimizer_key_copy_cost       = 0.015685
+optimizer_key_lookup_cost     = 0.435777
+optimizer_key_next_find_cost  = 0.082347
+optimizer_rowid_compare_cost  = 0.002653
+optimizer_rowid_copy_cost     = 0.002653
+optimizer_row_copy_cost       = 0.060866
+optimizer_row_lookup_cost     = 0.130839
+optimizer_row_next_find_cost  = 0.045916
+optimizer_scan_setup_cost     = 10
+optimizer_where_cost          = 0.032
 
 # --- INNODB STORAGE ENGINE ---
-# O_DIRECT is the modern default for better throughput
-innodb_flush_method   = O_DIRECT
-
-# MariaDB ES now uses 3 undo tablespaces by default (up from 0)
-# Manual enable is REQUIRED to reclaim space from undo logs
+innodb_flush_method      = O_DIRECT
 innodb_undo_log_truncate = ON
+innodb_purge_batch_size  = 1000
 
-# Purge batch size default increased (300 -> 1000)
-innodb_purge_batch_size = 1000
+# --- REPLICATION SAFETY NET ---
+# REQUIRED for failing back to an existing 10.6 node.
+# Fixes "Character set #2304" errors on legacy replicas.
+character_set_collations = ''
+binlog_alter_two_phase   = 1
 
-# --- REMOVED OR DEPRECATED OPTIONS ---
-# Use full names instead of legacy aliases
-transaction_isolation   = REPEATABLE-READ
-transaction_read_only   = OFF
-
-# REMOVE these if present in your 10.6 config:
-# debug_no_thread_alarm, old_alter_table, innodb_defragment_*
-
-# --- REPLICATION ---
-# Enable to reduce lag by starting ALTERS on replicas immediately
-binlog_alter_two_phase = 1
-
-# --- SECURITY ---
-# SSL is required by default; unencrypted logins are refused
+# --- COMPLIANCE & CLEANUP ---
+transaction_isolation    = REPEATABLE-READ
+transaction_read_only    = OFF
 ```
 {% endhint %}
 {% endstep %}
@@ -306,37 +319,9 @@ For variables that have existed in both versions but have different defaults (e.
 | `tx_read_only`                         | Replaced by `transaction_read_only`.           |
 | `innodb_purge_rseg_truncate_frequency` | Obsolete due to lighter truncation operations. |
 
-## Critical Cumulative Changes
-
-The upgrade from 10.6 to 11.4 is generally a smooth transition; however, jumping to 11.8 means addressing the following important default changes.
-
-### InnoDB and Optimizer Defaults
-
-* Purge Batch Size: The default value for `innodb_purge_batch_size` has increased from 300 to 1000.
-* Undo Tablespaces: MariaDB ES now defaults to 3 undo tablespaces (up from 0), enabling truncation while the server is running.
-* Manual Undo Truncation: To reclaim disk space from undo logs, you must manually enable `innodb_undo_log_truncate=ON` in your configuration.
-* Deprecated Frequency: The variable `innodb_purge_rseg_truncate_frequency` is now deprecated and ignored as the new truncation logic is a lighter operation.
-* New Cost Model: The optimizer now uses a cost-based model optimized for SSD storage; default disk access costs have changed significantly. See [Optimizer Cost Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/mariadb-internals-documentation-query-optimizer/the-optimizer-cost-model-from-mariadb-11-0#description-of-the-different-cost-variables) for manual tuning.
-
-### Security and Character Sets
-
-* SSL Required by Default: Modern versions require SSL encryption by default; unencrypted connections are refused unless reconfigured.
-* UTF-8 as Default: `utf8mb4` is now the default character set (replacing legacy `latin1` and `utf8`), and `utf8mb4_uca1400_ai_ci` is the standard collation.
-
-### Removed and Deprecated Options
-
-* Legacy Variables: `old_alter_table` is superseded by `alter_algorithm`.
-* Deprecated Isolation Aliases: `tx_isolation` and `tx_read_only` are deprecated; use `transaction_isolation` and `transaction_read_only` instead.
-* Flush Method: `innodb_flush_method` now defaults to `O_DIRECT`.
-
-### Replication and Modern Workloads
-
-* Optimistic ALTER TABLE: Replicas can now start `ALTER TABLE` operations in parallel with the primary server to reduce lag, enabled by setting `binlog_alter_two_phase=1`.
-* Vector Search Capabilities: Version 11.8 introduces native support for AI workloads via the `VECTOR(N)` data type and distance functions like `VEC_DISTANCE()`.
-
 ## Reverse Replication (11.8 to 10.6)
 
-If the 11.8 upgrade is completed but a critical regression is discovered in production, a "Point-in-Time" rollback is required. Since the 11.8 data files are physically incompatible with 10.6, the only viable path without significant data loss is Reverse Replication.
+If a critical regression is discovered, you can use an existing 10.6 machine in your setup as a failback safety net.
 
 {% hint style="danger" %}
 Replicating from a MariaDB 11.8 Primary to a MariaDB 10.6 Replica is NOT officially supported by MariaDB Engineering. This configuration should only be used as a temporary emergency safety net during the upgrade window.
@@ -368,6 +353,12 @@ collation_database              = latin1_swedish_ci
 binlog_checksum                 = CRC32
 ```
 
+{% hint style="danger" %}
+**Critical Compatibility Step**
+
+MariaDB 11.8 uses a new default collation ID (#2304) that version 10.6 does not recognize. To prevent the 10.6 replica from crashing, you must set `character_set_collations = ''` on the 11.8 Primary. This forces the Primary to use legacy IDs that the 10.6 machine can process
+{% endhint %}
+
 ### Known "Breaking" Factors
 
 Certain 11.8 features will immediately break the 10.6 replication link if used:
@@ -382,12 +373,6 @@ Certain 11.8 features will immediately break the 10.6 replication link if used:
 You do not need a new machine for reverse replication. You can use an existing 10.6 node already in your setup. Simply stop replication on that node before the upgrade, and resume it once the 11.8 Primary is configured for compatibility.
 {% endhint %}
 
-{% hint style="danger" %}
-**Critical Compatibility Step**
-
-MariaDB 11.8 uses a new default collation ID (#2304) that version 10.6 does not recognize. To prevent the 10.6 replica from crashing, you must set `character_set_collations = ''` on the 11.8 Primary. This forces the Primary to use legacy IDs that the 10.6 machine can process
-{% endhint %}
-
 ### Operational Steps for the Safety Net
 
 {% stepper %}
@@ -400,7 +385,7 @@ Before upgrading your entire environment, identify one existing replica to remai
 {% step %}
 #### Configure 11.8 for Compatibility
 
-Immediately after installing version 11.8 on your Primary, apply the `rollback_compat.cnf`settings (such as `character_set_collations = ''` and `binlog_checksum = CRC32`).
+Immediately after installing version 11.8 on your Primary, apply the `rollback_compat.cnf` settings (such as `character_set_collations = ''` and `binlog_checksum = CRC32`).
 {% endstep %}
 
 {% step %}
