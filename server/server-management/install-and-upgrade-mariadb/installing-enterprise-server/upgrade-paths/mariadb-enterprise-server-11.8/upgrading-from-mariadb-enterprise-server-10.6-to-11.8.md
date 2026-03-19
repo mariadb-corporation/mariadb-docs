@@ -376,12 +376,45 @@ Certain 11.8 features will immediately break the 10.6 replication link if used:
 * New Functions: Use of `VEC_Distance` or other 11.8-specific SQL functions.
 * Large Row Events: If `binlog_row_event_max_size` is tuned significantly higher than 10.6 defaults.
 
+{% hint style="info" %}
+**Note on Existing Nodes**
+
+You do not need a new machine for reverse replication. You can use an existing 10.6 node already in your setup. Simply stop replication on that node before the upgrade, and resume it once the 11.8 Primary is configured for compatibility.
+{% endhint %}
+
+{% hint style="danger" %}
+**Critical Compatibility Step**
+
+MariaDB 11.8 uses a new default collation ID (#2304) that version 10.6 does not recognize. To prevent the 10.6 replica from crashing, you must set `character_set_collations = ''` on the 11.8 Primary. This forces the Primary to use legacy IDs that the 10.6 machine can process
+{% endhint %}
+
 ### Operational Steps for the Safety Net
 
-1. Post-Upgrade Sync: Immediately after `mariadb-upgrade` finishes on the 11.8 server, take a fresh backup.
-2. Provision 10.6: Restore that backup to a separate 10.6 instance (using `--skip-system-tables` if necessary, as system tables are now 11.8 format).
-3. Rotate Logs: Run `FLUSH LOGS;` on the 11.8 Primary to ensure a clean start with the compatibility settings active.
-4. Change Master: Point the 10.6 replica to the 11.8 Primary.
+{% stepper %}
+{% step %}
+#### Isolate a 10.6 Node
+
+Before upgrading your entire environment, identify one existing replica to remain on version 10.6. Stop the replication on this node just before you upgrade the Primary to 11.8.
+{% endstep %}
+
+{% step %}
+#### Configure 11.8 for Compatibility
+
+Immediately after installing version 11.8 on your Primary, apply the `rollback_compat.cnf`settings (such as `character_set_collations = ''` and `binlog_checksum = CRC32`).
+{% endstep %}
+
+{% step %}
+#### Start 11.8 and Rotate Logs
+
+Start the 11.8 service and run `FLUSH LOGS;`. This ensures the Primary begins writing its binary logs in a format the 10.6 replica can understand.
+{% endstep %}
+
+{% step %}
+#### Connect the 10.6 Node
+
+Point your existing 10.6 machine to the new 11.8 Primary. Because the data on the 10.6 node is already consistent with the pre-upgrade state, it can simply "pick up" the new changes from the 11.8 Primary.
+{% endstep %}
+{% endstepper %}
 
 ## Post-Upgrade Verification
 
