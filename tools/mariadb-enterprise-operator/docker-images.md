@@ -56,7 +56,6 @@ The following section provides a high-level overview detailing the specific comp
 | Component | `minimal` | `standard` |
 | --- | --- | --- |
 | MariaDB Enterprise Server | ✅ | ✅ |
-| MariaDB Community Server | ❌ | ❌ |
 | coreutils | ✅ | ✅ |
 | `mariadb-backup` | ✅ | ✅ |
 | `mariadb-dump` | ✅ | ✅ |
