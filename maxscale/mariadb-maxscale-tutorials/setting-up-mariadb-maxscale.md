@@ -19,6 +19,10 @@ Building from source code in GitHub is covered in [Building from Source](../maxs
 
 The precise installation process varies from one distribution to another. Details on package installation can be found in the [Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
 
+{% hint style="info" %}
+If you are using MaxScale Trial, see [Installing MaxScale Trial](../maxscale-use-cases/maxscale-trial.md#installing-maxscale-trial).
+{% endhint %}
+
 ### Creating a user account for MaxScale
 
 MaxScale checks that incoming clients are valid. To do this, MaxScale needs to retrieve user authentication information from the backend databases. Create a special user account for this purpose by executing the following SQL commands on the primary server of your database cluster. The following tutorials will use these credentials.
@@ -80,6 +84,14 @@ A global _maxscale_ section is included in every MaxScale configuration file. Th
 [maxscale]
 threads=auto
 ```
+
+{% hint style="info" %}
+If using [MaxScale Trial](../maxscale-use-cases/maxscale-trial.md), you also need:
+
+```ini
+license_key=<key>
+```
+{% endhint %}
 
 ### Configuring the servers
 
