@@ -1562,6 +1562,7 @@
   * [All Releases](maxscale/all-releases.md)
 * [ColumnStore Release Notes](columnstore/README.md)
   * [MariaDB ColumnStore 25.10 Release Notes](columnstore/25.10/README.md)
+    * [MariaDB ColumnStore 25.10.4 Release Notes](columnstore/25.10/25.10.4.md)
     * [MariaDB ColumnStore 25.10.1 Release Notes](columnstore/25.10/25.10.1.md)
     * [MariaDB ColumnStore 25.10.0 Release Notes](columnstore/25.10/25.10.0.md)
   * [MariaDB ColumnStore 23.10 Release Notes](columnstore/23.10/README.md)
