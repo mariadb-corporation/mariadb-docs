@@ -1270,28 +1270,32 @@ description: >-
 * Type: path
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the path to the SSL/TLS private key that is used for secure connections.
 
 [**ssl\_passphrase**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#ssl_passphrase)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Defines the passphrase used to decrypt the SSL/TLS private key.
 
 [**ssl\_verify\_peer\_certificate**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#ssl_verify_peer_certificate)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Verifies the peer's SSL/TLS certificate against a trusted CA.
 
 [**ssl\_verify\_peer\_host**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#ssl_verify_peer_host)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Verifies the peer's hostname or IP address using its SSL/TLS certificate.
 
 [**ssl\_version**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#ssl_version)
 
@@ -1299,7 +1303,8 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `MAX`, `TLSv1.0`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`, `TLSv10`, `TLSv11`, `TLSv12`, `TLSv13`
-* Default: `MAX`
+* Default: `MAX`&#x20;
+* Description: Lists the TLS protocol versions that are allowed for SSL/TLS connections.
 
 ## reference
 
@@ -1312,28 +1317,32 @@ description: >-
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `"::"`
+* Default: `"::"`&#x20;
+* Description: Indicates the hostname or address that the listener binds to when a connection is made.
 
 [**authenticator**](maxscale-listeners.md#authenticator)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the authenticator module used for client authentication.
 
 [**authenticator\_options**](maxscale-listeners.md#authenticator_options)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Provides additional configuration settings for the authenticator module.
 
 [**connection\_init\_sql\_file**](maxscale-listeners.md#connection_init_sql_file)
 
 * Type: path
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies a file containing SQL statements executed on backend connections after authentication.
 
 [**connection\_metadata**](maxscale-listeners.md#connection_metadata)
 
@@ -1341,40 +1350,46 @@ description: >-
 * Default: `character_set_client=auto,character_set_connection=auto,character_set_results=auto,max_allowed_packet=auto,system_time_zone=auto,time_zone=auto,tx_isolation=auto,maxscale=auto`
 * Dynamic: Yes
 * Mandatory: No
+* Description: Provides the metadata that is given to clients upon connection as a list of key-value pairs separated by commas.
 
 [**port**](maxscale-listeners.md#port)
 
 * Type: number
 * Mandatory: Yes, if `socket` is not provided.
 * Dynamic: No
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Specifies the port on which the listener accepts connections.
 
 [**protocol**](maxscale-listeners.md#protocol)
 
 * Type: protocol
 * Mandatory: No
 * Dynamic: No
-* Default: `mariadb`
+* Default: `mariadb`&#x20;
+* Description: Defines the protocol module that clients and MaxScale use to communicate.
 
 [**redirect\_url**](maxscale-listeners.md#redirect_url)
 
 * Type: URL
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the database URL that clients are sent to following authentication.
 
 [**service**](maxscale-listeners.md#service)
 
 * Type: service
 * Mandatory: Yes
 * Dynamic: No
+* Description: Identifies the service that the listener is connected to.
 
 [**socket**](maxscale-listeners.md#socket)
 
 * Type: string
 * Mandatory: Yes, if `port` is not provided.
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Defines the Unix domain socket that the listener uses to receive inbound connections.
 
 [**sql\_mode**](maxscale-listeners.md#sql_mode)
 
@@ -1382,14 +1397,16 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `default`, `oracle`
-* Default: `default`
+* Default: `default`&#x20;
+* Description: Specifies the listener's SQL mode, overriding the global `sql_mode` setting if it is set.
 
 [**user\_mapping\_file**](maxscale-listeners.md#user_mapping_file)
 
 * Type: path
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Provides optional backend credentials for MariaDB protocol connections, as well as a JSON file that specifies user and group mappings.
 
 ### [maxscale-servers](maxscale-servers.md)
 
@@ -1400,7 +1417,8 @@ description: >-
 * Type: string
 * Mandatory: Yes, if `socket` is not provided.
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the hostname or IP address of the backend server to which MaxScale connects.
 
 [**disk\_space\_threshold**](maxscale-servers.md#disk_space_threshold)
 
@@ -1408,13 +1426,15 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines disk usage threshold that triggers warnings or actions when exceeded.
 
 [**extra\_port**](maxscale-servers.md#extra_port)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Specifies an alternative port that MaxScale uses for administrative connections to the backend server.
 
 [**initial\_status**](maxscale-servers.md#initial_status)
 
@@ -1422,7 +1442,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `down`, `up`, `read`, `write`
-* Default: `down`
+* Default: `down`&#x20;
+* Description: Provides the initial status of the server when it starts or its reconfigured.
 
 [**labels**](maxscale-servers.md#labels)
 
@@ -1430,6 +1451,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a comma-separated list of user-defined labels assigned to the server.
 
 [**max\_routing\_connections**](maxscale-servers.md#max_routing_connections)
 
@@ -1439,6 +1461,7 @@ description: >-
 * Default: 0 in MaxScale, 15 in MaxScale Trial.
 * Minimum: 0 in MaxScale, 1 in MaxScale Trial.
 * Maximum: Unlimited in MaxScale, 15 in MaxScale Trial.
+* Description: Provides the maximum number of routing connections to the server.
 
 [**monitorpw**](maxscale-servers.md#monitorpw)
 
@@ -1446,6 +1469,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the password that is needed to authenticate server-specific monitoring.
 
 [**monitoruser**](maxscale-servers.md#monitoruser)
 
@@ -1453,27 +1477,31 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the username used for authentication in server‑specific monitorin&#x67;**.**
 
 [**persistmaxtime**](maxscale-servers.md#persistmaxtime)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0s`
+* Default: `0s`&#x20;
+* Description: Shows how long a connection can stay in the persistent pool before being discarded.
 
 [**persistpoolmax**](maxscale-servers.md#persistpoolmax)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Defines the server connection pool's maximum size.
 
 [**port**](maxscale-servers.md#port)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `3306`
+* Default: `3306`&#x20;
+* Description: Identifies the port that connections are accepted by the backend server.
 
 [**priority**](maxscale-servers.md#priority)
 
@@ -1481,20 +1509,23 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0
+* Description: Sets the server's priority for selecting the main node.
 
 [**private\_address**](maxscale-servers.md#private_address)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: An alternate hostname or IP address is used for internal communications.
 
 [**proxy\_protocol**](maxscale-servers.md#proxy_protocol)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Allows the original client IP address and port to be forwarded to backend servers using PROXY protocol headers.
 
 [**rank**](maxscale-servers.md#rank)
 
@@ -1502,27 +1533,31 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `primary`, `secondary`
-* Default: `primary`
+* Default: `primary`&#x20;
+* Description: Specifies the server's priority when making routing decisions.
 
 [**replication\_custom\_options**](maxscale-servers.md#replication_custom_options)
 
 * Type: string
 * Default: None
 * Dynamic: Yes
+* Description: Defines custom options added to replication commands for server.
 
 [**socket**](maxscale-servers.md#socket)
 
 * Type: string
 * Mandatory: Yes, if `address` is not provided.
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the Unix domain socket route that is used to establish a connection with the backend server.
 
 [**use\_service\_credentials**](maxscale-servers.md#use_service_credentials)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Manages whether service credentials are used for backend authentication before switching to the client user.
 
 ### reference/maxscale-authenticators
 
