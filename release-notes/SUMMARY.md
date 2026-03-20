@@ -255,6 +255,8 @@
     * [Feature Deprecation Policy](community-server/about/feature-deprecation-policy.md)
     * [Maintenance Policy](community-server/about/maintenance-policy.md)
     * [Security Vulnerabilities (CVE) Fixed in MariaDB Community Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/community-server)
+  * [Release Notes - MariaDB 13.0 Series](community-server/13.0/README.md)
+    * [MariaDB 13.0 Changes & Improvements](community-server/13.0/mariadb-13.0-changes-and-improvements.md)
   * [Release Notes - MariaDB 12.3 Series](community-server/12.3/README.md)
     * [MariaDB 12.3 Changes & Improvements](community-server/12.3/mariadb-12.3-changes-and-improvements.md)
     * [MariaDB 12.3.1 Release Notes](community-server/12.3/12.3.1.md)
