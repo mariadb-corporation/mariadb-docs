@@ -1571,13 +1571,15 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: Kerberos Default
+* Description: Specifies the location of the GSSAPI authentication-related Kerberos keytab file.&#x20;
 
 [**principal\_name**](maxscale-authenticators/maxscale-gssapi-client-authenticator.md#principal_name)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `mariadb/localhost.localdomain`
+* Default: `mariadb/localhost.localdomain`&#x20;
+* Description: Defines the service principal name used in GSSAPI authentication.
 
 #### [maxscale-mariadb-mysql-authenticator](maxscale-authenticators/maxscale-mariadb-mysql-authenticator.md)
 
@@ -1588,7 +1590,8 @@ description: >-
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Allows tracking of password hash mismatches during authentication.
 
 #### [maxscale-pam-authenticator](maxscale-authenticators/maxscale-pam-authenticator.md)
 
@@ -1600,7 +1603,8 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `none`, `mariadb`
-* Default: `none`
+* Default: `none`&#x20;
+* Description: Manages the mapping of PAM-authenticated users to backend authentication.
 
 [**pam\_mapped\_pw\_file**](maxscale-authenticators/maxscale-pam-authenticator.md#pam_mapped_pw_file)
 
@@ -1608,6 +1612,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: None
+* Description: Specifies a JSON file containing passwords for PAM-mapped users.
 
 [**pam\_mode**](maxscale-authenticators/maxscale-pam-authenticator.md#pam_mode)
 
@@ -1615,14 +1620,16 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `password`, `password_2FA`, `suid`
-* Default: `password`
+* Default: `password`&#x20;
+* Description: Defines the PAM authentication mode for client login.
 
 [**pam\_use\_cleartext\_plugin**](maxscale-authenticators/maxscale-pam-authenticator.md#pam_use_cleartext_plugin)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Enables cleartext password authentication between the client and MaxScale when using PAM.
 
 ### reference/maxscale-filters
 
@@ -1636,6 +1643,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Excludes events, which match the specified regular expression.
 
 [**match**](maxscale-filters/maxscale-binlog-filter.md#match)
 
@@ -1643,6 +1651,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Includes only events that match the given regular expression.
 
 [**rewrite\_dest**](maxscale-filters/maxscale-binlog-filter.md#rewrite_dest)
 
@@ -1650,6 +1659,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies the replacement pattern that replication events use to rewrite statements.
 
 [**rewrite\_src**](maxscale-filters/maxscale-binlog-filter.md#rewrite_src)
 
@@ -1657,6 +1667,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Describes the pattern that is used to match statements in replication events for rewriting.
 
 #### [maxscale-cache](maxscale-filters/maxscale-cache.md)
 
@@ -1668,7 +1679,8 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `never`, `read_only_transactions`, `all_transactions`
-* Default: `all_transactions`
+* Default: `all_transactions`&#x20;
+* Description: Manages how the cache is used and updated during transactions.
 
 [**cached\_data**](maxscale-filters/maxscale-cache.md#cached_data)
 
@@ -1676,28 +1688,32 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `shared`, `thread_specific`
-* Default: `thread_specific`
+* Default: `thread_specific`&#x20;
+* Description: Determines whether cached data remains thread-specific or shared across threads.
 
 [**clear\_cache\_on\_parse\_errors**](maxscale-filters/maxscale-cache.md#clear_cache_on_parse_errors)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Controls whether the cache is cleared when modifying statements are not parsed correctly.
 
 [**debug**](maxscale-filters/maxscale-cache.md#debug)
 
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Uses a bitmask value to control the cache's debug logging level.
 
 [**enabled**](maxscale-filters/maxscale-cache.md#enabled)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Manages whether the cache is enabled or disabled at startup.
 
 [**hard\_ttl**](maxscale-filters/maxscale-cache.md#hard_ttl)
 
@@ -1705,6 +1721,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
+* Description: Specifies how long cached data can last before being deleted and reloaded.
 
 [**invalidate**](maxscale-filters/maxscale-cache.md#invalidate)
 
@@ -1712,7 +1729,8 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `never`, `current`
-* Default: `never`
+* Default: `never`&#x20;
+* Description: Manages how cached data is invalidated when changes occur.
 
 [**max\_count**](maxscale-filters/maxscale-cache.md#max_count)
 
@@ -1720,6 +1738,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Specifies the maximum amount of data that cache can store.
 
 [**max\_resultset\_rows**](maxscale-filters/maxscale-cache.md#max_resultset_rows)
 
@@ -1727,6 +1746,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Defines the maximum number of rows in a result set that can be cached.
 
 [**max\_resultset\_size**](maxscale-filters/maxscale-cache.md#max_resultset_size)
 
@@ -1734,6 +1754,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Specifies the maximum result set size that can be cached.
 
 [**max\_size**](maxscale-filters/maxscale-cache.md#max_size)
 
@@ -1741,6 +1762,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `0` (no limit)
+* Description: Defines the maximum total size of the cache.
 
 [**rules**](maxscale-filters/maxscale-cache.md#rules)
 
@@ -1748,6 +1770,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `""` (no rules)
+* Description: Specifies the file path containing caching rules.
 
 [**selects**](maxscale-filters/maxscale-cache.md#selects)
 
@@ -1755,7 +1778,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `assume_cacheable`, `verify_cacheable`
-* Default: `assume_cacheable`
+* Default: `assume_cacheable`&#x20;
+* Description: Controls whether SELECT statements are considered to be cacheable or validated before caching.
 
 [**soft\_ttl**](maxscale-filters/maxscale-cache.md#soft_ttl)
 
@@ -1763,13 +1787,15 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `0s` (no limit)
+* Description: Determines how long cached data is used before being refreshed from the backend.
 
 [**storage**](maxscale-filters/maxscale-cache.md#storage)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `storage_inmemory`
+* Default: `storage_inmemory`&#x20;
+* Description: Defines the storage module used by the cache.
 
 [**storage\_options**](maxscale-filters/maxscale-cache.md#storage_options)
 
@@ -1777,13 +1803,15 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default:
+* Description: Deprecated. Previously used to pass configuration options to the storage module.
 
 [**timeout**](maxscale-filters/maxscale-cache.md#timeout)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
-* Default: `5s`
+* Default: `5s`&#x20;
+* Description: Specifies the timeout for processes involving external storage backends.
 
 [**users**](maxscale-filters/maxscale-cache.md#users)
 
@@ -1791,7 +1819,8 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `mixed`, `isolated`
-* Default: `mixed`
+* Default: `mixed`&#x20;
+* Description: Manages whether cached data is stored separately for each user or shared between users.
 
 **`storage_memcached`**
 
@@ -1801,12 +1830,14 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: 1Mi
+* Description: Defines the maximum size of a value that can be stored in the cache.
 
 [**server**](maxscale-filters/maxscale-cache.md#server)
 
 * Type: The Memcached server address specified as `host[:port]`
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the Memcached server address. The default port is 11211 is used when no port is provided.
 
 **`storage_redis`**
 
@@ -1815,48 +1846,55 @@ description: >-
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Password used for authentication.
 
 [**server**](maxscale-filters/maxscale-cache.md#server)
 
 * Type: The Redis server address specified as `host[:port]`
 * Mandatory: Yes
 * Dynamic: No
+* Description: Defines the Redis server address. The default port is 6379 is used when no port is provided.
 
 [**ssl**](maxscale-filters/maxscale-cache.md#ssl)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: No
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Enable SSL when connectign to the Redis server.
 
 [**ssl\_ca**](maxscale-filters/maxscale-cache.md#ssl_ca)
 
 * Type: Path to existing readable file.
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the CA certificate used to verify the Redis server certificate.
 
 [**ssl\_cert**](maxscale-filters/maxscale-cache.md#ssl_cert)
 
 * Type: Path to existing readable file.
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Defines the SSL client certificate used when connecting to the Redis server.
 
 [**ssl\_key**](maxscale-filters/maxscale-cache.md#ssl_key)
 
 * Type: Path to existing readable file.
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies the private key for the SSL client that is used to connect to the Redis server.&#x20;
 
 [**username**](maxscale-filters/maxscale-cache.md#username)
 
 * Type: string
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Username used for authentication.
 
 #### [maxscale-comment-filter](maxscale-filters/maxscale-comment-filter.md)
 
