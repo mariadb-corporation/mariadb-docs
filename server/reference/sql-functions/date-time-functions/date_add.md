@@ -14,7 +14,16 @@ DATE_ADD(date,INTERVAL expr unit)
 
 ## Description
 
-Performs date arithmetic. The _date_ argument specifies the starting date or datetime value. _expr_ is an expression specifying the interval value to be added to the starting date. _expr_ is a string; it may start with a "`-`" for negative intervals. _unit_ is a keyword indicating the units in which the expression should be interpreted. See [Date and Time Units](date-and-time-units.md) for a complete list of permitted units.
+Performs date arithmetic. The _date_ argument specifies the starting date or datetime value. _expr_ is an expression specifying the interval value to be added to the starting date. _expr_ is a string; it may start with a "`-`" for negative intervals. For composite interval units (such as DAY_HOUR, MINUTE_SECOND, and SECOND_MICROSECOND), 
+_expr_ can contain multiple components separated by spaces or punctuation. For example:
+
+- '1 10' DAY_HOUR represents 1 day and 10 hours  
+- '1:1' MINUTE_SECOND represents 1 minute and 1 second  
+- '1.999999' SECOND_MICROSECOND represents seconds and microseconds  
+
+The exact format of _expr_ depends on the _unit_ specified.
+
+_unit_ is a keyword indicating the units in which the expression should be interpreted. See [Date and Time Units](date-and-time-units.md) for a complete list of permitted units.
 
 The result type of `DATE_ADD()` is determined as follows:
 
