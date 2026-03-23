@@ -2113,7 +2113,8 @@ description: >-
 * Type: number
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Manages the level of debug logging for the MaxRows filter.
 
 [**max\_resultset\_return**](maxscale-filters/maxscale-maxrows-filter.md#max_resultset_return)
 
@@ -2121,7 +2122,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `empty`, `error`, `ok`
-* Default: `empty`
+* Default: `empty`&#x20;
+* Description: Regulates the response that is sent to the client when the limitations defined by the results are exceeded.
 
 [**max\_resultset\_rows**](maxscale-filters/maxscale-maxrows-filter.md#max_resultset_rows)
 
@@ -2129,13 +2131,15 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: (no limit)
+* Description: Specifies the maximum number of rows allowed in a result set returned to the client.
 
 [**max\_resultset\_size**](maxscale-filters/maxscale-maxrows-filter.md#max_resultset_size)
 
 * Type: [size](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `64Ki`
+* Default: `64Ki`&#x20;
+* Description: Restricts the size of a resultset that can be returned to the client; larger resultsets are replaced with an empty result.
 
 #### [maxscale-named-server-filter](maxscale-filters/maxscale-named-server-filter.md)
 
@@ -2147,6 +2151,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a numbered regex pattern to match SQL queries and apply a corresponding routing target when the pattern is matched.
 
 [**options**](maxscale-filters/maxscale-named-server-filter.md#options)
 
@@ -2154,7 +2159,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
-* Default: `ignorecase`
+* Default: `ignorecase`&#x20;
+* Description: Describes the collection and matching process for the matchXY regular expressions (e.g., case sensitivity or extended syntax).
 
 [**source**](maxscale-filters/maxscale-named-server-filter.md#source)
 
@@ -2162,6 +2168,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limits the filter to client connections from particular IP addresses or patterns; the regex rules will only be applied to sessions that match.
 
 [**targetXY**](maxscale-filters/maxscale-named-server-filter.md#targetXY)
 
@@ -2169,6 +2176,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines the routing hint used to direct queries that match the corresponding matchXY pattern to specific server or roles.
 
 [**user**](maxscale-filters/maxscale-named-server-filter.md#user)
 
@@ -2176,6 +2184,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limit the filters to sessions authenticated with a specific username; the routing hints and regex rules will only be applied to matching users.
 
 #### [maxscale-query-log-all-filter](maxscale-filters/maxscale-query-log-all-filter.md)
 
@@ -2186,14 +2195,16 @@ description: >-
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Defines whether a new routing hint is added to existing ones or replaces them when applied to matching queries.
 
 [**duration\_unit**](maxscale-filters/maxscale-query-log-all-filter.md#duration_unit)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `milliseconds`
+* Default: `milliseconds`&#x20;
+* Description: Defines the time unit used for logging durations.
 
 [**exclude**](maxscale-filters/maxscale-query-log-all-filter.md#exclude)
 
@@ -2201,19 +2212,22 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Defines a regex pattern to exclude queries from matching and filtering.
 
 [**filebase**](maxscale-filters/maxscale-query-log-all-filter.md#filebase)
 
 * Type: string
 * Mandatory: Yes
 * Dynamic: No
+* Description: Specifies the base filename for session log files with unique session identifiers appended to create individual output files.
 
 [**flush**](maxscale-filters/maxscale-query-log-all-filter.md#flush)
 
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Manages whether log files are immediately flushed to disk after each write operation.
 
 [**log\_data**](maxscale-filters/maxscale-query-log-all-filter.md#log_data)
 
@@ -2221,7 +2235,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `service`, `session`, `date`, `user`, `reply_time`, `total_reply_time`, `query`, `default_db`, `num_rows`, `reply_size`, `transaction`, `transaction_time`, `num_warnings`, `error_msg`
-* Default: `date, user, query`
+* Default: `date, user, query`&#x20;
+* Description: Specifies the fields, such as query details, user, timing, and execution metadata, that are present in each log entry.
 
 [**log\_type**](maxscale-filters/maxscale-query-log-all-filter.md#log_type)
 
@@ -2229,7 +2244,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `session`, `unified`, `stdout`
-* Default: `session`
+* Default: `session`&#x20;
+* Description: Defines the logging output type, such as per-session files, a unified log file, or standard output.
 
 [**match**](maxscale-filters/maxscale-query-log-all-filter.md#match)
 
@@ -2237,13 +2253,15 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Specifies a regex pattern for queries ti include and process by the filter.
 
 [**newline\_replacement**](maxscale-filters/maxscale-query-log-all-filter.md#newline_replacement)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `" "`
+* Default: `" "`&#x20;
+* Description: Specifies the string that is used to substitute newline characters in logged queries so that the log output is consistent and readable.
 
 [**options**](maxscale-filters/maxscale-query-log-all-filter.md#options)
 
@@ -2251,59 +2269,68 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `case`, `ignorecase`, `extended`
-* Default: `case`
+* Default: `case`&#x20;
+* Description: Defines the regex matching behavior (case sensitivity and extended syntax) for filter queries.
 
 [**separator**](maxscale-filters/maxscale-query-log-all-filter.md#separator)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `","`
+* Default: `","`&#x20;
+* Description: Specifies the string used to separate fields within each log entry.
 
 [**source**](maxscale-filters/maxscale-query-log-all-filter.md#source)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Limits logging to sessions that originate from specific client source addresses.
 
 [**source\_exclude**](maxscale-filters/maxscale-query-log-all-filter.md#source_exclude)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern for excluding requests from specified client IP addresses or hosts from logging.
 
 [**source\_match**](maxscale-filters/maxscale-query-log-all-filter.md#source_match)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern to include only queries from specific client IP addresses or hosts from logging.
 
 [**use\_canonical\_form**](maxscale-filters/maxscale-query-log-all-filter.md#use_canonical_form)
 
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Log queries in canonical format,replacing user-defined constants with placeholders to ensure consistent and secure output.
 
 [**user**](maxscale-filters/maxscale-query-log-all-filter.md#user)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Limits logging to sessions initiated by a specific username.
 
 [**user\_exclude**](maxscale-filters/maxscale-query-log-all-filter.md#user_exclude)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines a regex pattern that prevent requests from specific users from being logged.
 
 [**user\_match**](maxscale-filters/maxscale-query-log-all-filter.md#user_match)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: Yes
+* Description: Specifies a regex pattern to include queries only from specific users for logging.
 
 #### [maxscale-regex-filter](maxscale-filters/maxscale-regex-filter.md)
 
@@ -2315,6 +2342,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Identifies a file where all queries, matched and unmatched, are logged, mainly for diagnostic purposes.
 
 [**log\_trace**](maxscale-filters/maxscale-regex-filter.md#log_trace)
 
@@ -2322,12 +2350,14 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Allows runtime logging of matched and unmatched queries with replacements at the info level for diagnostic purposes.
 
 [**match**](maxscale-filters/maxscale-regex-filter.md#match)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Defines the regex pattern in SQL statements that filter should identify and replace.
 
 [**options**](maxscale-filters/maxscale-regex-filter.md#options)
 
@@ -2335,13 +2365,15 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignorecase`, `case`, `extended`
-* Default: `ignorecase`
+* Default: `ignorecase`&#x20;
+* Description: Determines how the match regex pattern is compiled, including case sensitivity and extended syntax.
 
 [**replace**](maxscale-filters/maxscale-regex-filter.md#replace)
 
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the string that will replace SQL query parts that `match` the specific pattern.
 
 [**source**](maxscale-filters/maxscale-regex-filter.md#source)
 
@@ -2349,6 +2381,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Restricts the match-and-replace filter to client connections originating from a specified address.
 
 [**user**](maxscale-filters/maxscale-regex-filter.md#user)
 
@@ -2356,6 +2389,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: None
+* Description: Limits the match-and-replace filter to sessions initiated by a specific username.
 
 #### [maxscale-rewrite-filter](maxscale-filters/maxscale-rewrite-filter.md)
 
@@ -2367,6 +2401,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: true
+* Description: Defines whether template matching is case-sensitive by default.
 
 [**log\_replacement**](maxscale-filters/maxscale-rewrite-filter.md#log_replacement)
 
@@ -2374,6 +2409,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Allows logging of query replacements at the NOTICE level for monitoring and debugging.
 
 [**regex\_grammar**](maxscale-filters/maxscale-rewrite-filter.md#regex_grammar)
 
@@ -2381,7 +2417,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: Native
-* Values: `Native`, `ECMAScript`, `Posix`, `EPosix`, `Awk`, `Grep`, `EGrep`
+* Values: `Native`, `ECMAScript`, `Posix`, `EPosix`, `Awk`, `Grep`, `EGrep`&#x20;
+* Description: Overrides the template's default regex grammar, allowing it to be used with alternative regex engines such as `ECMAScript` or `Posix`.
 
 [**template\_file**](maxscale-filters/maxscale-rewrite-filter.md#template_file)
 
@@ -2389,6 +2426,7 @@ description: >-
 * Mandatory: Yes
 * Dynamic: Yes
 * Default: No default value
+* Description: Specifies the file path to the template used by the filter.
 
 **Settings per template in the template file**
 
@@ -2396,27 +2434,32 @@ description: >-
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: From maxscale.cnf
+* Description: Overrides the global template configuration to specify whether pattern matching is case-sensitive.
 
 [**continue\_if\_matched**](maxscale-filters/maxscale-rewrite-filter.md#continue_if_matched)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
+* Description: Identifies whether to use subsequent templates on a query once the previous template has been matched and replaced.
 
 [**ignore\_whitespace**](maxscale-filters/maxscale-rewrite-filter.md#ignore_whitespace)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: true
+* Description: Specifies whether whitespace differences between the template and SQL inout should be ignored during matching.&#x20;
 
 [**regex\_grammar**](maxscale-filters/maxscale-rewrite-filter.md#regex_grammar)
 
 * Type: string
 * Values: `Native`, `ECMAScript`, `Posix`, `EPosix`, `Awk`, `Grep`, `EGrep`
 * Default: From maxscale.cnf
+* Description: Defines the default tes such as `Native`, `ECMAScript`, and `POSIX`.
 
 [**what\_if**](maxscale-filters/maxscale-rewrite-filter.md#what_if)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Default: false
+* Description: Simulates replacements without affecting queries and logs any possible changes to the NOTICE level.
 
 #### [maxscale-tee-filter](maxscale-filters/maxscale-tee-filter.md)
 
