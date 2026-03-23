@@ -414,7 +414,7 @@ See description and the list of available index-level hints [here](index-level-h
 Available from MariaDB 12.0.
 {% endhint %}
 
-#### Overview
+### Overview
 
 These hints allow to control the order in which tables of a query are joined.
 
@@ -437,7 +437,7 @@ hint_name(tbl_name[@query_block_name] [, tbl_name[@query_block_name]] ...)
 
 Here the query block name may be omitted, but at least one table name must be specified.
 
-### \* `JOIN_FIXED_ORDER()`
+### `JOIN_FIXED_ORDER()`
 
 Forces the optimizer to join tables using the order in which they appear in the `FROM` clause. This is the same as specifying `SELECT STRAIGHT_JOIN`.
 
@@ -449,19 +449,17 @@ SELECT /*+ JOIN_FIXED_ORDER() */ f1, f2
   FROM t2 JOIN t1 ON t1.id = t2.id ORDER BY f1, f2;
 ```
 
-### \* `JOIN_ORDER()`
+### `JOIN_ORDER()`
 
 Instructs the optimizer to join tables using the specified table order. The hint applies to the named tables. The optimizer may place tables that are not named anywhere in the join order, including between specified tables.
 
-### \* `JOIN_PREFIX()`
+### `JOIN_PREFIX()`
 
 Instructs the optimizer to join tables using the specified table order for the first tables of the join execution plan. The hint applies to the named tables. The optimizer places all other tables after the named tables.
 
-### \* `JOIN_SUFFIX()`
+### `JOIN_SUFFIX()`
 
-Instructs the optimizer to join tables using the specified table order for the last tables of the join execution plan. The hint applies to the named tables. The optimizer places all other tables before the named tables.
-
-Example:
+Instructs the optimizer to join tables using the specified table order for the last tables of the join execution plan. The hint applies to the named tables. The optimizer places all other tables before the named tables. Example:
 
 ```sql
 SELECT /*+ JOIN_PREFIX(t2, t5@subq2)
@@ -478,7 +476,7 @@ SELECT /*+ JOIN_PREFIX(t2, t5@subq2)
 Available from MariaDB 12.0.
 {% endhint %}
 
-#### Overview
+### Overview
 
 Subquery hints determine:
 
@@ -486,7 +484,7 @@ Subquery hints determine:
 * Which semijoin strategies are permitted;
 * When semijoins are not used, whether to use subquery materialization or [IN-TO-EXISTS transformation](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md#the-in-to-exists-transformation).
 
-### \* **`SEMIJOIN()`, `NO_SEMIJOIN()`**
+### **`SEMIJOIN()`, `NO_SEMIJOIN()`**
 
 #### Syntax
 
@@ -513,7 +511,7 @@ SELECT /*+ SEMIJOIN(@subq1 MATERIALIZATION, DUPSWEEDOUT) */ * FROM t2
   WHERE t2.a IN (SELECT /*+ QB_NAME(subquery1) */ a FROM t3);
 ```
 
-### \* **`SUBQUERY()`**
+### **`SUBQUERY()`**
 
 #### Syntax
 

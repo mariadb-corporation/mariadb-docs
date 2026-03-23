@@ -322,7 +322,7 @@ id   | select_type | table |  type | possible_keys | key      | key_len |  ref |
 
 ```
 
-## \* `MRR()`, `NO_MRR()`
+## `MRR()`, `NO_MRR()`
 
 {% hint style="info" %}
 These hints are available from MariaDB 12.0.
