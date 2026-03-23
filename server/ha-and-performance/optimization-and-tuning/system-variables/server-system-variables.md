@@ -3041,7 +3041,11 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 #### `validate-config`
 
 * Description: Validates the server configuration (from configuration files and command line). Exits with exit code `0` on success, or non-zero on failure, without actually starting the server. Example:\
-  `mariadbd --defaults-file=/etc/my.cnf --validate-config`
+  {% code %}
+  ```bash
+  mariadbd --defaults-file=/etc/my.cnf --validate-config
+  ```
+  {% endcode %}
   {% hint style="info" %}
   `--help` or `--version` take precedence. If used with this option, the configuration check is **not** performed.
   {% endhint %}
