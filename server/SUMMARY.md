@@ -529,7 +529,7 @@
         * [MySQL to MariaDB Migration: The Master Guide](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-migration-the-master-guide.md)
         * [MySQL to MariaDB Compatibility Matrix](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/mysql-to-mariadb-compatibility-matrix.md)
         * [Migrating Galera Cluster](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migration-from-mysql-to-mariadb-cluster-using-replication.md)
-        * [Migration from MySQL to MariaDB Cluster (Node-by-Node In-Place)](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migration-from-mysql-to-mariadb-cluster-node-by-node-in-place.md)
+        * [Migrating from MySQL to MariaDB Galera Cluster (Node-by-Node In-Place)](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/moving-from-mysql/migration-from-mysql-to-mariadb-cluster-node-by-node-in-place.md)
       * [Migrating to MariaDB from PostgreSQL](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-postgresql.md)
       * [Migrating to MariaDB from Oracle](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-oracle/README.md)
         * [Oracle XE 11.2. and MariaDB 10.1 integration on Ubuntu 14.04 and Debian systems](server-management/install-and-upgrade-mariadb/migrating-to-mariadb/migrating-to-mariadb-from-oracle/oracle-xe-112-and-mariadb-101-integration-on-ubuntu-1404-and-debian-systems.md)
