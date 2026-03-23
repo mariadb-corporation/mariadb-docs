@@ -1905,6 +1905,7 @@ description: >-
 * Type: string
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Specifies the comment injected before statements.
 
 #### [maxscale-consistent-critical-read-filter](maxscale-filters/maxscale-consistent-critical-read-filter.md)
 
@@ -1915,28 +1916,32 @@ description: >-
 * Type: count
 * Mandatory: No
 * Dynamic: Yes
-* Default: `0`
+* Default: `0`&#x20;
+* Description: Defines the number of statements that are sent to the primary following a data-modifying statement.
 
 [**global**](maxscale-filters/maxscale-consistent-critical-read-filter.md#global)
 
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `false`&#x20;
+* Description: Manages whether write activity from a single connection affects routing behavior for all connections.
 
 [**ignore**](maxscale-filters/maxscale-consistent-critical-read-filter.md#ignore)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Defines a pattern for queries that should be ignored.
 
 [**match**](maxscale-filters/maxscale-consistent-critical-read-filter.md#match)
 
 * Type: [regex](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#regular-expressions)
 * Mandatory: No
 * Dynamic: No
-* Default: `""`
+* Default: `""`&#x20;
+* Description: Specifies a pattern for statements that cause re-routing of statements.
 
 [**options**](maxscale-filters/maxscale-consistent-critical-read-filter.md#options)
 
@@ -1944,14 +1949,16 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Values: `ignorecase`, `case`, `extended`
-* Default: `ignorecase`
+* Default: `ignorecase`&#x20;
+* Description: Defines regular expression options used with match and ignore.
 
 [**time**](maxscale-filters/maxscale-consistent-critical-read-filter.md#time)
 
 * Type: [duration](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `60s`
+* Default: `60s`&#x20;
+* Description: Determines the time range during which statements are directed to the primary following a data-modifying statement.
 
 #### [maxscale-ldi-filter](maxscale-filters/maxscale-ldi-filter.md)
 
@@ -1962,13 +1969,15 @@ description: >-
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `s3.amazonaws.com`
+* Default: `s3.amazonaws.com`&#x20;
+* Description: Specifies the S3 object storage host.
 
 [**key**](maxscale-filters/maxscale-ldi-filter.md#key)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
+* Description: Defines the S3 access key used for authentication.
 
 [**no\_verify**](maxscale-filters/maxscale-ldi-filter.md#no_verify)
 
@@ -1976,6 +1985,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: TLS certificate verification is disabled for object storage when enabled.
 
 [**port**](maxscale-filters/maxscale-ldi-filter.md#port)
 
@@ -1983,6 +1993,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: 0
+* Description: Defines the port used to connect to the S3 object storage.
 
 [**protocol\_version**](maxscale-filters/maxscale-ldi-filter.md#protocol_version)
 
@@ -1991,19 +2002,22 @@ description: >-
 * Dynamic: Yes
 * Default: 0
 * Values: 0, 1, 2
+* Description: Specifies the protocol version used to communicate with object storage.
 
 [**region**](maxscale-filters/maxscale-ldi-filter.md#region)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
-* Default: `us-east-1`
+* Default: `us-east-1`&#x20;
+* Description: Defines the S3 region that contains the data.
 
 [**secret**](maxscale-filters/maxscale-ldi-filter.md#secret)
 
 * Type: string
 * Mandatory: No
 * Dynamic: Yes
+* Description: Describes the S3 secret key that is used for verification.
 
 [**use\_http**](maxscale-filters/maxscale-ldi-filter.md#use_http)
 
@@ -2011,6 +2025,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Enables unencrypted HTTP communication with the object storage when set to true.
 
 #### [maxscale-masking-filter](maxscale-filters/maxscale-masking-filter.md)
 
@@ -2021,21 +2036,24 @@ description: >-
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Manages whether masking rules are applied to subqueries.
 
 [**check\_unions**](maxscale-filters/maxscale-masking-filter.md#check_unions)
 
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Controls whether masking rules are applied to the UNION queries.
 
 [**check\_user\_variables**](maxscale-filters/maxscale-masking-filter.md#check_user_variables)
 
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Manages whether user variables are applied to user variables.
 
 [**large\_payload**](maxscale-filters/maxscale-masking-filter.md#large_payload)
 
@@ -2043,34 +2061,39 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `ignore`, `abort`
-* Default: `abort`
+* Default: `abort`&#x20;
+* Description: Controls how payloads larger than 16MB are managed by the masking filter.
 
 [**prevent\_function\_usage**](maxscale-filters/maxscale-masking-filter.md#prevent_function_usage)
 
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Manages whether queries using functions on masked columns are rejected.
 
 [**require\_fully\_parsed**](maxscale-filters/maxscale-masking-filter.md#require_fully_parsed)
 
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Determines whether statements that cannot be fully parsed are rejected.
 
 [**rules**](maxscale-filters/maxscale-masking-filter.md#rules)
 
 * Type: path
 * Mandatory: Yes
 * Dynamic: Yes
+* Description: Determines the path to the file containing masking rules.
 
 [**treat\_string\_arg\_as\_field**](maxscale-filters/maxscale-masking-filter.md#treat_string_arg_as_field)
 
 * Type: [bool](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true`&#x20;
+* Description: Manages if functions' string parameters are managed as fields for masking.
 
 [**warn\_type\_mismatch**](maxscale-filters/maxscale-masking-filter.md#warn_type_mismatch)
 
@@ -2078,7 +2101,8 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Values: `never`, `always`
-* Default: `never`
+* Default: `never`&#x20;
+* Description: Controls whether a column with an unsupported type is matched by a masking rule and whether a warning is logged.
 
 #### [maxscale-maxrows-filter](maxscale-filters/maxscale-maxrows-filter.md)
 
