@@ -2,24 +2,22 @@
 
 ## Introduction
 
-Before [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0), the MySQL/MariaDB optimizer relied on storage engines (e.g. InnoDB) to provide statistics for the query optimizer. This approach worked; however it had some deficiencies:
+The MySQL/MariaDB optimizer prior to MariaDB 10 used to rely on storage engines (e.g. InnoDB) to provide statistics for the query optimizer. This approach worked; however it had some deficiencies:
 
-* Storage engines provided poor statistics (this was\
-  fixed to some degree with the introduction of [Persistent Statistics](innodb-persistent-statistics.md)).
+* Storage engines provided poor statistics (this was fixed to some degree with the introduction of [Persistent Statistics](innodb-persistent-statistics.md)).
 * The statistics were supplied through the MySQL Storage Engine Interface, which puts a lot of restrictions on what kind of data is supplied (for example, there is no way to get any data about value distribution in a non-indexed column)
-* There was little control of the statistics. There was no way to "pin" current statistic values, or provide some values on your own, etc.
+* There was little control of the statistics. There was no way to "pin" current statistic values, or provide values on your own, etc.
 
-Engine-independent table statistics lift these limitations.
+Engine-independent table statistics lift these limitations:
 
-* Statistics are stored in regular tables in the `mysql` database.
-  * it is possible for a DBA to read and update the values.
+* Statistics are stored in regular tables in the `mysql` database. You can read and update the values.
 * More data is collected/used.
 
-[Histogram-based statistics](histogram-based-statistics.md) are a subset of engine-independent table statistics that can improve the query plan chosen by the optimizer in certain situations.
+[Histogram-based statistics](histogram-based-statistics.md) are a subset of engine-independent table statistics (EITS) that can improve the query plan chosen by the optimizer in certain situations.
 
 Statistics are stored in three tables, [mysql.table\_stats](../../../../reference/system-tables/the-mysql-database-tables/mysql-table_stats-table.md), [mysql.column\_stats](../../../../reference/system-tables/the-mysql-database-tables/mysql-column_stats-table.md) and [mysql.index\_stats](../../../../reference/system-tables/the-mysql-database-tables/mysql-index_stats-table.md).
 
-Use or update of data from these tables is controlled by [use\_stat\_tables](../../system-variables/server-system-variables.md#use_stat_tables) variable. Possible values are listed below:
+Usage or updating of data from these tables is controlled by [use\_stat\_tables](../../system-variables/server-system-variables.md#use_stat_tables) variable. Possible values are:
 
 | Value                         | Meaning                                                                                                                                                                         |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -89,6 +87,43 @@ A few scenarios where one might need to update statistics tables manually:
 * Deleting the statistics. Currently, the [ANALYZE TABLE](../../../../reference/sql-statements/table-statements/analyze-table.md) command will collect the statistics, but there is no special command to delete statistics.
 * Running `ANALYZE` on a different server. To collect engine-independent statistics ANALYZE TABLE does a full table scan, which can put too much load on the server. It is possible to run ANALYZE on the slave, and then take the data from statistics tables on the slave and apply it on the master.
 * In some cases, knowledge of the database allows one to compute statistics manually in a more efficient way than `ANALYZE` does. One can compute the statistics manually and put it into the database.
+
+## EITS vs. InnoDB Statistics
+
+This section visually explains how MariaDB decides which statistics to use, and what happens during the `ANALYZE` stage. These flows are critical for understanding why toggling `use_stat_tables` affects both performance and optimizer behavior.
+
+### Optimizer Statistics Selection Flow (Query Execution Time)
+
+(diagram 1)
+
+* NEVER: Optimizer always uses InnoDB stats, even if EITS exists.
+* PREFERABLY: Optimizer prefers EITS and transparently falls back if missing.
+
+### ANALYZE TABLE – Statistics Collection Flow
+
+(diagram 2)
+
+* NEVER: Fast, safe, but low precision.
+* PERSISTENT: Explicit, predictable, and recommended.
+
+### Column Statistics Collection Flow (analyze\_max\_length)
+
+(diagram 3)
+
+* `utf8mb4` multiplies size by 4 (compared to `latin1`)
+* `VARCHAR (255)` ≈ 1020 bytes
+* [`analyze_max_length`](../../system-variables/server-system-variables.md#analyze_max_length) = 2048 is a safe global default.
+
+| Scenario / Environment                   | Recommended Mode                                              | Why This Works                                                      |
+| ---------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Small DB (<100 GB), simple queries       | NEVER                                                         | InnoDB stats are sufficient and fastest to maintain                 |
+| Mixed workloads, general production      | PREFERABLY\_FOR\_QUERIES                                      | Safe default: optimizer uses EITS when present, ANALYZE is explicit |
+| Analytics / reporting heavy              | PREFERABLY                                                    | Ensures rich column & index stats for complex joins                 |
+| Large DB (1–10 TB), 24/7 traffic         | PREFERABLY\_FOR\_QUERIES + scheduled ANALYZE TABLE PERSISTENT | Avoids accidental heavy ANALYZE during peak hours                   |
+| SaaS / multi-tenant systems              | PREFERABLY\_FOR\_QUERIES                                      | Predictable behavior across thousands of tables                     |
+| Highly volatile tables (frequent writes) | NEVER or selective PERSISTENT                                 | EITS can go stale quickly on hot tables                             |
+| Troubleshooting bad query plans          | PREFERABLY (temporarily)                                      | Forces optimizer to use detailed stats                              |
+| Upgrade from MariaDB 10.6                | Start with PREFERABLY\_FOR\_QUERIES                           | Minimizes plan regressions                                          |
 
 ## See Also
 
