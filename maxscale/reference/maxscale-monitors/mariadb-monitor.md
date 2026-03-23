@@ -3,11 +3,33 @@
 ## Overview
 
 MariaDB Monitor monitors a Primary-Replica replication cluster. It probes the
-state of the backends and assigns server roles such as primary and replica, which
-are used by the routers when deciding where to route a query. It can also modify
-the replication cluster by performing failover, switchover and rejoin. Backend
-server versions older than MariaDB/MySQL 5.5 are not supported. Failover and
-other similar operations require MariaDB 10.4 or later.
+states of the servers and assigns server roles such as primary and
+replica. Routers use the roles to decide where to route a query. MariaDB Monitor
+can also modify the replication cluster by performing failover, switchover,
+rejoin and other operations.  Server versions older than MariaDB/MySQL 5.5 are
+not supported. Failover and other similar operations require MariaDB 10.4 or
+later.
+
+The monitor probes servers by connecting to them similar to a normal SQL client.
+If a connection succeeds, the server is assumed to be running. The monitor then
+sends further queries to gather more information, such as server id, GTID and
+replication status. The monitor sends these queries regularly, once per monitor
+interval.
+
+If the monitor fails to connect to a server, the server is assumed to be down.
+
+{% tabs %}
+{% tab title="Current" %}
+The server may remain in running status if the connection failure was due to
+connection timeout, and if MaxScale has recently received data from the server
+in response to client queries. These conditions suggest that the server is still
+running, but too busy to process MaxScale monitor connections.
+{% endtab %}
+
+{% tab title="< 26.10" %}
+No exceptions to the above rule
+{% endtab %}
+{% endtabs %}
 
 ## Required Grants
 
