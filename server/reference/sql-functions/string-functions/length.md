@@ -17,7 +17,7 @@ LENGTH(str)
 
 Returns the length of the string `str`.
 
-In the default mode, when [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is not set, the length is measured in bytes. In this case, a multi-byte character counts as multiple bytes. LENGTH() returns the length in bytes, whereas CHAR_LENGTH() returns the number of characters. This means that for a string containing five two-byte characters, `LENGTH()` returns 10, whereas [CHAR\_LENGTH()](char_length.md) returns 5.
+In the default mode, when [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is not set, the length is measured in bytes. In this case, a multi-byte character counts as multiple bytes. `LENGTH()` returns the length in bytes, whereas `CHAR_LENGTH()` returns the number of characters. This means that, for a string containing five two-byte characters, `LENGTH()` returns 10, whereas [CHAR\_LENGTH()](char_length.md) returns 5.
 When running Oracle mode, the length is measured in characters, and `LENGTH` is a synonym for [CHAR\_LENGTH()](char_length.md).
 
 If `str` is not a string value, it is converted into a string. If `str` is `NULL`, the function returns `NULL`.
