@@ -1,4 +1,4 @@
-## Query Block Naming
+# Query Block Naming
 
 Optimizer hints can address certain named query blocks within the query. Query block is either a top-level `SELECT`/`UPDATE`/`DELETE` statement or a subquery within the statement.
 
@@ -8,20 +8,26 @@ There are three ways to address query blocks:
 * by implicit name based on position of the query block in the query
 * by implicit name based on alias of derived table, view or CTE
 
-### Explicit query block names
+## Explicit Query Block Names
 
 * `QB_NAME(query_block_name)` hint is used to assign a name to a query block in which this hint is placed.
 
-#### Examples
+### Examples
+
 Assigning a name to a top-level `SELECT` statement:
+
 ```sql
 SELECT /*+ QB_NAME(foo) */ * FROM t1 ...;
 ```
+
 Assigning a name to a subquery:
+
 ```sql
 SELECT * FROM (SELECT /*+ QB_NAME(subq) */* FROM t1 ...) dt ...;
 ```
+
 Assigning names to multiple query blocks:
+
 ```sql
 SELECT /*+ QB_NAME(qb_outer) */ ...
   FROM (SELECT /*+ QB_NAME(dt1) */ ...
@@ -29,6 +35,7 @@ SELECT /*+ QB_NAME(qb_outer) */ ...
 ```
 
 The assigned name can then be used to refer to the query block in optimizer hints, for example:
+
 ```sql
 SELECT /*+ QB_NAME(qb_outer) NO_ICP(@qb1 t1) BNL(@dt1) INDEX(t2@dt2 idx1) */ ...
   FROM t1, (SELECT /*+ QB_NAME(dt1) */ ...
@@ -37,21 +44,26 @@ SELECT /*+ QB_NAME(qb_outer) NO_ICP(@qb1 t1) BNL(@dt1) INDEX(t2@dt2 idx1) */ ...
 
 The scope of a query block name is the whole statement. It is invalid to use the same name for multiple query blocks. You can refer to the query block "down into subquery", "down into derived table", "up to the parent" and "to a right sibling in the `UNION`". You cannot refer "to a left sibling in a `UNION`".
 
-#### Limitations
+### Limitations
+
 Query block names declared inside view definitions (`CREATE VIEW ...`) are only visible inside the view. They are not accessible from outside the view.
 
-### Explicit query block names with path
+## Explicit Query Block Names With Path
+
 {% hint style="info" %}
 Available from MariaDB 13.0.
 {% endhint %}
 
-* `QB_NAME(query_block_name, query_block_path)` hint is used to assign names to query blocks nested within views, derived tables, and CTEs
+`QB_NAME(query_block_name, query_block_path)` hint is used to assign names to query blocks nested within views, derived tables, and CTEs
 
-#### Syntax
+### Syntax
+
 ```sql
 QB_NAME(name, query_block_path)
 ```
+
 where
+
 ```sql
 query_block_path ::= query_block_path_element
                       [ {. query_block_path_element }... ]
@@ -63,13 +75,13 @@ qb_path_element_view_sel ::= qb_path_element_view_name
 
 `query_block_path` is similar to a path in filesystem in some sense. Each next element descends further into the query blocks structure. Path elements are separated with dots (`.`).
 
-Each path element can be either a:
+Each path element can be one of:
 
-* View/derived table/CTE name
+* View/derived table/CTE name.
 * Select number in the current query block, such as `@SEL_1`, `@SEL_2`, etc.
 * Combination of view/derived table/CTE name and select number, such as `v1@SEL_1`, `dt1@SEL_2`, etc.
 
-#### Examples
+### Examples
 
 ```sql
 CREATE VIEW v1 AS SELECT * FROM t1 WHERE a < 1000;
@@ -89,6 +101,7 @@ SELECT * FROM v1 WHERE b > 100;
 ```
 
 Path consisting of two elements:
+
 ```sql
 -- The view has two query blocks
 CREATE VIEW v1 AS SELECT * FROM t1 WHERE a < 10 
@@ -101,6 +114,7 @@ SELECT /*+ qb_name(qb_v1, v1@sel_1 .@sel_2) */ * FROM v1;
 ```
 
 Views and derived tables may be nested on multiple levels, for example:
+
 ```sql
 -- The path follows `dt1` -> `dt2` -> `v2` -> `@SEL_2` of `v2`
 SELECT /*+ qb_name(dt2_dt1_v1_1, dt1 .dt2 .v2 .@SEL_2)
@@ -111,13 +125,13 @@ FROM v1
           ) dt1
 ```
 
-#### Limitations
-* Only SELECT statements support QB names with path. DML operations
-  (UPDATE, DELETE, INSERT) do not support them
+### Limitations
+
+* Only SELECT statements support QB names with path. DML operations (UPDATE, DELETE, INSERT) do not support them
 * QB names with path are not supported inside view definitions (`CREATE VIEW ...`)
 
+## Implicit Names Based on Position
 
-### Implicit names based on position
 {% hint style="info" %}
 Available from MariaDB 12.2.
 {% endhint %}
@@ -155,18 +169,21 @@ FROM (SELECT ten.a AS a FROM (ten JOIN twenty)
 +----+-------------+-------+-------+---------------+----------+---------+------+------+-----------------------+
 ```
 
-#### Limitations
-* The positional numbers of query blocks are not stable and can change if the query is modified or its execution plan changes (for example, due to statistics re-collection). If a more stable query block addressing is needed then [explicit naming](#explicit-query-block-names) is probably a better choice.
+### Limitations
+
+* The positional numbers of query blocks are not stable and can change if the query is modified or its execution plan changes (for example, due to statistics re-collection). If a more stable query block addressing is needed then [explicit naming](query-block-naming.md#explicit-query-block-names) is probably a better choice.
 * Implicit names based on position are not supported inside view definitions (`CREATE VIEW ...`).
 
-### Implicit names based on aliases
+## Implicit Names Based on Aliases
+
 {% hint style="info" %}
 Available from MariaDB 13.0
 {% endhint %}
 
 It is possible to address a query block corresponding to a derived table, view or CTE using its name or an alias in the query.
 
-#### Examples
+### Examples
+
 ```sql
 -- Addressing a table inside a derived table using implicit QB name
 SELECT /*+ no_index(t1@dt) */ *
@@ -198,7 +215,8 @@ WITH aless100 AS (SELECT a FROM t1 WHERE b <100)
 WITH aless100 AS (SELECT /*+ qb_name(aless100) */ a FROM t1 WHERE b <100)
   SELECT /*+ index(t1@aless100) */ * FROM aless100;
 ```
-#### Limitations
-* Only SELECT statements support implicit QB names based on aliases. DML operations
-  (UPDATE, DELETE, INSERT) do not support them.
+
+### Limitations
+
+* Only `SELECT` statements support implicit QB names based on aliases. DML operations (`UPDATE`, `DELETE`, `INSERT`) do not support them.
 * Implicit names based on aliases are not supported inside view definitions (`CREATE VIEW ...`).
