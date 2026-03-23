@@ -152,7 +152,7 @@ This table provides an overview of optimizer hints supported in MariaDB, showing
 | [`NO_ICP`](expanded-optimizer-hints.md#no_icp)                                                                                                 | Index Condition Pushdown                 | Table, Index       |
 | [`NO_RANGE_OPTIMIZATION`](index-level-hints.md#no_range_optimization)                                                                          | Range optimization                       | Table, Index       |
 | [`ORDER_INDEX`, `NO_ORDER_INDEX`](index-level-hints.md)                                                                                        | Use of indexes for sorting               | Table, Index       |
-| [`QB_NAME`](query-block-naming.md)                                                                                                             | Assigns name to query block              | Query block        |
+| [`QB_NAME`](query-block-naming.md#explicit-query-block-names)                                                                                  | Assigns name to query block              | Query block        |
 | [`ROWID_FILTER`, `NO_ROWID_FILTER`](index-level-hints.md#rowid_filter-no_rowid_filter)                                                         | Rowid filtering                          | Table, Index       |
 | [`SEMIJOIN`, `NO_SEMIJOIN`](expanded-optimizer-hints.md#subquery-hints)                                                                        | Semi-join optimization                   | Query block        |
 | [`SPLIT_MATERIALIZED`, `NO_SPLIT_MATERIALIZED`](table-level-hints.md#split_materialized-no_split_materialized)                                 | Lateral derived / split materialization  | Table              |
