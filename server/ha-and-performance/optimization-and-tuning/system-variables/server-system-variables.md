@@ -3038,13 +3038,32 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `enum`
 * Default Value: `preferably_for_queries`
 
+#### `validate-config`
+
+* Description: Validates the server configuration (from configuration files and command line). Exits with exit code `0` on success, or non-zero on failure, without actually starting the server. Example:\
+  `mariadbd --defaults-file=/etc/my.cnf --validate-config`&#x20;
+
+{% hint style="info" %}
+`--help` or `--version` take precedence. If used with this option, the configuration check is **not** performed.
+{% endhint %}
+
+* Exit codes:
+  * `0`: valid configuration
+  * `2`: unknown option
+  * `7`: unknown variable
+* Command line: `--validate-config`
+* Scope: Global
+* Dynamic: No
+* Data Type: numeric
+* Introduced: MariaDB 13.0
+
 #### `version`
 
 * Description: Server version number. It may also include a suffix with configuration or build information. `-debug` indicates debugging support was enabled on the server, and `-log` indicates at least one of the binary log, general log or [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) are enabled, for example `10.0.1-MariaDB-mariadb1precise-log`. Can be set at startup in order to fake the server version.
 * Command line: `-V`, `--version[=name]`
 * Scope: Global
 * Dynamic: No
-* Type: string
+* Data Type: string
 
 #### `version_comment`
 
