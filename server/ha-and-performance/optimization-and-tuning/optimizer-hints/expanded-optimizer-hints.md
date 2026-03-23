@@ -238,7 +238,7 @@ SELECT /*+ NO_MERGE(dt) */ dt.a, dt.b
   JOIN (SELECT a, b FROM t2) AS dt2 ON dt.a = dt2.a;
 ```
 
-The hint disables merging of derived table `dt` into the upper SELECT. More information about this hint [can be found here](table-level-hints.md#merge-no_merge).
+The hint disables merging of derived table `dt` into the upper `SELECT`. More information about this hint [can be found here](table-level-hints.md#merge-no_merge).
 
 If a user wants to disable merging of both `dt` and `dt2`, they can mention both derived table names in the hint body:
 
@@ -282,7 +282,7 @@ SELECT /*+ NO_MERGE(@inner_qb_name dt_inner) */ dt.a, dt.b
 
 If there were more derived tables in `inner_qb_name` query block to address, they all should have been mentioned in the hint body, for example: `NO_MERGE(@inner_qb_name dt_inner, dt_inner2, dt_inner3)`
 
-* place the hint right into the inner query block:
+* Place the hint right into the inner query block:
 
 ```sql
 SELECT dt.a, dt.b
@@ -292,7 +292,7 @@ SELECT dt.a, dt.b
   ) dt;
 ```
 
-* use an alternative variant of the syntax that is described [in the paragraph below](expanded-optimizer-hints.md#tables-from-different-query-blocks):
+* Use an alternative variant of the syntax that is described [in the paragraph below](expanded-optimizer-hints.md#tables-from-different-query-blocks):
 
 ```sql
 SELECT /*+ NO_MERGE(dt_inner@inner_qb_name) */ dt.a, dt.b

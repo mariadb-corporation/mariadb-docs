@@ -2,7 +2,7 @@
 
 ## Overview
 
-These hints follow [the syntax of index-level hints](expanded-optimizer-hints.md#syntax-of-index-level-hints) which includes two variants:
+These hints follow the syntax of index-level hints which includes two variants:
 
 ```sql
 hint_name(table_name [index_name [, index_name] ...])
