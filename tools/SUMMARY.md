@@ -97,7 +97,7 @@
     * [Configuration](mariadb-ai-rag/getting-started/configuration.md)
     * [Service Management](mariadb-ai-rag/getting-started/service-management.md)
   * [Management](mariadb-ai-rag/deployment/README.md)
-    * [Deployment & Administration](mariadb-ai-rag/deployment/overview.md)
+    * [Deployment](mariadb-ai-rag/deployment/overview.md)
     * [Network and Firewall Requirements](mariadb-ai-rag/deployment/network-and-firewall-requirements.md)
     * [Architecture](mariadb-ai-rag/deployment/architecture.md)
     * [Troubleshooting Guide](mariadb-ai-rag/deployment/troubleshooting-guide.md)

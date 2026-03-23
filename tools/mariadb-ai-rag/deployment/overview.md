@@ -1,8 +1,10 @@
-# Deployment & Administration
+# Deployment
 
 MariaDB AI RAG 1.1 (Beta) is a containerized Retrieval-Augmented Generation (RAG) solution designed for high-precision, citation-backed outputs. The system is deployed as a multi-container Docker stack, allowing components like the API brain, background workers, and document specialists to scale independently.
 
-Note: As of the 1.1 release, native binary-based deployments (such as `.deb` or `.rpm` packages) are no longer available.
+{% hint style="info" %}
+As of AI RAG 1.1 release, native binary-based deployments (such as `.deb` or `.rpm` packages) are no longer available.
+{% endhint %}
 
 ## Prerequisites
 
@@ -16,9 +18,11 @@ Ensure your environment meets the following requirements before starting the dep
   * AI Provider API Keys: Credentials for chosen AI providers (e.g., Google Gemini or OpenAI).
 * Database: A MariaDB 11.8+ instance is required for native vector search support.
 
-### Step-by-Step Instructions
+## Setup & Launch Instructions
 
-### Step 1: Prepare Your Directory
+{% stepper %}
+{% step %}
+### Prepare Your Directory
 
 Create a dedicated deployment folder on your host machine and navigate into it:
 
@@ -26,15 +30,19 @@ Create a dedicated deployment folder on your host machine and navigate into it:
 mkdir mariadb-rag-deployment
 cd mariadb-rag-deployment
 ```
+{% endstep %}
 
-### Step 2: Obtain Configuration Files
+{% step %}
+### Obtain Configuration Files
 
 Download the following essential files from the public AI RAG GitHub repository and place them in your new folder:
 
-1. `docker-compose.dockerhub-dev.yml`: The blueprint defining all services in the stack.
-2. `config.env.template`: The template containing all necessary environment variables.
+1. [`docker-compose.dockerhub-dev.yml`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/docker-compose.dockerhub-dev.yml): The blueprint defining all services in the stack.
+2. `config.env.secure`: The template containing all necessary environment variables.
+{% endstep %}
 
-### Step 3: Create Local Storage Directories
+{% step %}
+### Create Local Storage Directory
 
 To avoid permission conflicts, manually create the storage and logging folders:
 
@@ -42,34 +50,80 @@ To avoid permission conflicts, manually create the storage and logging folders:
 mkdir uploaded_files
 mkdir logs
 ```
+{% endstep %}
 
-### Step 4: Update the Configuration File
+{% step %}
+### Obtain and Configure the MariaDB License Key
 
-Rename `config.env.template` to `config.env.secure` and update the following critical variables:
+The application performs a mandatory validation check at startup and will fail to start if this key is missing, invalid, or expired. Each license is valid for 30 days from the day of generation, and you can generate a maximum of four at a time.
 
-* `MARIADB_LICENSE_KEY`: Insert your valid license token here.
-* AI API Keys: Provide keys for your providers (e.g., `GEMINI_API_KEY=your_key`).
-* Database Configuration: Configure `DB_HOST`, `DB_USER`, and `DB_PASSWORD`. For the internal Docker container, set `DB_HOST=mariadb`.
-* Security Keys: Ensure `SECRET_KEY`, `JWT_SECRET_KEY`, and `MCP_AUTH_SECRET_KEY` are all set to the same secure, random string to enable unified authentication.
+To grab your license step-by-step:
 
-### Step 5: Launch the Application
+1. Navigate to the [MariaDB License Portal](https://customers.mariadb.com/license/).
+2.  Login with your MariaDB ID.<br>
 
-Start the container stack using Docker Compose:
+    <figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+3.  Click Get License under the RAG Trial card.<br>
+
+    <figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+4.  You may then View, Copy, or Download the license information.<br>
+
+    <figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+5. Paste this key into your `config.env.secure` file as `MARIADB_LICENSE_KEY`.
+
+{% hint style="info" %}
+MariaDB Trial License Keys are valid for 30 days from the date of generation. You may generate multiple licenses based on your subcription tier
+{% endhint %}
+{% endstep %}
+
+{% step %}
+### **Configure Database and Security Keys**
+
+Open `config.env.secure` in a text editor to set your environment variables.
+
+#### **Database Configuration**
+
+You must define where your database is hosted. For the Recommended Option (Docker-Hosted), use the following internal service names:
+
+* `DB_HOST=mariadb`: This hostname MUST match the container name.
+* `DB_PORT=3306`.
+* `DB_USER` and `DB_PASSWORD`: Set these to your preferred credentials.
+* **Internal Service Ports**: Set `APP_HOST`, `MCP_HOST`, and `MCP_MARIADB_HOST` to `rag-api`.
+{% endstep %}
+
+{% step %}
+### Security Keys
+
+To enable unified authentication across the API and MCP server, set the following variables to the samesecure, random string:
+
+* `SECRET_KEY`
+* `JWT_SECRET_KEY`
+* `MCP_AUTH_SECRET_KEY`
+{% endstep %}
+
+{% step %}
+### **Launch the Application**
+
+Run the following command to download images and start services in the background: \{% code title="Launch" %\}
 
 ```bash
-docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure up -d
+docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure 
 ```
+{% endstep %}
 
-### Step 6: Verify the Deployment
+{% step %}
+### **Verify and Access**
 
-Verification may take a few minutes as services initialize. Check the status of the containers:
+Check the status of your services:
 
+{% code title="Check status" %}
 ```bash
 docker compose -f docker-compose.dockerhub-dev.yml ps
 ```
+{% endcode %}
 
-All core services (e.g., `rag-api`, `mcp-server`, `rag-redis`) should show a status of Up or Healthy. Review the RAG API logs to confirm the license check passed:
+Once services are Up or Healthy, access the interactive Swagger UI to view all API documentation and test endpoints:
 
-```bash
-docker compose -f docker-compose.dockerhub-dev.yml logs -f rag-api
-```
+* URL: `http://localhost:8000/docs`
+{% endstep %}
+{% endstepper %}
