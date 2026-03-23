@@ -94,21 +94,53 @@ This section visually explains how MariaDB decides which statistics to use, and 
 
 ### Optimizer Statistics Selection Flow (Query Execution Time)
 
-(diagram 1)
+```mermaid
+graph TD
+    Start([Incoming SQL Query]) --> Eval{use_stat_tables value?}
+    
+    Eval -- "use_stat_tables = NEVER" --> Ignore[Optimizer ignores EITS entirely]
+    Ignore --> InnoDB[Use InnoDB statistics from<br/>innodb_table_stats and innodb_index_stats]
+    
+    Eval -- "use_stat_tables = PREFERABLY / PREFERABLY_FOR_QUERIES" --> CheckEITS{Are EITS present for this table?}
+    
+    CheckEITS -- Yes --> UseEITS[Use EITS from<br/>mysql.table_stats, column_stats, and index_stats]
+    CheckEITS -- No --> Fallback[Fallback to InnoDB stats<br/>'EITS not collected yet']
+```
 
 * NEVER: Optimizer always uses InnoDB stats, even if EITS exists.
 * PREFERABLY: Optimizer prefers EITS and transparently falls back if missing.
 
 ### ANALYZE TABLE – Statistics Collection Flow
 
-(diagram 2)
+```mermaid
+graph TD
+    Start[ANALYZE TABLE issued] --> Eval[Check use_stat_tables value at runtime]
+    
+    Eval -- "NEVER" --> InnoDB[InnoDB samples data<br/>fast, approximate]
+    InnoDB --> UpdateInnoDB[Updates only:<br/>mysql.innodb_table_stats<br/>mysql.innodb_index_stats]
+    
+    Eval -- "PREFERABLY / PERSISTENT" --> FullScan[Full scan or sampled scan<br/>based on analyze_sample_percentage]
+    FullScan --> UpdateBoth[Updates BOTH:<br/>mysql.innodb_table_stats<br/>mysql.table_stats<br/>mysql.column_stats histograms<br/>mysql.index_stats]
+```
 
 * NEVER: Fast, safe, but low precision.
 * PERSISTENT: Explicit, predictable, and recommended.
 
 ### Column Statistics Collection Flow (analyze\_max\_length)
 
-(diagram 3)
+```mermaid
+graph TD
+    Start[Column encountered during EITS collection] --> TypeCheck{Is column type CHAR or VARCHAR?}
+    
+    TypeCheck -- No --> Always[Non-string column: Always collected]
+    
+    TypeCheck -- Yes --> CalcLength[Calculate byte length: characters x charset bytes]
+    
+    CalcLength --> LimitCheck{Is length <= analyze_max_length?}
+    
+    LimitCheck -- Yes --> Stored[Column stats stored in mysql.column_stats]
+    LimitCheck -- No --> Skipped[Column skipped with warning to prevent long ANALYZE runtime]
+```
 
 * `utf8mb4` multiplies size by 4 (compared to `latin1`)
 * `VARCHAR (255)` ≈ 1020 bytes
