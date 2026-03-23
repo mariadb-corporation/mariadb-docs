@@ -12,7 +12,7 @@
 ## About this Release Series
 
 * This release is part of the MariaDB 13.0 release series
-* MariaDB 13.0 is a rolling release series, maintained until Jun 2029
+* MariaDB 13.0 is a rolling release
 * [What's new in this release series?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/mariadb-13.0-changes-and-improvements)
 
 ## Release History
