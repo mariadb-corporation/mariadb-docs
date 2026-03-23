@@ -16,10 +16,10 @@ The frequency of minor and maintenance releases is variable. Minor or maintenanc
 
 Upcoming minor or maintenance releases are scheduled for:
 
-* 2026-03-16
 * 2026-06-15
 * 2026-09-14
 * 2026-12-14
+* 2027-03-15
 
 ## Prior Releases
 
