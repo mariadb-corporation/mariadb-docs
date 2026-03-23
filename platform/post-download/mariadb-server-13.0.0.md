@@ -4,7 +4,7 @@
 
 ## About this Release
 
-* MariaDB Server 12.3.1 was released on 23 Mar 2026
+* MariaDB Server 13.0.0 was released on 23 Mar 2026
 * [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/13.0/mariadb-13.0-changes-and-improvements)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Release Candidate (RC) maturity
