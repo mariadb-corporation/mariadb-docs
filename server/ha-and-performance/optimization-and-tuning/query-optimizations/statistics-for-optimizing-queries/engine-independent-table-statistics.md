@@ -124,10 +124,10 @@ graph TD
 graph TD
     Start[ANALYZE TABLE issued] --> Eval[Check use_stat_tables value at runtime]
     
-    Eval -- "NEVER" --> InnoDB[InnoDB samples data<br/>fast, approximate]
+    Eval -- "NEVER" --> InnoDB[InnoDB samples data<br/>— fast, approximate]
     InnoDB --> UpdateInnoDB[Updates only:<br/>mysql.innodb_table_stats<br/>mysql.innodb_index_stats]
     
-    Eval -- "PREFERABLY / PERSISTENT" --> FullScan[Full scan or sampled scan<br/>based on analyze_sample_percentage]
+    Eval -- "PREFERABLY / PERSISTENT" --> FullScan[Full scan or sampled scan<br/>— based on analyze_sample_percentage]
     FullScan --> UpdateBoth[Updates BOTH:<br/>mysql.innodb_table_stats<br/>mysql.table_stats<br/>mysql.column_stats histograms<br/>mysql.index_stats]
 ```
 
