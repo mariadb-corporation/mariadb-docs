@@ -14,7 +14,7 @@ The architecture consists of two primary components: a central **Enterprise Mana
 
 ## Enterprise Manager Server
 
-The Enterprise Manager Server runs on a dedicated host and acts as the central command center. It is delivered as a suite of Docker containers managed by Docker Compose.
+The Enterprise Manager Server runs on a dedicated host and acts as the central command center. It is delivered as a suite of container images managed by container engine (Docker or Podman).
 
 <figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
