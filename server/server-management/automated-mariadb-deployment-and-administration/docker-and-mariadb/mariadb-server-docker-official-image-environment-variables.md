@@ -37,7 +37,7 @@ Define a non-empty value, such as "yes," to auto-generate a random initial passw
 
 ### `MARIADB_USER_HOST`
 
-`%` is the default hostname part of the user created with `MYSQL_USER / MARIADB_USER` in MariaDB. This can be changed to any valid hostname or IP. Setting it to `localhost` restricts user access to only the local machine via the Unix socket.
+`%` is the default hostname part of the user created through `MYSQL_USER / MARIADB_USER` in MariaDB. This can be changed to any valid hostname or IP. Setting it to `localhost` restricts user access to only the local machine via the Unix socket.
 
 ### `MARIADB_DATABASE / MYSQL_DATABASE`
 
