@@ -88,9 +88,17 @@ A few scenarios where one might need to update statistics tables manually:
 * Running `ANALYZE` on a different server. To collect engine-independent statistics ANALYZE TABLE does a full table scan, which can put too much load on the server. It is possible to run ANALYZE on the slave, and then take the data from statistics tables on the slave and apply it on the master.
 * In some cases, knowledge of the database allows one to compute statistics manually in a more efficient way than `ANALYZE` does. One can compute the statistics manually and put it into the database.
 
-## EITS vs. InnoDB Statistics
+## EITS[^1] vs. InnoDB Statistics
 
 This section visually explains how MariaDB decides which statistics to use, and what happens during the `ANALYZE` stage. These flows are critical for understanding why toggling [`use_stat_tables`](../../system-variables/server-system-variables.md#use_stat_tables) affects both performance and optimizer behavior.
+
+{% hint style="info" %}
+**MariaDB 10.6 and later** include several optimizer enhancements that affect how these statistics are utilized. These improvements include:
+
+* More accurate cost-based optimization decisions
+* Improved index and condition selection
+* Enhanced selectivity estimation during `ANALYZE` operations
+{% endhint %}
 
 ### Optimizer Statistics Selection Flow (Query Execution Time)
 
@@ -168,3 +176,5 @@ graph TD
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+
+[^1]: Engine-Independent Table Statistics
