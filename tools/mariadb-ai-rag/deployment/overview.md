@@ -16,7 +16,7 @@ Ensure your environment meets the following requirements before starting the dep
 * Mandatory Credentials:
   * [MariaDB License Key](overview.md#obtain-and-configure-the-mariadb-license-key): A valid key is required for the application to pass the startup check.
   * AI Provider API Keys: Credentials for chosen AI providers (e.g., Google Gemini or OpenAI).
-* Database: A [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118)+ instance is required for native vector search support.
+* Database: A [MariaDB 11.8+](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) instance is required for native vector search support.
 
 ## Setup & Launch Instructions
 
@@ -38,7 +38,7 @@ cd mariadb-rag-deployment
 Download the following essential files from the public AI RAG GitHub repository and place them in your new folder:
 
 1. [`docker-compose.dockerhub-dev.yml`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/docker-compose.dockerhub-dev.yml): The blueprint defining all services in the stack.
-2. [`config.env.secure`](overview.md#configure-database-and-security-keys): The template containing all necessary environment variables.
+2. `config.env.secure`: The template containing all necessary environment variables.
 {% endstep %}
 
 {% step %}
@@ -72,7 +72,7 @@ To grab your license step-by-step:
 5. Paste this key into your `config.env.secure` file as `MARIADB_LICENSE_KEY`.
 
 {% hint style="info" %}
-MariaDB Trial License Keys are valid for 30 days from the date of generation. You may generate multiple licenses based on your subcription tier
+MariaDB Trial License Keys are valid for 30 days from the date of generation. You may generate multiple licenses based on your subscription tier
 {% endhint %}
 {% endstep %}
 
@@ -81,13 +81,23 @@ MariaDB Trial License Keys are valid for 30 days from the date of generation. Yo
 
 Open `config.env.secure` in a text editor to set your environment variables.
 
-#### **Security Keys**
+#### Security & Unified Authentication
 
 To enable unified authentication across the API and MCP server, set these three variables to the same secure string
 
 * `SECRET_KEY`
 * `JWT_SECRET_KEY`
 * `MCP_AUTH_SECRET_KEY`
+
+{% hint style="success" %}
+**Secure String Generation**
+
+You may generate a secure 32-character string to assign to the three variables using  `openssl rand -hex 32`
+{% endhint %}
+
+{% hint style="danger" %}
+Using a unique, randomly generated key prevents "replay attacks" and ensures that only your authorized MCP Gateway can trigger heavy-lifting tasks in the RAG API.
+{% endhint %}
 
 #### AI Provider Setup Examples
 
@@ -115,13 +125,40 @@ embedding_model=text-embedding-3-small
 {% endtab %}
 {% endtabs %}
 
+#### Reranking & Search Accuracy
+
+Reranking ensures that the most relevant document chunks are sent to the AI model, significantly reducing "hallucinations".
+
+* `RERANKING_ENABLED`: Set to `true` to activate the secondary search pass.
+* `RERANKING_MODEL_TYPE`: Defaults to `flashrank` (local/CPU efficient). Cloud options include `cohere`.
+* `RERANKING_MODEL_NAME`: The specific model used for scoring. Default: `ms-marco-MiniLM-L-12-v2`.
+
 #### **Database Configuration**
+
+These variables define how the application connects to your MariaDB 11.8+ instance.Common Connection Variables:
+
+* `DB_PORT`: The port your database is listening on (Default: `3306`).
+* `DB_USER`: The username for database access.
+* `DB_PASSWORD`: The password for the specified user.
+* `DB_NAME`: The name of the database schema.
+
+{% hint style="warning" %}
+**SSL Mandatory for Cloud Databases**&#x20;
+
+For cloud-hosted instances, you must set `DB_SSL_ENABLED=true` to ensure secure, encrypted communication over the public internet.&#x20;
+{% endhint %}
 
 Update the `DB_HOST` variables based on your database location:
 
 {% tabs %}
 {% tab title="Docker-Hosted (Default)" %}
-Set `DB_HOST=mariadb`. Hostnames must match internal container names.a
+Set `DB_HOST=mariadb`. Hostnames must match internal container names.
+
+{% hint style="warning" %}
+## It is CRITICAL that these Server Ports must point to the internal Docker service names
+
+APP\_HOST=rag-api MCP\_HOST=rag-api MCP\_MARIADB\_HOST=rag-api
+{% endhint %}
 {% endtab %}
 
 {% tab title="Local / On-Premise" %}
@@ -132,12 +169,6 @@ Set `DB_HOST` to your server IP (e.g., `192.168.1.100`).
 Set `DB_HOST` to your cloud URL.
 {% endtab %}
 {% endtabs %}
-
-{% hint style="warning" %}
-**SSL Required for Cloud**
-
-For Cloud-Hosted, you must set `DB_SSL_ENABLED=true` to ensure secure communication.
-{% endhint %}
 {% endstep %}
 
 {% step %}
