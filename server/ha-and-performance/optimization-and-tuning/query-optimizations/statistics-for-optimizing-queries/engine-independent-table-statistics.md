@@ -90,7 +90,7 @@ A few scenarios where one might need to update statistics tables manually:
 
 ## EITS vs. InnoDB Statistics
 
-This section visually explains how MariaDB decides which statistics to use, and what happens during the `ANALYZE` stage. These flows are critical for understanding why toggling `use_stat_tables` affects both performance and optimizer behavior.
+This section visually explains how MariaDB decides which statistics to use, and what happens during the `ANALYZE` stage. These flows are critical for understanding why toggling [`use_stat_tables`](../../system-variables/server-system-variables.md#use_stat_tables) affects both performance and optimizer behavior.
 
 ### Optimizer Statistics Selection Flow (Query Execution Time)
 
