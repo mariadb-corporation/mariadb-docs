@@ -35,6 +35,10 @@ Define a non-empty value, such as "yes," to auto-generate a random initial passw
 
 `%` is the default hostname part of the root user in MariaDB. This can be changed to any valid hostname. Setting it to `localhost` restricts root access to only the local machine via the Unix socket.
 
+### `MARIADB_USER_HOST`
+
+`%` is the default hostname part of the user created with `MYSQL_USER / MARIADB_USER` in MariaDB. This can be changed to any valid hostname or IP. Setting it to `localhost` restricts user access to only the local machine via the Unix socket.
+
 ### `MARIADB_DATABASE / MYSQL_DATABASE`
 
 This variable allows you to specify the name of a database to be created on image startup.
