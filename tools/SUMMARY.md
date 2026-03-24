@@ -118,3 +118,4 @@
     * [Environment Variables](mariadb-ai-rag/reference/environment-variables.md)
     * [Supported Formats](mariadb-ai-rag/reference/supported-formats.md)
     * [Integration](mariadb-ai-rag/reference/integration.md)
+    * [Configuration Guide (config.env)](mariadb-ai-rag/reference/configuration-guide-config.env.md)
