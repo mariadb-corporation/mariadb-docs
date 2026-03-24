@@ -2678,6 +2678,7 @@
 * [Enterprise Manager Release Notes](enterprise-manager-release-notes/README.md)
   * [Enterprise Manager 25.10 Release Notes](enterprise-manager-release-notes/25.10/README.md)
     * [MariaDB Enterprise Manager 25.10.0 Release Notes](enterprise-manager-release-notes/25.10/25.10.0.md)
+    * [MariaDB Enterprise Manager 25.10.1 Release Notes](enterprise-manager-release-notes/25.10/mariadb-enterprise-manager-25.10.1-release-notes.md)
   * [All Releases](enterprise-manager-release-notes/all-releases.md)
 * [AI Rag Release Notes](ai-rag-release-notes/README.md)
   * [MariaDB AI RAG 1.0.0 Release Notes](ai-rag-release-notes/mariadb-ai-rag-1.0.0-release-notes.md)
