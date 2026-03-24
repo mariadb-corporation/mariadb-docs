@@ -4229,6 +4229,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: false
+* Description: Retries transactions that fail due to checksum mismatches during replay, subject to the set limits.
 
 [**transaction\_replay\_safe\_commit**](maxscale-routers/maxscale-readwritesplit.md#transaction_replay_safe_commit)
 
