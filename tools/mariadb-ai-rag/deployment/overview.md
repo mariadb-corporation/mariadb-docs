@@ -178,7 +178,7 @@ Run the following command to start the service
 
 {% code title="" overflow="wrap" %}
 ```bash
-docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure 
+docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure up -d
 ```
 {% endcode %}
 {% endstep %}
