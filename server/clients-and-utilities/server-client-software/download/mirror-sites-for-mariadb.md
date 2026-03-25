@@ -160,7 +160,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 ### China - 中国
 
-- Dalian Neusoft University of Information / 大连东软信息学院 (Dalian)
 - 清华大学 TUNA 协会 - Tsinghua University TUNA Association (Beijing)
 - 中国科学技术大学, 合肥 - USTC (Hefei)
 - eScience Center, Nanjing University (南京大学)
@@ -269,7 +268,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - bouwhuis.network (Amsterdam)
 - NLUUG (Amsterdam)
-- Serverion.com (Zoetermeer)
 - Triple IT B.V.
 - xTom GmbH (Amsterdam)
 - Mirhosting (Dronten)
