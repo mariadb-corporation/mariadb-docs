@@ -61,7 +61,7 @@ The table contains the following columns:
   * `VARCHAR(32)`
   * Null: No
   * Default: `NULL`
-  * Description: Lock type. One of `BACKUP_ALTER_COPY`, `BACKUP_BLOCK_DDL`, `BACKUP_COMMIT`, `BACKUP_DDL`, `BACKUP_DML`, `BACKUP_END`, `BACKUP_FLUSH`, `BACKUP_FTWRL1`, `BACKUP_START`, `BACKUP_TRANS_DML`, `BACKUP_WAIT_COMMIT`, `BACKUP_WAIT_DDL`, `BACKUP_WAIT_FLUSH`, `EXCLUSIVE`, `INTENTION_EXCLUSIVE`, `SHARED`, `SHARED_HIGH_PRIO`, `SHARED_NO_READ_WRITE`, `SHARED_NO_WRITE`, `SHARED_READ`, `SHARED_UPGRADABLE`, or `SHARED_WRITE`. See [the Backup Lock Types section](performance-schema-metadata_locks-table.md#backup-lock-types) for detailed descriptions.
+  * Description: Lock type. One of `BACKUP_ALTER_COPY`, `BACKUP_BLOCK_DDL`, `BACKUP_COMMIT`, `BACKUP_DDL`, `BACKUP_DML`, `BACKUP_FLUSH`, `BACKUP_FTWRL1`, `BACKUP_START`, `BACKUP_TRANS_DML`, `BACKUP_WAIT_COMMIT`, `BACKUP_WAIT_DDL`, `BACKUP_WAIT_FLUSH`. See [the Backup Lock Types section](performance-schema-metadata_locks-table.md#backup-lock-types) for detailed descriptions.
 * `LOCK_DURATION`
   * `VARCHAR(32)`
   * Null: No
@@ -130,8 +130,6 @@ This lock is acquired by the backup engine when it needs to process DDL statemen
 
 This lock is acquired by the backup engine when it needs to read data from tables.
 
-### BACKUP\_END
-
 ### BACKUP\_FLUSH
 
 This lock is acquired when the backup engine flushes data to disk.
@@ -168,26 +166,6 @@ This lock is acquired by other operations that need to wait for the backup engin
 ### BACKUP\_WAIT\_FLUSH
 
 This lock is acquired by other operations that need to wait for the backup engine to finish flushing data.
-
-### EXCLUSIVE
-
-### INTENTION\_EXCLUSIVE
-
-### SHARED
-
-### SHARED\_HIGH\_PRIO
-
-### SHARED\_NO\_READ\_WRITE
-
-### SHARED\_NO\_WRITE
-
-### SHARED\_READ
-
-### SHARED\_UPGRADABLE
-
-### SHARED\_UPGRADABLE
-
-### SHARED\_WRITE
 
 
 
