@@ -8,7 +8,7 @@ This section provides detailed reference information for configuring and integra
 
 ## Documentation in This Section
 
-### [Environment Variables](environment-variables.md)
+### [Environment Variables](/broken/pages/UM3k9lpDhNW2q0aQuA3l)
 
 Complete reference for all environment variables:
 
@@ -54,7 +54,7 @@ When configuring your MariaDB AI RAG deployment:
 
 * [API Reference](../api-reference/) - Complete API endpoint documentation
 * [Configuration Guide](../getting-started/configuration.md) - Detailed configuration instructions
-* [Troubleshooting](../performance-and-troubleshooting/troubleshooting.md) - Common issues and solutions
+* [Troubleshooting](/broken/pages/ki1PVqUBaF2RkKWgtADa) - Common issues and solutions
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
