@@ -230,7 +230,7 @@ MCP_PORT=8002
 EMBEDDING_PROVIDER=gemini
 embedding_model=text-embedding-004
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.0-flash
+LLM_MODEL=gemini-2.5-flash
 
 # ===== TABLE NAMES =====
 DOCUMENTS_TABLE=documents_DEMO_gemini
