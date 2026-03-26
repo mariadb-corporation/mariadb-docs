@@ -430,18 +430,24 @@ This applies to [ALTER TABLE ... CHANGE COLUMN](../../../../reference/sql-statem
 
 ### `ALTER TABLE ... ADD PRIMARY KEY`
 
-InnoDB does **not** support adding a primary key to a table with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
+With MariaDB 11.4 and later, InnoDB allows the addition of a primary key with `ALGORITHM=INSTANT` and `LOCK=NONE`. This operation takes place quickly and does not require the table to be rebuilt.
 
 For example:
 
 ```sql
-CREATE OR REPLACE TABLE tab (
+CREATE TABLE tab (
    a INT,
    b VARCHAR(50),
    c VARCHAR(50)
 );
 
-SET SESSION sql_mode='STRICT_TRANS_TABLES';
+SET SESSION alter_algorithm='INSTANT';
+ALTER TABLE tab ADD PRIMARY KEY (a), ALGORITHM=INSTANT, LOCK=NONE;
+```
+
+For MariaDB 10.11 and earlier versions, this operation requires a table rebuild and is not supported with `ALGORITHM=INSTANT`.
+
+```sql
 SET SESSION alter_algorithm='INSTANT';
 ALTER TABLE tab ADD PRIMARY KEY (a);
 ERROR 1845 (0A000): ALGORITHM=INSTANT is not supported for this operation. Try ALGORITHM=INPLACE
@@ -451,20 +457,27 @@ This applies to [ALTER TABLE ... ADD PRIMARY KEY](../../../../reference/sql-stat
 
 ### `ALTER TABLE ... DROP PRIMARY KEY`
 
-InnoDB does **not** support dropping a primary key with [ALGORITHM](../../../../reference/sql-statements/data-definition/alter/alter-table/#algorithm) set to `INSTANT`.
+Starting with MariaDB 11.4, InnoDB supports dropping a primary key using `ALGORITHM=INSTANT` and `LOCK=NONE`. This operation executes quickly without requiring a table rebuild.
 
 For example:
 
 ```sql
-CREATE OR REPLACE TABLE tab (
+CREATE TABLE tab (
    a INT PRIMARY KEY,
    b VARCHAR(50),
    c VARCHAR(50)
 );
 
 SET SESSION alter_algorithm='INSTANT';
+ALTER TABLE tab DROP PRIMARY KEY, ALGORITHM=INSTANT, LOCK=NONE;
+```
+
+In MariaDB 10.11 and earlier, this operation is not supported with `ALGORITHM=INSTANT` and requires a table rebuild.
+
+```sql
+SET SESSION alter_algorithm='INSTANT';
 ALTER TABLE tab DROP PRIMARY KEY;
-ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Reason: Dropping a primary key is not allowed without also adding a new primary key. Try ALGORITHM=COPY
+ERROR 1846 (0A000): ALGORITHM=INSTANT is not supported. Try ALGORITHM=COPY
 ```
 
 This applies to [ALTER TABLE ... DROP PRIMARY KEY](../../../../reference/sql-statements/data-definition/alter/alter-table/#drop-primary-key) for [InnoDB](../) tables.
