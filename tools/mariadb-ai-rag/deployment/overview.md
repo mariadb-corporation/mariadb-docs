@@ -57,7 +57,7 @@ mkdir logs
 {% step %}
 ### Obtain the MariaDB License Key
 
-The application performs a mandatory validation check at startup and will fail to start if this key is missing, invalid, or expired. Each license is valid for 30 days from the day of generation, but you can generate an additional license key if you need to proceed with the evaluation.
+The application performs a mandatory validation check at startup and will fail to start if this key is missing, invalid, or expired. Each license is valid for 30 days from the day of generation.
 
 To get your license, follow these steps:
 
@@ -74,7 +74,7 @@ To get your license, follow these steps:
 5. Paste this key into your `config.env.secure` file as `MARIADB_LICENSE_KEY`.
 
 {% hint style="info" %}
-MariaDB trial license keys are valid for 30 days from the date of issue. If you require more time for your evaluation, you may generate additional keys to extend the period.
+MariaDB trial license keys are valid for 30 days from the date of issue.
 {% endhint %}
 {% endstep %}
 
@@ -105,20 +105,20 @@ You may generate a secure 32-character string to assign to the three variables u
 Using a unique, randomly generated key prevents "replay attacks" and ensures that only your authorized MCP Gateway can trigger heavy-lifting tasks in the RAG API.
 {% endhint %}
 
-#### AI Provider Configuration
+#### Model Provider Configuration
 
 Specify the models and API keys for your chosen providers.
 
 **LLM Settings**
 
 * `LLM_PROVIDER`: Choose your provider (e.g., `gemini`, `openai`, or `ollama`).
-* `LLM_MODEL`: The specific model name (e.g., `gemini-2.0-flash`).
+* `LLM_MODEL`: The specific model name (e.g., `gemini-2.5-flash`).
 * `GEMINI_API_KEY` or `OPENAI_API_KEY`: Your provider-specific API key.
 
 **Embedding Settings**
 
 * `EMBEDDING_PROVIDER`: Provider for vectorizing text (e.g., `openai`, `gemini`).
-* `embedding_model`: Specific embedding model (e.g., `text-embedding-3-small`).
+* `embedding_model`: Specific embedding model (e.g., `text-embedding-004`).
 
 **Model Provider Setup Examples**
 
@@ -128,7 +128,7 @@ Choose your preferred provider by configuring the following variables:
 {% tab title="Google Gemini Setup" %}
 ```ini
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.0-flash
+LLM_MODEL=gemini-2.5-flash
 GEMINI_API_KEY=your_gemini_key_here
 EMBEDDING_PROVIDER=gemini
 embedding_model=text-embedding-004
@@ -173,17 +173,26 @@ Update the `DB_HOST` variables based on your database location:
 
 {% tabs %}
 {% tab title="Docker-Hosted (Default)" %}
-Set `DB_HOST=mariadb`. Hostnames must match internal container names.
+Set `DB_HOST=mariadb`. The hostname must match the container name provisioned with Docker Compose. Also set your preferred `DB_USER`, `DB_PASSWORD`, and `DB_NAME` for database that will be provisioned along AI RAG stack.
 {% endtab %}
 
 {% tab title="Local / On-Premise" %}
-Set `DB_HOST` to your server IP (e.g., `192.168.1.100`).
+Set `DB_HOST` to your server IP (e.g., `192.168.1.100`). Also set `DB_USER`, `DB_PASSWORD`, and `DB_NAME` for AI RAG to access your database.
 {% endtab %}
 
 {% tab title="Cloud-Hosted" %}
-Set `DB_HOST` to your cloud URL.
+Set `DB_HOST` to your cloud database URL. Also set `DB_USER`, `DB_PASSWORD`, and `DB_NAME` for AI RAG to access your database.
 {% endtab %}
 {% endtabs %}
+{% endstep %}
+
+{% step %}
+### Admin User Configuration
+
+Set the admin credentials that will be used to access the AI RAG APIs:
+
+* `ADMIN_EMAIL`  - Admin username
+* `ADMIN_PASSWORD` - Admin user password
 {% endstep %}
 
 {% step %}
