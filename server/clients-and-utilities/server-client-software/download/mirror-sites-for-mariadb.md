@@ -150,10 +150,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - Neterra Telecommunications
 
-### Canada
-
-- ACORN-NS (Halifax)
-
 ### Chile
 
 - Insacom (Santiago de Chile)
