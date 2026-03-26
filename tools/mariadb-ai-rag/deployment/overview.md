@@ -101,7 +101,22 @@ You may generate a secure 32-character string to assign to the three variables u
 Using a unique, randomly generated key prevents "replay attacks" and ensures that only your authorized MCP Gateway can trigger heavy-lifting tasks in the RAG API.
 {% endhint %}
 
-#### Model Provider Setup Examples
+#### AI Provider Configuration
+
+Specify the models and API keys for your chosen providers.
+
+**LLM Settings**
+
+* `LLM_PROVIDER`: Choose your provider (e.g., `gemini`, `openai`, or `ollama`).
+* `LLM_MODEL`: The specific model name (e.g., `gemini-2.0-flash`).
+* `GEMINI_API_KEY` or `OPENAI_API_KEY`: Your provider-specific API key.
+
+**Embedding Settings**
+
+* `EMBEDDING_PROVIDER`: Provider for vectorizing text (e.g., `openai`, `gemini`).
+* `embedding_model`: Specific embedding model (e.g., `text-embedding-3-small`).
+
+**Model Provider Setup Examples**
 
 Choose your preferred provider by configuring the following variables:
 
@@ -127,7 +142,7 @@ embedding_model=text-embedding-3-small
 {% endtab %}
 {% endtabs %}
 
-#### Reranking & Search Accuracy
+#### **Reranking & Search Accuracy**
 
 Reranking ensures that the most relevant document chunks are sent to the AI model, significantly reducing "hallucinations".
 
@@ -155,12 +170,6 @@ Update the `DB_HOST` variables based on your database location:
 {% tabs %}
 {% tab title="Docker-Hosted (Default)" %}
 Set `DB_HOST=mariadb`. Hostnames must match internal container names.
-
-{% hint style="warning" %}
-## It is CRITICAL that these Server Ports must point to the internal Docker service names
-
-APP\_HOST=rag-api MCP\_HOST=rag-api MCP\_MARIADB\_HOST=rag-api
-{% endhint %}
 {% endtab %}
 
 {% tab title="Local / On-Premise" %}
