@@ -38,7 +38,7 @@ The API offers three different processing tiers, which you can select when uploa
 * Pros: The absolute highest quality extraction available. Incredible accuracy on highly complex, multi-column PDFs with dense tables.
 * Cons: Requires an active internet connection, requires a paid API key from LlamaIndex, and documents leave your local network.
 
-## API reference
+## Layout Awareness Endpoints
 
 To use advanced processing, you inject a `document_processing` JSON object into your ingestion API calls.
 

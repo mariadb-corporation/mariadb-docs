@@ -1,6 +1,6 @@
 # Object Storage and Bulk Ingestion
 
-Users can upload documents one by one [through the API](../api-reference/api-reference.md#upload-documents).
+Users can upload documents one by one [through the API](api-reference.md#upload-documents).
 
 Enterprise deployments often need to ingest thousands of files from cloud storage. Bulk cloud ingestion lets you connect an external bucket directly to the RAG system.
 
@@ -70,7 +70,7 @@ Required credentials:
 * `secret_access_key`: MinIO secret key or password.
 * `endpoint_url`: MinIO server URL, such as `http://host.docker.internal:9000`.
 
-### API workflow
+### API Workflow
 
 All endpoints require a valid JWT token in `Authorization: Bearer <token>`.
 
