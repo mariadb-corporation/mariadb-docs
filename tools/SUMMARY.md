@@ -117,3 +117,5 @@
     * [Configuration Guide (config.env)](mariadb-ai-rag/reference/configuration-guide-config.env.md)
     * [Object Storage and Bulk Ingestion](mariadb-ai-rag/reference/object-storage-and-bulk-ingestion.md)
     * [Reranker](mariadb-ai-rag/reference/reranker.md)
+    * [Citations](mariadb-ai-rag/reference/citations.md)
+    * [Layout Awareness](mariadb-ai-rag/reference/layout-awareness.md)
