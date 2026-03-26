@@ -81,6 +81,10 @@ MariaDB trial license keys are valid for 30 days from the date of issue. If you 
 {% step %}
 ### **Configure Database and Security Keys**
 
+{% hint style="info" %}
+For a full breakdown of every variable in `config.env.secure`, see the [AI-RAG Configuration Guide](../reference/configuration-guide-config.env.md).
+{% endhint %}
+
 Open `config.env.secure` in a text editor to set your environment variables.
 
 #### Security & Unified Authentication
