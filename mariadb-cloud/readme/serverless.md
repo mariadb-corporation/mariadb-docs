@@ -32,6 +32,10 @@ MariaDB Cloud Serverless is the first true serverless database solution for the 
 
 ## Free Developer Tier
 
+{% hint style="info" %}
+This free database is capped at 10 MCU-hours per month. Once this threshold is reached, the database will remain inactive for the remainder of the month. Service will resume automatically at the start of the following month when the usage limit resets.
+{% endhint %}
+
 Every MariaDB Cloud account includes a perpetually free serverless database perfect for:
 
 * Development and testing environments
