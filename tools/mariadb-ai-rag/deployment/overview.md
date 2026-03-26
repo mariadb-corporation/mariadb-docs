@@ -1,6 +1,8 @@
 # Deployment
 
-MariaDB AI RAG 1.1 (Beta) is a containerized Retrieval-Augmented Generation (RAG) solution designed for high-precision, citation-backed outputs. The system is deployed as a multi-container Docker stack, allowing components like the API brain, background workers, and document specialists to scale independently.
+MariaDB AI RAG 1.1 (Beta) is an all-in-one, enterprise-ready solution that handles the entire Retrieval-Augmented Generation (RAG) pipeline, including document parsing with layout extraction, chunking, embedding generation, and easy-to-use retrieval APIs backed by hybrid search (vector + full-text search), with optional reranking before sending the relevant context to a foundation model for answer generation.
+
+MariaDB AI RAG deployed as a containerized stack using Docker. For a quick evaluation, you can also leverage a MariaDB vector store deployed in a container alongside the AI RAG stack to get an end-to-end setup faster.
 
 {% hint style="info" %}
 As of AI RAG 1.1 release, native binary-based deployments (such as `.deb` or `.rpm` packages) are no longer available.
@@ -12,10 +14,10 @@ Ensure your environment meets the following requirements before starting the dep
 
 * Hardware: Minimum 4 CPU cores, 8 GB RAM, and 20 GB free disk space.
 * Operating System: 64-bit Linux
-* Software: Docker Engine and Docker Compose (v2.x+) must be installed.
+* Software: Docker Engine and Docker Compose must be installed.
 * Mandatory Credentials:
   * [MariaDB License Key](overview.md#obtain-and-configure-the-mariadb-license-key): A valid key is required for the application to pass the startup check.
-  * AI Provider API Keys: Credentials for chosen AI providers (e.g., Google Gemini or OpenAI).
+  * Model Provider API Keys: Credentials for chosen model providers (e.g., Google Gemini or OpenAI).
 * Database: A [MariaDB 11.8+](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/what-is-mariadb-118) instance is required for native vector search support.
 
 ## Setup & Launch Instructions
@@ -53,11 +55,11 @@ mkdir logs
 {% endstep %}
 
 {% step %}
-### Obtain and Configure the MariaDB License Key
+### Obtain the MariaDB License Key
 
-The application performs a mandatory validation check at startup and will fail to start if this key is missing, invalid, or expired. Each license is valid for 30 days from the day of generation, and you can generate a maximum of four at a time.
+The application performs a mandatory validation check at startup and will fail to start if this key is missing, invalid, or expired. Each license is valid for 30 days from the day of generation, but you can generate an additional license key if you need to proceed with the evaluation.
 
-To grab your license step-by-step:
+To get your license, follow these steps:
 
 1. Navigate to the [MariaDB License Portal](https://customers.mariadb.com/license/).
 2.  Login with your MariaDB ID.<br>
@@ -72,7 +74,7 @@ To grab your license step-by-step:
 5. Paste this key into your `config.env.secure` file as `MARIADB_LICENSE_KEY`.
 
 {% hint style="info" %}
-MariaDB Trial License Keys are valid for 30 days from the date of generation. You may generate multiple licenses based on your subscription tier
+MariaDB trial license keys are valid for 30 days from the date of issue. If you require more time for your evaluation, you may generate additional keys to extend the period.
 {% endhint %}
 {% endstep %}
 
@@ -99,7 +101,7 @@ You may generate a secure 32-character string to assign to the three variables u
 Using a unique, randomly generated key prevents "replay attacks" and ensures that only your authorized MCP Gateway can trigger heavy-lifting tasks in the RAG API.
 {% endhint %}
 
-#### AI Provider Setup Examples
+#### Model Provider Setup Examples
 
 Choose your preferred provider by configuring the following variables:
 
@@ -178,7 +180,7 @@ Run the following command to start the service
 
 {% code title="" overflow="wrap" %}
 ```bash
-docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure 
+docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure up -d
 ```
 {% endcode %}
 {% endstep %}
