@@ -42,7 +42,7 @@ Use this for cloud-hosted MariaDB instances (e.g., MariaDB SkySQL).
 DB_HOST=serverless-europe-west3.sysp0000.db2.skysql.com
 DB_PORT=4059
 DB_USER=dbpg_user
-DB_PASSWORD=MEu...
+DB_PASSWORD=
 DB_NAME=rag_db
 ```
 
