@@ -49,10 +49,12 @@ If you are moving to MariaDB 11.4 LTS or later, you can automate the transition 
 Never start a migration without two types of backups:
 
 1. Physical/Binary Backup: A copy of the `/var/lib/mysql` directory (while the server is stopped). This allows for the fastest "undo" if the binary swap fails.
-2.  Logical Backup: A full dump of your data. (Use the MySQL `mysqldump` program, not MariaDB's `mariadb-dump`, because the latter hasn't been extensively tested against MySQL.)
+2.  Logical Backup: A full dump of your data. \
+    Use the MySQL `mysqldump` program, not MariaDB's `mariadb-dump`, because the latter hasn't been extensively tested against MySQL.\
+    Don't dump `--all-databases`, because that would include the MySQL system databases, which are different from the MariaDB ones – loading them would fail on data import. Instead, specify which databases to export as arguments to `--databases`.
 
     <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"># The Universal Master Dump Command
-    mysqldump --user=root --password --all-databases \
+    mysqldump --user=root --password --databases db1 db2 ... \
     --single-transaction --routines --events \
     --triggers --hex-blob > migration_dump.sql
     </code></pre>
@@ -65,8 +67,8 @@ Standard data dumps often fail to capture complex user permissions correctly whe
 
 The following SQL can be used to generate [CREATE USER](../../../../reference/sql-statements/account-management-sql-statements/create-user.md) statements with a default password that can be executed on MariaDB. It does the following:
 
-* Authentication method  [mysql\_native\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) - the script supports passwords porting.
-* Authentication method  [sha256\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-sha-256.md) or authentication string is `NULL` - passwords are reset to default with expiry.
+* Authentication method  [mysql\_native\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) – the script supports passwords porting.
+* Authentication method  [caching\_sha256\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md) or authentication string is `NULL` – passwords are reset to default with expiry.
 
 The [PARSEC](../../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) authentication plugin is intended to be the default in a future release, hence it is recommended to use this during user migration. &#x20;
 
@@ -237,7 +239,7 @@ On your existing MySQL server, create a complete dump of all databases, includin
 
 ```bash
 # The Universal Master Dump Command
-mysqldump --user=root --password --all-databases \
+mysqldump --user=root --password --databases db1 db2 ... \
 --single-transaction --routines --events \
 --triggers --hex-blob > migration_dump.sql
 ```
@@ -252,7 +254,9 @@ If you have limited disk space or a high-speed network connection between your s
 
 {% code overflow="wrap" %}
 ```bash
-mysqldump --user=root --password --all-databases --single-transaction --routines --events --triggers --hex-blob | mariadb --host=new_server_ip --user=root --password
+mysqldump --user=root --password --databases db1 db2 ... \
+--single-transaction --routines --events \
+--triggers --hex-blob | mariadb --host=new_server_ip --user=root --password
 ```
 {% endcode %}
 
