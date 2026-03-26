@@ -33,6 +33,10 @@ jobs:
             --exclude kubernetes\.io\/docs
             --exclude '.*\{.*'
             --exclude '.*%7B.*'
+            --exclude localhost
+            --exclude 127\.0\.0\.1
+            --exclude 'http://localhost:[0-9]+.*'
+            --exclude 'https://localhost:[0-9]+.*'
             ${{ steps.changes.outputs.all_changed_files }}
           fail: true
 
