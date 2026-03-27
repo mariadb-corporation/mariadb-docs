@@ -284,29 +284,45 @@ These variables may impact system stability and performance; please review durin
 
 During the maintenance window (after stopping 10.6 and before starting 11.8), you must scrub your `my.cnf` of all removed, superseded and renamed options.
 
-| Variable Name                                                                                                                   | 10.6 Default        |             | Technical Action / Replacement                                |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------- | ------------------------------------------------------------- |
-| `DATETIME_FORMAT`                                                                                                               | `%Y-%m-%d %H:%i:%s` | Warning     | Scrub. 11.8 enforces standard internal format strings.        |
-| `DATE_FORMAT`                                                                                                                   | `%Y-%m-%d`          | Warning     | Scrub. Enforced standard format.                              |
-| `DEBUG_NO_THREAD_ALARM`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-1)[^1]         | `OFF`               | Fatal Error | Remove. Retired legacy debug code.                            |
-| `INNODB_CHANGE_BUFFERING`                                                                                                       | `none`              | Warning     | Scrub. Logic replaced by SSD-optimized write paths.           |
-| `INNODB_CHANGE_BUFFER_MAX_SIZE`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-1)[^1] | `25`                | Fatal Error | Remove. Buffer size is now managed internally by the engine.  |
-| `INNODB_DEFRAGMENT`                                                                                                             | `OFF`               | Warning     | Scrub. Manual defragmentation is no longer supported.         |
-| `INNODB_DEFRAGMENT_FILL_FACTOR`                                                                                                 | `0.9`               | Warning     | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_FILL_FACTOR_N_RECS`                                                                                          | `20`                | Warning     | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_FREQUENCY`                                                                                                   | `40`                | Warning     | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_N_PAGES`                                                                                                     | `7`                 | Warning     | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_DEFRAGMENT_STATS_ACCURACY`                                                                                              | `0`                 | Warning     | Scrub. Feature retired; logic is now internal.                |
-| `INNODB_VERSION`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-1)[^1]                | `10.6.26`           | Fatal Error | Remove. Versioning is consolidated in global server metadata. |
-| `MAX_TMP_TABLES`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-1)[^1]                | `32`                | Fatal Error | Remove. Internal temp table management is now automated.      |
-| `OLD_ALTER_TABLE`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-1)[^1]               | `DEFAULT`           | Fatal Error | Remove. Superseded by `ALTER_ALGORITHM`.                      |
-| `TIME_FORMAT`                                                                                                                   | `%H:%i:%s`          | Warning     | Scrub. Enforced standard format.                              |
-| `WSREP_CAUSAL_READS`                                                                                                            | `OFF`               | Warning     | Scrub. Superseded by `wsrep_sync_wait`.                       |
-| `WSREP_LOAD_DATA_SPLITTING`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-1)[^1]     | `OFF`               | Fatal Error | Remove. Legacy Galera splitting logic retired.                |
-| `WSREP_REPLICATE_MYISAM`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-2)[^2]        | `OFF`               | Fatal Error | Remove. Galera no longer supports MyISAM replication.         |
-| `WSREP_STRICT_DDL`[<sup><mark style="color:$danger;">1<mark style="color:$danger;"></sup>](#user-content-fn-1)[^1]              | `OFF`               | Fatal Error | Remove. Replaced by `wsrep_mode=STRICT_REPLICATION`.          |
+| Variable Name                                                                | 10.6 Default        | Technical Action / Replacement                                |
+| ---------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------- |
+| `DATETIME_FORMAT`<mark style="color:$warning;">²</mark>                      | `%Y-%m-%d %H:%i:%s` | Scrub. 11.8 enforces standard internal format strings.        |
+| `DATE_FORMAT`<mark style="color:$warning;">²</mark>                          | `%Y-%m-%d`          | Scrub. Enforced standard format.                              |
+| `DEBUG_NO_THREAD_ALARM`<mark style="color:$danger;">¹</mark>                 | `OFF`               | Remove. Retired legacy debug code.                            |
+| `INNODB_CHANGE_BUFFERING`<mark style="color:$warning;">²</mark>              | `none`              | Scrub. Logic replaced by SSD-optimized write paths.           |
+| `INNODB_CHANGE_BUFFER_MAX_SIZE`<mark style="color:$danger;">¹</mark>         | `25`                | Remove. Buffer size is now managed internally by the engine.  |
+| `INNODB_DEFRAGMENT`<mark style="color:$warning;">²</mark>                    | `OFF`               | Scrub. Manual defragmentation is no longer supported.         |
+| `INNODB_DEFRAGMENT_FILL_FACTOR`<mark style="color:$warning;">²</mark>        | `0.9`               | Scrub. Feature retired; logic is now internal.                |
+| `INNODB_DEFRAGMENT_FILL_FACTOR_N_RECS`<mark style="color:$warning;">²</mark> | `20`                | Scrub. Feature retired; logic is now internal.                |
+| `INNODB_DEFRAGMENT_FREQUENCY`<mark style="color:$warning;">²</mark>          | `40`                | Scrub. Feature retired; logic is now internal.                |
+| `INNODB_DEFRAGMENT_N_PAGES`<mark style="color:$warning;">²</mark>            | `7`                 | Scrub. Feature retired; logic is now internal.                |
+| `INNODB_DEFRAGMENT_STATS_ACCURACY`<mark style="color:$warning;">²</mark>     | `0`                 | Scrub. Feature retired; logic is now internal.                |
+| `INNODB_VERSION`<mark style="color:$danger;">¹</mark>                        | `10.6.26`           | Remove. Versioning is consolidated in global server metadata. |
+| `MAX_TMP_TABLES`<mark style="color:$danger;">¹</mark>                        | `32`                | Remove. Internal temp table management is now automated.      |
+| `OLD_ALTER_TABLE`<mark style="color:$danger;">¹</mark>                       | `DEFAULT`           | Remove. Superseded by `ALTER_ALGORITHM`.                      |
+| `TIME_FORMAT`<mark style="color:$warning;">²</mark>                          | `%H:%i:%s`          | Scrub. Enforced standard format.                              |
+| `WSREP_CAUSAL_READS`<mark style="color:$warning;">²</mark>                   | `OFF`               | Scrub. Superseded by `wsrep_sync_wait`.                       |
+| `WSREP_LOAD_DATA_SPLITTING`<mark style="color:$danger;">¹</mark>             | `OFF`               | Remove. Legacy Galera splitting logic retired.                |
+| `WSREP_REPLICATE_MYISAM`<mark style="color:$danger;">¹</mark>                | `OFF`               | Remove. Galera no longer supports MyISAM replication.         |
+| `WSREP_STRICT_DDL` <mark style="color:$danger;">¹</mark>                     | `OFF`               | Remove. Replaced by `wsrep_mode=STRICT_REPLICATION`.          |
+
+{% hint style="danger" %}
+<mark style="color:$danger;">¹</mark>**Fatal Error**
+
+MariaDB 11.8 will abort startup if these legacy parameters are detected in the configuration file. These parameters MUST be removed prior to restart to prevent upgrade failure.
+
+Example: `[ERROR] /usr/sbin/mariadbd: unknown variable 'MAX_TMP_TABLES=32'`
+{% endhint %}
+
+{% hint style="warning" %}
+<mark style="color:$warning;">²</mark>**Warning:**&#x20;
+
+MariaDB 11.8 will start but log a warning if these legacy parameters are detected in the configuration file. Scrub the file of these parameter during the upgrade to maintain configuration hygiene and ensure settings reflect active 11.8 features.
+
+Warning Example: `[Warning] 'innodb-change-buffering' was removed. It does nothing now and exists only for compatibility with old my.cnf files.`
 
 
+{% endhint %}
 
 #### Options That Have Changed Default Values
 
@@ -419,16 +435,3 @@ After the data upgrade is complete, verify the functionality of 11.8 features:
     ```
 * Verify Optimizer Performance: Run `ANALYZE FORMAT=JSON` on a complex query to see the new SSD-optimized cost model and engine-specific metrics (e.g., `pages_accessed`) in action.
 * Check Replication Lag Fields: On a replica server, run `SHOW REPLICA STATUS\G` and look for the new `Master_Slave_time_diff` field.
-
-## Footnotes (Not for publication)
-
-* Controlled Shutdown & Package Removal: Uses the `innodb_fast_shutdown = 1` command and platform-specific wildcards (`MariaDB-*`) identified in the official 11.8 upgrade guide.
-* Repository Configuration: Reflects the use of the `mariadb_es_repo_setup` script with the specific `--mariadb-server-version="11.8"` flag.
-* Purge Batch Size & Undo Tablespaces: Sources the default change for `innodb_purge_batch_size` (300 to 1000) and the new Enterprise default of 3 undo tablespaces.
-* Manual Undo Truncation: Identifies that `innodb_undo_log_truncate=ON` remains a manual requirement in Enterprise Server to reclaim space.
-* Optimistic ALTER TABLE: Includes the configuration `binlog_alter_two_phase=1` as the requirement for parallel replica schema changes.
-* `my.cnf` Deprecations: Lists `old_alter_table` and `tx_isolation` as legacy variables that should be replaced with their modern counterparts.
-
-[^1]: 
-
-[^2]: Return error
