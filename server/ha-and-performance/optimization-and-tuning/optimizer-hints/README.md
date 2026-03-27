@@ -9,7 +9,7 @@ description: >-
 
 Optimizer hints are options available that affect the execution plan.
 
-[SELECT Modifiers](select-modifier-hints.md) have been in MariaDB for a long time, while [Expanded Optimizer Hints](expanded-optimizer-hints.md) were introduced in MariaDB 12.0 and 12.1.
+[SELECT Modifiers](select-modifier-hints.md) have been in MariaDB for a long time, while [Expanded (New-Style) Optimizer Hints](expanded-optimizer-hints.md) were introduced in MariaDB 12.0 and 12.1.
 
 ## See Also
 

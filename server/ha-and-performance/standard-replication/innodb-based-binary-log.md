@@ -356,6 +356,7 @@ During the initial implementation, only InnoDB is available as an engine for the
 
 ## See Also
 
+* [MariaDB Innovation: InnoDB-Based Binary Log](https://mariadb.org/mariadb-innovation-innodb-based-binary-log/) • Blog post • 4 minutes
 * [Global Transaction IDs](gtid.md)
 * [System Variables](../optimization-and-tuning/system-variables/server-system-variables.md)
 * [CHANGE MASTER TO](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md)

@@ -2,7 +2,7 @@
 icon: rocket
 ---
 
-# Deployment
+# Management
 
 This section provides comprehensive guides for deploying the MariaDB AI RAG system in various environments.
 
@@ -17,16 +17,6 @@ High-level overview of deployment options and considerations:
 * Prerequisites
 * Security considerations
 * Scalability planning
-
-### [Ubuntu Deployment Guide](ubuntu-deployment.md)
-
-Step-by-step guide for deploying on Ubuntu/Debian systems:
-
-* Installing the .deb package
-* System configuration
-* Service setup
-* Database initialization
-* Production deployment best practices
 
 ### [Docker Deployment Guide](docker-deployment.md)
 
@@ -116,8 +106,8 @@ Pre-deployment and post-deployment checklists:
 
 * [Configuration Guide](../getting-started/configuration.md) - Detailed configuration options
 * [Service Management](../getting-started/service-management.md) - Managing services
-* [Performance Tuning](../performance-and-troubleshooting/performance-tuning.md) - Optimization
-* [Troubleshooting](../performance-and-troubleshooting/troubleshooting.md) - Common issues
+* [Performance Tuning](/broken/pages/IH04cUN5BH0q33BTVaQl) - Optimization
+* [Troubleshooting](/broken/pages/ki1PVqUBaF2RkKWgtADa) - Common issues
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

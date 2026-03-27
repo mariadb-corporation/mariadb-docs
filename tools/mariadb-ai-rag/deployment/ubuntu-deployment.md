@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Ubuntu Deployment Guide
 
 ## MariaDB AI RAG - Ubuntu Native Deployment Guide

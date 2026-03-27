@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Technical Architecture
 
 ## Table of Contents

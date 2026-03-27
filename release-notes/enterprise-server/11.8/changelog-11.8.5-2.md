@@ -7,9 +7,11 @@ hidden: true
 
 # Changelog for MariaDB Enterprise Server 11.8.5-2
 
+{% include "../../.gitbook/includes/latest-es-11.8.md" %}
+
 <a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="11.8.5-2.md" class="button secondary">Release Notes</a> <a href="changelog-11.8.5-2.md" class="button secondary">Changelog</a> <a href="whats-new-in-mariadb-enterprise-server-11.8.md" class="button secondary">Overview of Enterprise Server 11.8</a>
 
-**Release date:**&#x20;
+**Release date:** 11 Dec 2025
 
 ## Changes
 

@@ -25,7 +25,7 @@ For more information see [Numeric Data Type Overview](../../../../reference/data
 | tinyint          | 1            | [TINYINT](../../../../reference/data-types/numeric-data-types/tinyint.md)                                                                     | 1            |                                              |
 | smallint         | 2            | [SMALLINT](../../../../reference/data-types/numeric-data-types/smallint.md)                                                                   | 2            |                                              |
 |                  |              | [MEDIUMINT](../../../../reference/data-types/numeric-data-types/mediumint.md)                                                                 | 3            | Takes 3 bytes on disk, but 4 bytes in memory |
-| int              | 1            | [INT](../../../../reference/data-types/numeric-data-types/int.md) / [INTEGER](../../../../reference/data-types/numeric-data-types/integer.md) | 4            |                                              |
+| int              | 4            | [INT](../../../../reference/data-types/numeric-data-types/int.md) / [INTEGER](../../../../reference/data-types/numeric-data-types/integer.md) | 4            |                                              |
 | bigint           | 8            | [BIGINT](../../../../reference/data-types/numeric-data-types/bigint.md)                                                                       | 8            |                                              |
 
 ### Real Numbers (approximated)

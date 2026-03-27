@@ -10,8 +10,6 @@ MaxScale is a sophisticated database proxy, router, and load balancer designed s
 * Replay pending transactions when a server goes down.
 * Support for Galera and Replication.
 
- 
-
 To better understand what MaxScale is capable of you may check the [product page](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) and the [documentation](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/).
 
 ## MaxScale resources
@@ -20,7 +18,7 @@ Prior to configuring MaxScale within Kubernetes, it's essential to have a basic 
 
 #### Servers
 
-A server defines the backend database servers that MaxScale forwards traffic to. For more detailed information, please consult the [server reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-server-resource).
+A server defines the backend database servers that MaxScale forwards traffic to. For more detailed information, please consult the [server reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api/maxscale-server-resource).
 
 #### Monitors
 
@@ -33,7 +31,7 @@ Depending on which highly available configuration your servers have, you will ne
 
 #### Services
 
-A service defines how the traffic is routed to the servers based on a routing algorithm that takes into account the state of the servers and its role. For more detailed information, please consult the [service reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-service-resource).
+A service defines how the traffic is routed to the servers based on a routing algorithm that takes into account the state of the servers and its role. For more detailed information, please consult the [service reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api/maxscale-service-resource).
 
 Depending on your requirements to route traffic, you may choose between the following routers:
 
@@ -42,7 +40,7 @@ Depending on your requirements to route traffic, you may choose between the foll
 
 #### Listeners
 
-A listener specifies a port where MaxScale listens for incoming connections. It is associated with a service that handles the requests received on that port. For more detailed information, please consult the [listener reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-25-01-rest-api/mariadb-maxscale-2501-maxscale-2501-listener-resource).
+A listener specifies a port where MaxScale listens for incoming connections. It is associated with a service that handles the requests received on that port. For more detailed information, please consult the [listener reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-rest-api/maxscale-listener-resource).
 
 ## `MaxScale` CR
 
@@ -58,9 +56,9 @@ spec:
     name: mariadb-galera
 ```
 
-This will provision a new `StatefulSet` for running MaxScale and configure the servers specified by the `MariaDB` resource. Refer to the [Server configuration](#server-configuration) section if you want to manually configure the MariaDB servers.
+This will provision a new `StatefulSet` for running MaxScale and configure the servers specified by the `MariaDB` resource. Refer to the [Server configuration](maxscale.md#server-configuration) section if you want to manually configure the MariaDB servers.
 
-The rest of the configuration uses reasonable [defaults](#defaults) set automatically by the operator. If you need a more fine grained configuration, you can provide this values yourself:
+The rest of the configuration uses reasonable [defaults](maxscale.md#defaults) set automatically by the operator. If you need a more fine grained configuration, you can provide this values yourself:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -93,7 +91,7 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 172.18.0.224
 ```
 
-As you can see, the [MaxScale resources](#maxscale-resources) we previously mentioned have a counterpart resource in the `MaxScale` CR.
+As you can see, the [MaxScale resources](maxscale.md#maxscale-resources) we previously mentioned have a counterpart resource in the `MaxScale` CR.
 
 The previous example configured a `MaxScale` for a Galera cluster, but you may also configure `MaxScale` with a `MariaDB` that uses replication. It is important to note that the monitor module is automatically inferred by the operator based on the `MariaDB` reference you provided, however, its parameters are specific to each monitor module:
 
@@ -153,7 +151,7 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 172.18.0.214
 ```
 
-You also need to set a reference in the `MariaDB` resource to make it `MaxScale`-aware. This is explained in the [MariaDB CR](#mariadb-cr) section.
+You also need to set a reference in the `MariaDB` resource to make it `MaxScale`-aware. This is explained in the [MariaDB CR](maxscale.md#mariadb-cr) section.
 
 Refer to the [API reference](../api-reference.md) for further detail.
 
@@ -183,7 +181,7 @@ MariaDB Enterprise Kubernetes Operator aims to provide highly configurable CRs, 
 
 * `spec.servers` are inferred from `spec.mariaDbRef`.
 * `spec.monitor.module` is inferred from the `spec.mariaDbRef`.
-* `spec.monitor.cooperativeMonitoring` is set if [high availability](#high-availability) is enabled.
+* `spec.monitor.cooperativeMonitoring` is set if [high availability](maxscale.md#high-availability) is enabled.
 * If `spec.services` is not provided, a `readwritesplit` service is configured on port `3306` by default.
 
 ## Server configuration
@@ -260,7 +258,7 @@ spec:
 Pointing to external MariaDBs has some limitations: Since the operator doesn't have a reference to a `MariaDB` resource (`spec.mariaDbRef`), it will be unable to perform the following actions:
 
 * Infer the monitor module (`spec.monitor.module`), so it will need to be provided by the user.
-* Autogenerate authentication credentials (`spec.auth`), so they will need to be provided by the user. See [Authentication](#authentication) section.
+* Autogenerate authentication credentials (`spec.auth`), so they will need to be provided by the user. See [Authentication](maxscale.md#authentication) section.
 
 ## Primary server switchover
 
@@ -331,19 +329,19 @@ spec:
         - ReadWriteOnce
 ```
 
-Both this global configuration and the resources created by the operator using the [MaxScale API](#maxscale-api) are stored under a volume provisioned by the `spec.config.volumeClaimTemplate`. Refer to the [troubleshooting](#troubleshooting) if you are getting errors writing on this volume.
+Both this global configuration and the resources created by the operator using the [MaxScale API](maxscale.md#maxscale-api) are stored under a volume provisioned by the `spec.config.volumeClaimTemplate`. Refer to the [troubleshooting](maxscale.md#troubleshooting) if you are getting errors writing on this volume.
 
-Refer to the [MaxScale reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/mariadb-maxscale-2501-maxscale-2501-configuration-settings) for more details about the supported parameters.
+Refer to the [MaxScale reference](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/reference/maxscale-configuration-settings) for more details about the supported parameters.
 
 ## Authentication
 
 MaxScale requires authentication with different levels of permissions for the following components/actors:
 
-* [MaxScale API](#maxscale-api) consumed by MariaDB Enterprise Kubernetes Operator.
+* [MaxScale API](maxscale.md#maxscale-api) consumed by MariaDB Enterprise Kubernetes Operator.
 * Clients connecting to MaxScale.
 * MaxScale connecting to MariaDB servers.
 * MaxScale monitor connecting to MariaDB servers.
-* MaxScale configuration syncer to connect to MariaDB servers. See [high availability](#high-availability) section.
+* MaxScale configuration syncer to connect to MariaDB servers. See [high availability](maxscale.md#high-availability) section.
 
 By default, the operator generates this credentials when `spec.mariaDbRef` is set and `spec.auth.generate = true`, but you are still able to provide your own:
 
@@ -383,7 +381,7 @@ spec:
     syncMaxConnections: 90
 ```
 
-As you could see, you are also able to limit the number of connections for each component/actor. Bear in mind that, when running in [high availability](#high-availability), you may need to increase this number, as more MaxScale instances implies more connections.
+As you could see, you are also able to limit the number of connections for each component/actor. Bear in mind that, when running in [high availability](maxscale.md#high-availability), you may need to increase this number, as more MaxScale instances implies more connections.
 
 ## Kubernetes `Services`
 
@@ -427,7 +425,7 @@ spec:
   type: LoadBalancer
 ```
 
-There is also another Kubernetes `Service` to access the GUI, please refer to the [MaxScale GUI](#maxscale-gui) section for further detail.
+There is also another Kubernetes `Service` to access the GUI, please refer to the [MaxScale GUI](maxscale.md#maxscale-gui) section for further detail.
 
 ## Connection
 
@@ -463,7 +461,7 @@ spec:
     port: 3306
 ```
 
-Note that, the `Connection` uses the `Service` described in the [Kubernetes Service](#kubernetes-service) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
+Note that, the `Connection` uses the `Service` described in the [Kubernetes Service](maxscale.md#kubernetes-service) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
 
 ## High availability
 
@@ -502,6 +500,7 @@ Multiple `MaxScale` replicas can be specified by providing the `spec.replicas` f
 ```sh
 kubectl scale maxscale maxscale-galera --replicas 3
 ```
+
 Or even configuring an `HorizontalPodAutoscaler` to do the job automatically.
 
 ## Suspend resources
@@ -512,7 +511,7 @@ In order to enable this feature, you must set the `--feature-maxscale-suspend` f
 helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --set extraArgs={--feature-maxscale-suspend}
 ```
 
-Then you will be able to suspend any [MaxScale resources](#maxscale-resources), for instance, you can suspend a monitor:
+Then you will be able to suspend any [MaxScale resources](maxscale.md#maxscale-resources), for instance, you can suspend a monitor:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -535,7 +534,7 @@ spec:
 
 ## MaxScale GUI
 
-MaxScale offers a great user interface that provides very useful information about the [MaxScale resources](#maxscale-resources). You can enable it by providing the following configuration:
+MaxScale offers a great user interface that provides very useful information about the [MaxScale resources](maxscale.md#maxscale-resources). You can enable it by providing the following configuration:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -555,7 +554,7 @@ spec:
           metallb.universe.tf/loadBalancerIPs: 172.18.0.231
 ```
 
-The GUI is exposed via a dedicated Kubernetes `Service` in the same port as the [MaxScale API](#maxscale-api). Once you access, you will need to enter the [MaxScale API](maxscale.md#maxscale-api) credentials configured by the operator in a `Secret`. See the [Authentication](maxscale.md#authentication) section for more details.
+The GUI is exposed via a dedicated Kubernetes `Service` in the same port as the [MaxScale API](maxscale.md#maxscale-api). Once you access, you will need to enter the [MaxScale API](maxscale.md#maxscale-api) credentials configured by the operator in a `Secret`. See the [Authentication](maxscale.md#authentication) section for more details.
 
 ![](../../.gitbook/assets/maxscale-gui.png)
 
@@ -563,11 +562,11 @@ The GUI is exposed via a dedicated Kubernetes `Service` in the same port as the 
 
 MariaDB Enterprise Kubernetes Operator interacts with the [MaxScale REST API](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-25-01/maxscale-25-01-rest-api) to reconcile the specification provided by the user, considering both the MaxScale status retrieved from the API and the provided spec.
 
-[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998%26entityType%3Dcollection%26workspaceId%3Da184b7e4-b1f7-405e-b9ec-ec62ed36dd27)
+[![Run In Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D9776-74dfd54a-2b2b-451f-95ab-006e1d9d9998%26entityType%3Dcollection%26workspaceId%3Da184b7e4-b1f7-405e-b9ec-ec62ed36dd27)
 
 ## Troubleshooting
 
-The operator tracks both the `MaxScale` status in regards to Kubernetes resources as well as the status of the [MaxScale API](#maxscale-api) resources. This information is available on the status field of the `MaxScale` resource, it may be very useful for debugging purposes:
+The operator tracks both the `MaxScale` status in regards to Kubernetes resources as well as the status of the [MaxScale API](maxscale.md#maxscale-api) resources. This information is available on the status field of the `MaxScale` resource, it may be very useful for debugging purposes:
 
 ```yaml
 status:
@@ -609,7 +608,7 @@ LAST SEEN   TYPE      REASON                         OBJECT                     
 24s         Normal    MaxScalePrimaryServerChanged   maxscale/mariadb-repl-maxscale   MaxScale primary server changed from 'mariadb-repl-0' to 'mariadb-repl-1'
 ```
 
-The operator logs can also be a good source of information for troubleshooting. You can increase its verbosity and enable [MaxScale API](#maxscale-api) request logs by running:
+The operator logs can also be a good source of information for troubleshooting. You can increase its verbosity and enable [MaxScale API](maxscale.md#maxscale-api) request logs by running:
 
 ```sh
 helm upgrade --install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-enterprise-operator --set logLevel=debug --set extraArgs={--log-maxscale}

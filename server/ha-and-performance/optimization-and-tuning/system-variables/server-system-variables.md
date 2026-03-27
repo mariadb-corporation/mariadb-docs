@@ -874,7 +874,7 @@ The suffix can be upper or lower-case.
   * `JSON_HB` (>= [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110))
   * `DOUBLE_PREC_HB` (<= [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3))
 * Valid Values:
-  * `SINGLE_PREC_HB`, `DOUBLE_PREC_HB` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106))
+  * `SINGLE_PREC_HB`, `DOUBLE_PREC_HB` (<= [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106))
   * `SINGLE_PREC_HB`, `DOUBLE_PREC_HB`, `JSON_HB` (>= [MariaDB 10.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/what-is-mariadb-108))
 
 #### `host_cache_size`
@@ -1054,9 +1054,9 @@ The suffix can be upper or lower-case.
 #### `large_pages`
 
 * Description: Whether or not large page support is used.
-  * This is set with `--large-pages` or disabled with `--skip-large-pages`.&#x20;
-  * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).&#x20;
-  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd.md)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`). The  implementation supports multiple page sizes using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
+  * This is set with `--large-pages` or disabled with `--skip-large-pages`.
+  * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).
+  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd.md)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`). The implementation supports multiple page sizes using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
     * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
     * To find possible huge page size values, issue this command:\
       `ls -la /sys/devices/system/node/node0/hugepages/`
@@ -2311,7 +2311,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 {% endtab %}
 
 {% tab title="< 12.0" %}
-* Description: When set to `1` (`0` is default), no updates are permitted except from users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege, or replica servers updating from a primary. The `read_only` variable is useful for replica servers to ensure no updates are accidentally made outside of what are performed on the primary. Inserting rows to log tables, updates to temporary tables and [OPTIMIZE TABLE](../optimizing-tables/optimize-table.md) or [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) statements are excluded from this limitation. If `read_only` is set to `1`, then the [SET PASSWORD](../../../reference/sql-statements/account-management-sql-statements/set-password.md) statement is limited only to users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege (<= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)) or [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)). Attempting to set this variable to `1` will fail if the current session has table locks or transactions pending, while if other sessions hold table locks, the statement will wait until these locks are released before completing. While the attempt to set `read_only` is waiting, other requests for table locks or transactions will also wait until `read_only` has been set. See [Read-Only Replicas](../../standard-replication/read-only-replicas.md) for more. From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [READ\_ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege will allow users granted that privilege to perform writes, even if the `read_only` variable is set. In earlier versions, and until [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-0-release-notes), users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) can perform writes while this variable is set.
+* Description: When set to `1` (`0` is default), no updates are permitted except from users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege, or replica servers updating from a primary. The `read_only` variable is useful for replica servers to ensure no updates are accidentally made outside of what are performed on the primary. Inserting rows to log tables, updates to temporary tables and [OPTIMIZE TABLE](../optimizing-tables/optimize-table.md) or [ANALYZE TABLE](../../../reference/sql-statements/table-statements/analyze-table.md) statements are excluded from this limitation. If `read_only` is set to `1`, then the [SET PASSWORD](../../../reference/sql-statements/account-management-sql-statements/set-password.md) statement is limited only to users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege (<= [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)) or [READ ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege (>= [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)). Attempting to set this variable to `1` will fail if the current session has table locks or transactions pending, while if other sessions hold table locks, the statement will wait until these locks are released before completing. While the attempt to set `read_only` is waiting, other requests for table locks or transactions will also wait until `read_only` has been set. See [Read-Only Replicas](../../standard-replication/read-only-replicas.md) for more. From [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [READ\_ONLY ADMIN](../../../reference/sql-statements/account-management-sql-statements/grant.md#read_only-admin) privilege will allow users granted that privilege to perform writes, even if the `read_only` variable is set. In earlier versions, and until [MariaDB 10.11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.0), users with the [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#super) can perform writes while this variable is set.
 * Command line: `--read-only`
 * Scope: Global
 * Dynamic: Yes
@@ -3038,13 +3038,32 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Data Type: `enum`
 * Default Value: `preferably_for_queries`
 
+#### `validate_config`
+
+*   Description: Validates the server configuration (from configuration files and command line). Exits with exit code `0` on success, or non-zero on failure, without actually starting the server. Example:
+
+    ```bash
+    mariadbd --defaults-file=/etc/my.cnf --validate-config
+    ```
+
+    <div data-gb-custom-block data-tag="hint" data-style="info" class="hint hint-info"><p><code>--help</code> or <code>--version</code> take precedence. If used with this option, the configuration check is <strong>not</strong> performed.</p></div>
+* Exit codes:
+  * `0`: valid configuration
+  * `2`: unknown option
+  * `7`: unknown variable
+* Command line: `--validate-config`
+* Scope: Global
+* Dynamic: No
+* Data Type: numeric
+* Introduced: MariaDB 13.0
+
 #### `version`
 
 * Description: Server version number. It may also include a suffix with configuration or build information. `-debug` indicates debugging support was enabled on the server, and `-log` indicates at least one of the binary log, general log or [slow query log](../../../server-management/server-monitoring-logs/slow-query-log/) are enabled, for example `10.0.1-MariaDB-mariadb1precise-log`. Can be set at startup in order to fake the server version.
 * Command line: `-V`, `--version[=name]`
 * Scope: Global
 * Dynamic: No
-* Type: string
+* Data Type: string
 
 #### `version_comment`
 

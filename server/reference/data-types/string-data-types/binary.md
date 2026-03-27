@@ -24,6 +24,15 @@ If the maximum length is exceeded, and [SQL strict mode](../../../server-managem
 
 `BINARY` values are right-padded with `0x00` (the zero byte) to the specified length when inserted. The padding is _not_ removed on select, so this needs to be taken into account when sorting and comparing, where all bytes are significant. The zero byte, `0x00` is less than a space for comparison purposes.
 
+### Use Cases for Zero Length
+
+A `BINARY(0)` or `VARBINARY(0)` column is restricted to an empty byte string or `NULL`.
+
+* **Schema Preservation**: Use these columns when a system expects a specific column to exist, but no data storage is required for your current application.
+* **Space-Efficient Indicators**: These columns can act as a two-state indicator where the presence of an empty byte string represents one state and `NULL` represents another.
+
+If you attempt to insert a value other than an empty string, MariaDB returns an `ERROR 1406 (22001)` indicating the data is too long for the column.
+
 ## Examples
 
 Inserting too many characters, first with strict mode off, then with it on:

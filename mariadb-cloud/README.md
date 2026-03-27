@@ -32,7 +32,7 @@ It has:
 
 So you can:
 
-* Start small
+* Start small&#x20;
 * Grow to extreme read-scale
 * HA with load balancing
 * Security by design
@@ -41,50 +41,41 @@ So you can:
 *
 
 ```mermaid
----
-config:
-  theme: neutral
-  layout: dagre
----
-flowchart LR
- subgraph cloud["MariaDB Cloud"]
-    direction LR
-        nodeId["MaxScale<br>(SQL Proxy)"]
-        n1["Replicas<br>in other zones, regions"]
-        n2["MariaDB Primary<br>+ replicas"]
-  end
- subgraph s1["User Interfaces"]
-        n3["MariaDB Cloud<br>Portal UI"]
-        n4["MariaDB Cloud<br>Monitoring UI"]
-  end
- subgraph s2["Developer API"]
-        n6["MariaDB SQL"]
-        n7["NoSQL"]
-        n8["REST API"]
-  end
-    nodeId <-.-> n1 & n2
-    s1 <--> cloud
-    s2 <--> cloud
-    cloud --> n9["Alerts<br>Autoscale<br>Monitor"] & n10["Cloud backups"]
-    n11["MariaDB Cloud<br>Unified, automated, simple"]
-    nodeId@{ shape: hex}
-    n1@{ shape: cyl}
-    n2@{ shape: cyl}
-    n6@{ shape: rect}
-    n7@{ shape: rect}
-    n8@{ shape: rect}
-    n9@{ shape: stored-data}
-    n10@{ shape: stored-data}
-    n11@{ shape: text}
-    style n3 stroke-width:1px,stroke-dasharray: 0,fill:#FFF9C4,stroke:none
-    style n4 stroke:none,fill:#FFF9C4
-    style n6 stroke-width:1px,stroke-dasharray: 0,fill:#C8E6C9,stroke:none
-    style n7 fill:#C8E6C9,stroke:none
-    style n8 fill:#C8E6C9,stroke:none
-    style cloud fill:#BBDEFB,stroke:#000000
-    style n9 fill:#FFE0B2
-    style n10 fill:#FFE0B2
-    style n11 color:#616161
+graph TD
+    subgraph UI [User Interfaces]
+        Portal[MariaDB Cloud Portal UI]
+        MonitorUI[MariaDB Cloud Monitoring UI]
+    end
+
+    subgraph API [Developer API]
+        SQL[MariaDB SQL]
+        NoSQL[NoSQL]
+        REST[REST API]
+    end
+
+    subgraph Cloud [MariaDB Cloud]
+        MaxScale{MaxScale SQL Proxy}
+        Primary[MariaDB Primary + replicas]
+        Replicas[Replicas in other zones, regions]
+    end
+
+    subgraph External [External Services]
+        Alerts[Alerts / Autoscale / Monitor]
+        Backups[Cloud backups]
+    end
+
+    %% Entry points at the top
+    UI <--> Cloud
+    API <--> Cloud
+    
+    %% Internal Cloud Logic
+    MaxScale <--> Primary
+    MaxScale <--> Replicas
+    
+    %% Force External Services to the bottom
+    Cloud ~~~ External
+    Cloud --> Alerts
+    Cloud --> Backups
 ```
 
 ## See Also

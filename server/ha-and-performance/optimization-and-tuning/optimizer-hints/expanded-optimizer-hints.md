@@ -4,524 +4,421 @@
 New-style optimizer hints were introduced in MariaDB 12.0 and 12.1.
 {% endhint %}
 
-## **Description**
+## Description
 
-Each individual hint is hint name and arguments. In case there are no arguments, the `()` parentheses are still present:
+In order to control optimizer choices of query plans, one can use [optimizer\_switch](../system-variables/server-system-variables.md#optimizer_switch), [join cache level](../system-variables/server-system-variables.md#join_cache_level) and other system variables. However, these variables affect execution of all queries but not some specific ones. To get more granular control, you can:
 
-```
-hint:  hint_name([arguments])
-```
+* Specify server variables before execution of every query (or group of queries);
+* Use [SET STATEMENT ... FOR](../../../reference/sql-statements/administrative-sql-statements/set-commands/set-statement.md) to temporarily change server variables for a specific query;
+* Use optimizer hints.
 
-Incorrect hints produce warnings (a setting to make them errors is not implemented yet).
+The benefit of optimizer hints is that they can control specific parts of the query: how to handle a particular `SELECT` or subquery, which indexes to use to access certain tables, etc.
 
-Hints that are not ignored are kept in the query text (you can see them in `SHOW PROCESSLIST`, Slow Query Log, `EXPLAIN EXTENDED`). Hints that were incorrect and were ignored are removed from there.
-
-### **Hint Hierarchy**
-
-Hints can be:
-
-* global - they apply to whole query;
-* table-level - they apply to a table;
-* index-level - they apply to an index in a table.
-
-#### **Table-Level Hints**
+Technically, hints are specifically formatted comments embedded right into the query text. For example:
 
 ```sql
-hint_name([table_name [table_name [,...]] )
+SELECT /*+ JOIN_ORDER(t2, t1) NO_INDEX(t2)*/ t1.* FROM t1, t2 ... ;
+SELECT /*+ NO_SEMIJOIN() */ * FROM t1 WHERE t1.a IN (...);
+SELECT /*+ MERGE(dt1) */ * FROM (SELECT * FROM t1) AS dt1;
+DELETE /*+ NO_BNL(t2@qb1) */ * FROM t1 WHERE a IN (SELECT /*+ QB_NAME(qb1) */ .. );
+UPDATE /*+ NO_RANGE_OPTIMIZATION(t1 PRIMARY) */  * FROM t1 ...;
 ```
 
-#### **Index-Level Hints**
+## Syntax
 
-Index-level hints apply to indexes. Possible syntax variants are:
+Hints sequence starts with `/*+` and ends with `*/`. There can be an arbitrary number of hints in the sequence, separated by spaces. Hints are recognized by the parser if they follow the initial keyword `SELECT`, `UPDATE`, `DELETE`. Each query block can have its own set of hints, for example:
 
 ```sql
-hint_name(table_name [index_name [, index_name] ...])
-
-hint_name(table_name@query_block [index_name [, index_name] ...])
-
-hint_name(@query_block  table_name [index_name [, index_name] ...])
+SELECT /*+ ... */ ... FROM t1 WHERE a IN (SELECT /*+ ... */ ...);
+UPDATE /*+ ... */ ... WHERE a IN (SELECT /*+ ... */ ... );
+SELECT /*+ ... */ ... UNION ALL SELECT /*+ ... */ ...;
 ```
 
-### **Effect of Optimizer Hints**
-
-The optimizer can be controlled by
-
-1. server variables - optimizer\_switch, join\_cache\_level, and so forth;
-2. old-style hints;
-3. new-style hints.
-
-Old-style hints do not overlap with server variable settings.
-
-New-style hints are more specific than server variable settings, so they override the server variable settings.
-
-Hints are "narrowly interpreted" and "best effort" - if a hint dictates to do something, for example:
+`INSERT ... SELECT` statements support hints only at the `SELECT` part, not at the `INSERT` part:
 
 ```sql
-SELECT  /*+ MRR(t1 t1_index1) */  ... FROM t1 ...
+INSERT INTO ... SELECT /*+ ... */ ...;
 ```
 
-It means: When considering a query plan that involves using `t1_index1` in a way that one can use `MRR`, use `MRR`. If the query planning is such that use of `t1_index1` doesn't allow to use `MRR`, it won't be used.
-
-The optimizer may also consider using `t1_index2` and pick that over `using t1_index1`. In such cases, the hint is effectively ignored and no warning is given.
-
-### **Query Block Naming**
-
-The `QB_NAME` hint is used to assign a name to the query block the hint is in. The Query block is either a `SELECT` statement or a top-level construct of an `UPDATE` or `DELETE` statement.
+A single query block may have multiple hints in a single hint sequence, for example:
 
 ```sql
-SELECT /*+ QB_NAME(foo) */ select_list FROM ...
+SELECT /*+ NO_BKA(qb1) INDEX(t1 idx1) JOIN_PREFIX(t2, t1)*/ ... FROM t1, t2 ...;
 ```
 
-The name can then can be used
-
-* to refer to the query block;
-* to refer to a table in the query block as `table_name@query_block_name`.
-
-Query block scope is the whole statement. It is invalid to use the same name for multiple query blocks. You can refer to the query block "down into subquery", "down into derived table", "up to the parent" and "to a right sibling in the `UNION`". You cannot refer "to a left sibling in a `UNION`".
-
-Hints inside views are not supported, yet. You can neither use hints in `VIEW` definitions, nor control query plans inside non-merged views. (This is because `QB_NAME` binding are done "early", before we know that some tables are views.)
-
-### **SELECT#N NAMES**
-
-Besides the given name, any query block is given a name `select`_`#n`_  (where _`#n`_ stands for a number). You can see it when running `EXPLAIN EXTENDED`:
+but multiple sequences are not supported:
 
 ```sql
-Note 1003 SELECT /*+ NO_RANGE_OPTIMIZATION(t3@select#1 PRIMARY) */ ...
+SELECT /*+ NO_BKA(qb1) */ /*+ INDEX(t1 idx1) */ ... FROM t1 ...;
 ```
 
-It is **not** possible to use it in the hint text:
+Incorrect syntax, duplication of hints or other inconsistencies produce warnings:
 
 ```sql
-SELECT /*+ BKA(tbl1@`select#1`) */ 1 FROM tbl1 ...;
-```
-
-### **QB\_NAME in CTEs**
-
-Hints that control `@name` will control the first use of the CTE (common table expression).
-
-## Available Expanded Optimizer Hints
-
-### NO\_ROWID\_FILTER
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-```
-/* +NO_ROWID_FILTER([table_name [index_name [ ... ] ]] ) */
-```
-
-Does not consider `ROWID` filter for the scope of the hint (all tables in the query block, specific table, and specific indexes). See [ROWID\_FILTER](expanded-optimizer-hints.md#rowid_filter) for details.
-
-### NO\_SPLIT\_MATERIALIZED
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-When a derived table is materialized, MariaDB processes and stores the results of that derived table temporarily before joining it with other tables. The "lateral derived" optimization specifically looks for ways to optimize these types of derived tables. It does that by pushing a splitting condition down into the derived table, to limit the number of rows materialized into the derived table. The `SPLIT_MATERIALIZED` hint forces this behavior, while `NO_SPLIT_MATERIALIZED` prevents it.
-
-`NO_SPLIT_MATERIALIZED(`_`X`_`)` disables the use of split-materialized optimization in the context of _`X` :_
-
-```sql
-SELECT
-  /*+ NO_SPLIT_MATERIALIZED(CUST_TOTALS) */
-  ...
-FROM
-  customer
-  (SELECT SUM(amount), o_custkey FROM orders GROUP BY o_custkey) as CUST_TOTALS
-WHERE
-   customer.c_custkey= o_custkey AND
-   customer.country='FI';
-```
-
-### ROWID\_FILTER
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-```
-/* +ROWID_FILTER( [table_name [index_name [ ...] ]]) */
-```
-
-Like [NO\_RANGE\_OPTIMIZATION](expanded-optimizer-hints.md#no_range_optimization) or [MRR](expanded-optimizer-hints.md#mrr-and-no_mrr), this hint can be applied to:
-
-* Query blocks — `NO_ROWID_FILTER()`
-* Table — `NO_ROWID_FILTER(`_`table_name`_`)`
-* Specific indexes — `NO_ROWID_FILTER(`_`table_name index1 index2 ...`_`)`&#x20;
-
-Forces the use of `ROWID_FILTER` for the table index it targets:
-
-* For query blocks and tables, it enables the use of the `ROWID` filter, assuming it is disabled globally.
-* For indexes, it forces its use, regardless of the costs. The following query forces the use of the `ROWID` filter made from _`t1.idx1`_ if the chosen plan allows so (that is, if the access method to _`t1`_ allows it):
-
-```sql
-SELECT /*+ ROWID_FILTER(t1 idx1) */
+SELECT /*+ QB_NAME(qb1) QB_NAME(qb1 ) */ * FROM t2 ...
 ...
+Warnings:
+Warning 4219    Hint QB_NAME(`qb1`) is ignored as conflicting/duplicated
+
+SELECT /*+ BKA(t1) NO_BKA(t1) */ * FROM t1 ...
+...
+Warnings:
+Warning 4219    Hint NO_BKA(`t1`) is ignored as conflicting/duplicated
+
+SELECT /*+ INDEX(t1) JOIN_INDEX(t1) */ a FROM t1 ...
+...
+Warnings:
+Warning 4240    Hint JOIN_INDEX(`t1` ) is ignored as conflicting/duplicated (an index hint of the same type or opposite kind has already been specified for this table)
+
+SELECT /*+ SEMIJOIN(loosescan @qb1) */ a FROM t1 ...
+...
+Warnings:
+Warning 1064    Optimizer hint syntax error near '@qb1) */ a FROM t1' at line 1
+
+SELECT /*+ SUBQUERY(@qb1 materialization) */ a FROM t1 ...
+...
+Warnings:
+Warning 4220    Query block name `qb1` is not found for SUBQUERY hint
 ```
 
-{% hint style="warning" %}
-Assuming the optimizer would pick _`idx2`_ for table _`t1`_ if the hint was _not_ used, this could result in the usage of both _`idx2`_ and _`idx1`_ if the hint _is_ used. That might become more expensive than a full table scan, or result in a change of the join order.
-
-Therefore, do not "blindly" use this filter, but rather make sure its use doesn't have a negative impact as described.
-{% endhint %}
-
-### SPLIT\_MATERIALIZED
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-When a derived table is materialized, MariaDB processes and stores the results of that derived table temporarily before joining it with other tables. The "lateral derived" optimization specifically looks for ways to optimize these types of derived tables. It does that by pushing a splitting condition down into the derived table, to limit the number of rows materialized into the derived table. The `SPLIT_MATERIALIZED` hint forces this behavior, while `NO_SPLIT_MATERIALIZED` prevents it.
-
-`SPLIT_MATERIALIZED(`_`X`_`)` enables and forces the use of split-materialized optimization in the context of _`X`_, unless it is impossible to do (for instance, because a table is not a materialized derived table).
+Hints that were not rejected as invalid/conflicting/duplicated are visible in the output of `EXPLAIN EXTENDED`, in section "Warnings":
 
 ```sql
-SELECT
-  /*+ SPLIT_MATERIALIZED(CUST_TOTALS) */
-  ...
-FROM
-  customer
-  (SELECT SUM(amount), o_custkey FROM orders GROUP BY o_custkey) as CUST_TOTALS
-WHERE
-   customer.c_custkey= o_custkey AND
-   customer.country='FI';
+EXPLAIN EXTENDED SELECT /*+ INDEX(t1)*/ a FROM t1;
+id      select_type     table   type    possible_keys   key     key_len ref     rows    filtered        Extra
+1       SIMPLE  t1      index   NULL    i_a     5       NULL    256     100.00  Using index
+Warnings:
+Note    1003    select /*+ INDEX(`t1`@`select#1`) */ `test`.`t1`.`a` AS `a` from `test`.`t1`
+
 ```
 
-{% hint style="info" %}
-The following hints are available from MariaDB 12.0, unless indicated otherwise.
-{% endhint %}
+### General Notes
 
-Hints are placed after the main statement verb.
+* If a table has an alias, hints must refer to the alias, not the table name.
+* Table names in hints cannot be qualified with schema names.
+
+### Hints Inside Views
+
+Hints may be specified within VIEW's during their creation. For example:
 
 ```sql
-UPDATE /*+ hints */ table ...;
-DELETE /*+ hints */ FROM table... ;
-SELECT /*+ hints */  ...
+CREATE VIEW v1 AS
+  SELECT /*+ GROUP_INDEX(t1 idx1) */ FROM t1 ... GROUP BY ... HAVING ...
 ```
 
-They can also appear after the `SELECT` keyword in any subquery:
+The hints are then visible in the output of `SHOW CREATE VIEW`.
+
+#### Limitations
+
+Hints inside views are applied locally within that VIEW's scope and do not affect the outer query. Query blocks declared inside views cannot be referenced from hints in the outer query.
 
 ```sql
-SELECT * FROM t1 WHERE a IN (SELECT /*+ hints */ ...)
+-- Query block name `qb_v1` is not accessible from outer queries using `v1`!
+CREATE VIEW v1 AS
+  SELECT /*+ QB_NAME(qb_v1) */ FROM t1 ... GROUP BY ... HAVING ...
 ```
 
-There can be one or more hints separated with space:
+To reference inner view objects from outside the view, refer to other [query block addressing methods](query-block-naming.md) like [query block names with path](query-block-naming.md#explicit-query-block-names-with-path) or [implicit names based on aliases](query-block-naming.md#implicit-names-based-on-aliases).
 
-```sql
-hints:  hint hint ...
-```
+## Hint Hierarchy
 
-### **JOIN\_INDEX and NO\_JOIN\_INDEX**
+Hints can apply at different levels:
 
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
+* global - the hints affect _the whole query_;
+* query-block-level - the hints affect _a certain query block_ of the query;
+* table-level - the hints affect _certain tables_;
+* index-level - the hints affect _particular indexes of tables_.
 
-An index-level hint that enables or disables the specified indexes for an access method (range, ref, etc.). Equivalent to `FORCE INDEX FOR JOIN` and `IGNORE INDEX FOR JOIN`.
+## Available Optimizer Hints
 
-### **GROUP\_INDEX and NO\_GROUP\_INDEX**
+This table provides an overview of optimizer hints supported in MariaDB, showing which optimizations each hint controls and at what level (global, query block, table, or index) they can be applied.
 
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
+| Hint Name                                                                                                                                      | Affected Optimization                    | Applicable Scopes  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------------ |
+| [`BKA`, `NO_BKA`](table-level-hints.md)                                                                                                        | Batched key access join                  | Query block, Table |
+| [`BNL`, `NO_BNL`](table-level-hints.md)                                                                                                        | Block nested-loop join                   | Query block, Table |
+| [`DERIVED_CONDITION_PUSHDOWN`, `NO_DERIVED_CONDITION_PUSHDOWN`](table-level-hints.md#derived_condition_pushdown-no_derived_condition_pushdown) | Condition pushdown for derived tables    | Query block, Table |
+| [`GROUP_INDEX`, `NO_GROUP_INDEX`](index-level-hints.md)                                                                                        | Use of indexes for `GROUP BY` operations | Table, Index       |
+| [`INDEX`, `NO_INDEX`](index-level-hints.md)                                                                                                    | Use of indexes                           | Table, Index       |
+| [`INDEX_MERGE`, `NO_INDEX_MERGE`](index-level-hints.md#index_merge-no_index_merge)                                                             | Index merge                              | Table, Index       |
+| [`JOIN_FIXED_ORDER`](expanded-optimizer-hints.md#join-order-hints)                                                                             | Straight join order                      | Query block        |
+| [`JOIN_INDEX`, `NO_JOIN_INDEX`](index-level-hints.md)                                                                                          | Use of indexes for data access           | Index              |
+| [`JOIN_ORDER`](expanded-optimizer-hints.md#join-order-hints)                                                                                   | Join order                               | Table              |
+| [`JOIN_PREFIX`](expanded-optimizer-hints.md#join-order-hints)                                                                                  | Join order for first tables              | Table              |
+| [`JOIN_SUFFIX`](expanded-optimizer-hints.md#join-order-hints)                                                                                  | Join order for last tables               | Table              |
+| [`MAX_EXECUTION_TIME`](expanded-optimizer-hints.md#max_execution_time)                                                                         | Query execution time limit               | Global             |
+| [`MERGE`, `NO_MERGE`](table-level-hints.md#merge-no_merge)                                                                                     | Derived table/CTE merging                | Query block, Table |
+| [`MRR`, `NO_MRR`](index-level-hints.md#mrr-no_mrr)                                                                                             | Multi-Range Read                         | Table, Index       |
+| [`NO_ICP`](expanded-optimizer-hints.md#no_icp)                                                                                                 | Index Condition Pushdown                 | Table, Index       |
+| [`NO_RANGE_OPTIMIZATION`](index-level-hints.md#no_range_optimization)                                                                          | Range optimization                       | Table, Index       |
+| [`ORDER_INDEX`, `NO_ORDER_INDEX`](index-level-hints.md)                                                                                        | Use of indexes for sorting               | Table, Index       |
+| [`QB_NAME`](query-block-naming.md#explicit-query-block-names)                                                                                  | Assigns name to query block              | Query block        |
+| [`ROWID_FILTER`, `NO_ROWID_FILTER`](index-level-hints.md#rowid_filter-no_rowid_filter)                                                         | Rowid filtering                          | Table, Index       |
+| [`SEMIJOIN`, `NO_SEMIJOIN`](expanded-optimizer-hints.md#subquery-hints)                                                                        | Semi-join optimization                   | Query block        |
+| [`SPLIT_MATERIALIZED`, `NO_SPLIT_MATERIALIZED`](table-level-hints.md#split_materialized-no_split_materialized)                                 | Lateral derived / split materialization  | Table              |
+| [`SUBQUERY`](expanded-optimizer-hints.md#subquery-hints)                                                                                       | Subquery transformation                  | Query block        |
 
-An index-level hint that enables or disables the specified indexes for index scans for `GROUP BY` operations. Equivalent to `FORCE INDEX FOR GROUP BY` and `IGNORE INDEX FOR GROUP BY`.
+### Syntax of Global Hints
 
-### **ORDER\_INDEX and NO\_ORDER\_INDEX**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-An index-level hint that enables or disables the specified indexes for sorting rows. Equivalent to `FORCE INDEX FOR ORDER BY` and `IGNORE INDEX FOR ORDER BY`.
-
-### **INDEX and NO\_INDEX**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-An index-level hint that enables or disables the specified indexes, for all scopes (join access method, `GROUP BY`, or sorting). Equivalent to [FORCE INDEX](../query-optimizations/force-index.md) and [IGNORE INDEX](../query-optimizations/ignore-index.md).
+Such hints affect _the whole query_.
 
 #### Syntax
 
 ```sql
-/*+ INDEX(table_name [index_name, ...]) */
-/*+ NO_INDEX(table_name [index_name, ...]) */
+hint_name(arguments)
 ```
 
-#### Behavior
+Currently, there is only one global hint:
 
-The hints operate by modifying the set of keys the optimizer considers for `SELECT` statements. The specific behavior depends on whether specific index keys are provided within the hint.
+* [`MAX_EXECUTION_TIME`](expanded-optimizer-hints.md#max_execution_time)
 
-### INDEX\_MERGE and NO\_INDEX\_MERGE
+### Syntax of Query-Block-Level Hints
 
-{% hint style="info" %}
-This hint is available from MariaDB 12.2.
-{% endhint %}
-
-The `INDEX_MERGE` and `NO_INDEX_MERGE` optimizer hints provide granular control over the optimizer's use of index merge strategies. They allow users to override the optimizer's cost-based calculations and global switch settings, to force or prevent the merging of indexes for specific tables.
+These hints affect _a certain query block_ of the query.
 
 #### Syntax
 
 ```sql
-/*+ INDEX_MERGE(table_name [index_name, ...]) */
-/*+ NO_INDEX_MERGE(table_name [index_name, ...]) */
+hint_name([@query_block_name])
 ```
-
-#### Behavior
-
-The hints operate by modifying the set of keys the optimizer considers for merge operations. The specific behavior depends on whether specific index keys are provided within the hint.
-
-#### **INDEX\_MERGE Hint**
-
-This hint instructs the optimizer to employ an index merge strategy.
-
-* Without arguments: When specified as `INDEX_MERGE(tbl)`, the optimizer considers all available keys for that table and selects the cheapest index merge combination.
-* With specific keys: When specified with keys, for instance, `INDEX_MERGE(tbl key1, key2)`, the optimizer considers only the listed keys for the merge operation. All other keys are excluded from consideration for index merging.
-
-{% hint style="info" %}
-The `INDEX_MERGE` hint overrides the global [optimizer\_switch](../query-optimizations/optimizer-switch.md). Even if a specific strategy (such as [index\_merge\_intersection](../query-optimizations/index_merge-sort_intersection.md)) is disabled globally, the hint forces the optimizer to attempt the strategy using the specified keys.
-{% endhint %}
-
-#### **NO\_INDEX\_MERGE Hint**
-
-This hint instructs the optimizer to avoid index merge strategies.
-
-* Without arguments: When specified as `NO_INDEX_MERGE(tbl)`, index merge optimizations are completely disabled for the specified table.
-* With specific keys: When specified with keys, for instance, `NO_INDEX_MERGE(tbl key1)`, the listed keys are excluded from consideration. The optimizer may still perform a merge using other available keys. However, if excluding the listed keys leaves insufficient row-ordered retrieval (ROR) scans available, no merge is performed.
-
-#### Algorithm Selection and Limitations
-
-While these hints control which keys are candidates for merging, they do not directly dictate the specific merge algorithm (Intersection, Union, or Sort-Union).
-
-* Indirect Control: You can influence the strategy indirectly by combining these hints with [optimizer\_switch](../query-optimizations/optimizer-switch.md) settings, but specific algorithm selection is not guaranteed.
-* Invalid Hints: If a hint directs the optimizer to use specific indexes, but those indexes do not provide sufficient ROR scans to form a valid plan, the server is unable to honor the hint. in this scenario, the server emits a warning.
 
 #### Examples
 
-In the following examples, the [index\_merge\_intersection](../query-optimizations/index_merge-sort_intersection.md) switch is globally disabled. However, the `INDEX_MERGE` hint forces the optimizer to consider specific keys (`f2` and `f4`), resulting in an intersection strategy.
-
-You can see that we disable intersection with `NO_INDEX_MERGE` for the following query and the behavior reflects in the [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) output.  The query after that shows with the hint enabling merge–an intersection of `f3,f4` is used.  In the last example, a different intersection is used: `f3,PRIMARY`.
-
-No intersection (no merged indexes):
-
 ```sql
-MariaDB [test]> EXPLAIN SELECT /*+ NO_INDEX_MERGE(t1 f2, f4, f3) */ COUNT(*) FROM t1 WHERE f4 = 'h' AND f3 = 'b' AND f5 = 'i'\G
-*************************** 1. row ***************************
-           id: 1
-  select_type: SIMPLE
-        table: t1
-         type: ref
-possible_keys: PRIMARY,f3,f4
-          key: f3
-      key_len: 9
-          ref: const,const
-         rows: 1
-        Extra: Using index condition; Using where
-1 row in set (0.009 sec)
+SELECT /*+ NO_BNL() */ * FROM t1 JOIN t2 ON t1.a = t2.a;
 ```
 
-Intersection of keys `f3, f4`:
+This statement contains one query block (since its name is not specified explicitly, this query block is assigned an implicit name `select#1`). The [`NO_BNL()`](table-level-hints.md#bnl-no_bnl) hint does not specify a query block name, so it is applied to the query block where the hint is specified. The hint disables block nested loop join for any tables of this query block.
 
 ```sql
-MariaDB [test]> EXPLAIN SELECT /*+ INDEX_MERGE(t1 f2, f4, f3) */ COUNT(*) FROM t1 WHERE f4 = 'h' AND f3 = 'b' AND f5 = 'i'\G
-*************************** 1. row ***************************
-           id: 1
-  select_type: SIMPLE
-        table: t1
-         type: index_merge
-possible_keys: PRIMARY,f3,f4
-          key: f3,f4
-      key_len: 9,9
-          ref: NULL
-         rows: 1
-        Extra: Using intersect(f3,f4); Using where; Using index
-1 row in set (0.010 sec)
+SELECT /*+ BKA(@qb1)*/ a FROM
+  (SELECT /*+ QB_NAME(qb1)*/ * FROM t1 JOIN t2 ON t1.a = t2.a) AS dt;
 ```
 
-Intersection of keys `PRIMARY, f3`:
+This statement contains two query blocks:
+
+* the topmost one which does not have an explicit name;
+* the one corresponding to derived table `dt` which is assigned an explicit name `qb1` with the use of `QB_NAME` hint.
+
+Here the `BKA(@qb1)` hint addresses query block name `qb1`. The hint enables [batched key access join](../query-optimizer/block-based-join-algorithms.md#batch-key-access-join) for tables of this query block.
+
+This syntax is equivalent to:
 
 ```sql
-MariaDB [test]> EXPLAIN SELECT COUNT(*) FROM t1 WHERE f4 = 'h' AND f3 = 'b' AND f5 = 'i'\G
-*************************** 1. row ***************************
-           id: 1
-  select_type: SIMPLE
-        table: t1
-         type: index_merge
-possible_keys: PRIMARY,f3,f4
-          key: f3,PRIMARY
-      key_len: 9,4
-          ref: NULL
-         rows: 1
-        Extra: Using intersect(f3,PRIMARY); Using where
-1 row in set (0.006 sec)
+SELECT a FROM
+  (SELECT /*+ BKA(@qb1) QB_NAME(qb1)*/ * FROM t1 JOIN t2 ON t1.a = t2.a) AS dt;
+
+SELECT a FROM
+  (SELECT /*+ BKA()*/ * FROM t1 JOIN t2 ON t1.a = t2.a) AS dt;
 ```
 
-### **NO\_RANGE\_OPTIMIZATION**
+See [query block naming](query-block-naming.md) for more information.
 
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
+### Syntax of Table-Level Hints
 
-An index-level hint that disables range optimization for certain index(es):
+These hints affect _certain tables_ of the statement.
+
+There are two syntax variants of table-level hints: to affect tables from the same query block, and to affect tables from different query blocks.
+
+#### Tables From the Same Query Block
+
+This variant addresses some or all tables of a particular query block:
 
 ```sql
-SELECT /*+ NO_RANGE_OPTIMIZATION(tbl index1 index2) */  * FROM tbl ...
+hint_name([@query_block_name] [tbl_name [, tbl_name] ...])
 ```
 
-### **NO\_ICP**
+Both `@query_block_name` and the list of `tbl_name`'s are optional. If `@query_block_name` is **not** specified, the hint applies to tables of the query block the hint is added to. If no tables are specified in the list, the hint affects the whole query block and effectively becomes a [query-block-level hint](expanded-optimizer-hints.md#syntax-of-query-block-level-hints).
 
-{% hint style="info" %}
-This hint is available from MariaDB 12.0.
-{% endhint %}
-
-An index-level hint that disables [Index Condition Pushdown](../query-optimizations/index-condition-pushdown.md) for the indexes. ICP+BKA is disabled as well.
+#### Examples
 
 ```sql
-SELECT /*+ NO_ICP(tbl index1 index2) */  * FROM tbl ...
+SELECT /*+ NO_MERGE(dt) */ dt.a, dt.b
+  FROM (SELECT a, b FROM t1) AS dt
+  JOIN (SELECT a, b FROM t2) AS dt2 ON dt.a = dt2.a;
 ```
 
-### **MRR and NO\_MRR**
+The hint disables merging of derived table `dt` into the upper `SELECT`. More information about this hint [can be found here](table-level-hints.md#merge-no_merge).
 
-{% hint style="info" %}
-This hint is available from MariaDB 12.0.
-{% endhint %}
-
-Index-level hints to force or disable use of MRR.
+If a user wants to disable merging of both `dt` and `dt2`, they can mention both derived table names in the hint body:
 
 ```sql
-SELECT /*+ MRR(tbl index1 index2) */  * FROM tbl ... 
-
-SELECT /*+ NO_MRR(tbl index1 index2) */  * FROM tbl ...
+SELECT /*+ NO_MERGE(dt, dt2) */ dt.a, dt.b
+  FROM (SELECT a, b FROM t1) AS dt
+  JOIN (SELECT a, b FROM t2) AS dt2 ON dt.a = dt2.a;
 ```
 
-This controls:
-
-* MRR optimization for range access;
-* BKA.
-
-### **BKA() and NO\_BKA()**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.0.
-{% endhint %}
-
-Query block or table-level hints.
-
-`BKA()` also enables MRR to make BKA possible. (This is different from session variables, where you need to enable MRR separately). This also enables BKAH.
-
-### **BNL() and NO\_BNL()**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.0.
-{% endhint %}
-
-Controls BNL-H.
-
-The implementation is "BNL() hint effectively increases join\_cache\_level up to 4 " .. for the table(s) it applies to.
-
-### **MAX\_EXECUTION\_TIME()**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.0.
-{% endhint %}
-
-Global-level hint to limit query execution time
+Alternatively, since there are no more derived tables in the statement besides `dt` and `dt2`, the same effect can be achieved with the query-block level variant of the hint:
 
 ```sql
-SELECT /*+ MAX_EXECUTION_TIME(milliseconds) */ ...  ;
+SELECT /*+ NO_MERGE() */ dt.a, dt.b
+  FROM (SELECT a, b FROM t1) AS dt
+  JOIN (SELECT a, b FROM t2) AS dt2 ON dt.a = dt2.a;
 ```
 
-A query that doesn't finish in the time specified will be aborted with an error.
+Here the effect of the hint is applied to the scope of the main query block.
 
-If `@@max_statement_time` is set, the hint will be ignored and a warning produced. Note that this contradicts the stated principle that "new-style hints are more specific than server variable settings, so they override the server variable settings".
-
-### **SPLIT\_MATERIALIZED(X) and NO\_SPLIT\_MATERIALIZED(X)**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-Enables or disables the use of the Split Materialized Optimization (also called the[ Lateral Derived Optimization](../query-optimizations/optimizations-for-derived-tables/lateral-derived-optimization.md)).
-
-### **DERIVED\_CONDITION\_PUSHDOWN and NO\_DERIVED\_CONDITION\_PUSHDOWN**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-Enables or disables the use of [condition pushdown for derived tables](../query-optimizations/optimizations-for-derived-tables/condition-pushdown-into-derived-table-optimization.md).
-
-### **MERGE and NO\_MERGE**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.1.
-{% endhint %}
-
-Table-level hint that enables the use of merging, or disables and uses materialization, for the specified tables, views or common table expressions.
-
-### **SUBQUERY**
-
-{% hint style="info" %}
-This hint is available from MariaDB 12.0.
-{% endhint %}
-
-Query block-level hint.
+Now let's consider a more complicated example when a user has a statement with two derived tables one of which is nested into another:
 
 ```sql
-SUBQUERY([@query_block_name] MATERIALIZATION)
-
-SUBQUERY([@query_block_name] INTOEXISTS)
+SELECT dt.a, dt.b
+  FROM (
+    SELECT t1.a, t1.b FROM t1
+    JOIN (SELECT a, b FROM t2) AS dt_inner ON t1.a = dt_inner.a
+  ) dt_outer;
 ```
 
-This controls non-semi-join subqueries. The parameter specifies which subquery to use. Use of this hint disables conversion of subquery into semi-join.
+If a user wants to disable merging of the inner derived table `dt_inner`, there are three ways of doing that:
 
-For details, see the [Subquery Hints section](expanded-optimizer-hints.md#subquery-hints-1).
+* assign an explicit name to the query block that the inner derived table belongs to, and address `dt_inner` with a hint from the topmost query block:
 
-### **SEMIJOIN and NO\_SEMIJOIN**
+```sql
+SELECT /*+ NO_MERGE(@inner_qb_name dt_inner) */ dt.a, dt.b
+  FROM (
+    SELECT /*+ QB_NAME(inner_qb_name) */ t1.a, t1.b FROM t1
+    JOIN (SELECT a, b FROM t2) AS dt_inner ON t1.a = dt_inner.a
+  ) dt_outer;
+```
+
+If there were more derived tables in `inner_qb_name` query block to address, they all should have been mentioned in the hint body, for example: `NO_MERGE(@inner_qb_name dt_inner, dt_inner2, dt_inner3)`
+
+* Place the hint right into the inner query block:
+
+```sql
+SELECT dt.a, dt.b
+  FROM (
+    SELECT /*+ NO_MERGE(dt2)*/ t1.a, t1.b FROM t1
+    JOIN (SELECT a, b FROM t2) AS dt2 ON t1.a = dt2.a
+  ) dt;
+```
+
+* Use an alternative variant of the syntax that is described [in the paragraph below](expanded-optimizer-hints.md#tables-from-different-query-blocks):
+
+```sql
+SELECT /*+ NO_MERGE(dt_inner@inner_qb_name) */ dt.a, dt.b
+  FROM (
+    SELECT /*+ QB_NAME(inner_qb_name) */ t1.a, t1.b FROM t1
+    JOIN (SELECT a, b FROM t2) AS dt_inner ON t1.a = dt_inner.a
+  ) dt_outer;
+```
+
+#### Tables From Different Query Blocks
+
+This variant of the syntax addresses tables from different query blocks:
+
+```sql
+hint_name([tbl_name@query_block_name [, tbl_name@query_block_name] ...])
+```
+
+For example, a user wants to disable [batched key access join](table-level-hints.md#bka-no_bka) for table `t2` from derived query `dt` and for table `t3` from the topmost query block. They can mention both table names in the hint body as follows:
+
+```sql
+SELECT /*+ NO_BKA(t2@inner_qb, t3)*/ SUM(t3.a) FROM
+    (SELECT /*+ QB_NAME(inner_qb)*/ t1.b FROM t1 JOIN t2 ON t1.a = t2.a) AS dt
+    JOIN t3 ON t3.a = dt.b;
+```
+
+If they run `EXPLAIN EXTENDED` for this query, they will see the hint applied to both tables from the hint body:
+
+```sql
+Warnings:
+Note	1003	select /*+ NO_BKA(`t2`@`inner_qb`) NO_BKA(`t3`@`select#1`) */ sum(`test`.`t3`.`a`) AS `SUM(t3.a)` from `test`.`t1` join `test`.`t2` join `test`.`t3` where `test`.`t3`.`a` = `test`.`t1`.`b` and `test`.`t1`.`a` = `test`.`t2`.`a`
+```
+
+`select#1` here is the implicit system name of the topmost query block (see more about this at [query block naming](query-block-naming.md)).
+
+In fact, the user can add the hints to the query in the same way as it is displayed above:
+
+```sql
+SELECT /*+ NO_BKA(`t2`@`inner_qb`) NO_BKA(`t3`@`select#1`) */ SUM(t3.a) FROM
+    (SELECT /*+ QB_NAME(inner_qb)*/ t1.b FROM t1 JOIN t2 ON t1.a = t2.a) AS dt
+    JOIN t3 ON t3.a = dt.b;
+```
+
+or
+
+```sql
+SELECT /*+ NO_BKA(`t2`@`inner_qb`, `t3`@`select#1`) */ SUM(t3.a) FROM
+    (SELECT /*+ QB_NAME(inner_qb)*/ t1.b FROM t1 JOIN t2 ON t1.a = t2.a) AS dt
+    JOIN t3 ON t3.a = dt.b;
+```
+
+It is also possible to assign a name to the topmost query block and refer each table by the explicit block name:
+
+```sql
+SELECT /*+ QB_NAME(topmost) NO_BKA(`t2`@`inner_qb`, `t3`@`topmost`) */ SUM(t3.a) FROM
+    (SELECT /*+ QB_NAME(inner_qb)*/ t1.b FROM t1 JOIN t2 ON t1.a = t2.a) AS dt
+    JOIN t3 ON t3.a = dt.b;
+```
+
+or use implicit system names of query blocks:
+
+```sql
+SELECT /*+ NO_BKA(`t2`@`select#2`, `t3`@`select#1`) */ SUM(t3.a) FROM
+    (SELECT /*+ QB_NAME(qb1)*/ t1.b FROM t1 JOIN t2 ON t1.a = t2.a) AS dt
+    JOIN t3 ON t3.a = dt.b;
+```
+
+### List of Available Table-Level Hints
+
+See description and the list of available table-level hints [here](table-level-hints.md).
+
+### Syntax of Index-Level Hints
+
+These hints affect the use of all or certain indexes of a table.
+
+Possible syntax variants are:
+
+```sql
+hint_name(table_name [index_name [, index_name] ...])
+hint_name(table_name@query_block [index_name [, index_name] ...])
+```
+
+`table_name`/`table_name@query_block` is necessary while the list of `index_name`'s can be omitted. In the latter case the hint applies at the table level. However, index-level hints cannot be elevated to the scope of a query block, i.e., syntax `hint_name(@query_block)` is not allowed.
+
+Let us say a user has a table:
+
+```sql
+CREATE TABLE t1 (a INT, b INT, c INT, d INT,
+                 KEY i_a(a), KEY i_b(b),
+                 KEY i_ab(a,b), KEY i_c(c), KEY i_d(d));
+```
+
+and the optimizer chooses range scan of index `i_a` for the query
+
+```sql
+SELECT a FROM t1 WHERE a > 1 AND a < 3;
+```
+
+If the user wants to enforce the optimizer employ full scan of `t1`, they can add `NO_INDEX` hint:
+
+```sql
+SELECT /*+ NO_INDEX(t1)*/ a FROM t1 WHERE a > 1 AND a < 3;
+```
+
+If for some reason the optimizer chooses a suboptimal index when there is a more efficient one (say, `i_ab`), the user can force the optimizer to choose the preferred index:
+
+```sql
+SELECT /*+ INDEX(t1 i_ab)*/a FROM t1 WHERE a > 1 AND a < 3
+```
+
+While [`INDEX`/`NO_INDEX` hints](index-level-hints.md#index-no_index) control the use of indexes for any operations, [`GROUP_INDEX`/`NO_GROUP_INDEX`](index-level-hints.md#group_index-no_group_index), [`JOIN_INDEX`/`NO_JOIN_INDEX`](index-level-hints.md#join_index-no_join_index) and [`ORDER_INDEX`/`NO_ORDER_INDEX`](index-level-hints.md#order_index-no_order_index) provide more fine-grained control.
+
+### List of Available Index-Level Hints
+
+See description and the list of available index-level hints [here](index-level-hints.md).
+
+## Join Order Hints
 
 {% hint style="info" %}
-This hint is available from MariaDB 12.0.
+Available from MariaDB 12.0.
 {% endhint %}
 
-Query block-level hints.
+### Overview
 
-This controls the conversion of subqueries to semi-joins and which semi-join strategies are allowed.
+These hints allow to control the order in which tables of a query are joined.
 
-```sql
-[NO_]SEMIJOIN([@query_block_name] [strategy [, strategy] ...])
-```
-
-where the strategy is one of `DUPSWEEDOUT`, `FIRSTMATCH`, `LOOSESCAN`, `MATERIALIZATION`.
-
-Hints are placed after the main statement verb.
-
-```sql
-UPDATE /*+ hints */ table ...;
-DELETE /*+ hints */ FROM table... ;
-SELECT /*+ hints */  ...
-```
-
-They can also appear after the `SELECT` keyword in any subquery:
-
-```sql
-SELECT * FROM t1 WHERE a IN (SELECT /*+ hints */ ...)
-```
-
-There can be one or more hints separated with space:
-
-```sql
-hints:  hint hint ...
-```
-
-### Join Order Hints
-
-{% hint style="info" %}
-Join order hints are available from MariaDB 12.0.
-{% endhint %}
+Generally, these hints follow the syntax rules of [table-level hints](expanded-optimizer-hints.md#syntax-of-table-level-hints) with some important differences.
 
 Syntax of the `JOIN_FIXED_ORDER` hint:
 
@@ -529,71 +426,74 @@ Syntax of the `JOIN_FIXED_ORDER` hint:
 hint_name([@query_block_name])
 ```
 
-Syntax of other join-order hints:
+In contrast to other table-level hints, `JOIN_FIXED_ORDER` does not allow specifying table names in the hint body.
+
+Syntax variants of other join-order hints:
 
 ```sql
 hint_name([@query_block_name] tbl_name [, tbl_name] ...)
 hint_name(tbl_name[@query_block_name] [, tbl_name[@query_block_name]] ...)
 ```
 
-#### Available Join Order Hints
+Here the query block name may be omitted, but at least one table name must be specified.
 
-For the following join order hint syntax,
-
-* _`tbl`_ is the name of a table used in the statement. A hint that names tables applies to all tables that it names. The `JOIN_FIXED_ORDER` hint names no tables and applies to all tables in the `FROM` clause of the query block in which it occurs;
-* _`query_block_name`_ is the query block to which the hint applies. If the hint includes no leading _`@query_block_name`_, it applies to the query block in which it occurs. When using the _`tbl@query_block_name`_ syntax, the hint applies to the named table in the named query block. To assign a name to a query block, see [Optimizer Hints for Naming Query Blocks](https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/optimizer-hints#query-block-naming).
-
-General notes:
-
-* If a table has an alias, hints must refer to the alias, not the table name.
-* Table names in hints cannot be qualified with schema names.
-
-#### `JOIN_FIXED_ORDER([@query_block_name])`
+### `JOIN_FIXED_ORDER()`
 
 Forces the optimizer to join tables using the order in which they appear in the `FROM` clause. This is the same as specifying `SELECT STRAIGHT_JOIN`.
 
-#### `JOIN_ORDER([@query_block_name] tbl [, tbl] ...)`
+#### Examples
+
+```sql
+-- Tables will be joined in the order `t2` -> `t1` even if order `t1` -> `t2` looks more promising:
+SELECT /*+ JOIN_FIXED_ORDER() */ f1, f2
+  FROM t2 JOIN t1 ON t1.id = t2.id ORDER BY f1, f2;
+```
+
+### `JOIN_ORDER()`
 
 Instructs the optimizer to join tables using the specified table order. The hint applies to the named tables. The optimizer may place tables that are not named anywhere in the join order, including between specified tables.
 
-* Alternative syntax: \
-  `JOIN_ORDER(tbl[@query_block_name] [, tbl[@query_block_name]] ...`)
-
-#### `JOIN_PREFIX([@query_block_name] tbl [, tbl] ...)`
+### `JOIN_PREFIX()`
 
 Instructs the optimizer to join tables using the specified table order for the first tables of the join execution plan. The hint applies to the named tables. The optimizer places all other tables after the named tables.
 
-* Alternative syntax:\
-  `JOIN_PREFIX(tbl[@query_block_name] [, tbl[@query_block_name]] ...`)
+### `JOIN_SUFFIX()`
 
-#### `JOIN_SUFFIX([@query_block_name] tbl [, tbl] ...)`
+Instructs the optimizer to join tables using the specified table order for the last tables of the join execution plan. The hint applies to the named tables. The optimizer places all other tables before the named tables. Example:
 
-Instructs the optimizer to join tables using the specified table order for the last tables of the join execution plan. The hint applies to the named tables. The optimizer places all other tables before the named tables.
+```sql
+SELECT /*+ JOIN_PREFIX(t2, t5@subq2)
+           JOIN_ORDER(t4@subq2, t1)
+           JOIN_SUFFIX(t3)*/ count(*)
+             FROM t1 JOIN t2 JOIN t3
+               WHERE t1.a IN (SELECT /*+ QB_NAME(subq1) */ a FROM t4)
+                 AND t2.a IN (SELECT /*+ QB_NAME(subq2) */ a FROM t5);
+```
 
-### Subquery Hints
+## Subquery Hints
 
 {% hint style="info" %}
-Subquery hints are available from MariaDB 12.0.
+Available from MariaDB 12.0.
 {% endhint %}
 
-#### **Overview**
+### Overview
 
 Subquery hints determine:
 
-* If semijoin transformations are to be used;
+* If [Semi-join subquery optimizations](../query-optimizations/subquery-optimizations/semi-join-subquery-optimizations.md) are to be used;
 * Which semijoin strategies are permitted;
-* When semijoins are not used, whether to use subquery materialization or `IN-to-EXISTS` transformations.
+* When semijoins are not used, whether to use subquery materialization or [IN-TO-EXISTS transformation](../query-optimizations/subquery-optimizations/non-semi-join-subquery-optimizations.md#the-in-to-exists-transformation).
 
-#### **Syntax**
+### **`SEMIJOIN()`, `NO_SEMIJOIN()`**
+
+#### Syntax
 
 ```
 hint_name([@query_block_name] [strategy [, strategy] ...])
 ```
 
-* `hint_name`: The following hint names are permitted to enable or disable the named semijoin strategies: `SEMIJOIN`, `NO_SEMIJOIN`.
-* `strategy`: Enable or disable a semi-join strategy. The following strategy names are permitted: `DUPSWEEDOUT`, `FIRSTMATCH`, `LOOSESCAN`, `MATERIALIZATION`.
-
-#### **Strategies**
+* `hint_name`: `SEMIJOIN` or `NO_SEMIJOIN`.
+* `strategy`: name of the strategy to be enabled (in case of `SEMIJOIN` hint) or disabled (in case of `NO_SEMIJOIN` hint). The following strategy names are permitted: `DUPSWEEDOUT`, `FIRSTMATCH`, `LOOSESCAN`, `MATERIALIZATION`.
 
 For `SEMIJOIN` hints, if no strategies are named, semi-join is used based on the strategies enabled according to the `optimizer_switch` system variable, if possible. If strategies are named, but inapplicable for the statement, `DUPSWEEDOUT` is used.
 
@@ -601,32 +501,48 @@ For `NO_SEMIJOIN` hints, semi-join is not used if no strategies are named. If na
 
 If a subquery is nested within another, and both are merged into a semi-join of an outer query, any specification of semi-join strategies for the innermost query are ignored. `SEMIJOIN` and `NO_SEMIJOIN` hints can still be used to enable or disable semi-join transformations for such nested subqueries.
 
-If `DUPSWEEDOUT` is disabled, the optimizer may generate a query plan that is far from optimal.&#x20;
-
-#### **Examples**
+#### Examples
 
 ```sql
-SELECT /*+ NO_SEMIJOIN(@subquery1 FIRSTMATCH, LOOSESCAN) */ * FROM t2
+SELECT /*+ NO_SEMIJOIN(@subq1 FIRSTMATCH, LOOSESCAN) */ * FROM t2
   WHERE t2.a IN (SELECT /*+ QB_NAME(subq1) */ a FROM t3);
-SELECT /*+ SEMIJOIN(@subquery1 MATERIALIZATION, DUPSWEEDOUT) */ * FROM t2
+
+SELECT /*+ SEMIJOIN(@subq1 MATERIALIZATION, DUPSWEEDOUT) */ * FROM t2
   WHERE t2.a IN (SELECT /*+ QB_NAME(subquery1) */ a FROM t3);
 ```
 
-Syntax of hints that affect whether to use subquery materialization or `IN`-to-`EXISTS` transformations:
+### **`SUBQUERY()`**
+
+#### Syntax
 
 ```sql
 SUBQUERY([@query_block_name] strategy)
 ```
 
-The hint name is always `SUBQUERY`.
+* `strategy`: allowed values are `INTOEXISTS` and `MATERIALIZATION`.
 
-For `SUBQUERY` hints, these _`strategy`_ values are permitted: `INTOEXISTS`, `MATERIALIZATION`.
+#### Examples
 
 ```sql
 SELECT id, a IN (SELECT /*+ SUBQUERY(MATERIALIZATION) */ a FROM t1) FROM t2;
-SELECT * FROM t2 WHERE t2.a IN (SELECT /*+ SUBQUERY(INTOEXISTS) */ a FROM t1);
+
+SELECT /*+ SUBQUERY(@qb1 INTOEXISTS) */* FROM t2 WHERE t2.a IN (SELECT /*+ QB_NAME(qb1)*/ a FROM t1);
 ```
 
-For semi-join and `SUBQUERY` hints, a leading `@`_`query_block_name`_ specifies the query block to which the hint applies. If the hint includes no leading `@`_`query_block_name`_, the hint applies to the query block in which it occurs. To assign a name to a query block, see [Naming Query Blocks](expanded-optimizer-hints.md#query-block-naming).
+## Global Hints
 
-If a hint comment contains multiple subquery hints, the first is used. If there are other following hints of that type, they produce a warning. Following hints of other types are silently ignored.
+### **`MAX_EXECUTION_TIME()`**
+
+{% hint style="info" %}
+Available from MariaDB 12.0.
+{% endhint %}
+
+Global hint to limit query execution time:
+
+```sql
+SELECT /*+ MAX_EXECUTION_TIME(milliseconds) */ ...  ;
+```
+
+A query that doesn't finish in the time specified will be aborted with an error.
+
+However, if `@@max_statement_time` system variable is set, the hint will be ignored and a warning produced. Note that this contradicts the stated principle that "new-style hints are more specific than server variable settings, so they override the server variable settings".

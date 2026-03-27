@@ -386,9 +386,9 @@ The `START SLAVE UNTIL` statement contains the options `SQL_BEFORE_GTIDS` and `S
 START SLAVE UNTIL (SQL_BEFORE_GTIDS|SQL_AFTER_GTIDS)="<gtid_list>"
 ```
 
-When providing `SQL_BEFORE_GTIDS=”`_`gtid_list"`_, the replica executes all transactions up to the first GTID found in the provided list, and stop immediately. In contrast to the default behavior of `UNTIL`, this executes transactions from all domains on the primary until the replica stops due to seeing a GTID on the list.
+When providing `SQL_BEFORE_GTIDS=”<gtid_list>"`, the replica executes all transactions up to the first GTID found in the provided list, and stop immediately. In contrast to the default behavior of `UNTIL`, this executes transactions from all domains on the primary until the replica stops due to seeing a GTID on the list.
 
-`START SLAVE UNTIL SQL_AFTER_GTIDS=”g`_`tid_list`_`”` is an alias to the default behavior of `START SLAVE UNTIL master_gtid_pos=”`_`gtid_list`_`”`. That is, the replica only executes transactions originating from domain ids provided in the list, and will stop once all transactions provided in the `UNTIL` list have all been executed.
+`START SLAVE UNTIL SQL_AFTER_GTIDS=”<gtid_list>”` is an alias to the default behavior of `START SLAVE UNTIL master_gtid_pos=”<gtid_list>”`. That is, the replica only executes transactions originating from domain ids provided in the list, and will stop once all transactions provided in the `UNTIL` list have all been executed.
 
 **Example**
 

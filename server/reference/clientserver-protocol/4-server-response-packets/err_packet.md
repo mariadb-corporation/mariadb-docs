@@ -26,12 +26,12 @@ description: >-
     * [string\<EOF>](../protocol-data-types.md#fixed-length-strings) human-readable error message.
 
 {% hint style="warning" %}
-Note that the `ERR_Packet` is supposed to send a server error to the client. In particular, all error codes in the range 2000 to 2999 and 5000 to 5999 (inclusive) are reserved for client errors and an ERR packet with such an error code will be considered malformed.
+Note that the `ERR_Packet` is supposed to send a server error to the client. In particular, all error codes in the range 2000 to 2999 and 5000 to 5999 (inclusive) are reserved for client errors, and an ERR packet with such an error code will be considered malformed.
 {% endhint %}
 
 ## See also
 
-["Progress reporting"](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5)
+* [Progress reporting](../../product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

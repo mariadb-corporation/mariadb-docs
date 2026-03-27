@@ -1,7 +1,7 @@
 ---
 description: >-
-  Details the hardware sizing, system prerequisites (x86-64 Linux, Docker), and
-  supported OS versions for deploying the central server and monitoring agents.
+  Details the hardware sizing, system prerequisites and supported OS versions
+  for deploying the Enterprise Manager server and agents.
 ---
 
 # Hardware and System Requirements
@@ -23,8 +23,11 @@ Tip: Adjust storage size depending on your requirements for metrics retention.
 ### System Requirements
 
 * CPU Architecture: x86-64
-* Operating System: 64-bit Linux with Docker support.
-* Software: Docker Engine and Docker Compose must be installed.
+* Linux OS with either of the supported container engines
+  * Docker with Docker Compose    \
+    https://docs.docker.com/engine/install
+  * Podman with Podman Compose
+    * The podman-docker compatibility package is required to enable the docker CLI for Podman. All commands in this guide documented for Docker work similarly with Podman.
 
 ## Enterprise Manager Agent🕵
 

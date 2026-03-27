@@ -28,12 +28,12 @@ MariaDB AI RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) solut
 
 ### Performance and Troubleshooting
 
-* [Performance Tuning](performance-and-troubleshooting/performance-tuning.md)
-* [Troubleshooting](performance-and-troubleshooting/troubleshooting.md)
+* [Performance Tuning](/broken/pages/IH04cUN5BH0q33BTVaQl)
+* [Troubleshooting](/broken/pages/ki1PVqUBaF2RkKWgtADa)
 
 ### Reference
 
-* [Environment Variables](reference/environment-variables.md)
+* [Environment Variables](/broken/pages/UM3k9lpDhNW2q0aQuA3l)
 * [Supported File Formats](reference/supported-formats.md)
 * [Integration](reference/integration.md)
 

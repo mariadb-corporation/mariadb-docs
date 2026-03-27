@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Docker Deployment Guide
 
 ## 📋 Quick Navigation

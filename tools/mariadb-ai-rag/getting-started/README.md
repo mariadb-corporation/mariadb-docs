@@ -1,69 +1,72 @@
 ---
+hidden: true
+noIndex: true
 icon: rabbit
 ---
 
 # Getting Started
 
-Welcome to MariaDB AI RAG! This section will guide you through installing, configuring, and running the MariaDB AI RAG API and MCP Server.
+MariaDB AI RAG enables organizations to leverage their own document repositories for AI-powered search and response generation. By combining MariaDB’s native vector search with advanced layout extraction and reranking, the system provides accurate, context-aware answers based strictly on your private data.
 
-## Documentation in This Section
+### System Architecture: "The Team"
 
-### [Overview](overview.md)
+The solution is deployed as a multi-container Docker stack where each component has a specialized role:
 
-Learn about the MariaDB AI RAG system architecture and components:
+* rag-api (The Main Brain): A FastAPI server that handles authentication, manages endpoints, and orchestrates the RAG pipeline.
+* mcp-server (The AI Gateway): A dedicated "VIP entrance" for AI agents and IDEs (like Windsurf or Cursor) to interact with your data.
+* rag-redis (The Waiting Room): A message broker that stores tasks, such as processing large documents, ensuring the API remains responsive.
+* rag-celery-worker (The Librarian): A background process that picks up tasks from Redis to extract text, create chunks, and generate vectors.
+* rag-docling-ray (The Document Specialist): A specialist service that reads complex PDF layouts, tables, and multi-columns to ensure high-quality text extraction.
+* rag-mariadb (The Database): MariaDB 11.8+ serves as the foundation, natively supporting both relational data and vector storage.
 
-* System architecture
-* Core modules (Ingestion, Chunking, Retrieval, Generation)
-* Data flow and processing pipeline
-* Integration with MariaDB vector database
+### The Deployment Roadmap
 
-### [Installation](installation.md)
+To get your system running, follow these high-level steps:
 
-Step-by-step installation instructions for all supported platforms:
+### Step A: Prerequisites
 
-* Linux (Ubuntu/Debian - .deb packages)
-* Linux (RHEL/Fedora - .rpm packages)
-* Windows (.msi installer)
-* System requirements and prerequisites
+Ensure your host machine (Linux, macOS, or Windows with WSL2) has Docker and Docker Compose installed. You will also need:
 
-### [Configuration](configuration.md)
+* A valid MariaDB License Key.
+* API Keys for your chosen AI providers (e.g., Google Gemini or OpenAI).
 
-Configure the RAG API and MCP Server:
+### Step B: Obtain Assets
 
-* Environment variables
-* Configuration file setup
-* Database connection settings
-* API keys and authentication
-* Embedding and LLM provider configuration
+Download the following files from the public AI RAG GitHub repository:
 
-### [Service Management](service-management.md)
+1. `docker-compose.yml`: The blueprint for the container stack.
+2. `config.env.template`: The configuration template for your environment variables.
 
-Manage the RAG API and MCP Server services:
+### Step C: Configuration
 
-* Starting and stopping services
-* Service status monitoring
-* Log file locations
-* Troubleshooting service issues
+Copy the template to a new file named `config.env.secure` and update the mandatory fields:
 
-## Quick Start Guide
+* `MARIADB_LICENSE_KEY`: Your validated license.
+* `GEMINI_API_KEY`: Your AI provider key.
+* `DB_PASSWORD`: A secure password for your MariaDB instance.
 
-1. **Install the package** for your platform (see [Installation](installation.md))
-2. **Configure your environment** with database credentials and API keys (see [Configuration](configuration.md))
-3. **Start the services** using the service management commands
-4.  **Verify installation** by accessing the API health endpoint:
+### Step D: Launch
 
-    ```bash
-    curl http://localhost:8000/health
-    ```
+Open your terminal in the deployment folder and run:
 
-## Next Steps
+```bash
+docker compose up -d
+```
 
-After completing the getting started guide:
+Once the containers are "Healthy," access the interactive API documentation at `http://localhost:8000/docs`.
 
-* Explore the [API Reference](../api-reference/) for detailed endpoint documentation
-* Learn about [Access Control](../api-reference/access-control.md) for user management
-* Review [Performance Tuning](../performance-and-troubleshooting/performance-tuning.md) for optimization
+### Key 1.1 Capabilities
 
-{% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
+Once deployed, you can leverage these advanced features:
 
-{% @marketo/form formId="4316" %}
+* Layout-Aware Extraction: Use Docling (Built-in/Local) or LlamaParse (Public Endpoint) to preserve complex document structures like tables and headers.
+* Intelligent Reranking: Enable a "second pass" search using FlashRank (Local) or Cohere (Public Endpoint) to significantly improve result relevance.
+* Automated Citations: AI responses automatically include footnotes or superscripts pointing to the exact document and page used for the answer.
+* Bulk Cloud Ingestion: Connect directly to AWS S3, Google Cloud Storage, or MinIO to sync thousands of documents automatically.
+
+### Next Steps
+
+1. Authenticate: Generate your first JWT token via the `/token` endpoint.
+2. Integrate: Connect your cloud storage bucket via the `/integrations` API.
+3. Ingest: Use the Orchestration pipeline to process and vectorize your first documents.
+4. Query: Ask questions against your data and receive citation-backed answers

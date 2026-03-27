@@ -45,6 +45,7 @@ description: MariaDB MaxScale 25.10 series changes and improvements
 
 For more details, please refer to:
 
+* [MariaDB MaxScale 25.10.2 Release Notes](25.10.2.md)
 * [MariaDB MaxScale 25.10.1 Release Notes](25.10.1.md)
 * [MariaDB MaxScale 25.10.0 Release Notes](25.10.0.md)
 

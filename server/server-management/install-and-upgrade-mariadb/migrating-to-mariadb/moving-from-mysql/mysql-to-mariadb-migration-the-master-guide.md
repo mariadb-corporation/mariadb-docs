@@ -49,10 +49,12 @@ If you are moving to MariaDB 11.4 LTS or later, you can automate the transition 
 Never start a migration without two types of backups:
 
 1. Physical/Binary Backup: A copy of the `/var/lib/mysql` directory (while the server is stopped). This allows for the fastest "undo" if the binary swap fails.
-2.  Logical Backup: A full dump of your data. (Use the MySQL `mysqldump` program, not MariaDB's `mariadb-dump`, because the latter hasn't been extensively tested against MySQL.)
+2.  Logical Backup: A full dump of your data. \
+    Use the MySQL `mysqldump` program, not MariaDB's `mariadb-dump`, because the latter hasn't been extensively tested against MySQL.\
+    Don't dump `--all-databases`, because that would include the MySQL system databases, which are different from the MariaDB ones – loading them would fail on data import. Instead, specify which databases to export as arguments to `--databases`.
 
     <pre class="language-bash" data-overflow="wrap"><code class="lang-bash"># The Universal Master Dump Command
-    mysqldump --user=root --password --all-databases \
+    mysqldump --user=root --password --databases db1 db2 ... \
     --single-transaction --routines --events \
     --triggers --hex-blob > migration_dump.sql
     </code></pre>
@@ -61,35 +63,157 @@ Never start a migration without two types of backups:
 
 Standard data dumps often fail to capture complex user permissions correctly when moving from MySQL 8.0+. Instead of migrating the entire `mysql` system database, use these scripts on your MySQL source server to generate the exact SQL commands needed to recreate your users and their permissions on MariaDB.
 
-#### Generate User Creation Script
+#### Creating Users on MariaDB&#x20;
 
-This script extracts all non-system users and automatically handles the conversion of the `caching_sha2_password` plugin to the MariaDB-compatible `mysql_native_password`.
+The following SQL can be used to generate [CREATE USER](../../../../reference/sql-statements/account-management-sql-statements/create-user.md) statements with a default password that can be executed on MariaDB. It does the following:
 
-{% code overflow="wrap" %}
+* Authentication method  [mysql\_native\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) – the script supports passwords porting.
+* Authentication method  [caching\_sha256\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md) or authentication string is `NULL` – passwords are reset to default with expiry.
+
+The [PARSEC](../../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) authentication plugin is intended to be the default in a future release, hence it is recommended to use this during user migration. &#x20;
+
+{% code overflow="wrap" expandable="true" %}
 ```sql
-SELECT CONCAT('CREATE USER IF NOT EXISTS ''', user, '''@''', host, ''' IDENTIFIED WITH ''', 
-  IF(plugin='caching_sha2_password', 'mysql_native_password', plugin), ''' AS ''', authentication_string, ''';') 
-AS _sql FROM mysql.user WHERE user NOT IN ('root', 'mysql.sys', 'mysql.session', 'mysql.infoschema');
+SELECT
+    CASE
+        WHEN plugin = 'mysql_native_password'
+             AND authentication_string IS NOT NULL
+             AND authentication_string <> ''
+        THEN CONCAT(
+            'CREATE USER IF NOT EXISTS ''', user, '''@''', host,
+            ''' IDENTIFIED VIA mysql_native_password USING ''',
+            authentication_string, ''';'
+        )
+
+        WHEN plugin = 'mysql_native_password'
+             AND (authentication_string IS NULL OR authentication_string = '')
+        THEN CONCAT(
+            'CREATE USER IF NOT EXISTS ''', user, '''@''', host,
+            ''' IDENTIFIED BY ''Welcome@123'' PASSWORD EXPIRE; ',
+            '-- no source hash available'
+        )
+
+        WHEN plugin IN ('caching_sha2_password', 'sha256_password')
+        THEN CONCAT(
+            'CREATE USER IF NOT EXISTS ''', user, '''@''', host,
+            ''' IDENTIFIED BY ''Welcome@123'' PASSWORD EXPIRE; ',
+            '-- original plugin: ', plugin
+        )
+
+        ELSE CONCAT(
+            '-- SKIPPED unsupported plugin for ''', user, '''@''', host,
+            ''': ', COALESCE(plugin, 'NULL')
+        )
+    END AS migration_sql
+FROM mysql.user
+WHERE user NOT IN ('mysql.sys','mysql.session','mysql.infoschema','root');
+
 ```
 {% endcode %}
 
-#### Generate Privilege (GRANT) Script
+#### Copying User Privileges to MariaDB&#x20;
 
-Run this next to generate the necessary `GRANT` statements for all database, table, and procedure-level permissions.
+Use the following SQL to generate user privilege statements for execution in MariaDB from MySQL.
 
-```sql
-SELECT CONCAT('SHOW GRANTS FOR ''', user, '''@''', host, ''';') AS _sql FROM mysql.user 
-WHERE user NOT IN ('root', 'mysql.sys', 'mysql.session', 'mysql.infoschema');
-```
+Privileges covered are:
 
-> How to use: Copy the output (the generated SQL lines) from these queries and execute them on your new MariaDB instance after the data migration is complete.
+* Global privileges&#x20;
+* Database privileges
+* Table privileges
+* Procedure privileges&#x20;
 
 {% hint style="info" %}
-#### Notes on those steps (scripts generation)
-
-* The `root` exclusion: Notice we exclude the `root` user. This is a safety feature so you don't accidentally overwrite your new MariaDB root account with old MySQL credentials and lock yourself out.
-* Plugin Mapping: The `IF` statement is doing a "on-the-fly" translation of MySQL's new password format back to a format MariaDB can read.
+The SQL may vary depending on the version of MySQL you're coming from.
 {% endhint %}
+
+{% code overflow="wrap" expandable="true" %}
+```sql
+SET SESSION group_concat_max_len = 1000000;
+
+SELECT '-- GLOBAL PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ',
+TRIM(TRAILING ',' FROM CONCAT(
+IF(Select_priv='Y','SELECT,',''),
+IF(Insert_priv='Y','INSERT,',''),
+IF(Update_priv='Y','UPDATE,',''),
+IF(Delete_priv='Y','DELETE,',''),
+IF(Create_priv='Y','CREATE,',''),
+IF(Drop_priv='Y','DROP,',''),
+IF(Grant_priv='Y','GRANT OPTION,',''),
+IF(References_priv='Y','REFERENCES,',''),
+IF(Index_priv='Y','INDEX,',''),
+IF(Alter_priv='Y','ALTER,',''),
+IF(Create_view_priv='Y','CREATE VIEW,',''),
+IF(Show_view_priv='Y','SHOW VIEW,',''),
+IF(Create_routine_priv='Y','CREATE ROUTINE,',''),
+IF(Alter_routine_priv='Y','ALTER ROUTINE,',''),
+IF(Execute_priv='Y','EXECUTE,',''),
+IF(Event_priv='Y','EVENT,',''),
+IF(Trigger_priv='Y','TRIGGER,','')
+)),
+' ON *.* TO ''', user, '''@''', host, ''';'
+)
+FROM mysql.user
+WHERE CONCAT(
+Select_priv,Insert_priv,Update_priv,Delete_priv,
+Create_priv,Drop_priv,Grant_priv,References_priv,
+Index_priv,Alter_priv,Create_view_priv,Show_view_priv,
+Create_routine_priv,Alter_routine_priv,Execute_priv,
+Event_priv,Trigger_priv
+) REGEXP 'Y';
+
+
+SELECT '-- DATABASE PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ',
+TRIM(TRAILING ',' FROM CONCAT(
+IF(Select_priv='Y','SELECT,',''),
+IF(Insert_priv='Y','INSERT,',''),
+IF(Update_priv='Y','UPDATE,',''),
+IF(Delete_priv='Y','DELETE,',''),
+IF(Create_priv='Y','CREATE,',''),
+IF(Drop_priv='Y','DROP,',''),
+IF(Grant_priv='Y','GRANT OPTION,',''),
+IF(References_priv='Y','REFERENCES,',''),
+IF(Index_priv='Y','INDEX,',''),
+IF(Alter_priv='Y','ALTER,',''),
+IF(Create_view_priv='Y','CREATE VIEW,',''),
+IF(Show_view_priv='Y','SHOW VIEW,',''),
+IF(Create_routine_priv='Y','CREATE ROUTINE,',''),
+IF(Alter_routine_priv='Y','ALTER ROUTINE,',''),
+IF(Execute_priv='Y','EXECUTE,',''),
+IF(Event_priv='Y','EVENT,',''),
+IF(Trigger_priv='Y','TRIGGER,','')
+)),
+' ON `', db, '`.* TO ''', user, '''@''', host, ''';'
+)
+FROM mysql.db;
+
+SELECT '-- TABLE PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ', Table_priv,
+' ON `', Db, '`.`', Table_name,
+'` TO ''', User, '''@''', Host, ''';'
+)
+FROM mysql.tables_priv;
+
+SELECT '-- PROCEDURE PRIVILEGES' AS '';
+
+SELECT CONCAT(
+'GRANT ', Proc_priv,
+' ON PROCEDURE `', Db, '`.`', Routine_name,
+'` TO ''', User, '''@''', Host, ''';'
+)
+FROM mysql.procs_priv;
+
+SELECT 'FLUSH PRIVILEGES;';
+
+```
+{% endcode %}
 
 ### **Proactive SQL Validation**
 
@@ -115,7 +239,7 @@ On your existing MySQL server, create a complete dump of all databases, includin
 
 ```bash
 # The Universal Master Dump Command
-mysqldump --user=root --password --all-databases \
+mysqldump --user=root --password --databases db1 db2 ... \
 --single-transaction --routines --events \
 --triggers --hex-blob > migration_dump.sql
 ```
@@ -130,7 +254,9 @@ If you have limited disk space or a high-speed network connection between your s
 
 {% code overflow="wrap" %}
 ```bash
-mysqldump --user=root --password --all-databases --single-transaction --routines --events --triggers --hex-blob | mariadb --host=new_server_ip --user=root --password
+mysqldump --user=root --password --databases db1 db2 ... \
+--single-transaction --routines --events \
+--triggers --hex-blob | mariadb --host=new_server_ip --user=root --password
 ```
 {% endcode %}
 
@@ -158,27 +284,6 @@ Transfer your `mysql_full_dump.sql` file to the new server and run the import:
 mariadb -u root -p < mysql_full_dump.sql
 ```
 {% endstep %}
-
-{% step %}
-### Finalize with `mariadb-upgrade`
-
-Even after a successful logical import, your new MariaDB instance is still using the system tables (permissions, stored procedures, and views) exactly as they were structured in MySQL. You must run the upgrade utility to "translate" these system tables into the MariaDB format.
-
-```bash
-# Execute this on the new MariaDB server
-sudo mariadb-upgrade -u root -p
-```
-
-{% hint style="info" %}
-#### What this does
-
-* Fixes System Tables: Aligns the `mysql` database schema with MariaDB's requirements.
-* Privilege Check: Ensures your migrated user permissions work correctly with MariaDB’s authentication plugins.
-* Version Stamp: Updates the internal versioning so MariaDB knows the migration is officially complete.
-{% endhint %}
-
-> Pro Tip: If you see "Already up to date" but still encounter permission issues, you can force the process using the `--force` flag.
-{% endstep %}
 {% endstepper %}
 
 ## Verification and Optimization
@@ -202,17 +307,20 @@ This makes the difference between a migration that "works" and a migration that 
 {% step %}
 ### **Character Set & Collation Validation**
 
-MySQL 8.0 uses `utf8mb4_0900_ai_ci` as its default collation. This specific collation is not supported by MariaDB. During a logical migration, MariaDB will typically map this to `utf8mb4_unicode_ci` or `utf8mb4_general_ci`.
+MySQL 8.0 uses `utf8mb4_0900_ai_ci` as its default collation. This specific collation is also supported by MariaDB.
 
 While the data will import correctly, this change can affect how your application performs joins or sorts data. If you notice unexpected behavior or performance drops in specific queries, verify your collations:
 
+{% code overflow="wrap" %}
 ```sql
--- Check for collation mismatches in your migrated database
-SELECT table_name, column_name, collation_name 
-FROM information_schema.columns 
-WHERE table_schema = 'your_database_name'
-AND collation_name = 'utf8mb4_0900_ai_ci'; -- Look for remnants of the MySQL default
+-- Check for collation issues in your migrated database
+SHOW GLOBAL VARIABLES LIKE 'collation%';
+SHOW  VARIABLES LIKE 'collation%';
+SELECT table_schema, table_name, column_name, collation_name FROM information_schema.columns WHERE collation_name IS NOT NULL and table_schema not in('information_schema','performance_schema','mysql','sys') ORDER BY table_schema, table_name;
 ```
+{% endcode %}
+
+Check if you have queries that may lead to a mismatch error when joining 2 columns with different collations. Alter your table or database to use the same collation across all your databases. See [ALTER TABLE](../../../../reference/sql-statements/data-definition/alter/alter-table/) and [ALTER DATABASE](../../../../reference/sql-statements/data-definition/alter/alter-database.md) for details.
 
 {% hint style="info" %}
 #### Why this matters

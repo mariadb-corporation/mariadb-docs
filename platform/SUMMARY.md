@@ -7,6 +7,7 @@
   * [Best Practices](mariadb-platform-quickstart-guides/mariadb-best-practices-guide.md)
   * [Security](mariadb-platform-quickstart-guides/security.md)
 * [Post Download](post-download/README.md)
+  * [MariaDB Server 13.0.0](post-download/mariadb-server-13.0.0.md)
   * [MariaDB Connector/Node.js 3.5.2](post-download/mariadb-connector-node.js-3.5.2.md)
   * [MariaDB Connector/Node.js 3.5.1](post-download/mariadb-connector-nodejs-3.5.1.md)
   * [MariaDB Server 12.3.1](post-download/mariadb-server-12.3.1.md)

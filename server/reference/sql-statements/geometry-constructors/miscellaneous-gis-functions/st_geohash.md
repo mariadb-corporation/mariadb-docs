@@ -24,7 +24,7 @@ Returns the geohash corresponding to the input values, or NULL if any argument i
 
 The `longitude` parameter is a numeric value in the interval \[180, -180]. `latitude` is a numeric value in the interval \[90, -90].
 
-In the case of `point`, the x coordinate is treated as the latitude and the y coordinate is treated as the latitude. The same constraints apply.
+In the case of `point`, the x coordinate is treated as the longitude and the y coordinate is treated as the latitude. The same constraints apply.
 
 The `max_length` parameter is the upper limit on the resulting string size and cannot exceed 100.
 
