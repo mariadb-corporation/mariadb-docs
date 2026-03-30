@@ -30,14 +30,23 @@ trigger_event:
 
 ## Description
 
-This statement creates a new [trigger](./). A trigger is a named database object that is associated with a table, and that activates when a particular event occurs for the table. The trigger becomes associated\
-with the table named `tbl_name`, which must refer to a permanent table. You cannot associate a trigger with a `TEMPORARY` table or a view.
+This statement creates a new [trigger](./). A trigger is a named database object that is associated with a table, and that activates when a particular event occurs for the table. The trigger becomes associated with the table named `tbl_name`, which must refer to a permanent table. You cannot associate a trigger with a `TEMPORARY` table or a view.
 
 `CREATE TRIGGER` requires the [TRIGGER](../../../reference/sql-statements/account-management-sql-statements/grant.md#table-privileges) privilege for the table associated with the trigger.
 
 You can have multiple triggers for the same _`trigger_time`_ and _`trigger_event`_.
 
 For valid identifiers to use as trigger names, see [Identifier Names](../../../reference/sql-structure/sql-language-structure/identifier-names.md).
+
+`trigger_stmt` is the statement executed when the trigger activates. Here, you can refer to columns in the table associated with the trigger using the aliases `OLD` and `NEW`. `OLD.`_`col_name`_ refers to a column of an existing row before it is updated or deleted. `NEW.`_`col_name`_ refers to the column of a new row to be inserted or an existing row after it is updated.
+
+`OLD` and `NEW` are MariaDB (and MySQL) extensions to triggers. They are not case-sensitive.
+
+Triggers cannot use `NEW.`_`col_name`_ or use `OLD.`_`col_name`_ to refer to generated columns. For information about generated columns, see [Generated Columns](../../../reference/sql-statements/data-definition/create/generated-columns.md).
+
+In an `INSERT` trigger, only `NEW.`_`col_name`_ can be used, because there is no old row. In a `DELETE` trigger, only `OLD.`_`col_name`_ can be used, because there is no new row. In an `UPDATE` trigger, use `OLD.`_`col_name`_ to refer to the columns of a row before it is updated, and `NEW.`_`col_name`_ to refer to the columns of the row after it is updated.
+
+A column referenced with `OLD` is read-only. If you have the `SELECT` privilege, this means you can refer to it, but not modify it. You can refer to a column named with `NEW` if you have the `SELECT` privilege. In a `BEFORE` trigger, you can also change its value with `SET NEW.`_`col_name`_` ``=`` `_`value`_ if you have the `UPDATE` privilege. This means you can use a trigger to modify the values to be inserted as a new row or to update a row. In an `AFTER` trigger, a `SET` statement has no effect, because the row change has already occurred.
 
 ### OR REPLACE
 
@@ -101,13 +110,15 @@ MariaDB does **not** support [Atomic DDL](../../../reference/sql-statements/data
 
 ## Examples
 
+### Creating a Trigger
+
 ```sql
 CREATE DEFINER=`root`@`localhost` TRIGGER increment_animal
   AFTER INSERT ON animals FOR EACH ROW 
    UPDATE animal_count SET animal_count.animals = animal_count.animals+1;
 ```
 
-`OR REPLACE` and `IF NOT EXISTS`:
+### `OR REPLACE` and `IF NOT EXISTS`
 
 ```sql
 CREATE DEFINER=`root`@`localhost` TRIGGER increment_animal
@@ -132,6 +143,27 @@ SHOW WARNINGS;
 | Note  | 1359 | Trigger already exists |
 +-------+------+------------------------+
 1 row in set (0.00 sec)
+```
+
+### Referencing NEW Column Values
+
+```sql
+DELIMITER //
+
+CREATE TRIGGER trg_limit_population BEFORE UPDATE ON country_stats
+FOR EACH ROW
+BEGIN
+    -- Ensure population is at least 1
+    IF NEW.population < 1 THEN
+        SET NEW.population = 1;
+    -- Cap population at 2 billion for data integrity
+    ELSEIF NEW.population > 2000000000 THEN
+        SET NEW.population = 2000000000;
+    END IF;
+END;
+//
+
+DELIMITER ;
 ```
 
 ## See Also
