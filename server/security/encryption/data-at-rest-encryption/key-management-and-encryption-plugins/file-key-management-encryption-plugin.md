@@ -219,14 +219,27 @@ The `file_key_management_filekey` variable can be provided in two forms:
 
 These variables can be specified as command-line arguments to `mariadbd`, or they can be specified in a relevant server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md):
 
-{% code overflow="wrap" %}
+{% tabs %}
+{% tab title="Current (>= 12.0.1)" %}
+```ini
+[mariadb]
+...
+loose_file_key_management_filename = /etc/mysql/encryption/keyfile.enc
+loose_file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
+loose_file_key_management_digest = sha256
+loose_file_key_management_use_pbkdf2 = 20000
+```
+{% endtab %}
+
+{% tab title="< 12.0.1" %}
 ```ini
 [mariadb]
 ...
 loose_file_key_management_filename = /etc/mysql/encryption/keyfile.enc
 loose_file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
 ```
-{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 {% include "../../../../.gitbook/includes/to-avoid-startup-failures-....md" %}
 
