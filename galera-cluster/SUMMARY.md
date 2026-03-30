@@ -85,3 +85,4 @@
     * [ssl\_key](reference/wsrep-variable-details/ssl_key.md)
   * [Galera Cluster System Tables](reference/galera-cluster-system-tables.md)
   * [Known Limitations](reference/mariadb-galera-cluster-known-limitations.md)
+  * [MariaDB Advanced Cluster: Team FAQ & Architectural Guide](reference/mariadb-advanced-cluster-team-faq-and-architectural-guide.md)
