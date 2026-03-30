@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # MariaDB AI RAG
 
 MariaDB AI RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) solution that integrates with MariaDB to provide AI-powered document processing, semantic search, and natural language generation capabilities.
