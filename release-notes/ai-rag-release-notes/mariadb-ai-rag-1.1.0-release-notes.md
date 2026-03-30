@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # MariaDB AI RAG 1.1.0 Release Notes
 
 ## MariaDB AI RAG 1.1.0 Release Notes
