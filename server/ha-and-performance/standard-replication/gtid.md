@@ -417,7 +417,7 @@ The [MASTER\_GTID\_WAIT](../../reference/sql-functions/secondary-functions/misce
 The following functionality is available from MariaDB 11.4.
 {% endhint %}
 
-Previously, when a replica connected, MariaDB needed to scan [binlog](../../server-management/server-monitoring-logs/binary-log/) files from the beginning in order to find the place to start replicating. If replica reconnects are frequent, this can be slow. Now, indexing is done on the binlog files, allowing GTIDs to be quickly found. This also detects if old-style replication tries to connect at an incorrect file offset (eg. in the middle of an event), avoiding sending potentially corrupted events.&#x20;
+Previously, when a replica connected, MariaDB needed to scan [binlog](../../server-management/server-monitoring-logs/binary-log/) files from the beginning in order to find the place to start replicating. If replica reconnects are frequent, this can be slow. Now, indexing is done on the binlog files, allowing GTIDs to be quickly found. This also detects if old-style replication tries to connect at an incorrect file offset (eg. in the middle of an event), avoiding sending potentially corrupted events.
 
 The feature is enabled by default. The size of the binlog index file (`.idx`) is generally less than 1% the size of the binlog, so should not have any negative impacts and should not normally need tuning. However, the feature can be disabled or managed with the following system variables:
 
@@ -584,7 +584,10 @@ When GTID strict mode is enabled, the replica will stop with an error when a pro
 
 #### `gtid_seq_no`
 
-* Description: `gtid_seq_no` can be set on the session level to change which sequence number is logged in the following GTID event. The variable, along with [@@gtid\_domain\_id](gtid.md#gtid_domain_id) and [@@server\_id](gtid.md#server_id), is typically used by [mariadb-binlog](../../clients-and-utilities/logging-tools/mariadb-binlog/) to set up the GTID value of the transaction being decoded into the output.
+* Description: The `gtid_seq_no` session variable can be set to manually override the sequence number for the following transaction's Global Transaction ID (GTID).\
+  By default, the server internally maintains an increasing counter where each committing transaction uses the next value from this counter as its sequence number when writing its GTID event to the binary log (along with `@@gtid_domain_id` and `@@server_id`).\
+  When `gtid_seq_no` is specified, it overrides this counter for the next committing transaction in the respective session; this value is then used as the sequence number when writing the GTID event to the binary log. Crucially, the server’s internal counter also resets to this specified value, ensuring that subsequent transactions increment from this new value when generating their sequence numbers.\
+  This variable is typically used internally and by tools like `mariadb-binlog` to maintain GTID consistency when applying events across different servers (e.g., from a primary to a replica).
 * Command line: None
 * Scope: Session
 * Dynamic: Yes
