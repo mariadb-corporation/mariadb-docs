@@ -176,7 +176,7 @@ Settings for the Large Language Model used to generate responses.
 
 ```ini
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.5-flash
+LLM_MODEL=gemini-2.5-flash-lite
 ```
 
 Requires: `GEMINI_API_KEY`
