@@ -93,7 +93,7 @@ External Services (Internet):
 ┌─────────────────────────────────────────────────┐
 │  Google Generative AI API                       │
 │  - Endpoint: generativelanguage.googleapis.com  │
-│  - Embedding: text-embedding-004                │
+│  - Embedding: gemini-embedding-001                │
 │  - LLM: gemini-2.5-flash                        │
 └─────────────────────────────────────────────────┘
 ```
@@ -178,7 +178,7 @@ GEMINI_API_KEY=your_gemini_api_key
 SECRET_KEY=your_generated_secret_key
 JWT_SECRET_KEY=<secret>
 EMBEDDING_PROVIDER=gemini
-embedding_model=text-embedding-004
+embedding_model=gemini-embedding-001
 LLM_PROVIDER=gemini
 LLM_MODEL=gemini-2.5-flash
 DOCUMENTS_TABLE=documents_DEMO_gemini
@@ -350,7 +350,7 @@ User Upload
 │  4. Embedding Generation              │
 │  - Batch size: 32 chunks              │
 │  - Call Gemini API                    │
-│  - Model: text-embedding-004          │
+│  - Model: gemini-embedding-001          │
 │  - Dimensions: 768                    │
 └───────────────┬───────────────────────┘
                 │

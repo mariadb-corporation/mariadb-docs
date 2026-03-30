@@ -47,7 +47,7 @@ Windows Host
 * **Container**: Docker Desktop + Docker Compose
 * **OS**: Ubuntu 24.04 LTS
 * **Database**: MariaDB 11 with vector support
-* **Embedding**: Google Gemini text-embedding-004 (768-dim)
+* **Embedding**: Google Gemini gemini-embedding-001 (768-dim)
 * **LLM**: Google Gemini gemini-2.5-flash
 * **Framework**: FastAPI + Uvicorn
 
