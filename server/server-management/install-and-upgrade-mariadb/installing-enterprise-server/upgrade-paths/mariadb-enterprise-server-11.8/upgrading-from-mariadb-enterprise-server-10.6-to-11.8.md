@@ -350,9 +350,11 @@ Replicating from a MariaDB 11.8 Primary to a MariaDB 10.6 Replica is NOT officia
 
 ### Required 11.8 Primary Configuration
 
-To prevent the 10.6 replica from crashing due to modern metadata (such as the `#2304` character set ID), the 11.8 Primary must be configured to "downgrade" its binary log output.
+To prevent the 10.6 replica from crashing due to modern metadata (such as the `#2304` character set ID), the 11.8 Primary must be configured to "downgrade" its binary log output using a compatibility file.
 
-Apply these settings to the 11.8 Primary `/etc/my.cnf.d/rollback_compat.cnf`:
+#### The `rollback_compat.cnf` Setup
+
+Create a standalone configuration file to house these temporary reversion settings at `/etc/my.cnf.d/rollback_compat.cnf`
 
 ```ini
 [mariadb]
@@ -373,6 +375,8 @@ collation_database              = latin1_swedish_ci
 # Standardizes log checksums for the 10.6 parser
 binlog_checksum                 = CRC32
 ```
+
+To activate these settings, append the following line to the end of the `[mariadb]` section in your primary `/etc/my.cnf` file: `!include /etc/my.cnf.d/rollback_compat.cnf`
 
 {% hint style="danger" %}
 **Critical Compatibility Step**
@@ -433,5 +437,23 @@ After the data upgrade is complete, verify the functionality of 11.8 features:
     CREATE TABLE test_vector (v VECTOR(3));
     SELECT VEC_ToText(VEC_FromText('[1,2,3]'));
     ```
-* Verify Optimizer Performance: Run `ANALYZE FORMAT=JSON` on a complex query to see the new SSD-optimized cost model and engine-specific metrics (e.g., `pages_accessed`) in action.
+*   Verify Optimizer Performance: Prefix any SQL query with ANALYZE FORMAT=JSON on upgraded 11.8 instances to audit the new SSD-aware cost model: &#x20;
+
+    ```sql
+    ANALYZE FORMAT=JSON SELECT * FROM orders WHERE total > 1000 AND status = 'shipped';
+    ```
+
+    This captures real-time execution metrics like `engine_cost` (measured in ms) and `pages_accessed`, verifying that the optimizer is correctly prioritizing high-speed storage over legacy 10.6 logic:
+
+    ```json
+    "table": {
+      "table_name": "orders",
+      "access_type": "index_scan",
+      "engine_cost": 4.12, // Actual cost in MILLISECONDS (ms)
+      "r_engine_stats": {
+        "pages_accessed": 142, // Real-world I/O footprint
+        "pages_read_time_ms": 1.05 // Precise SSD latency
+      }
+    }
+    ```
 * Check Replication Lag Fields: On a replica server, run `SHOW REPLICA STATUS\G` and look for the new `Master_Slave_time_diff` field.

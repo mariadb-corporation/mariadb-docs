@@ -68,7 +68,7 @@ Standard data dumps often fail to capture complex user permissions correctly whe
 The following SQL can be used to generate [CREATE USER](../../../../reference/sql-statements/account-management-sql-statements/create-user.md) statements with a default password that can be executed on MariaDB. It does the following:
 
 * Authentication method  [mysql\_native\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_native_password.md) – the script supports passwords porting.
-* Authentication method  [caching\_sha256\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md) or authentication string is `NULL` – passwords are reset to default with expiry.
+* Authentication method  [caching\_sha2\_password](../../../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md) or authentication string is `NULL` – passwords are reset to default with expiry.
 
 The [PARSEC](../../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) authentication plugin is intended to be the default in a future release, hence it is recommended to use this during user migration. &#x20;
 
