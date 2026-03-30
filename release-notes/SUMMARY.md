@@ -2020,6 +2020,7 @@
   * [Connector/J](connectors/java/README.md)
     * [Connector/J All Releases](connectors/java/all-releases.md)
     * [Connector/J 3.5 Release Notes](connectors/java/3.5/README.md)
+      * [Connector/J 3.5.8 Release Notes](connectors/java/3.5/3.5.8.md)
       * [Connector/J 3.5.7 Release Notes](connectors/java/3.5/3.5.7.md)
       * [Connector/J 3.5.6 Release Notes](connectors/java/3.5/3.5.6.md)
       * [Connector/J 3.5.5 Release Notes](connectors/java/3.5/3.5.5.md)
