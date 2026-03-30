@@ -1433,7 +1433,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 * Description: Table name containing a list of stopwords to ignore when creating an InnoDB [FULLTEXT index](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/), in the format db\_name/table\_name. The specified table must exist before this option is set, and must be an InnoDB table with a single column, a [VARCHAR](../../../reference/data-types/string-data-types/varchar.md) named VALUE. See also [innodb\_ft\_enable\_stopword](innodb-system-variables.md#innodb_ft_enable_stopword).
 * Command line: `--innodb-ft-user-stopword-table=db_name/table_name`
-* Scope: Session
+* Scope: Global, Session
 * Dynamic: Yes
 * Data Type: `string`
 * Default Value: Empty
