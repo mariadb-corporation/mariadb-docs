@@ -99,7 +99,7 @@ The following options should be removed or renamed if you use them in your [opti
 
 #### Functions
 
-* As a result of implementing Table Value Constructors, the [VALUES function](../../../../reference/sql-functions/secondary-functions/miscellaneous-functions/values-value.md) has been renamed to VALUE().
+* As a result of implementing Table Value Constructors, the [VALUES function](../../../../reference/sql-functions/secondary-functions/miscellaneous-functions/values-value-1.md) has been renamed to VALUE().
 * Functions that used to only return 64-bit now can return 32-bit results ([MDEV-12619](https://jira.mariadb.org/browse/MDEV-12619)). This could cause incompatibilities with strongly-typed clients.
 
 #### mysqldump
