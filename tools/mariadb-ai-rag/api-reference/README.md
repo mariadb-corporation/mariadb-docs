@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB AI RAG exposes a comprehensive RESTful API for programmatic
+  interaction with the system. All API endpoints require authentication except
+  for the login endpoint.
 icon: paperclip
 ---
 
@@ -28,7 +32,7 @@ Authentication and authorization documentation:
 * Document sharing and permissions
 * User directory management
 
-### [Database Integration](database-integration.md)
+### [Database Integration](../database-integration.md)
 
 Direct database ingestion capabilities:
 
