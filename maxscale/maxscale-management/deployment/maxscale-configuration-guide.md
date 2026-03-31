@@ -2322,8 +2322,8 @@ facility and level can be controlled by the administrator. Given an event
 `X`, its facility and level are controlled in the following manner:
 
 ```
-event.X.facility=LOG_LOCAL0
-event.X.level=LOG_ERR
+event_X_facility=LOG_LOCAL0
+event_X_level=LOG_ERR
 ```
 
 The above means that if event _X_ occurs, then that is logged using the
@@ -2353,16 +2353,16 @@ for the logged events to end up in `/var/log/auth.log`, where the initial`auth` 
 
 The available events are:
 
-#### 'authentication\_failure'
+####`'authentication_failure`
 
 This event occurs when there is an authentication failure.
 
 ```
-event.authentication_failure.facility=LOG_AUTH
-event.authentication_failure.level=LOG_CRIT
+event_authentication_failure_facility=LOG_AUTH
+event_authentication_failure_level=LOG_CRIT
 ```
 
-#### 'firewall_incident'
+#### `firewall_incident`
 
 This event occurs when the firewall blocks a query.
 ```
