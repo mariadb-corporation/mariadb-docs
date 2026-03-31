@@ -110,7 +110,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 * Description: Maximum memory in bytes that can be used for memory mapping compressed MyISAM files. Too high a value may result in swapping if there are many compressed MyISAM tables.
 * Command line: `--myisam-mmap-size=#`
-* Scope: Global, Session
+* Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
 * Default Value - 32 bit: `4294967295`
