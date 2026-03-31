@@ -57,7 +57,7 @@ curl -X POST "http://localhost:8000/documents/ingest" \
 }
 ```
 
-**Status Values**:
+**`Status` Values**:
 
 * `pending`: Document is queued for processing
 * `completed`: Document has been successfully processed
@@ -78,7 +78,9 @@ curl -X POST "http://localhost:8000/documents/ingest" \
   -F "files=@/path/to/document2.docx"
 ```
 
-**Note**: The endpoint accepts both single and multiple files. Documents are processed asynchronously, so the initial status will be `pending`. Use the document ID to check processing status later.
+{% hint style="info" %}
+The endpoint accepts both single and multiple files. Documents are processed asynchronously, so the initial status will be `pending`. Use the document ID to check processing status later.
+{% endhint %}
 
 ### List Documents
 
@@ -214,12 +216,16 @@ POST /chunk
 }
 ```
 
-**Chunking Methods**:
+**Parameters:**
 
-* `recursive`: Recursive text splitting (default)
-* `sentence`: Sentence-based chunking
-* `token`: Token-based chunking
-* `semantic`: Semantic similarity-based chunking (requires `threshold`)
+* `chunking_methods`:
+  * `recursive`: Recursive text splitting (default)
+  * `sentence`: Sentence-based chunking
+  * `token`: Token-based chunking
+  * `semantic`: Semantic similarity-based chunking (requires `threshold`)
+* `chunk_size`: Number of characters/tokens per chunk (default: 512).
+* `chunk_overlap`: Overlap between adjacent chunks (default: 128).
+* `threshold`: Similarity threshold for merging segments (used only in `semantic` chunking).
 
 **Response**:
 
@@ -246,7 +252,9 @@ curl -X POST "http://localhost:8000/chunk" \
   }'
 ```
 
-**Note**: For semantic chunking, the `threshold` parameter controls how similar adjacent chunks should be before they are merged.
+{% hint style="info" %}
+For semantic chunking, the `threshold` parameter controls how similar adjacent chunks should be before they are merged.
+{% endhint %}
 
 ### Chunk All Documents
 

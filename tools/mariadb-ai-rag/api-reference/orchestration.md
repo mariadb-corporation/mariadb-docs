@@ -46,12 +46,18 @@ POST /orchestrate/ingestion
 }
 ```
 
-**Chunking Methods**:
+**Parameters:**
 
-* `recursive`: Recursive text splitting (default)
-* `sentence`: Sentence-based chunking
-* `token`: Token-based chunking
-* `semantic`: Semantic similarity-based chunking (requires `threshold`)
+* `chunking_method`
+  * `recursive`: Recursive text splitting (default)
+  * `sentence`: Sentence-based chunking
+  * `token`: Token-based chunking
+  * `semantic`: Semantic similarity-based chunking (requires `threshold`)
+* `chunk_size`: Number of tokens/characters per chunk (default: 512).
+* `cloud_storage_sources` (optional): A JSON array used to ingest from an external integration (S3, GCS, or MinIO). Requires an `integration_id` and a `prefix`.
+* `document_processing` (optional): A stringified JSON object defining the extraction tier:
+  * `processor_type`: `"base"`, `"layout_aware_standard"` (Docling), or `"layout_aware_advanced"` (LlamaParse).
+  * `enable_ocr`: Boolean to turn on OCR for scanned documents.
 
 **Response**:
 
