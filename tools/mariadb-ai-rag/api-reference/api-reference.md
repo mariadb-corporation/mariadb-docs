@@ -15,6 +15,17 @@ POST /documents/ingest
 **Request Parameters**:
 
 * `files`: One or more files to upload (required)
+* `document_processing` (optional): Stringified JSON object for advanced processing.
+  * `processor_type`: `"base"`, `"layout_aware_standard"`, or `"layout_aware_advanced"`.
+
+**Example Request:**
+
+```bash
+curl -X POST "http://localhost:8000/documents/ingest" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -F "files=@/path/to/document.pdf" \
+  -F 'document_processing={"processor_type": "layout_aware_standard", "enable_ocr": 
+```
 
 **Response**:
 

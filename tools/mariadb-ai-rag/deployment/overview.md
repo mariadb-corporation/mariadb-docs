@@ -202,7 +202,7 @@ Run the following command to start the service
 
 {% code title="" overflow="wrap" %}
 ```bash
-docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure up -d
+docker compose -f docker-compose.yml --env-file config.env.secure up -d
 ```
 {% endcode %}
 {% endstep %}
@@ -214,7 +214,7 @@ Check the status of your services:
 
 {% code title="Check status" %}
 ```bash
-docker compose -f docker-compose.dockerhub-dev.yml ps
+docker compose -f docker-compose.yml ps
 ```
 {% endcode %}
 
