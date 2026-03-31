@@ -31,7 +31,7 @@ The `RETURNING` clause is available from MariaDB 13.0.
 
 `RETURNING` works only for single tables.
 
-It uses the [`OLD_VALUE()`](<../../../sql-functions/secondary-functions/miscellaneous-functions/values-value (1).md>) function to return a value _val_ as the old value (before the `UPDATE`), and optionally `val` as the new value (after the `UPDATE`).
+It uses the [`OLD_VALUE()`](../../../sql-functions/secondary-functions/miscellaneous-functions/old-value.md) function to return a value _val_ as the old value (before the `UPDATE`), and optionally `val` as the new value (after the `UPDATE`).
 
 See [this example](update.md#single-table-with-returning-clause) for how it is used.
 {% endhint %}
