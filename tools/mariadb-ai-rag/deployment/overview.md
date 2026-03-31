@@ -1,6 +1,6 @@
 # Deployment
 
-MariaDB AI RAG 1.1 (Beta) is an all-in-one, enterprise-ready solution that handles the entire Retrieval-Augmented Generation (RAG) pipeline, including document parsing with layout extraction, chunking, embedding generation, and easy-to-use retrieval APIs backed by hybrid search (vector + full-text search), with optional reranking before sending the relevant context to a foundation model for answer generation.
+MariaDB AI RAG is an all-in-one, enterprise-ready solution that handles the entire Retrieval-Augmented Generation (RAG) pipeline, including document parsing with layout extraction, chunking, embedding generation, and easy-to-use retrieval APIs backed by hybrid search (vector + full-text search), with optional reranking before sending the relevant context to a foundation model for answer generation.
 
 MariaDB AI RAG deployed as a containerized stack using Docker. For a quick evaluation, you can also leverage a MariaDB vector store deployed in a container alongside the AI RAG stack to get an end-to-end setup faster.
 
