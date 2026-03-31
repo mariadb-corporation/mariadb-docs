@@ -32,7 +32,7 @@ Authentication and authorization documentation:
 * Document sharing and permissions
 * User directory management
 
-### [Database Integration](../database-integration.md)
+### [Database Integration](database-integration.md)
 
 Direct database ingestion capabilities:
 

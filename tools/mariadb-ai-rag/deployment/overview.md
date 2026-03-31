@@ -39,7 +39,7 @@ cd mariadb-rag-deployment
 
 Download the following essential files from the public AI RAG GitHub repository and place them in your new folder:
 
-1. [`docker-compose.dockerhub-dev.yml`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/docker-compose.dockerhub-dev.yml): The blueprint defining all services in the stack.
+1. [`docker-compose.yml`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/docker-compose.yml): The blueprint defining all services in the stack.
 2. [`config.env.template`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/mariadb-ai-rag/config.env.template): The template containing all necessary environment variables.
 {% endstep %}
 

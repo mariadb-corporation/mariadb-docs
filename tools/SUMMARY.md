@@ -114,7 +114,7 @@
     * [Object Storage and Bulk Ingestion](mariadb-ai-rag/api-reference/object-storage-and-bulk-ingestion.md)
     * [Reranker](mariadb-ai-rag/api-reference/reranker.md)
     * [Layout Awareness](mariadb-ai-rag/api-reference/layout-awareness.md)
-  * [Database Integration](mariadb-ai-rag/database-integration.md)
+    * [Database Integration](mariadb-ai-rag/api-reference/database-integration.md)
   * [Reference](mariadb-ai-rag/reference/README.md)
     * [Supported Formats](mariadb-ai-rag/reference/supported-formats.md)
     * [Integration](mariadb-ai-rag/reference/integration.md)
