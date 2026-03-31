@@ -2370,6 +2370,21 @@ event_firewall_incident_facility=LOG_AUTH
 event_firewall_incident_level=LOG_CRIT
 ```
 
+#### `session_start`
+
+This event occurs when a client session is successfully started.
+```
+event_session_start_facility=LOG_AUTH
+event_session_start_level=LOG_CRIT
+```
+#### `session_stop`
+
+This event occurs when a client disconnects.
+```
+event_session_stop_facility=LOG_AUTH
+event_session_stop_level=LOG_CRIT
+```
+
 ### Service
 
 A service represents the database service that MariaDB MaxScale offers to the
