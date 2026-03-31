@@ -49,7 +49,7 @@ If more than one unique index is matched, only the first is updated. It is not r
 
 If the table has an [AUTO\_INCREMENT](../../../data-types/auto_increment.md) [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key) and the statement inserts or updates a row, the [LAST\_INSERT\_ID()](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) function returns its AUTO\_INCREMENT value.
 
-The [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value-1.md) function can only be used in a `ON DUPLICATE KEY UPDATE` clause and has no meaning in any other context. It returns the column values from the `INSERT` portion of the statement. This function is particularly useful for multi-rows inserts.
+The [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value.md) function can only be used in a `ON DUPLICATE KEY UPDATE` clause and has no meaning in any other context. It returns the column values from the `INSERT` portion of the statement. This function is particularly useful for multi-rows inserts.
 
 The [IGNORE](ignore.md) and [DELAYED](insert-delayed.md) options are ignored when you use `ON DUPLICATE KEY UPDATE`.
 
@@ -199,7 +199,7 @@ INSERT INTO table (a,b,c) VALUES (1,2,3),(4,5,6)
     ON DUPLICATE KEY UPDATE c=VALUES(a)+VALUES(b);
 ```
 
-See the [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value-1.md) function for more.
+See the [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value.md) function for more.
 
 ## See Also
 
@@ -210,7 +210,7 @@ See the [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-func
 * [Concurrent Inserts](concurrent-inserts.md)
 * [INSERT - Default & Duplicate Values](insert-default-duplicate-values.md)
 * [INSERT IGNORE](insert-ignore.md)
-* [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value-1.md)
+* [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

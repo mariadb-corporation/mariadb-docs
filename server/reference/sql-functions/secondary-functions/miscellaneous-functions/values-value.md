@@ -4,31 +4,29 @@ description: >-
   that would have been inserted into a column if no key conflict occurred.
 ---
 
-# OLD\_VALUE
-
-{% hint style="info" %}
-This function is available from MariaDB 13.0.
-{% endhint %}
+# VALUES / VALUE
 
 ## Syntax
 
 ```sql
-OLD_VALUE(val)
+VALUE(col_name)
 ```
 
 ## Description
 
-In the `RETURNING` clause of an [`UPDATE`](../../../sql-statements/data-manipulation/changing-deleting-data/update.md) statement, `OLD_VALUE()` returns the value before the update. The function is meaningful only in this context.
+In an [INSERT ... ON DUPLICATE KEY UPDATE](../../../sql-statements/data-manipulation/inserting-loading-data/insert-on-duplicate-key-update.md) statement, you can use the `VALUES(col_name)` function in the [UPDATE](../../../sql-statements/data-manipulation/changing-deleting-data/update.md) clause to refer to column values from the [INSERT](../../../sql-statements/data-manipulation/inserting-loading-data/insert.md) portion of the statement. In other words, `VALUES(col_name)` in the `UPDATE` clause refers to the value of col\_name that would be inserted, had no duplicate-key conflict occurred. This function is especially useful in multiple-row inserts.
+
+The `VALUES()` function is meaningful only in `INSERT ... ON DUPLICATE KEY UPDATE` statements and returns `NULL` otherwise.
+
+This function was renamed to `VALUE()`, because it's incompatible with the standard Table Value Constructors syntax.
+
+The `VALUES()` function can still be used but only in `INSERT ... ON DUPLICATE KEY UPDATE` statements; it's a syntax error otherwise.
 
 ## Examples
 
 ```sql
-UPDATE t SET a=a+1 RETURNING OLD_VALUE(a) AS old, a as new;
-+------+------+
-| old  | new  |
-+------+------+
-|    1 |    2 |
-+------+------+
+INSERT INTO t (a,b,c) VALUES (1,2,3),(4,5,6)
+    ON DUPLICATE KEY UPDATE c=VALUE(a)+VALUE(b);
 ```
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)

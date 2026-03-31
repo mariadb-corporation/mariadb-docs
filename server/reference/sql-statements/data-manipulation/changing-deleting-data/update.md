@@ -23,7 +23,18 @@ UPDATE [LOW_PRIORITY] [IGNORE] table_reference
   [WHERE where_condition]
   [ORDER BY ...]
   [LIMIT row_count]
+  RETURNING OLD_VALUE(val) AS old [, val as new]
 ```
+
+{% hint style="info" %}
+The `RETURNING` clause is available from MariaDB 13.0.
+
+`RETURNING` works only for single tables.
+
+It uses the [`OLD_VALUE()`](<../../../sql-functions/secondary-functions/miscellaneous-functions/values-value (1).md>) function to return a value _val_ as the old value (before the `UPDATE`), and optionally `val` as the new value (after the `UPDATE`).
+
+See [this example](update.md#single-table-with-returning-clause) for how it is used.
+{% endhint %}
 
 Multiple-table syntax:
 
@@ -116,6 +127,21 @@ SELECT * FROM t1;
 
 ```sql
 UPDATE table_name SET column1 = value1, column2 = value2 WHERE id=100;
+```
+
+### Single-Table With RETURNING Clause
+
+{% hint style="info" %}
+The RETURNING clause is available from MariaDB 13.0.
+{% endhint %}
+
+```sql
+UPDATE t SET a=a+1 RETURNING OLD_VALUE(a) AS old, a as new;
++------+------+
+| old  | new  |
++------+------+
+|    1 |    2 |
++------+------+
 ```
 
 ### Multi-Table
