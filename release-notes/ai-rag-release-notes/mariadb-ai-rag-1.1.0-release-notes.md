@@ -1,8 +1,3 @@
----
-hidden: true
-noIndex: true
----
-
 # MariaDB AI RAG 1.1.0 Release Notes
 
 **Release Date:** 31 Mar 2026
