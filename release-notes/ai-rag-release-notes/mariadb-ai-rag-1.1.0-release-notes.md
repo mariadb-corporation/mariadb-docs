@@ -5,23 +5,39 @@ noIndex: true
 
 # MariaDB AI RAG 1.1.0 Release Notes
 
-## MariaDB AI RAG 1.1.0 Release Notes
+**Release Date:** 31 Mar 2026
 
-MariaDB AI RAG 1.1.0 is the Beta release of our enterprise-grade Retrieval-Augmented Generation (RAG) solution. This version introduces major improvements across the ingestion and retrieval pipeline—especially for complex document layouts and large document libraries.
+Release 1.1.0 is a Beta release.
 
-This release improves the system's precision and transparency by introducing layout-aware extraction, incremental S3 syncing, automated reranking, and citation-backed outputs within a single, repeatable containerized deployment.
+MariaDB AI RAG 1.1.0 introduces major improvements across the ingestion and retrieval pipeline—especially for complex document layouts and large document libraries.&#x20;
+
+MariaDB AI RAG is currently in beta and can be evaluated with a trial license. This release adds layout-aware text extraction, incremental S3 ingestion, cross-encoder reranking, Docker-based deployment, and answer citations.
 
 ### New Features and Improvements
 
-* Layout-based text extraction: Includes built-in Docling (local) and LlamaParse (public endpoint) integration to improve ingestion quality for complex PDFs, tables, and multi-column documents.
-* Incremental S3 Ingestion: Bulk document ingestion from S3-compatible storage with incremental sync to process only new or changed documents.
-* Cross-encoder reranker: Integration with Cohere (public endpoint) and Flashrank (built-in/local) to select the most relevant context and reduce hallucinations.
-* Answer Citations: Increases trustworthiness by showing which documents or chunks were used to generate specific parts of the output.
-* Docker Deployment: Ability to spin up all pipeline components, including the parsing engine and MCP Server, in a single step.
+#### Layout-based text extraction (Built-in Docling + LlamaParse integration)
+
+Improve ingestion quality for complex PDFs and other layout-heavy documents (tables, multi-column pages, headers/footers) using layout-aware extraction via Docling and LlamaParse. Cleaner extraction leads to better chunk boundaries and embeddings, and ultimately more accurate retrieval—especially when plain text extraction loses reading order or structure.
+
+#### Bulk documents Ingestion from S3 storage with incremental sync
+
+Ingest large document collections directly from S3-compatible object storage (bucket/prefix) and keep them up to date with incremental sync—processing only new or changed documents instead of re-ingesting everything. This turns S3 Storage into a scalable source of truth for your knowledge base while keeping indexing cost under control.
+
+#### Cross-encoder reranker (Built-in Flashrank + Cohere integration)&#x20;
+
+Improve answer quality by reranking retrieved passages with a cross-encoder, so the system selects the most relevant context before generating a response. MariaDB AI RAG 1.1.0 supports Cohere reranking for managed, high-quality ranking and includes Flashrank as a built-in option for lightweight, local reranking—helping reduce hallucinations and boosting precision on ambiguous queries.
+
+#### Docker deployment
+
+Deploy MariaDB AI RAG as a containerized stack using Docker, so you can spin up all RAG pipeline components—including Docling for document parsing and the MCP Server—with a single, repeatable step. For quick evaluation, you can also use a MariaDB vector store deployed in a container alongside the AI RAG stack to get an end-to-end setup in minutes.
+
+#### Citation of generated answer
+
+Make responses more trustworthy by having citations alongside the generated answer—so users and applications can see which documents/chunks were used to generate each paragraph in the generated output.
 
 ### Packaging
 
-* Docker: MariaDB AI RAG 1.1.0 is provided exclusively as a containerized stack.
+* MariaDB AI RAG 1.1.0 is delivered as a suite of Docker containers managed by Docker Compose.
 
 {% hint style="warning" %}
 **Deprecation Note**
@@ -31,6 +47,5 @@ Packager-based deployments (RPM, DEB, and MSI) provided in version 1.0.0 are no 
 
 ### Installation
 
-* Deploy MariaDB AI RAG as a containerized stack using Docker to spin up all RAG pipeline components.
-* For quick evaluation, you can optionally run a MariaDB 11.8 vector store in a container alongside the AI RAG stack to get an end-to-end setup in minutes.
-* This release is available for evaluation through a trial license.
+* Follow the [Deployment Guide](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag/deployment/overview) in the [MariaDB AI RAG documentation](https://app.gitbook.com/s/kuTXWg0NDbRx6XUeYpGD/mariadb-ai-rag) for installation and initial setup.
+
