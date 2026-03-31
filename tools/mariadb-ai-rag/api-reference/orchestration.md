@@ -95,7 +95,7 @@ POST /orchestrate/generation
 
 **Purpose**: Orchestrates the complete RAG workflow: retrieval and text generation in a single request. Automatically retrieves relevant chunks and generates a response.
 
-**Request body**:
+**Request body (**&#x77;ith a `reranking` objec&#x74;**)**:
 
 ```json
 {
@@ -121,9 +121,13 @@ POST /orchestrate/generation
 * `retrieval_method` (optional): `semantic`, `fulltext`, or `hybrid` (default: `hybrid`)
 * `model_type` (optional): The backend library to use. Valid values: `"flashrank"`, `"sentence-transformers"`, `"cohere"`, `"hybrid"` (default: `"flashrank"`).
 * `model_name` (optional): The specific reranker model to load (default: `"ms-marco-MiniLM-L-12-v2"`)
-* `top_k` (optional): Number of chunks to retrieve (default: 5
+* `top_k` (optional): Number of chunks to retrieve (default: 5)
+* `reranking` (optional): A JSON object to enable a high-accuracy second pass.
+  * `enabled` (optional): Set to `true` to activate reranking (default: `false`).
+  * `model_type` (optional): The backend library (`flashrank`, `sentence-transformers`, `cohere`, `hybrid`) (default: `"flashrank"`).
+  * `model_name` (optional): The specific reranker model to load (default: `"ms-marco-MiniLM-L-12-v2"`).
+  * `top_k` (optional): Number of reranked results to return to the LLM.
 * `llm_provider` (optional): LLM provider - `openai`, `anthropic`, `gemini`, `cohere`, `ollama`, `azure`, `bedrock`
-* `llm_model` (optional): Specific model to use
 * `temperature` (optional): Controls randomness (0.0-2.0, default: 0.7)
 * `top_p` (optional): Nucleus sampling (0.0-1.0, default: 0.9)
 * `max_tokens` (optional): Maximum tokens to generate (1-8192, default: 1000)
