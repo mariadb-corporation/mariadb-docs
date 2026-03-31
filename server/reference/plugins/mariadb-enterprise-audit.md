@@ -31,10 +31,9 @@ _If you are migrating: You must remove the old `v1` plugin. Please go directly t
 
 MariaDB Enterprise Audit is installed and loaded by default. If you are unsure whether it is loaded on your system, you can [confirm that the plugin is loaded](mariadb-enterprise-audit.md#confirm-the-audit-plugin-is-loaded).
 
-To use MariaDB Enterprise Audit, the plugin must be configured:
+To use MariaDB Enterprise Audit, the plugin must be configured: Administrators must define [Audit Filters](mariadb-enterprise-audit.md#audit-filters) to configure what MariaDB Enterprise Audit writes to the audit log.
 
-* Administrators must define [Audit Filters](mariadb-enterprise-audit.md#audit-filters) to configure what MariaDB Enterprise Audit writes to the audit log.\
-  MariaDB Enterprise Audit supports two types of Audit Filters:
+MariaDB Enterprise Audit supports two types of Audit Filters:
 
 | Audit Filter Type                                                        | Used For                                                                                         |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
@@ -112,7 +111,6 @@ MariaDB Enterprise Audit is bundled with all MariaDB Enterprise Server distribut
 
 MariaDB Enterprise Audit is enabled through the `mariadb-enterprise.cnf` configuration file, which is included by default with MariaDB Enterprise Server. This means manual loading is usually not required.
 
-\
 The `mariadb-enterprise.cnf` file activates MariaDB Enterprise Audit by configuring the `plugin-load-add` and `server-audit` options.
 
 ```ini
@@ -151,10 +149,10 @@ When MariaDB Enterprise Audit is installed and loaded, audit logging does not be
 
 ### Start Audit Logging in Configuration File
 
-enable audit logging with MariaDB Enterprise Audit by setting the `server_audit_logging` system variable in a configuration file.\
-Alternatively, you can enable it dynamically with `SET GLOBAL`, which does not require a server restart.
+Enable audit logging with MariaDB Enterprise Audit by setting the `server_audit_logging` system variable in a configuration file. Alternatively, enable it dynamically with `SET GLOBAL`, which does not require a server restart.
 
-To configure in a file:\
+To configure in a file:
+
 1\. Set the `server_audit_logging` system variable in the configuration file.
 
 ```ini
@@ -257,7 +255,7 @@ In a secure environment, MariaDB Enterprise Audit provides administrators with a
 server_audit=FORCE_PLUS_PERMANENT
 ```
 
-When a user tries to uninstall MariaDB Enterprise Audit with the server-audit option set to FORCE\_PLUS\_PERMANENT, the operation fails with the ER\_PLUGIN\_IS\_PERMANENT error code:
+When a user tries to uninstall MariaDB Enterprise Audit with the server-audit option set to `FORCE_PLUS_PERMANENT`, the operation fails with the `ER_PLUGIN_IS_PERMANENT` error code:
 
 ```sql
 UNINSTALL SONAME 'server_audit2';
@@ -271,7 +269,7 @@ ERROR 1702 (HY000): Plugin 'SERVER_AUDIT' is force_plus_permanent and can not be
 The `mariadb-enterprise.cnf` configuration file included by default in MariaDB Enterprise Server sets the server-audit option to `FORCE_PLUS_PERMANENT`. As a consequence, MariaDB Enterprise Server forbids MariaDB Enterprise Audit from being uninstalled by default.
 {% endhint %}
 
-If you do not use mariadb-enterprise.cnf in your environment, you can configure MariaDB Enterprise Audit to forbid uninstallation by setting the server-audit option in your configuration file.
+If you do not use `mariadb-enterprise.cnf` in your environment, you can configure MariaDB Enterprise Audit to forbid uninstallation by setting the server-audit option in your configuration file.
 
 ### Confirm that Uninstallation is Forbidden
 
@@ -333,8 +331,8 @@ There are two types of filters:
 
 | Audit Filter Type                                                        | Description                                                                                                                                                                                                                                                                                                                                                              |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Default Audit Filter](mariadb-enterprise-audit.md#default-audit-filter) | The Default Audit Filter is used for all user accounts that are not assigned a Named Audit Filter. Only a single Default Audit Filter can be defined in the mysql.server\_audit\_filters system table, and it must be defined with the name default.                                                                                                                     |
-| [Named Audit Filters](mariadb-enterprise-audit.md#named-audit-filters)   | Named Audit Filters must be assigned to specific user accounts. Many Named Audit Filters can be defined in the mysql.server\_audit\_filters system table, and they must be defined with unique names. A Named Audit Filter can be assigned to a user account by inserting the user account details and the filter name into the mysql.server\_audit\_users system table. |
+| [Default Audit Filter](mariadb-enterprise-audit.md#default-audit-filter) | The Default Audit Filter is used for all user accounts that are not assigned a Named Audit Filter. Only a single Default Audit Filter can be defined in the `mysql.server_audit_filters` system table, and it must be defined with the name default.                                                                                                                     |
+| [Named Audit Filters](mariadb-enterprise-audit.md#named-audit-filters)   | Named Audit Filters must be assigned to specific user accounts. Many Named Audit Filters can be defined in the `mysql.server_audit_filters` system table, and they must be defined with unique names. A Named Audit Filter can be assigned to a user account by inserting the user account details and the filter name into the `mysql.server_audit_users` system table. |
 
 ## Default Audit Filter
 
@@ -514,6 +512,7 @@ JOIN mysql.server_audit_users sau
 WHERE saf.filtername != 'default'\G
 ```
 
+{% code expandable="true" %}
 ```json
 *************************** 1. row ***************************
                    host: %
@@ -560,6 +559,7 @@ JSON_DETAILED(saf.rule): {
     ]
 }
 ```
+{% endcode %}
 
 ### Reload Audit Filters and Assignments
 
@@ -592,7 +592,7 @@ The Event classes are described in the sections below. Example audit logs for ea
 
 MariaDB Enterprise Audit implements Audit Config Events to help keep track of changes to the audit log configuration.
 
-MariaDB Enterprise Audit logs Audit Config (AUDIT\_CONFIG) Events in the following situations:
+MariaDB Enterprise Audit logs Audit Config (`AUDIT_CONFIG`) Events in the following situations:
 
 * When one of MariaDB Enterprise Audit's system variables is changed with the [SET GLOBAL](../sql-statements/administrative-sql-statements/set-commands/set.md) statement, the change is logged.
 * When the audit log file is rotated, it is logged.
@@ -639,7 +639,7 @@ An **event filter for connection events** can be added to an Audit filter with t
 | DISCONNECT      | Records when the user disconnects from MariaDB Enterprise Server                                                                               |
 | FAILED\_CONNECT | Records when a user attempts to connect to MariaDB Enterprise Server, but the connection attempt fails due to authentication or similar issues |
 | CHANGE\_USER    | Records when a user switches to a different user account                                                                                       |
-| PROXY\_CONNECT  | Records proxy user connections. This Connection Event sub-class was added in ES10.4.17-10 and ES10.5.8-5.                                      |
+| PROXY\_CONNECT  | Records proxy user connections.                                                                                                                |
 | ALL             | Records all connection Events                                                                                                                  |
 
 This query defines a [Named Audit Filter](mariadb-enterprise-audit.md#named-audit-filters) that specifies connection events:
@@ -851,14 +851,14 @@ Object Filters are formatted as JSON objects, which are key-value pairs.
 
 For Object Filters, the key in the key-value pair refers to the specific type of Object Filter. The following types of Object Filters are supported:
 
-| Audit Log? | Object Filter Key | Description                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ---------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| No         | ignore\_databases | When one or more databases are specified with the ignore\_databases Object Filter key, the specified databases will not be audit logged. The ignore\_databases Object Filter key is an alias for the ignore\_tables Object Filter key, with the table identifier set to the wildcard character (\*). The ignore\_databases Object Filter key cannot be specified in the same Object Filter as the log\_databases and log\_tables Object Filter keys. |
-| No         | ignore\_tables    | When one or more tables are specified with the ignore\_tables Object Filter key, the specified tables will not be audit logged. Table names must be provided in the form database.table. Wildcard characters (\*) are allowed. The ignore\_tables Object Filter key cannot be specified in the same Object Filter as the log\_databases and log\_tables Object Filter keys.                                                                          |
-| Yes        | log\_databases    | When one or more databases are specified with the log\_databases Object Filter key, the specified databases will be audit logged, and all other databases will not be audit logged. The log\_databases Object Filter key is an alias for the log\_tables Object Filter key, with the table identifier set to the wildcard character (`*`).                                                                                                           |
-| Yes        | log\_tables       | When one or more databases are specified with the log\_tables Object Filter key, the specified tables will be audit logged, and all other tables will not be audit logged. Table names must be provided in the form database.table. Wildcard characters (`*`) are allowed.                                                                                                                                                                           |
+| Audit Log? | Object Filter Key | Description                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ---------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| No         | ignore\_databases | When one or more databases are specified with the `ignore_databases` Object Filter key, the specified databases are not audit-logged. The `ignore_databases` Object Filter key is an alias for the `ignore_tables` Object Filter key, with the table identifier set to the wildcard character (`*`). The ignore\_databases Object Filter key cannot be specified in the same Object Filter as the `log_databases` and `log_tables` Object Filter keys. |
+| No         | ignore\_tables    | When one or more tables are specified with the `ignore_tables` Object Filter key, the specified tables will not be audit logged. Table names must be provided in the form _`database.table`_. Wildcard characters (`*`) are allowed. The `ignore_tables` Object Filter key cannot be specified in the same Object Filter as the `log_databases` and `log_tables` Object Filter keys.                                                                   |
+| Yes        | log\_databases    | When one or more databases are specified with the `log_databases` Object Filter key, the specified databases will be audit logged, and all other databases will not be audit logged. The `log_databases` Object Filter key is an alias for the `log_tables` Object Filter key, with the table identifier set to the wildcard character (`*`).                                                                                                          |
+| Yes        | log\_tables       | When one or more databases are specified with the `log_tables` Object Filter key, the specified tables will be audit logged, and all other tables will not be audit logged. Table names must be provided in the form _`database.table`_. Wildcard characters (`*`) are allowed.                                                                                                                                                                        |
 
-The values in the key-value pair refer to iniobject names.
+The values in the key-value pair refer to object names.
 
 When the Object Filter only applies to one object, the object name can be specified as a string scalar value in the JSON object:
 
@@ -1073,11 +1073,10 @@ When a system variable is dynamically changed with the [SET GLOBAL](../sql-state
 
 ```ini
 [mariadb]
-...
 server_audit_file_rotate_size=2147483648
 ```
 
-The file can also be rotated manually by setting the [server\_audit\_file\_rotate\_now](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_file_rotate_now) system variable to ON. For example, to rotate the log with the [SET GLOBAL](../sql-statements/administrative-sql-statements/set-commands/set.md) statement:
+The file can also be rotated manually by setting the [server\_audit\_file\_rotate\_now](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_file_rotate_now) system variable to `ON`. For example, to rotate the log with the [SET GLOBAL](../sql-statements/administrative-sql-statements/set-commands/set.md) statement:
 
 ```sql
 SET GLOBAL server_audit_file_rotate_now = ON;
@@ -1108,18 +1107,37 @@ When MariaDB Enterprise Audit is configured to use a dedicated file, it records 
 
 Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<operation>,<database>,<object>,<retcode>`
 
-| Field | Component      | Data Type      | Standardized Name / Description                                                    |
-| ----- | -------------- | -------------- | ---------------------------------------------------------------------------------- |
-| 1     | `timestamp`    | `DateTime`     | Formatted as `YYYYMMDD HH:MM:SS`.                                                  |
-| 2     | `serverhost`   | `String`       | The hostname of the server instance.                                               |
-| 3     | `username`     | `String`       | The MariaDB user account triggering the event.                                     |
-| 4     | `host`         | `String`       | The client host from which the user connected.                                     |
-| 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs. |
-| 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query. Used to link Query and Table events.   |
-| 7     | `operation`    | `String`       | The type of action (e.g., `CONNECT`, `QUERY`, `WRITE`).                            |
-| 8     | `database`     | `String`       | The name of the database being accessed.                                           |
-| 9     | `object`       | `String`       | The specific table or object involved in the operation.                            |
-| 10    | `retcode`      | `Integer`      | The return code; `0` indicates success, non-zero indicates an error code.          |
+| Field | Component      | Data Type      | Standardized Name / Description                                                                                                       |
+| ----- | -------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or [as described below](mariadb-enterprise-audit.md#milliseconds-precision-timestamps). |
+| 2     | `serverhost`   | `String`       | The hostname of the server instance.                                                                                                  |
+| 3     | `username`     | `String`       | The MariaDB user account triggering the event.                                                                                        |
+| 4     | `host`         | `String`       | The client host from which the user connected.                                                                                        |
+| 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                    |
+| 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query. Used to link Query and Table events.                                                      |
+| 7     | `operation`    | `String`       | The type of action (e.g., `CONNECT`, `QUERY`, `WRITE`).                                                                               |
+| 8     | `database`     | `String`       | The name of the database being accessed.                                                                                              |
+| 9     | `object`       | `String`       | The specific table or object involved in the operation.                                                                               |
+| 10    | `retcode`      | `Integer`      | The return code; `0` indicates success, non-zero indicates an error code.                                                             |
+
+#### Milliseconds Precision Timestamps
+
+Auditing regulations and standards require auditing logs with timestamps recording fractions of a second and timezone information. To fulfill this requirement, MariaDB Enterprise Audit uses the system log (syslog) via the [server\_audit\_output\_type](mariadb-audit-plugin/mariadb-audit-plugin-options-and-system-variables.md#server_audit_output_type) option, where the timestamp format is controlled by the syslog setting.&#x20;
+
+To define the format of the timestamp:
+
+* Configure `server_audit_output_type=file`.&#x20;
+* Change the default setting of `%Y%m%d %H:%i:%s` (which assures compatibility) to something including milliseconds (`%f`) and time zone information (`%z`), like `%Y%m%dT%H:%i:%s.%f%z`.
+
+This results in audit log entries like these:
+
+{% code expandable="true" %}
+```
+# for server_audit_timestamp_format=%Y%m%dT%H:%i:%s.%f%z
+20231207T13:14:28.000000+0100,mdbe106,root,localhost,4,0,CONNECT,,,0
+20231207T13:14:32.481161+0100,mdbe106,root,localhost,4,0,DISCONNECT,,,0
+```
+{% endcode %}
 
 ### **Value Mapping for Operations**
 
