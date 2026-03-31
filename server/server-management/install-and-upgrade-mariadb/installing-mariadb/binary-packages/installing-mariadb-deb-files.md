@@ -105,17 +105,25 @@ Once the **Software Sources** window is open, go to the **Other Software** tab, 
 
 See [here](https://help.ubuntu.com/community/SynapticHowto#Managing_Repositories) for more information.
 
-#### Pinning the MariaDB Repository to a Specific Minor Release
+#### Pinning the MariaDB Repository to the repository of a Specific Minor Release
 
-If you wish to pin the `apt` repository to a specific minor release, or if you would like to downgrade to a specific minor release, then you can create a `apt` repository with the URL hard-coded to that specific minor release.
+If you wish to pin the `apt` repository to a specific minor release, or if you would like to downgrade to a specific minor release, then you can create an `apt` repository with the URL hard-coded to that specific minor release.
 
-The MariaDB Foundation archives repositories of old minor releases at the following URL:
+{% tabs %}
+{% tab title="MariaDB Corporation repo setup scripts" %}
+If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
 
-*
+See [Pinning the Repository to a Specific Minor Release](mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](mariadb-package-repository-setup-and-usage.md) page for details.
 
-Archives are only of the distros and architectures supported at the time of release. For example, [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-21-release-notes) exists for Ubuntu `bionic, focal, jammy, kinetic,` and #lunar`is obtained looking in [dists](https://archive.mariadb.org/mariadb-10.6.21/repo/ubuntu/dists).`
+The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
+{% endtab %}
 
-For example, if you wanted to pin your repository to [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9) on Ubuntu 20.04 LTS (Focal), then you would have to first remove any existing MariaDB repository source list file from `/etc/apt/sources.list.d/`. And then you could use the following commands to add the MariaDB `apt-get` repository:
+{% tab title="MariaDB Foundation repo config tool" %}
+If you used the [MariaDB Foundation's Repository Configuration tool](https://mariadb.org/download/?t=repo-config), then you need to update the repository file you created to include the full version number. By default the Foundation's tool configures repositories with just the main series of MariaDB, e.g. `mariadb-11.8`, and to pin to a specific version you need to specify the full version, for example `mariadb-11.8.6`.  The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page.
+
+Archives are only of the distros and architectures supported at the time of release. For example, MariaDB Community Server 10.6.21 exists for Ubuntu `bionic`, `focal`, `jammy`, and `kinetic`, and the list of what distributions are available is obtained by looking in the `dists` folder of the [10.6.21 Debian](https://archive.mariadb.org/mariadb-10.6.21/repo/debian/dists/) or [Ubuntu](https://archive.mariadb.org/mariadb-10.6.21/repo/ubuntu/dists) repositories.
+
+For example, if you wanted to pin your repository to [MariaDB Community Server 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9) on Ubuntu 20.04 LTS (Focal), then you would have to first remove any existing MariaDB repository source list file from `/etc/apt/sources.list.d/`. And then you could use the following commands to add the MariaDB `apt-get` repository:
 
 ```bash
 sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x] http://archive.mariadb.org/mariadb-10.5.9/repo/ubuntu/ focal main main/debug'
@@ -134,6 +142,8 @@ And then you would have to update the package cache by executing the following c
 ```bash
 sudo apt update
 ```
+{% endtab %}
+{% endtabs %}
 
 ### Updating the MariaDB APT repository to a New Major Release
 
@@ -143,7 +153,7 @@ MariaDB's `apt` repository can be updated to a new major release. How this is do
 
 If you configured `apt` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](mariadb-package-repository-setup-and-usage.md), then you can update the major release that the repository uses by running the script again.
 
-#### Updating the Major Release with the MariaDB Repository Configuration Tool
+#### Updating the Major Release with the MariaDB Foundation's Repository Configuration Tool
 
 If you configured `apt` to install from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/), then you can update the major release in various ways, depending on how you originally added the repository.
 
@@ -194,45 +204,13 @@ After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.co
 
 Before MariaDB can be installed, you also have to import the GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the `apt` utility to verify the integrity of the packages that it installs.
 
-* Prior to Debian 9 (Stretch), and Debian Unstable (Sid), and Ubuntu 16.04 LTS (Xenial), the id of our GPG public key is `0xcbcb082a1bb943db`. The full key fingerprint is:
+For **MariaDB Community Server**, see the [MariaDB Community Server Debian / Ubuntu key](gpg.md#mariadb-community-server-debian-ubuntu-key) section of the [GPG](gpg.md) page for details on how to import the key used by those repositories on your Debian or Ubuntu system.
 
-```bash
-1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
-```
+For **MariaDB Enterprise Server**, see the [MariaDB Enterprise GPG Keys](gpg.md#mariadb-enterprise-gpg-keys) section of the [GPG](gpg.md) page for details on how to import the key used by those repositories on your Debian or Ubuntu system.
 
-The [apt-key](https://manpages.ubuntu.com/manpages/bionic/man8/apt-key.8.html) utility can be used to import this key. For example:
-
-```bash
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-```
-
-* Starting with Debian 9 (Stretch) and Ubuntu 16.04 LTS (Xenial), the id of our GPG public key is `0xF1656F24C74CD1D8`. The full key fingerprint is:
-
-```bash
-177F 4010 FE56 CA33 3630  0305 F165 6F24 C74C D1D8
-```
-
-The [apt-key](https://manpages.ubuntu.com/manpages/bionic/man8/apt-key.8.html) utility can be used to import this key. For example:
-
-```bash
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-```
-
+{% hint style="info" %}
 Starting with Debian 9 (Stretch), the [dirmngr](https://manpages.debian.org/stretch/dirmngr/dirmngr.8.en.html) package needs to be installed before the GPG public key can be imported. To install it, execute: `sudo apt install dirmngr`
-
-If you are unsure which GPG public key you need, then it is perfectly safe to import both keys.
-
-The command used to import the GPG public key is the same on both Debian and Ubuntu. For example:
-
-```bash
-$ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --secret-keyring /tmp/tmp.ASyOPV87XC --trustdb-name /etc/apt/trustdb.gpg --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-gpg: requesting key 1BB943DB from hkp server keyserver.ubuntu.com
-gpg: key 1BB943DB: "MariaDB Package Signing Key <package-signing-key@mariadb.org>" imported
-gpg: no ultimately trusted keys found
-gpg: Total number processed: 1
-gpg:               imported: 1
-```
+{% endhint %}
 
 Once the GPG public key is imported, you are ready to install packages from the repository.
 
@@ -293,12 +271,10 @@ MariaDB Galera Cluster also has a separate package that can be installed on arbi
 To install the arbitrator package, you could execute the following command:
 
 ```bash
-sudo apt-get install galera-arbitrator-4
+sudo apt install galera-arbitrator-4
 ```
 
-<>
-
-See Galera for more information on MariaDB Galera Cluster.
+See [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) for more information on MariaDB Galera Cluster.
 
 #### Installing MariaDB Clients and Client Libraries with APT
 

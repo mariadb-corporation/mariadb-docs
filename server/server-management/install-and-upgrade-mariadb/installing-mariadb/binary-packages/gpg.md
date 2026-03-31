@@ -29,6 +29,12 @@ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F2
 sudo curl -LsSo /etc/apt/trusted.gpg.d/mariadb-keyring-2019.gpg https://supplychain.mariadb.com/mariadb-keyring-2019.gpg
 ```
 
+Prior to Debian 9 (Stretch), and Debian Unstable (Sid), and Ubuntu 16.04 LTS (Xenial), the id of our GPG public key was `0xcbcb082a1bb943db`. The full key fingerprint is:
+
+```bash
+1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
+```
+
 ## MariaDB Community Server RPM / Source Keys
 
 {% tabs %}

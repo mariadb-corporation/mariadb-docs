@@ -1,7 +1,5 @@
 ---
-description: >-
-  Complete MariaDB installation guide. Complete setup instructions for Linux,
-  Windows, and macOS with configuration and verification for production use.
+description: How to install MariaDB on systems that use the yum or dnf package managers
 ---
 
 # Installing MariaDB with yum/dnf
@@ -25,62 +23,51 @@ We currently have YUM/DNF repositories for the following Linux distributions, an
 
 ### Using the MariaDB Package Repository Setup Script
 
-If you want to install MariaDB with `yum`, then you can configure `yum` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md).
+MariaDB provides two helpful scripts for setting up repositories, one for MariaDB Community Server named `mariadb_repo_setup`, and one for MariaDB Enterprise Server named `mariadb_es_repo_setup`.
 
-MariaDB Corporation provides a MariaDB Package Repository for several Linux distributions that use `yum` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md), [client libraries](../../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../../reference/plugins/), and [mariadb-backup](../../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md). The MariaDB Package Repository setup script automatically configures your system to install packages from the MariaDB Package Repository.
+See the [Using MariaDB Corporation's Repository Setup Scripts](../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts) section on the [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) page for information on using these scripts.
 
-To use the script, execute the following command:
+### Using the MariaDB Foundation Repository Configuration Tool
 
-```bash
-curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
-```
-
-{% hint style="info" %}
-The script also configures a repository for [MariaDB MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-use-cases/maxscale-overview) and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) and its dependencies.
-
-See [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) for more information.
-{% endhint %}
-
-### Using the MariaDB Repository Configuration Tool
-
-If you want to install MariaDB with `yum`, then you can configure `yum` to install from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://downloads.mariadb.org/mariadb/repositories/).
-
-The MariaDB Foundation provides a MariaDB repository for several Linux distributions that use `yum` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../../clients-and-utilities/), [client libraries](../../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../../reference/plugins/), and [mariadb-backup](../../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md). The MariaDB Repository Configuration Tool can easily generate the appropriate configuration file to add the repository for your distribution.
-
-Once you have the appropriate repository configuration section for your distribution, add it to a file named `MariaDB.repo` under `/etc/yum.repos.d/`.
-
-For example, if you wanted to use the repository to install [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) on RHEL (any version), then you could use the following `yum` repository configuration in `/etc/yum.repos.d/MariaDB.repo`:
-
-```ini
-[mariadb]
-name = MariaDB
-baseurl = https://rpm.mariadb.org/10.6/rhel/$releasever/$basearch
-gpgkey= https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-```
-
-The example file above includes a `gpgkey` line to automatically fetch the\
-GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the `yum`, `dnf`, and `rpm` utilities to verify the integrity of the packages that they install.
+Visit [https://mariadb.org/download/?t=repo-config](https://mariadb.org/download/?t=repo-config) and follow the instructions from there. It will ask for your Linux distribution, desired MariaDB version, and the mirror to use, and will show what files to edit and what commands to run to configure a repository.
 
 ### Pinning the MariaDB Repository to a Specific Minor Release
 
-If you wish to pin the `yum` repository to a specific minor release, or if you would like to do a `yum downgrade` to a specific minor release, then you can create a `yum` repository configuration with a `baseurl` option set to that specific minor release.
+If you wish to pin your `yum` or `dnf` repository to a specific minor release, or if you would like to downgrade to a specific minor release, then you can configure a repository with the URL hard-coded to that specific minor release.
 
-For example, if you wanted to pin your repository to [MariaDB 10.8.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.8) on CentOS 7, then you could use the following `yum` repository configuration in `/etc/yum.repos.d/MariaDB.repo`:
+{% tabs %}
+{% tab title="MariaDB Corporation repo setup scripts" %}
+If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](../mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
+
+See [Pinning the Repository to a Specific Minor Release](../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) page for details.
+
+The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
+{% endtab %}
+
+{% tab title="MariaDB Foundation repo config tool" %}
+If you used the [MariaDB Foundation's Repository Configuration tool](https://mariadb.org/download/?t=repo-config), then you need to update the repository file you created to include the full version number to use on the `baseurl` line.
+
+By default the Foundation's tool configures repositories with just the main series of MariaDB, e.g. `mariadb-11.8`, and to pin to a specific version you need to specify the full version, for example `mariadb-11.8.6`.&#x20;
+
+The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page.
+
+For example, to pin your repository to MariaDB 11.8.6 on RHEL/Alma/Rocky 8, 9, or 10, then you could use the following repository configuration in `/etc/yum.repos.d/MariaDB.repo`:
 
 ```ini
 [mariadb]
-name = MariaDB-10.8.8
-baseurl= http://archive.mariadb.org/mariadb-10.8.8/yum/centos/$releasever/$basearch
+name = MariaDB-11.8.6
+baseurl= http://archive.mariadb.org/mariadb-11.8.6/yum/rhel/$releasever/$basearch
 gpgkey= https://archive.mariadb.org/PublicKey
 gpgcheck=1
 ```
 
-To change an existing repository configuration, you may execute the following command:
+After updating the repository configuration, it is a good idea to clean the repository metadata with:
 
 ```bash
-sudo yum clean all
+sudo dnf clean all
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Updating the MariaDB YUM repository to a New Major Release
 

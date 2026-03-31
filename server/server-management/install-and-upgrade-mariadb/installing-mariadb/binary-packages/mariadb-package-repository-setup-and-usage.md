@@ -232,19 +232,61 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- -
 | `--skip-os-eol-check`         | Skip tests for operating system versions past the EOL date                                                                                                                                        |
 | `--write-to-stdout`           | Write output to stdout instead of to the OS's repository configuration file. This will also skip importing GPG public keys and updating the package cache on platforms where that behavior exists |
 
-#### `--mariadb-server-version`
+### `--mariadb-server-version`
 
 By default, the script will configure your system to install from the repository of the latest GA version of MariaDB. If a new major GA release occurs and you would like to upgrade to it, then you will need to either manually edit the repository configuration file to point to the new version or run the MariaDB Package Repository setup script again.
 
 The script can also configure your system to install from the repository of a different version of MariaDB if you use the `--mariadb-server-version` option.
 
-The string `mariadb-` has to be prepended to the version number. For example, to configure your system to install from the repository of MariaDB 11.8, that would be:
+#### Usage Example
+
+{% tabs %}
+{% tab title="MariaDB Enterprise Server" %}
+With `mariadb_es_repo_setup` for MariaDB Enterprise Server, to configure your system to install from the MariaDB Enterprise Server 11.8 repository you would do:
 
 ```bash
-curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-11.8"
+./mariadb_es_repo_setup --token=$token --mariadb-server-version="11.8"
 ```
 
-The following MariaDB versions are currently supported:
+To specify a specific MariaDB Enterprise Server release, you need to put in the full version number, e.g. for MariaDB Enterprise Server 11.8.5-2:
+
+```bash
+./mariadb_es_repo_setup --token=$token --mariadb-server-version="11.8.5-2"
+```
+
+For more details see [Pinning the Repository to a Specific Minor Release](mariadb-package-repository-setup-and-usage.md#mariadb-enterprise-server-2)
+{% endtab %}
+
+{% tab title="MariaDB Community Server" %}
+With mariadb\_repo\_setup for MariaDB Community Server, the string `mariadb-` has to be prepended to the version number. For example, to configure your system to install from the repository of MariaDB 11.8, that would be:
+
+```bash
+./mariadb_repo_setup --mariadb-server-version="mariadb-11.8"
+```
+
+To specify a specific MariaDB Community Server release, you need to put in the full version number, e.g. for MariaDB Community Server 11.8.5:
+
+```bash
+./mariadb_repo_setup --mariadb-server-version="mariadb-11.8.5"
+```
+
+For more details see [Pinning the Repository to a Specific Minor Release](mariadb-package-repository-setup-and-usage.md#mariadb-community-server-2)
+{% endtab %}
+{% endtabs %}
+
+#### Current Supported Major Versions
+
+{% tabs %}
+{% tab title="MariaDB Enterprise Server" %}
+The following MariaDB Enterprise Server versions are currently supported:
+
+* `10.6`
+* `11.4`
+* `11.8`
+{% endtab %}
+
+{% tab title="MariaDB Community Server" %}
+The following MariaDB Community Server versions are currently supported:
 
 * `mariadb-10.6`
 * `mariadb-10.11`
@@ -256,10 +298,36 @@ The following MariaDB versions are currently supported:
 * `mariadb-12.2`
 * `mariadb-12.rolling`
 * `mariadb-12.rc`
+{% endtab %}
+{% endtabs %}
 
-If you want to pin the repository of a specific minor release, such as MariaDB 11.8.5, then you can also specify the minor release. For example, `mariadb-10.8.5`. This may be helpful if you want to avoid upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may contain important bug fixes and fixes for security vulnerabilities.
+#### Pinning the Repository to a Specific Minor Release
 
-#### `--mariadb-maxscale-version`
+{% tabs %}
+{% tab title="MariaDB Enterprise Server" %}
+If you want to pin the repository of a specific minor release, such as [MariaDB Enterprise Server 11.8.5-2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/11.8.5-2), then you need to specify the full release version number, e.g. `11.8.5-2`. This may be helpful if you want to avoid automatic upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may contain important bug fixes and fixes for security vulnerabilities.
+
+{% hint style="info" %}
+Note: MariaDB Enterprise Server version numbers include a '_release_' suffix that differs from MariaDB Community Server version numbers, e.g. `-2` for MariaDB Enterprise Server `11.8.5-2` whereas the equivalent MariaDB Community Server release is just `11.8.5`. This suffix is required when specifying the full Enterprise Server version number.
+
+To get a list of all MariaDB Enterprise Server releases, see the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page. The Version column in the tables on that page list the version numbers of every MariaDB Enterprise Server release.
+{% endhint %}
+
+See the [Usage Example - MariaDB Enterprise Server](mariadb-package-repository-setup-and-usage.md#mariadb-enterprise-server) section above for an example of pinning the repository to a specific version.
+{% endtab %}
+
+{% tab title="MariaDB Community Server" %}
+If you want to pin the repository of a specific minor release, such as [MariaDB Community Server 11.8.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.5), then you need to specify the complete release version, e.g. `mariadb-11.8.5`. This may be helpful if you want to avoid upgrades. However, avoiding upgrades is not recommended, since minor maintenance releases may contain important bug fixes and fixes for security vulnerabilities.
+
+{% hint style="info" %}
+To get a list of all MariaDB Community Server releases, see the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page. The Version column in the tables on that page list the version numbers of every MariaDB Community Server release.
+{% endhint %}
+
+See the [Usage Example - MariaDB Community Server](mariadb-package-repository-setup-and-usage.md#mariadb-community-server) section above for an example of pinning the repository to a specific version.
+{% endtab %}
+{% endtabs %}
+
+### `--mariadb-maxscale-version`
 
 By default, the script will configure your system to install from the repository of the latest GA version of MariaDB MaxScale.
 
@@ -283,7 +351,7 @@ The following MariaDB MaxScale versions are currently supported:
 
 The special identifiers `latest` (for the latest GA release) and `beta` (for the latest beta release) are also supported. By default, the `mariadb_repo_setup` script uses `latest` as the version.
 
-#### `--os-type` and `--os-version`
+### `--os-type` and `--os-version`
 
 If you want to run this script on an unsupported OS that you believe to be package-compatible with an OS that is supported, then you can use the `--os-type` and `--os-version` options to override the script's OS detection. If you use either option, then you must use both options.
 
@@ -310,7 +378,7 @@ For example, to manually set the `--os-type` and `--os-version` to RHEL 10, you 
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --os-type=rhel --os-version=10
 ```
 
-#### `--write-to-stdout`
+### `--write-to-stdout`
 
 The `--write-to-stdout` option will prevent the script from modifying anything on the system. The repository configuration will not be written to the repository configuration file. Instead, it will be printed to standard output. That allows the configuration to be reviewed, redirected elsewhere, consumed by another script, or used in some other way.
 

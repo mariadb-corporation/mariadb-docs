@@ -50,17 +50,32 @@ sudo zypper --gpg-auto-import-keys refresh
 
 ### Pinning the MariaDB Repository to a Specific Minor Release
 
-If you wish to pin the `zypper` repository to a specific minor release, or if you would like to downgrade to a specific minor release, then\
-you can create a `zypper` repository with the URL hard-coded to that specific minor release.
+If you wish to pin the `zypper` repository to a specific minor release, or if you would like to downgrade to a specific minor release, then you can create a `zypper` repository with the URL hard-coded to that specific minor release.
 
-So if you can't find the repository of a specific minor release at `yum.mariadb.org`, then it would be a good idea to check the archive.
+{% tabs %}
+{% tab title="MariaDB Corporation repo setup scripts" %}
+If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](../mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
 
-For example, if you wanted to pin your repository to [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-21-release-notes) on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
+See [Pinning the Repository to a Specific Minor Release](../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) page for details.
+
+The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
+{% endtab %}
+
+{% tab title="MariaDB Foundation repo config tool" %}
+If you used the [MariaDB Foundation's Repository Configuration tool](https://mariadb.org/download/?t=repo-config), then you need to update the repository file you created to include the full version number to use on the `baseurl` line.
+
+By default the Foundation's tool configures repositories with just the main series of MariaDB, e.g. `mariadb-11.8`, and to pin to a specific version you need to specify the full version, for example `mariadb-11.8.6`.&#x20;
+
+The full list of MariaDB Community Server releases can be found on the [Community Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/all-releases) page.
+
+For example, to pin your repository to MariaDB 11.8.6 on SLES 15, then you could use the following commands to add the MariaDB `zypper` repository:
 
 ```bash
 sudo zypper removerepo mariadb
-sudo zypper addrepo --gpgcheck --refresh https://yum.mariadb.org/10.6.21/sles/15/x86_64 mariadb
+sudo zypper addrepo --gpgcheck --refresh https://yum.mariadb.org/11.8.6/sles/15/x86_64 mariadb
 ```
+{% endtab %}
+{% endtabs %}
 
 ## Updating the MariaDB ZYpp repository to a New Major Release
 
@@ -93,12 +108,7 @@ After that, the repository should refer to [MariaDB 10.6](https://app.gitbook.co
 
 Before MariaDB can be installed, you also have to import the GPG public key that is used to verify the digital signatures of the packages in our repositories. This allows the `zypper` and `rpm` utilities to verify the integrity of the packages that they install.
 
-The id of our GPG public key is `0xcbcb082a1bb943db`. The short form of the id\
-is `0x1BB943DB`. The full key fingerprint is:
-
-```
-1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
-```
+See the [GPG](../gpg.md) page for information on the various keys used by MariaDB.
 
 The [rpm](https://linux.die.net/man/8/rpm) utility can be used to import this key. For example:
 

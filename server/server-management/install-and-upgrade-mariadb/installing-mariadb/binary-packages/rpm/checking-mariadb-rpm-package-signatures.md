@@ -8,11 +8,9 @@ description: >-
 
 MariaDB RPM packages since [MariaDB 5.1.55](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/5.1.55) are signed.
 
-The key we use has an id of `1BB943DB` and the key fingerprint is:
+For **MariaDB Community Server**, see the [MariaDB Community Server RPM / Source Keys](../gpg.md#mariadb-community-server-rpm-source-keys) section of the [GPG](../gpg.md) page for details on how to import the key used by those repositories.
 
-```
-1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
-```
+For **MariaDB Enterprise Server**, see the [MariaDB Enterprise GPG Keys](../gpg.md#mariadb-enterprise-gpg-keys) section of the [GPG](../gpg.md) page for details on how to import the key used by those repositories.
 
 To check the signature you first need to import the public part of the key like so:
 

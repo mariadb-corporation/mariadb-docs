@@ -146,12 +146,10 @@ of your Linux distribution, for example `yum` or`zypper`. But you can also use t
 
 ### Users and Groups Created
 
-When the `mariadb-server` RPM package is installed, it will create a user and group named `mysql`, if it does not already exist.
+When the `aria-server` RPM package is installed, it will create a user and group named `mysql`, if it does not already exist.
 
 ## See Also
 
-* [Installing MariaDB with yum](yum.md)
 
-<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
