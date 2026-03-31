@@ -75,6 +75,7 @@ Here is an incomplete list of web hosting providers offering MariaDB for their h
 ### German
 
 * [1&1 Internet AG](https://www.1und1.de)
+* [INGATE GmbH](https://www.ingate.de/cloud/dbaas/)
 * [ispOne Business](https://www.ispone-business.de/webhosting.php)
 * [Tralios IT GmbH](https://www.tralios.de)
 * [Variomedia](https://www.variomedia.de/hosting/easy/)
