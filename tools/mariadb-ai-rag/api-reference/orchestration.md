@@ -37,7 +37,11 @@ POST /orchestrate/ingestion
     }
   ],
   "document_processing": {
-    "processor_type": "layout_aware_standard"
+    "processor_type": "layout_aware_standard",
+    "enable_ocr": true,
+    "ocr_provider": "rapidocr",
+    "enable_table_extraction": true,
+    "table_structure_mode": "accurate"
   }
 }
 ```
@@ -109,7 +113,9 @@ POST /orchestrate/generation
 * `query` (required): The user's question or prompt
 * `document_ids` (optional): Filter retrieval to specific documents (default: all documents)
 * `retrieval_method` (optional): `semantic`, `fulltext`, or `hybrid` (default: `hybrid`)
-* `top_k` (optional): Number of chunks to retrieve (default: 5)
+* `model_type` (optional): The backend library to use. Valid values: `"flashrank"`, `"sentence-transformers"`, `"cohere"`, `"hybrid"` (default: `"flashrank"`).
+* `model_name` (optional): The specific reranker model to load (default: `"ms-marco-MiniLM-L-12-v2"`)
+* `top_k` (optional): Number of chunks to retrieve (default: 5
 * `llm_provider` (optional): LLM provider - `openai`, `anthropic`, `gemini`, `cohere`, `ollama`, `azure`, `bedrock`
 * `llm_model` (optional): Specific model to use
 * `temperature` (optional): Controls randomness (0.0-2.0, default: 0.7)
