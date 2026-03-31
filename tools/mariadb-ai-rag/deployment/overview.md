@@ -112,13 +112,13 @@ Specify the models and API keys for your chosen providers.
 **LLM Settings**
 
 * `LLM_PROVIDER`: Choose your provider (e.g., `gemini`, `openai`, or `ollama`).
-* `LLM_MODEL`: The specific model name (e.g., `gemini-2.5-flash`).
+* `LLM_MODEL`: The specific model name (e.g., `gemini-2.5-flash-lite`).
 * `GEMINI_API_KEY` or `OPENAI_API_KEY`: Your provider-specific API key.
 
 **Embedding Settings**
 
 * `EMBEDDING_PROVIDER`: Provider for vectorizing text (e.g., `openai`, `gemini`).
-* `embedding_model`: Specific embedding model (e.g., `text-embedding-004`).
+* `embedding_model`: Specific embedding model (e.g., `gemini-embedding-001`).
 
 **Model Provider Setup Examples**
 
@@ -128,10 +128,10 @@ Choose your preferred provider by configuring the following variables:
 {% tab title="Google Gemini Setup" %}
 ```ini
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.5-flash
+LLM_MODEL=gemini-2.5-flash-lite
 GEMINI_API_KEY=your_gemini_key_here
 EMBEDDING_PROVIDER=gemini
-embedding_model=text-embedding-004
+embedding_model=gemini-embedding-001
 ```
 {% endtab %}
 

@@ -228,9 +228,9 @@ MCP_PORT=8002
 
 # ===== EMBEDDING & LLM =====
 EMBEDDING_PROVIDER=gemini
-embedding_model=text-embedding-004
+embedding_model=gemini-embedding-001
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.5-flash
+LLM_MODEL=gemini-2.5-flash-lite
 
 # ===== TABLE NAMES =====
 DOCUMENTS_TABLE=documents_DEMO_gemini
