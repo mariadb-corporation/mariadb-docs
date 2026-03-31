@@ -26,13 +26,19 @@ POST /orchestrate/ingestion
 
 ```json
 {
-  "chunking_method": "recursive",
+  "chunking_method": "semantic",
   "chunk_size": 512,
-  "chunk_overlap": 128,
-  "threshold": 0.8,
-  "embedding_provider": "openai",
-  "embedding_model": "text-embedding-3-small",
-  "embedding_batch_size": 32
+  "cloud_storage_sources": [
+    {
+      "integration_id": "int_abc123",
+      "prefix": "financial_reports/Q3/",
+      "recursive": true,
+      "file_extensions": [".pdf"]
+    }
+  ],
+  "document_processing": {
+    "processor_type": "layout_aware_standard"
+  }
 }
 ```
 
@@ -83,15 +89,18 @@ POST /orchestrate/generation
 
 ```json
 {
-  "query": "What are the key features?",
-  "document_ids": [42, 43],
+  "query": "What are the key findings?",
+  "document_ids": [1, 2, 3],
   "retrieval_method": "hybrid",
   "top_k": 5,
+  "reranking": {
+    "enabled": true,
+    "model_type": "flashrank",
+    "model_name": "ms-marco-MiniLM-L-12-v2",
+    "top_k": 5
+  },
   "llm_provider": "openai",
-  "llm_model": "gpt-4",
-  "temperature": 0.7,
-  "top_p": 0.9,
-  "max_tokens": 1000
+  "llm_model": "gpt-4"
 }
 ```
 
