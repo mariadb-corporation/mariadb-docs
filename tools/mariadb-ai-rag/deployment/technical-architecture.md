@@ -93,8 +93,8 @@ External Services (Internet):
 ┌─────────────────────────────────────────────────┐
 │  Google Generative AI API                       │
 │  - Endpoint: generativelanguage.googleapis.com  │
-│  - Embedding: text-embedding-004                │
-│  - LLM: gemini-2.5-flash                        │
+│  - Embedding: gemini-embedding-001                │
+│  - LLM: gemini-2.5-flash-lite                        │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -178,9 +178,9 @@ GEMINI_API_KEY=your_gemini_api_key
 SECRET_KEY=your_generated_secret_key
 JWT_SECRET_KEY=<secret>
 EMBEDDING_PROVIDER=gemini
-embedding_model=text-embedding-004
+embedding_model=gemini-embedding-001
 LLM_PROVIDER=gemini
-LLM_MODEL=gemini-2.5-flash
+LLM_MODEL=gemini-2.5-flash-lite
 DOCUMENTS_TABLE=documents_DEMO_gemini
 VDB_TABLE=vdb_tbl_DEMO_gemini
 CHUNK_SIZE=512
@@ -350,7 +350,7 @@ User Upload
 │  4. Embedding Generation              │
 │  - Batch size: 32 chunks              │
 │  - Call Gemini API                    │
-│  - Model: text-embedding-004          │
+│  - Model: gemini-embedding-001          │
 │  - Dimensions: 768                    │
 └───────────────┬───────────────────────┘
                 │
@@ -415,7 +415,7 @@ User Query
 │    "Context: {chunks}"                │
 │    "Question: {query}"                │
 │  - Call Gemini LLM                    │
-│  - Model: gemini-2.5-flash            │
+│  - Model: gemini-2.5-flash-lite            │
 └───────────────┬───────────────────────┘
                 │
                 ▼
@@ -645,7 +645,7 @@ Content-Type: application/json
   ],
   "metadata": {
     "processing_time": 1.23,
-    "model": "gemini-2.5-flash"
+    "model": "gemini-2.5-flash-lite"
   }
 }
 ```
