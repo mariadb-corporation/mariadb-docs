@@ -1,6 +1,6 @@
 # Deployment
 
-MariaDB AI RAG 1.1 (Beta) is an all-in-one, enterprise-ready solution that handles the entire Retrieval-Augmented Generation (RAG) pipeline, including document parsing with layout extraction, chunking, embedding generation, and easy-to-use retrieval APIs backed by hybrid search (vector + full-text search), with optional reranking before sending the relevant context to a foundation model for answer generation.
+MariaDB AI RAG is an all-in-one, enterprise-ready solution that handles the entire Retrieval-Augmented Generation (RAG) pipeline, including document parsing with layout extraction, chunking, embedding generation, and easy-to-use retrieval APIs backed by hybrid search (vector + full-text search), with optional reranking before sending the relevant context to a foundation model for answer generation.
 
 MariaDB AI RAG deployed as a containerized stack using Docker. For a quick evaluation, you can also leverage a MariaDB vector store deployed in a container alongside the AI RAG stack to get an end-to-end setup faster.
 
@@ -39,7 +39,7 @@ cd mariadb-rag-deployment
 
 Download the following essential files from the public AI RAG GitHub repository and place them in your new folder:
 
-1. [`docker-compose.dockerhub-dev.yml`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/docker-compose.dockerhub-dev.yml): The blueprint defining all services in the stack.
+1. [`docker-compose.yml`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/docker-compose.yml): The blueprint defining all services in the stack.
 2. [`config.env.template`](https://raw.githubusercontent.com/mariadb-corporation/mariadb-docs/refs/heads/main/tools/mariadb-ai-rag/config.env.template): The template containing all necessary environment variables.
 {% endstep %}
 
@@ -202,7 +202,7 @@ Run the following command to start the service
 
 {% code title="" overflow="wrap" %}
 ```bash
-docker compose -f docker-compose.dockerhub-dev.yml --env-file config.env.secure up -d
+docker compose -f docker-compose.yml --env-file config.env.secure up -d
 ```
 {% endcode %}
 {% endstep %}
@@ -214,7 +214,7 @@ Check the status of your services:
 
 {% code title="Check status" %}
 ```bash
-docker compose -f docker-compose.dockerhub-dev.yml ps
+docker compose -f docker-compose.yml ps
 ```
 {% endcode %}
 

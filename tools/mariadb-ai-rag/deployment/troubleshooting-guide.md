@@ -9,7 +9,7 @@ This guide provides diagnostic steps and solutions for common issues encountered
 The most common cause for immediate failure is an invalid, expired, or missing MARIADB\_LICENSE\_KEY. AI RAG performs a mandatory license check at startup and will not run without a validated token.
 
 {% hint style="info" %}
-Action Required: Verify your license key in the `config.env.secure` file.
+Action Required: Verify your license key in the [`config.env.secure` file.](../reference/configuration-guide-config.env.md)
 {% endhint %}
 
 Recommended Steps:

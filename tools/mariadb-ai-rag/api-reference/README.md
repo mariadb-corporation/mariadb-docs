@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB AI RAG exposes a comprehensive RESTful API for programmatic
+  interaction with the system. All API endpoints require authentication except
+  for the login endpoint.
 icon: paperclip
 ---
 

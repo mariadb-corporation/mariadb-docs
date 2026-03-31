@@ -270,6 +270,65 @@ The N in dataN represents a range of integers that starts at 1 and stops at the 
 
 To enable high availability for the DB Root directories, each directory should be mounted on every ColumnStore node using [Shared Local Storage](columnstore-storage-architecture.md#shared-local-storage).
 
+### Expand Storage for DB Roots
+
+In MariaDB ColumnStore 5 and later, the concept of [DB Roots](columnstore-storage-architecture.md#db-root-directories) differs from that in previous versions. A DB Root represents the storage associated with a single ColumnStore node. &#x20;
+
+In addition, DB Roots are no longer storage partitions that can be manually configured. Instead:
+
+* **Each DB Root** = **one node** in the ColumnStore Cluster
+* A 3-node cluster has exactly 3 DB Roots
+* A 5-node cluster has exactly 5 DB Roots&#x20;
+* While a down node recovers during node failover, DB Roots may potentially function with fewer nodes
+
+In ColumnStore 5 and later, there are no commands for manually creating, moving, or deleting DB Roots. Expanding the node's disk storage is necessary to increase storage capacity.
+
+#### How Storage Expansion Works
+
+ColumnStore's storage capacity can be extended using one of the following methods:
+
+**Expand disk on an existing node**
+
+To add storage to an existing DB Root, expand the underlying filesystem on the node where it occurs.
+
+1. Stop ColumnStore on the Node.&#x20;
+
+```sql
+mcs shutdown
+```
+
+2. Expand the disk using standard operating system tools. For example (on a Linux-based system):
+   1.  Expand the partition on the instance.<br>
+
+       ```
+       sudo yum install cloud-utils-growpart -y   # Amazon Linux / RHEL
+       sudo apt install cloud-guest-utils -y      # Ubuntu
+       lsblk                                      # Identify disk and partition
+       sudo growpart /dev/nvme0n1                 # Adjust device/partition as needed
+       ```
+   2.  Resize the filesystem.<br>
+
+       ```
+       # For XFS
+       sudo xfs_growfs -d /
+
+       # For ext4
+       sudo resize2fs /dev/nvme0n1p1
+       ```
+3. Restart ColumnStore.
+
+```
+msc start
+```
+
+**Scaling storage by adding nodes**
+
+Every node in a multi-node deployment has its own [DB Root directory](columnstore-storage-architecture.md#db-root-directories). To increase storage capacity and processing capability, [add additional nodes](../management/node-maintenance-for-mariadb-enterprise-columnstore/add-a-node.md) to the cluster. The new node automatically becomes a new DB Root in the cluster.
+
+**Legacy behavior**
+
+DB Root directories could be managed with `mcsadmin` in previous versions of [ColumnStore 1.x](../management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-10x.md). This behavior does not apply to ColumnStore version 5 and later.
+
 ### Extents
 
 ![EColumnStorePhysicalDataOrganizationColumnExtents](../../.gitbook/assets/ecolumnstorephysicaldataorganizationcolumnextents.png)
@@ -382,6 +441,12 @@ Using the Extent Map, ColumnStore can perform logical range partitioning and onl
 In Extent Elimination, ColumnStore scans the columns in join and filter conditions. It then extracts the logical horizontal partitioning information of each extent along with the minimum and maximum values for the column to further eliminate Extents. To eliminate an Extent when a column scan involves a filter, that filter is compared to the minimum and maximum values stored in each extent for the column. If the filter value is outside the Extents minimum and maximum value range, ColumnStore eliminates the Extent.
 
 This behavior is automatic and well suited for series, ordered, patterned and time-based data, where the data is loaded frequently and often referenced by time. Any column with clustered values is a good candidate for Extent Elimination.
+
+## See Also
+
+* [ColumnStore Architectural Overview](columnstore-architectural-overview.md)
+* [Adding a Node to a ColumnStore Cluster](../management/node-maintenance-for-mariadb-enterprise-columnstore/add-a-node.md)
+* [Topologies Overview](topologies-overview.md)
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

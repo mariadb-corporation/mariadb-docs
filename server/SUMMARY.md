@@ -1992,6 +1992,7 @@
         * [MASTER\_GTID\_WAIT](reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait.md)
         * [MASTER\_POS\_WAIT](reference/sql-functions/secondary-functions/miscellaneous-functions/master_pos_wait.md)
         * [NAME\_CONST](reference/sql-functions/secondary-functions/miscellaneous-functions/name_const.md)
+        * [OLD\_VALUE](reference/sql-functions/secondary-functions/miscellaneous-functions/old-value.md)
         * [RELEASE\_ALL\_LOCKS](reference/sql-functions/secondary-functions/miscellaneous-functions/release_all_locks.md)
         * [RELEASE\_LOCK](reference/sql-functions/secondary-functions/miscellaneous-functions/release_lock.md)
         * [SLEEP](reference/sql-functions/secondary-functions/miscellaneous-functions/sleep.md)

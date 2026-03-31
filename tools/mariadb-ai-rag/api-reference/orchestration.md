@@ -26,13 +26,23 @@ POST /orchestrate/ingestion
 
 ```json
 {
-  "chunking_method": "recursive",
+  "chunking_method": "semantic",
   "chunk_size": 512,
-  "chunk_overlap": 128,
-  "threshold": 0.8,
-  "embedding_provider": "openai",
-  "embedding_model": "text-embedding-3-small",
-  "embedding_batch_size": 32
+  "cloud_storage_sources": [
+    {
+      "integration_id": "int_abc123",
+      "prefix": "financial_reports/Q3/",
+      "recursive": true,
+      "file_extensions": [".pdf"]
+    }
+  ],
+  "document_processing": {
+    "processor_type": "layout_aware_standard",
+    "enable_ocr": true,
+    "ocr_provider": "rapidocr",
+    "enable_table_extraction": true,
+    "table_structure_mode": "accurate"
+  }
 }
 ```
 
@@ -83,15 +93,18 @@ POST /orchestrate/generation
 
 ```json
 {
-  "query": "What are the key features?",
-  "document_ids": [42, 43],
+  "query": "What are the key findings?",
+  "document_ids": [1, 2, 3],
   "retrieval_method": "hybrid",
   "top_k": 5,
+  "reranking": {
+    "enabled": true,
+    "model_type": "flashrank",
+    "model_name": "ms-marco-MiniLM-L-12-v2",
+    "top_k": 5
+  },
   "llm_provider": "openai",
-  "llm_model": "gpt-4",
-  "temperature": 0.7,
-  "top_p": 0.9,
-  "max_tokens": 1000
+  "llm_model": "gpt-4"
 }
 ```
 
@@ -100,7 +113,9 @@ POST /orchestrate/generation
 * `query` (required): The user's question or prompt
 * `document_ids` (optional): Filter retrieval to specific documents (default: all documents)
 * `retrieval_method` (optional): `semantic`, `fulltext`, or `hybrid` (default: `hybrid`)
-* `top_k` (optional): Number of chunks to retrieve (default: 5)
+* `model_type` (optional): The backend library to use. Valid values: `"flashrank"`, `"sentence-transformers"`, `"cohere"`, `"hybrid"` (default: `"flashrank"`).
+* `model_name` (optional): The specific reranker model to load (default: `"ms-marco-MiniLM-L-12-v2"`)
+* `top_k` (optional): Number of chunks to retrieve (default: 5
 * `llm_provider` (optional): LLM provider - `openai`, `anthropic`, `gemini`, `cohere`, `ollama`, `azure`, `bedrock`
 * `llm_model` (optional): Specific model to use
 * `temperature` (optional): Controls randomness (0.0-2.0, default: 0.7)

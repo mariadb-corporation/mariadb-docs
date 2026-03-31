@@ -4,6 +4,10 @@ description: A list of all MariaDB Enterprise Server releases
 
 # All Releases
 
+{% hint style="info" %}
+This page provides a list of previous releases. Versions 10.5 and older have reached end-of-life and are no longer supported. See the [Enterprise Server Release Schedule](enterprise-server-release-schedule.md) page for upcoming versions.
+{% endhint %}
+
 ## MariaDB Enterprise Server 11.8
 
 | Version                      | Release Date | Release Status |
@@ -53,6 +57,8 @@ description: A list of all MariaDB Enterprise Server releases
 
 ## MariaDB Enterprise Server 10.5
 
+> This release version has reached end-of-life and is no longer supported.
+
 | Version                                       | Release Date | Release Status |
 | --------------------------------------------- | ------------ | -------------- |
 | [10.5.29-23](old-releases/10.5/10.5.29-23.md) | 2025-06-11   | Stable (GA)    |
@@ -80,6 +86,8 @@ description: A list of all MariaDB Enterprise Server releases
 | [10.5.3-1](old-releases/10.5/10.5.3-1.md)     | 2020-05-21   | Stable (GA)    |
 
 ## MariaDB Enterprise Server 10.4
+
+> This release version has reached end-of-life and is no longer supported.
 
 | Version                                       | Release Date | Release Status |
 | --------------------------------------------- | ------------ | -------------- |
@@ -110,6 +118,8 @@ description: A list of all MariaDB Enterprise Server releases
 
 ## MariaDB Enterprise Server 10.3
 
+> This release version has reached end-of-life and is no longer supported.
+
 | Version                                       | Release Date | Release Status |
 | --------------------------------------------- | ------------ | -------------- |
 | [10.3.39-20](old-releases/10.3/10.3.39-20.md) | 2023-06-13   | Stable (GA)    |
@@ -134,6 +144,8 @@ description: A list of all MariaDB Enterprise Server releases
 | [10.3.16-1](old-releases/10.3/10.3.16-1.md)   | 2019-07-08   | Stable (GA)    |
 
 ## MariaDB Enterprise Server 10.2
+
+> This release version has reached end-of-life and is no longer supported.
 
 | Version                                       | Release Date | Release Status |
 | --------------------------------------------- | ------------ | -------------- |
