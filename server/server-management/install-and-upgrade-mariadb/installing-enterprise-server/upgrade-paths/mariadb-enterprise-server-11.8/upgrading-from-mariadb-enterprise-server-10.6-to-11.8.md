@@ -230,7 +230,7 @@ Slow logging was often a "blunt instrument" that could either miss critical spik
 
 MariaDB 11.8 shifts toward modern cryptographic standards. This includes better handling of User Defined Functions (UDFs) and a transition toward the [caching\_sha2\_password](../../../../../reference/plugins/authentication-plugins/authentication-plugin-caching_sha2_password.md) plugin, which provides significantly stronger protection against "man-in-the-middle" and brute-force attacks compared to legacy authentication.
 
-<table><thead><tr><th width="406">Variable Name</th><th width="128.5">11.8 Default</th><th>Note</th></tr></thead><tbody><tr><td><code>ALLOW_SUSPICIOUS_UDFS</code></td><td><code>OFF</code></td><td></td></tr><tr><td><a href="../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_grant_tables"><code>SKIP_GRANT_TABLES</code></a><sup>#</sup></td><td><code>OFF</code></td><td>Added in 10.10, check about event scheduler</td></tr></tbody></table>
+<table><thead><tr><th width="506">Variable Name</th><th width="224.5">11.8 Default</th></tr></thead><tbody><tr><td><code>ALLOW_SUSPICIOUS_UDFS</code></td><td><code>OFF</code></td></tr><tr><td><a href="../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#skip_grant_tables"><code>SKIP_GRANT_TABLES</code></a><sup>#</sup></td><td><code>OFF</code></td></tr></tbody></table>
 
 #### **Resource Limits Variables**
 
