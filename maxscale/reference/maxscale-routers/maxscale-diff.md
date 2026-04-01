@@ -19,9 +19,19 @@ Although Diff is a normal MaxScale router that can be configured manually, typic
 
 ### Histogram
 
-Diff collects latency information separately for each _canonical_ \&#xNAN;_statement_, which simply means a statement where all literals have been replaced with question marks. For instance, the canonical statement of`SELECT f FROM t WHERE f = 10` and `SELECT f FROM t WHERE f = 20` is in both cases `SELECT f FROM t WHERE f = ?`. The latency information of both of those statements will be collected under the same canonical statement.
+Diff collects latency information separately for each _canonical statement_, which simply means a statement where all literals have been replaced with question marks. For instance, the canonical statement of `SELECT f FROM t WHERE f = 10` and `SELECT f FROM t WHERE f = 20` is in both cases `SELECT f FROM t WHERE f = ?`. The latency information of both of those statements will be collected under the same canonical statement.
 
 Before starting to register histogram data, Diff will collect [samples](maxscale-diff.md#samples) from _main_ that will be used for defining the edges and the number of bins of the histogram.
+
+Samples are collected per canonical statement and when Diff is stopped, there will be _no_
+results unless there has been more requests matching a particular canonical statement than
+what specified by [samples](maxscale-diff.md#samples).
+
+Due to inherent network jitter and fluctuating server loads, execution times can vary
+significantly even between identical requests. Consequently, the result of Diff is only
+meaningful in a statistical sense. To account for intermittent anomalies and environmental
+noise, each request should be executed across a large enough sample size to ensure the
+results represent a true performance trend rather than a momentary spike.
 
 ### Discrepancies
 
@@ -31,6 +41,22 @@ The responses from _main_ and _other_ are considered to be different
 * if the response time of \_other\* is outside the boundaries of the histogram edges calculated from the samples from _main_.
 
 A difference in the response time of individual queries is not a meaningful criteria, as there for varying reasons (e.g. network traffic) can be a significant amount of variance in the results. It would only always cause a large number of false positives.
+
+### Prepared Statements
+
+Support for prepared statements is available from 25.10.3 onwards.
+
+Diff collects information about prepared statements the same way it
+collects information about literal statements. In the logged data,
+the SQL of prepared statements is prepended with a tag denoting the
+binary protocol packet they are related to.
+```
+     "sql": "PREPARE: SELECT ?",
+     ...
+     "sql": "EXECUTE: SELECT 42",
+```
+The former relates to a `COM_STMT_PREPARE` packet and the latter to
+a `COM_STMT_EXECUTE`packet.
 
 ### EXPLAIN
 
@@ -92,9 +118,17 @@ port=3306
 protocol=mariadbbackend
 ```
 
-Note that this server must **not** be added to the service that uses the original server. That is, in this example, `MariaDB_112` must not be added to the service `MyService`.
+Note that this server must **not** be added to the service that uses the original server.
+That is, in this example, `MariaDB_112` must not be added to the service `MyService`.
 
-The new server can be added to the monitor used for monitoring the servers of the service, but that is not necessary. However, unless it is added, `maxctrl list servers` will show the server as being down.
+Like this, without being monitored, `maxctrl list servers` will show the server as being
+_Down_. That does not matter as the server will only be used directly by Diff. The server
+should **not** be added to the monitor of the servers of the service, as that could,
+in case of a failover, even lead to it being chosen as the new primary.
+
+The server should **not** be added to a _dedicated_ monitor either, as that will cause
+it to be regarded as a _primary_, which will interfere with the routing of the actual
+service.
 
 With these steps Diff is ready to be used.
 
@@ -483,9 +517,9 @@ Specifies when the results of executing a statement on _other_ and _main_ should
 * Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true` (< MaxScale 25.10.3), `false` (MaxScale 25.10.3+).
 
-If Diff has started in read-write mode and the value of`reset_replication` is `true`, when the comparison ends it will execute the following on _other_:
+If Diff has started in read-write mode and the value of `reset_replication` is `true`, when the comparison ends it will execute the following on _other_:
 
 ```
 RESET SLAVE
@@ -494,7 +528,7 @@ START SLAVE
 
 If Diff has started in read-only mode, the value of `reset_replication` will be ignored.
 
-Note that since Diff writes updates directly to both _main_ and\_other\_ there is no guarantee that it will be possible to simply start the replication. Especially not if `gtid_strict_mode` is on.
+Note that since Diff writes updates directly to both _main_ and \_other\_ there is no guarantee that it will be possible to simply start the replication. Especially not if `gtid_strict_mode` is on.
 
 ### `retain_faster_statements`
 
@@ -517,8 +551,8 @@ Specifies the number of faster statements that are retained in memory. The state
 * Type: count
 * Mandatory: No
 * Dynamic: Yes
-* Min: 100
-* Default: 1000
+* Min: 100 (MaxScale < 25.10.3), 10 (MaxScale 25.10.3+)
+* Default: 1000 (MaxScale < 25.10.3), 100 (MaxScale 25.10.3+)
 
 Specifies the number of samples that will be collected in order to define the edges and number of bins of the histograms.
 
