@@ -3847,7 +3847,7 @@ description: >-
 * Type: [boolean](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide/README.md#booleans)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `true`
+* Default: `true` (< MaxScale 25.10.3), `false` (MaxScale 25.10.3+).
 * Description: Controls whether replication on other is reset and restarted after a read-write Diff session completes.
 
 [**retain\_faster\_statements**](maxscale-routers/maxscale-diff.md#retain_faster_statements)
@@ -3871,8 +3871,8 @@ description: >-
 * Type: count
 * Mandatory: No
 * Dynamic: Yes
-* Min: 100
-* Default: 1000
+* Min: 100 (MaxScale < 25.10.3), 10 (MaxScale 25.10.3+)
+* Default: 1000 (MaxScale < 25.10.3), 100 (MaxScale 25.10.3+)
 * Description: Defines the number of samples collected to determine histrogram bin edges and counts.
 
 [**service**](maxscale-routers/maxscale-diff.md#service)
