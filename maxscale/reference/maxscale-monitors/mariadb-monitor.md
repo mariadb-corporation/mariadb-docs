@@ -1394,6 +1394,23 @@ faster operation than switchover. Note that since the granularity of the
 timeouts is seconds, a timeout specified in milliseconds will be rejected,
 even if the duration is longer than a second.
 
+#### `switchover_trx_wait_timeout`
+
+* Type: [duration](../../maxscale-management/deployment/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: Yes
+* Default: `10s`
+
+The maximum time that the monitor waits for open transactions to close whenever
+a switchover is being done.
+
+If the cluster is being used by a service that uses the readwritesplit router,
+the monitor and the router will cooperate and the router will block new
+transactions from taking place when the switchover is about to begin. Existing
+transaction that were opened before the switch was started are allowed to
+complete, but if they do not complete before the timeout is hit, the switchover
+will proceed regardless of this.
+
 #### `verify_master_failure`
 
 * Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
