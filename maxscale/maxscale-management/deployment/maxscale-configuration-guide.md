@@ -4298,6 +4298,105 @@ it, read the
 [Connection Redirection](../../reference/maxscale-protocols/maxscale-mariadb-protocol-module.md#connection-redirection)
 section in the MariaDB protocol module documentation.
 
+#### `sni_mapping_file`
+
+* Type: path
+* Mandatory: No
+* Dynamic: Yes
+* Default: none
+
+Path to file that contains the
+[SNI](https://en.wikipedia.org/wiki/Server_Name_Indication) hostname-to-service
+mapping for this listener. SNI allows a client to connect to different MaxScale
+services through one listener. To work, SNI-mapping requires the following:
+
+* Client-to-MaxScale connection is encrypted.
+* Multiple hostnames are registered to the MaxScale host machine.
+* Client application or connector sends the target hostname during SSL
+  negotiation.
+
+Ensure that your client application or connector supports SNI before attempting
+to use SNI service mapping in MaxScale. For example,
+[Connector/C 3.4.8](https://mariadb.com/docs/release-notes/connectors/c/3.4/3.4.8) and
+[Connector/J 3.5.7](https://mariadb.com/docs/release-notes/connectors/java/3.5/3.5.7)
+include SNI support.
+
+When this feature is enabled, MaxScale reads the hostname the client wants to
+connect to during SSL negotiation. If the hostname is found in the SNI mapping
+configuration, MaxScale changes both the certificate MaxScale presents to the
+client and the MaxScale service the client connects to from the standard
+listener values to the ones defined in the mapping. The client essentially sees
+a different MaxScale depending on the hostname it connects to, even if the final
+IP address is unchanged. If the mapping contains no hostname that matches the
+one the client requested, the client will use the standard service configured to
+the listener.
+
+If set, `sni_mapping_file` must point to a readable file in JSON format. The
+file can contain two sub-elements: *certificates* and
+*hostname_to_service_mapping*.  The former defines the certificate and key files
+used in the latter.
+
+*certificates* is an object that contains sub-objects, one for each certificate
+and keyfile pair.  Each certificate sub-object must define the following:
+
+* ssl_cert: String. Path to the certificate file.
+* ssl_key: String. Path to the certificate private key file.
+
+The key of the sub-object defines the name for the certificate file pair. This
+name is used to refer to the certificate in *hostname_to_service_mapping*. The
+certificate files referred to by the SNI configuration are processed similarly
+to other MaxScale certificate files. Thus, it's recommended to also generate
+them using similar tools and settings.
+
+*hostname_to_service_mapping* defines an array of mapping elements. Each element
+ must contain:
+
+* hostnames: Array of strings. Each string must at least look like a valid
+  hostname. Defines the hostnames this mapping element applies to.
+* certificate: String. Name of the certificate presented to the client. Must
+  match one of the certificate names defined in *certificates*.
+* service: String. Name of the MaxScale service the client should be routed to.
+  Must be a valid MaxScale service.
+
+The certificates and the mapping are stored in different objects so that one
+certificate can be easily shared between multiple service mapping elements.
+
+An example SNI mapping file is below.
+
+```
+{
+    "certificates":
+    {
+        "my-alternate-crt1": {
+            "ssl_cert": "/home/me/ssl/alt-crt1.crt",
+            "ssl_key": "/home/me/ssl/alt-crt2.key"
+        },
+        "my-alternate-crt2": {
+            "ssl_cert": "/home/me/ssl/alt-crt2.crt",
+            "ssl_key": "/home/me/ssl/alt-crt2.key"
+        }
+    },
+
+    "hostname_to_service_mapping": [
+        {
+            "hostnames": ["alternate-host1", "alternate-host1b", "alternate-host1c"],
+            "certificate": "my-alternate-crt1",
+            "service": "Alt-Service-A"
+        },
+        {
+            "hostnames": ["alternate-host2"],
+            "certificate": "my-alternate-crt2",
+            "service": "Alt-Service-B"
+        },
+        {
+            "hostnames": ["alternate-host3"],
+            "certificate": "my-alternate-crt2",
+            "service": "Alt-Service-C"
+        }
+    ]
+}
+```
+
 ### Include
 
 An _include_ section defined common parameters used in other configuration
