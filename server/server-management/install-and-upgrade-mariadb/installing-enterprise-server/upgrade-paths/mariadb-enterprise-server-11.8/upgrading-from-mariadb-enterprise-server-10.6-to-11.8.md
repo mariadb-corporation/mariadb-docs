@@ -1,12 +1,4 @@
----
-hidden: true
----
-
 # Upgrading from MariaDB Enterprise Server 10.6 to 11.8
-
-{% hint style="danger" %}
-This document is deemed final although it is still open to feedback till 3/5/2026.
-{% endhint %}
 
 This guide outlines the process for performing a major version upgrade from MariaDB Enterprise Server (ES) 10.6 directly to MariaDB Enterprise Server 11.8.
 
