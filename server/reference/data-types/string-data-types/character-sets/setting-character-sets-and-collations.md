@@ -22,6 +22,8 @@ This may differ in some distros, see for example [Differences in MariaDB in Debi
 In MariaDB 11.6, the default character set changed from `latin1` to `utf8mb4`.
 
 When upgrading to 11.6 or above from a previous release series, this can lead to behavior different from what you've been seeing in the old version.
+
+See [this section](setting-character-sets-and-collations.md#default-character-set-and-collation-changes) for details, including the impact on replicating to older MariaDB (or MySQL) replicas.
 {% endhint %}
 
 The character sets and the collations can be specified from the server right down to the column level, as well as for client-server connections. When changing a character set and not specifying a collation, the default collation for the new character set is always used.
@@ -445,7 +447,7 @@ It is **not** possible to change the default collation associated with a particu
 {% endtab %}
 {% endtabs %}
 
-The new variable will take effect in all cases where a character set is explicitly or implicitly specified without an explicit `COLLATE` clause, including but not limited to:
+The new variable takes effect in all cases where a character set is explicitly or implicitly specified without an explicit `COLLATE` clause, including but not limited to:
 
 * Column collation
 * Table collation
@@ -458,6 +460,46 @@ The new variable will take effect in all cases where a character set is explicit
 * `_utf8mb3 X'61'` - a character string literal with an introducer with hex notation
 * `_utf8mb3 0x61` - a character string literal with an introducer with hex hybrid notation
 * `@@collation_connection` after a `SET NAMES` statement without `COLLATE`
+
+## Default Character Set and Collation Changes
+
+{% hint style="info" %}
+The default character set and collation changed in MariaDB 11.8.
+{% endhint %}
+
+The default character set has changed from `latin1` to `utf8mb4`, and the default collation has changed from `latin1_swedish_ci` to `utf8mb4_uca1400_ai_ci`. This update improves global compatibility and supports modern data requirements, such as emojis.
+
+### Why the Defaults Changed
+
+The shift to `utf8mb4` and UCA-based collations provides several benefits:
+
+* Global Compatibility: The new defaults support users worldwide without requiring additional configuration, whereas the previous `latin1` defaults were primarily suited for West European languages.
+* Supplementary Character Support: You can now store supplementary characters, such as emojis, which were not supported by `latin1`.
+* Accurate Sorting and Comparison: The `utf8mb4_uca1400_ai_ci` collation correctly handles supplementary characters and supports expansions and contractions from the Default Unicode Collation Element Table (DUCET). For example, the German character "ß" is correctly compared as equal to "ss".
+
+### Important Considerations
+
+Before upgrading, please be aware of the following technical implications:
+
+* Replication Impact: Because `utf8mb4_uca1400_ai_ci` was not available in earlier versions, replication from MariaDB 11.8 to MariaDB 10.6 will fail unless the server is configured to use the old defaults.
+* Storage Overhead: Using `utf8mb4` may increase storage requirements for `CHAR` and `VARCHAR` columns, particularly for data containing non-ASCII characters.
+* Performance: Some comparison operations may be slower with the new collation compared to the fixed-width `latin1_swedish_ci` collation.
+* Application Compatibility: Some applications that rely on `latin1` behavior may require updates to function correctly with the new defaults.
+
+### Restoring Old Defaults
+
+If you need to maintain compatibility with MariaDB 10.6 replicas or require the specific performance characteristics of the previous defaults, you can configure the server to use the old settings.
+
+To return to the `latin1` defaults, add the following lines to your `my.cnf` configuration file:
+
+```ini
+[mariadb]
+character-set-server=latin1
+collation-server=latin1_swedish_ci
+character-set-collations=''
+```
+
+> Note: These settings make data files compatible with older versions like MariaDB 10.6, which lack the newer UCA collation support.
 
 ## Example: Changing the Default Character Set To UTF-8
 

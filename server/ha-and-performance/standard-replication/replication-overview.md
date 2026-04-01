@@ -7,6 +7,12 @@ description: >-
 
 # Replication Overview
 
+{% hint style="info" %}
+In MariaDB 11.8, the default character set and collation have changed. This has implications on replicating to older replicas, particularly replicas running MariaDB 10.6 or older.
+
+See [this section](../../reference/data-types/string-data-types/character-sets/setting-character-sets-and-collations.md#default-character-set-and-collation-changes) for details, and how to configure MariaDB 11.8+ primaries to replicate to older replicas.
+{% endhint %}
+
 ## Overview
 
 Replication is a feature allowing the contents of one or more servers (called primaries) to be mirrored on one or more servers (called replicas).
