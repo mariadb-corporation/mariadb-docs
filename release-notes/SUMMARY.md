@@ -2190,6 +2190,7 @@
       * [Connector/J 1.1.0 Release Notes](connectors/java/1.1/1.1.0.md)
     * [Connector/J Changelogs](connectors/java/changelogs/README.md)
       * [Connector/J 3.5 Changelogs](connectors/java/changelogs/3.5/README.md)
+        * [Connector/J 3.5.8 Changelog](connectors/java/changelogs/3.5/3.5.8.md)
         * [Connector/J 3.5.7 Changelog](connectors/java/changelogs/3.5/3.5.7.md)
         * [Connector/J 3.5.6 Changelog](connectors/java/changelogs/3.5/3.5.6.md)
         * [Connector/J 3.5.5 Changelog](connectors/java/changelogs/3.5/3.5.5.md)
