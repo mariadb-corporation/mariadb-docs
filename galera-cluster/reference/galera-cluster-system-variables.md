@@ -610,6 +610,18 @@ See this page for more information about this variable:
 
 #### `wsrep_sync_wait`
 
+{% hint style="info" %}
+**Consistency and Stale Reads**
+
+By default (`wsrep_sync_wait=0`), MariaDB Galera Cluster may exhibit Stale Reads (MDEV-38999). This occurs when a transaction is committed and acknowledged on one node, but a subsequent transaction on a different node fails to see those changes because that node has not yet applied the corresponding write-set from its queue.
+
+Setting `wsrep_sync_wait=1` (or a relevant bitmask) is the primary mechanism to enforce causal consistency and ensure that a node is fully synchronized with all previously committed cluster updates before a read operation is performed.
+{% endhint %}
+
+{% hint style="warning" %}
+While `wsrep_sync_wait` provides real-time visibility for reads, it does not prevent Lost Update (P4)anomalies. Even with synchronization enabled, read-modify-write patterns remain unsafe unless explicit locking (e.g., `SELECT ... FOR UPDATE`) is used.
+{% endhint %}
+
 * Description: Setting this variable ensures causality checks will take place before executing an operation of the type specified by the value, ensuring that the statement is executed on a fully synced node. While the check is taking place, new queries are blocked on the node to allow the server to catch up with all updates made in the cluster up to the point where the check was begun. Once reached, the original query is executed on the node. This can result in higher latency. Note that when [wsrep\_dirty\_reads](galera-cluster-system-variables.md#wsrep_dirty_reads) is ON, values of wsrep\_sync\_wait become irrelevant. Sample usage (for a critical read that must have the most up-to-date data) `SET SESSION wsrep_sync_wait=1; SELECT ...; SET SESSION wsrep_sync_wait=0;`
   * `0` - Disabled (default)
   * `1` - READ (SELECT and BEGIN/START TRANSACTION). This is the same as [wsrep\_causal\_reads=1](galera-cluster-system-variables.md#wsrep_causal_reads).

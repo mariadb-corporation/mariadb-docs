@@ -28,8 +28,8 @@ MariaDB Galera Cluster is a [virtually synchronous](about-galera-replication.md)
 
 The above features yield several benefits for a DBMS clustering solution, including:
 
-* No replica lag
-* No lost transactions
+* Minimal replica lag
+* Protection against single-node data loss
 * Read scalability
 * Smaller client latencies
 

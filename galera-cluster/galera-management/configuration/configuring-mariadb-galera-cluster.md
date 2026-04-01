@@ -17,7 +17,8 @@ Several options are mandatory, which means that they _must_ be set in order for 
 
 These are optional optimizations that can be made to improve performance.
 
-* [innodb\_flush\_log\_at\_trx\_commit=0](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit) — This is not usually recommended in the case of standard MariaDB. However, it is a safer, recommended option with Galera Cluster, since inconsistencies can always be fixed by recovering from another node.
+* [innodb\_flush\_log\_at\_trx\_commit=](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit)1 — This is not usually recommended in the case of standard MariaDB. However, it is a safer, recommended option with Galera Cluster, since inconsistencies can always be fixed by recovering from another node.
+  * [innodb\_flush\_log\_at\_trx\_commit=](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit) `0` can result in the loss of acknowledged transactions during simultaneous power failures or coordinated process crashes
 * [innodb\_autoinc\_lock\_mode=2](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_autoinc_lock_mode) — This tells InnoDB to use interleaved method. Interleaved is the fastest and most scalable lock mode, and should be used when BINLOG\_FORMAT is set to ROW.\
   Setting the auto-increment lock mode for InnoDB to interleaved, you’re allowing slaves threads to operate in parallel.
 * [wsrep\_slave\_threads=4](../../reference/galera-cluster-system-variables.md#wsrep_slave_threads)\
