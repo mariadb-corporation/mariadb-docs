@@ -33,7 +33,7 @@ This list includes all features since the previous long-term release, [MariaDB 1
 
 ### Character Sets
 
-* The default [character set](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets) has been changed from `latin1` to `utf8mb4` ([MDEV-19123](https://jira.mariadb.org/browse/MDEV-19123), [MariaDB 11.6](../old-releases/11.6/what-is-mariadb-116.md))
+* The default [character set](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets) has been changed from `latin1` to `utf8mb4` ([MDEV-19123](https://jira.mariadb.org/browse/MDEV-19123), [MariaDB 11.6](../old-releases/11.6/what-is-mariadb-116.md)). This can have implications for older replica servers, particularly those running MariaDB 10.6 or older. See this section for details, and how to configure MariaDB 11.8+ primaries to replicate to older replicas.&#x20;
 * Change [default Unicode collation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/character-sets/supported-character-sets-and-collations) to uca1400\_ai\_ci, a modern Unicode collation with proper support for SMP characters (including emoji)([MDEV-25829](https://jira.mariadb.org/browse/MDEV-25829), [MariaDB 11.5](../old-releases/11.5/what-is-mariadb-115.md))
 
 ### Optimizer
