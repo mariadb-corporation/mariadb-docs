@@ -10,7 +10,7 @@ Galera Replication is a core technology enabling MariaDB Galera Cluster to provi
 
 #### 1. What is Galera Replication?
 
-Galera Replication is a **multi-primary replication solution** for database clustering. Unlike traditional asynchronous or semi-synchronous replication, Galera ensures that transactions are committed on all nodes (or fail on all) before the client receives a success confirmation. This mechanism eliminates data loss and minimizes replica lag, making all nodes active and capable of handling read and write operations.
+Galera Replication is a **multi-primary replication solution** for database clustering. Unlike traditional asynchronous or semi-synchronous replication, Galera ensures that transactions are committed by a [quorum (a majority) of connected nodes](../galera-architecture/quorum-control-with-weighted-votes.md)—collectively known as the Primary Component—before the client receives a success confirmation. This mechanism ensures strong data consistency among active members while allowing the cluster to maintain high availability and progress as long as a majority of nodes are operational, effectively tolerating the failure of a minority of nodes.
 
 #### 2. How Galera Replication Works
 
@@ -20,13 +20,13 @@ The core of Galera Replication revolves around the concept of **write sets** and
 * **Certification and Application:** Each receiving node performs a "certification" test to ensure that the incoming write set does not conflict with any concurrent transactions being committed locally.
   * If the write set passes certification, it is applied to the local database, and the transaction is committed on that node.
   * If a conflict is detected, the conflicting transaction (usually the one that was executed locally) is aborted, ensuring data consistency across the cluster.
-* **Virtually Synchronous:** The term "virtually synchronous" means that while the actual data application might happen slightly after the commit on the initiating node, the commit order is globally consistent, and all successful transactions are guaranteed to be applied on all active nodes. A transaction is not truly considered committed until it has passed certification on all nodes.
+* **Virtually Synchronous:** The term "virtually synchronous" means that while the actual data application might happen slightly after the commit on the initiating node, the commit order is globally consistent, and all successful transactions are guaranteed to be applied on all active nodes. A transaction is considered committed once it has successfully passed the certification test across the active members of the Primary Component
 * **`wsrep API`:** This API defines the interface between the Galera replication library (the "wsrep provider") and the database server (MariaDB). It allows the database to expose hooks for Galera to capture and apply transaction write sets.
 
 #### 3. Key Characteristics
 
 * **Multi-Primary (Active-Active):** All nodes in a Galera Cluster can be simultaneously used for both read and write operations.
-* **Synchronous Replication (Virtual):** Data is consistent across all nodes at all times, preventing data loss upon node failures.
+* **Synchronous Replication (Virtual):** Galera ensures strong consistency within the Primary Component by certifying and replicating transactions before acknowledgment. While this architecture significantly protects against data loss during individual node failures, users must configure nodes for durability (e.g., `innodb_flush_log_at_trx_commit = 1`) to prevent loss of committed writes during simultaneous or coordinated cluster outages.
 * **Automatic Node Provisioning (SST/IST):** When a new node joins or an existing node rejoins, Galera automatically transfers the necessary state to bring it up to date.
   * **State Snapshot Transfer (SST):** A full copy of the database is transferred from an existing node to the joining node.
   * **Incremental State Transfer (IST):** Only missing write sets are transferred if the joining node is not too far behind.

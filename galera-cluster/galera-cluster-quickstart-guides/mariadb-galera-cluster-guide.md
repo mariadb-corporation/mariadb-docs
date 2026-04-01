@@ -6,7 +6,7 @@ description: MariaDB Galera Cluster quickstart guide
 
 ### Quickstart Guide: MariaDB Galera Cluster
 
-MariaDB Galera Cluster provides a multi-primary (active-active) cluster solution for MariaDB, enabling high availability, read/write scalability, and true synchronous replication. This means any node can handle read and write operations, with changes instantly replicated to all other nodes, ensuring no replica lag and no lost transactions. It's exclusively available on Linux.
+MariaDB Galera Cluster provides a multi-primary (active-active) cluster solution for MariaDB, enabling high availability, read/write scalability, and true synchronous replication. This means any node can handle read and write operations, with changes are certified synchronously across the Primary Component before a transaction is committed. This ensures that nodes remain in a consistent logical order, though individual nodes may experience temporal 'apply lag' as changes are processed from their receive queues by slave threads. It's exclusively available on Linux.
 
 #### 1. Prerequisites
 

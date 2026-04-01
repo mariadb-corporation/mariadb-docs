@@ -33,6 +33,10 @@ You can connect directly to any individual node's IP address or hostname using s
 
 #### 2. Basic Operations (Reads & Writes)
 
+{% hint style="warning" %}
+Users should be aware that Galera's optimistic concurrency control may result in Lost Updates (P4) or Stale Reads even in healthy clusters. Common application patterns like Read-Modify-Write may require explicit locking (e.g., `SELECT ... FOR UPDATE`) or session-level causality checks (e.g., `wsrep_sync_wait = 1`) to ensure safety.
+{% endhint %}
+
 * **Active-Active:** You can perform both read and write operations on _any_ node in the cluster. All successful write operations are synchronously replicated to all other nodes.
 * **Transactions:** Standard SQL transactions (`START TRANSACTION`, `COMMIT`, `ROLLBACK`) work as expected. Galera handles the replication of committed transactions.
 

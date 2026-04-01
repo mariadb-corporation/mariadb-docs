@@ -1,6 +1,6 @@
 # Introduction to Galera Architecture
 
-MariaDB Galera Cluster provides a synchronous replication system that uses an approach often called eager replication. In this model, nodes in a cluster synchronize with all other nodes by applying replicated updates as a single transaction. This means that when a transaction `COMMIT`s, all nodes in the cluster have the same value. This process is accomplished using [write-set replication](certification-based-replication.md) through a group communication framework.
+MariaDB Galera Cluster provides a synchronous replication system that uses an approach often called eager replication. In this model, nodes in a cluster synchronize with all other nodes by applying replicated updates as a single transaction. This means that when a transaction `COMMIT`s, all nodes currently part of the Primary Component are guaranteed to reach a consistent state by applying replicated updates in the same global serial order. This 'virtually synchronous' approach ensures that while the change is replicated immediately, nodes maintain logical consistency across the active majority of the cluster even if some individual nodes are temporarily lagging or offline.This process is accomplished using [write-set replication](certification-based-replication.md) through a group communication framework.
 
 ## Core Architectural Components
 

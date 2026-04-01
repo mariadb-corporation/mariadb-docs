@@ -101,6 +101,10 @@ In any case, doing what is "right" for the business logic overrides other consid
 
 Galera's tx\_isolation is between Serializable and Repeatable Read. tx\_isolation variable is ignored.
 
+{% hint style="warning" %}
+Galera's effective isolation level is a distributed variant of Snapshot Isolation. In [MariaDB 11.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/11.6/mariadb-11-6-2-changelog) and later, the `innodb_snapshot_isolation` system variable is enabled by default to support this model. While this provides a consistent point-in-time view for reads, it does not prevent all Lost Updates (P4) or Stale Reads in a distributed environment without additional configuration. For applications requiring the highest degree of safety, users should treat the default behavior as similar to Read Committed with session-level causality, and use `wsrep_sync_wait` to ensure real-time consistency where necessary.
+{% endhint %}
+
 Set wsrep\_log\_conflicts to get errors put in the regular MySQL mysqld.err.
 
 XA transactions cannot be supported. (Galera is already doing a form of XA in order to do its thing.)

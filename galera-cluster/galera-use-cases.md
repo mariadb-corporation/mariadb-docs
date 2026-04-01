@@ -82,8 +82,8 @@ When you hear "synchronous," it doesn't mean every node writes to disk at the ex
 1. A client sends a `COMMIT` to one node (e.g., Node A).
 2. Node A packages the transaction and replicates it to Node B and Node C.
 3. Node B and Node C check the transaction for conflicts (called certification) and signal "OK" back to Node A.
-4. Only after Node A gets an "OK" from all other nodes does it tell the client, "Your transaction is committed."
-5. All nodes then apply the write.
+4. Only after Node A receives a certification success signal (an 'OK') from a quorum of nodes—representing a majority of the cluster—does it tell the client, 'Your transaction is committed.' By requiring only a majority to signal 'OK,' the cluster remains operational and can safely commit data even if a minority of nodes have failed or are unreachable."
+5. All active nodes in the Primary Component then apply the write.
 
 As a result, the data is "safe" on all nodes _before_ the application is ever told the write was successful.
 
