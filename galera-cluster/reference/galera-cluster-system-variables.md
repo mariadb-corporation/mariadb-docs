@@ -613,7 +613,7 @@ See this page for more information about this variable:
 {% hint style="info" %}
 **Consistency and Stale Reads**
 
-By default (`wsrep_sync_wait=0`), MariaDB Galera Cluster may exhibit Stale Reads (MDEV-38999). This occurs when a transaction is committed and acknowledged on one node, but a subsequent transaction on a different node fails to see those changes because that node has not yet applied the corresponding write-set from its queue.
+By default (`wsrep_sync_wait=0`), MariaDB Galera Cluster may exhibit Stale Reads ([MDEV-38999](https://jira.mariadb.org/browse/MDEV-38999)). This occurs when a transaction is committed and acknowledged on one node, but a subsequent transaction on a different node fails to see those changes because that node has not yet applied the corresponding write-set from its queue.
 
 Setting `wsrep_sync_wait=1` (or a relevant bitmask) is the primary mechanism to enforce causal consistency and ensure that a node is fully synchronized with all previously committed cluster updates before a read operation is performed.
 {% endhint %}
