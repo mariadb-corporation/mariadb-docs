@@ -95,7 +95,7 @@ POST /orchestrate/generation
 
 **Purpose**: Orchestrates the complete RAG workflow: retrieval and text generation in a single request. Automatically retrieves relevant chunks and generates a response.
 
-**Request body (**&#x77;ith a `reranking` objec&#x74;**)**:
+**Request body (with a `reranking` object)**:
 
 ```json
 {
