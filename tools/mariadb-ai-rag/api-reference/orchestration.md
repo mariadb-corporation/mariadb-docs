@@ -130,7 +130,7 @@ POST /orchestrate/generation
 * `llm_provider` (optional): LLM provider - `openai`, `anthropic`, `gemini`, `cohere`, `ollama`, `azure`, `bedrock`
 * `temperature` (optional): Controls randomness (0.0-2.0, default: 0.7)
 * `top_p` (optional): Nucleus sampling (0.0-1.0, default: 0.9)
-* `max_tokens` (optional): Maximum tokens to generate (1-8192, default: 1000)
+* `max_tokens` (optional): Maximum tokens to generate (1-8192, default: 500)
 * `stream` (optional): Enable streaming (default: false)
 
 **Response**:
