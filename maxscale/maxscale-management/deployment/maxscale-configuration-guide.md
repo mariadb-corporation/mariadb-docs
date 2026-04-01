@@ -2206,7 +2206,34 @@ Timeout for all SQL operations done during the configuration synchronization. If
 an operation exceeds this timeout, the configuration change is treated as failed
 and an error is reported to the client that did the change.
 
+#### `statistics`
+
+* Type: [boolean](#booleans)
+* Mandatory: No
+* Dynamic: Yes
+* Default: true
+
+Enable tracking of query statistics.
+
+By default MaxScale tracks the latency of each executed query and keeps a record
+of the latency distribution. These latency measurements are then exported as
+metrics via the telemetry. The values are also exposed in the REST-API and the
+output of `maxctrl show qc_cache`.
+
+There is a cost to tracking the latency distribution. The most notable cost is
+an increase in memory usage per query which causes more pressure on the query
+classification cache. If the number of cache evictions reported in `maxctrl show
+threads` steadily increases, increase the value of `query_classifier_cache_size`
+from the default 15% of system memory to a value that's high enough that
+evictions no longer take place.
+
+There is also a CPU cost to tracking the latency but this is usually less of an
+issue. However, if telemetry is not being exported and the query statistics are
+not used, both the memory and CPU cost can be avoided by disabling the tracking
+of the statistics with `statistics=false`.
+
 #### `telemetry`
+
 * Type: [boolean](#booleans)
 * Mandatory: No
 * Dynamic: Yes
@@ -2277,6 +2304,51 @@ and `admin_ssl_key` for more documentation details.
 * Default: `""`
 
 The path to a TLS CA certificate in PEM format.
+
+#### `telemetry_sql_count`
+
+* Type: number
+* Mandatory: No
+* Dynamic: Yes
+* Default: 50
+
+How many of the most used SQL query digests are sent as metrics.
+
+The metrics track the approximate 50th, 75th, 95th and 99th percentile query
+execution latency for each unique query pattern as well as per server. By
+default only the top 50 most used queries by frequency are sent. If there are
+more than 50 different query digests that are of interest or you are not seeing
+the query you're interested in, increase the value of `telemetry_sql_count` or
+use `telemetry_sql_match` and `telemetry_sql_exclude` to filter the metrics to
+the important ones.
+
+#### `telemetry_sql_match`
+
+* Type: [regex](#regular-expressions)
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+
+Regular expression that's used to select which SQL query digests are sent over
+as metrics.
+
+This regular expression is matched against the SQL query digest which has all
+the constant values replaced with question marks. Only query digests that match
+the pattern are included in the metrics.
+
+#### `telemetry_sql_exclude`
+
+* Type: [regex](#regular-expressions)
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+
+Regular expression that's used to exclude SQL query digests from being sent over
+as metrics.
+
+This regular expression is matched against the SQL query digest which has all
+the constant values replaced with question marks. If the query matches, the
+digest is excluded from the metrics.
 
 #### `key_manager`
 
