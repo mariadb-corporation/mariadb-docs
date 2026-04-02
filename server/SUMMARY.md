@@ -2315,7 +2315,6 @@
       * [password\_reuse\_check\_interval Variable](reference/plugins/password-validation-plugins/password_reuse_check_interval.md)
       * [Simple Password Check Plugin](reference/plugins/password-validation-plugins/simple-password-check-plugin.md)
   * [System Tables](reference/system-tables/README.md)
-    * [mariadb\_schema](reference/system-tables/mariadb_schema.md)
     * [Information Schema](reference/system-tables/information-schema/README.md)
       * [TIME\_MS column in INFORMATION\_SCHEMA.PROCESSLIST](reference/system-tables/information-schema/time_ms-column-in-information_schemaprocesslist.md)
       * [Information Schema Tables](reference/system-tables/information-schema/information-schema-tables/README.md)

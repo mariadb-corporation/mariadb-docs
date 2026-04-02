@@ -12,7 +12,7 @@ The MariaDB Server includes several system tables that store metadata about data
 {% columns %}
 {% column %}
 {% content-ref url="information-schema/" %}
-[Information Schema](information-schema/)
+[information-schema](information-schema/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -24,7 +24,7 @@ The `information_schema` is a standard-compliant database that provides informat
 {% columns %}
 {% column %}
 {% content-ref url="performance-schema/" %}
-[Performance Schema](performance-schema/)
+[performance-schema](performance-schema/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -36,7 +36,7 @@ The `performance_schema` allows you to monitor server execution at a low level w
 {% columns %}
 {% column %}
 {% content-ref url="sys-schema/" %}
-[Sys Schema](sys-schema/)
+[sys-schema](sys-schema/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -48,7 +48,7 @@ The `sys` schema contains a collection of views, procedures, and functions that 
 {% columns %}
 {% column %}
 {% content-ref url="the-mysql-database-tables/" %}
-[The mysql Database Tables](the-mysql-database-tables/)
+[the-mysql-database-tables](the-mysql-database-tables/)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -59,8 +59,8 @@ Contains the core system tables in the `mysql` database, including privilege tab
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb_schema.md" %}
-[mariadb_schema](mariadb_schema.md)
+{% content-ref url="/broken/pages/KDJaEOMqwidgyDABQ6La" %}
+[Broken link](/broken/pages/KDJaEOMqwidgyDABQ6La)
 {% endcontent-ref %}
 {% endcolumn %}
 

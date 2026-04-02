@@ -20,7 +20,7 @@ A date. The supported range is '`1000-01-01`' to '`9999-12-31`'. MariaDB display
 
 ### Oracle Mode
 
-In [Oracle mode](../../../server-usage/stored-routines/stored-procedures/create-procedure.md#oracle-mode), `DATE` with a time portion is a synonym for [DATETIME](datetime.md). See also [mariadb\_schema](../../system-tables/mariadb_schema.md).
+In [Oracle mode](../../../server-usage/stored-routines/stored-procedures/create-procedure.md#oracle-mode), `DATE` with a time portion is a synonym for [DATETIME](datetime.md). See also [mariadb\_schema](/broken/pages/KDJaEOMqwidgyDABQ6La).
 
 ## Examples
 
@@ -193,7 +193,7 @@ SELECT * FROM date_range_example;
 
 ## See Also
 
-* [mariadb\_schema](../../system-tables/mariadb_schema.md) data type qualifier
+* [mariadb\_schema](/broken/pages/KDJaEOMqwidgyDABQ6La) data type qualifier
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 
