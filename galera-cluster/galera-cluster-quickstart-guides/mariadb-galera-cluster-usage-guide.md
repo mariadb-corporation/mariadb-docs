@@ -52,11 +52,11 @@ DDL operations (like `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE`) require specia
 * **Rolling Schema Upgrade (RSU) / Percona's `pt-online-schema-change`:**
   * For large tables or critical production systems, use tools like `pt-online-schema-change` (from Percona Toolkit) which performs DDL without blocking writes.
   * This tool works by creating a new table, copying data, applying changes, and then swapping the tables. It's generally preferred for minimizing downtime for `ALTER TABLE` operations.
+* **Non-Blocking Operations (NBO)**
+  * An advanced, automatic method that replicates DDL to all nodes while only blocking the target table, keeping the rest of the cluster operational.&#x20;
+  * The method requires specific syntax, such as an explicit `LOCK` clause, and is best suited for compatible `ALTER TABLE` statements.
 * **`wsrep_OSU_method`:**
-  * This system variable controls how DDL operations are executed.
-  * `TOI` (default): Total Order Isolation.
-  * `RSU`: Rolling Schema Upgrade (requires manual steps with `pt-online-schema-change`).
-  * `NBO` (Non-Blocking Operations): A newer method allowing non-blocking DDL for some operations, but not fully implemented for all DDL types. Use with caution and test thoroughly.
+  * The [system variable](../reference/galera-cluster-system-variables.md#wsrep_osu_method) controls how DDL operations are executed.
 
 #### 4. Monitoring Cluster Status
 

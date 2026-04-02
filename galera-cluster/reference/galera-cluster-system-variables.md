@@ -376,12 +376,13 @@ Multiple nodes in a cluster can share the same name, but unique names are advise
 * Description: Online schema upgrade method. The default is `TOI`, specifying the setting without the optional parameter will set to `RSU`.
   * `TOI`: Total Order Isolation. In each cluster node, DDL is processed in the same order regarding other transactions, guaranteeing data consistency. However, affected parts of the database will be locked for the whole cluster.
   * `RSU`: Rolling Schema Upgrade. DDL processing is only done locally on the node, and the user needs perform the changes manually on each node. The node is desynced from the rest of the cluster while the processing takes place to avoid the blocking other nodes. Schema changes [must be backwards compatible in the same way as for ROW based replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-when-the-primary-and-replica-have-different-table-definitions) to avoid breaking replication when the DDL processing is complete on the single node, and replication recommences.
+  * `NBO`: Non-Blocking Operations. It replicates DDL in total order across the cluster but allows non-conflicting transactions to continue processing on other tables during the operation
 * Command line: `--wsrep-OSU-method[=value]`
 * Scope: Global, Session
 * Dynamic: Yes
 * Data Type: Enum
 * Default Value: `TOI`
-* Valid Values: `TOI`, `RSU`
+* Valid Values: `TOI`, `RSU`, `NBO`
 
 #### `wsrep_patch_version`
 
