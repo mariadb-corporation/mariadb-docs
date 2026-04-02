@@ -1196,6 +1196,7 @@
       * [Numeric Literals](reference/sql-structure/sql-language-structure/numeric-iterals.md)
       * [Reserved Words](reference/sql-structure/sql-language-structure/reserved-words.md)
       * [Boolean Literals](reference/sql-structure/sql-language-structure/sql-language-structure-boolean-literals.md)
+      * [Schema Qualifiers](reference/sql-structure/sql-language-structure/schema-qualifiers.md)
       * [String Literals](reference/sql-structure/sql-language-structure/string-literals.md)
       * [Table Value Constructors](reference/sql-structure/sql-language-structure/table-value-constructors.md)
       * [User-Defined Variables](reference/sql-structure/sql-language-structure/user-defined-variables.md)
