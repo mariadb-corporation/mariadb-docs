@@ -112,12 +112,14 @@ The plugin supports the following parameters, which must be set in advance and c
 
 * Description: This parameter instructs the plugin to use the key values or version numbers taken from the cache in the event of a timeout when accessing the vault server. By default this option is disabled. Please note that key values or version numbers will be read from the cache when the timeout expires only after the number of attempts to read them from the storage server that specified by the [--\[loose-\]hashicorp-key-management-max-retries](hashicorp-key-management-plugin.md#hashicorp-key-management-max-retries) parameter has been exhausted.
 * Command line: `--[loose-]hashicorp-key-management-use-cache-on-timeout="on"|"off"`
+* Deprecated in MariaDB 10.11.16
 
 #### `hashicorp-key-management-cache-timeout`
 
 * Description: The time (in milliseconds) after which the value of the key stored in the cache becomes invalid and an attempt to read this data causes a new request send to the vault server. By default, cache entries become invalid after 60,000 milliseconds (after one minute). If the value of this parameter is zero, then the keys will always be considered invalid, but they still can be used if the vault server is unavailable and the corresponding cache operating mode (`--[loose-]hashicorp-key-management-use-cache-on-timeout="on"`) is enabled.
 * As of MariaDB 10.6.24, the default value is 1 year (specified in milliseconds).
 * Command line: `--[loose-]hashicorp-key-management-cache-timeout=<timeout>`
+* Deprecated in MariaDB 10.11.16
 
 #### `hashicorp-key-management-cache-version-timeout`
 

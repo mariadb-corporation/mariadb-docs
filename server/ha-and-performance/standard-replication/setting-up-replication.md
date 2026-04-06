@@ -29,7 +29,7 @@ Follow these steps to set up MariaDB replication:
 **Configure the Master**
 
 * Enable binary logging if it's not already enabled. See [Activating the Binary Log](../../server-management/server-monitoring-logs/binary-log/activating-the-binary-log.md) and [Binary log formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) for details.
-* Give the master a unique [server\_id](replication-and-binary-log-system-variables.md#server_id). All slaves must also be given a server\_id. This can be a number from 1 to 232-1, and must be unique for each server in the replicating group.
+* Give the master a unique [server\_id](replication-and-binary-log-system-variables.md#server_id). All slaves must also be given a server\_id. This can be a number from 1 to (2<sup>32</sup>)-1, and must be unique for each server in the replicating group.
 * Specify a unique name for your replication logs with [--log-basename](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). If this is not specified your host name will be used and there will be problems if the hostname ever changes.
 * Slaves will need permission to connect and start replicating from a server. Usually this is done by creating a dedicated slave user, and granting that user permission only to replicate (REPLICATION SLAVE permission).
 
@@ -81,7 +81,7 @@ There are a number of options that may impact or break replication. Check the fo
 {% step %}
 **Configure the Replica**
 
-Give the replica a unique [server\_id](replication-and-binary-log-system-variables.md). All servers, whether masters or replicas, are given a server\_id. This can be a number from `1` to `232-1`, and must be unique for each server in the replicating group. The server will need to be restarted in order for a change in this option to take effect.
+Give the replica a unique [server\_id](replication-and-binary-log-system-variables.md). All servers, whether masters or replicas, are given a server\_id. This can be a number from `1` to `(2<sup>32</sup>)-1`, and must be unique for each server in the replicating group. The server will need to be restarted in order for a change in this option to take effect.
 {% endstep %}
 
 {% step %}

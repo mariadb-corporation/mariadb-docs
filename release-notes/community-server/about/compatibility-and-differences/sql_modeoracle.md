@@ -135,7 +135,7 @@ Oracle mode makes the following changes to [Prepared Statements](https://app.git
 
 This was implemented as part of [MDEV-10343](https://jira.mariadb.org/browse/MDEV-10343).
 
-If one does a [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-create-table) in `ORACLE` mode on a table that has a native MariaDB `DATE` column, it will be displayed as [mariadb\_schema.date](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/mariadb_schema) to not conflict with the Oracle `DATE` type.
+If one does a [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-create-table) in `ORACLE` mode on a table that has a native MariaDB `DATE` column, it will be displayed as [mariadb\_schema.date](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/schema-qualifiers) to not conflict with the Oracle `DATE` type.
 
 ### Packages
 
@@ -187,7 +187,7 @@ The [SHOW CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference
 
 ## See Also
 
-* [mariadb\_schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/mariadb_schema)
+* [mariadb\_schema](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sql-language-structure/schema-qualifiers)
 * [Using SEQUENCEs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences)
 * [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) EMPTY\_STRING\_IS\_NULL
 * [SQL\_MODE=MSSQL](sql_modemssql.md)
