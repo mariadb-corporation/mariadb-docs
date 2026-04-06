@@ -87,7 +87,7 @@ It is possible to create a new partitioned table using [CREATE TABLE](../../refe
 ADD PARTITION [IF NOT EXISTS] (partition_definition)
 ```
 
-`[ALTER TABLE](../../reference/sql-statements-and-structure/sql-statements/data-definition/alter/alter-table.md) ... ADD PARTITION` can be used to add partitions to an existing table:
+[`ADD PARTITION`](../../reference/sql-statements/data-definition/alter/alter-table/#add-partition) can be used to add partitions to an existing table:
 
 ```sql
 CREATE OR REPLACE TABLE t1 (
