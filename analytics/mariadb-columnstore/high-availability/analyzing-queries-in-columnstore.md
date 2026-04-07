@@ -34,7 +34,9 @@ Oct 7 08:38:30    00:00:03       73 select c_name,sum(lo_revenue) from customer,
 
 ### Query Statistics
 
-The _`calGetStats`_ function provides statistics about resources used on the node, and network by the last run query. Example:
+The `calGetStats` function provides statistics about resources used on the node, and network by the last run query. To collect query statistics across sessions and store them for analysis, see [Query Statistics for MariaDB Enterprise ColumnStore](columnstore-query-tuning/query-statistics-for-mariadb-enterprise-columnstore.md).
+
+Example:
 
 ```sql
 MariaDB [test]> SELECT count(*) FROM wide2;
@@ -66,6 +68,8 @@ The output contains information on:
 * **MsgBytesIn, MsgByteOut** - Message size in MB sent between nodes in support of the query.
 
 The output is useful to determine how much physical I/O was required, how much data was cached, and how many partition blocks were eliminated through use of extent map elimination. The system maintains min / max values for each extent and uses these to help implement where clause filters to completely bypass extents where the value is outside of the min/max range. When a column is ordered (or semi-ordered) during load such as a time column this offer very large performance gains as the system can avoid scanning many extents for the column.
+
+For additional details about enabling query statistics, required privileges, and historical analysis, see [Query Statistics for MariaDB Enterprise ColumnStore](columnstore-query-tuning/query-statistics-for-mariadb-enterprise-columnstore.md).&#x20;
 
 ## Query Plan / Trace
 
@@ -262,12 +266,17 @@ where sessionid = 2 and querytype = 'SELECT' and starttime >= now()-interval 12 
 order by 1 limit 3) a;
 ```
 
-* Example 3: List the average, min and max running time of all the `INSERT SELECT` queries within the past 12 hours:
+* Example 3: List the average, min and max running time of all the INSERT SELECT queries within the past 12 hours:
 
 ```sql
 MariaDB [infinidb_querystats]> select min(endtime-starttime), max(endtime-starttime), avg(endtime-starttime) from querystats 
 where querytype='INSERT SELECT' and starttime >= now() - interval 12 hour;
 ```
+
+## See Also
+
+* [Query Statistics for MariaDB Enterprise ColumnStore](columnstore-query-tuning/query-statistics-for-mariadb-enterprise-columnstore.md)
+
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
 {% @marketo/form formId="4316" %}

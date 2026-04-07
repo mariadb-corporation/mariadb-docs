@@ -105,6 +105,7 @@
       * [Query Plans and Optimizer Trace](mariadb-columnstore/high-availability/columnstore-query-tuning/query-plans-and-optimizer-trace/README.md)
         * [Execution Plan (CSEP)](mariadb-columnstore/high-availability/columnstore-query-tuning/query-plans-and-optimizer-trace/columnstore-execution-plan-csep-for-mariadb-enterprise-columnstore.md)
         * [Job Steps](mariadb-columnstore/high-availability/columnstore-query-tuning/query-plans-and-optimizer-trace/job-steps-for-mariadb-enterprise-columnstore.md)
+      * [Query Statistics for MariaDB Enterprise ColumnStore](mariadb-columnstore/high-availability/columnstore-query-tuning/query-statistics-for-mariadb-enterprise-columnstore.md)
   * [Clients & Tools](mariadb-columnstore/clients-and-tools/README.md)
     * [StorageManager](mariadb-columnstore/clients-and-tools/storagemanager/README.md)
       * [Certified S3 Object Storage Providers](mariadb-columnstore/clients-and-tools/storagemanager/certified-s3-object-storage-providers.md)
