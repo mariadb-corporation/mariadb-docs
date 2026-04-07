@@ -20,6 +20,14 @@ The return value is a 32-hex digit string, and a nonbinary string in the connect
 
 `NULL` is returned if the argument was `NULL`.
 
+{% hint style="warning" %}
+**Don't use this function as an encryption function.**
+
+MD5 can be used as a checksum to verify data integrity against unintentional corruption. Historically it was widely used as a cryptographic hash function; however it has been found to suffer from extensive vulnerabilities.
+
+See [https://en.wikipedia.org/wiki/MD5](https://en.wikipedia.org/wiki/MD5) for details.
+{% endhint %}
+
 ## Examples
 
 ```sql

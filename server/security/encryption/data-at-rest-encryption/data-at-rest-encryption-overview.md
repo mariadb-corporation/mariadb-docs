@@ -82,9 +82,7 @@ Temporary files created internally by InnoDB, such as those used for merge sorts
 
 ### Encrypting Binary Logs
 
-MariaDB can also encrypt [binary logs](../../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../../server-management/server-monitoring-logs/binary-log/relay-log.md)).
-
-* [Encrypting Binary Logs](/broken/pages/qmWqVsVK0P5Ggx0MwFrf)
+MariaDB can also encrypt [binary logs](../../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Encrypting Binary Logs](managing-binary-log-encryption.md) for details.
 
 ### Binary and Relay Log Encryption Behavior
 
