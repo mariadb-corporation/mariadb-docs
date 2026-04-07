@@ -707,10 +707,6 @@ Deprecated and ignored.
 * Dynamic: Yes
 * Default: `false`
 
-Deprecated since MariaDB MaxScale 25.01. Use
-[cooperative monitoring](../../reference/maxscale-monitors/mariadb-monitor.md#cooperative-monitoring)
-instead.
-
 Controls whether MaxScale is a passive node in a cluster of multiple MaxScale
 instances.
 
