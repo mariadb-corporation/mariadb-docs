@@ -46,7 +46,7 @@ SET max_heap_table_size = @@max_heap_table_size;
 
 ## See Also
 
-* [Performance of MEMORY tables](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/qnjMjiyRC0dWALAFvdZL)
+* [Performance of MEMORY tables](../../reference/product-development/server-development/quality/benchmarks-and-long-running-tests/benchmarks/performance-of-memory-tables.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
