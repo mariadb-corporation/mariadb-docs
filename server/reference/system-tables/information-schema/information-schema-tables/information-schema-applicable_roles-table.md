@@ -10,12 +10,7 @@ The [Information Schema](../) `APPLICABLE_ROLES` table shows the [role authoriza
 
 It contains the following columns:
 
-| Column        | Description                                        |
-| ------------- | -------------------------------------------------- |
-| GRANTEE       | Account that the role was granted to.              |
-| ROLE\_NAME    | Name of the role.                                  |
-| IS\_GRANTABLE | Whether the role can be granted or not.            |
-| IS\_DEFAULT   | Whether the role is the user's default role or not |
+<table data-header-hidden="false" data-header-sticky><thead><tr><th>Column</th><th>Description</th></tr></thead><tbody><tr><td>GRANTEE</td><td>Account that the role was granted to.</td></tr><tr><td>ROLE_NAME</td><td>Name of the role.</td></tr><tr><td>IS_GRANTABLE</td><td>Whether the role can be granted or not.</td></tr><tr><td>IS_DEFAULT</td><td>Whether the role is the user's default role or not</td></tr></tbody></table>
 
 The current role is in the [ENABLED\_ROLES](information-schema-enabled_roles-table.md) Information Schema table.
 
