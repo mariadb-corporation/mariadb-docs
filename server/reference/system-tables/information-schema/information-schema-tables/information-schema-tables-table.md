@@ -13,7 +13,7 @@ The [Information Schema](../) table shows information about the various tables a
 {% endtab %}
 
 {% tab title="< 11.2.0" %}
-The [Information Schema](../) table shows information about the various tables, excluding`TEMPORARY` tables, except for tables from the `Information Schema` database) and [views](../../../../server-usage/views/) on the server.
+The [Information Schema](../) table shows information about the various tables, excluding `TEMPORARY` tables, except for tables from the `Information Schema` database and [views](../../../../server-usage/views/) on the server.
 {% endtab %}
 {% endtabs %}
 
@@ -21,12 +21,12 @@ It contains the following columns:
 
 | Column             | Description                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TABLE\_CATALOG     | Always def.                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| TABLE\_CATALOG     | Always `def`.                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | TABLE\_SCHEMA      | Database name.                                                                                                                                                                                                                                                                                                                                                                                                                |
 | TABLE\_NAME        | Table name.                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | TABLE\_TYPE        | One of `BASE TABLE` for a regular table, VIEW for a [view](../../../../server-usage/views/), `SYSTEM VIEW` for [Information Schema](../) tables, `SYSTEM VERSIONED` for [system-versioned tables](../../../sql-structure/temporal-tables/system-versioned-tables.md), `SEQUENCE` for [sequences](../../../sql-structure/sequences/) or `TEMPORARY` for local temporary tables.                                                |
 | ENGINE             | [Storage Engine](../../../../server-usage/storage-engines/).                                                                                                                                                                                                                                                                                                                                                                  |
-| VERSION            | Version number from the table's .frm file                                                                                                                                                                                                                                                                                                                                                                                     |
+| VERSION            | Version number from the table's `.frm` file.                                                                                                                                                                                                                                                                                                                                                                                  |
 | ROW\_FORMAT        | Row format (see [InnoDB](../../../../server-usage/storage-engines/innodb/innodb-row-formats/innodb-row-formats-overview.md), [Aria](../../../../server-usage/storage-engines/aria/aria-storage-formats.md) and [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/myisam-storage-formats.md) row formats).                                                                                               |
 | TABLE\_ROWS        | Number of rows in the table. Some engines, such as [XtraDB and InnoDB](../../../../server-usage/storage-engines/innodb/) may store an estimate.                                                                                                                                                                                                                                                                               |
 | AVG\_ROW\_LENGTH   | Average row length in the table.                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -36,14 +36,14 @@ It contains the following columns:
 | DATA\_FREE         | Bytes allocated but unused. For [InnoDB](../../../../server-usage/storage-engines/innodb/) tables in a shared tablespace, the free space of the shared tablespace with small safety margin. An estimate in the case of partitioned tables - see the [PARTITIONS](information-schema-partitions-table.md) table.                                                                                                               |
 | AUTO\_INCREMENT    | Next [AUTO\_INCREMENT](../../../data-types/auto_increment.md) value.                                                                                                                                                                                                                                                                                                                                                          |
 | CREATE\_TIME       | Time the table was created. Some engines just return the ctime information from the file system layer here, in that case the value is not necessarily the table creation time but rather the time the file system metadata for it had last changed.                                                                                                                                                                           |
-| UPDATE\_TIME       | Time the table was last updated. On Windows, the timestamp is not updated on update, so MyISAM values will be inaccurate. In [InnoDB](../../../../server-usage/storage-engines/innodb/), if shared tablespaces are used, will be NULL, while buffering can also delay the update, so the value will differ from the actual time of the last UPDATE, INSERT or DELETE.                                                         |
-| CHECK\_TIME        | Time the table was last checked. Not kept by all storage engines, in which case will be NULL.                                                                                                                                                                                                                                                                                                                                 |
+| UPDATE\_TIME       | Time the table was last updated. On Windows, the timestamp is not updated on update, so MyISAM values will be inaccurate. In [InnoDB](../../../../server-usage/storage-engines/innodb/), if shared tablespaces are used, will be NULL, while buffering can also delay the update, so the value will differ from the actual time of the last `UPDATE`, `INSERT` or `DELETE`.                                                   |
+| CHECK\_TIME        | Time the table was last checked. Not kept by all storage engines, in which case will be `NULL`.                                                                                                                                                                                                                                                                                                                               |
 | TABLE\_COLLATION   | [Character set and collation](../../../data-types/string-data-types/character-sets/).                                                                                                                                                                                                                                                                                                                                         |
 | CHECKSUM           | Live checksum value, if any.                                                                                                                                                                                                                                                                                                                                                                                                  |
 | CREATE\_OPTIONS    | Extra [CREATE TABLE](../../../sql-statements/data-definition/create/create-table.md) options.                                                                                                                                                                                                                                                                                                                                 |
 | TABLE\_COMMENT     | Table comment provided when MariaDB created the table.                                                                                                                                                                                                                                                                                                                                                                        |
 | MAX\_INDEX\_LENGTH | Maximum index length (supported by MyISAM and Aria tables).                                                                                                                                                                                                                                                                                                                                                                   |
-| TEMPORARY          | Is set to "Y" for local temporary tables.                                                                                                                                                                                                                                                                                                                                                                                     |
+| TEMPORARY          | Set to `'Y'` for local temporary tables.                                                                                                                                                                                                                                                                                                                                                                                      |
 
 Although the table is standard in the Information Schema, all but `TABLE_CATALOG`, `TABLE_SCHEMA`, `TABLE_NAME`, `TABLE_TYPE`, `ENGINE` and `VERSION` are MySQL and MariaDB extensions.
 
@@ -104,7 +104,7 @@ MAX_INDEX_LENGTH: 17179868160
 ...
 ```
 
-Example with temporary = 'y':
+Example with `temporary = 'y'`:
 
 ```sql
 SELECT * FROM information_schema.tables WHERE temporary='y'\G
@@ -137,7 +137,7 @@ MAX_INDEX_LENGTH: 0
 
 ### View Tables in Order of Size
 
-Returns a list of all tables in the database, ordered by size:
+Return a list of all tables in the database, ordered by size:
 
 ```sql
 SELECT table_schema AS `DB`, table_name AS `TABLE`, 
@@ -157,7 +157,32 @@ SELECT table_schema AS `DB`, table_name AS `TABLE`,
 ...
 ```
 
-Returns information about a temporary table:
+Narrow down that information for a specific database:
+
+{% code overflow="wrap" %}
+```sql
+SELECT table_schema AS `DB`, table_name AS `TABLE`, 
+  ROUND(((data_length + index_length) / 1024 / 1024), 2) `Size (MB)`
+  FROM information_schema.TABLES 
+  WHERE table_schema='nation'
+  ORDER BY (data_length + index_length) DESC;
++--------+-------------------+-----------+
+| DB     | TABLE             | Size (MB) |
++--------+-------------------+-----------+
+| nation | country_stats     |      0.41 |
+| nation | countries         |      0.06 |
+| nation | country_languages |      0.06 |
+| nation | regions           |      0.03 |
+| nation | guests            |      0.02 |
+| nation | vips              |      0.02 |
+| nation | region_areas      |      0.02 |
+| nation | languages         |      0.02 |
+| nation | continents        |      0.02 |
++--------+-------------------+-----------+
+```
+{% endcode %}
+
+Return information about a temporary table:
 
 ```sql
 CREATE TEMPORARY TABLE foo.t1 (a INT);
