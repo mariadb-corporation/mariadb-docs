@@ -10,25 +10,28 @@ The [Information Schema](../) `SYSTEM_VARIABLES` table shows current values and 
 
 It contains the following columns:
 
-| Column                  | Description                                                                                                                                                                                                 |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| VARIABLE\_NAME          | System variable name.                                                                                                                                                                                       |
-| SESSION\_VALUE          | Session value of the variable or NULL if the variable only has a global scope.                                                                                                                              |
-| GLOBAL\_VALUE           | Global value of the variable or NULL if the variable only has a session scope.                                                                                                                              |
-| GLOBAL\_VALUE\_ORIGIN   | How the global value was set — a compile-time default, auto-configured by the server, configuration file (or a command line), with the SQL statement.                                                       |
-| DEFAULT\_VALUE          | Compile-time default value of the variable.                                                                                                                                                                 |
-| VARIABLE\_SCOPE         | Global, session, or session-only.                                                                                                                                                                           |
-| VARIABLE\_TYPE          | Data type of the variable value.                                                                                                                                                                            |
-| VARIABLE\_COMMENT       | Help text, usually shown in mariadbd --help --verbose.                                                                                                                                                      |
-| NUMERIC\_MIN\_VALUE     | For numeric variables — minimal allowed value.                                                                                                                                                              |
-| NUMERIC\_MAX\_VALUE     | For numeric variables — maximal allowed value.                                                                                                                                                              |
-| NUMERIC\_BLOCK\_SIZE    | For numeric variables — a valid value must be a multiple of the "block size".                                                                                                                               |
-| ENUM\_VALUE\_LIST       | For ENUM, SET, and FLAGSET variables — the list of recognized values.                                                                                                                                       |
-| READ\_ONLY              | Whether a variable can be set with the SQL statement. Note that many "read only" variables can still be set on the command line.                                                                            |
-| COMMAND\_LINE\_ARGUMENT | Whether an argument is required when setting the variable on the command line. NULL when a variable can not be set on the command line.                                                                     |
-| GLOBAL\_VALUE\_PATH     | Which config file the variable got its value from. NULL if not set in any config file. Added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0). |
+| Column                  | Description                                                                                                                                                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| VARIABLE\_NAME          | System variable name.                                                                                                                                                                                                                       |
+| SESSION\_VALUE          | Session value of the variable or `NULL` if the variable only has a global scope.                                                                                                                                                            |
+| GLOBAL\_VALUE           | Global value of the variable or `NULL` if the variable only has a session scope.                                                                                                                                                            |
+| GLOBAL\_VALUE\_ORIGIN   | How the global value is set — a compile-time default, auto-configured by the server, configuration file (or on a command line), with the SQL statement.                                                                                     |
+| DEFAULT\_VALUE          | Compile-time default value of the variable.                                                                                                                                                                                                 |
+| VARIABLE\_SCOPE         | Global, session, or session-only.                                                                                                                                                                                                           |
+| VARIABLE\_TYPE          | Data type of the variable value.                                                                                                                                                                                                            |
+| VARIABLE\_COMMENT       | Help text, usually shown in `mariadbd --help --verbose`.                                                                                                                                                                                    |
+| NUMERIC\_MIN\_VALUE     | For numeric variables — minimal allowed value.                                                                                                                                                                                              |
+| NUMERIC\_MAX\_VALUE     | For numeric variables — maximal allowed value.                                                                                                                                                                                              |
+| NUMERIC\_BLOCK\_SIZE    | For numeric variables — a valid value must be a multiple of the "block size".                                                                                                                                                               |
+| ENUM\_VALUE\_LIST       | For `ENUM`, `SET`, and `FLAGSET` variables — the list of recognized values.                                                                                                                                                                 |
+| READ\_ONLY              | Whether a variable can be set with the SQL statement. Note that many "read only" variables can still be set on the command line.                                                                                                            |
+| COMMAND\_LINE\_ARGUMENT | Whether an argument is required when setting the variable on the command line. `NULL` when a variable can not be set on the command line.                                                                                                   |
+| GLOBAL\_VALUE\_PATH     | Which config file the variable got its value from. `NULL` if not set in any config file.                                                                                                                                                    |
+| IS\_DEPRECATED          | Used to identify deprecated variables in the server configuration (in an option file or on the command line). See [the example below](information-schema-system_variables-table.md#show-deprecated-variables). Available from MariaDB 13.0. |
 
-## Example
+## Examples
+
+### Show Values of a Specific Variable
 
 ```sql
 SELECT * FROM information_schema.SYSTEM_VARIABLES 
@@ -49,6 +52,24 @@ SELECT * FROM information_schema.SYSTEM_VARIABLES
             READ_ONLY: NO
 COMMAND_LINE_ARGUMENT: REQUIRED
 ```
+
+### Show Deprecated Variables
+
+{% code overflow="wrap" %}
+```sql
+SELECT VARIABLE_NAME, GLOBAL_VALUE, DEFAULT_VALUE 
+ FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES 
+ WHERE GLOBAL_VALUE_ORIGIN IN('CONFIG', 'SQL', 'COMPILE-TIME') 
+ AND GLOBAL_VALUE != DEFAULT_VALUE 
+ AND IS_DEPRECATED = 'YES';
+ -- Possible output
++-----------------------+--------------+---------------+
+| VARIABLE_NAME         | GLOBAL_VALUE | DEFAULT_VALUE |
++-----------------------+--------------+---------------+
+| INNODB_LRU_FLUSH_SIZE | 0            | 32            |
++-----------------------+--------------+---------------+
+```
+{% endcode %}
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
