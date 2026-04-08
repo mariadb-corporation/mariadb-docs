@@ -52,6 +52,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  ...
   mariaDbRef:
     name: mariadb-galera
 ```
@@ -66,7 +67,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   mariaDbRef:
     name: mariadb-galera
 
@@ -101,7 +102,7 @@ kind: MaxScale
 metadata:
   name: maxscale-repl
 spec:
-...
+  ...
   mariaDbRef:
     name: mariadb-repl
 
@@ -165,7 +166,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-...
+  ...
   maxScaleRef:
     name: maxscale-galera
 
@@ -194,7 +195,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   servers:
     - name: mariadb-0
       address: mariadb-galera-0.mariadb-galera-internal.default.svc.cluster.local
@@ -212,7 +213,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   servers:
     - name: mariadb-0
       address: 172.18.0.140
@@ -274,6 +275,7 @@ kind: MaxScale
 metadata:
   name: maxscale-repl
 spec:
+  ...
   primaryServer: mariadb-repl-1
 ```
 
@@ -299,6 +301,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  ...
   servers:
     - name: mariadb-0
       address: mariadb-galera-0.mariadb-galera-internal.default.svc.cluster.local
@@ -317,7 +320,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   config:
     params:
       log_info: "true"
@@ -351,7 +354,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   auth:
     generate: false
     adminUsername: mariadb-enterprise-operator
@@ -393,7 +396,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   kubernetesService:
     type: LoadBalancer
     metadata:
@@ -411,7 +414,7 @@ metadata:
     metallb.universe.tf/loadBalancerIPs: 172.18.0.229
   name: maxscale-galera
 spec:
-...
+  ...
   ports:
   - name: admin
     port: 8989
@@ -437,6 +440,7 @@ kind: Connection
 metadata:
   name: connection-maxscale
 spec:
+  ...
   maxScaleRef:
     name: maxscale-galera
   username: maxscale-galera-client
@@ -455,7 +459,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...  
+  ...  
   connection:
     secretName: mxs-galera-conn
     port: 3306
@@ -475,7 +479,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   replicas: 2
 
   monitor:
@@ -519,7 +523,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   monitor:
     name: mariadb-monitor
     module: galeramon
@@ -542,7 +546,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  ...
   admin:
     port: 8989
     guiEnabled: true
@@ -632,6 +636,7 @@ kind: StatefulSet
 metadata:
   name: maxscale-galera
 spec:
+  ...
   securityContext:
     fsGroup: 999
     runAsGroup: 999

@@ -16,6 +16,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replicas: 3
   replication:
     enabled: true
@@ -93,6 +94,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replicas: 3
   replication:
     enabled: true
@@ -125,6 +127,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replicas: 3
   replication:
     enabled: true
@@ -206,6 +209,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replicas: 3
   replication:
     enabled: true
@@ -253,6 +257,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replicas: 3
   replication:
     enabled: true
@@ -371,6 +376,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replication:
     enabled: true
     replica:
@@ -387,6 +393,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replicas: 4
   replication:
     enabled: true
@@ -462,6 +469,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  ...
   replication:
     enabled: true
     replica:
