@@ -64,10 +64,10 @@ _Appears in:_
 - [Exporter](#exporter)
 - [Job](#job)
 - [JobPodTemplate](#jobpodtemplate)
+- [MariaDBPodTemplate](#mariadbpodtemplate)
 - [MariaDBSpec](#mariadbspec)
 - [MaxScalePodTemplate](#maxscalepodtemplate)
 - [MaxScaleSpec](#maxscalespec)
-- [PodTemplate](#podtemplate)
 - [RestoreSpec](#restorespec)
 - [SqlJobSpec](#sqljobspec)
 
@@ -104,6 +104,7 @@ _Appears in:_
 | `startupProbe` _[Probe](#probe)_ | StartupProbe to be used in the Container. |  |  |
 | `resources` _[ResourceRequirements](#resourcerequirements)_ | Resources describes the compute resource requirements. |  |  |
 | `securityContext` _[SecurityContext](#securitycontext)_ | SecurityContext holds security configuration that will be applied to a container. |  |  |
+| `lifecycle` _[Lifecycle](#lifecycle)_ | Lifecycle are actions that the management system should take in response to container lifecycle events. |  |  |
 | `image` _string_ | Image name to be used by the MariaDB instances. The supported format is `<image>:<tag>`. |  |  |
 | `imagePullPolicy` _[PullPolicy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pullpolicy-v1-core)_ | ImagePullPolicy is the image pull policy. One of `Always`, `Never` or `IfNotPresent`. If not defined, it defaults to `IfNotPresent`. |  | Enum: [Always Never IfNotPresent] <br /> |
 | `port` _integer_ | Port where the agent will be listening for API connections. |  |  |
@@ -283,6 +284,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
 - [Volume](#volume)
 - [VolumeSource](#volumesource)
@@ -386,6 +389,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [Volume](#volume)
 - [VolumeSource](#volumesource)
 
@@ -474,8 +479,8 @@ Container object definition.
 
 
 _Appears in:_
+- [MariaDBPodTemplate](#mariadbpodtemplate)
 - [MariaDBSpec](#mariadbspec)
-- [PodTemplate](#podtemplate)
 
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
@@ -515,6 +520,7 @@ _Appears in:_
 | `startupProbe` _[Probe](#probe)_ | StartupProbe to be used in the Container. |  |  |
 | `resources` _[ResourceRequirements](#resourcerequirements)_ | Resources describes the compute resource requirements. |  |  |
 | `securityContext` _[SecurityContext](#securitycontext)_ | SecurityContext holds security configuration that will be applied to a container. |  |  |
+| `lifecycle` _[Lifecycle](#lifecycle)_ | Lifecycle are actions that the management system should take in response to container lifecycle events. |  |  |
 
 
 #### CooperativeMonitoring
@@ -603,6 +609,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
 - [Volume](#volume)
 - [VolumeSource](#volumesource)
@@ -676,6 +684,23 @@ _Appears in:_
 | `secretKeyRef` _[SecretKeySelector](#secretkeyselector)_ |  |  |  |
 
 
+#### EphemeralVolumeSource
+
+
+
+Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#ephemeralvolumesource-v1-core.
+
+
+
+_Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `volumeClaimTemplate` _[VolumeClaimTemplate](#volumeclaimtemplate)_ |  |  |  |
+
+
 #### ExecAction
 
 
@@ -685,6 +710,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [LifecycleHandler](#lifecyclehandler)
 - [Probe](#probe)
 - [ProbeHandler](#probehandler)
 
@@ -1024,6 +1050,7 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [LifecycleHandler](#lifecyclehandler)
 - [Probe](#probe)
 - [ProbeHandler](#probehandler)
 
@@ -1062,6 +1089,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
 - [Volume](#volume)
 - [VolumeSource](#volumesource)
@@ -1098,6 +1127,7 @@ _Appears in:_
 | `startupProbe` _[Probe](#probe)_ | StartupProbe to be used in the Container. |  |  |
 | `resources` _[ResourceRequirements](#resourcerequirements)_ | Resources describes the compute resource requirements. |  |  |
 | `securityContext` _[SecurityContext](#securitycontext)_ | SecurityContext holds security configuration that will be applied to a container. |  |  |
+| `lifecycle` _[Lifecycle](#lifecycle)_ | Lifecycle are actions that the management system should take in response to container lifecycle events. |  |  |
 | `image` _string_ | Image name to be used by the MariaDB instances. The supported format is `<image>:<tag>`. |  | Required: \{\} <br /> |
 | `imagePullPolicy` _[PullPolicy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pullpolicy-v1-core)_ | ImagePullPolicy is the image pull policy. One of `Always`, `Never` or `IfNotPresent`. If not defined, it defaults to `IfNotPresent`. |  | Enum: [Always Never IfNotPresent] <br /> |
 
@@ -1223,6 +1253,45 @@ _Appears in:_
 | `values` _string array_ |  |  |  |
 
 
+#### Lifecycle
+
+
+
+Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#lifecycle-v1-core.
+
+
+
+_Appears in:_
+- [Agent](#agent)
+- [ContainerTemplate](#containertemplate)
+- [InitContainer](#initcontainer)
+- [MariaDBSpec](#mariadbspec)
+- [MaxScaleSpec](#maxscalespec)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `postStart` _[LifecycleHandler](#lifecyclehandler)_ |  |  |  |
+| `preStop` _[LifecycleHandler](#lifecyclehandler)_ |  |  |  |
+
+
+#### LifecycleHandler
+
+
+
+Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#lifecyclehandler-v1-core.
+
+
+
+_Appears in:_
+- [Lifecycle](#lifecycle)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `exec` _[ExecAction](#execaction)_ |  |  |  |
+| `httpGet` _[HTTPGetAction](#httpgetaction)_ |  |  |  |
+| `sleep` _[SleepAction](#sleepaction)_ |  |  |  |
+
+
 #### LocalObjectReference
 
 
@@ -1244,13 +1313,13 @@ _Appears in:_
 - [ExternalTLS](#externaltls)
 - [GeneratedSecretKeyRef](#generatedsecretkeyref)
 - [JobPodTemplate](#jobpodtemplate)
+- [MariaDBPodTemplate](#mariadbpodtemplate)
 - [MariaDBSpec](#mariadbspec)
 - [MaxScalePodTemplate](#maxscalepodtemplate)
 - [MaxScaleSpec](#maxscalespec)
 - [MaxScaleTLS](#maxscaletls)
 - [PhysicalBackupPodTemplate](#physicalbackuppodtemplate)
 - [PhysicalBackupSpec](#physicalbackupspec)
-- [PodTemplate](#podtemplate)
 - [PointInTimeRecoverySpec](#pointintimerecoveryspec)
 - [ReplicaBootstrapFrom](#replicabootstrapfrom)
 - [RestoreSource](#restoresource)
@@ -1280,6 +1349,35 @@ MariaDB is the Schema for the mariadbs API. It is used to define MariaDB cluster
 | `kind` _string_ | `MariaDB` | | |
 | `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |  |  |
 | `spec` _[MariaDBSpec](#mariadbspec)_ |  |  |  |
+
+
+#### MariaDBPodTemplate
+
+
+
+MariaDBPodTemplate defines a template for MariaDB Pods. Refer to the Kubernetes dos: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pod-v1-core.
+
+
+
+_Appears in:_
+- [MariaDBSpec](#mariadbspec)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `podMetadata` _[Metadata](#metadata)_ | PodMetadata defines extra metadata for the Pod. |  |  |
+| `imagePullSecrets` _[LocalObjectReference](#localobjectreference) array_ | ImagePullSecrets is the list of pull Secrets to be used to pull the image. |  |  |
+| `initContainers` _[Container](#container) array_ | InitContainers to be used in the Pod. |  |  |
+| `sidecarContainers` _[Container](#container) array_ | SidecarContainers to be used in the Pod. |  |  |
+| `podSecurityContext` _[PodSecurityContext](#podsecuritycontext)_ | SecurityContext holds pod-level security attributes and common container settings. |  |  |
+| `serviceAccountName` _string_ | ServiceAccountName is the name of the ServiceAccount to be used by the Pods. |  |  |
+| `affinity` _[AffinityConfig](#affinityconfig)_ | Affinity to be used in the Pod. |  |  |
+| `nodeSelector` _object (keys:string, values:string)_ | NodeSelector to be used in the Pod. |  |  |
+| `tolerations` _[Toleration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#toleration-v1-core) array_ | Tolerations to be used in the Pod. |  |  |
+| `volumes` _[MariaDBVolume](#mariadbvolume) array_ | Volumes to be used in the Pod. |  |  |
+| `priorityClassName` _string_ | PriorityClassName to be used in the Pod. |  |  |
+| `topologySpreadConstraints` _[TopologySpreadConstraint](#topologyspreadconstraint) array_ | TopologySpreadConstraints to be used in the Pod. |  |  |
+| `enableServiceLinks` _boolean_ | EnableServiceLinks to be used in the Pod. |  |  |
+| `terminationGracePeriodSeconds` _integer_ | TerminationGracePeriodSeconds to be used in the Pod. |  |  |
 
 
 #### MariaDBRef
@@ -1332,6 +1430,7 @@ _Appears in:_
 | `startupProbe` _[Probe](#probe)_ | StartupProbe to be used in the Container. |  |  |
 | `resources` _[ResourceRequirements](#resourcerequirements)_ | Resources describes the compute resource requirements. |  |  |
 | `securityContext` _[SecurityContext](#securitycontext)_ | SecurityContext holds security configuration that will be applied to a container. |  |  |
+| `lifecycle` _[Lifecycle](#lifecycle)_ | Lifecycle are actions that the management system should take in response to container lifecycle events. |  |  |
 | `podMetadata` _[Metadata](#metadata)_ | PodMetadata defines extra metadata for the Pod. |  |  |
 | `imagePullSecrets` _[LocalObjectReference](#localobjectreference) array_ | ImagePullSecrets is the list of pull Secrets to be used to pull the image. |  |  |
 | `initContainers` _[Container](#container) array_ | InitContainers to be used in the Pod. |  |  |
@@ -1341,9 +1440,11 @@ _Appears in:_
 | `affinity` _[AffinityConfig](#affinityconfig)_ | Affinity to be used in the Pod. |  |  |
 | `nodeSelector` _object (keys:string, values:string)_ | NodeSelector to be used in the Pod. |  |  |
 | `tolerations` _[Toleration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#toleration-v1-core) array_ | Tolerations to be used in the Pod. |  |  |
-| `volumes` _[Volume](#volume) array_ | Volumes to be used in the Pod. |  |  |
+| `volumes` _[MariaDBVolume](#mariadbvolume) array_ | Volumes to be used in the Pod. |  |  |
 | `priorityClassName` _string_ | PriorityClassName to be used in the Pod. |  |  |
 | `topologySpreadConstraints` _[TopologySpreadConstraint](#topologyspreadconstraint) array_ | TopologySpreadConstraints to be used in the Pod. |  |  |
+| `enableServiceLinks` _boolean_ | EnableServiceLinks to be used in the Pod. |  |  |
+| `terminationGracePeriodSeconds` _integer_ | TerminationGracePeriodSeconds to be used in the Pod. |  |  |
 | `suspend` _boolean_ | Suspend indicates whether the current resource should be suspended or not.<br />This can be useful for maintenance, as disabling the reconciliation prevents the operator from interfering with user operations during maintenance activities. | false |  |
 | `image` _string_ | Image name to be used by the MariaDB instances. The supported format is `<image>:<tag>`.<br />Only MariaDB official images are supported. |  |  |
 | `imagePullPolicy` _[PullPolicy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#pullpolicy-v1-core)_ | ImagePullPolicy is the image pull policy. One of `Always`, `Never` or `IfNotPresent`. If not defined, it defaults to `IfNotPresent`. |  | Enum: [Always Never IfNotPresent] <br /> |
@@ -1379,6 +1480,54 @@ _Appears in:_
 | `primaryConnection` _[ConnectionTemplate](#connectiontemplate)_ | PrimaryConnection defines a template to configure the primary Connection object.<br />This Connection provides the initial User access to the initial Database.<br />It will make use of the PrimaryService to route network traffic to the primary Pod. |  |  |
 | `secondaryService` _[ServiceTemplate](#servicetemplate)_ | SecondaryService defines a template to configure the secondary Service object.<br />The network traffic of this Service will be routed to the secondary Pods. |  |  |
 | `secondaryConnection` _[ConnectionTemplate](#connectiontemplate)_ | SecondaryConnection defines a template to configure the secondary Connection object.<br />This Connection provides the initial User access to the initial Database.<br />It will make use of the SecondaryService to route network traffic to the secondary Pods. |  |  |
+
+
+#### MariaDBVolume
+
+
+
+Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#volume-v1-core.
+
+
+
+_Appears in:_
+- [MariaDBPodTemplate](#mariadbpodtemplate)
+- [MariaDBSpec](#mariadbspec)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `emptyDir` _[EmptyDirVolumeSource](#emptydirvolumesource)_ |  |  |  |
+| `nfs` _[NFSVolumeSource](#nfsvolumesource)_ |  |  |  |
+| `csi` _[CSIVolumeSource](#csivolumesource)_ |  |  |  |
+| `hostPath` _[HostPathVolumeSource](#hostpathvolumesource)_ |  |  |  |
+| `persistentVolumeClaim` _[PersistentVolumeClaimVolumeSource](#persistentvolumeclaimvolumesource)_ |  |  |  |
+| `secret` _[SecretVolumeSource](#secretvolumesource)_ |  |  |  |
+| `configMap` _[ConfigMapVolumeSource](#configmapvolumesource)_ |  |  |  |
+| `ephemeral` _[EphemeralVolumeSource](#ephemeralvolumesource)_ |  |  |  |
+| `name` _string_ |  |  |  |
+
+
+#### MariaDBVolumeSource
+
+
+
+Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#volume-v1-core.
+
+
+
+_Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `emptyDir` _[EmptyDirVolumeSource](#emptydirvolumesource)_ |  |  |  |
+| `nfs` _[NFSVolumeSource](#nfsvolumesource)_ |  |  |  |
+| `csi` _[CSIVolumeSource](#csivolumesource)_ |  |  |  |
+| `hostPath` _[HostPathVolumeSource](#hostpathvolumesource)_ |  |  |  |
+| `persistentVolumeClaim` _[PersistentVolumeClaimVolumeSource](#persistentvolumeclaimvolumesource)_ |  |  |  |
+| `secret` _[SecretVolumeSource](#secretvolumesource)_ |  |  |  |
+| `configMap` _[ConfigMapVolumeSource](#configmapvolumesource)_ |  |  |  |
+| `ephemeral` _[EphemeralVolumeSource](#ephemeralvolumesource)_ |  |  |  |
 
 
 #### MariadbMetrics
@@ -1652,6 +1801,7 @@ _Appears in:_
 | `startupProbe` _[Probe](#probe)_ | StartupProbe to be used in the Container. |  |  |
 | `resources` _[ResourceRequirements](#resourcerequirements)_ | Resources describes the compute resource requirements. |  |  |
 | `securityContext` _[SecurityContext](#securitycontext)_ | SecurityContext holds security configuration that will be applied to a container. |  |  |
+| `lifecycle` _[Lifecycle](#lifecycle)_ | Lifecycle are actions that the management system should take in response to container lifecycle events. |  |  |
 | `podMetadata` _[Metadata](#metadata)_ | PodMetadata defines extra metadata for the Pod. |  |  |
 | `imagePullSecrets` _[LocalObjectReference](#localobjectreference) array_ | ImagePullSecrets is the list of pull Secrets to be used to pull the image. |  |  |
 | `podSecurityContext` _[PodSecurityContext](#podsecuritycontext)_ | SecurityContext holds pod-level security attributes and common container settings. |  |  |
@@ -1731,13 +1881,13 @@ _Appears in:_
 - [GaleraRecoveryJob](#galerarecoveryjob)
 - [Job](#job)
 - [JobPodTemplate](#jobpodtemplate)
+- [MariaDBPodTemplate](#mariadbpodtemplate)
 - [MariaDBSpec](#mariadbspec)
 - [MaxScalePodTemplate](#maxscalepodtemplate)
 - [MaxScaleSpec](#maxscalespec)
 - [PhysicalBackupPodTemplate](#physicalbackuppodtemplate)
 - [PhysicalBackupSpec](#physicalbackupspec)
 - [PhysicalBackupVolumeSnapshot](#physicalbackupvolumesnapshot)
-- [PodTemplate](#podtemplate)
 - [RestoreSpec](#restorespec)
 - [SecretTemplate](#secrettemplate)
 - [ServiceTemplate](#servicetemplate)
@@ -1776,6 +1926,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
 - [Volume](#volume)
 - [VolumeSource](#volumesource)
@@ -1960,6 +2112,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [StorageVolumeSource](#storagevolumesource)
 - [Volume](#volume)
 - [VolumeSource](#volumesource)
@@ -2187,12 +2341,12 @@ _Appears in:_
 - [BackupSpec](#backupspec)
 - [Exporter](#exporter)
 - [JobPodTemplate](#jobpodtemplate)
+- [MariaDBPodTemplate](#mariadbpodtemplate)
 - [MariaDBSpec](#mariadbspec)
 - [MaxScalePodTemplate](#maxscalepodtemplate)
 - [MaxScaleSpec](#maxscalespec)
 - [PhysicalBackupPodTemplate](#physicalbackuppodtemplate)
 - [PhysicalBackupSpec](#physicalbackupspec)
-- [PodTemplate](#podtemplate)
 - [RestoreSpec](#restorespec)
 - [SqlJobSpec](#sqljobspec)
 
@@ -2207,33 +2361,6 @@ _Appears in:_
 | `fsGroupChangePolicy` _[PodFSGroupChangePolicy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#podfsgroupchangepolicy-v1-core)_ |  |  |  |
 | `seccompProfile` _[SeccompProfile](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#seccompprofile-v1-core)_ |  |  |  |
 | `appArmorProfile` _[AppArmorProfile](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#apparmorprofile-v1-core)_ |  |  |  |
-
-
-#### PodTemplate
-
-
-
-PodTemplate defines a template to configure Container objects.
-
-
-
-_Appears in:_
-- [MariaDBSpec](#mariadbspec)
-
-| Field | Description | Default | Validation |
-| --- | --- | --- | --- |
-| `podMetadata` _[Metadata](#metadata)_ | PodMetadata defines extra metadata for the Pod. |  |  |
-| `imagePullSecrets` _[LocalObjectReference](#localobjectreference) array_ | ImagePullSecrets is the list of pull Secrets to be used to pull the image. |  |  |
-| `initContainers` _[Container](#container) array_ | InitContainers to be used in the Pod. |  |  |
-| `sidecarContainers` _[Container](#container) array_ | SidecarContainers to be used in the Pod. |  |  |
-| `podSecurityContext` _[PodSecurityContext](#podsecuritycontext)_ | SecurityContext holds pod-level security attributes and common container settings. |  |  |
-| `serviceAccountName` _string_ | ServiceAccountName is the name of the ServiceAccount to be used by the Pods. |  |  |
-| `affinity` _[AffinityConfig](#affinityconfig)_ | Affinity to be used in the Pod. |  |  |
-| `nodeSelector` _object (keys:string, values:string)_ | NodeSelector to be used in the Pod. |  |  |
-| `tolerations` _[Toleration](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#toleration-v1-core) array_ | Tolerations to be used in the Pod. |  |  |
-| `volumes` _[Volume](#volume) array_ | Volumes to be used in the Pod. |  |  |
-| `priorityClassName` _string_ | PriorityClassName to be used in the Pod. |  |  |
-| `topologySpreadConstraints` _[TopologySpreadConstraint](#topologyspreadconstraint) array_ | TopologySpreadConstraints to be used in the Pod. |  |  |
 
 
 #### PointInTimeRecovery
@@ -2771,6 +2898,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [Volume](#volume)
 - [VolumeSource](#volumesource)
 
@@ -2888,6 +3017,22 @@ _Appears in:_
 | `sessionAffinity` _[ServiceAffinity](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#serviceaffinity-v1-core)_ | SessionAffinity Service field. |  |  |
 | `allocateLoadBalancerNodePorts` _boolean_ | AllocateLoadBalancerNodePorts Service field. |  |  |
 | `loadBalancerClass` _string_ | LoadBalancerClass Service field. |  |  |
+
+
+#### SleepAction
+
+
+
+Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#sleepaction-v1-core
+
+
+
+_Appears in:_
+- [LifecycleHandler](#lifecyclehandler)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `seconds` _integer_ |  |  |  |
 
 
 #### SqlJob
@@ -3022,6 +3167,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 _Appears in:_
 - [BackupStorage](#backupstorage)
 - [BootstrapFrom](#bootstrapfrom)
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [PhysicalBackupStorage](#physicalbackupstorage)
 - [RestoreSource](#restoresource)
 - [RestoreSpec](#restorespec)
@@ -3154,10 +3301,10 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBPodTemplate](#mariadbpodtemplate)
 - [MariaDBSpec](#mariadbspec)
 - [MaxScalePodTemplate](#maxscalepodtemplate)
 - [MaxScaleSpec](#maxscalespec)
-- [PodTemplate](#podtemplate)
 
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
@@ -3269,28 +3416,6 @@ _Appears in:_
 | `host` _string_ | Host related to the User. |  | MaxLength: 255 <br /> |
 
 
-#### Volume
-
-
-
-Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#volume-v1-core.
-
-
-
-_Appears in:_
-- [MariaDBSpec](#mariadbspec)
-- [PodTemplate](#podtemplate)
-
-| Field | Description | Default | Validation |
-| --- | --- | --- | --- |
-| `name` _string_ |  |  |  |
-| `emptyDir` _[EmptyDirVolumeSource](#emptydirvolumesource)_ |  |  |  |
-| `nfs` _[NFSVolumeSource](#nfsvolumesource)_ |  |  |  |
-| `csi` _[CSIVolumeSource](#csivolumesource)_ |  |  |  |
-| `hostPath` _[HostPathVolumeSource](#hostpathvolumesource)_ |  |  |  |
-| `persistentVolumeClaim` _[PersistentVolumeClaimVolumeSource](#persistentvolumeclaimvolumesource)_ |  |  |  |
-| `secret` _[SecretVolumeSource](#secretvolumesource)_ |  |  |  |
-| `configMap` _[ConfigMapVolumeSource](#configmapvolumesource)_ |  |  |  |
 
 
 #### VolumeClaimTemplate
@@ -3302,6 +3427,7 @@ VolumeClaimTemplate defines a template to customize PVC objects.
 
 
 _Appears in:_
+- [EphemeralVolumeSource](#ephemeralvolumesource)
 - [GaleraConfig](#galeraconfig)
 - [MaxScaleConfig](#maxscaleconfig)
 - [Storage](#storage)
@@ -3348,6 +3474,8 @@ Refer to the Kubernetes docs: https://kubernetes.io/docs/reference/generated/kub
 
 
 _Appears in:_
+- [MariaDBVolume](#mariadbvolume)
+- [MariaDBVolumeSource](#mariadbvolumesource)
 - [Volume](#volume)
 
 | Field | Description | Default | Validation |
@@ -3395,3 +3523,4 @@ _Appears in:_
 | --- | --- | --- | --- |
 | `weight` _integer_ |  |  |  |
 | `podAffinityTerm` _[PodAffinityTerm](#podaffinityterm)_ |  |  |  |
+
