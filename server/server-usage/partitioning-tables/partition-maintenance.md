@@ -25,7 +25,7 @@ For general maintenance, MariaDB supports the following statements on partitione
 To target one or more specific partitions rather than the entire table, use the `ALTER TABLE` extensions listed below. In the SQL syntaxes below, _`partition_names`_ is a comma-separated list of partitions, like `p0, p1, p2`.
 
 {% hint style="info" %}
-For an operation to be performed on all partitions, you can use the ALL keyword instead of specifying all the partitions in a comma-separated list. Example:
+For an operation to be performed on all partitions, you can use the `ALL` keyword instead of specifying all the partitions in a comma-separated list. Example:
 
 {% code overflow="wrap" %}
 ```sql
@@ -133,10 +133,6 @@ Partitioning is most effective for tables containing time-series data where you 
 * Table Size: Partitioning generally provides noticeable benefits only for tables with more than one million rows.
 * Partition Limits: Aim to keep the number of partitions below 50. While MariaDB supports up to 8192 partitions, high partition counts can increase the time required for the server to open the table or perform status checks.
 * Index Efficiency: Partitioning is not a substitute for proper indexing. Point queries (finding a single row) are often just as fast with a proper index on a non-partitioned table.
-
-### Using the ALL Keyword
-
-For any of the partition-specific operations (such as `REPAIR` or `OPTIMIZE`), you can use the `ALL` keyword instead of listing individual partition names. This applies the action to every partition in the table.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
