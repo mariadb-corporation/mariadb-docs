@@ -184,7 +184,7 @@ It's unfortunately been a little while since I wrote that code, but I think thos
 
 #### Aggregate Window Functions
 
-With a few exceptions, most native aggregate functions are supported as window functions.[aggregate-functions-as-window-functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/window-functions/aggregate-functions-as-window-functions)\
+With a few exceptions, most native aggregate functions are supported as window functions; [the list can be found here](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/T8uOYfwo7PbEMtMvwoDd).\
 In [MDEV-7773](https://jira.mariadb.org/browse/MDEV-7773), support for creating of custom aggregate functions was added.\
 This task proposes to extend that feature and allow custom aggregate functions to be used as window functions\
 An example of a creating a custom aggregate function is given below:

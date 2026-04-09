@@ -219,7 +219,7 @@ It's unfortunately been a little while since I wrote that code, but I think thos
 
 ### Aggregate Window Functions/
 
-Currently only a few aggregate function are supported as window functions, the list can be found here [aggregate-functions-as-window-functions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/window-functions/aggregate-functions-as-window-functions)
+Currently only a few aggregate function are supported as window functions, [the list can be found here](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/T8uOYfwo7PbEMtMvwoDd).
 
 So in MDEV-7773, support for creating of custom aggregate functions was added.\
 Now this task would deal with extending that feature and make custom aggregate functions behave as window functions
@@ -300,7 +300,7 @@ A lot can be done to improve it.
 
 ### Cassandra Storage Engine v2, based on DataStax C++ driver/
 
-[MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) had Cassandra Storage Engine which was developed for Cassandra 1.1.x. Back then, Cassandra provided a Thrift API, and that was what Cassandra-SE used.
+[MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) had Cassandra Storage Engine which was developed for Cassandra 1.1.x. Back then, Cassandra provided a Thrift API, and that was what Cassandra-SE used.
 
 Then, Cassandra 2.0 switched to using a different network protocol (and also changed the data model).
 
