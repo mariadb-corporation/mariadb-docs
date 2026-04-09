@@ -4519,42 +4519,32 @@ for more information.
 
 ## TLS/SSL encryption
 
-This section describes TLS/SSL-related configuration parameters for both
-servers and listeners.
+This section describes TLS/SSL-related configuration parameters for both servers
+and listeners.
 
-To enable TLS/SSL for a listener or server, set the `ssl` parameter to
-`true`. If the clients expect a specific certificate from MaxScale,
-set the `ssl_cert` and `ssl_key` parameters for the listener. If
-the certificate is not defined, MaxScale will use an auto-generated
-self-signed certificate. The generated certificate can pass verification
-when used with a recent (11.4 or greater) client version.
+To enable TLS/SSL for a listener, set the `ssl` parameter to `allow` or
+`require`. Listeners are SSL-enabled by default. If the clients expect a
+specific certificate from MaxScale, set the `ssl_cert` and `ssl_key` parameters
+for the listener. If a certificate is not defined, MaxScale will use an
+auto-generated self-signed certificate. The generated certificate can pass
+verification when used with a recent (11.4 or greater) client version.
 
-If the backend database server has certificate verification enabled,
-configure the `ssl_cert` and `ssl_key` parameters of the server.
+To enable TLS/SSL-connections to a server, set its `ssl` parameter to
+`require`. If the backend database server has certificate verification enabled,
+configure the `ssl_cert` and `ssl_key` parameters of the server. The database
+server itself must also be configured to use TLS/SSL-connections if backend
+connection encryption is enforced.
 
 Custom CA certificates can be defined with the `ssl_ca` parameter. If
 `ssl_verify_peer_certificate` is enabled yet `ssl_ca` is not set, MaxScale
 will load CA certificates from the system default location.
 
-After this, MaxScale connections between the server and/or the client will be
-encrypted. Note that the database must also be configured to use TLS/SSL
-connections if backend connection encryption is used.
+If a listener is configured with `ssl=require`, the listener will reject any
+unencrypted connections. To allow both encrypted and unencrypted connections to
+the same listener, set `ssl` to `allow`. `allow` is the default mode.
 
-**Note:** MaxScale does not allow mixed use of TLS/SSL and normal connections on
-  the same port.
-
-If TLS encryption is enabled for a listener, any unencrypted connections to it
-will be rejected. MaxScale does this to improve security by preventing
-accidental creation of unencrypted connections.
-
-The separation of secure and insecure connections differs from the MariaDB
-Server which allows both secure and insecure connections on the same port. As
-MaxScale is the gateway through which all connections go, MaxScale enforces
-a stricter security policy than MariaDB Server. Multiple listeners with
-different configurations can be created to enable different encryption schemes.
-
-TLS encryption must be enabled for listeners when they are created. For servers,
-the TLS can be enabled after creation but it cannot be disabled or altered.
+Multiple listeners with different configurations can be created to enable
+different encryption schemes.
 
 Starting with MaxScale 2.5.20, if the TLS certificate given to MaxScale has the
 X509v3 extended key usage information, MaxScale will check it and refuse to use
@@ -4567,17 +4557,26 @@ listeners and servers, it must have both the clientAuth and serverAuth usages.
 
 #### `ssl`
 
-* Type: [boolean](#booleans)
+* Type: [enumeration](#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: false
+* Values: `disable`, `allow`, `require`
+* Default: `allow` (listeners), `disable` (servers)
 
-This enables SSL connections when set to true. The legacy values `required` and
-`disabled` were removed in MaxScale 6.0.
+Enables SSL connections when set to `allow` or `require`. The old boolean values
+can still be used and map to `require` (true) and `disable` (false).
+
+In listener configuration, `allow` means that the listener accepts both
+encrypted and unencrypted connections. `disable` only accepts unencrypted
+connections and `require` only accepts encrypted connections.
+
+In server configuration, `disable` only uses unencrypted connections to the
+server. `require` only uses encrypted connections. `allow`-mode is not
+available in server configuration.
 
 Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and
-24.08.1, if ssl is disabled for a listener, MariaDB user accounts that require
-ssl cannot log in through that listener.  Any user account with a non-empty
+24.08.1, if SSL is disabled for a listener, MariaDB user accounts that require
+SSL cannot log in through that listener. Any user account with a non-empty
 *ssl_type*-field in *mysql.user*-table is blocked. This includes users created
 with `REQUIRE SSL` or `REQUIRE X509`.
 
