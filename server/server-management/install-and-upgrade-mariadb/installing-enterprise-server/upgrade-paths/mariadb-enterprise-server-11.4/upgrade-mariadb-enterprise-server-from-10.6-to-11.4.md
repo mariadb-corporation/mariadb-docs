@@ -28,7 +28,9 @@ Prerequisite: [Review What's New in MariaDB Enterprise Server 11.4](https://app.
 
 This section details the standard procedure for performing an in-place upgrade. This involves replacing the server binaries while keeping the data directory intact.
 
-### 1. Backup Database
+{% stepper %}
+{% step %}
+### Backup Database
 
 Before performing any upgrade, it is critical to perform a full backup of your database. MariaDB Backup (`mariadb-backup`) is recommended for this purpose.
 
@@ -39,8 +41,10 @@ sudo mariadb-backup --backup \
       --password=mariadb-backup_passwd \
       --target-dir=/data/backup/preupgrade_backup
 ```
+{% endstep %}
 
-### 2. Modify Repository Configuration
+{% step %}
+### Modify Repository Configuration
 
 Update your system's package manager repository to point to MariaDB Enterprise Server 11.4. You will need to regenerate your repository configuration command using the [MariaDB Customer Download Token](https://www.google.com/search?q=https://dlm.mariadb.com/).
 
@@ -69,8 +73,10 @@ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply --mariadb
 {% endcode %}
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-### 3. Stop MariaDB Service
+{% step %}
+### Stop MariaDB Service
 
 Stop the running `mariadbd` process to release locks on the data files.
 
@@ -81,8 +87,10 @@ sudo systemctl stop mariadb
 {% hint style="warning" %}
 Ensure `innodb_fast_shutdown` is set to `1` and check for open XA transactions before stopping.
 {% endhint %}
+{% endstep %}
 
-### 4. Uninstall Old Version
+{% step %}
+### Uninstall Old Version
 
 Remove the existing MariaDB 10.6 packages. This removes the binaries but preserves the configuration and data directory.
 
@@ -99,8 +107,10 @@ sudo yum remove "MariaDB-*" galera-enterprise-4
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-### 5. Install New Version
+{% step %}
+### Install New Version
 
 Install the new MariaDB 11.4 packages.
 
@@ -117,30 +127,38 @@ sudo yum install MariaDB-server MariaDB-backup
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
 
-### 6. Update Configuration (Critical)
+{% step %}
+### Update Configuration (Critical)
 
 Before starting the server, you must update your option files (e.g., `my.cnf`) to remove unsupported parameters.
 
 * Remove `innodb_defragment`: This variable and its associated options (e.g., `innodb_defragment_fill_factor`) have been removed.
 * Remove `optimizer_adjust_secondary_key_costs`: This variable has no effect in 11.4 and must be removed.
 * Check `innodb_flush_method`: This variable is deprecated in 11.4.
+{% endstep %}
 
-### 7. Start MariaDB Service
+{% step %}
+### Start MariaDB Service
 
 Start the new `mariadbd` process.
 
 ```bash
 sudo systemctl start mariadb
 ```
+{% endstep %}
 
-### 8. Run mariadb-upgrade
+{% step %}
+### Run mariadb-upgrade (Critical)
 
 Execute `mariadb-upgrade` to check and update system tables to be compatible with the new version.
 
 ```bash
 sudo mariadb-upgrade
 ```
+{% endstep %}
+{% endstepper %}
 
 ## Part 2: Alternative Strategy: Staged Rollout for Mission-Critical Systems
 
@@ -280,26 +298,34 @@ sudo mariadb-upgrade
 
 ## Part 3: Critical Upgrade Information
 
-### 1. Optimizer Changes and Application Testing
+{% stepper %}
+{% step %}
+### Optimizer Changes and Application Testing
 
 The Query Optimizer was rewritten in version 11.0. While performance is generally better, query plans can change. It is vital to perform validation (as described in the Staged Rollout section) to catch regressions before production deployment. You should also run `ANALYZE TABLE` on major tables after upgrading to update statistics.
+{% endstep %}
 
-### 2. Required Configuration Changes
+{% step %}
+### Required Configuration Changes
 
 The following variables must be addressed in your configuration files (`my.cnf`) to prevent startup failures or warnings:
 
 * `optimizer_adjust_secondary_key_costs`: MUST REMOVE. This variable has no effect in 11.4 as features are integrated into the new cost model.
 * `innodb_defragment`: MUST REMOVE. This variable has been removed.
 * `des_encrypt` / `des_decrypt`: Functions have been removed.
+{% endstep %}
 
-### 3. Backward Replication Compatibility
+{% step %}
+### Backward Replication Compatibility
 
 You can replicate from a MariaDB 11.4 Primary to a MariaDB 10.6 Replica (Backward Replication) under specific conditions:
 
 * No new features specific to 11.4 (e.g., new JSON functions, `UUID` data type) are used in DML or DDL.
 * The variable `binlog_alter_two_phase` must be set to `0` (default) on the 11.4 Primary.
+{% endstep %}
 
-### 4. System-Versioned Tables Conversion
+{% step %}
+### System-Versioned Tables Conversion
 
 If using System-Versioned Tables, the `row_end` column format must be updated to support the extended `TIMESTAMP` range (up to year 2106).
 
@@ -316,3 +342,5 @@ ALTER TABLE my_table FORCE;
 ```
 {% endtab %}
 {% endtabs %}
+{% endstep %}
+{% endstepper %}
