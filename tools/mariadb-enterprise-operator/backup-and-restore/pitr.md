@@ -153,8 +153,10 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   schedule:
     onPrimaryChange: true 
+  # [...]
 ```
 
 Alternatively, you can schedule an on-demand physical backup or rely on the cron scheduling for doing so:
@@ -165,9 +167,11 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   schedule:
     cron: "0 0 * * *"
     onDemand: "1"
+  # [...]
 ```
 
 The backup taken in the new primary will establish a baseline for a new [binlog timeline](#binlog-timeline-and-last-recoverable-time), which will be expanded when new binary logs are archived.
@@ -183,8 +187,10 @@ kind: PointInTimeRecovery
 metadata:
   name: pitr
 spec:
+  # [...]
   archiveTimeout: 1h
   archiveInterval: 1m
+  # [...]
 ``` 
 
 The archival process is performed on the primary `Pod` in the asynchronous replication topology, you may check the logs of the agent sidecar container, Kubernetes events and status of the `MariaDB` objects to monitor the current status of the archival process:

@@ -16,7 +16,8 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  storage:
+    size: 1Gi
   replicas: 3
   replication:
     enabled: true
@@ -94,7 +95,8 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  storage:
+    size: 1Gi
   replicas: 3
   replication:
     enabled: true
@@ -127,7 +129,8 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  storage:
+    size: 1Gi
   replicas: 3
   replication:
     enabled: true
@@ -209,7 +212,8 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  storage:
+    size: 1Gi
   replicas: 3
   replication:
     enabled: true
@@ -257,7 +261,8 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  storage:
+    size: 1Gi
   replicas: 3
   replication:
     enabled: true
@@ -376,13 +381,14 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  # [...]
   replication:
     enabled: true
     replica:
       bootstrapFrom:
         physicalBackupTemplateRef:
           name: physicalbackup-tpl
+  # [...]
 ```
 
 At this point, you can proceed to scale out the cluster by increasing the `spec.replicas` field in the `MariaDB` CR. For example, to scale out from `3` to `4` replicas:
@@ -393,7 +399,7 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  # [...]
   replicas: 4
   replication:
     enabled: true
@@ -401,6 +407,7 @@ spec:
       bootstrapFrom:
         physicalBackupTemplateRef:
           name: physicalbackup-tpl
+  # [...]
 ```
 
 You can also do this imperatively using `kubectl`:
@@ -469,7 +476,8 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
-  ...
+  storage:
+    size: 1Gi
   replication:
     enabled: true
     replica:
