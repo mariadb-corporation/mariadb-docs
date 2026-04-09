@@ -83,6 +83,7 @@ spec:
     immediate: true
     onDemand: "1"
     onPrimaryChange: true 
+  # [...]
 ```
 
 - `cron`: [Cron expression](https://en.wikipedia.org/wiki/Cron) to define the backup schedule.
@@ -111,6 +112,7 @@ spec:
   mariaDbRef:
     name: mariadb
   compression: bzip2
+  # [...]
 ```
 
 `compression` is defaulted to `none` by the operator.
@@ -177,9 +179,11 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   maxRetention: 720h # 30 days
+  # [...]
 ```
 
 When using physical backups based on `mariadb-backup`, the operator will automatically delete backups files in the specified storage older than the retention period. The cleanup process will be performed after each successful backup.
@@ -197,9 +201,11 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   target: Replica
+  # [...]
 ```
 
 The following target policies are available:
@@ -220,10 +226,12 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   bootstrapFrom:
     backupRef:
       name: physicalbackup
       kind: PhysicalBackup
+  # [...]
 ```
 
 This will take into account the backup strategy and storage type used in the `PhysicalBackup`, and it will perform the restoration accordingly.
@@ -253,6 +261,8 @@ spec:
           name: minio-ca
           key: ca.crt
     backupContentType: Physical
+  storage:
+    size: 1Gi
 ```
 
 It is important to note that the `backupContentType` field must be set to `Physical` when restoring from a physical backup. This ensures that the operator uses the correct restoration method.
@@ -265,9 +275,11 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   bootstrapFrom:
     volumeSnapshotRef:
       name: physicalbackup-20250611163352
+  # [...]
 ```
 
 ## Target recovery time
@@ -280,8 +292,10 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   bootstrapFrom:
     targetRecoveryTime: 2025-06-17T08:07:00Z
+  # [...]
 ```
 Only backups strictly before or at `targetRecoveryTime` will be matched.
 
@@ -295,9 +309,11 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   timeout: 2h
+  # [...]
 ```
 
 When timed out, the operator will delete the `Jobs` or `VolumeSnapshots` resources associated with the `PhysicalBackup` resource. The operator will create new `Jobs` or `VolumeSnapshots` to retry the backup operation if the `PhysicalBackup` resource is still scheduled.
@@ -312,9 +328,11 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   logLevel: debug
+  # [...]
 ```
 
 ## Extra options
@@ -327,10 +345,12 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   args:
     - "--verbose"
+  # [...]
 ```
 
 Refer to the [mariadb-backup documentation](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-options) for a list of available options.
@@ -510,6 +530,8 @@ spec:
             storage: 1Gi
         accessModes:
           - ReadWriteOnce
+  storage:
+    size: 1Gi
 ```
 
 In the examples above, a PVC with the default `StorageClass` will be provisioned to be used as staging area.
@@ -556,6 +578,7 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
+  # [...]
   bootstrapFrom:
     restoreJob:
       resources:
@@ -564,6 +587,7 @@ spec:
           memory: 128Mi
         limits:
           memory: 1Gi
+  # [...]
 ```
 
 ### `ReadWriteOncePod` access mode partially supported
@@ -585,9 +609,11 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb
   podAffinity: false
+  # [...]
 ```
 
 This configuration may be suitable when using the `ReadWriteMany` access mode, which allows multiple `Pods` across different nodes to mount the volume simultaneously.
@@ -657,10 +683,11 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-...
+  # [...]
   myCnf: |
     [mariadb]
     innodb_log_file_size=200M
+  # [...]
 ```
 
 Refer to [MDEV-36159](https://jira.mariadb.org/browse/MDEV-36237) for further details on this issue.

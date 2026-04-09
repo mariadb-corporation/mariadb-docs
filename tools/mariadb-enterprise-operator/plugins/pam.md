@@ -88,11 +88,11 @@ shadow:     files ldap
 The `pam` plugin is not enabled by default (even though it is installed). To enable it, you should add the following lines to your `MariaDB` Custom Resource:
 
 ```yaml
-  # ....
+  # [...]
   myCnf: |
     [mariadb]
     plugin_load_add = auth_pam # Load auth plugin
-  # ....
+  # [...]
 ```
 
 See below for a complete example.

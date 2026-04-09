@@ -29,8 +29,10 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
+  # [...]
   updateStrategy:
     type: ReplicasFirstPrimaryLast
+  # [...]
 ```
 
 It defaults to `ReplicasFirstPrimaryLast` if not provided.
@@ -45,7 +47,7 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  ...
+  # [...]
 - image: docker.mariadb.com/enterprise-server:10.6.18-14.2
 + image: docker.mariadb.com/enterprise-server:10.6.19-15.1
   resources:
@@ -55,6 +57,7 @@ spec:
     limits:
 -     memory: 1Gi
 +     memory: 2Gi
+  # [...]
 ```
 
 Once the update is triggered, the operator manages it differently based on the selected update strategy.
@@ -79,11 +82,12 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  ...
+  # [...]
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 1
+  # [...]
 ```
 
 ## `OnDelete`
@@ -130,8 +134,10 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  # [...]
   updateStrategy:
     autoUpdateDataPlane: true
+  # [...]
 ```
 
 By default, `updateStrategy.autoUpdateDataPlane` is `false`, which means that no automatic upgrades will be performed, but you can opt-in/opt-out from this feature at any point in time by updating this field. For instance, you may want to selectively enable `updateStrategy.autoUpdateDataPlane` in a subset of your `MariaDB` instances after the operator has been upgraded to a newer version, and then disable it once the upgrades are completed.

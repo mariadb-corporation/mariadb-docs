@@ -44,7 +44,9 @@ kind: User
 metadata:
   name: user
 spec:
+  # [...]
   name: user-custom
+  # [...]
 ```
 
 ## `Grant` CR
@@ -102,7 +104,9 @@ kind: Database
 metadata:
   name: database
 spec:
+  # [...]
   name: database-custom
+  # [...]
 ```
 
 ## Initial `User`, `Grant` and `Database`
@@ -115,11 +119,13 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
+  # [...]
   username: bob
   passwordSecretKeyRef:
     name: bob-password
     key: password
   database: wordpress
+  # [...]
 ```
 
 Behind the scenes, the operator will be creating an `User` resource with `ALL PRIVILEGES` in the initial `Database`.
@@ -203,8 +209,10 @@ kind: User
 metadata:
   name: user
 spec:
+  # [...]
   requeueInterval: 30s
   retryInterval: 5s
+  # [...]
 ```
 
 If the SQL statement executed by the operator is successful, it will schedule the next reconciliation cycle using the `requeueInterval`. If the statement encounters an error, the operator will use the `retryInterval` instead.
@@ -219,7 +227,9 @@ kind: User
 metadata:
   name: user
 spec:
+  # [...]
   cleanupPolicy: Delete
+  # [...]
 ```
 
 You can opt-out from this cleanup process using `cleanupPolicy=Skip`. Note that this resources will remain in the database.

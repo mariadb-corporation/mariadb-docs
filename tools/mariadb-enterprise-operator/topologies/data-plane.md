@@ -30,10 +30,12 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  # [...]
   replication:
     agent:
       kubernetesAuth:
         enabled: true
+  # [...]
 ```
 This Kubernetes-native authentication mechanism eliminates the need for the operator to manage credentials, as it relies entirely on Kubernetes for this purpose. However, the drawback is that the agent requires cluster-wide permissions to impersonate the [`system:auth-delegator`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#other-component-roles) `ClusterRole` and to create [`TokenReviews`](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/token-review-v1/), which are cluster-scoped objects.
 
@@ -47,10 +49,12 @@ kind: MariaDB
 metadata:
   name: mariadb-repl
 spec:
+  # [...]
   replication:
     agent:
       basicAuth:
         enabled: true
+  # [...]
 ```
 
 Unlike the [`ServiceAccount` based authentication](#serviceaccount-based-authentication), the operator needs to explicitly generate credentials to authenticate. The advantage of this approach is that it is entirely decoupled from Kubernetes and it does not require cluster-wide permissions on the Kubernetes API.

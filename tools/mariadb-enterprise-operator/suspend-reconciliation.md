@@ -27,7 +27,9 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   suspend: true
+  # [...]
 ```
 
 This results in the reconciliation loop being disabled and the status being marked as `Suspended`:

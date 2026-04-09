@@ -71,11 +71,12 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  ...
+  # [...]
   image: docker.mariadb.com/enterprise-server:11.4.4-2
   imagePullPolicy: IfNotPresent
   imagePullSecrets:
     - name: mariadb-enterprise
+  # [...]
 ```
 
 As a result, the `Pods` created as part of the reconciliation process will have the `imagePullSecrets`.
@@ -90,11 +91,12 @@ kind: MaxScale
 metadata:
   name: maxscale
 spec:
-  ...
+  # [...]
   image: docker.mariadb.com/maxscale-enterprise:25.01.1
   imagePullPolicy: IfNotPresent
   imagePullSecrets:
     - name: mariadb-enterprise
+  # [...]
 ```
 
 ## `Backup`, `Restore` and `SqlJob`
@@ -107,11 +109,12 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  ...
+  # [...]
   image: docker.mariadb.com/enterprise-server:11.4.4-2
   imagePullPolicy: IfNotPresent
   imagePullSecrets:
     - name: mariadb-enterprise
+  # [...]
 ```
 
 ```yaml
@@ -120,11 +123,12 @@ kind: Backup
 metadata:
   name: backup
 spec:
-  ...
+  # [...]
   mariaDbRef:
     name: mariadb
   imagePullSecrets:
     - name: backup-registry
+  # [...]
 ```
 
 When the resources from the previous examples are created, a `Job` with both `mariadb-enterprise` and `backup-registry` `imagePullSecrets` will be reconciled.
