@@ -162,6 +162,71 @@ SELECT COUNT(*) OVER (ORDER BY column) FROM table;
 Window functions are evaluated after `WHERE`, `GROUP BY`, and `HAVING`. Filter the computed result in an outer query or CTE.
 {% endhint %}
 
+## Optimization
+
+Window functions often need sorted input. Query shape can decide whether MariaDB can reuse an existing order or must sort again.
+
+### `GROUP BY` Comes First
+
+If a query uses both `GROUP BY` and window functions, MariaDB executes the grouping step first. The window step runs on the grouped result.
+
+This affects index usage. An index that helps the base table scan does not automatically avoid later sorting for the window stage.
+
+{% hint style="info" %}
+When tuning this pattern, optimize the `GROUP BY` step first. Then check whether the window step still needs its own sort.
+{% endhint %}
+
+### Sort Reuse Depends on Sort Keys
+
+If the `GROUP BY` definition and the window's `PARTITION BY` and `ORDER BY` definition use different sort keys, MariaDB usually needs another sort pass before evaluating the window functions.
+
+For example, this shape can require an extra sort:
+
+```sql
+SELECT
+  dept,
+  month,
+  SUM(sales) AS monthly_sales,
+  ROW_NUMBER() OVER (
+    PARTITION BY dept
+    ORDER BY month
+  ) AS row_num
+FROM revenue
+GROUP BY month, dept;
+```
+
+The grouped result is ordered by `month, dept`. The window step needs `dept, month`. Those orders do not match.
+
+### Multiple Window Functions Can Share One Sort
+
+Multiple window functions can share the same sort pass when they use the same `PARTITION BY` and `ORDER BY` clause.
+
+```sql
+SELECT
+  dept,
+  month,
+  sales,
+  ROW_NUMBER() OVER (
+    PARTITION BY dept
+    ORDER BY month
+  ) AS row_num,
+  SUM(sales) OVER (
+    PARTITION BY dept
+    ORDER BY month
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  ) AS running_sales
+FROM revenue;
+```
+
+Both window functions use the same partitioning and ordering. MariaDB can reuse the same sorted stream for both.
+
+### Practical Tuning Tips
+
+* Expect `GROUP BY` to shape the input seen by window functions.
+* Align `GROUP BY` keys with the window sort keys when possible.
+* Reuse the same `PARTITION BY` and `ORDER BY` across multiple window functions.
+* Check the execution plan to see whether an extra sort is still present.
+
 ## Examples
 
 Given the following data:
