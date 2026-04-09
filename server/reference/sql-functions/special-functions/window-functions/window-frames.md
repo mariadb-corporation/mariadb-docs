@@ -48,25 +48,11 @@ Common frame bounds include:
 
 Use `ROWS` when you want strict row-by-row stepping. Use `RANGE` when tied sort values should be treated as one peer group.
 
-### Aggregate Functions That Use Frames
+## Aggregate Functions Using Frames
 
-* [AVG](../../aggregate-functions/avg.md)
-* [BIT\_AND](../../aggregate-functions/bit_and.md)
-* [BIT\_OR](../../aggregate-functions/bit_or.md)
-* [BIT\_XOR](../../aggregate-functions/bit_xor.md)
-* [COUNT](../../aggregate-functions/count.md)
-* [MAX](../../aggregate-functions/max.md)
-* [MIN](../../aggregate-functions/min.md)
-* [STD](../../aggregate-functions/std.md)
-* [STDDEV](../../aggregate-functions/stddev.md)
-* [STDDEV\_POP](../../aggregate-functions/stddev_pop.md)
-* [STDDEV\_SAMP](../../aggregate-functions/stddev_samp.md)
-* [SUM](../../aggregate-functions/sum.md)
-* [VAR\_POP](../../aggregate-functions/var_pop.md)
-* [VAR\_SAMP](../../aggregate-functions/var_samp.md)
-* [VARIANCE](../../aggregate-functions/variance.md)
+See list [here](window-functions-overview.md#supported-functions).
 
-### Examples
+## Examples
 
 Take the following example:
 
@@ -86,6 +72,9 @@ INSERT INTO student_test VALUES
 SELECT name, test, score, SUM(score) 
   OVER () AS total_score 
   FROM student_test;
+```
+
+```
 +---------+--------+-------+-------------+
 | name    | test   | score | total_score |
 +---------+--------+-------+-------------+
@@ -105,6 +94,9 @@ By not specifying an `ORDER BY` clause, [SUM](../../aggregate-functions/sum.md) 
 SELECT name, test, score, SUM(score) 
   OVER (ORDER BY score) AS total_score 
   FROM student_test ORDER BY score;
+```
+
+```
 +---------+--------+-------+-------------+
 | name    | test   | score | total_score |
 +---------+--------+-------+-------------+
@@ -126,6 +118,9 @@ The previous query relies on the default frame. Written explicitly, it looks lik
 SELECT name, test, score, SUM(score) 
   OVER (ORDER BY score RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS total_score 
   FROM student_test ORDER BY score;
+```
+
+```
 +---------+--------+-------+-------------+
 | name    | test   | score | total_score |
 +---------+--------+-------+-------------+
@@ -139,14 +134,15 @@ SELECT name, test, score, SUM(score)
 +---------+--------+-------+-------------+
 ```
 
-### More Frame Examples
-
 Applying the window function to the current row and all following rows can be done with `UNBOUNDED FOLLOWING`:
 
 ```sql
 SELECT name, test, score, SUM(score) 
   OVER (ORDER BY score RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS total_score 
   FROM student_test ORDER BY score;
+```
+
+```
 +---------+--------+-------+-------------+
 | name    | test   | score | total_score |
 +---------+--------+-------+-------------+
@@ -166,6 +162,9 @@ You can also specify a fixed number of rows instead of an unbounded frame. The f
 SELECT name, test, score, SUM(score) 
   OVER (ORDER BY score ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) AS total_score 
   FROM student_test ORDER BY score;
+```
+
+```
 +---------+--------+-------+-------------+
 | name    | test   | score | total_score |
 +---------+--------+-------+-------------+
@@ -185,6 +184,9 @@ The next example uses the previous row, the current row, and the following row:
 SELECT name, test, score, SUM(score) 
   OVER (ORDER BY score ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) AS total_score 
   FROM student_test ORDER BY score;
+```
+
+```
 +---------+--------+-------+-------------+
 | name    | test   | score | total_score |
 +---------+--------+-------+-------------+
