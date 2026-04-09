@@ -2064,7 +2064,6 @@
         * [JSON Validation Function](reference/sql-functions/special-functions/json-functions/json-validation-function.md)
       * [Window Functions](reference/sql-functions/special-functions/window-functions/README.md)
         * [Window Functions Overview](reference/sql-functions/special-functions/window-functions/window-functions-overview.md)
-        * [Aggregate Functions as Window Functions](reference/sql-functions/special-functions/window-functions/aggregate-functions-as-window-functions.md)
         * [ColumnStore Window Functions](reference/sql-functions/special-functions/window-functions/window-functions-columnstore-window-functions.md)
         * [Window Frames](reference/sql-functions/special-functions/window-functions/window-frames.md)
         * [CUME\_DIST](reference/sql-functions/special-functions/window-functions/cume_dist.md)
