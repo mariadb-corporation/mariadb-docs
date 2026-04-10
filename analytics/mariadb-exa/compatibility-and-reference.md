@@ -13,6 +13,36 @@ MariaDB Exa integrates MariaDB Enterprise Server with the Exasol analytical engi
 
 #### Core Components
 
+```mermaid
+graph TD
+    User([User SQL Query]) --> MariaDB[MariaDB Server]
+    
+    %% The Routing Path
+    MariaDB -- "DQL (SELECT)" --> Router[MariaDB Exa Router]
+    Router -- "Analytical Routing" --> Preprocessor
+    
+    %% The Replication Path
+    MariaDB -- "DDL/DML (Changes)" --> BinLog[MariaDB Binary Log]
+    BinLog --> Debezium[Debezium CDC Bridge]
+    
+    %% Debezium Failure Point
+    Debezium -- "Unsupported: INET6, UUID, XMLTYPE" --> DebCrash{{"CRASH: Replication Stops"}}
+    Debezium -- "Supported Data" --> Preprocessor
+    
+    %% The Gatekeeper
+    subgraph Exasol ["Exasol Environment"]
+        Preprocessor["Exasol Preprocessor (SQLglot)"]
+        Engine["Exasol In-Memory Engine"]
+        
+        %% Preprocessor Failure Point
+        Preprocessor -- "Translation Gap: BIN(), HEX(), etc." --> TransFail{{"ERROR: Function Not Found"}}
+        Preprocessor -- "Translated Syntax" --> Engine
+    end
+    
+    %% Behavioral Differences
+    Engine -- "Logical Difference: '' is NULL" --> User
+```
+
 * MariaDB Server (Source Layer): The primary environment for transactional workloads (OLTP). It records every data modification (DML) and schema change (DDL) in the Binary Log, which serves as the authoritative record of the system state.
 * Debezium CDC & Replication (Integration Layer): A service that monitors the Binary Log and replicates changes to Exasol. It processes specific data types; encountering unrecognized MariaDB-native types can result in service failure or system crashes.
 * Exa Router (Routing Layer): A component that intercepts incoming SQL and identifies Analytical Queries (DQL/SELECT). It routes these queries directly to Exasol to utilize its in-memory performance, bypassing the background replication pipeline.
