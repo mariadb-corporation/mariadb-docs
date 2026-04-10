@@ -1882,16 +1882,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `0` (Maximum possible LSN)
 * Introduced: MariaDB 13.0
 
-#### Stefan, a few tips for the "Point-in-Time Recovery" page:
-
-When you move on to the PITR-specific page, keep these technicalities from the ticket in mind:
-
-1. Monitoring Status: Users should be told to check `INFORMATION_SCHEMA.GLOBAL_STATUS` for the `INNODB_LSN_ARCHIVED` value to see how much of the log has been successfully archived.
-2. Backup Workflow: The ticket suggests a specific SQL flow (checking LSN, then setting `innodb_log_archive=ON`). We should document this as a recommended procedure for external backup tools.
-3. Testing/Verification: Mention that if a user sets an impossible `innodb_log_recovery_target`, the server error log will provide the "final LSN," which is a handy trick for DBAs to find the exact end of a log stream after a crash.
-
-Does this expanded version work for your copy-paste needs?
-
 #### `innodb_log_spin_wait_delay`
 
 * Description: Delay between log buffer spin lock polls (0 to use a blocking latch). Specifically, enables a spin lock that will execute that many MY\_RELAX\_CPU() operations (such as the x86 PAUSE instruction) between successive attempts of acquiring the spin lock. On some hardware with certain workloads (observed on write intensive workloads on NUMA systems), the default setting results in a significant amount of time being spent in native\_queued\_spin\_lock\_slowpath() in the Linux kernel, plus context switching between user and kernel address space, in which case changing from the default (for example, setting to `50`), may result in a performance improvement.
