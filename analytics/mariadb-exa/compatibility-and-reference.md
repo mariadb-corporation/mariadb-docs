@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Compatibility and Reference
 
 {% hint style="info" %}
