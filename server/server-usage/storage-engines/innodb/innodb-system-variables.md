@@ -1681,7 +1681,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
 * Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
 
-\<!--
+<!--
 
 #### `innodb_log_archive`
 
@@ -1694,7 +1694,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
 * Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
 
-\-->
+-->
 
 #### `innodb_log_archive`
 
