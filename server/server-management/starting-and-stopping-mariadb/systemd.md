@@ -303,6 +303,8 @@ If you have multiple instances of MariaDB, then you may also want to set [Syslog
 
 ### Configuring LimitMEMLOCK
 
+#### Configuring Support for io\_uring Asynchronous IO in InnoDB
+
 If using [--memlock](mariadbd-options.md#-memlock), or the io\_uring `asyncronious` IO in InnoDB in MariaDB 10.6 or above, with a Linux Kernel version < 5.12, you need to raise the `LimitMEMLOCK` limit.
 
 ```bash
@@ -312,6 +314,28 @@ sudo systemctl edit mariadb.service
 
 LimitMEMLOCK=2M
 ```
+
+#### Increasing the Limit for aio
+
+When running the server with lots of users, the default `aio` value is too small. When running `mysql-test-run`, you could see an error like this:
+
+{% code overflow="wrap" %}
+```
+io_setup(1024) returned Unknown error -11
+```
+{% endcode %}
+
+The fix is to configure a higher aio value:
+
+1. Create this file: `/etc/sysctl.d/50-aio.conf`
+2. Add the following to that file:&#x20;
+
+{% code overflow="wrap" %}
+```ini
+# Fix "io_setup(1024) returned Unknown error -11 when running mtr tests"
+fs.aio-max-nr=1048576
+```
+{% endcode %}
 
 ### Configuring Access to Home Directories
 
