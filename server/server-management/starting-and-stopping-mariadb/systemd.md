@@ -292,7 +292,6 @@ For example:
 sudo systemctl edit mariadb.service
 
 [Service]
-
 StandardOutput=syslog
 StandardError=syslog
 SyslogFacility=daemon
