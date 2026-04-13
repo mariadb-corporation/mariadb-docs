@@ -304,13 +304,12 @@ If you have multiple instances of MariaDB, then you may also want to set [Syslog
 
 #### Configuring Support for io\_uring Asynchronous IO in InnoDB
 
-If using [--memlock](mariadbd-options.md#-memlock), or the io\_uring `asyncronious` IO in InnoDB in MariaDB 10.6 or above, with a Linux Kernel version < 5.12, you need to raise the `LimitMEMLOCK` limit.
+If using [`--memlock`](mariadbd-options.md#-memlock), or the `io_uring` `asynchronous` IO in InnoDB in MariaDB 10.6 or above, with a Linux Kernel version < 5.12, you need to raise the `LimitMEMLOCK` limit.
 
 ```bash
 sudo systemctl edit mariadb.service
 
 [Service]
-
 LimitMEMLOCK=2M
 ```
 
