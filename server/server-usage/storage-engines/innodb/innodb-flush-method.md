@@ -87,6 +87,8 @@ This has these benefits:
 
 Starting with MariaDB 10.6, the way InnoDB handles flushing changed significantly. See [this section](innodb-flush-method.md#behavior-change-in-mariadb-10.6) for details.
 
+FUA can be detrimental for data file write performance, but beneficial for log writes. For the latter, set [`innodb_data_file_write_through`](innodb-system-variables.md#innodb_data_file_write_through) to `OFF` to improve write performance.
+
 [^1]: Forced Unit Access (FUA) is a feature in storage systems that ensures data is written directly to stable, non-volatile storage before a write command is acknowledged as complete.\
     It is implemented as a flag in I/O commands, such as SCSI and SATA commands, and is used to bypass the device's write cache, guaranteeing that data is physically written to the storage medium.\
     When the FUA bit is set to 1, the storage device must complete the write operation to the physical media before returning a "good" status, ensuring data durability even in the event of a power failure.
