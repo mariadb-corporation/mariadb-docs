@@ -25,7 +25,8 @@ Total Order Isolation is the default method for schema upgrades (`wsrep_OSU_meth
 When you execute a DDL statement, such as `ALTER TABLE...`, on any node in a cluster, the following process occurs:
 
 1. **Replication**: The statement is replicated across all nodes in the cluster.
-2. **Transaction Wait**: Each node waits for any pre-existing transactions to complete before proceeding.
+2. **Transaction Wait**: Each node waits for transactions that have already been certified (i.e., those already in commit mode) to complete. \
+   Active transactions that have not been committed yet are terminated and rolled back immediately. On their next statement, the client will receive `ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction`, and the TOI operation proceeds without waiting.
 3. **Execution**: Once caught up, the node executes the DDL statement.
 4. **Resume Processing**: After execution, the node can process new transactions.
 
