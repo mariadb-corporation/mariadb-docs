@@ -31,8 +31,12 @@ For modification at the global level: In `my.cnf file` (example: `/etc/my.cnf.d/
 ```ini
 [mysqld]
 ...
-columnstore_um_mem_limit = value
+loose-columnstore_um_mem_limit = value
 ```
+
+{% hint style="warning" %}
+The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
+{% endhint %}
 
 where value is the value in MB for in memory limitation per user.
 
