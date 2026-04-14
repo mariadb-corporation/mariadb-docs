@@ -324,7 +324,7 @@ data:
   -----END EC PRIVATE KEY-----
 ```
 
-The `ca.key` field is only required if you want to the operator to automatically re-issue certificates with this CA, see [bring your own CA](tls.md#bring-your-own-ca) for further detail. In other words, if only `ca.crt` is provided, the operator will trust this CA by adding it to the [CA bundle](tls.md#ca-bundle), but no certificates will be issued with it, the user will responsible for upating the certificate `Secret` manually with renewed certificates.
+The `ca.key` field is only required if you want to the operator to automatically re-issue certificates with this CA, see [bring your own CA](tls.md#bring-your-own-ca) for further detail. In other words, if only `ca.crt` is provided, the operator will trust this CA by adding it to the [CA bundle](tls.md#ca-bundle), but no certificates will be issued with it, the user will responsible for updating the certificate `Secret` manually with renewed certificates.
 
 The `enterprise.mariadb.com/watch` label is required only if you want the operator to automatically trigger an update when the CA is renewed, see [CA renewal](tls.md#ca-renewal) for more detail.
 
@@ -496,7 +496,7 @@ This is specially useful when issuing certificates with an intermediate CA, see 
 
 Distributing the [CA bundle](tls.md#ca-bundle) to your application namespace is out of the scope of this operator, the bundles will remain in the same namespace as the `MariaDB` and `MaxScale` instances.
 
-If your application is in a different namespace, you can copy the CA bundle to the application namespace. Projects like [trust-manager](https://github.com/cert-manager/trust-manager) can help you to automate this process and continously reconcile bundle changes.
+If your application is in a different namespace, you can copy the CA bundle to the application namespace. Projects like [trust-manager](https://github.com/cert-manager/trust-manager) can help you to automate this process and continuously reconcile bundle changes.
 
 ## TLS version configuration
 

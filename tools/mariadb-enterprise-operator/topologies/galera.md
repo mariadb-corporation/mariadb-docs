@@ -79,7 +79,7 @@ If you have a Kubernetes cluster running with IPv6, the operator will automatica
 
 ## Galera cluster recovery
 
-MariaDB Enterprise Kubernetes Operator monitors the Galera cluster and acts accordinly to recover it if needed. This feature is enabled by default, but you may tune it as you need:
+MariaDB Enterprise Kubernetes Operator monitors the Galera cluster and acts accordingly to recover it if needed. This feature is enabled by default, but you may tune it as you need:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -101,7 +101,7 @@ spec:
   # [...]
 ```
 
-The `minClusterSize` field indicates the minimum cluster size (either absolut number of replicas or percentage) for the operator to consider the cluster healthy. If the cluster is unhealthy for more than the period defined in `clusterHealthyTimeout` (`30s` by default), a cluster recovery process is initiated by the operator. The process is explained in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html) and consists of the following steps:
+The `minClusterSize` field indicates the minimum cluster size (either absolute number of replicas or percentage) for the operator to consider the cluster healthy. If the cluster is unhealthy for more than the period defined in `clusterHealthyTimeout` (`30s` by default), a cluster recovery process is initiated by the operator. The process is explained in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html) and consists of the following steps:
 
 * Recover the sequence number from the `grastate.dat` on each node.
 * Trigger a [recovery Job](#galera-recovery-job) to obtain the sequence numbers in case that the previous step didn't manage to.
