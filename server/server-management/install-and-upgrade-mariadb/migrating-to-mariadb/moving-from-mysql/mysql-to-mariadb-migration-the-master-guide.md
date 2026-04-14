@@ -23,11 +23,11 @@ Before touching the production server, verify these requirements:
 * _Coming from MySQL 5.7?_ MariaDB 10.11 LTS or 11.4 LTS are safe harbors with the longest remaining support runways.
 * _Coming from MySQL 8.0/8.4?_ MariaDB 11.4 LTS or the new 12.3 LTS are recommended. These versions have the most modern feature parity required for 8.x-era applications.
 * Compatibility Check: Review the [MySQL to MariaDB Compatibility Matrix](mysql-to-mariadb-compatibility-matrix.md) for potential high-impact differences in authentication and SQL syntax.
-
+<!--
 #### **Automated Configuration Migration**
 
 If you are moving to MariaDB 11.4 LTS or later, you can automate the transition of your configuration files. The `mariadb-migrate-config-file` utility (technical preview at the time of writing this, March 2026) scans your existing MySQL `my.cnf` or `my.ini` and generates a MariaDB-compatible version, automatically handling renamed or deprecated variables.
-
+-->
 ### **Mandatory Backup**
 
 Never start a migration without two types of backups:
