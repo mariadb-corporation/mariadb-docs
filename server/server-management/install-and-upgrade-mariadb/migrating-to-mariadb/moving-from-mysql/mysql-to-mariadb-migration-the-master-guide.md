@@ -23,11 +23,7 @@ Before touching the production server, verify these requirements:
 * _Coming from MySQL 5.7?_ MariaDB 10.11 LTS or 11.4 LTS are safe harbors with the longest remaining support runways.
 * _Coming from MySQL 8.0/8.4?_ MariaDB 11.4 LTS or the new 12.3 LTS are recommended. These versions have the most modern feature parity required for 8.x-era applications.
 * Compatibility Check: Review the [MySQL to MariaDB Compatibility Matrix](mysql-to-mariadb-compatibility-matrix.md) for potential high-impact differences in authentication and SQL syntax.
-<!--
-#### **Automated Configuration Migration**
 
-If you are moving to MariaDB 11.4 LTS or later, you can automate the transition of your configuration files. The `mariadb-migrate-config-file` utility (technical preview at the time of writing this, March 2026) scans your existing MySQL `my.cnf` or `my.ini` and generates a MariaDB-compatible version, automatically handling renamed or deprecated variables.
--->
 ### **Mandatory Backup**
 
 Never start a migration without two types of backups:
@@ -194,8 +190,6 @@ SELECT CONCAT(
 )
 FROM mysql.procs_priv;
 
-SELECT 'FLUSH PRIVILEGES;';
-
 ```
 {% endcode %}
 
@@ -207,17 +201,17 @@ If your application is mission-critical:
 * Replay those queries against a MariaDB test instance.
 * Check the MariaDB error log for any "Syntax Error" or "Unknown Function" messages. This prevents surprises on migration night.
 
-## Logical Migration (Dump and Restore)
+## Step by Step Migration Procedure
 
-The Logical Migration is the "Gold Standard" for safety. It is the best choice if you are moving to a new server, a different Linux distribution, or a cloud-managed environment.
+Logical migration (dump and restore) is the gold standard for safety. It is the best choice if you are moving to a new server, a different Linux distribution, or a cloud-managed environment.
 
-By exporting the data into a SQL script, you effectively "filter" out any binary-level incompatibilities between MySQL and MariaDB.
+By exporting the data into an SQL script, you effectively "filter" out any binary-level incompatibilities between MySQL and MariaDB.
 
-A logical migration involves exporting your data into a text-based SQL file (a "dump") and importing it into a fresh MariaDB instance. This is the safest way to ensure data integrity, as it completely recreates your tables and indexes in the MariaDB format.
+A logical migration involves exporting your data into a text-based SQL file (a "dump") and importing it into a fresh MariaDB instance ("restore"). This is the safest way to ensure data integrity, as it completely recreates your tables and indexes in the MariaDB format.
 
 {% stepper %}
 {% step %}
-#### Export Data from MySQL
+**Export Data from MySQL**
 
 On your existing MySQL server, create a complete dump of all databases, including stored procedures, triggers, and events. (Note this is the same dump command used in the Preparation step, so you can use that one instead of re-creating it.)
 
@@ -231,24 +225,10 @@ mysqldump --user=root --password --databases db1 db2 ... \
 * `--single-transaction`: Ensures a consistent backup without locking your tables (for InnoDB).
 * `--hex-blob`: Properly handles binary data like images or encrypted strings.
 * `--routines` and `--events` ensures that the "logic" of the database moves, not just the "rows".
-
-**Alternative: Direct Network Streaming (The Pipe Method)**
-
-If you have limited disk space or a high-speed network connection between your servers, you can "stream" the data directly from the MySQL source to the MariaDB target. This avoids creating a large intermediate `.sql` file on your local disk.
-
-{% code overflow="wrap" %}
-```bash
-mysqldump --user=root --password --databases db1 db2 ... \
---single-transaction --routines --events \
---triggers --hex-blob | mariadb --host=new_server_ip --user=root --password
-```
-{% endcode %}
-
-> Pro Tip: To monitor the progress of your transfer in real-time, install the `pv` (Pipe Viewer) utility and insert it into the command: `mysqldump ... | pv | mariadb ...`
 {% endstep %}
 
 {% step %}
-#### Prepare the MariaDB Environment
+**Prepare the MariaDB Environment**
 
 On your new server, install MariaDB using the [Installation Guide for MariaDB Enterprise Server](../../installing-enterprise-server/) or the [Installation Guide for MariaDB Community Server](../../installing-mariadb/).
 
@@ -259,7 +239,7 @@ Before importing, ensure your MariaDB configuration (`my.cnf`) has enough resour
 {% endstep %}
 
 {% step %}
-#### Import Data into MariaDB
+**Import Data into MariaDB**
 
 Transfer your `mysql_full_dump.sql` file to the new server and run the import:
 
@@ -270,13 +250,31 @@ mariadb -u root -p < mysql_full_dump.sql
 {% endstep %}
 {% endstepper %}
 
+### **Alternative: Direct Network Streaming (The Pipe Method)**
+
+If you have limited disk space or a high-speed network connection between your servers, you can "stream" the data directly from the MySQL source to the MariaDB target. This avoids creating a large intermediate `.sql` file on your local disk.
+
+{% hint style="warning" %}
+Streaming can take a long time for large databases. If it is aborted for any reason (like network timeout), it usually cannot be resumed. This means you'd have to start again from the beginning.
+{% endhint %}
+
+{% code overflow="wrap" %}
+```bash
+mysqldump --user=root --password --databases db1 db2 ... \
+--single-transaction --routines --events \
+--triggers --hex-blob | mariadb --host=new_server_ip --user=root --password
+```
+{% endcode %}
+
+> Pro Tip: To monitor the progress of your transfer in real-time, install the `pv` (Pipe Viewer) utility and insert it into the command: `mysqldump ... | pv | mariadb ...`
+
 ## Verification and Optimization
 
 Once your data is moved (via either method), complete these three steps to ensure your new server is running at peak performance.
 
 {% stepper %}
 {% step %}
-#### Rebuild Optimizer Statistics
+**Rebuild Optimizer Statistics**
 
 MariaDB uses a sophisticated cost-based optimizer that may differ from MySQL’s. To ensure your queries use the most efficient execution plans, force a fresh analysis of all tables:
 
@@ -289,11 +287,11 @@ This makes the difference between a migration that "works" and a migration that 
 {% endstep %}
 
 {% step %}
-#### **Character Set & Collation Validation**
+**Character Set & Collation Validation**
 
-MySQL 8.0 uses `utf8mb4_0900_ai_ci` as its default collation. This specific collation is also supported by MariaDB.
+Ensure your server and your applications agree on the character set and collation to use.
 
-While the data will import correctly, this change can affect how your application performs joins or sorts data. If you notice unexpected behavior or performance drops in specific queries, verify your collations:
+If you notice unexpected behavior or performance drops in specific queries, verify your collations:
 
 {% code overflow="wrap" %}
 ```sql
@@ -309,33 +307,30 @@ Check if you have queries that may lead to a mismatch error when joining 2 colum
 {% hint style="info" %}
 **Why this matters**
 
-If a user has one table set to the old MySQL default and another table set to a MariaDB default, a `JOIN` between them might suddenly stop using indexes because of the "collation mismatch." This snippet gives them the SQL command to find the problem immediately.
+If a user has one table set to the old MySQL default and another table set to a MariaDB default, a `JOIN` between them might suddenly stop using indexes because of the "collation mismatch." The above snippet gives you the SQL command to find the problem immediately.
 {% endhint %}
 {% endstep %}
 
 {% step %}
-#### Check the Error Log
+**Check the Error Log**
 
 Check for any "Deprecated Variable" or "Ignored Option" warnings that might have appeared during startup.
 
 ```bash
-sudo tail -f /var/log/mysql/error.log
+sudo tail -f /var/log/mysql/error.log | grep -e 'Deprecated|Ignored'
 ```
 {% endstep %}
 
 {% step %}
-#### Application Smoke Test
+**Application Smoke Test**
 
-Verify that your application can connect. Pay special attention to:
-
-* Character Sets: Ensure your app and the server agree on `utf8mb4`.
-* Temporary Tables: If your app uses heavy temporary table logic, verify performance.
+Verify that your application can connect. Pay special attention to character sets: Ensure your apps and the server agree on `utf8mb4` or whatever character set you choose.
 {% endstep %}
 
 {% step %}
-#### Security Hardening: Transition to PARSEC
+**Security Hardening: Transition to PARSEC**
 
-For migrations to MariaDB 11.4 LTS and later, consider transitioning your users to the PARSEC authentication plugin. While `mysql_native_password` is supported for compatibility, PARSEC is the modern successor designed for significantly stronger password hashing and better long-term security.
+For migrations to MariaDB 11.4 LTS and later, consider transitioning your users to the [PARSEC](../../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) authentication plugin. While `mysql_native_password` and `caching_sha2_password` are supported for compatibility, PARSEC is the modern successor designed for significantly stronger password hashing and better long-term security.
 
 ```sql
 -- Example: Update a user to use PARSEC
