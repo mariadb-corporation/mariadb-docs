@@ -162,7 +162,7 @@ The following metrics are available for `MaxScale` instances:
 | maxscale\_server\_max\_connections                            | The max number of connections.                                                                     | GAUGE   |
 | maxscale\_server\_max\_pool\_size                             | The current max pool size,                                                                         | GAUGE   |
 | maxscale\_server\_persistent\_connections                     | The number of persistent connections to the server.                                                | GAUGE   |
-| maxscale\_server\_reused\_connections                         | The number of Re-used Connections by the server.                                                   | GAUGE   |
+| maxscale\_server\_reused\_connections                         | The number of Reused Connections by the server.                                                   | GAUGE   |
 | maxscale\_server\_routed\_packets                             | The number of routed packets to the server,                                                        | GAUGE   |
 | maxscale\_server\_state                                       | The current state of the server.                                                                   | GAUGE   |
 | maxscale\_server\_total\_connections                          | The total number of connections to the server.                                                     | COUNTER |

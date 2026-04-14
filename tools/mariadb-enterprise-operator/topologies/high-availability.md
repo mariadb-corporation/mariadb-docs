@@ -40,7 +40,7 @@ While Kubernetes `Services` can be used for addressing primary and secondary ins
 * Ability to choose whether the old primary rejoins as a replica
 * Connection pooling 
 
-The full lifecyle of the MaxScale proxy is covered by this operator.  Please refer to [MaxScale docs](./maxscale.md) for further detail.
+The full lifecycle of the MaxScale proxy is covered by this operator.  Please refer to [MaxScale docs](./maxscale.md) for further detail.
 
 ## Pod Anti-Affinity
 

@@ -45,7 +45,7 @@ To ensure your configuration changes take effect, the operator triggers a `Maria
 
 ## Compute resources
 
-CPU and memory resouces can be configured via the `resources` field in both the `MariaDB` and `MaxScale` CRs:
+CPU and memory resources can be configured via the `resources` field in both the `MariaDB` and `MaxScale` CRs:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -169,7 +169,7 @@ spec:
 This way, we are telling the operator that we are expecting a `Secret` to be available eventually, enabling the use of GitOps tools to seed the password:
 
 * [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets): The `Secret` is reconciled from a `SealedSecret`, which is decrypted by the sealed-secrets controller.
-* [external-secrets](https://github.com/external-secrets/external-secrets): The `Secret` is reconciled fom an `ExternalSecret`, which is read by the external-secrets controller from an external secrets source (Vault, AWS Secrets Manager ...).
+* [external-secrets](https://github.com/external-secrets/external-secrets): The `Secret` is reconciled from an `ExternalSecret`, which is read by the external-secrets controller from an external secrets source (Vault, AWS Secrets Manager ...).
 
 ## External resources
 
@@ -216,7 +216,7 @@ Kubernetes probes serve as an inversion of control mechanism, enabling the appli
 Make sure you check the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) if you are unfamiliar with Kubernetes probes.
 {% endhint %}
 
-Fine tunning of probes for databases running in Kubernetes is critical, you may do so by tweaking the following fields:
+Fine tuning of probes for databases running in Kubernetes is critical, you may do so by tweaking the following fields:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
