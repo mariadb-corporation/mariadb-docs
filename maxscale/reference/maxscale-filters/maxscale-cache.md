@@ -960,12 +960,16 @@ There are two types of storages that can be used; _local_ and _shared_.
 
 The only _local_ storage implementation is `storage_inmemory` that simply stores the cache values in memory. The storage is not persistent and is destroyed when MaxScale terminates. Since the storage exists in the MaxScale process, it is very fast and provides almost always a performance benefit.
 
-Currently there are two _shared_ storages; `storage_memcached` and`storage_redis` that are implemented using [memcached](https://memcached.org/) and [redis](https://redis.io/) respectively.
+Currently there are three _shared_ storages; `storage_memcached`, `storage_redis` and `storage_gridgain`
+that are implemented using [memcached](https://memcached.org/), [redis](https://redis.io/) and
+[gridgain](https://www.gridgain.com/) respectively.
 
 The shared storages are accessed across the network and consequently it is _not_ self-evident that their use will provide any performance benefit. Namely, irrespective of whether the data is fetched from the cache or from the server there will be a network hop and often that network hop is, as far as the performance goes, what costs the most.
 
-The presence of a shared cache _may_ provide a performance benefit if the network between MaxScale and the storage server (memcached or Redis) is faster than the network between MaxScale and the database server, if the used SELECT statements are heavy (that is, take a significant amount of time) to process for the database server, or
+The presence of a shared cache _may_ provide a performance benefit
 
+* if the network between MaxScale and the storage server (memcached, Redis or GridGain) is faster than the network between MaxScale and the database server,
+* if the used SELECT statements are heavy (that is, take a significant amount of time) to process for the database server, or
 * if the presence of the cache reduces the overall load of an otherwise overloaded database server.
 
 As a general rule a _shared_ storage should not be used without first assessing its value using a realistic workload.
@@ -979,6 +983,63 @@ storage=storage_inmemory
 ```
 
 This storage module takes no arguments.
+
+### `storage_gridgain`
+
+Available since MaxScale 25.10.3.
+
+This storage module uses [gridgain](https://www.gridgain.com/) for storing the cache data.
+
+Multiple MaxScale instances can share the same gridgain server and items cached by one
+MaxScale instance will be used by the other. Note that all MaxScale instances should
+have exactly the same configuration, as otherwise there can be unintended sharing.
+
+```
+storage=storage_gridgain
+```
+
+`storage_gridgain` has the following parameters:
+
+#### `endpoints`
+
+* Type: The GridGain server endpoint specified as `<host>[:<port>[..<port_range>]]`.
+* Mandatory: Yes
+* Dynamic: No
+* Default: 127.0.0.1:10800
+
+Several hosts can be specified, separated by comma.
+
+#### `max_value_size`
+
+* Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
+* Mandatory: No
+* Dynamic: No
+* Default: 1Mi
+
+The default maximum size of a value to be stored in GridGain.
+
+#### `partition_awareness`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `true`
+
+[Partition awareness](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/getting-started-with-thin-clients#partition-awareness)
+allows a thin GridGain client to send query requests directly to the node that
+owns the queried data and should usually be enabled.
+
+#### `reset_on_startup`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: `false`
+
+If this setting is `true`, the GridGain cache will be destroyed and
+re-created at startup. This is intended for testing and should not be
+enabled in a production environment, especially not if there are
+multiple MaxScale instances sharing the same cache.
 
 ### `storage_memcached`
 
