@@ -38,7 +38,7 @@ The effectiveness of Query Accelerator can vary depending on the type of queries
 Performance issues occur for queries like this:
 
 ```sql
- SELECT column_a FROM tbl WHERE column_a = column_b 
+ SELECT column_a FROM tbl WHERE column_a = column_b
 ```
 
 InnoDB handles such comparison much better than ColumnStore in general, and in Query Accelerator, that would be even worse.
@@ -62,8 +62,12 @@ Locate (or create) the mariadb section, and add a line enabling Query Accelerato
 
 ```ini
 [mariadb]
-columnstore_innodb_queries_use_mcs = on
+loose-columnstore_innodb_queries_use_mcs = on
 ```
+
+{% hint style="warning" %}
+The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
+{% endhint %}
 
 Restart MariaDB Server for the change to take effect.
 {% endstep %}
@@ -143,8 +147,8 @@ CREATE DATABASE IF NOT EXISTS test; USE test;
 CREATE TABLE IF NOT EXISTS test.customer_indexed (  `c_d_id` int(2) NOT NULL, `c_w_id` int(6) NOT NULL, `c_first` varchar(16) , `c_middle` char(2) , `c_last` varchar(16) , `c_street_1` varchar(20) , `c_street_2` varchar(20) , `c_city` varchar(20) , `c_state` char(2) , `c_zip` int(5) , `c_phone` char(16) , `c_since` datetime DEFAULT NULL, `c_credit` char(2) , `c_credit_lim` decimal(12,2) DEFAULT NULL, `c_discount` decimal(4,4) DEFAULT NULL, `c_balance` decimal(12,2) DEFAULT NULL, `c_ytd_payment` decimal(12,2) DEFAULT NULL, `c_payment_cnt` int(8) DEFAULT NULL, `c_delivery_cnt` int(8) DEFAULT NULL, `c_data` varchar(500)) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 INSERT INTO test.customer_indexed  SELECT  ROUND(RAND() * 42000, 0), ROUND(RAND() * 42000, 0), substring(MD5(RAND()*1000000000),1,16), substring(MD5(RAND()),1,2), substring(MD5(RAND()*1000000000),1,16), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()*1000000000),1,20), substring(MD5(RAND()),1,2), ROUND(RAND() * 42000, 0), substring(MD5(RAND()),1,16), CURRENT_TIMESTAMP - INTERVAL FLOOR(RAND() * 365 * 24 * 60 *60) SECOND, substring(MD5(RAND()),1,2), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 0, 4), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 9999999999, 2), ROUND(RAND() * 42000, 0), ROUND(RAND() * 42000, 0), substring(MD5(RAND()*1000000000),1,500) FROM seq_1_to_8000000; -- 3.5 min
 ALTER TABLE test.customer_indexed ADD INDEX idx_fast (`c_zip`, `c_payment_cnt`); -- ~1.5 min
--- baseline 
-SELECT c_zip, sum(c_payment_cnt)  FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ;  --2.6s 
+-- baseline
+SELECT c_zip, sum(c_payment_cnt)  FROM test.customer_indexed GROUP BY c_zip ORDER BY c_zip ;  --2.6s
 ```
 {% endcode %}
 {% endstep %}
@@ -154,7 +158,7 @@ Turn on Query Accelerator - On CLI:
 
 {% code overflow="wrap" %}
 ```bash
-sed -i 's/^#columnstore_innodb_queries_use_mcs = on/columnstore_innodb_queries_use_mcs = on/' /etc/my.cnf.d/columnstore.cnf
+sed -i 's/^\s*loose-columnstore_innodb_queries_use_mcs\s*=.*/loose-columnstore_innodb_queries_use_mcs = on/' /etc/my.cnf.d/columnstore.cnf
 systemctl restart mariadb
 ```
 {% endcode %}
@@ -168,7 +172,7 @@ In mariadb (MariaDB command-line client), run these statements:
 # In mariadb (MariaDB command-line client)
 USE test;
 ANALYZE table test.customer_indexed PERSISTENT FOR COLUMNS (c_zip,c_payment_cnt) indexes(); --8s
-SELECT table_name, column_name, hist_type FROM mysql.column_stats WHERE table_name="customer_indexed"; 
+SELECT table_name, column_name, hist_type FROM mysql.column_stats WHERE table_name="customer_indexed";
 SHOW VARIABLES LIKE "%columnstore_innodb_queries_use_mcs%";
 ```
 {% endcode %}
@@ -197,7 +201,7 @@ Turn off Query Accelerator - On CLI:
 
 {% code overflow="wrap" %}
 ```bash
-sed -i 's/^columnstore_innodb_queries_use_mcs = on/#columnstore_innodb_queries_use_mcs = on/' /etc/my.cnf.d/columnstore.cnf
+sed -i 's/^\s*loose-columnstore_innodb_queries_use_mcs\s*=.*/loose-columnstore_innodb_queries_use_mcs = off/' /etc/my.cnf.d/columnstore.cnf
 systemctl restart mariadb
 ```
 {% endcode %}

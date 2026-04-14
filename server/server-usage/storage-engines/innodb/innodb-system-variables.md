@@ -480,7 +480,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 #### `innodb_buffer_pool_size_max`
 
 {% hint style="danger" %}
-&#x20;`innodb_buffer_pool_size_max` is a **read-only** variable. If not specified at startup, it defaults to the initial `innodb_buffer_pool_size`, which effectively disables upward dynamic resizing at runtime (attempts to increase size will result in Warning 1292).
+`innodb_buffer_pool_size_max` is a **read-only** variable. If not specified at startup, it defaults to the initial `innodb_buffer_pool_size`, which effectively disables upward dynamic resizing at runtime (attempts to increase size will result in Warning 1292).
 {% endhint %}
 
 {% hint style="warning" %}
@@ -1200,7 +1200,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Dynamic: Yes
 * Data Type: `enumeration`
 * Default Value: `1`
-* Valid Values: `0`, `1`, `2` or `3`&#x20;
+* Valid Values: `0`, `1`, `2` or `3`
 
 **Note**: When the [InnoDB-based Binary Log](../../../ha-and-performance/standard-replication/innodb-based-binary-log.md) is enabled (`--binary-storage-engine=innodb`), this option manages the durability of commits for both binlog files and InnoDB table data. Also, in this configuration, there is no separate binlog `fsync` step and no two-phase commit between InnoDB and the binary log.
 
@@ -1681,6 +1681,8 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
 * Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
 
+<!--
+
 #### `innodb_log_archive`
 
 * Description: Whether or not [XtraDB redo log](innodb-redo-log.md) archiving is enabled. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
@@ -1691,6 +1693,22 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `OFF`
 * Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
 * Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
+
+-->
+
+#### `innodb_log_archive`
+
+* Description: Controls the InnoDB log archiving feature. When set to `ON`, the InnoDB write-ahead log is not only written to the circular ring buffer (`ib_logfile0`) but also saved into sequential archive files. This ensures a continuous log stream is available, which is necessary for point-in-time recovery and incremental backups.
+* Details:&#x20;
+  * File Naming: Archive files use the naming convention `ib_`_`lsn`_`.log`, where _lsn_ is a 16-character hexadecimal representation of the Log Sequence Number (LSN) at offset 12288 (0x3000) of the file.
+  * Log Resizing: When archiving is enabled, changes to `innodb_log_file_size` occur when the current log file is filled and a new file is allocated. This differs from the standard resizing logic used when `innodb_log_archive` is `OFF`.
+  * Size Constraint: To maintain compatibility with 32-bit offsets in the archive headers, [`innodb_log_file_size`](innodb-system-variables.md#innodb_log_file_size) is restricted to a maximum of 4G when archiving is active.
+  * Encryption: If `innodb_encrypt_log` is used, its state cannot be changed during a server restart if `innodb_log_archive` is set to `ON`.
+  * Data Dictionary: Note that this feature tracks InnoDB changes only. It does not cover `.frm` files or other non-InnoDB metadata.
+* Dynamic: Yes
+* Data Type: `boolean`
+* Default Value: `OFF`&#x20;
+* Introduced: MariaDB 13.0
 
 #### `innodb_log_block_size`
 
@@ -1845,6 +1863,24 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Introduced: [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17), [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.9)
 * Deprecated: [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), [MariaDB 10.4.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.16), [MariaDB 10.3.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.26), [MariaDB 10.2.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.35)
 * Removed: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
+
+#### `innodb_log_recovery_start`
+
+* Description: Defines the Log Sequence Number (LSN) where the recovery process begins.
+* Usage: Set this variable to limit the scope of a recovery operation. By specifying a starting _lsn_, you can avoid replaying archived logs from the beginning of the archive chain. This is typically used in conjunction with a known backup state. The server expects to find an optional sequence of `FILE_MODIFY` records and a `FILE_CHECKPOINT` record at the specified _lsn_.
+* Property: Set at startup
+* Data Type: `numeric` (64-bit unsigned integer)
+* Default Value: `0`&#x20;
+* Introduced: MariaDB 13.0
+
+#### `innodb_log_recovery_target`
+
+* Description: Defines the target Log Sequence Number (LSN) where the recovery process ends.
+* Usage: Use this variable to define a recovery point objective. The server replays the archived logs and stops after processing the record at the specified _lsn_. If you attempt a startup with an unreachable _lsn_ (for example, a value lower than the current checkpoint), the server will terminate with an error message indicating the final available _lsn_. This is useful for verifying the end of the available log stream.
+* Property: Set at startup
+* Data Type: `numeric` (64-bit unsigned integer)
+* Default Value: `0` (Maximum possible LSN)
+* Introduced: MariaDB 13.0
 
 #### `innodb_log_spin_wait_delay`
 

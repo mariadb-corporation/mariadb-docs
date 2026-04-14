@@ -1,3 +1,8 @@
+---
+hidden: true
+noIndex: true
+---
+
 # Compatibility and Reference
 
 {% hint style="info" %}
@@ -7,6 +12,36 @@ This is an early draft pending review and should not be relied upon
 MariaDB Exa integrates MariaDB Enterprise Server with the Exasol analytical engine through a multi-stage pipeline designed for near real-time analytics, enabling high-performance, large-scale SQL analytics on operational data. The system processes operations through two distinct paths based on whether the task modifies data or requests analytical results.
 
 #### Core Components
+
+```mermaid
+graph TD
+    User([User SQL Query]) --> MariaDB[MariaDB Server]
+    
+    %% The Routing Path
+    MariaDB -- "DQL (SELECT)" --> Router[MariaDB Exa Router]
+    Router -- "Analytical Routing" --> Preprocessor
+    
+    %% The Replication Path
+    MariaDB -- "DDL/DML (Changes)" --> BinLog[MariaDB Binary Log]
+    BinLog --> Debezium[Debezium CDC Bridge]
+    
+    %% Debezium Failure Point
+    Debezium -- "Unsupported: INET6, UUID, XMLTYPE" --> DebCrash{{"CRASH: Replication Stops"}}
+    Debezium -- "Supported Data" --> Preprocessor
+    
+    %% The Gatekeeper
+    subgraph Exasol ["Exasol Environment"]
+        Preprocessor["Exasol Preprocessor (SQLglot)"]
+        Engine["Exasol In-Memory Engine"]
+        
+        %% Preprocessor Failure Point
+        Preprocessor -- "Translation Gap: BIN(), HEX(), etc." --> TransFail{{"ERROR: Function Not Found"}}
+        Preprocessor -- "Translated Syntax" --> Engine
+    end
+    
+    %% Behavioral Differences
+    Engine -- "Logical Difference: '' is NULL" --> User
+```
 
 * MariaDB Server (Source Layer): The primary environment for transactional workloads (OLTP). It records every data modification (DML) and schema change (DDL) in the Binary Log, which serves as the authoritative record of the system state.
 * Debezium CDC & Replication (Integration Layer): A service that monitors the Binary Log and replicates changes to Exasol. It processes specific data types; encountering unrecognized MariaDB-native types can result in service failure or system crashes.

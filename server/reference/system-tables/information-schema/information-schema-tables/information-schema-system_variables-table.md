@@ -28,6 +28,8 @@ It contains the following columns:
 | COMMAND\_LINE\_ARGUMENT | Whether an argument is required when setting the variable on the command line. `NULL` when a variable can not be set on the command line.                                                                                                   |
 | GLOBAL\_VALUE\_PATH     | Which config file the variable got its value from. `NULL` if not set in any config file.                                                                                                                                                    |
 | IS\_DEPRECATED          | Used to identify deprecated variables in the server configuration (in an option file or on the command line). Available from MariaDB 13.0. |
+| IS\_DEPRECATED          | Used to identify deprecated variables in the server configuration (in an option file or on the command line). See [the example below](information-schema-system_variables-table.md#show-deprecated-variables). Available from MariaDB 13.0. |
+| DEPRECATED\_REPLACEMENT | The replacement of a deprecated variable. If `NULL`, there is no replacement. Available from MariaDB 13.0.                                                                                                                                  |
 
 ## Examples
 
@@ -55,6 +57,8 @@ COMMAND_LINE_ARGUMENT: REQUIRED
 ```
 
 ### Show deprecated variables that are set in the config file
+
+This query shows variables used in your server deployment that are deprecated:
 
 {% code overflow="wrap" %}
 ```sql

@@ -319,7 +319,7 @@ const conn = mariadb.createConnection({ socketPath: '\\\\.\\pipe\\MySQL', user: 
 
 > * `options`: _JSON/string_ [pool options](connector-nodejs-callback-api.md#pool-options)
 >
-> Returns a [Pool](connector-nodejs-callback-api.md#pool-api) object. 
+> Returns a [Pool](connector-nodejs-callback-api.md#pool-api) object.
 
 Creates a new pool.
 
@@ -1065,11 +1065,15 @@ poolCluster(err => {
 
 ### `poolCluster.getConnection([pattern, ][selector, ]callback)`
 
-> * `pattern`: _string_ regex pattern to select pools. Example, `"slave*"`. default `'*'`
+> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a  regex. Default: `'*'`  (matches all pools).
 > * `selector`: _string_ pools selector. Can be 'RR' (round-robin), 'RANDOM' or 'ORDER' (use in sequence = always use first pools unless fails). default to the cluster option `defaultSelector` if set, 'RR' if not
 > * `callback`: _function_ Callback function with arguments ([Error](connector-nodejs-callback-api.md#error), [Connection](connector-nodejs-callback-api.md#connection-api)).
 
 Creates a new [Connection](connector-nodejs-callback-api.md#connection-api) object. Connection must be given back to pool with the connection.end() method.
+
+**Note**: The `pattern` parameter must be specified as a string. Even though the input is internally converted into a regular expression, passing a `Regex` object is not supported in TypeScript and may lead to inconsistencies.
+
+Avoid using patterns such as `slave*`, as they are not valid regular expressions. Use expressions like `^slave` instead.
 
 **Example:**
 
@@ -1079,7 +1083,7 @@ const cluster = mariadb.createPoolCluster();
 cluster.add("master", { host: 'mydb1.com', user: 'myUser', connectionLimit: 5 });
 cluster.add("slave1", { host: 'mydb2.com', user: 'myUser', connectionLimit: 5 });
 cluster.add("slave2", { host: 'mydb3.com', user: 'myUser', connectionLimit: 5 });
-cluster.getConnection("slave*", (err, conn) => {
+cluster.getConnection("^slave", (err, conn) => {
   //use connection and handle possible error
 })
 ```
@@ -1101,7 +1105,7 @@ cluster.on('remove', node => {
 
 ### `poolCluster.of(pattern, selector) → FilteredPoolCluster`
 
-> * `pattern`: _string_ regex pattern to select pools. Example, `"slave*"`. default `'*'`
+> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a  regex. Example: `"^slave"`. Default: `'*'`.
 > * `selector`: _string_ pools selector. Can be 'RR' (round-robin), 'RANDOM' or 'ORDER' (use in sequence = always use first pools unless fails). default to the
 >
 > Returns :
@@ -1110,6 +1114,8 @@ cluster.on('remove', node => {
 > * raises an [Error](connector-nodejs-callback-api.md#error).
 
 Creates a new [filtered pool cluster](connector-nodejs-callback-api.md#filteredpoolcluster) object that is a subset of cluster.
+
+**Note**: The `pattern` parameter must be specified as a string. Passing a `Regex` object (e.g., `/^slave/`) is not supported in TypeScript and may cause inconsistencies.
 
 **Example:**
 
@@ -1124,11 +1130,13 @@ cluster.add("slave2-north", { host: 'mydb3.com', user: 'myUser', connectionLimit
 cluster.add("slave1-south", { host: 'mydb2.com', user: 'myUser', connectionLimit: 5 });
 
 const masterCluster = cluster.of('master*');
-const northSlaves = cluster.of(/^slave?-north/, 'RANDOM');
+const northSlaves = cluster.of(/^slave[12]-north/, 'RANDOM');
 northSlaves.getConnection((err, conn) => {
     //use that connection
 });
 ```
+
+**Note**: The pattern type definition in TypeScript supports `string`, `false`, `null`, or `undefined`. Although passing a `RegExp` object literal will result in a TypeScript type error, it is acceptable at the JavaScript runtime level (the constructor accepts `RegExp | text`). For complete TypeScript compatibility, use a string pattern.
 
 #### `filtered pool cluster`
 

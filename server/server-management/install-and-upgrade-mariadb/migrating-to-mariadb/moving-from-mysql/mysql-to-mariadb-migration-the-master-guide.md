@@ -12,7 +12,7 @@ description: >-
 
 This guide focuses on **migrations within Linux-based environments** (RHEL/CentOS/Alma, Debian/Ubuntu, etc.), as these represent the vast majority of production MySQL and MariaDB deployments.
 {% endhint %}
-
+<!--
 ## **⚡ Pro Tip: Automated Migration**
 
 If you prefer an automated approach, MariaDB provides an open-source migration script that handles data dumping, user porting, and configuration checks in a single workflow.
@@ -27,6 +27,7 @@ While the script simplifies the process, be aware of the following:
 * Large Databases: For databases in the hundreds of gigabytes or terabytes, the script's "all-in-one" nature can make it difficult to resume if a network timeout occurs. In these cases, the manual workflow (logical migration – dump and restore) is often preferred for better granular control.
 * Complex Permissions: If you have highly custom or non-standard `GRANT` structures, the script may require manual intervention. Always verify your user privileges after the script completes.
 * Environment Support: Ensure your source and target servers have the necessary dependencies (like Python/Bash and network connectivity) as specified in the script's `README` file.
+-->
 
 ## Preparation
 

@@ -7,7 +7,9 @@ description: >-
 # Schema Qualifiers
 
 {% hint style="info" %}
-`mariadb_schema` was introduced in [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.24), [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.14) and [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5).
+* `mariadb_schema` and `oracle_schema` are not actual databases or schemas.
+* They do not appear in `SHOW DATABASES`.
+* These are prefix qualifiers that manage SQL-mode dependent behavior for function and data types.
 {% endhint %}
 
 ## Description
@@ -25,7 +27,29 @@ Both prefixes describe the same mechanism, however the behavior differs based on
 
 Certain SQL modes, such as [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), affect how MariaDB understands data type and functions. MariaDB translates several data type names and function behaviors according to Oracle Database standards when [SQL\_MODE=ORACLE](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle) is active. This translation may lead to ambiguity: depending on the SQL mode in use, a data type or function name written without a qualifier could be interpreted differently.
 
-For example, in Oracle mode, the data type [DATE](../../data-types/date-and-time-data-types/date.md) is interpreted as [DATETIME](../../data-types/date-and-time-data-types/datetime.md#oracle-mode). This behavior can be explicitly overridden at the statement level using schema qualifiers without modifying the SQL mode session.
+For example, in Oracle mode, the data type [DATE](../../data-types/date-and-time-data-types/date.md) is interpreted as [DATETIME](../../data-types/date-and-time-data-types/datetime.md#oracle-mode). This behavior can be explicitly overridden at the statement level using schema qualifiers, without modifying the SQL mode session.
+
+### Version Support
+
+* `mariadb_schema` for data type qualification is supported since:
+  * [MariaDB 10.3.24](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.24)
+  * [MariaDB 10.4.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.14)
+  * [MariaDB 10.5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.5)
+* `oracle_schema` is supported as part of the same schema qualifier mechanism.
+* Functional qualification using schema qualifiers is supported since:
+  * [MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17) (see [MDEV-27744](https://jira.mariadb.org/browse/MDEV-27744))
+
+### Why Schema Qualifiers are Needed
+
+Specific SQL modes, for example `SQL_MODE=ORACLE`, determine how MariaDB handles data types and functions.
+
+This may result in ambiguity when:
+
+* Switching between SQL modes
+* Evaluating table definitions using `SHOW CREATE TABLE`
+* Syncing data across servers
+
+Regardless of the SQL mode that is currently in use, schema qualifiers provide explicit control over interpretation, ensuring reliable and consistent behavior.
 
 ### mariadb\_schema
 
@@ -79,7 +103,12 @@ DESCRIBE t1;
 
 ### oracle\_schema
 
-The `oracle_schema` qualifier specifies Oracle-compatible behavior of the data type or function, regardless of the active SQL mode. It supports Oracle semantics but acts similarly to `mariadb_schema`.
+The `oracle_schema` qualifier enforces Oracle-compatible behavior of the data type or function, regardless of the active SQL mode. It supports Oracle semantics but acts similarly to `mariadb_schema`.
+
+For example:
+
+* In Oracle mode, the `DATE` data types behaves like `DATETIME`.
+* Using `oracle_schema.DATE` ensures Oracle-compatible interpretation even when Oracle mode is not enabled.
 
 #### Data Type Qualification
 
@@ -149,7 +178,9 @@ DESCRIBE t1;
 
 ### Function Qualification
 
-When there are inconsistencies, schema qualifiers can be used with functions to specifically select Oracle or MariaDB behavior.
+Starting with MariaDB 10.6.17, schema qualifiers can also be added to functions.&#x20;
+
+Regardless of the current SQL mode, this enables the explicit selection of MariaDB-native or Oracle-compatible behavior.
 
 Example syntax:
 
@@ -161,11 +192,17 @@ mariadb_schema.function_name(...)
 oracle_schema.function_name(...)
 ```
 
-The function and SQL mode determine the exact behavior. Schema qualifiers provide explicit selection of the desired implementation.
+**Behavior**
+
+* `mariadb_schema.function_name(...)`: MariaDB-native behavior
+* `oracle_schema.function_name(...)`: Oracle-compatible behavior
+
+**Note**: Function behavior varies depending on the SQL mode and function.\
+Detailed function-level differences are not fully listed here and may differ by version.
 
 ### SHOW CREATE TABLE
 
-Top prevent ambiguity in data type interpretation, MariaDB may display schema qualifiers when `SHOW CREATE TABLE` is executed.
+To prevent ambiguity in data type interpretation, MariaDB may display schema qualifiers when `SHOW CREATE TABLE` is executed.
 
 ```sql
 SET sql_mode=DEFAULT;
@@ -186,6 +223,8 @@ SHOW CREATE TABLE t1;
 The prefix is displayed to indicate that the column uses MariaDB's native DATE type rather than the Oracle-compatible translated version.
 
 The `mariadb_schema` prefix is only displayed when the data type is ambiguous. When the type is non-ambiguous or the SQL mode is set to default, it is not displayed.
+
+This makes it easier to determine whether a column uses MariaDB-native or Oracle-compatible semantics.
 
 ### History
 

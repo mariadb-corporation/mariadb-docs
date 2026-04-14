@@ -18,7 +18,7 @@ The default setting for this variable initially was `fsync`, but was [changed to
 
 This page describes the main settings and examines when it makes sense or not to change the default values.
 
-## Options and Startup Parameters
+## Options and Startup Variables
 
 First of all, let’s look at what the different options for `innodb_flush_method` mean, and how they map to the new Boolean options that can be changed while the server is running. Those new options are available from MariaDB 11.0. There are 2 sets of Boolean options, controlling how the InnoDB write-ahead log `ib_logfile0` as well as the persistent data files are written:
 
@@ -31,7 +31,13 @@ The old default setting `innodb_flush_method=fsync` disables write-through and e
 
 The MariaDB Server 10.6 default setting `innodb_flush_method=O_DIRECT`  leaves the new Boolean options at their default values. On Microsoft Windows, this option is also known as `unbuffered` and `async_unbuffered`.
 
-The unsafe setting [`innodb_flush_method`](innodb-system-variables.md#innodb_flush_method)`=O_DIRECT_NO_FSYNC` is treated like `O_DIRECT`. You can disable any use of `fdatasync()` or `fsync()` system calls, but that means you lose all crash-safety guarantees. To do that, set [`debug-no-sync`](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#debug-no-sync)`=ON`. Starting with MariaDB Server 11.0, this unsafe parameter  affects InnoDB as well.
+The unsafe setting [`innodb_flush_method`](innodb-system-variables.md#innodb_flush_method)`=O_DIRECT_NO_FSYNC` is treated like `O_DIRECT`. You can disable any use of `fdatasync()` or `fsync()` system calls, but that means you lose all crash-safety guarantees. To do that, set [`debug-no-sync`](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#debug-no-sync)`=ON`. Starting with MariaDB Server 11.0, this unsafe variable  affects InnoDB as well.
+
+{% hint style="info" %}
+**Effects of bypassing the file system buffering:**
+
+When file system buffering is bypassed, InnoDB attempts to open the file in `O_DIRECT` mode (on Windows, with `FILE_FLAG_NO_BUFFERING`) if the file system supports that. When buffering is enabled or direct I/O is not supported, a file system cache can be maintained by the operating system kernel. This cache can make some read workloads much faster — some read workloads significantly benefit from setting `innodb_data_file_buffering=ON` (effectively disabling `O_DIRECT`).
+{% endhint %}
 
 ## Behavior Change in MariaDB 10.6
 
@@ -49,13 +55,41 @@ To summarize: Changing the default of `innodb_flush_method` to `O_DIRECT` in Mar
 
 ## Behavior Change in MariaDB 11.0
 
-From MariaDB 11.0, the flushing behavior of InnoDB is no longer controlled by `innodb_flush_method`, but rather by the  following parameters, which can be modified with a `SET GLOBAL` statement while the server is running:
+{% hint style="info" %}
+The [`innodb_flush_method`](innodb-system-variables.md#innodb_flush_method) variable has been deprecated, but can still be used. The preferred way to use it is by setting one of the Boolean variables via the [`SET GLOBAL`](../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement. The usage of those variables is explained in the [Options and Startup Variables](innodb-flush-method.md#options-and-startup-parameters) section.
+{% endhint %}
+
+From MariaDB 11.0, the flushing behavior of InnoDB should no longer be controlled by `innodb_flush_method`, but rather by the  following variables, which can be modified with a `SET GLOBAL` statement while the server is running:
 
 1. `innodb_log_file_buffering`: This is best left to its default value (`OFF`), except when backing up a write-heavy server.
 2. `innodb_data_file_buffering`: The default is `OFF`; set it to `ON` if you encounter read performance problems.
-3. `innodb_log_file_write_through`, `innodb_data_file_write_through`: The default is `OFF` for both parameters; setting them to `ON` can improve or degrade write performance, depending on the hardware used.<br>
+3. `innodb_log_file_write_through`, `innodb_data_file_write_through`: The default is `OFF` for both variables; setting them to `ON` can improve or degrade write performance, depending on wether or not the hardware supports FUA (Forced Unit Access).
 
-[^1]: Force Unit Access (FUA) is a feature in storage systems that ensures data is written directly to stable, non-volatile storage before a write command is acknowledged as complete.\
+### FUA (Forced Unit Access)
+
+FUA is a hardware-level flag used during write operations to ensure data integrity. When InnoDB sends a write command with the FUA flag, it tells the storage device (SSD or HDD) that the write must be written directly to the non-volatile, stable media before the device can report that the task is finished.
+
+{% hint style="warning" %}
+FUA only works if your hardware (and its drivers) actually supports it. Some cheaper consumer SSDs claim to support FUA but secretly ignore it to make their benchmark speeds look faster — this can lead to data corruption during a power failure!
+{% endhint %}
+
+InnoDB is a transactional storage engine, meaning it promises that once a transaction is committed, it won't be lost even if the power goes out. To keep this promise, InnoDB has to flush data from the computer's RAM to the physical disk. Traditionally, this involved two steps:
+
+1. Write: Send data to the disk (where it might sit in the disk's own temporary cache).
+2. `fsync`: Send a separate command telling the disk to push everything in the cache to the physical disk.
+
+FUA combines these into one step. By using FUA, InnoDB instructs the operation system to write out data and demands that success is only reported when that data is safe on the physical media.
+
+This has these benefits:
+
+* Performance: It eliminates the need for a second `fsync` system call, which can reduce latency and CPU overhead.
+* Efficiency: FUA is fine-grained. Instead of forcing the disk to flush its _entire_ cache (which `fsync` does), FUA only forces the specific block of data you are currently writing.
+
+Starting with MariaDB 10.6, the way InnoDB handles flushing changed significantly. See [this section](innodb-flush-method.md#behavior-change-in-mariadb-10.6) for details.
+
+FUA can be detrimental for data file write performance, but beneficial for log writes. For the latter, set [`innodb_data_file_write_through`](innodb-system-variables.md#innodb_data_file_write_through) to `OFF` to improve write performance.
+
+[^1]: Forced Unit Access (FUA) is a feature in storage systems that ensures data is written directly to stable, non-volatile storage before a write command is acknowledged as complete.\
     It is implemented as a flag in I/O commands, such as SCSI and SATA commands, and is used to bypass the device's write cache, guaranteeing that data is physically written to the storage medium.\
     When the FUA bit is set to 1, the storage device must complete the write operation to the physical media before returning a "good" status, ensuring data durability even in the event of a power failure.
 
