@@ -7,4 +7,3 @@ description: >-
 
 # MariaDB Connector/C API Prepared Statement Functions
 
-{% @marketo/form formId="4316" %}
