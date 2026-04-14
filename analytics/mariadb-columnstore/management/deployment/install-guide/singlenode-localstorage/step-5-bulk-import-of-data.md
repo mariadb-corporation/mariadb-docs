@@ -53,7 +53,7 @@ $ sudo cpimport -s '\t' inventory products /tmp/inventory-products.tsv
 
 ### LOAD DATA INFILE
 
-When data is loaded with the [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement, MariaDB Enterprise ColumnStore loads the data using [cpimport](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/data-import-with-mariadb-enterprise-columnstore/mariadb-enterprise-columnstore-data-loading-with-cpimport), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+When data is loaded with the [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement, MariaDB Enterprise ColumnStore loads the data using `cpimport`, which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a TSV (tab-separated values) file, on the primary server use [LOAD DATA INFILE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile) statement:
 
