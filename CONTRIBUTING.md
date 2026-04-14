@@ -23,13 +23,13 @@ When you submit a Pull Request, a GitHub Action automatically scans your changes
 
 ### How to Use Aliases
 
-Instead of using a full internal URL, use the following syntax: [Link Text]({alias}/path/to/page)
+Instead of using a full internal URL, use the following syntax: `[Link Text]({alias}/path/to/page)`
 
 Example:
 
-You write: [Securing Communications](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
+You write: `[Securing Communications]({Galera Cluster}/galera-security/securing-communications-in-galera-cluster)`
 
-The Bot expands it to: [Securing Communications](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
+The Bot expands it to: `[Securing Communications](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)`
 
 ### Available Aliases
 
