@@ -63,10 +63,10 @@ INSERT INTO gis_point VALUES
     (PointFromText('POINT(20 10)')),
     (PointFromText('POINT(20 20)')),
     (PointFromWKB(AsWKB(PointFromText('POINT(10 20)'))));
-<</sql>>
+```
 
-=== [[linestring|LINESTRING]]
-<<code lang=sql inline=false wrap=true>>
+### [LINESTRING](../../sql-statements/geometry-constructors/geometry-constructors/linestring.md)
+```sql
 CREATE TABLE gis_line  (g LINESTRING);
 SHOW FIELDS FROM gis_line;
 INSERT INTO gis_line VALUES
