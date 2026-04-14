@@ -4,11 +4,15 @@ Performing schema changes (i.e., Data Definition Language or DDL statements like
 
 MariaDB Galera Cluster provides two methods for handling schema upgrades:
 
-| Method                        | Description                                                                                                                                                                                              |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Total Order Isolation (TOI)   | Default and safest method. The DDL statement is replicated to all nodes, blocking the entire cluster until all preceding transactions complete.                                                          |
-| Rolling Schema Upgrade (RSU)  | Advanced, non-blocking method. The DDL is executed on the local node, with changes applied manually to each node in sequence, keeping the cluster online.                                                |
-| Non-Blocking Operations (NBO) | Enterprise grade non-blocking method. The DDL replicates to all nodes in total order, using an efficient locking strategy that only blocks the specific table being altered, keeping the cluster online. |
+| Method                                     | Description                                                                                                                                                                                              |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Total Order Isolation (TOI)                | Default and safest method. The DDL statement is replicated to all nodes, blocking the entire cluster until all preceding transactions complete.                                                          |
+| Rolling Schema Upgrade (RSU)               | Advanced, non-blocking method. The DDL is executed on the local node, with changes applied manually to each node in sequence, keeping the cluster online.                                                |
+| Non-Blocking Operations (NBO)<sup>\*</sup> | Enterprise grade non-blocking method. The DDL replicates to all nodes in total order, using an efficient locking strategy that only blocks the specific table being altered, keeping the cluster online. |
+
+{% hint style="info" %}
+<sup>\*Only available for MariaDB Enterprise Server</sup>&#x20;
+{% endhint %}
 
 The method used is controlled by the `wsrep_OSU_method` [session variable](../../reference/galera-cluster-system-variables.md#wsrep_osu_method).
 
@@ -84,6 +88,10 @@ RSU is the best method for:
 It requires careful planning and a good understanding of your application's queries to ensure that no replication errors occur during the upgrade process.
 
 ## Non-Blocking Operations (NBO)
+
+{% hint style="info" %}
+Non-Blocking Operations is exclusive to MariaDB Enterprise Server.&#x20;
+{% endhint %}
 
 Non-Blocking Operations is an advanced, non-blocking method (`wsrep_OSU_method = 'NBO'`) that replicates schema changes automatically across the cluster while significantly reducing the impact on cluster availability.
 
