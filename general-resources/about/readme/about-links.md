@@ -12,6 +12,16 @@ There are three types of links in the MariaDB docs: [external](about-links.md#ex
 
 See [About Spaces](about-links.md#about-spaces) for information on what Spaces are.
 
+{% hint style="info" %}
+Both relative and space **links require the `.md` extension** when linking to a page.
+
+For instance, to create a link pointing to the [About MariaDB](../about-mariadb.md) page from this page, you write:
+
+```
+../about/about-mariadb.md
+```
+{% endhint %}
+
 ## About Spaces
 
 In GitBook (our documentation system), _**Spaces**_ are the main sections of the site you see along the top of every docs page:
