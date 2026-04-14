@@ -1649,7 +1649,11 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Memory_used`
 
-* Description: Global or per-connection memory usage, in bytes. This includes all per-connection memory allocations, and as of [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-16-release-notes) includes global allocations such as the key\_buffer, innodb\_buffer\_pool etc (which were excluded before MariaDB 10.6.16).
+{% hint style="info" %}
+`Memory_used` now encompasses `Innodb_buffer_pool_bytes_data` rather than reporting them as separate pools.
+{% endhint %}
+
+* Description: Memory used by the server (Global scope) or the current connection (Session scope), in bytes. Since [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), Global scope includes major buffers ([InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md), [MyISAM key buffer](../../../server-usage/storage-engines/myisam-storage-engine/myisam-overview.md), and [Aria page cache](../../../security/encryption/data-at-rest-encryption/aria-encryption/)) that were previously excluded.&#x20;
 * Scope: Global, Session
 * Data Type: `numeric`
 
