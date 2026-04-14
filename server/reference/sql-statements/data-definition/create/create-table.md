@@ -24,7 +24,7 @@ CREATE [OR REPLACE] [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
 
 Use the `CREATE TABLE` statement to create a table with the given name.
 
-In its most basic form, the `CREATE TABLE` statement provides a table name followed by a list of columns, indexes, and constraints. By default, the table is created in the default database. Specify a database with `db_name.tbl_name`. If you quote the table name, you must quote the database name and table name separately as `` `db_name`.`tbl_name` ``. This is particularly useful for [CREATE TABLE ... SELECT](create-table.md#create-table-select), because it allows to create a table into a database, which contains data from other databases. See [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md).
+In its most basic form, the `CREATE TABLE` statement provides a table name followed by a list of columns, indexes, and constraints. By default, the table is created in the default database. Specify a database with `db_name.tbl_name`. If you quote the table name, you must quote the database name and table name separately as `` `db_name`.`tbl_name` ``. This is particularly useful for [CREATE TABLE ... SELECT](create-table.md#create-table-...-select), because it allows creating a table in a database that contains data from other databases. See [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md).
 
 If a table with the same name exists, error 1050 results. Use [IF NOT EXISTS](create-table.md#create-table-if-not-exists) to suppress this error and issue a note instead. Use [SHOW WARNINGS](../../administrative-sql-statements/show/show-warnings.md) to see notes.
 
@@ -33,10 +33,10 @@ The `CREATE TABLE` statement automatically commits the current transaction, exce
 For valid identifiers to use as table names, see [Identifier Names](../../../sql-structure/sql-language-structure/identifier-names.md).
 
 {% hint style="info" %}
-If the `default_storage_engine` is set to `ColumnStore` , it needs setting on all UMs. Otherwise when the tables using the default engine are replicated across UMs, they will use the wrong engine. You should therefore not use this option as a session variable with ColumnStore.
+If the `default_storage_engine` is set to `ColumnStore`, it needs to be set on all UMs. Otherwise, when the tables using the default engine are replicated across UMs, they will use the wrong engine. You should therefore not use this option as a session variable with ColumnStore.
 {% endhint %}
 
-[Microsecond precision](../../../sql-functions/date-time-functions/microseconds-in-mariadb.md) can be between 0-6. If no precision is specified it is assumed to be 0, for backward compatibility reasons.
+[Microsecond precision](../../../sql-functions/date-time-functions/microseconds-in-mariadb.md) can be between 0-6. If no precision is specified, it is assumed to be 0, for backward compatibility reasons.
 
 ## Privileges
 
@@ -61,14 +61,14 @@ CREATE TABLE TABLE_NAME (a INT);
 
 with the following exceptions:
 
-* If `table_name` was locked with [LOCK TABLES](../../transactions/lock-tables.md) it will continue to be locked after the statement.
+* If `table_name` was locked with [LOCK TABLES](../../transactions/lock-tables.md), it will continue to be locked after the statement.
 * Temporary tables are only dropped if the `TEMPORARY` keyword was used. (With [DROP TABLE](../drop/drop-table.md), temporary tables are preferred to be dropped before normal tables).
 
 ### Things to be Aware of With CREATE OR REPLACE
 
-* The table is dropped first (if it existed), after that the `CREATE` is done. Because of this, if the `CREATE` fails, then the table will not exist anymore after the statement. If the table was used with `LOCK TABLES` it will be unlocked.
+* The table is dropped first (if it existed), and after that, the `CREATE` is done. Because of this, if the `CREATE` fails, then the table will not exist anymore after the statement. If the table was used with `LOCK TABLES`, it will be unlocked.
 * One can't use `OR REPLACE` together with `IF EXISTS`.
-* [Replicas](../../../../ha-and-performance/standard-replication/) will by default use `CREATE OR REPLACE` when replicating `CREATE` statements that don''t use `IF EXISTS`. This can be changed by setting the variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
+* [Replicas](../../../../ha-and-performance/standard-replication/) will, by default, use `CREATE OR REPLACE` when replicating `CREATE` statements that don't use `IF EXISTS`. This can be changed by setting the variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
 
 ## CREATE TABLE IF NOT EXISTS
 
@@ -76,11 +76,11 @@ If the `IF NOT EXISTS` clause is used, then the table will only be created if a 
 
 ## CREATE TEMPORARY TABLE
 
-Use the `TEMPORARY` keyword to create a temporary table that is only available to the current session. Temporary tables are dropped when the session ends. Temporary table names are specific to the session. They will not conflict with other temporary tables from other sessions even if they share the same name. They will shadow names of non-temporary tables or views, if they are identical. A temporary table can have the same name as a non-temporary table which is located in the same database. In that case, their name will reference the temporary table when used in SQL statements. You must have the [CREATE TEMPORARY TABLES](../../account-management-sql-statements/grant.md#database-privileges) privilege on the database to create temporary tables. If no storage engine is specified, the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) setting will determine the engine.
+Use the `TEMPORARY` keyword to create a temporary table that is only available to the current session. Temporary tables are dropped when the session ends. Temporary table names are specific to the session. They will not conflict with other temporary tables from other sessions, even if they share the same name. They will shadow names of non-temporary tables or views, if they are identical. A temporary table can have the same name as a non-temporary table, which is located in the same database. In that case, their name will reference the temporary table when used in SQL statements. You must have the [CREATE TEMPORARY TABLES](../../account-management-sql-statements/grant.md#database-privileges) privilege on the database to create temporary tables. If no storage engine is specified, the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) setting will determine the engine.
 
 {% tabs %}
 {% tab title="Current" %}
-[ROCKSDB](../../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created by setting the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable, or using `CREATE TEMPORARY TABLE LIKE`. If you try, an error is returned. Explicitly creating a temporary table with `ENGINE=ROCKSDB` has never been permitted.
+[ROCKSDB](../../../../server-usage/storage-engines/myrocks/) temporary tables cannot be created by setting the [default\_tmp\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_tmp_storage_engine) system variable or using `CREATE TEMPORARY TABLE LIKE`. If you try, an error is returned. Explicitly creating a temporary table with `ENGINE=ROCKSDB` has never been permitted.
 {% endtab %}
 
 {% tab title="< 10.7" %}
@@ -150,15 +150,15 @@ CREATE TABLE test (a INT NOT NULL, b CHAR(10)) ENGINE=MyISAM
     SELECT 5 AS b, c, d FROM another_table;
 ```
 
-Remember that the query just returns data. If you want to use the same indexes, or the same columns attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`, `CHECK` constraints) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data returned by the `SELECT` requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to force the new table to use certain types.
+Remember that the query just returns data. If you want to use the same indexes or the same column attributes (`[NOT] NULL`, `DEFAULT`, `AUTO_INCREMENT`, `CHECK` constraints) in the new table, you need to specify them manually. Types and sizes are not automatically preserved if no data is returned by the `SELECT` that requires the full size, and `VARCHAR` could be converted into `CHAR`. The [CAST()](../../../sql-functions/string-functions/cast.md) function can be used to force the new table to use certain types.
 
-Aliases (`AS`) are taken into account, and they should always be used when you `SELECT` an expression (function, arithmetical operation, etc).
+Aliases (`AS`) are taken into account, and they should always be used when you `SELECT` an expression (function, arithmetical operation, etc.).
 
 If an error occurs during the query, the table will not be created at all.
 
-If the new table has a primary key or `UNIQUE` indexes, you can use the [IGNORE](../../data-manipulation/inserting-loading-data/ignore.md) or `REPLACE` keywords to handle duplicate key errors during the query. `IGNORE` means that the newer values must not be inserted an identical value exists in the index. `REPLACE` means that older values must be overwritten.
+If the new table has a primary key or `UNIQUE` indexes, you can use the [IGNORE](../../data-manipulation/inserting-loading-data/ignore.md) or `REPLACE` keywords to handle duplicate key errors during the query. `IGNORE` means that the newer values must not be inserted if an identical value exists in the index. `REPLACE` means that older values must be overwritten.
 
-If the columns in the new table are more than the rows returned by the query, the columns populated by the query will be placed after other columns. Note that if the strict `SQL_MODE` is on, and the columns that are not names in the query do not have a `DEFAULT` value, an error will raise and no rows will be copied.
+If the columns in the new table are more than the rows returned by the query, the columns populated by the query will be placed after the other columns. Note that if the strict `SQL_MODE` is on, and the columns that are not named in the query do not have a `DEFAULT` value, an error will be raised and no rows will be copied.
 
 [Concurrent inserts](../../data-manipulation/inserting-loading-data/concurrent-inserts.md) are not used during the execution of a `CREATE ... SELECT`.
 
@@ -168,7 +168,7 @@ If the table already exists, an error similar to the following will be returned:
 ERROR 1050 (42S01): Table 't' already exists
 ```
 
-If the `IF NOT EXISTS` clause is used and the table exists, a note will be produced instead of an error.
+If the `IF NOT EXISTS` clause is used, and the table exists, a note will be produced instead of an error.
 
 To insert rows from a query into an existing table, [INSERT ... SELECT](../../data-manipulation/inserting-loading-data/insert-select.md) can be used.
 
@@ -218,7 +218,7 @@ CREATE TABLE b(for_key INT REFERENCES a(not_key));
 {% endtab %}
 {% endtabs %}
 
-Each definition either creates a column in the table or specifies and index or constraint on one or more columns. See [Indexes](create-table.md#indexes) below for details on creating indexes.
+Each definition either creates a column in the table or specifies an index or constraint on one or more columns. See [Indexes](create-table.md#index-definitions) below for details on creating indexes.
 
 Create a column by specifying a column name and a data type, optionally followed by column options. See [Data Types](../../../data-types/) for a full list of data types allowed in MariaDB.
 
