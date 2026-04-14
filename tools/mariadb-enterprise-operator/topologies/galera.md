@@ -112,7 +112,7 @@ The `minClusterSize` field indicates the minimum cluster size (either absolute n
 
 The operator monitors the Galera cluster health periodically and performs the cluster recovery described above if needed. You are able to tune the monitoring interval via the `clusterMonitorInterval` field.
 
-Refer to the [API reference](api-reference.md) to better understand the purpose of each field.
+Refer to the [API reference](../api-reference.md) to better understand the purpose of each field.
 
 #### Galera recovery `Job`
 
