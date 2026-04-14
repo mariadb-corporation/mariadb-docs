@@ -26,7 +26,7 @@ Before data can be imported into the tables, create a matching schema.
 CREATE DATABASE inventory;
 ```
 
-2. For each table that you are importing, create the table with the [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) statement:
+2. For each table that you are importing, create the table with the [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) statement:
 
 ```sql
 CREATE TABLE inventory.products (
@@ -43,9 +43,9 @@ Enterprise ColumnStore supports multiple methods to import data into ColumnStore
 
 ### cpimport
 
-MariaDB Enterprise ColumnStore includes [cpimport](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/data-import-with-mariadb-enterprise-columnstore/mariadb-enterprise-columnstore-data-loading-with-cpimport), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore includes [cpimport](../../../../clients-and-tools/data-import/mariadb-enterprise-columnstore-data-loading-with-cpimport.md), which is a command-line utility designed to efficiently load data in bulk. Alternative methods are available.
 
-To import your data from a TSV (tab-separated values) file, on the primary server run [cpimport](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/data-import-with-mariadb-enterprise-columnstore/mariadb-enterprise-columnstore-data-loading-with-cpimport):
+To import your data from a TSV (tab-separated values) file, on the primary server run `cpimport`:
 
 ```bash
 $ sudo cpimport -s '\t' inventory products /tmp/inventory-products.tsv
@@ -64,7 +64,7 @@ INTO TABLE inventory.products;
 
 ### Import from Remote Database
 
-MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) statement, and then pipe the results into [cpimport](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/data-import-with-mariadb-enterprise-columnstore/mariadb-enterprise-columnstore-data-loading-with-cpimport), which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
+MariaDB Enterprise ColumnStore can also import data directly from a remote database. A simple method is to query the table using the [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) statement, and then pipe the results into `cpimport`, which is a command-line utility that is designed to efficiently load data in bulk. Alternative methods are available.
 
 To import your data from a remote MariaDB database:
 
