@@ -21,6 +21,7 @@ SHOW GLOBAL VARIABLES LIKE 'server_audit%';
 | server_audit_file_buffer_size | 0                     |
 | ...                           | ...                   |
 | server_audit_syslog_priority  | LOG_INFO              |
+| server_audit_timestamp_format | %Y%m%d %H:%i:%s       |
 +-------------------------------+-----------------------+
 ```
 
@@ -223,6 +224,15 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 * Data type: `enum`
 * Default value: `LOG_INFO`
 * Valid values:`LOG_EMERG`, `LOG_ALERT`, `LOG_CRIT`, `LOG_ERR`, `LOG_WARNING`, `LOG_NOTICE`, `LOG_INFO`, `LOG_DEBUG`
+
+#### `server_audit_timestamp_format`
+
+* Description: A format string used to print the timestamp into the audit log messages. The format used is the same as [DATE_FORMAT](../../sql-functions/date-time-functions/date_format).
+* Command line: `--server-audit-timestamp-format=value`
+* Scope: Global
+* Dynamic: Yes
+* Data type: `string`
+* Default value: `%Y%m%d %H:%i:%s`
 
 ## Notes on System Variables
 
