@@ -18,7 +18,7 @@ Both relative and space **links require the `.md` extension** when linking to a 
 For instance, to create a link pointing to the [About MariaDB](../about-mariadb.md) page from this page, you write:
 
 ```
-../about/about-mariadb.md
+[About MariaDB](../about/about-mariadb.md)
 ```
 {% endhint %}
 
