@@ -345,13 +345,11 @@ Even with careful preparation, migrations can encounter specific hurdles. Here a
 
 ### Common Troubleshooting Scenarios
 
-| Issue                                       | Likely Cause                      | Resolution                                                                                                                                                                      |
-| ------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "Access denied" for `root` after migration. | Authentication plugin mismatch.   | MySQL 8.0 `root` users often use `caching_sha2_password`. In MariaDB, use `ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('your_password');` |
-| "Unknown system variable" on startup.       | MySQL-only variables in `my.cnf`. | Run `mariadb-cfg-upgrade-helper` to identify legacy variables. Common culprits: `innodb_log_file_size` (now dynamic) or removed SSL variables.                                  |
-| "Table 'mysql.user' doesn't exist"          | Missing `mariadb-upgrade` step.   | The system tables must be converted. Run `sudo mariadb-upgrade -u root -p` immediately after starting the service.                                                              |
-| Replication fails with "relay log" errors.  | GTID Incompatibility.             | MariaDB cannot use MySQL GTIDs. You must switch to position-based replication (File and Position) to link the two systems.                                                      |
-| Slow queries after migration.               | Outdated optimizer statistics.    | MariaDB's optimizer needs fresh data. Run `ANALYZE TABLE` on all large tables or use `mariadb-admin analyze`.                                                                   |
+| Issue                                      | Likely Cause                    | Resolution                                                                                                                 |
+| ------------------------------------------ | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| "Table 'mysql.user' doesn't exist"         | Missing `mariadb-upgrade` step. | The system tables must be converted. Run `sudo mariadb-upgrade -u root -p` immediately after starting the service.         |
+| Replication fails with "relay log" errors. | GTID Incompatibility.           | MariaDB cannot use MySQL GTIDs. You must switch to position-based replication (File and Position) to link the two systems. |
+| Slow queries after migration.              | Outdated optimizer statistics.  | MariaDB's optimizer needs fresh data. Run `ANALYZE TABLE` on all large tables or use `mariadb-admin analyze`.              |
 
 ## Frequently Asked Questions
 
@@ -359,9 +357,9 @@ Q: Can I go back to MySQL if the MariaDB migration fails? A: Yes, provided you t
 
 Q: Do I need to change my application's client libraries? A: Usually, no. MariaDB is protocol-compatible with MySQL. Your existing MySQL connectors (JDBC, PHP PDO, Python mysqlclient) will continue to work. However, for the best performance and features (like IAM authentication), switching to the [official MariaDB Connectors](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L/) is recommended.
 
-Q: What about the JSON data type? A: Your `JSON` columns will be treated as `LONGTEXT` with a `CHECK` constraint. Your queries using `JSON_EXTRACT()` or the `->` operator will continue to work exactly as they did in MySQL.
+Q: What about the JSON data type? A: Your `JSON` columns will be treated as `LONGTEXT` with a `CHECK` constraint. Your queries using `JSON_EXTRACT()` will continue to work exactly as they did in MySQL.
 
-Q: Is MariaDB 11.4 compatible with MySQL 8.4? A: Yes, for standard SQL and data. However, MySQL 8.4 removed many "legacy" behaviors that MariaDB still supports. If your app relies on those removed features, MariaDB is actually a _more_ compatible home for your code than MySQL 8.4.
+Q: Is MariaDB 11.4 compatible with MySQL 8.4? A: Yes, for standard SQL and data. However, MySQL 8.4 removed many "legacy" behaviors that MariaDB still supports.
 
 Q: Can I perform an in-place upgrade (binary swap)? A: No. MariaDB stores metadata (table structures etc.) in individual `.frm` files. In contrast, MySQL removed `.frm` files in MySQL 8.0, replacing it with a global data dictionary. If you stop a MySQL 8.0/8.4 server and point MariaDB binaries at that data directory, MariaDB will look for `.frm` files to understand what tables exist. Since those files no longer exist in MySQL 8.0+, MariaDB will see an "empty" data directory or throw critical errors. It has no way to read MySQL's new internal dictionary tables.
 
