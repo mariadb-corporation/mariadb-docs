@@ -66,6 +66,47 @@ In this URI, the space name is _`server`_ and the _`path`_, if you were creating
 
 To convert that into a space link we need to get the Server space identifier and combine it with the path. Rather than list out just the identifiers for our spaces, we have a [List of Space Prefixes](about-links.md#list-of-space-prefixes) that you can copy from when creating space links.
 
+### Space Link Aliases
+
+Space link prefixes are hard to memorize. To make it easier for contributors, a GitHub Action is available that runs automatically on commit. That functionality allows to use space _aliases_ instead of _prefixes_. For instance, to place a link to a page in the _server_ space from, say, the _release-notes_ space, you can write this:
+
+{% code overflow="wrap" %}
+```
+{server}/mariadb-quickstart-guides/installing-mariadb-server-guide.md
+```
+{% endcode %}
+
+On commit, this will be expanded to this:
+
+{% code overflow="wrap" %}
+```
+https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/installing-mariadb-server-guide.md
+```
+{% endcode %}
+
+These space link aliases are available:
+
+* `{platform}`
+* `{server}`
+* `{maxscale}`
+* `{analytics}`
+* `{galera}`
+* `{connectors}`
+* `{tools}`
+* `{mariadb-cloud}`
+* `{release-notes}`
+* `{general-resources}`
+
+{% hint style="info" %}
+**Remember to use space link aliases only for links across spaces.**
+
+When linking to a page in the same space, use [relative links](about-links.md#relative-links).
+{% endhint %}
+
+### Space Link Prefixes
+
+Instead of using space link aliases, you can use "regular" GitBook link prefixes. That's harder than using link aliases, because they're hard to memorize. Therefore, using link aliases is recommended.
+
 Continuing with our example, a full space link in Markdown for the [Securing MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb) page is: _`space prefix`_ (for the Server space) + _`path`_:
 
 ```markdown
