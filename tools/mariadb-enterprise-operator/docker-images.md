@@ -87,8 +87,9 @@ The following section provides information how to fetch the SBOMs for the MariaD
 
 - **Make sure to login to `docker.mariadb.com`**
   ```bash
-  docker login docker.mariadb.com --username $USERNAME --password $CUSTOMER_DOWNLOAD_TOKEN
+  docker login docker.mariadb.com --username $USERNAME
   ```
+  - You'll be asked for the password. Please enter your [Customer Download Token](./customer-access-to-docker-mariadb-com.md)
 
 ### Step 1: Discover Attestations
 

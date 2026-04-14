@@ -26,7 +26,7 @@ spec:
 
 This relies on sensible defaults set by the operator, which may not be suitable for your Kubernetes cluster. This can be solved by overriding the defaults, so you have fine-grained control over the Galera configuration.
 
-Refer to the [API reference](api-reference.md) to better understand the purpose of each field.
+Refer to the [API reference](../api-reference.md) to better understand the purpose of each field.
 
 ## Storage
 
