@@ -35,8 +35,12 @@ The insert cache is disabled by default, but it can be enabled by configuring `c
 ```ini
 [mariadb]
 ...
-columnstore_cache_inserts=ON\
+loose-columnstore_cache_inserts=ON
 ```
+
+{% hint style="warning" %}
+The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
+{% endhint %}
 
 The cache is flushed to ColumnStore in the following scenarios:
 

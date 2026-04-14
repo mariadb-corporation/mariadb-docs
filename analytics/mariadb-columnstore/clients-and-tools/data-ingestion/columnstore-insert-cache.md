@@ -93,8 +93,12 @@ columnstore_cache_inserts
 
 ```
 [mariadb]
-columnstore_cache_inserts=ON
+loose-columnstore_cache_inserts=ON
 ```
+
+{% hint style="warning" %}
+The `loose-` prefix is required for ColumnStore system variables in the configuration file. Without it, MariaDB Server will fail to start if the ColumnStore plugin is not installed or has been removed.
+{% endhint %}
 
 2. After modifying the setting, restart the MariaDB server.
 3. Once the server is restarted, verify the setting with:
@@ -242,4 +246,3 @@ The insert cache feature has certain limitations, including:
 * [System Variables Reference](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables)
 * [Aria Storage Engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/aria/aria-storage-engine)
 * [ColumnStore System Variables](../../management/columnstore-system-variables.md)
-
