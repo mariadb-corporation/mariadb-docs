@@ -13,9 +13,9 @@ A write-heavy workload consists of:
 
 This feature was originally developed for [Hybrid Transactional/Analytical Processing (HTAP)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/architecture/topologies/htap) deployments, in which an InnoDB primary replicates to a ColumnStore replica (including single- and multi-node deployments), allowing the ColumnStore replica to maintain with the InnoDB primary's high insert rates.
 
-This insert cache feature is not limited to HTAP environments; it can also be enabled in standalone ColumnStore deployments.&#x20;
+This insert cache feature is not limited to HTAP environments; it can also be enabled in standalone ColumnStore deployments.
 
-By default, the insert cache is disabled. When enabled, the insert cache significantly improves insert throughput.&#x20;
+By default, the insert cache is disabled. When enabled, the insert cache significantly improves insert throughput.
 
 ## Purpose
 
@@ -35,12 +35,12 @@ When this feature is enabled, the performance of the following types of inserts 
 
 *   Single-row INSERT statements<br>
 
-    ```
+    ```sql
     INSERT INTO t1 VALUES ();
     ```
 *   Multi-row INSERT statements<br>
 
-    ```
+    ```sql
     INSERT INTO t1 VALUES (), ();
     ```
 * `LOAD DATA INFILE` statements
@@ -91,7 +91,7 @@ columnstore_cache_inserts
 
 1. To enable the insert cache, add the following to your MariaDB configuration file:
 
-```
+```ini
 [mariadb]
 loose-columnstore_cache_inserts=ON
 ```
@@ -103,7 +103,7 @@ The `loose-` prefix is required for ColumnStore system variables in the configur
 2. After modifying the setting, restart the MariaDB server.
 3. Once the server is restarted, verify the setting with:
 
-```
+```sql
 SHOW VARIABLES LIKE 'columnstore_cache_inserts';
 ```
 
@@ -169,7 +169,7 @@ DBAs should evaluate workload characteristics before enabling this option.
 **Default:** 500000\
 **Description**: Maximum number of rows to cache before automatic flush
 
-#### `columnstore_cache_use_import`&#x20;
+#### `columnstore_cache_use_import`
 
 **Scope:** Global\
 **Default:** OFF\
