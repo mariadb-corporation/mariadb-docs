@@ -27,7 +27,8 @@ It contains the following columns:
 | READ\_ONLY              | Whether a variable can be set with the SQL statement. Note that many "read only" variables can still be set on the command line.                                                                                                            |
 | COMMAND\_LINE\_ARGUMENT | Whether an argument is required when setting the variable on the command line. `NULL` when a variable can not be set on the command line.                                                                                                   |
 | GLOBAL\_VALUE\_PATH     | Which config file the variable got its value from. `NULL` if not set in any config file.                                                                                                                                                    |
-| IS\_DEPRECATED          | Used to identify deprecated variables in the server configuration (in an option file or on the command line). See [the example below](information-schema-system_variables-table.md#show-deprecated-variables). Available from MariaDB 13.0. |
+| IS\_DEPRECATED          | Used to identify deprecated variables in the server configuration (in an option file or on the command line). Available from MariaDB 13.0. |
+
 | DEPRECATED\_REPLACEMENT | The replacement of a deprecated variable. If `NULL`, there is no replacement. Available from MariaDB 13.0.                                                                                                                                  |
 
 ## Examples
@@ -52,9 +53,10 @@ SELECT * FROM information_schema.SYSTEM_VARIABLES
       ENUM_VALUE_LIST: NULL
             READ_ONLY: NO
 COMMAND_LINE_ARGUMENT: REQUIRED
+        IS_DEPRECATED: NO
 ```
 
-### Show Deprecated Variables
+### Show Deprecated Variables That are set in the Configuration File
 
 This query shows variables used in your server deployment that are deprecated:
 
@@ -62,16 +64,8 @@ This query shows variables used in your server deployment that are deprecated:
 ```sql
 SELECT VARIABLE_NAME, GLOBAL_VALUE, DEFAULT_VALUE 
  FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES 
- WHERE GLOBAL_VALUE_ORIGIN IN('CONFIG', 'SQL', 'COMPILE-TIME') 
- AND GLOBAL_VALUE != DEFAULT_VALUE 
- AND IS_DEPRECATED = 'YES';
-```
-{% endcode %}
-
-Possible output:
-
-{% code overflow="wrap" %}
-```
+ WHERE GLOBAL_VALUE_ORIGIN='CONFIG' AND IS_DEPRECATED = 'YES';
+ -- Possible output
 +-----------------------+--------------+---------------+
 | VARIABLE_NAME         | GLOBAL_VALUE | DEFAULT_VALUE |
 +-----------------------+--------------+---------------+
