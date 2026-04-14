@@ -82,6 +82,16 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `boolean`
 * Default Value: `OFF` (>= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)), `ON` (<= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104))
 
+#### **`innodb_adaptive_hash_index_cells`**
+
+* Description: Further improves the performance of the InnoDB adaptive hash index (AHI) when `innodb_adaptive_hash_index` is enabled. This variable allows for manual configuration of the hash table size to resolve contention on the `btr_sea::partition::latch` during high-concurrency workloads. The specified value is effectively multiplied by the number of partitions defined in `innodb_adaptive_hash_index_parts`, as each partition maintains its own hash table. Increasing this value can reduce the length of hash bucket chains, which helps avoid performance "hiccups" and "avalanche effects" caused by multiple threads spinning for AHI lookups.
+* Command line: `--innodb-adaptive-hash-index-cells=#`
+* Scope: Global&#x20;
+* Dynamic: Yes&#x20;
+* Data Type: `numeric`
+* Default Value: `134217728`
+* Introduced: [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/11.8/11.8.4), [MariaDB 12.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.1/12.1.2), [MariaDB 12.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.2/12.2.1)&#x20;
+
 #### `innodb_adaptive_hash_index_partitions`
 
 * Description: Specifies the number of partitions for use in adaptive searching. If set to `1`, no extra partitions are created. XtraDB-only. From [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB), this is an alias for [innodb\_adaptive\_hash\_index\_parts](innodb-system-variables.md#innodb_adaptive_hash_index_parts) to allow for easier upgrades.
@@ -1681,25 +1691,10 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
 * Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
 
-<!--
-
-#### `innodb_log_archive`
-
-* Description: Whether or not [XtraDB redo log](innodb-redo-log.md) archiving is enabled. XtraDB only. Added as a deprecated and ignored option in [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6) (which uses InnoDB as default instead of XtraDB) to allow for easier upgrades.
-* Command line: `--innodb-log-archive={0|1}`
-* Scope: Global
-* Dynamic: Yes
-* Data Type: `boolean`
-* Default Value: `OFF`
-* Deprecated: [MariaDB 10.2.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.6)
-* Removed: [MariaDB 10.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.0)
-
--->
-
 #### `innodb_log_archive`
 
 * Description: Controls the InnoDB log archiving feature. When set to `ON`, the InnoDB write-ahead log is not only written to the circular ring buffer (`ib_logfile0`) but also saved into sequential archive files. This ensures a continuous log stream is available, which is necessary for point-in-time recovery and incremental backups.
-* Details:&#x20;
+* Details:
   * File Naming: Archive files use the naming convention `ib_`_`lsn`_`.log`, where _lsn_ is a 16-character hexadecimal representation of the Log Sequence Number (LSN) at offset 12288 (0x3000) of the file.
   * Log Resizing: When archiving is enabled, changes to `innodb_log_file_size` occur when the current log file is filled and a new file is allocated. This differs from the standard resizing logic used when `innodb_log_archive` is `OFF`.
   * Size Constraint: To maintain compatibility with 32-bit offsets in the archive headers, [`innodb_log_file_size`](innodb-system-variables.md#innodb_log_file_size) is restricted to a maximum of 4G when archiving is active.
@@ -1707,7 +1702,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * Data Dictionary: Note that this feature tracks InnoDB changes only. It does not cover `.frm` files or other non-InnoDB metadata.
 * Dynamic: Yes
 * Data Type: `boolean`
-* Default Value: `OFF`&#x20;
+* Default Value: `OFF`
 * Introduced: MariaDB 13.0
 
 #### `innodb_log_block_size`
@@ -1870,7 +1865,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Usage: Set this variable to limit the scope of a recovery operation. By specifying a starting _lsn_, you can avoid replaying archived logs from the beginning of the archive chain. This is typically used in conjunction with a known backup state. The server expects to find an optional sequence of `FILE_MODIFY` records and a `FILE_CHECKPOINT` record at the specified _lsn_.
 * Property: Set at startup
 * Data Type: `numeric` (64-bit unsigned integer)
-* Default Value: `0`&#x20;
+* Default Value: `0`
 * Introduced: MariaDB 13.0
 
 #### `innodb_log_recovery_target`
