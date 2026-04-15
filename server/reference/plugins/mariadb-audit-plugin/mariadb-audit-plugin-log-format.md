@@ -17,35 +17,12 @@ Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<
 
 | Field | Component      | Data Type      | Standardized Name / Description                                                                                                              |
 | ----- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or [as described below](mariadb-audit-plugin-log-format.md#milliseconds-precision-timestamps). |
+| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or as specified in [server_audit_timestamp_format](mariadb-audit-plugin-options-and-system-variables.md#server_audit_timestamp_format). |
 | 2     | `serverhost`   | `String`       | Hostname of the originating server.                                                                                                          |
 | 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                           |
 | 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query, used to correlate `QUERY` and `TABLE` events.                                                    |
 | 7     | `operation`    | `String`       | Action type (e.g., `CONNECT`, `QUERY`, `READ`, `WRITE`).                                                                                     |
 | 10    | `retcode`      | `Integer`      | Result code (`0` for success).                                                                                                               |
-
-#### Milliseconds Precision Timestamps
-
-{% hint style="info" %}
-This feature is available from MariaDB 13.0.
-{% endhint %}
-
-Auditing regulations and standards require auditing logs with timestamps recording fractions of a second and timezone information. To fulfill this requirement, MariaDB Enterprise Audit uses the system log (syslog) via the [server\_audit\_output\_type](mariadb-audit-plugin-options-and-system-variables.md#server_audit_output_type) option, where the timestamp format is controlled by the syslog setting.&#x20;
-
-To define the format of the timestamp:
-
-* Configure `server_audit_output_type=file`.&#x20;
-* Change the default setting of `%Y%m%d %H:%i:%s` (which assures compatibility) to something including milliseconds (`%f`) and time zone information (`%z`), like `%Y%m%dT%H:%i:%s.%f%z`.
-
-This results in audit log entries like these:
-
-{% code expandable="true" %}
-```
-# for server_audit_timestamp_format=%Y%m%dT%H:%i:%s.%f%z
-20231207T13:14:28.000000+0100,mdbe106,root,localhost,4,0,CONNECT,,,0
-20231207T13:14:32.481161+0100,mdbe106,root,localhost,4,0,DISCONNECT,,,0
-```
-{% endcode %}
 
 ### Audit Log Format with Syslog
 
