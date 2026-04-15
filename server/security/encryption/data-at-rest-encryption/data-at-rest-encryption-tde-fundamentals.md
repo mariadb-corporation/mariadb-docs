@@ -16,15 +16,15 @@ MariaDB Data-at-Rest Encryption, also known as Transparent Data Encryption (TDE)
 
 ### When Encryption is No Help
 
-* Authorized Access: Users with valid SQL credentials will still see decrypted data; TDE does not replace a robust [User Account Management](https://www.google.com/search?q=/docs/server/security/user-account-management) strategy.
+* Authorized Access: Users with valid SQL credentials will still see decrypted data; TDE does not replace a robust [User Account Management](../../user-account-management/) strategy.
 * Application Vulnerabilities: TDE does not prevent SQL injection or application-level data breaches.
-* Data-in-Transit: This feature only secures stored data. Use [TLS/SSL](https://www.google.com/search?q=/docs/server/security/encryption/data-in-transit-encryption) to secure data moving across the network.
+* Data-in-Transit: This feature only secures stored data. Use [TLS/SSL](../tls-and-cryptography-libraries-used-by-mariadb.md) to secure data moving across the network.
 
 ### Architecture and Lifecycle
 
 MariaDB performs encryption at the I/O layer. This process is "transparent" because applications and queries do not need to be modified to interact with encrypted data.
 
-Once a [Key Management plugin](https://www.google.com/search?q=%23key-management) is configured, encryption occurs automatically whenever MariaDB writes pages to disk, and decryption occurs when data is read back into memory.
+Once a [Key Management plugin](key-management-and-encryption-plugins/) is configured, encryption occurs automatically whenever MariaDB writes pages to disk, and decryption occurs when data is read back into memory.
 
 * Write Path: When MariaDB flushes data from the buffer pool to the disk, the data is encrypted.
 * Read Path: When MariaDB reads data from the disk into memory, it is decrypted.
@@ -34,9 +34,9 @@ Once a [Key Management plugin](https://www.google.com/search?q=%23key-management
 
 MariaDB provides flexible control over what is encrypted, though support and requirements vary by component:
 
-* InnoDB: Fully supported. You can encrypt all tablespaces, individual tables, and the InnoDB redo log. For configuration details, see [InnoDB Encryption](https://www.google.com/search?q=/docs/server/security/encryption/data-at-rest-encryption/innodb-encryption).
-* Aria: Supported only for tables created with `ROW_FORMAT=PAGE` (the default). For configuration details, see [Aria Encryption](https://www.google.com/search?q=/docs/server/security/encryption/data-at-rest-encryption/aria-encryption).
-* Binary Logs: MariaDB can encrypt binary logs and relay logs to protect the replication pipeline. See [Managing Binary Log Encryption](https://www.google.com/search?q=/docs/server/security/encryption/data-at-rest-encryption/managing-binary-log-encryption).
+* InnoDB: Fully supported. You can encrypt all tablespaces, individual tables, and the InnoDB redo log. For configuration details, see [InnoDB Encryption](innodb-encryption/).
+* Aria: Supported only for tables created with `ROW_FORMAT=PAGE` (the default). For configuration details, see [Aria Encryption](aria-encryption/).
+* Binary Logs: MariaDB can encrypt binary logs and relay logs to protect the replication pipeline. See [Managing Binary Log Encryption](managing-binary-log-encryption.md).
 * Temporary Files: Internal on-disk temporary files can be encrypted by setting `encrypt_tmp_files=ON`.
 
 ## Limitations
@@ -50,7 +50,7 @@ The following elements are not encrypted by the MariaDB server:
 
 ## Key Management
 
-Encryption requires a key management and encryption plugin. These plugins are responsible for managing the 32-bit integer key identifiers and performing the cryptographic operations. You must install and configure a [Key Management Plugin](https://www.google.com/search?q=/docs/server/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins) before enabling encryption options for storage engines.
+Encryption requires a key management and encryption plugin. These plugins are responsible for managing the 32-bit integer key identifiers and performing the cryptographic operations. You must install and configure a [Key Management Plugin](key-management-and-encryption-plugins/) before enabling encryption options for storage engines.
 
 ## Disabling Data-at-Rest Encryption
 
