@@ -243,7 +243,10 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 
 #### `binlog_legacy_event_pos`
 
-* Description: Fill in the `end_log_pos` field of _all_ events in the binlog, even when doing so costs performance. Can be used in case some old application needs it for backwards compatibility. Setting this option can hurt binlog scalability.
+*   Description: Fill in the `end_log_pos` field of _all_ events in the binlog, even when doing so costs performance. Can be used in case some old application needs it for backwards compatibility. Setting this option can hurt binlog scalability.\
+    Limitations: Checksums cannot be pre-computed when [binlog encryption](../../security/encryption/data-at-rest-encryption/managing-binary-log-encryption.md) is enabled, because encryption relies on correct `end_log_pos` to provide part of the nonce[^1]/IV[^2].
+
+    Checksum pre-computation is also disabled for [WSREP](../../reference/plugins/mariadb-replication-cluster-plugins/wsrep_provider.md)/[Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), as it uses events differently in its write sets.
 * Command line: `--binlog-legacy-event-pos{=0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -1220,3 +1223,7 @@ For more details, see [CHANGE MASTER TO](../../reference/sql-statements/administ
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
+
+[^1]: **Nonce:** Short for "number used once", a nonce is a unique, single-use security token that prevents replay attacks and unauthorized request forgeries by ensuring each transaction or session is distinct and valid.
+
+[^2]: **Initialization Vector (IV):** A unique, random starting value used in encryption to ensure that identical data blocks produce different ciphertext, preventing pattern recognition and enhancing overall cryptographic security.
