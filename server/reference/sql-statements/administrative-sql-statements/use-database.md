@@ -31,7 +31,7 @@ Another way to set the default database is by specifying its name when starting 
 mariadb db1    # starts the mariadb command-line client with db1 as the current database
 ```
 
-One cannot use `USE` to a database one has no privileges to. The reason is thata user with no privileges to a database should not be able to know if a database exists or not.
+One cannot use `USE` to a database one has no privileges to. The reason is that a user with no privileges to a database should not be able to know if a database exists or not.
 
 ## See Also
 
