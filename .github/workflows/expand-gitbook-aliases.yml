@@ -16,7 +16,6 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
-
       - name: Expand GitBook aliases (Stable Version)
         run: |
           set -e
@@ -40,7 +39,7 @@ jobs:
             -e 's|{mariadb-cloud}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd|g' \
             -e 's|{release-notes}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb|g' \
             -e 's|{general-resources}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme|g'
-
+            {} +
           echo "Git status after expansion:"
           git status --short
 
