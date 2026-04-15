@@ -20,8 +20,13 @@ jobs:
       - name: Expand GitBook aliases (exclude README.md)
         run: |
           set -e
-
-          echo "Expanding GitBook aliases (excluding README.md)..."
+          echo "Expanding GitBook aliases (excluding README.md, CONTRIBUTING.md, and about-links.md)..."
+          # We use ! -name for filenames and ! -path for the specific nested file
+          find . -type f -name "*.md" \
+            ! -name "README.md" \
+            ! -name "CONTRIBUTING.md" \
+            ! -path "*/general-resources/about/readme/about-links.md" \
+            -print0 | xargs -0 sed -i \
 
           find . -type f -name "*.md" ! -name "README.md" -print0 | xargs -0 sed -i \
             -e 's|{server}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV|g' \
