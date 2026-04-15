@@ -82,7 +82,7 @@ Space link prefixes are hard to memorize. To make it easier for contributors, a 
 
 {% code overflow="wrap" %}
 ```
-{server}/mariadb-quickstart-guides/installing-mariadb-server-guide.md
+https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/installing-mariadb-server-guide.md
 ```
 {% endcode %}
 
@@ -96,16 +96,16 @@ https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/mariadb-quickstart-guides/install
 
 These space link aliases are available:
 
-* `{platform}`
-* `{server}`
-* `{maxscale}`
-* `{analytics}`
-* `{galera}`
-* `{connectors}`
-* `{tools}`
-* `{mariadb-cloud}`
-* `{release-notes}`
-* `{general-resources}`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb`
+* `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme`
 
 {% hint style="info" %}
 **Remember to use space link aliases only for links across spaces.**
