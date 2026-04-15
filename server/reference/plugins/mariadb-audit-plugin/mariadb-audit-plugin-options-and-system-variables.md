@@ -227,7 +227,7 @@ Below is a list of all system variables related to the Audit Plugin. See [Server
 
 #### `server_audit_timestamp_format`
 
-* Description: A format string used to print the timestamp into the audit log messages. The format used is the same as [DATE_FORMAT](../../sql-functions/date-time-functions/date_format).
+* Description: A format string used to print the timestamp into the audit log messages. The format used is the same as [DATE_FORMAT](../../sql-functions/date-time-functions/date_format.md).
 * Command line: `--server-audit-timestamp-format=value`
 * Scope: Global
 * Dynamic: Yes
