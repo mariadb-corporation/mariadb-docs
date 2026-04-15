@@ -17,7 +17,7 @@ Template: `<timestamp>,<serverhost>,<username>,<host>,<connectionid>,<queryid>,<
 
 | Field | Component      | Data Type      | Standardized Name / Description                                                                                                              |
 | ----- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or as specified in [server_audit_timestamp_format](mariadb-audit-plugin-options-and-system-variables#server_audit_timestamp_format). |
+| 1     | `timestamp`    | `DateTime`     | Formatted as `%Y%m%d %H:%i:%s` (the default), or as specified in [server_audit_timestamp_format](mariadb-audit-plugin-options-and-system-variables.md#server_audit_timestamp_format). |
 | 2     | `serverhost`   | `String`       | Hostname of the originating server.                                                                                                          |
 | 5     | `connectionid` | `Unsigned Int` | Standardized: Thread ID. Matches the `Thread ID` in Error, General, and Slow logs.                                                           |
 | 6     | `queryid`      | `Unsigned Int` | A unique identifier for the specific query, used to correlate `QUERY` and `TABLE` events.                                                    |
