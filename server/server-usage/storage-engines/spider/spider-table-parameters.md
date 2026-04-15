@@ -365,6 +365,26 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Table Option Name: `WRAPPER`
 * Table Option Introduced: [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0)
 
+### Spider Table: Connection Parameters
+
+The Spider table's connection to a remote server is managed via the following engine-defined settings. The `CREATE TABLE` statement specifies these parameters, which take precedence over `COMMENT=` and `CONNECTION=`. See [Specifying Connection Information for Spider Tables](spider-storage-engine-core-concepts.md#specifying-connection-information-for-spider-tables) for a detailed explanation of all connection methods and precedence rules.
+
+**Engine-defined Connection Options**
+
+| Option            | Description                                                                                                          | Available since |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `REMOTE_SERVER`   | Name of the server object generated with `CREATE SERVER` that will be used for the remote connection.                | 10.8.1          |
+| `REMOTE_DATABASE` | Database name on the remote server. The value defined in the referenced server object is used if it is not provided. | 10.8.1          |
+| `REMOTE_TABLE`    | Name of the table on the remote server. The local table name is used if it is not provided.                          | 10.8.1          |
+
+{% hint style="info" %}
+Starting with version 11.3.1, `COMMENT=` and `CONNECTION=` are silently ignored whenever any engine-defined option is present.
+{% endhint %}
+
+{% hint style="info" %}
+To suppress the warning, `set spider_suppress_comment_ignored_warning = 1`. Since 11.4.1, the connection methods `COMMENT=` and `CONNECTION=` have been deprecated. Instead, make use of engine-defined options.
+{% endhint %}
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

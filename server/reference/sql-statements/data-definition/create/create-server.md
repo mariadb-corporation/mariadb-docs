@@ -59,6 +59,8 @@ For each option you must specify either a character literal or numeric literal. 
 
 The `CREATE SERVER` statement creates an entry in the [mysql.servers](../../../system-tables/the-mysql-database-tables/mysql-servers-table.md) table that can later be used with the `CREATE TABLE` statement when creating a [Spider](../../../../server-usage/storage-engines/spider/), [Connect](../../../../server-usage/storage-engines/connect/), [FederatedX](../../../../server-usage/storage-engines/federatedx-storage-engine/) or [FEDERATED](../../../../server-usage/storage-engines/legacy-storage-engines/federated-storage-engine.md) table. The options that you specify will be used to populate the columns in the mysql.servers table. The table columns are `Server_name`, `Host`, `Db`, `Username`, `Password`, `Port`, and `Socket`.
 
+Note: When used with the Spider storage engine, connection information provided via `CREATE SERVER` may be overridden by table-level or engine-defined parameters. For information on connection configuration and precedence rules, see the [Spider Storage Engine Core Concepts](../../../../server-usage/storage-engines/spider/spider-storage-engine-core-concepts.md) page.
+
 [DROP SERVER](../drop/drop-server.md) removes a previously created server definition.
 
 `CREATE SERVER` is not written to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/), irrespective of the [binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) being used and therefore will not replicate.
