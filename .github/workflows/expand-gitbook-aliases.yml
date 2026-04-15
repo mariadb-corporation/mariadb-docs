@@ -17,18 +17,16 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Expand GitBook aliases (exclude README.md)
+      - name: Expand GitBook aliases (Stable Version)
         run: |
           set -e
-          echo "Expanding GitBook aliases (excluding README.md, CONTRIBUTING.md, and about-links.md)..."
-          # We use ! -name for filenames and ! -path for the specific nested file
+          echo "Expanding GitBook aliases while excluding protected files..."
+
           find . -type f -name "*.md" \
             ! -name "README.md" \
             ! -name "CONTRIBUTING.md" \
             ! -path "*/general-resources/about/readme/about-links.md" \
-            -print0 | xargs -0 sed -i \
-
-          find . -type f -name "*.md" ! -name "README.md" -print0 | xargs -0 sed -i \
+            -exec sed -i \
             -e 's|{server}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV|g' \
             -e 's|{galera}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7|g' \
             -e 's|{maxscale}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX|g' \
