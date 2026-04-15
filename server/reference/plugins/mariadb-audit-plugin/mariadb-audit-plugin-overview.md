@@ -20,6 +20,7 @@ Review these pages for detailed documentation:
 * [Log Format](mariadb-audit-plugin-log-format.md)
 * [Status Variables](mariadb-audit-plugin-status-variables.md)
 * [System Variables](mariadb-audit-plugin-options-and-system-variables.md)
+* [Audit Plugin Versions](mariadb-audit-plugin-versions.md)
 
 ## Tutorials
 
@@ -32,3 +33,7 @@ Review these pages for detailed documentation:
 
 * [MySQL Auditing with MariaDB Auditing Plugin](https://planet.mysql.com/entry/?id=5994184)\
   by Peter Zaitsev, February 15, 2016
+
+{% include "../../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+
+{% @marketo/form formId="4316" %}
