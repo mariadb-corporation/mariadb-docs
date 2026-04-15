@@ -27,7 +27,7 @@ Instead of using a full internal URL, use the following syntax: `[Link Text]({al
 
 Example:
 
-You write: `[Securing Communications](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)`
+You write: `[Securing Communications]({galera}/galera-security/securing-communications-in-galera-cluster)`
 
 The Bot expands it to: `[Securing Communications](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)`
 
@@ -35,19 +35,19 @@ The Bot expands it to: `[Securing Communications](https://app.gitbook.com/o/diTp
 
 | Alias | Target Space |
 | :--- | :--- |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/gmXC0YXB3rRhXvpg5mb1` | Home / Landing |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV` | MariaDB Server |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX` | MariaDB MaxScale |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7` | Galera Cluster |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14` | Analytics (ColumnStore) |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/2I4jZ8pGq8bT4w5n3q6r` | ColumnStore |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/CjGYMsT2MVP4nd3IyW2L` | Connectors (Java, ODBC, etc.) |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb` | SkySQL |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/JqgUabdZsoY5EiaJmqgn` | MariaDB Enterprise Platform |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd` | MariaDB Cloud |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD` | Tools |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb` | Release Notes |
-| `https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme` | General Resources |
+| `{home}` | Home / Landing |
+| `{server}` | MariaDB Server |
+| `{maxscale}` | MariaDB MaxScale |
+| `{galera}` | Galera Cluster |
+| `{analytics}` | Analytics (ColumnStore) |
+| `{columnstore}` | ColumnStore |
+| `{connectors}` | Connectors (Java, ODBC, etc.) |
+| `{skysql}` | SkySQL |
+| `{platform}` | MariaDB Enterprise Platform |
+| `{mariadb-cloud}` | MariaDB Cloud |
+| `{tools}` | Tools |
+| `{release-notes}` | Release Notes |
+| `{general-resources}` | General Resources |
 
 ⚠️ Important: Link Validity
 
