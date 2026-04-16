@@ -6,6 +6,10 @@ description: >-
 
 # Installing MariaDB Binary Tarballs
 
+{% hint style="info" %}
+Starting with [MariaDB 12.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.3), the generic binary tarballs (bintars) no longer include the Galera Cluster library or management scripts by default. Users requiring cluster functionality should obtain these libraries from the official MariaDB repositories or via the `mariadb-server-galera` package.
+{% endhint %}
+
 Binary tarballs (bintars) are compressed tar archives that contain pre-compiled executables, libraries, and other deployment dependencies. They can usually be installed on any modern Linux distribution.
 
 MariaDB Binary tarballs are named following the pattern: `mariadb-VERSION-OS.tar.gz`. Be sure to [download](https://mariadb.org/download) the correct version for your machine.
