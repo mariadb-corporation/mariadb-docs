@@ -43,7 +43,7 @@ MaxGUI is a graphical utility that can perform administrative tasks using MaxSca
     <figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 6.  Click the gear icon at the top left corner of the page next to the server name. This will show some options in a popup.<br>
 
-    <figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 7.  Click the wrench icon. This will open a popup window.<br>
 
     <figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>

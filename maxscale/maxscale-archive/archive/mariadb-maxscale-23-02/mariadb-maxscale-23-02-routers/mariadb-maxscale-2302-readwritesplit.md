@@ -894,7 +894,7 @@ SET @maxscale_secret_variable=(
 ```
 
 The `SET` command will synchronize the replica to a certain logical point in the\
-replication stream (see [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait) for more\
+replication stream (see [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait) for more\
 details). If the synchronization fails, the query will not run and it will be\
 retried on the server where the transaction was originally done.
 
@@ -955,7 +955,7 @@ server which would cause the connection to be closed and a warning to be logged.
 
 * This feature does not work with Galera or any other non-standard\
   replication mechanisms. As Galera does not update the `gtid_slave_pos`\
-  variable when events are replicated via the Galera library, the [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait)\
+  variable when events are replicated via the Galera library, the [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait)\
   function used by MaxScale to synchronize reads will wait until the\
   timeout. With Galera this is not a serious issue as it, by nature, is a\
   mostly-synchronous replication mechanism.
@@ -1290,7 +1290,7 @@ session state by executing all session commands that were executed. This means\
 that if the session state is changed mid-transaction in a way that affects the\
 results, transaction replay will fail.
 
-The following partial transaction demonstrates the problem by using [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) inside a transaction.
+The following partial transaction demonstrates the problem by using [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) inside a transaction.
 
 ```
 SET SQL_MODE='';            -- A session command

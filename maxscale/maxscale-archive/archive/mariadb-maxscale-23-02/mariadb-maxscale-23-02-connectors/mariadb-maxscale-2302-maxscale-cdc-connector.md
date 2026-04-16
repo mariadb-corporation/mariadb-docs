@@ -7,7 +7,7 @@ The C++ connector for the [MariaDB MaxScale](https://mariadb.com/products/techno
 The CDC connector is a single-file connector which allows it to be relatively\
 easily embedded into existing applications.
 
-To start using the connector, either download it from the [MariaDB website](https://mariadb.com/downloads/mariadb-tx/connector) or [configure the MaxScale repository](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/binary-packages/mariadb-package-repository-setup-and-usage)\
+To start using the connector, either download it from the [MariaDB website](https://mariadb.com/downloads/mariadb-tx/connector) or [configure the MaxScale repository](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage)\
 and install the `maxscale-cdc-connector` package.
 
 ### API Overview

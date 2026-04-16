@@ -60,7 +60,7 @@ solution to [MaxCtrl](../maxscale-24-02reference/mariadb-maxscale-2402-maxscale-
 
 ## Dashboard
 
-![](<../../../../.gitbook/assets/MaxGUI-dashboard.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-dashboard.png.png)
 
 ### Annotation
 
@@ -97,7 +97,7 @@ replication\_state, seconds\_behind\_master, slave\_io\_running, slave\_sql\_run
 A session can be killed easily on the "Current Sessions" list which can be\
 found on the [Dashboard](mariadb-maxscale-2402-maxscale-2402-using-maxgui-tutorial.md#dashboard), Server detail, and Service detail page.
 
-![](<../../../../.gitbook/assets/MaxGUI-kill-session.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-kill-session.png.png)
 
 #### Annotation
 
@@ -112,7 +112,7 @@ control buttons will be shown on the mouse hover. Below is a screenshot of a\
 Monitor Detail page, other Detail pages also have a similar layout structure so\
 this is used for illustration purpose.
 
-![](<../../../../.gitbook/assets/MaxGUI-detail.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-detail.png.png)
 
 ### Annotation
 
@@ -145,7 +145,7 @@ This page visualizes MaxScale configuration and clusters.
 
 This page visualizes MaxScale configuration as shown in the figure below.
 
-![](<../../../../.gitbook/assets/MaxGUI-config-visualization.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-config-visualization.png.png)
 
 #### Annotation
 
@@ -166,7 +166,7 @@ This page shows all monitor clusters using [mariadbmon](../maxscale-24-02monitor
 Clicking on the card will visualize the cluster into a tree graph as shown in\
 the figure below.
 
-![](<../../../../.gitbook/assets/MaxGUI-cluster-visualization.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-cluster-visualization.png.png)
 
 #### Annotation
 
@@ -208,7 +208,7 @@ the figure below.
 
 This page shows and allows editing of MaxScale parameters.
 
-![](<../../../../.gitbook/assets/MaxGUI-settings.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-settings.png.png)
 
 ### Annotation
 
@@ -223,7 +223,7 @@ This page shows and allows editing of MaxScale parameters.
 
 This page show real-time MaxScale logs with filter options.
 
-![](<../../../../.gitbook/assets/MaxGUI-logs-archive.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-logs-archive.png.png)
 
 ### Annotation
 
@@ -249,7 +249,7 @@ The Query Editor worksheet will be rendered in the active worksheet after correc
 
 There are various features in the Query Editor worksheet, the most notable ones are listed below.
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-query-editor.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-query-editor.png.png)
 
 **Create a new connection**
 
@@ -344,7 +344,7 @@ and limitations [here](../maxscale-24-02about/mariadb-maxscale-2402-maxscale-240
 
 **Connections**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-set-up-connections.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-set-up-connections.png.png)
 
 Source connection shows the most common parameter inputs for creating\
 an ODBC connection. For extra parameters, enable the `Advanced` mode\
@@ -355,7 +355,7 @@ click on the `Select objects to migrate` to navigate to the next stage.
 
 **Objects Selection**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-objects-selection.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-objects-selection.png.png)
 
 Select the objects you wish to migrate to the MariaDB server.
 
@@ -366,7 +366,7 @@ the question icon for additional information on the modes.
 
 **Migration**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-script.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-script.png.png)
 
 As shown in the screenshot, you can quickly modify the script for each object\
 by selecting the corresponding object in the table and using the editors on the\
@@ -377,7 +377,7 @@ executed in parallel.
 
 **Migration report**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-report.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-report.png.png)
 
 If errors are reported for certain objects, review the output messages and\
 adjust the script accordingly. Then, click the `Manage` button and select `Restart`.
@@ -395,7 +395,7 @@ everything after migration, click the `Manage` button, then select`Delete`.
 There are various features in the ERD worksheet, the most notable ones are\
 listed below.
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd.png.png)
 
 #### ERD worksheet
 
@@ -433,7 +433,7 @@ entity. The entity editor will be shown at the bottom of the worksheet.
 
 **Foreign keys quick common options**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png.png)
 
 * Edit Foreign Key, this opens an editor for viewing/editing foreign keys.
 * Remove Foreign Key.
@@ -453,7 +453,7 @@ be shown in a tooltip.
 
 **Quickly draw a foreign key link**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png.png)
 
 As shown in the screenshot, a foreign key can be quickly established by\
 performing the following actions:
@@ -464,7 +464,7 @@ performing the following actions:
 
 **Entity editor**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png.png)
 
 Table columns, foreign keys and indexes can be modified via\
 the entity editor which can be accessed quickly by double-clicking\
@@ -487,7 +487,7 @@ editor within the dialog.
 
 **Visual Enhancement options**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png.png)
 
 The first section of the top toolbar, there are options to improve the visual of\
 the diagram as follows:

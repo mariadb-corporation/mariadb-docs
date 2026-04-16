@@ -321,9 +321,9 @@ Possible values are:
 * Default: false
 * Dynamic: Yes
 
-Enable [semi-synchronous](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/semisynchronous-replication)\
+Enable [semi-synchronous](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication)\
 replication when replicating from a MariaDB server. If enabled, the binlogrouter\
-will send acknowledgment for each received event. Note that the [rpl\_semi\_sync\_master\_enabled](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/semisynchronous-replication#rpl_semi_sync_master_enabled)\
+will send acknowledgment for each received event. Note that the [rpl\_semi\_sync\_master\_enabled](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_enabled)\
 parameter must be enabled in the MariaDB server where the replication is done\
 from for the semi-synchronous replication to take place.
 

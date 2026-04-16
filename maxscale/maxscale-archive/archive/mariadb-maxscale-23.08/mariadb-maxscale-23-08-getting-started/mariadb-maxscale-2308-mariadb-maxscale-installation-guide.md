@@ -11,7 +11,7 @@ it manages.
 ### Install MariaDB MaxScale From MariaDB Repositories
 
 The recommended approach is to use [the MariaDB package\
-repository](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/binary-packages/mariadb-package-repository-setup-and-usage)\
+repository](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage)\
 to install MaxScale. After enabling the repository by following the\
 instructions, MaxScale can be installed with the following commands.
 

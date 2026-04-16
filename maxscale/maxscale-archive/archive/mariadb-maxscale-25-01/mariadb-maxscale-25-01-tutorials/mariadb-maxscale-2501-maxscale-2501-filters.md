@@ -1,7 +1,5 @@
 # Filters
 
-
-
 ### What Are Filters?
 
 The filter mechanism in MariaDB MaxScale is a means by which processing can be inserted into the flow of requests and responses between the client connection to MariaDB MaxScale and the MariaDB MaxScale connection to the backend database servers. The path from the client side of MariaDB MaxScale out to the actual database servers can be considered a pipeline, filters can then be placed in that pipeline to monitor, modify, copy or block the content that flows through that pipeline.
@@ -107,7 +105,7 @@ password=6628C50E07CCE1F0392EDEEB9D1203F3
 ```
 
 The table you wish to store in Cassandra in called HighScore and will contain the same columns in both the MariaDB table and the Cassandra table. The first step is to install a MariaDB instance with the Cassandra storage engine to act as a bridge server between the relational database and Cassandra. In this bridge server add a table definition for the HighScore table with the engine type set to Cassandra.\
-See [Cassandra Storage Engine Overview](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/legacy-storage-engines/cassandra/cassandra-storage-engine-overview) for details.\
+See [Cassandra Storage Engine Overview](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/legacy-storage-engines/cassandra/cassandra-storage-engine-overview) for details.\
 Add this server into the MariaDB MaxScale configuration and create a service that will connect to this server.
 
 ```

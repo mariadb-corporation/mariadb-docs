@@ -8,7 +8,7 @@ This document is designed as a quick introduction to setting up MariaDB MaxScale
 
 The installation and configuration of the MariaDB Server is not covered in this document.\
 See the following MariaDB documentation articles for more information on setting up a\
-master-slave-cluster or a Galera-cluster:[Setting Up Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/setting-up-replication)\
+master-slave-cluster or a Galera-cluster:[Setting Up Replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/setting-up-replication)\
 and [Getting Started With MariaDB Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/installation-and-deployment/getting-started-with-mariadb-galera-cluster)\
 .
 
@@ -49,7 +49,7 @@ Because MariaDB MaxScale sits between the clients and the backend databases, the
 databases will see all clients as if they were connecting from MaxScale's address. This\
 usually means that two sets of grants for each user are required.
 
-For example, assume that the user _'jdoe'@'client-host'_ exists and MaxScale is located at_&#x6D;axscale-host_. If _'jdoe'@'client-host'_ needs to be able to connect through MaxScale,\
+For example, assume that the user _'jdoe'@'client-host'_ exists and MaxScale is located at\_maxscale-host\_. If _'jdoe'@'client-host'_ needs to be able to connect through MaxScale,\
 another user, _'jdoe'@'maxscale-host'_, must be created. The second user must have the\
 same password and similar grants as _'jdoe'@'client-host'_.
 

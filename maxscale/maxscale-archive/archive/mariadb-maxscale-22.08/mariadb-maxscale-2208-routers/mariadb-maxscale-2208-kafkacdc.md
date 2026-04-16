@@ -228,7 +228,7 @@ parameter will be ignored. To reset the recorded GTID position, delete the`curre
 * Dynamic: No
 * Default: `1234`
 
-The [server\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/replication-and-binary-log-system-variables#server_id)\
+The [server\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id)\
 used when replicating from the master in direct replication mode. The default\
 value is 1234. This parameter was added in MaxScale 2.5.7.
 

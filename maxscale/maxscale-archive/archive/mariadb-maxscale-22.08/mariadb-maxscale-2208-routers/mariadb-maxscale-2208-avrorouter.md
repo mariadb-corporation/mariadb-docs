@@ -135,7 +135,7 @@ serves.
 * Dynamic: No
 * Default: `1234`
 
-The [server\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/replication-and-binary-log-system-variables#server_id)\
+The [server\_id](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#server_id)\
 used when replicating from the master in direct replication mode.
 
 **`codec`**
@@ -148,7 +148,7 @@ used when replicating from the master in direct replication mode.
 
 The compression codec to use. By default, the avrorouter does not use compression.
 
-This parameter takes one of the following two values; _null_ or_deflate_. These are the mandatory compression algorithms required by the\
+This parameter takes one of the following two values; _null_ or\_deflate\_. These are the mandatory compression algorithms required by the\
 Avro specification. For more information about the compression types,\
 refer to the [Avro specification](https://avro.apache.org/docs/current/spec.html#Required+Codecs).
 
@@ -160,7 +160,7 @@ refer to the [Avro specification](https://avro.apache.org/docs/current/spec.html
 * Default: `""`
 
 These [regular expression settings](../../../../../en/maxscale-2208-getting-started-mariadb-maxscale-configuration-guide/#standard-regular-expression-settings-for-filters)\
-filter events for processing depending on table names. Avrorouter does not support the_&#x6F;ptions_-parameter for regular expressions.
+filter events for processing depending on table names. Avrorouter does not support the\_options\_-parameter for regular expressions.
 
 To prevent excessive matching of similarly named tables, surround each table\
 name with the `^` and `$` tokens. For example, to match the `test.clients` table\
@@ -594,7 +594,7 @@ The avrorouter does not support the following data types, conversions or SQL sta
 
 * BIT
 * Fields CAST from integer types to string types
-* [CREATE TABLE ... AS SELECT statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-definition/create/create-table)
+* [CREATE TABLE ... AS SELECT statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table)
 
 The avrorouter does not do any crash recovery. This means that the avro files\
 need to be removed or truncated to valid block lengths before starting the\

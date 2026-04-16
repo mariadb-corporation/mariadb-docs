@@ -1200,7 +1200,7 @@ Even with this setting, only one monitor per server per MaxScale is allowed.\
 This limitation can be circumvented by defining multiple copies of a server in\
 the configuration file.
 
-Cooperative monitoring uses [server locks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/get_lock)\
+Cooperative monitoring uses [server locks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/get_lock)\
 for coordinating between monitors. When cooperating, the monitor regularly\
 checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and\
 acquires it if free. If the monitor acquires a majority of locks, it is the\
@@ -1229,7 +1229,7 @@ are running when three are needed for majority. Although both MaxScales see both
 running servers, neither is certain they have majority and the cluster stays in\
 read-only mode. If the primary server is down, no failover is performed either.
 
-![](<../../../../.gitbook/assets/coop_lock_no_majority.png (1).png>)
+![](../../../../.gitbook/assets/coop_lock_no_majority.png.png)
 
 Setting `cooperative_monitoring_locks=majority_of_running` changes the way\_n\_servers\_ is calculated. Instead of using the total number of servers, only\
 servers currently \[Running] are considered. This scheme adapts to multiple\
@@ -1244,7 +1244,7 @@ Both MaxScales claim two locks out of two available and assume that they have\
 lock majority. Both MaxScales may then promote their own primaries and route\
 writes to different servers.
 
-![](<../../../../.gitbook/assets/coop_lock_split_brain.png (1).png>)
+![](../../../../.gitbook/assets/coop_lock_split_brain.png.png)
 
 The recommended strategy depends on which failure scenario is more likely and/or\
 more destructive. If it's unlikely that multiple servers are ever down\
@@ -1267,7 +1267,7 @@ can be further decreased by configuring each monitor with a different\_monitor\_
 
 The flowchart below illustrates the lock handling logic.
 
-![](<../../../../.gitbook/assets/coop_lock_flowchart.svg (1).svg>)
+![](../../../../.gitbook/assets/coop_lock_flowchart.svg.svg)
 
 #### Releasing locks
 

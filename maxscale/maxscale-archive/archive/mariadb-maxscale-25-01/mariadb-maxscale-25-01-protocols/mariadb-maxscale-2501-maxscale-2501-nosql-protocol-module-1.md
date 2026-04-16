@@ -877,7 +877,7 @@ with sha256 for use with the `SCRAM-SHA-256` authentication mechanism\
 (if that is enabled for the user).
 
 The account information can be stored _privately_, in which case it\
-can be used only by a particular MaxScale instance, or in a_shared_ manner, in which case multiple MaxScale instances can\
+can be used only by a particular MaxScale instance, or in a\_shared\_ manner, in which case multiple MaxScale instances can\
 share the information and a user created/added on one instance\
 can be used on another.
 
@@ -1281,7 +1281,7 @@ CREATE TABLE name (id VARCHAR(35) AS (JSON_COMPACT(JSON_EXTRACT(doc, "$._id"))) 
 where the length of the `VARCHAR` is specified by the value of `id_length`,\
 whose default and minimum is 35.
 
-_NOTE_ If the tables are created manually, then the `CREATE` statement_&#x6D;ust_ contain a similar `AS`-clause as the one above and _should_ contain\
+_NOTE_ If the tables are created manually, then the `CREATE` statement\_must\_ contain a similar `AS`-clause as the one above and _should_ contain\
 a similar constraint.
 
 Note that _nosqlprotocol_ does not in any way verify that the table\
@@ -1326,7 +1326,7 @@ The following operators are currently supported.
 
 **`$type`**
 
-When `$type` is used, it will be converted into a condition involving one or more [JSON\_TYPE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/special-functions/json-functions/json_type) comparisons. The following subset\
+When `$type` is used, it will be converted into a condition involving one or more [JSON\_TYPE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/special-functions/json-functions/json_type) comparisons. The following subset\
 of types can be used in `$type` queries:
 
 | Type           | Number | Alias    | MariaDB Type |
@@ -1716,7 +1716,7 @@ with the value of `true` will cause the command to fail.
 
 **Behavior**
 
-Currently only updating using _update operator expressions_ or with a_replacement document_ is supported. In particular, updating using a&#x6E;_aggregation pipeline_ is not supported.
+Currently only updating using _update operator expressions_ or with a\_replacement document\_ is supported. In particular, updating using a&#x6E;_&#x61;ggregation pipeline_ is not supported.
 
 **# Update with an Update Operator Expressions document**
 
@@ -2833,7 +2833,7 @@ MongoDB database installed is convenient, as it makes it easy to ascertain\
 whether a problem is due to _nosqlprotocol_ not fully implementing something\
 or due to the API not being used in the correct fashion.
 
-With the _mongo shell_, all that is needed is to invoke it with the port_&#x6E;osqlprotocol_ is listening on:
+With the _mongo shell_, all that is needed is to invoke it with the port\_nosqlprotocol\_ is listening on:
 
 ```
 $ mongo --port 17017

@@ -163,7 +163,7 @@ used when replicating from the primary in direct replication mode.
 
 The compression codec to use. By default, the avrorouter does not use compression.
 
-This parameter takes one of the following two values; _null_ or_deflate_. These are the mandatory compression algorithms required by the\
+This parameter takes one of the following two values; _null_ or\_deflate\_. These are the mandatory compression algorithms required by the\
 Avro specification. For more information about the compression types,\
 refer to the [Avro specification](https://avro.apache.org/docs/current/spec.html#Required+Codecs).
 
@@ -619,7 +619,7 @@ The avrorouter does not support the following data types, conversions or SQL sta
 
 * BIT
 * Fields CAST from integer types to string types
-* [CREATE TABLE ... AS SELECT statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-definition/create/create-table)
+* [CREATE TABLE ... AS SELECT statements](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table)
 
 The avrorouter does not do any crash recovery. This means that the avro files\
 need to be removed or truncated to valid block lengths before starting the\

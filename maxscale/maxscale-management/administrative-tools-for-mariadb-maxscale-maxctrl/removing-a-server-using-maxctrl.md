@@ -18,7 +18,7 @@ maxctrl destroy server mariadbgalera3 --force
 
 {% stepper %}
 {% step %}
-### Destroy the Listener (If Applicable)
+#### Destroy the Listener (If Applicable)
 
 If your setup utilizes a dedicated listener that must be removed alongside the server, you must destroy the listener first.
 
@@ -33,7 +33,7 @@ maxctrl destroy listener \
 {% endstep %}
 
 {% step %}
-### Unlink the Server from the Service
+#### Unlink the Server from the Service
 
 Next, the server object for the node must be unlinked from the service.
 
@@ -54,7 +54,7 @@ maxctrl show services
 {% endstep %}
 
 {% step %}
-### Unlink the Server from the Monitor
+#### Unlink the Server from the Monitor
 
 The server object for the node must now be unlinked from its health monitor.
 
@@ -75,7 +75,7 @@ maxctrl show monitors
 {% endstep %}
 
 {% step %}
-### Destroy the Server in MaxScale
+#### Destroy the Server in MaxScale
 
 Finally, the server object for the node must be removed from MaxScale.
 
@@ -92,7 +92,5 @@ maxctrl destroy server \
 ```bash
 maxctrl show servers
 ```
-
-
 {% endstep %}
 {% endstepper %}

@@ -906,7 +906,7 @@ SET @maxscale_secret_variable=(
 ```
 
 The `SET` command will synchronize the replica to a certain logical point in the\
-replication stream (see [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait) for more\
+replication stream (see [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait) for more\
 details). If the synchronization fails, the query will not run and it will be\
 retried on the server where the transaction was originally done.
 
@@ -963,7 +963,7 @@ server which would cause the connection to be closed and a warning to be logged.
 
 **Limitations of Causal Reads**
 
-* Starting with MaxScale 24.02.5, the fast modes `fast`, `fast_global` and`fast_universal` work with Galera clusters. In older versions, none of the`causal_reads` modes worked with Galera. The non-fast modes that rely on the [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/master_gtid_wait)\
+* Starting with MaxScale 24.02.5, the fast modes `fast`, `fast_global` and`fast_universal` work with Galera clusters. In older versions, none of the`causal_reads` modes worked with Galera. The non-fast modes that rely on the [MASTER\_GTID\_WAIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait)\
   function still do not work with Galera. This is because Galera does not\
   implement a mechanism that allows a client to wait for a particular GTID.
 * If the combination of the original SQL statement and the modifications\
@@ -1318,7 +1318,7 @@ session state by executing all session commands that were executed. This means\
 that if the session state is changed mid-transaction in a way that affects the\
 results, transaction replay will fail.
 
-The following partial transaction demonstrates the problem by using [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) inside a transaction.
+The following partial transaction demonstrates the problem by using [SQL\_MODE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) inside a transaction.
 
 ```
 SET SQL_MODE='';            -- A session command

@@ -94,7 +94,7 @@ etc.).
 
 Both `rewrite_src` and `rewrite_dest` must be defined to enable statement rewriting.
 
-When statement rewriting is enabled [GTID-based replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/gtid)\
+When statement rewriting is enabled [GTID-based replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid)\
 must be used. The filter will disallow replication for all slaves that attempt\
 to replicate with traditional file-and-position based replication.
 

@@ -128,7 +128,7 @@ two places:
 
 #### Dashboard "Current Sessions" tab
 
-![](<../../../../.gitbook/assets/MaxGUI-session-by-workspace.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-session-by-workspace.png.png)
 
 **Annotation**
 
@@ -140,7 +140,7 @@ two places:
 This table displays the result set from the `PROCESSLIST` table, with options to\
 filter processes created by the "Workspace".
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-processlist.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-processlist.png.png)
 
 **Annotation**
 
@@ -383,7 +383,7 @@ By default, all statements in the "Query Tab" are split by semicolons and\
 executed one by one on the server. To write the compound statements, use\
 the `DELIMITER` command to change the delimiter.
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-query-editor-delimiter-change.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-query-editor-delimiter-change.png.png)
 
 **Annotation**
 
@@ -425,7 +425,7 @@ and limitations [here](../../mariadb-maxscale-23.08/mariadb-maxscale-23-08-about
 
 **Connections**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-set-up-connections.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-set-up-connections.png.png)
 
 Source connection shows the most common parameter inputs for creating\
 an ODBC connection. For extra parameters, enable the `Advanced` mode\
@@ -436,7 +436,7 @@ click on the `Select objects to migrate` to navigate to the next stage.
 
 **Objects Selection**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-objects-selection.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-objects-selection.png.png)
 
 Select the objects you wish to migrate to the MariaDB server.
 
@@ -447,7 +447,7 @@ the question icon for additional information on the modes.
 
 **Migration**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-script.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-script.png.png)
 
 As shown in the screenshot, you can quickly modify the script for each object\
 by selecting the corresponding object in the table and using the editors on the\
@@ -458,7 +458,7 @@ executed in parallel.
 
 **Migration report**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-report.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-data-migration-migration-report.png.png)
 
 If errors are reported for certain objects, review the output messages and\
 adjust the script accordingly. Then, click the `Manage` button and select `Restart`.
@@ -476,7 +476,7 @@ everything after migration, click the `Manage` button, then select`Delete`.
 There are various features in the ERD worksheet, the most notable ones are\
 listed below.
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd.png.png)
 
 #### ERD worksheet
 
@@ -514,7 +514,7 @@ entity. The entity editor will be shown at the bottom of the worksheet.
 
 **Foreign keys quick common options**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-options.png.png)
 
 * Edit Foreign Key, this opens an editor for viewing/editing foreign keys.
 * Remove Foreign Key.
@@ -534,7 +534,7 @@ be shown in a tooltip.
 
 **Quickly draw a foreign key link**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-fk-quick-option.png.png)
 
 As shown in the screenshot, a foreign key can be quickly established by\
 performing the following actions:
@@ -545,7 +545,7 @@ performing the following actions:
 
 **Entity editor**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-entity-editor.png.png)
 
 Table columns, foreign keys and indexes can be modified via\
 the entity editor which can be accessed quickly by double-clicking\
@@ -568,7 +568,7 @@ editor within the dialog.
 
 **Visual Enhancement options**
 
-![](<../../../../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png (1).png>)
+![](../../../../.gitbook/assets/MaxGUI-workspace-erd-visual-enhancements.png.png)
 
 The first section of the top toolbar, there are options to improve the visual of\
 the diagram as follows:

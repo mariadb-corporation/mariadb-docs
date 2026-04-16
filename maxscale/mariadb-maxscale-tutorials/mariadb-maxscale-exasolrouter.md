@@ -15,7 +15,7 @@ This functionality is available from MaxScale 25.10.1.
 
 ## Description
 
-The [Exasolrouter](maxscale-exasolrouter.md) module is primarily intended to be used in combination with SmartRouter within hybrid transactional/analytical processing (HTAP) environments, where:
+The [Exasolrouter](../reference/maxscale-routers/maxscale-exasolrouter.md) module is primarily intended to be used in combination with SmartRouter within hybrid transactional/analytical processing (HTAP) environments, where:
 
 * **Write queries** are routed to MariaDB
 * **Read queries** are routed to either MariaDB or Exasol, based on runtime performance measurements
@@ -24,18 +24,18 @@ The Exasolrouter module can also be used in standalone mode to expose Exasol thr
 
 SmartRouter measures query performance using canonical query forms (with constants replaced by placeholders). When a new canonical query is encountered, the preferred backend is based on measured response times and periodically reevaluates its decision.
 
-For a detailed explanation of the routing algorithm, see [SmartRouter](maxscale-smartrouter.md#cluster-selection-how-queries-are-routed).
+For a detailed explanation of the routing algorithm, see [SmartRouter](../reference/maxscale-routers/maxscale-smartrouter.md#cluster-selection-how-queries-are-routed).
 
 This architecture allows applications to use a single connection endpoint for both Online Transactional Processing (OLTP) and analytics workloads without application-level routing logic.
 
 ## Prerequisites
 
-* MariaDB MaxScale **25.10.1 or later** must be installed. \
-  See the [installation guide](../../maxscale-quickstart-guides/mariadb-maxscale-installation-guide.md) if required.
+* MariaDB MaxScale **25.10.1 or later** must be installed.\
+  See the [installation guide](../maxscale-quickstart-guides/mariadb-maxscale-installation-guide.md) if required.
 * MaxScale running on x86\_64 architecture
   * The Exasolrouter module uses the Exasol ODBC driver to establish communication with Exasol.
   * The Exasol ODBC driver currently requires x86\_64.
-  * So, MaxScale must run on x86\_64 when using `exasolrouter`.&#x20;
+  * So, MaxScale must run on x86\_64 when using `exasolrouter`.
 * Operational MariaDB deployment
 * Operational Exasol deployment
 * Network connectivity between MaxScale, MariaDB, and Exasol
@@ -53,10 +53,10 @@ Default ports:
 The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
 
 * Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) and select the driver version that matches the operating system of the MaxScale host.
-* Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).&#x20;
+* Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).
 * Install the downloaded driver according to the platform-specific installation instructions.
 
-&#x20;      Replace the version number in the commands below with the version you downloaded:&#x20;
+Replace the version number in the commands below with the version you downloaded:
 
 ```
 curl https://x-up.s3.amazonaws.com/7.x/26.2.6/Exasol_ODBC-26.2.6-Linux_x86_64.tar.gz \
@@ -85,7 +85,7 @@ mariadb -e "GRANT SELECT ON mysql.procs_priv TO maxuser@'%'"
 
 ```
 
-&#x20;**Exasol User**\
+**Exasol User**\
 \
 It is considered best practice to avoid using the `sys` user for application access. Instead, create a dedicated user with the appropriate privileges.\
 \
@@ -96,7 +96,7 @@ sudo su
 find / -name exaplus
 ```
 
-This command searches your entire system and suppresses permission-denied errors. A typical path looks like:&#x20;
+This command searches your entire system and suppresses permission-denied errors. A typical path looks like:
 
 ```
 /home/mariadbexa/.ccc/x/u/branchr/db+Titzi90-patch-2-e01f9219-64r/install/opt/exasol/db-2025.2.0/bin/Console/exaplus
@@ -179,8 +179,6 @@ This step provides guidance on verifying whether the Exasol and SmartRouter comp
 
 *   Connecting to the service.
 
-
-
     First, verify that you can connect to MaxScale on the configured listener port:<br>
 
     <pre><code><strong>mariadb \
@@ -195,7 +193,7 @@ This step provides guidance on verifying whether the Exasol and SmartRouter comp
 
     * `<maxscale-ip>` with the IP address of your MaxScale host.
     * `<exa-listener-port>` with the port you configured for the `exasolrouter` listener.
-    * `<username>` with a valid MariaDB username that MaxScale can authenticate. <br>
+    * `<username>` with a valid MariaDB username that MaxScale can authenticate.<br>
 
     To perform a very basic connectivity test:<br>
 
@@ -218,7 +216,7 @@ This step provides guidance on verifying whether the Exasol and SmartRouter comp
     maxctrl alter maxscale log_info true
     ```
 
-    &#x20;\
+    \
     Then, monitor the MaxScale log:<br>
 
     ```
@@ -234,14 +232,14 @@ This step provides guidance on verifying whether the Exasol and SmartRouter comp
     ```
 
     \
-    These messages indicate which backend is being evaluated. \
+    These messages indicate which backend is being evaluated.\
     \
-    Another way to determine how a query was executed is by using the [Hint Filter](../maxscale-filters/maxscale-hintfilter.md). You can force routing to a specific backend by adding a SQL comment.
+    Another way to determine how a query was executed is by using the [Hint Filter](../reference/maxscale-filters/maxscale-hintfilter.md). You can force routing to a specific backend by adding a SQL comment.
 * Data synchronizing requirements
 
-The Exasolrouter does not automatically synchronize data between MariaDB and Exasol.&#x20;
+The Exasolrouter does not automatically synchronize data between MariaDB and Exasol.
 
-In the event that [Change Data Capture](../../maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-protocols/mariadb-maxscale-2302-change-data-capture-cdc-users.md) (CDC) is not set up:
+In the event that [Change Data Capture](../maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-protocols/mariadb-maxscale-2302-change-data-capture-cdc-users.md) (CDC) is not set up:
 
 * Data inserted into MariaDB will not automatically appear in Exasol.
 * Unless the same dataset is present in both systems, queries sent to Exasol may result in empty results.
@@ -268,10 +266,10 @@ The MariaDB MaxScale–Exasol integration includes some limitations. It includes
   * `SHOW TABLES`
   * `Use database`
   * `DESCRIBE table`
-  * DDL statements&#x20;
+  * DDL statements
 
 ## See Also
 
-* [MaxScale Exasolrouter](maxscale-exasolrouter.md)
-* [MaxScale SmartRouter](maxscale-smartrouter.md)
-* [Hint Filter](../maxscale-filters/maxscale-hintfilter.md)
+* [MaxScale Exasolrouter](../reference/maxscale-routers/maxscale-exasolrouter.md)
+* [MaxScale SmartRouter](../reference/maxscale-routers/maxscale-smartrouter.md)
+* [Hint Filter](../reference/maxscale-filters/maxscale-hintfilter.md)

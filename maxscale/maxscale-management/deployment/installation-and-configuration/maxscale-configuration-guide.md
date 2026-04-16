@@ -317,7 +317,7 @@ path_list_parameter=/tmp/something.log:/var/log/maxscale/maxscale.log
 
 The global settings, in a section named `[MaxScale]`, allow various parameters that affect MariaDB MaxScale as a whole to be tuned. This section must be defined in the root configuration file which by default is `/etc/maxscale.cnf`.
 
-**Note**: MariaDB MaxScale providess multiple global diagnostic and debugging options (including `gdb-stacktrace` and `dump-network-traffic`), which can be used to diagnose and troubleshoot core behavior.&#x20;
+**Note**: MariaDB MaxScale providess multiple global diagnostic and debugging options (including `gdb-stacktrace` and `dump-network-traffic`), which can be used to diagnose and troubleshoot core behavior.
 
 For convenience, here is a quick overview of available diagnostic and debugging settings:
 
@@ -337,7 +337,7 @@ For convenience, here is a quick overview of available diagnostic and debugging 
 | `dump-network-traffic`      | Dumps network traffic for debugging purposes            |
 | `exception-frequency`       | Sets the frequency of generated API exceptions          |
 
-See the [MaxScale Configuration Settings](../../../reference/maxscale-configuration-settings.md) page for a comprehensive list of these configuration parameters.&#x20;
+See the [MaxScale Configuration Settings](../../../reference/maxscale-configuration-settings.md) page for a comprehensive list of these configuration parameters.
 
 #### `core_file`
 
@@ -2855,7 +2855,7 @@ The use of monitors in MaxScale is not absolutely mandatory: it is possible to r
 
 ### Filter Modules
 
-![](<../../../.gitbook/assets/image_10.png (1).png>)
+![](../../../.gitbook/assets/image_10.png.png)
 
 Filters provide a means to manipulate or process requests as they pass through MariaDB MaxScale between the client side protocol and the query router. A full explanation of each filter's functionality can be found in its documentation.
 

@@ -797,13 +797,13 @@ least one slave, those events are lost when a new master is chosen. If the old\
 master comes back online, the other servers have likely moved on with a\
 diverging history and the old master can no longer join the replication cluster.
 
-To reduce the chance of losing data, use [semisynchronous replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/semisynchronous-replication).\
+To reduce the chance of losing data, use [semisynchronous replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication).\
 In semisynchronous mode, the master waits for a slave to receive an event before\
 returning an acknowledgement to the client. This does not yet guarantee a clean\
 failover. If the master fails after preparing a transaction but before receiving\
 slave acknowledgement, it will still commit the prepared transaction as part of\
 its crash recovery. If the slaves never saw this transaction, the\
-old master has diverged from the cluster. See [Configuring the Master Wait Point](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/semisynchronous-replication)\
+old master has diverged from the cluster. See [Configuring the Master Wait Point](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/semisynchronous-replication)\
 for more information. This situation is much less likely in MariaDB Server\
 10.6.2 and later, as the improved crash recovery logic will delete such\
 transactions.
@@ -812,7 +812,7 @@ Even a controlled shutdown of the master may lose events. The server does not by
 default wait for all data to be replicated to the slaves when shutting down and\
 instead simply closes all connections. Before shutting down the master with the\
 intention of having a slave promoted, run _switchover_ first to ensure that all\
-data is replicated. For more information on server shutdown, see [Binary Log Dump Threads and the Shutdown Process](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/standard-replication/replication-threads).
+data is replicated. For more information on server shutdown, see [Binary Log Dump Threads and the Shutdown Process](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-threads).
 
 Switchover requires that the cluster is "frozen" for the duration of the\
 operation. This means that no data modifying statements such as INSERT or UPDATE\
@@ -1163,7 +1163,7 @@ Even with this setting, only one monitor per server per MaxScale is allowed.\
 This limitation can be circumvented by defining multiple copies of a server in\
 the configuration file.
 
-Cooperative monitoring uses [server locks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/miscellaneous-functions/get_lock)\
+Cooperative monitoring uses [server locks](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/secondary-functions/miscellaneous-functions/get_lock)\
 for coordinating between monitors. When cooperating, the monitor regularly\
 checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and\
 acquires it if free. If the monitor acquires a majority of locks, it is the\
@@ -1244,7 +1244,7 @@ lost. This time ultimately depends on TCP keepalive settings on the machines\
 running MariaDB Server.
 
 On MariaDB Server 10.3.3 and later, the TCP keepalive settings can be configured\
-for just the server process. See [Server System Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables#tcp_keepalive_interval)\
+for just the server process. See [Server System Variables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#tcp_keepalive_interval)\
 for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_ and\_tcp\_keepalive\_time\_. These settings can also be set on the operating system\
 level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
