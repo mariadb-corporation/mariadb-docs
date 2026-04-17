@@ -1,7 +1,7 @@
 ---
 description: >-
   Mastering the MySQL to MariaDB transition? This guide covers migrations from
-  MySQL 5.7, 8.0, and 8.4 LTS to MariaDB 11.4/12.3, featuring a full
+  MySQL 5.7, 8.0, and 8.4 LTS to MariaDB 11.8/12.3, featuring a full
   Compatibility Matrix and safe dump/restore workflows.
 ---
 
@@ -20,8 +20,8 @@ This guide focuses on **migrations within Linux-based environments** (RHEL/CentO
 Before touching the production server, verify these requirements:
 
 * Version Target: Identify your destination.
-* _Coming from MySQL 5.7?_ MariaDB 10.11 LTS or 11.4 LTS are safe harbors with the longest remaining support runways.
-* _Coming from MySQL 8.0/8.4?_ MariaDB 11.4 LTS or the new 12.3 LTS are recommended. These versions have the most modern feature parity required for 8.x-era applications.
+* _Coming from MySQL 5.7?_ MariaDB 10.11 LTS or 11.8 LTS are safe harbors with the longest remaining support runways.
+* _Coming from MySQL 8.0/8.4?_ MariaDB 11.8 LTS or the new 12.3 LTS are recommended. These versions have the most modern feature parity required for 8.x-era applications.
 * Compatibility Check: Review the [MySQL to MariaDB Compatibility Matrix](mysql-to-mariadb-compatibility-matrix.md) for potential high-impact differences in authentication and SQL syntax.
 
 ### **Mandatory Backup**
@@ -330,7 +330,7 @@ Verify that your application can connect. Pay special attention to character set
 {% step %}
 **Security Hardening: Transition to PARSEC**
 
-For migrations to MariaDB 11.4 LTS and later, consider transitioning your users to the [PARSEC](../../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) authentication plugin. While `mysql_native_password` and `caching_sha2_password` are supported for compatibility, PARSEC is the modern successor designed for significantly stronger password hashing and better long-term security.
+For migrations to MariaDB 11.8 LTS and later, consider transitioning your users to the [PARSEC](../../../../reference/plugins/authentication-plugins/authentication-plugin-parsec.md) authentication plugin. While `mysql_native_password` and `caching_sha2_password` are supported for compatibility, PARSEC is the modern successor designed for significantly stronger password hashing and better long-term security.
 
 ```sql
 -- Example: Update a user to use PARSEC
@@ -359,7 +359,7 @@ Q: Do I need to change my application's client libraries? A: Usually, no. MariaD
 
 Q: What about the JSON data type? A: Your `JSON` columns will be treated as `LONGTEXT` with a `CHECK` constraint. Your queries using `JSON_EXTRACT()` will continue to work exactly as they did in MySQL.
 
-Q: Is MariaDB 11.4 compatible with MySQL 8.4? A: Yes, for standard SQL and data. However, MySQL 8.4 removed many "legacy" behaviors that MariaDB still supports.
+Q: Is MariaDB 11.8 compatible with MySQL 8.4? A: Yes, for standard SQL and data. However, MySQL 8.4 removed many "legacy" behaviors that MariaDB still supports.
 
 Q: Can I perform an in-place upgrade (binary swap)? A: No. MariaDB stores metadata (table structures etc.) in individual `.frm` files. In contrast, MySQL removed `.frm` files in MySQL 8.0, replacing it with a global data dictionary. If you stop a MySQL 8.0/8.4 server and point MariaDB binaries at that data directory, MariaDB will look for `.frm` files to understand what tables exist. Since those files no longer exist in MySQL 8.0+, MariaDB will see an "empty" data directory or throw critical errors. It has no way to read MySQL's new internal dictionary tables.
 
