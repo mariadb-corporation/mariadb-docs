@@ -21,11 +21,36 @@ The `CHANGE MASTER TO` statement sets up a replication replica server to connect
 
 Starting with MariaDB 12.3, replication connection parameters can be configured once at the server level and applied to replication channels by referencing them with the `DEFAULT` option in the `CHANGE MASTER` statement. This enables you to set up parameters like SSL certificates or retry intervals centrally in the server configuration (for example, in the `my.cnf` file) and reuse them across multiple replication channels.
 
-### **Default System Variables**
+### **Using Default with Server Options**
 
-When `DEFAULT` is used in a `CHANGE MASTER`, the value is extracted from the corresponding server-level configuration variable. Selecting `DEFAULT` makes the replication channel inherit the value from the matching system variable.
+When an option in `CHANGE MASTER TO` is set to `DEFAULT`, the value is obtained from the corresponding server option (e.g., options defined in configuration files like `my.cnf` or provided on the command line). Instead of keeping a fixed value, the replication channel derives the value from the appropriate server option when `DEFAULT` is selected.
 
-<table><thead><tr><th width="224">CHANGE MASTER Option</th><th width="230">System Variable</th><th>Description</th></tr></thead><tbody><tr><td><code>MASTER_CONNECT_RETRY</code></td><td><code>replication_connect_retry</code></td><td>The interval to wait between connection retry attempts.</td></tr><tr><td><code>MASTER_RETRY_COUNT</code></td><td><code>replication_retry_count</code></td><td>Number of connection attempts before stopping.</td></tr><tr><td><code>MASTER_HEARTBEAT_PERIOD</code></td><td><code>replication_heartbeat_period</code></td><td>The interval for replication heartbeats. If not configured, it defaults to half the value of <code>slave_net_timeout</code></td></tr><tr><td><code>MASTER_SSL</code></td><td><code>replication_ssl</code></td><td>Enable/disable SSL for the channel</td></tr><tr><td><code>MASTER_SSL_CA</code></td><td><code>replication_ssl_ca</code></td><td>Path to the Certificate Authority (CA) file.</td></tr><tr><td><code>MASTER_SSL_CERT</code></td><td><code>replication_ssl_cert</code></td><td>Path to the client public certificate.</td></tr><tr><td><code>MASTER_SSL_KEY</code></td><td><code>replication_ssl_key</code></td><td>Path to the client private key.</td></tr><tr><td><code>MASTER_SSL_CAPATH</code></td><td><code>replication_ssl_capath</code></td><td>Path to the directory containing CA certificates.</td></tr><tr><td><code>MASTER_SSL_VERIFY_SERVER_CERT</code></td><td><code>replication_ssl_verify_server_cert</code></td><td>Enable verification of the primary's certificate.</td></tr><tr><td><code>MASTER_SSL_CRL</code></td><td><code>replication_ssl_crl</code></td><td>Path to the Certificate Revocation List (CRL) file.</td></tr><tr><td><code>MASTER_SSL_CRLPATH</code></td><td><code>replication_ssl_crlpath</code></td><td>Path to the directory containing CRL files.</td></tr><tr><td><code>MASTER_SSL_CIPHER</code></td><td><code>replication_ssl_cipher</code></td><td>List of permitted TLS ciphers.</td></tr><tr><td><code>MASTER_USE_GTID</code></td><td><code>replication_use_gtid</code></td><td>Setting for Global Transaction ID (GTID) mode.</td></tr></tbody></table>
+<table><thead><tr><th width="224">CHANGE MASTER Option</th><th width="230">System Variable</th><th>Description</th></tr></thead><tbody><tr><td><code>MASTER_CONNECT_RETRY</code></td><td><code>--master-connect-retry</code></td><td>The interval to wait between connection retry attempts.</td></tr><tr><td><code>MASTER_RETRY_COUNT</code></td><td><code>--master-retry-count</code></td><td>Number of connection attempts before stopping.</td></tr><tr><td><code>MASTER_HEARTBEAT_PERIOD</code></td><td><code>--master-heartbeat-period</code></td><td>Interval between replication heartbeats.</td></tr><tr><td><code>MASTER_SSL</code></td><td><code>--master-ssl</code></td><td>Enables or disables TLS for the connection.</td></tr><tr><td><code>MASTER_SSL_CA</code></td><td><code>--master-ssl-ca</code></td><td>Path to the Certificate Authority (CA) file.</td></tr><tr><td><code>MASTER_SSL_CERT</code></td><td><code>--master-ssl-cert</code></td><td>Path to the client certificate file.</td></tr><tr><td><code>MASTER_SSL_KEY</code></td><td><code>--master-ssl-key</code></td><td>Path to the client private key file.</td></tr><tr><td><code>MASTER_SSL_CAPATH</code></td><td><code>--master-ssl-capath</code></td><td>Path to the directory containing CA certificates.</td></tr><tr><td><code>MASTER_SSL_VERIFY_SERVER_CERT</code></td><td><code>--master-ssl-verify-server-cert</code></td><td>Enable verification of the primary's certificate.</td></tr><tr><td><code>MASTER_SSL_CRL</code></td><td><code>--master-ssl-crl</code></td><td>Path to the Certificate Revocation List (CRL) file.</td></tr><tr><td><code>MASTER_SSL_CRLPATH</code></td><td><code>--master-ssl-crlpath</code></td><td>Path to the directory containing CRL files.</td></tr><tr><td><code>MASTER_SSL_CIPHER</code></td><td><code>--master-ssl-cipher</code></td><td>List of permitted TLS ciphers.</td></tr><tr><td><code>MASTER_USE_GTID</code></td><td><code>--master-use-gtid</code></td><td>Setting for Global Transaction ID (GTID) mode.</td></tr></tbody></table>
+
+* When the `CHANGE MASTER TO` option is set directly, it overrides the corresponding server option.
+* The value is inherited at runtime from the server option when `DEFAULT` is used.
+* Both `DEFAULT` state and explicit values are maintained.
+
+### Behavior and Persistence
+
+When `DEFAULT` is used, the option is stored in the replication metadata as `DEFAULT` instead of a specific value. The new value will be used automatically if the corresponding server option changes (for instance, after a server restart).
+
+Changes to server settings have no effect on an explicit value that is provided instead of `DEFAULT`. When a `CHANGE MASTER` option is not explicitly set, it acts as `DEFAULT`.
+
+### Configuration Precedence
+
+Values explicitly defined in `CHANGE MASTER TO` take precedence over server settings.
+
+The replication channel can inherit values from server-level configuration rather than overriding them when the `DEFAULT` keyword is used.
+
+### Autoset Options
+
+The following options can override manual defaults:
+
+* `--autoset-master-heartbeat-period`
+* `--autoset-master-use-gtid`
+
+These options determine values automatically and may override `--master-*` settings.
 
 ## Syntax
 
@@ -107,19 +132,21 @@ START SLAVE 'gandalf';
 
 ## Options
 
-### Using Configurable Defaults&#x20;
+### Using Configurable Defaults
 
-In MariaDB 12.3, when managing multiple replication channels, you can define shared settings in your `my.cnf` file. For example:
+Starting with MariaDB 12.3, when the `DEFAULT` keyword is used, replication connection options can inherit values from server configuration.
+
+Default values for replication-related options can be defined in configuration files (such as `my.cnf`) or using command-line options. For example:
 
 ```
-# Global defaults for all replication channels
-replication_ssl_ca   = /etc/mysql/ssl/ca.pem
-replication_ssl_cert = /etc/mysql/ssl/client-cert.pem
-replication_ssl_key  = /etc/mysql/ssl/client-key.pem
-replication_use_gtid = slave_pos
+# Defaults replication connection options
+master_ssl_ca   = /etc/mysql/ssl/ca.pem
+master_ssl_cert = /etc/mysql/ssl/client-cert.pem
+master_ssl_key  = /etc/mysql/ssl/client-key.pem
+master_use_gtid = slave_pos
 ```
 
-By specifying the `DEFAULT` keyword, the specific replication channel inherits these global values automatically:
+When the `DEFAULT` keyword is specified in a CHANGE MASTER TO statement, the corresponding value is taken from these server options:
 
 ```
 -- Setting up a specific channel using global defaults
@@ -132,6 +159,8 @@ CHANGE MASTER 'primary_node_1' TO
 
 START REPLICA 'primary_node_1';
 ```
+
+If an option is explicitly set in `CHANGE MASTER TO`, the value overrides the corresponding server option.
 
 ### Connection Options
 
@@ -268,7 +297,8 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the `replication_connect_retry` system variable.
+> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-connect-retry` defined in the configuration files or on the command line).\
+> The option can now be set to 0, which disables the wait between connection retries.
 
 #### MASTER\_RETRY\_COUNT
 
@@ -297,7 +327,12 @@ The `MASTER_RETRY_COUNT` option for `CHANGE MASTER` is only supported by MariaDB
 master_retry_count=4294967295
 ```
 
-> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the `replication_retry_connect` system variable.
+This option's maximum value has been increased to 18446744073709551615 (64-bit), which corresponds to the limit used across all platforms.\
+This option's valid range corresponds to the corresponding server option. Any mismatch should be regarded as a defect.
+
+> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-retry-count`.
+>
+> The option can now be set to 0, which disables retries.
 
 #### MASTER\_BIND
 
@@ -313,7 +348,7 @@ The `MASTER_HEARTBEAT_PERIOD` option for `CHANGE MASTER` can be used to set the 
 
 This option's _interval_ argument has the following characteristics:
 
-* It is a decimal value with a range of `0` to `4294967` seconds.
+* It is a decimal value with a range of `0` to `4294967.295` seconds.
 * It has a resolution of hundredths of a second.
 * Its smallest valid non-zero value is `0.001`.
 * Its default value is the value of the [slave\_net\_timeout](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable divided by 2.
@@ -321,7 +356,7 @@ This option's _interval_ argument has the following characteristics:
 
 Heartbeats are sent by the primary only if there are no unsent events in the binary log file for a period longer than the interval.
 
-> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the `replication_heartbeat_period` system variable.
+> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-heartbeat-period`.
 
 If the [RESET SLAVE](reset-replica.md) statement is executed, then the heartbeat interval is reset to the default.
 
@@ -335,11 +370,11 @@ The TLS options are used for providing information about [TLS](../../../../secur
 
 See [Replication with Secure Connections](../../../../security/encryption/data-in-transit-encryption/replication-with-secure-connections.md) for more information.
 
-Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options, enabling replication channels to share a central configuration specified in the server's option file. When `DEFAULT` is used, values are derived from corresponding system variables (e.g., `MASTER_SSL_CA` derives from `replication_ssl_ca`). See [Default System Variables](change-master-to.md#default-system-variables) for a full list of supported variables.
+Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options, enabling replication channels to share a central configuration specified in the server's option file. When `DEFAULT` is used, values are derived from the corresponding server options (e.g., `MASTER_SSL_CA` derives from `master_ssl_ca`). See [Default System Variables](change-master-to.md#default-system-variables) for a full list of supported variables.
 
 #### MASTER\_SSL
 
-The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since 12.3). Required to be set to `1` for the other `MASTER_SSL*` options to have any effect.&#x20;
+The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since MariaDB 12.3). The option must be set to `1` for the other `MASTER_SSL*` options to have any effect.
 
 For example:
 
@@ -350,11 +385,11 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-> Starting with MariaDB 12.3, this option accept `DEFAULT` keyword. If `DEFAULT` is used, the value is derived from `replication_ssl`.
+> Starting with MariaDB 12.3, this option accepts `DEFAULT` keyword. If `DEFAULT` is used, the value is derived from the corresponding server option (for example, `--master-ssl` defined in configuration files or on the command line).
 
 #### MASTER\_SSL\_CA
 
-The `MASTER_SSL_CA` option for `CHANGE MASTER` defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path.
+The `MASTER_SSL_CA` option for `CHANGE MASTER` defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](../../../../security/encryption/data-in-transit-encryption/). This option requires that you use an absolute path, not a relative path.
 
 For example:
 
@@ -370,7 +405,7 @@ START SLAVE;
 
 See [Secure Connections Overview: Certificate Authorities (CAs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. The maximum length of `MASTER_SSL_CA` string is 511 characters.
 
-> This option accepts a path or `DEFAULT` (available since 12.3). If `DEFAULT` is used, the value is inherited from `replication_ssl_ca`.
+> Starting with MariaDB 12.3, this option accepts a path or `DEFAULT` keyword. If `DEFAULT` is used, the value is inherited from the corresponding server option (for example, `--master-ssl-ca`).
 
 #### MASTER\_SSL\_CAPATH
 
@@ -390,7 +425,7 @@ START SLAVE;
 
 See [Secure Connections Overview: Certificate Authorities (CAs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-authorities-cas) for more information. The maximum length of `MASTER_SSL_CA_PATH` string is 511 characters.
 
-> This option accepts a path or `DEFAULT` (available since 12.3). If `DEFAULT` is used, the value is inherited from `replication_ssl_capath`.
+> Starting with MariaDB 12.3, this option accepts a path or `DEFAULT` keyword. If `DEFAULT` is used, the value is taken from the corresponding server option (for example, `--master-ssl-capath`).
 
 #### MASTER\_SSL\_CERT
 
@@ -408,9 +443,9 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-The maximum length of `MASTER_SSL_CERT` string is 511 characters.&#x20;
+The maximum length of `MASTER_SSL_CERT` string is 511 characters.
 
-> This option accepts a path or `DEFAULT` (available since 12.3). If `DEFAULT` is used, the value is inherited from `replication_ssl_cert`.
+> Starting with MariaDB 12.3, this option accepts a path or `DEFAULT` keyword. When set to `DEFAULT`, the value is inherited from the corresponding server option (for example, `--master-ssl-cert`).
 
 #### MASTER\_SSL\_CRL
 
@@ -433,7 +468,7 @@ START SLAVE;
 
 See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. The maximum length of `MASTER_SSL_CRL` string is 511 characters.
 
-> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is derived from the `replication_ssl_crl` system variable.
+> Starting with MariaDB 12.3, this option also accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is derived from the corresponding server option (for example, `--master-ssl-crl`).
 
 #### MASTER\_SSL\_CRLPATH
 
@@ -456,7 +491,7 @@ START SLAVE;
 
 See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. The maximum length of `MASTER_SSL_CRL_PATH` string is 511 characters.
 
-> This option accepts the `DEFAULT` keyword (available since 12.3). When set to `DEFAULT`, the value is inherited from the `replication_ssl_crlpath` system variable.
+> Starting with MariaDB 12.3, this option also accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-ssl-crlpath`).
 
 #### MASTER\_SSL\_KEY
 
@@ -476,7 +511,7 @@ START SLAVE;
 
 The maximum length of `MASTER_SSL_KEY` string is 511 characters.
 
-> This option supports a path or `DEFAULT` keyword (available since 12.3). If `DEFAULT` is used, the value is inherited from `replication_ssl_key`.
+> Starting with MariaDB 12.3, this option also accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is derived from the corresponding server option (for example, `--master-ssl-key`).
 
 #### MASTER\_SSL\_CIPHER
 
@@ -497,7 +532,7 @@ START SLAVE;
 
 The maximum length of `MASTER_SSL_CIPHER` string is 511 characters.
 
-> Starting with MariaDB 12.3, this option supports the `DEFAULT` keyword. When set to `DEFAULT`, the value is derived from the `replication_ssl_cipher` system variable.
+> Starting with MariaDB 12.3, this option also accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-ssl-cipher`).
 
 #### MASTER\_SSL\_VERIFY\_SERVER\_CERT
 
@@ -525,7 +560,7 @@ START SLAVE;
 
 See [Secure Connections Overview: Server Certificate Verification](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) for more information.
 
-> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is inherited from the `replication_ssl_verify_server_cert` system variable.
+> Starting with MariaDB 12.3, this option also accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is derived from the corresponding server option (for example, `--master-ssl-verify-server-cert`).
 
 ### Binary Log Options
 
@@ -670,7 +705,7 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-> Starting with MariaDB 12.3, this option supports the `DEFAULT` keyword. If set to `DEFAULT`, the value is inherited from the `replication_use_gtid` system variable.
+> Starting with MariaDB 12.3, this option also accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is derived from the corresponding server option (for example, `--master-use-gtid`).
 
 #### MASTER\_DEMOTE\_TO\_SLAVE
 
