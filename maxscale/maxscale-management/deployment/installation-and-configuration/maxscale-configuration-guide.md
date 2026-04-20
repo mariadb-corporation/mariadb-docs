@@ -1009,9 +1009,17 @@ users_refresh_interval=2h
 * Dynamic: Yes
 * Default: `0`
 
-How many statements MaxScale should store for each session. This is for debugging purposes, as in case of problems it is often of value to be able to find out exactly what statements were sent before a particular problem turned up.
+How many statements MaxScale should store for each session. This is for
+debugging purposes, as in case of problems it is often of value to be able to
+find out exactly what statements were sent before a particular problem turned
+up.
 
-**Note:** See also `dump_last_statements` using which the actual dumping of the statements is enabled. Unless both of the parameters are defined, the statement dumping mechanism doesn't work.
+**Note:** See also `dump_last_statements` using which the actual dumping of the
+statements is enabled. Unless both of the parameters are defined, the statement
+dumping mechanism doesn't work.
+
+This mechanism is also used to show the currently active queries for sessions in
+`maxctrl show session` output as well as in `maxctrl list queries`.
 
 ```
 retain_last_statements=20
@@ -1025,13 +1033,28 @@ retain_last_statements=20
 * Values: `on_close`, `on_error`, `never`
 * Default: `never`
 
-With this configuration item it is specified in what circumstances MaxScale should dump the last statements that a client sent. The allowed values are `never`, `on_error` and `on_close`. With `never` the statements are never logged, with `on_error` they are logged if the client closes the connection improperly, and with `on_close` they are always logged when a client session is closed.
+With this configuration item it is specified in what circumstances MaxScale
+should dump the last statements that a client sent.
 
-```
-dump_last_statements=on_error
-```
+If the statements end up being logged, they are logged into the MaxScale
+log as as notice level log messages well as the system journal, if
+enabled.
 
-Note that you need to specify with `retain_last_statements` how many statements MaxScale should retain for each session. Unless it has been set to another value than `0`, this configuration setting will not have an effect.
+* `never`: the statements are never logged and are only kept in memory. The
+  statements are only shown in the REST-API output as well as in `maxctrl show
+  sessions`.
+
+* `on_error`: the statements are logged if the client closes the connection
+  improperly or disconnects unexpectedly.
+
+* `on_close`: the statements are always logged when a client session is
+  closed. This may produce large amounts of log messages which may affect
+  performance if used in environments where there are lots of client
+  connections.
+
+Note that you need to specify with `retain_last_statements` how many statements
+MaxScale should retain for each session. Unless it has been set to another value
+than `0`, this configuration setting will not have an effect.
 
 #### `session_trace`
 
