@@ -7,8 +7,6 @@ description: >-
 
 # CHANGE MASTER TO
 
-
-
 {% hint style="info" %}
 The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
 {% endhint %}
@@ -16,37 +14,6 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 ## Description
 
 The `CHANGE MASTER TO` statement sets up a replication replica server to connect to a specific primary server and defines the replication coordinates (binary log file and position or GTID) and connection parameters (host, user, password, port, SSL options, etc.). When executed, the replica updates its internal replication metadata accordingly.
-
-### **Using Default with Server Options**
-
-When an option in `CHANGE MASTER TO` is set to `DEFAULT`, the value is obtained from the corresponding server option (e.g., options defined in configuration files like `my.cnf` or provided on the command line). Instead of keeping a fixed value, the replication channel derives the value from the appropriate server option when `DEFAULT` is selected.
-
-<table><thead><tr><th width="224">CHANGE MASTER Option</th><th width="230">System Variable</th><th>Description</th></tr></thead><tbody><tr><td><code>MASTER_CONNECT_RETRY</code></td><td><code>--master-connect-retry</code></td><td>The interval to wait between connection retry attempts.</td></tr><tr><td><code>MASTER_RETRY_COUNT</code></td><td><code>--master-retry-count</code></td><td>Number of connection attempts before stopping.</td></tr><tr><td><code>MASTER_HEARTBEAT_PERIOD</code></td><td><code>--master-heartbeat-period</code></td><td>Interval between replication heartbeats.</td></tr><tr><td><code>MASTER_SSL</code></td><td><code>--master-ssl</code></td><td>Enables or disables TLS for the connection.</td></tr><tr><td><code>MASTER_SSL_CA</code></td><td><code>--master-ssl-ca</code></td><td>Path to the Certificate Authority (CA) file.</td></tr><tr><td><code>MASTER_SSL_CERT</code></td><td><code>--master-ssl-cert</code></td><td>Path to the client certificate file.</td></tr><tr><td><code>MASTER_SSL_KEY</code></td><td><code>--master-ssl-key</code></td><td>Path to the client private key file.</td></tr><tr><td><code>MASTER_SSL_CAPATH</code></td><td><code>--master-ssl-capath</code></td><td>Path to the directory containing CA certificates.</td></tr><tr><td><code>MASTER_SSL_VERIFY_SERVER_CERT</code></td><td><code>--master-ssl-verify-server-cert</code></td><td>Enable verification of the primary's certificate.</td></tr><tr><td><code>MASTER_SSL_CRL</code></td><td><code>--master-ssl-crl</code></td><td>Path to the Certificate Revocation List (CRL) file.</td></tr><tr><td><code>MASTER_SSL_CRLPATH</code></td><td><code>--master-ssl-crlpath</code></td><td>Path to the directory containing CRL files.</td></tr><tr><td><code>MASTER_SSL_CIPHER</code></td><td><code>--master-ssl-cipher</code></td><td>List of permitted TLS ciphers.</td></tr><tr><td><code>MASTER_USE_GTID</code></td><td><code>--master-use-gtid</code></td><td>Setting for Global Transaction ID (GTID) mode.</td></tr></tbody></table>
-
-* When the `CHANGE MASTER TO` option is set directly, it overrides the corresponding server option.
-* The value is inherited at runtime from the server option when `DEFAULT` is used.
-* Both `DEFAULT` state and explicit values are maintained.
-
-### Behavior and Persistence
-
-When `DEFAULT` is used, the option is stored in the replication metadata as `DEFAULT` instead of a specific value. The new value will be used automatically if the corresponding server option changes (for instance, after a server restart).
-
-Changes to server settings have no effect on an explicit value that is provided instead of `DEFAULT`. When a `CHANGE MASTER` option is not explicitly set, it acts as `DEFAULT`.
-
-### Configuration Precedence
-
-Values explicitly defined in `CHANGE MASTER TO` take precedence over server settings.
-
-The replication channel can inherit values from server-level configuration rather than overriding them when the `DEFAULT` keyword is used.
-
-### Autoset Options
-
-The following options can override manual defaults:
-
-* `--autoset-master-heartbeat-period`
-* `--autoset-master-use-gtid`
-
-These options determine values automatically and may override `--master-*` settings.
 
 ## Syntax
 
@@ -84,7 +51,7 @@ master_def:
   | MASTER_RETRY_COUNT = {long | DEFAULT}
 ```
 
-Note: The value is extracted from the corresponding server option or system variable that support `DEFAULT`. This allows you to reset a replication configuration parameter to its server-level configuration without providing an explicit value.
+Note: The value is extracted from the corresponding server option or system variable that support `DEFAULT`. This allows you to reset a replication configuration parameter to its [server-level configuration](#using-configurable-defaults) without providing an explicit value.
 
 ## Replication Configuration
 
@@ -132,7 +99,9 @@ START SLAVE 'gandalf';
 
 Starting with MariaDB 12.3, replication connection parameters can be set at the server level (for example, in configuration files like `my.cnf` or via command-line options) and reused across replication channels.
 
-The value is taken from the corresponding server option when the `DEFAULT` keyword is used for an option in `CHANGE MASTER TO`.
+When an option in `CHANGE MASTER TO` is set to `DEFAULT`, the value is obtained from the corresponding server option (e.g., options defined in configuration files like `my.cnf` or provided on the command line). Instead of keeping a fixed value, the replication channel derives the value from the appropriate server option when `DEFAULT` is selected.
+
+<table><thead><tr><th width="224">CHANGE MASTER Option</th><th width="230">System Variable</th><th>Description</th></tr></thead><tbody><tr><td><code>MASTER_CONNECT_RETRY</code></td><td><code>--master-connect-retry</code></td><td>The interval to wait between connection retry attempts.</td></tr><tr><td><code>MASTER_RETRY_COUNT</code></td><td><code>--master-retry-count</code></td><td>Number of connection attempts before stopping.</td></tr><tr><td><code>MASTER_HEARTBEAT_PERIOD</code></td><td><code>--master-heartbeat-period</code></td><td>Interval between replication heartbeats.</td></tr><tr><td><code>MASTER_SSL</code></td><td><code>--master-ssl</code></td><td>Enables or disables TLS for the connection.</td></tr><tr><td><code>MASTER_SSL_CA</code></td><td><code>--master-ssl-ca</code></td><td>Path to the Certificate Authority (CA) file.</td></tr><tr><td><code>MASTER_SSL_CERT</code></td><td><code>--master-ssl-cert</code></td><td>Path to the client certificate file.</td></tr><tr><td><code>MASTER_SSL_KEY</code></td><td><code>--master-ssl-key</code></td><td>Path to the client private key file.</td></tr><tr><td><code>MASTER_SSL_CAPATH</code></td><td><code>--master-ssl-capath</code></td><td>Path to the directory containing CA certificates.</td></tr><tr><td><code>MASTER_SSL_VERIFY_SERVER_CERT</code></td><td><code>--master-ssl-verify-server-cert</code></td><td>Enable verification of the primary's certificate.</td></tr><tr><td><code>MASTER_SSL_CRL</code></td><td><code>--master-ssl-crl</code></td><td>Path to the Certificate Revocation List (CRL) file.</td></tr><tr><td><code>MASTER_SSL_CRLPATH</code></td><td><code>--master-ssl-crlpath</code></td><td>Path to the directory containing CRL files.</td></tr><tr><td><code>MASTER_SSL_CIPHER</code></td><td><code>--master-ssl-cipher</code></td><td>List of permitted TLS ciphers.</td></tr><tr><td><code>MASTER_USE_GTID</code></td><td><code>--master-use-gtid</code></td><td>Setting for Global Transaction ID (GTID) mode.</td></tr></tbody></table>
 
 For example, a configuration file can specify default values:
 
@@ -161,6 +130,27 @@ START REPLICA 'primary_node_1';
 If an option is explicitly set in `CHANGE MASTER TO`, the value overrides the corresponding server option. The replication channel receives the current server-level value if `DEFAULT` is used.
 
 Values set to `DEFAULT` are fixed dynamically, thus changes to server options (for example, after a restart) are automatically reflected, whereas explicitly defined values remain unchanged.
+
+#### Behavior and Persistence
+
+When `DEFAULT` is used, the option is stored in the replication metadata as `DEFAULT` instead of a specific value. The new value will be used automatically if the corresponding server option changes (for instance, after a server restart).
+
+Changes to server settings have no effect on an explicit value that is provided instead of `DEFAULT`. When a `CHANGE MASTER` option is not explicitly set, it acts as `DEFAULT`.
+
+#### Configuration Precedence
+
+Values explicitly defined in `CHANGE MASTER TO` take precedence over server settings.
+
+The replication channel can inherit values from server-level configuration rather than overriding them when the `DEFAULT` keyword is used.
+
+#### Autoset Options
+
+The following options can override manual defaults:
+
+* `--autoset-master-heartbeat-period`
+* `--autoset-master-use-gtid`
+
+These options determine values automatically and may override `--master-*` settings.
 
 ### Connection Options
 
@@ -332,7 +322,8 @@ The maximum value is 18446744073709551615 (64-bit). Before MariaDB 12.3, the max
 
 > Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-retry-count`).
 >
-> The option can now be set to `0`, allowing the replica to retry indefinitely.> \
+> The option can now be set to `0`, allowing the replica to retry indefinitely.
+> \
 > When it is set to 1, the connection attempt is only made once, hence disabling retries.
 
 #### MASTER\_BIND
