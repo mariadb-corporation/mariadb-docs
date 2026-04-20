@@ -71,7 +71,7 @@ SET GLOBAL innodb_encrypt_tables = OFF
 ```
 
 {% hint style="info" %}
-Any tables explicitly created with `ENCRYPTED=YES` must be manually decrypted using `ALTER TABLE table_name ENCRYPTED=NO;`.
+Any per-table encryption for tables explicitly created with `ENCRYPTED=YES` must be manually decrypted using `ALTER TABLE table_name ENCRYPTED=NO;`.
 {% endhint %}
 
 #### Step 2: Disable Log and Temp Encryption
