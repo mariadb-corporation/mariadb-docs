@@ -30,7 +30,7 @@ The plugin uses [AWS C++ SDK](https://github.com/awslabs/aws-sdk-cpp), which int
 * The plugin can only be built on Windows, Linux, and macOS.
 * The plugin requires that one of the following compilers is used: `gcc` 4.8 or later, `clang` 3.3 or later, or Visual Studio 2013 or later.
 * On Unix, the `libcurl` development package (e.g., `libcurl3-dev` on Debian Jessie), the `uuid` development package, and `openssl` need to be installed.
-* You may need to use a newer version of [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) than is provided by default in your OS.
+* You may need to use a newer version of `cmake` than is provided by default in your OS.
 
 ## Installing the Plugin
 

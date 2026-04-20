@@ -7,7 +7,7 @@ description: >-
 
 # InnoDB: Enabling Encryption
 
-In order to enable data-at-rest encryption for tables using the InnoDB storage engines, you first need to configure the Server to use an [Encryption Key Management](../key-management-and-encryption-plugins/encryption-key-management.md) plugin. Once this is done, you can enable encryption by setting the [innodb\_encrypt\_tables](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables) system variable to encrypt the InnoDB [system](../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-system-tablespaces.md) and [file](../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespaces and setting the [innodb\_encrypt\_log](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log) system variable to encrypt the InnoDB [Redo Log](../../../../server-usage/storage-engines/innodb/innodb-redo-log.md).
+In order to enable data-at-rest encryption for tables using the InnoDB storage engines, you first need to configure the server to use an [Encryption Key Management](../key-management-and-encryption-plugins/encryption-key-management.md) plugin. Once this is done, you can enable encryption by setting the [innodb\_encrypt\_tables](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables) system variable to encrypt the InnoDB [system](../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-system-tablespaces.md) and [file](../../../../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md) tablespaces and setting the [innodb\_encrypt\_log](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log) system variable to encrypt the InnoDB [Redo Log](../../../../server-usage/storage-engines/innodb/innodb-redo-log.md).
 
 Setting these system variables enables the encryption feature for InnoDB tables on your server. To use the feature, you need to use the [ENCRYPTION\_KEY\_ID](../../../../reference/sql-statements/data-definition/create/create-table.md#encryption_key_id) table option to set what encryption key you want to use and set the [ENCRYPTED](../../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option to enable encryption.
 
@@ -194,9 +194,8 @@ The [innodb\_encrypt\_temporary\_tables](../../../../server-usage/storage-engine
 
 This system variable can be specified as a command-line argument to [mysqld](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) or it can be specified in a relevant server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
-```
+```ini
 [mariadb]
-...
 innodb_encrypt_temporary_tables=ON
 ```
 
@@ -206,9 +205,8 @@ InnoDB uses the [Redo Log](../../../../server-usage/storage-engines/innodb/innod
 
 To encrypt the Redo Log, first [stop](../../../../server-management/starting-and-stopping-mariadb/starting-and-stopping-mariadb-automatically.md) the server process. Then, set the [innodb\_encrypt\_log](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log) to `ON` in a relevant server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md). For example:
 
-```
+```ini
 [mariadb]
-...
 innodb_encrypt_log = ON
 ```
 

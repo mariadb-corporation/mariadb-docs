@@ -21,7 +21,7 @@ But putting them in other locations requires passing additional data to the serv
 
 You can place the credentials file in a location of your choosing and then refer to that file by setting the `AWS_CREDENTIAL_PROFILES_FILE` environment variable in the drop-in file:
 
-```
+```ini
 [Service]
 Environment=AWS_CREDENTIAL_PROFILES_FILE=/etc/aws-kms-credentials
 ```
@@ -30,7 +30,7 @@ The credentials file will need to be readable by the "mysql" user, but it does n
 
 AWS credentials can also be put directly into a "drop-in" systemd file that will be read when starting the MariaDB service:
 
-```bash
+```ini
 # cat /etc/systemd/system/mariadb.service.d/aws-kms.conf
 [Service]
 Environment=AWS_ACCESS_KEY_ID=AKIAIRSG2XYZATCJLZ4A

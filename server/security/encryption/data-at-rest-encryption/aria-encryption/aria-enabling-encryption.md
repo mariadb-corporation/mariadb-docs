@@ -7,15 +7,42 @@ description: >-
 
 # Aria: Enabling Encryption
 
-In order to enable data-at-rest encryption for tables using the [Aria](../../../../server-usage/storage-engines/aria/) storage engine, you first need to configure the server to use an [Encryption Key Management](../key-management-and-encryption-plugins/encryption-key-management.md) plugin. Once this is done, you can enable encryption by setting the relevant system variables.
+To enable data-at-rest encryption for tables using the [Aria](../../../../server-usage/storage-engines/aria/) storage engine, configure the server to use an [Encryption Key Management](../key-management-and-encryption-plugins/encryption-key-management.md) plugin. Once this is done, you can enable encryption by setting the relevant system variables.
 
-## Encrypting User-created Tables
+## Encrypting User-Created Tables
 
-With tables that the user creates, you can enable encryption by setting the [aria\_encrypt\_tables](../../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables) system variable to `ON`, then restart the Server. Once this is set, Aria automatically enables encryption on all tables you create after with the [ROW\_FORMAT](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) table option set to `PAGE`.
+For user-created tables, enable encryption by setting the [aria\_encrypt\_tables](../../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables) system variable to `ON`, then restart the server:
 
-Currently, Aria does not support encryption on tables where the `ROW_FORMAT` table option is set to the `FIXED` or `DYNAMIC` values.
+{% code overflow="wrap" %}
+```ini
+[mariadb]
+aria_encrypt_tables = ON
+```
+{% endcode %}
 
-Unlike InnoDB, Aria does not support the [ENCRYPTED](../../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option (see [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049) about that). Encryption for Aria can only be enabled globally using the [aria\_encrypt\_tables](../../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables) system variable.
+Alternatively, set the variable with an SQL statement. This doesn't require a server restart, but the setting is lost on server restart:
+
+{% code overflow="wrap" %}
+```sql
+SET GLOBAL aria_encrypt_tables=ON
+```
+{% endcode %}
+
+Once this is set, Aria enables encryption on all newly created tables.
+
+{% hint style="info" %}
+**Encryption only works if the** [**ROW\_FORMAT**](../../../../reference/sql-statements/data-definition/create/create-table.md#row_format) **table option set to `PAGE`.**
+
+Aria does not support encryption of tables where the `ROW_FORMAT` table option is set to `FIXED` or `DYNAMIC`.&#x20;
+{% endhint %}
+
+{% hint style="info" %}
+Aria does not support the [ENCRYPTED](../../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option (see [MDEV-18049](https://jira.mariadb.org/browse/MDEV-18049) about that).
+{% endhint %}
+
+{% hint style="info" %}
+Encryption for Aria can only be enabled globally using the [aria\_encrypt\_tables](../../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables) system variable.
+{% endhint %}
 
 ### Encrypting Existing Tables
 
@@ -24,7 +51,7 @@ In cases where you have existing Aria tables that you would like to encrypt, the
 First, set the `aria_encrypt_tables` system variable to encrypt new tables.
 
 ```sql
-SET GLOBAL aria_encrypt_tables=ON;
+SET GLOBAL aria_encrypt_tables=ON
 ```
 
 Identify Aria tables that have the `ROW_FORMAT` table option set to `PAGE`.
@@ -37,15 +64,15 @@ WHERE ENGINE='Aria'
   AND TABLE_SCHEMA != 'information_schema';
 ```
 
-For each table in the result-set, issue an `ALTER TABLE` statement to rebuild the table.
+For each table in the result set, issue an `ALTER TABLE` statement to rebuild the table.
 
 ```sql
-ALTER TABLE test.aria_table ENGINE=Aria ROW_FORMAT=PAGE;
+ALTER TABLE aria_table ENGINE=Aria ROW_FORMAT=PAGE;
 ```
 
-This statement causes Aria to rebuild the table using the `ROW_FORMAT` table option. In the process, with the new default setting, it encrypts the table when it writes to disk.
+This statement causes Aria to rebuild the table using the `ROW_FORMAT` table option. Since you enabled encryption, Aria also encrypts the table in the process.
 
-## Encrypting Internal On-disk Temporary Tables
+## Encrypting Internal Temporary Tables on Disk
 
 During the execution of queries, MariaDB routinely creates internal temporary tables. These internal temporary tables initially use the [MEMORY](../../../../server-usage/storage-engines/memory-storage-engine.md) storage engine, which is entirely stored in memory. When the table size exceeds the allocation defined by the [max\_heap\_table\_size](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) system variable, MariaDB writes the data to disk using another storage engine. If you have the [aria\_used\_for\_temp\_tables](../../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) set to `ON`, MariaDB uses Aria in writing the internal temporary tables to disk.
 

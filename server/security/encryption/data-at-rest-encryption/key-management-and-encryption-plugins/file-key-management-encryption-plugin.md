@@ -7,7 +7,7 @@ description: >-
 
 # File Key Management Encryption Plugin
 
-MariaDB's [data-at-rest encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) requires the use of a [key management and encryption plugin](encryption-key-management.md). These plugins are responsible both for the management of encryption keys and for the actual encryption and decryption of data.
+MariaDB's [data-at-rest encryption](../data-at-rest-encryption-tde-fundamentals.md) requires the use of a [key management and encryption plugin](encryption-key-management.md). These plugins are responsible both for the management of encryption keys and for the actual encryption and decryption of data.
 
 MariaDB supports the use of [multiple encryption keys](encryption-key-management.md#using-multiple-encryption-keys). Each encryption key uses a 32-bit integer as a key identifier. If the specific plugin supports [key rotation](encryption-key-management.md#key-rotation), then encryption keys can also be rotated, which creates a new version of the encryption key.
 
@@ -15,7 +15,7 @@ The File Key Management plugin that ships with MariaDB is a [key management and 
 
 ## Overview
 
-The File Key Management plugin is the [key management and encryption plugin](encryption-key-management.md) for users who want to use [data-at-rest encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N). Some of the plugin's primary features are:
+The File Key Management plugin is the [key management and encryption plugin](encryption-key-management.md) for users who want to use [data-at-rest encryption](../data-at-rest-encryption-tde-fundamentals.md). Some of the plugin's primary features are:
 
 * It reads encryption keys from a plain-text key file.
 * As an extra protection mechanism, the plain-text key file can be encrypted.
