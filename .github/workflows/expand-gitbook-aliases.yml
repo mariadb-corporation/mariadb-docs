@@ -38,11 +38,11 @@ jobs:
             -e 's|{tools}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/kuTXWg0NDbRx6XUeYpGD|g' \
             -e 's|{mariadb-cloud}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/vPz15Lz0Iw3P3yKR3Prd|g' \
             -e 's|{release-notes}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb|g' \
-            -e 's|{general-resources}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme|g'
+            -e 's|{general-resources}|https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/WCInJQ9cmGjq1lsTG91E/about/readme|g' \
             {} +
+
           echo "Git status after expansion:"
           git status --short
-
       - name: Commit and push changes back to PR branch
         run: |
           if git diff --quiet; then
