@@ -1033,7 +1033,6 @@ The suffix can be upper or lower-case.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
-* Deprecated: [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0)
 
 #### `large_files_support`
 
