@@ -88,7 +88,7 @@ You can encrypt a number of database objects by setting the respective variables
 
 * InnoDB user tables – [innodb\_encrypt\_tables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables)
 * InnoDB redo log – [innodb\_encrypt\_log](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log)
-* InnoDB temporary files – [encrypt\_tmp\_files](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_files)\
+* InnoDB temporary files – [encrypt\_temporary\_tables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_temporary_tables)\
   MariaDB creates temporary files on disk. For example, a binary log cache is written to a temporary file if the binary log cache exceeds `binlog_cache_size` or `binlog_stmt_cache_size`. Temporary files are also often used for file sorts.
 * Aria user tables – [aria\_encrypt\_tables](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables)
 * Aria temporary tables – [encrypt\_tmp\_disk\_tables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables)
@@ -100,19 +100,17 @@ To configure encryption for all of those objects, add this to your configuration
 [mariadb]
 innodb_encrypt_tables = ON
 innodb_encrypt_log = ON
-encrypt_tmp_files = ON
+encrypt_temporary_tables = ON
 aria_encrypt_tables = ON
 encrypt_tmp_disk_tables = ON
 ```
 {% endcode %}
 
-Alternatively, set it running the following statements. Remember, though, that the settings do not persist across server restarts:
+Alternatively, set it running the following statements. Remember, though, that the settings do not persist across server restarts. Also note that some of the variables cannot be set at runtime – they have to be set in a configuration file:
 
 {% code overflow="wrap" %}
 ```sql
 SET GLOBAL innodb_encrypt_tables = ON;   -- for InnoDB tables
-SET GLOBAL innodb_encrypt_log = ON;      -- for InnoDB redo log
-SET GLOBAL encrypt_tmp_files = ON;       -- for InnoDB temporary tables
 SET GLOBAL aria_encrypt_tables = ON;     -- for Aria tables
 SET GLOBAL encrypt_tmp_disk_tables = ON; -- for Aria temporary tables
 ```
@@ -126,15 +124,32 @@ Particularly InnoDB has more encryption options. You can fine-tune the encryptio
 {% step %}
 ### Verify encryption is turned on.
 
-Make sure that the variables you configured are turned on, by issuing these statements:
+Make sure that the variables you configured are turned on, by issuing this statement:
 
 {% code overflow="wrap" %}
 ```sql
-SELECT @@global.innodb_encrypt_tables;
-SELECT @@global.innodb_encrypt_log;
-SELECT @@global.encrypt_tmp_files;
-SELECT @@global.aria_encrypt_tables;
-SELECT @@global.encrypt_tmp_disk_tables;
+SELECT 
+ 'InnoDB Tables' AS Component, @@innodb_encrypt_tables AS Active
+ UNION SELECT 'InnoDB Logs', @@innodb_encrypt_log
+ UNION SELECT 'InnoDB Temp', @@innodb_encrypt_temporary_tables
+ UNION SELECT 'Aria System', @@aria_encrypt_tables
+ UNION SELECT 'Aria Temp', @@encrypt_tmp_disk_tables;
+```
+{% endcode %}
+
+If encryption of all database objects is successfully enabled, this is the output of the query:
+
+{% code overflow="wrap" %}
+```
++---------------+--------+
+| Component     | Active |
++---------------+--------+
+| InnoDB Tables | ON     |
+| InnoDB Logs   | 1      |
+| InnoDB Temp   | 1      |
+| Aria System   | 1      |
+| Aria Temp     | 1      |
++---------------+--------+
 ```
 {% endcode %}
 {% endstep %}
@@ -154,15 +169,15 @@ If you determine that encryption is no longer necessary, you can revert the syst
 {% step %}
 ### Decrypt tables.
 
-Disable encryption at the storage engine level by issuing these statements:
+Disable encryption at the storage engine level by issuing these statements. Note that some variables cannot be turned off at runtime – they have to be removed from the server configuration (for instance, `my.cnf`), and require a server restart:
 
+{% code overflow="wrap" %}
 ```sql
-SET GLOBAL innodb_encrypt_tables = OFF;   -- for InnoDB tables
-SET GLOBAL innodb_encrypt_log = OFF;      -- for InnoDB redo log
-SET GLOBAL encrypt_tmp_files = OFF;       -- for InnoDB temporary tables
-SET GLOBAL aria_encrypt_tables = OFF;     -- for Aria tables
-SET GLOBAL encrypt_tmp_disk_tables = OFF; -- for Aria temporary tables
+SET GLOBAL innodb_encrypt_tables = OFF;   -- InnoDB tables
+SET GLOBAL aria_encrypt_tables = OFF;     -- Aria tables
+SET GLOBAL encrypt_tmp_disk_tables = OFF; -- Aria temporary tables
 ```
+{% endcode %}
 
 {% hint style="info" %}
 Any per-table encryption for tables explicitly created with `ENCRYPTED=YES` must be manually decrypted using `ALTER TABLE table_name ENCRYPTED=NO;`.
@@ -178,7 +193,7 @@ Update your configuration file (`my.cnf`) to stop encrypting Aria and InnoDB tab
 [mariadb]
 innodb_encrypt_tables = OFF
 innodb_encrypt_log = OFF
-encrypt_tmp_files = OFF
+innodb_encrypt_temporary_tables = OFF
 aria_encrypt_tables = OFF
 encrypt_tmp_disk_tables = OFF
 ```
