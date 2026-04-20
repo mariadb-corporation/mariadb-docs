@@ -209,6 +209,10 @@ SELECT NAME, ENCRYPTION_SCHEME, ROTATING_OR_FLUSHING
 FROM INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION 
 WHERE ENCRYPTION_SCHEME != 0;
 ```
+
+{% hint style="warning" %}
+A restore from an encrypted backup isn't possible after removing the keys.
+{% endhint %}
 {% endstep %}
 
 {% step %}
