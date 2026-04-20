@@ -64,13 +64,16 @@ Enabling data-at-rest encryption encompasses three steps:
 {% step %}
 ### Install and enable a key management plugin.
 
-Add this to your configuration file (for instance, `my.cnf`), then restart the server so the changes take effect:
+Create the key file, following the instructions under [Creating the Key File](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file).
+
+Add the following to your configuration file (for instance, `my.cnf`), then restart the server so the changes take effect:
 
 {% code overflow="wrap" %}
 ```ini
 [mariadb]
 plugin_load_add = file_key_management
 file_key_management_filename = /etc/mysql/encryption/keyfile.enc
+# The following line is optional but highly recommended
 file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
 file_key_management_encryption_algorithm = AES_CTR
 ```
