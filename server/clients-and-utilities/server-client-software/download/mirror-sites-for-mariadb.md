@@ -300,7 +300,7 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 ### Singapore
 
 - Daan van Gorkum
-- National University of Singapore
+- Quape (operated by MariaDB Foundation on Quape's infra)
 
 ### South Korea
 
