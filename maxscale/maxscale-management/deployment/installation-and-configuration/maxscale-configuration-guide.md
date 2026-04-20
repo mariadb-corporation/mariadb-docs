@@ -1009,14 +1009,14 @@ users_refresh_interval=2h
 * Dynamic: Yes
 * Default: `0`
 
-How many statements MaxScale should store for each session. This is for
-debugging purposes, as in case of problems it is often of value to be able to
-find out exactly what statements were sent before a particular problem turned
+How many statements MaxScale should store in memory for each session. This is
+for debugging purposes, as in case of problems it is often of value to be able
+to find out exactly what statements were sent before a particular problem turned
 up.
 
-**Note:** See also `dump_last_statements` using which the actual dumping of the
+**Note:** See also `dump_last_statements` using which the actual logging of the
 statements is enabled. Unless both of the parameters are defined, the statement
-dumping mechanism doesn't work.
+logging mechanism doesn't work.
 
 This mechanism is also used to show the currently active queries for sessions in
 `maxctrl show session` output as well as in `maxctrl list queries`.
@@ -1034,7 +1034,7 @@ retain_last_statements=20
 * Default: `never`
 
 With this configuration item it is specified in what circumstances MaxScale
-should dump the last statements that a client sent.
+should write the last statements that a client sent to the log.
 
 If the statements end up being logged, they are logged into the MaxScale
 log as as notice level log messages well as the system journal, if
