@@ -17,10 +17,6 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 The `CHANGE MASTER TO` statement sets up a replication replica server to connect to a specific primary server and defines the replication coordinates (binary log file and position or GTID) and connection parameters (host, user, password, port, SSL options, etc.). When executed, the replica updates its internal replication metadata accordingly.
 
-## Using Defaults for Replication Parameters
-
-Starting with MariaDB 12.3, replication connection parameters can be configured once at the server level and applied to replication channels by referencing them with the `DEFAULT` option in the `CHANGE MASTER` statement. This enables you to set up parameters like SSL certificates or retry intervals centrally in the server configuration (for example, in the `my.cnf` file) and reuse them across multiple replication channels.
-
 ### **Using Default with Server Options**
 
 When an option in `CHANGE MASTER TO` is set to `DEFAULT`, the value is obtained from the corresponding server option (e.g., options defined in configuration files like `my.cnf` or provided on the command line). Instead of keeping a fixed value, the replication channel derives the value from the appropriate server option when `DEFAULT` is selected.
@@ -90,7 +86,7 @@ master_def:
 
 Note: The value is extracted from the corresponding server option or system variable that support `DEFAULT`. This allows you to reset a replication configuration parameter to its server-level configuration without providing an explicit value.
 
-## Description
+## Replication Configuration
 
 `CHANGE MASTER` is used on a replica to set up or change [replication](../../../../ha-and-performance/standard-replication/) settings for connecting to the primary.
 
@@ -134,9 +130,11 @@ START SLAVE 'gandalf';
 
 ### Using Configurable Defaults
 
-Starting with MariaDB 12.3, when the `DEFAULT` keyword is used, replication connection options can inherit values from server configuration.
+Starting with MariaDB 12.3, replication connection parameters can be set at the server level (for example, in configuration files like `my.cnf` or via command-line options) and reused across replication channels.
 
-Default values for replication-related options can be defined in configuration files (such as `my.cnf`) or using command-line options. For example:
+The value is taken from the corresponding server option when the `DEFAULT` keyword is used for an option in `CHANGE MASTER TO`.
+
+For example, a configuration file can specify default values:
 
 ```
 # Defaults replication connection options
@@ -146,7 +144,7 @@ master_ssl_key  = /etc/mysql/ssl/client-key.pem
 master_use_gtid = slave_pos
 ```
 
-When the `DEFAULT` keyword is specified in a CHANGE MASTER TO statement, the corresponding value is taken from these server options:
+These values can then be reused by specifying `DEFAULT`:
 
 ```
 -- Setting up a specific channel using global defaults
@@ -160,7 +158,9 @@ CHANGE MASTER 'primary_node_1' TO
 START REPLICA 'primary_node_1';
 ```
 
-If an option is explicitly set in `CHANGE MASTER TO`, the value overrides the corresponding server option.
+If an option is explicitly set in `CHANGE MASTER TO`, the value overrides the corresponding server option. The replication channel receives the current server-level value if `DEFAULT` is used.
+
+Values set to `DEFAULT` are fixed dynamically, thus changes to server options (for example, after a restart) are automatically reflected, whereas explicitly defined values remain unchanged.
 
 ### Connection Options
 
@@ -298,6 +298,7 @@ START SLAVE;
 ```
 
 > Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-connect-retry` defined in the configuration files or on the command line).\
+> \
 > The option can now be set to 0, which disables the wait between connection retries.
 
 #### MASTER\_RETRY\_COUNT
@@ -313,7 +314,7 @@ START SLAVE;
 
 Setting this option resets the `Connects_Tried` statistic in [SHOW REPLICA STATUS](../show/show-replica-status.md) to 0.
 
-The default is the [`--master-retry-count`](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option, which be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
+The default is the [`--master-retry-count`](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option, which can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
 {% tabs %}
 {% tab title="< 12.0" %}
@@ -327,12 +328,12 @@ The `MASTER_RETRY_COUNT` option for `CHANGE MASTER` is only supported by MariaDB
 master_retry_count=4294967295
 ```
 
-This option's maximum value has been increased to 18446744073709551615 (64-bit), which corresponds to the limit used across all platforms.\
-This option's valid range corresponds to the corresponding server option. Any mismatch should be regarded as a defect.
+The maximum value is 18446744073709551615 (64-bit). Before MariaDB 12.3, the maximum value for Windows was 4294967295.
 
-> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-retry-count`.
+> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-retry-count`).
 >
-> The option can now be set to 0, which disables retries.
+> The option can now be set to `0`, allowing the replica to retry indefinitely.> \
+> When it is set to 1, the connection attempt is only made once, hence disabling retries.
 
 #### MASTER\_BIND
 
@@ -356,7 +357,7 @@ This option's _interval_ argument has the following characteristics:
 
 Heartbeats are sent by the primary only if there are no unsent events in the binary log file for a period longer than the interval.
 
-> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-heartbeat-period`.
+> Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-heartbeat-period`).
 
 If the [RESET SLAVE](reset-replica.md) statement is executed, then the heartbeat interval is reset to the default.
 
