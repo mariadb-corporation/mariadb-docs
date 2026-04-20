@@ -21,7 +21,7 @@ At the end of the tutorial you will have a cluster with MariaDB up and running. 
 2. Select Service from the catalog.
 3. Search for Kubernetes Service and click on it.
 
-![kubernetes-select](<../../../.gitbook/assets/kubernetes-select (1).png>)
+![kubernetes-select](../../../.gitbook/assets/kubernetes-select.png)
 
 4. Choose a plan: standard or free.
 
@@ -36,51 +36,51 @@ The free plan includes one worker node and no subnet.
    3. Enter your payment information, click **Next**, and submit your information.
 7. Choose between classic or VPC after reviewing the documentation to determine the most suitable option.
 
-![infra-select](<../../../.gitbook/assets/infra-select (1).png>)
+![infra-select](../../../.gitbook/assets/infra-select.png)
 
 8. Now choose your location settings, for more information please visit [Locations](https://cloud.ibm.com/docs/containers?topic=containers-regions-and-zones#zones)
 9. Choose **Geography** (continent)
 
-![location-geo](<../../../.gitbook/assets/location-geo (1).png>)
+![location-geo](../../../.gitbook/assets/location-geo.png)
 
 10. Select either **Single-Zone** or **Multi-Zone** storage. Single Zone stores your data in one data center, while Multi-Zone distributes your data across multiple zones, offering greater safety in the event of unexpected zone failures.
 
-![location-avail](<../../../.gitbook/assets/location-avail (1).png>)
+![location-avail](../../../.gitbook/assets/location-avail.png)
 
 11. Choose a **Worker Zone** if using Single zones or Metro if Multizone
 
-![location-worker](<../../../.gitbook/assets/location-worker (1).png>)
+![location-worker](../../../.gitbook/assets/location-worker.png)
 
 12. Set up your account with VRF or enable VLAN spanning to use Multizone.
 13. If no Virtual LAN is available at your selected location, a new VLAN will be created for you.
 14. Choose a Worker node setup or use the preselected one.
 15. Set the **Worker node per zone**.
 
-![worker-pool](<../../../.gitbook/assets/worker-pool (1).png>)
+![worker-pool](../../../.gitbook/assets/worker-pool.png)
 
 16. Choose Master Service Endpoint, In VRF-enabled accounts, you can choose **Private endpoint only** to make your master accessible on the private network or via VPN tunnel. Choose **Public endpoint only** to make your master publicly accessible. When you have a VRF-enabled account, your cluster is set up by default to use **Both private and public endpoints**. For more information visit [endpoints](https://cloud.ibm.com/docs/account?topic=account-service-endpoints-overview).
 
-![endpoints](<../../../.gitbook/assets/endpoints (1).png>)
+![endpoints](../../../.gitbook/assets/endpoints.png)
 
 17. Give **Cluster name**
 
-![name-new](<../../../.gitbook/assets/name-new (1).png>)
+![name-new](../../../.gitbook/assets/name-new.png)
 
 18. Give desired **Tags** to your cluster, for more information visit [tags](https://cloud.ibm.com/docs/account?topic=account-tag)
 
-![tasg-new](<../../../.gitbook/assets/tasg-new (1).png>)
+![tasg-new](../../../.gitbook/assets/tasg-new.png)
 
 19. Click **Create**
 
-![create-new](<../../../.gitbook/assets/create-new (1).png>)
+![create-new](../../../.gitbook/assets/create-new.png)
 
 20. Wait for you cluster to be provisioned
 
-![cluster-prepare](<../../../.gitbook/assets/cluster-prepare (1).png>)
+![cluster-prepare](../../../.gitbook/assets/cluster-prepare.png)
 
 21. Your cluster is ready for usage
 
-![cluster-done](<../../../.gitbook/assets/cluster-done (1).png>)
+![cluster-done](../../../.gitbook/assets/cluster-done.png)
 
 ## Step 2 deploy IBM Cloud Block Storage plug-in
 
@@ -90,17 +90,17 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 2. Select **Software** from the catalog
 3. Search for _IBM Cloud Block Storage plug-in_ and click on it
 
-![block-search](<../../../.gitbook/assets/block-search (1).png>)
+![block-search](../../../.gitbook/assets/block-search.png)
 
 4. On the application page, select the cluster you wish to use
 5. Click on **Enter or select namespace** and choose the default Namespace or use a custom one (if you get error please wait 30 minutes for the cluster to finalize)
 
-![block-cluster](<../../../.gitbook/assets/block-cluster (1).png>)
+![block-cluster](../../../.gitbook/assets/block-cluster.png)
 
 6. Give a **Name** to this workspace
 7. Click **Install** and wait for the deployment
 
-![block-storage-create](<../../../.gitbook/assets/block-storage-create (1).png>)
+![block-storage-create](../../../.gitbook/assets/block-storage-create.png)
 
 ## Step 3 deploy MariaDB
 
@@ -146,7 +146,7 @@ We will deploy MariaDB on our cluster
 
 12. After finishing everything, tick the box next to the agreements and click **Install**
 
-![aggreement-create](<../../../.gitbook/assets/aggreement-create (1).png>)
+![aggreement-create](../../../.gitbook/assets/aggreement-create.png)
 
 13. The MariaDB workspace will start installing, wait a couple of minutes
 
@@ -161,11 +161,11 @@ We will deploy MariaDB on our cluster
 1. Go to [Resources](https://cloud.ibm.com/resources) in your browser
 2. Expand **Clusters.** Click on your cluster
 
-![resource-select](<../../../.gitbook/assets/resource-select (1).png>)
+![resource-select](../../../.gitbook/assets/resource-select.png)
 
 3. On the **Overview** page, click **Actions**, then select **Web Terminal** from the dropdown menu.
 
-![cluster-main](<../../../.gitbook/assets/cluster-main (1).png>)
+![cluster-main](../../../.gitbook/assets/cluster-main.png)
 
 4. Click Install and wait for sometime
 5. Click on Actions

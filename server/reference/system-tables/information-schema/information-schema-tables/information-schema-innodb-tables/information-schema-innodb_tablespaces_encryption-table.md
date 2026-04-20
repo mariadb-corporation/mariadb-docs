@@ -47,8 +47,8 @@ WHERE NAME LIKE 'db_encrypt%';
 ## See Also
 
 * [Encrypting Data for InnoDB / XtraDB](../../../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-overview.md)
-* [Data at Rest Encryption](../../../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md)
-* [Why Encrypt MariaDB Data?](../../../../../security/encryption/data-at-rest-encryption/why-encrypt-mariadb-data.md)
+* [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N)
+* [Why Encrypt MariaDB Data?](/broken/pages/xxDIEtn1OCmLfs6uAlFR)
 * [Encryption Key Management](../../../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/encryption-key-management.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

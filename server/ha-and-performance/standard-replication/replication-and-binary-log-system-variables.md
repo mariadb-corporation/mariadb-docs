@@ -339,7 +339,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `encrypt_binlog`
 
-* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Encrypting Binary Logs](/broken/pages/qmWqVsVK0P5Ggx0MwFrf).
+* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Encrypting Binary Logs](/broken/pages/qmWqVsVK0P5Ggx0MwFrf).
 * Command line: `--encrypt-binlog[={0|1}]`
 * Scope: Global
 * Dynamic: No

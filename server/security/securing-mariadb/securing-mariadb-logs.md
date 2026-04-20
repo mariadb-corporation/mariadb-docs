@@ -99,7 +99,7 @@ Windows uses Access Control Lists (ACLs) which are more granular than Linux perm
 
 * Service Account: MariaDB typically runs as `NetworkService` or a specific local user.
 * Inheritance: Disable permission inheritance on the `data` folder to prevent "Authenticated Users" from browsing your logs.
-*   Configuration: \
+*   Configuration:\
     1\. Right-click the log folder > Properties > Security > Advanced.
 
     2\. Remove _Everyone_ and _Users_.
@@ -144,7 +144,7 @@ When moving logs on Linux, you must manually create the new directory and set th
 {% endhint %}
 
 {% hint style="info" %}
-On **Linux**, adding `log_error` without specifying a location logs to the `systemd` journal. This is a viable alternative to the above, and even more secure than a log file on disk, since it cannot be changed by the MariaDB process.&#x20;
+On **Linux**, adding `log_error` without specifying a location logs to the `systemd` journal. This is a viable alternative to the above, and even more secure than a log file on disk, since it cannot be changed by the MariaDB process.
 {% endhint %}
 
 Because logs can grow indefinitely, an unmanaged log file is a security risk—not just for data exposure, but as a Denial of Service (DoS) vector. If a log file fills the storage partition, the MariaDB server will crash or hang.
@@ -155,7 +155,7 @@ Log rotation is the process of periodically archiving the current log file and s
 
 {% tabs %}
 {% tab title="Linux" %}
-### Linux: Using `logrotate`
+#### Linux: Using `logrotate`
 
 On Linux, the standard way to handle this is the [`logrotate`](https://linux.die.net/man/8/logrotate) utility. It allows you to compress old logs (saving space) and set a retention policy (for instance, keep only the last 30 days).
 
@@ -182,7 +182,7 @@ A typical MariaDB `logrotate` configuration (usually found in `/etc/logrotate.d/
 {% endtab %}
 
 {% tab title="Windows" %}
-### Windows: Scripted Rotation
+#### Windows: Scripted Rotation
 
 Windows does not have a native `logrotate` equivalent. Most administrators use a PowerShell script triggered by the Task Scheduler.
 
@@ -195,7 +195,7 @@ A basic security workflow for Windows logs:
 {% endtab %}
 
 {% tab title="Internal Rotation (Binary Logs)" %}
-### MariaDB Internal Rotation (Binary Logs)
+#### MariaDB Internal Rotation (Binary Logs)
 
 The Binary Log is unique because MariaDB manages its rotation internally. You should never use external tools like `logrotate` on binary logs, as it will break replication.
 
@@ -473,6 +473,3 @@ log_slow_admin_statements = ON
 | Availability      | Set `binlog_expire_logs_seconds` for auto-purge.      | Binary Logs            | All           |
 | Audit Trail       | Use `sha256sum` to baseline archived (rotated) logs.  | All Archives           | All           |
 | Replication       | Require SSL/TLS for log transmission to replicas.     | Binary / Relay Logs    | All           |
-
-
-

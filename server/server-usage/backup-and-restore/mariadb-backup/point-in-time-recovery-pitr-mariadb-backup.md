@@ -14,7 +14,7 @@ Run the following commands as root unless indicated otherwise.
 
 {% stepper %}
 {% step %}
-### Find the binary log position to restore to.
+#### Find the binary log position to restore to.
 
 When MariaDB Backup runs on a MariaDB Server with binary logs is enabled (which is a prerequisite for PITR), it stores binary log information in the `xtrabackup_binlog_info` file. Consult this file to find the name of the binary log position to use. In the following example, the log position is 321:
 
@@ -26,7 +26,7 @@ mariadb-node4.00001     321
 {% endstep %}
 
 {% step %}
-### Configure a new data directory.
+#### Configure a new data directory.
 
 Update the configuration file (for instance, `my.cnf`) to use a new data directory.
 
@@ -37,13 +37,13 @@ datadir=/var/lib/mysql_new
 {% endstep %}
 
 {% step %}
-### Restore the backup.
+#### Restore the backup.
 
 Restore from the backup [as explained here](full-backup-and-restore-with-mariadb-backup.md).
 {% endstep %}
 
 {% step %}
-### Start the database server.
+#### Start the database server.
 
 Start MariaDB Server.
 
@@ -53,7 +53,7 @@ systemctl start mariadb
 {% endstep %}
 
 {% step %}
-### Create a script using mysqlbinlog.
+#### Create a script using mysqlbinlog.
 
 Use the mysqlbinlog utility to create an SQL script, using the binary log file in the _old_ data directory, the start position in the `xtrabackup_binlog_info` file, and the date and time you want to restore to. Issue the following command _as a regular user_:
 
@@ -66,7 +66,7 @@ $ mysqlbinlog --start-position=321 \
 {% endstep %}
 
 {% step %}
-### Run the script.
+#### Run the script.
 
 In the _new_ data directory, run the script created in the previous step:
 
@@ -88,7 +88,7 @@ To perform a point-in-time recovery using archived logs:
 
 {% stepper %}
 {% step %}
-### Enable log archiving.
+#### Enable log archiving.
 
 Before a recovery is necessary, ensure that log archiving is active. This is done by setting the [`innodb_log_archive`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_archive) system variable to `ON` :
 
@@ -98,7 +98,7 @@ SET GLOBAL innodb_log_archive=ON;
 {% endstep %}
 
 {% step %}
-### Identify the recovery target.
+#### Identify the recovery target.
 
 Determine the target _LSN_ you wish to recover to. You can find the latest archived LSN by checking the `INNODB_LSN_ARCHIVED` status variable:
 
@@ -110,7 +110,7 @@ WHERE VARIABLE_NAME = 'INNODB_LSN_ARCHIVED';
 {% endstep %}
 
 {% step %}
-### Stop the MariaDB Server.
+#### Stop the MariaDB Server.
 
 Terminate the `mariadbd` process before initiating the recovery – for example:
 
@@ -120,7 +120,7 @@ $ sudo systemctl stop mariadb
 {% endstep %}
 
 {% step %}
-### Start the server with recovery parameters.
+#### Start the server with recovery parameters.
 
 Invoke the server with the [`innodb_log_recovery_start`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_start) and [`innodb_log_recovery_target`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_target) parameters to define the recovery window.
 
@@ -133,9 +133,9 @@ $ mariadbd --innodb_log_recovery_start=12288 --innodb_log_recovery_target=419430
 {% endstep %}
 
 {% step %}
-### Verify the state.
+#### Verify the state.
 
-Once the server reaches the target _LSN_, the recovery process stops. You can then verify the data integrity.&#x20;
+Once the server reaches the target _LSN_, the recovery process stops. You can then verify the data integrity.
 
 {% hint style="info" %}
 Point-in-time recovery for DDL (Data Definition Language) operations may be limited as `.frm` files are not tracked by the InnoDB log.

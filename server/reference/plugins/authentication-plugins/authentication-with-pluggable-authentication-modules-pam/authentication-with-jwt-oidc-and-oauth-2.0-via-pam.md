@@ -60,7 +60,7 @@ sequenceDiagram
 
 {% stepper %}
 {% step %}
-### Configure the PAM Service
+#### Configure the PAM Service
 
 You must define a PAM service that loads your chosen module. This file tells the operating system how to validate the credentials passed by MariaDB.
 
@@ -85,7 +85,7 @@ Ensure strict validation of the `aud` (Audience) parameter to confirm that token
 {% endstep %}
 
 {% step %}
-### Configure MariaDB Server
+#### Configure MariaDB Server
 
 Once the OS is configured, you must enable the PAM plugin in MariaDB and create a user that utilizes it.
 
@@ -104,7 +104,7 @@ Once the OS is configured, you must enable the PAM plugin in MariaDB and create 
 {% endstep %}
 
 {% step %}
-### Connect via Client
+#### Connect via Client
 
 When connecting, the "Password" field is used to transmit the JWT or OIDC Token.
 

@@ -36,7 +36,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_adaptive_hash_non_hash_searches`
 
-* Description: Non-hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. From [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1062-release-notes), not updated if [innodb\_adaptive\_hash\_index](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is not enabled (the default).
+* Description: Non-hash searches as shown in the INSERT BUFFER AND ADAPTIVE HASH INDEX section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output. From [MariaDB 10.6.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.2), not updated if [innodb\_adaptive\_hash\_index](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) is not enabled (the default).
   * In [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103), and [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), this status variable is not present. Use the `adaptive_hash_searches_btree` counter in the [information\_schema.INNODB\_METRICS](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_metrics-table.md) table instead.
   * From [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), this status variable is present.
 * Scope: Global
@@ -209,7 +209,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Monitor the number of pages that were freed by a buffer pool LRU eviction scan, without flushing.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes)
+* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 #### `Innodb_buffer_pool_pages_free`
 
@@ -320,7 +320,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Description: Number of bulk insert operations to InnoDB tables.
 * Scope: Global
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-19-release-notes), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-9-release-notes), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-3-release-notes)
+* Introduced: [MariaDB 10.6.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.19), [MariaDB 10.11.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.9), [MariaDB 11.1.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.6), [MariaDB 11.2.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.5), [MariaDB 11.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.3)
 
 #### `Innodb_checkpoint_age`
 
@@ -401,7 +401,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_data_written`
 
-* Description: Number of InnoDB bytes written since server startup. From [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), no longer includes writes to the redo log file `ib_logfile0`, which continue to be counted by [Innodb\_os\_log\_written](innodb-status-variables.md#innodb_os_log_written). An error in counting was introduced in [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7) until [MariaDB 10.5.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.20), [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-13-release-notes), [MariaDB 10.8.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.8), [MariaDB 10.9.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.6), [MariaDB 10.10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.4) and [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10-11-3-release-notes) ([MDEV-31124](https://jira.mariadb.org/browse/MDEV-31124)) in which writes via the doublewrite buffer started to be counted incorrectly, without multiplying them by innodb\_page\_size. A workaround for the error could be the following formulae: real\_data\_written = Innodb\_data\_written + (innodb\_page\_size - 1) \* Innodb\_dblwr\_pages\_writteninnodb\_written = real\_data\_written + Innodb\_os\_log\_written
+* Description: Number of InnoDB bytes written since server startup. From [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), no longer includes writes to the redo log file `ib_logfile0`, which continue to be counted by [Innodb\_os\_log\_written](innodb-status-variables.md#innodb_os_log_written). An error in counting was introduced in [MariaDB 10.5.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.7) until [MariaDB 10.5.20](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.20), [MariaDB 10.6.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.13), [MariaDB 10.8.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.8), [MariaDB 10.9.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.6), [MariaDB 10.10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.4) and [MariaDB 10.11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.3) ([MDEV-31124](https://jira.mariadb.org/browse/MDEV-31124)) in which writes via the doublewrite buffer started to be counted incorrectly, without multiplying them by innodb\_page\_size. A workaround for the error could be the following formulae: real\_data\_written = Innodb\_data\_written + (innodb\_page\_size - 1) \* Innodb\_dblwr\_pages\_writteninnodb\_written = real\_data\_written + Innodb\_os\_log\_written
 * Scope: Global
 * Data Type: `numeric`
 
@@ -507,35 +507,35 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_encryption_rotation_estimated_iops`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_flushed`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_modified`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_read_from_cache`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
 
 #### `Innodb_encryption_rotation_pages_read_from_disk`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -921,13 +921,13 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_num_pages_decrypted`
 
-* Description: Number of pages page decrypted. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Number of pages page decrypted. See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 
 #### `Innodb_num_pages_encrypted`
 
-* Description: Number of pages page encrypted. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Number of pages page encrypted. See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 
@@ -951,7 +951,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_num_pages_page_encryption_error`
 
-* Description: Number of page encryption errors. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Number of page encryption errors. See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1234,7 +1234,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_reorganizations`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1242,7 +1242,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_split_failures_missing_index`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1250,7 +1250,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_split_failures_out_of_filespace`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Introduced: [MariaDB 10.1.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.3)
@@ -1258,21 +1258,21 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Innodb_scrub_background_page_split_failures_underflow`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
 
 #### `Innodb_scrub_background_page_split_failures_unknown`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)
 
 #### `Innodb_scrub_background_page_splits`
 
-* Description: See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Scope: Global
 * Data Type: `numeric`
 * Removed: [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2)

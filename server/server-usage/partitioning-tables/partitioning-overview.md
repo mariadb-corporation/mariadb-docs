@@ -480,7 +480,7 @@ The following requirements must be met:
 * Table t1 must be partitioned, and table t2 cannot be partitioned.
 * Table t2 cannot be a temporary table.
 * Table t1 and t2 must otherwise be identical.
-* Any existing row in t2 must match the conditions for storage in the exchanged partition p1 unless, from [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), the `WITHOUT VALIDATION` option is specified.
+* Any existing row in t2 must match the conditions for storage in the exchanged partition p1 unless, from [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), the `WITHOUT VALIDATION` option is specified.
 
 By default, MariaDB performs the validation to see that each row meets the partition requirements, and the statement fails if a row does not fit.
 

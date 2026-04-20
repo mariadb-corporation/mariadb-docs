@@ -113,7 +113,7 @@ WHERE TABLE_SCHEMA = 'mydb';
 
 ## Atomic DROP TABLE
 
-**MariaDB starting with** [**10.6.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes)
+**MariaDB starting with** [**10.6.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1)
 
 {% tabs %}
 {% tab title="Current" %}

@@ -565,7 +565,7 @@ The suffix can be upper or lower-case.
 
 #### `encrypt_tmp_disk_tables`
 
-* Description: Enables automatic encryption of all internal on-disk temporary tables that are created during query execution if [aria\_used\_for\_temp\_tables=ON](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) is set. See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling Encryption for Internal On-disk Temporary Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
+* Description: Enables automatic encryption of all internal on-disk temporary tables that are created during query execution if [aria\_used\_for\_temp\_tables=ON](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) is set. See [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Enabling Encryption for Internal On-disk Temporary Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
 * Command line: `--encrypt-tmp-disk-tables[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
@@ -574,7 +574,7 @@ The suffix can be upper or lower-case.
 
 #### `encrypt_tmp_files`
 
-* Description: Enables automatic encryption of temporary files, such as those created for filesort operations, binary log file caches, etc. See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Enables automatic encryption of temporary files, such as those created for filesort operations, binary log file caches, etc. See [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Command line: `--encrypt-tmp-files[={0|1}]`
 * Scope: Global
 * Dynamic: No
@@ -583,7 +583,7 @@ The suffix can be upper or lower-case.
 
 #### `encryption_algorithm`
 
-* Description: Which encryption algorithm to use for table encryption. `aes_cbc` is the recommended one. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md).
+* Description: Which encryption algorithm to use for table encryption. `aes_cbc` is the recommended one. See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
 * Command line: `--encryption-algorithm=value`
 * Scope: Global
 * Dynamic: No

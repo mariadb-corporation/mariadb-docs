@@ -11,7 +11,7 @@ This feature produces a trace as a JSON document for any [SELECT](../../../../re
 * [optimizer\_trace\_max\_mem\_size](../../system-variables/server-system-variables.md#optimizer_trace_max_mem_size)= value
   * Default value: 1048576
 * [optimizer\_record\_context](../../system-variables/server-system-variables.md#optimizer_record_context){=1|0}
-  * Default value: OFF. From [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1).
+  * Default value: OFF. From [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1).
 
 ## INFORMATION\_SCHEMA.OPTIMIZER\_TRACE
 

@@ -648,7 +648,7 @@ Dump only rows selected by the given _`WHERE` condition_. Quotes around the cond
 
 #### -L, --wildcards
 
-Usage of wildcards in the table/database name. Without the `--databases` option, wildcards can be used only in tables names. From [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/release-notes-mariadb-12.1-rolling-releases/changes-and-improvements-in-mariadb-12.1).
+Usage of wildcards in the table/database name. Without the `--databases` option, wildcards can be used only in tables names. From [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1).
 
 #### -X, --xml
 

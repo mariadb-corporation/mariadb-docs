@@ -16,15 +16,15 @@ This guide provides the universal workflow for building MariaDB Server from sour
 
 {% stepper %}
 {% step %}
-### Prepare Your Environment
+#### Prepare Your Environment
 
-Before you begin, your system must have the necessary compilers, build tools, and library headers.&#x20;
+Before you begin, your system must have the necessary compilers, build tools, and library headers.
 
 > For details, see [Install Build Dependencies](compiling-mariadb-from-source-the-master-guide.md#prepare-your-environment-install-build-dependencies).
 {% endstep %}
 
 {% step %}
-### Obtain the Source Code
+#### Obtain the Source Code
 
 Decide whether you need the latest development branch or a specific stable release.
 
@@ -47,7 +47,7 @@ Decide whether you need the latest development branch or a specific stable relea
 {% endstep %}
 
 {% step %}
-### Configure the Build (CMake)
+#### Configure the Build (CMake)
 
 MariaDB uses out-of-source builds to keep the source tree clean. This is where you define installation paths and features.
 
@@ -66,7 +66,7 @@ MariaDB uses out-of-source builds to keep the source tree clean. This is where y
 {% endstep %}
 
 {% step %}
-### Compile
+#### Compile
 
 Once configured, use the CMake build tool to compile the binaries. Using the `--parallel` flag speeds this up by using multiple CPU cores.
 
@@ -102,7 +102,7 @@ Without a number, modern CMake automatically picks an appropriate number of jobs
 {% endstep %}
 
 {% step %}
-### Install and Initialize
+#### Install and Initialize
 
 After a successful build, you must prepare the data directory and system tables before the server can start.
 
@@ -124,7 +124,7 @@ After a successful build, you must prepare the data directory and system tables 
 {% endstep %}
 
 {% step %}
-### Start and Verify
+#### Start and Verify
 
 Launch the server and check that it is responsive.
 
@@ -135,7 +135,7 @@ Launch the server and check that it is responsive.
 {% endstep %}
 
 {% step %}
-### Test the Build
+#### Test the Build
 
 Before putting your fresh build into production, verify it against the official test suite. MariaDB includes [MTR (MariaDB Test Run)](../../../../clients-and-utilities/testing-tools/mariadb-test/) for this purpose.
 
@@ -156,7 +156,7 @@ Before putting your fresh build into production, verify it against the official 
 {% endstep %}
 
 {% step %}
-### After Building
+#### After Building
 
 After successfully building MariaDB from source, additional tasks can be found under [Post-Build](compiling-mariadb-from-source-the-master-guide.md#post-build).
 {% endstep %}
@@ -406,7 +406,7 @@ When running `cmake ..`, you can pass these options (using the `-D` prefix) to c
 
 <table><thead><tr><th width="150.58984375">Category</th><th width="336.92578125">Flag</th><th>Description</th></tr></thead><tbody><tr><td>Install Path</td><td><code>-DCMAKE_INSTALL_PREFIX=/opt/mariadb</code></td><td>Defines where the server is installed (default: <code>/usr/local</code>).</td></tr><tr><td>Build Type</td><td><code>-DCMAKE_BUILD_TYPE=RelWithDebInfo</code></td><td>Options: <code>Release</code>, <code>Debug</code>, <code>RelWithDebInfo</code> (recommended).</td></tr><tr><td>Features</td><td><code>-DWITH_EMBEDDED_SERVER=ON</code></td><td>Builds the <code>libmariadbd</code> embedded library.</td></tr><tr><td>Storage Engines</td><td><code>-DPLUGIN_ROCKSDB=NO</code></td><td>Explicitly disables a specific storage engine (use <code>YES</code> to force enable).</td></tr><tr><td>Security</td><td><code>-DWITH_SSL=system</code></td><td>Use the system's OpenSSL (default). Options: <code>system</code>, <code>openssl</code>, <code>gnutls</code>.</td></tr><tr><td>Debugging</td><td><code>-DWITH_ASAN=ON</code></td><td>Enables AddressSanitizer to find memory leaks.</td></tr><tr><td>Standardization</td><td><code>-DBUILD_CONFIG=mysql_release</code></td><td>Configures the build to match the official MariaDB release binaries.</td></tr></tbody></table>
 
-### Pro-Tip: Managing Plugins&#x20;
+### Pro-Tip: Managing Plugins
 
 Most plugins are auto-detected based on the dependencies you installed in [step 1](compiling-mariadb-from-source-the-master-guide.md#preparing-your-environment-install-build-dependencies). To see a full list of available options and their current status, run:
 
@@ -486,7 +486,7 @@ This table lists typical locations of `--datadir`.
 
 ## Post-Build
 
-> This section covers optional additional things to do after building MariaDB successfully (step 8  (After Building)).
+> This section covers optional additional things to do after building MariaDB successfully (step 8 (After Building)).
 
 ### Packaging
 

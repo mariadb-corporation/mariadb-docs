@@ -47,7 +47,7 @@ The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports 
 
 {% tabs %}
 {% tab title="Current" %}
-### **Skipping Long CHAR/VARCHAR Columns**
+#### **Skipping Long CHAR/VARCHAR Columns**
 
 When using `ANALYZE TABLE PERSISTENT`, MariaDB skips long [`CHAR`](../../data-types/string-data-types/char.md)/[`VARCHAR`](../../data-types/string-data-types/varchar.md) columns during statistics collection if they exceed the value of the [`analyze_max_length`](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#analyze_max_length) system variable.
 

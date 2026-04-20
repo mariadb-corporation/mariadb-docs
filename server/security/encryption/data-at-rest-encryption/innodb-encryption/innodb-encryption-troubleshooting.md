@@ -176,7 +176,7 @@ This behavior is normal during the one‑time setup phase when InnoDB begins enc
 
 **Monitor Background Encryption Activity**
 
-MariaDB performs encryption in background threads. This helps determine if CPU usage is due to ongoing table encryption or key rotation.&#x20;
+MariaDB performs encryption in background threads. This helps determine if CPU usage is due to ongoing table encryption or key rotation.
 
 Before changing configuration, verify whether background encryption is currently running by executing the following command:
 
@@ -210,7 +210,7 @@ Lowering this value can prevent CPU contention at the cost of slower encryption 
 SET GLOBAL innodb_encryption_threads=2;
 ```
 
-&#x20;You can maintain the value based on available CPU capacity and workload requirements. See [innodb\_encryption\_threads](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads).
+You can maintain the value based on available CPU capacity and workload requirements. See [innodb\_encryption\_threads](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encryption_threads).
 
 #### Reduce Encryption Rotation IOPS
 
@@ -231,7 +231,7 @@ Setting a lower value (e.g., 25 or 50) limits the threads, making them read and 
 
 In addition to configuration changes, you can also manage encryption more effectively by applying the following operational practices:
 
-* Encrypt table in batches: Instead of enabling encryption for all tables at once, apply it in stages. This allow background encryption to complete for one set of tables and then proceed with more. With this approach, peak CPU and I/O load can be reduced.&#x20;
+* Encrypt table in batches: Instead of enabling encryption for all tables at once, apply it in stages. This allow background encryption to complete for one set of tables and then proceed with more. With this approach, peak CPU and I/O load can be reduced.
 * Galera Cluster setup considerations:
   * Encryption operations are performed independently on each node
   * Use an odd number of nodes (3, 5, 7) to maintain quorum and prevent split-brain scenarios. See [Weighted Quorum](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-architecture/quorum-control-with-weighted-votes) for details.
@@ -241,7 +241,7 @@ In addition to configuration changes, you can also manage encryption more effect
 * [InnoDB Data-at-Rest Encryption](../)
 * [InnoDB Background Encryption Threads](innodb-background-encryption-threads.md)
 * [InnoDB System Variables](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md)
-* [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/)
+* [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

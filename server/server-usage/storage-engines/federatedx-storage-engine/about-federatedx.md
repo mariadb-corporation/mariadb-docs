@@ -127,7 +127,7 @@ CREATE SERVER 'server_one' FOREIGN DATA WRAPPER 'mysql' OPTIONS
   OWNER 'root');
 ```
 
-**MariaDB starting with** [**10.11.12**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/mariadb-10.11.12-release-notes)
+**MariaDB starting with** [**10.11.12**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.12)
 
 You can also use 'mariadb' as a wrapper.
 

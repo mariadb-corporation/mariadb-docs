@@ -16,13 +16,13 @@ TLS must be manually enabled on the server, which is what this page describes.
 
 {% stepper %}
 {% step %}
-### Acquire an X509 certificate and a private key for the server.
+#### Acquire an X509 certificate and a private key for the server.
 
 If it is a test or development server, self-signed certificates and keys should be sufficient.
 {% endstep %}
 
 {% step %}
-### Determine which system variables and  you need to configure.
+#### Determine which system variables and you need to configure.
 
 Mandatory [system variables and options](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for TLS include:
 
@@ -45,17 +45,17 @@ Other useful system variables and options for TLS include:
 {% endstep %}
 
 {% step %}
-### Choose a configuration file in which to configure your system variables and options.
+#### Choose a configuration file in which to configure your system variables and options.
 
 It is not recommended to make changes to one of the bundled configuration files. Instead, we recommend to [create a custom configuration file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#including-option-files) in one of the directories included by the main configuration file (for instance, my.cnf). Configuration files in included directories are read in alphabetical order. If you want your custom configuration file to override the bundled configuration files, it is a good idea to prefix the custom configuration file's name with a string that will be sorted last, such as `z-`. Examples:
 
 * RHEL, CentOS, Rocky Linux, and SLES: `/etc/my.cnf.d/z-custom-my.cnf`
-* Debian and Ubuntu: `/etc/mysql/mariadb.conf.d/z-custom-my.cnf`&#x20;
+* Debian and Ubuntu: `/etc/mysql/mariadb.conf.d/z-custom-my.cnf`
 * macOS: `/opt/homebrew/etc/z-custom-my.cnf`
 {% endstep %}
 
 {% step %}
-### Set your system variables and options in the configuration file.
+#### Set your system variables and options in the configuration file.
 
 They need to be set in a group that is read by [MariaDB Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md), such as `[mariadb]` , `[server]`, or `[client-server]`:
 
@@ -68,7 +68,7 @@ ssl_ca = /certs/ca-cert.pem
 {% endstep %}
 
 {% step %}
-### Restart the server.
+#### Restart the server.
 
 On most Linux systems, run this command:
 
@@ -84,7 +84,7 @@ brew services restart mariadb
 {% endstep %}
 
 {% step %}
-### Connect to the server.
+#### Connect to the server.
 
 Start a client like [mariadb](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md) (see [this page](../../../mariadb-quickstart-guides/mariadb-connecting-guide.md) for connection options):
 
@@ -94,7 +94,7 @@ $ sudo mariadb
 {% endstep %}
 
 {% step %}
-### Verify that TLS is enabled.
+#### Verify that TLS is enabled.
 
 ```sql
 SHOW GLOBAL VARIABLES LIKE 'have_ssl';

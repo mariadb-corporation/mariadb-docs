@@ -22,11 +22,11 @@ To fully disable encryption, you must set the relevant system variables and then
 
 {% stepper %}
 {% step %}
-### Disable encryption for new data.
+#### Disable encryption for new data.
 
 First, prevent MariaDB from encrypting any new data by updating the global system variables.
 
-#### User-Created Tables
+**User-Created Tables**
 
 Set `aria_encrypt_tables` to `OFF`. This ensures that any new Aria tables created or existing tables rebuilt from this point forward will be unencrypted.
 
@@ -41,7 +41,7 @@ To make this change persistent across server restarts, add the following to your
 aria_encrypt_tables = OFF
 ```
 
-#### Internal On-Disk Temporary Tables
+**Internal On-Disk Temporary Tables**
 
 MariaDB creates internal temporary tables using the Aria engine when `aria_used_for_temp_tables` is set to `ON`. To ensure these are no longer encrypted, set:
 
@@ -51,7 +51,7 @@ SET GLOBAL encrypt_tmp_disk_tables = OFF;
 {% endstep %}
 
 {% step %}
-### Identify encrypted Aria tables.
+#### Identify encrypted Aria tables.
 
 Aria does not use background encryption threads (unlike InnoDB). Therefore, tables already on disk will remain encrypted until you manually rebuild them.
 
@@ -68,11 +68,11 @@ WHERE ENGINE = 'Aria'
 {% endstep %}
 
 {% step %}
-### Rebuild tables to decrypt.
+#### Rebuild tables to decrypt.
 
 To decrypt the tables identified in the previous step, you must rebuild them using an `ALTER TABLE` statement. This causes MariaDB to rewrite the data (`.MAD`) and index (`.MAI`) files in an unencrypted format.
 
-#### Option A: Manual Rebuild (Single Table)
+**Option A: Manual Rebuild (Single Table)**
 
 Use the following statement to rebuild a specific table:
 
@@ -80,7 +80,7 @@ Use the following statement to rebuild a specific table:
 ALTER TABLE db_name.table_name ENGINE=Aria, ALGORITHM=COPY;
 ```
 
-#### Option B: Generate Rebuild Statements (Bulk)
+**Option B: Generate Rebuild Statements (Bulk)**
 
 You can generate the DDL for all encrypted Aria tables at once using this query:
 
@@ -95,7 +95,7 @@ WHERE ENGINE='Aria'
 {% endstep %}
 
 {% step %}
-### Verify and clean up.
+#### Verify and clean up.
 
 * Verify: Run the query from Step 2 again to ensure no encrypted Aria tables remain.
 * Remove Plugins (optional): Once all Aria tables (and any InnoDB tables or binary logs) are decrypted, you can safely remove the Encryption Key Management plugin from your configuration file and restart the server.

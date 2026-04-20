@@ -938,7 +938,7 @@ GRANT select, insert on db.* TO alice;
 
 {% tabs %}
 {% tab title="Current" %}
-### Syntax
+#### Syntax
 
 ```sql
 GRANT <privilege> ON <db_name>.<object> TO PUBLIC;
@@ -947,7 +947,7 @@ REVOKE <privilege> ON <db_name>.<object> FROM PUBLIC;
 
 `GRANT ... TO PUBLIC` grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when you only want to state once that all users need to have a certain set of privileges. When running [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md), a user also sees all privileges inherited from `PUBLIC`. [SHOW GRANTS FOR PUBLIC](../administrative-sql-statements/show/show-grants.md#for-public) only shows `TO PUBLIC` grants.
 
-### Example
+#### Example
 
 The following example shows the difference between granting privileges to particular users and granting privileges to `PUBLIC`.
 

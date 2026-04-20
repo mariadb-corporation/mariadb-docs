@@ -42,11 +42,11 @@ To recover a database using archived logs, use the [`innodb_log_recovery_start`]
 
 {% stepper %}
 {% step %}
-### Stop the server.
+#### Stop the server.
 {% endstep %}
 
 {% step %}
-### Configure the recovery range.
+#### Configure the recovery range.
 
 Start the server (via the command line or by modifying your configuration file) with the desired LSN range.
 

@@ -1,7 +1,7 @@
 # Compatibility and Breaking Changes for MariaDB Enterprise Server 10.5
 
 {% hint style="info" %}
-## Guide Overview
+### Guide Overview
 
 This page acts as a technical reference, highlighting the logical impacts, architectural changes, and potential breaking points when upgrading to MariaDB Enterprise Server 10.5. It focuses on technical issues identified through customer support and engineering audits. This guide aims to supplement the comprehensive feature summaries available in the [_What's New_ in MariaDB Enterprise Server 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5) page for MariaDB Enterprise Server 10.5.
 

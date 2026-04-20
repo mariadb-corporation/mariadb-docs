@@ -21,7 +21,7 @@ Running the above command installs many of the build dependencies, but it **does
 
 ## Installing Build Dependencies for newer MariaDB versions
 
-The following commands installs all packages needed to get and compile [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011):
+The following commands installs all packages needed to get and compile [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011):
 
 ```bash
 yum install git

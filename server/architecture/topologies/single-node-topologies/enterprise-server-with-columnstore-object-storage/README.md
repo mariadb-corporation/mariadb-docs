@@ -46,7 +46,7 @@ The Enterprise ColumnStore node:
 
 * Receives queries from the application
 * Executes queries
-* Use [S3-compatible object storage](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/storagemanager/certified-s3-object-storage-providers) for data
+* Use [S3-compatible object storage](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/clients-and-tools/storagemanager/certified-s3-object-storage-providers) for data
 
 ### High Availability
 

@@ -25,9 +25,9 @@ One is when reading events from the binlog on the primary, for example when send
 
 The other is when the replica SQL thread reads events from the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md). This is controlled by the slave\_sql\_verify\_checksum option, and is used to detect file system corruption of replica relay log files.
 
-**MariaDB starting with** [**11.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)
+**MariaDB starting with** [**11.4**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
 
-From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), binlog checksums are computed when writing events into the statement or transaction caches, where before this was done when the caches were copied to the real binlog file. This moves the checksum computation outside of holding LOCK\_log, improving scalability. See [MDEV-31273](https://jira.mariadb.org/browse/MDEV-31273).
+From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), binlog checksums are computed when writing events into the statement or transaction caches, where before this was done when the caches were copied to the real binlog file. This moves the checksum computation outside of holding LOCK\_log, improving scalability. See [MDEV-31273](https://jira.mariadb.org/browse/MDEV-31273).
 
 `master_verify_checksum`
 

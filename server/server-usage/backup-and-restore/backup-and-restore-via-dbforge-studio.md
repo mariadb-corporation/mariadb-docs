@@ -19,15 +19,15 @@ dbForge Studio for MySQL and MariaDB has a separate module dedicated to the data
 Launch the Studio and go to **Database > Backup and Restore > Backup Database**. The **Database Backup Wizard** with several pages will appear.\
 On the General page, specify the database in question and how to connect to it, then choose where to save the created backup file, and specify its name. There are additional optional settings – you can select to delete old files automatically, zip the output backup file, etc. When done, click **Next**.
 
-![b1](<../../.gitbook/assets/b1 (1).png>)
+![b1](../../.gitbook/assets/b1.png)
 
 On the **Backup content** page, select the objects to back up. Click **Next**.
 
-![b2](<../../.gitbook/assets/b2 (1).png>)
+![b2](../../.gitbook/assets/b2.png)
 
 The **Options** page. Here you can specify the details of the data backing up process. Plenty of available options allow you to configure this task precisely to meet the specific requirements. When done, click **Next**.
 
-![b3](<../../.gitbook/assets/b3 (1).png>)
+![b3](../../.gitbook/assets/b3.png)
 
 The **Errors handling** page. Here you configure how the Studio should handle the errors that might occur during the backing up process. Also, you can set the Studio to write the information about the errors it encountered into the log file.
 
@@ -37,15 +37,15 @@ The configuration process is complete. Click Backup to launch the data backing u
 
 Note: It is not obligatory to go through all the pages of the Wizard. The Backup button is available no matter on which page you are. Thus, you can launch the process of backing the data up whenever you have set everything you needed.
 
-![b4](<../../.gitbook/assets/b4 (1).png>)
+![b4](../../.gitbook/assets/b4.png)
 
 After you have clicked **Backup**, dbForge Studio for MySQL starts to create a MariaDB backup.
 
-![b5](<../../.gitbook/assets/b5 (1).png>)
+![b5](../../.gitbook/assets/b5.png)
 
 When this is done, you will see the confirmation message. Click **Finish**.
 
-![b6](<../../.gitbook/assets/b6 (1).png>)
+![b6](../../.gitbook/assets/b6.png)
 
 Backup and restore policies suggest creating regular backups on a daily, weekly, monthly, quarterly, and yearly basis. Besides, to minimize the consequences of possible data loss, it is highly recommended make a backup before making any changes to a database, such as upgrading, modifying data, redesigning the structure, etc. Simply speaking, you always need a fresh backup to restore the most up-to-date database version.\
 To ensure regular backups on schedule, you can use a batch file created with the help of the Studio and **Windows Task Scheduler**, where you need to create and schedule the backup task.
@@ -58,11 +58,11 @@ The process of data recovery from the backup file is simple. It only takes sever
 Launch dbForge Studio for MySQL and go to **Database > Backup and Restore > Restore Database**. The **Database Restore Wizard** will appear.\
 Specify the database name, its connection parameters, and the path to the backup file you want to restore. Then click **Restore**, and the process will start immediately.
 
-![r1](<../../.gitbook/assets/r1 (1).png>)
+![r1](../../.gitbook/assets/r1.png)
 
 When the process is complete, click **Finish**.
 
-![r2](<../../.gitbook/assets/r2 (1).png>)
+![r2](../../.gitbook/assets/r2.png)
 
 More information about this essential feature is available on the [dedicated backup and restore page](https://www.devart.com/dbforge/mysql/studio/mysql-backup.html) – it explores the routines performed on MySQL, but they fully apply to MariaDB backups. You can use the same IDE and the same workflow.
 

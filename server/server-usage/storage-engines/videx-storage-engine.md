@@ -17,7 +17,7 @@ This document explains how to install and use **VIDEX** with MariaDB, including:
 * Running a one-shot **videx-sync** workflow to build a VIDEX database.
 * Comparing `EXPLAIN` between your original schema and the VIDEX schema.
 
-The VIDEX server repository, with more examples and extension points, can be accessed [here](https://github.com/bytedance/videx/). It contains [an example dataset (TPC-H tiny)](https://github.com/bytedance/videx/blob/main/data/tpch_tiny/tpch_tiny.sql.tar.gz).&#x20;
+The VIDEX server repository, with more examples and extension points, can be accessed [here](https://github.com/bytedance/videx/). It contains [an example dataset (TPC-H tiny)](https://github.com/bytedance/videx/blob/main/data/tpch_tiny/tpch_tiny.sql.tar.gz).
 
 ## Prerequisites
 
@@ -187,7 +187,7 @@ This section assumes:
 
 {% stepper %}
 {% step %}
-### Start VIDEX-Server
+#### Start VIDEX-Server
 
 ```bash
 docker run -d --name videx-server \
@@ -197,7 +197,7 @@ docker run -d --name videx-server \
 {% endstep %}
 
 {% step %}
-### Build VIDEX schema via videx-sync
+#### Build VIDEX schema via videx-sync
 
 ```bash
 docker run --rm --name videx-sync \
@@ -209,7 +209,7 @@ docker run --rm --name videx-sync \
 {% endstep %}
 
 {% step %}
-### Run EXPLAIN on the original schema
+#### Run EXPLAIN on the original schema
 
 Run [`EXPLAIN`](../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) on your original tables:
 
@@ -242,7 +242,7 @@ The `EXPLAIN` output for the original schema is:
 {% endstep %}
 
 {% step %}
-### Run EXPLAIN on the VIDEX schema
+#### Run EXPLAIN on the VIDEX schema
 
 Run `EXPLAIN` on the VIDEX schema (tables are `ENGINE=VIDEX`):
 

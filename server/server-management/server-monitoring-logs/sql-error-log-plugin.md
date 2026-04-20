@@ -51,7 +51,7 @@ The log format until [MariaDB 10.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTj
 Time User Error_code: Error_message : Query
 ```
 
-Starting from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011), the format is:
+Starting from [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011), the format is:
 
 ```
 Time User Type Error_code: Error_message : Query

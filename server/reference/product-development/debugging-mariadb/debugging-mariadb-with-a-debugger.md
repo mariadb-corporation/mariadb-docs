@@ -96,7 +96,7 @@ In `ddd` or `gdb`
 run --datadir=/data --language=./share/english --gdb
 ```
 
-You can [set the options in your /.my.cnf file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/starting-and-stopping-mariadb/running-mariadb-from-the-build-directory) so as not to have to repeat them on the `run` line.
+You can [set the options in your /.my.cnf file](../../../server-management/starting-and-stopping-mariadb/running-mariadb-from-the-build-directory.md) so as not to have to repeat them on the `run` line.
 
 If you run `mysqld` with `--debug`, you will get a [trace file](creating-a-trace-file.md) in /tmp/mysqld.trace that shows what is happening.
 
@@ -154,8 +154,8 @@ The above `.my.cnf` file:
 ### See Also
 
 * [Creating a trace file](creating-a-trace-file.md)
-* [Configuring MariaDB with my.cnf](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb-with-option-files)
-* [Running mariadbd from the build director](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/starting-and-stopping-mariadb/running-mariadb-from-the-build-directory)
+* [Configuring MariaDB with my.cnf](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md)
+* [Running mariadbd from the build director](../../../server-management/starting-and-stopping-mariadb/running-mariadb-from-the-build-directory.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

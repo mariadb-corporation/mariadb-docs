@@ -1620,7 +1620,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: The maximum memory allocation used by the current connection.
 * Scope: Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-10-6-21-release-notes)
+* Introduced: [MariaDB 10.6.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.21)
 
 #### `Max_statement_time_exceeded`
 
@@ -1653,7 +1653,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 `Memory_used` now encompasses `Innodb_buffer_pool_bytes_data` rather than reporting them as separate pools.
 {% endhint %}
 
-* Description: Memory used by the server (Global scope) or the current connection (Session scope), in bytes. Since [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), Global scope includes major buffers ([InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md), [MyISAM key buffer](../../../server-usage/storage-engines/myisam-storage-engine/myisam-overview.md), and [Aria page cache](../../../security/encryption/data-at-rest-encryption/aria-encryption/)) that were previously excluded.&#x20;
+* Description: Memory used by the server (Global scope) or the current connection (Session scope), in bytes. Since [MariaDB 10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16), Global scope includes major buffers ([InnoDB buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md), [MyISAM key buffer](../../../server-usage/storage-engines/myisam-storage-engine/myisam-overview.md), and [Aria page cache](../../../security/encryption/data-at-rest-encryption/aria-encryption/)) that were previously excluded.
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -1788,7 +1788,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Cumulative time in seconds, with microsecond precision, of running queries.
 * Scope: Global,Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114)
+* Introduced: [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114)
 
 #### `Questions`
 
@@ -1801,7 +1801,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 * Description: Number of times sending the metadata has been skipped. Metadata is not resent if metadata does not change between prepare and execute of prepared statement, or between executes.
 * Scope: Global, Session
 * Data Type: `numeric`
-* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1060-release-notes)
+* Introduced: [MariaDB 10.6.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.0)
 
 #### `Rows_read`
 

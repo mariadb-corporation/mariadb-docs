@@ -1,6 +1,6 @@
 # Galera Cluster Thread States
 
-This article documents thread states that are specific to [MariaDB Enterprise Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/) and appear in the [SHOW PROCESSLIST](../../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md) when nodes are performing cluster-specific operations. These states enable monitoring of session status within clustered environments.&#x20;
+This article documents thread states that are specific to [MariaDB Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) and appear in the [SHOW PROCESSLIST](../../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md) when nodes are performing cluster-specific operations. These states enable monitoring of session status within clustered environments.
 
 The following table lists the thread states present in Galera Cluster and their descriptions:
 
@@ -19,5 +19,5 @@ These states contribute in the identification of synchronization delays and perf
 
 * [SHOW PROCESSLIST](../../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md)
 * [Galera Cluster Flow Control](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/performance-tuning/flow-control-in-galera-cluster)
-* [MariaDB Galera Cluster Overview](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/)
+* [MariaDB Galera Cluster Overview](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/)
 * [What's New in MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/whats-new)

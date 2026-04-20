@@ -23,11 +23,11 @@ Binary log encryption is controlled by the [`encrypt_binlog`](../../../ha-and-pe
 
 {% stepper %}
 {% step %}
-### Stop the MariaDB server.
+#### Stop the MariaDB server.
 {% endstep %}
 
 {% step %}
-### Edit the configuration file.
+#### Edit the configuration file.
 
 Add the following to your [configuration file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) (e.g., `my.cnf`):
 
@@ -38,7 +38,7 @@ encrypt_binlog = ON
 {% endstep %}
 
 {% step %}
-### Start the server.
+#### Start the server.
 {% endstep %}
 {% endstepper %}
 
@@ -74,11 +74,11 @@ Disabling encryption stops the server from encrypting future logs. It does not d
 
 {% stepper %}
 {% step %}
-### Stop the MariaDB server.
+#### Stop the MariaDB server.
 {% endstep %}
 
 {% step %}
-### Edit the configuration file.
+#### Edit the configuration file.
 
 Add the following to your [configuration file](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) (e.g., `my.cnf`):
 
@@ -89,7 +89,7 @@ encrypt_binlog = OFF
 {% endstep %}
 
 {% step %}
-### Start the server.
+#### Start the server.
 {% endstep %}
 {% endstepper %}
 
@@ -116,4 +116,3 @@ To ensure that binary log events are encrypted as they are transmitted between t
 ### Effects of Data-at-Rest Encryption on mariadb-binlog
 
 [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/) does not have the ability to decrypt encrypted [binary logs](../../../server-management/server-monitoring-logs/binary-log/) on its own (see [MDEV-8813](https://jira.mariadb.org/browse/MDEV-8813)). In order to use `mariadb-binlog` with encrypted [binary logs](../../../server-management/server-monitoring-logs/binary-log/), use the [--read-from-remote-server](../../../clients-and-utilities/logging-tools/mariadb-binlog/mariadb-binlog-options.md) command-line option, so that the server can decrypt the [binary logs](../../../server-management/server-monitoring-logs/binary-log/) for `mariadb-binlog`.
-

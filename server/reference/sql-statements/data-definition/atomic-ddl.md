@@ -13,7 +13,7 @@ We improved readability for DDL (Data Definition Language) operations to make mo
 {% endtab %}
 
 {% tab title="Background" %}
-These improvements were made in [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes).
+These improvements were made in [MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1).
 {% endtab %}
 {% endtabs %}
 
@@ -97,7 +97,7 @@ If the server crashes during recovery (unlikely but possible), the recovery will
 
 ### Conclusions
 
-* We believe that a clean separation of layers leads to an easier-to-maintain solution. The Atomic DDL implementation in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/what-is-mariadb-106) introduced minimal changes to the storage engine API, mainly for native ALTER TABLE.
+* We believe that a clean separation of layers leads to an easier-to-maintain solution. The Atomic DDL implementation in [MariaDB 10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/what-is-mariadb-106) introduced minimal changes to the storage engine API, mainly for native ALTER TABLE.
 * In our InnoDB implementation, no file format changes were needed on top of the RENAME undo log that was introduced in [MariaDB 10.2.19](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.19) for a backup-safe TRUNCATE re-implementation. Correct use of sound design principles (write-ahead logging and transactions; also file creation now follows the ARIES protocol) is sufficient. We removed the hacks (at most one CREATE or DROP per transaction) and correctly implemented `rollback` and `purge` triggers for the InnoDB SYS\_INDEXES table.
 * Numerous DDL recovery bugs in InnoDB were found and fixed quickly thanks to [rr-project.org](https://rr-project.org). We are still working on one: data files must not be deleted before the DDL transaction is committed.
 

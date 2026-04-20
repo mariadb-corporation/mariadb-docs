@@ -30,7 +30,7 @@ This section details the standard procedure for performing an in-place upgrade. 
 
 {% stepper %}
 {% step %}
-### Backup Database
+#### Backup Database
 
 Before performing any upgrade, it is critical to perform a full backup of your database. MariaDB Backup (`mariadb-backup`) is recommended for this purpose.
 
@@ -44,7 +44,7 @@ sudo mariadb-backup --backup \
 {% endstep %}
 
 {% step %}
-### Modify Repository Configuration
+#### Modify Repository Configuration
 
 Update your system's package manager repository to point to MariaDB Enterprise Server 11.4. You will need to regenerate your repository configuration command using the [MariaDB Customer Download Token](https://www.google.com/search?q=https://dlm.mariadb.com/).
 
@@ -76,7 +76,7 @@ sudo ./mariadb_es_repo_setup --token="CUSTOMER_DOWNLOAD_TOKEN" --apply --mariadb
 {% endstep %}
 
 {% step %}
-### Stop MariaDB Service
+#### Stop MariaDB Service
 
 Stop the running `mariadbd` process to release locks on the data files.
 
@@ -90,7 +90,7 @@ Ensure `innodb_fast_shutdown` is set to `1` and check for open XA transactions b
 {% endstep %}
 
 {% step %}
-### Uninstall Old Version
+#### Uninstall Old Version
 
 Remove the existing MariaDB 10.6 packages. This removes the binaries but preserves the configuration and data directory.
 
@@ -110,7 +110,7 @@ sudo yum remove "MariaDB-*" galera-enterprise-4
 {% endstep %}
 
 {% step %}
-### Install New Version
+#### Install New Version
 
 Install the new MariaDB 11.4 packages.
 
@@ -130,7 +130,7 @@ sudo yum install MariaDB-server MariaDB-backup
 {% endstep %}
 
 {% step %}
-### Update Configuration (Critical)
+#### Update Configuration (Critical)
 
 Before starting the server, you must update your option files (e.g., `my.cnf`) to remove unsupported parameters.
 
@@ -140,7 +140,7 @@ Before starting the server, you must update your option files (e.g., `my.cnf`) t
 {% endstep %}
 
 {% step %}
-### Start MariaDB Service
+#### Start MariaDB Service
 
 Start the new `mariadbd` process.
 
@@ -150,7 +150,7 @@ sudo systemctl start mariadb
 {% endstep %}
 
 {% step %}
-### Run mariadb-upgrade (Critical)
+#### Run mariadb-upgrade (Critical)
 
 Execute `mariadb-upgrade` to check and update system tables to be compatible with the new version.
 
@@ -166,7 +166,7 @@ For environments sensitive to performance changes or requiring zero downtime, th
 
 {% stepper %}
 {% step %}
-### Introduce Replica
+#### Introduce Replica
 
 Provision a new server with MariaDB Enterprise Server 11.4 and configure it as a Replica of your existing 10.6 Primary server.
 
@@ -228,7 +228,7 @@ START SLAVE;
 {% endstep %}
 
 {% step %}
-#### Validate and Compare (Recommended)
+**Validate and Compare (Recommended)**
 
 To proactively catch performance regressions caused by the optimizer rewrite, use MaxScale with the Diff Router(Enterprise feature).
 
@@ -247,7 +247,7 @@ maxctrl call command diff create DiffService ReadWriteService Primary10.6 Replic
 {% endstep %}
 
 {% step %}
-#### Shift Read Traffic
+**Shift Read Traffic**
 
 Gradually migrate read-only traffic to the 11.4 replica.
 
@@ -264,7 +264,7 @@ Alternatively, update your application connection strings to point to the 11.4 R
 {% endstep %}
 
 {% step %}
-#### Promote to Primary
+**Promote to Primary**
 
 Once the 11.4 replica has been validated under load, promote it to be the Primary node.
 
@@ -286,7 +286,7 @@ SET GLOBAL read_only=0;
 {% endstep %}
 
 {% step %}
-#### Shift Application Traffic
+**Shift Application Traffic**
 
 Direct your application traffic to the new 11.4 Primary. Ensure you perform a `mariadb-upgrade` on the new Primary if it hasn't been run yet (though `mariadb-backup` restore usually preserves the old system tables, running upgrade is a safety step to ensure system tables are fully compatible with 11.4).
 
@@ -300,13 +300,13 @@ sudo mariadb-upgrade
 
 {% stepper %}
 {% step %}
-### Optimizer Changes and Application Testing
+#### Optimizer Changes and Application Testing
 
 The Query Optimizer was rewritten in version 11.0. While performance is generally better, query plans can change. It is vital to perform validation (as described in the Staged Rollout section) to catch regressions before production deployment. You should also run `ANALYZE TABLE` on major tables after upgrading to update statistics.
 {% endstep %}
 
 {% step %}
-### Required Configuration Changes
+#### Required Configuration Changes
 
 The following variables must be addressed in your configuration files (`my.cnf`) to prevent startup failures or warnings:
 
@@ -316,7 +316,7 @@ The following variables must be addressed in your configuration files (`my.cnf`)
 {% endstep %}
 
 {% step %}
-### Backward Replication Compatibility
+#### Backward Replication Compatibility
 
 You can replicate from a MariaDB 11.4 Primary to a MariaDB 10.6 Replica (Backward Replication) under specific conditions:
 
@@ -325,7 +325,7 @@ You can replicate from a MariaDB 11.4 Primary to a MariaDB 10.6 Replica (Backwar
 {% endstep %}
 
 {% step %}
-### System-Versioned Tables Conversion
+#### System-Versioned Tables Conversion
 
 If using System-Versioned Tables, the `row_end` column format must be updated to support the extended `TIMESTAMP` range (up to year 2106).
 

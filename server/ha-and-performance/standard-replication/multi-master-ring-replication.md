@@ -19,7 +19,7 @@ The benefit of asynchronous replication compared to [Galera Cluster](https://app
 
 The following picture shows one of the more advanced Multi-Master setups that is resilient against any master going down but can also handle 'human failures', like an accidental drop table, thanks to the addition of [delayed slaves](delayed-replication.md).
 
-![](<../../.gitbook/assets/multi-master-ring-replication1 (1).png>)
+![](../../.gitbook/assets/multi-master-ring-replication1.png)
 
 One should [setup replication](setting-up-replication.md) on each master like one does in [standard MariaDB replication](./). The replication setup among the masters should be a ring. In other words, each master should replicate to one other master and each master should only have one other master as a slave.
 
@@ -119,7 +119,7 @@ To fix this:
 An alternative setup to use for Multi-master ring replications is to replicate to the other\
 masters through slaves. The following setup shows how this can be done.
 
-![](<../../.gitbook/assets/multi-master-ring-replication2 (1).png>)
+![](../../.gitbook/assets/multi-master-ring-replication2.png)
 
 ### Benefits of replication through slaves
 
@@ -164,7 +164,7 @@ Note that when one sets up a master->slave replication, all configurations are d
 Some other options:
 
 * For semi-sync setups, the old master1 can be re-used as slave3 if re-started with `--init-rpl-role=SLAVE` during recovery
-* For non-semi-synchronous setups, one can use option [CHANGE MASTER TO MASTER\_DEMOTE\_TO\_SLAVE=1](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_demote_to_slave) (requires [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-11-series/what-is-mariadb-1011) or higher).
+* For non-semi-synchronous setups, one can use option [CHANGE MASTER TO MASTER\_DEMOTE\_TO\_SLAVE=1](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_demote_to_slave) (requires [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) or higher).
 
 ### See also
 

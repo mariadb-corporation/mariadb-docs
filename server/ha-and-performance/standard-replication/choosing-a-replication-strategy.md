@@ -235,7 +235,7 @@ Managing replication topologies manually can be highly complex. MariaDB MaxScale
 * In [MariaDB Enterprise Cluster](https://mariadb.com/resources/blog/redefining-high-availability-introducing-mariadb-advanced-cluster-technical-preview/) Setups: [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-quickstart-guides/mariadb-maxscale-guide) automatically detects the current Raft leader to ensure writes are routed appropriately, while load balancing read queries across the follower nodes.
 
 {% hint style="info" %}
-MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/) documentation.
+MaxScale is a commercial MariaDB Enterprise product, which should be factored into your architectural decision-making. For technical implementation details, refer to the [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) documentation.
 {% endhint %}
 
 ### Quick Comparison Decision Matrix

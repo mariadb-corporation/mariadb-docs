@@ -107,13 +107,13 @@ The following options relate to how MariaDB command line tools handles option fi
 
 `mariadb-slap` reads options from the following option groups from option files:
 
-| Group             | Description                                                                                                                                                                                                                              |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \[mysqlslap]      | Options read by mariadb-slap, which includes both MariaDB Server and MySQL Server.                                                                                                                                                       |
-| \[mariadb-slap]   | Options read by mariadb-slap. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-4-series/mariadb-1046-release-notes). |
-| \[client]         | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                                                                                            |
-| \[client-server]  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients.                                                                 |
-| \[client-mariadb] | Options read by all MariaDB client programs.                                                                                                                                                                                             |
+| Group             | Description                                                                                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| \[mysqlslap]      | Options read by mariadb-slap, which includes both MariaDB Server and MySQL Server.                                                                                       |
+| \[mariadb-slap]   | Options read by mariadb-slap. Available starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.6).        |
+| \[client]         | Options read by all MariaDB and MySQL client programs, which includes both MariaDB and MySQL clients. For example, mysqldump.                                            |
+| \[client-server]  | Options read by all MariaDB client programs and the MariaDB Server. This is useful for options like socket and port, which is common between the server and the clients. |
+| \[client-mariadb] | Options read by all MariaDB client programs.                                                                                                                             |
 
 #### Examples
 

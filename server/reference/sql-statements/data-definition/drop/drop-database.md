@@ -26,7 +26,7 @@ Use `IF EXISTS` to prevent an error from occurring for databases that do not exi
 
 {% tabs %}
 {% tab title="Current" %}
-[MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes) supports [Atomic DDL](../atomic-ddl.md).`DROP DATABASE` is implemented as
+[MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1) supports [Atomic DDL](../atomic-ddl.md).`DROP DATABASE` is implemented as
 
 ```sql
 LOOP OVER ALL tables

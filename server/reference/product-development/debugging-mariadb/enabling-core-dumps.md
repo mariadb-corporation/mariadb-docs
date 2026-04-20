@@ -85,7 +85,7 @@ ulimit -c unlimited
 
 #### Running mariadbd Using systemd
 
-If you are starting `mariadbd` using [systemd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/systemd), then you may need to customize the MariaDB service to allow for unlimited size core files. For example, you could execute the following:
+If you are starting `mariadbd` using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd.md), then you may need to customize the MariaDB service to allow for unlimited size core files. For example, you could execute the following:
 
 Using `sudo systemctl edit mariadb.service` add the contents:
 
@@ -95,7 +95,7 @@ Using `sudo systemctl edit mariadb.service` add the contents:
 LimitCORE=infinity
 ```
 
-See [systemd: Configuring the Core File Size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/starting-and-stopping-mariadb/systemd#configuring-the-core-file-size) for more details.
+See [systemd: Configuring the Core File Size](../../../server-management/starting-and-stopping-mariadb/systemd.md#configuring-the-core-file-size) for more details.
 
 #### Running MariaDB Containers
 
@@ -116,7 +116,7 @@ EOF
 
 The system would have to be restarted for this change to take effect.
 
-See [Configuring Linux for MariaDB: Configuring the Core File Size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-performance-advanced-configurations/configuring-linux-for-mariadb#configuring-the-core-file-size) for more details.
+See [Configuring Linux for MariaDB: Configuring the Core File Size](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/configuring-linux-for-mariadb.md#configuring-the-core-file-size) for more details.
 
 ### Setting the Path on Linux
 
@@ -163,7 +163,7 @@ The value of `kernel.core_pattern` is printed to the [error log](../../../server
 
 #### Extracting Linux core dumps with systemd-coredump
 
-Core dump management can be automated using [systemd](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/systemd), which then centrally manages all core dump files and provides information about detected core dumps and access to collected core files using the [coredumpctl](https://www.freedesktop.org/software/systemd/man/coredumpctl.html) utility.
+Core dump management can be automated using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd.md), which then centrally manages all core dump files and provides information about detected core dumps and access to collected core files using the [coredumpctl](https://www.freedesktop.org/software/systemd/man/coredumpctl.html) utility.
 
 This is enabled per default on Red Hat Enterprise Linux 8 and CentOS 8, and maybe other contemporary Linux distribution releases by now, too. It can be easily checked for by looking at the `kernel.core_pattern setting`. If it looks like this systemd-coredump is enabled:
 
@@ -254,7 +254,7 @@ You can send the signal with the [kill](https://linux.die.net/man/1/kill) comman
 sudo kill -6 $(pidof mariadbd)
 ```
 
-As an alternative to `$(pidof mariadbd)`, you can find the process ID either by using the [ps](https://linux.die.net/man/1/ps) utility or by checking the file defined by the [pid\_file](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables#pid_file) system variable.
+As an alternative to `$(pidof mariadbd)`, you can find the process ID either by using the [ps](https://linux.die.net/man/1/ps) utility or by checking the file defined by the [pid\_file](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#pid_file) system variable.
 
 ## Core Files on Windows
 
@@ -274,7 +274,7 @@ See the IBM [Core Dump Handler](https://github.com/IBM/core-dump-handler) projec
 
 ## Core Files and Address Sanitizer (ASAN)
 
-If your `mariadbd` binary is built with [Address Sanitizer (ASAN)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compile-and-using-mariadb-with-sanitizers-asan-ubsan-tsan-msan) then it will not be able to generate a core file.
+If your `mariadbd` binary is built with [Address Sanitizer (ASAN)](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compile-and-using-mariadb-with-sanitizers-asan-ubsan-tsan-msan.md) then it will not be able to generate a core file.
 
 ## What's Included in Core Files
 

@@ -246,7 +246,7 @@ This option accepts a _comma-separated list of TLS protocol versions_. A TLS pro
 
 #### `--use-threads`=_number_
 
-Load files in parallel. The argument is the _number of threads_ to use for loading data. From [MariaDB 11.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-1-release-notes), a synonym for -j, `--parallel`=num.
+Load files in parallel. The argument is the _number of threads_ to use for loading data. From [MariaDB 11.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.1), a synonym for -j, `--parallel`=num.
 
 #### `-u` _username_, `--user`=_username_
 

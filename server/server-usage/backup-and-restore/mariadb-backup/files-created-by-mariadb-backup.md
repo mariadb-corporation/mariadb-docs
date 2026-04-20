@@ -24,7 +24,7 @@ During the backup, any server options relevant to `mariadb-backup` are written t
 
 {% tabs %}
 {% tab title="Current" %}
-### `mariadb_backup_binlog_info`
+#### `mariadb_backup_binlog_info`
 
 This file stores the binary log file name and position that corresponds to the backup.
 
@@ -38,7 +38,7 @@ The values in this file are only guaranteed to be consistent with the backup if 
 {% endtab %}
 
 {% tab title="< 11.1" %}
-### `xtrabackup_binlog_info`
+#### `xtrabackup_binlog_info`
 
 This file stores the binary log file name and position that corresponds to the backup.
 
@@ -54,7 +54,7 @@ The values in this file are only guaranteed to be consistent with the backup if 
 
 {% tabs %}
 {% tab title="Current" %}
-### `mariadb_backup_binlog_pos_innodb`
+#### `mariadb_backup_binlog_pos_innodb`
 
 This file is created by `mariadb-backup` to provide the binary log file name and position when the `--no-lock` option is used. It can be used instead of the `xtrabackup_binlog_info` file to obtain transactionally consistent binlog coordinates from the backup of a master server with the `--no-lock` option to minimize the impact on a running server.
 
@@ -64,7 +64,7 @@ The limitation of using `xtrabackup_binlog_pos_innodb` with the `--no-lock` opti
 {% endtab %}
 
 {% tab title="< 11.1" %}
-### `xtrabackup_binlog_pos_innodb`
+#### `xtrabackup_binlog_pos_innodb`
 
 This file is created by `mariadb-backup` to provide the binary log file name and position when the `--no-lock` option is used. It can be used instead of the `xtrabackup_binlog_info` file to obtain transactionally consistent binlog coordinates from the backup of a master server with the `--no-lock` option to minimize the impact on a running server.
 
@@ -76,7 +76,7 @@ The limitation of using `xtrabackup_binlog_pos_innodb` with the `--no-lock` opti
 
 {% tabs %}
 {% tab title="Current" %}
-### `mariadb_backup_checkpoints`
+#### `mariadb_backup_checkpoints`
 
 The `xtrabackup_checkpoints` file contains metadata about the backup.
 
@@ -96,7 +96,7 @@ If the `--extra-lsndir` option is provided, then an extra copy of this file are 
 {% endtab %}
 
 {% tab title="< 11.1" %}
-### `xtrabackup_checkpoints`
+#### `xtrabackup_checkpoints`
 
 The `xtrabackup_checkpoints` file contains metadata about the backup.
 
@@ -142,7 +142,7 @@ This value can be manually set during an incremental backup with the --increment
 
 {% tabs %}
 {% tab title="Current" %}
-### `mariadb_backup_info`
+#### `mariadb_backup_info`
 
 Contains information about the backup. The fields in this file are listed below.
 
@@ -150,7 +150,7 @@ If the `--extra-lsndir` option is provided, an extra copy of this file is saved 
 {% endtab %}
 
 {% tab title="< 11.1" %}
-### `xtrabackup_info`
+#### `xtrabackup_info`
 
 Contains information about the backup. The fields in this file are listed below.
 
@@ -248,7 +248,7 @@ Otherwise, this value are `N`.
 
 {% tabs %}
 {% tab title="Current" %}
-### `mariadb_backup_slave_info`
+#### `mariadb_backup_slave_info`
 
 If the `--slave-info` option is provided, this file contains the `CHANGE MASTER` command that can be used to set up a new server as a slave of the original server's master after the backup has been restored.
 
@@ -256,7 +256,7 @@ If the `--slave-info` option is provided, this file contains the `CHANGE MASTER`
 {% endtab %}
 
 {% tab title="< 11.1" %}
-### `xtrabackup_slave_info`
+#### `xtrabackup_slave_info`
 
 If the `--slave-info` option is provided, this file contains the `CHANGE MASTER` command that can be used to set up a new server as a slave of the original server's master after the backup has been restored.
 
@@ -266,7 +266,7 @@ If the `--slave-info` option is provided, this file contains the `CHANGE MASTER`
 
 {% tabs %}
 {% tab title="Current" %}
-### `mariadb_backup_galera_info`
+#### `mariadb_backup_galera_info`
 
 If the `--galera-info` option is provided, this file contains information about a Galera Cluster node's state.
 
@@ -286,7 +286,7 @@ d38587ce-246c-11e5-bcce-6bbd0831cc0f:1352215
 {% endtab %}
 
 {% tab title="< 11.1" %}
-### `xtrabackup_galera_info`
+#### `xtrabackup_galera_info`
 
 If the `--galera-info` option is provided, this file contains information about a Galera Cluster node's state.
 

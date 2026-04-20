@@ -86,11 +86,11 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 * Description: Further improves the performance of the InnoDB adaptive hash index (AHI) when `innodb_adaptive_hash_index` is enabled. This variable allows for manual configuration of the hash table size to resolve contention on the `btr_sea::partition::latch` during high-concurrency workloads. The specified value is effectively multiplied by the number of partitions defined in `innodb_adaptive_hash_index_parts`, as each partition maintains its own hash table. Increasing this value can reduce the length of hash bucket chains, which helps avoid performance "hiccups" and "avalanche effects" caused by multiple threads spinning for AHI lookups.
 * Command line: `--innodb-adaptive-hash-index-cells=#`
-* Scope: Global&#x20;
-* Dynamic: Yes&#x20;
+* Scope: Global
+* Dynamic: Yes
 * Data Type: `numeric`
 * Default Value: `134217728`
-* Introduced: [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/11.8/11.8.4), [MariaDB 12.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.1/12.1.2), [MariaDB 12.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.2/12.2.1)&#x20;
+* Introduced: [MariaDB 11.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/11.8/11.8.4), [MariaDB 12.1.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.1/12.1.2), [MariaDB 12.2.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/12.2/12.2.1)
 
 #### `innodb_adaptive_hash_index_partitions`
 
@@ -798,7 +798,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_default_page_encryption_key`
 
 * Description: Encryption key used for page encryption.
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
 * Command line: `--innodb-default-page-encryption-key=#`
 * Scope: Global
 * Dynamic: Yes
@@ -811,7 +811,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_default_encryption_key_id`
 
 * Description: ID of encryption key used by default to encrypt InnoDB tablespaces.
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
 * Command line: `--innodb-default-encryption-key-id=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -997,7 +997,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encrypt_log`
 
 * Description: Enables encryption of the [InnoDB redo log](innodb-redo-log.md). This also enables encryption of some temporary files created internally by InnoDB, such as those used for merge sorts and row logs.
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling InnoDB Encryption: Enabling Encryption for the Redo Log](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-the-redo-log) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Enabling InnoDB Encryption: Enabling Encryption for the Redo Log](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-the-redo-log) for more information.
 * Command line: `--innodb-encrypt-log`
 * Scope: Global
 * Dynamic: No
@@ -1010,7 +1010,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `OFF` - Disables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`.
   * `ON` - Enables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`, but allows unencrypted tables to be created.
   * `FORCE` - Enables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`, and doesn't allow unencrypted tables to be created (`CREATE TABLE ... ENCRYPTED=NO` fails).
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [Enabling InnoDB Encryption: Enabling Encryption for Automatically Encrypted Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-automatically-encrypted-tablespaces) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Enabling InnoDB Encryption: Enabling Encryption for Automatically Encrypted Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-automatically-encrypted-tablespaces) for more information.
 * Command line: `--innodb-encrypt-tables={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -1021,7 +1021,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encrypt_temporary_tables`
 
 * Description: Enables automatic encryption of the InnoDB [temporary tablespace](innodb-tablespaces/innodb-temporary-tablespaces.md).
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [InnoDB Enabling Encryption: Enabling Encryption for Temporary Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-temporary-tablespaces) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Enabling Encryption: Enabling Encryption for Temporary Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-temporary-tablespaces) for more information.
 * Command line: `--innodb-encrypt-temporary-tables={0|1}`
 * Scope: Global
 * Dynamic: No
@@ -1033,7 +1033,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encryption_rotate_key_age`
 
 * Description: Re-encrypt in background any page having a key older than this number of key versions. When setting up encryption, this variable must be set to a non-zero value. Otherwise, when you enable encryption through [innodb\_encrypt\_tables](innodb-system-variables.md#innodb_encrypt_tables) MariaDB won't be able to automatically encrypt any unencrypted tables.
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
 * Command line: `--innodb-encryption-rotate-key-age=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1044,7 +1044,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encryption_rotation_iops`
 
 * Description: Use this many iops for background key rotation operations performed by the background encryption threads.
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
 * Command line: `--innodb-encryption-rotation_iops=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1055,7 +1055,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encryption_threads`
 
 * Description: Number of background encryption threads performing background key rotation and [scrubbing](innodb-data-scrubbing.md). When setting up encryption, this variable must be set to a non-zero value. Otherwise, when you enable encryption through [innodb\_encrypt\_tables](innodb-system-variables.md#innodb_encrypt_tables) MariaDB won't be able to automatically encrypt any unencrypted tables. Recommended never be set higher than 255.
-  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview.md) and [InnoDB Background Encryption Threads](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-background-encryption-threads.md) for more information.
+  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Background Encryption Threads](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-background-encryption-threads.md) for more information.
 * Command line: `--innodb-encryption-threads=#`
 * Scope: Global
 * Dynamic: Yes

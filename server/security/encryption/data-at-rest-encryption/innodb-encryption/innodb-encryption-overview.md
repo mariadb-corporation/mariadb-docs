@@ -17,7 +17,7 @@ When data-at-rest encryption is enabled for InnoDB, encryption and decryption oc
 
 ### When is InnoDB data encrypted?
 
-When InnoDB pages are written to disk, they are automatically encrypted.&#x20;
+When InnoDB pages are written to disk, they are automatically encrypted.
 
 ### When is InnoDB data decrypted?
 
@@ -153,8 +153,8 @@ Where the encryption key management plugin supports key rotation, the InnoDB Red
 
 ## See Also
 
-* [Data at Rest Encryption](../data-at-rest-encryption-overview.md)
-* [Why Encrypt MariaDB Data?](../why-encrypt-mariadb-data.md)
+* [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N)
+* [Why Encrypt MariaDB Data?](/broken/pages/xxDIEtn1OCmLfs6uAlFR)
 * [Encryption Key Management](../key-management-and-encryption-plugins/encryption-key-management.md)
 * [Information Schema INNODB\_TABLESPACES\_ENCRYPTION table](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_encryption-table.md)
 

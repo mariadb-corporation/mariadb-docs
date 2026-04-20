@@ -2,7 +2,7 @@
 
 ## Overview
 
-<table><thead><tr><th valign="top">Software Version</th><th valign="top">Diagram</th><th valign="top">Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td valign="top"><img src="../../../../analytics/.gitbook/assets/es-columnstore-htap-topology-s3-no-title%20(1).png" alt=""></td><td valign="top"><p><strong>Single-stack hybrid transactional/analytical workloads</strong></p><ul><li>ColumnStore for analytics with scalable S3-compatible object storage</li><li>InnoDB for transactions</li><li>Cross-engine JOINs</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul></td></tr></tbody></table>
+<table><thead><tr><th valign="top">Software Version</th><th valign="top">Diagram</th><th valign="top">Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td valign="top"></td><td valign="top"><p><strong>Single-stack hybrid transactional/analytical workloads</strong></p><ul><li>ColumnStore for analytics with scalable S3-compatible object storage</li><li>InnoDB for transactions</li><li>Cross-engine JOINs</li><li>Enterprise Server 10.5, Enterprise ColumnStore 5, MaxScale 2.5</li><li>Enterprise Server 10.6, Enterprise ColumnStore 23.02, MaxScale 22.08</li></ul></td></tr></tbody></table>
 
 This procedure describes the deployment of the **HTAP topology** with MariaDB Enterprise Server and MariaDB Enterprise ColumnStore.
 
@@ -40,8 +40,6 @@ The following components are deployed during this procedure:
 <table><thead><tr><th valign="top">Component</th><th valign="top">Description</th></tr></thead><tbody><tr><td valign="top"><a href="../../../server-usage/storage-engines/innodb/">InnoDB</a></td><td valign="top"><ul><li>General purpose storage engine</li><li>Support for Online Transactional Processing (OLTP) workloads</li><li>ACID-compliant</li><li>Performance</li></ul></td></tr><tr><td valign="top"><a href="https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/rBEU9juWLfTDcdwF3Q14/">MariaDB Enterprise ColumnStore</a></td><td valign="top"><ul><li>Columnar storage engine</li><li>Optimized for Online Analytical</li><li>Processing (OLAP) workloads</li><li>Scalable query execution</li></ul></td></tr></tbody></table>
 
 ## Topology
-
-<figure><img src="../../../../analytics/.gitbook/assets/es-columnstore-htap-topology-s3-no-title%20(1).png" alt=""><figcaption></figcaption></figure>
 
 The MariaDB Enterprise ColumnStore HTAP topology is designed for hybrid transactional-analytical processing (HTAP) workloads.
 

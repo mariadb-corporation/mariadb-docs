@@ -52,7 +52,7 @@ SELECT VARIABLE_NAME, SESSION_VALUE
 {% endtab %}
 
 {% tab title="< 11.8" %}
-The `utf8` [character set](./) (and related collations) is an alias for `utf8mb3` , rather than the other way around. [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114) added the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) variable, so the `SELECT` query is more specific in this example:
+The `utf8` [character set](./) (and related collations) is an alias for `utf8mb3` , rather than the other way around. [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114) added the [character\_set\_collations](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#character_set_collations) variable, so the `SELECT` query is more specific in this example:
 
 ```sql
 SELECT VARIABLE_NAME, SESSION_VALUE 

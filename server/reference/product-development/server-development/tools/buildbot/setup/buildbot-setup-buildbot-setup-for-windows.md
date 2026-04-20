@@ -8,7 +8,7 @@ description: >-
 
 This is the recipe for setting up a MariaDB Buildbot slave on Windows:
 
-1. Prepare the [development environment](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/compiling-mariadb-from-source/Building_MariaDB_on_Windows)
+1. Prepare the [development environment](../../../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/building_mariadb_on_windows.md)
 2. Install [Python](https://www.python.org/download/), 32 bit. Twisted does not work on 64 bit and builtbot hasn't been tested properly with Python version 3.\
    Note: As of June 2016, there is no fresh Twistd for 32-bit Python, so a 64-bit version has to be installed. Installed 2.7.11 64-bit, it seems to work.
 3. Install [pywin32](https://sourceforge.net/projects/pywin32/files). Make sure the version matches your Python version perfectly, and get the .exe file, not the zip file.\
@@ -64,7 +64,7 @@ Download [dojob.cpp](https://bazaar.launchpad.net/~maria-captains/mariadb-tools/
 cl dojob.cpp
 ```
 
-Then, put dojob.exe into a directory in the PATH [environment variable](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-environment-variables).\
+Then, put dojob.exe into a directory in the PATH [environment variable](../../../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-environment-variables.md).\
 Then, change buildbot configuration to use "dojob" for every command, as a replacement for "cmd /c", e.g
 
 ```
@@ -90,7 +90,7 @@ This is a sympthom of intermittent network issues, which cause Buildbot to abort
 * Modify the Windows `KeepAliveTime` registry setting to a lower value, such as 60000 (equal to 60 seconds). For more information, see [TechNet](https://technet.microsoft.com/en-us/library/cc957549.aspx)
 * Make sure the buildbot master does not experience prolonged bouts of 100% CPU activity, as this may prevent keepalives from working. If the buildbot master `twisted.log` says that data is frequently being loaded from on-disk pickles, increase the `buildCacheSize` in the master configuration file to be more than the number of builds per builder that the log file reports are being loaded.
 
-## Alternative Windows Buildbot Setup&#x20;
+## Alternative Windows Buildbot Setup
 
 {% hint style="info" %}
 This is an experimental setup.

@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-<table><thead><tr><th valign="top">Software Version</th><th>Diagram</th><th>Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td><img src="../../../../analytics/.gitbook/assets/es-primary-replica-topology-no-title%20(1).png" alt=""></td><td><p><strong>MariaDB Replication</strong></p><ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul></td></tr></tbody></table>
+<table><thead><tr><th valign="top">Software Version</th><th>Diagram</th><th>Features</th></tr></thead><tbody><tr><td valign="top"><ul><li>Enterprise Server 10.4</li><li>Enterprise Server 10.5</li><li>Enterprise Server 10.6</li><li>Enterprise Server 11.4</li></ul></td><td></td><td><p><strong>MariaDB Replication</strong></p><ul><li>Highly available</li><li>Asynchronous or semi-synchronous replication</li><li>Automatic failover via MaxScale</li><li>Manual provisioning of new nodes from backup</li><li>Scales reads via MaxScale</li><li>Enterprise Server 10.3+, MaxScale 2.5+</li></ul></td></tr></tbody></table>
 
 This procedure describes the deployment of the **Primary/Replica topology** with MariaDB Enterprise Server and MariaDB MaxScale.
 
@@ -48,8 +48,6 @@ The following components are deployed during this procedure:
 <table><thead><tr><th width="234.1480712890625">Component</th><th>Description</th></tr></thead><tbody><tr><td>Listener</td><td>Listens for client connections to MaxScale, then passes them to the router service associated with the listener</td></tr><tr><td>MariaDB Monitor</td><td>Tracks changes in the state of MariaDB Enterprise Servers.</td></tr><tr><td>Read Connection Router</td><td>Routes connections from the listener to any available Enterprise Server node</td></tr><tr><td>Read/Write Split Router</td><td>Routes read operations from the listener to any available Enterprise Server node, and routes write operations from the listener to a specific server operating as the primary server</td></tr><tr><td>Server Module</td><td>Connection configuration in MaxScale to an Enterprise Server node</td></tr></tbody></table>
 
 ## Topology
-
-<figure><img src="../../../../analytics/.gitbook/assets/es-primary-replica-topology-no-title%20(1).png" alt=""><figcaption></figcaption></figure>
 
 Primary/Replica topology provides read scalability and fault tolerance through asynchronous or semi-synchronous single-primary replication of MariaDB Enterprise Server 11.4
 

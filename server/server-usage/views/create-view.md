@@ -173,7 +173,7 @@ When the I`F NOT EXISTS` clause is used, MariaDB will return a warning instead o
 
 ### Atomic DDL
 
-[MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-10-6-series/mariadb-1061-release-notes) supports [Atomic DDL](../../reference/sql-statements/data-definition/atomic-ddl.md) and `CREATE VIEW` is atomic.
+[MariaDB 10.6.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.1) supports [Atomic DDL](../../reference/sql-statements/data-definition/atomic-ddl.md) and `CREATE VIEW` is atomic.
 
 ## Examples
 

@@ -9,21 +9,21 @@ description: >-
 
 When a table uses the [Spider](./) storage engine, the following Spider table parameters can be set in the `COMMENT` clause of the [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement. Many Spider table parameters have corresponding system variables, so they can be set for all Spider tables on the node. For additional information, see the [Spider System Variables](spider-system-variables.md) page.
 
-From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113), many table parameters can be set using dedicated Spider table options, see the Table Option Name fields below. From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/what-is-mariadb-114), using the `COMMENT` clause is deprecated, as well as table parameters that do not have corresponding table options.
+From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113), many table parameters can be set using dedicated Spider table options, see the Table Option Name fields below. From [MariaDB 11.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/what-is-mariadb-114), using the `COMMENT` clause is deprecated, as well as table parameters that do not have corresponding table options.
 
 #### `access_balances`
 
 * Description: Connection load balancing integer weight.
 * Default Table Value: `0`
 * DSN Parameter Name: `abl`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `active_link_count`
 
 * Description: Number of active remote servers, for use in load balancing read connections
 * Default Table Value: `all backends`
 * DSN Parameter Name: `alc`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `auto_increment_mode`
 
@@ -55,7 +55,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value:
 * DSN Parameter Name:
 * Introduced: Spider 3.2
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `connect_timeout`
 
@@ -135,14 +135,14 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `3` Changes status to no more in group communication.
 * Default Table Value: `0`
 * DSN Parameter Name: `lst`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_bg_interval`
 
 * Description: Interval of background monitoring in microseconds.
 * Default Table Value: `10000000`
 * DSN Parameter Name: `mbi`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_bg_kind`
 
@@ -153,7 +153,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `3` Monitors state of table with `WHERE` clause (currently unsupported).
 * Default Table Value: `0`
 * DSN Parameter Name: `mbk`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_kind`
 
@@ -164,7 +164,7 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
   * `3` Monitors state of table with `WHERE` clause (currently unsupported).
 * Default Table Value: `0`
 * DSN Parameter Name: `mkd`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_limit`
 
@@ -172,14 +172,14 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Default Table Value: `1`
 * Range: `0` upwards
 * DSN Parameter Name: `mlt`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `monitoring_server_id`
 
 * Description: Preferred monitoring `@@server_id` for each backend failure. You can use this to geo-localize backend servers and set the first Spider monitoring node to contact for failover. In the event that this monitor fails, other monitoring nodes are contacted. For multiple copy backends, you can set a lazy configuration with a single MSI instead of one per backend.
 * Default Table Value: `server_id`
 * DSN Parameter Name: `msi`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `multi_split_read`
 
@@ -250,14 +250,14 @@ From [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-ser
 * Description: Rate used to calculate the amount of time Spider requires when executing index scans.
 * Default Table Value: `0.0002`
 * DSN Parameter Name: `rrt`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `scan_rate`
 
 * Description: Rate used to calculate the amount of time Spider requires when scanning tables.
 * Default Table Value: `0.0001`
 * DSN Parameter Name: `srt`
-* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/mariadb-11-4-series/mariadb-11-4-0-release-notes)
+* Deprecated: [MariaDB 11.4.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.0)
 
 #### `server`
 
