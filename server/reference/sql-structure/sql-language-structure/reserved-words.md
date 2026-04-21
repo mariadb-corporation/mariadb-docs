@@ -300,6 +300,46 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 | VERSIONING       |
 | WITHOUT          |
 
+### Contextual Keywords and Parser Limitations
+
+The lists above indicate words that are always reserved and must be quoted. Some keywords, though, are reserved for specific contexts. In most SQL statements, they operate normally, but in some cases, they activate unique parser rules.
+
+The Oracle mode term `SYSTEM` is a prime example. Although it is not a fully reserved word, the parser expects the VERSIONING keyword to follow (as part of the SYSTEM VERSIONING clause for system-versioned tables), which results in a syntax error in an `ALTER TABLE ... ADD` command.
+
+**Example of unexpected behavior**
+
+The following examples show how the keyword SYSTEM behaves as an identifier:
+
+```sql
+CREATE TABLE t1 (system INT);
+```
+
+This statement works because SYSTEM is a valid column name in this situation.
+
+Invalid usage
+
+```sql
+ALTER TABLE t1 ADD system VARCHAR(64);
+```
+
+This statement fails due to a syntax error.
+
+```
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'VARCHAR(64)' at line 1
+```
+
+To avoid any conflict, always quote such keywords when using them as identifiers in statements.
+
+```
+ALTER TABLE t1 ADD `system` VARCHAR(64);
+```
+
+It is recommended that all identifiers listed as keywords (including those indicated as non-reserved or version-specific) be quoted for maximum compatibility and to prevent unexpected parser errors, especially in `ALTER` statements.
+
+
+
+
+
 ## Function Names
 
 If the `IGNORE_SPACE` [SQL\_MODE](../../../server-management/variables-and-modes/sql_mode.md) flag is set, function names become reserved words.

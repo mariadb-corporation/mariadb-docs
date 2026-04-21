@@ -18,6 +18,12 @@ System-versioned tables store the history of all changes, not only data which is
 
 System-versioned tables were first introduced in the SQL:2011 standard.
 
+{% hint style="info" %}
+The keyword `SYSTEM` is used in the `SYSTEM VERSIONING` clause. Using `SYSTEM` as an unquoted column name in an `ALTER TABLE` is not permitted by some parser rules. Even though `SYSTEM` is not a fully reserved word in Oracle mode, the `ADD` statement will result in a syntax error.
+
+Always provide `SYSTEM` when using it as a column name: `system`. See the [Reserved Words](../sql-language-structure/reserved-words.md) page for additional examples and a detailed explanation.
+{% endhint %}
+
 ### Creating a System-Versioned Table
 
 The [CREATE TABLE](../../sql-statements/data-definition/create/create-table.md) syntax has been extended to permit creating a system-versioned table. To be system-versioned, according to SQL:2011, a table must have two generated columns, a period, and a special table option clause:
@@ -356,7 +362,7 @@ Data for this feature is stored in the [mysql.transaction\_registry table](../..
 
 **Limitations**
 
-`PARTITION BY SYSTEM_TIME` is not supported when using transaction-precise system versioning. Transaction-precise history tracks row versions using transaction identifiers instead of timestamps,  so, `SYSTEM_TIME` cannot be used to partition transaction-precise system history. If partitioning is required, use the default timestamp-based versioning.
+`PARTITION BY SYSTEM_TIME` is not supported when using transaction-precise system versioning. Transaction-precise history tracks row versions using transaction identifiers instead of timestamps, so, `SYSTEM_TIME` cannot be used to partition transaction-precise system history. If partitioning is required, use the default timestamp-based versioning.
 
 ### Storing the History Separately
 
