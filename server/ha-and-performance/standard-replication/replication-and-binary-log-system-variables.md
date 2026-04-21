@@ -856,11 +856,11 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_exec_mode`
 
-* Description: Determines the mode used for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are multiple primaries, or circular replication.
+* Description: Determines the mode used for [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are Galera nodes, multiple primaries, or circular replication.
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration`
-* Default Value: `IDEMPOTENT` (NDB), `STRICT` (All)
+* Default Value:  `STRICT`
 * Valid Values: `IDEMPOTENT`, `STRICT`
 
 #### `slave_load_tmpdir`
