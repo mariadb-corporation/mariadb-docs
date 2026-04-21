@@ -75,7 +75,7 @@ The [Aria storage engine](../../../../server-usage/storage-engines/aria/) does [
 
 ## Encryption Plugin API
 
-New key management and encryption plugins can be developed using the [encryption plugin API](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/5UGvvjnJpWY0JXBeD4Hc).
+New key management and encryption plugins can be developed using the [encryption plugin API](../../../../reference/product-development/plugin-development/encryption-plugin-api.md#encryption-plugin-api).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

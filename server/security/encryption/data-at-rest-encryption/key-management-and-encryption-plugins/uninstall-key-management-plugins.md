@@ -9,7 +9,7 @@ description: >-
 Once all data and logs have been decrypted, you can safely remove key management plugins, if desired. For example, if using the file key management plugin:
 
 ```ini
-Comment out or remove the following lines 
+# Comment out or remove the following lines 
 plugin_load_add = file_key_management 
 file_key_management_filename = /etc/mysql/encryption/keyfile
 ```

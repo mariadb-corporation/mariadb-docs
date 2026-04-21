@@ -13,7 +13,7 @@ Ultimately, keeping all the credentials required to read the key on a single hos
 
 Theoretically, a superuser can read the memory of the MariaDB server process to read the decrypted keys or restart MariaDB with password authentication disabled in order to dump data, or add new users to MariaDB in order to allow a user to connect and dump the data. Resolving these issues is beyond the scope of this document. A user who gains root access to your operating system or root access to your MariaDB server will have the ability to decrypt your data. Plan accordingly.
 
-## Managing AWS credentials
+## Managing AWS Credentials
 
 Putting the AWS credentials in a file inside the MariaDB home directory is not ideal. By default, any user with the FILE privilege can read any files that the MariaDB server has permission to read, which would include the credentials file. To protect against this, you should set `secure_file_priv` to restrict the location the server will allow a user to read from when executing `LOAD DATA INFILE` or the `LOAD_FILE()` function.
 
@@ -68,7 +68,7 @@ AWS KMS allows flexible, user-editable key policy. This offers fine-grained cont
 
 For more details about customizing the Key Policy for your master keys, please consult the [AWS Key Management Service Key Policy](https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-overview) documentation.
 
-### Source IP restrictions
+### Source IP Restrictions
 
 A simple, common-sense restriction to put in place is to restrict the range of IP addresses that are allowed to use your master key. This way, even if someone obtains API credentials, they'll be unable to use them to decrypt your encryptions keys from a different host.
 
@@ -98,7 +98,7 @@ To restrict API access from only a specific IP address or range of IP addresses,
 
 Access to the API will now be restricted to requests coming from the IP address or range of IP addresses specified in the policy.
 
-### Using a Multi-Factor Authentication (MFA) device
+### Using a Multi-Factor Authentication (MFA) Device
 
 One approach is to modify the key policy for the master key so that MFA (Multi-Factor Authentication) is required in order to use the key. This is achieved with a wrapper that handles prompting the user for an MFA token, acquires temporary, limited-privilege credentials from the AWS Security Token Service (STS), and puts those credentials into the environment of the MariaDB server process. The credentials can expire after as little as 15 minutes.
 
@@ -136,7 +136,7 @@ Now, set up the wrapper program.
 1. Copy the iam-kms-wrapper file to /usr/local/bin/, and ensure that it is executable.
 2. Create a drop-in systemd config file in `/etc/systemd/system/mariadb.service.d/`:
 
-```
+```ini
 [Service]
 EnvironmentFile=/etc/systemd/system/mariadb.service.d/aws-kms.env
 ExecStart=
@@ -146,7 +146,7 @@ ExecStart=/usr/local/bin/iam-kms-wrapper --config=/etc/my.cnf.d/iam-kms-wrapper.
 1. Execute `systemctl daemon-reload`.
 2. Create a file at `/etc/my.cnf.d/iam-kms-wrapper.config` with these contents, using the ARN for your MFA device as the value for `kms_mfa_id`:
 
-```
+```ini
 [kms]
 kms_mfa_id = arn:aws:iam::551888187628:mfa/MDBEnc
 kms_mfa_socket = /tmp/kms_mfa_socket
@@ -158,10 +158,11 @@ The `systemctl` command will block until MariaDB starts, so you will need to wri
 
 Note that the temporary credentials put into the environment of the MariaDB process will expire after a period of time defined by the request to the AWS Security Token Service (STS). In the example below, they will expire after 900 seconds. After that time, MariaDB may be unable to generate new encrypted data keys, which means that, for example, an attempt to create a table with a previously-unused key ID would fail.
 
-#### Wrapper program example
+#### Wrapper Program Example
 
 Here's an example wrapper program written in go. Build this into an executable named `iam-kms-wrapper` and use it as instructed above. This could of course be written in any language for which an appropriate AWS SDK exists, but go has the benefit of compiling to a static binary, which means you do not have to worry about interpreter versions or installing complex dependencies on the host that runs your MariaDB server.
 
+{% code expandable="true" %}
 ```cpp
 package main
 
@@ -255,8 +256,9 @@ func main() {
     }
 }
 ```
+{% endcode %}
 
-### Disabling keys when not needed
+### Disabling Keys When not Needed
 
 Another possibility is to use the API to disable access to the master key and enable it only when a trusted administrator knows that the MariaDB service needs to be started. A specialized tool on a separate host could be used to enable the key for a very short period of time while the service starts and then quickly disable the key.
 
@@ -271,7 +273,7 @@ First, create a new user.
 5. Click "Show User Security Credentials".
 6. Copy the credentials and put them in a `credentials` file with this structure:
 
-```
+```ini
 [MDBEncAdmin]
 aws_access_key_id=AKIAJMPPNO7EBKABCDEF
 aws_secret_access_key=pVdGwbuK5/jG64aBK1oEJOXRlkdM0aAylgabCDef
@@ -389,7 +391,7 @@ $ AWS_PROFILE=MDBEncAdmin python kms-manage-key disable 575290
 $ AWS_PROFILE=MDBEncAdmin python kms-manage-key enable 799870
 ```
 
-## Logging and auditing
+## Logging and Auditing
 
 ### CloudTrail
 

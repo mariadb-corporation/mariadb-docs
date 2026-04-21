@@ -8,7 +8,7 @@ description: >-
 # Hashicorp Key Management Plugin
 
 {% hint style="info" %}
-**Key Rotation and Cache Flushing**&#x20;
+**Key Rotation and Cache Flushing**
 
 As of MariaDB 12.3, you can manually rotate keys and flush the cache without restarting the server. See [Key Rotation and Cache Flushing](hashicorp-key-management-plugin.md#key-rotation-and-cache-flushing) for details.
 {% endhint %}
@@ -134,7 +134,9 @@ The plugin supports the following parameters, which must be set in advance and c
 
 ## Key Rotation and Cache Flushing
 
-_Available as of MariaDB 12.3_
+{% hint style="info" %}
+This functionality is available from MariaDB 12.3.
+{% endhint %}
 
 The HashiCorp Key Management plugin supports key versioning provided by the HashiCorp Vault Server. In previous versions, rotating keys required a server restart to clear the internal cache. As of MariaDB 12.3, you can flush the plugin cache manually while the server is running.
 

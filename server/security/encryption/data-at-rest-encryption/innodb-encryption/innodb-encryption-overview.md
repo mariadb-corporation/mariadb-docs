@@ -153,8 +153,7 @@ Where the encryption key management plugin supports key rotation, the InnoDB Red
 
 ## See Also
 
-* [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N)
-* [Why Encrypt MariaDB Data?](/broken/pages/xxDIEtn1OCmLfs6uAlFR)
+* [Data at Rest Encryption](../data-at-rest-encryption-tde-fundamentals.md)
 * [Encryption Key Management](../key-management-and-encryption-plugins/encryption-key-management.md)
 * [Information Schema INNODB\_TABLESPACES\_ENCRYPTION table](../../../../reference/system-tables/information-schema/information-schema-tables/information-schema-innodb-tables/information-schema-innodb_tablespaces_encryption-table.md)
 

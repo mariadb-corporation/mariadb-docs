@@ -370,7 +370,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_buffer_pool_instances`
 
-* Description: If [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) is set to more than 1GB, innodb\_buffer\_pool\_instances divides the [InnoDB](./) buffer pool into the specified number of instances. The default was 1 in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), but for large systems with buffer pools of many gigabytes, many instances could help reduce contention concurrency through [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102). The default is 8 in MariaDB 10 (except on Windows 32-bit, where it varies according to [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size), or from [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2), where it is set to 1 if [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) < 1GB). Each instance manages its own data structures and takes an equal portion of the total buffer pool size, so for example if innodb\_buffer\_pool\_size is 4GB and innodb\_buffer\_pool\_instances is set to 4, each instance are 1GB. Each instance should ideally be at least 1GB in size.\
+* Description: If [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) is set to more than 1GB, innodb\_buffer\_pool\_instances divides the [InnoDB](./) buffer pool into the specified number of instances. The default was 1 in [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), but for large systems with buffer pools of many gigabytes, many instances could help reduce contention concurrency through [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102). The default is 8 in MariaDB 10 (except on Windows 32-bit, where it varies according to [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size), or from [MariaDB 10.2.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.2), where it is set to 1 if [innodb\_buffer\_pool\_size](innodb-system-variables.md#innodb_buffer_pool_size) < 1GB). Each instance manages its own data structures and takes an equal portion of the total buffer pool size, so for example if innodb\_buffer\_pool\_size is 4GB and `innodb_buffer_pool_instances` is set to 4, each instance are 1GB. Each instance should ideally be at least 1GB in size.\
   Starting with [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103), performance improvements intended to reduce the overhead of context-switching between buffer pools changed the recommended number of innodb\_buffer\_pool\_instances to one for every 128GB of buffer pool size. Based on these changes, the variable is deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), where the buffer pool runs in a single instance regardless of size.
 * Command line: `--innodb-buffer-pool-instances=#`
 * Scope: Global
@@ -798,7 +798,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_default_page_encryption_key`
 
 * Description: Encryption key used for page encryption.
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
 * Command line: `--innodb-default-page-encryption-key=#`
 * Scope: Global
 * Dynamic: Yes
@@ -811,7 +811,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_default_encryption_key_id`
 
 * Description: ID of encryption key used by default to encrypt InnoDB tablespaces.
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [InnoDB Encryption Keys](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md) for more information.
 * Command line: `--innodb-default-encryption-key-id=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -997,7 +997,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encrypt_log`
 
 * Description: Enables encryption of the [InnoDB redo log](innodb-redo-log.md). This also enables encryption of some temporary files created internally by InnoDB, such as those used for merge sorts and row logs.
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Enabling InnoDB Encryption: Enabling Encryption for the Redo Log](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-the-redo-log) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [Enabling InnoDB Encryption: Enabling Encryption for the Redo Log](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-the-redo-log) for more information.
 * Command line: `--innodb-encrypt-log`
 * Scope: Global
 * Dynamic: No
@@ -1010,7 +1010,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `OFF` - Disables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`.
   * `ON` - Enables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`, but allows unencrypted tables to be created.
   * `FORCE` - Enables table encryption for all new and existing tables that have the [ENCRYPTED](../../../reference/sql-statements/data-definition/create/create-table.md#encrypted) table option set to `DEFAULT`, and doesn't allow unencrypted tables to be created (`CREATE TABLE ... ENCRYPTED=NO` fails).
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Enabling InnoDB Encryption: Enabling Encryption for Automatically Encrypted Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-automatically-encrypted-tablespaces) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [Enabling InnoDB Encryption: Enabling Encryption for Automatically Encrypted Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-automatically-encrypted-tablespaces) for more information.
 * Command line: `--innodb-encrypt-tables={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -1021,7 +1021,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encrypt_temporary_tables`
 
 * Description: Enables automatic encryption of the InnoDB [temporary tablespace](innodb-tablespaces/innodb-temporary-tablespaces.md).
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Enabling Encryption: Enabling Encryption for Temporary Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-temporary-tablespaces) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [InnoDB Enabling Encryption: Enabling Encryption for Temporary Tablespaces](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-enabling-encryption.md#enabling-encryption-for-temporary-tablespaces) for more information.
 * Command line: `--innodb-encrypt-temporary-tables={0|1}`
 * Scope: Global
 * Dynamic: No
@@ -1033,7 +1033,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encryption_rotate_key_age`
 
 * Description: Re-encrypt in background any page having a key older than this number of key versions. When setting up encryption, this variable must be set to a non-zero value. Otherwise, when you enable encryption through [innodb\_encrypt\_tables](innodb-system-variables.md#innodb_encrypt_tables) MariaDB won't be able to automatically encrypt any unencrypted tables.
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
 * Command line: `--innodb-encryption-rotate-key-age=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1044,7 +1044,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encryption_rotation_iops`
 
 * Description: Use this many iops for background key rotation operations performed by the background encryption threads.
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [InnoDB Encryption Keys: Key Rotation](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-encryption-keys.md#key-rotation) for more information.
 * Command line: `--innodb-encryption-rotation_iops=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1055,7 +1055,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_encryption_threads`
 
 * Description: Number of background encryption threads performing background key rotation and [scrubbing](innodb-data-scrubbing.md). When setting up encryption, this variable must be set to a non-zero value. Otherwise, when you enable encryption through [innodb\_encrypt\_tables](innodb-system-variables.md#innodb_encrypt_tables) MariaDB won't be able to automatically encrypt any unencrypted tables. Recommended never be set higher than 255.
-  * See [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [InnoDB Background Encryption Threads](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-background-encryption-threads.md) for more information.
+  * See [Data-at-Rest Encryption](../../../security/encryption/data-at-rest-encryption/data-at-rest-encryption-tde-fundamentals.md) and [InnoDB Background Encryption Threads](../../../security/encryption/data-at-rest-encryption/innodb-encryption/innodb-background-encryption-threads.md) for more information.
 * Command line: `--innodb-encryption-threads=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1516,30 +1516,17 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_instant_alter_column_allowed`
 
 * Description:
-  * If a table is altered using ALGORITHM=INSTANT, it can force the table to use a non-canonical\
-    format: A hidden metadata record at the start of the clustered index is used to store each column's DEFAULT value. This makes it possible to add new columns that have default values without rebuilding the table. Starting with [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), a BLOB in the hidden metadata record is used to store column mappings. This makes\
-    it possible to drop or reorder columns without rebuilding the table. This also makes it possible to add columns to any position or drop columns from any position in the table without rebuilding the table. If a column is dropped without rebuilding the table, old records will contain garbage in that column's former position, and new records\
-    are written with NULL values, empty strings, or dummy values.
+  * If a table is altered using `ALGORITHM=INSTANT`, it can force the table to use a non-canonical format: A hidden metadata record at the start of the clustered index is used to store each column's `DEFAULT` value. This makes it possible to add new columns that have default values without rebuilding the table. Starting with [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104), a `BLOB` in the hidden metadata record is used to store column mappings. This makes\
+    it possible to drop or reorder columns without rebuilding the table. This also makes it possible to add columns to any position or drop columns from any position in the table without rebuilding the table. If a column is dropped without rebuilding the table, old records will contain garbage in that column's former position, and new records are written with `NULL` values, empty strings, or dummy values.
   * This is generally not a problem. However, there may be cases where\
-    you want to avoid putting a table into this format.\
-    For example, to ensure that future UPDATE operations\
-    after an ADD COLUMN are performed in-place, to reduce write\
-    amplification. (Instantly added columns are essentially always\
-    variable-length.) Also avoid bugs similar to[MDEV-19916](https://jira.mariadb.org/browse/MDEV-19916), or to be able to export tables to\
-    older versions of the server.
+    you want to avoid putting a table into this format. For example, to ensure that future `UPDATE` operations after an `ADD COLUMN` are performed in-place, to reduce write amplification. (Instantly added columns are essentially always variable-length.) Also avoid bugs similar to [MDEV-19916](https://jira.mariadb.org/browse/MDEV-19916), or to be able to export tables to older versions of the server.
   * This variable has been introduced as a result, with the following values:
-  * `never` (0): Do not allow instant add/drop/reorder,\
-    to maintain format compatibility with MariaDB 10.x and MySQL 5.x.\
-    If the table (or partition) is not in the canonical format, then\
-    any ALTER TABLE (even one that does not involve instant column\
-    operations) will force a table rebuild.
+  * `never` (0): Do not allow instant add/drop/reorder, to maintain format compatibility with MariaDB 10.x and MySQL 5.x. If the table (or partition) is not in the canonical format, then any ALTER TABLE (even one that does not involve instant column operations) will force a table rebuild.
   * `add_last` (1, default in 10.3): Store a hidden metadata record that\
     allows columns to be appended to the table instantly ([MDEV-11369](https://jira.mariadb.org/browse/MDEV-11369)).\
-    In 10.4 or later, if the table (or partition) is not in this format,\
-    then any ALTER TABLE (even one that does not involve column changes)\
+    In 10.4 or later, if the table (or partition) is not in this format, then any ALTER TABLE (even one that does not involve column changes)\
     will force a table rebuild.
-  * `add_drop_reorder` (2, default): From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) only. Like 'add\_last', but allow the\
-    metadata record to store a column map, to support instant\
+  * `add_drop_reorder` (2, default): From [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) only. Like 'add\_last', but allow the metadata record to store a column map, to support instant\
     add/drop/reorder of columns.
 * Command line: `--innodb-instant-alter-column-allowed=value`
 * Scope: Global

@@ -2032,7 +2032,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `optimizer_trace_max_mem_size`
 
-* Description: Limits the memory used while tracing a query by specifying the maximum allowed cumulated size, in bytes, of stored [optimizer traces](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/fk225HlL63dpG3RuBfxi).
+* Description: Limits the memory used while tracing a query by specifying the maximum allowed cumulated size, in bytes, of stored [optimizer traces](../query-optimizer/optimizer-trace/).
 * Command line: `--optimizer-trace-max-mem-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2085,7 +2085,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `port`
 
-* Description: Port to listen for TCP/IP connections. If set to `0`, will default to, in order of preference, my.cnf, the MYSQL\_TCP\_PORT [environment variable](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-environment-variables.md), /etc/services, built-in default (3306).
+* Description: Port to listen for TCP/IP connections. If set to `0`, will default to, in order of preference, my.cnf, the `MYSQL_TCP_PORT` [environment variable](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-environment-variables.md), /etc/services, built-in default (3306).
 * Command line: `--port=#`, `-P`
 * Scope: Global
 * Dynamic: No
@@ -2123,7 +2123,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `progress_report_time`
 
-* Description: Time in seconds between sending [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) to the client for time-consuming statements. If set to `0`, progress reporting will be disabled.
+* Description: Time in seconds between sending [progress reports](../../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) to the client for time-consuming statements. If set to `0`, progress reporting will be disabled.
 * Command line: `--progress-report-time=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -2920,7 +2920,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `tmp_table_size`
 
-* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). From [MariaDB 10.2.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.7), [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is an alias.
+* Description: The largest size for temporary tables in memory (not [MEMORY](../../../server-usage/storage-engines/memory-storage-engine.md) tables) although if [max\_heap\_table\_size](server-system-variables.md#max_heap_table_size) is smaller the lower limit will apply. You can see if it's necessary to increase by comparing the [status variables](server-status-variables.md) `Created_tmp_disk_tables` and `Created_tmp_tables` to see how many temporary tables out of the total created needed to be converted to disk. Often complex GROUP BY queries are responsible for exceeding the limit. Defaults may be different on some systems, see for example [Differences in MariaDB in Debian](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md). [tmp\_memory\_table\_size](server-system-variables.md#tmp_memory_table_size) is an alias.
 * Command line: `--tmp-table-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
