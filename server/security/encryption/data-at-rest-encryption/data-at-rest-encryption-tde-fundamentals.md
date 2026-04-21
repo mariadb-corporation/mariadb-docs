@@ -54,17 +54,62 @@ For the rest of this page, we assume you're using the [File Key Management Encry
 
 ## Enabling Data-at-Rest Encryption
 
-Enabling data-at-rest encryption encompasses three steps:
+Enabling data-at-rest encryption encompasses these steps:
 
-1. Installing and enabling a [key management plugin](key-management-and-encryption-plugins/).
-2. Enabling encryption for Aria tables, InnoDB tables, or both.
-3. Verifying encryption is turned on.
+1. Creating a key file.
+2. Installing and enabling a [key management plugin](key-management-and-encryption-plugins/).
+3. Enabling encryption for Aria tables, InnoDB tables, or both.
+4. Verifying encryption is turned on.
+
+{% hint style="info" %}
+The path used in these instructions (`/etc/mysql/encryption/`) is common for most Linux systems. Adjust if your operating system uses a different path.
+{% endhint %}
+
+{% hint style="info" %}
+MariaDB server must be restarted several times. On most Linux systems, the command for that is `sudo systemctl restart mariadb`. Consult your operating system documentation to find out what your system uses.
+
+If you're getting errors, particularly if MariaDB fails to start, for example due to a configuration issue, inspect the [error log](../../../server-management/server-monitoring-logs/error-log.md). On many modern Linux versions, this can be done using `journalctl`. Example:
+
+{% code overflow="wrap" %}
+```bash
+sudo journalctl -u mariadb -n 1000 --no-pager | grep ERROR
+```
+{% endcode %}
+{% endhint %}
 
 {% stepper %}
 {% step %}
-### Install and enable a key management plugin.
+### Create the key file.
 
-Create the key file, following the instructions under [Creating the Key File](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file).
+In this step, we create a key file that fulfills basic requirements. It contains only one unencrypted key, which is good enough to perform the rest of the steps. It is highly recommended, though, to use multiple keys, and to encrypt those key files. See [Creating the Key File](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file).
+
+{% tabs %}
+{% tab title="Current Enterprise Server" %}
+Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder.
+
+{% code overflow="wrap" %}
+```bash
+mkdir -p /etc/mysql/encryption 
+echo $(echo -n "1;1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Enterprise Server < 11.8 & Community Server" %}
+Run these commands to create an `encryption` folder, and a 32 byte (256 bit) long key file within that folder.
+
+{% code overflow="wrap" %}
+```bash
+mkdir -p /etc/mysql/encryption
+echo $(echo -n "1;" ; openssl rand -hex 32) | sudo tee -a /etc/mysql/encryption/keyfile.txt
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+{% endstep %}
+
+{% step %}
+### Install and enable a key management plugin.
 
 Add the following to your configuration file (for instance, `my.cnf`), then restart the server so the changes take effect:
 
@@ -72,14 +117,13 @@ Add the following to your configuration file (for instance, `my.cnf`), then rest
 ```ini
 [mariadb]
 plugin_load_add = file_key_management
-file_key_management_filename = /etc/mysql/encryption/keyfile.enc
-# The following line is optional but highly recommended
-file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
+file_key_management_filename = /etc/mysql/encryption/keyfile.txt
+# The following line is optional but highly recommended.
+# Uncomment to enable usage of an encrypted key file.
+## file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
 file_key_management_encryption_algorithm = AES_CTR
 ```
 {% endcode %}
-
-The path used here (`/etc/mysql/encryption/`) is common for most Linux systems. Adjust if your operating system uses a different path.
 
 For details about file name, file key, and encryption algorithm, see [File Key Management Encryption Plugin](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md).
 {% endstep %}
@@ -92,7 +136,7 @@ You can encrypt a number of database objects by setting the respective variables
 * InnoDB user tables – [innodb\_encrypt\_tables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables)
 * InnoDB redo log – [innodb\_encrypt\_log](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log)
 * InnoDB temporary files – [encrypt\_temporary\_tables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_temporary_tables)\
-  MariaDB creates temporary files on disk. For example, a binary log cache is written to a temporary file if the binary log cache exceeds `binlog_cache_size` or `binlog_stmt_cache_size`. Temporary files are also often used for file sorts.
+  MariaDB creates temporary files on disk, for instance, files used for file sorts. It is recommended to encrypt those, too.
 * Aria user tables – [aria\_encrypt\_tables](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables)
 * Aria temporary tables – [encrypt\_tmp\_disk\_tables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables)
 
@@ -229,7 +273,7 @@ UNINSTALL SONAME 'file_key_management';
 ```
 {% endcode %}
 
-Remove its configuration:
+Remove its configuration, then restart the server:
 
 {% code overflow="wrap" %}
 ```ini
