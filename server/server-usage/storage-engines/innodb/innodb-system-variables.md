@@ -2435,7 +2435,8 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 #### `innodb_snapshot_isolation`
 
 * Description: Whether or not to use snapshot isolation (write/write conflict detection within InnoDB).\
-  If enabled (set to `ON`), an error `DB_RECORD_CHANGED` (`HA_ERR_RECORD_CHANGED`, `ER_CHECKREAD`) is raised if an attempt is made to acquire a lock on a record that does not exist in the current read view. This error is treated in the same way as a deadlock, and the transaction is rolled back. This affects the default isolation level, [REPEATABLE READ](../../../reference/sql-statements/transactions/transactions-repeatable-read.md).
+  If enabled (set to `ON`), an error `DB_RECORD_CHANGED` (`HA_ERR_RECORD_CHANGED`, `ER_CHECKREAD`) is raised if an attempt is made to acquire a lock on a record that does not exist in the current read view. This error is treated in the same way as a deadlock, and the transaction is rolled back. This affects the default isolation level, [REPEATABLE READ](../../../reference/sql-statements/transactions/transactions-repeatable-read.md). \
+  In MariaDB 11.8 and later, changes to snapshot handling may affect how conflicts are detected in transactions that use the [Repeatable Read](../../../reference/sql-statements/transactions/transactions-repeatable-read.md) isolation level. Specifically, `DELETE` and `UPDATE` statements can return with [ERROR 1020](../../../reference/error-codes/mariadb-error-codes-1000-to-1099/e1020.md). This occurs when a transaction tries to modify rows using a snapshot that is inconsistent with the database's current state as a result of simultaneous modifications.
 * Command line: `--innodb-snapshot-isolation={0|1}`
 * Scope: Global, Session
 * Dynamic: Yes
