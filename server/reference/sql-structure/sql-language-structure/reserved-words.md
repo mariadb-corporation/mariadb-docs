@@ -304,7 +304,7 @@ In [Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server
 
 The lists above indicate words that are always reserved and must be quoted. Some keywords, though, are reserved for specific contexts. In most SQL statements, they operate normally, but in some cases, they activate unique parser rules.
 
-The Oracle mode term `SYSTEM` is a prime example. Although it is not a fully reserved word, the parser expects the VERSIONING keyword to follow (as part of the SYSTEM VERSIONING clause for system-versioned tables), which results in a syntax error in an `ALTER TABLE ... ADD` command.
+The Oracle mode term `SYSTEM` is a prime example. Although it is not a fully reserved word, the parser expects the VERSIONING keyword to follow (as part of the `SYSTEM VERSIONING` clause for [system-versioned tables](../temporal-tables/system-versioned-tables.md)), which results in a syntax error in an `ALTER TABLE ... ADD` command.
 
 **Example of unexpected behavior**
 
@@ -335,10 +335,6 @@ ALTER TABLE t1 ADD `system` VARCHAR(64);
 ```
 
 It is recommended that all identifiers listed as keywords (including those indicated as non-reserved or version-specific) be quoted for maximum compatibility and to prevent unexpected parser errors, especially in `ALTER` statements.
-
-
-
-
 
 ## Function Names
 
