@@ -117,69 +117,6 @@ The installer generates a self-signed TLS certificate for Enterprise Manager. To
 
 To modify metrics retention time, see [Metrics retention configuration](metrics-retention-configuration.md).
 
-## Air-Gapped Installation
-
-Installing Enterprise Manager to a machine without an Internet connection is possible by manually copying the container images and related settings from an Internet-connected machine to the final target machine.
-
-Follow these steps:
-
-{% stepper %}
-{% step %}
-**Install on an Internet-connected machine**
-
-First, install Enterprise Manager on an Internet-connected machine as explained in the normal installation section. When the installer asks for the address and port that Enterprise Manager should listen at for incoming connections, enter the values for the final target machine.
-{% endstep %}
-
-{% step %}
-**Save images and settings**
-
-Once installation is complete, save all related container images and settings by running the following commands from the directory that contains the `enterprise-manager` folder:
-
-{% code title="# Save images and archive" %}
-```bash
-cd enterprise-manager
-docker compose images | awk 'p{print $2 ":" $3} {p=1}' | xargs docker image save -o images.tar
-cd ..
-tar -czvf enterprise-manager.tar.gz enterprise-manager
-```
-{% endcode %}
-
-The resulting archive `enterprise-manager.tar.gz` contains all components of Enterprise Manager.
-{% endstep %}
-
-{% step %}
-**Transfer archive to target machine**
-
-Copy `enterprise-manager.tar.gz` to the target (air-gapped) machine into the directory under which you want to install Enterprise Manager.
-{% endstep %}
-
-{% step %}
-**Extract and load images on target machine**
-
-On the target machine, extract the archive and load the container images:
-
-{% code title="# Extract and load images" %}
-```bash
-tar -xzvf enterprise-manager.tar.gz
-cd enterprise-manager
-docker image load -i images.tar
-```
-{% endcode %}
-{% endstep %}
-
-{% step %}
-**Start Enterprise Manager**
-
-Start Enterprise Manager with:
-
-{% code title="# Start containers" %}
-```bash
-docker compose up -d
-```
-{% endcode %}
-{% endstep %}
-{% endstepper %}
-
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
 {% @marketo/form formId="4316" %}
