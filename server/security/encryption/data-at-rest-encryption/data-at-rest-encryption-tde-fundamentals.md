@@ -81,7 +81,7 @@ sudo journalctl -u mariadb -n 1000 --no-pager | grep ERROR
 {% step %}
 ### Create the key file.
 
-In this step, we create a key file that fulfills basic requirements. It contains only one unencrypted key, which is good enough to perform the rest of the steps. It is highly recommended, though, to use multiple keys, and to encrypt those key files. See [Creating the Key File](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file).
+In this step, we create a key file that fulfills basic requirements. It contains only one unencrypted key, which is good enough to perform the rest of the steps. It is highly recommended, though, to use multiple keys, and to encrypt the key files. See [Creating the Key File](key-management-and-encryption-plugins/file-key-management-encryption-plugin.md#creating-the-key-file).
 
 {% tabs %}
 {% tab title="Current Enterprise Server" %}
@@ -119,8 +119,8 @@ Add the following to your configuration file (for instance, `my.cnf`), then rest
 plugin_load_add = file_key_management
 file_key_management_filename = /etc/mysql/encryption/keyfile.txt
 # The following line is optional but highly recommended.
-# Uncomment to enable usage of an encrypted key file.
-## file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
+# Uncomment it to enable usage of an encrypted key file.
+# file_key_management_filekey = FILE:/etc/mysql/encryption/keyfile.key
 file_key_management_encryption_algorithm = AES_CTR
 ```
 {% endcode %}
@@ -140,7 +140,7 @@ You can encrypt a number of database objects by setting the respective variables
 * Aria user tables – [aria\_encrypt\_tables](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables)
 * Aria temporary tables – [encrypt\_tmp\_disk\_tables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables)
 
-To configure encryption for all of those objects, add this to your configuration file (for instance, `my.cnf`), then restart the server:
+To configure global encryption for all of those objects, add this to your configuration file (for instance, `my.cnf`), then restart the server:
 
 {% code overflow="wrap" %}
 ```ini
@@ -153,7 +153,7 @@ encrypt_tmp_disk_tables = ON
 ```
 {% endcode %}
 
-Alternatively, set it running the following statements. Remember, though, that the settings do not persist across server restarts. Also note that some of the variables cannot be set at runtime – they have to be set in a configuration file:
+Alternatively, set it by running the following statements. Remember, though, that the settings do not persist across server restarts. Also note that some of the variables cannot be set at runtime – they have to be set in a configuration file:
 
 {% code overflow="wrap" %}
 ```sql
@@ -164,14 +164,14 @@ SET GLOBAL encrypt_tmp_disk_tables = ON; -- for Aria temporary tables
 {% endcode %}
 
 {% hint style="info" %}
-Particularly InnoDB has more encryption options. You can fine-tune the encryption (for instance, configuring encryption threads), or encrypt tablespaces.  Those details are covered [on this page](innodb-encryption/innodb-enabling-encryption.md).
+Particularly InnoDB has more encryption options. You can fine-tune the encryption, for instance, configure encryption threads.  Those details are covered [on this page](innodb-encryption/innodb-enabling-encryption.md).
 {% endhint %}
 {% endstep %}
 
 {% step %}
 ### Verify encryption is turned on.
 
-Make sure that the variables you configured are turned on, by issuing this statement:
+Make sure that the global encryption you configured is turned on, by issuing this statement:
 
 {% code overflow="wrap" %}
 ```sql
@@ -216,7 +216,7 @@ If you determine that encryption is no longer necessary, you can revert the syst
 {% step %}
 ### Decrypt tables.
 
-Disable encryption at the storage engine level by issuing these statements. Note that some variables cannot be turned off at runtime – they have to be removed from the server configuration (for instance, `my.cnf`), and require a server restart:
+Disable global encryption at the storage engine level by issuing these statements. Note that some variables cannot be turned off at runtime – they have to be removed from the server configuration (for instance, `my.cnf`), and require a server restart:
 
 {% code overflow="wrap" %}
 ```sql
@@ -227,7 +227,7 @@ SET GLOBAL encrypt_tmp_disk_tables = OFF; -- Aria temporary tables
 {% endcode %}
 
 {% hint style="info" %}
-Any per-table encryption for tables explicitly created with `ENCRYPTED=YES` must be manually decrypted using `ALTER TABLE table_name ENCRYPTED=NO;`.
+Any per-table encryption for InnoDB tables explicitly created with `ENCRYPTED=YES` must be manually decrypted using `ALTER TABLE table_name ENCRYPTED=NO`.
 {% endhint %}
 {% endstep %}
 
@@ -249,7 +249,7 @@ encrypt_tmp_disk_tables = OFF
 {% step %}
 ### Monitor decryption progress.
 
-You must wait for the background threads to finish decrypting data pages before removing the keys. Monitor the status via the Information Schema:
+You must wait for the background threads to finish decrypting data pages before removing the keys. Monitor the status for InnoDB tables via the Information Schema (there's no built-in way to monitor the status for Aria tables):
 
 ```sql
 SELECT NAME, ENCRYPTION_SCHEME, ROTATING_OR_FLUSHING 
@@ -297,7 +297,7 @@ Transparent Data Encryption (TDE) is designed to protect data "at rest" while re
 
 ### Automatic Encryption (InnoDB & Aria)
 
-For the subsequent instructions, we are using these tables. Note that they're encrypted without using any special syntax:
+For the subsequent instructions, we use these tables. With encrytion turned on, note that they're encrypted without using any special syntax:
 
 ```sql
 -- Create an InnoDB table
@@ -320,7 +320,7 @@ Because InnoDB and Aria handle data differently, you use two different methods t
 
 #### For InnoDB
 
-Check the `information_schema` to see the tablespace encryption scheme.
+Check the `information_schema` to see the tablespace encryption scheme. If it's set to `1`, the table is encrypted.
 
 ```sql
 SELECT NAME, ENCRYPTION_SCHEME 
@@ -338,17 +338,21 @@ WHERE NAME LIKE '%sensitive_accounts_innodb%';
 ```
 {% endcode %}
 
-#### **For Aria**
+#### For Aria
 
-Check the table status or the create statement to see the `TRANSACTIONAL` and `PAGE_CHECKSUM` properties, which Aria uses in conjunction with the global `aria_encrypt_tables` setting.
+There's no built-in way to check the encryption status of Aria tables, but you can check the contents of their `.MAD` files (the Aria data files) with commands like `cat`:
 
-```sql
-SHOW TABLE STATUS LIKE 'sensitive_accounts_aria';
+{% code overflow="wrap" expandable="true" %}
 ```
+sudo cat /var/lib/mysql/test/sensitive_accounts_aria.MAD | more
+```
+{% endcode %}
+
+If you see unintelligible output rather than something resembling data, the Aria table is encrypted.
 
 ### Transparent Data Access
 
-Whether the table is InnoDB or Aria, the encryption is **transparent**. Standard SQL commands work without modification, as the engine decrypts the data in memory (the Buffer Pool for InnoDB or Page Cache for Aria).
+Whether the table is InnoDB or Aria, the encryption is **transparent**. Standard SQL statements work without modification, as the engine decrypts the data in memory (the Buffer Pool for InnoDB or Page Cache for Aria).
 
 ```sql
 -- Standard inserts work for both
@@ -362,34 +366,45 @@ SELECT * FROM sensitive_accounts_aria;
 
 ### Manual Control: Disabling Encryption
 
-If you need to exempt a specific table from the global encryption policy, you use the `ENCRYPTED` attribute. Note that the syntax is identical for both engines, but the underlying process differs.
+If you need to exempt a specific table from the global encryption policy, use the `ENCRYPTED` attribute.&#x20;
 
 {% hint style="info" %}
-The keyword is `ENCRYPTED` (ending in 'D'). Using `ENCRYPTION` results in a syntax error.
+This is only possible for InnoDB tables.
 {% endhint %}
 
-#### **To Decrypt the Tables**
+#### Decrypting the Tables
+
+Decrypting tables is done with an `ALTER TABLE` statement. For InnoDB tables, you can do this while global InnoDB table encryption is turned on.&#x20;
+
+{% hint style="info" %}
+For Aria tables, you can only do this when global Aria table encryption is turned off.
+{% endhint %}
 
 ```sql
 -- Disable encryption for the InnoDB table
 ALTER TABLE sensitive_accounts_innodb ENCRYPTED=NO;
+SELECT NAME, ENCRYPTION_SCHEME  FROM information_schema.INNODB_TABLESPACES_ENCRYPTION  
+       WHERE NAME LIKE '%sensitive_accounts_innodb%';
++--------------------------------+-------------------+
+| NAME                           | ENCRYPTION_SCHEME |
++--------------------------------+-------------------+
+| test/sensitive_accounts_innodb |                 0 |
++--------------------------------+-------------------+
 
 -- Disable encryption for the Aria table
-ALTER TABLE sensitive_accounts_aria ENCRYPTED=NO;
+-- This is only possible after disabling global Aria encryption
+ALTER TABLE sensitive_accounts_aria ENGINE=Aria, ALGORITHM=COPY;
 ```
 
-#### **To Re-encrypt the Tables**
+#### Reencrypting the Tables
 
 ```sql
 ALTER TABLE sensitive_accounts_innodb ENCRYPTED=YES;
-ALTER TABLE sensitive_accounts_aria ENCRYPTED=YES;
+SELECT NAME, ENCRYPTION_SCHEME  FROM information_schema.INNODB_TABLESPACES_ENCRYPTION  
+       WHERE NAME LIKE '%sensitive_accounts_innodb%';
++--------------------------------+-------------------+
+| NAME                           | ENCRYPTION_SCHEME |
++--------------------------------+-------------------+
+| test/sensitive_accounts_innodb |                 1 |
++--------------------------------+-------------------+
 ```
-
-### Summary of Behavior
-
-| Feature              | InnoDB (`sensitive_accounts_innodb`) | Aria (`sensitive_accounts_aria`)   |
-| -------------------- | ------------------------------------ | ---------------------------------- |
-| **Encryption Level** | Tablespace level (Pages)             | Table level (Pages)                |
-| **Verification**     | `INNODB_TABLESPACES_ENCRYPTION`      | `SHOW STATUS LIKE 'Aria_encrypt%'` |
-| **Access**           | Transparent via Buffer Pool          | Transparent via Page Cache         |
-| **Keyword**          | `ENCRYPTED=YES/NO`                   | `ENCRYPTED=YES/NO`                 |
