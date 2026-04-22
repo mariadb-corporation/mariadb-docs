@@ -283,5 +283,113 @@ plugin_load_add = file_key_management
 ```
 {% endcode %}
 {% endstep %}
+
+{% step %}
+### Verify encryption is turned off.
+
+Use [the same SQL statement shown above](data-at-rest-encryption-tde-fundamentals.md#verify-encryption-is-turned-on) to verify encryption is turned off.
+{% endstep %}
 {% endstepper %}
 
+## TDE in Action: Real-World Behavior
+
+Transparent Data Encryption (TDE) is designed to protect data "at rest" while remaining completely invisible to standard SQL operations. With encryption turned on, MariaDB applies encryption to all new tables automatically.
+
+### Automatic Encryption (InnoDB & Aria)
+
+For the subsequent instructions, we are using these tables. Note that they're encrypted without using any special syntax:
+
+```sql
+-- Create an InnoDB table
+CREATE TABLE sensitive_accounts_innodb (
+    id INT PRIMARY KEY,
+    account_name VARCHAR(100)
+) ENGINE=InnoDB;
+
+-- Create an Aria table
+-- Note that the ROW_FORMAT must be PAGE; otherwise, encryption isn't possible
+CREATE TABLE sensitive_accounts_aria (
+    id INT PRIMARY KEY,
+    account_name VARCHAR(100)
+) ENGINE=Aria ROW_FORMAT=PAGE;
+```
+
+### Verifying Encryption Status
+
+Because InnoDB and Aria handle data differently, you use two different methods to verify their encryption status.
+
+#### For InnoDB
+
+Check the `information_schema` to see the tablespace encryption scheme.
+
+```sql
+SELECT NAME, ENCRYPTION_SCHEME 
+FROM information_schema.INNODB_TABLESPACES_ENCRYPTION 
+WHERE NAME LIKE '%sensitive_accounts_innodb%';
+```
+
+{% code overflow="wrap" expandable="true" %}
+```
++--------------------------------+-------------------+
+| NAME                           | ENCRYPTION_SCHEME |
++--------------------------------+-------------------+
+| test/sensitive_accounts_innodb |                 1 |
++--------------------------------+-------------------+
+```
+{% endcode %}
+
+#### **For Aria**
+
+Check the table status or the create statement to see the `TRANSACTIONAL` and `PAGE_CHECKSUM` properties, which Aria uses in conjunction with the global `aria_encrypt_tables` setting.
+
+```sql
+SHOW TABLE STATUS LIKE 'sensitive_accounts_aria';
+```
+
+### Transparent Data Access
+
+Whether the table is InnoDB or Aria, the encryption is **transparent**. Standard SQL commands work without modification, as the engine decrypts the data in memory (the Buffer Pool for InnoDB or Page Cache for Aria).
+
+```sql
+-- Standard inserts work for both
+INSERT INTO sensitive_accounts_innodb VALUES (1, 'Customer InnoDB');
+INSERT INTO sensitive_accounts_aria VALUES (1, 'Customer Aria');
+
+-- Standard selects return plain text
+SELECT * FROM sensitive_accounts_innodb;
+SELECT * FROM sensitive_accounts_aria;
+```
+
+### Manual Control: Disabling Encryption
+
+If you need to exempt a specific table from the global encryption policy, you use the `ENCRYPTED` attribute. Note that the syntax is identical for both engines, but the underlying process differs.
+
+{% hint style="info" %}
+The keyword is `ENCRYPTED` (ending in 'D'). Using `ENCRYPTION` results in a syntax error.
+{% endhint %}
+
+#### **To Decrypt the Tables**
+
+```sql
+-- Disable encryption for the InnoDB table
+ALTER TABLE sensitive_accounts_innodb ENCRYPTED=NO;
+
+-- Disable encryption for the Aria table
+ALTER TABLE sensitive_accounts_aria ENCRYPTED=NO;
+```
+
+#### **To Re-encrypt the Tables**
+
+```sql
+ALTER TABLE sensitive_accounts_innodb ENCRYPTED=YES;
+ALTER TABLE sensitive_accounts_aria ENCRYPTED=YES;
+```
+
+### Summary of Behavior
+
+| Feature              | InnoDB (`sensitive_accounts_innodb`) | Aria (`sensitive_accounts_aria`)   |
+| -------------------- | ------------------------------------ | ---------------------------------- |
+| **Encryption Level** | Tablespace level (Pages)             | Table level (Pages)                |
+| **Verification**     | `INNODB_TABLESPACES_ENCRYPTION`      | `SHOW STATUS LIKE 'Aria_encrypt%'` |
+| **Access**           | Transparent via Buffer Pool          | Transparent via Page Cache         |
+| **Keyword**          | `ENCRYPTED=YES/NO`                   | `ENCRYPTED=YES/NO`                 |
