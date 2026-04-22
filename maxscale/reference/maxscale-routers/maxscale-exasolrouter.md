@@ -89,20 +89,29 @@ connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 Here it is assumed the `odbc.ini` ODBC configuration file containing
 an `ExasolDSN` entry.
 
-### `appearance`
+### `login_timeout`
 
-* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Mandatory: No
 * Dynamic: No
-* Values: `read_only`, `read_write`
-* Default: `read_only`
+* Default: 30s
 
-Specifies how the Exasol router appears to other components of MaxScale.
-This is of relevance only if another service uses an Exasol router service
-as target.
+Defines the login timeout in seconds for a connection. Corresponds to the
+Exasol connection string key `LOGINTIMEOUT`. If the value is set to 0, the timeout
+will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string "
+will be honored. Otherwise this value will override.
 
-**Note** Irrespective of the value, the router does not in any way restrict
-what kind of queries can be run through the router.
+### `query_timeout`
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: 30s
+
+Defines the query timeout in seconds for a connection. Corresponds to the
+Exasol connection string key `QUERYTIMEOUT`. If the value is set to 0, the timeout
+will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string
+will be honored. Otherwise this value will override.
 
 ### `preprocessor`
 
@@ -136,6 +145,43 @@ The values mean:
 If the name of a custom preprocessor script, specified using
 `preprocessor=custom:/path`, is not `UTIL.maria_preprocessor`, the
 name should be provided using this setting.
+
+### `appearance`
+
+* Type: [enum](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: No
+* Values: `read_only`, `read_write`
+* Default: `read_only`
+
+Specifies how the Exasol router appears to other components of MaxScale.
+This is of relevance only if another service uses an Exasol router service
+as target.
+
+**Note** Irrespective of the value, the router does not in any way restrict
+what kind of queries can be run through the router.
+
+### `kill_connection_timeout`
+
+* Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
+* Mandatory: No
+* Dynamic: No
+* Default: 10s
+
+The duration that an unused kill connection is kept alive after the
+last KILL command before it is automatically closed; a value of 0
+closes it immediately after each use.
+
+### `quote_identifiers`
+
+* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
+* Mandatory: No
+* Dynamic: No
+* Default: true
+
+Whether the Exasol router should quote identifiers, in case it internally
+transpiles a statement. Currently it only affects whether 'USE db' becomes
+'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
 ## Transformations
 
