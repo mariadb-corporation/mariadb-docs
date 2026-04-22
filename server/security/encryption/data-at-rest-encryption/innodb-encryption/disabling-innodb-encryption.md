@@ -68,7 +68,7 @@ WHERE ENGINE='InnoDB'
 For each table identified, run:
 
 ```sql
-ALTER TABLE db_name.table_name ENCRYPTION='N';
+ALTER TABLE db_name.table_name ENCRYPTED=NO;
 ```
 {% endstep %}
 
