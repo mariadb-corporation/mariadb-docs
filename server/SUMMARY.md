@@ -600,7 +600,7 @@
       * [Docker Official Image Frequently Asked Questions](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/docker-official-image-frequently-asked-questions.md)
       * [Installing and Using MariaDB via Docker](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/installing-and-using-mariadb-via-docker.md)
       * [MariaDB Container Cheat Sheet](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-container-cheat-sheet.md)
-      * [MariaDB Server Docker Official Image Environment Variables](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables.md)
+      * [MariaDB Enterprise Server Docker Official Image Environment Variables](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/mariadb-server-docker-official-image-environment-variables.md)
       * [Setting Up a LAMP Stack with Docker Compose](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/setting-up-a-lamp-stack-with-docker-compose.md)
       * [Using Healthcheck](server-management/automated-mariadb-deployment-and-administration/docker-and-mariadb/using-healthcheck-sh.md)
     * [Kubernetes and MariaDB](server-management/automated-mariadb-deployment-and-administration/kubernetes-and-mariadb/README.md)
