@@ -79,6 +79,41 @@ When specified, the container will connect to this host and replicate from it.
 
 When `MARIADB_MASTER_HOST` is defined, `MARIADB_REPLICATION_USER` and `MARIADB_REPLICATION_PASSWORD` will be used to connect to the master. When not specified, the `MARIADB_REPLICATION_USER` will be created with the `REPLICATION REPLICA` grants needed for a client to initiate replication.
 
+## Timezone Configuration
+
+By default, the container operates in the Coordinated Universal Time (UTC) timezone. To configure a specific timezone for the container's operating system and internal processes, utilize the `TZ` environment variable.
+
+### Supported Values
+
+The `TZ` variable accepts standard tz database (IANA) timezone identifiers. Examples include `America/New_York`, `Europe/London`, or `Asia/Tokyo`.
+
+### Usage Examples
+
+**Using `docker run`**
+
+You can specify the timezone when starting the container via the command line interface using the `-e` flag:
+
+```bash
+docker run -d \
+  --name database-container \
+  -e TZ="America/New_York" \
+  -e MARIADB_ROOT_PASSWORD="your_strong_password" \
+  docker.mariadb.com/enterprise-server:11.8
+```
+
+**Using `docker-compose.yml`**
+
+For deployments managed by Docker Compose, declare the `TZ` variable within the `environment` mapping of your service definition:
+
+```yaml
+services:
+  db:
+    image: docker.mariadb.com/enterprise-server:11.8
+    environment:
+      - TZ=America/New_York
+      - MARIADB_ROOT_PASSWORD=your_strong_password
+```
+
 ## Using `_FILE` Environment Variables for Secrets
 
 When running Docker containers, it is a security best practice to avoid passing sensitive information, like database passwords, directly as plain-text environment variables. The MariaDB container images allow you to securely read secrets from mounted files by appending `_FILE` to the standard environment variable name. 
