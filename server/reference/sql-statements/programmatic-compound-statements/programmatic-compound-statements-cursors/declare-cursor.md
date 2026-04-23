@@ -36,6 +36,10 @@ Starting with MariaDB 12.3, the query can also be a prepared statement name, whi
 
 Cursors must be declared before [HANDLERs](../declare-handler.md), but after local variables and [CONDITIONs](../declare-condition.md).
 
+> The `DECLARE CURSOR` statement provides a cursor to a specified `SELECT` statement.
+>
+> To declare a cursor variable type that can be connected with multiple queries at runtime (REF CURSOR), use `DECLARE TYPE... IS REF CURSOR` in Oracle mode. See [DECLARE TYPE](../declare-type.md#ref-cursor-types).
+
 ### **Dynamic Cursors**
 
 Starting with MariaDB 12.3, a cursor can be declared for a prepared statement. This allows the use of Dynamic SQL within stored routines. The cursor is bound to a prepared statement name, which must be defined using the `PREPARE` statement before the cursor is opened.
