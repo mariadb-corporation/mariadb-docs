@@ -5,7 +5,7 @@ description: >-
   production use.
 ---
 
-# MariaDB Server Docker Official Image Environment Variables
+# MariaDB Enterprise Server Docker Official Image Environment Variables
 
 When you start the image, you can adjust the initialization of the MariaDB Server instance by passing one or more environment variables on the docker run command line. Do note that all of the variables below, except `MARIADB_AUTO_UPGRADE`, will have no effect if you start the container with a data directory that already contains a database: any pre-existing database will always be left untouched on container startup.
 
@@ -14,6 +14,8 @@ All tags from `10.6` and above, `MARIADB_*` variables will be used in preference
 One of the following is required: `MARIADB_ROOT_PASSWORD_HASH`, `MARIADB_ROOT_PASSWORD`, `MARIADB_ALLOW_EMPTY_ROOT_PASSWORD`, or `MARIADB_RANDOM_ROOT_PASSWORD` (including `*_FILE` equivalents).
 
 Other environment variables are optional.
+
+## Environment Variables
 
 ### `MARIADB_ROOT_PASSWORD_HASH / MARIADB_ROOT_PASSWORD / MYSQL_ROOT_PASSWORD`
 
@@ -76,6 +78,81 @@ When specified, the container will connect to this host and replicate from it.
 ### `MARIADB_REPLICATION_USER / MARIADB_REPLICATION_PASSWORD_HASH / MARIADB_REPLICATION_PASSWORD`
 
 When `MARIADB_MASTER_HOST` is defined, `MARIADB_REPLICATION_USER` and `MARIADB_REPLICATION_PASSWORD` will be used to connect to the master. When not specified, the `MARIADB_REPLICATION_USER` will be created with the `REPLICATION REPLICA` grants needed for a client to initiate replication.
+
+## Using `_FILE` Environment Variables for Secrets
+
+When running Docker containers, it is a security best practice to avoid passing sensitive information, like database passwords, directly as plain-text environment variables. The MariaDB container images allow you to securely read secrets from mounted files by appending `_FILE` to the standard environment variable name. 
+
+### List of supported `_FILE` Environment Variables
+
+| Name | Description |
+| --- | --- |
+| `MYSQL_ROOT_HOST_FILE` | Path to a file containing the host from which the root user is allowed to connect. |
+| `MARIADB_ROOT_HOST_FILE` | Path to a file containing the host from which the root user is allowed to connect. |
+| `MYSQL_DATABASE_FILE` | Path to a file containing the name of a database to be created on initialization. |
+| `MARIADB_DATABASE_FILE` | Path to a file containing the name of a database to be created on initialization. |
+| `MYSQL_USER_FILE` | Path to a file containing the username for a new user to be created on initialization. |
+| `MARIADB_USER_FILE` | Path to a file containing the username for a new user to be created on initialization. |
+| `MYSQL_PASSWORD_FILE` | Path to a file containing the password for the user defined by `MYSQL_USER`. |
+| `MARIADB_PASSWORD_FILE` | Path to a file containing the password for the user defined by `MARIADB_USER`. |
+| `MYSQL_ROOT_PASSWORD_FILE` | Path to a file containing the password for the root database user. |
+| `MARIADB_ROOT_PASSWORD_FILE` | Path to a file containing the password for the root database user. |
+| `MARIADB_PASSWORD_HASH_FILE` | Path to a file containing the hashed password for the created standard user. |
+| `MARIADB_ROOT_PASSWORD_HASH_FILE` | Path to a file containing the hashed password for the root database user. |
+| `MARIADB_UNIX_SOCKET_AUTHENTICATION_FILE` | Path to a file containing a value to enable/disable Unix socket authentication. |
+| `MARIADB_REPLICATION_USER_FILE` | Path to a file containing the username to be used for setting up replication. |
+| `MARIADB_REPLICATION_PASSWORD_FILE` | Path to a file containing the password for the replication user. |
+| `MARIADB_REPLICATION_PASSWORD_HASH_FILE` | Path to a file containing the hashed password for the replication user. |
+| `MARIADB_MASTER_HOST_FILE` | Path to a file containing the hostname or IP address of the replication master. |
+| `MARIADB_MASTER_PORT_FILE` | Path to a file containing the port number of the replication master. |
+
+### Example
+
+Here is how to set up your MariaDB root password using the `MARIADB_ROOT_PASSWORD_FILE` environment variable.
+
+#### Step 1: Create the Secret File
+
+First, create a local file on your host machine that contains your desired environment variable. In this example, we will create a file named `mariadb_root_password_secret` containing the password `MariaDB11!`.
+
+```bash
+echo -n "MariaDB11!" > mariadb_root_password_secret
+```
+
+{% hint style="tip" %}
+Using the `-n` flag with `echo` is highly recommended, as it ensures no hidden newline characters are accidentally appended to your password!
+{% endhint %}
+
+#### Step 2: Start the MariaDB Container
+
+Next, run the container. You need to mount the local secret file into the container and set the environment variable to point to that newly mounted path.
+
+```bash
+docker run -d \
+  -v "$(pwd)/mariadb_root_password_secret:/run/secrets/root_password" \
+  -e MARIADB_ROOT_PASSWORD_FILE=/run/secrets/root_password \
+  docker.mariadb.com/enterprise-server:11.8
+```
+
+**Understanding the flags:**
+* **`-v "$(pwd)/..."`**: This volume mount takes your local file (`mariadb_root_password_secret`) and securely maps it inside the container to `/run/secrets/root_password`.
+* **`-e MARIADB_ROOT_PASSWORD_FILE=...`**: This instructs the MariaDB initialization script to look inside `/run/secrets/root_password` and use its contents as the root password.
+
+#### Step 3: Verify the Connection
+
+Once the container is up and running, you can test the connection to ensure the password was applied correctly. 
+
+Grab your container ID (with `docker ps`) and use `docker exec` to start an interactive database session using the password you defined in Step 1:
+
+```bash
+docker exec -it <container_id> mariadb -u root -p'MariaDB11!'
+```
+
+If the secret was read successfully, you will be authenticated and greeted by the MariaDB:
+
+```
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 5
+```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
