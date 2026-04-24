@@ -226,7 +226,7 @@ Default from [MariaDB 10.2.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/com
 [Note] Reading Master_info: '/mariadb/data/master.info'  
   Relay_info:'/mariadb/data/relay-log.info'
 [Note] Initialized Master_info from '/mariadb/data/master.info'
-[Note] Reading of all Master_info entries succeded
+[Note] Reading of all Master_info entries succeeded
 [Note] Deleted Master_info file '/mariadb/data/master.info'.
 [Note] Deleted Master_info file '/mariadb/data/relay-log.info'.
 ```
