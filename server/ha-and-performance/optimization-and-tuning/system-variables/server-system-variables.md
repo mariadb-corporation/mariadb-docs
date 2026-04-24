@@ -729,7 +729,7 @@ The suffix can be upper or lower-case.
 
 #### `ft_query_expansion_limit`
 
-* Description: For [full-text searches](../optimization-and-indexes/full-text-indexes/), denotes the numer of top matches when using WITH QUERY EXPANSION.
+* Description: For [full-text searches](../optimization-and-indexes/full-text-indexes/), denotes the number of top matches when using `WITH QUERY EXPANSION`.
 * Command line: `--ft-query-expansion-limit=#`
 * Scope: Global
 * Dynamic: No
