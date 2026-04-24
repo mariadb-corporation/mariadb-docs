@@ -150,6 +150,7 @@ Default until [MariaDB 10.2.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/co
 * Replication-related messages:
 
 ```
+[Warning] A server restart has recreated the memory table `db`.`tbl`; a TRUNCATE query is written to the binary log at GTID 0-1-2. As this server is a read-only slave, this event may diverge replication in domain 0.
 [Note] Error reading relay log event: slave SQL thread was killed
 [Note] Slave SQL thread exiting, replication stopped in log 
   'dbserver-2-bin.000033'   at position 181420; 
