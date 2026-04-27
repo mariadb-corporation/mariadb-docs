@@ -1,6 +1,6 @@
 # API Reference
 
-> **Version:** langchain-mariadb v0.0.20
+> **Version:** langchain-mariadb v0.0.21
 
 Complete API reference for the langchain-mariadb package.
 

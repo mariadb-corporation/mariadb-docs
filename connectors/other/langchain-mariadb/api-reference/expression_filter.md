@@ -1,6 +1,6 @@
 # Expression Filters
 
-> **Version:** langchain-mariadb v0.0.20
+> **Version:** langchain-mariadb v0.0.21
 
 A flexible and composable filter expression system for building SQL-like queries.
 

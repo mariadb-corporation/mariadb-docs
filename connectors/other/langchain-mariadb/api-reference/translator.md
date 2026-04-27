@@ -1,6 +1,6 @@
 # Translator
 
-> **Version:** langchain-mariadb v0.0.20
+> **Version:** langchain-mariadb v0.0.21
 
 ## MariaDBTranslator
 

@@ -1,6 +1,6 @@
 # Vector Stores
 
-> **Version:** langchain-mariadb v0.0.20
+> **Version:** langchain-mariadb v0.0.21
 
 ## DistanceStrategy
 
@@ -152,11 +152,11 @@ Basic usage::
 
     from langchain_mariadb import MariaDBStore
     from langchain_openai import OpenAIEmbeddings
-    
+
     # Create connection
     url = "mariadb+mariadbconnector://user:pass@localhost/db"
     embeddings = OpenAIEmbeddings()
-    
+
     # Create vector store
     store = MariaDBStore.from_texts(
         texts=["Hello, world!", "Another text"],
@@ -164,7 +164,7 @@ Basic usage::
         datasource=url,
         collection_name="my_collection"
     )
-    
+
     # Search similar texts
     results = store.similarity_search("Hello", k=2)
 
@@ -190,13 +190,13 @@ Complex filter with operators::
 Asynchronous usage::
 
     import asyncio
-    
+
     async def search_docs():
         results = await store.amax_marginal_relevance_search(
             "Hello", k=2, fetch_k=10, lambda_mult=0.5
         )
         return results
-    
+
     results = asyncio.run(search_docs())
 
 Custom configuration::
@@ -205,7 +205,7 @@ Custom configuration::
         MariaDBStore, MariaDBStoreSettings,
         TableConfig, ColumnConfig
     )
-    
+
     config = MariaDBStoreSettings(
         tables=TableConfig(
             embedding_table="custom_embeddings",
@@ -217,7 +217,7 @@ Custom configuration::
             metadata="doc_metadata"
         )
     )
-    
+
     store = MariaDBStore.from_texts(
         texts=["Hello"],
         embedding=embeddings,
@@ -228,7 +228,7 @@ Custom configuration::
 Working with documents::
 
     from langchain_core.documents import Document
-    
+
     documents = [
         Document(
             page_content="Hello",
@@ -239,13 +239,13 @@ Working with documents::
             metadata={"source": "greeting.txt"}
         )
     ]
-    
+
     store = MariaDBStore.from_documents(
         documents=documents,
         embedding=embeddings,
         datasource=url
     )
-    
+
     # Add more documents
     store.add_documents(documents)
 ```
@@ -749,6 +749,10 @@ Create a MariaDBStore instance from texts.
 **Returns:**
 
  `MariaDBStore` - MariaDBStore instance initialized with the provided texts
+
+**Raises:**
+
+- **ValueError**: If ``datasource`` is not provided.
 
 #### `from_embeddings`
 
