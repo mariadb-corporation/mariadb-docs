@@ -1,6 +1,6 @@
 # Chat Message History
 
-> **Version:** langchain-mariadb v0.0.20
+> **Version:** langchain-mariadb v0.0.21
 
 Client for persisting chat message history in a MariaDB database.
 
