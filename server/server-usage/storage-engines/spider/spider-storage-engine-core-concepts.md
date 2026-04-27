@@ -21,7 +21,7 @@ In the default high availability setup Spider Nodes produce SQL errors when a ba
 
 **MariaDB starting with** [**10.7.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5)
 
-Spider's high availability feature has been deprecated (MDEV-28479), and are deleted. Please use other high availability solutions like [replication](../myrocks/myrocks-and-replication.md) or [galera-cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera-cluster/README.md).
+Spider's high availability feature has been deprecated (MDEV-28479), and are deleted. Please use other high availability solutions like [replication](../myrocks/myrocks-and-replication.md) or [galera-cluster](../../../../galera-cluster/README.md).
 
 ### Spider Storage Engine Federation
 
@@ -48,35 +48,44 @@ Spider stores resultsets into memory, but [spider\_quick\_mode](spider-system-va
 
 Spider tables connect to remote servers by reading connection information from one or more sources. MariaDB supports several methods for defining this information, each introduced at different versions. When more than one method is present, a defined precedence order determines which takes effect.
 
-Connection information for Spider tables can be provided at different levels:
+Connection information for Spider tables can be provided in different
+ways:
 
-* At the server level (using `CREATE SERVER`)
-* Table-level (using `CONNECTION` or `COMMENT`)&#x20;
+* Foreign server options (using `CREATE SERVER`)
+* `CONNECTION` or `COMMENT` strings
 * Engine-defined options (such as `REMOTE_SERVER`, `REMOTE_DATABASE`, and `REMOTE_TABLE`)
-* Partition-level overrides table-level parameters
+
+Connection information for Spider tables can also be specified for
+different levels, where partition-level info overrides table-level
+info.
 
 Spider has a predefined precedence order when using multiple methods.
-
-#### Community Server (CS) vs Enterprise Server (ES)
 
 **Applies to both CS and ES**
 
 The following behavior applies to both CS and ES:
 
-* All connection specification methods (`CREATE SERVER`, `COMMENT`, `CONNECTION`, and engine-defined parameters).
-* Precedence rules (`COMMENT` > `CONNECTION` > `SERVER OPTIONS`; partition-level overrides table-level; engine-defined options override `COMMENT`/`CONNECTION`)
-* Version-based behavior, such as the deprecation of `COMMENT`/`CONNECTION` in 11.4.1 and the introduction of `REMOTE_SERVER`, `REMOTE_DATABASE`, and `REMOTE_TABLE` in 10.8.1
-* Deprecation of the `CONNECTION` and `COMMENT` clauses
+* Connection specification methods: (foreign server options, `COMMENT` string,
+  `CONNECTION` string, and engine-defined options).
+* Precedence rules (engine-defined options > `COMMENT` string >
+  `CONNECTION` string > foreign server options; partition-level
+  overrides table-level)
+* Version-based behavior, such as the deprecation of
+  `COMMENT`/`CONNECTION` in 11.4.1 and the introduction of
+  engine-defined options `REMOTE_SERVER`, `REMOTE_DATABASE`, and
+  `REMOTE_TABLE` in 10.8.1 and further options in 11.3.1
 
 **ES Additional Behavior (ODBC)**
 
-An ODBC connection string is used by Spider (an ODBC variation) in Enterprise Server to create connections.&#x20;
+ODBC connection strings are used by Spider in Enterprise Server to
+create connections via ODBC drivers.
 
 The source of the ODBC connection string could be:
 
 * `COMMENT` clause
 * `CONNECTION` clause
-* `CREATE...OPTIONS(...)`
+* engine-defined options
+* Foreign server options
 
 These values are combined and converted into a format that is compatible with ODBC.
 
@@ -84,7 +93,7 @@ These values are combined and converted into a format that is compatible with OD
 
 **CREATE SERVER with COMMENT or CONNECTION**
 
-In earlier versions, connection information is specified by creating a named server object, then referencing it in the Spider table definition using `COMMENT=` or `CONNECTION=`.
+Since earlier versions, connection information can be specified by creating a foreign server, then referencing it in the Spider table definition using `COMMENT=` or `CONNECTION=`.
 
 ```sql
 CREATE SERVER s
@@ -98,8 +107,10 @@ CREATE TABLE t (id INT) ENGINE=SPIDER COMMENT='srv "s"';
 The same server can also be referenced at the partition level.
 
 ```sql
-CREATE TABLE t (id INT) ENGINE=SPIDER
-  CONNECTION='host "remote_host", port "3306", database "db_name"';
+CREATE TABLE t (id INT) ENGINE=SPIDER COMMENT='srv "s"'
+PARTITION BY RANGE (a) (
+    PARTITION p1 VALUES LESS THAN (3),
+    PARTITION p2 VALUES LESS THAN MAXVALUE COMMENT='srv "s_2_2"'
 ```
 
 **Engine-defined options: `REMOTE_SERVER`, `REMOTE_DATABASE`, `REMOTE_TABLE` (Since 10.8.1)**
@@ -130,11 +141,13 @@ In the following instances, `CONNECTION=` is used directly as the ODBC connectio
 * `COMMENT=` / `CONNECTION=` are explicitly ignored (i.e., engine-defined options are present, per [MDEV-28856](https://jira.mariadb.org/browse/MDEV-28856))
 * The value of `CONNECTION=` follows the ODBC connection string format (`param1=val1;param2=val2;...`)
 
-In previous ES versions, the chosen `COMMENT=`, `CONNECTION=`, and `OPTIONS` fields were used to create the ODBC connection string. See [MENT-2076](https://jira.mariadb.org/browse/MENT-2076) for a complete list of fields used.
+In previous ES versions, the chosen `COMMENT=`, `CONNECTION=`, and
+`OPTIONS` fields were used to create the ODBC connection string. See
+[MENT-2076 comment](https://jira.mariadb.org/browse/MENT-2076?focusedCommentId=312663&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-312663) for a complete list of fields used.
 
 **CREATE SERVER with FOREIGN DATA WRAPPER ODBC**
 
-The above settings are automatically converted into an ODBC connection string when using `CREATE SERVER` with `FOREIGN DATA WRAPPER ODBC` ([MENT-796](https://jira.mariadb.org/browse/MENT-796)). The above-described precedence order is maintained.
+Foreign server options are directly translated to ODBC connection key-value pairs when using `CREATE SERVER` with `FOREIGN DATA WRAPPER ODBC` ([MENT-796](https://jira.mariadb.org/browse/MENT-796)). The above-described precedence order is maintained.
 
 ```sql
 CREATE SERVER s
@@ -142,38 +155,15 @@ CREATE SERVER s
   OPTIONS (DSN 'MyDSN', UID 'user', PWD 'secret');
 ```
 
-### Precedence Order
-
-When multiple methods are provided simultaneously, the following order of precedence applies (from highest to lowest):
-
-| Level                   | Priority | Description                                     |
-| ----------------------- | -------- | ----------------------------------------------- |
-| Partition-level options | Highest  | Overrides all table-level settings              |
-| Engine-defined options  | High     | Overrides `COMMENT`, `CONNECTION`, and `SERVER` |
-| `COMMENT`               | Medium   | Overrides `CONNECTION` and `SERVER`             |
-| `CONNECTION`            | Low      | Overrides `SERVER`                              |
-| `CREATE SERVER` options | Lowest   | Base configuration                              |
-
-**Note**: More specific levels overrides less specific levels (e.g. partition-level parameters overrides table-level parameters), regardless of the method used.
-
-### Version-Specific Behavior
-
-| MariaDB Version | Behavior                                                                      |
-| --------------- | ----------------------------------------------------------------------------- |
-| < 10.8.1        | Only legacy methods (`CREATE SERVER`, `COMMENT`, `CONNECTION`) available      |
-| 10.8.1+         | Engine-defined options (`REMOTE_*`) introduced and take precedence            |
-| 11.3.1+         | If engine-defined options are present, `COMMENT` and `CONNECTION` are ignored |
-| 11.4.1+         | `COMMENT` and `CONNECTION` are deprecated                                     |
-
 ### Supported FOREIGN DATA WRAPPER Values
 
 `CREATE SERVER ... FOREIGN DATA WRAPPER` supports the following wrapper types:
 
 | Wrapper Value | Description                                         | Availability |
 | ------------- | --------------------------------------------------- | ------------ |
-| `mysql`       | Establishes a connection to a remote `mysql` server | CS + ES      |
-| `mariadb`     | Connects to a remote MariaDB server                 | CS + ES      |
-| `odbc`        | Connects through an ODBC data source                | ES only      |
+| `mysql`       | Connects to a remote MySQL server natively | CS + ES      |
+| `mariadb`     | Connects to a remote MariaDB server natively                 | CS + ES      |
+| `odbc`        | Connects to a remote server via ODBC                | ES only      |
 
 **Note**: The `odbc` wrapper value is only available in MariaDB Enterprise Server (ES). It is not supported in Community Server (CS).
 
