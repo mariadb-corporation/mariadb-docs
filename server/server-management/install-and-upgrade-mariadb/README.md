@@ -27,6 +27,18 @@ Deployment includes installing, configuring, upgrading, downgrading, migration f
 
 {% columns %}
 {% column %}
+[mariadb-package-repository-setup-and-usage](mariadb-package-repository-setup-and-usage.md "mention")
+{% endcolumn %}
+
+{% column %}
+* MariaDB Repository Setup Scripts
+* MariaDB Foundation Repository Configuration Tool
+* Set up RedHat, Ubuntu, Debian, and Suse repositories
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 [deployment-general-installing-and-upgrading-instructions](deployment-general-installing-and-upgrading-instructions/ "mention")
 {% endcolumn %}
 
