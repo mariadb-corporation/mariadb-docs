@@ -1,79 +1,125 @@
 ---
 description: >-
-  Complete MariaDB performance optimization guide. Complete reference for query
-  tuning, indexing strategies, and configuration improvements for production
-  use.
+  Plan MariaDB memory usage by sizing global caches, per-connection buffers, and
+  engine-specific settings to avoid swapping and out-of-memory conditions.
 ---
 
 # MariaDB Memory Allocation
 
-### Allocating RAM for MariaDB - The Short Answer
+### Quick Recommendations
 
-If only using [MyISAM](../server-usage/storage-engines/myisam-storage-engine/), set [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) to 20% of **available** RAM. (Plus [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) = 0)
+{% hint style="info" %}
+Size MariaDB against **available RAM**, not total installed RAM.
 
-If only using InnoDB, set [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) to 70% of **available** RAM. (Plus [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) = 10M, small, but not zero.)
+On a dedicated host, available RAM means total RAM minus operating system needs and other running services. In containers or VMs, use the effective memory limit and leave headroom for the OS, filesystem cache, and temporary per-connection allocations.
+{% endhint %}
 
-Rule of thumb for tuning:
+Start with these defaults:
 
-* Start with released copy of my.cnf / my.ini.
-* Change [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) and [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) according to engine usage and RAM.
-* Slow queries can usually be 'fixed' via indexes, schema changes, or SELECT changes, not by tuning.
-* Don't get carried away with the [query cache](optimization-and-tuning/buffers-caches-and-threads/query-cache.md) until you understand what it can and cannot do.
-* Don't change anything else unless you run into trouble (eg, max connections).
-* Be sure the changes are under the \[mysqld] section, not some other section.
+* Mostly InnoDB: set [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) to about 60% to 70% of available RAM. Keep [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) small, such as `16M` to `64M`, unless you use MyISAM indexes.
+* Mostly [MyISAM](../server-usage/storage-engines/myisam-storage-engine/): set [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) to about 20% of available RAM. Set [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) to `0` only if you do not use InnoDB at all.
+* Mixed engines: prioritize InnoDB first. Then size [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) to actual MyISAM index usage.
+* Hosts with less than 4 GB of RAM: use lower percentages and leave extra headroom.
 
-The 20%/70% assumes you have at least 4GB of RAM. If you have less total available RAM, then those percentages are too high and can lead to OOM events or swapping.
+Use these as starting points:
 
-Now for the gory details.
+* Start from the packaged `my.cnf` or `my.ini`.
+* Change only the major cache settings first.
+* Fix slow queries with indexes, schema changes, or query changes before tuning smaller buffers.
+* Keep the settings in the `[mysqld]` section.
+* Restart the server after file-based changes.
 
-### How to troubleshoot out-of-memory issues
+Memory problems usually come from one of two causes:
 
-If the MariaDB server is crashing because of 'out-of-memory' then it is probably wrongly configured.
+* global caches are too large
+* per-connection buffers are too large for the current concurrency
 
-There are two kinds of buffers in MariaDB:
+### How MariaDB Uses Memory
 
-* Global ones that are only allocated once during the lifetime of the server:
-  * Storage engine buffers ( [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size), [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size), [aria\_pagecache\_buffer\_size](../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size), etc)
-  * Query cache [query\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size).
-* Global caches onces that grow and shrink dynamically on demand up to max limit:
-  * [max\_user\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_user_connections)
-  * [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache)
-  * [table\_definition\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_definition_cache)
-  * [thread\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size)
-* Local buffers that are allocated on demand whenever needed
-  * Internal ones used during engine index creation\
-    ([myisam\_sort\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#myisam_sort_buffer_size), [aria\_sort\_buffer\_size).](../server-usage/storage-engines/aria/aria-system-variables.md#aria_sort_buffer_size)
-  * Internal buffers for storing blobs.
-    * Some storage engine will keep a temporary cache to store the largest blob seen so far when scanning a table. This will be freed at end of query. Note that temporary blob storage is not included in the memory information in [information\_schema.processlist](../reference/system-tables/information-schema/information-schema-tables/information-schema-processlist-table.md) but only in the total memory used (`show global status like "memory_used"`).
-  * Buffers and caches used during query execution:
+MariaDB uses three broad kinds of memory:
 
-| Variable                                                                                                          | Description                                                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [join\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#join_buffer_size)        | Used when no keys can be used to find a row in next table                                                                                               |
-| [mrr\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#mrr_buffer_size)          | Size of buffer to use when using multi-range read with range access                                                                                     |
-| [net\_buffer\_length](optimization-and-tuning/system-variables/server-system-variables.md#net_buffer_length)      | Max size of network packet                                                                                                                              |
-| [read\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#read_buffer_size)        | Used by some storage engines when doing bulk insert                                                                                                     |
-| [sort\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#sort_buffer_size)        | When doing ORDER BY or GROUP BY                                                                                                                         |
-| [max\_heap\_table\_size](optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) | Used to store temporary tables in memory. See [Optimizing memory tables](optimization-and-tuning/optimizing-data-structure/optimizing-memory-tables.md) |
+* **Fixed global allocations**
+  * engine caches such as [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size), [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size), and [aria\_pagecache\_buffer\_size](../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size)
+  * optional caches such as [query\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size)
+* **Dynamic global structures**
+  * metadata and connection-related structures such as [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache), [table\_definition\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_definition_cache), and [thread\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size)
+  * limits such as [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) do not allocate memory by themselves, but they raise the possible peak memory footprint
+* **Per-connection and per-query allocations**
+  * execution buffers such as [join\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#join_buffer_size), [mrr\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#mrr_buffer_size), [read\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#read_buffer_size), and [sort\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#sort_buffer_size)
+  * temporary in-memory tables controlled by [max\_heap\_table\_size](optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size) and [tmp\_memory\_table\_size](optimization-and-tuning/system-variables/server-system-variables.md#tmp_memory_table_size)
+  * temporary blob storage and engine-specific work areas
 
-If any variables in the last group is very large and you have a lot of simultaneous users that are executing queries that are using these buffers then you can run into trouble.
+{% hint style="warning" %}
+On containers, cgroups, or managed environments, use the memory limit seen by MariaDB. Do not size caches against the physical RAM of the host.
+{% endhint %}
 
-In a default MariaDB installation the default of most of the above variables are quite small to ensure that one does not run out of memory.
+{% stepper %}
+{% step %}
+### Confirm memory pressure
 
-You can check which variables that have been changed in your setup by executing the following sql statement. If you are running into out-of-memory issues, it is very likely that the problematic variable is\
-in this list!
+Check whether the host is swapping or being killed by the OOM killer.
+
+On the MariaDB side, inspect overall memory use:
+
+```sql
+SHOW GLOBAL STATUS LIKE 'memory_used';
+```
+
+If the server is swapping, reduce major caches before tuning anything else.
+{% endstep %}
+
+{% step %}
+### Review non-default variables
+
+List variables that differ from the compiled defaults:
 
 ```sql
 SELECT information_schema.system_variables.variable_name,
-information_schema.system_variables.default_value,
-global_variables.variable_value FROM
-information_schema.system_variables,information_schema.global_variables WHERE
-system_variables.variable_name=global_variables.variable_name AND
-system_variables.default_value <> global_variables.variable_value AND
-system_variables.default_value <> 0
+       information_schema.system_variables.default_value,
+       information_schema.global_variables.variable_value
+FROM information_schema.system_variables
+JOIN information_schema.global_variables
+  ON information_schema.system_variables.variable_name =
+     information_schema.global_variables.variable_name
+WHERE information_schema.system_variables.default_value <>
+      information_schema.global_variables.variable_value
+  AND information_schema.system_variables.default_value <> 0;
 ```
 
-### What is the Key Buffer?
+If the server is running out of memory, the cause is often in this list.
+{% endstep %}
+
+{% step %}
+### Reduce the biggest consumers first
+
+Start with the variables that move total memory the most:
+
+* [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size)
+* [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size)
+* [aria\_pagecache\_buffer\_size](../server-usage/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size)
+* [query\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size)
+
+Then review per-connection buffers, especially if concurrency is high:
+
+* [join\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#join_buffer_size)
+* [mrr\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#mrr_buffer_size)
+* [sort\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#sort_buffer_size)
+* [read\_buffer\_size](optimization-and-tuning/system-variables/server-system-variables.md#read_buffer_size)
+* [max\_heap\_table\_size](optimization-and-tuning/system-variables/server-system-variables.md#max_heap_table_size)
+
+Large per-connection buffers are safe only when few sessions use them at the same time.
+{% endstep %}
+
+{% step %}
+### Re-test under real concurrency
+
+After each change, recheck swapping, memory use, and query latency.
+
+Avoid tuning many memory variables at once. Change the largest settings first, then re-measure.
+{% endstep %}
+{% endstepper %}
+
+### What Is the Key Buffer?
 
 [MyISAM](../server-usage/storage-engines/myisam-storage-engine/) does two different things for caching.
 
@@ -87,13 +133,11 @@ SHOW GLOBAL STATUS LIKE 'Key%';
 
 then calculate [Key\_read\_requests](optimization-and-tuning/system-variables/server-status-variables.md#key_read_requests) / [Key\_reads](optimization-and-tuning/system-variables/server-status-variables.md#key_reads). If it is high (say, over 10), then the key buffer is big enough, otherwise you should adjust the [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) value.
 
-### What is the Buffer Pool?
+### What Is the Buffer Pool?
 
 InnoDB does all its caching in the [buffer pool](../server-usage/storage-engines/innodb/innodb-buffer-pool.md), whose size is controlled by [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size). By default, it contains 16KB data and index blocks from the open tables (see [innodb\_page\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_page_size)), plus some maintenance overhead.
 
-From [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), multiple buffer pools are permitted; this can help because there is one mutex per pool, thereby relieving some of the mutex bottleneck.
-
-[More on InnoDB tuning](https://www.mysqlperformanceblog.com/2007/11/01/innodb-performance-optimization-basics/)
+In current MariaDB releases, focus first on total buffer pool size. Older releases allowed multiple buffer pool instances, but [innodb\_buffer\_pool\_instances](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_instances) is deprecated and ignored from [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1).
 
 ### Another Algorithm
 
@@ -126,26 +170,42 @@ SELECT  ENGINE,
 
 ### Query Memory Allocation
 
-There are two variables that dictates how memory is allocated by MariaDB while parsing and executing a query.[query\_prealloc\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_prealloc_size) defines the standard buffer for memory used for query execution and [query\_alloc\_block\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_alloc_block_size) that is size of memory blocks if `query_prealloc_size` was not big enough. Getting these variables right will reduce memory fragmentation in the server.
+There are two variables that dictate how memory is allocated while MariaDB parses and executes a query. [query\_prealloc\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_prealloc_size) defines the standard buffer for query execution, and [query\_alloc\_block\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_alloc_block_size) defines the size of extra memory blocks if `query_prealloc_size` is not large enough. Getting these variables right can reduce memory fragmentation in the server.
+
+### Legacy and Specialized Scenarios
+
+The sections below cover older platforms, specialized hardware, and edge cases. Use them only if they match your environment.
 
 ### Mutex Bottleneck
 
-MySQL was designed in the days of single-CPU machines and designed to be easily ported to many different architectures. Unfortunately, that lead to some sloppiness in how to interlock actions. There are a small number (too small) of "mutexes" to gain access to several critical processes. Of note:
+This is mostly a historical concern.
 
-* MyISAM's key\_buffer
+Older MySQL and MariaDB releases could hit mutex contention around a few shared structures:
+
+* MyISAM's `key_buffer`
 * The Query Cache
-* InnoDB's buffer\_pool\
-  With multi-core boxes, the mutex problem is causing performance problems. In general, past 4-8 cores, MySQL gets slower, not faster. MySQL 5.5 and Percona's XtraDB made that somewhat better in InnoDB; the practical limit for cores is more like 32, and performance tends plateaus after that rather than declining. 5.6 claims to scale up to about 48 cores.
+* InnoDB's `buffer_pool`
 
-### 32-bit OS and MariaDB
+On current MariaDB releases, this is much less important than:
 
-First, the OS (and the hardware?) may conspire to not let you use all 4GB, if that is what you have. If you have more than 4GB of RAM, the excess beyond 4GB is _totally_ inaccessable and unusable on a 32-bit OS.
+* sizing the buffer pool correctly
+* avoiding unnecessary query cache usage
+* fixing slow queries and bad indexes
+* sizing connection concurrency realistically
 
-Secondly, the OS probably has a limit on how much RAM it will allow any process to use.
+### Legacy Platform Notes
 
-Example: FreeBSD's maxdsiz, which defaults to 512MB.
+These notes only apply to older or unusual deployments.
 
-Example:
+#### 32-Bit Operating Systems
+
+On a 32-bit OS, MariaDB cannot effectively use large amounts of RAM.
+
+* RAM above 4 GB is not usable by a 32-bit process.
+* The operating system may impose a much lower per-process limit.
+* Large cache settings can fail with out-of-memory errors even when the host still has free RAM.
+
+Example: FreeBSD's `maxdsiz`, which defaults to 512MB.
 
 ```bash
 $ ulimit -a
@@ -153,151 +213,126 @@ $ ulimit -a
 max memory size (kbytes, -m) 524288
 ```
 
-So, once you have determined how much RAM is available to mysqld, then apply the 20%/70%, but round down some.
+If you must run MariaDB on a 32-bit platform, keep cache settings conservative.
 
 If you get an error like `[ERROR] /usr/libexec/mysqld: Out of memory (Needed xxx bytes)`, it probably means that MySQL exceeded what the OS is willing to give it. Decrease the cache settings.
 
-### 64-bit OS with 32-bit MariaDB
+#### 64-Bit OS with 32-Bit MariaDB
 
-The OS is not limited by 4GB, but MariaDB is. If you have at least 4GB of RAM, then maybe these would be good:
+The OS can use more than 4 GB, but the MariaDB process still cannot.
 
-* [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) = 20% of _all_ of RAM, but not more than 3G
-* [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) = 3G
+If you are in this configuration, upgrade MariaDB to 64-bit if possible.
 
-You should probably upgrade MariaDB to 64-bit.
+Until then, keep cache sizes below the effective 32-bit process limit.
 
-### 64-bit OS and MariaDB
+#### 64-Bit OS and MariaDB
 
-MyISAM only: [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size): Use about 20% of RAM. Set (in my.cnf / my.ini) [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) = 0.
+This is the standard deployment target today.
 
-InnoDB only: [innodb\_buffer\_pool\_size](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) = 70% of RAM. If you have lots of RAM and are using 5.5 (or later), then consider having multiple pools. Recommend 1-16 [innodb\_buffer\_pool\_instances](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_instances), such that each one is no smaller than 1GB. (Sorry, no metric on how much this will help; probably not a lot.)
-
-Meanwhile, set [key\_buffer\_size](../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) = 20M (tiny, but non-zero)
-
-If you have a mixture of engines, lower both numbers.
+Use the recommendations at the top of this page. They are more accurate than the old platform-specific rules of thumb.
 
 max\_connections, thread\_stack\
 Each "thread" takes some amount of RAM. This used to be about 200KB; 100 threads would be 20MB, not a significant size. If you have [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) = 1000, then you are talking about 200MB, maybe more. Having that many connections probably implies other issues that should be addressed.
 
-In 5.6 (or [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)), optional thread pooling interacts with [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections). This is a more advanced topic.
+Thread pooling can change how concurrency behaves, but it does not remove the need to budget memory for peak active sessions.
 
-Thread stack overrun rarely happens. If it does, do something like thread\_stack=256K. [More on max\_connections, wait\_timeout, connection pooling, etc](https://www.mysqlperformanceblog.com/2013/11/28/mysql-error-too-many-connections/)
+Thread stack overruns are rare. If they occur, adjust `thread_stack` carefully and test.
 
 ### table\_open\_cache
 
-(In older versions this was called table\_cache)
+The OS has some limit on the number of open files it will let a process have. Each table needs 1 to 3 open files. Each partition is effectively a table. Most operations on a partitioned table open _all_ partitions.
 
-The OS has some limit on the number of open files it will let a process have. Each table needs 1 to 3 open files. Each PARTITION is effectively a table. Most operations on a partitioned table open _all_ partitions.
-
-In \*nix, ulimit tells you what the file limit is. The maximum value is in the tens of thousands, but sometimes it is set to only 1024. This limits you to about 300 tables. More discussion on ulimit
-
-(This paragraph is in disputed.) On the other side, the table cache is (was) inefficiently implemented -- lookups were done with a linear scan. Hence, setting table\_cache in the thousands could actually slow down mysql. (Benchmarks have shown this.)
+In Unix, ulimit tells you what the file limit is. The maximum value is in the tens of thousands, but sometimes it is set to only 1024. This limits you to about 300 tables. More discussion on ulimit
 
 You can see how well your system is performing via [SHOW GLOBAL STATUS](../reference/sql-statements/administrative-sql-statements/show/show-status.md); and computing the opens/second via [Opened\_files](optimization-and-tuning/system-variables/server-status-variables.md#opened_files) / [Uptime](optimization-and-tuning/system-variables/server-status-variables.md#uptime) If this is more than, say, 5, [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) should be increased. If it is less than, say, 1, you might get improvement by decreasing [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache).
 
-From [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1), [table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) defaults to 2000.
+[table\_open\_cache](optimization-and-tuning/system-variables/server-system-variables.md#table_open_cache) defaults to 2000.
 
 ### Query Cache
 
-Short answer: [query\_cache\_type](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_type) = OFF and [query\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size) = 0
+Short answer: set [query\_cache\_type](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_type) to `OFF` and [query\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size) to `0` unless measurements show a clear benefit.
 
-The [Query Cache](optimization-and-tuning/buffers-caches-and-threads/query-cache.md) (QC) is effectively a hash mapping SELECT statements to resultsets.
+The [query cache](optimization-and-tuning/buffers-caches-and-threads/query-cache.md) can be very fast for repeated identical `SELECT` statements, but it has significant trade-offs:
 
-Long answer... There are many aspects of the "Query cache"; many are negative.
+* every eligible `SELECT` must consult it
+* a write to a table invalidates cached results for that table
+* contention around the shared cache can hurt concurrency
 
-* Novice Alert! The QC is totally unrelated to the key\_buffer and buffer\_pool.
-* When it is useful, the QC is blazingly fast. It would not be hard to create a benchmark that runs 1000x faster.
-* There is a single mutex controlling the QC.
-* The QC, unless it is OFF & 0, is consulted for _every_ SELECT.
-* Yes, the mutex is hit even if [query\_cache\_type](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_type) = DEMAND (2).
-* Any change to a query (even adding a space) leads (potentially) to a different entry in the QC.
-* If my.cnf says type=ON and you later turn it OFF, it is not fully OFF. Ref: [bug.php?id=60696](https://bugs.mysql.com/bug.php?id=60696)
+If you decide to use it:
 
-"Pruning" is costly and frequent:
+* keep [query\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size) small, usually no more than `50M`
+* prefer [query\_cache\_type](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_type) = `DEMAND`
+* use `SQL_CACHE` only on queries that benefit from reuse
 
-* When _any_ write happens on a table, _all_ entries in the QC for _that_ table are removed.
-* It happens even on a read-only Slave.
-* Purges are performed with a linear algorithm, so a large QC (even 200MB) can be noticeably slow.
+To see whether it helps:
 
-To see how well your QC is performing, SHOW GLOBAL STATUS LIKE 'Qc%'; then compute the read hit rate: [Qcache\_hits](optimization-and-tuning/system-variables/server-status-variables.md#qcache_hits) / [Qcache\_inserts](optimization-and-tuning/system-variables/server-status-variables.md#qcache_inserts) If it is over, say, 5, the QC might be worth keeping.
+```sql
+SHOW GLOBAL STATUS LIKE 'Qc%';
+```
 
-If you decide the QC is right for you, then I recommend
+A rough read hit rate is:
 
-* [query\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size) = no more than 50M
-* [query\_cache\_type](optimization-and-tuning/system-variables/server-system-variables.md#query_cache_type) = DEMAND
-* [SQL\_CACHE or SQL\_NO\_CACHE](optimization-and-tuning/buffers-caches-and-threads/query-cache.md#sql_no_cache-and-sql_cache) in all SELECTs, based on which queries are likely to benefit from caching.
-* [Why to turn off the QC](https://dba.stackexchange.com/a/136814/1876)
-* [Discussion about size](https://haydenjames.io/mysql-query-cache-size-performance/)
+* `Qcache_hits / Qcache_inserts`
+
+If that ratio stays low, disable the query cache.
 
 ### thread\_cache\_size
 
-It is not necessary to tune [thread\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size) from [MariaD](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) Previously, it was minor tunable variable. Zero will slow down thread (connection) creation. A small (say, 10), non-zero number is good. The setting has essentially no impact on RAM usage.
+In current MariaDB releases, [thread\_cache\_size](optimization-and-tuning/system-variables/server-system-variables.md#thread_cache_size) rarely needs manual tuning. Keep it small but non-zero unless you have evidence that connection creation is a bottleneck.
 
-It is the number of extra processes to hang onto. It does not restrict the number of threads; [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) does.
+This setting controls how many disconnected threads are kept ready for reuse. It does not limit concurrent connections; [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) does.
+
+A very high value usually wastes memory without helping throughput.
 
 ### Binary Logs
 
-If you have turned on [binary logging](../server-management/server-monitoring-logs/binary-log/) (via [log\_bin](standard-replication/replication-and-binary-log-system-variables.md#log_bin)) for replication and/or point-in-time recovery, the system will create binary logs forever. That is, they can slowly fill up the disk. Suggest setting [expire\_logs\_days](standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days) = 14 to keep only 14 days' worth of logs.
+If you enable [binary logging](../server-management/server-monitoring-logs/binary-log/) for replication or point-in-time recovery, logs will accumulate until they are purged.
 
-### Swappiness
+Set a retention policy explicitly. On current MariaDB releases, prefer [binlog\_expire\_logs\_seconds](standard-replication/replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds). Older setups may still use [expire\_logs\_days](standard-replication/replication-and-binary-log-system-variables.md#expire_logs_days).
 
-RHEL, in its infinite wisdom, decided to let you control how aggressively the OS will pre-emptively swap RAM. This is good in general, but lousy for MariaDB.
+Choose a retention period that matches your recovery and replication requirements.
 
-MariaDB would love for RAM allocations to be reasonably stable -- the caches are (mostly) pre-allocated; the threads, etc, are (mostly) of limited scope. ANY swapping is likely to severely hurt performance of MariaDB.
+### Swapping
 
-With a high value for swappiness, you lose some RAM because the OS is trying to keep a lot of space free for future allocations (that MySQL is not likely to need).
+Swapping usually hurts MariaDB badly.
 
-With swappiness = 0, the OS will probably crash rather than swap. I would rather have MariaDB limping than die. The latest recommendation is swappiness = 1. (2015)
+For dedicated MariaDB hosts on Linux, a low `vm.swappiness` value often works best because it reduces the chance that large caches are pushed to disk under pressure.
 
-[More confirmation](https://www.mysqlperformanceblog.com/2014/04/28/oom-relation-vm-swappiness0-new-kernel/)
+In practice:
 
-Somewhere in between (say, 5?) might be a good value for a MariaDB-only server.
+* avoid heavy swapping
+* leave enough free RAM for the OS
+* use a low `vm.swappiness` value if your platform and workload support it
+
+Do not use this as a substitute for proper memory sizing.
 
 ### NUMA
 
-OK, it's time to complicate the architecture of how a CPU talks to RAM. NUMA (Non-Uniform Memory Access) enters the picture. Each CPU (or maybe socket with several cores) has a part of the RAM hanging off each. This leads to memory access being faster for local RAM, but slower (tens of cycles slower) for RAM hanging off other CPUs.
+NUMA can cause uneven memory allocation on multi-socket systems.
 
-Then the OS enters the picture. In at least one case (RHEL?), two things seem to be done:
+If you see swapping or memory imbalance on a NUMA host, check the platform configuration before changing MariaDB settings. In some environments, interleaving memory allocation can avoid one NUMA node filling early while others stay underused.
 
-* OS allocations are pinned to the 'first' CPU's RAM.]
-* Other allocations go by default to the first CPU until it is full.
+Possible mitigations include:
 
-Now for the problem.
+* BIOS or firmware memory interleaving
+* OS-level NUMA configuration
+* [innodb\_numa\_interleave](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_numa_interleave) where supported
 
-* The OS and MariaDB have allocated all the 'first' RAM.
-* MariaDB has allocated some of the second RAM.
-* The OS needs to allocate something.\
-  Ouch -- it is out of room in the one CPU where it is willing to allocate its stuff, so it swaps out some of MariaDB. Bad.
-
-dmesg | grep -i numa
-
-Probable solution: Configure the BIOS to "interleave" the RAM allocations. This should prevent the premature swapping, at the cost of off-CPU RAM accesses half the time. Well, you have the costly accesses anyway, since you really want to use all of RAM. Older MySQL versions: numactl --interleave=all. Or: [innodb\_numa\_interleave](../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_numa_interleave)=1
-
-Another possible solution: Turn numa off (if the OS has a way of doing that)
-
-Overall performance loss/gain: A few percent.
+Only tune NUMA after you confirm it is part of the problem.
 
 ### Huge Pages
 
-[MariaDB 10.6.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.17) (and other releases after 19 Jan 2024) have transparent huge pages automatically disabled. See [MDEV-33279](https://jira.mariadb.org/browse/MDEV-33279) "Disable transparent huge pages after page buffers has been allocated" for more information.
+Huge pages can reduce page table overhead for large memory allocations.
 
-This is another hardware performance gimmick.
+For InnoDB-heavy systems with large buffer pools, explicit huge pages can help. Transparent huge pages are often less predictable and can hurt latency, so review your OS defaults and current MariaDB release behavior before changing anything.
 
-For a CPU to access RAM, especially mapping a 64-bit address to somewhere in, say, 128GB or 'real' RAM, the TLB is used. (TLB = Translation Lookup Buffer.) Think of the TLB as a hardware associative memory lookup table; given a 64-bit virtual address, what is the real address.
+If you use huge pages:
 
-Because it is an associative memory of finite size, sometimes there will be "misses" that require reaching into real RAM to resolve the lookup. This is costly, so should be avoided.
+* size them to match the intended buffer pool usage
+* validate startup and allocation behavior
+* measure latency and throughput after enabling them
 
-Normally, RAM is 'paged' in 4KB pieces; the TLB actually maps the top (64-12) bits into a specific page. Then the bottom 12 bits of the virtual address are carried over intact.
-
-For example, 128GB of RAM broken 4KB pages means 32M page-table entries. This is a lot, and probably far exceeds the capacity of the TLB. So, enter the "Huge page" trick.
-
-With the help of both the hardware and the OS, it is possible to have some of RAM in huge pages, of say 4MB (instead of 4KB). This leads to far fewer TLB entries, but it means the unit of paging is 4MB for such parts of RAM. Hence, huge pages tend to be non-pagable.
-
-Now RAM is broken into pagable and non pagable parts; what parts can reasonably be non pagable? In MariaDB, the [Innodb Buffer Pool](../server-usage/storage-engines/innodb/innodb-buffer-pool.md) is a perfect candidate. So, by correctly configuring these, InnoDB can run a little faster:
-
-* Huge pages enabled
-* Tell the OS to allocate the right amount (namely to match the buffer\_pool)
-* Tell MariaDB to use huge pages
+Do not enable huge pages blindly on small or memory-constrained systems.
 
 ### ENGINE=MEMORY
 
@@ -323,7 +358,7 @@ SET @@global.key_buffer_size = 77000000;
 
 Note: No M or G suffix is allowed here.
 
-To see the setting a global VARIABLE do something like
+To see the setting a global variable, do something like this:
 
 ```sql
 SHOW GLOBAL VARIABLES LIKE "key_buffer_size";
@@ -338,47 +373,39 @@ Note that this particular setting was rounded down to some multiple that MariaDB
 
 You may want to do both (SET and modify my.cnf) in order to make the change immediately and have it so that the next restart (for whatever reason) will again get the value.
 
-### Web Server
+### Application Connection Pools
 
-A web server like Apache runs multiple threads. If each thread opens a connection to MariaDB, you could run out of connections. Make sure MaxClients (or equivalent) is set to some civilized number (under 50).
+Application servers and web servers can create far more database connections than MariaDB can use efficiently.
+
+* Size the application pool explicitly.
+* Keep [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) high enough for real traffic, but not so high that worst-case per-connection buffers can exhaust RAM.
+* Prefer connection pooling over one-connection-per-request patterns.
 
 ### Tools
 
 * MySQLTuner
 * TUNING-PRIMER
 
-There are several tools that advise on memory. One misleading entry they come up with
+These tools can help identify obvious configuration problems, but they often assume worst-case memory use.
+
+One common warning looks like this:
 
 Maximum possible memory usage: 31.3G (266% of installed RAM)
 
-Don't let it scare you -- the formulas used are excessively conservative. They assume all of [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) are in use and active and doing something memory intensive.
+Treat that as an upper bound, not a prediction. It usually assumes all [max\_connections](optimization-and-tuning/system-variables/server-system-variables.md#max_connections) are active and all are using large per-query buffers at the same time.
 
-Total fragmented tables: 23 This implies that OPTIMIZE TABLE _might_ help. I suggest it for tables with either a high percentage of "free space" (see SHOW TABLE STATUS) or where you know you do a lot of DELETEs and/or UPDATEs. Still, don't bother to OPTIMIZE too often. Once a month might suffice.
-
-### MySQL 5.7
-
-5.7 stores a lot more information in RAM, leading to the footprint being perhaps half a GB more than 5.6. See [Memory increase in 5.7](https://blogs.oracle.com/svetasmirnova/entry/memory_summary_tables_in_performance).
-
-### Postlog
-
-Created 2010; Refreshed Oct, 2012, Jan, 2014
-
-The tips in this document apply to MySQL, MariaDB, and Percona.
+Total fragmented tables: 23 This implies that OPTIMIZE TABLE _might_ help. I suggest it for tables with either a high percentage of "free space" (see SHOW TABLE STATUS) or where you know you run a lot of DELETE and/or UPDATE statements. Still, don't bother to OPTIMIZE too often. Once a month might suffice.
 
 ### See Also
 
 * [Configuring MariaDB for Optimal Performance](../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/configuring-mariadb-for-optimal-performance.md)
-* More in-depth: Tocker's tuning for 5.6
-* Irfan's InnoDB performance optimization basics (redux)
-* 10 MySQL settings to tune after installation
-* Magento
-* Peter Zaitsev's take on such (5/2016)
+* [InnoDB Buffer Pool](../server-usage/storage-engines/innodb/innodb-buffer-pool.md)
+* [Server System Variables](optimization-and-tuning/system-variables/server-system-variables.md)
+* [What to Do if MariaDB Doesn't Start](../server-management/starting-and-stopping-mariadb/what-to-do-if-mariadb-doesnt-start.md)
 
-Rick James graciously allowed us to use this article in the documentation.
+### Attribution
 
-[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos, optimizations, and debugging tips.
-
-Original source: [random](https://mysql.rjweb.org/doc.php/random)
+Rick James wrote the original version of this page. [Rick James' site](https://mysql.rjweb.org/), original source: [random](https://mysql.rjweb.org/doc.php/random).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
