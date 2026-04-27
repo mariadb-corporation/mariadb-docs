@@ -28,7 +28,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
 
 1.  Configure the YUM package repository.
 
-    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
+    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
 
     To configure YUM package repositories:
 
@@ -54,7 +54,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
        --mariadb-server-version="mariadb-11.4"
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install MariaDB Community Server and package dependencies:
 
     ```bash
@@ -70,7 +70,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
 
 1.  Configure the APT package repository.
 
-    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
+    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
 
     To configure APT package repositories:
 
@@ -100,7 +100,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
     $ sudo apt update
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install MariaDB Community Server and package dependencies:
 
     ```bash
@@ -116,7 +116,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
 
 1.  Configure the ZYpp package repository.
 
-    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
+    Prefix the version with `mariadb-` and pass the version string to the `--mariadb-server-version` flag to [mariadb\_repo\_setup](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md). The following directions reference `11.4`.
 
     To configure ZYpp package repositories:
 
@@ -142,7 +142,7 @@ MariaDB Corporation provides package repositories for YUM (RHEL, CentOS), APT (D
        --mariadb-server-version="mariadb-11.4"
     ```
 
-    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+    1. _Checksums of the various releases of the `mariadb_repo_setup` script can be found in the_ [_Versions_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 2.  Install MariaDB Community Server and package dependencies:
 
     ```bash

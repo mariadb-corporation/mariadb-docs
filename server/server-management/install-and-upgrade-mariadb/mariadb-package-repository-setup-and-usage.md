@@ -152,7 +152,7 @@ Ubuntu needs a separate debug repository for MariaDB Server debug packages. Othe
 
 ### MariaDB Community Server Repository
 
-The **MariaDB Community Server Repository** contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../clients-and-utilities/), [client libraries](../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../reference/plugins/), and [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md).
+The **MariaDB Community Server Repository** contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../clients-and-utilities/), [client libraries](../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../reference/plugins/), and [mariadb-backup](../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview.md).
 
 The binaries in MariaDB Corporation's **MariaDB Repository** are identical to the binaries in MariaDB Foundation's MariaDB Repository that is configured with the [MariaDB Foundation's Repository Configuration Tool](https://mariadb.org/download/?t=repo-config).
 
@@ -167,7 +167,7 @@ If you do not want to configure the **MariaDB Repository** on your system, for e
 ### MariaDB MaxScale Repository
 
 {% hint style="warning" %}
-#### Note
+**Note**
 
 MaxScale releases, as of 2025-12-09, are now signed with a new key. The `mariadb_repo_setup` and `mariadb_es_repo_setup` scripts have been updated to automatically install the new key, but for existing repositories, you'll need to do the following.
 
@@ -438,7 +438,7 @@ After setting up the MariaDB Package Repository, you can install the software pa
 {% tab title="RHEL" %}
 **Installing Packages on RHEL and equivalents**
 
-To install MariaDB on Red Hat Enterprise Linux (RHEL) and equivalents, see the instructions in the [Installing MariaDB Packages with YUM](rpm/yum.md#installing-mariadb-packages-with-yum). For example:
+To install MariaDB on Red Hat Enterprise Linux (RHEL) and equivalents, see the instructions in the [Installing MariaDB Packages with YUM](installing-mariadb/binary-packages/rpm/yum.md#installing-mariadb-packages-with-yum). For example:
 
 ```bash
 sudo dnf install MariaDB-server MariaDB-client MariaDB-backup
@@ -454,7 +454,7 @@ sudo dnf install maxscale
 {% tab title="Debian / Ubuntu" %}
 **Installing Packages on Debian and Ubuntu**
 
-To install MariaDB on Debian and Ubuntu, see the instructions at [Installing MariaDB Packages with APT](installing-mariadb-deb-files.md#installing-mariadb-packages-with-apt). For example:
+To install MariaDB on Debian and Ubuntu, see the instructions at [Installing MariaDB Packages with APT](installing-mariadb/binary-packages/installing-mariadb-deb-files.md#installing-mariadb-packages-with-apt). For example:
 
 ```bash
 sudo apt install mariadb-server mariadb-client mariadb-backup galera-4
@@ -470,7 +470,7 @@ sudo apt install maxscale
 {% tab title="SLES" %}
 **Installing Packages on SLES**
 
-To install MariaDB on SUSE Linux Enterprise Server (SLES), see the instructions at [Installing MariaDB Packages with ZYpp](rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp). For example:
+To install MariaDB on SUSE Linux Enterprise Server (SLES), see the instructions at [Installing MariaDB Packages with ZYpp](installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md#installing-mariadb-packages-with-zypp). For example:
 
 ```bash
 sudo zypper install MariaDB-server MariaDB-client MariaDB-backup
@@ -531,6 +531,7 @@ sudo zypper install maxscale
 
 | Version    | sha256sum                                                          |
 | ---------- | ------------------------------------------------------------------ |
+| 2026-04-23 | `96d4ce68b93dc10afc6189bb01a90043bebbd2b8bdc1b62065e12c87a0757b25` |
 | 2025-12-10 | `73f4ab14ccc3ceb8c03bb283dd131a3235cfc28086475f43e9291d2060d48c97` |
 | 2025-11-18 | `7a3e1610fee91347e198214e3672a6d3932ccbbf67905d9e892e9255baaec292` |
 | 2025-08-07 | `923eea378be2c129adb4d191f01162c1fe5473f1114d7586f096b5f6b9874efe` |
@@ -553,6 +554,6 @@ sudo zypper install maxscale
 {% endtab %}
 {% endtabs %}
 
-{% include "../../../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
+{% include "../../.gitbook/includes/license-cc-by-sa-gnu-fdl.md" %}
 
 {% @marketo/form formId="4316" %}

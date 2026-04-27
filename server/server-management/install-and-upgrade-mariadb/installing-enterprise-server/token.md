@@ -42,7 +42,7 @@ MariaDB Corporation provides the MariaDB Enterprise Repository to install MariaD
 
 The MariaDB Enterprise Repository is configured using the `mariadb_es_repo_setup` script, which requires the Customer Download Token to be provided via the `--token` option.
 
-For additional information, see "[MariaDB Package Repository Setup and Usage](../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md)".
+For additional information, see "[MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md)".
 
 ### Download Binary Files
 

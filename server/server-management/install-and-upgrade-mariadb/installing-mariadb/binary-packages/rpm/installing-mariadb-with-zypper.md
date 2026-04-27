@@ -21,7 +21,7 @@ We currently have ZYpp repositories for the following Linux distributions:
 
 ### Using the MariaDB Package Repository Setup Script
 
-If you want to install MariaDB with `zypper`, then you can configure `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md).
+If you want to install MariaDB with `zypper`, then you can configure `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../../../mariadb-package-repository-setup-and-usage.md).
 
 MariaDB Corporation provides a MariaDB Package Repository for several Linux distributions that use `zypper` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../../clients-and-utilities/), [client libraries](../../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../../reference/plugins/), and [mariadb-backup](../../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/). The MariaDB Package Repository setup script automatically configures your system to install packages from the MariaDB Package Repository.
 
@@ -33,7 +33,7 @@ curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 Note that this script also configures a repository for [MariaDB MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/) and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) and its dependencies.
 
-See [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) for more information.
+See [MariaDB Package Repository Setup and Usage](../../../mariadb-package-repository-setup-and-usage.md) for more information.
 
 ### Using the MariaDB Repository Configuration Tool
 
@@ -54,9 +54,9 @@ If you wish to pin the `zypper` repository to a specific minor release, or if yo
 
 {% tabs %}
 {% tab title="MariaDB Corporation repo setup scripts" %}
-If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](../mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
+If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](../../../mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
 
-See [Pinning the Repository to a Specific Minor Release](../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) page for details.
+See [Pinning the Repository to a Specific Minor Release](../../../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../../../mariadb-package-repository-setup-and-usage.md) page for details.
 
 The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
 {% endtab %}
@@ -83,7 +83,7 @@ MariaDB's `zypper` repository can be updated to a new major release. How this is
 
 ### Updating the Major Release with the MariaDB Package Repository Setup Script
 
-If you configured `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md), then you can update the major release that the repository uses by running the script again.
+If you configured `zypper` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../../../mariadb-package-repository-setup-and-usage.md), then you can update the major release that the repository uses by running the script again.
 
 ### Updating the Major Release with the MariaDB Repository Configuration Tool
 

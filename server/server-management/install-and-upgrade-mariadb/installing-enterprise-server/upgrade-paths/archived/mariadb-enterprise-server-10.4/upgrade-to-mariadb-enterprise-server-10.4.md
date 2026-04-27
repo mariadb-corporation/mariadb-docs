@@ -187,7 +187,7 @@ echo "${checksum}  mariadb_es_repo_setup" \
 ```
 
 {% hint style="info" %}
-_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../../installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
+_Checksums of the various releases of the `mariadb_es_repo_setup` script can be found in the_ [_Versions_](../../../../mariadb-package-repository-setup-and-usage.md#versions) _section at the bottom of the_ [_MariaDB Package Repository Setup and Usage_](../../../../mariadb-package-repository-setup-and-usage.md) _page. Substitute `${checksum}` in the example above with the latest checksum._
 {% endhint %}
 
 ```bash

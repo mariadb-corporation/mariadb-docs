@@ -192,7 +192,7 @@ While your operating system's default repositories contain many build tools, the
 
 **1. Configure the Repository**
 
-Use the [MariaDB Repository Configuration Tool](../binary-packages/mariadb-package-repository-setup-and-usage.md) to generate the setup commands for your specific operating system and desired MariaDB version.
+Use the [MariaDB Repository Configuration Tool](../../mariadb-package-repository-setup-and-usage.md) to generate the setup commands for your specific operating system and desired MariaDB version.
 
 Example for Ubuntu 24.04 and MariaDB 11.8 (**don't copy this blindly** – the example uses the 11.8 release and a specific mirror; adjust these strings based on the output of the Repository Configuration Tool):
 

@@ -177,7 +177,7 @@ On Debian / Ubuntu systems, you can install the keyring containing this key with
 sudo curl -LsSo /etc/apt/trusted.gpg.d/mariadb-keyring-2025.gpg https://supplychain.mariadb.com/mariadb-keyring-2025.gpg
 ```
 
-&#x20;The key can be imported on RPM-based systems using the following command:
+The key can be imported on RPM-based systems using the following command:
 
 ```bash
 sudo rpm --import https://supplychain.mariadb.com/MariaDB-MaxScale-GPG-KEY
@@ -191,11 +191,9 @@ sudo rpmkeys --import https://supplychain.mariadb.com/MariaDB-MaxScale-GPG-KEY
 {% endtab %}
 {% endtabs %}
 
-
-
 ## Configuring Repositories
 
-See the [MariaDB Package Repository Setup and Usage](mariadb-package-repository-setup-and-usage.md) page for details on using the `mariadb_repo_setup` and `mariadb_es_repo_setup` scripts to configure repositories that use these keys.
+See the [MariaDB Package Repository Setup and Usage](../../mariadb-package-repository-setup-and-usage.md) page for details on using the `mariadb_repo_setup` and `mariadb_es_repo_setup` scripts to configure repositories that use these keys.
 
 See the [details](https://downloads.mariadb.org/mariadb/repositories/) on configuring MariaDB Foundation repositories that use these keys.
 

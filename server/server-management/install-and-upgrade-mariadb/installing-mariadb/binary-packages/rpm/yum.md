@@ -25,7 +25,7 @@ We currently have YUM/DNF repositories for the following Linux distributions, an
 
 MariaDB provides two helpful scripts for setting up repositories, one for MariaDB Community Server named `mariadb_repo_setup`, and one for MariaDB Enterprise Server named `mariadb_es_repo_setup`.
 
-See the [Using MariaDB Corporation's Repository Setup Scripts](../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts) section on the [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) page for information on using these scripts.
+See the [Using MariaDB Corporation's Repository Setup Scripts](../../../mariadb-package-repository-setup-and-usage.md#using-mariadb-corporations-repository-setup-scripts) section on the [MariaDB Package Repository Setup and Usage](../../../mariadb-package-repository-setup-and-usage.md) page for information on using these scripts.
 
 ### Using the MariaDB Foundation Repository Configuration Tool
 
@@ -37,9 +37,9 @@ If you wish to pin your `yum` or `dnf` repository to a specific minor release, o
 
 {% tabs %}
 {% tab title="MariaDB Corporation repo setup scripts" %}
-If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](../mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
+If you used [MariaDB Corporation's `mariadb_repo_setup` or `mariadb_es_repo_setup` scripts](../../../mariadb-package-repository-setup-and-usage.md) to generate your repository configuration, simply re-run the script and specify the full version number to use with the `--mariadb-server-version` option.
 
-See [Pinning the Repository to a Specific Minor Release](../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../mariadb-package-repository-setup-and-usage.md) page for details.
+See [Pinning the Repository to a Specific Minor Release](../../../mariadb-package-repository-setup-and-usage.md#pinning-the-repository-to-a-specific-minor-release) on the [MariaDB Package Repository Setup and Usage](../../../mariadb-package-repository-setup-and-usage.md) page for details.
 
 The full list of MariaDB Enterprise Server releases can be found on the [Enterprise Server - All Releases](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/all-releases) page.
 {% endtab %}
@@ -75,7 +75,7 @@ MariaDB's `yum` repository can be updated to a new major release. How this is do
 
 ### Updating the Major Release with the MariaDB Package Repository Setup Script
 
-If you configured `yum` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md), then you can update the major release that the repository uses by running the script again.
+If you configured `yum` to install from MariaDB Corporation's MariaDB Package Repository by using the [MariaDB Package Repository setup script](../../../mariadb-package-repository-setup-and-usage.md), then you can update the major release that the repository uses by running the script again.
 
 ### Updating the Major Release with the MariaDB Repository Configuration Tool
 
@@ -90,7 +90,7 @@ After that, the repository should refer to [MariaDB 10.11](https://app.gitbook.c
 If the `yum` repository is pinned to a specific minor release, then the above `sed` command can result in an invalid repository configuration. In that case, the recommended options are:
 
 * Edit the `MariaDB.repo` repository file manually.
-* Or delete the `MariaDB.repo` repository file, and then install the repository of the new version with the more robust [MariaDB Package Repository setup script](../mariadb-package-repository-setup-and-usage.md).
+* Or delete the `MariaDB.repo` repository file, and then install the repository of the new version with the more robust [MariaDB Package Repository setup script](../../../mariadb-package-repository-setup-and-usage.md).
 
 ## The MariaDB GPG Key
 

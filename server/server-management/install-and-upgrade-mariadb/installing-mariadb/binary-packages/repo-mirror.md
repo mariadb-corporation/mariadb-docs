@@ -66,7 +66,7 @@ The package manager depends on the operating system:
 
 Creating a local mirror of the MariaDB Enterprise Repository or the MariaDB Community Repository enables you to distribute MariaDB products to your servers from a local repository you support. Secure any such repository mirror to prevent outside access.
 
-1. [Configure a MariaDB repository](mariadb-package-repository-setup-and-usage.md)
+1. [Configure a MariaDB repository](../../mariadb-package-repository-setup-and-usage.md)
 2. Set up a repository mirroring tool, for example:
    * YUM: `reposync`, available at: [23016](https://access.redhat.com/solutions/23016)
    * APT: `debmirror`, available at: [Setup#Debian\_Repository\_Mirroring\_Tools](https://wiki.debian.org/DebianRepository/Setup#Debian_Repository_Mirroring_Tools)
