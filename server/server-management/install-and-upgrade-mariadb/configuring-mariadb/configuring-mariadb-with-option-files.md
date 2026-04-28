@@ -55,7 +55,7 @@ The option files are each scanned once, in the order given by `--help --verbose`
 
 On Linux and Unix operating systems, the default option file is called `my.cnf`. MariaDB looks for the MariaDB option file in the locations and orders listed below.
 
-The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) option was defined when MariaDB was built. This option is usually defined as `/etc` when building [RPM packages](../installing-mariadb/binary-packages/rpm/), but it is usually not defined when building [DEB packages](../installing-mariadb/binary-packages/installing-mariadb-deb-files.md) or [binary tarballs](../installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md).
+The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](../compiling-mariadb-from-source/legacy-guides/building-mariadb-from-source-using-musl-based-gnulinux.md#using-cmake) option was defined when MariaDB was built. This option is usually defined as `/etc` when building [RPM packages](../installing-mariadb/binary-packages/rpm/), but it is usually not defined when building [DEB packages](../installing-mariadb/binary-packages/installing-mariadb-deb-files.md) or [binary tarballs](../installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md).
 
 * If the `DEFAULT_SYSCONFDIR` `cmake` option is **undefined**, MariaDB looks for the MariaDB option file in the following locations, and in the following order:
 
@@ -575,6 +575,8 @@ loose-abort-source-on-error
 
 * [Configuring MariaDB Connector/C with Option Files](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/configuring-mariadb-connectorc-with-option-files)
 * [Troubleshooting Connection Issues](../../../mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide.md)
+* [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit.md)
+* [Information\_schema.SYSTEM\_VARIABLES Table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md)
 * [Configuring MariaDB for Remote Client Access](../../../server-usage/connecting/mariadb-remote-connection-guide-1.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
