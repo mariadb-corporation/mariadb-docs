@@ -1,5 +1,6 @@
 ---
 description: 'Step 4: Test Enterprise ColumnStore'
+hidden: true
 ---
 
 # Step 4: Test Enterprise ColumnStore

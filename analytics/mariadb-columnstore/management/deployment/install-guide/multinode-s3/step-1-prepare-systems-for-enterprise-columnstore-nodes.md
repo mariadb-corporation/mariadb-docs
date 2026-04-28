@@ -1,5 +1,6 @@
 ---
 description: 'Step 1: Prepare Systems for Enterprise ColumnStore Nodes'
+hidden: true
 ---
 
 # Step 1: Prepare Systems for Enterprise ColumnStore Nodes

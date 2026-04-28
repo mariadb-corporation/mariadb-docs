@@ -1,5 +1,6 @@
 ---
 description: 'Step 5: Bulk Import of Data'
+hidden: true
 ---
 
 # Step 5: Bulk Import of Data
@@ -26,7 +27,7 @@ Before data can be imported into the tables, create a matching schema.
 CREATE DATABASE inventory;
 ```
 
-2. For each table that you are importing, create the table with the [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) statement:
+2. For each table that you are importing, create the table with the [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) statement:
 
 ```sql
 CREATE TABLE inventory.products (
