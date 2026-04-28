@@ -20,6 +20,7 @@ Upcoming minor or maintenance releases are scheduled for:
 * 2026-09-14
 * 2026-12-14
 * 2027-03-15
+* 2027-06-14
 
 ## Prior Releases
 
@@ -31,7 +32,7 @@ MariaDB Enterprise Server is available to MariaDB subscription customers via the
 
 If you are not yet a MariaDB subscription customer, [contact MariaDB Corporation](https://mariadb.com/contact/) for more information.
 
-MariaDB Enterprise Server binary and source code is delivered over secure protocols from MariaDB Corporation-maintained infrastructure.
+MariaDB Enterprise Server binary and source code are delivered over secure protocols from MariaDB Corporation-maintained infrastructure.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 
