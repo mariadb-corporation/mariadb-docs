@@ -8,6 +8,8 @@ description: >-
 
 You can configure MariaDB to run the way you want by configuring the server with MariaDB's option files. The default MariaDB option file is called `my.cnf` on Unix-like operating systems and `my.ini` on Windows. Depending on how you've [installed](../) MariaDB, the default option file may be in a number of places, or it may not exist at all.
 
+**MariaDB Enterprise Server** users should also refer to the [Enterprise Server-Specific](configuring-mariadb-with-option-files.md#mariadb-enterprise-server-option-file-locations) section for additional configuration files like `mariadb-enterprise.cnf`.
+
 ## Global Options Related to Option Files
 
 The following options relate to how MariaDB handles option files. These options can be used with most of MariaDB's command-line tools, not just [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). They must be given as the first argument on the command-line:
@@ -49,9 +51,9 @@ The following groups are read: mysqld server mysqld-10.11 mariadb mariadb-10.11 
 
 The option files are each scanned once, in the order given by `--help --verbose`. The effect of the configuration options is the same as if they would have been given as command-line options in the order they are found.
 
-### Default Option File Locations on Linux, Unix, Mac
+### Default Option File Locations on Linux and Unix
 
-On Linux, Unix, or Mac OS X, the default option file is called `my.cnf`. MariaDB looks for the MariaDB option file in the locations and orders listed below.
+On Linux and Unix operating systems, the default option file is called `my.cnf`. MariaDB looks for the MariaDB option file in the locations and orders listed below.
 
 The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) option was defined when MariaDB was built. This option is usually defined as `/etc` when building [RPM packages](../installing-mariadb/binary-packages/rpm/), but it is usually not defined when building [DEB packages](../installing-mariadb/binary-packages/installing-mariadb-deb-files.md) or [binary tarballs](../installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md).
 
@@ -86,7 +88,9 @@ Note that if `MARIADB_HOME` is set, `MYSQL_HOME` is not used, even if set.
 
 ### Default Option File Locations on Windows
 
-On Windows, the option file can be called either `my.ini` or `my.cnf`. MariaDB looks for option files in the following locations, and in the following order:
+On Windows, the option file can be called either `my.ini` or `my.cnf`. Depending on the distribution, MariaDB Enterprise Server for Windows may include additional configuration files. These files comply with the load order rules described in the following section.\
+\
+MariaDB looks for option files in the following locations, and in the following order:
 
 | Location                        | Scope                                                                                                                             |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -119,6 +123,16 @@ echo %WINDIR%
 {% hint style="warning" %}
 Note that if `MARIADB_HOME` is set, `MYSQL_HOME` is not used, even if set.
 {% endhint %}
+
+### MariaDB Enterprise Server Option File Locations
+
+MariaDB Enterprise Server includes additional configuration files that are installed with the Enterprise Server packages. Specifically, the file `mariadb-enterprise.cnf` is typically placed in a configuration include directory and enables Enterprise-specific features by default (for example, loading the [Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit.md) plugins with `plugin-load-add`, `server_audit` and other enterprise plugins):
+
+```
+/etc/my.cnf.d/mariadb-enterprise.cnf
+```
+
+The configuration values defined in these files can be validated at runtime. See [Verifying Option File Sources in Enterprise Server](configuring-mariadb-with-option-files.md#verifying-option-file-sources-in-enterprise-server).
 
 ## Default Option File Hierarchy
 
@@ -341,11 +355,44 @@ $ my_print_defaults --mysqld
 --ssl_ca=/etc/my.cnf.d/certificates/ca.pem
 ```
 
+## Verifying Option File Sources in Enterprise Server
+
+After modifying a configuration file in Enterprise Server, you can determine the source of a system variable by querying the [`INFORMATION_SCHEMA.SYSTEM_VARIABLES`](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md) table.
+
+**Check a specific variable**
+
+```sql
+SELECT VARIABLE_NAME, GLOBAL_VALUE, GLOBAL_VALUE_PATH 
+FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES 
+WHERE VARIABLE_NAME = 'innodb_buffer_pool_size';   -- replace with your variable
+```
+
+**Explanation of columns:**
+
+* `GLOBAL_VALUE_PATH`: Full path to the configuration file that set this value (e.g. `/etc/my.cnf.d/mariadb-enterprise.cnf`). Returns `NULL` if not set in any config file.
+* `GLOBAL_VALUE_ORIGIN`: Shows the origin (config file, a compile-time default, or a command line, etc.).
+
+The `global_value_path` column, introduced in [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/old-releases/10.5/whats-new-in-mariadb-enterprise-server-10-5), shows the full path to the configuration file from which the variable's value was loaded. This is especially helpful in environments with multiple option files as it enables you to determine which configuration file is currently in effect for a given system setting.
+
+**Note**: The `global_value_path` column requires MariaDB ES Server 10.5.0 or later. On previous versions, this column doesn't exist.
+
+**View all variable set from configuration files**
+
+To view all system variables that were set from configuration files, you can run the following:
+
+```sql
+SELECT VARIABLE_NAME, GLOBAL_VALUE, GLOBAL_VALUE_PATH 
+FROM INFORMATION_SCHEMA.SYSTEM_VARIABLES 
+WHERE GLOBAL_VALUE_PATH IS NOT NULL;
+```
+
+This query returns all variables with values loaded from option files, along with their file paths.
+
 ## Obfuscated Authentication Credential Option File
 
 MySQL supports an obfuscated authentication credential option file called `.mylogin.cnf` that is created with [mysql\_config\_editor](https://dev.mysql.com/doc/refman/5.6/en/mysql-config-editor.html).
 
-MariaDB does not support this. The passwords in MySQL's `.mylogin.cnf` are only obfuscated, rather than encrypted, so the feature does not really add much from a security perspective. It is more likely to give users a false sense of security, rather than to seriously protect them.
+MariaDB and MariaDB Enterprise Server do not support this feature. The passwords in MySQL's `.mylogin.cnf` are only obfuscated, rather than encrypted, so the feature does not really add much from a security perspective. It is more likely to give users a false sense of security, rather than to seriously protect them.
 
 ## Option Prefixes
 
