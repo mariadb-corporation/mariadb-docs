@@ -141,15 +141,13 @@ Some filesystems, like Veritas, support snapshots. During the snapshot, the tabl
 
 ### LVM
 
-Widely-used physical backup method, using a Perl script as a wrapper. See [http://www.lenzg.net/mylvmbackup/](http://www.lenzg.net/mylvmbackup/) for more information.
+Widely-used physical backup method, using a Perl script as a wrapper.
 
-### Percona TokuBackup
-
-For details, see:
-
-* [TokuDB Hot Backup – Part 1](https://www.percona.com/blog/2013/09/12/tokudb-hot-backup-part-1/)
-* [TokuDB Hot Backup – Part 2](https://www.percona.com/blog/2013/09/19/tokudb-hot-backup-part-2/)
-* [TokuDB Hot Backup Now a MySQL Plugin](https://www.percona.com/blog/2015/02/05/tokudb-hot-backup-now-mysql-plugin/)
+{% hint style="warning" %}
+**LVM snapshots are not a standalone DBMS backup solution.**\
+LVM operates at the block level, meaning it is "database-blind." It captures a crash-consistent state, identical to a sudden power failure, ignoring data cached in RAM. Without flushing buffers and locking tables, snapshots risk torn pages and permanent corruption.\
+Furthermore, the Copy-on-Write (CoW) mechanism significantly degrades production performance. Snapshots also exist on the same physical disks; they are not true backups and offer no protection against hardware failure. Always use application-aware tools (like [mariadb-backup](mariadb-backup/)) to ensure data integrity.
+{% endhint %}
 
 ### dbForge Studio for MySQL
 
@@ -161,7 +159,7 @@ These operations are wizard-aided allowing users to set up all tasks in a visual
 
 ## See Also
 
-* [Streaming MariaDB backups in the cloud](https://mariadb.com/blog/streaming-mariadb-backups-cloud) (mariadb.com blog)
+* [Streaming MariaDB backups in the cloud](https://mariadb.com/blog/streaming-mariadb-backups-cloud) • blog post • 2015 • 5 minutes read
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

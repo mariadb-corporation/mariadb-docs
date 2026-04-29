@@ -46,7 +46,7 @@ In such circumstances, configuration variables may need to be modified to match 
 
 #### Maintenance Releases
 
-Downgrades within the same releases (maintenance releases) are often supported, provided the storage format remains unchanged after the [Alpha](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) release. There are relatively few exceptions; for example, [MariaDB 10.1.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.21) fixed a file format bug that prevented downgrading to previous [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) versions.
+Downgrades within the same release series are generally possible, but compatibility should be verified, especially if changes affecting storage formats or system tables are involved. There are relatively few exceptions; for example, [MariaDB 10.1.21](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.21) fixed a file format bug that prevented downgrading to previous [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) versions.
 
 #### Why Major Version Downgrades Break
 
@@ -111,7 +111,11 @@ If you have to attempt an in-place downgrade process, perform the following step
 
 This procedure will **not** work if the table format has changed in an incompatible manner. In this case the affected tables may not be accessible in the earlier version. See [Version-Specific Incompatibilities](downgrading-between-major-versions-of-mariadb.md#version-specific-compatibilities) below.
 
-### Version-Specific Compatibilities
+### Version-Specific Considerations
+
+{% hint style="warning" %}
+Many of the examples that follow use outdated MariaDB versions that are currently End of Life (EOL). For production environments, downgrading to EOL versions is not recommended. These examples are provided for reference and to demonstrate potential incompatibilities.
+{% endhint %}
 
 The following is an incomplete list of cases where a table or component cannot be used in an earlier major version. Before proceeding, always check the [Release Notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/) and Changes and Improvements pages for your target version to ensure that there are no additional incompatibilities specific to your version pair.
 
