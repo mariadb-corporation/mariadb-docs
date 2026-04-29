@@ -22,9 +22,10 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
+  # [...]
 ```
 
 As a result, the operator will generate a Certificate Authority (CA) and use it to issue the leaf certificates mounted by the instance. It is important to note that the TLS connections are not enforced in this case i.e. both TLS and non-TLS connections will be accepted. This is the default behaviour when no `tls` field is specified.
@@ -37,10 +38,11 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
     required: true
+  # [...]
 ```
 
 This approach ensures that any unencrypted connection will fail, effectively enforcing security best practices.
@@ -53,9 +55,10 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: false
+  # [...]
 ```
 
 This will disable certificate issuance, resulting in all connections being unencrypted.
@@ -76,7 +79,6 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  ...
   mariaDbRef:
     name: mariadb-galera
   tls:
@@ -93,7 +95,6 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  ...
   mariaDbRef:
     name: mariadb-galera
   tls:
@@ -183,7 +184,6 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  ...
   tls:
     enabled: true
 ```
@@ -194,7 +194,6 @@ kind: MaxScale
 metadata:
   name: maxscale
 spec:
-  ...
   tls:
     enabled: true
 ```
@@ -264,7 +263,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
     serverCertIssuerRef:
@@ -273,6 +272,7 @@ spec:
     clientCertIssuerRef:
       name: root-ca
       kind: ClusterIssuer
+  # [...]
 ```
 
 ```yaml
@@ -281,7 +281,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
     adminCertIssuerRef:
@@ -290,6 +290,7 @@ spec:
     listenerCertIssuerRef:
       name: root-ca
       kind: ClusterIssuer
+  # [...]
 ```
 
 The operator will create cert-manager's [Certificate resources](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate) for each certificate, and will mount the resulting [TLS Secrets](https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets) in the instances. These `Secrets` containing the certificates will be managed by cert-manager as well as its renewal process.
@@ -323,7 +324,7 @@ data:
   -----END EC PRIVATE KEY-----
 ```
 
-The `ca.key` field is only required if you want to the operator to automatically re-issue certificates with this CA, see [bring your own CA](tls.md#bring-your-own-ca) for further detail. In other words, if only `ca.crt` is provided, the operator will trust this CA by adding it to the [CA bundle](tls.md#ca-bundle), but no certificates will be issued with it, the user will responsible for upating the certificate `Secret` manually with renewed certificates.
+The `ca.key` field is only required if you want to the operator to automatically re-issue certificates with this CA, see [bring your own CA](tls.md#bring-your-own-ca) for further detail. In other words, if only `ca.crt` is provided, the operator will trust this CA by adding it to the [CA bundle](tls.md#ca-bundle), but no certificates will be issued with it, the user will responsible for updating the certificate `Secret` manually with renewed certificates.
 
 The `enterprise.mariadb.com/watch` label is required only if you want the operator to automatically trigger an update when the CA is renewed, see [CA renewal](tls.md#ca-renewal) for more detail.
 
@@ -358,7 +359,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
     serverCASecretRef:
@@ -369,6 +370,7 @@ spec:
       name: mariadb-client-ca
     clientCertSecretRef:
       name: mariadb-galera-client-tls
+  # [...]
 ```
 
 ```yaml
@@ -377,7 +379,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
     adminCASecretRef:
@@ -392,6 +394,7 @@ spec:
       name: mariadb-galera-ca-bundle
     serverCertSecretRef:
       name: mariadb-galera-client-tls
+  # [...]
 ```
 
 ## Bring your own CA
@@ -425,13 +428,14 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
     serverCASecretRef:
       name: mariadb-server-ca
     clientCASecretRef:
       name: mariadb-client-ca
+  # [...]
 ```
 
 ## Intermediate CAs
@@ -470,7 +474,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  ...
+  # [...]
   tls:
     enabled: true
     adminCASecretRef:
@@ -483,6 +487,7 @@ spec:
     listenerCertIssuerRef:
       name: intermediate-ca
       kind: ClusterIssuer
+  # [...]
 ```
 
 This is specially useful when issuing certificates with an intermediate CA, see [intermediate CAs](tls.md#intermediate-cas) section for further detail.
@@ -491,7 +496,7 @@ This is specially useful when issuing certificates with an intermediate CA, see 
 
 Distributing the [CA bundle](tls.md#ca-bundle) to your application namespace is out of the scope of this operator, the bundles will remain in the same namespace as the `MariaDB` and `MaxScale` instances.
 
-If your application is in a different namespace, you can copy the CA bundle to the application namespace. Projects like [trust-manager](https://github.com/cert-manager/trust-manager) can help you to automate this process and continously reconcile bundle changes.
+If your application is in a different namespace, you can copy the CA bundle to the application namespace. Projects like [trust-manager](https://github.com/cert-manager/trust-manager) can help you to automate this process and continuously reconcile bundle changes.
 
 ## TLS version configuration
 
@@ -503,12 +508,14 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   tls:
     versions:
       - TLSv1.3
       - TLSv1.2
       - TLSv1.1
       - TLSv1.0
+  # [...]
 ```
 
 If not specified, the MariaDB's default TLS versions will be used. See [MariaDB docs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables).
@@ -521,7 +528,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-  ...
+  # [...]
   tls:
     adminVersions:
       - TLSv13
@@ -533,6 +540,7 @@ spec:
       - TLSv12
       - TLSv11
       - TLSv10
+  # [...]
 ```
 
 If not specified, the MaxScale's default TLS versions will be used. See MaxScale docs:
@@ -550,6 +558,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   tls:
     enabled: true
     required: true
@@ -559,6 +568,7 @@ spec:
     clientCertConfig:
       caLifetime: 8766h # 1 year
       certLifetime: 720h # 1 month
+  # [...]
 ```
 
 ```yaml
@@ -567,6 +577,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  # [...]
   tls:
     enabled: true
     adminCertConfig:
@@ -575,6 +586,7 @@ spec:
     listenerCertConfig:
       caLifetime: 8766h # 1 year
       certLifetime: 720h # 1 month
+  # [...]
 ```
 
 When issuing certificates with cert-manager, you can specify the certificate configuration field alongside the issuer reference:
@@ -585,6 +597,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   tls:
     enabled: true
     required: true
@@ -600,6 +613,7 @@ spec:
     clientCertConfig:
       caLifetime: 8766h # 1 year
       certLifetime: 720h # 1 month
+  # [...]
 ```
 
 ```yaml
@@ -608,6 +622,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  # [...]
   tls:
     enabled: true
     adminCertIssuerRef:
@@ -622,6 +637,7 @@ spec:
     listenerCertConfig:
       caLifetime: 8766h # 1 year
       certLifetime: 720h # 1 month
+  # [...]
 ```
 
 ## Private key configuration
@@ -634,6 +650,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   tls:
     enabled: true
     required: true
@@ -643,6 +660,7 @@ spec:
     clientCertConfig:
       privateKeyAlgorithm: RSA
       privateKeySize: 2048
+  # [...]
 ```
 
 ```yaml
@@ -651,6 +669,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  # [...]
   tls:
     enabled: true
     adminCertConfig:
@@ -659,6 +678,7 @@ spec:
     listenerCertConfig:
       privateKeyAlgorithm: RSA
       privateKeySize: 2048
+  # [...]
 ```
 
 When issuing certificates with cert-manager, you can specify the private key configuration field alongside the issuer reference:
@@ -669,6 +689,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   tls:
     enabled: true
     required: true
@@ -684,6 +705,7 @@ spec:
     clientCertConfig:
       privateKeyAlgorithm: ECDSA
       privateKeySize: 256
+  # [...]
 ```
 
 ```yaml
@@ -692,6 +714,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  # [...]
   tls:
     enabled: true
     adminCertIssuerRef:
@@ -706,6 +729,7 @@ spec:
     listenerCertConfig:
       privateKeyAlgorithm: ECDSA
       privateKeySize: 256
+  # [...]
 ```
 
 The following set of algorithms and sizes are supported:
@@ -815,9 +839,10 @@ kind: User
 metadata:
   name: user
 spec:
-  ...
+  # [...]
   require:
     x509: true
+  # [...]
 ```
 
 In order to restrict which subject the user certificate should have and/or require a particular issuer, you may set:
@@ -828,10 +853,11 @@ kind: User
 metadata:
   name: user
 spec:
-  ...
+  # [...]
   require:
     issuer: "/CN=mariadb-galera-ca"
     subject: "/CN=mariadb-galera-client"
+  # [...]
 ```
 
 When any of these TLS requirements are not met, the user will not be able to connect to the instance.
@@ -848,9 +874,11 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   tls:
     enabled: true
     galeraServerSSLMode: SERVER_X509
+  # [...]
 ```
 
 The following values are supported: `SERVER_X509`, `SERVER` and `PROVIDER`. Refer to the [MariaDB Enterprise Cluster documentation](https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#wsrep-tls-modes) for further detail about these modes.
@@ -863,10 +891,12 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   tls:
     enabled: true
     galeraSSTEnabled: true
     galeraClientSSLMode: VERIFY_IDENTITY
+  # [...]
 ```
 
 The following values are supported: `VERIFY_IDENTITY`, `VERIFY`, `REQUIRED` and `DISABLED`. Refer to the [MariaDB Enterprise Cluster documentation](https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#sst-tls-modes) for further detail about these modes.

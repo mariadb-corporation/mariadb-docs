@@ -40,7 +40,7 @@ While Kubernetes `Services` can be used for addressing primary and secondary ins
 * Ability to choose whether the old primary rejoins as a replica
 * Connection pooling 
 
-The full lifecyle of the MaxScale proxy is covered by this operator.  Please refer to [MaxScale docs](./maxscale.md) for further detail.
+The full lifecycle of the MaxScale proxy is covered by this operator.  Please refer to [MaxScale docs](./maxscale.md) for further detail.
 
 ## Pod Anti-Affinity
 
@@ -60,18 +60,18 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   bootstrapFrom:
     restoreJob:
       affinity:
         antiAffinityEnabled: true
-  ...
   metrics:
     exporter:
       affinity:
         antiAffinityEnabled: true
-  ...
   affinity:
     antiAffinityEnabled: true
+  # [...]
 ```
 
 Anti-affinity may also be enabled in the resources that have a reference to `MariaDB`, resulting in their `Pods` being scheduled in `Nodes` where `MariaDB` is not running. For instance, the `Backup` and `Restore` processes can run in different `Nodes`:
@@ -82,11 +82,12 @@ kind: Backup
 metadata:
   name: backup
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb-galera
-  ...
   affinity:
     antiAffinityEnabled: true
+  # [...]
 ```
 
 ```yaml
@@ -95,11 +96,13 @@ kind: Restore
 metadata:
   name: restore
 spec:
+  # [...]
   mariaDbRef:
     name: mariadb-galera
-  ...
+
   affinity:
     antiAffinityEnabled: true
+  # [...]
 ```
 
 In the case of `MaxScale`, the `Pods` will also be placed in `Nodes` isolated in terms of compute, ensuring isolation not only among themselves but also from the `MariaDB` `Pods`. For example, if you run a `MariaDB` and `MaxScale` with 3 replicas each, you will need 6 `Nodes` in total:
@@ -110,14 +113,16 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  storage:
+    size: 1Gi
   mariaDbRef:
     name: mariadb-galera
-  ...
+
   metrics:
     exporter:
       affinity:
         antiAffinityEnabled: true
-  ...
+
   affinity:
     antiAffinityEnabled: true
 ```
@@ -130,9 +135,10 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  storage:
+    size: 1Gi
   mariaDbRef:
     name: mariadb-galera
-  ...
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -172,7 +178,8 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  storage:
+    size: 1Gi
   tolerations:
     - key: "enterprise.mariadb.com/ha"
       operator: "Exists"
@@ -199,9 +206,10 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
     podDisruptionBudget:
       maxUnavailable: 33%
+  # [...]
 ```
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}

@@ -76,6 +76,108 @@ The following section provides a high-level overview detailing the specific comp
 | Unnecessary Binaries | ❌ | ❌ |
 | `gosu` | ❌ | ❌ |
 
+## SBOMs
+
+The following section provides information how to fetch the SBOMs for the MariaDB Enterprise Operator as well as all it's operands.
+
+### How to retrieve SBOMs using oras
+
+- **Prerequisites: Install and configure the oras CLI**
+  - For installation instructions, see: https://oras.land/docs/installation  
+
+- **Make sure to login to `docker.mariadb.com`**
+  ```bash
+  docker login docker.mariadb.com --username $USERNAME
+  ```
+  - You'll be asked for the password. Please enter your [Customer Download Token](./customer-access-to-docker-mariadb-com.md)
+
+### Step 1: Discover Attestations
+
+Attestations are signed metadata published alongside the image (e.g., SBOMs, provenance), typically wrapped in a DSSE envelope. In this step we use `oras discover` to list available attestations and note the bundle digest for Step 2.
+
+**Command:**
+
+```bash
+oras discover docker.mariadb.com/enterprise-server:10.6
+```
+
+**Example output (important sha highlighted):**
+
+![step1](../.gitbook/assets/step1.webp)
+
+```text
+❯ oras discover docker.mariadb.com/enterprise-server:10.6
+docker.mariadb.com/enterprise-server@sha256:b7ebdc7ae3cd927eb7e2de5a9373ea533142ec6e8102d0453b487eb6de61f695
+└── application/vnd.dev.sigstore.bundle.v0.3+json
+    └── sha256:6c4de178ab9c637474a4b158192f734d07142f3fc7e4ed67dd53f335b28678c9
+        └── [annotations]
+            ├── dev.sigstore.bundle.content: dsse-envelope
+            ├── dev.sigstore.bundle.predicateType: https://sigstore.dev/cosign/sign/v1
+            └── org.opencontainers.image.created: "2026-04-07T09:11:35Z"
+```
+
+The correct digest is the one under `application/vnd.dev.sigstore.bundle.v0.3+json`:
+
+- **Bundle digest (use in Step 2):**  
+  `sha256:6c4de178ab9c637474a4b158192f734d07142f3fc7e4ed67dd53f335b28678c9`
+
+### Step 2: Pull the Bundle
+
+In this step we need to pull the bundle so we can find the correct digest of the attestation blob.
+
+**Command:**
+
+```bash
+oras pull docker.mariadb.com/enterprise-server@sha256:6c4de178ab9c637474a4b158192f734d07142f3fc7e4ed67dd53f335b28678c9
+```
+
+**Example output (important sha highlighted):**
+
+![step2](../.gitbook/assets/step1.webp)
+
+```text
+❯ oras pull docker.mariadb.com/enterprise-server@sha256:6c4de178ab9c637474a4b158192f734d07142f3fc7e4ed67dd53f335b28678c9
+✓ Skipped     application/vnd.dev.sigstore.bundle.v0.3+json                                                                                                          1.59/1.59 MB 100.00%     0s
+  └─ sha256:95292bc0c504d2311aa81d7b60cb367382c0bd77ef7a72e546db5c0b2a0c6a38
+✓ Pulled      application/vnd.oci.image.manifest.v1+json                                                                                                               879/879  B 100.00%  120µs
+  └─ sha256:6c4de178ab9c637474a4b158192f734d07142f3fc7e4ed67dd53f335b28678c9
+Skipped pulling layers without file name in "org.opencontainers.image.title"
+Use 'oras copy docker.mariadb.com/enterprise-server@sha256:6c4de178ab9c637474a4b158192f734d07142f3fc7e4ed67dd53f335b28678c9 --to-oci-layout <layout-dir>' to pull all layers.
+```
+
+Then the key digest is again the one under `application/vnd.dev.sigstore.bundle.v0.3+json`:
+
+- **SBOM blob digest (use in Step 3):**  
+  `sha256:95292bc0c504d2311aa81d7b60cb367382c0bd77ef7a72e546db5c0b2a0c6a38`
+
+### Step 3: Fetch the attestations blob
+
+In this step, we are going to fetch the attestation blob, which contains a DSSE envelope (a standard JSON wrapper with a base64-encoded payload plus signatures/metadata used for signing and verification).
+
+**Command:**
+
+```bash
+oras blob fetch docker.mariadb.com/enterprise-server@sha256:95292bc0c504d2311aa81d7b60cb367382c0bd77ef7a72e546db5c0b2a0c6a38 --output attestations.json
+```
+
+**Example output:**
+
+```text
+❯ oras blob fetch docker.mariadb.com/enterprise-server@sha256:95292bc0c504d2311aa81d7b60cb367382c0bd77ef7a72e546db5c0b2a0c6a38 --output attestations.json
+✓ Downloaded  application/octet-stream                                                                                                                               1.59/1.59 MB 100.00%  791ms
+  └─ sha256:95292bc0c504d2311aa81d7b60cb367382c0bd77ef7a72e546db5c0b2a0c6a38
+```
+
+### Step 4: Extract the SBOM from the DSSE Envelope
+
+In this step we extract the SBOM by reading the DSSE envelope, base64-decoding `dsseEnvelope.payload`, and viewing the resulting SBOM JSON with `jq` (and `less`).
+
+**Command:**
+
+```bash
+cat attestations.json | jq -r '.dsseEnvelope.payload' | base64 -d | jq . | less
+```
+
 ## Working With Air-Gapped Environments
 
 This section outlines several methods for pulling official MariaDB container images from `docker.mariadb.com` and making them available in your private container registry. This is often necessary for air-gapped, offline, or secure environments.

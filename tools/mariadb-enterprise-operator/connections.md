@@ -70,12 +70,14 @@ kind: MariaDB
 metadata:
   name: mariadb
 spec:
+  # [...]
   username: app
   passwordSecretKeyRef:
     name: app-password
     key: password
     generate: true
   database: app
+  # [...]
 ```
 
 The operator will automatically generate a random password and store it in a `Secret` named `app-password`. You can then reference this `Secret` in your `Connection` resource:

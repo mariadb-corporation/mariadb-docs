@@ -12,7 +12,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 1Gi
 ```
@@ -25,7 +24,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 1Gi
     storageClassName: gp3
@@ -39,7 +37,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 1Gi
     storageClassName: gp3
@@ -71,7 +68,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     size: 2Gi
     resizeInUseVolumes: true
@@ -90,7 +86,6 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
   storage:
     ephemeral: true
 ```

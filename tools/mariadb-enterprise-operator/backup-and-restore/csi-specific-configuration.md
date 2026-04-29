@@ -33,11 +33,12 @@ kind: PhysicalBackup
 metadata:
   name: physicalbackup
 spec:
-  # ...
+  # [...]
   storage:
     persistentVolumeClaim:
       # Specify your own class
       storageClassName: blob-fuse
+  # [...]
 ```
 
 ### Issue 1: Access for Non-Root Containers (`-o allow_other`)

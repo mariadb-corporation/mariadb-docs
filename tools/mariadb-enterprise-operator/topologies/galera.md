@@ -16,16 +16,17 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-...
+  # [...]
   replicas: 3
 
   galera:
     enabled: true
+  # [...]
 ```
 
 This relies on sensible defaults set by the operator, which may not be suitable for your Kubernetes cluster. This can be solved by overriding the defaults, so you have fine-grained control over the Galera configuration.
 
-Refer to the [API reference](api-reference.md) to better understand the purpose of each field.
+Refer to the [API reference](../api-reference.md) to better understand the purpose of each field.
 
 ## Storage
 
@@ -42,11 +43,12 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   galera:
     enabled: true
     config:
       reuseStorageVolume: true
+  # [...]
 ```
 
 ## Wsrep provider
@@ -59,10 +61,11 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   galera:
     providerOptions:
       gcs.fc_limit: '64'
+  # [...]
 ```
 
 It is important to note that, the `ist.recv_addr` cannot be set by the user, as it is automatically configured to the `Pod` IP by the operator, something that an user won't be able to know beforehand.
@@ -76,7 +79,7 @@ If you have a Kubernetes cluster running with IPv6, the operator will automatica
 
 ## Galera cluster recovery
 
-MariaDB Enterprise Kubernetes Operator monitors the Galera cluster and acts accordinly to recover it if needed. This feature is enabled by default, but you may tune it as you need:
+MariaDB Enterprise Kubernetes Operator monitors the Galera cluster and acts accordingly to recover it if needed. This feature is enabled by default, but you may tune it as you need:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -84,7 +87,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   galera:
     enabled: true
     recovery:
@@ -95,9 +98,10 @@ spec:
       clusterBootstrapTimeout: 10m
       podRecoveryTimeout: 5m
       podSyncTimeout: 5m
+  # [...]
 ```
 
-The `minClusterSize` field indicates the minimum cluster size (either absolut number of replicas or percentage) for the operator to consider the cluster healthy. If the cluster is unhealthy for more than the period defined in `clusterHealthyTimeout` (`30s` by default), a cluster recovery process is initiated by the operator. The process is explained in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html) and consists of the following steps:
+The `minClusterSize` field indicates the minimum cluster size (either absolute number of replicas or percentage) for the operator to consider the cluster healthy. If the cluster is unhealthy for more than the period defined in `clusterHealthyTimeout` (`30s` by default), a cluster recovery process is initiated by the operator. The process is explained in the [Galera documentation](https://galeracluster.com/library/documentation/crash-recovery.html) and consists of the following steps:
 
 * Recover the sequence number from the `grastate.dat` on each node.
 * Trigger a [recovery Job](#galera-recovery-job) to obtain the sequence numbers in case that the previous step didn't manage to.
@@ -108,7 +112,7 @@ The `minClusterSize` field indicates the minimum cluster size (either absolut nu
 
 The operator monitors the Galera cluster health periodically and performs the cluster recovery described above if needed. You are able to tune the monitoring interval via the `clusterMonitorInterval` field.
 
-Refer to the [API reference](api-reference.md) to better understand the purpose of each field.
+Refer to the [API reference](../api-reference.md) to better understand the purpose of each field.
 
 #### Galera recovery `Job`
 
@@ -120,7 +124,7 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   galera:
     enabled: true
     recovery:
@@ -134,6 +138,7 @@ spec:
             memory: 128Mi
           limits:
             memory: 256Mi
+  # [...]
 ```
 
 For example, if you're using a service mesh like Istio, it's important to add the `sidecar.istio.io/inject=false` label. Without this label, the `Job` will not complete, which would prevent the recovery process from finishing successfully.
@@ -156,12 +161,13 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-  ...
+  # [...]
   galera:
     enabled: true
     recovery:
       enabled: true
       forceClusterBootstrapInPod: "mariadb-galera-0"
+  # [...]
 ```
 
 This should only be used in exceptional circumstances:
@@ -572,11 +578,13 @@ kind: StatefulSet
 metadata:
   name: mariadb-galera
 spec:
+  # [...]
   securityContext:
     fsGroup: 999
     runAsGroup: 999
     runAsNonRoot: true
     runAsUser: 999
+  # [...]
 ```
 
 This enables the `CSIDriver` and the kubelet to recursively set the ownership ofr the `/etc/mysql/mariadb.conf.d` folder to the group `999`, which is the one expected by MariaDB. It is important to note that not all the `CSIDrivers` implementations support this feature, see the [CSIDriver documentation](https://kubernetes-csi.github.io/docs/support-fsgroup.html) for further information.

@@ -66,7 +66,6 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
   mariaDbRef:
     name: mariadb-galera
 
@@ -101,7 +100,6 @@ kind: MaxScale
 metadata:
   name: maxscale-repl
 spec:
-...
   mariaDbRef:
     name: mariadb-repl
 
@@ -165,7 +163,8 @@ kind: MariaDB
 metadata:
   name: mariadb-galera
 spec:
-...
+  storage:
+    size: 1Gi
   maxScaleRef:
     name: maxscale-galera
 
@@ -194,7 +193,8 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  mariaDbRef:
+    name: mariadb-galera
   servers:
     - name: mariadb-0
       address: mariadb-galera-0.mariadb-galera-internal.default.svc.cluster.local
@@ -212,7 +212,8 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  mariaDbRef:
+    name: mariadb-galera
   servers:
     - name: mariadb-0
       address: 172.18.0.140
@@ -274,7 +275,9 @@ kind: MaxScale
 metadata:
   name: maxscale-repl
 spec:
+  # [...]
   primaryServer: mariadb-repl-1
+  # [...]
 ```
 
 This will trigger a switchover operation and MaxScale will promote the specified server to be the new primary server.
@@ -299,12 +302,14 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
+  # [...]
   servers:
     - name: mariadb-0
       address: mariadb-galera-0.mariadb-galera-internal.default.svc.cluster.local
       port: 3306
       protocol: MariaDBBackend
       maintenance: true
+  # [...]
 ```
 
 ## Configuration
@@ -317,7 +322,8 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  mariaDbRef:
+    name: mariadb-galera
   config:
     params:
       log_info: "true"
@@ -351,7 +357,8 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  mariaDbRef:
+    name: mariadb-galera
   auth:
     generate: false
     adminUsername: mariadb-enterprise-operator
@@ -393,7 +400,8 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  mariaDbRef:
+    name: mariadb-galear
   kubernetesService:
     type: LoadBalancer
     metadata:
@@ -411,7 +419,7 @@ metadata:
     metallb.universe.tf/loadBalancerIPs: 172.18.0.229
   name: maxscale-galera
 spec:
-...
+  # [...]
   ports:
   - name: admin
     port: 8989
@@ -423,6 +431,7 @@ spec:
     app.kubernetes.io/instance: maxscale-galera
     app.kubernetes.io/name: maxscale
   type: LoadBalancer
+  # [...]
 ```
 
 There is also another Kubernetes `Service` to access the GUI, please refer to the [MaxScale GUI](maxscale.md#maxscale-gui) section for further detail.
@@ -437,6 +446,7 @@ kind: Connection
 metadata:
   name: connection-maxscale
 spec:
+  # [...]
   maxScaleRef:
     name: maxscale-galera
   username: maxscale-galera-client
@@ -445,6 +455,7 @@ spec:
     key: password
   secretName: conn-mxs
   port: 3306
+  # [...]
 ```
 
 Alternatively, you can also provide a connection template to your `MaxScale` resource:
@@ -455,10 +466,11 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...  
+  # [...]
   connection:
     secretName: mxs-galera-conn
     port: 3306
+  # [...]
 ```
 
 Note that, the `Connection` uses the `Service` described in the [Kubernetes Service](maxscale.md#kubernetes-service) section and you are able to specify which MaxScale service to connect to by providing the port (`spec.port`) of the corresponding MaxScale listener.
@@ -475,7 +487,8 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  mariaDbRef:
+    name: mariadb-repl
   replicas: 2
 
   monitor:
@@ -519,7 +532,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  # [...]
   monitor:
     name: mariadb-monitor
     module: galeramon
@@ -530,6 +543,7 @@ spec:
       available_when_donor: "false"
       disable_master_role_setting: "false"   
     suspend: true
+  # [...]
 ```
 
 ## MaxScale GUI
@@ -542,7 +556,7 @@ kind: MaxScale
 metadata:
   name: maxscale-galera
 spec:
-...
+  # [...]
   admin:
     port: 8989
     guiEnabled: true
@@ -552,6 +566,7 @@ spec:
       metadata:
         annotations:
           metallb.universe.tf/loadBalancerIPs: 172.18.0.231
+  # [...]
 ```
 
 The GUI is exposed via a dedicated Kubernetes `Service` in the same port as the [MaxScale API](maxscale.md#maxscale-api). Once you access, you will need to enter the [MaxScale API](maxscale.md#maxscale-api) credentials configured by the operator in a `Secret`. See the [Authentication](maxscale.md#authentication) section for more details.
@@ -632,11 +647,13 @@ kind: StatefulSet
 metadata:
   name: maxscale-galera
 spec:
+  # [...]
   securityContext:
     fsGroup: 999
     runAsGroup: 999
     runAsNonRoot: true
     runAsUser: 999
+  # [...]
 ```
 
 This enables the `CSIDriver` and the kubelet to recursively set the ownership ofr the `/var/lib/maxscale` folder to the group `999`, which is the one expected by MaxScale. It is important to note that not all the `CSIDrivers` implementations support this feature, see the [CSIDriver documentation](https://kubernetes-csi.github.io/docs/support-fsgroup.html) for further information.
