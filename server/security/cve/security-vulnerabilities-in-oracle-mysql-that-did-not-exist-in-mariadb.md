@@ -23,6 +23,46 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <details>
 
+<summary>April 2026</summary>
+
+#### [April 2026](https://www.oracle.com/security-alerts/cpuapr2026.html#AppendixMSQL)
+
+* [CVE-2025-15467](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-15467)
+* [CVE-2026-34270](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34270)
+* [CVE-2026-34271](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34271)
+* [CVE-2026-34276](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34276)
+* [CVE-2026-34308](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34308)
+* [CVE-2026-22009](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22009)
+* [CVE-2026-22017](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22017)
+* [CVE-2026-34272](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34272)
+* [CVE-2026-34303](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34303)
+* [CVE-2025-14017](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-14017)
+* [CVE-2026-34318](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34318)
+* [CVE-2025-5318](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-5318)
+* [CVE-2026-34317](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34317)
+* [CVE-2026-34319](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34319)
+* [CVE-2026-22004](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22004)
+* [CVE-2026-34304](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34304)
+* [CVE-2026-35236](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35236)
+* [CVE-2026-35237](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35237)
+* [CVE-2026-35238](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35238)
+* [CVE-2026-34293](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34293)
+* [CVE-2026-35239](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35239)
+* [CVE-2026-35235](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35235)
+* [CVE-2026-21998](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21998)
+* [CVE-2026-22005](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22005)
+* [CVE-2026-22002](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22002)
+* [CVE-2026-34267](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34267)
+* [CVE-2026-34278](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34278)
+* [CVE-2026-35240](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35240)
+* [CVE-2026-35234](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35234)
+* [CVE-2026-22015](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22015)
+* [CVE-2026-22001](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22001)
+
+</details>
+
+<details>
+
 <summary>January 2026</summary>
 
 #### [January 2026](https://www.oracle.com/security-alerts/cpujan2026.html#AppendixMSQL)
