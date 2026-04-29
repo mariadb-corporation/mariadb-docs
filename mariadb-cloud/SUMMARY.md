@@ -4,6 +4,7 @@
   * [Key Features & Capabilities](readme/key-features-and-capabilities.md)
   * [MariaDB Cloud Serverless](readme/serverless.md)
   * [MariaDB Cloud Serverless Architecture](readme/architecture.md)
+* [HTAP using MariaDB Exa](htap-mariadb-exa/README.md)
 * [Quickstart Guides](quickstart/README.md)
   * [Using the Portal](quickstart/using-the-portal.md)
   * [Launch DB Using REST API](quickstart/launch-db-using-the-rest-api.md)
