@@ -14,8 +14,7 @@ CREATE [OR REPLACE]
     [AGGREGATE] FUNCTION [IF NOT EXISTS] func_name ([func_parameter[,...]])
     RETURNS type
     [characteristic ...]
-    RETURN func_body
-    [RETURN SYS_REFCURSOR]
+    func_body
 
 func_parameter:
     [ OUT | INOUT | IN OUT ] param_name type |
