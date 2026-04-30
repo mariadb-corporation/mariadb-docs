@@ -377,7 +377,9 @@ The default location for the server state journal is in`/var/lib/maxscale/<monit
 
 ## Script example
 
-Below is an example monitor configuration which launches a script with all supported substitutions. The example script reads the results and prints it to file and sends it as email.
+Below is an example monitor configuration which launches a script with all
+supported substitutions. The example script reads the results and prints it to
+file and sends it as email.
 
 ```
 [MyMonitor]
@@ -390,83 +392,68 @@ monitor_interval=10s
 script=/path/to/maxscale_monitor_alert_script.sh --initiator=$INITIATOR --parent=$PARENT --children=$CHILDREN --event=$EVENT --node_list=$NODELIST --list=$LIST --master_list=$MASTERLIST --slave_list=$SLAVELIST --synced_list=$SYNCEDLIST
 ```
 
-File "maxscale\_monitor\_alert\_script.sh":
 
-|    |                     |
-| -- | ------------------- |
-| 1  |                     |
-| 2  |                     |
-| 3  |                     |
-| 4  |                     |
-| 5  |                     |
-| 6  |                     |
-| 7  |                     |
-| 8  |                     |
-| 9  |                     |
-| 10 |                     |
-| 11 |                     |
-| 12 |                     |
-| 13 |                     |
-| 14 |                     |
-| 15 |                     |
-| 16 |                     |
-| 17 |                     |
-| 18 |                     |
-| 19 |                     |
-| 20 |                     |
-| 21 |                     |
-| 22 |                     |
-| 23 |                     |
-| 24 |                     |
-| 25 |                     |
-| 26 |                     |
-| 27 |                     |
-| 28 |                     |
-| 29 |                     |
-| 30 |                     |
-| 31 |                     |
-| 32 |                     |
-| 33 |                     |
-| 34 |                     |
-| 35 |                     |
-| 36 |                     |
-| 37 |                     |
-| 38 |                     |
-| 39 |                     |
-| 40 |                     |
-| 41 |                     |
-| 42 |                     |
-| 43 |                     |
-| 44 |                     |
-| 45 |                     |
-| 46 |                     |
-| 47 |                     |
-| 48 |                     |
-| 49 |                     |
-| 50 |                     |
-| 51 |                     |
-| 52 |                     |
-| 53 |                     |
-| 54 |                     |
-| 55 |                     |
-| 56 |                     |
-| 57 | #!/usr/bin/env bash |
+File "maxscale_monitor_alert_script.sh":
 
-initiator="" parent="" children="" event="" node\_list="" list="" master\_list="" slave\_list="" synced\_list=""
+```
+#!/usr/bin/env bash
 
-process\_arguments() { while \[ "$1" != "" ]; do if \[\[ "$1" =\~ ^--initiator=.\* ]]; then initiator=${1#'--initiator='} elif \[\[ "$1" =\~ ^--parent.\* ]]; then parent=${1#'--parent='} elif \[\[ "$1" =\~ ^--children.\* ]]; then children=${1#'--children='} elif \[\[ "$1" =\~ ^--event.\* ]]; then event=${1#'--event='} elif \[\[ "$1" =\~ ^--node\_list.\* ]]; then node\_list=${1#'--node\_list='} elif \[\[ "$1" =\~ ^--list.\* ]]; then list=${1#'--list='} elif \[\[ "$1" =\~ ^--master\_list.\* ]]; then master\_list=${1#'--master\_list='} elif \[\[ "$1" =\~ ^--slave\_list.\* ]]; then slave\_list=${1#'--slave\_list='} elif \[\[ "$1" =\~ ^--synced\_list.\* ]]; then synced\_list=${1#'--synced\_list='} fi shift done }
+initiator=""
+parent=""
+children=""
+event=""
+node_list=""
+list=""
+master_list=""
+slave_list=""
+synced_list=""
 
-process\_arguments $@ read -r -d '' MESSAGE << EOM A server has changed state. The following information was provided:
+process_arguments()
+{
+while [ "$1" != "" ]; do
+if [[ "$1" =~ ^--initiator=.* ]]; then
+initiator=${1#'--initiator='}
+elif [[ "$1" =~ ^--parent.* ]]; then
+parent=${1#'--parent='}
+elif [[ "$1" =~ ^--children.* ]]; then
+children=${1#'--children='}
+elif [[ "$1" =~ ^--event.* ]]; then
+event=${1#'--event='}
+elif [[ "$1" =~ ^--node_list.* ]]; then
+node_list=${1#'--node_list='}
+elif [[ "$1" =~ ^--list.* ]]; then
+list=${1#'--list='}
+elif [[ "$1" =~ ^--master_list.* ]]; then
+master_list=${1#'--master_list='}
+elif [[ "$1" =~ ^--slave_list.* ]]; then
+slave_list=${1#'--slave_list='}
+elif [[ "$1" =~ ^--synced_list.* ]]; then
+synced_list=${1#'--synced_list='}
+fi
+shift
+done
+}
 
-Initiator: $initiator Parent: $parent Children: $children Event: $event Node list: $node\_list List: $list Primary list: $master\_list Replica list: $slave\_list Synced list: $synced\_list EOM
+process_arguments $@
+read -r -d '' MESSAGE << EOM
+A server has changed state. The following information was provided:
 
-## print message to file
+Initiator: $initiator
+Parent: $parent
+Children: $children
+Event: $event
+Node list: $node_list
+List: $list
+Primary list: $master_list
+Replica list: $slave_list
+Synced list: $synced_list
+EOM
 
-echo "$MESSAGE" > /path/to/script\_output.txt
-
-## email the message
-
-echo "$MESSAGE" | mail -s "MaxScale received $event event for initiator $initiator." mariadb\_admin@domain.com |
+# print message to file
+echo "$MESSAGE" > /path/to/script_output.txt
+# email the message
+echo "$MESSAGE" | mail -s "MaxScale received $event event for initiator $initiator." mariadb_admin@domain.com
+```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
