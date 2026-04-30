@@ -4525,7 +4525,7 @@ for the listener. If a certificate is not defined, MaxScale will use an
 auto-generated self-signed certificate. The generated certificate can pass
 verification when used with a recent (11.4 or greater) client version.
 
-To enable TLS/SSL-connections to a server, set its `ssl` parameter to
+To enable TLS/SSL-connections to a server, set its `ssl` parameter to `allow` or
 `require`. If the backend database server has certificate verification enabled,
 configure the `ssl_cert` and `ssl_key` parameters of the server. The database
 server itself must also be configured to use TLS/SSL-connections if backend
@@ -4542,6 +4542,10 @@ the same listener, set `ssl` to `allow`. `allow` is the default mode.
 Multiple listeners with different configurations can be created to enable
 different encryption schemes.
 
+If a server is configured with `ssl=require`, MaxScale enforces SSL usage for
+all connections to the server. If an encrypted connection to the server cannot
+be established, the connection fails.
+
 Starting with MaxScale 2.5.20, if the TLS certificate given to MaxScale has the
 X509v3 extended key usage information, MaxScale will check it and refuse to use
 a certificate with the wrong usage. This means that a certificate with only
@@ -4557,7 +4561,7 @@ listeners and servers, it must have both the clientAuth and serverAuth usages.
 * Mandatory: No
 * Dynamic: Yes
 * Values: `disable`, `allow`, `require`
-* Default: `allow` (listeners), `disable` (servers)
+* Default: `allow`
 
 Enables SSL connections when set to `allow` or `require`. The old boolean values
 can still be used and map to `require` (true) and `disable` (false).
@@ -4567,8 +4571,14 @@ encrypted and unencrypted connections. `disable` only accepts unencrypted
 connections and `require` only accepts encrypted connections.
 
 In server configuration, `disable` only uses unencrypted connections to the
-server. `require` only uses encrypted connections. `allow`-mode is not
-available in server configuration.
+server. `require` only uses encrypted connections. `allow`-mode is flexible, and
+means that MaxScale generally prefers to use encrypted connections but falls
+back to unencrypted connections if the server does not support encryption. In
+some cases (e.g. the
+[Binlogrouter](../../reference/maxscale-routers/maxscale-binlogrouter.md))
+`allow` may default to unencrypted connections. Use `allow` when encryption is
+not essential, or when MariaDB Server SSL support may change while MaxScale is
+running.
 
 Starting with MaxScale 21.06.18, 22.08.15, 23.02.12, 23.08.8, 24.02.4 and
 24.08.1, if SSL is disabled for a listener, MariaDB user accounts that require
