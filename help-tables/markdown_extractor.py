@@ -370,7 +370,13 @@ def build_output(name, syntax: str, desc: str, example: list, path: str):
         parts.append(f"Examples\n--------\n\n{example_str}")
     desc_str = "\n\n".join(parts) if parts else ""
     desc_str = strip_markdown(desc_str)
-    url_path = path.removesuffix(".md")
+    # `path` comes from get_files() which walks REPO_ROOT/server/reference as
+    # an absolute path, so each entry is an absolute filesystem path (in CI:
+    # /home/runner/work/mariadb-docs/mariadb-docs/...). Make it relative to
+    # REPO_ROOT before tacking it onto the docs URL — otherwise we ship URLs
+    # like https://mariadb.com/docs//home/runner/... (broken) instead of
+    # https://mariadb.com/docs/server/reference/... (right).
+    url_path = str(Path(path).resolve().relative_to(REPO_ROOT)).removesuffix(".md")
     url = f"https://mariadb.com/docs/{url_path}"
     desc_str += f"\n\nURL: {url}"
     desc_str = truncate_to_bytes(desc_str)
