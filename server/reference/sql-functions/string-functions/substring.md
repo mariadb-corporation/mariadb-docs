@@ -30,17 +30,17 @@ The forms that use _`FROM`_ are standard SQL syntax.
 
 It is also possible to use a negative value for _`pos`_. In this case, the beginning of the substring is _`pos`_ characters from the end of the string, rather than the beginning. A negative value may be used for _`pos`_ in any of the forms of this function.
 
-By default, the position of the first character in the string from which the substring is to be extracted is reckoned as 1. For [Oracle compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), when `sql_mode` is set to '`oracle`', position zero is treated as position 1 (although the first character is still reckoned as 1).
+By default, the position of the first character in the string from which the substring is to be extracted is 1. If the value of _pos_ is 0, the result is empty string. For [Oracle compatibility](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), when `sql_mode` is set to '`oracle`', position 0 is treated as position 1.
 
 If any argument is `NULL`, returns `NULL`.
 
 {% tabs %}
 {% tab title="Current" %}
-The optimizer can take advantage of queries of the format [SUBSTR(col, 1, n) = const\_str](substring.md).
+The optimizer can make use of an index for conditions like `SUBSTR(indexed_column, 1, n) = const_string`.
 {% endtab %}
 
 {% tab title="< 11.8" %}
-The optimizer **cannot** take advantage of queries of the format [SUBSTR(col, 1, n) = const\_str](substring.md).
+The optimizer cannot make use of an index if an indexed column is an argument of `SUBSTR()`.
 {% endtab %}
 {% endtabs %}
 
@@ -75,6 +75,13 @@ SELECT SUBSTRING('Knowledgebase', -4);
 | base                           |
 +--------------------------------+
 
+SELECT SUBSTRING('Knowledgebase', 0);
++--------------------------------+
+| SUBSTRING('Knowledgebase', 0)  |
++--------------------------------+
+|                                |
++--------------------------------+
+
 SELECT SUBSTRING('Knowledgebase', -8, 4);
 +-----------------------------------+
 | SUBSTRING('Knowledgebase', -8, 4) |
@@ -93,13 +100,6 @@ SELECT SUBSTRING('Knowledgebase' FROM -8 FOR 4);
 Oracle mode:
 
 ```sql
-SELECT SUBSTR('abc',0,3);
-+-------------------+
-| SUBSTR('abc',0,3) |
-+-------------------+
-|                   |
-+-------------------+
-
 SELECT SUBSTR('abc',1,2);
 +-------------------+
 | SUBSTR('abc',1,2) |
