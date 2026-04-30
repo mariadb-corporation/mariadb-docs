@@ -35,7 +35,6 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 * [CVE-2026-22009](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22009)
 * [CVE-2026-22017](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-22017)
 * [CVE-2026-34272](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34272)
-* [CVE-2026-34303](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34303)
 * [CVE-2025-14017](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-14017)
 * [CVE-2026-34318](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34318)
 * [CVE-2025-5318](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-5318)
