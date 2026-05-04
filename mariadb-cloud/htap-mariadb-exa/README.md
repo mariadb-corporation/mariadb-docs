@@ -50,8 +50,6 @@ The intelligent router is **not lag-aware** and does **not** guarantee read-your
 
 ### Via MariaDB Cloud portal (UI)
 
-HTAP with MariaDB Exa is **not** offered as its own top-level topology. Start a **Provisioned** service, select **MariaDB Server With Replicas**, then use the toggle to add the Exa analytics node.
-
 1. [Log in to the MariaDB Cloud portal](https://cloud.mariadb.com/).
 2. Click **+ Launch New Service**.
 3. Ensure **Provisioned** (not Serverless) is selected.
@@ -69,9 +67,9 @@ HTAP with MariaDB Exa is **not** offered as its own top-level topology. Start a 
 
 For **API keys**, client IP **allow list**, checking service **`ready`** status, and fetching **credentials**, follow [Launch DB using the REST API](../quickstart/launch-db-using-the-rest-api.md). The [MariaDB Cloud REST API reference](../reference/rest-api-reference.md) and [API docs](https://apidocs.skysql.com/) cover the full request model.
 
-**HTAP / Exa flag** — On `POST /provisioning/v1/services`, set **`"analytics": true`**. That provisions the Exa analytics node (same idea as **Launch Exa Analytics node (HTAP)** in the portal) on top of the replicated **masterslave** topology. Other fields match your **Power** or **PowerPlus** tier, provider, region, and sizing; use **high-memory** sizes when Exa is enabled, consistent with the portal.
+**HTAP / Exa flag** — On `POST /provisioning/v1/services`, set **`"analytics": true`**. That provisions the Exa analytics node (same idea as **Launch Exa Analytics node (HTAP)** in the portal) on top of the replicated **es-replica** topology. The `architecture` field supports only `amd64` as value, any other input will result into your service failing to start. Other fields match your **Power** or **PowerPlus** tier, provider, region, and sizing; use **high-memory** sizes when Exa is enabled, consistent with the portal.
 
-Example (adjust `tier`, `region`, `availability_zone`, `size`, and add **`allow_list`** or other required keys per the launch guide):
+Example (adjust `tier`, `region`, `availability_zone`, `size`, `version` and add **`allow_list`** or other required keys per the launch guide):
 
 ```bash
 curl --location 'https://api.skysql.com/provisioning/v1/services' \
@@ -79,15 +77,18 @@ curl --location 'https://api.skysql.com/provisioning/v1/services' \
   --header "X-API-Key: ${API_KEY}" \
   --data '{
   "tier": "power",
-  "topology": "masterslave",
+  "service_type": "transactional",
+  "topology": "es-replica",
   "provider": "aws",
   "region": "us-east-2",
+  "availability_zone": "us-east-2b",
   "name": "htap-test",
   "nodes": 1,
   "size": "sky-4x32",
+  "architecture": "amd64",
   "storage": 100,
+  "version": "11.4.10-7.1-standard",
   "ssl_enabled": true,
-  "availability_zone": "us-east-2b",
   "analytics": true
 }'
 ```
@@ -103,7 +104,7 @@ MariaDB Cloud exposes dedicated ports so you can choose **how** each client conn
 | **3306** | Transactional (read-write) | Standard read/write to MariaDB. Use for OLTP and when you need **read-your-own-writes** on the transactional engine. Reads are load balanced across all OLTP servers.|
 | **3307** | Transactional (read-only) | Read-only traffic across MariaDB **replicas** (load balanced). |
 | **3310** | Intelligent router | **Smart router** entry point. Sends work to the engine (MariaDB or Exa) the router selects for efficiency. |
-| **3311** | Direct Exa | Connect straight to the **analytical engine**, bypassing router logic. |
+| **3311** | Direct Exa | Connect directly to the **analytical engine**, bypassing router logic, using the MariaDB protocol. |
 
 ## How smart routing (port 3310) works
 
@@ -138,8 +139,11 @@ If the application must **immediately** see data just written (for example, righ
 
 ## Known issues and limitations
 
+**SQL dialect**
+The translation layer does not provide 100% support of the MariaDB SQL dialect. Some MariaDB data types, functions, and syntax structures are not supported on ports 3310 & 3311.
+
 **DDL replication**  
-`RENAME TABLE` and `TRUNCATE TABLE` may **not** replicate through CDC reliably; you may need **manual** steps to keep MariaDB and Exa aligned after such DDL.
+`RENAME TABLE` and `DROP DATABASE` are **not** replicated through the CDC currently; you may need **manual** steps to keep MariaDB and Exa aligned after such DDL.
 
 **Case sensitivity**  
 MariaDB Exa may use **case-insensitive** identifier matching by default; **result column labels** can still appear in **uppercase** even when the query uses mixed or lowercase names.
