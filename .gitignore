@@ -2,3 +2,12 @@
 
 # auto-backup files
 *~
+
+# RBCommons
+.reviewboardrc
+
+# vscode
+.vscode
+
+# CLion project files
+.idea
