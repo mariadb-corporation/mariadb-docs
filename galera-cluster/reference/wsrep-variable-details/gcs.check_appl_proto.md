@@ -1,3 +1,10 @@
+---
+description: >-
+  gcs.check_appl_proto controls application-level protocol checks when joining
+  a Galera cluster; set to FALSE to allow rolling migrations between MySQL and
+  MariaDB Galera nodes.
+---
+
 # gcs.check\_appl\_proto
 
 Controls whether the node performs application-level protocol version checks when joining a cluster.

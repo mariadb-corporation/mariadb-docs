@@ -1,3 +1,10 @@
+---
+description: >-
+  Galera Cluster can trigger a custom script on membership or state changes
+  through wsrep_notify_cmd, passing status, view ID, member list, and Primary
+  Component flag as arguments.
+---
+
 # Using the Notification Command (wsrep\_notify\_cmd)
 
 MariaDB Galera Cluster provides a powerful automation feature through the `wsrep_notify_cmd` [system variable](../../reference/galera-cluster-system-variables.md#wsrep_notify_cmd). When this variable is configured, the MariaDB server will automatically execute a specified command or script in response to changes in the cluster's membership or the local node's state.

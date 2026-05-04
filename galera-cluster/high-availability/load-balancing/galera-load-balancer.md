@@ -1,3 +1,10 @@
+---
+description: >-
+  Galera Load Balancer (glbd) is a deprecated multi-threaded TCP connection
+  balancer for MariaDB Galera Cluster, retained for historical reference; new
+  deployments should use MariaDB MaxScale.
+---
+
 # Galera Load Balancer (glbd)
 
 {% hint style="danger" %}

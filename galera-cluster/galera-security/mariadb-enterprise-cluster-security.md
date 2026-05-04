@@ -1,3 +1,10 @@
+---
+description: >-
+  Security extensions in MariaDB Enterprise Cluster powered by Galera: WSREP
+  and SST TLS modes, cluster-name verification, X.509 certificate expiration
+  warnings, and online TLS rollout.
+---
+
 # MariaDB Enterprise Cluster Security
 
 {% hint style="info" %}

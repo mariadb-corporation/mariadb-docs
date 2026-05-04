@@ -1,3 +1,10 @@
+---
+description: >-
+  Install MariaDB Galera Cluster from source when prebuilt RPM or Debian
+  packages are unavailable, enabling the wsrep API via WITH_WSREP and
+  WITH_INNODB_DISALLOW_WRITES CMake options.
+---
+
 # Installing Galera from Source
 
 There are binary installation packages available for RPM and Debian-based distributions, which will pull in all required Galera dependencies.

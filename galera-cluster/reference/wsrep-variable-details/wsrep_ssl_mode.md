@@ -1,3 +1,10 @@
+---
+description: >-
+  wsrep_ssl_mode selects the TLS implementation for Galera wsrep traffic in
+  MariaDB 11.4 and 10.6: PROVIDER for built-in TLS, SERVER for server TLS, or
+  SERVER_X509 with X.509 verification.
+---
+
 # wsrep\_ssl\_mode
 
 {% hint style="info" %}

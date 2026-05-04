@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure asynchronous MariaDB replication from a Galera Cluster source to a
+  MariaDB Server replica, including the cluster server_id, log_slave_updates,
+  and wsrep GTID-mode setup.
+---
+
 # Configuring MariaDB Replication between MariaDB Galera Cluster and MariaDB Server
 
 [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) can be used to replicate between [MariaDB Galera Cluster](../../) and MariaDB Server. This article will discuss how to do that.

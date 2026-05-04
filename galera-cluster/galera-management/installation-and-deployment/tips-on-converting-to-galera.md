@@ -1,3 +1,10 @@
+---
+description: >-
+  Practical guidance for migrating an existing MariaDB workload to Galera
+  Cluster, with notes for schema designers, developers, and DBAs on InnoDB,
+  AUTO_INCREMENT, and DDL handling.
+---
+
 # Tips on Converting to Galera
 
 These topics will be discussed in more detail below.

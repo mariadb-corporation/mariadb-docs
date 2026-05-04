@@ -1,3 +1,10 @@
+---
+description: >-
+  Consistent backup procedure for MariaDB Galera Cluster: desync a chosen node
+  with wsrep_desync=ON, run mariadb-backup, then resync the node via
+  Incremental State Transfer.
+---
+
 # Backing Up a MariaDB Galera Cluster
 
 The recommended strategy for creating a full, consistent backup of a MariaDB Galera Cluster is to perform the backup on a single [node](../../high-availability/monitoring-mariadb-galera-cluster.md#checking-individual-node-status). Because all nodes in a [healthy cluster](../../high-availability/understanding-quorum-monitoring-and-recovery.md) contain the same data, a complete backup from one node represents a snapshot of the entire cluster at a specific point in time.

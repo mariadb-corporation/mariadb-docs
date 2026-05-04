@@ -1,3 +1,10 @@
+---
+description: >-
+  State Snapshot Transfers (SSTs) provision a joining Galera Cluster node with
+  a full data copy from a donor, supported via logical (mysqldump) and physical
+  (mariadb-backup) methods.
+---
+
 # Introduction to State Snapshot Transfers (SSTs)
 
 In a State Snapshot Transfer (SST), the cluster provisions nodes by transferring a full data copy from one node to another. When a new node joins the cluster, the new node initiates a State Snapshot Transfer to synchronize its data with a node that is already part of the cluster.

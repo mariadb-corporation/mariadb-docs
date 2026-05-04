@@ -1,3 +1,10 @@
+---
+description: >-
+  Weighted quorum lets each Galera Cluster node carry a vote from 0 to 255,
+  controlling which nodes remain critical for maintaining the Primary
+  Component during failure.
+---
+
 # Quorum Control with Weighted Votes
 
 {% hint style="info" %}

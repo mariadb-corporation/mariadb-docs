@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up asynchronous MariaDB replication between two Galera Clusters, with
+  per-cluster server_id and wsrep_gtid_domain_id values plus parallel-replication
+  tuning on the destination.
+---
+
 # Configuring MariaDB Replication between Two MariaDB Galera Clusters
 
 [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) can be used for replication between two [MariaDB Galera Clusters](../../). This article will discuss how to do that.

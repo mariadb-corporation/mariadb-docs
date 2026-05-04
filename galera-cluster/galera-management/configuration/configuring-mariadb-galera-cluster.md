@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure MariaDB Galera Cluster with the mandatory wsrep options,
+  performance settings, replication binary log behavior, network ports, and
+  multi-instance setup on a single host.
+---
+
 # Configuring MariaDB Galera Cluster
 
 A number of options need to be set in order for Galera Cluster to work when using MariaDB. These should be set in the [MariaDB option file](https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files).

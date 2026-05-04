@@ -1,3 +1,10 @@
+---
+description: >-
+  Certification-based replication in Galera Cluster uses optimistic transaction
+  execution, write-set broadcasting, and deterministic certification to keep
+  all nodes synchronized.
+---
+
 # Certification-Based Replication
 
 Certification-based replication uses [group communication](introduction-to-galera-architecture.md#group-communication-gcomm-framework) and transaction ordering techniques to achieve synchronous replication.

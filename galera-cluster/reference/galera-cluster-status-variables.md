@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for MariaDB Galera Cluster status variables exposed via SHOW
+  STATUS LIKE 'wsrep%', covering applier threads, certification, flow control,
+  replication queues, and node state.
+---
+
 # Galera Cluster Status Variables
 
 ## Viewing Galera Cluster Status Variables

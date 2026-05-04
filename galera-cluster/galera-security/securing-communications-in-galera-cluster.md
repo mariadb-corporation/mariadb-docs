@@ -1,3 +1,10 @@
+---
+description: >-
+  Encrypt MariaDB Galera Cluster replication and SST traffic with TLS by
+  configuring socket.ssl_cert, socket.ssl_key, and socket.ssl_ca alongside
+  server-side TLS system variables.
+---
+
 # Securing Communications in Galera Cluster
 
 By default, Galera Cluster replicates data between each node without encrypting it. This is generally acceptable when the cluster nodes runs on the same host or in networks where security is guaranteed through other means. However, in cases where the cluster nodes exist on separate networks or they are in a high-risk network, the lack of encryption does introduce security concerns as a malicious actor could potentially eavesdrop on the traffic or get a complete copy of the data by [triggering an SST](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/).

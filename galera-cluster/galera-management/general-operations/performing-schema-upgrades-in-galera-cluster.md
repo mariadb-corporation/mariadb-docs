@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Galera Cluster offers three DDL methods for schema upgrades: Total
+  Order Isolation (the safe blocking default), Rolling Schema Upgrade, and
+  Non-Blocking Operations.
+---
+
 # Performing Schema Upgrades in Galera Cluster
 
 Performing schema changes (i.e., Data Definition Language or DDL statements like `ALTER TABLE`, `CREATE INDEX`) in a MariaDB Galera Cluster requires special handling. Because Galera is a [multi-primary cluster](../../galera-architecture/introduction-to-galera-architecture.md) where all nodes must remain in sync, a schema change on one [node](../../high-availability/monitoring-mariadb-galera-cluster.md#checking-individual-node-status) must be safely replicated to all other nodes without causing inconsistencies or blocking the entire cluster for an extended period.

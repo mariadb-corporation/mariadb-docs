@@ -1,3 +1,10 @@
+---
+description: >-
+  Hybrid replication combines synchronous MariaDB Galera Cluster with standard
+  asynchronous MariaDB replication to feed external replicas for disaster
+  recovery, analytics, or migration.
+---
+
 # Overview of Hybrid Replication
 
 Hybrid replication leverages standard, asynchronous MariaDB Replication to copy data from a synchronous MariaDB Galera Cluster to an external server or another cluster. This configuration establishes a one-way data flow, where the entire Galera Cluster serves as the source (primary) for one or more asynchronous replicas. This advanced setup combines the strengths of both replication methods: synchronous replication ensures high availability within the primary site, while asynchronous replication caters to specific use cases, allowing for flexible data distribution.

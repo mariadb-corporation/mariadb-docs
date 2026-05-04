@@ -1,3 +1,10 @@
+---
+description: >-
+  Build the galera wsrep provider .deb package on Ubuntu and Debian, covering
+  prerequisites, the build.sh script workflow, and the steps required to run
+  the galera test suite afterward.
+---
+
 # Building the Galera wsrep Package on Ubuntu and Debian
 
 The instructions on this page were used to create the _galera_ package on the Ubuntu and Debian Linux distributions. This package contains the wsrep provider for [MariaDB Galera Cluster](../../../).

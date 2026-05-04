@@ -1,3 +1,10 @@
+---
+description: >-
+  socket.ssl_cert sets the path to the node's SSL certificate used by the wsrep
+  provider to encrypt Galera replication traffic; it must be in PEM format and
+  is non-dynamic.
+---
+
 # socket.ssl\_cert
 
 ## Overview <a href="#overview_h2" id="overview_h2"></a>

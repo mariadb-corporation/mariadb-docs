@@ -1,3 +1,10 @@
+---
+description: >-
+  Perform a manual State Snapshot Transfer using mariadb-backup when an
+  automatic Galera SST fails, by backing up the donor, restoring it on the
+  joiner, and editing the cluster state.
+---
+
 # Manual SST of Galera Cluster Node With mariadb-backup
 
 Sometimes it can be helpful to perform a "manual SST" when Galera's [normal SSTs](introduction-to-state-snapshot-transfers-ssts.md) fail. This can be especially useful when the cluster's [datadir](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables#datadir) is very large, since a normal SST can take a long time to fail in that case.

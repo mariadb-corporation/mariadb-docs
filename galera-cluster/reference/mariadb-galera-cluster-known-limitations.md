@@ -1,3 +1,10 @@
+---
+description: >-
+  Known limitations of MariaDB Galera Cluster: InnoDB-only restriction,
+  transaction-size and write-set caps, isolation anomalies like lost updates
+  and stale reads, and unsupported features.
+---
+
 # Known Limitations
 
 This article contains information on known problems and limitations of MariaDB Galera Cluster.

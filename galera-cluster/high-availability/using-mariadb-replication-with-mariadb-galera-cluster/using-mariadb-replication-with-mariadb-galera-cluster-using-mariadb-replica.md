@@ -1,3 +1,10 @@
+---
+description: >-
+  Combine standard MariaDB replication with MariaDB Galera Cluster, configuring
+  a cluster node as a replication master or replica via log_slave_updates and
+  wsrep_restart_slave.
+---
+
 # Using MariaDB Replication with MariaDB Galera Cluster
 
 [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication) and [MariaDB Galera Cluster](../../) can be used together. However, there are some things that have to be taken into account.

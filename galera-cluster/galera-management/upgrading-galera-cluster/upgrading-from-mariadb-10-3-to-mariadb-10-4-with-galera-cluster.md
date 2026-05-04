@@ -1,3 +1,10 @@
+---
+description: >-
+  Rolling upgrade procedure for moving a Galera Cluster from MariaDB 10.3 to
+  MariaDB 10.4 one node at a time, with no downtime and a Galera 3 to Galera 4
+  wsrep provider transition.
+---
+
 # Upgrading from MariaDB 10.3 to MariaDB 10.4 with Galera Cluster
 
 **MariaDB starting with** [**10.1**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1)

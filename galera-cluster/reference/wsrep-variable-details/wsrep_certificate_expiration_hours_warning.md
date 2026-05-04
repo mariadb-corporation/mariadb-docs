@@ -1,3 +1,10 @@
+---
+description: >-
+  wsrep_certificate_expiration_hours_warning configures Galera Cluster to log a
+  warning when the node's wsrep X.509 certificate expires within the given
+  number of hours; 0 disables warnings.
+---
+
 # wsrep\_certificate\_expiration\_hours\_warning
 
 ## Overview <a href="#overview_h2" id="overview_h2"></a>

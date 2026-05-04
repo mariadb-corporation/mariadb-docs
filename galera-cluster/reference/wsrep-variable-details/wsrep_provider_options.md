@@ -1,3 +1,10 @@
+---
+description: >-
+  wsrep_provider_options holds the semicolon-separated list of Galera wsrep
+  provider settings; this reference catalogs every supported option, its
+  default, and whether it is dynamic.
+---
+
 # wsrep\_provider\_options
 
 The following options can be set as part of the Galera [wsrep\_provider\_options](../galera-cluster-system-variables.md#wsrep_provider_options) variable. Dynamic options can be changed while the server is running.

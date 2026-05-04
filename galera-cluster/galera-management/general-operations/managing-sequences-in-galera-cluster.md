@@ -1,3 +1,10 @@
+---
+description: >-
+  Sequences in MariaDB Galera Cluster require INCREMENT BY 0 so the cluster
+  applies an offset-based generation strategy that prevents duplicate values
+  across multiple primary nodes.
+---
+
 # Managing Sequences in Galera Cluster
 
 [Sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/sequence-overview) allows for the generation of unique integers independent of any specific table. While standard sequences function normally in a standalone MariaDB server, using them in a [MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-usage-guide.md) requires specific configurations to ensure conflict-free operation and optimal performance.

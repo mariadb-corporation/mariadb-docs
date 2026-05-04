@@ -1,3 +1,10 @@
+---
+description: >-
+  The socket.ssl wsrep_provider_options entry enables TLS encryption for
+  Galera Cluster replication traffic; it defaults to NO and cannot be changed
+  dynamically.
+---
+
 # socket.ssl
 
 ## Overview <a href="#overview_h2" id="overview_h2"></a>

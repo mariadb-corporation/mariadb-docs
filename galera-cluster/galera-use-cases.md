@@ -1,4 +1,8 @@
 ---
+description: >-
+  Common deployment scenarios for MariaDB Galera Cluster: high availability,
+  geographic disaster recovery, zero-downtime maintenance, and read scaling for
+  mission-critical applications.
 icon: briefcase-arrow-right
 ---
 

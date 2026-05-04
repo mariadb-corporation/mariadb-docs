@@ -1,3 +1,10 @@
+---
+description: >-
+  FAQ and architectural guide for MariaDB Advanced Cluster (Tech Preview), the
+  Raft-based high-availability product replacing synchronous replication for
+  global, WAN-scale deployments.
+---
+
 # MariaDB Advanced Cluster: Team FAQ & Architectural Guide
 
 {% hint style="info" %}

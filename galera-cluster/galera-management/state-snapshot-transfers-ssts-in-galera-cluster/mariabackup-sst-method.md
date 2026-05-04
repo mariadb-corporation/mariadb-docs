@@ -1,3 +1,10 @@
+---
+description: >-
+  The mariadb-backup SST method performs non-blocking Galera SSTs, configured
+  via wsrep_sst_method and wsrep_sst_auth, with socat required to stream the
+  backup between donor and joiner nodes.
+---
+
 # mariadb-backup SST Method
 
 The `mariadb-backup` SST method uses the [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backing-up-and-restoring-databases/mariadb-backup) utility for performing SSTs. It is one of the methods that does not block the donor node. [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backing-up-and-restoring-databases/mariadb-backup) was originally forked from [Percona XtraBackup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup), and similarly, the `mariadb-backup` SST method was originally forked from the `[xtrabackup-v2]` SST method.

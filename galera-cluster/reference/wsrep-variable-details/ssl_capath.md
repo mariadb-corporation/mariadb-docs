@@ -1,3 +1,10 @@
+---
+description: >-
+  ssl_capath sets the server-side path to a directory of SSL Certificate
+  Authority files used by MariaDB Server, including for Galera TLS when
+  wsrep_ssl_mode is SERVER or SERVER_X509.
+---
+
 # ssl\_capath
 
 ## Overview <a href="#overview_h2" id="overview_h2"></a>

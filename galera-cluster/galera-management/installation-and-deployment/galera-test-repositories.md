@@ -1,3 +1,10 @@
+---
+description: >-
+  Pre-release test repositories for the Galera wsrep provider on supported
+  YUM, APT, and Zypper distributions, intended only for QA and not recommended
+  for production environments.
+---
+
 # Galera Test Repositories
 
 To facilitate development and QA, we have created some test repositories for\

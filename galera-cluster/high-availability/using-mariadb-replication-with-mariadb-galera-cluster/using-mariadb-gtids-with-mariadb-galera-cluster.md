@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Galera Cluster has partial GTID support via wsrep_gtid_mode, which
+  associates write-sets with globally unique GTIDs that remain consistent
+  across cluster nodes in most cases.
+---
+
 # Using MariaDB GTIDs with MariaDB Galera Cluster
 
 MariaDB's [global transaction IDs (GTIDs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) are very useful when used with [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication), which is primarily what that feature was developed for. [Galera Cluster](../../), on the other hand, was developed by Codership for all MySQL and MariaDB variants, and the initial development of the technology pre-dated MariaDB's [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) implementation. As a side effect, [MariaDB Galera Cluster](../../) (at least until [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1)) only partially supports MariaDB's [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid) implementation.

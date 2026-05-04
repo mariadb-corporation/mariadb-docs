@@ -1,3 +1,10 @@
+---
+description: >-
+  Incremental State Transfer (IST) recovers a Galera Cluster joiner by sending
+  only missing write-sets from the donor's GCache, falling back to a full SST
+  when conditions aren't met.
+---
+
 # Rapid Node Recovery with IST and the GCache
 
 {% hint style="info" %}

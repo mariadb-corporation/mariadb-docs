@@ -1,3 +1,10 @@
+---
+description: >-
+  Manually reset Quorum and bootstrap a new MariaDB Galera Cluster Primary
+  Component after a majority failure, using the Safe-to-Bootstrap flag in
+  grastate.dat to pick the right node.
+---
+
 # Resetting the Quorum (Cluster Bootstrap)
 
 {% hint style="info" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for the wsrep system tables in the mysql database, including
+  wsrep_cluster, wsrep_cluster_members, wsrep_streaming_log, and the writable
+  wsrep_allowlist for joiner IP control.
+---
+
 # Galera Cluster System Tables
 
 Starting with Galera 4 (used in [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later), several system tables related to replication are available in the `mysql` database. These tables can be queried by administrators to get a real-time view of the cluster's layout, membership, and current operations.

@@ -1,3 +1,10 @@
+---
+description: >-
+  wsrep_sst_common provides shared SST functionality across Galera methods,
+  parsing authentication credentials and TLS-related options like tca,
+  tcapath, tcert, and tkey for secure transfers.
+---
+
 # wsrep\_sst\_common
 
 #### `wsrep_sst_common` Variables

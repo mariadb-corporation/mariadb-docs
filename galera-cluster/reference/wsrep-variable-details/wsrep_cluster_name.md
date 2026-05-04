@@ -1,3 +1,10 @@
+---
+description: >-
+  wsrep_cluster_name is the dynamic global system variable that sets the
+  logical cluster name; all Galera Cluster nodes must share the same value to
+  form a Primary Component.
+---
+
 # wsrep\_cluster\_name
 
 ## Overview <a href="#overview_h2" id="overview_h2"></a>

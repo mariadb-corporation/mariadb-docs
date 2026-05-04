@@ -1,3 +1,10 @@
+---
+description: >-
+  Quorum in MariaDB Galera Cluster keeps the Primary Component active only when
+  a majority of nodes can communicate, preventing split-brain inconsistencies
+  and data divergence.
+---
+
 # Understanding Quorum, Monitoring, and Recovery
 
 Quorum is essential for maintaining data consistency in a MariaDB Galera Cluster by safeguarding against network partitions or [node failures](recovering-a-primary-component.md#recovering-the-primary-component-after-a-full-cluster-outage). It ensures that the cluster processes database queries and transactions only when a majority of [nodes](monitoring-mariadb-galera-cluster.md#checking-individual-node-status) are operational, healthy, and in communication.

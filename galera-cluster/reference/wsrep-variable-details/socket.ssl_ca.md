@@ -1,3 +1,10 @@
+---
+description: >-
+  socket.ssl_ca sets the path to the SSL Certificate Authority file used to
+  verify the wsrep peer certificate; it must be in PEM format and is
+  non-dynamic.
+---
+
 # socket.ssl\_ca
 
 ## Overview <a href="#overview_h2" id="overview_h2"></a>

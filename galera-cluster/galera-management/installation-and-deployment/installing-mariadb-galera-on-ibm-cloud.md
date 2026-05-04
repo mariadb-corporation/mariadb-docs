@@ -1,3 +1,10 @@
+---
+description: >-
+  Step-by-step IBM Cloud deployment of MariaDB Galera Cluster on IBM Kubernetes
+  Service, with provisioning, IBM Block Storage plug-in setup, and Helm-based
+  MariaDB Galera installation.
+---
+
 # Installing MariaDB Galera on IBM Cloud
 
 Get MariaDB Galera on IBM Cloud

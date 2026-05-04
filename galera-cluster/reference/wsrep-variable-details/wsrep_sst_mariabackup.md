@@ -1,3 +1,10 @@
+---
+description: >-
+  wsrep_sst_mariabackup script options control the mariadb-backup SST data
+  transfer: stream format, transfer utility (socat), socket options, progress
+  logging, and timing instrumentation.
+---
+
 # wsrep\_sst\_mariabackup
 
 #### `wsrep_sst_mariabackup` Variables
