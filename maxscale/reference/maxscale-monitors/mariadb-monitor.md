@@ -193,6 +193,10 @@ parameters are described in the [ColumnStore commands-section](#settings).
 * Dynamic: Yes
 * Default: `true`
 
+This parameter is deprecated and will be removed in a later release. If
+monitored servers are in a private network, define a private address for
+each server with the server setting [private\_address](#private_address).
+
 When active, the monitor assumes that server hostnames and
 ports are consistent between the server definitions in the MaxScale
 configuration file and the "SHOW ALL SLAVES STATUS" outputs of the servers
