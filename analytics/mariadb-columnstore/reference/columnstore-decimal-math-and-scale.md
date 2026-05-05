@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore decimal math and scale options: switch intermediate
+  decimal calculations to double via columnstore_double_for_decimal_math, and
+  tune the result scale level.
+---
+
 # ColumnStore Decimal Math and Scale
 
 1. [Enable/Disable decimal to double math "Enable/Disable decimal to double math"](columnstore-decimal-math-and-scale.md#enabledisable-decimal-to-double-math)

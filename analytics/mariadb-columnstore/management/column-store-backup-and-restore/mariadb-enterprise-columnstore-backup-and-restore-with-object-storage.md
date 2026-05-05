@@ -1,3 +1,10 @@
+---
+description: >-
+  Backup and restore for MariaDB Enterprise ColumnStore on S3 object storage:
+  MariaDB data directory via mariadb-backup, the S3 bucket via vendor
+  snapshot, and the Storage Manager directory.
+---
+
 # Backup and Restore with Object Storage
 
 ## Overview

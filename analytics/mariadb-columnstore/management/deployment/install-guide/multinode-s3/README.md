@@ -1,8 +1,9 @@
 ---
 description: >-
-  This guide provides steps for deploying a multi-node S3 ColumnStore, setting
-  up the environment, installing the software, and bulk importing data for
-  online analytical processing (OLAP) workloads.
+  Multi-node MariaDB Enterprise ColumnStore deployment with S3 object storage:
+  HA topology with three or more nodes, MaxScale routing, CMAPI cluster
+  management, and bulk data import.
+
 ---
 
 # Multi-Node S3

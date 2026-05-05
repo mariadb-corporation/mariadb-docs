@@ -1,4 +1,8 @@
 ---
+description: >-
+  Configure MariaDB ColumnStore to perform cross-engine joins with
+  non-ColumnStore tables (InnoDB, MyISAM) by setting CrossEngineSupport
+  connection details in Columnstore.xml.
 hidden: true
 ---
 

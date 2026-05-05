@@ -1,3 +1,10 @@
+---
+description: >-
+  Sample storagemanager.cnf for MariaDB ColumnStore showing [ObjectStorage],
+  [S3], and [LocalStorage] sections with credentials, paths, and concurrency
+  tuning options.
+---
+
 # Sample storagemanager.cnf
 
 ```ini

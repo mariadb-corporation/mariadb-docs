@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore system monitoring uses ProcMon and ProcMgr for
+  self-healing; Columnstore.xml SystemConfig settings tune heartbeat, restart,
+  and PM failover behavior.
+---
+
 # ColumnStore System Monitoring Configuration
 
 ## Overview

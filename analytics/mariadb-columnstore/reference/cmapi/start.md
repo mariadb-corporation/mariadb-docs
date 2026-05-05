@@ -1,3 +1,10 @@
+---
+description: >-
+  The CMAPI start endpoint starts MariaDB ColumnStore on every cluster node
+  via HTTPS PUT with x-api-key authentication; also available as the mcsStart
+  alias from CS 5.5.2.
+---
+
 # start
 
 Starts ColumnStore on all nodes.

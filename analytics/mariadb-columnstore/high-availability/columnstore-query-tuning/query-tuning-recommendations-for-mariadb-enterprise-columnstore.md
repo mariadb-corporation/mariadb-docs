@@ -1,3 +1,10 @@
+---
+description: >-
+  Query tuning recommendations for MariaDB Enterprise ColumnStore: select only
+  required columns, avoid large single-threaded ORDER BY and LIMIT sorts, and
+  follow analytical best practices.
+---
+
 # Query Tuning Recommendations
 
 When tuning queries for MariaDB Enterprise ColumnStore, there are some important details to consider.

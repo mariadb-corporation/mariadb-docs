@@ -1,4 +1,8 @@
 ---
+description: >-
+  Build MariaDB ColumnStore from source for local development and debugging,
+  with dependency installation steps for CentOS and instructions for fetching
+  and compiling the codebase.
 hidden: true
 ---
 

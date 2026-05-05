@@ -1,3 +1,10 @@
+---
+description: >-
+  Backup and restore for MariaDB Enterprise ColumnStore on shared local
+  storage (NFS): MariaDB data directory via MariaDB Backup, the Storage
+  Manager directory, and each DB Root directory.
+---
+
 # Backup and Restore with Shared Local Storage
 
 ## Overview

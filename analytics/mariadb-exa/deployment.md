@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Exa deployment options: proof-of-concept via Docker or Community
+  Exasol (2 VCPU, 200 GB), and clustered MPP production with three or more
+  16-VCPU/256-GB nodes plus optional HA.
 icon: wrench
 ---
 

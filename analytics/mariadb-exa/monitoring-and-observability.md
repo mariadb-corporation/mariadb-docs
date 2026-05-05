@@ -1,4 +1,8 @@
 ---
+description: >-
+  Monitoring MariaDB Exa: Debezium and Kafka Connect logs, the Exasol GUI,
+  EXA_STATISTICS and EXA_ALL_SESSIONS tables, and Grafana/Prometheus
+  integration for cross-stack metrics.
 icon: telescope
 ---
 

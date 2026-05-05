@@ -1,3 +1,10 @@
+---
+description: >-
+  Remove a node from a MariaDB Enterprise ColumnStore cluster by unlinking the
+  server object from the MaxScale service using maxctrl or another REST
+  client.
+---
+
 # Removing a Node
 
 To remove a node from Enterprise ColumnStore, perform the following procedure.

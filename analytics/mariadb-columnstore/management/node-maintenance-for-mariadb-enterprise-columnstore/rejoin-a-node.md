@@ -1,3 +1,10 @@
+---
+description: >-
+  Rejoin a node to a MariaDB Enterprise ColumnStore cluster through MaxScale's
+  REST API, calling the mariadbmon module's rejoin command via MaxCtrl or
+  another REST client.
+---
+
 # Rejoining a Node
 
 To rejoin a node with Enterprise ColumnStore, perform the following procedure.

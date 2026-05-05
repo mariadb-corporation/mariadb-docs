@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise ColumnStore translates LOAD DATA INFILE statements into
+  cpimport bulk loads when batch insert mode is on and the statement runs
+  outside a transaction.
+---
+
 # Data Loading with LOAD DATA INFILE
 
 ## Overview

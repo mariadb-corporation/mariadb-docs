@@ -1,3 +1,10 @@
+---
+description: >-
+  The CMAPI status endpoint returns a JSON payload with detailed MariaDB
+  Enterprise Cluster status via HTTPS GET; available as the mcsStatus bash
+  alias from CS 5.5.2.
+---
+
 # status
 
 Checks the status of ColumnStore.

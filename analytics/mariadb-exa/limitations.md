@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Exa limitations: architecture and query-flow constraints, datatype
+  mapping gaps in Debezium, SQL-dialect gaps in the SQLglot preprocessor, and
+  the CDC primary-key requirement.
 hidden: true
 noIndex: true
 icon: road-barrier

@@ -1,3 +1,10 @@
+---
+description: >-
+  Optimizer statistics collected with ANALYZE TABLE in MariaDB Enterprise
+  ColumnStore 6 enable circular inner joins and help ExeMgr choose better join
+  orders for analytical queries.
+---
+
 # Collecting Statistics with ANALYZE TABLE
 
 ## Overview

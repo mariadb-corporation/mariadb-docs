@@ -1,3 +1,10 @@
+---
+description: >-
+  Backup and recovery for the MariaDB ColumnStore Extent Map, the in-memory
+  metadata that maps data extents and minimum/maximum values; corruption can
+  render the cluster unusable.
+---
+
 # Extent Map Backup & Recovery
 
 ## Overview

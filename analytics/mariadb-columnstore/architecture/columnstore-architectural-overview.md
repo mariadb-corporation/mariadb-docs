@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore architecture: a columnar storage engine for OLAP and
+  HTAP workloads with massively parallel processing, S3-compatible storage,
+  and MaxScale-based failover.
+---
+
 # ColumnStore Architectural Overview
 
 _MariaDB ColumnStore enhances MariaDB Enterprise Server with a columnar engine for OLAP and HTAP workloads, using MPP for scalability. It supports cross-engine JOINs, integrates with S3 storage, and provides high-speed bulk loading with multi-node management via REST API._

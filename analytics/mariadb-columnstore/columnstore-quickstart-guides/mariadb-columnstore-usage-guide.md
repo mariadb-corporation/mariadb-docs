@@ -1,4 +1,8 @@
 ---
+description: >-
+  Reference for MariaDB ColumnStore system administration: mcsadmin console,
+  system start/stop/restart, MariaDB console login, root password setup, and
+  basic data-import workflow.
 hidden: true
 ---
 

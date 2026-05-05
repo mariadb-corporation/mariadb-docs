@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise ColumnStore credentials management (6.2.3+) encrypts
+  Columnstore.xml passwords via the cskeys and cspasswd utilities, with keys
+  stored at /var/lib/columnstore/.secrets.
+---
+
 # Credentials Management
 
 ## Overview

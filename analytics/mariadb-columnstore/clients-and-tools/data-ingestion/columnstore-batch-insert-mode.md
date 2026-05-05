@@ -1,4 +1,8 @@
 ---
+description: >-
+  Batch insert mode uses cpimport for non-transactional LOAD DATA INFILE and
+  INSERT INTO .. SELECT statements in MariaDB ColumnStore, controlled via
+  infinidb_use_import_for_batchinsert.
 hidden: true
 ---
 

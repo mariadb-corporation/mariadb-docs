@@ -1,3 +1,9 @@
+---
+description: >-
+  The CMAPI shutdown endpoint shuts down MariaDB Enterprise ColumnStore on
+  every cluster node via HTTPS PUT with x-api-key authentication.
+---
+
 # shutdown
 
 Shuts down ColumnStore on all nodes

@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Exa compatibility reference (early draft): unsupported data types
+  (INET6, UUID, XMLTYPE) crash Debezium replication, and some SQL functions
+  fail in Exasol preprocessing.
 hidden: true
 noIndex: true
 ---

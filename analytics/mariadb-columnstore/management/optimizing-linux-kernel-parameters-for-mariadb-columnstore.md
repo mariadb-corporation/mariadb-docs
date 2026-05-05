@@ -1,7 +1,9 @@
 ---
 description: >-
-  This page provides information on optimizing Linux kernel parameters for
-  improved performance with MariaDB ColumnStore.
+  Recommended Linux kernel parameters for MariaDB ColumnStore:
+  vm.overcommit_memory, dirty-page ratios, vfs_cache_pressure, network buffer
+  sizes, and process limits in /etc/sysctl.conf.
+
 ---
 
 # Optimizing Linux Kernel Parameters for MariaDB ColumnStore

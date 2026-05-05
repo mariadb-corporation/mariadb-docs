@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore information functions return distributed-storage
+  metadata: block IDs (idbBlockId), DBRoot, extent boundaries
+  (idbExtentMin/Max), and the originating PrimProc node.
+---
+
 # ColumnStore Information Functions
 
 ## Functions

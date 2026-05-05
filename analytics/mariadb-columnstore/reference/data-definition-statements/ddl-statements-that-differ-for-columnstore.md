@@ -1,3 +1,10 @@
+---
+description: >-
+  DDL statements that behave differently on MariaDB ColumnStore: DROP TABLE
+  RESTRICT, RENAME TABLE cross-database limits, CREATE TABLE engine syntax,
+  and CREATE INDEX restrictions.
+---
+
 # DDL Statements Different in ColumnStore
 
 In most cases, a ColumnStore table works just as any other MariaDB table. There are, however, a few differences.

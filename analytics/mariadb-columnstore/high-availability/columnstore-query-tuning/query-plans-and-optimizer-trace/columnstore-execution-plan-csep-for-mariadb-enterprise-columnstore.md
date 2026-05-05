@@ -1,3 +1,10 @@
+---
+description: >-
+  The ColumnStore Execution Plan (CSEP) is the internal query-plan
+  representation in MariaDB Enterprise ColumnStore, generated from SELECT_LEX
+  and viewable through calSetTrace.
+---
+
 # Execution Plan (CSEP)
 
 ## Overview

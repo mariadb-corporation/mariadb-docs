@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB ColumnStore Insert Cache buffers small INSERTs in a hidden Aria
+  table before flushing in batches to columnar storage, improving throughput
+  for HTAP and write-heavy workloads.
+---
+
 # ColumnStore Insert Cache
 
 ## Description

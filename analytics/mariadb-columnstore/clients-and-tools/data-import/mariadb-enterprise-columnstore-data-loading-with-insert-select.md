@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise ColumnStore translates INSERT INTO .. SELECT into a
+  cpimport bulk load when batch insert mode is on and the statement runs
+  outside a transaction.
+---
+
 # Data Loading with INSERT .. SELECT
 
 ## Overview

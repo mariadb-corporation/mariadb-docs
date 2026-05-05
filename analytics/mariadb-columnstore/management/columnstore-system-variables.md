@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for MariaDB ColumnStore system variables, with each variable's
+  scope, default, dynamic flag, and description — including insert-cache
+  controls and other tuning options.
+---
+
 # ColumnStore System Variables
 
 ## Variables

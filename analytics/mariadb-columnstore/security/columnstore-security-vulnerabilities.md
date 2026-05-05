@@ -1,3 +1,10 @@
+---
+description: >-
+  Security vulnerabilities (CVEs) fixed in MariaDB ColumnStore, with links to
+  release notes and the MariaDB Server CVE list; no known CVEs are open on
+  ColumnStore-specific infrastructure.
+---
+
 # ColumnStore Security Vulnerabilities
 
 1. [About CVEs "About CVEs"](columnstore-security-vulnerabilities.md#about-cves)

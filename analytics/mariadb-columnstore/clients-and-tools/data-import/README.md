@@ -1,8 +1,9 @@
 ---
 description: >-
-  Learn how to import data into MariaDB ColumnStore. This section covers various
-  methods and tools for efficiently loading large datasets into your columnar
-  database for analytical workloads.
+  Data import methods for MariaDB Enterprise ColumnStore: cpimport, INSERT
+  INTO .. SELECT and LOAD DATA INFILE auto-translation, batch insert mode, and
+  load_from_s3 from S3 cloud storage.
+
 ---
 
 # Data Import

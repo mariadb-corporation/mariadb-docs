@@ -1,3 +1,10 @@
+---
+description: >-
+  CREATE TABLE syntax for MariaDB ColumnStore: defines tables with
+  ENGINE=columnstore, optional compression COMMENT, and standard
+  column-definition syntax for most MariaDB data types.
+---
+
 # ColumnStore CREATE TABLE
 
 A database consists of tables that store user data. You can create multiple columns with the `CREATE TABLE` statement. The data type follows the column name when adding columns.

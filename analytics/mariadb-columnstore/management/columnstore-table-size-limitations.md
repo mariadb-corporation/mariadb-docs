@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore tables have a 4096-column hard limit; .frm file size
+  (64KB) and storage-engine row-size limits typically cap effective tables at
+  around 2000 columns.
+---
+
 # ColumnStore Table Size Limitations
 
 MariaDB ColumnStore has a hard limit of 4096 columns per table.

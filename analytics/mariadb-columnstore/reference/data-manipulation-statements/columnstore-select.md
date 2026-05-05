@@ -1,3 +1,10 @@
+---
+description: >-
+  SELECT for MariaDB ColumnStore queries tables with the standard MariaDB
+  syntax, supporting WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, and INTO
+  OUTFILE / DUMPFILE export.
+---
+
 # ColumnStore SELECT
 
 The `SELECT` statement is used to query the database and display table data. You can add many clauses to filter the data.

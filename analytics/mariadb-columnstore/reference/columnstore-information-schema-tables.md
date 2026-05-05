@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for MariaDB ColumnStore INFORMATION_SCHEMA tables exposing table,
+  column, and storage metadata: COLUMNSTORE_TABLES, COLUMNSTORE_COLUMNS, and
+  related views added in 1.0.5.
+---
+
 # ColumnStore Information Schema Tables
 
 MariaDB ColumnStore has four information schema tables that expose information about the table and column storage. The tables were added in version 1.0.5 and were heavily modified for 1.0.6.

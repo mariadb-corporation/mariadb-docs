@@ -1,3 +1,10 @@
+---
+description: >-
+  Performance-related ColumnStore.xml settings for MariaDB ColumnStore,
+  including NumBlocksPct cache size and TotalUmMemory limits, edited via
+  getConfig and setConfig on the PM1 node.
+---
+
 # Performance Related Configuration Settings
 
 A number of system configuration variables exist to allow fine tuning of the system to suit the physical hardware and query characteristics. In general the default values will work relatively well for many cases.

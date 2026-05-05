@@ -1,5 +1,8 @@
 ---
-description: Quickstart guide for MariaDB ColumnStore
+description: >-
+  Quickstart guide for MariaDB ColumnStore: an introduction to the columnar
+  storage engine, its key benefits for OLAP analytics, and the User Module /
+  Performance Module architecture.
 ---
 
 # MariaDB ColumnStore Guide

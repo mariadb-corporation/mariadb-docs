@@ -1,3 +1,10 @@
+---
+description: >-
+  DELETE for MariaDB ColumnStore removes rows but does not reclaim disk space;
+  use TRUNCATE, DROP PARTITION, or a CREATE/RENAME-based rebuild to recover
+  space after deletes.
+---
+
 # ColumnStore DELETE
 
 The `DELETE` statement is used to remove rows from tables.

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore utility functions report system status: mcsSystemReady()
+  indicates whether queries are accepted, and mcsSystemReadOnly() reports
+  read-only or suspended state.
+---
+
 # ColumnStore Utility Functions
 
 MariaDB ColumnStore utility functions are a set of simple functions that return useful information about the system, such as whether it is ready for queries.

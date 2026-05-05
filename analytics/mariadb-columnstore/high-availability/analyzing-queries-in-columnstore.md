@@ -1,3 +1,10 @@
+---
+description: >-
+  Tools for inspecting active MariaDB ColumnStore queries: SHOW PROCESSLIST
+  for the local User Module and the getActiveSQLStatements mcsadmin command
+  for cluster-wide query state.
+---
+
 # Analyzing Queries
 
 ## Determining Active Queries

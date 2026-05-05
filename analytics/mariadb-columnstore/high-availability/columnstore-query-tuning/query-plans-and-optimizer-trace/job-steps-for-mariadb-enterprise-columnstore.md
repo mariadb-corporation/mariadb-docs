@@ -1,3 +1,10 @@
+---
+description: >-
+  Job steps in MariaDB Enterprise ColumnStore: ExeMgr translates the CSEP into
+  a job list of distributed and multi-threaded steps (BPS, CES, etc.) for
+  parallel query execution across nodes.
+---
+
 # Job Steps
 
 ## Overview

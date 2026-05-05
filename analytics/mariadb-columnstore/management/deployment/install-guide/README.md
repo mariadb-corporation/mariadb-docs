@@ -1,8 +1,8 @@
 ---
 description: >-
-  This section provides instructions for installing and configuring MariaDB
-  ColumnStore. It covers various deployment scenarios, including single- and
-  multi-node setups with both local and S3 storage.
+  Installation guides for MariaDB ColumnStore across four deployment
+  topologies: single-node with local storage, single-node with S3, multi-node
+  with local storage, and multi-node with S3.
 layout:
   width: default
   title:

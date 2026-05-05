@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore read replicas (Alpha) add read-only nodes that scale
+  read throughput by forwarding writes to RW nodes; they share storage and
+  need at least one RW node per cluster.
+---
+
 # ColumnStore Read Replicas
 
 {% hint style="info" %}

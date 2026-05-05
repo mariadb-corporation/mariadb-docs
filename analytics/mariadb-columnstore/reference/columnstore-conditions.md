@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for the conditions and operators usable in MariaDB ColumnStore
+  WHERE clauses, including comparison, IN, BETWEEN, IS NULL, LIKE pattern
+  matching, and EXISTS subqueries.
+---
+
 # ColumnStore Conditions
 
 A condition is a combination of expressions and operators that return `TRUE`, `FALSE` or `NULL. The` following syntax shows the conditions that can be used to return a `TRUE`, `FALSE`, or `NULL` condition.

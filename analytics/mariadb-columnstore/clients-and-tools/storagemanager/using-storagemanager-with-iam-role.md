@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore StorageManager can authenticate to S3 via an AWS IAM
+  role attached to the EC2 instance, removing credentials from
+  storagemanager.cnf; from ColumnStore 5.5.2.
+---
+
 # Using StorageManager With IAM Role
 
 ## AWS IAM Role Configuration

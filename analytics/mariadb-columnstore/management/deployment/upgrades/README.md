@@ -1,4 +1,8 @@
 ---
+description: >-
+  Upgrade procedures for MariaDB Enterprise ColumnStore, including
+  major-release upgrades and the multi-node upgrade path from Enterprise
+  ColumnStore 6 to 23.10.
 layout:
   width: default
   title:

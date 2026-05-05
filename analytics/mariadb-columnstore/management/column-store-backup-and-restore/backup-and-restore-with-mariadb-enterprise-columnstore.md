@@ -1,3 +1,10 @@
+---
+description: >-
+  Backup and restore overview for MariaDB Enterprise ColumnStore:
+  system-of-record planning, full and incremental backup strategies, and the
+  components that must be backed up together.
+---
+
 # Backup and Restore Overview
 
 ## Overview

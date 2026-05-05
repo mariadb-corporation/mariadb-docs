@@ -1,3 +1,10 @@
+---
+description: >-
+  DROP TABLE for MariaDB ColumnStore deletes a table from the database; the
+  ColumnStore-specific RESTRICT clause limits the drop to the front end for
+  sync purposes.
+---
+
 # ColumnStore DROP TABLE
 
 The [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/drop/drop-table) statement deletes a table from ColumnStore.

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore distributed aggregate functions usable in SELECT,
+  HAVING, and ORDER BY: AVG, COUNT, MAX, MIN, CORR, COVAR_POP, COVAR_SAMP, and
+  other statistical aggregates.
+---
+
 # ColumnStore Distributed Aggregate Functions
 
 ## Functions

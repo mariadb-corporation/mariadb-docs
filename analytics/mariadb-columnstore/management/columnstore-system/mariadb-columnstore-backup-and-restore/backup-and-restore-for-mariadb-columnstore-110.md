@@ -1,3 +1,10 @@
+---
+description: >-
+  Backup and restore for MariaDB ColumnStore 1.1.0 using the MariaDB
+  ColumnStore Tools package, available as RPM, DEB, or binary download from
+  the MariaDB AX tools repository.
+---
+
 # Backup and Restore for MariaDB ColumnStore 1.1.0
 
 ## Backup and Restore for MariaDB ColumnStore 1.1.0

@@ -1,3 +1,10 @@
+---
+description: >-
+  The CMAPI mode-set endpoint configures all MariaDB Enterprise ColumnStore
+  nodes to read-only or read-write operation via HTTPS PUT with x-api-key
+  authentication.
+---
+
 # mode-set
 
 Sets all ColumnStore nodes to read-only or read-write.

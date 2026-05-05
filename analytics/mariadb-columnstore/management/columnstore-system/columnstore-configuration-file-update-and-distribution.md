@@ -1,3 +1,10 @@
+---
+description: >-
+  Update and distribute MariaDB ColumnStore configuration files: edit
+  Columnstore.xml on PM1, then run mcsadmin distributeconfigfile to propagate
+  changes to other nodes.
+---
+
 # ColumnStore Configuration File Update and Distribution
 
 In case where an entry in the MariaDB ColumnStore's configuration needs to be updated and distributed, this can be done from the command line from Performance Module #1. All changes made to MariaDB ColumnStore's configuration file need to be applied on PM1.

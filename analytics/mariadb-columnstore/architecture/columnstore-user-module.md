@@ -1,4 +1,8 @@
 ---
+description: >-
+  The User Module in MariaDB ColumnStore orchestrates end-user queries,
+  turning MariaDB query plans into ColumnStore Job Lists and handling hash
+  joins, final aggregation, and concurrency.
 hidden: true
 ---
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for MariaDB ColumnStore system databases: calpontsys (table
+  metadata), infinidb_querystats (query performance), and columnstore_info
+  (usage-information stored procedures).
+---
+
 # ColumnStore System Databases
 
 When using ColumnStore, MariaDB Server creates a series of system databases used for operational purposes.

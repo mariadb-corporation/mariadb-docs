@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Exa architecture: a multi-stage pipeline streaming changes from
+  MariaDB Enterprise Server through Debezium and Kafka into Exasol for near
+  real-time analytics on operational data.
 icon: house-blank
 ---
 

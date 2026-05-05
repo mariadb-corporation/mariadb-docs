@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore operating mode is set via infinidb_vtable_mode: 0 for
+  row-by-row processing, 1 (default) for distributed only, or 2 for
+  auto-switch by query compatibility.
+---
+
 # ColumnStore Operating Mode
 
 ColumnStore has the ability to support full MariaDB query syntax through an operating mode. This operating mode may be set as a default for the instance or set at the session level. To set the operating mode at the session level, the following command is used. Once the session has ended, any subsequent session will return to the default for the instance.

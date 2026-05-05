@@ -1,3 +1,10 @@
+---
+description: >-
+  Upgrade a multi-node MariaDB Enterprise ColumnStore cluster from 6 to 23.10,
+  with MaxScale-based replica maintenance mode, controlled service stops, and
+  per-node upgrade steps.
+---
+
 # Upgrade Multi-Node MariaDB Enterprise ColumnStore from 6 to 23.10
 
 These instructions detail the upgrade from **MariaDB Enterprise ColumnStore 6** to **MariaDB Enterprise ColumnStore 23.10** in a **Multi-Node** topology on a range of [supported Operating Systems](https://mariadb.com/engineering-policies/).

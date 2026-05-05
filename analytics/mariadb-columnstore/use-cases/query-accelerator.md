@@ -1,3 +1,10 @@
+---
+description: >-
+  Query Accelerator (Alpha, ColumnStore 25.10.0 + ES 11.8.3+) lets MariaDB
+  ColumnStore execute aggregation queries on InnoDB tables in parallel using
+  engine-independent statistics.
+---
+
 # Query Accelerator
 
 {% hint style="warning" %}

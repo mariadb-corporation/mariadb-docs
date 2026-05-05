@@ -1,8 +1,8 @@
 ---
 description: >-
-  This guide provides steps for deploying a single-node ColumnStore, setting up
-  the environment, installing the software, and bulk importing data for online
-  analytical processing (OLAP) workloads.
+  Single-node MariaDB Enterprise ColumnStore deployment with local storage:
+  minimal-footprint topology suitable for development and small production
+  OLAP workloads, including data import.
 layout:
   width: default
   title:

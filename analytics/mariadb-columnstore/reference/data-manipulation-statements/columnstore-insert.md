@@ -1,3 +1,9 @@
+---
+description: >-
+  INSERT for MariaDB ColumnStore adds rows to a table; use cpimport or batch
+  INSERT INTO .. SELECT for high-volume bulk loads on the columnar engine.
+---
+
 # ColumnStore INSERT
 
 The `INSERT` statement allows you to add data to tables.

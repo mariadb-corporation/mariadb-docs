@@ -1,8 +1,9 @@
 ---
 description: >-
-  This guide provides steps for deploying a single-node S3 ColumnStore, setting
-  up the environment, installing the software, and bulk importing data for
-  online analytical processing (OLAP) workloads.
+  Single-node MariaDB Enterprise ColumnStore deployment with S3-compatible
+  object storage on Enterprise Server and MaxScale, including bulk data import
+  and OLAP-ready configuration.
+
 ---
 
 # Single-Node S3

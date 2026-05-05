@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore distributed functions for SELECT, WHERE, and ORDER BY
+  clauses: numeric, string, date/time, and bitwise operators processed in
+  parallel across PrimProc nodes.
+---
+
 # ColumnStore Distributed Functions
 
 ## Functions

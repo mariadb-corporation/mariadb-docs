@@ -1,3 +1,10 @@
+---
+description: >-
+  ALTER TABLE for MariaDB ColumnStore modifies existing tables: add, drop, or
+  rename columns and rename tables, with ColumnStore-specific syntax notes for
+  the columnar engine.
+---
+
 # ColumnStore ALTER TABLE
 
 The `ALTER TABL`E statement modifies existing tables. It includes adding, deleting, and renaming columns as well as renaming tables.

@@ -1,3 +1,10 @@
+---
+description: >-
+  User-defined aggregate and window functions for MariaDB ColumnStore 1.1 and
+  later using a C++ SDK, with distributed execution across PrimProc nodes;
+  examples include median and SSQ.
+---
+
 # ColumnStore User Defined Aggregate and Window Functions
 
 ## Introduction

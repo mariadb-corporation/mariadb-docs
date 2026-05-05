@@ -1,3 +1,10 @@
+---
+description: >-
+  CREATE PROCEDURE for MariaDB ColumnStore defines a stored procedure with
+  named IN, OUT, and INOUT parameters and a routine body containing SQL
+  statements.
+---
+
 # ColumnStore CREATE PROCEDURE
 
 Creates a stored routine in ColumnStore.

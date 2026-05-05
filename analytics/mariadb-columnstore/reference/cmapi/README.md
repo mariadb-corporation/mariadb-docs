@@ -1,3 +1,10 @@
+---
+description: >-
+  CMAPI is the REST API for administering MariaDB Enterprise ColumnStore in
+  multi-node topologies, accessed with curl or any standard REST client and
+  authenticated via x-api-key.
+---
+
 # CMAPI
 
 **CMAPI** is a REST API for administering MariaDB Enterprise ColumnStore in multi-node topologies.

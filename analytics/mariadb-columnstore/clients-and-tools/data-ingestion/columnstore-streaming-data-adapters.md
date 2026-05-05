@@ -1,3 +1,10 @@
+---
+description: >-
+  Streaming data adapters for MariaDB ColumnStore built on the Bulk Data API,
+  including the deprecated MaxScale CDC adapter and a Kafka adapter for ETL
+  and real-time ingestion.
+---
+
 # ColumnStore Streaming Data Adapters
 
 The [ColumnStore Bulk Data API](columnstore-bulk-data-loading.md) enables the creation of higher performance adapters for ETL integration and data ingestions. The Streaming Data Adapters are out of box adapters using these API for specific data sources and use cases.

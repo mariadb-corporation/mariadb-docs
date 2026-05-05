@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB functions evaluated as post-processing after MariaDB ColumnStore
+  returns data, supported in SELECT projection and ORDER BY only — not
+  distributed across PrimProc nodes.
+---
+
 # ColumnStore Non-Distributed Post-Processed Functions
 
 ## Overview

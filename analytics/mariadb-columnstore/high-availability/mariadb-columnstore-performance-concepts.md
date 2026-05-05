@@ -1,3 +1,10 @@
+---
+description: >-
+  Performance concepts for MariaDB ColumnStore: PrimProc query optimization
+  and orchestration, Extent Map metadata for I/O reduction, batch primitive
+  steps, and shared storage for failover.
+---
+
 # Performance Concepts
 
 ## Introduction

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore window functions follow SQL 2003 with partitions and
+  frames, applied after joins, GROUP BY, and HAVING; useful for cumulative
+  totals, rolling averages, and top-N.
+---
+
 # ColumnStore Window Functions
 
 ## Introduction

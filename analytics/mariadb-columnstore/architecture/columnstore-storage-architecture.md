@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise ColumnStore storage: a columnar engine for OLAP, data
+  warehousing, and HTAP workloads, with columns partitioned into extents for
+  fast analytical query performance.
+---
+
 # ColumnStore Storage Architecture
 
 ## Overview

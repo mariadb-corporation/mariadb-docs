@@ -1,8 +1,9 @@
 ---
 description: >-
-  Learn data manipulation statements for MariaDB ColumnStore. This section
-  covers INSERT, UPDATE, DELETE, and LOAD DATA operations, optimized for
-  efficient handling of large analytical datasets.
+  MariaDB ColumnStore data-manipulation statements (DML): SELECT, INSERT,
+  UPDATE, DELETE, LOAD DATA INFILE, and disk-based join behavior, tuned for
+  analytical query patterns.
+
 ---
 
 # ColumnStore Data Manipulation Statements

@@ -1,3 +1,10 @@
+---
+description: >-
+  Query statistics log MariaDB Enterprise ColumnStore execution metrics
+  (memory, I/O, cache) to infinidb_querystats; disabled by default and exposed
+  via SHOW WARNINGS and calGetStats().
+---
+
 # Query Statistics for MariaDB Enterprise ColumnStore
 
 ### Description

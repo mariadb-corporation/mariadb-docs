@@ -1,8 +1,9 @@
 ---
 description: >-
-  You can use most normal statements from the MariaDB data definition language
-  (DDL) with ColumnStore tables. This section lists DDL that differs for
-  ColumnStore compared to normal MariaDB usage.
+  MariaDB ColumnStore data-definition statements (DDL): CREATE/ALTER/DROP
+  TABLE, CREATE PROCEDURE, CREATE/ALTER VIEW, plus notes on DDL behavior that
+  differs from standard MariaDB.
+
 ---
 
 # ColumnStore Data Definition Statements

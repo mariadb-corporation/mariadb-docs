@@ -1,3 +1,10 @@
+---
+description: >-
+  ColumnStore compression mode is set via infinidb_compression_type at
+  instance or session scope, controlling whether new tables and added columns
+  use snappy compression by default.
+---
+
 # ColumnStore Compression Mode
 
 MariaDB ColumnStore has the ability to compress data and this is controlled through a compression mode. This compression mode may be set as a default for the instance or set at the session level.

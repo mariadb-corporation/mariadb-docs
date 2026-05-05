@@ -1,4 +1,8 @@
 ---
+description: >-
+  Troubleshooting reference for MariaDB ColumnStore, including the alias
+  commands defined during install (mcsmysql, mcsadmin, cpimport) and common
+  diagnostic workflows.
 hidden: true
 ---
 

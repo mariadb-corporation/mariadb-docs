@@ -1,3 +1,10 @@
+---
+description: >-
+  Step 4 of the single-node MariaDB Enterprise ColumnStore install with local
+  storage: connect to MariaDB Server with the root account and verify that
+  ColumnStore is operational.
+---
+
 # Step 4: Test Enterprise ColumnStore
 
 ## Overview

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore partition management: automatic horizontal partitioning,
+  calShowPartitions for inspection, and disable/drop operations for data
+  lifecycle management with caveats.
+---
+
 # ColumnStore Partition Management
 
 ## Introduction

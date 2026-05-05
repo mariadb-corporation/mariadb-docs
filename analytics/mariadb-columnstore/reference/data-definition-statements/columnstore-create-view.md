@@ -1,3 +1,10 @@
+---
+description: >-
+  CREATE VIEW for MariaDB ColumnStore defines a stored query that can be
+  referenced as a virtual table; supports CREATE OR REPLACE VIEW for
+  redefinition.
+---
+
 # ColumnStore CREATE VIEW
 
 Creates a stored query in the MariaDB ColumnStore.

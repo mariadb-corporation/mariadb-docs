@@ -1,8 +1,9 @@
 ---
 description: >-
-  Learn about data ingestion for MariaDB ColumnStore. This section covers
-  various methods and tools for efficiently loading large datasets into your
-  columnar database for analytical workloads.
+  Data ingestion options for MariaDB ColumnStore: cpimport for fast bulk
+  loads, LOAD DATA INFILE, batch insert mode, INSERT INTO .. SELECT, DML, plus
+  Bulk Write SDK and streaming adapters.
+
 ---
 
 # Data Ingestion Methods & Tools

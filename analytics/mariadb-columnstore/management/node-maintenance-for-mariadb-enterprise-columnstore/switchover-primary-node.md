@@ -1,3 +1,10 @@
+---
+description: >-
+  Switch the primary node in a MariaDB Enterprise ColumnStore cluster by
+  calling the mariadbmon switchover command in MaxScale via maxctrl or another
+  REST client.
+---
+
 # Switchover of the Primary Node
 
 To switchover to a new primary node with Enterprise ColumnStore, perform the following procedure.

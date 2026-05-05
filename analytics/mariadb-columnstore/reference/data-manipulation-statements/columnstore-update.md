@@ -1,3 +1,10 @@
+---
+description: >-
+  UPDATE for MariaDB ColumnStore changes data in existing rows with
+  single-table or multi-table syntax, supporting WHERE, ORDER BY, and LIMIT
+  clauses.
+---
+
 # ColumnStore UPDATE
 
 The `UPDATE` statement changes data stored in rows.

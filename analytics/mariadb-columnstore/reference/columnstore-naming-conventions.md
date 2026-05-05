@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB ColumnStore naming conventions for usernames (64c max), tables, and
+  columns (alphanumeric and underscore, ASCII-letter first), plus the reserved
+  words specific to ColumnStore.
+---
+
 # ColumnStore Naming Conventions
 
 ## Overview

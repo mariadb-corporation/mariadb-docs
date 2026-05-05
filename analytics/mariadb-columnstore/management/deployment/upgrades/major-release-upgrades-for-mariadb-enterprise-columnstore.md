@@ -1,3 +1,10 @@
+---
+description: >-
+  Major-release upgrade procedure for MariaDB Enterprise ColumnStore (CS 5 to
+  22.08): full data backup, optional reuse of existing servers, and
+  stage-by-stage migration to the new version.
+---
+
 # Major Release Upgrades for MariaDB Enterprise ColumnStore
 
 This page provides a major release upgrade procedure for MariaDB Enterprise ColumnStore. A major release upgrade is an upgrade from an older major release to a newer major release, such as an upgrade from MariaDB Enterprise ColumnStore 5 to MariaDB Enterprise ColumnStore 22.08.

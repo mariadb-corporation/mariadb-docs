@@ -1,4 +1,8 @@
 ---
+description: >-
+  Performance tuning and benchmarking for MariaDB Exa: Debezium, Kafka
+  Connect, and Exasol JDBC Sink parameters, plus CDC throughput up to 600 TPS
+  and TPC-H benchmark results.
 icon: bolt-lightning
 ---
 

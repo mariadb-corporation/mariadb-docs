@@ -1,3 +1,10 @@
+---
+description: >-
+  Load delimited data files from S3-compatible cloud object storage into
+  MariaDB Enterprise ColumnStore using the columnstore_info.load_from_s3
+  stored procedure, available from CS 23.02.
+---
+
 # Data Loading With load\_from\_s3
 
 ## Overview

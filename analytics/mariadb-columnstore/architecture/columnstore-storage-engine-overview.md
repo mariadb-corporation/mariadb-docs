@@ -1,3 +1,10 @@
+---
+description: >-
+  ColumnStore is a MariaDB Enterprise Server storage engine for columnar
+  analytics: ACID-compliant and indexless, with compression, lockless reads,
+  online schema changes, and HA support.
+---
+
 # ColumnStore Storage Engine
 
 ## Overview

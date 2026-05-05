@@ -1,3 +1,10 @@
+---
+description: >-
+  Backup and restore for MariaDB ColumnStore 1.0.x: suspend writes, back up
+  MariaDB Server data files via mysqldump or directory copy, then back up
+  ColumnStore data files and resume.
+---
+
 # Backup and Restore for MariaDB ColumnStore 1.0.x
 
 ## Backup and Restore for MariaDB ColumnStore 1.0.x

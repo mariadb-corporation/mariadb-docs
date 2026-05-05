@@ -1,3 +1,10 @@
+---
+description: >-
+  Data loading into MariaDB Enterprise ColumnStore with cpimport: a
+  non-blocking, append-only bulk load that bypasses the SQL layer and supports
+  text, binary, and stdin sources.
+---
+
 # Data Loading with cpimport
 
 ## Overview

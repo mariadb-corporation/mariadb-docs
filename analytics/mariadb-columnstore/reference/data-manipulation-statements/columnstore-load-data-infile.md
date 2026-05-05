@@ -1,3 +1,10 @@
+---
+description: >-
+  LOAD DATA INFILE for MariaDB ColumnStore loads rows from a text file into a
+  table at high speed; auto-translated to a cpimport bulk load when batch
+  insert mode is on.
+---
+
 # ColumnStore LOAD DATA INFILE
 
 ## Overview

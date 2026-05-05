@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise ColumnStore evaluates queries with MPP execution: ExeMgr
+  coordinates job steps across PrimProc nodes with extent elimination and
+  parallel aggregation to reduce I/O.
+---
+
 # Mariadb Enterprise Columnstore Query Evaluation
 
 ## Overview

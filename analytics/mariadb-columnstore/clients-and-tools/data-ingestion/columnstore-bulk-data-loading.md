@@ -1,3 +1,10 @@
+---
+description: >-
+  Bulk data loading in MariaDB ColumnStore uses cpimport for fast append-only
+  ingestion of delimited flat files, with tokenization and atomic
+  high-water-mark commits.
+---
+
 # ColumnStore Bulk Data Loading
 
 ## Overview

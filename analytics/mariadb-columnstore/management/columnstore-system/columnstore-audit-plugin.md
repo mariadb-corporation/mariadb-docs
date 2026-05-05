@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Audit Plugin can be enabled for MariaDB ColumnStore to log user
+  access and SQL statements; install via INSTALL PLUGIN server_audit and
+  persist through ColumnStore's my.cnf.
+---
+
 # ColumnStore Audit Plugin
 
 ## Overview

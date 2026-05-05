@@ -1,4 +1,8 @@
 ---
+description: >-
+  Deployment documentation for MariaDB ColumnStore, including the hardware
+  sizing guide, build-from-source instructions, install-guide topology
+  variants, and upgrade procedures.
 layout:
   width: default
   title:

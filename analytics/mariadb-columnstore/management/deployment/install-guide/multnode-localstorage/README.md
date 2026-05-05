@@ -1,8 +1,8 @@
 ---
 description: >-
-  This guide provides steps for deploying a multi-node ColumnStore, setting up
-  the environment, installing the software, and bulk importing data for online
-  analytical processing (OLAP) workloads.
+  Multi-node MariaDB Enterprise ColumnStore deployment with shared local
+  storage: cluster topology, Enterprise Server installation, MaxScale routing,
+  and bulk data import procedures.
 layout:
   width: default
   title:

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise ColumnStore locking: lockless reads, table locks for
+  writes, and write metadata locks during cpimport bulk loads, designed to
+  minimize blocking on analytics.
+---
+
 # MariaDB Enterprise Columnstore Locking
 
 ## Overview

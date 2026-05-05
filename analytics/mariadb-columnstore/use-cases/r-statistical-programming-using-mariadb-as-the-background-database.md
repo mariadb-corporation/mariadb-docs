@@ -1,3 +1,10 @@
+---
+description: >-
+  Using MariaDB ColumnStore with R for statistical computing and graphics,
+  providing a scalable analytical backend for R's data manipulation, modeling,
+  and visualization workflows.
+---
+
 # Using MariaDB With R
 
 ## Introduction to R

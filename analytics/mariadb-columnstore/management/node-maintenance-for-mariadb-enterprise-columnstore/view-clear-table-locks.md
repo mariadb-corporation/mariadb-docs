@@ -1,3 +1,10 @@
+---
+description: >-
+  View and clear lingering table locks in MariaDB Enterprise ColumnStore using
+  viewtablelock and cleartablelock, useful when a failed DDL or bulk load
+  leaves a table locked.
+---
+
 # View/Clear Table Locks
 
 MariaDB Enterprise ColumnStore acquires table locks for some operations, and it provides utilities to view and clear those locks.

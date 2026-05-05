@@ -1,4 +1,8 @@
 ---
+description: >-
+  The Performance Module in MariaDB ColumnStore handles I/O under User Module
+  instructions, executing distributed scans, hash joins, and aggregations for
+  massively parallel query processing.
 hidden: true
 ---
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  Upgrade MariaDB Enterprise Server and ColumnStore across a cluster with the
+  unified mcs install_es command (Alpha), automating service stops, repository
+  setup, and CMAPI restart.
+---
+
 # Upgrading MariaDB Enterprise ColumnStore (Alpha)
 
 {% hint style="info" %}

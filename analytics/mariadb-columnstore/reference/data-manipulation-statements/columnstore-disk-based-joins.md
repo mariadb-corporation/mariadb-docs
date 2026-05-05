@@ -1,3 +1,10 @@
+---
+description: >-
+  Disk-based joins let MariaDB ColumnStore spill join intermediates to disk
+  when in-memory join space is exhausted, controlled via AllowDiskBasedJoin in
+  Columnstore.xml; not for aggregation.
+---
+
 # ColumnStore Disk-Based Joins
 
 ## Overview

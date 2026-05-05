@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for MariaDB ColumnStore data types: numeric (BOOLEAN, integers,
+  DECIMAL, FLOAT/DOUBLE), variable-length string types, and standard MariaDB
+  date and time types.
+---
+
 # ColumnStore Data Types
 
 ColumnStore supports the following data types:

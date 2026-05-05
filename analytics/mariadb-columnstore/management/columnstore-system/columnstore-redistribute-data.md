@@ -1,3 +1,10 @@
+---
+description: >-
+  Redistribute data across MariaDB ColumnStore Performance Modules after
+  adding capacity, using mcsadmin redistributeData; operates at partition
+  granularity with a 64M-row table minimum.
+---
+
 # ColumnStore Redistribute Data
 
 ## Overview
