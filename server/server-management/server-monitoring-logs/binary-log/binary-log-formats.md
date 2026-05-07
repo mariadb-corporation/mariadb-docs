@@ -81,7 +81,7 @@ This mode can be enabled by setting the [binlog\_format](../../../ha-and-perform
 
 ## Row-Based Logging
 
-When row-based logging is enabled, DML statements are **not** logged to the [binary log](./). Instead, each insert, update, or delete performed by the statement for each row is logged to the [binary log](./) separately. DDL statements are still logged to the [binary log](./).
+When row-based logging is enabled, DML statements are **not** logged to the [binary log](./). Instead, each insert, update, or delete performed by the statement for each row is logged to the [binary log](./) separately. DDL statements are still logged to the [binary log](./) in statement format.
 
 Row-based logging uses more storage than the other log formats but is the safest to use. In practice [mixed logging](binary-log-formats.md#mixed-logging) should be as safe.
 
