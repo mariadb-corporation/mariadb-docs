@@ -1,4 +1,8 @@
 ---
+description: >-
+  Deploy MariaDB AI RAG on Windows using Docker Desktop in standalone or
+  Vault mode, with steps for image build, service startup, authentication
+  token generation, and ingestion verification.
 hidden: true
 noIndex: true
 ---

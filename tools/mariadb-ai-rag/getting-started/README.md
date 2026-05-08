@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB AI RAG getting-started section introduces the Docker stack,
+  prerequisites, and configuration steps, plus version 1.1 capabilities like
+  layout extraction and bulk cloud ingestion.
 hidden: true
 noIndex: true
 icon: rabbit

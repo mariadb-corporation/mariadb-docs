@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG citations inject markers during generation and format them
+  as footnotes or superscripts, returning document title, page number, and
+  snippet metadata in the API response.
+---
+
 # Citations
 
 In a Retrieval-Augmented Generation (RAG) system, the AI answers with retrieved documents from your database.

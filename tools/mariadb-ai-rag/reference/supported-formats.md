@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG supports ingestion of PDF, Word, PowerPoint, plain text,
+  Markdown, HTML, and CSV files, with additional formats available through
+  compatible text extraction libraries.
+---
+
 # Supported Formats
 
 MariaDB AI RAG supports the following file formats for document ingestion:

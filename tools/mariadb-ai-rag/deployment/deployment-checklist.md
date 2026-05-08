@@ -1,4 +1,8 @@
 ---
+description: >-
+  The MariaDB AI RAG deployment checklist covers hardware and software
+  verification, port checks, API key validation, standalone and Vault
+  startup steps, and post-deployment tests.
 hidden: true
 noIndex: true
 ---

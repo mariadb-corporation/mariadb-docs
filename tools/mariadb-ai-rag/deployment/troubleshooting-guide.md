@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG troubleshooting guide diagnoses startup failures from
+  invalid license keys, port conflicts, database timeouts, stuck pending
+  documents, and Docling Ray extraction errors.
+---
+
 # Troubleshooting Guide
 
 This guide provides diagnostic steps and solutions for common issues encountered when deploying MariaDB AI RAG 1.1 (Beta).

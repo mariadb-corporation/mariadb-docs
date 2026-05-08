@@ -1,4 +1,8 @@
 ---
+description: >-
+  Install and run MariaDB AI RAG on Ubuntu without Docker, covering MariaDB
+  setup, security hardening, service startup, functional testing, and
+  performance tuning for production.
 hidden: true
 noIndex: true
 ---

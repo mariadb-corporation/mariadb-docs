@@ -1,4 +1,8 @@
 ---
+description: >-
+  Basic configuration for MariaDB AI RAG sets database credentials, JWT
+  secret keys, and embedding provider API keys in a config.env file copied
+  from the provided template.
 hidden: true
 noIndex: true
 ---

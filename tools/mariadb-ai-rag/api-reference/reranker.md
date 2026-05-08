@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB AI RAG reranker applies a cross-encoder second pass to
+  re-score candidate chunks, with FlashRank, Sentence-Transformers, and
+  Cohere backends and configurable presets.
+---
+
 # Reranker
 
 Reranking improves retrieval quality in the RAG pipeline.

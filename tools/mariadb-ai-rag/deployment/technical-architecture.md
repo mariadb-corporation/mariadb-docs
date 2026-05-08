@@ -1,4 +1,8 @@
 ---
+description: >-
+  Detailed technical reference for MariaDB AI RAG covering Docker container
+  topology, ingestion and query flows, MariaDB schema, security
+  architecture, and resource performance metrics.
 hidden: true
 noIndex: true
 ---

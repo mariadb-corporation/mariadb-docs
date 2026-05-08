@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG network requirements specify inbound TCP ports for the REST
+  API and MCP server, outbound HTTPS to AI providers and the licensing
+  server, and optional Ollama port access.
+---
+
 # Network and Firewall Requirements
 
 {% hint style="info" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB AI RAG config.env reference explains every environment
+  variable for database connection, embedding and LLM providers, security
+  keys, reranking, file storage, and Celery workers.
+---
+
 # Configuration Guide (config.env)
 
 This guide explains all configuration variables in the config.env.template file. It is designed for both technical and non-technical users to understand what each setting does and how to configure it for different deployment scenarios.

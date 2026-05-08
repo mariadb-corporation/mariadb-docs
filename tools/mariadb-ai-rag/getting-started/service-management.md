@@ -1,4 +1,8 @@
 ---
+description: >-
+  Starting the MariaDB AI RAG service and viewing its logs, covering the
+  executable start command and log file paths for API and ingestion output
+  in the logs directory.
 hidden: true
 noIndex: true
 ---

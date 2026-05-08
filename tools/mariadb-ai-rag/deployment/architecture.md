@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG deploys as a multi-container Docker stack where a FastAPI
+  gateway, Redis queue, Celery workers, and a Docling Ray service handle
+  ingestion, search, and generation.
+---
+
 # Architecture
 
 MariaDB AI RAG 1.1 follows a modular, client-server architecture deployed as a multi-container Docker application. This containerized approach allows specialized components to handle different stages of the RAG pipeline—from secure document gateway entry to distributed background processing and high-performance vector storage.

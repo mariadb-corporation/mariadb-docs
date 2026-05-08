@@ -1,3 +1,10 @@
+---
+description: >-
+  Document management and chunking endpoints in MariaDB AI RAG handle file
+  upload, listing, retrieval, and deletion, and provide recursive, sentence,
+  token, and semantic chunking options.
+---
+
 # Document Management and Chunking
 
 ## Document Management Endpoints

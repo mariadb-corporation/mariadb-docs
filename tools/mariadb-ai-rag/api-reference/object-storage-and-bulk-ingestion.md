@@ -1,3 +1,10 @@
+---
+description: >-
+  Bulk ingestion in MariaDB AI RAG syncs documents from S3, GCS, or MinIO
+  using ETag-based Smart Sync, with managed local or S3 file storage for
+  direct API uploads.
+---
+
 # Object Storage and Bulk Ingestion
 
 Users can upload documents one by one [through the API](api-reference.md#upload-documents).

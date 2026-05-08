@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG layout-aware extraction offers three tiers: fast base text
+  extraction, local Docling structure preservation with OCR, and cloud
+  LlamaParse for complex multi-column PDFs.
+---
+
 # Layout Awareness
 
 When you upload a document (like a PDF) to an AI system, the system needs to read the text. Standard text extractors simply pull the words out left-to-right, top-to-bottom. This works fine for simple text, but it completely destroys the structure of complex documents—tables become jumbled messes of words, headings are lost, and mathematical formulas become unreadable.

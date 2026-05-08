@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG secret management supports four modes: standalone env
+  files, HashiCorp Vault, 1Password CLI, and HCP Vault, each suited to a
+  different deployment security level.
+---
+
 # Secret Management
 
 The MariaDB AI RAG system allows you to manage sensitive credentials (like API keys and database passwords) through the following configurations:

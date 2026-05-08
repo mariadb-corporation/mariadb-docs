@@ -1,3 +1,10 @@
+---
+description: >-
+  Deploy MariaDB AI RAG as a Docker stack by downloading the compose file
+  and config template, setting a license key and model credentials, then
+  launching with docker compose up.
+---
+
 # Deployment
 
 MariaDB AI RAG is an all-in-one, enterprise-ready solution that handles the entire Retrieval-Augmented Generation (RAG) pipeline, including document parsing with layout extraction, chunking, embedding generation, and easy-to-use retrieval APIs backed by hybrid search (vector + full-text search), with optional reranking before sending the relevant context to a foundation model for answer generation.

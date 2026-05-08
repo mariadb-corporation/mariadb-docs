@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG retrieval and search endpoints provide semantic vector,
+  full-text, and hybrid Reciprocal Rank Fusion search, plus synchronous,
+  async, and streaming LLM generation.
+---
+
 # Retrieval and Search
 
 ## Retrieval and Search Endpoints

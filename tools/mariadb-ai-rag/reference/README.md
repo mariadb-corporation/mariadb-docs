@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB AI RAG reference section provides complete environment variable
+  documentation, supported file formats, and integration patterns for
+  connecting the REST API to external systems.
 icon: paperclip
 ---
 

@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB AI RAG is an enterprise-grade RAG solution built on MariaDB, with
+  modular components for document ingestion, semantic chunking, vector
+  storage, retrieval, and LLM generation.
 hidden: true
 noIndex: true
 ---

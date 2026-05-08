@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG orchestration endpoints coordinate multi-step RAG workflows
+  in one request, covering ingestion, chunking, retrieval, streaming
+  generation, and an end-to-end pipeline call.
+---
+
 # Orchestration
 
 ## Overview

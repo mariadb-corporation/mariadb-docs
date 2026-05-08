@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG access control endpoints manage authentication, role
+  assignment, document sharing, and ingest directory configuration using JWT
+  tokens and admin-only operations.
+---
+
 # Access Control
 
 ## Overview

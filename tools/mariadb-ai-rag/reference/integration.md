@@ -1,3 +1,10 @@
+---
+description: >-
+  Integration guide for connecting MariaDB AI RAG to external applications,
+  with Python REST API examples for authentication, document upload,
+  chunking, and middleware setup.
+---
+
 # Integration
 
 ## External Systems

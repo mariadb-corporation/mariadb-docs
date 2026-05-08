@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB AI RAG database integration endpoints ingest data directly from
+  MariaDB tables or SQL SELECT queries, converting rows into searchable
+  documents with column-mapped metadata.
+---
+
 # Database Integration
 
 ## Database Integration Endpoints

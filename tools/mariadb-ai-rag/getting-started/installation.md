@@ -1,4 +1,8 @@
 ---
+description: >-
+  Install MariaDB AI RAG on Debian/Ubuntu, RHEL, or Windows by downloading
+  the platform package from the MariaDB downloads portal and running the
+  installer or package manager.
 hidden: true
 noIndex: true
 ---
