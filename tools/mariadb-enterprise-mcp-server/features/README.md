@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise MCP Server provides database introspection and SQL
+  tools, vector store and semantic search tools, and RAG orchestration for
+  document ingestion and response generation.
+---
+
 # Features
 
 The MariaDB Enterprise MCP Server offers a comprehensive suite of tools, categorized into standard database operations, advanced vector functionalities, and workflow orchestration.

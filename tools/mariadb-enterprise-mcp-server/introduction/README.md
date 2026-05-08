@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Enterprise MCP Server acts as a hardened interface between AI
+  agents and MariaDB, centralizing access control, simplifying AI
+  development, and enabling RAG workflows.
+---
+
 # Overview
 
 {% hint style="success" %}

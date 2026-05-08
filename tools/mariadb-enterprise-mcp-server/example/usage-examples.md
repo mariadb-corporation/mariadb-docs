@@ -1,3 +1,10 @@
+---
+description: >-
+  JSON payload examples for the MariaDB Enterprise MCP Server span SQL
+  queries, vector store creation and search, document insertion, and RAG
+  generation, each shown as a tool call.
+---
+
 # Usage Examples
 
 ## Standard SQL Query

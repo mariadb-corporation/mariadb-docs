@@ -1,3 +1,10 @@
+---
+description: >-
+  Common questions about the MCP Server address installation, MariaDB
+  connection setup, AI client integration, how LLM agents invoke tools, and
+  the purpose of JSON protocol examples.
+---
+
 # Frequently Asked Questions
 
 <details>
