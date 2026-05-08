@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/C++ supports multi-statement transactions with manual
+  commit, rollback, and savepoints by disabling auto-commit on the
+  sql::Connection object.
+---
+
 # Transactions with MariaDB Connector/C++
 
 Developers can use MariaDB Connector/C++ to perform basic DML (Data Manipulation Language) operations inside a transaction with MariaDB database products.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Add MariaDB Connector/J to a Maven project by declaring the
+  mariadb-java-client dependency in pom.xml, then connect to MariaDB using
+  standard JDBC DriverManager methods.
+---
+
 # Java Connector Using Maven
 
 [MariaDB Connector/J](./) is used to connect applications developed in Java to MariaDB and MySQL databases using the standard JDBC API.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Spring Data R2DBC batch with MariaDB Connector/R2DBC loops over statements
+  via DatabaseClient.execute, replacing the native io.r2dbc.spi.Batch class
+  unavailable in this framework.
+---
+
 # Batch Operations with MariaDB Connector/R2DBC (Spring Data)
 
 ### Overview

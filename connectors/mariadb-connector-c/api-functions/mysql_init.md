@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_init allocates and initializes a MYSQL structure for use with
+  mysql_real_connect, and also initializes the thread subsystem if not
+  already done.
+---
+
 # mysql\_init
 
 ## Syntax

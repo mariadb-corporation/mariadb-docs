@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_set_server_option enables or disables multi-statement support on a
+  MariaDB connection using MYSQL_OPTION_MULTI_STATEMENTS_ON or _OFF.
+---
+
 # mysql\_set\_server\_option
 
 ## Syntax

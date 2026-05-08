@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for the public data structures in MariaDB Connector/C, including
+  MYSQL, MYSQL_RES, MYSQL_STMT, MYSQL_FIELD, MYSQL_BIND, and MYSQL_TIME with
+  all member definitions.
+---
+
 # MariaDB Connector/C Data Structures
 
 This page describes the public data structures used by MariaDB Connector/C.

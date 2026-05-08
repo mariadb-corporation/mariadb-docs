@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_row_tell returns the current row cursor offset of a buffered
+  prepared statement result set, which can be passed to mysql_stmt_row_seek
+  to restore the position.
+---
+
 # mysql\_stmt\_row\_tell
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python API reference covers the module, connection
+  class, cursor class, async/await support, connection pooling, and
+  constants used in Python database applications.
+---
+
 # API Reference
 
 # Contents:

@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure the MariaDB Connector/C build via CMake options including build
+  type, TLS/SSL backend, install prefix, and client plugins such as
+  authentication and connection handlers.
+---
+
 # Configuration Settings for Building Connector/C
 
 ### Configuration settings

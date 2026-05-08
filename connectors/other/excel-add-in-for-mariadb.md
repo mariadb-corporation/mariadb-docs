@@ -1,4 +1,8 @@
 ---
+description: >-
+  Excel Add-in for MariaDB, provided by Devart, enables direct connections
+  between Microsoft Excel and MariaDB to load, refresh, and save database
+  data from a spreadsheet.
 icon: link
 ---
 

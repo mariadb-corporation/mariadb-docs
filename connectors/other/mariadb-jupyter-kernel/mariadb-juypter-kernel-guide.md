@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Jupyter Kernel is an open-source Jupyter kernel that enables
+  running MariaDB SQL directly in notebooks, with support for
+  autocompletion, magic commands, and charting.
+---
+
 # About the MariaDB Jupyter Kernel
 
 The MariaDB Jupyter Kernel is an Open-Source kernel for [Jupyter](https://jupyter.org) which enables users to run MariaDB in a [Jupyter](https://jupyter.org) notebook.

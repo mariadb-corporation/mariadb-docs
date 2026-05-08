@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_row_tell returns the current row cursor offset for a buffered
+  MariaDB result set, which can then be passed to mysql_row_seek to restore
+  that position.
+---
+
 # mysql\_row\_tell
 
 ## Syntax

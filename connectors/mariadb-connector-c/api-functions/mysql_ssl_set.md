@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_ssl_set configures TLS parameters including key, certificate, CA,
+  and cipher list for a MariaDB connection, and must be called before
+  mysql_real_connect.
+---
+
 # mysql\_ssl\_set
 
 ## Syntax

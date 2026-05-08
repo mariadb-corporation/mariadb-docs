@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_fetch retrieves the next row from a prepared statement result
+  set into the buffers bound by mysql_stmt_bind_result, returning
+  MYSQL_NO_DATA at end of set.
+---
+
 # mysql\_stmt\_fetch
 
 ## Syntax

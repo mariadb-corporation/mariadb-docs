@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_change_user changes the authenticated user and default database on
+  an existing connection, resetting session state including transactions,
+  temporary tables, and locks.
+---
+
 # mysql\_change\_user
 
 ## Syntax

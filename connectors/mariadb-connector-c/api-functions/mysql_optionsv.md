@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_optionsv sets connection, TLS, plugin, and option-file options on a
+  MariaDB Connector/C handle before mysql_real_connect, supporting a
+  variable argument list.
+---
+
 # mysql\_optionsv
 
 ## Syntax

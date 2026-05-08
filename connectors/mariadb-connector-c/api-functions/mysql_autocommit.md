@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_autocommit enables or disables autocommit mode for the current
+  database connection, returning zero on success or nonzero on failure.
+---
+
 # mysql\_autocommit
 
 ## Syntax

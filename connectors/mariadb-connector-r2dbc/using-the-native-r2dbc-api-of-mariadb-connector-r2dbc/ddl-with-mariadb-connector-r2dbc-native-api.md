@@ -1,3 +1,10 @@
+---
+description: >-
+  DDL operations with the MariaDB Connector/R2DBC native API execute schema
+  statements such as CREATE TABLE and ALTER TABLE reactively using
+  io.r2dbc.spi.Statement and io.r2dbc.spi.Result.
+---
+
 # DDL with MariaDB Connector/R2DBC (Native API)
 
 ## Overview

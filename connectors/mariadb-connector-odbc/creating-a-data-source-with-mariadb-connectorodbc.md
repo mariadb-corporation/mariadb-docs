@@ -1,3 +1,10 @@
+---
+description: >-
+  Create a data source with MariaDB Connector/ODBC on Windows using ODBC
+  Data Source Administrator or on Linux by configuring UnixODBC with a
+  driver entry and DSN for MariaDB Server.
+---
+
 # Creating a Data Source with MariaDB Connector/ODBC
 
 **MariaDB Connector/ODBC** is a database driver that uses the industry standard [Open Database Connectivity (ODBC) API](https://en.wikipedia.org/wiki/Open_Database_Connectivity). Some of the key features of the driver are:

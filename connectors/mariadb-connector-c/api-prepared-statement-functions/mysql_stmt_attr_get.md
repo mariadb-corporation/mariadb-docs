@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_attr_get retrieves the current value of a prepared statement
+  attribute, such as cursor type, prefetch row count, or max-length update
+  behavior.
+---
+
 # mysql\_stmt\_attr\_get
 
 ## Syntax

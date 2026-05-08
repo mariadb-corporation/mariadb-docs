@@ -1,4 +1,8 @@
 ---
+description: >-
+  RMariaDB is a DBI-compliant R package that provides a MariaDB database
+  interface for R, supporting connection, querying, and data manipulation
+  through standard DBI methods.
 icon: link
 ---
 

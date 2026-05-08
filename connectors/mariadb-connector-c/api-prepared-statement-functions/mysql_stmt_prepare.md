@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_prepare parses and prepares a SQL statement on a Connector/C
+  MYSQL_STMT handle; parameter markers must be bound with
+  mysql_stmt_bind_param before execution.
+---
+
 # mysql\_stmt\_prepare
 
 ## Syntax

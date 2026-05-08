@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_fetch_row retrieves the next row from a MariaDB result set as an
+  array of char pointers, returning NULL when no more rows are available.
+---
+
 # mysql\_fetch\_row
 
 ## Syntax

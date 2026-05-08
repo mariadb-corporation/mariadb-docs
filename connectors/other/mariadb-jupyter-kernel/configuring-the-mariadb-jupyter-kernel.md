@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Jupyter Kernel reads connection settings from a JSON config
+  file, supporting options for host, port, credentials, server binary paths,
+  and auto-start behavior.
+---
+
 # Configuring the MariaDB Jupyter Kernel
 
 ## Config File Location

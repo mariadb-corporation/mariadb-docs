@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Node.js Callback API provides MySQL and mysql2
+  compatible callback-style access to MariaDB, with connection, query,
+  batch, and pool methods using familiar patterns.
+---
+
 # Connector/Node.js Callback API
 
 ## Connector/Node.js Callback API

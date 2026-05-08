@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_get_server_version retrieves the server version as an unsigned long;
+  use mysql_get_server_info for the equivalent string representation.
+---
+
 # mysql\_get\_server\_version
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_store_result buffers the complete result set of a prepared
+  SELECT, SHOW, DESCRIBE, or EXPLAIN statement on the client, enabling
+  random access and row count queries.
+---
+
 # mysql\_stmt\_store\_result
 
 ## Syntax

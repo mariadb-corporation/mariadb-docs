@@ -1,3 +1,10 @@
+---
+description: >-
+  Contributing guide for the MariaDB Jupyter Kernel project, covering how to
+  set up a development environment, run tests, format code, and add new
+  magic commands.
+---
+
 # Contributing to the MariaDB Jupyter Kernel Project
 
 Welcome! <3\

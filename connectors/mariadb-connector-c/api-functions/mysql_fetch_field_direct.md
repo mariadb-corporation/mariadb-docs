@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_fetch_field_direct returns a MYSQL_FIELD pointer for a specific
+  column in a result set, identified by its zero-based field number.
+---
+
 # mysql\_fetch\_field\_direct
 
 ## Syntax

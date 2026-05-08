@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python Cursor class documents parameters, execute and
+  fetch methods, and attributes such as rowcount, description, and
+  sp_outparams for stored procedures.
+---
+
 # The cursor class
 
 

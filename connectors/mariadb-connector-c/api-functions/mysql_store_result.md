@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_store_result retrieves a complete buffered result set from the last
+  executed MariaDB query, returning NULL on error or for non-SELECT
+  statements.
+---
+
 # mysql\_store\_result
 
 ## Syntax

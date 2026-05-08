@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_field_tell retrieves the current field cursor position in a result
+  set, which can be passed to mysql_field_seek to restore that position.
+---
+
 # mysql\_field\_tell
 
 ## Syntax

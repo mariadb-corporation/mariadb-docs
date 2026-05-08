@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_get_client_version retrieves the client library version as an
+  unsigned long; use mysql_get_client_info for the string representation.
+---
+
 # mysql\_get\_client\_version
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_data_seek moves the result set pointer to an arbitrary row offset in
+  a buffered result set obtained via mysql_store_result, enabling random row
+  access.
+---
+
 # mysql\_data\_seek
 
 ## Syntax

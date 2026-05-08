@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_more_results indicates whether additional result sets remain from a
+  previous multi-statement query, returning 1 if more results are available.
+---
+
 # mysql\_more\_results
 
 ## Syntax

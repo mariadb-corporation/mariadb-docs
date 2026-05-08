@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_shutdown sends a shutdown request to the MariaDB server over the
+  current connection, requiring the SHUTDOWN privilege for the authenticated
+  user.
+---
+
 # mysql\_shutdown
 
 ## Syntax

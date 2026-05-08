@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDBTranslator converts LangChain internal query language operations
+  and comparisons into valid MariaDB filter dictionaries for use with
+  structured vector store queries.
+---
+
 # Translator
 
 > **Version:** langchain-mariadb v0.0.21

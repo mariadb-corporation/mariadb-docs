@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_fetch_lengths returns an array of byte lengths for each column in
+  the current row of a MariaDB result set, valid only after mysql_fetch_row
+  is called.
+---
+
 # mysql\_fetch\_lengths
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_error retrieves the human-readable error message from the last
+  Connector/C prepared statement call, complementing the numeric code from
+  mysql_stmt_errno.
+---
+
 # mysql\_stmt\_error
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Jupyter Kernel provides TAB-triggered SQL autocompletion for
+  keywords, databases, tables, columns, and user accounts, plus SHIFT-TAB
+  introspection for schema and function docs.
+---
+
 # SQL Autocompletion and Introspection
 
 These features are the result of Xing-Zhi Jiang's work during [Google Summer of Code 2021](https://summerofcode.withgoogle.com/archive/2021/projects/6374646231859200/) and they are being fine-tuned and improved constantly to get a decent code completion and introspection experience in the MariaDB Jupyter Kernel.

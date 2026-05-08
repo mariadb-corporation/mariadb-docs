@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python transactions default to manual commit; the
+  Connection class provides commit and rollback, with async transaction
+  support via asyncConnect in version 2.0.
+---
+
 # Transactions with MariaDB Connector/Python
 
 ## API Reference

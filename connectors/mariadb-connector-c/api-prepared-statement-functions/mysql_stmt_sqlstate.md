@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_sqlstate returns the five-character SQLSTATE error code for the
+  most recently invoked prepared statement function, with '00000' indicating
+  no error occurred.
+---
+
 # mysql\_stmt\_sqlstate
 
 ## Syntax

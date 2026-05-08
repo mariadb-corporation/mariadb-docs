@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python FAQ addresses common installation issues,
+  migration from 1.1 to 2.0, the binary vs text protocol distinction, async
+  setup, and transaction commit requirements.
+---
+
 <a id="faq"></a>
 
 # MariaDB Connector/Python FAQ

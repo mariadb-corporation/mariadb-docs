@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_fetch_fields returns all column definitions for a MariaDB result set
+  as an array of MYSQL_FIELD structures, one entry per column.
+---
+
 # mysql\_fetch\_fields
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/R2DBC Spring Data wraps MariadbConnectionFactory in
+  DatabaseClient, providing a higher-level reactive interface for executing
+  queries against MariaDB.
+---
+
 # Connect with MariaDB Connector/R2DBC (Spring Data)
 
 ## Overview

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_set_local_infile_default resets local infile callbacks to the
+  Connector/C internal defaults, reversing any custom handler registered via
+  mysql_set_local_infile_handler.
+---
+
 # mysql\_set\_local\_infile\_default
 
 ## Name

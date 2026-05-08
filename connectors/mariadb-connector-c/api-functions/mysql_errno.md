@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_errno returns the numeric error code from the most recent MariaDB
+  Connector/C function call, or zero if no error occurred.
+---
+
 # mysql\_errno
 
 ## Syntax

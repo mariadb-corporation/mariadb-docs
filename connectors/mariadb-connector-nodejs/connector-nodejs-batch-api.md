@@ -1,3 +1,10 @@
+---
+description: >-
+  The batch API in MariaDB Connector/Node.js sends multiple parameterized
+  queries in one network trip, with server-version-aware optimizations and
+  max_allowed_packet handling.
+---
+
 # Connector/Node.js Batching API
 
 Batch processing groups multiple queries into one unit and passes it in a single network trip to a database.

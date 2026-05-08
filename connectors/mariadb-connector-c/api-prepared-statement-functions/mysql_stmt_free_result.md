@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_free_result frees client-side result memory for a Connector/C
+  prepared statement, complementing mysql_stmt_store_result to manage buffer
+  lifecycle.
+---
+
 # mysql\_stmt\_free\_result
 
 ## Syntax

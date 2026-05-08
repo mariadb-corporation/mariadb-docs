@@ -1,3 +1,10 @@
+---
+description: >-
+  Release history for the MariaDB Jupyter Kernel, covering SQL
+  autocompletion, code introspection, multi-notebook server management, and
+  other fixes from v0.1.0 onward.
+---
+
 # Changes in MariaDB Jupyter Kernel
 
 ## \[v0.2.0] 02 November 2021

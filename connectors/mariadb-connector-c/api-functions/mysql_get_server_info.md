@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_get_server_info retrieves the connected server version string; use
+  mysql_get_server_version for the equivalent numeric representation.
+---
+
 # mysql\_get\_server\_info
 
 ## Syntax

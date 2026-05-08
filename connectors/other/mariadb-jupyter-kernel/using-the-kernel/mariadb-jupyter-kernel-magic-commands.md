@@ -1,3 +1,9 @@
+---
+description: >-
+  Magic commands reference for the MariaDB Jupyter Kernel, covering lsmagic,
+  line/bar/pie plot commands, df export, load, and the delimiter cell magic.
+---
+
 # MariaDB Jupyter Kernel Magic Commands
 
 Below you'll find a table with all the available magic commands supported by the kernel.\

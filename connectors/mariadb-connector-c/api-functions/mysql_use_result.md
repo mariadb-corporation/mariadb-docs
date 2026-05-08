@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_use_result initiates unbuffered retrieval of a query result set row
+  by row from the MariaDB server, blocking the connection until all rows are
+  fetched or freed.
+---
+
 # mysql\_use\_result
 
 ## Syntax

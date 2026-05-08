@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_hex_string converts a binary buffer to a hex-encoded string for safe
+  embedding in SQL; the output buffer must be at least 2*length+1 bytes.
+---
+
 # mysql\_hex\_string
 
 ## Syntax

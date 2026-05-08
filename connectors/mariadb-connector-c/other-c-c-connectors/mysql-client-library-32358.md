@@ -1,3 +1,10 @@
+---
+description: >-
+  MySQL client library 3.23.58 is an archived LGPL release for non-GPL
+  distribution use cases, with known limitations including no prepared
+  statements and deprecated password authentication.
+---
+
 # MySQL Client Library 3.23.58
 
 [Download](https://askmonty.org/wiki/MariaDB:Download:LGPL_MySQL_Client_Library_3.23.58) | **Release Notes**

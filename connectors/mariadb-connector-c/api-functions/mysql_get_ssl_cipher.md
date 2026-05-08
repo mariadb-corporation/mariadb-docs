@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_get_ssl_cipher returns the name of the TLS cipher in use for a
+  MariaDB Connector/C connection, or NULL for non-TLS connections.
+---
+
 # mysql\_get\_ssl\_cipher
 
 ## Syntax

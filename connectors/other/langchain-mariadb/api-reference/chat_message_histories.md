@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDBChatMessageHistory persists LangChain conversation history to a
+  MariaDB database table, providing methods to add, retrieve, and clear
+  messages per session.
+---
+
 # Chat Message History
 
 > **Version:** langchain-mariadb v0.0.21

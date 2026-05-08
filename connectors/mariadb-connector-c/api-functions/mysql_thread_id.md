@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_thread_id retrieves the thread identifier for an active connection;
+  the value may change after a reconnect if the reconnect option is enabled.
+---
+
 # mysql\_thread\_id
 
 ## Syntax

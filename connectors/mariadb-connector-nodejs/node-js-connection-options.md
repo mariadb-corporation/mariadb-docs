@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Node.js connection options include essential, SSL, and
+  advanced parameters for configuring host, authentication, compression,
+  timeouts, and numeric type handling.
+---
+
 # Node.js Connection Options
 
 * [Essential options](node-js-connection-options.md#essential-option)

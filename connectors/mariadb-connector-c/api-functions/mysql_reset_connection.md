@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_reset_connection resets session state on a MariaDB Connector/C
+  connection — rolling back transactions and clearing variables — without
+  disconnecting or reauthenticating.
+---
+
 # mysql\_reset\_connection
 
 ## Syntax

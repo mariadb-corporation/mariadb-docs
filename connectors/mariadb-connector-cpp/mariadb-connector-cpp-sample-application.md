@@ -1,3 +1,10 @@
+---
+description: >-
+  Tasks.cpp is a complete MariaDB Connector/C++ sample demonstrating CRUD
+  operations, with setup instructions, compilation steps, and command-line
+  usage for a task management database.
+---
+
 # MariaDB Connector/C++ Sample Application
 
 Tasks.cpp is a complete sample application that demonstrates `CRUD` (`Create, Read, Update, Delete`) operations using the MariaDB Connector/C++.

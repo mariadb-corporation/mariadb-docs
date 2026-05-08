@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for MariaDB Connector/C types and definitions, including
+  enumeration constants for field types, statement options, cursor types,
+  indicator types, field flags, and server status.
+---
+
 # MariaDB Connector/C Types and Definitions
 
 MariaDB Connector/C provides the following types and definitions.

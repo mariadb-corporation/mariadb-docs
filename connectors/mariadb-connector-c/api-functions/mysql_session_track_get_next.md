@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_session_track_get_next retrieves subsequent session state change
+  notifications after mysql_session_track_get_first, called repeatedly until
+  a nonzero value signals end of data.
+---
+
 # mysql\_session\_track\_get\_next
 
 ## Syntax

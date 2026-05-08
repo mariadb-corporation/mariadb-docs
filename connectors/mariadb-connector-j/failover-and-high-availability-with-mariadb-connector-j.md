@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/J 3.0 and later support failover and high availability
+  through sequential, loadbalance, replication, and load-balance-read modes
+  with optional transaction replay.
+---
+
 # Failover and High availability with MariaDB Connector/J
 
 _This guide will cover:_

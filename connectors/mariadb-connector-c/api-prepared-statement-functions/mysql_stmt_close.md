@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_close deallocates a prepared statement handle and cancels any
+  pending results, freeing server and client resources associated with the
+  statement.
+---
+
 # mysql\_stmt\_close
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/C reads connection settings from option files such as
+  my.cnf, supporting default and custom file locations, option groups, and a
+  full set of client options.
+---
+
 # Configuring MariaDB Connector/C with Option Files
 
 Just like MariaDB Server and libmysqlclient, MariaDB Connector/C can also read configuration options from client [option groups](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#option-groups) in [option files](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files).

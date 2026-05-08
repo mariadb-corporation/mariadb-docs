@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_row_seek repositions the row cursor in a buffered MariaDB result set
+  to an arbitrary offset, returning the previous row position as a
+  MYSQL_ROW_OFFSET.
+---
+
 # mysql\_row\_seek
 
 ## Syntax

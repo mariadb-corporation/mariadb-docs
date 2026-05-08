@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_query sends a null-terminated SQL string to the MariaDB server for
+  execution, returning zero on success; use mysql_real_query for binary-safe
+  operation.
+---
+
 # mysql\_query
 
 ## Syntax

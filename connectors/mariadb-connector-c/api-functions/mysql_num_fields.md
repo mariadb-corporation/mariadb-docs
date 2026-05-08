@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_num_fields retrieves the column count from a result set handle,
+  useful for iterating over fields in a MariaDB query result.
+---
+
 # mysql\_num\_fields
 
 ## Syntax

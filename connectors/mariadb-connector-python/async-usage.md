@@ -1,3 +1,10 @@
+---
+description: >-
+  Async/await support in MariaDB Connector/Python 2.0 enables non-blocking
+  database operations via asyncConnect, AsyncCursor, and create_async_pool
+  for asyncio-based Python applications.
+---
+
 # Async/Await Support
 
 MariaDB Connector/Python 2.0 introduces native async/await support for asynchronous database operations. This enables efficient database access in async applications like FastAPI, Starlette, and other asyncio-based frameworks.

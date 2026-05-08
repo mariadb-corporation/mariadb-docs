@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_get_client_info retrieves the client library version as a string;
+  use mysql_get_client_version for the equivalent numeric value.
+---
+
 # mysql\_get\_client\_info
 
 ## Syntax

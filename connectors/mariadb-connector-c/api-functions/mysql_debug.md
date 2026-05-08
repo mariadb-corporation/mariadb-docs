@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_debug enables debug output for a MariaDB Connector/C client using
+  the DBUG library, accepting a colon-separated control string to configure
+  trace and logging options.
+---
+
 # mysql\_debug
 
 ## Syntax

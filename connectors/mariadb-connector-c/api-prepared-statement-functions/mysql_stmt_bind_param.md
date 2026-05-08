@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_bind_param binds an array of MYSQL_BIND variables to the
+  parameter markers in a prepared statement before it is executed via
+  mysql_stmt_execute.
+---
+
 # mysql\_stmt\_bind\_param
 
 ## Syntax

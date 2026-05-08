@@ -1,3 +1,10 @@
+---
+description: >-
+  DML with the MariaDB Connector/R2DBC native API executes INSERT, UPDATE,
+  DELETE, and SELECT reactively using io.r2dbc.spi.Statement, Result, Row,
+  and RowMetadata classes.
+---
+
 # DML with MariaDB Connector/R2DBC (Native API)
 
 Java developers can use MariaDB Connector/R2DBC to connect to MariaDB database products using the Reactive Relational Database Connectivity (R2DBC) API. R2DBC operations are non-blocking, which makes R2DBC more scalable than Java's standard JDBC API.

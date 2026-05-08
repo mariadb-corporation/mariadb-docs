@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/C supports loadable and built-in plugins across four
+  categories: connection, pvio, I/O, and authentication, including remote_io
+  and multiple auth methods.
+---
+
 # MariaDB Connector/C Plugins
 
 MariaDB Connector/C functionality can be extended via loadable (or statically compiled in) plugins. As of the version 3.1.11 Connector/C comes with the following plugins

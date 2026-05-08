@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb_stmt_execute_direct prepares and executes a statement in a single
+  call using a pre-allocated MYSQL_STMT handle, available in Connector/C 3.0
+  with MariaDB 10.2 or later.
+---
+
 # mariadb\_stmt\_execute\_direct
 
 ## Syntax

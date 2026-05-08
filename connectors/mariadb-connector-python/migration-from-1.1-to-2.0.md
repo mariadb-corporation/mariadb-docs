@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python 2.0 migration covers renamed parameters, removed
+  auto-reconnect, updated pooling, URI connections, async/await support, and
+  a migration checklist.
+---
+
 # Migration Guide: MariaDB Connector/Python 1.1 to 2.0
 
 This guide helps you migrate your applications from MariaDB Connector/Python 1.1 to version 2.0.0.

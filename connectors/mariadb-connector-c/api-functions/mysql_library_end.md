@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_library_end finalizes the MariaDB Connector/C library after use,
+  performing memory cleanup and shutting down the embedded server if
+  applicable.
+---
+
 # mysql\_library\_end
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  Spring Data R2DBC DDL with MariaDB Connector/R2DBC uses
+  DatabaseClient.execute to run schema statements including CREATE TABLE and
+  ALTER TABLE within the Spring reactive framework.
+---
+
 # DDL with MariaDB Connector/R2DBC (Spring Data)
 
 ### Overview

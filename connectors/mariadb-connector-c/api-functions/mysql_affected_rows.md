@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_affected_rows returns the number of rows affected by the last
+  INSERT, UPDATE, DELETE, or REPLACE statement executed on a MariaDB
+  Connector/C connection.
+---
+
 # mysql\_affected\_rows
 
 ## Syntax

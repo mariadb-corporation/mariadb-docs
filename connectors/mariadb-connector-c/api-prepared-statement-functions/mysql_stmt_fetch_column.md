@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_fetch_column fetches part of a single column value from the
+  current prepared statement row, allowing large data to be read
+  incrementally via an offset.
+---
+
 # mysql\_stmt\_fetch\_column
 
 ## Syntax

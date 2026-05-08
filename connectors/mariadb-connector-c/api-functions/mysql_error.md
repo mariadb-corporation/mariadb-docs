@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_error returns the error message string for the most recent failed
+  MariaDB Connector/C function call, or an empty string if no error
+  occurred.
+---
+
 # mysql\_error
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python constants module defines groups: CAPABILITY,
+  CLIENT, CURSOR, FIELD_TYPE, FIELD_FLAG, INDICATOR, STATUS, and
+  EXT_FIELD_TYPE.
+---
+
 # Constants
 
 > Constants are declared in mariadb.constants module.

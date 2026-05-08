@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb_cancel immediately aborts a connection by making all subsequent
+  read/write operations fail, without freeing the MYSQL structure or closing
+  communication channels.
+---
+
 # mariadb\_cancel
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_param_count reports how many placeholder parameters a prepared
+  statement contains, indicating the size of the MYSQL_BIND array required
+  for binding.
+---
+
 # mysql\_stmt\_param\_count
 
 ## Syntax

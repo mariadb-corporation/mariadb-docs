@@ -1,3 +1,10 @@
+---
+description: >-
+  Spring Data repositories with MariaDB Connector/R2DBC use R2dbcRepository
+  and JavaConfig to implement reactive CRUD, with ApplicationConfig, Entity,
+  Repository, and Service classes.
+---
+
 # Repositories with MariaDB Connector/R2DBC (Spring Data)
 
 ## Overview

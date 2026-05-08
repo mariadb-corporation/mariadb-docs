@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Connector/Python module provides connect, asyncConnect,
+  create_pool, and create_async_pool constructors, DB API 2.0 type objects,
+  and the exception hierarchy.
+---
+
 # The MariaDB Connector/Python module
 
 <a id="module"></a>

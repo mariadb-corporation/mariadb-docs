@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_thread_safe returns 1 if the MariaDB Connector/C client library was
+  compiled with thread-safety support, or zero otherwise.
+---
+
 # mysql\_thread\_safe
 
 ## Syntax

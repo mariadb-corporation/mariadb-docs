@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_thread_init initializes thread-local variables for multi-threaded
+  Connector/C clients; called automatically by mysql_init if not invoked
+  explicitly. Deprecated in Connector/C 3.0.
+---
+
 # mysql\_thread\_init
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_stat returns a status string from the MariaDB server covering
+  uptime, active threads, query count, open tables, and queries per second.
+---
+
 # mysql\_stat
 
 ## Syntax

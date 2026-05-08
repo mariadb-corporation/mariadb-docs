@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb_stmt_fetch_fields returns an array of MYSQL_FIELD descriptors for
+  each result set column of a prepared statement, added in MariaDB
+  Connector/C 3.1.0.
+---
+
 # mariadb\_stmt\_fetch\_fields
 
 ## Syntax

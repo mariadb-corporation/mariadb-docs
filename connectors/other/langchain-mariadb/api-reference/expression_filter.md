@@ -1,3 +1,10 @@
+---
+description: >-
+  Expression filter reference for langchain-mariadb, documenting the
+  operator enum, filter builder classes, and
+  MariaDBFilterExpressionConverter for metadata-based vector queries.
+---
+
 # Expression Filters
 
 > **Version:** langchain-mariadb v0.0.21

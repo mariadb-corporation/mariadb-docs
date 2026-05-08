@@ -1,4 +1,8 @@
 ---
+description: >-
+  Perl DBI connector overview for MariaDB, introducing the DBD::MariaDB
+  driver as the recommended alternative to DBD::mysql for connecting Perl
+  applications to MariaDB.
 icon: link
 ---
 

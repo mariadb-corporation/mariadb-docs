@@ -1,3 +1,10 @@
+---
+description: >-
+  Complete API reference for the langchain-mariadb package covering vector
+  store, chat history, expression filter, and SQL translator modules for
+  building LLM applications on MariaDB.
+---
+
 # API Reference
 
 > **Version:** langchain-mariadb v0.0.21

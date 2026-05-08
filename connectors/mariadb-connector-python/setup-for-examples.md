@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up the test database, contacts and accounts tables, and a user account
+  required by the MariaDB Connector/Python code examples in this
+  documentation.
+---
+
 # Setup for Examples
 
 The examples in this MariaDB Connector/Python documentation depend on a database `test` and tables `contacts` and `accounts`.

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Node.js ships with built-in TypeScript definitions
+  enabling typed query results and connection options without requiring a
+  separate @types package.
+---
+
 # TypeScript Usage
 
 MariaDB Connector/Node.js ships with built-in TypeScript definitions. No additional `@types/` package is required.

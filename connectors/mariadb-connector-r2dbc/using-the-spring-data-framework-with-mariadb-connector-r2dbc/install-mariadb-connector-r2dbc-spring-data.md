@@ -1,3 +1,10 @@
+---
+description: >-
+  Install MariaDB Connector/R2DBC with Spring Data via Maven using
+  spring-boot-starter-data-r2dbc; Spring Boot 3.0 and later manage the
+  r2dbc-mariadb connector version automatically.
+---
+
 # Install MariaDB Connector/R2DBC (Spring Data)
 
 ### Overview

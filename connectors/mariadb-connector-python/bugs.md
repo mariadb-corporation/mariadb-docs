@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python bug reports are filed in the Jira CONPY project.
+  Effective reports include version details, a short reproducing script, and
+  table definitions where relevant.
+---
+
 # Bug reports
 
 If you think that you have found a bug in MariaDB Software, please report it at

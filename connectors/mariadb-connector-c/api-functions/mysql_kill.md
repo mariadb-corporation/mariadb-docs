@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_kill requests the MariaDB server to terminate the thread with the
+  given process ID; use mysql_thread_id to obtain the ID of the current
+  connection.
+---
+
 # mysql\_kill
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_warning_count reports how many warnings the most recent
+  Connector/C prepared statement raised; added in Connector/C 3.0. Use SHOW
+  WARNINGS to retrieve messages.
+---
+
 # mysql\_stmt\_warning\_count
 
 ## Syntax

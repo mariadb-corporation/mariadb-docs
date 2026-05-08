@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_reset resets a prepared statement on both client and server to
+  its post-prepare state, clearing unbuffered results and errors while
+  preserving bindings.
+---
+
 # mysql\_stmt\_reset
 
 ## Syntax

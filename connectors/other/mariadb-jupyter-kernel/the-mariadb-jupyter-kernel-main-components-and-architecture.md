@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Jupyter Kernel architecture and component reference, describing
+  how MariaDBKernel, MariaDBClient, CodeParser, MagicFactory, and related
+  classes interact at runtime.
+---
+
 # The MariaDB Jupyter Kernel - Main Components and Architecture
 
 ## Architecture

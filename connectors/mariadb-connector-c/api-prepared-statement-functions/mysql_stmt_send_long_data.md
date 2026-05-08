@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_send_long_data sends a parameter value in chunks to the server,
+  enabling large TEXT or BLOB data that exceeds max_allowed_packet to be
+  streamed in multiple calls.
+---
+
 # mysql\_stmt\_send\_long\_data
 
 ## Syntax

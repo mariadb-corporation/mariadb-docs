@@ -1,3 +1,10 @@
+---
+description: >-
+  Spring Data R2DBC applications with MariaDB Connector/R2DBC require Maven,
+  Entity classes for object mapping, and the spring-boot-starter-data-r2dbc
+  dependency.
+---
+
 # Application Development with MariaDB/Connector/R2DBC (Spring Data)
 
 ## Overview

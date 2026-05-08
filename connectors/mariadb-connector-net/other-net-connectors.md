@@ -1,3 +1,10 @@
+---
+description: >-
+  Alternative ADO.NET connectors for MariaDB include MySQL Connector/NET and
+  dotConnect for MySQL, supporting .NET Framework, .NET Core, and optional
+  Entity Framework ORM integration.
+---
+
 # Other .NET Connectors
 
 Some other ADO.NET connectors are:

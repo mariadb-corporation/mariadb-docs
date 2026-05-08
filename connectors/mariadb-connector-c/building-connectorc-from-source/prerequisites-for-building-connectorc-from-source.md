@@ -1,3 +1,10 @@
+---
+description: >-
+  Building MariaDB Connector/C from source requires CMake, a C compiler, and
+  TLS/SSL libraries. Windows needs Visual Studio; Linux and macOS need gcc
+  with optional Curl or Kerberos.
+---
+
 # Prerequisites For Building Connector/C From Source
 
 #### Windows

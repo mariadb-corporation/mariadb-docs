@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure TLS and SSL for MariaDB Connector/J using sslMode,
+  serverSslCert, and keyStore options, supporting trust, verify-ca,
+  verify-full, and zero-configuration encryption modes.
+---
+
 # Using TLS/SSL with MariaDB Connector/J
 
 ## Overview

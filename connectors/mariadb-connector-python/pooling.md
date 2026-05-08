@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python 2.0 connection pooling supports sync and async
+  pools via create_pool and create_async_pool, with configurable size,
+  health checks, and context managers.
+---
+
 # Connection pooling
 
 *Since version 2.0:* Connection pooling is now a separate optional package. Install with:

@@ -1,3 +1,10 @@
+---
+description: >-
+  Basic usage of MariaDB Connector/Python covers connecting, parameterized
+  queries with execute and executemany, and NULL and default value handling
+  with indicators.
+---
+
 # Basic usage
 
 ## API Reference

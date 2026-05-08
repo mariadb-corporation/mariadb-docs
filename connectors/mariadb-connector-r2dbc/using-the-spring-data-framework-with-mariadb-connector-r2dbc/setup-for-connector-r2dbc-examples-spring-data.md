@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up the test database, contact table, and user account required by the
+  MariaDB Connector/R2DBC Spring Data code examples in this documentation
+  section.
+---
+
 # Setup for Connector/R2DBC Examples (Spring Data)
 
 ## Overview

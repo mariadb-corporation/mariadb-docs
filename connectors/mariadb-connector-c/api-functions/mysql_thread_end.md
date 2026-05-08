@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_thread_end releases thread-local memory allocated by
+  mysql_thread_init and must be called explicitly before a thread exits to
+  avoid memory leaks. Deprecated in Connector/C 3.0.
+---
+
 # mysql\_thread\_end
 
 ## Syntax

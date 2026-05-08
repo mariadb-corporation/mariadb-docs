@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_result_metadata retrieves result-set metadata from a
+  Connector/C prepared statement; the returned MYSQL_RES contains field
+  information but no row data.
+---
+
 # mysql\_stmt\_result\_metadata
 
 ## Syntax

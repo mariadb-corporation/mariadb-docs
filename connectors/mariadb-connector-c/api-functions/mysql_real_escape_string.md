@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_real_escape_string encodes a string for safe use in a SQL statement,
+  taking the connection's current character set into account when escaping
+  special characters.
+---
+
 # mysql\_real\_escape\_string
 
 ## Syntax

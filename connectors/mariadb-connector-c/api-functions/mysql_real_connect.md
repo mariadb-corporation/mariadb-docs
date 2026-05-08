@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_real_connect opens a connection to a MariaDB server and returns a
+  MYSQL handle on success, or NULL if the connection could not be
+  established.
+---
+
 # mysql\_real\_connect
 
 ## Syntax

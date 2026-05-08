@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_execute runs a prepared statement previously set up with
+  mysql_stmt_prepare, substituting bound parameter values and returning zero
+  on success.
+---
+
 # mysql\_stmt\_execute
 
 ## Syntax

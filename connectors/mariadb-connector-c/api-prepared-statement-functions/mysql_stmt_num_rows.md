@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_num_rows returns the total row count of a buffered prepared
+  statement result set; it requires mysql_stmt_store_result to have been
+  called first.
+---
+
 # mysql\_stmt\_num\_rows
 
 ## Syntax

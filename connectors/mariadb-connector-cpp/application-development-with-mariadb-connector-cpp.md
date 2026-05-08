@@ -1,3 +1,10 @@
+---
+description: >-
+  C++ applications built with MariaDB Connector/C++ use the sql namespace
+  classes for connections, prepared statements, and result sets to interact
+  with MariaDB databases.
+---
+
 # Application Development with MariaDB Connector/C++
 
 MariaDB Connector/C++ enables C++ applications to establish client connections to MariaDB database products over TLS.

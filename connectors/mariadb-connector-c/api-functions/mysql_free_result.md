@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_free_result releases the memory allocated for a MariaDB result set;
+  row values obtained from prior mysql_fetch_row calls become invalid after
+  this call.
+---
+
 # mysql\_free\_result
 
 ## Syntax

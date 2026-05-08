@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Python Connection class reference covers parameters,
+  methods for commit and rollback, and read-only attributes for server
+  version and TLS state.
+---
+
 # The connection class
 
 ### *class* Connection(\*args, \*\*kwargs)

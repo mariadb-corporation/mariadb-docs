@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_get_host_info returns a string describing the connection type and
+  server hostname for a MariaDB Connector/C connection, or NULL if invalid.
+---
+
 # mysql\_get\_host\_info
 
 ## Syntax

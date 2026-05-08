@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_set_local_infile_handler registers custom callback functions for
+  init, read, end, and error phases of a LOAD DATA LOCAL INFILE operation in
+  MariaDB Connector/C.
+---
+
 # mysql\_set\_local\_infile\_handler
 
 ## Name

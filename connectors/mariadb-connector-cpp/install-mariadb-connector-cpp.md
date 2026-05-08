@@ -1,3 +1,10 @@
+---
+description: >-
+  Install MariaDB Connector/C++ on Linux using RPM, DEB, or binary tarball
+  packages, or on Windows using the MSI installer, with MariaDB Connector/C
+  as a prerequisite.
+---
+
 # Install MariaDB Connector/C++
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/97ObD80oLdZu6qT33Vhb/" %}

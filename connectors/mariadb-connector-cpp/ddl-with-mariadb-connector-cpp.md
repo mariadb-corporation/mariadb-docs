@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/C++ supports DDL operations such as ALTER TABLE and
+  TRUNCATE TABLE, letting C++ applications modify database schema using the
+  sql::Statement class.
+---
+
 # DDL with MariaDB Connector/C++
 
 C++ developers can use MariaDB Connector/C++ to perform basic DDL (Data Definition Language) operations with MariaDB database products.

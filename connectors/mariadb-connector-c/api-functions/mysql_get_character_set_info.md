@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_get_character_set_info populates a MY_CHARSET_INFO structure with
+  details about the current default character set for a MariaDB Connector/C
+  connection.
+---
+
 # mysql\_get\_character\_set\_info
 
 ## Syntax

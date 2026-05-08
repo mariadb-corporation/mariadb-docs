@@ -1,3 +1,10 @@
+---
+description: >-
+  Connector/C field types and indicator variables used in the MYSQL_BIND
+  structure, including all MYSQL_TYPE constants and STMT_INDICATOR values
+  defined in mariadb_com.h.
+---
+
 # Connector/C Types and Definitions
 
 ### Field types

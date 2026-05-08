@@ -1,3 +1,10 @@
+---
+description: >-
+  MySqlConnector is the recommended ADO.NET connector for MariaDB Server,
+  offering high performance and MariaDB-specific features including
+  zero-configuration SSL and GSSAPI authentication.
+---
+
 # MySqlConnector - Recommended ADO.NET Connector for MariaDB
 
 **MySqlConnector is the recommended ADO.NET connector for MariaDB Server.** MySqlConnector is a community-maintained open-source project that provides the best performance, reliability, and compatibility with MariaDB products. 

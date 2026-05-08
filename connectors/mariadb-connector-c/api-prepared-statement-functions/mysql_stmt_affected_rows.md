@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_affected_rows returns the number of rows affected by the last
+  INSERT, UPDATE, DELETE, or REPLACE prepared statement, or -1 if the
+  statement failed.
+---
+
 # mysql\_stmt\_affected\_rows
 
 ## Syntax

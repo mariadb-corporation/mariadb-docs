@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_commit commits the current transaction on a MariaDB Connector/C
+  connection, returning zero on success without affecting autocommit mode.
+---
+
 # mysql\_commit
 
 ## Syntax

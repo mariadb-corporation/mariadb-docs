@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/R2DBC connection parameters cover SSL mode,
+  authentication plugins, autocommit, transaction replay, timezone handling,
+  and prepared statement options.
+---
+
 # MariaDB Connector/R2DBC Connection Parameters
 
 ## Overview

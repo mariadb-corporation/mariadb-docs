@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_info returns a string with summary statistics about the last
+  executed query, covering INSERT, UPDATE, ALTER TABLE, and LOAD DATA
+  operations; returns NULL for SELECT.
+---
+
 # mysql\_info
 
 ## Syntax

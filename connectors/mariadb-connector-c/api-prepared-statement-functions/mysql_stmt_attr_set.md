@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_attr_set configures a prepared statement attribute on a
+  Connector/C statement handle; supported attributes include cursor type,
+  prefetch rows, and bulk-insert array size.
+---
+
 # mysql\_stmt\_attr\_set
 
 ## Syntax

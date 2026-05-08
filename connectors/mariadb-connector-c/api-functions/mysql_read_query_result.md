@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_read_query_result reads the result of a statement previously sent
+  with mysql_send_query, and must be called once for each successful
+  mysql_send_query call.
+---
+
 # mysql\_read\_query\_result
 
 ## Syntax

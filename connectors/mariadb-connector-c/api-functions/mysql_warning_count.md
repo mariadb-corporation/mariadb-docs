@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_warning_count retrieves the warning count from the most recent query
+  execution; use SHOW WARNINGS for the full warning message text.
+---
+
 # mysql\_warning\_count
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  Compile MariaDB Connector/ODBC from the GitHub source repository on Linux
+  or Windows, with step-by-step dependency installation for cmake, UnixODBC,
+  and optional OpenSSL TLS support.
+---
+
 # Building MariaDB Connector/ODBC from Source
 
 ## Installing MariaDB Connector/ODBC Build Dependencies

@@ -1,3 +1,10 @@
+---
+description: >-
+  The Promise API is the default interface for MariaDB Connector/Node.js,
+  enabling async/await patterns for connections, queries, batch operations,
+  and transactions with MariaDB.
+---
+
 # Connector/Node.js Promise API
 
 ## Connector/Node.js Promise API

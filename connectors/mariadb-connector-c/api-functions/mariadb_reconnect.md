@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb_reconnect attempts to re-establish a dropped MariaDB Connector/C
+  connection using the original credentials, and requires the
+  MYSQL_OPT_RECONNECT option to be set.
+---
+
 # mariadb\_reconnect
 
 ## Syntax

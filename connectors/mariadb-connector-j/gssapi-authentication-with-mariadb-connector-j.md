@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/J supports GSSAPI authentication via the server gssapi
+  plugin, using JAAS on Unix or a Waffle-based native Windows implementation
+  for Kerberos ticket validation.
+---
+
 # GSSAPI Authentication with MariaDB Connector/J
 
 MariaDB has supported GSSAPI authentication since [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1) when the [gssapi](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/authentication-plugins/authentication-plugin-gssapi) authentication plugin was added.

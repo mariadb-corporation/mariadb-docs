@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_field_count reports how many fields a prepared statement result
+  set contains; it returns zero for INSERT, UPDATE, DELETE, and REPLACE
+  statements.
+---
+
 # mysql\_stmt\_field\_count
 
 ## Syntax

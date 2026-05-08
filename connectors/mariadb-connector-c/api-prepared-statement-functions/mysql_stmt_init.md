@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_init allocates and initializes a MYSQL_STMT prepared statement
+  handle for a Connector/C connection, returning NULL if memory allocation
+  fails.
+---
+
 # mysql\_stmt\_init
 
 ## Syntax

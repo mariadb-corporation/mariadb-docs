@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_close terminates an open database connection and releases the memory
+  allocated for the MYSQL handle.
+---
+
 # mysql\_close
 
 ## Syntax

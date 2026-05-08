@@ -1,3 +1,10 @@
+---
+description: >-
+  useBatchMultiSend enables bulk batch execution in MariaDB Connector/J,
+  grouping executeBatch calls into multi-query packets to reduce round-trips
+  between client and server.
+---
+
 # Option batchMultiSend Description
 
 ### Definition

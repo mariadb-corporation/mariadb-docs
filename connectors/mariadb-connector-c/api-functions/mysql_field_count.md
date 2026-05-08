@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_field_count returns the number of columns in the most recent query
+  result for a MariaDB connection, useful for checking whether a result set
+  is available.
+---
+
 # mysql\_field\_count
 
 ## Syntax

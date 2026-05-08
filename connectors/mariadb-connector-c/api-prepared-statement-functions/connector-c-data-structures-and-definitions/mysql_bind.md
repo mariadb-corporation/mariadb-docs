@@ -1,3 +1,10 @@
+---
+description: >-
+  MYSQL_BIND is the MariaDB Connector/C structure used to bind input
+  parameters and output result columns to a prepared statement, with support
+  for array binding and indicator variables.
+---
+
 # MYSQL\_BIND
 
 The `MYSQL_BIND` structure is used to bind parameters (which will be sent to the server) and result sets (output sent from server to client). The `MYSQL_BIND` structure is bound with [mysql\_stmt\_bind\_param()](../mysql_stmt_bind_param.md) or [mysql\_stmt\_bind\_result()](../mysql_stmt_bind_result.md) to a prepared statement.

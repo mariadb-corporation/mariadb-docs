@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_get_proto_info returns the protocol version number used for a
+  MariaDB Connector/C connection; versions 9 and below are not supported.
+---
+
 # mysql\_get\_proto\_info
 
 ## Syntax

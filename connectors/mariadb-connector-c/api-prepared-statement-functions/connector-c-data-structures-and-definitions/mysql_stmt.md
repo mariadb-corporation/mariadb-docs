@@ -1,3 +1,10 @@
+---
+description: >-
+  MYSQL_STMT is the MariaDB Connector/C handle for a prepared statement,
+  allocated by mysql_stmt_init and released by mysql_stmt_close; all its
+  members are private.
+---
+
 # MYSQL\_STMT
 
 The `MYSQL_STMT` structure is a handle for a prepared statement. The handle will be allocated by [mysql\_stmt\_init()](../mysql_stmt_init.md) and released by [mysql\_stmt\_close()](../mysql_stmt_close.md).

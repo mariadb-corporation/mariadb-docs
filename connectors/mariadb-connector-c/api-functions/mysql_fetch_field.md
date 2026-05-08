@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_fetch_field returns the definition of one result set column as a
+  MYSQL_FIELD pointer; call it repeatedly to iterate over all columns in the
+  result set.
+---
+
 # mysql\_fetch\_field
 
 ## Syntax

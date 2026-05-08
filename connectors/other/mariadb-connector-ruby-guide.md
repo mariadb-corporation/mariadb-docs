@@ -1,4 +1,7 @@
 ---
+description: >-
+  Ruby connector overview for MariaDB, pointing to the mysql2 gem as the
+  recommended library for connecting Ruby applications to MariaDB databases.
 icon: link
 ---
 

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_errno returns the numeric error code for the most recently
+  invoked Connector/C prepared statement function, or zero if no error
+  occurred.
+---
+
 # mysql\_stmt\_errno
 
 ## Syntax

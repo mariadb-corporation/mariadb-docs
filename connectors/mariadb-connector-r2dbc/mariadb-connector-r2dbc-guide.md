@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/R2DBC enables Java applications to connect to MariaDB
+  using the non-blocking R2DBC API, with a native R2DBC implementation and
+  Spring Data R2DBC framework integration.
+---
+
 # About MariaDB Connector/R2DBC
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/97ObD80oLdZu6qT33Vhb/" %}

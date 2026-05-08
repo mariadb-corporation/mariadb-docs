@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_next_result advances to the next result set from a multi-statement
+  query, making it available for retrieval via mysql_store_result or
+  mysql_use_result.
+---
+
 # mysql\_next\_result
 
 ## Syntax

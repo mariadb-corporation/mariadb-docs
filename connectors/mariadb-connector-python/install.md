@@ -1,3 +1,10 @@
+---
+description: >-
+  Install MariaDB Connector/Python via pip with pure Python, C extension, or
+  binary wheel options; connection pooling requires the separate
+  mariadb[pool] extra.
+---
+
 # Installation
 
 ## API Reference

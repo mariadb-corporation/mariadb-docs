@@ -1,3 +1,10 @@
+---
+description: >-
+  mariadb_get_infov retrieves generic or connection-specific information
+  from a MariaDB Connector/C handle, accepting a value-type enum and a
+  pointer to store the result.
+---
+
 # mariadb\_get\_infov
 
 ## Syntax

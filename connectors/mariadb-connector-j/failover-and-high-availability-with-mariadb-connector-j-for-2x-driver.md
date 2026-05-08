@@ -1,3 +1,10 @@
+---
+description: >-
+  Failover and load balancing in MariaDB Connector/J 2.x support sequential,
+  loadbalance, replication, and aurora modes across multi-master,
+  master-slave, and Amazon Aurora clusters.
+---
+
 # Failover and High availability with MariaDB Connector/J for 2.x driver
 
 _This guide will cover:_

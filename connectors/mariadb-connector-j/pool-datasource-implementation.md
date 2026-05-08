@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/J provides MariaDbDataSource and MariaDbPoolDataSource
+  implementations with configurable pool size, idle timeout, validation
+  delay, and JMX monitoring support.
+---
+
 # Pool Datasource Implementation
 
 ## Pool Datasource Implementation

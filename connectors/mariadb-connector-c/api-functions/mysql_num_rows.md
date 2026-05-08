@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_num_rows returns the number of rows in a MariaDB result set; for
+  unbuffered results the count is only accurate after all rows have been
+  fetched.
+---
+
 # mysql\_num\_rows
 
 ## Syntax

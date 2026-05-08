@@ -1,3 +1,10 @@
+---
+description: >-
+  Known restrictions of the MariaDB Jupyter Kernel include one SQL statement
+  per cell, single line magic per cell, no mixing of magic and SQL, and
+  required semicolon delimiters.
+---
+
 # MariaDB Jupyter Kernel Restrictions and Limitations
 
 ### Restrictions and Limitations

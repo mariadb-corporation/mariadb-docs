@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_sqlstate returns the five-character SQLSTATE error code for the most
+  recent MariaDB Connector/C function call, with 00000 indicating success.
+---
+
 # mysql\_sqlstate
 
 ## Syntax

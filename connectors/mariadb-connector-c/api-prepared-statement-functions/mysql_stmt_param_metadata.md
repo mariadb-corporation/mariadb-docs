@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_param_metadata retrieves parameter metadata for a prepared
+  statement handle, returning a MYSQL_RES pointer that describes the bound
+  parameters.
+---
+
 # mysql\_stmt\_param\_metadata
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up the test database and user account required by MariaDB Connector/C
+  code examples, including schema creation SQL and privilege grants for
+  db_user.
+---
+
 # Setup for Examples
 
 Examples in this MariaDB Connector/C documentation depend on a database `test` and table `contacts`.

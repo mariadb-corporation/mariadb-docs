@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Node.js is a native JavaScript driver for connecting
+  Node.js applications to MariaDB and MySQL databases, supporting both
+  Promise and Callback APIs via npm.
+---
+
 # About MariaDB Connector/Node.js
 
 {% include "https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/~/reusable/ESc0fAzsCO2TP7Nh1kJM/" %}

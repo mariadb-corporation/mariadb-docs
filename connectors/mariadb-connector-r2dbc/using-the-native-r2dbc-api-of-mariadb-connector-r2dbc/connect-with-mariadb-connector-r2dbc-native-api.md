@@ -1,3 +1,10 @@
+---
+description: >-
+  Connecting to MariaDB with the native R2DBC API uses
+  MariadbConnectionConfiguration and MariadbConnectionFactory to create and
+  manage reactive client connections via io.r2dbc.spi.Connection.
+---
+
 # Connect with MariaDB Connector/R2DBC (Native API)
 
 Java developers can use MariaDB Connector/R2DBC to establish client connections with MariaDB database products.

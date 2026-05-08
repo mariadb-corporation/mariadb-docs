@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_refresh flushes server-side caches and state using a bitmask of
+  options such as REFRESH_GRANT, REFRESH_LOG, REFRESH_TABLES, and
+  REFRESH_HOSTS.
+---
+
 # mysql\_refresh
 
 ## Syntax

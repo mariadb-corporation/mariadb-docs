@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect a C or C++ application to MariaDB using Connector/C. Includes a
+  complete code example demonstrating connection initialization,
+  mysql_real_connect usage, and cleanup.
+---
+
 # Connect with MariaDB Connector/C
 
 MariaDB Connector/C enables C and C++ applications to establish client connections to MariaDB database products over TLS.

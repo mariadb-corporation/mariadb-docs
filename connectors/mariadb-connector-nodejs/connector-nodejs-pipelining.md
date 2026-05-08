@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/Node.js pipelining dispatches queries in FIFO order
+  without blocking on each response, improving throughput for high-volume
+  workloads over high-latency connections.
+---
+
 # Connector/Node.js Pipelining
 
 With traditional database drivers, queries issued from the application are sent one by one to the server, waiting on the results of the first query before sending the next. Communication with the server follows this synchronous request-response messaging pattern. While this may be sufficient for some applications, it isn't very efficient when you need to process a large volume of queries at the same time.

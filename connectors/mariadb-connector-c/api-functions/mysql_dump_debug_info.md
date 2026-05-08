@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_dump_debug_info instructs a MariaDB server to write connection
+  status information to the error log, and requires the SUPER privilege for
+  the current user.
+---
+
 # mysql\_dump\_debug\_info
 
 ## Syntax

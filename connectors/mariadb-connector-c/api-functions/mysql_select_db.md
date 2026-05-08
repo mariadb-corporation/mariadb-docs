@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_select_db changes the default database on an active connection; the
+  current default can also be queried with the SELECT DATABASE() SQL
+  function.
+---
+
 # mysql\_select\_db
 
 ## Syntax

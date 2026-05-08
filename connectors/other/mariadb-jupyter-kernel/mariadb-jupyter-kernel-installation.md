@@ -1,3 +1,10 @@
+---
+description: >-
+  Install the MariaDB Jupyter Kernel via pip using either a quick setup for
+  existing environments or a complete Miniconda-based setup, with platform
+  support notes for Linux and macOS.
+---
+
 # MariaDB Jupyter Kernel Installation
 
 The [mariadb\_kernel](https://github.com/MariaDB/mariadb_kernel) project uses the [MariaDB command-line client](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client/mysql-command-line-client) under the hood as a child process, thus having MariaDB installed on your system is a hard requirement in order to be able to use the kernel.

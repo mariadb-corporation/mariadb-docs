@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of MariaDB Connector/Python: a PEP-249-compliant DB API 2.0
+  driver supporting sync and async operations, available as pure Python, a C
+  extension, or pre-compiled binary wheels.
+---
+
 # About Connector/Python
 
 {% include "https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/~/reusable/9p9Gnd3FcRNTnYakGG0J/" %}

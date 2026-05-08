@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_set_character_set sets the default character set for a MariaDB
+  Connector/C connection, ensuring mysql_real_escape_string uses the correct
+  encoding.
+---
+
 # mysql\_set\_character\_set
 
 ## Syntax

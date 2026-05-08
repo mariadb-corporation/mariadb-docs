@@ -1,3 +1,10 @@
+---
+description: >-
+  mariasql is a Node.js binding to MariaDB's non-blocking client library,
+  providing higher benchmark performance than standard libmysqlclient
+  bindings for MariaDB and MySQL connections.
+---
+
 # JavaScript - mariasql for node.js
 
 [mariasql](https://npmjs.org/package/mariasql) is a [node.js](https://nodejs.org/) binding to the [non-blocking client library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) provided with MariaDB. It is compatible with MySQL.

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_session_track_get_first retrieves the first session state change
+  notification from the server, covering schema changes, system variables,
+  and state flags. Added in Connector/C 3.0.
+---
+
 # mysql\_session\_track\_get\_first
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_real_query sends a binary-safe SQL statement to a MariaDB server;
+  use mysql_num_fields to determine whether the query returned a result set.
+---
+
 # mysql\_real\_query
 
 ## Syntax

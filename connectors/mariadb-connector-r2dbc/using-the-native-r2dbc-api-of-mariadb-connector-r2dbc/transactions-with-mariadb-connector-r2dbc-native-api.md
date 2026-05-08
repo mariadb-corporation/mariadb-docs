@@ -1,3 +1,10 @@
+---
+description: >-
+  The MariaDB Connector/R2DBC native API requires manual subscription for
+  beginTransaction, commitTransaction, and rollbackTransaction; Spring Data
+  R2DBC provides managed transactions.
+---
+
 # Transactions with MariaDB Connector/R2DBC (Native API)
 
 Java developers can use MariaDB Connector/R2DBC to connect to MariaDB database products using the Reactive Relational Database Connectivity (R2DBC) API. R2DBC operations are non-blocking, which makes R2DBC more scalable than Java's standard JDBC API.

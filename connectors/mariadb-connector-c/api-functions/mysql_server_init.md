@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_server_init is an alias for mysql_library_init in MariaDB
+  Connector/C, used to initialize the client library before making any other
+  calls.
+---
+
 # mysql\_server\_init
 
 ## Syntax

@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_escape_string encodes a string using the default character set for
+  safe use in SQL statements. Deprecated — use mysql_real_escape_string
+  instead.
+---
+
 # mysql\_escape\_string
 
 ## Syntax

@@ -1,4 +1,8 @@
 ---
+description: >-
+  PHP connectors for MySQL are generally compatible with MariaDB, and the
+  standard PHP MySQL extensions can be used to connect PHP applications to a
+  MariaDB database.
 icon: link
 ---
 

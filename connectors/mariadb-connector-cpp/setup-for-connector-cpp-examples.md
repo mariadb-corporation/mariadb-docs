@@ -1,3 +1,10 @@
+---
+description: >-
+  Create the schema and user account prerequisites for MariaDB Connector/C++
+  documentation examples, including the test database, contacts table, and
+  appropriate GRANT statements.
+---
+
 # Setup for Connector/C++ Examples
 
 Examples in the MariaDB Connector/C++ documentation depend on a database `test` and `table` contacts.

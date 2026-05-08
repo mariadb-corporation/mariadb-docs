@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_bind_result maps result-set columns to application variables
+  via an array of MYSQL_BIND structures, enabling mysql_stmt_fetch to
+  populate those variables.
+---
+
 # mysql\_stmt\_bind\_result
 
 ## Syntax

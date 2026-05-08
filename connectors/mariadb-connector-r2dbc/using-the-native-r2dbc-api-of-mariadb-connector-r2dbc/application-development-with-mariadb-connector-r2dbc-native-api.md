@@ -1,3 +1,10 @@
+---
+description: >-
+  Application development with MariaDB Connector/R2DBC native API covers
+  building Java projects with Maven or JAR, adding the connector to the
+  classpath, and running compiled applications.
+---
+
 # Application Development with MariaDB Connector/R2DBC (Native API)
 
 Methods for building projects with MariaDB Connector/R2DBC vary depending on the installation method you use.

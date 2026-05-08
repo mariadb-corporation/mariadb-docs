@@ -1,3 +1,10 @@
+---
+description: >-
+  Spring Data R2DBC transactions with MariaDB Connector/R2DBC use
+  R2dbcTransactionManager and TransactionalOperator for framework-managed
+  reactive commit and rollback.
+---
+
 # Transactions with MariaDB Connector/R2DBC (Spring Data)
 
 ## Overview

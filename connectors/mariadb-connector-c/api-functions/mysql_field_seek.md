@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_field_seek sets the field cursor to a given column offset in a
+  MariaDB result set, controlling which field mysql_fetch_field returns
+  next.
+---
+
 # mysql\_field\_seek
 
 ## Syntax

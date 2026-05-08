@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_send_query dispatches a query asynchronously on a MariaDB
+  connection; each call must be followed by mysql_read_query_result to
+  consume the response.
+---
+
 # mysql\_send\_query
 
 ## Syntax

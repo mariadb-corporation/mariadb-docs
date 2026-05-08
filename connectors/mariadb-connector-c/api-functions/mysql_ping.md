@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_ping checks whether a MariaDB server connection is still active and
+  attempts an automatic reconnect if the connection has dropped and
+  reconnect is enabled.
+---
+
 # mysql\_ping
 
 ## Syntax

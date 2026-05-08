@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Connector/C++ supports JDBC and compatibility URL syntax, optional
+  connection parameters, and two connection methods via sql::Driver and
+  sql::DriverManager for C++ applications.
+---
+
 # Connect with MariaDB Connector/C++
 
 MariaDB Connector/C++ enables C++ applications to establish client connections to MariaDB database products over TLS.

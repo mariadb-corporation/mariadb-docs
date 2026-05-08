@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_options sets extra connection options on a MYSQL handle before
+  calling mysql_real_connect. Deprecated since Connector/C 3.0 — use
+  mysql_optionsv instead.
+---
+
 # mysql\_options
 
 ## Syntax

@@ -1,3 +1,9 @@
+---
+description: >-
+  mysql_character_set_name returns the name of the default client character
+  set for a specified MariaDB Connector/C connection.
+---
+
 # mysql\_character\_set\_name
 
 ## Syntax

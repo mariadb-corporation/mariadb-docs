@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_get_optionv retrieves the current value of a connection option
+  previously set with mysql_optionsv, supporting boolean, integer, string,
+  and miscellaneous option types.
+---
+
 # mysql\_get\_optionv
 
 ## Syntax

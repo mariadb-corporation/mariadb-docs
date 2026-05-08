@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDBStore provides a LangChain-compatible vector store backed by
+  MariaDB, supporting similarity search, metadata filtering, and maximal
+  marginal relevance retrieval.
+---
+
 # Vector Stores
 
 > **Version:** langchain-mariadb v0.0.21

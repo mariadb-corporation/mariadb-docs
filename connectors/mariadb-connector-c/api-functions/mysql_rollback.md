@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_rollback undoes the current transaction for a database connection;
+  it has no effect if autocommit is enabled or the engine is
+  non-transactional.
+---
+
 # mysql\_rollback
 
 ## Syntax

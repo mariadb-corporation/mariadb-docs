@@ -1,3 +1,10 @@
+---
+description: >-
+  mysql_stmt_data_seek positions the row cursor to an arbitrary offset in a
+  buffered prepared statement result set previously stored with
+  mysql_stmt_store_result.
+---
+
 # mysql\_stmt\_data\_seek
 
 ## Syntax
