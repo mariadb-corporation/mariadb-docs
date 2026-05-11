@@ -2,7 +2,7 @@
 description: Quickstart Guide for Connector/C++
 ---
 
-# MariaDB Connector/C++ OverviewO
+# MariaDB Connector/C++ Overview
 
 MariaDB Connector/C++ enables C++ applications to establish client connections to MariaDB database products over TLS.
 
