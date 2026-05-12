@@ -17,6 +17,10 @@ MariaDB MaxScale is an advanced proxy, router, and load balancer:
 * MaxScale's ReadWriteSplit router performs query-based load balancing.
   ReadWriteSplit routes each write statement to the current primary server
   and load balances read statements by routing them to the replica servers.
+  When used together with automated failover, ReadWriteSplit can make primary
+  failures fully transparent to the application. For a tutorial on setting
+  this up, see
+  [Using MariaDB Monitor With ReadWriteSplit](../mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor.md#using-mariadb-monitor-with-readwritesplit).
 * MaxScale's ReadConnRoute router performs connection-based load balancing.
   ReadConnRoute routes each connection to a single primary or replica node,
   depending on configuration.

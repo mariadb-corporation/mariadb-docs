@@ -299,6 +299,54 @@ $ maxctrl list servers
 └─────────┴─────────────────┴──────┴─────────────┴─────────────────┘
 ```
 
+## Using MariaDB Monitor With ReadWriteSplit
+
+When a cluster managed by `mariadbmon` is accessed through a
+[readwritesplit](../reference/maxscale-routers/maxscale-readwritesplit.md)
+service, enabling `transaction_replay` on the router makes failover and
+switchover transparent to the application. When the primary fails, the router
+remembers any in-progress transaction and replays it on the newly promoted
+primary once failover completes. The replay is verified using checksums to
+confirm the results are identical, making it safe to use in production. If the
+replay succeeds, the client sees no error. Without `transaction_replay`, writes
+will be interrupted and in-flight transactions will be lost during the failover
+window.
+
+`transaction_replay=true` enables all required high-availability features in
+`readwritesplit` automatically. No additional router parameters are needed.
+
+```ini
+[MariaDB-Monitor]
+type=monitor
+module=mariadbmon
+servers=server1,server2,server3
+auto_failover=true
+auto_rejoin=true
+
+[Split-Router]
+type=service
+router=readwritesplit
+cluster=MariaDB-Monitor
+transaction_replay=true
+```
+
+`failover_timeout` controls how long the monitor will attempt failover before
+giving up and disabling automatic failover. Set it based on your cluster's
+expected failover time. `transaction_replay_timeout` on the router controls how
+long the client will wait for a replay to succeed before receiving an error; the
+default of 30 seconds is appropriate for most deployments.
+
+Transactions exceeding `transaction_replay_max_size` (default 1 MiB) will not be
+replayed and will result in a client error. Increase this limit for workloads
+with large transactions.
+
+## Planned Switchover With ReadWriteSplit
+
+For planned switchovers, the monitor and router cooperate automatically to
+drain in-progress transactions before the switchover proceeds. See the
+[Switchover](#switchover) section for details on how to perform a planned
+switchover.
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
