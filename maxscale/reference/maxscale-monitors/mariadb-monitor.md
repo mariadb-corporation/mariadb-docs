@@ -1055,6 +1055,12 @@ the above requirements. Rejoin does not obey `failcount` and will attempt to
 rejoin any valid servers immediately. When activating rejoin manually, the
 user-designated server must fulfill the same requirements.
 
+### Using with ReadWriteSplit
+
+For a tutorial on setting up `mariadbmon` and `readwritesplit` for
+automatic failover with transparent transaction replay, see
+[Using MariaDB Monitor With ReadWriteSplit](../../mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor.md#using-mariadb-monitor-with-readwritesplit).
+
 ### Limitations and requirements
 
 Switchover and failover are meant for simple topologies (one primary and

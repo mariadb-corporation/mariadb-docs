@@ -534,6 +534,10 @@ Limitations](maxscale-readwritesplit.md#transaction-replay-limitations)
 section for a more detailed explanation of what should and should not be done
 with transaction replay.
 
+For a tutorial on setting up `mariadbmon` and `readwritesplit` for
+automatic failover with transparent transaction replay, see
+[Using MariaDB Monitor with Readwritesplit](../../mariadb-maxscale-tutorials/automatic-failover-with-mariadb-monitor.md#using-mariadb-monitor-with-readwritesplit).
+
 ### `transaction_replay_max_size`
 
 * Type: [size](../../maxscale-management/deployment/maxscale-configuration-guide.md#sizes)

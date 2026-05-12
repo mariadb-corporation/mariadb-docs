@@ -39,6 +39,10 @@ will require additional grants. Execute the following SQL to grant them.
 GRANT SUPER, RELOAD ON *.* TO 'monitor_user'@'%';
 ```
 
+For a tutorial on setting up automatic failover with `mariadbmon` and
+making it transparent to applications using the ReadWriteSplit router, see
+[Using MariaDB Monitor With ReadWriteSplit](automatic-failover-with-mariadb-monitor.md#using-mariadb-monitor-with-readwritesplit).
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
