@@ -2251,6 +2251,104 @@ johnny ALL= NOPASSWD: /bin/cat /var/lib/mysql/xtrabackup_binlog_info
 johnny ALL= NOPASSWD: /bin/tar -xz -C /var/lib/mysql/
 ```
 
+## External replication management
+
+External replication occurs when a monitored server replicates from a server
+that is not monitored by the same monitor. The external primary could be
+monitored by another monitor or be completely unknown to MaxScale in general.
+In these cases, MariaDB Monitor labels the replica as `Slave of External
+Server`. The monitor does keep track of external replication such that when
+performing a failover or switchover, the monitor copies or moves the external
+replication connection to the newly promoted primary server. The monitor does
+not, however, monitor the external primary in any way. If the external primary
+itself goes down or gets switched over, it is the responsibility of the DBA or
+perhaps a script to update the replication settings on the replica.
+
+MaxScale 26.10.0 adds support for automatic management of external replication.
+This feature requires that the local MaxScale monitors the external cluster
+using a dedicated monitor, which in turn means that the constituent servers
+must be configured in the local MaxScale.
+The local cluster monitor ensures that the primary server of its
+cluster always replicates from the external cluster. If the current external
+primary goes down or its role changes, the monitor reconfigures the external
+replication connection to replicate from another server in the external cluster.
+If someone removes the external replication connection, the monitor will
+recreate it. Only if the external replication stops (I/O or SQL-thread), does
+the monitor refrain from restarting it, as such a situation is likely caused by
+the DBA or a persisting error.
+
+If no server on the external cluster is a valid replication source, the local
+monitor stops and removes the replication connection. The replication restarts
+once an external server with a valid role becomes available. The local monitor
+checks the status of the external replication every tick. This feature does
+depend on the results of the external monitor: if it loses connection to the
+external cluster, the local monitor may remove the external replication.  If the
+external monitor stops, the local monitor will refrain from updating the
+external replication. The external replication management only affects the
+local primary server. If you manually set up external replication on a local
+replica, that replication will remain unaffected unless the replica gets
+promoted or some other monitor feature alters it (e.g. `auto_rejoin`).
+
+### Settings
+
+#### `external_replication_monitor`
+
+* Type: Monitor name
+* Mandatory: No
+* Dynamic: Yes
+* Default: None
+
+Defines the monitor for the external cluster. Must be a valid monitor name. The
+external cluster monitor needs to be running for replication management to
+function. A monitor cannot be its own external monitor. Also, two monitors
+cannot use each other as external monitors, nor can the monitor-to-external
+monitor relations form a circular dependency. The external monitor need not be a
+MariaDB Monitor, it can be e.g. a Galera Monitor. The external monitor does not
+need to use the same settings as the local monitor, e.g. it could run
+slower. Set the value to empty to disable the feature. Disabling this feature
+does not remove the external replication connection.
+
+```
+external_replication_monitor=MyExternalClusterMonitor
+```
+
+#### `external_replication_primary_role`
+
+* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `primary`, `replica`, `running`
+* Default: `primary`
+
+Defines the external primary server to replicate from. This setting only has an
+effect when `external_replication_monitor` is set. The value defines a list of
+server roles the monitor looks for when selecting the external primary. The
+monitor looks at the external servers and searches for a server that matches the
+configured role. If the monitor finds a valid server, the monitor preserves the
+external replication (if already replicating from the correct server) or adjusts
+it. If the monitor did not find a valid server, the monitor removes any existing
+external replication connection.
+
+The supported enum values are:
+
+- `primary`: replicate from the primary server of the external cluster, i.e. listed as `Write` (or `Primary`) in `maxctrl list servers`.
+- `replica`: replicate from any replica of the external cluster, i.e. listed as `Read` (or `Replica`) in `maxctrl list servers`.
+- `running`: replicate from any running server of the external cluster, i.e. listed as `Running` in `maxctrl list servers`.
+
+```
+external_replication_primary_role=replica
+```
+
+If the value is a list, then the monitor will search for matching servers in
+order. For example, a value of `replica,primary` means that the monitor first
+searches for a replica, but if none is found, the monitor selects the external
+primary as replication source. If even a primary server is not found, the
+monitor removes the external replication.
+
+```
+external_replication_primary_role=replica,primary
+```
+
 ## ColumnStore commands
 
 Since MaxScale version 22.08, MariaDB Monitor can run ColumnStore administrative
