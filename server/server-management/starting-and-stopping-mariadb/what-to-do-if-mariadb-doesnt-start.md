@@ -197,13 +197,13 @@ sudo systemctl restart apparmor
 
 ### AppArmor on newer Ubuntu and Debian releases
 
-In [Ubuntu 26.04 "Resolute Raccoon"](https://documentation.ubuntu.com/release-notes/26.04/changes-since-previous-interim/#mariadb-is-fully-supported), Debian 14 "Forky", and newer releases of these distributions, the MariaDB packages ships with a **custom AppArmor profile** and is enabled by default.
+In [Ubuntu 26.04 "Resolute Raccoon"](https://documentation.ubuntu.com/release-notes/26.04/changes-since-previous-interim/#mariadb-is-fully-supported), Debian 14 "Forky", and newer releases of these distributions, the MariaDB packages ship with a **custom AppArmor profile** which is enabled by default.
 
-In the event of unexplained errors at startup or otherwise, check for potential AppArmor denials with `aa-status | grep mariadb` or `sudo dmesg | grep -i apparmor`.
+In the event of unexplained errors at startup or runtime, check for potential AppArmor denials with `aa-status | grep mariadb` or `sudo dmesg | grep -i apparmor`.
 
-To disable enforcement run `aa-complain /etc/apparmor.d/mariadbd`.
+To disable enforcement, run `aa-complain /etc/apparmor.d/mariadbd`.
 
-To add local overrides, put them in `/etc/apparmor.d/local/mariadbd`. For more information see [/usr/share/doc/mariadb-server/NEWS.Debian.gz](https://sources.debian.org/src/mariadb/1%3A11.8.6-6/debian/mariadb-server.NEWS).
+To add local overrides, put them in `/etc/apparmor.d/local/mariadbd`. For more information, see [/usr/share/doc/mariadb-server/NEWS.Debian.gz](https://sources.debian.org/src/mariadb/1%3A11.8.6-6/debian/mariadb-server.NEWS).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
