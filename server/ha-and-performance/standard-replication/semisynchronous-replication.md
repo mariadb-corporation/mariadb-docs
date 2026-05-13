@@ -168,6 +168,63 @@ The effects of the `AFTER_COMMIT` wait point are:
 * Other clients may see the committed transaction before the committing client.
 * If the primary crashes, then failover may involve some data loss, because the primary may have committed transactions that had not yet been acknowledged by the replicas.
 
+### Failover Implications
+
+System administrators implementing a semi-synchronous replication
+fail-over strategy must understand the distinction between the
+`AFTER_SYNC` and `AFTER_COMMIT` wait points. This choice has
+irreversible implications for the server recovery process: if a
+pre-crash semi-sync master is brought back online as a post-crash
+semi-sync slave, the recovery process will truncate any transactions
+from the binary log that were not committed in the storage engine.
+
+Conceptually, the two configurations differ in which server may be
+logically ahead of the other:
+
+* `AFTER_SYNC`: The slave may be ahead of the master.
+* `AFTER_COMMIT`: The master will always be ahead of the slave.
+
+In either configuration, data loss is possible if the logically behind
+server is promoted to master after a crash.
+
+
+#### Recommended Fail-Over Strategy
+
+To prevent data loss, the fail-over strategy should align with the
+configured wait point:
+
+* `AFTER_COMMIT` configurations: Always wait for a failed master to be
+  brought back online to resume its role as master.
+
+* `AFTER_SYNC` configurations: Demote the failed master to a slave of a
+  newly-promoted master.
+
+
+####  Recovery Procedure for Guaranteed Consistency
+
+If neither of the above strategies is feasible, the following procedure
+ensures data consistency after a crash:
+
+1. Configure all servers in the topology with `SET GLOBAL read_only=1`.
+   This prevents the failed master from accidentally resuming its master
+role
+2. After the master fails, select any node (hereafter node A) as the new
+master candidate. Choosing the most up-to-date node will minimize the
+time required to complete this process
+3. On another node (hereafter node B), run `SELECT @@gtid_current_pos`.
+4. Configure node A as a slave of node B using `CHANGE MASTER TO` (if
+   this replication channel does not already exist).
+5. On node A, run `START SLAVE UNTIL` with the GTID value retrieved in
+step 3
+6. Repeat steps 3–5 for each remaining node in the topology, using node
+A as the slave in each iteration.
+7. Once all nodes have been processed, node A is guaranteed to be the
+furthest-progressed node in the topology and is safe to promote as the
+new master.
+8. On node A, run `SET GLOBAL read_only=0`.
+9. Configure all other nodes as slaves of node A using
+   `CHANGE MASTER TO` followed by `START SLAVE`.
+
 
 ## System Variables
 
