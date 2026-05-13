@@ -128,9 +128,6 @@ $ maxctrl list servers
 Had `auto_rejoin=true` been specified in the monitor section, then an
 attempt to rejoin `server1` would have been made.
 
-In MaxScale 2.2.1, rejoining cannot be initiated manually, but in a
-subsequent version a command to that effect will be provided.
-
 ## Automatic Failover
 
 To enable automatic failover, simply add `auto_failover=true` to the
