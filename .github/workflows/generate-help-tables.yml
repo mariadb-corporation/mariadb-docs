@@ -42,6 +42,13 @@ jobs:
       - name: Validate SQL output
         run: python help-tables/validate_sql.py help-tables/fill_help_tables.sql
 
+      - name: Check server compatibility
+        run: |
+          docker run --rm -v $PWD/help_tables:/docker-entrypoint-initdb.d mariadb:11.4 \
+            bash -c '(echo -e "create database mysql;\nuse mysql;"; \
+                      cat /usr/share/mariadb/mariadb_system_tables.sql /docker-entrypoint-initdb.d/fill_help_tables.sql) \
+                      | /usr/sbin/mariadbd --bootstrap'
+:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
