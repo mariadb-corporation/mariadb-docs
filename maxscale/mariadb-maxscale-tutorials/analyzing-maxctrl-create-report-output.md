@@ -4,9 +4,6 @@
 The output of the `maxctrl create report` command produces a JSON payload that contains the current state of MaxScale. This includes the runtime configuration and the status all objects in MaxScale.
 
 
-The `maxctrl create report` command was added in MaxScale 2.5.20.
-
-
 ## Creating a MaxCtrl Report
 
 
