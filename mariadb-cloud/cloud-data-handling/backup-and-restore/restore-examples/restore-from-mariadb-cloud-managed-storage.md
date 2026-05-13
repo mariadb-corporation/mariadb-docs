@@ -1,3 +1,10 @@
+---
+description: >-
+  Restore a MariaDB Cloud database from a backup stored in the default MariaDB
+  Cloud managed backup storage, using a SkySQL Backup API call with the backup
+  identifier.
+---
+
 # Restore from MariaDB Cloud Managed Storage
 
 You can restore your database from the backup located in the default SkySQL managed backup storage. Below is a sample restore call.

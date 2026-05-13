@@ -1,4 +1,8 @@
 ---
+description: >-
+  Reference for adding images and media to MariaDB Cloud documentation pages,
+  including uploading, embedding, captioning, and the supported file formats
+  in GitBook.
 icon: image-landscape
 layout:
   width: default

@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud from the command line with the mariadb CLI,
+  including the connection string format, TLS settings, and credential
+  handling for interactive SQL sessions.
+---
+
 # Connect using MariaDB Client
 
 [MariaDB Client](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) is available for all major operating systems.

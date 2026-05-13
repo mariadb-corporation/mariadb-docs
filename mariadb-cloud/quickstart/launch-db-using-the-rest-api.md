@@ -1,3 +1,10 @@
+---
+description: >-
+  Launch a MariaDB Cloud database service with the DBaaS REST API: generate an
+  API key, create the service via HTTP, retrieve credentials, and manage its
+  lifecycle.
+---
+
 # Launch DB Using REST API
 
 This walkthrough explains how to launch database services and manage the lifecycle of database services using the [MariaDB Cloud DBaaS REST API](https://apidocs.skysql.com/).

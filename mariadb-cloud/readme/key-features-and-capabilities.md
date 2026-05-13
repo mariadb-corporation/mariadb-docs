@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud key features: advanced scalability, intelligent load
+  balancing, flexible consistency models, integrated AI agents, automated
+  configuration, and custom query routing.
 icon: clouds
 ---
 

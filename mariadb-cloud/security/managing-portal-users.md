@@ -1,3 +1,10 @@
+---
+description: >-
+  Manage MariaDB Cloud Portal users via Teams: invite accounts, assign
+  Administrator or member roles, and manage Cloud services across multiple
+  Cloud IDs from one organization.
+---
+
 # Managing Portal Users
 
 By default, MariaDB Cloud services are launched and managed in the [Portal](https://app.skysql.com/dashboard).

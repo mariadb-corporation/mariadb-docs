@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud Serverless: an overview of the on-demand serverless deployment
+  option that scales database capacity from zero to a defined upper limit
+  based on workload.
 icon: clouds
 layout:
   width: default

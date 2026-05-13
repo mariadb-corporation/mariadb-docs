@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of MariaDB Cloud Portal features: real-time performance metrics,
+  health indicators, alerts, logs, and administrative tools accessible through
+  the unified web dashboard.
+---
+
 # MariaDB Cloud UI Portal
 
 The MariaDB Cloud Portal provides a unified management interface to launch, manage, and monitor your MariaDB Cloud services.

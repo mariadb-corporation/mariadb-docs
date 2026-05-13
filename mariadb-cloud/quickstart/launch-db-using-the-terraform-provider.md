@@ -1,3 +1,10 @@
+---
+description: >-
+  Launch and manage MariaDB Cloud services with the Terraform provider:
+  configure the provider, define a service resource, then apply and connect —
+  Enterprise Clusters not yet supported.
+---
+
 # Launch DB Using Terraform Provider
 
 {% hint style="warning" %}

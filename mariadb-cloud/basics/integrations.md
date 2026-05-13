@@ -1,4 +1,8 @@
 ---
+description: >-
+  Reference for the GitBook integrations available in MariaDB Cloud
+  documentation pages, including embedded apps and external service
+  connectors.
 icon: plug-circle-plus
 layout:
   width: default

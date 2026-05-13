@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Enterprise Cluster (Tech Preview) on Cloud uses synchronous
+  replication with write-set certification and single-writer routing via
+  MaxScale for zero-data-loss failover.
+---
+
 # Enterprise Cluster
 
 {% hint style="info" %}

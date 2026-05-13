@@ -1,4 +1,8 @@
 ---
+description: >-
+  Markdown reference for authoring MariaDB Cloud documentation pages in
+  GitBook, covering supported syntax, headings, lists, links, code fences, and
+  tables.
 icon: markdown
 layout:
   width: default

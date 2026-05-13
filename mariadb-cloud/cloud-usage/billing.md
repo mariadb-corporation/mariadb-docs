@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud billing is associated with a Cloud ID; the Portal exposes
+  current usage summary and pricing details for active services and historical
+  billing periods.
+---
+
 # Billing
 
 Billing is associated with a MariaDB Cloud ID.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Integrate MariaDB Cloud with Striim for real-time streaming data
+  integration, supporting CDC-driven ETL pipelines and continuous replication
+  into and out of Cloud databases.
+---
+
 # Striim Partner Integration
 
 With the partnership between MariaDB and [Striim](https://www.striim.com/), real-time data streaming using change data capture (CDC) and real-time ETL are available to database services in MariaDB Cloud:

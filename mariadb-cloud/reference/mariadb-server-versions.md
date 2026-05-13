@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Server versions supported on MariaDB Cloud: 11.8, 11.4, 10.11, 10.6,
+  and 10.5 (current minor versions), available across both serverless and
+  provisioned deployments.
+---
+
 # MariaDB Server Version Support
 
 ## Server Versions

@@ -1,3 +1,10 @@
+---
+description: >-
+  Incremental backup examples for MariaDB Cloud via the SkySQL Backup API;
+  incremental backups require an existing full backup and capture only changes
+  since the last backup.
+---
+
 # Incremental Backup Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

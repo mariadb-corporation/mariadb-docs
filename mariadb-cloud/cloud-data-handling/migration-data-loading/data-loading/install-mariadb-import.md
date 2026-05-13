@@ -1,3 +1,9 @@
+---
+description: >-
+  Install the mariadb-import CLI utility on Linux or Windows for loading TSV
+  and CSV files into MariaDB Cloud databases.
+---
+
 # Install mariadb-import
 
 MariaDB Cloud customers can import data into a MariaDB Cloud service using the `mariadb-import` utility:

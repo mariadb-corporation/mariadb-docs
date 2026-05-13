@@ -1,3 +1,10 @@
+---
+description: >-
+  Install the mariadb-dump CLI utility on Linux or Windows for backing up
+  MariaDB Cloud databases; egress charges may apply for customer-initiated
+  backups.
+---
+
 # Install mariadb-dump
 
 MariaDB Cloud customers can manually create a backup of a MariaDB Cloud service using the `mariadb-dump` utility:

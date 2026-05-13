@@ -1,3 +1,10 @@
+---
+description: >-
+  Integrate MariaDB Cloud with MindsDB to perform in-database machine-learning
+  predictions and data analysis through SQL-callable AI models alongside
+  MariaDB tables.
+---
+
 # MindsDB Partner Integration
 
 With the partnership between MariaDB and [MindsDB](https://mindsdb.com/), end-to-end machine learning is available to database services in MariaDB Cloud:

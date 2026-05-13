@@ -1,3 +1,10 @@
+---
+description: >-
+  Maintenance windows for MariaDB Cloud — scheduled periods for hardware,
+  software, or config changes: predefined per region on Foundation Tier,
+  customer-selected on Power Tier.
+---
+
 # Maintenance Windows
 
 Maintenance windows are a scheduled period of time when hardware, network, software, or configuration changes can be applied, and processes can be restarted.

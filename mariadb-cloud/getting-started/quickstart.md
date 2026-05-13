@@ -1,4 +1,7 @@
 ---
+description: >-
+  Getting-started quickstart for MariaDB Cloud documentation, with links to
+  the Portal, API quickstarts, and step-by-step guides for first-time users.
 icon: bolt
 layout:
   width: default

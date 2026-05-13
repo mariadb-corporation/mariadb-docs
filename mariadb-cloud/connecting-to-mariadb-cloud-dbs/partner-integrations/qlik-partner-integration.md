@@ -1,3 +1,10 @@
+---
+description: >-
+  Integrate MariaDB Cloud with Qlik for data integration and analytics,
+  enabling Qlik to ingest, transform, and visualize data from MariaDB Cloud
+  databases via supported connectors.
+---
+
 # Qlik Partner Integration
 
 With the partnership between MariaDB and [Qlik](https://www.qlik.com/), Qlik Data Integration is available to ensure high availability, scalability, continuous integration, and replication of data into database services in MariaDB Cloud:

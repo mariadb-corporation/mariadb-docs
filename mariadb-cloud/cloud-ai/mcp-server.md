@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud MCP Server lets AI tools like Cursor, Claude Desktop, and VS
+  Code Copilot interact with Cloud databases via the Model Context Protocol
+  for natural-language operations.
+---
+
 # MariaDB Cloud MCP Server
 
 The **MariaDB Cloud Model Context Protocol (MCP) Server** offers a powerful interface for managing your MariaDB Cloud database instances and interacting with **AI Agents**. It bridges the gap between your databases and AI-powered development tools.

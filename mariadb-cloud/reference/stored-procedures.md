@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud stored procedures for replication and DBA tasks, including
+  change_external_primary for inbound replication from an external primary
+  server via binary-log position.
+---
+
 # MariaDB Cloud Stored Procedures
 
 ## change\_external\_primary

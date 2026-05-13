@@ -1,3 +1,10 @@
+---
+description: >-
+  Logical (mariadb-dump) backup examples for MariaDB Cloud via the SkySQL
+  Backup API, with both one-time and scheduled backup workflows for SQL-level
+  data export.
+---
+
 # Logical Backup Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

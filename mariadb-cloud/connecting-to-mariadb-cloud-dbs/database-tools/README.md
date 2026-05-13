@@ -1,4 +1,8 @@
 ---
+description: >-
+  Connect to MariaDB Cloud from third-party database GUI tools: DBeaver,
+  DBgate, HeidiSQL, and TablePlus, with DSN configuration and TLS setup for
+  each.
 icon: wrench
 ---
 

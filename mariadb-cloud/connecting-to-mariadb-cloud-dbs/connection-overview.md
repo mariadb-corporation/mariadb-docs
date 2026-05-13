@@ -1,3 +1,10 @@
+---
+description: >-
+  Overview of connecting to MariaDB Cloud databases, including supported
+  drivers, connection strings, TLS requirements, IP allowlisting, and
+  recommendations per application stack.
+---
+
 # Connection Overview
 
 This page describes connecting to a MariaDB Cloud database using the following options:

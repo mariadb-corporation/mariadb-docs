@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud encryption: TLS for data in transit, encrypted persistent
+  volumes for data at rest, and customer-managed-key (CMK) options for
+  stricter key-management requirements.
+---
+
 # Encryption
 
 ## **Data-in-Transit Encryption**

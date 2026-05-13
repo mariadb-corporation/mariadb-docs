@@ -1,4 +1,8 @@
 ---
+description: >-
+  Technical overview of MariaDB Cloud Serverless architecture, detailing how
+  Kubernetes orchestration delivers serverless scaling while preserving
+  MariaDB and MySQL compatibility.
 icon: clouds
 ---
 

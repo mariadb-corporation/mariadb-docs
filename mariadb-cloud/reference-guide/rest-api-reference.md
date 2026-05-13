@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for the MariaDB Cloud REST API: provisioning services, fetching
+  pricing/billing, changing configuration, scheduling backups/restores, and
+  lifecycle calls.
+---
+
 # MariaDB Cloud REST API Reference
 
 The easiest way to get started with the API is to use [this swagger Docs](https://apidocs.skysql.com). Just [generate your API key](<../Security/Managing API keys.md>) , Click `Authorize` and enter `<yourAPI Key>` and try out any of the APIs.

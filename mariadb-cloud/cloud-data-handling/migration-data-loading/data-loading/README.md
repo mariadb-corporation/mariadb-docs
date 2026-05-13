@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud data loading: LOAD DATA LOCAL INFILE for CSV/TSV files,
+  mariadb-dump and mariadb-import utilities, and inbound replication from
+  external MySQL or MariaDB databases.
+---
+
 # Data Loading
 
 MariaDB Cloud enables you to import, synchronize, and load data into your database services using several tools and methods from various data formats and sources. Whether you are importing CSV and TSV files, restoring dumps, or using command-line utilities, these methods provide flexibility and instructions to prepare, import, and validate your data for different data loading use cases.

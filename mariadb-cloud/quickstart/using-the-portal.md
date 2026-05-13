@@ -1,3 +1,10 @@
+---
+description: >-
+  Provision a MariaDB Cloud database via the web Portal: register, launch a
+  Serverless or Provisioned service in seconds, and connect to it from your
+  application.
+---
+
 # Using the Portal
 
 The MariaDB Cloud database deployment time varies: a Serverless instance is ready in seconds, while a Provisioned database may take a few minutes to complete. You can deploy on AWS, GCP, or Azure across nearly 50 global regions.

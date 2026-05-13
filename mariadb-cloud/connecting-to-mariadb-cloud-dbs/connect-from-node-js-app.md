@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud from a Node.js application using the MariaDB
+  Connector/Node.js library, including connection-string format, TLS
+  configuration, and authentication.
+---
+
 # Connect From Node.js App
 
 Node.js developers can connect to MariaDB Cloud through a native MariaDB Connector. Using MariaDB Connector/Node.js you can connect to MariaDB Cloud to use and administer databases from within your Node.js application.

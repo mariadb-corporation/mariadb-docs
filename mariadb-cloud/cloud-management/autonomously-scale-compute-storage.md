@@ -1,4 +1,7 @@
 ---
+description: >-
+  MariaDB Cloud autonomous scaling adjusts compute and storage in response to
+  workload changes, scaling nodes up and down based on real-time load metrics.
 icon: maximize
 ---
 

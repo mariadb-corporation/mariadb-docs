@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect to MariaDB Cloud from MongoDB clients via MariaDB's X Protocol
+  compatibility layer, mapping MongoDB-style operations onto MariaDB Server.
+---
+
 # Connect From MongoDB Clients
 
 The NoSQL protocol module allows a MariaDB server or cluster to execute transactions for applications using MongoDB client libraries, transparently converting MongoDB API calls into the equivalent SQL. The MariaDB responses are then converted into the format expected by the MongoDB® client library and application.

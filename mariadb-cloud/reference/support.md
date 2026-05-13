@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud support tiers: Foundation includes standard P3/P4 SLA support,
+  Power adds 24x7 S1 response, Problem Resolution support, and direct
+  Engineering Support.
+---
+
 # Support
 
 MariaDB Cloud is operated by a team of site reliability engineers (SREs), support engineers and MariaDB-certified database administrators (CloudDBAs).

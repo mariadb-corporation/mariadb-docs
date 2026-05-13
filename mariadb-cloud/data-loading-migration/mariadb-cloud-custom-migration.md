@@ -1,3 +1,10 @@
+---
+description: >-
+  Custom migration to MariaDB Cloud using binary-log-based live replication
+  from a source database, minimizing downtime by streaming changes throughout
+  the cutover.
+---
+
 
 //TODO Add a  section on physical backup and restore 
 

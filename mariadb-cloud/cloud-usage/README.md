@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud Portal: a web-based interface for launching, managing,
+  configuring, and monitoring database services, with metrics, billing,
+  alerts, and access management.
 icon: tv
 ---
 

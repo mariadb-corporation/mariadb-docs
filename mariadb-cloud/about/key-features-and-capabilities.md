@@ -1,4 +1,8 @@
 ---
+description: >-
+  Key features and capabilities of MariaDB Cloud: serverless and traditional
+  deployments, intelligent load balancing, flexible consistency, integrated AI
+  agents, and custom query routing.
 icon: clouds
 ---
 

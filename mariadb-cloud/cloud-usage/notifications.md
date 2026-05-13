@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud Portal notifications track Portal-initiated actions: an
+  initial notification when an action starts, plus follow-up notifications as
+  the system carries it out.
+---
+
 # Notifications
 
 Actions performed through the Portal will generate a notification.&#x20;

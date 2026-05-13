@@ -1,3 +1,10 @@
+---
+description: >-
+  Instance-size options for MariaDB Cloud: serverless instances autoscale 1–2
+  SCUs (each MCU = 0.5 vCPU + 2 GB RAM), and provisioned instances offer fixed
+  sizes for steady workloads.
+---
+
 # MariaDB Cloud Instance Sizes
 
 ## Serverless Instance Sizes

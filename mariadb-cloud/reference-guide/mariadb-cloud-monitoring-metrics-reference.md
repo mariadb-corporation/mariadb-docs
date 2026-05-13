@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference table of MariaDB Cloud monitoring metrics shown in the Portal:
+  connection counts, CPU, SQL command mix, disk usage, QPS, replica lag, GTID
+  position, and MaxScale panels.
+---
+
 # MariaDB Cloud Monitoring Metrics Reference
 
 |Panel Name|UI Tab|Scope|Panel Type|Description|

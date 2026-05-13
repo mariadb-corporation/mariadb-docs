@@ -1,3 +1,10 @@
+---
+description: >-
+  Manage MariaDB Cloud API keys in the Portal: generate keys, scope them to
+  operations, rotate or revoke them, and store them in environment variables
+  for REST API calls.
+---
+
 # Managing API keys
 
 ## **Getting Started with API Keys**

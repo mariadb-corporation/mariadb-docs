@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud backup support reference: which backup types (full,
+  incremental, dump, snapshot, PITR) are supported by each MariaDB Server
+  version and deployment topology.
+---
+
 # Supported Backup Types
 
 ## **MariaDB Server Versions and Backup Support**

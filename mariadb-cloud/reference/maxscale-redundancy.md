@@ -1,3 +1,10 @@
+---
+description: >-
+  MaxScale Redundancy is the optional MariaDB Cloud feature deploying MaxScale
+  in active-active HA behind round-robin load balancing; available to Power
+  Tier customers.
+---
+
 # MaxScale Redundancy
 
 MariaDB MaxScale serves as the load balancer in certain MariaDB Cloud topologies.

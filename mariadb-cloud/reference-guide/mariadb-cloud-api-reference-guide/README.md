@@ -1,4 +1,8 @@
 ---
+description: >-
+  Endpoint reference for the MariaDB Cloud REST API across provisioning,
+  billing, configuration, backup/restore, and lifecycle management, with
+  authentication and example requests.
 layout:
   width: default
   title:

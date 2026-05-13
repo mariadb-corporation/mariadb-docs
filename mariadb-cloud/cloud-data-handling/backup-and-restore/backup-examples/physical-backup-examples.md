@@ -1,3 +1,10 @@
+---
+description: >-
+  Full physical backup examples for MariaDB Cloud via the SkySQL Backup API,
+  with one-time and scheduled execution patterns for file-level MariaDB Server
+  data backups.
+---
+
 # Physical Backup Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

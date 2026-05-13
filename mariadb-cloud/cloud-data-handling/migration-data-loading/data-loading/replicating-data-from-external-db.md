@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure inbound replication into MariaDB Cloud from an external MySQL or
+  MariaDB source database, using stored procedures provided by the Replicated
+  Transactions service.
+---
+
 # Replicating Data From an External Database to MariaDB Cloud
 
 MariaDB MariaDB Cloud customers can configure inbound replication from both **MySQL** and **MariaDB** to a compatible MariaDB running in MariaDB Cloud. This guide will walk you through setting up replication for both MySQL and MariaDB as the source databases.

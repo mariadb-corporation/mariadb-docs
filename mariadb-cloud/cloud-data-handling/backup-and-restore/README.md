@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud backup and restore: snapshot, full physical, incremental,
+  logical (mariadb-dump), and binary log backups, plus restore options from
+  managed storage and external buckets.
+---
+
 # Backup and Restore
 
 ## **MariaDB Cloud Snapshot Backups**

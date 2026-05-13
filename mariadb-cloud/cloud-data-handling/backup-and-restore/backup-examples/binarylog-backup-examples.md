@@ -1,3 +1,10 @@
+---
+description: >-
+  Binary log backup examples for MariaDB Cloud via the SkySQL Backup API:
+  one-time and scheduled binary log capture for point-in-time recovery
+  scenarios.
+---
+
 # Binary Log Backup Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure the IP allowlist firewall for a MariaDB Cloud service in the
+  Portal, restricting which client IPs can reach the database service over the
+  public network endpoint.
+---
+
 # Configuring Firewall
 
 MariaDB Cloud services are firewall-protected.

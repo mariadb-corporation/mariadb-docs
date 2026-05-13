@@ -1,3 +1,10 @@
+---
+description: >-
+  Private VPC connections for MariaDB Cloud: AWS PrivateLink, Azure Private
+  Link, and GCP Private Service Connect remove public-internet exposure for
+  Cloud database traffic.
+---
+
 # Private VPC Connections
 
 Some customers may have regulatory requirements or information security policies that prohibit the default database connections over the public internet.

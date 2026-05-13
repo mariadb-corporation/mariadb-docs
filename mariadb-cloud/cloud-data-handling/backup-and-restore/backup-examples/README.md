@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud backup API examples covering snapshot, physical, logical
+  (mariadb-dump), incremental, and binary log backups for one-time and
+  scheduled execution.
+---
+
 # Backup Examples
 
 MariaDB offers a complete API-based backup capability to meet the data protection and recovery options. You can create and manage various backup types, including snapshots, physical backups, logical backups, incremental backups, and binary log backups.

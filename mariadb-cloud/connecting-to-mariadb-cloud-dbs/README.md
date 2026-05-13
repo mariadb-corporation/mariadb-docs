@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud connection methods: native MariaDB connectors for major
+  languages, JDBC/ODBC drivers, the MariaDB CLI, third-party database tools,
+  and private VPC connections.
 icon: plug
 ---
 

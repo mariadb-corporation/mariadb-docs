@@ -1,4 +1,8 @@
 ---
+description: >-
+  Frequently asked questions about MariaDB Cloud: what it is, how it differs
+  from self-managed MariaDB, deployment options, scaling, security, pricing,
+  and migration paths.
 icon: comment-question
 ---
 

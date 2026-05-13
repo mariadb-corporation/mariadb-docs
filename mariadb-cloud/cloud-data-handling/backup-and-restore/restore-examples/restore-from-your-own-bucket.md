@@ -1,3 +1,10 @@
+---
+description: >-
+  Restore MariaDB Cloud data from external Google Cloud Storage or Amazon S3
+  buckets, with backups created using mariabackup or mysqldump and replayed
+  via the SkySQL Backup API.
+---
+
 # Restore From Your Own Bucket
 
 {% include "../../../.gitbook/includes/authentication.md" %}

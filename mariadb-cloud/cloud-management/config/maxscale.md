@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud Intelligent Proxy is the cloud-tuned MariaDB MaxScale;
+  reference for Configuration Manager parameters such as causal_reads,
+  delayed_retry, and routing behavior.
+---
+
 # MariaDB Cloud Intelligent Proxy
 
 MariaDB Cloud Intelligent Proxy represents an optimized iteration of MariaDB MaxScale. The subsequent Configuration Manager parameters are leveraged to tailor the behavior of MariaDB MaxScale:

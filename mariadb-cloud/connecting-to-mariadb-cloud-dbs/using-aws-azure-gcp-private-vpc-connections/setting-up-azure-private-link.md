@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up Azure Private Link to connect to MariaDB Cloud over a private VNet
+  endpoint, eliminating public-internet exposure between Azure workloads and
+  the Cloud service.
+---
+
 # Azure Private Link
 
 Azure Private Link is an Azure service that enables secure and private connectivity between Virtual Networks (VNet) and third-party services. By using Private Link with MariaDB Cloud services, traffic does not traverse the public internet, which enhances security and reduces exposure to potential threats.

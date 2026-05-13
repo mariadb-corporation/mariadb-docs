@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud FAQs covering platform capabilities, deployment models,
+  scaling and consistency, security and compliance, supported versions,
+  pricing tiers, and migration approaches.
 icon: comment-question
 ---
 

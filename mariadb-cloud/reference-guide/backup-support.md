@@ -1,3 +1,10 @@
+---
+description: >-
+  Backup-type support matrix for MariaDB Cloud per server version and
+  topology: full, incremental, dump, snapshot, and point-in-time recovery
+  (PITR) availability across configurations.
+---
+
 # MariaDB Cloud Supported Backup Types
 
 ## **MariaDB Server Versions and Backup Support**

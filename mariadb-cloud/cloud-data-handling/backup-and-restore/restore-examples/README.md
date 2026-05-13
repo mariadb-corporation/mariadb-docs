@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud restore API examples: managed-storage and external-bucket
+  restoration, point-in-time recovery, listing, and scheduled restore deletion
+  via the SkySQL Backup API.
+---
+
 # Restore Examples
 
 MariaDB Cloud supports flexible restore options to meet various use cases, from managed storage to external buckets to point-in-time recovery. All restore operations are supported by MariaDB SkySQL Backup API, which requires authentication.

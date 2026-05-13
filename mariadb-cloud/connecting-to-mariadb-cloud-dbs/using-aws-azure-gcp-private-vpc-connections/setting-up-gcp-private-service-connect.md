@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up GCP Private Service Connect to reach MariaDB Cloud via a private
+  endpoint, eliminating public-internet exposure between GCP workloads and the
+  Cloud database service.
+---
+
 # GCP Private Service Connect
 
 Google Private Service Connect (PSC) is a Google Cloud service that enables secure and private connectivity between Virtual Private Clouds (VPCs) and third-party services. By using PSC with MariaDB Cloud services, traffic does not traverse the public internet, which enhances security and reduces exposure to potential threats.

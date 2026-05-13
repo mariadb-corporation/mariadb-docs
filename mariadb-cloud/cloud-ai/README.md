@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud AI capabilities: preconfigured Developer/DBA Copilots, custom
+  semantic agents for natural-language queries, REST API integration, and the
+  MCP server for AI development tools.
 icon: brain-circuit
 ---
 

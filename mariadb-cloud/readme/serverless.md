@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud Serverless is the first true serverless DB for the
+  MySQL/MariaDB ecosystem, scaling to zero when idle and resuming in
+  milliseconds with usage-based pricing.
 icon: clouds
 ---
 

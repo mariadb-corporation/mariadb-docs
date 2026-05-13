@@ -1,3 +1,10 @@
+---
+description: >-
+  Fractional DBA Service (Remote DBA) for MariaDB Cloud: part-time DBA support
+  for migrations, performance tuning, troubleshooting, and operational
+  guidance as an optional add-on.
+---
+
 # Fractional DBA Service: Remote DBA
 
 Remote DBA is a "Fractional" DBA Service, a cost-effective solution for businesses that need database administration but do not require a full-time database administrator. This service provides access to a team of experienced database administrators on a part-time basis. Whether it's for routine maintenance, troubleshooting, or strategic advice, Remote DBA's Fractional DBA Service ensures that expert assistance is just a message away. This approach not only saves the expense of a full-time employee but also provides a higher level of service due to the collective knowledge and experience of the Remote DBA team.

@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud security overview: encryption in transit and at rest, secure
+  storage and compute, authentication and authorization, plus SOC 2, GDPR, and
+  ISO/IEC 27001 compliance.
 icon: shield-halved
 ---
 

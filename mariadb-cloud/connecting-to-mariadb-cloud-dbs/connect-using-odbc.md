@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud via ODBC using the MariaDB Connector/ODBC driver,
+  with DSN configuration, TLS setup, and credential handling for
+  ODBC-compatible applications.
+---
+
 # Connect Using ODBC
 
 ## Overview

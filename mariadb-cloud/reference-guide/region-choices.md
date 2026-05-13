@@ -1,3 +1,10 @@
+---
+description: >-
+  Available MariaDB Cloud regions across AWS, GCP, and Azure: each region's
+  location, supported deployment types (Provisioned/Serverless), and
+  cloud-provider region code.
+---
+
 # MariaDB Cloud Region Choices
 
 ## **AWS Regions**

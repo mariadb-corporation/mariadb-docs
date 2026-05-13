@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud data offloading via mariadb-dump to a local machine or via the
+  SkySQL Backup service to S3/GCS, with optional outbound replication for
+  ongoing sync.
+---
+
 # Data Offloading
 
 There are multiple options to copy/offload data from a MariaDB Cloud DB. You can do a logical dump(i.e. output all data and DDL as SQL) to your local machine. Or, dump large data sets securely using the MariaDB Cloud Backup service to your own S3 or GCS bucket.

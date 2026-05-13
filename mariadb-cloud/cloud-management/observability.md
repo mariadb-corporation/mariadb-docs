@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud Observability exposes runtime metrics through APIs and
+  integrations like Datadog, requiring an API key and Database ID for
+  instrumentation and dashboard configuration.
 icon: telescope
 ---
 

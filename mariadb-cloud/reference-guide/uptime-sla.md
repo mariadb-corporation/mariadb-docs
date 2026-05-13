@@ -1,3 +1,10 @@
+---
+description: >-
+  Uptime SLA for MariaDB Cloud: 99.95% per billing month on Foundation Tier
+  multi-node, 99.995% on Power Tier, with service credits for shortfalls
+  beyond the target.
+---
+
 # MariaDB Cloud Uptime SLA
 
 MariaDB Cloud customers should assess the availability requirements of their application and choose an appropriate service tier to meet their objectives. MariaDB Cloud customers are on the Foundation Tier unless they have specifically purchased and paid for Power Tier service.

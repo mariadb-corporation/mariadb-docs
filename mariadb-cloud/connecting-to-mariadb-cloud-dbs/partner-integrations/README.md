@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud partner integrations: MindsDB for in-database machine
+  learning, Qlik for analytics and data integration, and Striim for real-time
+  data streaming.
 icon: handshake-simple
 ---
 

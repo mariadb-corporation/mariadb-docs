@@ -1,8 +1,8 @@
 ---
 description: >-
-  This section details the tools and processes for administering your MariaDB
-  Cloud databases, covering topics like provisioning, monitoring, security, and
-  scaling in a managed cloud environment.
+  MariaDB Cloud cloud-management documentation: autonomous compute and storage
+  scaling, Configuration Manager parameters by topology, and observability
+  through APIs and Datadog integration.
 icon: gear
 ---
 

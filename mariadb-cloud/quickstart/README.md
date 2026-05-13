@@ -1,4 +1,8 @@
 ---
+description: >-
+  Quickstart guides for MariaDB Cloud, covering deployment via the web Portal,
+  REST API, Terraform provider, and Python scripts, plus first-time setup and
+  basic management operations.
 icon: rabbit
 ---
 

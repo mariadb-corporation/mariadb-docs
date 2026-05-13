@@ -1,3 +1,10 @@
+---
+description: >-
+  Point-In-Time Recovery (PITR) for MariaDB Cloud restores a database to a
+  specific moment within retained binary logs; not supported on Enterprise
+  Cluster Tech Preview.
+---
+
 # Point-In-Time Restore
 
 {% hint style="danger" %}

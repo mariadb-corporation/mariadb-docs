@@ -1,4 +1,8 @@
 ---
+description: >-
+  Reference for publishing MariaDB Cloud documentation pages with GitBook,
+  covering visibility, sharing options, and integration into the live
+  documentation site.
 icon: globe-pointer
 layout:
   width: default

@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud HA via the Replicated Topology: semi-synchronous replicas
+  serve reads in active mode, with intelligent proxy-driven failover and
+  causal-reads consistency on lag.
+---
+
 # HA & Replicated Topology
 
 {% hint style="info" %}

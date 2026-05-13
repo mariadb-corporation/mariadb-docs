@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud self-service management lets authorized users start, stop,
+  delete, and reconfigure cloud databases, apply config changes, and manage IP
+  firewall rules through the Portal.
+---
+
 # Manage Your Service
 
 MariaDB Cloud's self-service management features enable authorized accounts to launch cloud databases, start and stop cloud databases, delete cloud databases, apply database configuration changes, and configure the cloud database's IP firewall.

@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud Serverless architecture preserves InnoDB while adding
+  cloud-native orchestration via Kubernetes and containers for serverless
+  scaling without forking the database engine.
 icon: clouds
 ---
 

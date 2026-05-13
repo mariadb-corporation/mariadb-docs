@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud from a Python application using the MariaDB
+  Connector/Python library, including connection-string format, TLS
+  configuration, and authentication.
+---
+
 # Connect From Python App
 
 ## Overview

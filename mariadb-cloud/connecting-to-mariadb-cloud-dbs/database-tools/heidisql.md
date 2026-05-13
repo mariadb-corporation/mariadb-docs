@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect to MariaDB Cloud with HeidiSQL, configuring the host, port, TLS
+  settings, and credentials in HeidiSQL's session manager for Windows users.
+---
+
 # HeidiSQL
 
 ## Steps

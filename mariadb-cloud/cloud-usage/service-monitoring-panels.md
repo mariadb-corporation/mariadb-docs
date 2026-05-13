@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud Service Monitoring panels in the Portal show ratios of SQL
+  command types and other runtime metrics for a service over a selected time
+  interval.
+---
+
 # Service Monitoring Panels
 
 The available panels are :

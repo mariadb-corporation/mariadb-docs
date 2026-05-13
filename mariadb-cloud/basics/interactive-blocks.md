@@ -1,4 +1,8 @@
 ---
+description: >-
+  Reference for the GitBook interactive blocks available in MariaDB Cloud
+  documentation pages: tabs, hint blocks, expandable sections, and other
+  reader-facing widgets.
 icon: hand-pointer
 layout:
   width: default

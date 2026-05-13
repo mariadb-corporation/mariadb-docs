@@ -1,3 +1,10 @@
+---
+description: >-
+  Infrastructure upgrades for MariaDB Cloud on AWS, GCP, and Azure update
+  Kubernetes nodes, container runtime, and cloud-provider components —
+  separate from database software upgrades.
+---
+
 # Infrastructure Upgrades
 
 MariaDB Cloud runs on modern Kubernetes infrastructure across AWS, GCP, and Azure cloud providers. To maintain security, performance, and compliance with cloud provider requirements, periodic infrastructure upgrades are essential for all running services.\

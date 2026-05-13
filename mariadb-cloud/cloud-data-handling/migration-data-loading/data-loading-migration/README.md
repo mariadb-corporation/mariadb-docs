@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud migration paths: REST-API-managed migrations and self-managed
+  logical-dump and replication options, supporting on-premise and cloud
+  sources from major database platforms.
+---
+
 # Migrations
 
 MariaDB Cloud provides a range of options to suit different migration scenarios.

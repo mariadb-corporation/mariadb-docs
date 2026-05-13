@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud from a Java application using the MariaDB
+  Connector/J JDBC driver, including connection URL format, TLS configuration,
+  and authentication.
+---
+
 # Connect From Java App
 
 MariaDB Connector/J enables Java applications to connect to MariaDB Cloud using a native MariaDB connector.

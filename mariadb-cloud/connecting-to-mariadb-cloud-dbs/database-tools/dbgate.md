@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect to MariaDB Cloud with DBgate, configuring the connection details,
+  TLS, and credentials in the DBgate web-based database client.
+---
+
 # DBGate
 
 ## Steps

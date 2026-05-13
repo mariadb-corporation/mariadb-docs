@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up AWS PrivateLink to connect to MariaDB Cloud over a private VPC
+  endpoint, eliminating public-internet exposure between AWS workloads and the
+  Cloud database service.
+---
+
 # AWS Private Link
 
 AWS PrivateLink is an AWS service that enables secure and private connectivity between Virtual Private Clouds (VPCs) and third-party services. By using PrivateLink with MariaDB Cloud services, traffic does not traverse the public internet, which enhances security and reduces exposure to potential threats.

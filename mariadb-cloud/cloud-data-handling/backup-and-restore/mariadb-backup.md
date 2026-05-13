@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Backup is the open-source file-level backup tool for MariaDB Cloud,
+  capturing data from the MariaDB Server data directory across InnoDB,
+  MyRocks, and Aria storage engines.
+---
+
 # MariaDB Backup
 
 Regular and reliable backups are essential to successful recovery of mission critical applications. [MariaDB Server](https://mariadb.org/en/#mariadb-server) backup and restore operations are performed using MariaDB Backup, an [open source backup tool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup/mariadb-backup-overview).

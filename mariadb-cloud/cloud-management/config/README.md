@@ -1,8 +1,8 @@
 ---
 description: >-
-  This section guides you through viewing, modifying, and applying configuration
-  settings for your MariaDB Cloud database services, ensuring optimal
-  performance and compliance.
+  MariaDB Cloud Configuration Manager reference for the supported topologies
+  (Server Single Node, Server with Replicas, Serverless Single Node) and the
+  MaxScale Intelligent Proxy.
 icon: database
 ---
 

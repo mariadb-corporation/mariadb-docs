@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud is an AI-driven fully managed DBaaS for MariaDB and MySQL
+  workloads, supporting provisioned and serverless deployments, AI agents,
+  automated backups, and global replication.
 icon: cloud-sun
 ---
 

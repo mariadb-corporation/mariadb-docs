@@ -1,3 +1,10 @@
+---
+description: >-
+  Reference for MariaDB Cloud sky.* stored procedures for replication and DBA
+  tasks, including change_external_primary for inbound replication setup via
+  binary log file and position.
+---
+
 # MariaDB Cloud Stored Procedures
 
 ## change\_external\_primary

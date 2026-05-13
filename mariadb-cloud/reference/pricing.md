@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud pricing is shown at service launch as an estimate based on
+  usage parameters; actual costs may vary, and the displayed price is not a
+  binding quote.
+---
+
 # Pricing
 
 MariaDB Cloud pricing information is shown at the time of service launch.

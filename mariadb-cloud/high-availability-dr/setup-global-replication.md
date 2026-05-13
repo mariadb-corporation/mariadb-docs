@@ -1,3 +1,10 @@
+---
+description: >-
+  Set up MariaDB Cloud Global Replication for DR and cross-region failover,
+  using Provisioning, Backup, and replication APIs to configure primary and
+  secondary services.
+---
+
 # Global Replication
 
 ## Overview

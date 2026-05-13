@@ -1,3 +1,10 @@
+---
+description: >-
+  List existing MariaDB Cloud restore operations via the SkySQL Backup API:
+  GET /skybackup/v1/restores returns scheduled and completed restores with
+  status and metadata.
+---
+
 # Restore Listing Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

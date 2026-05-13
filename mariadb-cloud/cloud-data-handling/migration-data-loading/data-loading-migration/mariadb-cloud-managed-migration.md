@@ -1,3 +1,10 @@
+---
+description: >-
+  Managed Migration is the fully managed REST API path for moving an existing
+  database into MariaDB Cloud, with prerequisites covering topology, instance
+  size, and storage requirements.
+---
+
 # MariaDB Cloud Managed Migration
 
 ## Prerequisites

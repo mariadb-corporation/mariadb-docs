@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud from reactive Java applications using the MariaDB
+  Connector/R2DBC driver, providing non-blocking connections for Spring
+  WebFlux and similar reactive stacks.
+---
+
 # Connect Using Connector/R2DBC
 
 Java developers can use MariaDB Connector/R2DBC to connect to MariaDB Cloud using the Reactive Relational Database Connectivity (R2DBC) API. R2DBC operations are non-blocking, which makes the R2DBC API more scalable than Java's standard JDBC API. MariaDB Connector/R2DBC is available both with a native R2DBC implementation and the Spring Data R2DBC framework.

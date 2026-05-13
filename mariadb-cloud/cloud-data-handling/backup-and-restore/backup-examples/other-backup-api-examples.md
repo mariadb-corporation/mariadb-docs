@@ -1,3 +1,10 @@
+---
+description: >-
+  Additional MariaDB Cloud backup API examples for working with backup
+  schedules: listing schedules within an organization and managing existing
+  schedules.
+---
+
 # Other Backup API Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

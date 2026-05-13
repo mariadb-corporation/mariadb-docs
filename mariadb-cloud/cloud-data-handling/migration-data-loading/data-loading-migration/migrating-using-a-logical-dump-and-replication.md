@@ -1,3 +1,10 @@
+---
+description: >-
+  Self-managed migration to MariaDB Cloud via a logical dump plus live
+  replication, minimizing downtime by streaming changes from the source
+  database while the dump is loaded.
+---
+
 # Migrating Using a Logical Dump and Replication
 
 To minimize downtime during migration, you can set up live replication from your source database to the MariaDB Cloud database.

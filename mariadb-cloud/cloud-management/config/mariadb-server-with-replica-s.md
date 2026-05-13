@@ -1,3 +1,10 @@
+---
+description: >-
+  Configuration Manager parameters for the MariaDB Server with Replicas
+  topology in MariaDB Cloud — both MariaDB Server behavior and MaxScale
+  routing for replicated services.
+---
+
 # MariaDB Server With Replicas
 
 For cloud databases with the MariaDB Server with Replica(s) topology, Configuration Manager can be used to configure MariaDB Server behavior and MariaDB MaxScale behavior.

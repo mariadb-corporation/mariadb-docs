@@ -1,3 +1,10 @@
+---
+description: >-
+  Delete a scheduled MariaDB Cloud restore operation via the SkySQL Backup API
+  using a DELETE call to /skybackup/v1/restores/<ID> with API-key
+  authentication.
+---
+
 # Restore Delete Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

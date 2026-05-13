@@ -1,3 +1,10 @@
+---
+description: >-
+  Launch a MariaDB Cloud DB service and connect to it from Python using the
+  DBaaS API: generate an API key, configure the client IP allowlist, then
+  provision and connect.
+---
+
 # Launch DB Using Python
 
 The Python example below shows how to launch a DB service and connect to it using the MariaDB Cloud DBaaS API.

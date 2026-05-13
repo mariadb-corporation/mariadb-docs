@@ -1,3 +1,10 @@
+---
+description: >-
+  Snapshot backup examples for MariaDB Cloud via the SkySQL Backup API:
+  one-time and scheduled point-in-time persistent-volume snapshots for fast
+  database restoration.
+---
+
 # Snapshot Backup Examples
 
 {% include "../../../.gitbook/includes/authentication.md" %}

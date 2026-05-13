@@ -1,3 +1,10 @@
+---
+description: >-
+  Connect to MariaDB Cloud with TablePlus, configuring the connection details,
+  TLS, and credentials in TablePlus's connection editor on macOS, Windows, or
+  Linux.
+---
+
 # TablePlus
 
 ## Steps

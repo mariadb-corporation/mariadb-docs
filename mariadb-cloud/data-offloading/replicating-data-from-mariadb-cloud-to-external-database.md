@@ -1,3 +1,10 @@
+---
+description: >-
+  Configure outbound replication from a MariaDB Cloud Replicated Transactions
+  service to an external MariaDB or MySQL server in your data center, AWS RDS,
+  or other managed cloud.
+---
+
 # Replicating data from MariaDB Cloud to external database
 
 MariaDB Cloud customers can configure outbound replication from a Replicated Transactions service to a compatible MariaDB Server running elsewhere - could be your data center, self-managed MariaDB DB on the cloud or even other managed services like AWS RDS.

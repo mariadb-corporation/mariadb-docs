@@ -1,4 +1,8 @@
 ---
+description: >-
+  Private VPC connections for MariaDB Cloud: AWS PrivateLink, Azure Private
+  Link, and GCP Private Service Connect for accessing Cloud databases without
+  public network exposure.
 icon: network-wired
 ---
 

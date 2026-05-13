@@ -1,3 +1,10 @@
+---
+description: >-
+  Configuration Manager parameters for the MariaDB Serverless Single Node
+  topology in MariaDB Cloud, including password validation, replication
+  settings, and runtime defaults.
+---
+
 # MariaDB Serverless Single Node
 
 For cloud databases using the MariaDB Serverless Single Node topology, the following Configuration Manager parameters are available to configure the behavior of the MariaDB Server:

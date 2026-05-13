@@ -1,3 +1,10 @@
+---
+description: >-
+  MariaDB Cloud Portal single sign-on (SSO) options for organizations: SAML
+  and OIDC integrations to centralize Portal authentication through your
+  existing identity provider.
+---
+
 # Portal Single Sign-On
 
 By default, authentication to the MariaDB Cloud Portal is performed with MariaDB Cloud ID credentials.

@@ -1,4 +1,8 @@
 ---
+description: >-
+  MariaDB Cloud HA and DR: semi-synchronous replication, intelligent
+  proxy-based failover, and cross-region or cross-cloud replication for
+  resilient mission-critical workloads.
 icon: chart-mixed
 ---
 

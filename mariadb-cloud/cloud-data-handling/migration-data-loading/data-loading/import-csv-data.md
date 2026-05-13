@@ -1,3 +1,10 @@
+---
+description: >-
+  Import CSV and TSV files into MariaDB Cloud with the LOAD DATA LOCAL INFILE
+  statement, executable from any MariaDB client or connector with local-infile
+  support enabled.
+---
+
 # Import CSV Data
 
 MariaDB Cloud customers can import data into a MariaDB Cloud service using the `LOAD DATA LOCAL INFILE` SQL statement:
