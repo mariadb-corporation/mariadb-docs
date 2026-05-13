@@ -168,15 +168,6 @@ The effects of the `AFTER_COMMIT` wait point are:
 * Other clients may see the committed transaction before the committing client.
 * If the primary crashes, then failover may involve some data loss, because the primary may have committed transactions that had not yet been acknowledged by the replicas.
 
-## Versions
-
-| Version | Status  | Introduced                                                                                                                                                                 |
-| ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| N/A     | N/A     | [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3) (feature is built-in, no longer available as a separate plugin) |
-| 1.0     | Stable  | [MariaDB 10.1.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.13)                                                               |
-| 1.0     | Gamma   | [MariaDB 10.0.13](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.11)                                                               |
-| 1.0     | Unknown | [MariaDB 10.0.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/10.0.11)                                                               |
-| 1.0     | N/A     | [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5)                                        |
 
 ## System Variables
 
