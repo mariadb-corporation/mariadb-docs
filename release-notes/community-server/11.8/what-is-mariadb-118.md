@@ -180,11 +180,24 @@ The following deprecated features have been removed:
 * [wsrep\_load\_data\_splitting](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_load_data_splitting) ([MariaDB 11.5](../old-releases/11.5/what-is-mariadb-115.md))
 * [integer latches in OQGraph](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/oqgraph-storage-engine/oqgraph-overview) (and the related [oqgraph\_allow\_create\_integer\_latch](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/oqgraph-system-and-status-variables#oqgraph_allow_create_integer_latch) variable). ([MariaDB 11.5](../old-releases/11.5/what-is-mariadb-115.md))
 
-### Security Vulnerabilities Fixed in MariaDB 11.8
+## Security Vulnerabilities Fixed in MariaDB 11.8
 
-For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve) page.
+For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB Community Server, see the [Security Vulnerabilities Fixed in MariaDB Community Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/community-server) page.
 
-* [CVE-2026-21968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968): [MariaDB 11.8.4](11.8.4.md)
+| CVE ID (with cve.org link)                                                      | CVSS base score | Community Server 11.8 Release |
+| ------------------------------------------------------------------------------- | --------------- | ----------------------------- |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0             | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0             | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3             | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170)               | 5.0             | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44169](https://www.cve.org/CVERecord?id=CVE-2026-44169)               | 4.3             | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168)               | 8.0             | [MariaDB 11.8.7](11.8.7.md)   |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)                 | 5.3             | [MariaDB 11.8.6](11.8.6.md)   |
+| [CVE-2026-34303](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34303) | 6.5             | [MariaDB 11.8.6](11.8.6.md)   |
+| [CVE-2026-35549](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35549) | 6.5             | [MariaDB 11.8.6](11.8.6.md)   |
+| [CVE-2026-32710](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-32710) | 8.6             | [MariaDB 11.8.5](11.8.5.md)   |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968)               | 6.5             | [MariaDB 11.8.4](11.8.4.md)   |
+| [CVE-2025-13699](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-13699) | 7.0             | [MariaDB 11.8.4](11.8.4.md)   |
 
 ## List of All [MariaDB 11.8](what-is-mariadb-118.md) Releases
 

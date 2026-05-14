@@ -157,15 +157,34 @@ From [MariaDB 11.4.5](11.4.5.md):
   * [innodb\_defragment](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_defragment) and related parameters ([MDEV-30545](https://jira.mariadb.org/browse/MDEV-30545), [MariaDB 11.1](../old-releases/11.1/what-is-mariadb-111.md))
   * The [InnoDB Change Buffer](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-change-buffering) has been removed ([MDEV-29694](https://jira.mariadb.org/browse/MDEV-29694), [MariaDB 11.0](../old-releases/11.0/what-is-mariadb-110.md))
 
-### Security Vulnerabilities Fixed in [MariaDB 11.4](what-is-mariadb-114.md)
+### Security Vulnerabilities Fixed in MariaDB 11.4
 
-For a complete list of security vulnerabilities (CVEs) fixed across all\
-versions of MariaDB, see the [Security Vulnerabilities Fixed in MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve)\
-page.
+For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB Community Server, see the [Security Vulnerabilities Fixed in MariaDB Community Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/community-server) page.
 
-* [CVE-2026-21968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-21968): [MariaDB 11.4.9](11.4.9.md)
-* [CVE-2025-21490](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-21490): [MariaDB 11.4.5](11.4.5.md)
-* [CVE-2024-21096](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21096): [MariaDB 11.4.2](11.4.2.md)
+| CVE ID (with cve.org link)                                                      | CVSS base score | Community Server 11.4 Release |
+| ------------------------------------------------------------------------------- | --------------- | ----------------------------- |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0             | [MariaDB 11.4.11](11.4.11.md) |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0             | [MariaDB 11.4.11](11.4.11.md) |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3             | [MariaDB 11.4.11](11.4.11.md) |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170)               | 5.0             | [MariaDB 11.4.11](11.4.11.md) |
+| [CVE-2026-44169](https://www.cve.org/CVERecord?id=CVE-2026-44169)               | 4.3             | [MariaDB 11.4.11](11.4.11.md) |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168)               | 8.0             | [MariaDB 11.4.11](11.4.11.md) |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)                 | 5.3             | [MariaDB 11.4.10](11.4.10.md) |
+| [CVE-2026-32710](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-32710) | 8.6             | [MariaDB 11.4.10](11.4.10.md) |
+| [CVE-2026-35549](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-35549) | 6.5             | [MariaDB 11.4.10](11.4.10.md) |
+| [CVE-2026-34303](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-34303) | 6.5             | [MariaDB 11.4.10](11.4.10.md) |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968)               | 6.5             | [MariaDB 11.4.9](11.4.9.md)   |
+| [CVE-2025-13699](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-13699) | 7.0             | [MariaDB 11.4.9](11.4.9.md)   |
+| [CVE-2023-52971](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52971) | 4.9             | [MariaDB 11.4.6](11.4.6.md)   |
+| [CVE-2025-30722](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-30722) | 5.3             | [MariaDB 11.4.6](11.4.6.md)   |
+| [CVE-2025-30693](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-30693) | 5.5             | [MariaDB 11.4.6](11.4.6.md)   |
+| [CVE-2023-52969](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52969) | 4.9             | [MariaDB 11.4.6](11.4.6.md)   |
+| [CVE-2023-52970](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52970) | 4.9             | [MariaDB 11.4.6](11.4.6.md)   |
+| [CVE-2025-21490](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-21490) | 4.9             | [MariaDB 11.4.5](11.4.5.md)   |
+| [CVE-2024-21096](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21096) | 4.9             | [MariaDB 11.4.2](11.4.2.md)   |
+| [CVE-2023-52968](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-52968) | 4.9             | [MariaDB 11.4.1](11.4.1.md)   |
+
+
 
 ### List of All [MariaDB 11.4](what-is-mariadb-114.md) Releases
 
