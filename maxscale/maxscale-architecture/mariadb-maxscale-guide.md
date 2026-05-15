@@ -27,7 +27,7 @@ Bugs can be reported in the MariaDB Jira [jira.mariadb.org](https://jira.mariadb
 
 ### Installing MariaDB MaxScale
 
-Information about installing MariaDB MaxScale, either from a repository or by building from source code, is included in the [MariaDB MaxScale Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
+Information about installing MariaDB MaxScale is included in the [MariaDB MaxScale Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
 
 The same guide also provides basic information on running MariaDB MaxScale. More detailed information about configuring MariaDB MaxScale can be found in the [Configuration Guide](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md).
 

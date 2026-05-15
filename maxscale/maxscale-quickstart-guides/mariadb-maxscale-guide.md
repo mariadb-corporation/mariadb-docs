@@ -9,7 +9,7 @@ description: >-
 
 ### Quickstart Guide: MariaDB MaxScale Overview
 
-MariaDB MaxScale is an advanced, open-source database proxy, router, and load balancer designed to enhance the scalability, high availability, and security of your MariaDB deployments. It acts as an intelligent intermediary between your applications and your MariaDB servers, abstracting the underlying database topology.
+MariaDB MaxScale is an advanced, database proxy, router, and load balancer designed to enhance the scalability, high availability, and security of your MariaDB deployments. It acts as an intelligent intermediary between your applications and your MariaDB servers, abstracting the underlying database topology.
 
 #### 1. What is MariaDB MaxScale?
 
