@@ -19,6 +19,18 @@ The recommended approach is to use [the MariaDB package repository](../../../ser
 * For Debian and Ubuntu, run `apt update` followed by `apt install maxscale`.
 * For SLES, use `zypper install maxscale`.
 
+By default this also installs the `maxscale-maxctrl` package, if available,
+which is the command line client for administering MaxScale. If you do not want
+it to be installed, use the following:
+
+* For RHEL/Rocky Linux/Alma Linux, use `dnf install --setopt install_weak_deps=False maxscale`.
+* For Debian and Ubuntu, run `apt update` followed by `apt install --no-install-recommends maxscale`.
+* For SLES, use `zypper install --no-recommends maxscale`.
+
+In order to use the `maxctrl` command line client, you'll need to install
+Node.js. The minimum required version is Node.js 10 but we recommend using the
+latest LTS release of Node.js.
+
 ### Install MariaDB MaxScale From a RPM/DEB Package
 
 Download the correct MaxScale package for your CPU architecture and operating system from the [MariaDB Downloads page](https://mariadb.com/downloads/enterprise/enterprise-maxscale/). MaxScale can be installed with the following commands.
