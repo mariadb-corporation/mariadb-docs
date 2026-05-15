@@ -114,7 +114,6 @@ filters=CAPTURE_FLTR
 [RWS-Listener]
 type=listener
 service=RWS-Router
-protocol=MariaDBClient
 port=4006
 ```
 

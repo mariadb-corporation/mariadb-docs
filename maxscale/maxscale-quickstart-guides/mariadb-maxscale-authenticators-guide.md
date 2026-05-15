@@ -53,7 +53,6 @@ password=maxscale_password
 [my_listener]
 type=listener
 service=my_service
-protocol=MariaDBClient
 port=3306
 authenticator=MariaDBAuth # Example: Use the standard MariaDB password authentication
 # authenticator=GSSAPIAuth # Or GSSAPI authentication

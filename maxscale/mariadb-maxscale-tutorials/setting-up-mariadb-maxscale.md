@@ -40,8 +40,6 @@ GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'%';
 GRANT SHOW DATABASES ON *.* TO 'maxscale'@'%';
 ```
 
-MariaDB versions 10.2.2 to 10.2.10 also require `GRANT SELECT ON mysql.* TO 'maxscale'@'%';`
-
 ### Creating client user accounts
 
 Because MariaDB MaxScale sits between the clients and the backend databases, the backend databases will see all clients as if they were connecting from MaxScale's address. This usually means that two sets of grants for each user are required.

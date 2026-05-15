@@ -17,8 +17,7 @@ The generated file is a csv file that can be opened in most spread sheet program
 \[Rotating Log Files]\(#Rotating Log Files) also applies to the audit file. The admin audit file will never be overwritten as a result of a rotate, unlike the regular log file (in case a rotate is issued, but the file name has not been moved). There is also the option to change the audit file name, which effectively rotates it independently of the regular log file. For example:
 
 ```bash
-maxctrl alter maxscale 
-admin_audit_file=/var/log/maxscale/admin_audit.march.csv.
+maxctrl alter maxscale admin_audit_file=/var/log/maxscale/admin_audit.march.csv.
 ```
 
 ### Starting and Stopping MariaDB MaxScale
@@ -115,8 +114,6 @@ kill -USR1 `cat /run/maxscale/maxscale.pid`
 endscript
 }
 ```
-
-In older versions MaxScale renamed the log file, behavior which is not fully compliant with the assumptions of logrotate and may lead to issues, depending on the used logrotate configuration file. From version 2.1 onward, MaxScale will not itself rename the log file, but when the log is rotated, MaxScale will simply close and reopen the same log file. That will make the behavior fully compliant with logrotate.
 
 ### Taking Objects Temporarily Out of Use
 
@@ -229,8 +226,7 @@ Servers with the `Master` state cannot be drained. To drain them, first perform 
 **Create a new Monitor**
 
 ```bash
-maxctrl create monitor db-monitor mariadbmon 
-user=db-user password=db-password
+maxctrl create monitor db-monitor mariadbmon user=db-user password=db-password
 ```
 
 **Modify a Monitor**
@@ -264,8 +260,7 @@ A monitor can only be destroyed if it is not monitoring any servers. To automati
 **Create a New Service**
 
 ```bash
-maxctrl create service db-service readwritesplit 
-user=db-user password=db-password
+maxctrl create service db-service readwritesplit user=db-user password=db-password
 ```
 
 **Modify a Service**
@@ -311,19 +306,22 @@ The service can only be destroyed if it uses no servers or clusters and has no l
 **Create a New Filter**
 
 ```bash
-maxctrl create filter regexfilter match=ENGINE=MyISAM 
-replace=ENGINE=InnoDB
+maxctrl create filter my-filter regexfilter match=ENGINE=MyISAM replace=ENGINE=InnoDB
+```
+
+**Alter a Filter**
+
+```bash
+maxctrl alter filter my-filter match=ENGINE=InnoDB
 ```
 
 **Destroy a Filter**
 
 ```bash
-maxctrl destroy filter my-regexfilter
+maxctrl destroy filter my-filter
 ```
 
 A filter can only be destroyed if it is not used by any services. To automatically remove the filter from all services using it, use the `--force`flag.
-
-Filters cannot be altered at runtime in MaxScale 2.5. To modify the parameters of a filter, destroy it and recreate it with the modified parameters.
 
 #### Managing Listeners
 

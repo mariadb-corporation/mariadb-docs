@@ -9,8 +9,6 @@ description: >-
 
 ## Encrypting Passwords
 
-**Note**: The password encryption format changed in MaxScale 2.5. All encrypted passwords created with MaxScale 2.4 or older need to be re-encrypted.
-
 There are two options for representing the password, either plain text or encrypted passwords may be used. In order to use encrypted passwords a set of keys must be generated that will be used by the encryption and decryption process. To generate the keys, use the `maxkeys` command.
 
 ```
