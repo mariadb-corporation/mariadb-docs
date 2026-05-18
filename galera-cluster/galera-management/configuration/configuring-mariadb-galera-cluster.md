@@ -7,11 +7,11 @@ description: >-
 
 # Configuring MariaDB Galera Cluster
 
-A number of options need to be set in order for Galera Cluster to work when using MariaDB. These should be set in the [MariaDB option file](https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files).
+A number of options must be set for Galera Cluster to work with MariaDB. These should be set in the [MariaDB option file](https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files).
 
 ## Mandatory Options
 
-Several options are mandatory, which means that they _must_ be set in order for Galera Cluster to be enabled or to work properly with MariaDB. The mandatory options are:
+Several options are mandatory, meaning they _must_ be set for Galera Cluster to be enabled or to work properly. The mandatory options are:
 
 * [wsrep\_provider](../../reference/galera-cluster-system-variables.md#wsrep_provider) — Path to the Galera library
 * [wsrep\_cluster\_address](../../reference/galera-cluster-system-variables.md#wsrep_cluster_address) — See [Galera Cluster address format and usage](galera-cluster-address.md)
@@ -24,13 +24,15 @@ Several options are mandatory, which means that they _must_ be set in order for 
 
 These are optional optimizations that can be made to improve performance.
 
-* [innodb\_flush\_log\_at\_trx\_commit=](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit)1 — This is not usually recommended in the case of standard MariaDB. However, it is a safer, recommended option with Galera Cluster, since inconsistencies can always be fixed by recovering from another node.
-  * [innodb\_flush\_log\_at\_trx\_commit=](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit) `0` can result in the loss of acknowledged transactions during simultaneous power failures or coordinated process crashes
-* [innodb\_autoinc\_lock\_mode=2](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_autoinc_lock_mode) — This tells InnoDB to use interleaved method. Interleaved is the fastest and most scalable lock mode, and should be used when BINLOG\_FORMAT is set to ROW.\
+* [innodb\_flush\_log\_at\_trx\_commit=0](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit) or [innodb\_flush\_log\_at\_trx\_commit=2](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit) — These settings can result in significantly better write performance by relaxing InnoDB's ACID durability. However, using these values introduces a risk of losing acknowledged transactions during simultaneous power failures, orchestrated server terminations, or a replicated trigger of a crashing bug across the cluster. For maximum durability, the default value of 1 is recommended.
+
+* [innodb\_autoinc\_lock\_mode=2](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables#innodb_autoinc_lock_mode) — This tells InnoDB to use interleaved method. Interleaved is the fastest and most scalable lock mode, and should be used when BINLOG\_FORMAT is set to ROW.
+
   Setting the auto-increment lock mode for InnoDB to interleaved, you’re allowing slaves threads to operate in parallel.
-* [wsrep\_slave\_threads=4](../../reference/galera-cluster-system-variables.md#wsrep_slave_threads)\
-  — This makes state transfers quicker for new nodes. You should start with four slave threads per CPU core.\
-  The logic here is that, in a balanced system, four slave threads can typically saturate a CPU core. However, I/O performance can increase this figure several times over. For example, a single-core ThinkPad R51 with a 4200 RPM drive can use thirty-two slave threads. The value should not be set higher than [wsrep\_cert\_deps\_distance](../../reference/galera-cluster-status-variables.md#wsrep_cert_deps_distance).
+
+* [wsrep\_slave\_threads=4](../../reference/galera-cluster-system-variables.md#wsrep_slave_threads) — This makes state transfers quicker for new nodes. You should start with four slave threads per CPU core.
+
+  The logic here is that, in a balanced system, four slave threads can typically saturate a CPU core. However, I/O performance can increase this figure several times over. For example, a single-core ThinkPad R51 with a 4200 RPM drive can use thirty-two slave threads. The value should not be set higher than \[wsrep\_cert\_deps\_distance\](../../reference/galera-cluster-status-variables.md#wsrep_cert_deps_distance).
 
 ## Writing Replicated Write Sets to the Binary Log
 
