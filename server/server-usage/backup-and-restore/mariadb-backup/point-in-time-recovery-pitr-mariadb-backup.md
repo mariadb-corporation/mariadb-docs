@@ -76,69 +76,10 @@ $ mariadb < mariadb-binlog.sql
 {% endstep %}
 {% endstepper %}
 
-## Point-in-Time Recovery Using InnoDB Log Archiving
+## See Also
 
-{% hint style="info" %}
-This functionality is available from MariaDB 13.0.
+* [Point-In-Time Recovery (InnoDB log archiving)](../innodb-log-archive-pitr.md) — an alternative PITR procedure that replays archived InnoDB write-ahead logs instead of binary logs. Available from MariaDB 13.0.
+
+{% hint style="warning" %}
+[`mariadb-backup`](README.md) does not support the [`innodb_log_archive`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_archive)`=ON` log format and fails when the server is running with `innodb_log_archive=ON`. Use the [InnoDB log archiving PITR](../innodb-log-archive-pitr.md) procedure instead in that configuration.
 {% endhint %}
-
-While binary logs are the standard method for point-in-time recovery, you can also use InnoDB log archiving. This feature allows for recovery to a specific Log Sequence Number (LSN) by replaying archived InnoDB write-ahead logs. This is particularly useful for InnoDB-only deployments or for recovery scenarios where binary logs may not be available.
-
-To perform a point-in-time recovery using archived logs:
-
-{% stepper %}
-{% step %}
-#### Enable log archiving.
-
-Before a recovery is necessary, ensure that log archiving is active. This is done by setting the [`innodb_log_archive`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_archive) system variable to `ON` :
-
-```sql
-SET GLOBAL innodb_log_archive=ON;
-```
-{% endstep %}
-
-{% step %}
-#### Identify the recovery target.
-
-Determine the target _LSN_ you wish to recover to. You can find the latest archived LSN by checking the `INNODB_LSN_ARCHIVED` status variable:
-
-```sql
-SELECT VARIABLE_VALUE
-FROM INFORMATION_SCHEMA.GLOBAL_STATUS
-WHERE VARIABLE_NAME = 'INNODB_LSN_ARCHIVED';
-```
-{% endstep %}
-
-{% step %}
-#### Stop the MariaDB Server.
-
-Terminate the `mariadbd` process before initiating the recovery – for example:
-
-```bash
-$ sudo systemctl stop mariadb
-```
-{% endstep %}
-
-{% step %}
-#### Start the server with recovery parameters.
-
-Invoke the server with the [`innodb_log_recovery_start`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_start) and [`innodb_log_recovery_target`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_target) parameters to define the recovery window.
-
-* `innodb_log_recovery_start`: Set this to the _LSN_ of your last known good backup.
-* `innodb_log_recovery_target`: Set this to the _LSN_ of your recovery point objective.
-
-```bash
-$ mariadbd --innodb_log_recovery_start=12288 --innodb_log_recovery_target=4194304
-```
-{% endstep %}
-
-{% step %}
-#### Verify the state.
-
-Once the server reaches the target _LSN_, the recovery process stops. You can then verify the data integrity.
-
-{% hint style="info" %}
-Point-in-time recovery for DDL (Data Definition Language) operations may be limited as `.frm` files are not tracked by the InnoDB log.
-{% endhint %}
-{% endstep %}
-{% endstepper %}

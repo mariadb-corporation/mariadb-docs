@@ -750,6 +750,13 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 * Data Type: `numeric`
 * Introduced: [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5) (XtraDB-only), [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
 
+#### `Innodb_lsn_archived`
+
+* Description: The Log Sequence Number (LSN) since which a complete InnoDB log archive is available. When [`innodb_log_archive`](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_log_archive) is `OFF`, the value advances to the latest checkpoint each time a log checkpoint is executed. When `innodb_log_archive` is `ON`, the value does not change — the archive is, by construction, complete from this LSN onward. The initial value at startup is taken from `innodb_log_archive_start`, or auto-detected from the available log files if that parameter is `0`.
+* Scope: Global
+* Data Type: `numeric`
+* Introduced: MariaDB 13.0
+
 #### `Innodb_master_thread_1_second_loops`
 
 * Description: As shown in the BACKGROUND THREAD section of the [SHOW ENGINE INNODB STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md) output.

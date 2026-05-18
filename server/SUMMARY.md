@@ -71,6 +71,7 @@
       * [mariadb-backup and BACKUP STAGE](server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands.md)
       * [mariadb-backup SST Method](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/mariadb-backup-sst-method)
       * [Manual SST of Galera Cluster Node With mariadb-backup](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/manual-sst-of-galera-cluster-node-with-mariadb-backup)
+    * [Point-In-Time Recovery (InnoDB Log Archiving)](server-usage/backup-and-restore/innodb-log-archive-pitr.md)
     * [Replication as a Backup Solution](server-usage/backup-and-restore/replication-as-a-backup-solution.md)
     * [Backup and Restore via dbForge Studio](server-usage/backup-and-restore/backup-and-restore-via-dbforge-studio.md)
   * [Tables](server-usage/tables/README.md)

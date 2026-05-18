@@ -73,7 +73,7 @@ Additionally, the following RPMs are available in the MariaDB Enterprise Unsuppo
 {% endtab %}
 
 {% tab title="Community Server" %}
-The following RPMs are in MariaDB Community Server:
+The following RPMs are in MariaDB Community Server 12.3:
 
 | Package Name                                 | Description                                                                                                                                                                                                                                                                       |
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

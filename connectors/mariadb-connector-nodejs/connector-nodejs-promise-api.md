@@ -555,7 +555,7 @@ const conn = await mariadb.createConnection({
   }
 ```
 
-When connecting through MaxScale, threadId does not have a meaningful interpretation, as MaxScale manages connections at the proxy level.&#x20;
+When connecting through [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/), `threadId` does not have a meaningful interpretation, as MaxScale manages connections at the proxy level.&#x20;
 
 #### `connection.query(sql[, values]) -> Promise`
 

@@ -1681,13 +1681,14 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_log_archive`
 
-* Description: Controls the InnoDB log archiving feature. When set to `ON`, the InnoDB write-ahead log is not only written to the circular ring buffer (`ib_logfile0`) but also saved into sequential archive files. This ensures a continuous log stream is available, which is necessary for point-in-time recovery and incremental backups.
+* Description: Controls the InnoDB log archiving format. When set to `ON`, the InnoDB write-ahead log is written to a sequence of files named `ib_`_`lsn`_`.log` instead of the circular ring buffer (`ib_logfile0`). Each file is pre-allocated to [`innodb_log_file_size`](innodb-system-variables.md#innodb_log_file_size); when one fills up, the server creates and pre-allocates the next file. After the first checkpoint completes in a new file, the previous file is marked read-only, signaling that it can be moved to long-term storage. This format makes a continuous log history available, which is necessary for point-in-time recovery and incremental backups.
 * Details:
   * File Naming: Archive files use the naming convention `ib_`_`lsn`_`.log`, where _lsn_ is a 16-character hexadecimal representation of the Log Sequence Number (LSN) at offset 12288 (0x3000) of the file.
-  * Log Resizing: When archiving is enabled, changes to `innodb_log_file_size` occur when the current log file is filled and a new file is allocated. This differs from the standard resizing logic used when `innodb_log_archive` is `OFF`.
-  * Size Constraint: To maintain compatibility with 32-bit offsets in the archive headers, [`innodb_log_file_size`](innodb-system-variables.md#innodb_log_file_size) is restricted to a maximum of 4G when archiving is active.
-  * Encryption: If `innodb_encrypt_log` is used, its state cannot be changed during a server restart if `innodb_log_archive` is set to `ON`.
-  * Data Dictionary: Note that this feature tracks InnoDB changes only. It does not cover `.frm` files or other non-InnoDB metadata.
+  * Log Resizing: When archiving is enabled, changes to [`innodb_log_file_size`](innodb-system-variables.md#innodb_log_file_size) take effect when the current log file is filled and a new file is allocated. This differs from the standard resizing logic used when `innodb_log_archive` is `OFF`.
+  * Encryption: While `innodb_log_archive` is `ON`, the value of [`innodb_encrypt_log`](innodb-system-variables.md#innodb_encrypt_log) and related encryption parameters cannot be changed. To change encryption, set `innodb_log_archive=OFF` and restart the server — this permanently discards the archived log history.
+  * Startup: With `innodb_log_archive=ON`, the server refuses to start if `ib_logfile0` exists in the data directory.
+  * Data Dictionary: This feature tracks InnoDB changes only. It does not cover `.frm` files or other non-InnoDB metadata.
+  * Backup tooling: No shipped tool yet generates or restores backups in this format. [`mariadb-backup`](../../backup-and-restore/mariadb-backup/README.md) only supports the legacy `ib_logfile0` format and fails when the server is running with `innodb_log_archive=ON`.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
@@ -1849,8 +1850,9 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_log_recovery_start`
 
-* Description: Defines the Log Sequence Number (LSN) where the recovery process begins.
-* Usage: Set this variable to limit the scope of a recovery operation. By specifying a starting _lsn_, you can avoid replaying archived logs from the beginning of the archive chain. This is typically used in conjunction with a known backup state. The server expects to find an optional sequence of `FILE_MODIFY` records and a `FILE_CHECKPOINT` record at the specified _lsn_.
+* Description: Specifies the Log Sequence Number (LSN) at which the recovery process begins. Only meaningful when recovering a backup that contains log files in the [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive)`=ON` format.
+* Usage: Set this variable to limit the scope of a recovery operation. The server expects to find an optional sequence of `FILE_MODIFY` records followed by a `FILE_CHECKPOINT` record at the specified _lsn_. This is typically used when restoring an incremental backup, by setting the variable to the end LSN of the previous restore.
+* Special value: `0` (the default) means start recovery from the latest completed checkpoint. The latest checkpoint is guaranteed to live in one of the last two `ib_`_`lsn`_`.log` files in the data directory, typically the last one.
 * Property: Set at startup
 * Data Type: `numeric` (64-bit unsigned integer)
 * Default Value: `0`
@@ -1858,12 +1860,19 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_log_recovery_target`
 
-* Description: Defines the target Log Sequence Number (LSN) where the recovery process ends.
-* Usage: Use this variable to define a recovery point objective. The server replays the archived logs and stops after processing the record at the specified _lsn_. If you attempt a startup with an unreachable _lsn_ (for example, a value lower than the current checkpoint), the server will terminate with an error message indicating the final available _lsn_. This is useful for verifying the end of the available log stream.
+* Description: Specifies the target Log Sequence Number (LSN) at which the recovery process ends. Only meaningful when recovering a backup that contains log files in the [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive)`=ON` format.
+* Usage: Use this variable to define a recovery point objective. The server replays archived logs up to the specified _lsn_ and stops. When this variable is non-zero, all persistent InnoDB tables become read-only and no log writes are allowed.
+* Special value: `0` (the default) performs an unlimited recovery — the server replays the log to its end.
 * Property: Set at startup
 * Data Type: `numeric` (64-bit unsigned integer)
-* Default Value: `0` (Maximum possible LSN)
+* Default Value: `0`
 * Introduced: MariaDB 13.0
+
+{% hint style="warning" %}
+The server cannot validate every impossible target. If you set `innodb_log_recovery_target` to a value that is after the recovery checkpoint (as influenced by [`innodb_log_recovery_start`](innodb-system-variables.md#innodb_log_recovery_start)) but before the LSN at which a data page has already been written, recovery completes in an inconsistent state where some pages carry an LSN past the requested target. Choose a target that lies at or beyond the highest page LSN you intend to retain.
+
+If you set a target that is unreachable in the other direction (for example, lower than the current checkpoint), the server terminates with an error message containing the available LSN range.
+{% endhint %}
 
 #### `innodb_log_spin_wait_delay`
 
