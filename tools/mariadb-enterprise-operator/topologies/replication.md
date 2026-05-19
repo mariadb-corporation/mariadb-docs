@@ -8,7 +8,9 @@ Please refer to the [MariaDB documentation](https://mariadb.com/docs/server/ha-a
 
 ## Provisioning
 
-To provision a replication cluster, set `replicas` to a value greater than `1` and set `replication.enabled=true` in the `MariaDB` Custom Resource (CR). You must also specify storage for the cluster's data directory. Use the following CR as a minimal configuration to provision a replication cluster:
+To provision a replication cluster, set `replicas` to a value greater than `1` and set `replication.enabled=true` in the `MariaDB` Custom Resource (CR). You must also specify storage for the cluster's data directory. In most environments, you will also need to provide `imagePullSecrets` to authenticate with the MariaDB Enterprise image registry.
+
+Use the following CR as a minimal configuration to provision a replication cluster:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -21,9 +23,14 @@ spec:
   replicas: 3
   replication:
     enabled: true
+  imagePullSecrets:
+  -  name: mariadb-enterprise   # Required to pull the MariaDB Enterprise image  
 ```
 
-Note: The operator’s admission webhook requires `spec.storage`**.** If it is not provided, an error will occur indicating that either `storage.size` or `storage.volumeClaimTemplate` must be specified. For storage configuration options, see [Storage](../storage.md).
+**Note**:&#x20;
+
+* The operator’s admission webhook requires `spec.storage`**.** If it is not provided, an error will occur indicating that either `storage.size` or `storage.volumeClaimTemplate` must be specified. For storage configuration options, see [Storage](../storage.md).
+* The `imagePullSecrets` field is required to pull MariaDB Enterprise images from a private registry. See [Customer access to docker.mariadb.com](../customer-access-to-docker-mariadb-com.md) for setup instructions. &#x20;
 
 After applying the previous CR, the operator will provision a replication cluster with one primary and two replicas. The operator will take care of setting up replication, configuring the replication user and monitoring the replication status:
 

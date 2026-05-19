@@ -325,12 +325,8 @@ def strip_markdown(text: str) -> str:
     return text.strip()
 
 
-def truncate_to_bytes(text: str, max_bytes: int = 60000) -> str:
-    """Truncate a string so its UTF-8 encoding fits within max_bytes.
-
-    MariaDB's help_topic.description column is TEXT (max 65,535 bytes).
-    We use 60,000 as a conservative limit to leave headroom.
-    """
+def truncate_to_bytes(text: str, max_bytes: int = 15000) -> str:
+    """Truncate to fit MAX_BOOTSTRAP_QUERY_SIZE (20000) after escape + boilerplate."""
     encoded = text.encode('utf8')
     if len(encoded) <= max_bytes:
         return text
@@ -370,12 +366,6 @@ def build_output(name, syntax: str, desc: str, example: list, path: str):
         parts.append(f"Examples\n--------\n\n{example_str}")
     desc_str = "\n\n".join(parts) if parts else ""
     desc_str = strip_markdown(desc_str)
-    # `path` comes from get_files() which walks REPO_ROOT/server/reference as
-    # an absolute path, so each entry is an absolute filesystem path (in CI:
-    # /home/runner/work/mariadb-docs/mariadb-docs/...). Make it relative to
-    # REPO_ROOT before tacking it onto the docs URL — otherwise we ship URLs
-    # like https://mariadb.com/docs//home/runner/... (broken) instead of
-    # https://mariadb.com/docs/server/reference/... (right).
     url_path = str(Path(path).resolve().relative_to(REPO_ROOT)).removesuffix(".md")
     url = f"https://mariadb.com/docs/{url_path}"
     desc_str += f"\n\nURL: {url}"
@@ -402,7 +392,7 @@ def escape_sql(text):
     """
     text = text.replace("\\", "\\\\")  # \ → \\
     text = text.replace("'", "''")      # ' → '' (SQL standard escaping)
-    text = text.replace("\n", "\\n")   # newline → literal \n for single-line INSERT
+    text = text.replace("\n", "\\n")   # bootstrap parser is line-naïve; keep INSERT on one line
     return text
 
 def generate_insert(name, description, example, help_topic_id, url, help_category_id):

@@ -1869,7 +1869,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Introduced: MariaDB 13.0
 
 {% hint style="warning" %}
-The server cannot validate every impossible target. If you set `innodb_log_recovery_target` to a value that is after the recovery checkpoint (as influenced by [`innodb_log_recovery_start`](innodb-system-variables.md#innodb_log_recovery_start)) but before the LSN at which a data page has already been written, recovery completes in an inconsistent state where some pages carry an LSN past the requested target. Choose a target that lies at or beyond the highest page LSN you intend to retain.
+**No data file may carry an LSN newer than `innodb_log_recovery_target`.** Crash recovery's role is to bring every database page to the same logical point in time (the same LSN). If any data file is newer than the target, recovery completes in an inconsistent state where some pages carry an LSN past the requested target — that is, the database is corrupted. The server cannot validate every such impossible target, and the resulting corruption may not be detected until the affected pages are accessed (see [MDEV-34830](https://jira.mariadb.org/browse/MDEV-34830)). Choose a target that lies at or beyond the highest page LSN you intend to retain.
 
 If you set a target that is unreachable in the other direction (for example, lower than the current checkpoint), the server terminates with an error message containing the available LSN range.
 {% endhint %}
