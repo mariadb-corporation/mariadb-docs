@@ -13,7 +13,7 @@ This functionality is available from MaxScale 25.10.1.
 
 ## Overview
 
-_ExasolRouter_ is a router that in itself is capable of using an
+_ExasolRouter_ is a router that in itself is capable of using the
 [Exasol Analytics Engine](https://www.exasol.com).
 It is primarily intended to be used together with
 [SmartRouter](maxscale-smartrouter.md), with _writes_ being directed
@@ -31,6 +31,10 @@ but it will use it for authenticating clients. Exasol will still be accessed
 on behalf of all clients using the credentials specified in the
 [connection\_string](#connection_string).
 
+_ExasolRouter_ is intended to be used with the value of the Exasol
+setting `SQL_IDENTIFIER_COMPARISON` being `IGNORE CASE`. The value
+will be checked and a warning issued if the value is something else.
+
 ## Users
 
 A `user` and `password` must _always_ be specified, but will only be used
@@ -43,33 +47,15 @@ user=
 password=
 ```
 
-The user and password to be used when accessing Exasol must be specified using `UID` and `PWD` in the [connection\_string](maxscale-exasolrouter.md#connection_string).
+The user and password to be used when accessing Exasol must be specified
+using `UID` and `PWD` in the [connection\_string](maxscale-exasolrouter.md#connection_string).
 
-## Preprocessor Script
+## Preprocessing
 
 The SQL supported by Exasol is not identical with the SQL supported by
-MariaDB. To alleviate that, the Exasol router can install a preprocessor
-script that is capable of converting to some extent MariaDB SQL constructs
-to the Exasol equivalents. Currently, the script looks like:
-```
-CREATE OR REPLACE PYTHON3 PREPROCESSOR SCRIPT UTIL.maria_preprocessor AS
-import sqlglot
-def adapter_call(request):
-    result = sqlglot.transpile(
-        request,
-        read='mysql',
-        write='exasol',
-        identify=True
-    )
-    return str(result[0])
-```
-By default, the Exasol router installs it every time it starts. The default
-behaviour can be alterered using the [preprocessor](#preprocessor)
-setting.
-
-If the default script is used, the Exasol router will also ensure that the
-schema `UTIL` exists. If the default script is not used, the Exasol router
-assumes that a used schema exists.
+MariaDB. To alleviate that, _ExasolRouter_ can either preprocess the
+SQL internally or configure Exasol to do that. The approach is
+selected using the setting [preprocessor](#preprocessor).
 
 ## Settings
 
@@ -118,33 +104,38 @@ will be honored. Otherwise this value will override.
 * Type: String
 * Mandatory: No
 * Dynamic: No
-* Values: `auto`, `activate-only`, `custom:<path>`, `disabled`
-* Default: `auto`
+* Values: `disabled`, `external[:preprocessor-script-name]`, `internal[:preprocessor-script-path]`
+* Default: `internal`
 
 The values mean:
 
-* `auto`: The built-in preprocessor script is installed at service
-  startup and is taken into use in each session.
-* `activate-only`: The preprocessor script is assumed to exist in Exasol
-  and is taken into use in each session.
-* `custom:<path>`: The path is assumed to point to a file containing the
-  preprocessor script to be installed at service startup. If the path is
-  _not_ absolute, it is interpreted relative to the MaxScale data directory.
-  The script is subsequently taken into use in each session.
-  See also [preprocessor_script](#preprocessor_script).
-* `disabled`: The preprocessor is neither installed at service startup,
-  nor taken into use in sessions.
+* `disabled`: The SQL is not transpiled internally and the external
+  transpiler is not enabled. _ExasolRouter_ itself performs some
+  essential transpiling, to make it possible to use the
+  `mariadb` command line tool against Exasol.
+* `external`: The preprocessor script is assumed to exist in Exasol
+  and is taken into use in each session. By default, the preprocessor
+  script is assumed to be `UTIL.maria_preprocessor`, but that can be
+  changed by giving the name as an argument. If `external` is specified,
+  the following statement will be executed for each session:
+  `ALTER SESSION SET sql_preprocessor_script=UTIL.maria_preprocessor`.
+* `internal`: Transpiling is performed internally using a Python script
+  that utilizes the library
+  [SQLGLot](https://sqlglot.com/sqlglot.html).
+  By default, the script is assumed to be `maria_preprocessor.py` located
+  in the _share_ directory of MaxScale. A different script can be used by
+  providing it as an argument. Unless an absolute path is used, it is
+  interpreted relative to the _share_ directory.
 
-### `preprocessor_script`
+### `python_libdir`
 
-* Type: String
+* Type: path
 * Mandatory: No
 * Dynamic: No
-* Default: "UTIL.maria_preprocessor"
+* Default: `<maxscale-libdir>/python3/site-packages`
 
-If the name of a custom preprocessor script, specified using
-`preprocessor=custom:/path`, is not `UTIL.maria_preprocessor`, the
-name should be provided using this setting.
+The library from which [SQLGLot](https://sqlglot.com/sqlglot.html) is loaded,
+if the value of `preprocessor` is `internal`.
 
 ### `appearance`
 
@@ -154,7 +145,7 @@ name should be provided using this setting.
 * Values: `read_only`, `read_write`
 * Default: `read_only`
 
-Specifies how the Exasol router appears to other components of MaxScale.
+Specifies how _ExasolRouter_ appears to other components of MaxScale.
 This is of relevance only if another service uses an Exasol router service
 as target.
 
@@ -179,32 +170,35 @@ closes it immediately after each use.
 * Dynamic: No
 * Default: true
 
-Whether the Exasol router should quote identifiers, in case it internally
-transpiles a statement. Currently it only affects whether 'USE db' becomes
-'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
+Whether _ExasolRouter_ should quote identifiers, in case it the value
+of `preprocessor` is `disabled`. Currently it only affects whether 'USE db'
+becomes 'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
 ## Transformations
 
-The Exasol Router transparently translates some MariaDB constructs to equivalent Exasol constructs.
-
 ### `COM_INIT_DB`
 
-The MariaDB COM\_INIT\_DB packet, using which the default database is changed, is transformed into the statement `OPEN SCHEMA <db>`.
+The MariaDB COM\_INIT\_DB packet, using which the default database is changed,
+is transformed into the statement `OPEN SCHEMA <db>`.
 
 ### SQL
 
-Currently a transformation will be made _only_ if there is an **exact** match (apart from case and differences in whitespace) with the MariaDb SQL.
+If the value of `preprocessor` is `disabled`, _ExasolRouter_ itself
+translates some MariaDB constructs to equivalent Exasol constructs.
+
+Currently a transformation will be made _only_ if there is an **exact** match
+(apart from case and differences in whitespace) with the MariaDb SQL.
 
 | MariaDb                           | Exasol                                                                                                              |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| SELECT @@VERSION\_COMMENT LIMIT 1 | SELECT 'Exasol' AS '@@version\_comment' LIMIT 1                                                                     |
-| SELECT DATABASE()                 | SELECT TABLE\_NAME AS 'Database()' FROM EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA                      |
-| SHOW DATABASES                    | SELECT SCHEMA\_NAME AS 'Database' FROM EXA\_SCHEMAS ORDER BY SCHEMA\_NAME                                           |
-| SHOW TABLES                       | SELECT TABLE\_NAME AS 'Tables' FROM SYS.EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA ORDER BY TABLE\_NAME |
+| `SELECT @@VERSION\_COMMENT LIMIT 1` | `SELECT 'Exasol' AS '@@version\_comment' LIMIT 1`                                                                     |
+| `SELECT DATABASE()`                 | `SELECT TABLE\_NAME AS 'Database()' FROM EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA`                      |
+| `SHOW DATABASES`                    | `SELECT SCHEMA\_NAME AS 'Database' FROM EXA\_SCHEMAS ORDER BY SCHEMA\_NAME`                                           |
+| `SHOW TABLES`                       | `SELECT TABLE\_NAME AS 'Tables' FROM SYS.EXA\_ALL\_TABLES WHERE TABLE\_SCHEMA = CURRENT\_SCHEMA ORDER BY TABLE\_NAME` |
 
 ## ODBC
 
-The Exasol router communicates with Exasol using ODBC. In practice that
+_ExasolRouter_ communicates with Exasol using ODBC. In practice that
 means that the way ODBC has been configured affects what actually must
 be specified in [connections_string](#connection_string). It is possible
 to provide all needed information in the connection string, but it is
@@ -241,7 +235,7 @@ connection_string=DSN=ExasolDSN
 
 ### SmartRouter
 
-The primary purpose of the Exasol router is to be used together with
+The primary purpose of _ExasolRouter_ is to be used together with
 [SmartRouter](maxscale-smartrouter.md). A minimal configuration looks as follows:
 
 ```
