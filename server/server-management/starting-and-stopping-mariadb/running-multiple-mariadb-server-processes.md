@@ -47,13 +47,13 @@ If you want to run different MariaDB versions on the same machine, using [binary
 
 ### Service Managers
 
-[sysVinit](sysvinit.md) and [systemd](systemd.md) are the most common Linux service managers. [launchd](launchd.md) is used in MacOS X. [Upstart](https://en.wikipedia.org/wiki/Upstart_\(software\)) is a less common service manager.
+[sysVinit](sysvinit.md) and [systemd](systemd/README.md) are the most common Linux service managers. [launchd](launchd.md) is used in MacOS X. [Upstart](https://en.wikipedia.org/wiki/Upstart_\(software\)) is a less common service manager.
 
 #### Systemd
 
-RHEL/CentOS 7 and above, Debian 8 Jessie and above, and Ubuntu 15.04 and above use [systemd](systemd.md) by default.
+RHEL/CentOS 7 and above, Debian 8 Jessie and above, and Ubuntu 15.04 and above use [systemd](systemd/README.md) by default.
 
-For information on how to start and stop multiple MariaDB Server processes on the same server with this service manager, see [systemd: Interacting with Multiple MariaDB Server Processes](systemd.md#interacting-with-multiple-mariadb-server-processes).
+For information on how to start and stop multiple MariaDB Server processes on the same server with this service manager, see [systemd: Interacting with Multiple MariaDB Server Processes](systemd/starting.md#interacting-with-multiple-mariadb-server-processes).
 
 ### Starting the Server Process Manually
 

@@ -205,29 +205,30 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | Date        | Release         | Status      | Release Notes               | Changelog                                  |
 | ----------- | --------------- | ----------- | --------------------------- | ------------------------------------------ |
-| 4 Feb 2026  | MariaDB 10.6.25 | Stable (GA) | [Release Notes](10.6.25.md) | [Changelog](../changelogs/10.6/10.6.25.md) |
-| 6 Nov 2025  | MariaDB 10.6.24 | Stable (GA) | [Release Notes](10.6.24.md) | [Changelog](../changelogs/10.6/10.6.24.md) |
-| 6 Aug 2025  | MariaDB 10.6.23 | Stable (GA) | [Release Notes](10.6.23.md) | [Changelog](../changelogs/10.6/10.6.23.md) |
-| 8 May 2025  | MariaDB 10.6.22 | Stable (GA) | [Release Notes](10.6.22.md) | [Changelog](../changelogs/10.6/10.6.22.md) |
-| 4 Feb 2025  | MariaDB 10.6.21 | Stable (GA) | [Release Notes](10.6.21.md) | [Changelog](../changelogs/10.6/10.6.21.md) |
-| 1 Nov 2024  | MariaDB 10.6.20 | Stable (GA) | [Release Notes](10.6.20.md) | [Changelog](../changelogs/10.6/10.6.20.md) |
-| 8 Aug 2024  | MariaDB 10.6.19 | Stable (GA) | [Release Notes](10.6.19.md) | [Changelog](../changelogs/10.6/10.6.19.md) |
+| 18 May 2026 | MariaDB 10.6.26 | Stable (GA) | [Release Notes](10.6.26.md) | [Changelog](../changelogs/10.6/10.6.26.md) |
+|  4 Feb 2026 | MariaDB 10.6.25 | Stable (GA) | [Release Notes](10.6.25.md) | [Changelog](../changelogs/10.6/10.6.25.md) |
+|  6 Nov 2025 | MariaDB 10.6.24 | Stable (GA) | [Release Notes](10.6.24.md) | [Changelog](../changelogs/10.6/10.6.24.md) |
+|  6 Aug 2025 | MariaDB 10.6.23 | Stable (GA) | [Release Notes](10.6.23.md) | [Changelog](../changelogs/10.6/10.6.23.md) |
+|  8 May 2025 | MariaDB 10.6.22 | Stable (GA) | [Release Notes](10.6.22.md) | [Changelog](../changelogs/10.6/10.6.22.md) |
+|  4 Feb 2025 | MariaDB 10.6.21 | Stable (GA) | [Release Notes](10.6.21.md) | [Changelog](../changelogs/10.6/10.6.21.md) |
+|  1 Nov 2024 | MariaDB 10.6.20 | Stable (GA) | [Release Notes](10.6.20.md) | [Changelog](../changelogs/10.6/10.6.20.md) |
+|  8 Aug 2024 | MariaDB 10.6.19 | Stable (GA) | [Release Notes](10.6.19.md) | [Changelog](../changelogs/10.6/10.6.19.md) |
 | 16 May 2024 | MariaDB 10.6.18 | Stable (GA) | [Release Notes](10.6.18.md) | [Changelog](../changelogs/10.6/10.6.18.md) |
-| 7 Feb 2024  | MariaDB 10.6.17 | Stable (GA) | [Release Notes](10.6.17.md) | [Changelog](../changelogs/10.6/10.6.17.md) |
+|  7 Feb 2024 | MariaDB 10.6.17 | Stable (GA) | [Release Notes](10.6.17.md) | [Changelog](../changelogs/10.6/10.6.17.md) |
 | 13 Nov 2023 | MariaDB 10.6.16 | Stable (GA) | [Release Notes](10.6.16.md) | [Changelog](../changelogs/10.6/10.6.16.md) |
 | 14 Aug 2023 | MariaDB 10.6.15 | Stable (GA) | [Release Notes](10.6.15.md) | [Changelog](../changelogs/10.6/10.6.15.md) |
-| 7 Jun 2023  | MariaDB 10.6.14 | Stable (GA) | [Release Notes](10.6.14.md) | [Changelog](../changelogs/10.6/10.6.14.md) |
+|  7 Jun 2023 | MariaDB 10.6.14 | Stable (GA) | [Release Notes](10.6.14.md) | [Changelog](../changelogs/10.6/10.6.14.md) |
 | 10 May 2023 | MariaDB 10.6.13 | Stable (GA) | [Release Notes](10.6.13.md) | [Changelog](../changelogs/10.6/10.6.13.md) |
-| 6 Feb 2023  | MariaDB 10.6.12 | Stable (GA) | [Release Notes](10.6.12.md) | [Changelog](../changelogs/10.6/10.6.12.md) |
-| 7 Nov 2022  | MariaDB 10.6.11 | Stable (GA) | [Release Notes](10.6.11.md) | [Changelog](../changelogs/10.6/10.6.11.md) |
+|  6 Feb 2023 | MariaDB 10.6.12 | Stable (GA) | [Release Notes](10.6.12.md) | [Changelog](../changelogs/10.6/10.6.12.md) |
+|  7 Nov 2022 | MariaDB 10.6.11 | Stable (GA) | [Release Notes](10.6.11.md) | [Changelog](../changelogs/10.6/10.6.11.md) |
 | 19 Sep 2022 | MariaDB 10.6.10 | Stable (GA) | [Release Notes](10.6.10.md) | [Changelog](../changelogs/10.6/10.6.10.md) |
 | 15 Aug 2022 | MariaDB 10.6.9  | Stable (GA) | [Release Notes](10.6.9.md)  | [Changelog](../changelogs/10.6/10.6.9.md)  |
 | 20 May 2022 | MariaDB 10.6.8  | Stable (GA) | [Release Notes](10.6.8.md)  | [Changelog](../changelogs/10.6/10.6.8.md)  |
 | 12 Feb 2022 | MariaDB 10.6.7  | Stable (GA) | [Release Notes](10.6.7.md)  | [Changelog](../changelogs/10.6/10.6.7.md)  |
-| 9 Feb 2022  | MariaDB 10.6.6  | Stable (GA) | [Release Notes](10.6.6.md)  | [Changelog](../changelogs/10.6/10.6.6.md)  |
-| 8 Nov 2021  | MariaDB 10.6.5  | Stable (GA) | [Release Notes](10.6.5.md)  | [Changelog](../changelogs/10.6/10.6.5.md)  |
-| 6 Aug 2021  | MariaDB 10.6.4  | Stable (GA) | [Release Notes](10.6.4.md)  | [Changelog](../changelogs/10.6/10.6.4.md)  |
-| 6 Jul 2021  | MariaDB 10.6.3  | Stable (GA) | [Release Notes](10.6.3.md)  | [Changelog](../changelogs/10.6/10.6.3.md)  |
+|  9 Feb 2022 | MariaDB 10.6.6  | Stable (GA) | [Release Notes](10.6.6.md)  | [Changelog](../changelogs/10.6/10.6.6.md)  |
+|  8 Nov 2021 | MariaDB 10.6.5  | Stable (GA) | [Release Notes](10.6.5.md)  | [Changelog](../changelogs/10.6/10.6.5.md)  |
+|  6 Aug 2021 | MariaDB 10.6.4  | Stable (GA) | [Release Notes](10.6.4.md)  | [Changelog](../changelogs/10.6/10.6.4.md)  |
+|  6 Jul 2021 | MariaDB 10.6.3  | Stable (GA) | [Release Notes](10.6.3.md)  | [Changelog](../changelogs/10.6/10.6.3.md)  |
 | 18 Jun 2021 | MariaDB 10.6.2  | RC          | [Release Notes](10.6.2.md)  | [Changelog](../changelogs/10.6/10.6.2.md)  |
 | 21 May 2021 | MariaDB 10.6.1  | Beta        | [Release Notes](10.6.1.md)  | [Changelog](../changelogs/10.6/10.6.1.md)  |
 | 26 Apr 2021 | MariaDB 10.6.0  | Alpha       | [Release Notes](10.6.0.md)  | [Changelog](../changelogs/10.6/10.6.0.md)  |

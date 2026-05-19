@@ -333,7 +333,7 @@ TLS encryption is only available when used by all nodes in the cluster.
 
 ### Enabling GCache Encryption
 
-To encrypt data-at-rest such as GCache, stop the server, set `encrypt_binlog=ON` within the MariaDB Enterprise Server configuration file, and restart the server. This variable also controls encryption of the binary log and the relay log when used.
+To enable data-at-rest encryption for the GCache file, stop the server, set `encrypt_binlog=ON` within the MariaDB Enterprise Server configuration file, and restart the server. This variable also controls encryption of the binary log and the relay log when used.
 
 ```ini
 [mariadb]

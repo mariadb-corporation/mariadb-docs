@@ -1,6 +1,6 @@
-# Replication
+# Asynchronous Replication
 
-The operator supports provisioning and operating MariaDB clusters with replication as a highly availability topology. In the following sections we will be covering how to manage the full lifecycle of a replication cluster. 
+The operator supports provisioning and operating MariaDB clusters with replication as a highly availability topology. In the following sections we will be covering how to manage the full lifecycle of a replication cluster.
 
 In a replication setup, one primary server handles all write operations while one or more replica servers replicate data from the primary, being able to handle read operations. More precisely, the primary has a binary log and the replicas asynchronously replicate the binary log events over the network.
 
@@ -8,7 +8,9 @@ Please refer to the [MariaDB documentation](https://mariadb.com/docs/server/ha-a
 
 ## Provisioning
 
-In order to provision a replication cluster, you need to configure a number of `replicas` greater than `1` and set the `replication.enabled=true` in the `MariaDB` CR:
+To provision a replication cluster, set `replicas` to a value greater than `1` and set `replication.enabled=true` in the `MariaDB` Custom Resource (CR). You must also specify storage for the cluster's data directory. In most environments, you will also need to provide `imagePullSecrets` to authenticate with the MariaDB Enterprise image registry.
+
+Use the following CR as a minimal configuration to provision a replication cluster:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -21,7 +23,14 @@ spec:
   replicas: 3
   replication:
     enabled: true
+  imagePullSecrets:
+  -  name: mariadb-enterprise   # Required to pull the MariaDB Enterprise image  
 ```
+
+**Note**:&#x20;
+
+* The operator’s admission webhook requires `spec.storage`**.** If it is not provided, an error will occur indicating that either `storage.size` or `storage.volumeClaimTemplate` must be specified. For storage configuration options, see [Storage](../storage.md).
+* The `imagePullSecrets` field is required to pull MariaDB Enterprise images from a private registry. See [Customer access to docker.mariadb.com](../customer-access-to-docker-mariadb-com.md) for setup instructions. &#x20;
 
 After applying the previous CR, the operator will provision a replication cluster with one primary and two replicas. The operator will take care of setting up replication, configuring the replication user and monitoring the replication status:
 
@@ -81,9 +90,9 @@ The operator continuously monitors the replication status via [`SHOW SLAVE STATU
 
 ## Asynchronous vs semi-synchronous replication
 
-By default, [semi-synchronous replication](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication) is configured, which requires an acknowledgement from at least one replica before committing the transaction back to the client. This trades off performance for better consistency and facilitates [failover](#primary-failover) and [switchover](#primary-switchover) operations.
+By default, [semi-synchronous replication](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication) is configured, which requires an acknowledgement from at least one replica before committing the transaction back to the client. This trades off performance for better consistency and facilitates [failover](replication.md#primary-failover) and [switchover](replication.md#primary-switchover) operations.
 
-If you are aiming for better performance, you can disable semi-synchronous replication, and go fully asynchronous, please refer to [configuration](#configuration) section for doing so.
+If you are aiming for better performance, you can disable semi-synchronous replication, and go fully asynchronous, please refer to [configuration](replication.md#configuration) section for doing so.
 
 ## Configuration
 
@@ -108,16 +117,16 @@ spec:
     standaloneProbes: false
 ```
 
-- `gtidStrictMode`: Enables GTID strict mode. It is recommended and enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/gtid#gtid_strict_mode).
-- `semiSyncEnabled`: Determines whether semi-synchronous replication should be enabled. It is enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication).
-- `semiSyncAckTimeout`: ACK timeout for the replicas to acknowledge transactions to the primary. It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
-- `semiSyncWaitPoint`: Determines whether the transaction should wait for an ACK after having synced the binlog (`AfterSync`) or after having committed to the storage engine (`AfterCommit`, the default). It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point).
-- `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
-- `standaloneProbes`: Determines whether to use regular non-HA startup and liveness probes. It is disabled by default.
+* `gtidStrictMode`: Enables GTID strict mode. It is recommended and enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/gtid#gtid_strict_mode).
+* `semiSyncEnabled`: Determines whether semi-synchronous replication should be enabled. It is enabled by default. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication).
+* `semiSyncAckTimeout`: ACK timeout for the replicas to acknowledge transactions to the primary. It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_timeout).
+* `semiSyncWaitPoint`: Determines whether the transaction should wait for an ACK after having synced the binlog (`AfterSync`) or after having committed to the storage engine (`AfterCommit`, the default). It requires semi-synchronous replication. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/semisynchronous-replication#rpl_semi_sync_master_wait_point).
+* `syncBinlog`: Number of events after which the binary log is synchronized to disk. See [MariaDB documentation](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#sync_binlog).
+* `standaloneProbes`: Determines whether to use regular non-HA startup and liveness probes. It is disabled by default.
 
-These options are used by the operator to create a replication configuration file that is applied to all nodes in the cluster. When updating any of these options, an [update of the cluster](#updates) will be triggered in order to apply the new configuration.
+These options are used by the operator to create a replication configuration file that is applied to all nodes in the cluster. When updating any of these options, an [update of the cluster](replication.md#updates) will be triggered in order to apply the new configuration.
 
-For replica-specific configuration options, please refer to the [replica configuration](#replica-configuration) section. Additional system variables may be configured via the `myCnf` configuration field. Refer to the [configuration documentation](../configuration.md#mycnf) for more details.
+For replica-specific configuration options, please refer to the [replica configuration](replication.md#replica-configuration) section. Additional system variables may be configured via the `myCnf` configuration field. Refer to the [configuration documentation](../configuration.md#mycnf) for more details.
 
 ## Replica configuration
 
@@ -144,15 +153,15 @@ spec:
       syncTimeout: 10s
 ```
 
-- `replPasswordSecretKeyRef`: Reference to the `Secret` key containing the password for the replication user, used by the replicas to connect to the primary. By default, a `Secret` with a random password will be created.
-- `gtid`: GTID position mode to be used (`CurrentPos` and `SlavePos` allowed). It defaults to `CurrentPos`. See [MariaDB documentation](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_use_gtid).
-- `connectionRetrySeconds`: Number of seconds that the replica will wait between connection retries. See [MariaDB documentation](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_connect_retry).
-- `maxLagSeconds`: Maximum acceptable lag in seconds between the replica and the primary. If the lag exceeds this value, the [readiness probe](#readiness-probe) will fail and the replica will be marked as not ready. It defaults to `0`, meaning that no lag is allowed. See [lagged replicas](#lagged-replicas) section for more details. 
-- `syncTimeout`: Timeout for the replicas to be synced during switchover and failover operations. It defaults to `10s`. See the [primary switchover](#primary-switchover) and [primary failover](#primary-failover) sections for more details. 
+* `replPasswordSecretKeyRef`: Reference to the `Secret` key containing the password for the replication user, used by the replicas to connect to the primary. By default, a `Secret` with a random password will be created.
+* `gtid`: GTID position mode to be used (`CurrentPos` and `SlavePos` allowed). It defaults to `CurrentPos`. See [MariaDB documentation](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_use_gtid).
+* `connectionRetrySeconds`: Number of seconds that the replica will wait between connection retries. See [MariaDB documentation](https://mariadb.com/docs/server/reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to#master_connect_retry).
+* `maxLagSeconds`: Maximum acceptable lag in seconds between the replica and the primary. If the lag exceeds this value, the [readiness probe](replication.md#readiness-probe) will fail and the replica will be marked as not ready. It defaults to `0`, meaning that no lag is allowed. See [lagged replicas](replication.md#lagged-replicas) section for more details.
+* `syncTimeout`: Timeout for the replicas to be synced during switchover and failover operations. It defaults to `10s`. See the [primary switchover](replication.md#primary-switchover) and [primary failover](replication.md#primary-failover) sections for more details.
 
 ## Probes
 
-Kubernetes probes are resolved by the agent (see [data-plane](./data-plane.md) documentation) in the replication topology, taking into account both the MariaDB and replication status. Additionally, as described in the [configuration documentation](../configuration.md#probes), probe thresholds may be tuned accordingly for a better reliability based on your environment.
+Kubernetes probes are resolved by the agent (see [data-plane](data-plane.md) documentation) in the replication topology, taking into account both the MariaDB and replication status. Additionally, as described in the [configuration documentation](../configuration.md#probes), probe thresholds may be tuned accordingly for a better reliability based on your environment.
 
 In the following sub-sections we will be covering specifics about the replication topology.
 
@@ -160,7 +169,7 @@ In the following sub-sections we will be covering specifics about the replicatio
 
 As part of the liveness probe, the agent checks that the MariaDB server is running and that the replication threads (`Slave_IO_Running` and `Slave_SQL_Running`) are both running on replicas. If any of these checks fail, the liveness probe will fail.
 
-If such a behaviour is undesirable, it is possible to opt in for regular standalone startup/liveness probes (default `SELECT 1` query). See `standaloneProbes` in the [configuration](#configuration) section.
+If such a behaviour is undesirable, it is possible to opt in for regular standalone startup/liveness probes (default `SELECT 1` query). See `standaloneProbes` in the [configuration](replication.md#configuration) section.
 
 #### Readiness probe
 
@@ -168,23 +177,24 @@ The readiness probe checks that the MariaDB server is running and that the `Seco
 
 ## Lagged replicas
 
-A replica is considered to be lagging behind the primary when the `Seconds_Behind_Master` value reported by `SHOW SLAVE STATUS` exceeds the `spec.replication.replica.maxLagSeconds` configuration option. This results in the [readiness probe](#readiness-probe) failing for that replica, and it has the following implications:
-- When using [Kubernetes `Services` for high availability](./high-availability.md#kubernetes-services), queries will not be forwarded to lagged replicas. This doesn't affect MaxScale routing.
-- When taking a [physical backup](../backup-and-restore/physical_backup.md), lagged replicas will not be considered as a target for taking the backup.
-- During a [primary switchover](#primary-switchover) managed by the operator, lagged replicas will block switchover operations, as all the replicas must be in sync before promoting the new primary. This doesn't affect MaxScale switchover operation.
-- During a [primary failover](#primary-failover) managed by the operator, lagged replicas will not be considered as candidates to be promoted as the new primary. MaxScale failover will not consider lagged replicas either.
-- During [updates](#updates), lagged replicas will block the update operation, as each of the replicas must pass the readiness probe before proceeding to the update of the next one.
+A replica is considered to be lagging behind the primary when the `Seconds_Behind_Master` value reported by `SHOW SLAVE STATUS` exceeds the `spec.replication.replica.maxLagSeconds` configuration option. This results in the [readiness probe](replication.md#readiness-probe) failing for that replica, and it has the following implications:
+
+* When using [Kubernetes `Services` for high availability](high-availability.md#kubernetes-services), queries will not be forwarded to lagged replicas. This doesn't affect MaxScale routing.
+* When taking a [physical backup](../backup-and-restore/physical_backup.md), lagged replicas will not be considered as a target for taking the backup.
+* During a [primary switchover](replication.md#primary-switchover) managed by the operator, lagged replicas will block switchover operations, as all the replicas must be in sync before promoting the new primary. This doesn't affect MaxScale switchover operation.
+* During a [primary failover](replication.md#primary-failover) managed by the operator, lagged replicas will not be considered as candidates to be promoted as the new primary. MaxScale failover will not consider lagged replicas either.
+* During [updates](replication.md#updates), lagged replicas will block the update operation, as each of the replicas must pass the readiness probe before proceeding to the update of the next one.
 
 ## Backing up and restoring
 
-In order to back up and restore a replication cluster, all the concepts and procedures described in the [physical backup](../backup-and-restore/physical_backup.md) documentation apply. 
+In order to back up and restore a replication cluster, all the concepts and procedures described in the [physical backup](../backup-and-restore/physical_backup.md) documentation apply.
 
 Additionally, for the replication topology, the operator tracks the GTID position at the time of taking the backup, and sets this position based on the `gtid_current_pos` system variable when restoring the backup, as described in the [MariaDB documentation](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/setting-up-a-replica-with-mariadb-backup).
 
 Depending on the `PhysicalBackup` strategy used, the operator will track the GTID position accordingly:
 
-- __mariadb-backup__: When using `PhysicalBackup` with the `mariadb-backup` strategy, the GTID will be restored to a `mariadb-enterprise-operator.info` file in the data directory, which the agent will expose to the operator via HTTP.
-- __VolumeSnapshot__: When using `PhysicalBackup` with the `VolumeSnapshot` strategy, the GTID position will be kept in a `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, which later on the operator will read when restoring the backup.
+* **mariadb-backup**: When using `PhysicalBackup` with the `mariadb-backup` strategy, the GTID will be restored to a `mariadb-enterprise-operator.info` file in the data directory, which the agent will expose to the operator via HTTP.
+* **VolumeSnapshot**: When using `PhysicalBackup` with the `VolumeSnapshot` strategy, the GTID position will be kept in a `enterprise.mariadb.com/gtid` annotation in the `VolumeSnapshot` object, which later on the operator will read when restoring the backup.
 
 When using `PhysicalBackup` with the `mariadb-backup` strategy, the GTID will be restored to a `mariadb-enterprise-operator.info` file in the data directory, which the agent will expose to the operator via HTTP.
 
@@ -201,7 +211,7 @@ Refrain from removing the `enterprise.mariadb.com/gtid` annotation in the `Volum
 ## Primary switchover
 
 {% hint style="info" %}
-Our recommendation for production environments is to rely on [MaxScale](./maxscale.md) for the [switchover operation](./maxscale.md#primary-server-switchover), as it provides [several advantages](./high-availability.md#maxscale).
+Our recommendation for production environments is to rely on [MaxScale](maxscale.md) for the [switchover operation](maxscale.md#primary-server-switchover), as it provides [several advantages](high-availability.md#maxscale).
 {% endhint %}
 
 You can declaratively trigger a primary switchover by updating the `spec.replication.primary.podIndex` field in the `MariaDB` CR to the index of the replica you want to promote as the new primary. For example, to promote the replica at index `1`:
@@ -238,6 +248,7 @@ mariadb-repl   False   Switching primary to 'mariadb-repl-1'   mariadb-repl-0   
 ```
 
 The steps involved in the switchover operation are:
+
 1. Lock the current primary using `FLUSH TABLES WITH READ LOCK` to ensure no new transactions are being processed.
 2. Set the `read_only` system variable on the current primary to prevent any write operations.
 3. Wait until all the replicas are in sync with the current primary. The timeout for this step can be configured via the `spec.replication.replica.syncTimeout` option. If the timeout is reached, the switchover operation will be retried from the beginning.
@@ -250,7 +261,7 @@ If the switchover operation is stuck waiting for replicas to be in sync, you can
 ## Primary failover
 
 {% hint style="info" %}
-Our recommendation for production environments is to rely on [MaxScale](./maxscale.md) for the failover process, as it provides [several advantages](./high-availability.md#maxscale).
+Our recommendation for production environments is to rely on [MaxScale](maxscale.md) for the failover process, as it provides [several advantages](high-availability.md#maxscale).
 {% endhint %}
 
 You can configure the operator to automatically perform a primary failover whenever the current primary becomes unavailable:
@@ -270,6 +281,7 @@ spec:
       autoFailover: true
       autoFailoverDelay: 0s
 ```
+
 Optionally, you may also specify a `autoFailoverDelay`, which will add a delay before triggering the failover operation. By default, the failover is immediate, but introducing a delay may be useful to avoid failovers due to transient issues. But note that the delay should be lower than the readiness probe failure threshold (e.g. 20 seconds delay when readiness threshold is 30 seconds), otherwise all the replicas will be marked as not ready and the automatic failover will not be able to proceed.
 
 Whenever the primary becomes unavailable, the following status will be reported in the `MariaDB` CR:
@@ -292,12 +304,14 @@ mariadb-repl   True    Running   mariadb-repl-1   ReplicasFirstPrimaryLast   3d2
 ```
 
 The criteria for choosing a new primary is:
-- The `Pod` should be in `Ready` state, therefore not considering unavailable or lagged replicas (see [readiness probe](#readiness-probe) and [lagged replicas](#lagged-replicas) sections).
-- Both the IO(`Slave_IO_Running`) and the SQL(`Slave_SQL_Running`) threads should be running.
-- The replica should not have relay log events.
-- Among the candidates, the one with the highest `gtid_current_pos` will be selected.
+
+* The `Pod` should be in `Ready` state, therefore not considering unavailable or lagged replicas (see [readiness probe](replication.md#readiness-probe) and [lagged replicas](replication.md#lagged-replicas) sections).
+* Both the IO(`Slave_IO_Running`) and the SQL(`Slave_SQL_Running`) threads should be running.
+* The replica should not have relay log events.
+* Among the candidates, the one with the highest `gtid_current_pos` will be selected.
 
 Once the new primary is selected, the failover process will be performed, consisting of the following steps:
+
 1. Wait for the new primary to apply all relay log events.
 2. Promote the selected replica to be the new primary.
 3. Connect replicas to the new primary.
@@ -306,11 +320,12 @@ Once the new primary is selected, the failover process will be performed, consis
 
 When updating a replication cluster, all the considerations and procedures described in the [updates](../updates.md) documentation apply.
 
-Furthermore, for the replication topology, the operator will trigger an additional [switchover operation](#primary-switchover) once all the replicas have been updated, just before updating the primary. This ensures that the primary is always updated last, minimizing the impact on write operations.
+Furthermore, for the replication topology, the operator will trigger an additional [switchover operation](replication.md#primary-switchover) once all the replicas have been updated, just before updating the primary. This ensures that the primary is always updated last, minimizing the impact on write operations.
 
 The steps involved in updating a replication cluster are:
-1. Update each replica one by one, waiting for each replica to be ready before proceeding to the next one (see [readiness probe](#readiness-probe) section).
-2. Once all replicas are up to date and synced, perform a [primary switchover](#primary-switchover) to promote one of the replicas as the new primary. If `MariaDB` CR has a `MaxScale` configured using the `spec.maxScaleRef` field, the operator will trigger the [primary switchover in MaxScale](./maxscale.md#primary-server-switchover) instead.
+
+1. Update each replica one by one, waiting for each replica to be ready before proceeding to the next one (see [readiness probe](replication.md#readiness-probe) section).
+2. Once all replicas are up to date and synced, perform a [primary switchover](replication.md#primary-switchover) to promote one of the replicas as the new primary. If `MariaDB` CR has a `MaxScale` configured using the `spec.maxScaleRef` field, the operator will trigger the [primary switchover in MaxScale](maxscale.md#primary-server-switchover) instead.
 3. Update the previous primary, now running as a replica.
 
 ## Scaling out
@@ -352,7 +367,7 @@ spec:
   podAffinity: true
 ```
 
-It is important to note that, we set the `spec.schedule.suspend=true` to prevent scheduling this backup, as it will be only be used as a template. 
+It is important to note that, we set the `spec.schedule.suspend=true` to prevent scheduling this backup, as it will be only be used as a template.
 
 Alternatively, you may also use a `VolumeSnapshot` strategy for taking the backup:
 
@@ -417,10 +432,11 @@ kubectl scale mariadb mariadb-repl --replicas=4
 ```
 
 This will trigger an scaling out operation, resulting in:
-- A `PhysicalBackup` based on the template being created.
-- Creating a new PVC for the new replica based on the `PhysicalBackup`.
-- Upscaling the `StatefulSet`, adding a `Pod` that mounts the newly created PVC.
-- The `Pod` is configured as a replica, connected to the primary by starting the replication in the GTID position stored in the backup.
+
+* A `PhysicalBackup` based on the template being created.
+* Creating a new PVC for the new replica based on the `PhysicalBackup`.
+* Upscaling the `StatefulSet`, adding a `Pod` that mounts the newly created PVC.
+* The `Pod` is configured as a replica, connected to the primary by starting the replication in the GTID position stored in the backup.
 
 ```bash
 kubectl scale mariadb mariadb-repl --replicas=4
@@ -462,13 +478,13 @@ You have the ability to cancel the scaling out operation by setting `spec.replic
 
 The operator has the ability to automatically recover replicas that become unavailable and report a specific error code in the replication status. For doing so, the operator continuously monitors the replication status of each replica, and whenever a replica reports an error code listed in the table below, the operator will trigger an automated recovery process for that replica:
 
-| Error Code | Thread | Description | Documentation |
-|------------|--------|-------------|---------------|
+| Error Code | Thread | Description                                                                | Documentation                                                                                                |
+| ---------- | ------ | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | 1236       | IO     | Error 1236: Got fatal error from master when reading data from binary log. | [MariaDB docs](https://mariadb.com/docs/server/reference/error-codes/mariadb-error-codes-1200-to-1299/e1236) |
 
 To perform the recovery, the operator will take a physical backup from a ready replica, restore it to the failed replica PVC, and reconfigure the replica to connect to the primary from the GTID position stored in the backup.
 
-Similarly to the [scaling out](#scaling-out) operation, you need to define a `PhysicalBackup` template and set a reference to it in the `spec.replication.replica.bootstrapFrom` field of the `MariaDB` CR. Additionally, you need to explicitly enable the replica recovery, as it is disabled by default:
+Similarly to the [scaling out](replication.md#scaling-out) operation, you need to define a `PhysicalBackup` template and set a reference to it in the `spec.replication.replica.bootstrapFrom` field of the `MariaDB` CR. Additionally, you need to explicitly enable the replica recovery, as it is disabled by default:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -497,7 +513,8 @@ We will be simulating a `1236` error in a replica to demonstrate how the recover
 Do not perform the following steps in a production environment.
 {% endhint %}
 
--  Purge the binary logs in the primary:
+* Purge the binary logs in the primary:
+
 ```bash
 PRIMARY=$(kubectl get mariadb mariadb-repl -o jsonpath="{.status.currentPrimary}")
 echo "Purging binary logs in primary $PRIMARY"
@@ -506,7 +523,8 @@ kubectl exec -it $PRIMARY -c mariadb -- mariadb -u root -p'MariaDB11!' --ssl=fal
 kubectl exec -it $PRIMARY -c mariadb -- mariadb -u root -p'MariaDB11!' --ssl=false -e "SHOW BINARY LOGS;"
 ```
 
-- Delete the PVC and restart one of the replicas:
+* Delete the PVC and restart one of the replicas:
+
 ```bash
 REPLICA=$(kubectl get mariadb mariadb-repl -o jsonpath='{.status.replication.replicas}' | jq -r 'keys[]' | head -n1)
 echo "Deleting PVC and restarting replica $REPLICA"
@@ -515,9 +533,10 @@ kubectl delete pod $REPLICA --wait=false
 ```
 
 This will trigger a replica recovery operation, resulting in:
-- A `PhysicalBackup` based on the template being created.
-- Restoring the backup to the failed replica PVC.
-- Reconfigure the replica to connect to the primary from the GTID position stored in the backup.
+
+* A `PhysicalBackup` based on the template being created.
+* Restoring the backup to the failed replica PVC.
+* Reconfigure the replica to connect to the primary from the GTID position stored in the backup.
 
 ```bash
 kubectl get mariadb
@@ -640,7 +659,7 @@ kubectl get mariadb mariadb-repl -o jsonpath="{.status.conditions}" | jq
     "type": "ReplicaRecovered"
   }
 ]
-``` 
+```
 
 The operator also emits Kubernetes events during failover/switchover operations. You may check them to see how these operations progress:
 
@@ -656,11 +675,11 @@ LAST SEEN   TYPE     REASON             OBJECT                 MESSAGE
 7s          Normal   PrimaryToReplica   mariadb/mariadb-repl   Unlocking primary '1' and configuring it to be a replica. New primary at '0'
 7s          Normal   PrimaryLock        mariadb/mariadb-repl   Unlocking primary
 7s          Normal   PrimarySwitched    mariadb/mariadb-repl   Primary switched from index '1' to index '0'
-``` 
+```
 
 #### Common errors
 
-##### Primary has purged binary logs, unable to configure replica
+**Primary has purged binary logs, unable to configure replica**
 
 The primary may purge binary log events at some point, after then, if a replica requests events before that point, it will fail with the following error:
 
@@ -668,24 +687,25 @@ The primary may purge binary log events at some point, after then, if a replica 
 Error 1236: Got fatal error from master when reading data from binary log.
 ```
 
-This is a something the operator is able to recover from, please refer to the [replica recovery section](#replica-recovery).
+This is a something the operator is able to recover from, please refer to the [replica recovery section](replication.md#replica-recovery).
 
-##### Scaling out/recovery operation stuck
+**Scaling out/recovery operation stuck**
 
-These operations rely on a `PhysicalBackup` for setting up the new replicas. If this `PhysicalBackup` does not become ready, the operation will not progress. In order to debug this please refer to the [`PhysicalBackup` troubleshooting section](../backup-and-restore/physical_backup.md#troubleshooting). 
+These operations rely on a `PhysicalBackup` for setting up the new replicas. If this `PhysicalBackup` does not become ready, the operation will not progress. In order to debug this please refer to the [`PhysicalBackup` troubleshooting section](../backup-and-restore/physical_backup.md#troubleshooting).
 
 One of the reasons could be that you have no ready replicas for taking the backup and your `PhysicalBackup` CR does not allow taking the backup from the primary. You may set `mariaDbRef.waitForIt=false` and `target=PreferReplica` in the `PhysicalBackup` template to allow taking the backup from the primary when there are no ready replicas available. Please verify that this is the case by checking the status of your `MariaDB` resource and your `Pods`, and refer to the [physical backup documentation](../backup-and-restore/physical_backup.md) for configuring the backup behaviour.
 
-##### MaxScale switchover stuck during update
+**MaxScale switchover stuck during update**
 
 When using MaxScale, after having updated all the replica Pods, it could happen that MaxScale refuses to perform the switchover, as it considers the Pod chosen by the operator to be unsafe:
 
 ```bash
 2025-10-27 15:17:11   error  : [mariadbmon] 'mariadb-repl-1' is not a valid demotion target for switchover: it does not have a 'gtid_binlog_pos'.
-``` 
+```
+
 For this case, you can manually update the `primaryServer` field in the `MaxScale` resource to a safe Pod, and restart the operator. If the new primary server is the right Pod, MaxScale will start the switchover and the update will continue after it completes.
 
-##### Scale out/replica recovery job names too long
+**Scale out/replica recovery job names too long**
 
 ```bash
 error creating Job: Job.batch \"mariadb-repl-operator-test-new-physicalbackup-scale-out-20251208221943\" 

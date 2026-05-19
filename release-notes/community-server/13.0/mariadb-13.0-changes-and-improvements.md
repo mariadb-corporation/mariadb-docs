@@ -18,7 +18,7 @@ MariaDB 13.0 is a [rolling release](../about/release-model.md). It is an evoluti
 * `INFORMATON_SCHEMA.SYSTEM_VARIABLES` shows if a variable is deprecated ([MDEV-35369](https://jira.mariadb.org/browse/MDEV-35369))
 * `INFORMATON_SCHEMA.STATISTICS` and `INFORMATON_SCHEMA.COLUMNS` shows engine specific create options ([MDEV-36444](https://jira.mariadb.org/browse/MDEV-36444))
 * Optimizer Trace includes used optimizer statistics ([MDEV-36511](https://jira.mariadb.org/browse/MDEV-36511))
-* New `innodb_log_archive` variable makes InnoDB to preserve WAL instead of overwriting it in a ring buffer ([MDEV-37949](https://jira.mariadb.org/browse/MDEV-37949))
+* New `innodb_log_archive` variable makes InnoDB preserve the write-ahead log in a continuous sequence of files instead of overwriting a ring buffer, enabling point-in-time recovery and incremental backups ([MDEV-37949](https://jira.mariadb.org/browse/MDEV-37949))
 * New `QB_NAME()` optimizer hint ([MDEV-38045](https://jira.mariadb.org/browse/MDEV-38045))
 * Support `RECORD` in routine parameters and function `RETURN` clause ([MDEV-38768](https://jira.mariadb.org/browse/MDEV-38768))
 * Reversed executable comments ([MDEV-7381](https://jira.mariadb.org/browse/MDEV-7381))

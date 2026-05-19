@@ -8,7 +8,7 @@ description: >-
 
 The `mariadbd-safe` startup script is in MariaDB distributions on Linux and Unix. It is a wrapper that starts `mariadbd` with some extra safety features. For example, if `mariadbd-safe` notices that `mariadbd` has crashed, then `mariadbd-safe` automatically restarts `mariadbd`.
 
-`mariadbd-safe` is the recommended way to start `mariadbd` on Linux and Unix distributions that do not support [systemd](systemd.md). Additionally, the [mysql.server](mysql-server.md) init script used by [sysVinit](sysvinit.md) starts `mariadbd` with `mariadbd-safe` by default.
+`mariadbd-safe` is the recommended way to start `mariadbd` on Linux and Unix distributions that do not support [systemd](systemd/README.md). Additionally, the [mysql.server](mysql-server.md) init script used by [sysVinit](sysvinit.md) starts `mariadbd` with `mariadbd-safe` by default.
 
 {% hint style="info" %}
 Previously, the client used to be called `mysqld_safe`, and can still be accessed under this name, via a symlink in Linux, or an alternate binary in Windows.
@@ -224,7 +224,7 @@ follows:
 
 * [How to increase max number of open files on Linux](https://www.cyberciti.biz/faq/linux-increase-the-maximum-number-of-open-files). This can be used to solve issues like this warning from mariadbd: `Changed limits: max_open_files: 1024 (requested 5000)"`
 * [mariadbd Options](mariadbd-options.md)
-* [systemd](systemd.md)
+* [systemd](systemd/README.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

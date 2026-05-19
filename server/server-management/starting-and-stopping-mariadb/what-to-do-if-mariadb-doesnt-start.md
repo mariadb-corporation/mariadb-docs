@@ -158,14 +158,14 @@ A MariaDB crash could cause system table corruption. With the default settings, 
 
 ## systemd
 
-If you are using [systemd](systemd.md), then there are a few relevant notes about startup failures:
+If you are using [systemd](systemd/README.md), then there are a few relevant notes about startup failures:
 
-* If MariaDB is configured to access files under `/home`, `/root`, or `/run/user`, then the default systemd unit file will prevent access to these directories with a `Permission Denied` error. This happens because the unit file sets [ProtectHome=true](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#ProtectHome=). See [Systemd: Configuring Access to Home Directories](systemd.md#configuring-access-to-home-directories) for information on how to work around this.
+* If MariaDB is configured to access files under `/home`, `/root`, or `/run/user`, then the default systemd unit file will prevent access to these directories with a `Permission Denied` error. This happens because the unit file sets [ProtectHome=true](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#ProtectHome=). See [Systemd: Configuring Access to Home Directories](systemd/configuring.md#configuring-access-to-home-directories) for information on how to work around this.
 * The default systemd unit file also sets [ProtectSystem=full](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#ProtectSystem=), which places restrictions on writing to a few other directories. Overwriting this with `ProtectSystem=off` in the same way as above will restore access to these directories.
-* If MariaDB takes longer than 90 seconds to start, then the default systemd unit file will cause it to fail with an error. This happens because the default value for the [TimeoutStartSec](https://www.freedesktop.org/software/systemd/man/systemd.service.html#TimeoutStartSec=) option is 90 seconds. See [Systemd: Configuring the Systemd Service Timeout](systemd.md#configuring-the-systemd-service-timeout) for information on how to work around this.
-* The systemd journal may also contain useful information about startup failures. See [Systemd: Systemd Journal](systemd.md#systemd-journal) for more information.
+* If MariaDB takes longer than 90 seconds to start, then the default systemd unit file will cause it to fail with an error. This happens because the default value for the [TimeoutStartSec](https://www.freedesktop.org/software/systemd/man/systemd.service.html#TimeoutStartSec=) option is 90 seconds. See [Systemd: Configuring the Systemd Service Timeout](systemd/configuring.md#configuring-the-systemd-service-timeout) for information on how to work around this.
+* The systemd journal may also contain useful information about startup failures. See [Systemd: Systemd Journal](systemd/starting.md#systemd-journal) for more information.
 
-See [systemd](systemd.md) documentation for further information on systemd configuration.
+See [systemd](systemd/README.md) documentation for further information on systemd configuration.
 
 ## SELinux
 

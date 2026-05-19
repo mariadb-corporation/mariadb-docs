@@ -1,8 +1,8 @@
 ---
 description: >-
   The Promise API is the default interface for MariaDB Connector/Node.js,
-  enabling async/await patterns for connections, queries, batch operations,
-  and transactions with MariaDB.
+  enabling async/await patterns for connections, queries, batch operations, and
+  transactions with MariaDB.
 ---
 
 # Connector/Node.js Promise API
@@ -527,6 +527,35 @@ console.log(mariadb.defaultOptions({ timezone: '+00:00' }));
 ```
 
 ### Connection API
+
+`connection.threadId`
+
+_number_&#x20;
+
+The connection ID is assigned by the MariaDB Server during the initial connection handshake. This identifier can also be retrieved by executing the following on the server:
+
+```sql
+SELECT CONNECTION_ID();
+```
+
+Returns `null` if the connection information is not available.
+
+Example:
+
+```sql
+const conn = await mariadb.createConnection({
+    host: 'mydb.com',
+    user: 'myUser',
+    password: 'myPwd'
+  });
+  console.log("Connected! Connection ID is: " + conn.threadId); 
+  // Output: Connected! Connection ID is: 102
+  } catch (err) { 
+    console.log("Not connected due to error: " + err);
+  }
+```
+
+When connecting through [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/), `threadId` does not have a meaningful interpretation, as MaxScale manages connections at the proxy level.&#x20;
 
 #### `connection.query(sql[, values]) -> Promise`
 
@@ -2101,7 +2130,7 @@ cluster.remove('analytics');
 
 #### `poolCluster.getConnection([pattern], [selector]) → Promise`
 
-> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a  Regex. Default: \* (matches every pool).
+> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a Regex. Default: \* (matches every pool).
 > * `selector`: _string_ Selection strategy: 'RR' (round-robin), 'RANDOM', or 'ORDER'. Default: value of the `defaultSelector` option
 >
 > Returns a promise that:
@@ -2186,7 +2215,7 @@ The pattern `*` matches every node in the cluster. Use regular expression patter
 
 #### `poolCluster.of(pattern, [selector]) → FilteredPoolCluster`
 
-> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a  regex. Example: ^replica. Default: \* (all pools).
+> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a regex. Example: ^replica. Default: \* (all pools).
 > * `selector`: _string_ Selection strategy: 'RR' (round-robin), 'RANDOM', or 'ORDER'
 >
 > Returns a [FilteredPoolCluster](connector-nodejs-promise-api.md#filteredpoolcluster) object

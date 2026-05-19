@@ -133,7 +133,7 @@ Stop the service with this command:
 systemctl stop mariadb.service
 ```
 
-Please refer to the [systemd](../../../starting-and-stopping-mariadb/systemd.md) page for further information.
+Please refer to the [systemd](../../../starting-and-stopping-mariadb/systemd/README.md) page for further information.
 
 ### Post Installation
 
