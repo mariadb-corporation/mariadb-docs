@@ -35,7 +35,7 @@ These environment variables do not set the umask. They set the default file syst
 
 ### Configuring File Permissions With systemd
 
-If your server is started by [systemd](systemd.md), then there is a specific way to configure the umask. See [Systemd: Configuring the umask](systemd.md#configuring-the-umask) for more information.
+If your server is started by [systemd](systemd/README.md), then there is a specific way to configure the umask. See [Systemd: Configuring the umask](systemd/configuring.md#configuring-the-umask) for more information.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

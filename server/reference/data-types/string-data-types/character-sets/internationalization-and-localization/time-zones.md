@@ -98,7 +98,7 @@ $ sudo ln -s /usr/share/zoneinfo/America/New_York /etc/localtime
 sudo dpkg-reconfigure tzdata
 ```
 
-* On Linux operating systems that use [systemd](../../../../../server-management/starting-and-stopping-mariadb/systemd.md), you can change the default time zone for the whole system by using the [timedatectl](https://www.freedesktop.org/software/systemd/man/timedatectl.html) utility. For example:
+* On Linux operating systems that use [systemd](../../../../../server-management/starting-and-stopping-mariadb/systemd/README.md), you can change the default time zone for the whole system by using the [timedatectl](https://www.freedesktop.org/software/systemd/man/timedatectl.html) utility. For example:
 
 ```bash
 sudo timedatectl set-timezone America/New_York

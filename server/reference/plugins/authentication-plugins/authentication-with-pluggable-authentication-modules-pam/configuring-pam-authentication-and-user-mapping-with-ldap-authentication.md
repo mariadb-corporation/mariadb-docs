@@ -52,7 +52,7 @@ I used `3306` because that is the port that is usually used by `mysqld`, so I kn
 
 ### Starting the OpenLDAP Server
 
-Next, let's start the OpenLDAP Server and configure it to start on reboot. On [systemd](../../../../server-management/starting-and-stopping-mariadb/systemd.md) systems, that would go like this:
+Next, let's start the OpenLDAP Server and configure it to start on reboot. On [systemd](../../../../server-management/starting-and-stopping-mariadb/systemd/README.md) systems, that would go like this:
 
 ```bash
 sudo systemctl start slapd
