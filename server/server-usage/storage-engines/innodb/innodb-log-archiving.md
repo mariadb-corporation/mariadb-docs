@@ -35,15 +35,20 @@ Each archive log file has a 12 KiB header. Completed checkpoints in the file are
 * **Startup:** With `innodb_log_archive=ON`, the server refuses to start if `ib_logfile0` exists in the data directory.
 * **Data Dictionary:** Log archiving tracks changes to InnoDB tables. It does not cover `.frm` files or other non-InnoDB metadata, which means point-in-time recovery of DDL operations is limited.
 
-## Monitoring Archiving Progress
+## Inspecting the Archive State
 
-You can monitor the status of the log archiving process by querying the `INFORMATION_SCHEMA.GLOBAL_STATUS` table. The [`Innodb_lsn_archived`](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_lsn_archived) status variable reports the LSN since which a complete InnoDB log archive is available.
+When `innodb_log_archive=ON`, both the [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive) system variable and the [`Innodb_lsn_archived`](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_lsn_archived) status variable remain constant by design. `Innodb_lsn_archived` reports the LSN since which a complete InnoDB log archive is available — that is, the first checkpoint in the first archived log file — and does not advance as new log records are written. It is the static lower bound of the archive.
+
+What does advance during normal operation are the [`Innodb_lsn_current`](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_lsn_current) status variable (the LSN of the most recent log write) and the [`Innodb_lsn_last_checkpoint`](../../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_lsn_last_checkpoint) status variable (the LSN of the most recent completed checkpoint). Query these to observe ongoing log activity:
 
 ```sql
-SELECT @@GLOBAL.innodb_log_archive AS archiving,
-       VARIABLE_VALUE              AS lsn_archived
+SELECT @@GLOBAL.innodb_log_archive AS archiving;
+
+SELECT VARIABLE_NAME, VARIABLE_VALUE
 FROM   INFORMATION_SCHEMA.GLOBAL_STATUS
-WHERE  VARIABLE_NAME = 'INNODB_LSN_ARCHIVED';
+WHERE  VARIABLE_NAME IN ('INNODB_LSN_ARCHIVED',
+                         'INNODB_LSN_CURRENT',
+                         'INNODB_LSN_LAST_CHECKPOINT');
 ```
 
 ## Managing Archived Log Files

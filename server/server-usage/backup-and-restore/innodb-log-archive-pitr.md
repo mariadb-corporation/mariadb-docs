@@ -21,6 +21,8 @@ Two startup parameters define the range of the log replay:
 
 You can identify candidate LSNs from the [`Innodb_lsn_archived`](../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_lsn_archived) status variable on the source server, and from the file names in the data directory (each `ib_`_`lsn`_`.log` file name encodes the LSN at file offset `0x3000`).
 
+The data files in the restore must correspond to an LSN that lies between `Innodb_lsn_archived` (the first checkpoint in the first archived log file) and the end LSN of the last archived log file. To extend the available recovery range, copy additional archived log files in from the source server — no further copying of data files is required.
+
 ## Procedure
 
 {% stepper %}
@@ -58,7 +60,7 @@ To return to normal read-write operation, restart the server without `innodb_log
 {% endstepper %}
 
 {% hint style="warning" %}
-The server cannot validate every impossible value of `innodb_log_recovery_target`. If you set the target after the recovery checkpoint but before the LSN at which a data page has already been written, recovery completes in an inconsistent state where some pages carry an LSN past the requested target. See [`innodb_log_recovery_target`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_target) for details.
+**No data file may carry an LSN newer than `innodb_log_recovery_target`.** Crash recovery's role is to bring every database page to the same LSN. If any data file is newer than the target, recovery completes in an inconsistent state where some pages carry an LSN past the target — the database is corrupted. The server cannot validate every such impossible target, and the resulting corruption may not surface until the affected pages are accessed (see [MDEV-34830](https://jira.mariadb.org/browse/MDEV-34830)). See [`innodb_log_recovery_target`](../storage-engines/innodb/innodb-system-variables.md#innodb_log_recovery_target) for details.
 {% endhint %}
 
 {% hint style="info" %}
