@@ -45,7 +45,7 @@ SHUTDOWN WAIT FOR ALL SLAVES;
 
 When one of these special options is provided, the server only kills its binary log dump threads after all client threads have been killed, and it only completes the shutdown after the last [binary log](../../server-management/server-monitoring-logs/binary-log/) has been sent to all connected replicas.
 
-In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, it is still not possible to enable this behavior by default. This means that this behavior is currently inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
+In [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104) and later, it is still not possible to enable this behavior by default. This means that this behavior is currently inaccessible when shutting down the server using tools like [systemd](../../server-management/starting-and-stopping-mariadb/systemd/README.md) or [sysVinit](../../server-management/starting-and-stopping-mariadb/sysvinit.md).
 
 In [MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103) and before, it is recommended to manually switchover replicas to a new primary before shutting down the old primary.
 

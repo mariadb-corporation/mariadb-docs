@@ -773,7 +773,7 @@ The specific method of setting the NLS\_LANG variable can vary depending on your
 
 ### Using systemd
 
-With Linux distributions that use [systemd](../../../../server-management/starting-and-stopping-mariadb/systemd.md), you need to set the environment variable in the service file, (systemd doesn't read from the /etc/environment file).
+With Linux distributions that use [systemd](../../../../server-management/starting-and-stopping-mariadb/systemd/README.md), you need to set the environment variable in the service file, (systemd doesn't read from the /etc/environment file).
 
 This is done by setting the Environment variable in the \[Service] unit. For instance,
 

@@ -51,7 +51,7 @@ By default, the system limits how many open file descriptors a process can have 
 
 If you are using [mysqld\_safe or mariadbd-safe](../starting-and-stopping-mariadb/mariadbd-safe.md) to start `mysqld`, then see the instructions at [mariadbd-safe: Configuring the Open Files Limit](../../../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-the-open-files-limit).
 
-If you are using [systemd](../../../starting-and-stopping-mariadb/systemd.md) to start `mysqld`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../starting-and-stopping-mariadb/systemd.md#configuring-the-open-files-limit).
+If you are using [systemd](../../../starting-and-stopping-mariadb/systemd/README.md) to start `mysqld`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-open-files-limit).
 
 Otherwise, you can set the soft and hard limits for the `mysql` user account by adding the following lines to [/etc/security/limits.conf](https://linux.die.net/man/5/limits.conf):
 
@@ -75,7 +75,7 @@ By default, the system limits the size of core files that could be created. It h
 
 If you are using [mysqld\_safe or mariadbd-safe](../starting-and-stopping-mariadb/mariadbd-safe.md) to start `mysqld`, then see the instructions at [mariadb-safe: Configuring the Core File Size](../../../starting-and-stopping-mariadb/mariadbd-safe.md#configuring-the-core-file-size).
 
-If you are using [systemd](../starting-and-stopping-mariadb/systemd.md) to start `mysqld`, then see the instructions at [systemd: Configuring the Core File Size](../../../starting-and-stopping-mariadb/systemd.md#configuring-the-core-file-size).
+If you are using [systemd](../starting-and-stopping-mariadb/systemd/README.md) to start `mysqld`, then see the instructions at [systemd: Configuring the Core File Size](../../../starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-core-file-size).
 
 Otherwise, you can set the soft and hard limits for the `mysql` user account by adding the following lines to [/etc/security/limits.conf](https://linux.die.net/man/5/limits.conf):
 
