@@ -453,25 +453,30 @@ maxctrl clear server server2 Maint
 * Values: `none`, `majority_of_all`, `majority_of_running`
 * Default: `none`
 
-Using this setting is recommended when multiple MaxScales are monitoring the
-same backend cluster. When enabled, the monitor attempts to acquire exclusive
-locks on the backend servers. The monitor considers itself the primary monitor
-if it has a majority of locks. The majority can be either over all configured
-servers or just over running servers. See [Cooperative monitoring](#cooperative-monitoring)
+Use this setting when multiple MaxScales are monitoring the same backend
+cluster. When enabled, the monitor attempts to acquire exclusive locks on the
+backend servers. The monitor considers itself the primary monitor if it has a
+majority of locks. The majority can be either over all the configured servers or
+just over running servers. See [Cooperative monitoring](#cooperative-monitoring)
 for more details on how this feature works and which value to use.
 
 Allowed values:
 
 1. `none` Default value, no locking.
 2. `majority_of_all` Primary monitor requires a majority of locks, even counting
-   servers which are \[Down].
+   servers which are *Down*.
 3. `majority_of_running` Primary monitor requires a majority of locks over
-   \[Running] servers.
+   *Running* servers.
 
-This setting is separate from the global MaxScale setting _passive_. If
-_passive_ is set to `true`, cluster operations are disabled even if monitor has
-acquired the locks. Generally, it's best not to mix cooperative monitoring with
-_passive_. Either set `passive=false` or do not set it at all.
+This setting is separate from the global MaxScale setting
+[passive](../../maxscale-management/deployment/maxscale-configuration-guide.md#passive).
+If `passive=true` and `cooperative_monitoring_locks` is enabled, the
+monitor will only observe the locks. It will not attempt to acquire locks even
+if the locks are free. This means that if the active MaxScale goes down, the
+locks will remain unclaimed, which also prevents any server from getting the
+*Write*-status. Only combine cooperative monitoring with `passive=true`
+when a DBA, a script or an external program such as Keepalived is monitoring the
+MaxScales and ensures that one is always active.
 
 ### `servers_no_cooperative_monitoring_locks`
 
@@ -485,7 +490,7 @@ This is a comma-separated list of server names that will not take part in
 locks on these servers and the servers will not add to the number of locks
 required for majority. If all servers are added to the list, MaxScale
 cannot claim lock majority at all. This setting does not affect primary
-server selection (i.e. *Master*-role), so a server in this list may be a valid
+server selection (i.e. *Write*-role), so a server in this list may be a valid
 target for write queries. See [servers_no_promotion](#servers_no_promotion)
 for limiting primary server selection.
 
@@ -1567,52 +1572,53 @@ immediately after the server has restarted.
 
 ## Cooperative monitoring
 
-As of MaxScale 2.5, MariaDB-Monitor supports cooperative monitoring. This means
-that multiple monitors (typically in different MaxScale instances) can monitor
-the same backend server cluster and only one will be the primary monitor. Only
-the primary monitor may perform _switchover_, _failover_ or _rejoin_ operations.
-The primary also decides which server is the primary. Cooperative monitoring is
-enabled with the [cooperative\_monitoring\_locks](#cooperative_monitoring_locks)-setting.
-Even with this setting, only one monitor per server per MaxScale is allowed.
-This limitation can be circumvented by defining multiple copies of a server in
-the configuration file.
+MariaDB-Monitor supports cooperative monitoring. This means that multiple
+monitors (typically in different MaxScale instances) can monitor the same
+backend server cluster and only one will be the primary monitor. Only the
+primary monitor may perform _switchover_, _failover_ or _rejoin_ operations.
+The primary monitor also decides which server is the primary. Cooperative
+monitoring is enabled with the
+[cooperative_monitoring_locks](#cooperative_monitoring_locks)-setting.
 
 Cooperative monitoring uses
 [server locks](../../../server/reference/sql-functions/secondary-functions/miscellaneous-functions/get_lock.md)
 for coordinating between monitors. When cooperating, the monitor regularly
 checks the status of a lock named _maxscale\_mariadbmonitor_ on every server and
-acquires it if free. If the monitor acquires a majority of locks, it is the
-primary. If a monitor cannot claim majority locks, it is a secondary monitor.
+acquires it if it is free. If the monitor acquires a majority of locks, it is
+the primary monitor for that cluster. If a monitor cannot claim lock majority,
+it is a secondary monitor.
 
 The primary monitor of a cluster also acquires the lock
-_maxscale\_mariadbmonitor\_master_ on the primary server. Secondary monitors check
-which server this lock is taken on and only accept that server as the primary.
-This arrangement is required so that multiple monitors can agree on which server
-is the primary regardless of replication topology. If a secondary monitor does
-not see the primary-lock taken, then it won't mark any server as \[Master],
-causing writes to fail.
+_maxscale\_mariadbmonitor\_master_ on the primary server. Secondary monitors
+check which server this lock is taken on and only accept that server as the
+primary. This arrangement is required so that multiple monitors can agree on
+which server is the primary regardless of replication topology. If a secondary
+monitor does not see the primary-lock taken, then it won't mark any server as
+*Write*, causing writes to fail.
 
-The lock-setting defines how many locks are required for primary status. Setting`cooperative_monitoring_locks=majority_of_all` means that the primary monitor
+[cooperative_monitoring_locks](#cooperative_monitoring_locks) defines how many
+locks are required for primary status. Setting
+`cooperative_monitoring_locks=majority_of_all` means that the primary monitor
 needs _n\_servers/2 + 1_ (rounded down) locks. For example, a cluster of three
 servers needs two locks for majority, a cluster of four needs three, and a
-cluster of five needs three.
-This scheme is resistant against split-brain situations in the sense
-that multiple monitors cannot be primary simultaneously. However, a split may
-cause both monitors to consider themselves secondary, in which case a primary
-server won't be detected.
+cluster of five needs three. This scheme is resistant against split-brain
+situations in the sense that multiple monitors cannot be primary
+simultaneously. However, an even network split may prevent either monitor
+from seeing a majority of servers, in which case both monitors consider
+themselves secondary. In such a case a primary server won't be detected at all.
 
 Even without a network split, `cooperative_monitoring_locks=majority_of_all`
 will lead to neither monitor claiming lock majority once too many servers go
 down. This scenario is depicted in the image below. Only two out of four servers
 are running when three are needed for majority. Although both MaxScales see both
 running servers, neither is certain they have majority and the cluster stays in
-read-only mode. If the primary server is down, no failover is performed either.
+read-only mode. If the primary server goes down, no failover is performed either.
 
 ![](<../../.gitbook/assets/coop_lock_no_majority.png (4).png>)
 
 Setting `cooperative_monitoring_locks=majority_of_running` changes the way
 _n\_servers_ is calculated. Instead of using the total number of servers, only
-servers currently \[Running] are considered. This scheme adapts to multiple
+servers currently *Running* are considered. This scheme adapts to multiple
 servers going down, ensuring that claiming lock majority is always possible.
 However, it can lead to multiple monitors claiming primary status in a
 split-brain situation. As an example, consider a cluster with servers 1 to 4
@@ -1645,7 +1651,7 @@ any acquired locks and try again after a random number of monitor ticks. This
 prevents multiple MaxScales from fighting over the locks continuously as one
 MaxScale will eventually wait less time than the others. Conflict probability
 can be further decreased by configuring each monitor with a different
-_monitor\_interval_.
+`monitor_interval`.
 
 The flowchart below illustrates the lock handling logic.
 
@@ -1675,7 +1681,7 @@ for information on settings _tcp\_keepalive\_interval_, _tcp\_keepalive\_probes_
 _tcp\_keepalive\_time_. These settings can also be set on the operating system
 level, as described [here](https://www.tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html).
 
-As of MaxScale 6.4.16, 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring
+As of MaxScale 22.08.13, 23.02.10, 23.08.6 and 24.02.2, configuring
 TCP keepalive is no longer necessary as monitor sets the session _wait\_timeout_
 variable when acquiring a lock. This causes the MariaDB Server to close the
 monitor connection if the connection appears idle for too long. The value of
