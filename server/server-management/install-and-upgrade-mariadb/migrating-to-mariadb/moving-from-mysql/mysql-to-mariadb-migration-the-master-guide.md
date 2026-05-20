@@ -279,8 +279,8 @@ Once your data is moved (via either method), complete these three steps to ensur
 MariaDB uses a sophisticated cost-based optimizer that may differ from MySQL’s. To ensure your queries use the most efficient execution plans, force a fresh analysis of all tables:
 
 ```bash
-# Run on all tables to refresh statistics
-mariadb-admin -u root -p analyze
+# Run ANALYZE TABLE on every table in every database to refresh statistics
+mariadb-check -u root -p --analyze --all-databases
 ```
 
 This makes the difference between a migration that "works" and a migration that "works fast".
@@ -349,7 +349,7 @@ Even with careful preparation, migrations can encounter specific hurdles. Here a
 | ------------------------------------------ | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | "Table 'mysql.user' doesn't exist"         | Missing `mariadb-upgrade` step. | The system tables must be converted. Run `sudo mariadb-upgrade -u root -p` immediately after starting the service.         |
 | Replication fails with "relay log" errors. | GTID Incompatibility.           | MariaDB cannot use MySQL GTIDs. You must switch to position-based replication (File and Position) to link the two systems. |
-| Slow queries after migration.              | Outdated optimizer statistics.  | MariaDB's optimizer needs fresh data. Run `ANALYZE TABLE` on all large tables or use `mariadb-admin analyze`.              |
+| Slow queries after migration.              | Outdated optimizer statistics.  | MariaDB's optimizer needs fresh data. Run `ANALYZE TABLE` on all large tables, or use `mariadb-check --analyze --all-databases`.              |
 
 ## Frequently Asked Questions
 
