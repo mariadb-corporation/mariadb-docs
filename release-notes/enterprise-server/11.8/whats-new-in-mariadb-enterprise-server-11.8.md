@@ -38,6 +38,10 @@ MariaDB Enterprise Server 11.8 continues to expand its native vector search capa
 
 {% include "../../.gitbook/includes/backports-11.8.5-2-and-11.4.9-6.md" %}
 
+### Emergency Recovery Across Major Versions
+
+* **Behavioral change:** A MariaDB 11.x server can now start with data files from MariaDB 10.x when [innodb\_force\_recovery](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_force_recovery) is set to `6`. This is a last-resort emergency-recovery path for extracting a logical dump from a corrupted or incompatible database, **not** a substitute for the normal upgrade procedure. See [Configure the InnoDB Redo Log: Emergency Recovery Across Major Versions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/configure-the-innodb-redo-log#emergency-recovery-across-major-versions) ([MDEV-39303](https://jira.mariadb.org/browse/MDEV-39303), available in Enterprise Server 11.8 builds based on MariaDB 11.8.7 and later).
+
 ## Indexes, SQL Functions, and Query Enhancements <a href="#indexes-sql-functions-and-query-enhancements" id="indexes-sql-functions-and-query-enhancements"></a>
 
 * **UUID Generation**: New functions `UUID_v4() and UUID_v7()` for modern and time-ordered UUIDs.
