@@ -26,7 +26,7 @@ The authentication process is a conversation between the server and a client. Ma
 
 ### Supported Server Authentication Plugins
 
-MariaDB provides eight server-side authentication plugins:
+MariaDB provides nine server-side authentication plugins:
 
 * [mysql\_native\_password](authentication-plugin-mysql_native_password.md)
 * [mysql\_old\_password](authentication-plugin-mysql_old_password.md)
@@ -35,6 +35,7 @@ MariaDB provides eight server-side authentication plugins:
 * [pam](authentication-with-pluggable-authentication-modules-pam/authentication-plugin-pam.md) (Unix only)
 * [unix\_socket](authentication-plugin-unix-socket.md) (Unix only)
 * [named\_pipe](authentication-plugin-named-pipe.md) (Windows only)
+* [PARSEC](authentication-plugin-parsec.md) (from MariaDB Community Server 11.6 and MariaDB Enterprise Server 11.8)
 * [caching\_sha2\_password](authentication-plugin-caching_sha2_password.md) (from MariaDB Community Server 12.1 and MariaDB Enterprise Server 11.8)
 
 ### Supported Client Authentication Plugins
@@ -355,6 +356,12 @@ Bye
 C:\> mysql --user=monty  --protocol=PIPE
 ERROR 1698 (28000): Access denied for user 'monty'@'localhost'
 ```
+
+#### `PARSEC`
+
+The [PARSEC](authentication-plugin-parsec.md) (Password Authentication using Response Signed with Elliptic Curve) authentication plugin uses salted passwords, key derivation, an extensible password storage format, and both server- and client-side scrambles. It signs the authentication response with stock unmodified `ed25519` (as provided by OpenSSL, WolfSSL, or GnuTLS). PARSEC is intended to become the default authentication plugin in a future release.
+
+This plugin is available from MariaDB Community Server 11.6 and MariaDB Enterprise Server 11.8.
 
 #### `caching_sha2_password`
 
