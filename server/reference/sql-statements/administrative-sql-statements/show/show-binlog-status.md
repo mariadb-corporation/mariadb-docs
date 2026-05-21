@@ -45,7 +45,22 @@ To see information about the current [GTIDs](../../../../ha-and-performance/stan
 
 ## Example
 
-The following example works in all MariaDB versions. From MariaDB 12.3, the second statement doesn't have to be run, though, because `SHOW BINLOG STATUS` shows the value of `@@global.gtid_binlog_pos`, too.
+{% tabs %}
+{% tab title="Current" %}
+From MariaDB 12.3, `SHOW BINLOG STATUS` includes the `Gtid_Binlog_Pos` column, so a separate `SELECT @@global.gtid_binlog_pos` statement is no longer required to see the current GTID position:
+
+```sql
+SHOW BINLOG STATUS;
++--------------------+----------+--------------+------------------+-----------------+
+| File               | Position | Binlog_Do_DB | Binlog_Ignore_DB | Gtid_Binlog_Pos |
++--------------------+----------+--------------+------------------+-----------------+
+| mariadb-bin.000016 |      475 |              |                  | 0-1-2           |
++--------------------+----------+--------------+------------------+-----------------+
+```
+{% endtab %}
+
+{% tab title="< 12.3" %}
+Before MariaDB 12.3, `SHOW BINLOG STATUS` (or `SHOW MASTER STATUS`) does not include the `Gtid_Binlog_Pos` column. To see the current GTID position, run an additional `SELECT @@global.gtid_binlog_pos`:
 
 ```sql
 SHOW BINLOG STATUS;
@@ -61,6 +76,8 @@ SELECT @@global.gtid_binlog_pos;
 | 0-1-2                    |
 +--------------------------+
 ```
+{% endtab %}
+{% endtabs %}
 
 ## See Also
 
