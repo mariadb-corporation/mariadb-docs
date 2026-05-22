@@ -989,13 +989,8 @@ This storage module takes no arguments.
 Available since MaxScale 25.10.3.
 
 This storage module uses [gridgain](https://www.gridgain.com/) for storing the cache data.
-
-For best performance, the cache filter should be configured with
-```
-[MyCache]
-...
-cached_data=thread_specific
-```
+This storage can only be used with [cached_data](#cached_data) specified as `thread_specific`,
+which is the default, so it need not explicitly be specified. Invalidation is not supported.
 
 Multiple MaxScale instances can share the same gridgain server and items cached by one
 MaxScale instance will be used by the other. Note that all MaxScale instances should
@@ -1017,12 +1012,13 @@ storage_gridgain.endpoints=127.0.0.1
 
 #### `endpoints`
 
-* Type: The GridGain server endpoint specified as `<host>[:<port>[..<port_range>]]`.
-* Mandatory: Yes
+* Type: string
+* Mandatory: No
 * Dynamic: No
 * Default: 127.0.0.1:10800
 
-Several hosts can be specified, separated by comma.
+An endpoint is specified as `<host>[:<port>[..<port_range>]]` and several
+endpoints can be specified, separated by a comma.
 
 #### `user`
 
@@ -1031,12 +1027,16 @@ Several hosts can be specified, separated by comma.
 * Dynamic: No
 * Default: `""`
 
+The user to be used when authenticating with GridGain.
+
 #### `password`
 
-* Type: string
+* Type: password
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+
+The password to be used when authenticating with GridGain.
 
 #### `ssl`
 
@@ -1045,9 +1045,12 @@ Several hosts can be specified, separated by comma.
 * Dynamic: No
 * Default: `false`
 
+If `true`, SSL will be used in the communication with GridGain in which case
+the `ssl_` settings should be specified as well.
+
 #### `ssl_cert`
 
-* Type: Path to existing readable file.
+* Type: path
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
@@ -1057,7 +1060,7 @@ match the key defined in `ssl_key`.
 
 #### `ssl_key`
 
-* Type: Path to existing readable file.
+* Type: path
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
@@ -1066,10 +1069,13 @@ The SSL client private key MaxScale should use with the GridGain server.
 
 #### `ssl_ca`
 
-* Type: Path to existing readable file.
+* Type: path
 * Mandatory: No
 * Dynamic: No
 * Default: `""`
+
+The Certificate Authority (CA) certificate for the CA that signed the certificate
+specified with `ssl_cert`.
 
 #### `max_value_size`
 
@@ -1090,18 +1096,6 @@ The default maximum size of a value to be stored in GridGain.
 [Partition awareness](https://www.gridgain.com/docs/gridgain8/latest/developers-guide/thin-clients/getting-started-with-thin-clients#partition-awareness)
 allows a thin GridGain client to send query requests directly to the node that
 owns the queried data and should usually be enabled.
-
-#### `reset_on_startup`
-
-* Type: [boolean](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#booleans)
-* Mandatory: No
-* Dynamic: No
-* Default: `false`
-
-If this setting is `true`, the GridGain cache will be destroyed and
-re-created at startup. This is intended for testing and should not be
-enabled in a production environment, especially not if there are
-multiple MaxScale instances sharing the same cache.
 
 ### `storage_memcached`
 
