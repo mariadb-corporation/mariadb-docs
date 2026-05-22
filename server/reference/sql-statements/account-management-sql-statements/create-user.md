@@ -347,7 +347,7 @@ The following table shows a list of example account as sorted by these criteria:
 +---------+-------------+
 ```
 
-Once connected, you only have the privileges granted to the account that matched,\
+Once connected, you only have the privileges granted on a particular object to the account that matched,\
 not all accounts that could have matched. For example, consider the following\
 commands:
 
@@ -355,12 +355,12 @@ commands:
 CREATE USER 'joffrey'@'192.168.0.3';
 CREATE USER 'joffrey'@'%';
 GRANT SELECT ON test.t1 TO 'joffrey'@'192.168.0.3';
-GRANT SELECT ON test.t2 TO 'joffrey'@'%';
+GRANT INSERT ON test.t1 TO 'joffrey'@'%';
 ```
 
 If you connect as joffrey from `192.168.0.3`, you will have the `SELECT`\
-privilege on the table `test.t1`, but not on the table `test.t2`. If you connect as joffrey from any other IP address, you will have the `SELECT` privilege on the table `test.t2`, but not\
-on the table `test.t1`.
+privilege on the table `test.t1`, but not INSERT. If you connect as joffrey from any other IP address, you will have the `INSERT` privilege on the table `test.t1`, but not\
+`SELECT`.
 
 Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
 
