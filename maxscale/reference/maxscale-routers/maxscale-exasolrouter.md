@@ -72,7 +72,7 @@ For example:
 ```
 connection_string=DSN=ExasolDSN;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
 ```
-Here it is assumed the `odbc.ini` ODBC configuration file containing
+Here it is assumed there is an `odbc.ini` ODBC configuration file containing
 an `ExasolDSN` entry.
 
 ### `login_timeout`
@@ -84,7 +84,7 @@ an `ExasolDSN` entry.
 
 Defines the login timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `LOGINTIMEOUT`. If the value is set to 0, the timeout
-will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string "
+will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string
 will be honored. Otherwise this value will override.
 
 ### `query_timeout`
@@ -96,12 +96,12 @@ will be honored. Otherwise this value will override.
 
 Defines the query timeout in seconds for a connection. Corresponds to the
 Exasol connection string key `QUERYTIMEOUT`. If the value is set to 0, the timeout
-will not explicitly be set, which means that a `LOGINTIMEOUT` in the connection string
+will not explicitly be set, which means that a `QUERYTIMEOUT` in the connection string
 will be honored. Otherwise this value will override.
 
 ### `preprocessor`
 
-* Type: String
+* Type: string
 * Mandatory: No
 * Dynamic: No
 * Values: `disabled`, `external[:preprocessor-script-name]`, `internal[:preprocessor-script-path]`
@@ -118,10 +118,12 @@ The values mean:
   script is assumed to be `UTIL.maria_preprocessor`, but that can be
   changed by giving the name as an argument. If `external` is specified,
   the following statement will be executed for each session:
-  `ALTER SESSION SET sql_preprocessor_script=UTIL.maria_preprocessor`.
+  `ALTER SESSION SET sql_preprocessor_script=<preprocessor-script-name>`,
+  with `<preprocessor-script-name>` being by default `UTIL.maria_preprocessor`
+  or what was explicitly specified.
 * `internal`: Transpiling is performed internally using a Python script
   that utilizes the library
-  [SQLGLot](https://sqlglot.com/sqlglot.html).
+  [SQLGlot](https://sqlglot.com/sqlglot.html).
   By default, the script is assumed to be `maria_preprocessor.py` located
   in the _share_ directory of MaxScale. A different script can be used by
   providing it as an argument. Unless an absolute path is used, it is
@@ -134,7 +136,7 @@ The values mean:
 * Dynamic: No
 * Default: `<maxscale-libdir>/python3/site-packages`
 
-The library from which [SQLGLot](https://sqlglot.com/sqlglot.html) is loaded,
+The library from which [SQLGlot](https://sqlglot.com/sqlglot.html) is loaded,
 if the value of `preprocessor` is `internal`.
 
 ### `appearance`
@@ -170,16 +172,19 @@ closes it immediately after each use.
 * Dynamic: No
 * Default: true
 
-Whether _ExasolRouter_ should quote identifiers, in case it the value
-of `preprocessor` is `disabled`. Currently it only affects whether 'USE db'
-becomes 'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
+Whether _ExasolRouter_ should quote identifiers. This applies always
+when a `COM_INIT_DB` packet is converted to an `OPEN SCHEMA ...`
+statement and when the value of `preprocessor` is `disabled`.
+
+In the latter case, currently it only affects whether 'USE db' becomes
+'OPEN SCHEMA db' or 'OPEN SCHEMA \"db\"'.
 
 ## Transformations
 
 ### `COM_INIT_DB`
 
-The MariaDB COM\_INIT\_DB packet, using which the default database is changed,
-is transformed into the statement `OPEN SCHEMA <db>`.
+The MariaDB `COM\_INIT\_DB` protocol packet, using which the default database
+is changed, is transformed into the statement `OPEN SCHEMA <db>`.
 
 ### SQL
 
@@ -198,16 +203,44 @@ Currently a transformation will be made _only_ if there is an **exact** match
 
 ## ODBC
 
-_ExasolRouter_ communicates with Exasol using ODBC. In practice that
-means that the way ODBC has been configured affects what actually must
-be specified in [connections_string](#connection_string). It is possible
-to provide all needed information in the connection string, but it is
-advisable to at least have a `/etc/odbcinst.ini` or `~/.odbcinst.ini`
-where the location of the ODBC driver is specified.
+_ExasolRouter_ communicates with Exasol using ODBC. The necessary
+ODBC driver is included in the `maxscale-exasol` package and the
+files are copied to
+```
+<maxscale-libdir>/exasol/M.N.O/libexaodbc.so
+<maxscale-libdir>/exasol/M.N.O/libexacli.so
+```
+where `M.N.O` is the version of the ODBC library, e.g. `26.2.6`.
+`libexaodbc.so` is the actual ODBC driver and `libexacli.so` the
+lower level library using which the ODBC driver is implemented.
+
+In the `exasol` directory there is a symbolic link `current` pointing
+to the `M.N.O` directory. E.g.
+```
+<maxscale-libdir>/exasol/current -> 26.2.6
+```
+
+The included driver version may change in each release of MaxScale.
+Hence, by referring to `current`, a MaxScale configuration will continue
+to work even if the included Exasol ODBC driver version would change.
+If it is important to become aware of a changed driver version, the
+driver can be referred to using the directory and not the symbolic link,
+as that will no longer work, if the included Exasol driver is updated
+in a MaxScale patch release.
+
+In [connection_string](#connection_string), the driver can be referred
+to directly as in
+```
+connection_string=DRIVER=/path/to/exasol/current/libexaodbc.so;EXAHOST=127.0.0.1:8563;UID=sys;PWD=exasol;FINGERPRINT=NOCERTCHECK
+```
+
+Alternatively, the driver location can be specified in `/etc/odbcinst.ini`
+or `~/.odbcinst.ini`, in which case it need not be specified in
+`connection_string`.
 ```
 [EXAODBC]
 Description = Exasol ODBC Driver
-Driver = /path/to/libexaodbc.so
+Driver = /path/to/exasol/current/libexaodbc.so
 Threading = 2
 FileUsage = 1
 ```
@@ -269,19 +302,11 @@ port=4007
 It is assumed there is an `odbc.ini` ODBC configuration file containing
 an `ExasolDSN` entry.
 
-Here it is assumed there is an `odbc.ini` ODBC configuration file containing and `ExasolDSN` entry.
-
 With this setup, all writes will always be sent to `Server1`. Reads will initially
 be sent to both `Server1` and `ExasolService` and once SmartRouter has learnt what
 kind of reads are best sent to which target, it will exclusively send reads to
 either `Server1` or `ExasolService`, depending on which one is likely to provide
 the response faster.
-
-With this setup, all writes will always be sent to `Server1`. Reads will initially
-be sent to both `Server1` and `ExasolService` and once SmartRouter has learnt what
-kind of reads are best sent to which target, it will exclusively send reads to either
-`Server1` or `ExasolService` depending on which one is likely to provide the response
-faster.
 
 Here, a single server was used as `master`. It could just as well be a
 [ReadWriteSplit](maxscale-readwritesplit.md) service in front of a MariaDB cluster,
