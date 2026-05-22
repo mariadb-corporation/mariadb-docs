@@ -12,6 +12,10 @@ To aid migrations MariaDB provides MySQL compatible `caching_sha2_password` auth
 
 The `caching_sha2_password` authentication plugin's shared library is included in MariaDB packages as the `auth_mysql_sha2.so` or `auth_mysql_sha2.dll` shared library on systems where it can be built.
 
+{% hint style="warning" %}
+Some builds also contain a file named `caching_sha2_password.so`or `caching_sha2_password.dll`. That one *cannot* be loaded by the server, though – it's the client plugin implementing the client side of this authentication protocol.
+{% endhint %}
+
 
 Although the plugin's shared library is distributed with MariaDB, the plugin is not actually installed into MariaDB by default. There are two methods that can be used to install the plugin into MariaDB.
 
