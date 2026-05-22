@@ -14,7 +14,7 @@ This guide assumes you are running on a variant of Linux that uses `systemd` to 
 {% endhint %}
 
 {% hint style="warning" %}
-This is a substantial change: a product switch and a major version jump performed back-to-back. Read this guide end-to-end before you start, and rehearse the procedure in a non-production environment first. Subscribe to the [MariaDB Engineering Policies](https://mariadb.com/engineering-policies/) to confirm your operating system is supported on the 11.8 release series.
+This is a substantial change: a product switch and a major version jump performed back-to-back. Read this guide end-to-end before you start, and rehearse the procedure in a non-production environment first. Review the [MariaDB Engineering Policies](https://mariadb.com/engineering-policies/) to confirm your operating system is supported on the 11.8 release series.
 {% endhint %}
 
 ## Prerequisites
