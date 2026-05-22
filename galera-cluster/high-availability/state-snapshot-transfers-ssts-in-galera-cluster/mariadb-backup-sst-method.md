@@ -384,6 +384,14 @@ sockopt=",pf=ip6"
 
 See [MDEV-18797](https://jira.mariadb.org/browse/MDEV-18797) for more information.
 
+## SST with Tables Using DATA DIRECTORY
+
+When a table is created with the `DATA DIRECTORY` clause, its data file (`.ibd`) is stored outside of the `datadir` on the donor node. During a State Snapshot Transfer (SST), `mariadb-backup` sends all table data, including files located in external `DATA DIRECTORY` paths, to the joiner node.
+
+By default, all incoming SST data is staged inside the `datadir` on the joiner. If the combined size of the data files (including those from external `DATA DIRECTORY` paths) exceeds the available space in `datadir`, the SST fails with a **"No space left on device"** error.
+
+The `wsrep_sst_tmp_dir` system variable, introduced in **MariaDB 13.0**, allows redirecting the SST staging area to a separate directory on a filesystem with sufficient space. The joiner sends data into this temporary directory first, then moves the prepared data into `datadir`. See the `wsrep_sst_tmp_dir` system variable.
+
 ## Manual SST With mariadb-backup <a href="#manual-sst-with-mariabackup" id="manual-sst-with-mariabackup"></a>
 
 If Galera Cluster's automatic SSTs repeatedly fail, it can be helpful to perform a "manual SST"; see: [Manual SST of Galera Cluster node with ](manual-sst-of-galera-cluster-node-with-mariadb-backup.md)[mariadb-backup](mariadb-backup-sst-method.md)

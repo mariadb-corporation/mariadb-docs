@@ -20,6 +20,10 @@ This page describes how to configure the InnoDB Redo Log.
 
 ## Configure the InnoDB Redo Log Size
 
+{% hint style="warning" %}
+**Do not delete the `ib_logfile` files before startup to resize the redo log.** Starting with **MariaDB 10.8** — and **MariaDB Enterprise Server 11.4**, the first Enterprise Server with this behavior — the server fails to start if its existing redo log files are missing. The server must always be started with its existing redo log files. To resize the redo log, start the server normally, then use `SET GLOBAL innodb_log_file_size=…` (see below). Once the change is applied in the running instance, update the configuration file so the new size persists across restarts. This is part of the InnoDB redo log redesign tracked under [MDEV-27199](https://jira.mariadb.org/browse/MDEV-27199). Manual deletion of `ib_logfile` files was discouraged as early as MySQL 5.6.11 and became a hard startup failure in MariaDB 10.8 / Enterprise Server 11.4.
+{% endhint %}
+
 The size of the InnoDB Redo Log is configurable. If your server writes data at a very high frequency, then you may need to increase the redo log size, so that InnoDB does not have to perform checkpoints as frequently.
 
 For the maximum capacity in the Redo Log, the Redo Log size should be the same as the [innodb\_buffer\_pool\_size](../innodb-system-variables.md#innodb_buffer_pool_size), which is configured by the [innodb\_buffer\_pool\_size](../innodb-system-variables.md#innodb_buffer_pool_size) system variable.
@@ -148,6 +152,23 @@ $ sudo systemctl restart mariadb
 ```
 
 4. Starting in MariaDB Enterprise Server 10.5, the server can use the configuration change without a restart if you use [SET GLOBAL](../../../../reference/sql-statements/administrative-sql-statements/set-commands/set.md).
+
+## Emergency Recovery Across Major Versions
+
+In MariaDB 11.x (and the corresponding MariaDB Enterprise Server releases), starting the server with data files from MariaDB 10.x is permitted **only** when [innodb\_force\_recovery](../innodb-system-variables.md#innodb_force_recovery) is set to `6`. This path is intended exclusively as a last-resort mechanism for extracting a logical dump from a corrupted or otherwise incompatible database; it is **not** a substitute for the normal upgrade path.
+
+{% hint style="danger" %}
+`innodb_force_recovery=6` places the database in a highly restricted state intended only for data salvage. Do not use it as a standard operational approach or a shortcut for the normal upgrade path.
+{% endhint %}
+
+When this emergency path is in effect:
+
+* The database accepts no new writes or modifications.
+* Use [mariadb-dump](../../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) (or another logical export tool) to extract the data, then re-import it into a fresh, supported instance.
+
+For the standard upgrade procedure between major versions, see [Upgrading Between Major MariaDB Versions](../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-between-major-mariadb-versions.md).
+
+This capability was added under [MDEV-39303](https://jira.mariadb.org/browse/MDEV-39303), available in MariaDB 11.4.11, MariaDB 11.8.7, and later releases.
 
 <sub>_This page is: Copyright © 2025 MariaDB. All rights reserved._</sub>
 

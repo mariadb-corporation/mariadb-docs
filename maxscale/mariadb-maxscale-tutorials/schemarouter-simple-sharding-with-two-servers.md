@@ -156,7 +156,6 @@ ignore_tables_regex=.*
 [Sharded-Service-Listener]
 type=listener
 service=Sharded-Service
-protocol=MariaDBClient
 port=4000
 
 [Shard-Monitor]

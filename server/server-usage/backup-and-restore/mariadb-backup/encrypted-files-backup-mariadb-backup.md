@@ -4,8 +4,6 @@ description: How mariadb-backup backs up and restores encrypted data files.
 
 # Encrypted Files Backup (mariadb-backup)
 
-
-
 This page addresses a major misconception: Many users assume that, because `mariadb-backup` reads encrypted files, it "unlocks" them. However, the encryption remains intact throughout the entire lifecycle, as explained in the following.
 
 ## Compatibility with Data-at-Rest Encryption (TDE)
@@ -67,7 +65,7 @@ The restore phase simply moves the encrypted files back to the target server's d
 
 To ensure a restorable backup of an encrypted MariaDB instance, you must:
 
-1. **Include the KMS configuration:** Ensure that `mariadb-backup` has the same access to encryption information as the server does.
+1. **Access to encryption information:** Ensure that `mariadb-backup` has the same access to encryption information as the server does.
 2. **Back up the keys:** The encryption keys themselves are **not** stored inside the backup. You must manually back up your `keyfile.txt`, AWS KMS credentials, or HashiCorp Vault tokens separately.
 3. **Synchronize target keys:** Before running `mariadb-backup --copy-back`, verify that the destination server’s configuration points to the identical keys used during the backup.
 
@@ -81,7 +79,7 @@ To ensure a restorable backup of an encrypted MariaDB instance, you must:
 
 Mixed-encryption backups are a common scenario, especially in large production environments where a full "rotation" (encrypting all old data) can take days or weeks.
 
-`mariadb-backup`  is "smart" enough to handle a mixed-state tablespace.
+`mariadb-backup` is "smart" enough to handle a mixed-state tablespace.
 
 When you run a backup on a mixed-encryption database, here is exactly what happens under the hood:
 
@@ -113,7 +111,7 @@ This is where the KMS[^1] configuration is vital. During the "Prepare" phase (`-
 | ------------------ | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | **Missing Keys**   | The backup fails or the `prepare` phase crashes when it hits the first encrypted table.                | Even if 99% of your tables are unencrypted, 1 encrypted table requires the KMS to be active for the backup to be valid. |
 | **New Tables**     | If you enable encryption _during_ a long-running backup, `mariadb-backup` handles it via the Redo Log. | Ensure the key used for the new table is the same one available to the backup tool.                                     |
-| **Restore Target** | You restore to a server without a KMS plugin.                                                          | The unencrypted tables  work fine, but the encrypted tables are unreadable/corrupted.                                   |
+| **Restore Target** | You restore to a server without a KMS plugin.                                                          | The unencrypted tables work fine, but the encrypted tables are unreadable/corrupted.                                    |
 
 {% hint style="info" %}
 **Note on Mixed Environments:** `mariadb-backup` supports databases containing a mix of encrypted and unencrypted tables. The tool detects the encryption status of each tablespace individually. However, if even a single table in the backup is encrypted, the **entire** `--prepare` process requires access to the Key Management System (KMS). Without valid keys, the tool cannot verify the consistency of encrypted tables, and the backup preparation fails.
@@ -162,7 +160,5 @@ mariadb-backup --backup --stream=xbstream | \ openssl enc -aes-256-cbc -k $BACKU
 | **Aria System Tables**     | Encrypted (if configured) | **Yes**                        |
 | **Binary / Redo Logs**     | Encrypted (if configured) | **Yes**                        |
 | **Backup Metadata**        | Plaintext                 | No                             |
-
-
 
 [^1]: Key Management System

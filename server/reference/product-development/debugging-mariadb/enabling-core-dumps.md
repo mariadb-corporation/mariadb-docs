@@ -85,7 +85,7 @@ ulimit -c unlimited
 
 #### Running mariadbd Using systemd
 
-If you are starting `mariadbd` using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd.md), then you may need to customize the MariaDB service to allow for unlimited size core files. For example, you could execute the following:
+If you are starting `mariadbd` using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/README.md), then you may need to customize the MariaDB service to allow for unlimited size core files. For example, you could execute the following:
 
 Using `sudo systemctl edit mariadb.service` add the contents:
 
@@ -95,7 +95,7 @@ Using `sudo systemctl edit mariadb.service` add the contents:
 LimitCORE=infinity
 ```
 
-See [systemd: Configuring the Core File Size](../../../server-management/starting-and-stopping-mariadb/systemd.md#configuring-the-core-file-size) for more details.
+See [systemd: Configuring the Core File Size](../../../server-management/starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-core-file-size) for more details.
 
 #### Running MariaDB Containers
 
@@ -163,7 +163,7 @@ The value of `kernel.core_pattern` is printed to the [error log](../../../server
 
 #### Extracting Linux core dumps with systemd-coredump
 
-Core dump management can be automated using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd.md), which then centrally manages all core dump files and provides information about detected core dumps and access to collected core files using the [coredumpctl](https://www.freedesktop.org/software/systemd/man/coredumpctl.html) utility.
+Core dump management can be automated using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/README.md), which then centrally manages all core dump files and provides information about detected core dumps and access to collected core files using the [coredumpctl](https://www.freedesktop.org/software/systemd/man/coredumpctl.html) utility.
 
 This is enabled per default on Red Hat Enterprise Linux 8 and CentOS 8, and maybe other contemporary Linux distribution releases by now, too. It can be easily checked for by looking at the `kernel.core_pattern setting`. If it looks like this systemd-coredump is enabled:
 

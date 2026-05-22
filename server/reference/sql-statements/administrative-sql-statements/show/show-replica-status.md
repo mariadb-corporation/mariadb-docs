@@ -137,7 +137,7 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 **Until\_Log\_Pos:** The MASTER\_LOG\_POS value of the [START SLAVE UNTIL](../replication-statements/start-replica.md) condition.
 
-**Master\_SSL\_Allowed:** Whether an SSL connection is permitted (Yes), not permitted (No) or permitted but without the replica having SSL support enabled (Ignored)
+**Master\_SSL\_Allowed:** Whether an SSL connection to the master is permitted (Yes) or not permitted (No). The value reflects the `MASTER_SSL` option configured via [CHANGE MASTER TO](../replication-statements/change-master-to.md) and is independent of the runtime `have_ssl` state. A third value, Ignored, is emitted only on MariaDB builds compiled without SSL/TLS support (`HAVE_OPENSSL` undefined at build time); this does not apply to standard packaged builds, which always include OpenSSL, WolfSSL, or GnuTLS support.
 
 **Master\_SSL\_CA\_File:** The MASTER\_SSL\_CA option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md) statement.
 

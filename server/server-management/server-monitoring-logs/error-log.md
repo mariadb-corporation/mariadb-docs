@@ -71,9 +71,9 @@ If you [start](https://mariadb.com/kb/en/) MariaDB with [mariadbd-safe](../start
 
 #### Syslog with Systemd
 
-If you [start](https://mariadb.com/kb/en/) MariaDB with [systemd](../starting-and-stopping-mariadb/systemd.md), the error log can also be redirected to the syslog. See [Systemd: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/systemd.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
+If you [start](https://mariadb.com/kb/en/) MariaDB with [systemd](../starting-and-stopping-mariadb/systemd/README.md), the error log can also be redirected to the syslog. See [Systemd: Configuring MariaDB to Write the Error Log to Syslog](../starting-and-stopping-mariadb/systemd/configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog) for more information.
 
-[systemd](../starting-and-stopping-mariadb/systemd.md) also has its own logging system called the `journal`, and some errors may get logged there instead. See [Systemd:Systemd Journal](../starting-and-stopping-mariadb/systemd.md#systemd-journal) for more information.
+[systemd](../starting-and-stopping-mariadb/systemd/README.md) also has its own logging system called the `journal`, and some errors may get logged there instead. See [Systemd:Systemd Journal](../starting-and-stopping-mariadb/systemd/starting.md#systemd-journal) for more information.
 
 ### Writing the Error Log to Console on Windows
 
@@ -105,7 +105,7 @@ or
 my_print_defaults --mysqld | grep log-error
 ```
 
-If the above don't help, check also if your system is set to [write to syslog](../starting-and-stopping-mariadb/systemd.md#configuring-mariadb-to-write-the-error-log-to-syslog), in which case you need to use [journalctl](../starting-and-stopping-mariadb/systemd.md#systemd-journal) to access it.
+If the above don't help, check also if your system is set to [write to syslog](../starting-and-stopping-mariadb/systemd/configuring.md#configuring-mariadb-to-write-the-error-log-to-syslog), in which case you need to use [journalctl](../starting-and-stopping-mariadb/systemd/starting.md#systemd-journal) to access it.
 
 ## Configuring the Error Log Verbosity
 

@@ -10,7 +10,7 @@ description: >-
 [Sequences](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/sequences/sequence-overview) allows for the generation of unique integers independent of any specific table. While standard sequences function normally in a standalone MariaDB server, using them in a [MariaDB Galera Cluster](../../readme/mariadb-galera-cluster-usage-guide.md) requires specific configurations to ensure conflict-free operation and optimal performance.
 
 {% hint style="success" %}
-#### Streaming Replication Support in MariaDB
+**Streaming Replication Support in MariaDB**
 
 Starting from MariaDB 10.11.16 (and Galera 26.4.16), sequences are fully supported in transactions utilizing streaming replication. In earlier versions, using `NEXTVAL()` within a transaction where `wsrep_trx_fragment_size > 0` would cause an `ERROR 1235`. The WSREP API now ensures proper serialization of sequence state in transaction fragments, allowing sequences to be used effectively in large-scale ETL and batch operations. See MDEV-34124
 {% endhint %}

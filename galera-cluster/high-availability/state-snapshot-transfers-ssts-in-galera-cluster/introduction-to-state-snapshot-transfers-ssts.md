@@ -1,7 +1,7 @@
 ---
 description: >-
-  State Snapshot Transfers (SSTs) provision a joining Galera Cluster node with
-  a full data copy from a donor, supported via logical (mysqldump) and physical
+  State Snapshot Transfers (SSTs) provision a joining Galera Cluster node with a
+  full data copy from a donor, supported via logical (mysqldump) and physical
   (mariadb-backup) methods.
 ---
 
@@ -44,7 +44,7 @@ This SST method uses the [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG
 
 * This SST method supports [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid)
 * This SST method supports [Data at Rest Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview).
-* This SST method is available from [MariaDB 10.1.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10126-release-notes) and [MariaDB 10.2.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series/mariadb-10210-release-notes).
+* This SST method is available from [MariaDB 10.1.26](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.26) and [MariaDB 10.2.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.10).
 
 With this SST method, it is impossible to upgrade the cluster between some major versions; see [MDEV-27437](https://jira.mariadb.org/browse/MDEV-27437).
 
@@ -60,6 +60,12 @@ The `rsync` method runs `rsync` in `--whole-file` mode, assuming that nodes are 
 * This SST method supports [Data at Rest Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview).
 
 The rsync SST method does not support tables created with the [DATA DIRECTORY or INDEX DIRECTORY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table#data-directory-index-directory) clause. Use the [mariadb-backup SST method](mariadb-backup-sst-method.md) as an alternative to support this feature.
+
+When using the mariadb-backup SST method with tables that contain a `DATA DIRECTORY` clause, ensure the joiner node has enough disk space to stage the entire SST payload, including data files located outside of `datadir`. The SST will fail if there is insufficient free space in the `datadir`.&#x20;
+
+Starting with MariaDB 13.0, the SST staging area can be moved to a different filesystem with enough space by configuring `wsrep_sst_tmp_dir` system variable. See [mariadb-backup SST method](mariadb-backup-sst-method.md).&#x20;
+
+**Note**: This behavior, along with the `wsrep_sst_tmp_dir` variable, applies only when `wsrep_sst_method=mariabackup`**.** The `rsync` SST method does not support `DATA DIRECTORY` tables.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -113,7 +119,7 @@ See xtrabackup-v2 SST method for more information.
 
 Percona XtraBackup is **not supported** in MariaDB. [mariadb-backup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/backup-and-restore/mariadb-backup) is the recommended backup method to use instead of Percona XtraBackup. See [Percona XtraBackup Overview: Compatibility with MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview#compatibility-with-mariadb) for more information.
 
-This SST method is an older SST method that uses the [Percona XtraBackup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup) utility for performing SSTs. The `xtrabackup-v2` SST method should be used instead of the `xtrabackup` SST method starting from [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/mariadb-5533-release-notes).
+This SST method is an older SST method that uses the [Percona XtraBackup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup) utility for performing SSTs. The `xtrabackup-v2` SST method should be used instead of the `xtrabackup` SST method starting from [MariaDB 5.5.33](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/5.5.33).
 
 * This SST method does **not** support [GTID](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/gtid)
 * This SST method does **not** support [Data at Rest Encryption](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview).
@@ -170,9 +176,9 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-See [Configuring the Systemd Service Timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/getting-installing-and-upgrading-mariadb/starting-and-stopping-mariadb/systemd#configuring-the-systemd-service-timeout) for more details.
+See [Configuring the Systemd Service Timeout](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starting-and-stopping-mariadb/systemd#configuring-the-systemd-service-timeout) for more details.
 
-Note that [systemd 236 added the EXTEND\_TIMEOUT\_USEC environment variable](https://lists.freedesktop.org/archives/systemd-devel/2017-December/039996.html) that allows services to extend the startup timeout during long-running processes. Starting with [MariaDB 10.1.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/mariadb-10135-release-notes), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-2-series/mariadb-10217-release-notes), and [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-3-series/mariadb-1038-release-notes), on systems with systemd versions that support it, MariaDB uses this feature to extend the startup timeout during long SSTs. Therefore, if you are using `systemd` 236 or later, then you should not need to manually override `TimeoutStartSec`, even if your SSTs run for longer than the configured value. See [MDEV-15607](https://jira.mariadb.org/browse/MDEV-15607) for more information.
+Note that [systemd 236 added the EXTEND\_TIMEOUT\_USEC environment variable](https://lists.freedesktop.org/archives/systemd-devel/2017-December/039996.html) that allows services to extend the startup timeout during long-running processes. Starting with [MariaDB 10.1.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.35), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17), and [MariaDB 10.3.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.8), on systems with systemd versions that support it, MariaDB uses this feature to extend the startup timeout during long SSTs. Therefore, if you are using `systemd` 236 or later, then you should not need to manually override `TimeoutStartSec`, even if your SSTs run for longer than the configured value. See [MDEV-15607](https://jira.mariadb.org/browse/MDEV-15607) for more information.
 
 ## SST Failure
 

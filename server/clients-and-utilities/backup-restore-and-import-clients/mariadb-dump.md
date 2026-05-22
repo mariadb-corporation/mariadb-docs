@@ -227,7 +227,7 @@ If the `--comments` option and this option are given, `mariadb-dump` produces a 
 
 #### -H, --dump-history
 
-Dump tables with [history](../../reference/sql-structure/temporal-tables/system-versioned-tables.md). This option is available from MariaDB 10.11. Until this option was introduced, `mariadb-dump` could not read historical rows from versioned tables, and so historical data would not be backed up.
+Dump tables with [history](../../reference/sql-structure/temporal-tables/system-versioned-tables.md). This option is available from MariaDB 10.11. Until this option was introduced, `mariadb-dump` could not read historical rows from versioned tables, and so historical data would not be backed up. Use also `--update-history` if upgrading to MariaDB 11.5 or newer from a version before 11.5.
 
 #### --dump-slave\[=value]
 
@@ -287,6 +287,10 @@ Continue even if an SQL error occurs during a table dump. One use for this optio
 
 Used together with `--master-data` and `--dump-slave` to more conveniently set up a new [GTID](../../ha-and-performance/standard-replication/gtid.md) replica. It causes those options to output SQL statements that configure the replica to use the [global transaction ID](../../ha-and-performance/standard-replication/gtid.md) to connect to the primary instead of old-style filename/offset positions. The old-style positions are still included in comments when --gtid is used; likewise, the GTID position is included in comments even if `--gtid` is not used.
 
+#### --header
+
+When used together with `--tab`, enabling this option adds a header row containing column names at the top of the output `.txt` files.
+
 #### -?, --help
 
 Display a help message and exit.
@@ -335,10 +339,10 @@ For each dumped database, lock all tables to be dumped before dumping them. The 
 #### -L, --wildcards
 
 {% hint style="info" %}
-This option is available from MariaDB 12.1.
+This option is available from [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1).
 {% endhint %}
 
-Usage of wildcards in the table or database name. Without the [--databases](mariadb-dump.md#b-databases) option, wildcards are only recognized in table names.
+Usage of wildcards in the table or database name. Without the [--databases](mariadb-dump.md#b-databases) option, wildcards are only recognized in table names. With the "databases" option - in databases names.
 
 #### --log-error=_file_
 
@@ -593,6 +597,14 @@ Defines a _path to a PEM file_ that should contain one or more revoked X509 cert
 
 Defines a _path to a directory that contains one or more PEM files_ that should each contain one revoked X509 certificate to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#certificate-revocation-lists-crls) for more information. This option is only supported if the client was built with OpenSSL. If the client was built with yaSSL, GnuTLS, or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](../../security/encryption/tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
+#### --ssl-fp=name
+
+Server certificate fingerprint (implies `--ssl`).
+
+#### --ssl-fplist=name
+
+File with accepted server certificate fingerprints, one per line (implies `--ssl`).
+
 #### --ssl-key=_private-key_
 
 Defines a _path to a private key file_ to use for [TLS](../../security/encryption/data-in-transit-encryption/). This option requires that you use the absolute path, not a relative path. This option implies the `--ssl` option.
@@ -629,6 +641,10 @@ This option enables [TIMESTAMP](../../reference/data-types/date-and-time-data-ty
 
 Note the interaction of this option with `--as-of` when dumping versioned data.
 
+#### --update-history
+
+This option updates the `row_end` history timestamp to support dates up to the year 2106. When enabled, it also activates `tz-utc`. The option should be used when upgrading to **MariaDB 11.5 or later**, ensuring compatibility with extended date ranges and proper time zone handling.
+
 #### -u _username_, --user=_username_
 
 The MariaDB _user name_ to use when connecting to the server.
@@ -645,10 +661,6 @@ Output version information and exit.
 
 Dump only rows selected by the given _`WHERE` condition_. Quotes around the condition are mandatory if it contains spaces or other characters that are special to your command interpreter. Example:\
 `--where="user = ´jimf´" -w"userid > 1" -w"userid < 1"` .
-
-#### -L, --wildcards
-
-Usage of wildcards in the table/database name. Without the `--databases` option, wildcards can be used only in tables names. From [MariaDB 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1).
 
 #### -X, --xml
 
@@ -779,86 +791,101 @@ mariadb db_name < backup-file.sql
 
 You can also set the following variables (`--variable-name=value`) and boolean options `{FALSE|TRUE}` by using:
 
-| Name                          | Default Values                                |
-| ----------------------------- | --------------------------------------------- |
-| all                           | TRUE                                          |
-| all-databases                 | FALSE                                         |
-| all-tablespaces               | FALSE                                         |
-| no-tablespaces                | FALSE                                         |
-| add-drop-database             | FALSE                                         |
-| add-drop-table                | TRUE                                          |
-| add-drop-trigger              | FALSE                                         |
-| add-locks                     | TRUE                                          |
-| allow-keywords                | FALSE                                         |
-| apply-slave-statements        | FALSE                                         |
-| as-of                         | (No default value)                            |
-| character-sets-dir            | (No default value)                            |
-| comments                      | TRUE                                          |
-| compatible                    | (No default value)                            |
-| compact                       | FALSE                                         |
-| complete-insert               | FALSE                                         |
-| compress                      | FALSE                                         |
-| copy-s3-tables                | FALSE                                         |
-| create-options                | TRUE                                          |
-| databases                     | FALSE                                         |
-| debug-check                   | FALSE                                         |
-| debug-info                    | FALSE                                         |
-| default-character-set         | utf8mb4                                       |
-| delayed-insert                | FALSE                                         |
-| delete-master-logs            | FALSE                                         |
-| disable-keys                  | TRUE                                          |
-| events                        | FALSE                                         |
-| extended-insert               | TRUE                                          |
-| fields-terminated-by          | (No default value)                            |
-| fields-enclosed-by            | (No default value)                            |
-| fields-optionally-enclosed-by | (No default value)                            |
-| fields-escaped-by             | (No default value)                            |
-| flush-logs                    | FALSE                                         |
-| flush-privileges              | FALSE                                         |
-| force                         | FALSE                                         |
-| hex-blob                      | FALSE                                         |
-| host                          | (No default value)                            |
-| include-master-host-port      | FALSE                                         |
-| insert-ignore                 | FALSE                                         |
-| lines-terminated-by           | (No default value)                            |
-| lock-all-tables               | FALSE                                         |
-| lock-tables                   | TRUE                                          |
-| log-error                     | (No default value)                            |
-| log-queries                   | TRUE                                          |
-| master-data                   | 0                                             |
-| max\_allowed\_packet          | 16777216                                      |
-| net-buffer-length             | 1046528                                       |
-| no-autocommit                 | TRUE (> MariaDB 11.7), FALSE (< MariaDB 11.8) |
-| no-create-db                  | FALSE                                         |
-| no-create-info                | FALSE                                         |
-| no-data                       | FALSE                                         |
-| no-data-med                   | TRUE                                          |
-| order-by-primary              | FALSE                                         |
-| port                          | 0                                             |
-| quick                         | TRUE                                          |
-| quote-names                   | TRUE                                          |
-| replace                       | FALSE                                         |
-| routines                      | FALSE                                         |
-| set-charset                   | TRUE                                          |
-| single-transaction            | FALSE                                         |
-| dump-date                     | TRUE                                          |
-| socket                        | No default value)                             |
-| ssl                           | FALSE                                         |
-| ssl-ca                        | (No default value)                            |
-| ssl-capath                    | (No default value)                            |
-| ssl-cert                      | (No default value)                            |
-| ssl-cipher                    | (No default value)                            |
-| ssl-key                       | (No default value)                            |
-| ssl-verify-server-cert        | FALSE                                         |
-| system                        | (No default value)                            |
-| tab                           | (No default value)                            |
-| triggers                      | TRUE                                          |
-| tz-utc                        | TRUE                                          |
-| user                          | (No default value)                            |
-| verbose                       | FALSE                                         |
-| where                         | (No default value)                            |
-| plugin-dir                    | (No default value)                            |
-| default-auth                  | (No default value)                            |
+| Name                          | Default Values                                           |
+| ----------------------------- | -------------------------------------------------------- |
+| all                           | TRUE                                                     |
+| all-databases                 | FALSE                                                    |
+| all-tablespaces               | FALSE                                                    |
+| no-tablespaces                | FALSE                                                    |
+| add-drop-database             | FALSE                                                    |
+| add-drop-table                | TRUE                                                     |
+| add-drop-trigger              | FALSE                                                    |
+| add-locks                     | TRUE                                                     |
+| allow-keywords                | FALSE                                                    |
+| apply-slave-statements        | FALSE                                                    |
+| as-of                         | (No default value)                                       |
+| character-sets-dir            | (No default value)                                       |
+| comments                      | TRUE                                                     |
+| compatible                    | (No default value)                                       |
+| compact                       | FALSE                                                    |
+| complete-insert               | FALSE                                                    |
+| compress                      | FALSE                                                    |
+| copy-s3-tables                | FALSE                                                    |
+| create-options                | TRUE                                                     |
+| databases                     | FALSE                                                    |
+| debug-check                   | FALSE                                                    |
+| debug-info                    | FALSE                                                    |
+| default-character-set         | utf8mb4                                                  |
+| delayed-insert                | FALSE                                                    |
+| delete-master-logs            | FALSE                                                    |
+| dir                           | (No default value)                                       |
+| disable-keys                  | TRUE                                                     |
+| dump-history                  | FALSE                                                    |
+| dump-slave                    | 0                                                        |
+| events                        | FALSE                                                    |
+| extended-insert               | TRUE                                                     |
+| fields-terminated-by          | (No default value)                                       |
+| fields-enclosed-by            | (No default value)                                       |
+| fields-optionally-enclosed-by | (No default value)                                       |
+| fields-escaped-by             | (No default value)                                       |
+| flush-logs                    | FALSE                                                    |
+| flush-privileges              | FALSE                                                    |
+| force                         | FALSE                                                    |
+| gtid                          | FALSE                                                    |
+| header                        | FALSE                                                    |
+| hex-blob                      | FALSE                                                    |
+| host                          | (No default value)                                       |
+| include-master-host-port      | FALSE                                                    |
+| insert-ignore                 | FALSE                                                    |
+| lines-terminated-by           | (No default value)                                       |
+| lock-all-tables               | FALSE                                                    |
+| lock-tables                   | TRUE                                                     |
+| log-error                     | (No default value)                                       |
+| log-queries                   | TRUE                                                     |
+| master-data                   | 0                                                        |
+| max\_allowed\_packet          | 1073741824                                               |
+| max-statement-time            | 0                                                        |
+| net-buffer-length             | 1046528                                                  |
+| no-autocommit                 | TRUE                                                     |
+| no-create-db                  | FALSE                                                    |
+| no-create-info                | FALSE                                                    |
+| no-data                       | FALSE                                                    |
+| no-data-med                   | TRUE                                                     |
+| order-by-primary              | FALSE                                                    |
+| order-by-size                 | FALSE                                                    |
+| parallel                      | 0                                                        |
+| port                          | 3306                                                     |
+| quick                         | TRUE                                                     |
+| quote-names                   | TRUE                                                     |
+| replace                       | FALSE                                                    |
+| routines                      | FALSE                                                    |
+| set-charset                   | TRUE                                                     |
+| single-transaction            | FALSE                                                    |
+| dump-date                     | TRUE                                                     |
+| socket                        | No default value)                                        |
+| ssl                           | TRUE                                                     |
+| ssl-ca                        | (No default value)                                       |
+| ssl-capath                    | (No default value)                                       |
+| ssl-cert                      | (No default value)                                       |
+| ssl-cipher                    | (No default value)                                       |
+| ssl-crl                       | (No default value)                                       |
+| ssl-crlpath                   | (No default value)                                       |
+| ssl-fp                        | (No default value)                                       |
+| ssl-fplist                    | (No default value)                                       |
+| ssl-key                       | (No default value)                                       |
+| ssl-verify-server-cert        | TRUE                                                     |
+| system                        | (No default value)                                       |
+| tab                           | (No default value)                                       |
+| triggers                      | TRUE                                                     |
+| tz-utc                        | TRUE                                                     |
+| tls-version                   | (No default value)                                       |
+| update-history                | FALSE                                                    |
+| user                          | (No default value)                                       |
+| verbose                       | FALSE                                                    |
+| wildcards                     | FALSE                                                    |
+| where                         | (No default value)                                       |
+| plugin-dir                    | (determined by installation path, e.g. `.../lib/plugin`) |
+| default-auth                  | (No default value)                                       |
 
 ## Examples
 

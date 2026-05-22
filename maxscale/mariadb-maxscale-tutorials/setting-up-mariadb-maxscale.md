@@ -13,8 +13,6 @@ The installation and configuration of the MariaDB Server is not covered in this 
 
 This tutorial assumes that one of the standard MaxScale binary distributions is used and that MaxScale is installed using default options.
 
-Building from source code in GitHub is covered in [Building from Source](../maxscale-management/installation-and-configuration/building-maxscale-from-source.md).
-
 ### Installing MaxScale
 
 The precise installation process varies from one distribution to another. Details on package installation can be found in the [Installation Guide](../maxscale-management/installation-and-configuration/maxscale-installation-guide.md).
@@ -39,8 +37,6 @@ GRANT SELECT ON mysql.global_priv TO 'maxscale'@'%';
 GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'%';
 GRANT SHOW DATABASES ON *.* TO 'maxscale'@'%';
 ```
-
-MariaDB versions 10.2.2 to 10.2.10 also require `GRANT SELECT ON mysql.* TO 'maxscale'@'%';`
 
 ### Creating client user accounts
 

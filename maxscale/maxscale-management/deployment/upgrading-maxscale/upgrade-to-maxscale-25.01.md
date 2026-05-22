@@ -60,7 +60,7 @@ Retrieve your Customer Download Token at [https://customers.mariadb.com/download
 {% step %}
 **Configure YUM / DNF package repository**
 
-Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
+Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
 To configure YUM package repositories:
 
@@ -111,7 +111,7 @@ Retrieve your Customer Download Token at [https://customers.mariadb.com/download
 {% step %}
 **Configure APT package repository**
 
-Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
+Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
 To configure APT package repositories:
 
@@ -166,7 +166,7 @@ Retrieve your Customer Download Token at [https://customers.mariadb.com/download
 {% step %}
 **Configure ZYpp package repository**
 
-Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
+Pass the version you want to install using the `--mariadb-maxscale-version` flag to the [mariadb\_es\_repo\_setup](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage) script. The following directions reference `25.01`.
 
 To configure ZYpp package repositories:
 

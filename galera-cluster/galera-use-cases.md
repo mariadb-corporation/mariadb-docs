@@ -190,7 +190,7 @@ Galera can be deployed across multiple physical locations, providing a robust so
 This use case covers two distinct architectures with different goals:
 
 {% tabs %}
-{% tab title="The Synchronous "WAN Cluster"" %}
+{% tab title="The Synchronous " %}
 This is a single Galera cluster with nodes stretched across multiple data centers. A COMMIT in New York is not "OK'd" until the data is safely certified by the London node. This gives Zero Data Loss (RPO=0) but has a major performance impact.
 
 ```mermaid
@@ -215,7 +215,7 @@ graph TD
 ```
 {% endtab %}
 
-{% tab title="The Asynchronous "DR Cluster" (Recommended)" %}
+{% tab title="The Asynchronous " %}
 This is the more common setup. A primary cluster in DC-1 runs at full speed. It asynchronously replicates its data to a separate node/cluster in DC-2. This is fast, but allows for minimal data loss (RPO > 0) in a disaster.
 
 ```mermaid
@@ -250,7 +250,7 @@ While synchronous replication adds some overhead, Galera fundamentally allows an
 * High-Volume Write Environments: Suitable for applications with a high volume of concurrent, _non-conflictin&#x67;_&#x77;rite operations.
 
 {% hint style="info" %}
-#### Myth vs. Reality: Write Throughput in Distributed Systems
+**Myth vs. Reality: Write Throughput in Distributed Systems**
 
 **Myth:** "With 3 nodes, I achieve 3x the write throughput."
 

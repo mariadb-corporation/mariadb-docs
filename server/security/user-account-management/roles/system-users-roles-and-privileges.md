@@ -23,7 +23,7 @@ These user accounts are created by the `mariadb-install-db` script during the in
 | **Purpose**    | Serves as the primary administrative account for initial server setup and management.                                                                                                                                                           |
 | **Management** | It is highly recommended to secure this account immediately after installation. _Standard security practices include setting a strong password, renaming the account, or removing it entirely in favor of other named administrative accounts._ |
 
-### `mariadb-sys@localhost`
+### `mariadb.sys@localhost`
 
 | **Creation**   | Created automatically by `mariadb-install-db`.                                                                        |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- |

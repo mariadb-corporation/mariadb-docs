@@ -192,8 +192,8 @@ You can 'simulate' Master + Slaves by having clients write only to one node.
 * [innodb\_autoinc\_lock\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables) - 2
 * [innodb\_doublewrite](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_doublewrite) - ON: When an IST occurs, want there to be no torn pages? (With FusionIO or other drives that guarantee atomicity, OFF is better.)
 * [innodb\_flush\_log\_at\_trx\_commit](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/innodb-system-variables#innodb_flush_log_at_trx_commit) - 2 or 0. IST or SST will recover from loss if you have 1.
-* [query\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#query_cache_size) - 0
-* [query\_cache\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables#query_cache_type) - 0: The Query cache cannot be used in a Galera context.
+* [query\_cache\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#query_cache_size) - 0
+* [query\_cache\_type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#query_cache_type) - 0: The Query cache cannot be used in a Galera context.
 * [wsrep\_auto\_increment\_control](../../reference/galera-cluster-system-variables.md#wsrep_auto_increment_control) - Normally want ON
 * [wsrep\_on](../../reference/galera-cluster-system-variables.md#wsrep_on) - ON
 * [wsrep\_provider\_options](../../reference/galera-cluster-system-variables.md#wsrep_provider_options) - Various settings may need tuning if you are using a WAN.

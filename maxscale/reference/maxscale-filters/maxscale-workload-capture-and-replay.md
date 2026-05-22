@@ -29,7 +29,7 @@ The captured workloads can be used to:
 
 ## Prerequisites
 
-* Both the capture MaxScale and replay MaxScale servers must use the same linux distribution and CPU architecture. For example, if the capture was taken on an x86\_64 RHEL 8 instance, the replay should also happen on an x86\_64 RHEL 8 instance. Captured workloads are however usually compatible across different linux distributions that use the same CPU architecture.
+* Both the capture MaxScale and replay MaxScale servers must use the same Linux distribution and CPU architecture. For example, if the capture was taken on an x86\_64 RHEL 8 instance, the replay should also happen on an x86\_64 RHEL 8 instance. Captured workloads are however usually compatible across different Linux distributions that use the same CPU architecture.
 * The capture MariaDB instance must have binlogging enabled (`log-bin=1`)
 
 ## Capture
@@ -114,7 +114,6 @@ filters=CAPTURE_FLTR
 [RWS-Listener]
 type=listener
 service=RWS-Router
-protocol=MariaDBClient
 port=4006
 ```
 
@@ -140,7 +139,7 @@ To stop the capture, simply stop MaxScale, or issue the command:
 maxctrl call command wcar stop CAPTURE_FLTR
 ```
 
-where "CAPTURE\_FLTR" is the name given to the filter as in the example configuration above.
+where `CAPTURE_FLTR` is the name given to the filter as in the example configuration above.
 
 To disable capturing altogether, remove the capture filter from the configuration and remove it from all services that it was added to. Restart MaxScale.
 
@@ -169,8 +168,8 @@ Starts a new capture. Issuing a start command will stop any ongoing capture.
 The start command supports optional key-value pairs. If the values are also defined in the configuration file the command line options have priority. The supported keys are:
 
 * **prefix** The prefix added to capture files. The default value is `capture`.
-* **duration** Limit capture to this duration. See also configuration file value ['capture\_duration'](maxscale-workload-capture-and-replay.md#capture_duration).
-* **size** Limit capture to approximately this many bytes in the file system. See also configuration file value ['capture\_size'](maxscale-workload-capture-and-replay.md#capture_size).
+* **duration** Limit capture to this duration. See also configuration file value [`capture_duration`](maxscale-workload-capture-and-replay.md#capture_duration).
+* **size** Limit capture to approximately this many bytes in the file system. See also configuration file value [`capture_size`](maxscale-workload-capture-and-replay.md#capture_size).
 
 The start command options are not persistent, and only apply to the capture that was thus started.
 
@@ -182,7 +181,7 @@ If both duration and size are specified, the one that triggers first, stops the 
 maxctrl call command wcar start CAPTURE_FLTR prefix=Scenario1 size=10G
 ```
 
-Running the same command again, but without size=10G, the `capture_size` used would be that defined in the configuration file or no limit if there was no such definition.
+Running the same command again, but without `size=10G`, the `capture_size` used would be that defined in the configuration file or no limit if there was no such definition.
 
 ### `stop <filter>`
 
@@ -196,7 +195,7 @@ maxctrl call command wcar stop CAPTURE_FLTR
 
 ### Installation
 
-Install the required packages on the MaxScale server where the replay is to be done. An additional dependency that must be manually installed is Python, version 3.9 or newer. On most linux distributions a new enough version is available as the default Python interpreter. You may also need to install the development packages for Python, `python3-devel` on RHEL based systems or `python3-dev` on Debian based systems, as well as a C++ compiler.
+Install the required packages on the MaxScale server where the replay is to be done. An additional dependency that must be manually installed is Python, version 3.9 or newer. On most Linux distributions a new enough version is available as the default Python interpreter. You may also need to install the development packages for Python, `python3-devel` on RHEL based systems or `python3-dev` on Debian based systems, as well as a C++ compiler.
 
 For RHEL 8, Rocky Linux 8 and Alma Linux 8, a newer version of Python must be installed along with the development headers with `dnf install python39 python39-devel gcc-c++` and it must be set as the default python implementation with `alternatives --set python3 /usr/bin/python3.9`.
 
@@ -290,7 +289,7 @@ maxvisualize baseline-summary.json comparison-summary.json --Voila.ip='0.0.0.0'
 * Mandatory: No
 * Dynamic: No
 
-Directory under which capture directories are stored. Each capture directory has the name of the filter. In the examples above the name "CAPTURE\_FLTR" was used.
+Directory under which capture directories are stored. Each capture directory has the name of the filter. In the examples above the name `CAPTURE_FLTR` was used.
 
 ### `start_capture`
 
@@ -305,7 +304,6 @@ Start capture when maxscale starts.
 
 * Type: [duration](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#durations)
 * Default: 0s
-* Maximum: Unlimited in MaxScale, 5min in MaxScale Lite.
 * Mandatory: No
 * Dynamic: No
 
@@ -315,7 +313,6 @@ Limit capture to this duration. If set to zero there is no limit.
 
 * Type: [size](../../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#sizes)
 * Default: 0
-* Maximum: Unlimited in MaxScale, 10MB in MaxScale Lite.
 * Mandatory: No
 * Dynamic: No
 
@@ -367,7 +364,7 @@ Options:
 -i              During capture there can be long delays where there is no traffic.
                 One hour of no capture traffic would mean replay waits for one hour.
                 idle-wait allows to move simulation time forwards when such gaps
-                occure. A 'gap' starts when all prior queries have fully executed.
+                occur. A 'gap' starts when all prior queries have fully executed.
                 --idle-wait takes a duration value. A negative value turns the feature off,
                             i.e. the one hour wait would happen.
                 --idle-wait 0s means time moves to the event start-time immediately
@@ -383,7 +380,7 @@ Options:
                 once the databases to be tested have been prepared (see full documentation)
                 and optionally either a write-only run, or a full replay has been run.
                 Now multiple read-only runs against the server(s) are simple as no further
-                data syncronization is needed.
+                data synchronization is needed.
                 Note that this mode has its limitations as the query results may
                 be very different than what they were during capture.
 
@@ -416,11 +413,11 @@ input file:       capture_2024-09-06_090002.cx
 
 ## Limitations
 
-* KILL commands do not work correctly during replay and may kill the wrong session ([MXS-5056](https://jira.mariadb.org/browse/MXS-5056))
-* COM\_STMT\_BULK\_EXECUTE is not captured ([MXS-5057](https://jira.mariadb.org/browse/MXS-5057))
-* COM\_STMT\_EXECUTE that uses a cursor is replayed without a cursor ([MXS-5059](https://jira.mariadb.org/browse/MXS-5059))
+* `KILL` commands do not work correctly during replay and may kill the wrong session ([MXS-5056](https://jira.mariadb.org/browse/MXS-5056))
+* `COM_STMT_BULK_EXECUTE` is not captured ([MXS-5057](https://jira.mariadb.org/browse/MXS-5057))
+* `COM_STMT_EXECUTE` that uses a cursor is replayed without a cursor ([MXS-5059](https://jira.mariadb.org/browse/MXS-5059))
 * For MyISAM and Aria tables, this will cause the table level lock to be held for a shorter time.
-* Execution of a COM\_STMT\_SEND\_LONG\_DATA will not work ([MXS-5060](https://jira.mariadb.org/browse/MXS-5060))
+* Execution of a `COM_STMT_SEND_LONG_DATA` will not work ([MXS-5060](https://jira.mariadb.org/browse/MXS-5060))
 * The capture files are not necessarily compatible with different linux distributions and CPU architectures than the original capture server has. Different combinations will require further testing, and once done, this document will be updated.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

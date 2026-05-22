@@ -10,13 +10,13 @@ There are several different methods to start or stop the MariaDB Server process.
 
 ## Service Managers
 
-[sysVinit](sysvinit.md) and [systemd](systemd.md) are the most common Linux service managers. [launchd](launchd.md) is used in MacOS X. [Upstart](https://en.wikipedia.org/wiki/Upstart_\(software\)) is a less common service manager.
+[sysVinit](sysvinit.md) and [systemd](systemd/README.md) are the most common Linux service managers. [launchd](launchd.md) is used in MacOS X. [Upstart](https://en.wikipedia.org/wiki/Upstart_\(software\)) is a less common service manager.
 
 ### Systemd
 
-RHEL/CentOS 7 and above, Debian 8 Jessie and above, and Ubuntu 15.04 and above use [systemd](systemd.md) by default.
+RHEL/CentOS 7 and above, Debian 8 Jessie and above, and Ubuntu 15.04 and above use [systemd](systemd/README.md) by default.
 
-For information on how to start and stop MariaDB with this service manager, see [systemd: Interacting with the MariaDB Server Process](systemd.md#interacting-with-the-mariadb-server-process).
+For information on how to start and stop MariaDB with this service manager, see [systemd: Interacting with the MariaDB Server Process](systemd/starting.md#interacting-with-the-mariadb-server-process).
 
 ### SysVinit
 
