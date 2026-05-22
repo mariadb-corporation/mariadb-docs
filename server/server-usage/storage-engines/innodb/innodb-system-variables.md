@@ -756,7 +756,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_data_file_write_through`
 
-* Description: Whether writes to InnoDB data files (including the temporary tablespace) are write through. Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls.
+* Description: Whether writes to InnoDB data files (including the temporary tablespace) are write through. Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls. See [InnoDB Flush Method](innodb-flush-method.md) for a discussion of FUA and write-through behavior.
 * Command line: `--innodb-data-file-write-through={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -1217,7 +1217,32 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_flush_method`
 
-* Description: [InnoDB](./) flushing method. Windows always uses `async_unbuffered` , meaning that this variable has no effect. Adjusting this variable can give performance improvements, but behavior differs widely on different filesystems. Changing from the default value may cause problems in some situations, so test and benchmark carefully before adjusting. In MariaDB, Windows recognizes and correctly handles the Unix methods, but if no methods are specified, it uses its own default – unbuffered write (analog of `O_DIRECT`) plus syncs (for instance, `FileFlushBuffers()`) for all files.
+{% tabs %}
+{% tab title="Current" %}
+* Description: [InnoDB](./) flushing method. **Deprecated from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110).** The variable can still be set, but the preferred way to control flushing behavior is to use `SET GLOBAL` on the four replacement Boolean dynamic parameters, which can be changed while the server is running:
+  * [innodb\_log\_file\_buffering](innodb-system-variables.md#innodb_log_file_buffering) (enable file system cache on the InnoDB write-ahead log; added in 10.8.4, 10.9.2)
+  * [innodb\_data\_file\_buffering](innodb-system-variables.md#innodb_data_file_buffering) (enable file system cache on data files)
+  * [innodb\_log\_file\_write\_through](innodb-system-variables.md#innodb_log_file_write_through) (enable write-through on the log)
+  * [innodb\_data\_file\_write\_through](innodb-system-variables.md#innodb_data_file_write_through) (enable write-through on persistent data files)
+* For the full discussion of buffering, write-through, FUA, and `O_DIRECT`, see [InnoDB Flush Method](innodb-flush-method.md).
+* When `innodb_flush_method` is set, the value is translated into the four Boolean parameters as follows:
+  * `O_DSYNC`: [innodb\_log\_file\_write\_through=ON](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=ON](innodb-system-variables.md#innodb_data_file_write_through), [innodb\_data\_file\_buffering=OFF](innodb-system-variables.md#innodb_data_file_buffering), and (if supported) [innodb\_log\_file\_buffering=OFF](innodb-system-variables.md#innodb_log_file_buffering).
+  * `fsync`, `littlesync`, `nosync`, or (on Windows) `normal`: [innodb\_log\_file\_write\_through=OFF](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=OFF](innodb-system-variables.md#innodb_data_file_write_through), and [innodb\_data\_file\_buffering=ON](innodb-system-variables.md#innodb_data_file_buffering).
+* Command line: `--innodb-flush-method=name`
+* Scope: Global
+* Dynamic: No
+* Data Type: `enumeration`
+* Default Value:
+  * `O_DIRECT` (Unix, >= MariaDB 10.6.0)
+  * `fsync` (only in MariaDB < 10.5)
+* Valid Values:
+  * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`, `O_DIRECT`, `O_DIRECT_NO_FSYNC`
+  * Windows: `unbuffered`, `async_unbuffered`, `normal`
+* Deprecated: [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)
+{% endtab %}
+
+{% tab title="< MariaDB 11.0" %}
+* Description: [InnoDB](./) flushing method. Windows always uses `async_unbuffered`, meaning that this variable has no effect. Adjusting this variable can give performance improvements, but behavior differs widely on different filesystems. Changing from the default value may cause problems in some situations, so test and benchmark carefully before adjusting. In MariaDB, Windows recognizes and correctly handles the Unix methods, but if no methods are specified, it uses its own default – unbuffered write (analog of `O_DIRECT`) plus syncs (for instance, `FileFlushBuffers()`) for all files.
 * A detailed description of the variable and its effects can be found [on this page](innodb-flush-method.md).
   * `O_DSYNC` is used to open and flush logs, and `fsync()` to flush the data files.
   * `O_DIRECT` is used to open data files, and `fsync()` to flush data and logs. This is the default on Unix from MariaDB 10.6.
@@ -1227,14 +1252,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `normal` - Windows-only, alias for `fsync`
   * `littlesync` - for internal testing only
   * `nosync` - for internal testing only
-* This variable is deprecated from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) and replaced by four boolean dynamic variables that can be changed while the server is running:
-  * [innodb\_log\_file\_buffering](innodb-system-variables.md#innodb_log_file_buffering) (enable file system cache, added in 10.8.4, 10.9.2)
-  * [innodb\_data\_file\_buffering](innodb-system-variables.md#innodb_data_file_buffering) (enable file system cache on data files)
-  * [innodb\_log\_file\_write\_through](innodb-system-variables.md#innodb_log_file_write_through) (enable write-through on the log)
-  * [innodb\_data\_file\_write\_through](innodb-system-variables.md#innodb_data_file_write_through) (enable write-through on persistent data files)
-  * If set to one of the following values, the values of the four boolean flags are as follows:
-    * `O_DSYNC`: [innodb\_log\_file\_write\_through=ON](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=ON](innodb-system-variables.md#innodb_data_file_write_through),[innodb\_data\_file\_buffering=OFF](innodb-system-variables.md#innodb_data_file_buffering), and (if supported) [innodb\_log\_file\_buffering=OFF](innodb-system-variables.md#innodb_log_file_buffering).
-    * `fsync`, `littlesync`, `nosync`, or (on Windows) `normal`: [innodb\_log\_file\_write\_through=OFF](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=OFF](innodb-system-variables.md#innodb_data_file_write_through), and [innodb\_data\_file\_buffering=ON](innodb-system-variables.md#innodb_data_file_buffering).
 * Command line: `--innodb-flush-method=name`
 * Scope: Global
 * Dynamic: No
@@ -1243,9 +1260,10 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `O_DIRECT` (Unix, >= MariaDB 10.6.0)
   * `fsync` (only in MariaDB < 10.5)
 * Valid Values:
-  * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`. `O_DIRECT`, `O_DIRECT_NO_FSYNC`
+  * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`, `O_DIRECT`, `O_DIRECT_NO_FSYNC`
   * Windows: `unbuffered`, `async_unbuffered`, `normal`
-* Deprecated: [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)
+{% endtab %}
+{% endtabs %}
 
 #### `innodb_flush_neighbor_pages`
 
@@ -1806,7 +1824,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_log_file_write_through`
 
-* Description: Whether each write to ib\_logfile0 is write through (disabling any caching, as in O\_SYNC or O\_DSYNC). Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls.
+* Description: Whether each write to ib\_logfile0 is write through (disabling any caching, as in O\_SYNC or O\_DSYNC). Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls. See [InnoDB Flush Method](innodb-flush-method.md) for a discussion of FUA and write-through behavior.
 * Command line: `--innodb-log-file-write-through={0|1}`
 * Scope: Global
 * Dynamic: Yes
