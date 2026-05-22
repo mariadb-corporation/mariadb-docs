@@ -1,7 +1,9 @@
 # Authentication Plugin - caching\_sha2\_password
 
 {% hint style="info" %}
-This plugin is available from MariaDB Server 11.4.
+This plugin is available from these MariaDB Server 11.4 versions:
+* MariaDB Community Server 11.4.9 / 11.8.4
+* MariaDB Enterprise Server 11.4.10-7 / 11.8.6-3
 {% endhint %}
 
 ## Overview
