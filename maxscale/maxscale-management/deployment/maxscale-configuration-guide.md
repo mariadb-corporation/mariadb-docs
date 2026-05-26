@@ -880,6 +880,21 @@ setting is intended for diagnosing situations where a client interferes with a
 primary server switchover. Super-users bypass the _read\_only_-flag which
 switchover uses to block writes to the primary.
 
+#### `log_timestamp_format`
+
+* Type: [enum](#enumerations)
+* Mandatory: No
+* Dynamic: Yes
+* Values: `default`, `datetime`, `iso_8601`
+* Default: `default`
+
+The log timestamp format to use. The `default` and `iso_8601` values use ISO
+8601 timestamps with UTC timezone offset. The `datetime` is the legacy timestamp
+format.
+
+By default, if there are legacy log messages found in the first 100 lines of the
+MaxScale log, a warning is logged. To disable this warning, use `iso_8601`.
+
 #### `log_augmentation`
 
 * Type: number
