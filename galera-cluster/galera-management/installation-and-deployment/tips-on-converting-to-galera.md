@@ -62,7 +62,7 @@ In Galera:
 * 1 latency hit for the COMMIT.
 * 0 (usually) for Critical Read (details below)
 
-Bottom line: Depending on where your Clients are, and whether you clump statements into BEGIN...COMMIT transacitons, Galera may be faster or slower than traditional replication in a WAN topology.
+Bottom line: Depending on where your Clients are, and whether you clump statements into BEGIN...COMMIT transactions, Galera may be faster or slower than traditional replication in a WAN topology.
 
 ## AUTO\_INCREMENT
 

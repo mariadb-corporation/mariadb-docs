@@ -408,7 +408,7 @@ Note that before Galera 3, the `repl` tag was named `replicator`.
 
 #### `pc.npvo`
 
-* Description: If set to `true` (`false` is default), when there are primary component conficts, the most recent component will override the older.
+* Description: If set to `true` (`false` is default), when there are primary component conflicts, the most recent component will override the older.
 * Dynamic: No
 * Default: `false`
 

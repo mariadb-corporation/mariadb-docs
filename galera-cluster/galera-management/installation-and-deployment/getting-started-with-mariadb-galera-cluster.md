@@ -158,7 +158,7 @@ Once all members agree on the membership, the cluster's state will be exchanged.
 
 If you shut down all nodes at the same time, then you have effectively terminated the cluster. Of course, the cluster's data still exists, but the running cluster no longer exists. When this happens, you'll need to bootstrap the cluster again.
 
-If the cluster is not bootstrapped and `mariadbd` on the first node is just started normally, then the node willl try to connect to at least one of the nodes listed in the [wsrep\_cluster\_address](../../reference/galera-cluster-system-variables.md#wsrep_cluster_address) option. If no nodes are currently running, then this will fail. Bootstrapping the first node solves this problem.
+If the cluster is not bootstrapped and `mariadbd` on the first node is just started normally, then the node will try to connect to at least one of the nodes listed in the [wsrep\_cluster\_address](../../reference/galera-cluster-system-variables.md#wsrep_cluster_address) option. If no nodes are currently running, then this will fail. Bootstrapping the first node solves this problem.
 
 ### Determining the Most Advanced Node
 
