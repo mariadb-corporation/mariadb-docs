@@ -7,7 +7,7 @@ description: >-
 
 # ColumnStore ALTER TABLE
 
-The `ALTER TABL`E statement modifies existing tables. It includes adding, deleting, and renaming columns as well as renaming tables.
+The `ALTER TABLE` statement modifies existing tables. It includes adding, deleting, and renaming columns as well as renaming tables.
 
 ## Syntax
 

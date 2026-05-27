@@ -161,7 +161,7 @@ The columns headings in the output are as follows:
 * **Rows** – Intermediate rows returned.
 
 {% hint style="info" %}
-**Note:** The time recorded is the time from PrimProc[^2] and `ExeMgr`. Execution time from withing mysqld is not tracked here. There could be extra processing time in `mysqld` due to a number of factors such as `ORDER BY`.
+**Note:** The time recorded is the time from PrimProc[^2] and `ExeMgr`. Execution time from within mysqld is not tracked here. There could be extra processing time in `mysqld` due to a number of factors such as `ORDER BY`.
 {% endhint %}
 
 ## Cache Clearing to Enable Cold Testing

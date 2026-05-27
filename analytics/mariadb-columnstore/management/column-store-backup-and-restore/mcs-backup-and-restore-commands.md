@@ -195,9 +195,9 @@ The most commonly used options are:
 | --- | --- | --- |
 | `--backup-location` (`-bl`) | Defines the path where the backup should be saved to. A date based folder under this path will be created per backup run automatically. You can change the name of the folders with `-nb` | Typical default in tooling: `/tmp/backups/` |
 | `--backup-destination` (`-bd`) | Where backups are stored relative to the node running the command. Two possible values: `Local` or `Remote`. Determines if the backup requires ssh thus `-scp` needs to be defined too or if the `-bl` path is relative to the script| `Local` or `Remote` |
-| `--secure-copy-protocol` (`-scp`) | if `--backup-destination` is defined as `Remote` , then you need to define `-scp` . This defines the ssh connection to remotely rsync to | Example: `-bd Remote -scp root@192.168.0.1` |
+| `--secure-copy-protocol` (`-scp`) | if `--backup-destination` is defined as `Remote` , then you need to define `-scp` . This defines the ssh connection to remotely `rsync` to | Example: `-bd Remote -scp root@192.168.0.1` |
 | `--incremental` (`-i`) | Creates an incremental backup based on an existing full backup | Value can be `<folder>` or `auto_most_recent` |
-| `--parallel` (`-P`) | Enables parallel rsync and defines the number of parallel rsync threads to run. If combined with `--compress` this flag defines the number of compression threads to run. Default is `4` | Example: `--parallel 8` |
+| `--parallel` (`-P`) | Enables parallel `rsync` and defines the number of parallel `rsync` threads to run. If combined with `--compress` this flag defines the number of compression threads to run. Default is `4` | Example: `--parallel 8` |
 | `--compress` (`-c`) | Compress backup in X format | Supported: `pigz` |
 | `--quiet` (`-q`) | Silence verbose copy command outputs | Useful for cron jobs |
 | `--name-backup` (`-nb`) | Define the name of the backup - default: `date +%m-%d-%Y` | Example: `-nb before-upgrade-backup` |

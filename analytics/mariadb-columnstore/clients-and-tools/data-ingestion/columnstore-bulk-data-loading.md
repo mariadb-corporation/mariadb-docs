@@ -403,7 +403,7 @@ The following example would ignore the last entry in the file and default salary
 * IgnoreFields instructs cpimport to ignore and skip the particular value at that position in the file.
 * DefaultColumn instructs cpimport to default the current table column and not move the column pointer forward to the next delimiter.
 
-Both instructions can be used indepedently and as many times as makes sense for your data and table definition.
+Both instructions can be used independently and as many times as makes sense for your data and table definition.
 
 ## Binary Source Import
 

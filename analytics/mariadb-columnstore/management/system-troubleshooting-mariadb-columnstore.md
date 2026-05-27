@@ -200,7 +200,7 @@ MariaDB ColumnStore-MySQL logs are stored here:
 Other informational log files will be written to the log directory as well as the Temporary Directory from MariaDB ColumnStore process during certain operations. So you will see a few other logs show up in the log directory besides these.
 {% endhint %}
 
-Temporary Directory for root installs is located in `/tmp/columnstore/tmp/filles/`.
+Temporary Directory for root installs is located in `/tmp/columnstore/tmp/files/`.
 
 Temporary Directory for non-root installs is located in `$HOME/.tmp` .
 
@@ -767,7 +767,7 @@ On pm1
 
 ### Error Forking cpimport.bin (errno-12); Cannot Allocate Memory
 
-This Error is an indication that ExeMgr on the User Module doesnt have enough local memory to run the Bulk Load Process cpimport.bin. So check for Process Memory allocation by other processes on the User Module when this error gets reported.
+This Error is an indication that ExeMgr on the User Module doesn't have enough local memory to run the Bulk Load Process cpimport.bin. So check for Process Memory allocation by other processes on the User Module when this error gets reported.
 
 Here is one example of when this problem has been seen. The setting of `innodb_buffer_pool_size` in `my.cnf` is set too high. In general, it shouldn't be set any higher than 50GB or 25% of the total memory.
 
