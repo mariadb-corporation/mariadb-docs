@@ -32,7 +32,7 @@ The initialization function accepts 3 parameters and returns zero on success, no
 
 `int init(void **handle, const char *filename, void *userdata)`
 
-The read function is called repeatly to read data chunks from file into buffer. The amount of bytes is limited by parameer buffer\_len. The function returns the number of bytes which were read from the file:
+The read function is called repeatedly to read data chunks from file into buffer. The amount of bytes is limited by parameer buffer\_len. The function returns the number of bytes which were read from the file:
 
 `int mysql_local_infile_read(void *handle, char * buffer, unsigned int buffer_len)`
 

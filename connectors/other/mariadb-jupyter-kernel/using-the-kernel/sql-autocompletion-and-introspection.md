@@ -49,7 +49,7 @@ Here's a summary of our autocompletion capabilities, but we strongly recommend y
 
 ![](../../../.gitbook/assets/alias.png)
 
-**Completion of `SHOW` statments**
+**Completion of `SHOW` statements**
 
 ![](../../../.gitbook/assets/show.png)
 

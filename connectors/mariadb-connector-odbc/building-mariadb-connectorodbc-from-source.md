@@ -98,7 +98,7 @@ Building MariaDB Connector/ODBC from a source package is a bit different than bu
 Also, it should be possible to build from source package using the MariaDB Connector/C headers and library installed on your system. You need to ensure that the appropriate MariaDB Connector/C version is installed. Most probably you will need to point your compiler and/or linker to the location of the MariaDB Connector/C headers and/or library. e.g.
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCMAKE_C_FLAGS_RELWITHDEBINFO="-I/usr/local/incude/mariadb -L/usr/local/lib" .
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCMAKE_C_FLAGS_RELWITHDEBINFO="-I/usr/local/include/mariadb -L/usr/local/lib" .
 ```
 
 {% @marketo/form formId="4316" %}

@@ -19,7 +19,7 @@ from mariadb.constants import *
 MariaDB capability flags.
 
 These flags are used to check the capabilities both of a MariaDB server
-or the client applicaion.
+or the client application.
 
 Capability flags are defined in module *mariadb.constants.CAPABILIY*
 
@@ -53,7 +53,7 @@ Server supports LOCAL INFILE
 MariaDB capability flags.
 
 These flags are used to check the capabilities both of a MariaDB server
-or the client applicaion.
+or the client application.
 
 Capability flags are defined in module *mariadb.constants.CLIENT*
 
@@ -204,7 +204,7 @@ column type is SMALLINT (2-byte integer)
 
 #### FIELD_TYPE.LONG
 
-column tyoe is INT (4-byte integer)
+column type is INT (4-byte integer)
 
 #### FIELD_TYPE.FLOAT
 
@@ -220,11 +220,11 @@ column type is NULL
 
 #### FIELD_TYPE.TIMESTAMP
 
-column tyoe is TIMESTAMP
+column type is TIMESTAMP
 
 #### FIELD_TYPE.LONGLONG
 
-column tyoe is BIGINT (8-byte Integer)
+column type is BIGINT (8-byte Integer)
 
 #### FIELD_TYPE.INT24
 

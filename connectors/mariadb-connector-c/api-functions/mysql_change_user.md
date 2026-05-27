@@ -27,7 +27,7 @@ Changes the user and default database of the current connection.
 
 In order to successfully change users a valid username and password parameters must be provided and that user must have sufficient permissions to access the desired database. If for any reason authorization fails, the current user authentication will remain.
 
-Returns zero on success, nonzero if an error occured.
+Returns zero on success, nonzero if an error occurred.
 
 {% hint style="info" %}
 mysql\_change\_user will always cause the current database connection to behave as if was a completely new database connection, regardless of if the operation was completed successfully. This reset includes performing a rollback on any active transactions, closing all temporary tables, and unlocking all locked tables.

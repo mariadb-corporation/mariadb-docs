@@ -52,7 +52,7 @@ For these information types of parameters mysql needs to be set to NULL.
 * `MARIADB_CONNECTION_INFO`: Retrieves generic info for last used command.Parameter type: `const char *`.
 * `MARIADB_CONNECTION_PORT`: Retrieves the port number of server host.Parameter type: `unsigned int`.
 * `MARIADB_CONNECTION_PROTOCOL_VERSION_ID`: Retrieves the protocol version number.Parameter type: `unsigned int`.
-* `MARIADB_CONNECTION_PVIO_TYPE`: Retrives the pvio plugin used for specified connection.Parameter type: `unsigned int`.
+* `MARIADB_CONNECTION_PVIO_TYPE`: Retrieves the pvio plugin used for specified connection.Parameter type: `unsigned int`.
 * `MARIADB_CONNECTION_SCHEMA`: Retrieves the current schema.Parameter type: `const char*`.
 * `MARIADB_CONNECTION_SERVER_CAPABILITIES`: Returns the [capability flags](../../mariadb-connector-python/constants.md#capability) of the connected server.Parameter type: `unsigned long`.
 * `MARIADB_CONNECTION_SERVER_STATUS`: Returns server status after last operation. A list of possible flags can be found in the description OK packet.Parameter type: `unsigned int`.

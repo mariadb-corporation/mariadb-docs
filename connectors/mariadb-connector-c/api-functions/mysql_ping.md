@@ -19,7 +19,7 @@ int mysql_ping(MYSQL * mysql);
 
 Checks whether the connection to the server is working. If it has gone down, and global option reconnect is enabled an automatic reconnection is attempted.
 
-Returns zero on success, nonzero if an error occured.
+Returns zero on success, nonzero if an error occurred.
 
 This function can be used by clients that remain idle for a long while, to check whether the server has closed the connection and reconnect if necessary.
 

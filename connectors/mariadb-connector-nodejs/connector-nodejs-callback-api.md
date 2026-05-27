@@ -1097,7 +1097,7 @@ cluster.getConnection("^slave", (err, conn) => {
 
 ### `poolCluster events`
 
-PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration if the option `removeNodeErrorCount` is defined (default to 5) and connector fails to connect more than `removeNodeErrorCount` times. (if other nodes are present, each attemps will wait for value of the option `restoreNodeTimeout`)
+PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration if the option `removeNodeErrorCount` is defined (default to 5) and connector fails to connect more than `removeNodeErrorCount` times. (if other nodes are present, each attempt will wait for value of the option `restoreNodeTimeout`)
 
 ```javascript
 const mariadb = require('mariadb/callback');
