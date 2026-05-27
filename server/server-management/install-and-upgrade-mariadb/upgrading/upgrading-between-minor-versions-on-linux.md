@@ -7,17 +7,19 @@ description: >-
 
 # Upgrading Between Minor MariaDB Versions
 
-These instructions detail a **minor release upgrade** of **MariaDB Community Server** on Linux. A minor release upgrade is a change from one release to a later release within the same release series — for example, from MariaDB 11.4.4 to MariaDB 11.4.5.
+These instructions detail a **minor release upgrade** of **MariaDB Community Server** on Linux. A minor release upgrade refers to upgrading within the same release series. For example, upgrading from MariaDB 11.4.4 to MariaDB 11.4.5 without changing the major version. Minor releases typically deliver bug fixes, security patches, and stability improvements.
 
-For Windows, see [Upgrading MariaDB on Windows](upgrading-mariadb-on-windows.md) instead. For major version upgrades (e.g., MariaDB 10.11 to MariaDB 11.4), see [Upgrading Between Major MariaDB Versions](upgrading-between-major-mariadb-versions.md) and the per-version guides listed in [See Also](#see-also).
+For Windows, see [Upgrading MariaDB on Windows](upgrading-mariadb-on-windows.md). For major version upgrades (for example, MariaDB 10.11 to MariaDB 11.4), see [Upgrading Between Major MariaDB Versions](upgrading-between-major-mariadb-versions.md) and the per-version guides listed in [See Also](#see-also).
 
 {% hint style="info" %}
-The examples in this guide use MariaDB Community Server 11.4.4 → 11.4.5 as the worked scenario, but the same procedure applies to any supported minor-version upgrade within a release series.
+The examples in this page use MariaDB Community Server 11.4.4 → 11.4.5 as the worked scenario. The same procedure applies to any supported minor-version upgrade within a release series.
 {% endhint %}
 
 ## Data Backup
 
-Occasionally, issues can be encountered during upgrades. These issues can even potentially corrupt the database's data files, preventing you from easily reverting to the old installation. It is generally best to perform a backup prior to upgrading. If an issue is encountered during the upgrade, you can use the backup to restore your MariaDB Server database to the old version. If the upgrade finishes without issue, then the backup can be deleted.
+Occasionally, issues can be encountered during an upgrade. These issues can even potentially corrupt the database's data files, making it difficult to revert to the previous installation. It is strongly recommended to create a backup before upgrading. 
+* If the upgrade fails, the backup can be used to restore the database to the previous version of MariaDB Server. 
+* If the upgrade finishes successfully, then the backup can be deleted.
 
 The instructions below show how to perform a backup using [MariaDB Backup](../../../server-usage/backup-and-restore/mariadb-backup/). For more information about backing up and restoring the database, see the [Recovery Guide](../../../server-usage/backup-and-restore/).
 
@@ -30,6 +32,7 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
           --target-dir=/data/backup/preupgrade_backup
     ```
 
+    Replace `mariadb-backup_user` and `mariadb-backup_passwd` with your actual backup user credentials.
     Confirm successful completion of the backup operation.
 2.  Prepare the backup so it is ready for immediate restoration if required:
 
@@ -45,7 +48,7 @@ The instructions below show how to perform a backup using [MariaDB Backup](../..
 
 Before the new packages are installed, stop the running server.
 
-1.  Set the [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown) system variable to `1` so InnoDB closes cleanly:
+1.  Set the [innodb\_fast\_shutdown](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fast_shutdown) system variable to `1` so InnoDB flushes all dirty pages and closes cleanly:
 
     ```sql
     SET GLOBAL innodb_fast_shutdown = 1;
@@ -65,7 +68,7 @@ Before the new packages are installed, stop the running server.
 
 ## Install the New Version
 
-Unlike a major-version upgrade, a minor-version upgrade does **not** require uninstalling the old packages first. The distribution's package manager handles the upgrade in place.
+Unlike a major-version upgrade, a minor-version upgrade does **not** require uninstalling the old packages first. The distribution's package manager upgrades the packages in place, while keeping the data directory and configuration files unchanged.
 
 MariaDB Community Server provides a setup script, [`mariadb_repo_setup`](../mariadb-package-repository-setup-and-usage.md), that configures the package repository for your distribution. To pin to a specific minor release, pass the full version number to `--mariadb-server-version`, prefixed with `mariadb-`. For example, to install MariaDB 11.4.5 instead of the latest 11.4.x release:
 
@@ -83,7 +86,7 @@ To track the latest release in a series rather than pinning to a specific minor,
 {% tab title="Upgrade via YUM" %}
 **Upgrade via YUM (RHEL, AlmaLinux, CentOS, Rocky Linux)**
 
-1.  Configure the YUM package repository for the target release. The example pins to MariaDB 11.4.5:
+1.  Configure the YUM package repository for the target release. The following example uses MariaDB 11.4.5; adjust the version number for your target release:
 
     ```bash
     sudo yum install curl
@@ -108,13 +111,13 @@ To track the latest release in a series rather than pinning to a specific minor,
     sudo yum update "MariaDB-*" "galera*"
     ```
 
-    Be sure to check that the wildcards do not unintentionally refer to any of your custom applications.
+    Check that the wildcards do not unintentionally match any custom applications.
 {% endtab %}
 
 {% tab title="Upgrade via APT" %}
 **Upgrade via APT (Debian, Ubuntu)**
 
-1.  Configure the APT package repository for the target release. The example pins to MariaDB 11.4.5:
+1.  Configure the APT package repository for the target release. The following example uses MariaDB 11.4.5; adjust the version number for your target release:
 
     ```bash
     sudo apt install curl
@@ -141,13 +144,13 @@ To track the latest release in a series rather than pinning to a specific minor,
     sudo apt install --only-upgrade "mariadb-*" "galera*"
     ```
 
-    Be sure to check that the wildcards do not unintentionally refer to any of your custom applications.
+    Check that the wildcards do not unintentionally match any custom applications.
 {% endtab %}
 
 {% tab title="Upgrade via ZYpp" %}
 **Upgrade via ZYpp (SLES, openSUSE)**
 
-1.  Configure the ZYpp package repository for the target release. The example pins to MariaDB 11.4.5:
+1.  Configure the ZYpp package repository for the target release. The following example uses MariaDB 11.4.5; adjust the version number for your target release:
 
     ```bash
     sudo zypper install curl
@@ -170,7 +173,7 @@ To track the latest release in a series rather than pinning to a specific minor,
     sudo zypper update "MariaDB-*" "galera*"
     ```
 
-    Be sure to check that the wildcards do not unintentionally refer to any of your custom applications.
+    Check that the wildcards do not unintentionally match any custom applications.
 {% endtab %}
 {% endtabs %}
 
@@ -183,7 +186,7 @@ For platforms that use YUM or ZYpp as a package manager, MariaDB Community Serve
 * `/etc/my.cnf.d/mysql-clients.cnf`
 * `/etc/my.cnf.d/server.cnf`
 
-If your version of any of these configuration files contained custom edits, then the package manager may save your edited version with the `.rpmsave` extension during the upgrade. To continue using your version with the custom edits, restore it before starting the server. For example, to restore `server.cnf`:
+If your version of any of these configuration files contained custom edits, then the package manager may save your edited version with the `.rpmsave` extension during the upgrade. To continue using your customized version, restore it before starting the server. For example, to restore `server.cnf`:
 
 ```bash
 sudo mv /etc/my.cnf.d/server.cnf /etc/my.cnf.d/server.cnf.original
@@ -214,14 +217,14 @@ For distributions that use `systemd`, manage the server process using `systemctl
 
 ## Upgrading the Data Directory
 
-MariaDB ships with a utility that identifies and corrects compatibility issues in the new version. After the server is upgraded and running, run [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) to upgrade the data directory:
+MariaDB ships with a utility that checks for and corrects any compatibility issues introduced by the upgrade. After the server is upgraded and running, run [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) to upgrade the data directory:
 
 ```bash
 sudo mariadb-upgrade
 ```
 
 {% hint style="info" %}
-Minor-version upgrades typically do not change the data dictionary, and recent MariaDB versions detect this and exit quickly. Running `mariadb-upgrade` is still recommended as a safety check, and is harmless when no work is needed.
+Minor-version upgrades do not change the data dictionary. On mariadb-upgrade 2.0 and later, `mariadb-upgrade` detects this automatically and exits immediately with a message confirming no upgrade is needed and this is expected behaviour. Running `mariadb-upgrade` after a minor upgrade is still recommended as a safety check, and is harmless when no work is needed. Use `--force` to run the full check regardless. 
 {% endhint %}
 
 ## Testing
