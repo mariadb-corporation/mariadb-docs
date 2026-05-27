@@ -22,20 +22,26 @@ The `mariadb.connect()` function accepts the following parameters:
 
 ### Basic Connection Parameters
 
-- **`host`** (`str`) - Hostname or IP address of the database server. Can be a comma-separated list for failover support. Default: `'localhost'`
+- **`host`** (`str`) - Hostname or IP address of the database server. Can be a comma-separated list for failover support (requires `libmariadb` 3.3 or later when used with the C extension). Default: `'localhost'`
 - **`port`** (`int`) - Port number of the database server. Default: `3306`
 - **`user`**, **`username`** (`str`) - Username for authentication. Default: `None`
 - **`password`**, **`passwd`** (`str`) - Password for authentication. Default: `None`
 - **`database`**, **`db`** (`str`) - Database (schema) name to use. Default: `None`
-- **`unix_socket`** (`str`) - Path to Unix socket file for local connections. Default: `None`
+- **`unix_socket`** (`str`) - Path to the Unix socket file for local connections. When `host` is `localhost` and this parameter is not set, the connector auto-detects the Linux distribution (via `/etc/os-release`) and uses the same default socket path that `libmariadb` is compiled with on that distro: `/run/mysqld/mysqld.sock` on Debian, Ubuntu, Arch, and Alpine; `/var/lib/mysql/mysql.sock` on Fedora, RHEL, and CentOS; `/run/mysql/mysql.sock` on openSUSE and SLES. On non-Linux platforms (Windows, macOS) or unknown distributions no auto-detection happens and the connection falls back to TCP. `/tmp/mysql.sock` is intentionally not probed (the `/tmp` directory is world-writable, which would allow a non-privileged attacker to plant a fake socket); pass `unix_socket='/tmp/mysql.sock'` explicitly if that path is required. Default: `None`
+- **`protocol`** - Force a specific transport protocol. Accepted values are a case-insensitive string or an integer:
+  - `'DEFAULT'` / `0` - connector chooses automatically (Unix socket for `localhost` when available, otherwise TCP)
+  - `'TCP'` / `1` - force TCP/IP even when `host` is `localhost`
+  - `'SOCKET'` / `2` - force Unix socket (requires `unix_socket` to be set or auto-detected)
+
+  Default: `'DEFAULT'`
 
 ### Timeout Parameters
 
-- **`connect_timeout`** (`float`) - Timeout in seconds for establishing connection. Default: `10.0`
-- **`socket_timeout`** (`float`) - Timeout in seconds for socket operations. Default: `30.0`
-- **`read_timeout`** (`float`) - Alias for `socket_timeout`. Default: `30.0`
-- **`write_timeout`** (`float`) - Alias for `socket_timeout`. Default: `30.0`
-- **`query_timeout`** (`int`) - Maximum query execution time in seconds (0 = no timeout). Default: `0`
+- **`connect_timeout`** (`float`) - Timeout in seconds for establishing the initial connection to the server. Default: `10.0`
+- **`socket_timeout`** (`float`) - I/O timeout in seconds for socket operations (read and write). Primary timeout parameter for the pure-Python connector. Default: `30.0`
+- **`query_timeout`** (`int`) - Maximum query execution time in seconds (0 means no timeout). Default: `0`
+- **`read_timeout`** *(C extension only)* (`float`) - Read (receive) timeout in seconds, passed directly to `libmariadb`. On the pure-Python connector this value is accepted but mapped to `socket_timeout`. Default: same as `socket_timeout`
+- **`write_timeout`** *(C extension only)* (`float`) - Write (send) timeout in seconds, passed directly to `libmariadb`. On the pure-Python connector this value is accepted but mapped to `socket_timeout`. Default: same as `socket_timeout`
 
 ### SSL/TLS Parameters
 
@@ -48,7 +54,16 @@ The `mariadb.connect()` function accepts the following parameters:
 - **`ssl_crl`** (`str`) - Path to certificate revocation list file. Default: `None`
 - **`ssl_crlpath`** (`str`) - Path to directory containing CRL files. Default: `None`
 - **`ssl_verify_cert`** (`bool`) - Enable server certificate verification. Default: `False`
-- **`tls_version`** (`str`) - TLS version(s) to use (e.g., 'TLSv1.2', 'TLSv1.3', 'TLSv1.2,TLSv1.3'). Automatically enables SSL. Default: `None`
+- **`tls_version`** (`str`) - TLS version(s) to use (e.g., `'TLSv1.2'`, `'TLSv1.3'`, `'TLSv1.2,TLSv1.3'`). Automatically enables SSL. Default: `None`
+- **`tls_fp`** *(C extension only)* (`str`) - SHA-256 fingerprint of the expected server certificate, used for certificate pinning. Default: `None`
+- **`tls_fp_list`** *(C extension only)* (`str`) - Path to a file containing a list of accepted server certificate SHA-256 fingerprints. Default: `None`
+
+### Configuration File Parameters
+
+- **`default_file`** (`str`) - Read connection options from the specified MariaDB option file. On Windows the file must be a `.ini` file. If an empty string is passed, the connector reads from the default configuration files. Default: `None`
+- **`default_group`** (`str`) - Read connection options from the specified group within the option file. If not given, the default group name is the connection type. Default: `None`
+
+For a description of configuration file handling and accepted settings, see the [Configuration files](https://github.com/mariadb-corporation/mariadb-connector-c/wiki/config_files#configuration-options) chapter of the MariaDB Connector/C documentation.
 
 ### Connection Behavior Parameters
 
@@ -56,7 +71,8 @@ The `mariadb.connect()` function accepts the following parameters:
 - **`read_only`** (`bool`) - Set connection to read-only mode. Default: `False`
 - **`compress`** (`bool`) - Enable protocol compression. Default: `False`
 - **`local_infile`** (`bool`) - Enable LOAD DATA LOCAL INFILE statements. Default: `None`
-- **`init_command`** (`str`) - SQL command to execute when connecting/reconnecting. Default: `None`
+- **`init_command`** (`str`) - SQL command to execute when connecting and reconnecting. Default: `None`
+- **`plugin_dir`** *(C extension only)* (`str`) - Directory containing MariaDB client plugins. Not applicable to the pure-Python connector. Default: `None`
 
 ### Protocol and Performance Parameters
 
@@ -80,6 +96,21 @@ The `mariadb.connect()` function accepts the following parameters:
 ### Type Conversion Parameters
 
 - **`converter`** (`dict`) - Custom type converter dictionary mapping field types to conversion functions. Default: `None`
+
+## Implementation Selection
+
+*Since version 2.0*
+
+The connector ships in three packaging variants — pure-Python, a binary wheel, and the C extension — and selects an implementation automatically at import time. Override the choice with the `MARIADB_PYTHON_CONNECTOR` environment variable:
+
+| Value | Implementation |
+|---|---|
+| `c` / `mariadb_c` | C extension (requires compilation, full feature set) |
+| `binary` / `mariadb_binary` | Binary wheel (precompiled, bundled dependencies) |
+| `python` / `mariadb` | Pure-Python implementation |
+| _unset_ | Default: try the C extension, then the binary wheel, fall back to pure-Python |
+
+Parameters tagged *(C extension only)* in the lists above are honored only when the C extension implementation is in use. On the pure-Python path those parameters are accepted but ignored, with the exception of `read_timeout` and `write_timeout` which are mapped to `socket_timeout`.
 
 ### Connection Examples
 

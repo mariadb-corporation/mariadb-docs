@@ -49,51 +49,28 @@ conn = mariadb.connect("mariadb://user:password@localhost/mydb", database="other
 
 **Keyword Arguments:**
 
-Connection parameters can also be provided as keyword arguments:
+Connection parameters can also be provided as keyword arguments. The most common ones are:
 
-- **\`host\`** - The host name or IP address of the database server. If MariaDB Connector/Python was built with MariaDB Connector/C 3.3, it is also possible to provide a comma separated list of hosts for simple fail over in case of one or more hosts are not available.
-- **\`user\`, \`username\`** - The username used to authenticate with the database server
-- **\`password\`, \`passwd\`** - The password of the given user
-- **\`database\`, \`db\`** - Database (schema) name to use when connecting with the database server
-- **\`unix_socket\`** - The location of the unix socket file to use instead of using an IP port to connect. If socket authentication is enabled, this can also be used in place of a password.
-- **\`port\`** - Port number of the database server. If not specified, the default value of 3306 will be used.
-- **\`connect_timeout\`** - Connect timeout in seconds
-- **\`read_timeout\`** - Read timeout in seconds
-- **\`write_timeout\`** - Write timeout in seconds
-- **\`local_infile\`** - Enables or disables the use of LOAD DATA LOCAL INFILE statements.
-- **\`compress\`** (default: False) - Uses the compressed protocol for client server communication. If the server doesn’t support compressed protocol, the default protocol will be used.
-- **\`init_command\`** - Command(s) which will be executed when connecting and reconnecting to the database server
-- **\`default_file\`** - Read options from the specified option file. If the file is an empty string, default configuration file(s) will be used
-- **\`default_group\`** - Read options from the specified group
-- **\`plugin_dir\`** - Directory which contains MariaDB client plugins (C extension only, not available in pure Python)
-- **\`binary\`** (default: False) - *Since version 2.0* - When enabled at connection level, all cursors default to binary protocol (prepared statements). Can be overridden per cursor.
-- **\`cache_prep_stmts\`** (default: True) - *Since version 2.0* - Enables or disables prepared statement caching. When enabled, prepared statements are reused across executions.
-- **\`prep_stmt_cache_size\`** (default: 100) - *Since version 2.0* - Maximum number of cached prepared statements per connection. When the cache is full, the least recently used statement is evicted.
-- **\`pipeline\`** (default: False) - *Since version 2.0* - Enables pipelining for batch operations
-- **\`ssl_key\`** - Defines a path to a private key file to use for TLS. This option requires that you use the absolute path, not a relative path. The specified key must be in PEM format
-- **\`ssl_cert\`** - Defines a path to the X509 certificate file to use for TLS. This option requires that you use the absolute path, not a relative path. The X609 certificate must be in PEM format.
-- **\`ssl_ca\`** - Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for TLS. This option requires that you use the absolute path, not a relative path.
-- **\`ssl_capath\`** - Defines a path to a directory that contains one or more PEM files that contains one X509 certificate for a trusted Certificate Authority (CA)
-- **\`ssl_cipher\`** - Defines a list of permitted cipher suites to use for TLS
-- **\`ssl_crlpath\`** - Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for TLS. This option requires that you use the absolute path, not a relative path.
-- **\`ssl_verify_cert\`** - Enables server certificate verification.
-- **\`ssl\`** - The connection must use TLS security, or it will fail.
-- **\`tls_version\`** - A comma-separated list (without whitespaces) of TLS versions. Valid versions are TLSv1.0, TLSv1.1,TLSv1.2 and TLSv1.3. Added in version 1.1.7.
-- **\`autocommit\`** (default: False) - Specifies the autocommit settings. True will enable autocommit, False will disable it (default).
-- **\`converter\`** - Specifies a conversion dictionary, where keys are FIELD_TYPE values and values are conversion functions
+- **`host`** - Host name or IP address of the database server. Can be a comma-separated list of hosts for simple failover. Default: `'localhost'`
+- **`port`** - Port number of the database server. Default: `3306`
+- **`user`**, **`username`** - Username for authentication
+- **`password`**, **`passwd`** - Password for authentication
+- **`database`**, **`db`** - Default database (schema) to select when connecting
+- **`unix_socket`** - Path to a Unix socket file for local connections (used in place of TCP)
+- **`autocommit`** - Enable autocommit mode. Default: `False`
+- **`converter`** - Conversion dictionary mapping `FIELD_TYPE` values to conversion functions
+
+For the full list of accepted parameters — including SSL/TLS options, timeouts, prepared-statement caching, configuration file loading, the result format options (`dictionary`, `named_tuple`, `native_object`), and the parameters that only apply to the C extension — see [The connection class](connection.md).
 
 #### Removed Parameters in Version 2.0
 
 The following parameters have been removed:
 
-- **\`reconnect\`** / **\`auto_reconnect\`** - Automatic reconnection is no longer supported. Use connection pools or call `conn.reconnect()` manually.
-- **\`cursor_type\`** - Replaced by `buffered=False` parameter in cursor creation.
-- **\`prepared\`** - Replaced by `binary=True` parameter.
+- **`reconnect`** / **`auto_reconnect`** - Automatic reconnection is no longer supported. Use connection pools or call `conn.reconnect()` manually.
+- **`cursor_type`** - Replaced by `buffered=False` parameter in cursor creation.
+- **`prepared`** - Replaced by `binary=True` parameter.
 
 For migration guidance, see the [Migration Guide](migration-from-1.1-to-2.0.md).
-
-#### NOTE
-For a description of configuration file handling and settings please read the chapter [Configuration files](https://github.com/mariadb-corporation/mariadb-connector-c/wiki/config_files#configuration-options) of the MariaDB Connector/C documentation.
 
 **Examples:**
 
