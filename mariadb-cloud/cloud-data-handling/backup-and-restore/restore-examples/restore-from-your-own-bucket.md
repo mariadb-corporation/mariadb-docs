@@ -30,7 +30,7 @@ curl --location 'https://api.skysql.com/skybackup/v1/restores' \
   }'
 ```
 
-* SERVICE\_ID : MariaDB Cloud serivce identifier, format dbtxxxxxx. You can fetch your service ID from the Fully qualified domain name(FQDN) of your service.\
+* SERVICE\_ID : MariaDB Cloud service identifier, format dbtxxxxxx. You can fetch your service ID from the Fully qualified domain name(FQDN) of your service.\
   E.g: in dbpgf17106534.sysp0000.db2.skysql.com, 'dbpgf17106534' is the service ID. You will find the FQDN in the [Connect window](https://app.skysql.com/dashboard)
 * ID : the backup data file reference, available in your GCS or S3 bucket.
 
@@ -56,7 +56,7 @@ Make sure the `BUCKET_NAME` contains a trailing slash.
   Available options: `mariabackup` , `mysqldump`\\
 *   GCP\_SERVICE\_ACCOUNT\_BASE64/AWS\_ACCOUNT\_ACCESS\_KEY\_BASE64 : Your base64 encoded GCP service account or AWS account access key.
 
-    Information on how to create a GCP service account [here](https://cloud.google.com/iam/docs/keys-create-delete) Storage Admin role is required for the service account attemping the restore.
+    Information on how to create a GCP service account [here](https://cloud.google.com/iam/docs/keys-create-delete) Storage Admin role is required for the service account attempting the restore.
 
     Sample GCP service account key and command to encode it:
 
