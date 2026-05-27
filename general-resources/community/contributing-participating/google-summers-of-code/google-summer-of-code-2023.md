@@ -28,7 +28,7 @@ Our version of RocksDB is lagging behind the current upstream and needs to be up
 
 **Part-time (175h) or full-time project (350h) - depending on scope**
 
-Our GIS functionality is limitted compared to other DBMSes. Given that MariaDB looks to facilitate migration from MySQL, we should be on par. We have a list of functions that are missing in MariaDB compared to MySQL, as described in [function-differences-between-mariadb-10-10-and-mysql-8-0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-10-10-and-mysql-8-0).\
+Our GIS functionality is limited compared to other DBMSes. Given that MariaDB looks to facilitate migration from MySQL, we should be on par. We have a list of functions that are missing in MariaDB compared to MySQL, as described in [function-differences-between-mariadb-10-10-and-mysql-8-0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-10-10-and-mysql-8-0).\
 Our goal is to have as many of these functions available within MariaDB. Some of the functionality can be ported from MySQL, while others might require implementation from scratch.
 
 **Skills needed**: Understanding of C++ development. Ability to navigate a large codebase (with help from mentor).**Mentors:** Anel Husakovic (primary) / Vicențiu Ciorbaru (secondary)
@@ -77,7 +77,7 @@ The challenge of this project lies in:
 
 **Part-time project 175h**
 
-The main focus of this project is around developer / sysadmin experience. We want to improve the quality of life of those using MariaDB. Migrating large datasets is one of these challenges. As is described in the MDEV, a simple limitation related to LOAD DATA INFILE can severly hamper developer productivity.\
+The main focus of this project is around developer / sysadmin experience. We want to improve the quality of life of those using MariaDB. Migrating large datasets is one of these challenges. As is described in the MDEV, a simple limitation related to LOAD DATA INFILE can severely hamper developer productivity.\
 A related problem is discussed in [MDEV-13046](https://jira.mariadb.org/browse/MDEV-13046).
 
 The goal of this project is to come up with a solution for storing warnings during LOAD DATA INFILE. This will require modifying the existing server codebase to create an SQL interface for processing the generated warnings.
@@ -100,13 +100,13 @@ Our CI/CD infrastructure uses a recent version of Buildbot. The GRID view plugin
 
 ### MariaDB Columnstore
 
-MariaDB Columnstore is a columnar engine for MariaDB Server for OLAP workload. MCS is also a distributed multithreaded application written in C++. C++20 is curently used for development. There is a number of interesting MCS projects to be part of in both research and production programming areas.
+MariaDB Columnstore is a columnar engine for MariaDB Server for OLAP workload. MCS is also a distributed multithreaded application written in C++. C++20 is currently used for development. There is a number of interesting MCS projects to be part of in both research and production programming areas.
 
 #### JIT compiled SQL expressions
 
 **Part-time project 175h / Full-time project 350h - depending on scope**
 
-MCS uses interepreted execution to calculate SQL expressions results. Here is an example of a SQL expression 'table1.col1 + FLOOR(table2.col1)'. Given that table1.col1 is DECIMAL and table2.col1 is DOUBLE there is a number of conditions that drives the calculation of this relatively simple example in runtime. Given that SQL types and expression tree are known before the query begins it is possible to replace interpretation with JIT to produce specialized compiled bytecode that is:
+MCS uses interpreted execution to calculate SQL expressions results. Here is an example of a SQL expression 'table1.col1 + FLOOR(table2.col1)'. Given that table1.col1 is DECIMAL and table2.col1 is DOUBLE there is a number of conditions that drives the calculation of this relatively simple example in runtime. Given that SQL types and expression tree are known before the query begins it is possible to replace interpretation with JIT to produce specialized compiled bytecode that is:
 
 1. small
 2. has no or almost no branches
@@ -166,7 +166,7 @@ The suggested approach is to replace this DSV parser with a modular one that und
 
 **Part-time project 175h / Full-time project 350h - depending on scope**
 
-MCS uses scalar processing to calculate SQL expressions results. The expressions can be in projection or filtering part of a SQL query. Here is an example of a SQL expression 'table1.col1 + FLOOR(table2.col1)'. In most cases scalar processing can be replaced with a vectorized execution that reduces a number of cycles to render the result of an expression. The challenge of this project is that in-memory representation ca be both vertical and horisontal.
+MCS uses scalar processing to calculate SQL expressions results. The expressions can be in projection or filtering part of a SQL query. Here is an example of a SQL expression 'table1.col1 + FLOOR(table2.col1)'. In most cases scalar processing can be replaced with a vectorized execution that reduces a number of cycles to render the result of an expression. The challenge of this project is that in-memory representation ca be both vertical and horizontal.
 
 This is a research mostly project which goal is to produce a set of microbenchmarks that:
 
@@ -193,7 +193,7 @@ This task requires:
 
 1. Add support to the Columnstore for building with sanitizers (ASan, TSan, UBSan)
 2. Write a code which integrates C++ MariaDB Connectors and libFuzzer.
-3. Prepare a valid corpus with SQL sripts suitable for Columnstore.
+3. Prepare a valid corpus with SQL scripts suitable for Columnstore.
 4. Create a fuzzing infrastructure.
 
 Skills needed:

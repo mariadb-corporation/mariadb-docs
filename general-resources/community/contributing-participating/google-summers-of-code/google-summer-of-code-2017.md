@@ -36,7 +36,7 @@ The purpose of this task is to create an easy-to-use facility for setting up a n
 
 ### GIS enhancements
 
-[GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/geometry) enhancements for 10.1 that we want to work on include adding support for altitude (the third coordinate), converters (eg. ST\_GeomFromGeoJSON - ST\_AsGeoJSON, ST\_GeomFromKML - ST\_AsKML, etc.), Getting data from SHP format (shp2sql convertor), as well as making sure we are fully OpenGIS compliant.
+[GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/geometry) enhancements for 10.1 that we want to work on include adding support for altitude (the third coordinate), converters (eg. ST\_GeomFromGeoJSON - ST\_AsGeoJSON, ST\_GeomFromKML - ST\_AsKML, etc.), Getting data from SHP format (shp2sql converter), as well as making sure we are fully OpenGIS compliant.
 
 | Details:             | Skills:                                                | Mentor: | Students Interested: |
 | -------------------- | ------------------------------------------------------ | ------- | -------------------- |

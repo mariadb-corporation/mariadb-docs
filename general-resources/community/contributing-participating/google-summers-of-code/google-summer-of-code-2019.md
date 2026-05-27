@@ -357,13 +357,13 @@ Master will write BEGIN\_DDL\_EVENT in binlog after it hits ha\_prepare\_inplace
 Then master will write QUERY\_EVENT on binlog with actual alter query .\
 On commit/rollback master will write COMMIT\_DDL\_EVENT/ROLLBACK\_DDL\_EVENT.\
 On slave there will be pool of threads(configurable global variable), which\
-will apply these DDLs. On reciving BEGIN\_DDL\_EVENT slave thread will pass the\
-QUERY\_EVENT to one of the worker thread. Worker thread will execute untill\
+will apply these DDLs. On receiving BEGIN\_DDL\_EVENT slave thread will pass the\
+QUERY\_EVENT to one of the worker thread. Worker thread will execute until\
 ha\_inplace\_alter\_table. Actual commit\_inplace\_alter will be called by sql thread.\
-If sql thread recieve some kind of rollback event , then it will somehow signal\
-worker thread to stop executing alter. If none of the worker threads are avaliable\
-then event will be enqueued, then If we recieved rollback event the we will simply\
-discard event from queue, If we recieved commit event then SQL thread will syncrolysly\
+If sql thread receive some kind of rollback event , then it will somehow signal\
+worker thread to stop executing alter. If none of the worker threads are available\
+then event will be enqueued, then If we received rollback event the we will simply\
+discard event from queue, If we received commit event then SQL thread will syncrolysly\
 process DDL event.
 
 | Details: | Mentor:                                                  |
@@ -505,7 +505,7 @@ Here is the link on how to build fast a CS developer environment.
 
 #### Engine independent statistics for Columnstore
 
-CS now has a very rudimentary query optimization capabilities and we want to improve the situtation. We consider to use Server's optimizer for the purpose but the Server needs statistics namely values distribution histograms and Number of Distinct Values distribution histograms.\
+CS now has a very rudimentary query optimization capabilities and we want to improve the situation. We consider to use Server's optimizer for the purpose but the Server needs statistics namely values distribution histograms and Number of Distinct Values distribution histograms.\
 There are different levels of complexity for the task:
 
 * implement standalone segment files reader that in the end populates both mysql.column\_stats and mysql.table\_stats using out of band mariadb client connection

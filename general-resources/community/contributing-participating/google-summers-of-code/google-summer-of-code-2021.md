@@ -23,7 +23,7 @@ Here is a suggested list of things to be done:
 * A GTID position means the point just _after_ that GTID. So starting from\
   GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will\
   probably be 0-1-101 and the last one 0-1-200. Note that if some domain is\
-  not specified in the position, it means to start from the begining,\
+  not specified in the position, it means to start from the beginning,\
   respectively stop immediately in that domain.
 * Starting and stopping GTID should work both with local files, and with`--read-from-remote-server`. For the latter, there are a couple of extra\
   things that need doing in the master-slave protocol, see`get_master_version_and_clock()` in `sql/slave.cc`.

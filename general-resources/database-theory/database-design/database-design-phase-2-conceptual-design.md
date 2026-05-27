@@ -66,7 +66,7 @@ The figure below shows husband and wife entities. In this system (others are of 
 
 ![one-to-one](../../.gitbook/assets/one-to-one.png)
 
-An entity can also have a relationship with itself. Such an entity is called a _recursive entity_. Take a _person_ entity. If you're interested in storing data about which people are brothers, you wlll have an "is brother to" relationship. In this case, the relationship is an M:N relationship.
+An entity can also have a relationship with itself. Such an entity is called a _recursive entity_. Take a _person_ entity. If you're interested in storing data about which people are brothers, you will have an "is brother to" relationship. In this case, the relationship is an M:N relationship.
 
 Conversely, a _weak entity_ is an entity that cannot exist without another entity. For example, in a school, the _scholar_ entity is related to the weak entity _parent/guardian_. Without the scholar, the parent or guardian cannot exist in the system. Weak entities usually derive their primary key, in part or in totality, from the associated entity. _parent/guardian_ could take the primary key from the scholar table as part of its primary key (or the entire key if the system only stored one parent/guardian per scholar).
 
