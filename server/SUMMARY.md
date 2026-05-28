@@ -4044,6 +4044,7 @@
       * [GTID\_LIST\_EVENT](reference/clientserver-protocol/replication-protocol/gtid_list_event.md)
       * [HEARTBEAT\_LOG\_EVENT](reference/clientserver-protocol/replication-protocol/heartbeat_log_event.md)
       * [INTVAR\_EVENT](reference/clientserver-protocol/replication-protocol/intvar_event.md)
+      * [PARTIAL\_ROW\_DATA\_EVENT](reference/clientserver-protocol/replication-protocol/partial_row_data_event.md)
       * [QUERY\_EVENT](reference/clientserver-protocol/replication-protocol/query_event.md)
       * [RAND\_EVENT](reference/clientserver-protocol/replication-protocol/rand_event.md)
       * [ROTATE\_EVENT](reference/clientserver-protocol/replication-protocol/rotate_event.md)
