@@ -20,8 +20,8 @@ Added in MariaDB 12.3 ([MDEV-32570](https://jira.mariadb.org/browse/MDEV-32570))
 
 ## Fields
 
-* [uint<4>](../protocol-data-types.md#fixed-length-integers) Sequence number of this fragment within the group (1-based).
 * [uint<4>](../protocol-data-types.md#fixed-length-integers) Total number of fragments in the group.
+* [uint<4>](../protocol-data-types.md#fixed-length-integers) Sequence number of this fragment within the group (1-based).
 * [uint<1>](../protocol-data-types.md#fixed-length-integers) Flags.
 * If (flags & `FL_ORIG_EVENT_SIZE`):
   * [uint<8>](../protocol-data-types.md#fixed-length-integers) Size of the original underlying rows event when reassembled on the replica.
