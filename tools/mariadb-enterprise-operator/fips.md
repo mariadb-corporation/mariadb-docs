@@ -27,6 +27,25 @@ helm install mariadb-enterprise-operator mariadb-enterprise-operator/mariadb-ent
 
 This will inject the required environment variable into the operator's Pod to enable FIPS-compliant mode.
 
+### OpenShift
+
+If you have deployed the operator on OpenShift via OperatorHub, you need to edit the `Subscription` for the MariaDB Enterprise Operator to inject the environment variable. After deploying the operator, edit the subscription and add the `config` section to the spec:
+
+```yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: mariadb-enterprise-operator
+  namespace: openshift-operators
+spec:
+  # [...]
+  config:
+    env:
+      - name: GODEBUG
+        value: fips140=on
+  # [...]
+```
+
 ## Implications of FIPS Mode
 
 When FIPS mode is enabled, the Go runtime enforces strict rules on the cryptographic algorithms that can be used. The MariaDB Operator ensures that all its communications are FIPS-compliant.
@@ -46,6 +65,12 @@ This enforcement applies to communication with:
 - Health check probes
 
 By enforcing these specific curves, the operator guarantees that all its external communication over TLS is FIPS-compliant.
+
+## Limitations
+
+### AWS S3 SSE-C Encryption
+
+Backups configured to use Server-Side Encryption with Customer-Provided Keys (SSE-C) with an S3-compatible storage provider are not supported when FIPS mode is enabled. The S3 protocol for SSE-C requires the use of the MD5 hashing algorithm for integrity checking, which is not FIPS-compliant.
 
 ## Further Reading
 
