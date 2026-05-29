@@ -1074,7 +1074,7 @@ The suffix can be upper or lower-case.
 
 #### `last_insert_id`
 
-* Description: Contains the same value as that returned by [LAST\_INSERT\_ID()](../../../reference/sql-functions/secondary-functions/information-functions/last_insert_id.md). Note that setting this variable doen't update the value returned by the underlying function.
+* Description: Contains the same value as that returned by [LAST\_INSERT\_ID()](../../../reference/sql-functions/secondary-functions/information-functions/last_insert_id.md). Note that setting this variable doesn't update the value returned by the underlying function.
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -1843,7 +1843,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Data Type: `enumerated` (>=[MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7))
 * Default Value: See [alter\_algorithm](server-system-variables.md#alter_algorithm)
 * Valid Values: See [alter\_algorithm](server-system-variables.md#alter_algorithm) for the full list.
-* Deprecated: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7) (superceded by [alter\_algorithm](server-system-variables.md#alter_algorithm))
+* Deprecated: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7) (superseded by [alter\_algorithm](server-system-variables.md#alter_algorithm))
 * Removed: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0)
 
 #### `old_mode`
@@ -2940,7 +2940,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `$TMPDIR` (environment variable) if set
   * otherwise `$TEMP` if set and on Windows
   * otherwise `$TMP` if set and on Windows
-  * otherwise, `P_tmpdir` (`"/tmp"`) or `C:\TEMP` (unless overridden during buid time)
+  * otherwise, `P_tmpdir` (`"/tmp"`) or `C:\TEMP` (unless overridden during build time)
 
 #### `transaction_alloc_block_size`
 
