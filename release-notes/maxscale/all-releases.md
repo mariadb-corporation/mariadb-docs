@@ -42,6 +42,7 @@ description: A list of all MariaDB MaxScale releases
 
 | Version                       | Release Date | Release Status |
 | ----------------------------- | ------------ | -------------- |
+| [23.08.14](23.08/23.08.14.md) | 2026-06-15   | Stable (GA)    |
 | [23.08.13](23.08/23.08.13.md) | 2026-03-16   | Stable (GA)    |
 | [23.08.12](23.08/23.08.12.md) | 2025-12-09   | Stable (GA)    |
 | [23.08.11](23.08/23.08.11.md) | 2025-09-08   | Stable (GA)    |
