@@ -71,7 +71,7 @@ Previous options `supportBigNumbers` and `bigNumberStrings` still exist for comp
 
 **Other considerations**
 
-MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the mariMariaDBadb driver, permitting the same query syntax for [Connection. Q](connector-nodejs-callback-api.md#connectionquerysql-values---promise)uery and [Connection.execute](connector-nodejs-callback-api.md#connectionexecutesql-values--promise).
+MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-callback-api.md#connectionquerysql-values---promise) and [Connection.execute](connector-nodejs-callback-api.md#connectionexecutesql-values--promise).
 
 Example:
 
