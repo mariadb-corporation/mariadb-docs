@@ -1465,6 +1465,7 @@
     * [MaxScale 24.02.0 Release Notes](maxscale/24.02/24.02.0.md)
     * [MaxScale 24.02 Changelog](maxscale/24.02/24.02-changelog.md)
   * [MariaDB MaxScale 23.08 Release Notes](maxscale/23.08/README.md)
+    * [MaxScale 23.08.14 Release Notes](maxscale/23.08/23.08.14.md)
     * [MaxScale 23.08.13 Release Notes](maxscale/23.08/23.08.13.md)
     * [MaxScale 23.08.12 Release Notes](maxscale/23.08/23.08.12.md)
     * [MaxScale 23.08.11 Release Notes](maxscale/23.08/23.08.11.md)
