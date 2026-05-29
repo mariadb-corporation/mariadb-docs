@@ -60,7 +60,7 @@ The options that can be used by STR\_TO\_DATE(), as well as its inverse [DATE\_F
 | %Y     | Year with 4 digits.                                                                                                                                                               |
 | %y     | Year with 2 digits.                                                                                                                                                               |
 | %#     | For [str\_to\_date](str_to_date.md)(), skip all numbers.                                                                                                                          |
-| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctation characters.                                                                                                            |
+| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctuation characters.                                                                                                            |
 | %@     | For [str\_to\_date](str_to_date.md)(), skip all alpha characters.                                                                                                                 |
 | %%     | A literal % character.                                                                                                                                                            |
 

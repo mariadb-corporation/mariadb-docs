@@ -148,7 +148,7 @@ another `_start()` function, it must be allowed to finish before starting a new\
 operation. Thus, the application must continue calling `mysql_real_query_cont()`\
 until zero is returned, indicating that the operation is completed. It is not allowed to leave one operation "hanging" in the middle of processing and then start a new one on top of it.
 
-It is, however, permissible to terminate the connection completely with `mysql_close()` in the middle of processing a non-blocking call. A new connection must then be initiated with `mysql_real_connect` before new queries can be run, either with a new `MYSQL` object or re-using the old one.
+It is, however, permissible to terminate the connection completely with `mysql_close()` in the middle of processing a non-blocking call. A new connection must then be initiated with `mysql_real_connect` before new queries can be run, either with a new `MYSQL` object or reusing the old one.
 
 In the future, we may implement an abort facility to force an on-going operation to terminate as quickly as possible (but it will still be necessary to call `mysql_real_query_cont()` one last time after abort, allowing it to clean up the operation and return immediately with an appropriate error code).
 
@@ -161,7 +161,7 @@ unix socket or an IP address, it may need to look up the hostname in DNS,\
 depending on local host configuration (e.g. if the name is not in`/etc/hosts` or cached). Such DNS lookups do **not** happen in a non-blocking way. This means that `mysql_real_connect_start()` will not return control to the application while waiting for the DNS response. Thus the application may "hang" for some time if DNS is slow or non-functional.
 
 If this is a problem, the application can pass an IP address to `mysql_real_connect_start()` instead of a hostname, which avoids the problem.\
-The IP address can be obtained by the application with whatever non-blocking DNS loopup operation is available to it from the operating system or event framework used. Alternatively, a simple solution may be to just add the hostname to the local host lookup file (`/etc/hosts` on Posix/Unix/Linux machines).
+The IP address can be obtained by the application with whatever non-blocking DNS lookup operation is available to it from the operating system or event framework used. Alternatively, a simple solution may be to just add the hostname to the local host lookup file (`/etc/hosts` on Posix/Unix/Linux machines).
 
 ### Windows Named Pipes and Shared Memory Connections
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Setting up a BuildBot slave on Solaris
 
-**NOTE #1:**_It would probably make sense to create a seperate zone for the buildbot on your Solaris 10 system. That is left up to you!_
+**NOTE #1:**_It would probably make sense to create a separate zone for the buildbot on your Solaris 10 system. That is left up to you!_
 
 **NOTE #2:**_You might need to install the Zope Interface package for some of the Python pieces to work properly. Do this after installing Python 2.5. You can find information on the Zope Interface on their_ [_site_](https://pypi.python.org/pypi/zope.interface)_._
 

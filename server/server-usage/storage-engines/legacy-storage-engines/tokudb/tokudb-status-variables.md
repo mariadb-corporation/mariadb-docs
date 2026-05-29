@@ -192,7 +192,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Tokudb_cachetable_size_cloned`
 
-* Description: Memory in bytes currently used for cloned nodes. Dirty nodes are cloned before serialization/compression during checkpoint operations, after which they are written to disk and the memory freed for re-use.
+* Description: Memory in bytes currently used for cloned nodes. Dirty nodes are cloned before serialization/compression during checkpoint operations, after which they are written to disk and the memory freed for reuse.
 
 #### `Tokudb_cachetable_size_current`
 

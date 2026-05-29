@@ -33,7 +33,7 @@ For more information see [Numeric Data Type Overview](../../../../reference/data
 | SQL Server Types | Precision | Size | MariaDB Types                                                                | Size |
 | ---------------- | --------- | ---- | ---------------------------------------------------------------------------- | ---- |
 | float(1-24)      | 7 digits  | 4    | [FLOAT(0-23)](../../../../reference/data-types/numeric-data-types/float.md)  | 4    |
-| float(25-53)     | 15 digist | 8    | [FLOAT(24-53)](../../../../reference/data-types/numeric-data-types/float.md) | 8    |
+| float(25-53)     | 15 digits | 8    | [FLOAT(24-53)](../../../../reference/data-types/numeric-data-types/float.md) | 8    |
 
 MariaDB supports an alternative syntax: `FLOAT(M, D)`. M is the total number of digits, and D is the number of digits after the decimal point.
 

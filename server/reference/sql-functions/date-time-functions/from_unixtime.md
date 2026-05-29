@@ -77,7 +77,7 @@ The following options can be used by `FROM_UNIXTIME()`, as well as [DATE\_FORMAT
 | %Y     | Year with 4 digits.                                                                                                                                                               |
 | %y     | Year with 2 digits.                                                                                                                                                               |
 | %#     | For [str\_to\_date](str_to_date.md)(), skip all numbers.                                                                                                                          |
-| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctation characters.                                                                                                            |
+| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctuation characters.                                                                                                            |
 | %@     | For [str\_to\_date](str_to_date.md)(), skip all alpha characters.                                                                                                                 |
 | %%     | A literal % character.                                                                                                                                                            |
 

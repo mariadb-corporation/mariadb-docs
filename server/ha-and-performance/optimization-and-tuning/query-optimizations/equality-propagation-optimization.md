@@ -37,7 +37,7 @@ INSERT INTO t1 (col1, col2) VALUES ('ab', 'ab   ');
 SELECT * FROM t1 WHERE col1=col2 AND LENGTH(col1)=2
 ```
 
-Here, `col1=col2`, the values are "equal". At the same time `LENGTH(col1)=2`, while `LENGTH(col2)=4`, which means one can't perform the substiution for the argument of LENGTH(...).
+Here, `col1=col2`, the values are "equal". At the same time `LENGTH(col1)=2`, while `LENGTH(col2)=4`, which means one can't perform the substitution for the argument of LENGTH(...).
 
 It's not only collations. There are similar phenomena when equality compares columns of different datatypes. The exact criteria of when thy happen are rather convoluted.
 

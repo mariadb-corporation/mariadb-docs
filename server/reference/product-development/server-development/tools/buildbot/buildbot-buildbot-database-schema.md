@@ -64,7 +64,7 @@ CREATE TABLE test_failure(
 ) ENGINE=innodb
 ```
 
-* test\_run\_id: This identifies the test run in which the test failure occured (eg. it is a foreign key to `id` in table `test_run`).
+* test\_run\_id: This identifies the test run in which the test failure occurred (eg. it is a foreign key to `id` in table `test_run`).
 * test\_name: The name of the test that failed, eg. `main.information_schema`.
 * test\_variant: Some tests are run multiple times in different variants. Ie. many replication tests are run under both statement-based, mixed-mode, and row-based replication. The variant will be 'stmt', 'mix', or 'row' accordingly. For tests that do not have multiple variants, the value will be the empty string (ie. not a NULL value).
 * info\_text: This is a short description that mysql-test-run.pl sometimes gives for some kinds of test failures (for example "timeout").
@@ -74,7 +74,7 @@ CREATE TABLE test_failure(
 
 This table holds information about test problems that were detected after a test case ran, during server restart (typically by finding an error or warning message in the server error log files). A typical example of this is a memory leak or a crash during server shutdown.
 
-Such a failure can not be attributed to a specific test case, as it could be caused by any of the tests run against the server since last restart, or could even be a general problem not caused by any test case. Instead, for each occurence, this table provides a list of names of the tests that were run by the server prior to detecting the error or warning.
+Such a failure can not be attributed to a specific test case, as it could be caused by any of the tests run against the server since last restart, or could even be a general problem not caused by any test case. Instead, for each occurrence, this table provides a list of names of the tests that were run by the server prior to detecting the error or warning.
 
 ```
 CREATE TABLE test_warnings(
@@ -87,7 +87,7 @@ CREATE TABLE test_warnings(
 ```
 
 * test\_run\_id: Identifies the corresponding row in table `test_run`.
-* list\_id: This is a counter for occurences of warnings within each test run (ie. it starts over from 0 again for each different value of `test_run_id`).
+* list\_id: This is a counter for occurrences of warnings within each test run (ie. it starts over from 0 again for each different value of `test_run_id`).
 * list\_idx: This is a counter for each test name (ie. it starts over from 0 again for each different value of `test_run_id` ''and'' `list_id`).
 * test\_name: The name of the test run by the server prior to seeing the warning.
 
@@ -113,7 +113,7 @@ SELECT branch, revision, platform, test_name, test_variant, failure_text
   WHERE failure_text LIKE "%--protocol=TCP' failed%";
 ```
 
-Check which branches a specific kind of failure has occured in:
+Check which branches a specific kind of failure has occurred in:
 
 ```
 SELECT branch, COUNT(*)
@@ -123,7 +123,7 @@ SELECT branch, COUNT(*)
   GROUP BY branch;
 ```
 
-Find all test runs where a given test was run against a server that later had warnings in the error log, and also count the number of occurences of this event in each run:
+Find all test runs where a given test was run against a server that later had warnings in the error log, and also count the number of occurrences of this event in each run:
 
 ```
 SELECT branch, revision, platform, COUNT(*)

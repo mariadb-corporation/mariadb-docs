@@ -240,7 +240,7 @@ SHOW GLOBAL VARIABLES LIKE 'long_query_time';
 +-----------------+-----------+
 ```
 
-Run a sleep statement longer than the threshhold of 10 seconds, then inspect the slow query log:
+Run a sleep statement longer than the threshold of 10 seconds, then inspect the slow query log:
 
 ```sql
 SELECT SLEEP(11);

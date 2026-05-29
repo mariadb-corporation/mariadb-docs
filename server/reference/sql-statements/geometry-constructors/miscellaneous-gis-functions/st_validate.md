@@ -27,7 +27,7 @@ The function is useful to filter out invalid geometry data.
 
 ## Examples
 
-A [POINT](../geometry-constructors/point.md) requires both x and y co-ordinates:
+A [POINT](../geometry-constructors/point.md) requires both x and y coordinates:
 
 ```sql
 SELECT ST_ASTEXT(ST_VALIDATE(ST_GeomFromText('POINT(1 0)')));          

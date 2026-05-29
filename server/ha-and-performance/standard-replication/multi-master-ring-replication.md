@@ -130,7 +130,7 @@ masters through slaves. The following setup shows how this can be done.
 
 ### Disadvantages of replication through slaves
 
-* There will be a slightly longer delay for the data to hit the next master as it has to go trough the slave. This can be notable if there is a very large transaction executed on the master.
+* There will be a slightly longer delay for the data to hit the next master as it has to go through the slave. This can be notable if there is a very large transaction executed on the master.
 * If the master OR the slave dies, the replication to other masters will stop.
 * A replicating master is subject to the configuration of a slave (e.g. transactions may be incorrectly filtered out).
 * Re-setting replication after failover is a bit more complex.
@@ -148,7 +148,7 @@ Here follows a step by step description of how to do this.
 
 The new slave that will be added to replace slave1 place will below be called slave3.\
 The new master will be called master3 (to simplify explanations).\
-Note that in some cases, the failed master can be re-used as the new slave if it did recover properly. If this is the case, reset all replications setups on the failed master.
+Note that in some cases, the failed master can be reused as the new slave if it did recover properly. If this is the case, reset all replications setups on the failed master.
 
 Note that when one sets up a master->slave replication, all configurations are done only on the slave!
 
@@ -163,7 +163,7 @@ Note that when one sets up a master->slave replication, all configurations are d
 
 Some other options:
 
-* For semi-sync setups, the old master1 can be re-used as slave3 if re-started with `--init-rpl-role=SLAVE` during recovery
+* For semi-sync setups, the old master1 can be reused as slave3 if re-started with `--init-rpl-role=SLAVE` during recovery
 * For non-semi-synchronous setups, one can use option [CHANGE MASTER TO MASTER\_DEMOTE\_TO\_SLAVE=1](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_demote_to_slave) (requires [MariaDB 10.11](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/what-is-mariadb-1011) or higher).
 
 ### See also

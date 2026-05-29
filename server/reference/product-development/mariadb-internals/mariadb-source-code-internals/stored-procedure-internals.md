@@ -23,7 +23,7 @@ interest to the [stored procedure](https://github.com/mariadb-corporation/docs-s
 
 * Lex (mentioned above) is the "compiled" query, that is the output from\
   the parser and what is then interpreted to do the actual work.\
-  It constains an enum value (sql\_command) which is the query type, and\
+  It contains an enum value (sql\_command) which is the query type, and\
   all the data collected by the parser needed for the execution (table\
   names, fields, values, etc).
 * THD is the "run-time" state of a connection, containing all that is\
@@ -193,7 +193,7 @@ invoking a FUNCTION. (See below.)
 
 #### Storing, Caching, Dropping
 
-As seen above, the entired definition string, including the "CREATE\
+As seen above, the entire definition string, including the "CREATE\
 PROCEDURE" (or "FUNCTION") is kept. The procedure definition string is\
 stored in the table mysql.proc with the name and type as the key, the\
 type being one of the enum ("procedure","function").
@@ -282,8 +282,8 @@ Restoring the database also gives full freedom to the procedure writer:
 
 There are three occasions where we need to evaluate an expression:
 
-* When SETing a variable
-* When CALLing a procedure
+* When setting a variable
+* When calling a procedure
 * When testing an expression for a branch (in IF, WHILE, etc)
 
 The semantics in stored procedures is "call-by-value", so we have to\
@@ -498,7 +498,7 @@ To support this, we need the usual name binding support in sp\_pcontext\
 (similar to variables and conditions) to keep track on declared cursor\
 names, and a corresponding run-time mechanism in sp\_rcontext.\
 Cursors are lexically scoped like everything with a body or BEGIN/END\
-block, so they are pushed and poped as usual (see conditions and variables\
+block, so they are pushed and popped as usual (see conditions and variables\
 above).\
 The basic operations on a cursor are OPEN, FETCH and CLOSE, which will\
 each have a corresponding instruction. In addition, we need instructions\
@@ -512,7 +512,7 @@ of the cursor), and a pop instruction:
   Pop a number of cursors from the sp\_rcontext.
 * sp\_instr\_copen\
   Open a cursor: This will execute the select and get the result set\
-  in a sepeate memroot.
+  in a separate memroot.
 * sp\_instr\_cfetch\
   Fetch the next row from the in-memory result set. The instruction\
   contains a list of the variables (frame offsets) to set.
@@ -880,7 +880,7 @@ class sp_instr
           // 'ip' is the index of this instruction
           sp_instr(uint ip);
 
-          // Execute this instrution.
+          // Execute this instruction.
           // '*nextp' will be set to the index of the next instruction
           // to execute. (For most instruction this will be the
           // instruction following this one.)

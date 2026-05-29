@@ -2,7 +2,7 @@
 
 ## Overview
 
-When rows are deleted from an [InnoDB](../../../server-usage/storage-engines/innodb/) table, the rows are simply marked as deleted and not physically deleted. The free space is not returned to the operating system for re-use.
+When rows are deleted from an [InnoDB](../../../server-usage/storage-engines/innodb/) table, the rows are simply marked as deleted and not physically deleted. The free space is not returned to the operating system for reuse.
 
 The purge thread will physically delete index keys and rows, but the free space introduced is still not returned to operating system. This can lead to gaps in the pages. If you have variable length rows, new rows may be larger than old rows and cannot make use of the available space.
 

@@ -137,7 +137,7 @@ See [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3V
 
 ### Installing MariaDB Clients and Client Libraries with YUM
 
-[MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-c-guide) has been included as the client library (staticly linked). However, the package name for the client library has not been changed.
+[MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/connectors-quickstart-guides/mariadb-connector-c-guide) has been included as the client library (statically linked). However, the package name for the client library has not been changed.
 
 To Install the clients and client libraries, execute the following command:
 

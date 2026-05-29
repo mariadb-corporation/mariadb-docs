@@ -1248,8 +1248,8 @@ For additional information, see "[Audit Log Path](mariadb-enterprise-audit.md#au
 When the Audit Filters are reloaded and one or more of the Audit Filters are invalid, MariaDB Enterprise Audit writes the following message in the MariaDB error log:
 
 ```sql
-2021-08-03 21:51:55 server_audit: Unknown filter function tabels.
-2021-08-03 21:51:55 server_audit: Can't parse filter's 'production' definition { "tabels": "production.*" }.
+2021-08-03 21:51:55 server_audit: Unknown filter function tables.
+2021-08-03 21:51:55 server_audit: Can't parse filter's 'production' definition { "tables": "production.*" }.
 2021-08-03 21:51:55 server_audit: can't load filters - old filters are saved.
 ```
 

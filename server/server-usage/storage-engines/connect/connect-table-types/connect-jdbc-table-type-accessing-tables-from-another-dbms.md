@@ -262,7 +262,7 @@ The bad news is that if it works all right for some previous versions of the MyS
 
 ### Connection to a Data Source
 
-This is the java preferred way to establish a connection because a data source can keep a pool of connections that can be re-used when necessary. This makes establishing connections much faster once it was done for the first time.
+This is the java preferred way to establish a connection because a data source can keep a pool of connections that can be reused when necessary. This makes establishing connections much faster once it was done for the first time.
 
 CONNECT provide additional wrappers whose files are located in the CONNECT source directory. The wrapper to use can be specified in the global variable connect\_java\_wrapper, which defaults to “JdbcInterface”.
 

@@ -117,7 +117,7 @@ the image or assigning a static IP address and running sshd.
   password immediately after first login!
 
 1. Depending on the image [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2) or 5.3 server is installed. There is no\
-   root passord for the database set so please set a password immediately\
+   root password for the database set so please set a password immediately\
    after first login!
 2. Run `repo-off-line.sh` to activate local repositories on the image for\
    apt-get (for off-line installations) or `repo-on-line.sh` for internet\

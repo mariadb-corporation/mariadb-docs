@@ -41,14 +41,14 @@ This is crucial to the design and its performance:
   These were alternative designs; they seemed to be no better, and possibly worse:
 * That one address could have been the 'end' address.
 * The routine parameters for a 'block' could have be start of this block and start of next block.
-* The IPv4 parameters could have been dotted quads; I chose to keep the reference implemetation simpler instead.
+* The IPv4 parameters could have been dotted quads; I chose to keep the reference implementation simpler instead.
 * The IPv6 parameters are 32-digit hex because it was the simpler that BINARY(16) or IPv5 for a reference implementation.
 
 The interesting work is in the Ips, not the second table, so I focus on it. The inconvenience of JOINing to the second table is small compared to the performance gains.
 
 ## Details
 
-Two, not one, tables will be used. The first table (`Ips` in the reference implementations) is carefully designed to be optimal for all the basic operations needed. The second table contains other infomation about the 'owner' of each 'item'. In the reference implementations `owner` is an id used to JOIN the two tables. This discussion centers around `Ips` and how to efficiently map IP(s) to/from owner(s). The second table has "PRIMARY KEY(owner)".
+Two, not one, tables will be used. The first table (`Ips` in the reference implementations) is carefully designed to be optimal for all the basic operations needed. The second table contains other information about the 'owner' of each 'item'. In the reference implementations `owner` is an id used to JOIN the two tables. This discussion centers around `Ips` and how to efficiently map IP(s) to/from owner(s). The second table has "PRIMARY KEY(owner)".
 
 In addition to the two-table schema, there are a set of Stored Routines to encapsulate the necessary code.
 

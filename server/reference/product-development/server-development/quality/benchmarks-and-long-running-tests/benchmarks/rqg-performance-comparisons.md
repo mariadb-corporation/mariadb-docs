@@ -29,7 +29,7 @@ perl performance/perfrun.pl --input-directory=... --dsn1=... --dsn2=... --output
 
 ## Performance reporting
 
-The `performance/perfreport.pl` script takes an ouput file created by`perfrun` and prints out its contents, possibly applying a filter in the\
+The `performance/perfreport.pl` script takes an output file created by`perfrun` and prints out its contents, possibly applying a filter in the\
 process:
 
 ```

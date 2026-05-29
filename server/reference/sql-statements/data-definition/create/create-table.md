@@ -685,7 +685,7 @@ For the [CSV](../../../../server-usage/storage-engines/csv/) storage engine, the
 
 ### INSERT\_METHOD
 
-`INSERT_METHOD` is only used with [MERGE](../../../../server-usage/storage-engines/merge.md) tables. This option determines in which underlying table the new rows should be inserted. If you set it to 'NO' (which is the default) no new rows can be added to the table (but you will still be able to perform `INSERT`s directly against the underlying tables). `FIRST` means that the rows are inserted into the first table, and `LAST` means that thet are inserted into the last table.
+`INSERT_METHOD` is only used with [MERGE](../../../../server-usage/storage-engines/merge.md) tables. This option determines in which underlying table the new rows should be inserted. If you set it to 'NO' (which is the default) no new rows can be added to the table (but you will still be able to perform `INSERT`s directly against the underlying tables). `FIRST` means that the rows are inserted into the first table, and `LAST` means that they are inserted into the last table.
 
 ### KEY\_BLOCK\_SIZE
 

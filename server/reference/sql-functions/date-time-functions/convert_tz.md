@@ -21,7 +21,7 @@ In order to use named time zones, such as GMT, MET or Africa/Johannesburg, the `
 No conversion takes place if the value falls outside of the supported `TIMESTAMP` range when converted from _from\_tz_ to UTC.
 
 {% tabs %}
-{% tab title="Currrent" %}
+{% tab title="Current" %}
 The supported range is `1970-01-01 00:00:00` to `2106-02-07 06:28:15` UTC.
 {% endtab %}
 

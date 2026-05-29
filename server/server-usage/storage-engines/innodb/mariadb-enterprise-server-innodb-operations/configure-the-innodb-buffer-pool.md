@@ -38,7 +38,7 @@ The method to configure the Buffer Pool size depends on whether a server restart
 
 | Product Versions | Server Restart? | Method                                                                      |
 | ---------------- | --------------- | --------------------------------------------------------------------------- |
-| Any ES Any CS    | No              | [Configure size with SET GLOBA](configure-the-innodb-buffer-pool.md).       |
+| Any ES Any CS    | No              | [Configure size with SET GLOBAL](configure-the-innodb-buffer-pool.md).       |
 | Any ES Any CS    | No              | [Configure size in configuration file](configure-the-innodb-buffer-pool.md) |
 
 ## Configure the InnoDB Buffer Pool Size with SET GLOBAL

@@ -135,7 +135,7 @@ Since `DuplicateWeedout` cannot be disabled, there are cases where it "gets in t
 MariaDB [test]> SET debug_optimizer_dupsweedout_penalized=TRUE;
 ```
 
-...the costs of query plans that use `DuplicateWeedout` will be multiplied by a millon. This doesn't mean that you will get rid of `DuplicateWeedout` — due to [Bug #898747](https://bugs.launchpad.net/bugs/898747) it is still possible to have `DuplicateWeedout` used even if a cheaper plan exits. A partial remedy to this is to run with
+...the costs of query plans that use `DuplicateWeedout` will be multiplied by a million. This doesn't mean that you will get rid of `DuplicateWeedout` — due to [Bug #898747](https://bugs.launchpad.net/bugs/898747) it is still possible to have `DuplicateWeedout` used even if a cheaper plan exits. A partial remedy to this is to run with
 
 ```sql
 MariaDB [test]> SET optimizer_prune_level=0;

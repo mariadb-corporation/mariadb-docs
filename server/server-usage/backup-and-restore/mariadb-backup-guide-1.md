@@ -22,7 +22,7 @@ The longer option names are easier to follow and to remember. Again, if the back
 
 ### Just One Database
 
-Backing up all of the databases at once with [mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) may result in one large dump file. This could be take longer to complete the backup and make restoration a bit cumbersome later. Therefore, it might be more useful to stagger backups based on databases, making for possbily several smaller files. You could then backup larger databases during slower traffic times. You might also backup critical databases or ones that are changed much during slower times of the day so that you don't dimish user interaction.
+Backing up all of the databases at once with [mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) may result in one large dump file. This could be take longer to complete the backup and make restoration a bit cumbersome later. Therefore, it might be more useful to stagger backups based on databases, making for possibly several smaller files. You could then backup larger databases during slower traffic times. You might also backup critical databases or ones that are changed much during slower times of the day so that you don't dimish user interaction.
 
 To export only one database and not all, enter something like the following from the command-line:
 

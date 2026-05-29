@@ -6,7 +6,7 @@ description: >-
 
 # Information Schema ROCKSDB\_CF\_OPTIONS Table
 
-The [Information Schema](../../) `ROCKSDB_CF_OPTIONS` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine, and contains infomation about MyRocks [column families](../../../../../server-usage/storage-engines/myrocks/myrocks-column-families.md).
+The [Information Schema](../../) `ROCKSDB_CF_OPTIONS` table is included as part of the [MyRocks](../../../../../server-usage/storage-engines/myrocks/) storage engine, and contains information about MyRocks [column families](../../../../../server-usage/storage-engines/myrocks/myrocks-column-families.md).
 
 The `PROCESS` [privilege](../../../../sql-statements/account-management-sql-statements/grant.md) is required to view the table.
 

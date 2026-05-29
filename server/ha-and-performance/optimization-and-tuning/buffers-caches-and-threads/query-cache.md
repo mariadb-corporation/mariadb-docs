@@ -125,7 +125,7 @@ A query will also not be added to the cache if:
 * It makes use of stored functions
 * It makes use of user-defined functions
 * It is inside a transaction with the SERIALIZABLE isolation level
-* It is quering a table inside a transaction after the same table executed a query cache invalidation using `INSERT`, `UPDATE` or `DELETE`
+* It is querying a table inside a transaction after the same table executed a query cache invalidation using `INSERT`, `UPDATE` or `DELETE`
 
 The query itself can also specify that it is not to be stored in the cache by using the `SQL_NO_CACHE` attribute. Query-level control is an effective way to use the cache more optimally.
 
@@ -160,7 +160,7 @@ SHOW VARIABLES LIKE 'query_cache_size';
 +------------------+---------+
 ```
 
-The ideal size of the query cache is very dependent on the specific needs of each system. Setting a value too small will result in query results being dropped from the cache when they could potentially be re-used later. Setting a value too high could result in reduced performance due to lock contention, as the query cache is locked during updates.
+The ideal size of the query cache is very dependent on the specific needs of each system. Setting a value too small will result in query results being dropped from the cache when they could potentially be reused later. Setting a value too high could result in reduced performance due to lock contention, as the query cache is locked during updates.
 
 The second way to limit the cache is to have a maximum size for each set of query results. This prevents a single query with a huge result set taking up most of the available memory and knocking a large number of smaller queries out of the cache. This is determined by the [query\_cache\_limit](../system-variables/server-system-variables.md#query_cache_limit) server variable.
 

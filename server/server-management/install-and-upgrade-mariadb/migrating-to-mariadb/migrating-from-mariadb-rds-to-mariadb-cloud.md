@@ -156,7 +156,7 @@ mariadb -h [MariaDB Cloud_HOST] -P 4000 -u [USER] -p db_name < metadata.sql
 Important CDC considerations for triggers: If you have triggers on the Target (MariaDB Cloud) that update other tables, DMS might accidentally trigger them again while replicating CDC events, causing duplicate data. It is best practice to keep triggers disabled on the target until the final cutover.
 {% endhint %}
 
-3. Cutover: Identify a low-traffic window, stop the application from writing to the RDS source, and wait for the CDC lag to hit zero. Update your connection strings to point to MariaDB Cloud, reenable your triggers, and finally terminate the DMS task and infrastructure.
+3. Cutover: Identify a low-traffic window, stop the application from writing to the RDS source, and wait for the CDC lag to hit zero. Update your connection strings to point to MariaDB Cloud, re-enable your triggers, and finally terminate the DMS task and infrastructure.
 
 ## Phase 6 (Optional): Reverse Replication
 

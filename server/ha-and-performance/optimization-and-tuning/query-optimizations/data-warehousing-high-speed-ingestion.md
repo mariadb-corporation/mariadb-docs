@@ -45,7 +45,7 @@ Here's how you can use `Staging` as an efficient way achieve the swap from name 
 Staging has two fields (for this normalization example):
 
 ```sql
-host_name VARCHAR(99) NOT NULL,     -- Comes from the insertion proces
+host_name VARCHAR(99) NOT NULL,     -- Comes from the insertion process
     host_id  MEDIUMINT UNSIGNED  NULL,  -- NULL to start with; see code below
 ```
 

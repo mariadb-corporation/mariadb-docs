@@ -82,7 +82,7 @@ description: >-
 |Temporary Objects Created|database|server|graph|This panel shows the number of temporary tables created by the ES node during the selected time interval|
 |MariaDB Table Definition Cache|caches|server|graph|This panel shows how many table definitions were cached by the ES node during the selected time interval|
 |MariaDB Table Open Cache Status|caches|server|graph|This panel shows the activity of the table open cache on the ES node during the selected time interval|
-|MariaDB Thread Cache|caches|server|graph|This panel shows the number of threads created and cached for re-use on the ES node during the selected time interval|
+|MariaDB Thread Cache|caches|server|graph|This panel shows the number of threads created and cached for reuse on the ES node during the selected time interval|
 |MariaDB Handlers / sec|queries|server|graph|This panel shows how many internal query handlers per second have been created by the ES node during the selected time interval|
 |MariaDB QPS and Questions|queries|server|graph|This panel shows the number of queries and questions per second executed by the ES node during the selected time interval|
 |MariaDB Slow Queries|queries|server|graph|This panel shows the number of slow queries executed by the ES node during the selected time interval|

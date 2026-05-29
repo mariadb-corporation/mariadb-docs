@@ -221,7 +221,7 @@ Query OK, 1 row affected (0.04 sec)
 ALTER TABLE t1 ADD CONSTRAINT a_greater CHECK (a>b);
 ```
 
-### Dropping Contraints
+### Dropping Constraints
 
 ```sql
 ALTER TABLE t1 DROP CONSTRAINT a_greater;

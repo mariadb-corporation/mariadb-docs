@@ -34,7 +34,7 @@ SELECT ST_IsValid(ST_GeomFromText('LINESTRING (0 0, 0 0)'));
 +------------------------------------------------------+
 ```
 
-A [POINT](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) requires both x and y co-ordinates:
+A [POINT](../../../sql-statements/geometry-constructors/geometry-constructors/point.md) requires both x and y coordinates:
 
 ```
 SELECT ST_IsValid(ST_GeomFromText('POINT (0)'));  

@@ -21,7 +21,7 @@ It contains the following fields.
 | SERVICE\_STATE            | enum('ON','OFF')    | NO   | ON (thread exists and is active or idle) or OFF (thread no longer exists). |
 | LAST\_ERROR\_NUMBER       | int(11)             | NO   | Last error number that caused the SQL/coordinator thread to stop.          |
 | LAST\_ERROR\_MESSAGE      | varchar(1024)       | NO   | Last error message that caused the SQL/coordinator thread to stop.         |
-| LAST\_ERROR\_TIMESTAMP    | timestamp           | NO   | Timestamp that shows when the most recent SQL/coordinator error occured.   |
+| LAST\_ERROR\_TIMESTAMP    | timestamp           | NO   | Timestamp that shows when the most recent SQL/coordinator error occurred.   |
 | LAST\_SEEN\_TRANSACTION   | char(57)            | NO   | The transaction the worker has last seen.                                  |
 | LAST\_TRANS\_RETRY\_COUNT | int(11)             | NO   | Total number of retries attempted by last transaction.                     |
 

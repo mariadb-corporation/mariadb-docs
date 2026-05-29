@@ -124,7 +124,7 @@ ANALYZE TABLE tbl PERSISTENT FOR ALL
 Focusing on particular columns, the statement looks like this — it collects statistics only for the specified table columns:
 
 ```sql
-ANALYZE TABLE tbl PERSISTENT FOR COLUMS (column1, column2, ...) INDEXES (index1, ...)
+ANALYZE TABLE tbl PERSISTENT FOR COLUMNS (column1, column2, ...) INDEXES (index1, ...)
 ```
 
 Focusing on columns helps, among other things, avoid including `BLOB` columns, for which MariaDB doesn't collect statistics.

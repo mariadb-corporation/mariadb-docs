@@ -76,7 +76,7 @@ MariaDB [world]> EXPLAIN SELECT * FROM Country WHERE Country.code IN
 
 ### Materialization-Lookup
 
-Let's modify the query slightly and look for countries which have cities with a population over one millon (instead of seven):
+Let's modify the query slightly and look for countries which have cities with a population over one million (instead of seven):
 
 ```sql
 MariaDB [world]> EXPLAIN SELECT * FROM Country WHERE Country.code IN 

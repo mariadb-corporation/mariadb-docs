@@ -57,7 +57,7 @@ A `ROWS_EVENT` (version 2) is written for row based replication if data is inser
 * If (event\_type == `UPDATE_ROWS_EVENT_v1` ):
   * [byte\<n>](../protocol-data-types.md#fixed-length-bytes) Null Bitmap\_Update. n = (number\_of\_columns + 7)/8.
   * [string\<len>](../protocol-data-types.md#fixed-length-strings)
-  * [g](../protocol-data-types.md#fixed-length-strings) Update Column data. The length needs to be calculated by checking the used colums bitmap and column types from referring `TABLE_MAP_EVENT`.
+  * [g](../protocol-data-types.md#fixed-length-strings) Update Column data. The length needs to be calculated by checking the used columns bitmap and column types from referring `TABLE_MAP_EVENT`.
 
 ### Table ID
 

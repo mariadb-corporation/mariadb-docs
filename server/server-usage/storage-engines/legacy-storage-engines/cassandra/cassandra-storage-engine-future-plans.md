@@ -45,7 +45,7 @@ in an SQL-like fashion.
 Access through a storage engine will additionally allow:
 
 1. to get all of the data from one point, instead of rwo
-2. joins betwen SQL and Cassandra's data _might_ be more efficent due to Batched\
+2. joins between SQL and Cassandra's data _might_ be more efficient due to Batched\
    Key Access (this remains to be seen)
 3. ??
 

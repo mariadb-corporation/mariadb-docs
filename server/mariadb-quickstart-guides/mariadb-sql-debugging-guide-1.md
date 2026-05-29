@@ -155,7 +155,7 @@ or seems to error on syntax that appears exactly correct.
 
 Most syntax errors are easy to interpret. The error generally details the exact\
 source of the trouble. A careful look at the query, with the error message in\
-mind, often reveals an obvious mistake, such as mispelled field names, a\
+mind, often reveals an obvious mistake, such as misspelled field names, a\
 missing 'AND', or an extra closing parenthesis. Sometimes the error is a little\
 less helpful. A frequent, less-than-helpful message:
 

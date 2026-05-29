@@ -593,7 +593,7 @@ column of the `INFORMATION_SCHEMA.ROCKSDB_DBSTATS` table.
 
 #### `rocksdb_flush_memtable_on_analyze`
 
-* Description: Forces memtable flush on ANALZYE table to get accurate cardinality.
+* Description: Forces memtable flush on ANALYZE table to get accurate cardinality.
 * Command line: `--rocksdb-flush-memtable-on-analyze={0|1}`
 * Scope: Global, Session
 * Dynamic: Yes

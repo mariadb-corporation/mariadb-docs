@@ -192,7 +192,7 @@ SELECT Auto_increment FROM INFORMATION_SCHEMA.TABLES
 +----------------+
 ```
 
-Refering to column values from the INSERT portion of the statement:
+Referring to column values from the INSERT portion of the statement:
 
 ```sql
 INSERT INTO table (a,b,c) VALUES (1,2,3),(4,5,6)

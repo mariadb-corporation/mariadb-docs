@@ -48,7 +48,7 @@ The easiest way to use MariaDB on Docker is choosing a MariaDB image and creatin
 
 ### Downloading an Image
 
-You can download a MariaDB image for Docker from the [Offical Docker MariaDB](https://hub.docker.com/_/mariadb/), or choose another image that better suits your needs. You can search Docker Hub (the official set of repositories) for an image with this command:
+You can download a MariaDB image for Docker from the [Official Docker MariaDB](https://hub.docker.com/_/mariadb/), or choose another image that better suits your needs. You can search Docker Hub (the official set of repositories) for an image with this command:
 
 ```bash
 docker search mariadb

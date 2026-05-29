@@ -6,7 +6,7 @@ description: >-
 
 # Information Schema INNODB\_BUFFER\_POOL\_PAGES\_BLOB Table
 
-The [Information Schema](../../) `INNODB_BUFFER_POOL_PAGES_BLOB` table is a Percona enchancement, and is only available for XtraDB, not InnoDB (see [XtraDB and InnoDB](../../../../../server-usage/storage-engines/innodb/)). It contains information about [buffer pool](../../../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) blob pages.
+The [Information Schema](../../) `INNODB_BUFFER_POOL_PAGES_BLOB` table is a Percona enhancement, and is only available for XtraDB, not InnoDB (see [XtraDB and InnoDB](../../../../../server-usage/storage-engines/innodb/)). It contains information about [buffer pool](../../../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) blob pages.
 
 It has the following columns:
 

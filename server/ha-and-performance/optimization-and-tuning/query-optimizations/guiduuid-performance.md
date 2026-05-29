@@ -104,7 +104,7 @@ Then you would do things like
     SELECT UuidFromBin(uuid), ... FROM t ...;
 ```
 
-Do not flip the WHERE; this will be inefficent because it won't use INDEX(uuid):
+Do not flip the WHERE; this will be inefficient because it won't use INDEX(uuid):
 
 ```sql
 WHERE UuidFromBin(uuid) = '1026-baba-6ccd780c-9564-0040f4311e29' -- NO

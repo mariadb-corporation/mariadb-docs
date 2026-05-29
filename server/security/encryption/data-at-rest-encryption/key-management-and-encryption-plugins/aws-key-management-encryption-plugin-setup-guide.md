@@ -212,7 +212,7 @@ You should see journal output similar to this:
 [Note] AWS KMS plugin: loaded key 2, version 1, key length 128 bit
 [Note] Using encryption key id 2 for temporary files
 [Note] Server socket created on IP: '::'.
-[Note] Reading of all Master_info entries succeded
+[Note] Reading of all Master_info entries succeeded
 [Note] Added new Master_info '' to hash table
 [Note] /usr/sbin/mysqld: ready for connections.
 ```

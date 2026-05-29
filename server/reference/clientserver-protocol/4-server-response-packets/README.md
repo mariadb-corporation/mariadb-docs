@@ -29,7 +29,7 @@ Marks the end of a result set and returns status and warnings.
 {% endcolumn %}
 
 {% column %}
-Indicates that an error occured.
+Indicates that an error occurred.
 {% endcolumn %}
 {% endcolumns %}
 

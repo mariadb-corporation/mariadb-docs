@@ -287,7 +287,7 @@ employees, despite them all being in the same table. If this view is writeable a
 way to implement row-level security in MariaDB, so views play an important part\
 in that area as well.
 
-#### Pre-emptive Optimization
+#### Preemptive Optimization
 
 We can also define our views in such a way as to force the use of indexes, so\
 that other, less-experienced developers don't run the risk of running\

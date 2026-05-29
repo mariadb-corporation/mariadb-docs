@@ -205,7 +205,7 @@ In order to show the benefits of partial matching we extended the _customer_ tab
 
 Both columns are prefixed with the percent NULL values in the column, that is, c\_pref\_nationkey\_05 contains 5% NULL values.
 
-Consider the query "Find all customers that didn't buy from a preferred country, and from a preferred brand withing some date ranges":
+Consider the query "Find all customers that didn't buy from a preferred country, and from a preferred brand within some date ranges":
 
 ```sql
 SELECT COUNT(*)
@@ -237,7 +237,7 @@ In certain cases it may be necessary to override the choice of the optimizer. Ty
 All the above strategies can be controlled via the following switches in [optimizer\_switch](../../system-variables/server-system-variables.md#optimizer_switch) system variable.
 
 * materialization=on/off\
-  In some very special cases, even if materialization was forced, the optimizer may still revert to the IN-TO-EXISTS strategy if materialization is not applicable. In the cases when materialization requres partial matching (because of the presense of NULL values), there are two subordinate switches that\
+  In some very special cases, even if materialization was forced, the optimizer may still revert to the IN-TO-EXISTS strategy if materialization is not applicable. In the cases when materialization requires partial matching (because of the presence of NULL values), there are two subordinate switches that\
   control the two partial matching strategies:
   * partial\_match\_rowid\_merge=on/off\
     This switch controls the Rowid-merge strategy. In addition to this switch, the system variable [rowid\_merge\_buff\_size](../../system-variables/server-system-variables.md#rowid_merge_buff_size) controls the maximum memory available to the Rowid-merge strategy.

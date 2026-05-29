@@ -17,7 +17,7 @@ It contains the following columns:
 | QUERY                                  | Displays the query that was asked to be traced.                                                                                                                |
 | TRACE                                  | A JSON document displaying the stats we collected when the query was run.                                                                                      |
 | MISSING\_BYTES\_BEYOND\_MAX\_MEM\_SIZE | For huge trace, where the trace is truncated due to the optimizer\_trace\_max\_mem\_size limit being reached, displays the bytes that are missing in the trace |
-| INSUFFICENT\_PRIVILEGES                | Set to 1 if the user running the trace does not have the privileges to see the trace.                                                                          |
+| INSUFFICIENT\_PRIVILEGES                | Set to 1 if the user running the trace does not have the privileges to see the trace.                                                                          |
 
 Structure:
 

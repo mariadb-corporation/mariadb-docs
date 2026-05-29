@@ -40,7 +40,7 @@ You can test the buildbot slave with this command:
 C:\buildbot\buildbot-slave-0.8.3\build\scripts-2.7\buildslave.bat start <somewhere>\buildbot\<slavedir>
 ```
 
-When buildbot starts, you should confgure it as a service instead of manually. See the instructions [here](https://buildbot.net/trac/wiki/RunningBuildbotOnWindows). It's under the section "Windows Buildbot service setup". This document also has the generic Windows Buildbot installation documentation.
+When buildbot starts, you should configure it as a service instead of manually. See the instructions [here](https://buildbot.net/trac/wiki/RunningBuildbotOnWindows). It's under the section "Windows Buildbot service setup". This document also has the generic Windows Buildbot installation documentation.
 
 ### Why Buildbot Should Run as a Service
 
@@ -97,7 +97,7 @@ This is an experimental setup.
 {% endhint %}
 
 In case the default Windows buildbot setup is not sufficiently reliable due to "connection lost in a non-clean fashion" errors, the following setup can be used\
-instead. It runs the buildbot deamon on a linux host while doing the builds on Windows, thus working around Twisted issues on Windows.
+instead. It runs the buildbot daemon on a linux host while doing the builds on Windows, thus working around Twisted issues on Windows.
 
 **Note that the procedure below&#x20;**_**significantly**_**&#x20;degrades the overall security of your Windows host. It is strongly recommended that a properly-firewalled, standalone virtual machine is used.**
 

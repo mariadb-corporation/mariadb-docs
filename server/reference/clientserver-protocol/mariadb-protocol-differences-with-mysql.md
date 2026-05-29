@@ -179,7 +179,7 @@ OK_Packet:
        |  0  1  2  3  4  5  6  7   8  9  a  b  c  d  e  f |
 +------+--------------------------------------------------+------------------+
 |000000| 2E 00 00 01 00 02 00 02  00 00 00 26 52 65 63 6F | ...........&Reco |
-|000010| 72 64 73 3A 20 32 20 20  44 75 70 6C 69 63 61 74 | rds: 2  Duplicat |
+|000010| 72 64 73 3A 20 32 20 20  44 75 70 6C 69 63 61 74 | rds: 2  Duplicate |
 |000020| 65 73 3A 20 30 20 20 57  61 72 6E 69 6E 67 73 3A | es: 0  Warnings: |
 |000030| 20 30                                            |  0               |
 +------+--------------------------------------------------+------------------+
@@ -362,7 +362,7 @@ Connectors don't care about collations, but normally want to ensure charset in c
 
 The only good solution is to use `SET NAMES utf8mb4` or `SET NAMES utf8mb4 COLLATE someUtf8mb4collation` .
 
-If they support session tracking, connectors can check if the character set of initially tracked variable `character_set_connection` corresponds to the expected value, then permit skipping this `SET NAMES` statement ( 'server default collation' from [initial handshare packet](1-connecting/connection.md#initial-handshake-packet) cannot be trusted, since truncated to one byte. Recent mysql and mariadb collation can go on 2 bytes).
+If they support session tracking, connectors can check if the character set of initially tracked variable `character_set_connection` corresponds to the expected value, then permit skipping this `SET NAMES` statement ( 'server default collation' from [initial handshake packet](1-connecting/connection.md#initial-handshake-packet) cannot be trusted, since truncated to one byte. Recent mysql and mariadb collation can go on 2 bytes).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

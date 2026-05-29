@@ -464,7 +464,7 @@ See [System-versioned tables](../../../../sql-structure/temporal-tables/system-v
 ALTER TABLE tab_name FORCE;
 ```
 
-With InnoDB, the table rebuild only reclaims unused space (i.e. the space previously used for deleted rows) if the [innodb\_file\_per\_table](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) system variable is set to `ON` (the default). If the system variable is `OFF`, the space will not be reclaimed, but it will be re-used for new data that's later added.
+With InnoDB, the table rebuild only reclaims unused space (i.e. the space previously used for deleted rows) if the [innodb\_file\_per\_table](../../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) system variable is set to `ON` (the default). If the system variable is `OFF`, the space will not be reclaimed, but it will be reused for new data that's later added.
 
 The rebuild may fail if conditions are violated due to a change in the [sql\_mode](../../../../../server-management/variables-and-modes/sql_mode.md). For example:
 
