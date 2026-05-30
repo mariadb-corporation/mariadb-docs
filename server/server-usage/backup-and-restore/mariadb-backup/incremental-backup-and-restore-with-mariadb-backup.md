@@ -27,7 +27,7 @@ $ mariadb-backup --backup \
    --user=mariadb-backup --password=mypassword
 ```
 
-This backs up all databases into the target directory `/var/mariadb/backup`. If you look in that directory at the `xtrabackup_checkpoints` file, you can see the LSN data provided by InnoDB.
+This backs up all databases into the target directory `/var/mariadb/backup`. If you look in that directory at the `mariadb_backup_checkpoints` file, you can see the LSN data provided by InnoDB.
 
 For example:
 
