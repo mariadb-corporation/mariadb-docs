@@ -1,7 +1,7 @@
 ---
 description: >-
   Complete mariadb-backup incremental guide: --backup/--prepare syntax, LSN
-  xtrabackup_checkpoints, --incremental-basedir, and --copy-back/--move-back
+  mariadb_backup_checkpoints, --incremental-basedir, and --copy-back/--move-back
   restore.
 ---
 
@@ -27,7 +27,7 @@ $ mariadb-backup --backup \
    --user=mariadb-backup --password=mypassword
 ```
 
-This backs up all databases into the target directory `/var/mariadb/backup`. If you look in that directory at the `xtrabackup_checkpoints` file, you can see the LSN data provided by InnoDB.
+This backs up all databases into the target directory `/var/mariadb/backup`. If you look in that directory at the `mariadb_backup_checkpoints` file, you can see the LSN data provided by InnoDB.
 
 For example:
 
@@ -52,7 +52,7 @@ $ mariadb-backup --backup \
    --user=mariadb-backup --password=mypassword
 ```
 
-This command creates a series of delta files that store the incremental changes in `/var/mariadb/inc1`. You can find a similar `xtrabackup_checkpoints` file in this directory, with the updated LSN values.
+This command creates a series of delta files that store the incremental changes in `/var/mariadb/inc1`. You can find a similar `mariadb_backup_checkpoints` file in this directory, with the updated LSN values.
 
 For example:
 
@@ -103,7 +103,7 @@ You can also use `--incremental-history-uuid` if you prefer to reference the uni
 
 ### Combining With `--stream` Output
 
-When using `--stream`, for instance for compression or encryption using external tools, the `xtrabackup_checkpoints` file containing the information where to continue from on the next incremental backup will also be part of the compressed/encrypted backup file, and so not directly accessible by default.
+When using `--stream`, for instance for compression or encryption using external tools, the `mariadb_backup_checkpoints` file containing the information where to continue from on the next incremental backup will also be part of the compressed/encrypted backup file, and so not directly accessible by default.
 
 A directory containing an extra copy of the file can be created using the `--extra-lsndir=..`. option though, and this directory can then be passed to the next incremental backup `--incremental-basedir=...`, for example:
 
