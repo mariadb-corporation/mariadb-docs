@@ -773,7 +773,7 @@ The suffix can be upper or lower-case.
 * Data Type: `numeric`
 * Default Value:
   * `1048576` (1M)
-* Range: `4` to `4294967295`
+* Range: `4` to `1073741824`
 
 .
 
