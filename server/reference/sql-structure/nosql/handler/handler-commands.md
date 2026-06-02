@@ -23,8 +23,6 @@ The table object is only closed when `HANDLER ... CLOSE` is called by the sessio
 
 [Prepared statements](../../../sql-statements/prepared-statements/) work with `HANDLER READ`, which gives a much higher performance (50% speedup) as there is no parsing and all data is transformed in binary (without conversions to text, as with the normal protocol).
 
-The `HANDLER` command does not work with [partitioned tables](../../../../server-usage/partitioning-tables/).
-
 ## Key Lookup
 
 A key lookup is started with:
@@ -132,7 +130,7 @@ HANDLER t1 READ NEXT;
 +------+
 ```
 
-In the previous example, the `HANDLER` was opened with the `t1` table name. Since `HANDLER`s use unqualified table names, trying to access another table with this same name, even though it's in another database, will result in ambiguity. An alias needs to be used to avoid the ambiguity, resulting in [Error 1066: Not unique table/alias](broken-reference/):
+In the previous example, the `HANDLER` was opened with the `t1` table name. Since `HANDLER`s use unqualified table names, trying to access another table with this same name, even though it's in another database, will result in ambiguity. An alias needs to be used to avoid the ambiguity, resulting in [Error 1066: Not unique table/alias](../../../error-codes/mariadb-error-codes-1000-to-1099/e1066.md):
 
 ```sql
 CREATE DATABASE db_new;
