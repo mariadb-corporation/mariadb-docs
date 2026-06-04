@@ -291,11 +291,15 @@ intervals.
 * Dynamic: Yes
 * Default: None
 
-This command will be executed on a server state change. The parameter should
+This command will be executed on a server state change. The value should
 be an absolute path to a command or the command should be in the executable
 path. The user running MaxScale should have execution rights to the file itself
-and the directory it resides in. The script may have placeholders which
-MaxScale will substitute with useful information when launching the script.
+and the directory it resides in. If the value points to a script file (as
+opposed to an executable program), the file should begin with a shebang
+(e.g. `#!/usr/bin/env bash`) or it will likely not execute.
+
+The value may include placeholders after the file path. MaxScale will substitute
+the placeholders with useful information when launching the script.
 
 The placeholders and their substitution results are:
 
@@ -328,13 +332,15 @@ The above script could be executed as:
 /home/user/myscript.sh initiator=[192.168.0.10]:3306 event=master_down live_nodes=[192.168.0.201]:3306,[192.168.0.121]:3306
 ```
 
-See section [Script example](common-monitor-parameters.md#script-example) below for an example script.
+See section [Script example](common-monitor-parameters.md#script-example) below
+for an example script.
 
 Any output by the executed script will be logged into the MaxScale log. Each
 outputted line will be logged as a separate log message.
 
 The log level on which the messages are logged depends on the format of the
-messages. If the first word in the output line is one of `alert:`, `error:`,`warning:`, `notice:`, `info:` or `debug:`, the message will be logged on the
+messages. If the first word in the output line is one of `alert:`, `error:`,
+`warning:`, `notice:`, `info:` or `debug:`, the message will be logged on the
 corresponding level. If the message is not prefixed with one of the keywords,
 the message will be logged on the notice level. Whitespace before, after or
 between the keyword and the colon is ignored and the matching is
