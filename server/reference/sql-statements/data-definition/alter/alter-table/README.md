@@ -109,6 +109,8 @@ index_option:
 
 ```
 
+![This Railroad diagram is described in the preceding BNF diagram](../../../../../.gitbook/assets/alter-table-railroad.svg)
+
 ## Description
 
 `ALTER TABLE` enables you to change the structure of an existing table. For example, you can add or delete columns, create or destroy indexes, change the type of existing columns, or rename columns or the table itself. You can also change the comment for the table and the storage engine of the table.
