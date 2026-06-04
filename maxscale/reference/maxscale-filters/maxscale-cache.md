@@ -9,11 +9,6 @@ description: >-
 
 ## Overview
 
-From MaxScale version 2.2.11 onwards, the cache filter is no longer considered experimental. The following changes to the default behaviour have also been made:
-
-* The default value of `cached_data` is now `thread_specific` (used to be`shared`).
-* The default value of `selects` is now `assume_cacheable` (used to be`verify_cacheable`).
-
 The cache filter is a simple cache that is capable of caching the result of SELECTs, so that subsequent identical SELECTs are served directly by MaxScale, without the queries being routed to any server.
 
 By _default_ the cache will be used and populated in the following circumstances:
@@ -40,7 +35,7 @@ Resultsets of prepared statements are **not** cached.
 
 ### Multi-statements
 
-Multi-statements are always sent to the backend and their result is**not** cached.
+Multi-statements are always sent to the backend and their result is **not** cached.
 
 ### Security
 
@@ -50,7 +45,7 @@ The implication is that unless the cache has been explicitly configured who the 
 
 Please read the section [Security](maxscale-cache.md#security-1) for more detailed information.
 
-However, from 2.5 onwards it is possible to configure the cache to cache the data of each user separately, which effectively means that there can be no unintended sharing. Please see [users](maxscale-cache.md#users) for how to change the default behaviour.
+However, it is possible to configure the cache to cache the data of each user separately, which effectively means that there can be no unintended sharing. Please see [users](maxscale-cache.md#users) for how to change the default behaviour.
 
 ### `information_schema`
 
@@ -58,9 +53,25 @@ When [invalidation](maxscale-cache.md#invalidation) is enabled, SELECTs targetin
 
 ## Invalidation
 
-Since MaxScale 2.5, the cache is capable of invalidating entries in the cache when a modification (UPDATE, INSERT or DELETE) that may affect those entries is made.
+The cache is capable of invalidating entries in the cache when a
+modification (UPDATE, INSERT or DELETE) that may affect those entries is made. However,
+the invalidation depends upon the used storage also supporting invalidation.
 
-The cache invalidation works on the table-level, that is, a modification made to a particular table will cause all cache entries that refer to that table to be invalidated, irrespective of whether the modification actually has an impact on the cache entries or not. For instance, suppose the result of the following SELECT has been cached
+| Storage                                 | Invalidation |
+| ----------------------------------------| ------------ |
+| [storage_gridgain](#storage_gridgain)   | No           |
+| [storage_inmemory](#storage_inmemory)   | Yes          |
+| [storage_memcached](#storage_memcached) | No           |
+| [storage_redis](#storage_redis)         | Yes          |
+
+The cache invalidation works on the table-level, that is, a modification made
+to a particular table will cause all cache entries that refer to that table to
+be invalidated, irrespective of whether the modification actually has an impact
+on the cache entries or not. In practice this means that updates should occur
+relatively rarely, as otherwise the cache will never have time to become warm,
+before it is made cold again.
+
+For instance, suppose the result of the following SELECT has been cached
 
 ```
 SELECT * FROM t WHERE a=1;
@@ -990,7 +1001,7 @@ Available since MaxScale 25.10.3.
 
 This storage module uses [gridgain](https://www.gridgain.com/) for storing the cache data.
 This storage can only be used with [cached_data](#cached_data) specified as `thread_specific`,
-which is the default, so it need not explicitly be specified. Invalidation is not supported.
+which is the default, so it need not explicitly be specified.
 
 Multiple MaxScale instances can share the same gridgain server and items cached by one
 MaxScale instance will be used by the other. Note that all MaxScale instances should
@@ -1097,6 +1108,15 @@ The default maximum size of a value to be stored in GridGain.
 allows a thin GridGain client to send query requests directly to the node that
 owns the queried data and should usually be enabled.
 
+#### Limitations
+
+* Invalidation is not supported.
+* Configuration values given to `max_size` and `max_count` are ignored.
+
+#### Security
+
+The data in the GridGain server is _not_ encrypted.
+
 ### `storage_memcached`
 
 This storage module uses [memcached](https://memcached.org/) for storing the cached data.
@@ -1107,7 +1127,7 @@ Multiple MaxScale instances can share the same memcached server and items cached
 storage=storage_memcached
 ```
 
-`storage_memcache` has the following parameters:
+`storage_memcached` has the following parameters:
 
 #### `server`
 
