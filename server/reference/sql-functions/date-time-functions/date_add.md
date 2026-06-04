@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DATE_ADD(date,INTERVAL expr unit)
 ```
 

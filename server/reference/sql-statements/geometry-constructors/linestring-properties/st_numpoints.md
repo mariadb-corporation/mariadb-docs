@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_NumPoints(ls)
 NumPoints(ls)
 ```

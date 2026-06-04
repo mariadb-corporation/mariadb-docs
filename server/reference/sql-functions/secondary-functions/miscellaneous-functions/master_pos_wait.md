@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MASTER_POS_WAIT(log_name,log_pos[,timeout,["connection_name"]])
 ```
 

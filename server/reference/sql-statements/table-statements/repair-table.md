@@ -10,7 +10,7 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 REPAIR [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
     [QUICK] [EXTENDED] [USE_FRM] [FORCE

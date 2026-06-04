@@ -6,7 +6,7 @@ ST\_Collect was added in [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQ
 
 ## Syntax
 
-```sql
+```bnf
 ST_Collect(g)
 ```
 

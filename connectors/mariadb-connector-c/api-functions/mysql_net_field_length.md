@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 ulong mysql_net_field_length(unsigned char **packet)

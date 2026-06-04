@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 LEAST(value1,value2,...)
 ```
 

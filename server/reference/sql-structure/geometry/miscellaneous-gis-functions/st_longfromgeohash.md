@@ -6,7 +6,7 @@ ST\_LongFromGeoHash was added in [MariaDB 11.8](https://app.gitbook.com/s/aEnK0Z
 
 ## Syntax
 
-```sql
+```bnf
 ST_LongFromGeoHash(geohash)
 ```
 

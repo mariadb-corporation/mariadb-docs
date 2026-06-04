@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LAST_INSERT_ID(), LAST_INSERT_ID(expr)
 ```
 

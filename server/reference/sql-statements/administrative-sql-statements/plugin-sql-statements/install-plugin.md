@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 INSTALL PLUGIN [IF NOT EXISTS] plugin_name SONAME 'plugin_library'
 ```
 

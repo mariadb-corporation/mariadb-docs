@@ -6,7 +6,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 ## Syntax
 
-```sql
+```bnf
 START { SLAVE | REPLICA } ["connection_name"] [thread_type [, thread_type] ... ]
 START { SLAVE | REPLICA } ["connection_name"] [SQL_THREAD] UNTIL                
     MASTER_LOG_FILE = 'log_name', MASTER_LOG_POS = log_pos 

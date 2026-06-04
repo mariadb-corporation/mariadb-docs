@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_ConvexHull(g)
 ConvexHull(g)
 ```

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_WITHIN(g1,g2)
 ```
 

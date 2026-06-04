@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 FETCH cursor_name INTO var_name [, var_name] ...
 ```
 

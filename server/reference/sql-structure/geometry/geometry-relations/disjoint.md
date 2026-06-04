@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 Disjoint(g1,g2)
 ```
 

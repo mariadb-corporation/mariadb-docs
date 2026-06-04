@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE] [AGGREGATE] FUNCTION [IF NOT EXISTS] function_name
     RETURNS {STRING|INTEGER|REAL|DECIMAL}
     SONAME shared_library_name

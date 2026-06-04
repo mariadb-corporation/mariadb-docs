@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeometryN(gc,N)
 GeometryN(gc,N)
 ```

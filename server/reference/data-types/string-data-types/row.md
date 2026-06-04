@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ROW (<field name> <data type> [{, <field name> <data type>}... ])
 ```
 

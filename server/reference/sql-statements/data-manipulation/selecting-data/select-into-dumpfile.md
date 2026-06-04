@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SELECT ... INTO DUMPFILE 'file_path'
 ```
 

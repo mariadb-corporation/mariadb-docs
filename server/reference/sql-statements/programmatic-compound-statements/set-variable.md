@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SET var_name = expr [, var_name = expr] ...
 ```
 

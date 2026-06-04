@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 int mysql_options4(MYSQL *mysql,

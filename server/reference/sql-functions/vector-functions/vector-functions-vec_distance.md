@@ -13,7 +13,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 VEC_DISTANCE(v, s)
 ```
 

@@ -11,7 +11,7 @@ Creates a stored query in the MariaDB ColumnStore.
 
 ## Syntax
 
-```sql
+```bnf
 CREATE
     [OR REPLACE]
     VIEW view_name [(column_list)]

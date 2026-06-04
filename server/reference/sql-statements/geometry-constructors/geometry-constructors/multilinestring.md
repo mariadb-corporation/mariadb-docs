@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MultiLineString(ls1,ls2,...)
 ```
 

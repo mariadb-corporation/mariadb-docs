@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_SYMDIFFERENCE(g1,g2)
 ```
 

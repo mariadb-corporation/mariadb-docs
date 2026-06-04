@@ -12,7 +12,7 @@ ST\_IsValid is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmU
 
 ## Syntax
 
-```sql
+```bnf
 ST_IsValid(g)
 ```
 

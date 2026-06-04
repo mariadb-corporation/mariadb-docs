@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 unsigned int mysql_get_timeout_value_ms(const MYSQL *mysql);

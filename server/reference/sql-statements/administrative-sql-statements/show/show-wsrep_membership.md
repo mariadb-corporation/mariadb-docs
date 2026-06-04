@@ -10,7 +10,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW WSREP_MEMBERSHIP
 ```
 

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_PointOnSurface(g)
 PointOnSurface(g)
 ```

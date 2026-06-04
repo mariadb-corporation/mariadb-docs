@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SET {CHARACTER SET | CHARSET}
     {charset_name | DEFAULT}
 ```

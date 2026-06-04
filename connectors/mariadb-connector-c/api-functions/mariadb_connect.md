@@ -6,7 +6,7 @@ description: Connect to a database server using a connection string
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 MYSQL *mariadb_connect(MYSQL * mysql, const char *conn_str);

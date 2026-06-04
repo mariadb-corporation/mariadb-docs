@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW FUNCTION CODE func_name
 ```
 

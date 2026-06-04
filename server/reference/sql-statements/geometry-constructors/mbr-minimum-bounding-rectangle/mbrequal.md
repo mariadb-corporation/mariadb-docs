@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MBREqual(g1,g2)
 MBREquals(g1,g2)
 ```

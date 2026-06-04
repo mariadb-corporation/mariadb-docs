@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 YEARWEEK(date), YEARWEEK(date,mode)
 ```
 

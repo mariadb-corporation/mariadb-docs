@@ -6,7 +6,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 BACKUP TABLE tbl_name [, tbl_name] ... TO '/path/to/backup/directory'
 ```
 

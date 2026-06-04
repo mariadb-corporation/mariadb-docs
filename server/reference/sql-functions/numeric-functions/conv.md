@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CONV(N,from_base,to_base)
 ```
 

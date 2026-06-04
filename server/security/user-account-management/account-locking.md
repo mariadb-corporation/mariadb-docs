@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
  CREATE USER [...]
  [lock_option] [password_option] 
  

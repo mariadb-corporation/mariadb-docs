@@ -12,7 +12,7 @@ MBRCoveredBy is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXm
 
 ## Syntax
 
-```sql
+```bnf
 MBRCoveredBy(g1, g2)
 ```
 

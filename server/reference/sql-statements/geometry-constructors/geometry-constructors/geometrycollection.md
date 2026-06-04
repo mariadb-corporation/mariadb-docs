@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 GeometryCollection(g1,g2,...)
 ```
 

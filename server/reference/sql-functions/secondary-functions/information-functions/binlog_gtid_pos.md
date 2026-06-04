@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 BINLOG_GTID_POS(binlog_filename,binlog_offset)
 ```
 

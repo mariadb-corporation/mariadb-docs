@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_IsSimple(g)
 IsSimple(g)
 ```

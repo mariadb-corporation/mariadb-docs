@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW BINARY LOGS
 SHOW MASTER LOGS
 ```

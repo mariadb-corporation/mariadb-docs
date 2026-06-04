@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SET variable_assignment [, variable_assignment] ...
 
 variable_assignment:

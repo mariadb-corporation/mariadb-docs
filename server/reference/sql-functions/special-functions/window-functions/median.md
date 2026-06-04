@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MEDIAN(median expression) OVER (
   [ PARTITION BY partition_expression ] 
 )

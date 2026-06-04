@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 NEXT VALUE FOR sequence
 ```
 

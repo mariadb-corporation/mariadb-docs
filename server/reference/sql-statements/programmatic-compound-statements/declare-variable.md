@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DECLARE var_name [, var_name] ... [[ROW] TYPE OF]] type [DEFAULT value]
 ```
 

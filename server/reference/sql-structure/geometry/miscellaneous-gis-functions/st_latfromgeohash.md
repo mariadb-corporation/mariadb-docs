@@ -6,7 +6,7 @@ ST\_LatFromGeoHash was added in [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZX
 
 ## Syntax
 
-```sql
+```bnf
 ST_LatFromGeoHash(geohash)
 ```
 

@@ -13,7 +13,7 @@ description: >-
 
 To lock a table:
 
-```sql
+```bnf
 BACKUP LOCK table_name
 ```
 

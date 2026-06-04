@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 MBRWithin(g1,g2)
 ```
 

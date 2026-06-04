@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SUBSTRING_INDEX(str,delim,count)
 ```
 

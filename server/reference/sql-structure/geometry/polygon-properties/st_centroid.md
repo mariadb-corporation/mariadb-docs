@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_Centroid(mpoly)
 Centroid(mpoly)
 ```

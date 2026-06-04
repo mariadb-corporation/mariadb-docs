@@ -6,7 +6,7 @@ This function is available from MariaDB 12.3.
 
 ## Syntax
 
-```sql
+```bnf
 TO_DATE(string_expression [DEFAULT string_expression ON CONVERSION ERROR],
         format_string [,NLS_FORMAT_STRING])
 ```

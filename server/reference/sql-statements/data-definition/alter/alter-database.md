@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ALTER {DATABASE | SCHEMA} [db_name]
     alter_specification ...
 ALTER {DATABASE | SCHEMA} db_name

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 struct st_mysql_client_plugin * 
 mysql_client_find_plugin(MYSQL *mysql, const char *name, int type);

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_PolyFromWKB(wkb[,srid])
 ST_PolygonFromWKB(wkb[,srid])
 PolyFromWKB(wkb[,srid])

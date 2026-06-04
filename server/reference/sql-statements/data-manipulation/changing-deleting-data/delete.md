@@ -15,7 +15,7 @@ For the CTE[^1] syntax, available from MariaDB 12.3, see [here](delete.md#cte-sy
 
 Single-table syntax:
 
-```sql
+```bnf
 DELETE [LOW_PRIORITY] [QUICK] [IGNORE] 
   FROM tbl_name [PARTITION (partition_list)]
   [FOR PORTION OF PERIOD FROM expr1 TO expr2]

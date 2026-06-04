@@ -15,7 +15,7 @@ For the CTE[^1] syntax, available from MariaDB 12.3, see [here](update.md#cte-sy
 
 Single-table syntax:
 
-```sql
+```bnf
 UPDATE [LOW_PRIORITY] [IGNORE] table_reference 
   [PARTITION (partition_list)]
   [FOR PORTION OF period FROM expr1 TO expr2]

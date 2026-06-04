@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_CREATE(column_nr, value [as type], [column_nr, value [as type]]...)
 COLUMN_CREATE(column_name, value [as type], [column_name, value [as type]]...)
 ```

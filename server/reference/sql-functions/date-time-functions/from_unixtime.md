@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FROM_UNIXTIME(unix_timestamp)
 FROM_UNIXTIME(unix_timestamp,format)
 ```

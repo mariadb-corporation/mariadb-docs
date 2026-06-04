@@ -14,7 +14,7 @@ The `RANDOM_BYTES` function generates a binary string of random bytes.
 
 ## Syntax
 
-```sql
+```bnf
 RANDOM_BYTES(length)
 ```
 

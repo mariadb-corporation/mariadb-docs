@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SAVEPOINT identifier
 ROLLBACK [WORK] TO [SAVEPOINT] identifier
 RELEASE SAVEPOINT identifier

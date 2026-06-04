@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_CROSSES(g1,g2)
 ```
 

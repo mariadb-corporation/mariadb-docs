@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CUME_DIST() OVER ( 
   [ PARTITION BY partition_expression ] 
   [ ORDER BY order_list ]

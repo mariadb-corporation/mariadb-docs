@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FIND_IN_SET(pattern, strlist)
 ```
 

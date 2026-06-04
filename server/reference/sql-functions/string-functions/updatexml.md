@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 UpdateXML(xml_target, xpath_expr, new_xml)
 ```
 

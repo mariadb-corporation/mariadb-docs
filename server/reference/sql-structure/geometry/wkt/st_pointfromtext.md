@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_PointFromText(wkt[,srid])
 PointFromText(wkt[,srid])
 ```

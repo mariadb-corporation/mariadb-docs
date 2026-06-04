@@ -10,7 +10,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 scalar_expression comparison_operator ALL <Table subquery>
 ```
 

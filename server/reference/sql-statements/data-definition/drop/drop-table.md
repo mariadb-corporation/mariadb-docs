@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP [TEMPORARY] TABLE [IF EXISTS] [/*COMMENT TO SAVE*/]
     tbl_name [, tbl_name] ...
     [WAIT n|NOWAIT]

@@ -6,7 +6,7 @@ description: Synonym for CEILING(). Rounds a number up to the nearest integer.
 
 ## Syntax
 
-```sql
+```bnf
 CEIL(X)
 ```
 

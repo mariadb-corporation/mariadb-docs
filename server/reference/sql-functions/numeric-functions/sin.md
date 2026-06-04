@@ -6,7 +6,7 @@ description: Calculate sine. This function returns the sine of an angle given in
 
 ## Syntax
 
-```sql
+```bnf
 SIN(X)
 ```
 

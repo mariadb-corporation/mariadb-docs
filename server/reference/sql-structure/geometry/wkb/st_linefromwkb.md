@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_LineFromWKB(wkb[,srid])
 LineFromWKB(wkb[,srid])
 ST_LineStringFromWKB(wkb[,srid])

@@ -13,7 +13,7 @@ JSON\_KEY\_VALUE is available from MariaDB 11.2.
 
 ## Syntax
 
-```sql
+```bnf
 JSON_KEY_VALUE(obj, json_path)
 ```
 

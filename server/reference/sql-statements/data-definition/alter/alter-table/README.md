@@ -17,7 +17,7 @@ In the syntax, these options are the same as for the [CREATE TABLE statement](..
 * partition\_definition
 {% endhint %}
 
-```sql
+```bnf
 ALTER [ONLINE] [IGNORE] TABLE [IF EXISTS] tbl_name
     [WAIT n | NOWAIT]
     alter_specification [, alter_specification] ...

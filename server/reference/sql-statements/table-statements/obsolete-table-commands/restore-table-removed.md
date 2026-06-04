@@ -6,7 +6,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 RESTORE TABLE tbl_name [, tbl_name] ... FROM '/path/to/backup/directory'
 ```
 

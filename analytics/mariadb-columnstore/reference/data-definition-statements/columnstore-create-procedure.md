@@ -11,7 +11,7 @@ Creates a stored routine in ColumnStore.
 
 ## Syntax
 
-```sql
+```bnf
 CREATE
     [DEFINER = { user | CURRENT_USER }]
     PROCEDURE sp_name ([proc_parameter[,...]])

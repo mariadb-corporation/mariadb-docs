@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW [GLOBAL | SESSION] STATUS
     [LIKE 'pattern' | WHERE expr]
 ```

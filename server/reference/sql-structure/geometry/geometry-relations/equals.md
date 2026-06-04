@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 Equals(g1,g2)
 ```
 

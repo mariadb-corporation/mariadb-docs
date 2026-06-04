@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SELECT col_name [, col_name] ...
     INTO var_name [, var_name] ...
     table_expr

@@ -13,7 +13,7 @@ ST\_Validate is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXm
 
 ## Syntax
 
-```sql
+```bnf
 ST_Validate(g)
 ```
 

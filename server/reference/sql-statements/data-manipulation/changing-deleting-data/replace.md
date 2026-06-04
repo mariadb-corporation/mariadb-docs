@@ -12,7 +12,7 @@ The RETURNING clause was introduced in [MariaDB 10.5.0](https://app.gitbook.com/
 
 ## Syntax
 
-```sql
+```bnf
 REPLACE [LOW_PRIORITY | DELAYED]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...

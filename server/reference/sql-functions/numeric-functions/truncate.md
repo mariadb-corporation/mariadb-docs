@@ -10,7 +10,7 @@ This page documents the `TRUNCATE` function. See [TRUNCATE TABLE](../../sql-stat
 
 ## Syntax
 
-```sql
+```bnf
 TRUNCATE(X,D)
 ```
 

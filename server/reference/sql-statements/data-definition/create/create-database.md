@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE] {DATABASE | SCHEMA} [IF NOT EXISTS] db_name
     [create_specification] ...
 

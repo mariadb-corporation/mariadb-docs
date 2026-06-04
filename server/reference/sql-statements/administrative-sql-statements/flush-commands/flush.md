@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FLUSH [NO_WRITE_TO_BINLOG | LOCAL]
     flush_option [, flush_option] ...
 ```

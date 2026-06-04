@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CREATE
     [OR REPLACE]
     [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]

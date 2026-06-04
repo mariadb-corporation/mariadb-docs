@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 INT[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 INTEGER[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```

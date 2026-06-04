@@ -10,7 +10,7 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 CREATE
     [OR REPLACE]
     [DEFINER = { user | CURRENT_USER | role | CURRENT_ROLE }]

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 STR_TO_DATE(str,format)
 ```
 

@@ -13,7 +13,7 @@ INSERT ... RETURNING was added in [MariaDB 10.5.0](https://app.gitbook.com/s/aEn
 
 ## Syntax
 
-```sql
+```bnf
 INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...

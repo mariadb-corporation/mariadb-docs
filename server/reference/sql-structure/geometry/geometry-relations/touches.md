@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 Touches(g1,g2)
 ```
 

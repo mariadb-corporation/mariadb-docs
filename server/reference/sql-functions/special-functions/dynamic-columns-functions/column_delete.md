@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_DELETE(dyncol_blob, column_nr, column_nr...)
 COLUMN_DELETE(dyncol_blob, column_name, column_name...)
 ```

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CASE case_value
     WHEN when_value THEN statement_list
     [WHEN when_value THEN statement_list] ...

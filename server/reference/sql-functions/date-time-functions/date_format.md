@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DATE_FORMAT(date, format[, locale])
 ```
 

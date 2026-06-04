@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP TRIGGER [IF EXISTS] [schema_name.]trigger_name
 ```
 

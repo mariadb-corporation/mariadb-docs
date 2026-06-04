@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_MERGE_PATCH(json_doc, json_doc[, json_doc] ...)
 ```
 

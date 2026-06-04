@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TIME_FORMAT(time,format)
 ```
 

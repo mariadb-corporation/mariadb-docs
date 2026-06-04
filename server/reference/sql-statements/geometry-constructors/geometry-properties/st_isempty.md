@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_IsEmpty(g)
 IsEmpty(g)
 ```

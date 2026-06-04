@@ -22,7 +22,7 @@ The result of `EXCEPT` contains all records of the left `SELECT` result set exce
 
 ## Syntax
 
-```sql
+```bnf
 SELECT ...
 (INTERSECT [ALL | DISTINCT] | EXCEPT [ALL | DISTINCT] | UNION [ALL | DISTINCT]) 
   SELECT ...

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ALTER SERVER server_name
     OPTIONS (option [, option] ...)
 ```

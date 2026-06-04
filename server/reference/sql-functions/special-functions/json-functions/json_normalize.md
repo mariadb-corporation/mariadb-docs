@@ -13,7 +13,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_NORMALIZE(json)
 ```
 

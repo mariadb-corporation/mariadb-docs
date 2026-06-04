@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_BUFFER(g1,r)
 BUFFER(g1,r)
 ```

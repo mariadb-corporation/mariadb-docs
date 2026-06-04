@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW EVENTS [{FROM | IN} schema_name]
     [LIKE 'pattern' | WHERE expr]
 ```

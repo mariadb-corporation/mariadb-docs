@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 MPointFromText(wkt[,srid])
 MultiPointFromText(wkt[,srid])
 ```

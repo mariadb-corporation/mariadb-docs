@@ -13,7 +13,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_EQUALS(json1, json2)
 ```
 

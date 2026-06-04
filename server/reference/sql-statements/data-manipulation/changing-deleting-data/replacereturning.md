@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 REPLACE [LOW_PRIORITY | DELAYED]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CHARACTER SET
     [LIKE 'pattern' | WHERE expr]
 ```

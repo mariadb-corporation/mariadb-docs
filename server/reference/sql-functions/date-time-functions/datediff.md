@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DATEDIFF(expr1,expr2)
 ```
 

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_EQUALS(g1,g2)
 ```
 

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 int *mariadb_field_attr(MARIADB_CONST_STRING *attr,

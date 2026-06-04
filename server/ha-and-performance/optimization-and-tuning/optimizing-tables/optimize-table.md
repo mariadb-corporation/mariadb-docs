@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 OPTIMIZE [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
     [WAIT n | NOWAIT]

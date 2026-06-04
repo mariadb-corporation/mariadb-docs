@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_IsRing(g)
 IsRing(g)
 ```

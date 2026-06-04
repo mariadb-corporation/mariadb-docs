@@ -7,7 +7,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CURRENT_ROLE, CURRENT_ROLE()
 ```
 

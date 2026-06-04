@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_REPLACE(json_doc, path, val[, path, val] ...)
 ```
 

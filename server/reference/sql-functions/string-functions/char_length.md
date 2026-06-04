@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CHAR_LENGTH(str)
 CHARACTER_LENGTH(str)
 ```

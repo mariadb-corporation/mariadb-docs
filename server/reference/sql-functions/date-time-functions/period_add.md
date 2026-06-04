@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 PERIOD_ADD(P,N)
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 RESET reset_option [, reset_option] ...
 ```
 

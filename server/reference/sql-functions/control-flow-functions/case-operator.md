@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CASE value WHEN [compare_value] THEN result [WHEN [compare_value] THEN
 result ...] [ELSE result] END
 

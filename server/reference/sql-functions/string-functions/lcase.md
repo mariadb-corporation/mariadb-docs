@@ -6,7 +6,7 @@ description: Synonym for LOWER(). Converts a string to lowercase characters.
 
 ## Syntax
 
-```sql
+```bnf
 LCASE(str)
 ```
 

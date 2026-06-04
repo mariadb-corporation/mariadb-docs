@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 PERIOD_DIFF(P1,P2)
 ```
 

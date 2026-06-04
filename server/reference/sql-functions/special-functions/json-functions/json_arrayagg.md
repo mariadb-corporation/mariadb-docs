@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_ARRAYAGG(column_or_expression)
 ```
 

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 my_bool mariadb_get_info(MYSQL *mysql, enum mariadb_value value, void *arg)

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 left_expr = right_expr
 ```
 

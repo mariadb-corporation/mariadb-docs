@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 SETVAL(sequence_name, next_value, [is_used, [round]])
 ```
 

@@ -11,7 +11,7 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 SHOW [MASTER | BINLOG] STATUS
 ```
 {% endtab %}

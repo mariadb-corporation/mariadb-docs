@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 size_t mariadb_convert_string(const char *from __attribute__((unused)),

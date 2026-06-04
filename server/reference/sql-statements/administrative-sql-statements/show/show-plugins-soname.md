@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PLUGINS SONAME { library | LIKE 'pattern' | WHERE expr };
 ```
 

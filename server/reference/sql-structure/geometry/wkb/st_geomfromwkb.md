@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeomFromWKB(wkb[,srid])
 ST_GeometryFromWKB(wkb[,srid])
 GeomFromWKB(wkb[,srid])

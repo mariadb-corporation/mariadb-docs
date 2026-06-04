@@ -12,7 +12,7 @@ MariaDB supports constraints at table level, using [CREATE TABLE](create/create-
 ## Syntax
 
 {% code expandable="true" %}
-```sql
+```bnf
 [CONSTRAINT [symbol]] constraint_expression
 
 constraint_expression:

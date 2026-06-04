@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MASTER_GTID_WAIT(gtid-list[, timeout)
 ```
 

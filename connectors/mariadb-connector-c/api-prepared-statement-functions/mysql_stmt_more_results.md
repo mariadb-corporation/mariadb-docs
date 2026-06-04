@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 #include <mysql.h>
 
 my_bool mysql_stmt_more_results(MYSQL_STMT * stmt);

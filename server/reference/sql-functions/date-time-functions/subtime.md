@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SUBTIME(expr1,expr2)
 ```
 

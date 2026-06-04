@@ -4,7 +4,7 @@
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 DECLARE cursor_name CURSOR [(cursor_formal_parameter[,...])] FOR {select_statement | prepared_statement_name}
 
 cursor_formal_parameter:

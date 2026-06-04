@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 EXPORT_SET(bits, on, off[, separator[, number_of_bits]])
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW COLLATION
     [LIKE 'pattern' | WHERE expr]
 ```

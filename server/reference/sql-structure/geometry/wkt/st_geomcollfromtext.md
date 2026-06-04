@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeomCollFromText(wkt[,srid])
 ST_GeometryCollectionFromText(wkt[,srid])
 GeomCollFromText(wkt[,srid])

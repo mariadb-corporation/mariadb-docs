@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 IS_FREE_LOCK(str)
 ```
 
