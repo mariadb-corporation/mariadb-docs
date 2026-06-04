@@ -8,7 +8,7 @@ Currently the enterprise operator utilizes this plugin to provide support for:
 
 ## LDAP
 
-This guide outlines the process of configuring MariaDB to authenticate users against an LDAP or Active Directory service. The integration is achieved by using MariaDB's Pluggable Authentication Module (PAM) plugin, which delegates authentication requests to the underlying Linux PAM framework.
+This guide outlines the process of configuring MariaDB to authenticate users against an LDAP service. The integration is achieved by using MariaDB's Pluggable Authentication Module (PAM) plugin, which delegates authentication requests to the underlying Linux PAM framework.
 
 ### How Does It Work?
 
@@ -47,14 +47,14 @@ uid mysql
 gid mysql
 
 # The location of the LDAP server.
-uri ldap://openldap-service.default.svc.cluster.local:389
+uri ldap://ldap.example.url:389
 
 # The search base that will be used for all queries.
-base dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+base dc=ldap,dc=example,dc=url
 
 # The distinguished name with which to bind to the directory server for lookups.
 # This is a service account used by the daemon.
-binddn cn=admin,dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+binddn cn=admin,dc=ldap,dc=example,dc=url
 bindpw PASSWORD_REPLACE-ME
 ```
 
@@ -64,13 +64,13 @@ To do so, you need to add the following to your `nslcd.conf` file:
 
 ```diff
 # Change the protocol to `ldaps`
-+uri ldaps://openldap-service.default.svc.cluster.local:636
--uri ldap://openldap-service.default.svc.cluster.local:389
++uri ldaps://ldap.example.url:636
+-uri ldap://ldap.example.url:389
 
 # ...
 
 +tls_reqcert demand # Look at: https://linux.die.net/man/5/ldap.conf then search for TLS_REQCERT
-+tls_cacertfile /etc/openldap/certs/tls.crt # You will need to mount this certificate (from a secret) later
++tls_cacertfile /path/to/certs/tls.crt # You will need to mount this certificate (from a secret) later
 ```
 
 #### nsswitch.conf
@@ -121,14 +121,14 @@ stringData:
     gid mysql # required to be `mysql`
 
     # The location of the LDAP server.
-    uri ldap://openldap-service.default.svc.cluster.local:389
+    uri ldap://ldap.example.url:389
 
     # The search base that will be used for all queries.
-    base dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+    base dc=ldap,dc=example,dc=url
 
     # The distinguished name with which to bind to the directory server for lookups.
     # This is a service account used by the daemon.
-    binddn cn=admin,dc=openldap-service,dc=default,dc=svc,dc=cluster,dc=local
+    binddn cn=admin,dc=ldap,dc=example,dc=url
     bindpw PASSWORD_REPLACE-ME
 ---
 apiVersion: v1
@@ -359,7 +359,7 @@ kubectl create secret generic mariadb-ldap-tls --from-file=./tls.crt
           mountPath: /etc/nsswitch.conf
           subPath: nsswitch.conf
 +        - name: ldap-tls
-+          mountPath: /etc/openldap/certs/
++          mountPath: /path/to/certs/
       # nslcd-run is missing because volumeMounts from main container are shared with sidecar
 
   volumeMounts:
