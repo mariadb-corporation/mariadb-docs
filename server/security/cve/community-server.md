@@ -1,5 +1,11 @@
 ---
-description: Full list of CVE fixed in all versions and series of MariaDB Community Server.
+description: >-
+  This page contains a full list of CVEs fixed in all versions and series of
+  MariaDB Community Server. The list is updated continuously. CVEs may be
+  added retroactively to already-released versions, as vulnerabilities can be
+  reported to and assigned by CVE Numbering Authorities (CNAs) after the
+  corresponding fix has been released. As a result, a release may receive
+  additional CVE entries over time even after it has been published.
 ---
 
 # Security Vulnerabilities (CVE) Fixed in MariaDB Community Server
