@@ -979,6 +979,7 @@
       * [Multi Range Read Optimization](ha-and-performance/optimization-and-tuning/mariadb-internal-optimizations/multi-range-read-optimization.md)
     * [Operating System Optimizations](ha-and-performance/optimization-and-tuning/operating-system-optimizations/README.md)
       * [Filesystem Optimizations](ha-and-performance/optimization-and-tuning/operating-system-optimizations/filesystem-optimizations.md)
+      * [Storage I/O: Buffering and Persistence](ha-and-performance/optimization-and-tuning/operating-system-optimizations/storage-io-buffering-and-persistence.md)
     * [Optimization and Indexes](ha-and-performance/optimization-and-tuning/optimization-and-indexes/README.md)
       * [Building the best INDEX for a given SELECT](ha-and-performance/optimization-and-tuning/optimization-and-indexes/building-the-best-index-for-a-given-select.md)
       * [Compound (Composite) Indexes](ha-and-performance/optimization-and-tuning/optimization-and-indexes/compound-composite-indexes.md)
