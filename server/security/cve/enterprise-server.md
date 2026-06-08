@@ -1,14 +1,12 @@
 ---
 description: >-
   This page contains a full list of CVEs fixed in all versions and series of
-  MariaDB Enterprise Server. The list is updated continuously. CVEs may be
-  added retroactively to already-released versions, as vulnerabilities can be
-  reported to and assigned by CVE Numbering Authorities (CNAs) after the
-  corresponding fix has been released. As a result, a release may receive
-  additional CVE entries over time even after it has been published.
+  MariaDB Enterprise Server.
 ---
 
 # Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server
+
+The list is updated continuously. CVEs may be added retroactively to already-released versions, as vulnerabilities can be reported to and assigned by CVE Numbering Authorities (CNAs) after the corresponding fix has been released. As a result, a release may receive additional CVE entries over time even after it has been published.
 
 ## Table of Fixed Security Vulnerabilities
 
