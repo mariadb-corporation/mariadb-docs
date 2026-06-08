@@ -23,8 +23,15 @@ UPDATE [LOW_PRIORITY] [IGNORE] table_reference
   [WHERE where_condition]
   [ORDER BY ...]
   [LIMIT row_count]
-  RETURNING OLD_VALUE(val) AS old [, val as new]
+  [RETURNING select_expr 
+    [, select_expr ...]]
 ```
+
+![Railroad diagram of single-table UPDATE — equivalent to the BNF above](../../../../.gitbook/assets/update-railroad.svg)
+
+![Railroad diagram of set_value](../../../../.gitbook/assets/update-set-value-railroad.svg)
+
+`order_by_specification` stands in for the abbreviated `ORDER BY ...` in the source BNF; see [ORDER BY](../selecting-data/order-by.md) for its full form.
 
 {% hint style="info" %}
 The `RETURNING` clause is available from MariaDB 13.0.
