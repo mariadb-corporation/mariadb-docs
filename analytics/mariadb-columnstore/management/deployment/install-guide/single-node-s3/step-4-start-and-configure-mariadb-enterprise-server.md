@@ -1,18 +1,15 @@
 ---
 description: 'Step 4: Start and Configure MariaDB Enterprise Server'
+hidden: true
 ---
 
 # Step 4: Start and Configure MariaDB Enterprise Server
 
 ## Overview
 
-This page details step 4 of the 9-step procedure "Deploy ColumnStore Object Storage Topology".
-
 This step starts and configures MariaDB Enterprise Server, and MariaDB ColumnStore.
 
 {% include "../../../../../.gitbook/includes/the-instructions-were-teste....md" %}
-
-Interactive commands are detailed. Alternatively, the described operations can be performed using automation.
 
 ## Stop the ColumnStore Services
 

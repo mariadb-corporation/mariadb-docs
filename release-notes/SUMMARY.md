@@ -23,7 +23,7 @@
     * [SBOM](enterprise-server/about/sbom.md)
     * [Security Vulnerabilities (CVE) Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server)
   * [MariaDB Enterprise Server 11.8](enterprise-server/11.8/README.md)
-    * [What's New in MariaDB Enterprise Server 11.8](enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8.md)
+    * [What's New in MariaDB Enterprise Server 11.8](enterprise-server/11.8/whats-new.md)
     * [Release Notes for MariaDB Enterprise Server 11.8.6-4](enterprise-server/11.8/11.8.6-4.md)
     * [Release Notes for MariaDB Enterprise Server 11.8.6-3](enterprise-server/11.8/11.8.6-3.md)
     * [Changelog for MariaDB Enterprise Server 11.8.6-3](enterprise-server/11.8/changelog-11.8.6-3.md)

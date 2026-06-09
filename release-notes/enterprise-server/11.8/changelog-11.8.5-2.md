@@ -9,7 +9,7 @@ hidden: true
 
 {% include "../../.gitbook/includes/latest-es-11.8.md" %}
 
-<a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="11.8.5-2.md" class="button secondary">Release Notes</a> <a href="changelog-11.8.5-2.md" class="button secondary">Changelog</a> <a href="whats-new-in-mariadb-enterprise-server-11.8.md" class="button secondary">Overview of Enterprise Server 11.8</a>
+<a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="11.8.5-2.md" class="button secondary">Release Notes</a> <a href="changelog-11.8.5-2.md" class="button secondary">Changelog</a> <a href="whats-new.md" class="button secondary">Overview of Enterprise Server 11.8</a>
 
 **Release date:** 11 Dec 2025
 

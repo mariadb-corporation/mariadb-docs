@@ -26,7 +26,7 @@ MariaDB ColumnStore 1.4.3 was released on 2020-03-02.
 * Server aborts if `Columnstore.xml` is missing. ([MCOL-3680](https://jira.mariadb.org/browse/MCOL-3680), [MCOL-3853](https://jira.mariadb.org/browse/MCOL-3853))
 * A User Module (UM) join memory overflow can cause session hang and fail to free memory. ([MCOL-3713](https://jira.mariadb.org/browse/MCOL-3713))
 * Improper StorageManager shutdown can result if process is killed by fatal error. ([MCOL-3748](https://jira.mariadb.org/browse/MCOL-3748))
-* Truncation during [UPDATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-manipulation/changing-deleting-data/update) can cause crash. ([MCOL-3749](https://jira.mariadb.org/browse/MCOL-3749))
+* Truncation during [UPDATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update) can cause crash. ([MCOL-3749](https://jira.mariadb.org/browse/MCOL-3749))
 * Failure to sync timezone variable between queries can trigger a hang. ([MCOL-3776](https://jira.mariadb.org/browse/MCOL-3776))
 * Failure in disk space pre-allocation for non-compressed data can trigger a crash in `cpimport` . ([MCOL-3791](https://jira.mariadb.org/browse/MCOL-3791))
 
@@ -34,9 +34,9 @@ MariaDB ColumnStore 1.4.3 was released on 2020-03-02.
 
 * Incorrect comparison of padded string vs. non-padded column. ([MCOL-1559](https://jira.mariadb.org/browse/MCOL-1559))
 * Incorrect query validation for complex `ORDER BY` ([MCOL-975](https://jira.mariadb.org/browse/MCOL-975))
-* [NOT IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/operators/comparison-operators/not-in) subquery does not return rows with NULL qualifying column values. ([MCOL-1734](https://jira.mariadb.org/browse/MCOL-1734))
-* `GROUP BY` doesn't process [IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/operators/comparison-operators/in) and correlate subquery. ([MCOL-1963](https://jira.mariadb.org/browse/MCOL-1963))
-* `GROUP BY` doesn't process [NOT IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/operators/comparison-operators/not-in) and correlate subquery with aggregates. ([MCOL-1964](https://jira.mariadb.org/browse/MCOL-1964))
+* [NOT IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/not-in) subquery does not return rows with NULL qualifying column values. ([MCOL-1734](https://jira.mariadb.org/browse/MCOL-1734))
+* `GROUP BY` doesn't process [IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/in) and correlate subquery. ([MCOL-1963](https://jira.mariadb.org/browse/MCOL-1963))
+* `GROUP BY` doesn't process [NOT IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/not-in) and correlate subquery with aggregates. ([MCOL-1964](https://jira.mariadb.org/browse/MCOL-1964))
 * Matched and changed row counts may be zero even if rows are changed (`Rows matched: 0 Changed: 0`). ([MCOL-2239](https://jira.mariadb.org/browse/MCOL-2239))
 * Queries containing `SPACE()` may return error 1178. ([MCOL-3473](https://jira.mariadb.org/browse/MCOL-3473))
 
@@ -49,17 +49,17 @@ conjunction with an aggregate function.
 
 * StorageManager may log inconsistently. ([MCOL-3638](https://jira.mariadb.org/browse/MCOL-3638))
 * [COUNT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/aggregate-functions/count) with `DISTINCT` and two columns may fail. ([MCOL-3662](https://jira.mariadb.org/browse/MCOL-3662))
-* If min/max are set, incorrect [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-manipulation/selecting-data/select) results may be provided after a cpimport due to incorrect extent elimination. ([MCOL-3716](https://jira.mariadb.org/browse/MCOL-3716))
+* If min/max are set, incorrect [SELECT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) results may be provided after a cpimport due to incorrect extent elimination. ([MCOL-3716](https://jira.mariadb.org/browse/MCOL-3716))
 * Impossible `WHERE` and `HAVING` conditions skipping may generate spurious warnings. ([MCOL-3769](https://jira.mariadb.org/browse/MCOL-3769))
 * Failure to start when Server is rebooted without mcsadmin shutdownSystem first. ([MCOL-3829](https://jira.mariadb.org/browse/MCOL-3829))
-* `ORDER BY` over negative [SEC\_TO\_TIME()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/date-time-functions/sec_to_time) results produce an incorrect order. ([MCOL-3598](https://jira.mariadb.org/browse/MCOL-3598))
+* `ORDER BY` over negative [SEC\_TO\_TIME()](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/sec_to_time) results produce an incorrect order. ([MCOL-3598](https://jira.mariadb.org/browse/MCOL-3598))
 * Stopping Server with systemd triggers restart by ColumnStore. ([MCOL-3718](https://jira.mariadb.org/browse/MCOL-3718))
 * `Note: 1618 COLLATE is ignored in ColumnStore` was not correctly surfaced. ([MCOL-3721](https://jira.mariadb.org/browse/MCOL-3721))
 * Subqueries with `ORDER BY ... LIMIT` may produce incorrect result. ([MCOL-3747](https://jira.mariadb.org/browse/MCOL-3747))
 
 ### Related to performance
 
-* Performance regression in [LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/string-functions/like) and [NOT LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/string-functions/not-like) ([MCOL-3663](https://jira.mariadb.org/browse/MCOL-3663))
+* Performance regression in [LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/like) and [NOT LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/not-like) ([MCOL-3663](https://jira.mariadb.org/browse/MCOL-3663))
 * Slow DDL statement execution after a restart. ([MCOL-3745](https://jira.mariadb.org/browse/MCOL-3745))
 
 ### Related to install and upgrade
@@ -73,7 +73,7 @@ conjunction with an aggregate function.
 ## Known Issues
 
 * Performance of some queries, such as those containing UNION, may be worse than on ColumnStore 1.2.x.
-* [LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/string-functions/like) and [NOT LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/string-functions/not-like) queries currently fall back to a slower execution method.
+* [LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/like) and [NOT LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/not-like) queries currently fall back to a slower execution method.
 
 ## Interface Changes
 

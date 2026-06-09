@@ -194,7 +194,7 @@ The [Subquery Optimizations Map](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/
   count operations on internal temporary tables.
 * New status variable `Handler_read_rnd_deleted`, which is number of deleted rows found and skipped while scanning a table. Before this was part of `Handler_read_rnd_next`.
 * New variable 'in\_transaction' that is 1 if you are in a transaction, 0 otherwise.
-* [Progress reports](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for `ALTER TABLE`\
+* [Progress reports](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting) for `ALTER TABLE`\
   and `LOAD DATA INFILE`. In addition Aria tables gives progress reports\
   for `REPAIR TABLE` and `CHECK TABLE`. The progress can be seen\
   in `SHOW PROCESSLIST`, `INFORMATION_SCHEMA.PROCESSLIST` and is sent to\

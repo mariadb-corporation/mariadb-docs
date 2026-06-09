@@ -6,9 +6,9 @@ description: >-
 
 # MariaDB 12.2 Changes & Improvements
 
-{% include "../../.gitbook/includes/latest-12-2.md" %}
+{% include "../../../.gitbook/includes/latest-12-2.md" %}
 
-MariaDB 12.2 is a [rolling release](../about/release-model.md). It is an evolution of [MariaDB 12.1](../old-releases/12.1/changes-and-improvements-in-mariadb-12.1.md) with several entirely new features.
+MariaDB 12.2 is a [rolling release](../../about/release-model.md). It is an evolution of [MariaDB 12.1](../12.1/changes-and-improvements-in-mariadb-12.1.md) with several entirely new features.
 
 ## New Features
 
@@ -42,10 +42,10 @@ These features needed further testing and will be implemented in a future series
 
 ## List of All MariaDB 12.2 Releases
 
-| Date        | Release              | Status      | Release Notes              | Changelog                                 |
-| ----------- | -------------------- | ----------- | -------------------------- | ----------------------------------------- |
-| 12 Feb 2026 | 12.2.2               | Stable (GA) | [Release Notes](12.2.2.md) | [Changelog](../changelogs/12.2/12.2.2.md) |
-| 21 Nov 2025 | 12.2.1               | RC          | [Release Notes](12.2.1.md) | [Changelog](../changelogs/12.2/12.2.1.md) |
-| 23 Sep 2025 | MariaDB 12.2 Preview | Preview     |                            |                                           |
+| Date        | Release              | Status      | Release Notes              | Changelog                                    |
+| ----------- | -------------------- | ----------- | -------------------------- | -------------------------------------------- |
+| 12 Feb 2026 | 12.2.2               | Stable (GA) | [Release Notes](12.2.2.md) | [Changelog](../../changelogs/12.2/12.2.2.md) |
+| 21 Nov 2025 | 12.2.1               | RC          | [Release Notes](12.2.1.md) | [Changelog](../../changelogs/12.2/12.2.1.md) |
+| 23 Sep 2025 | MariaDB 12.2 Preview | Preview     |                            |                                              |
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}

@@ -1,5 +1,6 @@
 ---
 description: 'Step 3: Start and Configure ColumnStore'
+hidden: true
 ---
 
 # Step 3: Start and Configure ColumnStore

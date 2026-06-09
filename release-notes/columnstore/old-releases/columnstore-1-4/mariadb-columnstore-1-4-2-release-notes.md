@@ -46,8 +46,8 @@ When these options are set, `cpimport` will use the path/filename provided to lo
 ### Expanded Data Type Support
 
 * [TIMESTAMP](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/date-and-time-data-types/timestamp) (with `CURRENT_TIMESTAMP`)
-* [BOOLEAN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/data-types-numeric-data-types/boolean)
-* [MEDIUMINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/data-types-numeric-data-types/mediumint)
+* [BOOLEAN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/boolean)
+* [MEDIUMINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/numeric-data-types/mediumint)
 
 Please note that for `cpimport` the current system time of the PM node is used.
 
@@ -57,7 +57,7 @@ The `MODA()` UDAF (User-Defined Aggregate Function) determines the mode average.
 
 ### Statement-Based Replication Support
 
-Statement-based replication into ColumnStore tables is supported by setting `columnstore_replication_slave=on` on the UM that will apply the replication data. Row-based replication events on ColumnStore replica (slave) tables will currently fail, generating an error viewable with [SHOW SLAVE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/show/show-replica-status)
+Statement-based replication into ColumnStore tables is supported by setting `columnstore_replication_slave=on` on the UM that will apply the replication data. Row-based replication events on ColumnStore replica (slave) tables will currently fail, generating an error viewable with [SHOW SLAVE STATUS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/show/show-replica-status)
 
 ## Notable Changes
 
@@ -141,14 +141,14 @@ Cross-engine joins depend on TCP connection from ExeMgr to the Server process. S
 * `group_concat()` with `DISTINCT` concatenates even non-distinct values. ([MCOL-2146](https://jira.mariadb.org/browse/MCOL-2146))
 * Wrong results could be returned for a complex query with subquery and window functions over decimal(12,4) column. ([MCOL-3423](https://jira.mariadb.org/browse/MCOL-3423))
 * Pipe operator (|) could return wrong results. ([MCOL-174](https://jira.mariadb.org/browse/MCOL-174))
-* [DIV](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/numeric-functions/div) operator could return wrong results. ([MCOL-179](https://jira.mariadb.org/browse/MCOL-179))
+* [DIV](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/div) operator could return wrong results. ([MCOL-179](https://jira.mariadb.org/browse/MCOL-179))
 * Comparison of padded strings could provide incorrect results. ([MCOL-1559](https://jira.mariadb.org/browse/MCOL-1559))
-* [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/data-definition/create/create-table) could fail when table name contained space and certain characters; not `A-Z a-z 0-9 _` ([MCOL-2219](https://jira.mariadb.org/browse/MCOL-2219))
+* [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) could fail when table name contained space and certain characters; not `A-Z a-z 0-9 _` ([MCOL-2219](https://jira.mariadb.org/browse/MCOL-2219))
 * `DISTINCT` could be performed in incorrect order relative to Window functions and UNION ([MCOL-3492](https://jira.mariadb.org/browse/MCOL-3492))
 * `cpimport` outputs value truncation warning when read buffer (`-b`) is set to `1` ([MCOL-774](https://jira.mariadb.org/browse/MCOL-774))
 * Cross-engine joins with query using `DISTINCT` could return `NULL` ([MCOL-3588](https://jira.mariadb.org/browse/MCOL-3588))
 * Bulk write API writes were possible when writes were suspended. ([MCOL-3576](https://jira.mariadb.org/browse/MCOL-3576))
-* Multi-column [IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/operators/comparison-operators/in) statements could produce incorrect results. ([MCOL-3448](https://jira.mariadb.org/browse/MCOL-3448))
+* Multi-column [IN](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/in) statements could produce incorrect results. ([MCOL-3448](https://jira.mariadb.org/browse/MCOL-3448))
 * `JOIN` could significantly waste memory. ([MCOL-1758](https://jira.mariadb.org/browse/MCOL-1758))
 * Memory leaks. ([MCOL-3621](https://jira.mariadb.org/browse/MCOL-3621))
 * Plugin metadata was inconsistent. ([MCOL-3681](https://jira.mariadb.org/browse/MCOL-3681), [MCOL-3669](https://jira.mariadb.org/browse/MCOL-3669))
@@ -160,7 +160,7 @@ Cross-engine joins depend on TCP connection from ExeMgr to the Server process. S
 ## Known Issues
 
 * Performance of some queries, such as those containing UNION, may be worse than on ColumnStore 1.2.x.
-* [LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/string-functions/like) and [NOT LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/built-in-functions/string-functions/not-like) queries currently fall back to a slower execution method.
+* [LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/like) and [NOT LIKE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/string-functions/not-like) queries currently fall back to a slower execution method.
 
 ## Interface Changes
 

@@ -17,8 +17,8 @@ description: >-
 
 The current release series are:
 
-* MariaDB Connector/ODBC 3.1 is the current stable release series.
-* MariaDB Connector/ODBC 2.0 is the previous stable release series, which is currently still supported.
+* MariaDB Connector/ODBC 3.2 is the current stable release series.
+* MariaDB Connector/ODBC 3.1 is the previous stable release series, which is currently still supported.
 
 This page discusses how to create a data source with MariaDB Connector/ODBC.
 

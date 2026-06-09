@@ -27,6 +27,10 @@ DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
     [, select_expr ...]]
 ```
 
+![Railroad diagram of single-table DELETE — equivalent to the BNF above](../../../../.gitbook/assets/delete-railroad.svg)
+
+The `AS alias` clause is available from MariaDB 11.6. `order_by_specification` stands in for the abbreviated `ORDER BY ...` in the source BNF; see [ORDER BY](../selecting-data/order-by.md) for its full form.
+
 Multiple-table syntax:
 
 ```sql

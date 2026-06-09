@@ -8,27 +8,27 @@ description: >-
 
 A [view](./) can be used for inserting or updating. However, there are certain limitations.
 
-## Updating with views
+## Updating with Views
 
 A view cannot be used for updating if it uses any of the following:
 
-* ALGORITHM=TEMPTABLE (see [View Algorithms](view-algorithms.md))
+* `ALGORITHM=TEMPTABLE` (see [View Algorithms](view-algorithms.md))
 * [HAVING](../../reference/sql-statements/data-manipulation/selecting-data/select.md)
 * [GROUP BY](../../reference/sql-statements/data-manipulation/selecting-data/select.md#group-by)
 * [DISTINCT](../../reference/sql-statements/data-manipulation/selecting-data/select.md#distinct)
 * [UNION](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)
 * [UNION ALL](../../reference/sql-statements/data-manipulation/selecting-data/set-operations/union.md)
 * An aggregate function, such as [MAX()](../../reference/sql-functions/aggregate-functions/max.md), [MIN()](../../reference/sql-functions/aggregate-functions/min.md), [SUM()](../../reference/sql-functions/aggregate-functions/sum.md) or [COUNT()](../../reference/sql-functions/aggregate-functions/count.md)
-* subquery in the SELECT list
-* subquery in the WHERE clause referring to a table in the FROM clause
-* if it has no underlying table because it refers only to literal values
-* the FROM clause contains a non-updatdable view.
-* multiple references to any base table column
-* an outer join
-* an inner join where more than one table in the view definition is being updated
-* if there's a LIMIT clause, the view does not contain all primary or not null unique key columns from the underlying table and the [updatable\_views\_with\_limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#updatable_views_with_limit) system variable is set to `0`.
+* Subquery in the `SELECT` list
+* Subquery in the `WHERE` clause referring to a table in the `FROM` clause
+* If it has no underlying table because it refers only to literal values
+* The `FROM` clause contains a non-updatdable view.
+* Multiple references to any base table column
+* An outer join
+* An inner join where more than one table in the view definition is being updated
+* If there's a `LIMIT` clause, the view does not contain all primary or not null unique key columns from the underlying table and the [updatable\_views\_with\_limit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#updatable_views_with_limit) system variable is set to `0`.
 
-## Inserting with views
+## Inserting with Views
 
 A view cannot be used for inserting if it fails any of the criteria for [updating](inserting-and-updating-with-views.md#updating-with-views), and must also meet the following conditions:
 
@@ -41,7 +41,7 @@ A view cannot be used for inserting if it fails any of the criteria for [updatin
   * 9.5
   * column1 / column2
 
-## Checking whether a view is updatable
+## Checking Whether a View is Updatable
 
 MariaDB stores an IS\_UPDATABLE flag with each view, so it is always possible to see if MariaDB considers a view updatable (although not necessarily insertable) by querying the IS\_UPDATABLE column in the INFORMATION\_SCHEMA.VIEWS table.
 
