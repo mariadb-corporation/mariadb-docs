@@ -18,6 +18,10 @@ create_specification:
   | COMMENT [=] 'comment'
 ```
 
+![Railroad diagram of CREATE DATABASE — equivalent to the BNF above](../../../../.gitbook/assets/create-database-railroad.svg)
+
+![Railroad diagram of create_specification](../../../../.gitbook/assets/create-database-specification-railroad.svg)
+
 ## Description
 
 `CREATE DATABASE` creates a database with the given name. To use this statement, you need the [CREATE privilege](../../account-management-sql-statements/grant.md#database-privileges) for the database. `CREATE SCHEMA` is a synonym for `CREATE DATABASE`.

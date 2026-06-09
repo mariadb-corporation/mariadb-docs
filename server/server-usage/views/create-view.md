@@ -20,6 +20,8 @@ CREATE
     [WITH [CASCADED | LOCAL] CHECK OPTION]
 ```
 
+![Railroad diagram of CREATE VIEW — equivalent to the BNF above](../../.gitbook/assets/create-view-railroad.svg)
+
 ## Description
 
 The `CREATE VIEW` statement creates a new [view](./), or replaces an existing one if the `OR REPLACE` clause is given. If the view does not exist, `CREATE OR REPLACE VIEW` is the same as `CREATE VIEW`. If the view does exist, `CREATE OR REPLACE VIEW` is the same as [ALTER VIEW](alter-view.md).
