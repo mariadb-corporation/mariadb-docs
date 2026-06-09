@@ -12,7 +12,7 @@ For the timestamp data type, see [TIMESTAMP](../../data-types/date-and-time-data
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMP(expr), TIMESTAMP(expr1,expr2)
 ```
 

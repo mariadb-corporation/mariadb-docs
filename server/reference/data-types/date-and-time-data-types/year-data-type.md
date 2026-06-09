@@ -12,7 +12,7 @@ This page is about the `YEAR` **data type**, not the [`YEAR` function](../../sql
 
 ## Syntax
 
-```sql
+```bnf
 YEAR[(4)]
 ```
 

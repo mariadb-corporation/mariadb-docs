@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SELECT ... INTO OUTFILE 'file_name'
         [CHARACTER SET charset_name]
         [export_options]

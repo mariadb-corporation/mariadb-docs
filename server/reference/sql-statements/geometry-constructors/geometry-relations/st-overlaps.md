@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_OVERLAPS(g1,g2)
 ```
 

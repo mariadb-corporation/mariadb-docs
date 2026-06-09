@@ -14,7 +14,7 @@ The `SYS_GUID` function was introduced to enhance Oracle compatibility. Similar 
 
 ## Syntax
 
-```sql
+```bnf
 SYS_GUID()
 ```
 

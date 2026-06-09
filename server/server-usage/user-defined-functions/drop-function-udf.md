@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP FUNCTION [IF EXISTS] function_name
 ```
 

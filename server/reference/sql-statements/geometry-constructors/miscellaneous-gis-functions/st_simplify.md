@@ -13,7 +13,7 @@ ST\_Simplify is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXm
 
 ## Syntax
 
-```sql
+```bnf
 ST_Simplify(g, max_distance)
 ```
 

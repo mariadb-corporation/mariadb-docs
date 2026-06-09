@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DECIMAL[(M[,D])] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

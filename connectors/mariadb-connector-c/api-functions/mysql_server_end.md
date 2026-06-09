@@ -16,7 +16,7 @@ void mysql_server_end(void );
 
 `mysql_server_end()` is an alias for [mysql\_library\_end()](mysql_library_end.md).
 
-## See also
+## See Also
 
 * [mysql\_library\_init()](mysql_library_init.md)
 * [mysql\_library\_end()](mysql_library_end.md)

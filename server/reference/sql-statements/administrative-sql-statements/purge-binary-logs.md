@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 PURGE { BINARY | MASTER } LOGS
     { TO 'log_name' | BEFORE datetime_expr }
 ```

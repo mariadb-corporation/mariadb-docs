@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_ENVELOPE(g)
 ENVELOPE(g)
 ```

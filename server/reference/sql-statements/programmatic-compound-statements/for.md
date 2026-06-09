@@ -11,7 +11,7 @@ description: >-
 
 Integer range `FOR` loop:
 
-```sql
+```bnf
 [begin_label:]
 FOR var_name IN [ REVERSE ] lower_bound .. upper_bound
 DO statement_list

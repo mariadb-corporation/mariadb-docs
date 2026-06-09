@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 WSREP_SYNC_WAIT_UPTO_GTID(gtid[,timeout])
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE]
     [DEFINER = {user | CURRENT_USER | role | CURRENT_ROLE }]
     [AGGREGATE] FUNCTION [IF NOT EXISTS] func_name ([func_parameter[,...]])

@@ -13,7 +13,7 @@ FORMAT\_PICO\_TIME is available from [MariaDB 11.0.2](https://app.gitbook.com/s/
 
 ## Syntax
 
-```sql
+```bnf
 FORMAT_PICO_TIME(time_val)
 ```
 

@@ -14,7 +14,7 @@ It is possible to generate UUIDv4 and UUIDv7, in addition to UUIDv1.
 
 ## Syntax
 
-```sql
+```bnf
 UUID_v7()
 ```
 

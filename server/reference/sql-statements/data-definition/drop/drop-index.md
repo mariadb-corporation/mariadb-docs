@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP INDEX [IF EXISTS] index_name ON tbl_name 
     [WAIT n |NOWAIT]
 ```

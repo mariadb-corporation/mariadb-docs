@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_AsGeoJSON(g[, max_decimals[, options]])
 ```
 

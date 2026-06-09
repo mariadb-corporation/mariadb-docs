@@ -6,7 +6,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 ## Syntax
 
-```sql
+```bnf
 STOP { SLAVE | REPLICA } ["connection_name"] [thread_type [, thread_type] ... ] 
 [FOR CHANNEL "connection_name"]
 

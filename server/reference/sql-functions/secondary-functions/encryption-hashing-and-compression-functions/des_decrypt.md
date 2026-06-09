@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DES_DECRYPT(crypt_str[,key_str])
 ```
 

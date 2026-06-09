@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 MBRDisjoint(g1,g2)
 ```
 

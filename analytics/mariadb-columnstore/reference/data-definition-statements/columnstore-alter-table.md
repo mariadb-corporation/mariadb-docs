@@ -11,7 +11,7 @@ The `ALTER TABLE` statement modifies existing tables. It includes adding, deleti
 
 ## Syntax
 
-```sql
+```bnf
 ALTER TABLE tbl_name
     alter_specification [, alter_specification] ...
 

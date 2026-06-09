@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 Crosses(g1,g2)
 ```
 

@@ -19,6 +19,10 @@ MariaDB Connector/C allows application developers to read options from the defau
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_FILE, NULL);
 ```
 
+{% hint style="info" %}
+`MYSQL_READ_DEFAULT_FILE` is exclusive: if the application calls it more than once, the second call replaces the value set by the first. To read both a custom option file and the default option files, pass the custom file path in a single call; reading default files is controlled separately via `MYSQL_READ_DEFAULT_GROUP`.
+{% endhint %}
+
 #### Default Option File Locations on Linux, Unix, Mac
 
 On Linux, Unix, or Mac OS X, the default option file is called `my.cnf`. MariaDB Connector/C looks for the MariaDB option file in the locations and orders listed below.
@@ -41,6 +45,12 @@ The locations are dependent on whether the `DEFAULT_SYSCONFDIR` [cmake](https://
 | `DEFAULT_SYSCONFDIR/my.cnf` |
 | `$MYSQL_HOME/my.cnf`        |
 | `~/.my.cnf`                 |
+
+{% hint style="info" %}
+**Environment variable precedence:** If the `$MARIADB_HOME` environment variable is set, MariaDB Connector/C reads `$MARIADB_HOME/my.cnf` and ignores `$MYSQL_HOME` entirely. Only if `$MARIADB_HOME` is not set will the connector fall back to `$MYSQL_HOME/my.cnf`. If neither variable is set, this location is skipped.
+
+**`$HOME` and the `~/.my.cnf` path:** If `$HOME` is unset in the shell environment, the connector will not locate `~/.my.cnf` and will silently skip it without returning an error.
+{% endhint %}
 
 #### Default Option File Locations on Windows
 
@@ -97,9 +107,6 @@ The [--](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/starti
 The syntax of the MariaDB option files are:
 
 * Lines starting with
-
-## are comments.
-
 * Empty lines are ignored.
 * Option groups use the syntax `[group-name]`. See the [Option Groups](configuring-mariadb-connectorc-with-option-files.md#option-groups) section below for more information on available option groups.
 * The same option group can appear multiple times.
@@ -136,6 +143,16 @@ For example:
 ```c
 mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, (void *)"my_section");
 ```
+
+{% hint style="info" %}
+`MYSQL_READ_DEFAULT_GROUP` is an exclusive option: calling it more than once replaces the previously specified custom group name. Only one non‑default group can be defined in this way. When a custom group is provided, it is processed **after** the built‑in default groups (`[client]`, `[client-server]`, `[client-mariadb]`), so values in the custom group override those defined in the defaults. Passing an empty string causes only the default groups to be read, with no custom group applied:
+
+```
+mysql_optionsv(mysql, MYSQL_READ_DEFAULT_GROUP, (void *)"");
+```
+
+**MySQL compatibility note:** MySQL Connector/C recognizes only `[client]` as a default group. To ensure option files work with both connectors, place shared settings in `[client]` and MariaDB‑specific settings in `[client-mariadb]`. A MySQL connector ignores `[client-mariadb]`, while a MariaDB connector reads `[client]` first and then applies overrides from `[client-mariadb]`.
+{% endhint %}
 
 The custom option group will be read in addition to the default option groups listed above.
 
@@ -195,8 +212,12 @@ my_print_defaults my_section client client-server client-mariadb
 --ssl_key=/etc/my.cnf.d/certificates/client-key.pem
 --ssl_ca=/etc/my.cnf.d/certificates/ca.pem
 --ssl-verify-server-cert
---max_allowed_packet=1GB
+--max_allowed_packet=1073741824
 ```
+
+{% hint style="info" %}
+Numeric suffixes such as `K`, `M`, or `G` are not supported in option file values. The connector reads only the numeric portion and silently discards any trailing non‑numeric characters. Always specify byte counts as plain integer values in option files.
+{% endhint %}
 
 See [Configuring MariaDB with Option Files: Checking Program Options](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files#checking-program-options) for more information.
 
@@ -314,6 +335,10 @@ These options can also be set inside your application with the [mysql\_optionsv]
 * mysql\_optionsv: `MYSQL_INIT_COMMAND`
 * Data Type: `string`
 * Default Value:
+
+{% hint style="info" %}
+Unlike most options, `init-command` is a **multi-element** option. Each occurrence in an option file appends the statement to an internal list rather than replacing the previous value. If `init-command` is specified in both `/etc/my.cnf` and `~/.my.cnf`, all statements will execute on each connect and reconnect, in an unspecified order. Remember to use this option with caution, especially when multiple option files are in use, as statements defined in system‑wide files may not be visible when editing user‑level files.
+{% endhint %}
 
 **`local-infile`**
 
@@ -504,16 +529,16 @@ These options can also be set inside your application with the [mysql\_optionsv]
 
 **`ssl-fp`**
 
-* Description: Specify the SHA1 fingerprint of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake.
-* mysql\_optionsv: `MARIADB_OPT_SSL_FP`
+* Description: Description: Specify the fingerprint hash of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. handshake. In Connector/C versions prior to 3.4.0, only SHA1 hashes are accepted. From version 3.4.0 onward, `SHA256`, `SHA384`, and `SHA512` hashes are also supported.
+* `mysql_optionsv`: `MARIADB_OPT_SSL_FP`
 * Data Type: `string`
 * Default Value:
 * Introduced: MariaDB Connector/C 3.0.0
 
 **`ssl-fp-list`, `ssl-fplist`**
 
-* Description: Specify a file which contains one or more SHA1 fingerprints of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake.
-* mysql\_optionsv: `MARIADB_OPT_SSL_FP_LIST`
+* Description: Description: Specify a file which contains one or more fingerprint hashes of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. In Connector/C versions prior to 3.4.0, only SHA1 hashes are accepted. From version 3.4.0 onward, `SHA256`, `SHA384`, and `SHA512` hashes are also supported.
+* `mysql_optionsv`: `MARIADB_OPT_SSL_FP_LIST`
 * Data Type: `string`
 * Default Value:
 * Introduced: MariaDB Connector/C 3.0.0

@@ -6,7 +6,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_DISTANCE_SPHERE(g1,g2,[r])
 ```
 

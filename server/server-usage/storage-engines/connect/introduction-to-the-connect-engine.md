@@ -11,16 +11,11 @@ CONNECT is not just a new “YASE” (Yet another Storage Engine) that provides 
 
 * Robin Schumacher\[[1](introduction-to-the-connect-engine.md#_note-0)]
 
-What he describes is known as MED (Management of External Data) enabling the\
-handling of data not stored in a DBMS database as if it were stored in tables.\
-An ISO standard exists that describes one way to implement and use MED in SQL\
-by defining foreign tables for which an external FDW (Foreign Data Wrapper) has\
-been developed in C.
+What he describes is known as MED (Management of External Data) enabling the handling of data not stored in a DBMS database as if it were stored in tables. An ISO standard exists that describes one way to implement and use MED in SQL by defining foreign tables for which an external FDW (Foreign Data Wrapper) has been developed in C.
 
 However, since this was written, a new source of data was developed as the “cloud”. Data are existing worldwide and, in particular, can be obtained in JSON or XML format in answer to REST queries. From [Connect 1.06.0010](./), it is possible to create JSON, XML or CSV tables based on data retrieved from such REST queries.
 
-MED as described above is a rather complex way to achieve this goal and MariaDB does not support the ISO SQL/MED standard. But, to cover the need, possibly in transactional but\
-mostly in decision support applications, the CONNECT storage engine supports MED in a much simpler way.
+MED as described above is a rather complex way to achieve this goal and MariaDB does not support the ISO SQL/MED standard. But, to cover the need, possibly in transactional but mostly in decision support applications, the CONNECT storage engine supports MED in a much simpler way.
 
 The main features of CONNECT are:
 
@@ -42,8 +37,7 @@ The main features of CONNECT are:
 16. Provides an API that allows writing additional FDW in C++.
 
 With CONNECT, MariaDB has one of the most advanced implementations of MED and NoSQL,\
-without the need for complex additions to the SQL syntax (foreign tables are\
-"normal" tables using the CONNECT engine).
+without the need for complex additions to the SQL syntax (foreign tables are "normal" tables using the CONNECT engine).
 
 Giving MariaDB easy and natural access to external data enables the use of all of its powerful functions and SQL-handling abilities for developing business intelligence applications.
 

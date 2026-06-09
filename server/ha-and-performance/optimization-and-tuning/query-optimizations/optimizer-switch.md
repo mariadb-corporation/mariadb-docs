@@ -6,7 +6,7 @@
 
 To set or unset the various optimizations, use the following syntax:
 
-```sql
+```bnf
 SET [GLOBAL|SESSION] optimizer_switch='cmd[,cmd]...';
 ```
 

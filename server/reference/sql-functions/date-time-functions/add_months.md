@@ -14,7 +14,7 @@ The `ADD_MONTHS` function was introduced to enhance Oracle compatibility. Simila
 
 ## Syntax
 
-```sql
+```bnf
 ADD_MONTHS(date, months)
 ```
 

@@ -13,6 +13,8 @@ description: >-
 my_ulonglong mysql_num_rows(MYSQL_RES * );
 ```
 
+## Parameter
+
 * `MYSQL_RES` - a result set identifier returned by [mysql\_store\_result()](mysql_store_result.md) or [mysql\_use\_result()](mysql_use_result.md).
 
 ## Description
@@ -20,10 +22,10 @@ my_ulonglong mysql_num_rows(MYSQL_RES * );
 Returns number of rows in a result set.
 
 {% hint style="info" %}
-The behavior of `mysql_num_rows()` depends on whether buffered or unbuffered result sets are being used. For unbuffered result sets, `mysql_num_rows()` will not return the correbct number of rows until all the rows in the result have been retrieved.
+The behavior of `mysql_num_rows()` depends on whether buffered or unbuffered result sets are being used. For unbuffered result sets, `mysql_num_rows()` will not return the correct number of rows until all the rows in the result have been retrieved.
 {% endhint %}
 
-## See also
+## See Also
 
 * [mysql\_affected\_rows()](mysql_affected_rows.md)
 * [mysql\_use\_result()](mysql_use_result.md)

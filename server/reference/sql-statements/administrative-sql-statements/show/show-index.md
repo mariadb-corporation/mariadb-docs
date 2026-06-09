@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW {INDEX | INDEXES | KEYS} 
  FROM tbl_name [FROM db_name]
  [WHERE expr]

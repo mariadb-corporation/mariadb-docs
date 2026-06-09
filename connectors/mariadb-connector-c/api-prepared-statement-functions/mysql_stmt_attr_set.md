@@ -15,15 +15,19 @@ my_bool mysql_stmt_attr_set(MYSQL_STMT * stmt,
                             const void * attr);
 ```
 
-* `stmt` - a statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
-* `enum_stmt_attr_type` - the attribute that you want to set. See below.
-* `attr` - the value to assign to the attribute
+## Parameters
+
+| Parameter             | Description                                                                                          |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| `stmt`                | A statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).     |
+| `enum_stmt_attr_type` | The attribute that can be configured. See [Attribute Types](mysql_stmt_attr_set.md#attribute-types). |
+| `attr`                | The value to assign to the attribute                                                                 |
 
 ## Description
 
 Used to modify the behavior of a prepared statement. This function may be called multiple times to set several attributes. Returns zero on success, non-zero on failure.
 
-### Attribute types
+### Attribute Types
 
 The `enum_stmt_attr_type` attribute can have one of the following values:
 

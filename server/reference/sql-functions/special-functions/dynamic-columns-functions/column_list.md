@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_LIST(dyncol_blob);
 ```
 

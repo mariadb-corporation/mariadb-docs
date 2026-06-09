@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SET PASSWORD [FOR user] =
     {
         PASSWORD('some password')

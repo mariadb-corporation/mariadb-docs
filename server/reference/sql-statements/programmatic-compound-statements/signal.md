@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SIGNAL error_condition
     [SET error_property
     [, error_property] ...]

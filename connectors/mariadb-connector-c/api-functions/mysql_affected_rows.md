@@ -1,8 +1,8 @@
 ---
 description: >-
-  mysql_affected_rows returns the number of rows affected by the last
-  INSERT, UPDATE, DELETE, or REPLACE statement executed on a MariaDB
-  Connector/C connection.
+  mysql_affected_rows returns the number of rows affected by the last INSERT,
+  UPDATE, DELETE, or REPLACE statement executed on a MariaDB Connector/C
+  connection.
 ---
 
 # mysql\_affected\_rows
@@ -13,7 +13,9 @@ description: >-
 my_ulonglong mysql_affected_rows(MYSQL * mysql);
 ```
 
-`mysql` is a connection identifier, which was previously allocated by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
+## Parameter
+
+* `mysql` is a connection identifier, which was previously allocated by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
 
 ## Description
 
@@ -25,7 +27,11 @@ When using [UPDATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql
 The [REPLACE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/replace) statement first deletes the record with the same primary key and then inserts the new record. This function returns the number of deleted records in addition to the number of inserted records.
 {% endhint %}
 
-## See also
+## Return Value
+
+Returns the number of affected rows or -1 on error.
+
+## See Also
 
 * [mysql\_num\_rows()](mysql_num_rows.md)
 

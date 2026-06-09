@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 expr NOT REGEXP pat, expr NOT RLIKE pat
 ```
 

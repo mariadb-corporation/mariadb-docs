@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ALTER PROCEDURE proc_name [characteristic ...]
 
 characteristic:

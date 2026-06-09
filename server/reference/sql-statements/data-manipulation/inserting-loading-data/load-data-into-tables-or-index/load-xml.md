@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LOAD XML [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE 'file_name'
     [REPLACE | IGNORE]
     INTO TABLE [db_name.]tbl_name

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 [begin_label:] BEGIN [NOT ATOMIC]
     [statement_list]
 END [end_label]

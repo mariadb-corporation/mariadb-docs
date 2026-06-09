@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 COUNT(DISTINCT expr,[expr...])
 ```
 

@@ -10,7 +10,7 @@ This page is about the `TIMESTAMP` **data type**. For the timestamp function, se
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMP [(<microsecond precision)]
 ```
 

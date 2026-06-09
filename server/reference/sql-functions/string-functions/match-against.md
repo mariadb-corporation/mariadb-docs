@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MATCH (col1,col2,...) AGAINST (expr [search_modifier])
 ```
 

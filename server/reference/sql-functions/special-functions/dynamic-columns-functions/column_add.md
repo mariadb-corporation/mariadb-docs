@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_ADD(dyncol_blob, column_nr, value [as type], [column_nr, value [as type]]...)
 COLUMN_ADD(dyncol_blob, column_name, value [as type], [column_name, value [as type]]...)
 ```

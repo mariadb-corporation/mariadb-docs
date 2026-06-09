@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LAG (expr[, offset]) OVER ( 
   [ PARTITION BY partition_expression ] 
   < ORDER BY order_list >

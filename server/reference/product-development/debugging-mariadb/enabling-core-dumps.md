@@ -274,7 +274,7 @@ See the IBM [Core Dump Handler](https://github.com/IBM/core-dump-handler) projec
 
 ## Core Files and Address Sanitizer (ASAN)
 
-If your `mariadbd` binary is built with [Address Sanitizer (ASAN)](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compile-and-using-mariadb-with-sanitizers-asan-ubsan-tsan-msan.md) then it will not be able to generate a core file.
+If your `mariadbd` binary is built with [Address Sanitizer (ASAN)](../../../server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/legacy-guides/compile-and-using-mariadb-with-sanitizers-asan-ubsan-tsan-msan.md) then it will disable core dumps by default. A core dump can be created if `mariadbd` is started with the environment variable `ASAN_OPTIONS` set with `disable_coredump=0`.
 
 ## What's Included in Core Files
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CHECK TABLE tbl_name [, tbl_name] ... [option] ...
 
 option = {FOR UPGRADE | QUICK | FAST | MEDIUM | EXTENDED | CHANGED}

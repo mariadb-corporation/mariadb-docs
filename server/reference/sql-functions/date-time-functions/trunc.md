@@ -12,7 +12,7 @@ Introduced in [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/comm
 
 ## Syntax
 
-```sql
+```bnf
 TRUNC(date[,fmt])
 ```
 

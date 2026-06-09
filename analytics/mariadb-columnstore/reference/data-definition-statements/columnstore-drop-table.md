@@ -11,7 +11,7 @@ The [DROP TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-st
 
 ## Syntax
 
-```sql
+```bnf
 DROP  TABLE [IF EXISTS] 
     tbl_name 
     [RESTRICT ]

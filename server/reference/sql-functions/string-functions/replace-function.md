@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 REPLACE(str,from_str,to_str)
 ```
 

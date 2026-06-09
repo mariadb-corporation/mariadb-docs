@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TO_CHAR(expr[, fmt])
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_NumInteriorRings(poly)
 NumInteriorRings(poly)
 ```

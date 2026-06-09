@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeomCollFromWKB(wkb[,srid])
 ST_GeometryCollectionFromWKB(wkb[,srid])
 GeomCollFromWKB(wkb[,srid])

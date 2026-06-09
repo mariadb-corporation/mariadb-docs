@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW EXPLAIN [FORMAT=JSON] FOR <connection_id>;
 EXPLAIN [FORMAT=JSON] FOR CONNECTION <connection_id>;
 ```

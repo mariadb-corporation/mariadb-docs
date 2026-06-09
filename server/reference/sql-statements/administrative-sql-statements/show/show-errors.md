@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW ERRORS [LIMIT [offset,] row_count]
 SHOW ERRORS [LIMIT row_count OFFSET offset]
 SHOW COUNT(*) ERRORS

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SET [GLOBAL | SESSION] TRANSACTION
     transaction_property [, transaction_property] ...
 

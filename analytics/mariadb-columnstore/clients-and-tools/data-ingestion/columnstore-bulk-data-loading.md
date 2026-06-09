@@ -34,7 +34,7 @@ There are two primary steps to using the cpimport utility:
 
 The simplest form of cpimport command is
 
-```sql
+```bnf
 cpimport dbName tblName [loadFile]
 ```
 

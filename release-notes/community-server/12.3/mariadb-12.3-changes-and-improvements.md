@@ -6,8 +6,6 @@ description: >-
 
 # MariaDB 12.3 Changes & Improvements
 
-
-
 {% include "../../.gitbook/includes/latest-12-3.md" %}
 
 MariaDB 12.3 is a [long term release](../about/release-model.md), maintained until June 2029. This page lists all changes and improvements added since [MariaDB 11.8](../11.8/what-is-mariadb-118.md), the previous LTS release.
@@ -180,6 +178,19 @@ For a list of all new variables added since MariaDB 11.8, see:
 * [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables), deprecated in [MariaDB 10.5.0](../old-releases/10.5/10.5.0.md)
 * [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size), deprecated in [MariaDB 10.5.3](../old-releases/10.5/10.5.3.md)
 * [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine), deprecated in [MariaDB 5.5](../old-releases/5.5/changes-improvements-in-mariadb-5-5.md).
+
+## Security Vulnerabilities Fixed in MariaDB 12.3
+
+For a complete list of security vulnerabilities (CVEs) fixed across all versions of MariaDB Community Server, see the [Security Vulnerabilities Fixed in MariaDB Community Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/community-server) page.
+
+| CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Community Server 12.3 Release |
+| ----------------------------------------------------------------- | ---------------------- | ----------------------------- |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [MariaDB 12.3.2](12.3.2.md)   |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                    | [MariaDB 12.3.2](12.3.2.md)   |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171) | 6.3                    | [MariaDB 12.3.2](12.3.2.md)   |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170) | 5.0                    | [MariaDB 12.3.2](12.3.2.md)   |
+| [CVE-2026-44169](https://www.cve.org/CVERecord?id=CVE-2026-44169) | 4.3                    | [MariaDB 12.3.2](12.3.2.md)   |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                    | [MariaDB 12.3.2](12.3.2.md)   |
 
 ## List of All MariaDB 12.3 Releases
 

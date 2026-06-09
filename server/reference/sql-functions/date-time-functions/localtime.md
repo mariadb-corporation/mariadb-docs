@@ -6,7 +6,7 @@ description: Synonym for NOW(). Returns the current date and time in the session
 
 ## Syntax
 
-```sql
+```bnf
 LOCALTIME
 LOCALTIME([precision])
 ```

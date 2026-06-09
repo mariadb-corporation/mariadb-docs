@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE] {DATABASE | SCHEMA} [IF NOT EXISTS] db_name
     [create_specification] ...
 
@@ -17,6 +17,10 @@ create_specification:
   | [DEFAULT] COLLATE [=] collation_name
   | COMMENT [=] 'comment'
 ```
+
+![Railroad diagram of CREATE DATABASE — equivalent to the BNF above](../../../../.gitbook/assets/create-database-railroad.svg)
+
+![Railroad diagram of create_specification](../../../../.gitbook/assets/create-database-specification-railroad.svg)
 
 ## Description
 

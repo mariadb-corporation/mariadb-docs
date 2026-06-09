@@ -1,8 +1,7 @@
 ---
 description: >-
-  mysql_server_init is an alias for mysql_library_init in MariaDB
-  Connector/C, used to initialize the client library before making any other
-  calls.
+  mysql_server_init is an alias for mysql_library_init in MariaDB Connector/C,
+  used to initialize the client library before making any other calls.
 ---
 
 # mysql\_server\_init
@@ -15,9 +14,9 @@ void mysql_server_init(void );
 
 ## Description
 
-`mysql_server_init()` is an alias for [mysql\_library\_init()](mysql_library_init.md).
+Call to initialize the library before calling other functions. `mysql_server_init()` is an alias for [mysql\_library\_init()](mysql_library_init.md).
 
-## See also
+## See Also
 
 * [mysql\_library\_init()](mysql_library_init.md)
 * [mysql\_library\_end()](mysql_library_end.md)

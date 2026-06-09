@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 {% code overflow="wrap" %}
-```sql
+```bnf
 REPAIR [NO_WRITE_TO_BINLOG | LOCAL] VIEW  view_name[, view_name] ... [FROM MYSQL]
 ```
 {% endcode %}

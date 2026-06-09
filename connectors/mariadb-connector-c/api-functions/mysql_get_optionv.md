@@ -1,8 +1,8 @@
 ---
 description: >-
   mysql_get_optionv retrieves the current value of a connection option
-  previously set with mysql_optionsv, supporting boolean, integer, string,
-  and miscellaneous option types.
+  previously set with mysql_optionsv, supporting boolean, integer, string, and
+  miscellaneous option types.
 ---
 
 # mysql\_get\_optionv
@@ -40,11 +40,11 @@ This function was added in MariaDB Connector/C 3.0.0.
 * MYSQL\_OPT\_NONBLOCK
 * MYSQL\_OPT\_SSL\_VERIFY\_SERVER\_CERT
 * MARIADB\_OPT\_CONNECTION\_READ\_ONLY
-* MYSQL\_SECURE\_AUTH
+*   MYSQL\_SECURE\_AUTH
 
     ```c
     uint8_t reconnect;
-    
+
     rc = mysql_get_optionv(mysql, MYSQL_OPT_RECONNECT, &reconnect);
     ```
 
@@ -54,17 +54,18 @@ This function was added in MariaDB Connector/C 3.0.0.
 * MYSQL\_OPT\_READ\_TIMEOUT
 * MYSQL\_OPT\_WRITE\_TIMEOUT
 * MYSQL\_OPT\_LOCAL\_INFILE
-* MYSQL\_OPT\_PROTOCOL
-  
+*   MYSQL\_OPT\_PROTOCOL
+
     ```c
     uint32_t timeout;
-    
+
     rc = mysql_get_optionv(mysql, MYSQL_OPT_CONNECT_TIMEOUT, &timeout);
     ```
 
 #### Character arrays
-* MYSQL\_INIT\_COMMAND
- 
+
+*   MYSQL\_INIT\_COMMAND
+
     ```c
     char **commands;
     int elements;
@@ -86,22 +87,22 @@ This function was added in MariaDB Connector/C 3.0.0.
 * MYSQL\_OPT\_SSL\_CRLPATH
 * MYSQL\_OPT\_SSL\_CIPHER
 * MARIADB\_OPT\_SSL\_FP
-* MARIADB\_OPT\_SSL\_FP_LIST
+* MARIADB\_OPT\_SSL\_FP\_LIST
 * MARIADB\_OPT\_SSL\_PASSPHRASE
 * MYSQL\_DEFAULT\_AUTH
 * MYSQL\_OPT\_BIND
-* MARIADB\_OPT\_CONNECTION\_HANDLER
+*   MARIADB\_OPT\_CONNECTION\_HANDLER
 
     ```c
     char *plugin_dir;
-    
+
     rc = mysql_get_optionv(mysql, MYSQL_PLUGIN_DIR, &plugin_dir);
     ```
 
 ### Misc
 
 * MYSQL\_PROGRESS\_CALLBACK: requires a function pointer \*(const MYSQL \*, uint, uint, double, const char \*, uint))arg)
-* MYSQL\_CONNECT\_ATTRS: this option requires 5 parameters:
+*   MYSQL\_CONNECT\_ATTRS: this option requires 5 parameters:
 
     ```c
     /* get number of connection attributes */
@@ -115,17 +116,15 @@ This function was added in MariaDB Connector/C 3.0.0.
     for (i=0; i < elements; i++)
       printf("key: %s value: %s", key[i], val[i]);
     ```
-
-* MARIADB\_OPT\_USERDATA: retrieves userdata for a given key.
+*   MARIADB\_OPT\_USERDATA: retrieves userdata for a given key.
 
     ```c
     const char *ssh_user;
     mysql_get_optionv(mysql, MARIADB_OPT_USERDATA, "ssh_user", (void *)ssh_user);
     ```
 
-## See also
+## See Also
 
 * [mysql\_optionsv()](mysql_optionsv.md)
-
 
 {% @marketo/form formId="4316" %}

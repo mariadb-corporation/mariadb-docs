@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 NATURAL_SORT_KEY(str)
 ```
 

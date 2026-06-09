@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LEAD (expr[, offset]) OVER ( 
   [ PARTITION BY partition_expression ] 
   [ ORDER BY order_list ]

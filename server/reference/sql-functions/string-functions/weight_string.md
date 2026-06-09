@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 WEIGHT_STRING(str [AS {CHAR|BINARY}(N)] [LEVEL levels] [flags])
   levels: N [ASC|DESC|REVERSE] [, N [ASC|DESC|REVERSE]] ...
 ```

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LOCK TABLE[S]
     tbl_name [[AS] alias] lock_type
     [, tbl_name [[AS] alias] lock_type] ...

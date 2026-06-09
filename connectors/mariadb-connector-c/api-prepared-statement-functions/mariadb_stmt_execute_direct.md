@@ -13,6 +13,8 @@ description: >-
 int mariadb_stmt_execute_direct(MYSQL_STMT * stmt, const char *query, size_t length);
 ```
 
+## Parameters
+
 * `stmt` - A statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
 * `query` SQL statement
 * `length` Length of SQL statement

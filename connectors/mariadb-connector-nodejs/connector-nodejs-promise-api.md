@@ -555,7 +555,7 @@ const conn = await mariadb.createConnection({
   }
 ```
 
-When connecting through [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/), `threadId` does not have a meaningful interpretation, as MaxScale manages connections at the proxy level.
+When connecting through [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/), `threadId` represents the MaxScale session ID (as shown in `list sessions`) rather than the backend MariaDB Server connection ID. Hence, the value does not correspond to the result of `SELECT CONNECTION_ID()` executed on the backend server.
 
 #### `connection.query(sql[, values]) -> Promise`
 

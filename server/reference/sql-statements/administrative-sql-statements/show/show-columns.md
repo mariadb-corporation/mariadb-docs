@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW [FULL] {COLUMNS | FIELDS} FROM tbl_name [FROM db_name]
     [LIKE 'pattern' | WHERE expr]
 ```

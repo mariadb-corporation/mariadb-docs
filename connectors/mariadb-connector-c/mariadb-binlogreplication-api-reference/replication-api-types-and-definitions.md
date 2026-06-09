@@ -129,7 +129,7 @@ enum mariadb_row_event_type {
 };
 ```
 
-<table><thead><tr><th width="173.44439697265625">Value</th><th>Constant</th><th>Description</th></tr></thead><tbody><tr><td>0</td><td>WRITE_ROWS</td><td>A row was inserted. The <code>row_data</code> field contains the new row image.</td></tr><tr><td>1</td><td>UPDATE_ROWS</td><td>A row was updated.</td></tr><tr><td>2</td><td>DELETE_ROWS</td><td>A row was deleted. The <code>row_data</code> field contains the deleted row image. </td></tr></tbody></table>
+<table><thead><tr><th width="173.44439697265625">Value</th><th>Constant</th><th>Description</th></tr></thead><tbody><tr><td><code>0</code></td><td><code>WRITE_ROWS</code></td><td>A row was inserted. The <code>row_data</code> field contains the new row image.</td></tr><tr><td><code>1</code></td><td><code>UPDATE_ROWS</code></td><td>A row was updated.</td></tr><tr><td><code>2</code></td><td><code>DELETE_ROWS</code></td><td>A row was deleted. The <code>row_data</code> field contains the deleted row image. </td></tr></tbody></table>
 
 ## Flags
 
@@ -145,4 +145,4 @@ The following flags are passed as a bitmask to the `MARIADB_RPL_FLAGS` option vi
 
 * [MariaDB Binlog/Replication API Reference](./)
 * [Binlog/API Data Structures](binlog-api-data-structures.md)
-* Replication API Function Reference
+* [Replication API Function Reference](replication-api-function-reference/)

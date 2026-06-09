@@ -75,7 +75,7 @@ The BLACKHOLE storage engine discards all data written to it but records operati
 {% endcolumn %}
 
 {% column %}
-The CONNECT storage engine has been deprecated.
+The main characteristic of CONNECT is to enable accessing data scattered on a machine as if it was a centralized database.
 {% endcolumn %}
 {% endcolumns %}
 

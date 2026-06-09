@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_SEARCH(json_doc, return_arg, search_str[, escape_char[, path] ...])
 ```
 

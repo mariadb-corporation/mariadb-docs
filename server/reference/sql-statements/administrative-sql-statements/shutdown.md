@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHUTDOWN [WAIT FOR ALL { SLAVES | REPLICAS } ]
 ```
 

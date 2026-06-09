@@ -1269,6 +1269,10 @@ MariaDB Enterprise Audit is included with MariaDB Enterprise Server. Special con
 
 For details on how to upgrade from the MariaDB Audit Plugin to MariaDB Enterprise Audit, see the sections below.
 
+{% hint style="warning" %}
+**Before upgrading the package**: Remove the v1 plugin **and** every `server_audit_*` variable setting from your configuration files *before* running `apt upgrade` (or your platform's equivalent). The new Enterprise Server does not recognize the v1 variables and will fail to start if they remain. Follow the [pre-upgrade cleanup steps](mariadb-enterprise-audit.md#check-for-and-uninstall-the-v1-plugin) below.
+{% endhint %}
+
 {% hint style="danger" %}
 **Migrating from MariaDB Audit Plugin (v1)**
 
@@ -1442,11 +1446,28 @@ Remove or comment out the plugin\_load\_add option from the configuration file:
 {% endstep %}
 {% endstepper %}
 
+#### Remove v1 Variable Settings
+
+After uninstalling the plugin, also remove every `server_audit_*` system variable from your configuration files. If any of these settings remain, the new Enterprise Server will fail to start because it does not recognize them.
+
+```bash
+$ grep --extended-regexp --with-filename \
+   'server_audit[_a-z]*[[:blank:]]*=' \
+   /etc/mysql/my.cnf \
+   /etc/mysql/mariadb.conf.d/*
+```
+
+Comment out or delete every matching line. Common variables include `server_audit_events`, `server_audit_logging`, `server_audit_incl_users`, `server_audit_excl_users`, `server_audit_file_path`, `server_audit_output_type`, `server_audit_query_log_limit`, and `server_audit_file_rotate_size`.
+
 ### Migrate v1 Settings to Enterprise Audit (v2)
 
 #### Update System Tables
 
-After upgrading to MariaDB Enterprise Server, execute mariadb-upgrade to create the [System Tables for Audit Filters](mariadb-enterprise-audit.md#system-tables-for-audit-filters).
+After upgrading to MariaDB Enterprise Server, execute `mariadb-upgrade` to create the [System Tables for Audit Filters](mariadb-enterprise-audit.md#system-tables-for-audit-filters).
+
+{% hint style="info" %}
+If `mariadb-upgrade` reports that the installation is already up to date — for example, when upgrading from Community Server 10.6 to Enterprise Server 10.6 — the audit-filter system tables will not be created. In that case, run [`mariadb-upgrade --force`](../../clients-and-utilities/deployment-tools/mariadb-upgrade.md#f-force) to force the upgrade scripts to run anyway. See [mariadb-upgrade](../../clients-and-utilities/deployment-tools/mariadb-upgrade.md) for the full behaviour.
+{% endhint %}
 
 #### Migrate Audit Filters
 

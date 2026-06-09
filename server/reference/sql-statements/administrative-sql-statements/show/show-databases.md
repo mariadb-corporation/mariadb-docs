@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW {DATABASES | SCHEMAS}
     [LIKE 'pattern' | WHERE expr]
 ```

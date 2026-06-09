@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FLOAT[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

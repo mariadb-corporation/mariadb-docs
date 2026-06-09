@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SET NAMES {'charset_name'
     [COLLATE 'collation_name'] | DEFAULT}
 ```

@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_OBJECTAGG(key, value)
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ANALYSE([max_elements[,max_memory]])
 ```
 

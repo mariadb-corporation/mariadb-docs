@@ -1,5 +1,6 @@
 ---
 description: 'Step 5: Test MariaDB Enterprise Server'
+hidden: true
 ---
 
 # Step 5: Test MariaDB Enterprise Serverd

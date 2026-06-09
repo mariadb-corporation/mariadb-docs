@@ -14,7 +14,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TO_NUMBER(number_or_string_subject)
 TO_NUMBER(string_subject,string_format)
 ```

@@ -17,7 +17,7 @@ The `CHANGE MASTER TO` statement sets up a replication replica server to connect
 
 ## Syntax
 
-```sql
+```bnf
 CHANGE MASTER ['connection_name'] TO master_def  [, master_def] ... 
   [FOR CHANNEL 'channel_name']
 

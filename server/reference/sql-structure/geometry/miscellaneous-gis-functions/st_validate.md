@@ -6,7 +6,7 @@ ST\_Validate was added in [MariaDB 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzq
 
 ## Syntax
 
-```sql
+```bnf
 ST_Validate(g)
 ```
 

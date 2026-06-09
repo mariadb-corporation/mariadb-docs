@@ -11,6 +11,12 @@ The Binlog/Replication API enables client applications to connect to a MariaDB s
 
 This API is particularly useful for building change‑data capture (CDC) pipelines, custom replication consumers, and auditing tools.
 
+### See Also
+
+* [Binlog/API Data Structures](binlog-api-data-structures.md)
+* [Replication API Types and Definitions](replication-api-types-and-definitions.md)
+* [Replication API Function Reference](replication-api-function-reference/)
+
 
 
 {% @marketo/form formId="4316" %}

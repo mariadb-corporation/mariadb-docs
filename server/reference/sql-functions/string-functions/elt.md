@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ELT(N, str1[, str2, str3,...])
 ```
 

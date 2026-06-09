@@ -10,7 +10,7 @@ description: >-
 
 `SOME` is a synonym for `ANY`.
 
-```sql
+```bnf
 scalar_expression comparison_operator ANY <Table subquery>
 scalar_expression comparison_operator SOME <Table subquery>
 ```

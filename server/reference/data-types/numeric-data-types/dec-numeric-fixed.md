@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DEC[(M[,D])] [SIGNED | UNSIGNED | ZEROFILL]
 
 NUMERIC[(M[,D])] [SIGNED | UNSIGNED | ZEROFILL]

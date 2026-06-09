@@ -6,7 +6,7 @@ description: Constructs a Polygon value using its WKB representation and an opti
 
 ## Syntax
 
-```sql
+```bnf
 ST_PolyFromWKB(wkb[,srid])
 ST_PolygonFromWKB(wkb[,srid])
 PolyFromWKB(wkb[,srid])

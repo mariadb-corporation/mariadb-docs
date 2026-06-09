@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 INSERT(str,pos,len,newstr)
 ```
 

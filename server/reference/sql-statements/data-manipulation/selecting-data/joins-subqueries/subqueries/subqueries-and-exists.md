@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SELECT ... WHERE EXISTS <Table subquery>
 ```
 

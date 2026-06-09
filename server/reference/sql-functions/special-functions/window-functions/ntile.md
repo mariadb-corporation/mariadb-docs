@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 NTILE (expr) OVER ( 
   [ PARTITION BY partition_expression ] 
   [ ORDER BY order_list ]

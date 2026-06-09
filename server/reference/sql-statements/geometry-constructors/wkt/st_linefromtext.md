@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_LineFromText(wkt[,srid])
 ST_LineStringFromText(wkt[,srid])
 LineFromText(wkt[,srid])

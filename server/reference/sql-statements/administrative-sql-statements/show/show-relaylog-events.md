@@ -12,7 +12,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 ## Syntax
 
-```sql
+```bnf
 SHOW RELAYLOG ['connection_name'] EVENTS
     [IN 'log_name'] [FROM pos] [LIMIT [offset,] row_count]
     [ FOR CHANNEL 'channel_name']

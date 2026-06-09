@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ROW_NUMBER() OVER (
   [ PARTITION BY partition_expression ]
   [ ORDER BY order_list ]

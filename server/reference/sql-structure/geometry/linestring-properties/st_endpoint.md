@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_EndPoint(ls)
 EndPoint(ls)
 ```

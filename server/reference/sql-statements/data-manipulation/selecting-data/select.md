@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SELECT
     [/*+ hints */]
     [/*+ JOIN_PREFIX(argument_list) */]

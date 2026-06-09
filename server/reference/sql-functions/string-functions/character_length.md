@@ -6,7 +6,7 @@ description: Synonym for CHAR_LENGTH(). Returns the number of characters in the 
 
 ## Syntax
 
-```sql
+```bnf
 CHARACTER_LENGTH(str)
 ```
 

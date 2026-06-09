@@ -1,8 +1,7 @@
 ---
 description: >-
-  mysql_real_connect opens a connection to a MariaDB server and returns a
-  MYSQL handle on success, or NULL if the connection could not be
-  established.
+  mysql_real_connect opens a connection to a MariaDB server and returns a MYSQL
+  handle on success, or NULL if the connection could not be established.
 ---
 
 # mysql\_real\_connect
@@ -20,7 +19,9 @@ MYSQL * mysql_real_connect(MYSQL * mysql,
                            unsigned long flags);
 ```
 
-* `mysql` - a mysql handle, which was previously allocated by [mysql\_init()](mysql_init.md).
+## Parameters
+
+* `mysql` - a `mysql` handle, which was previously allocated by [mysql\_init()](mysql_init.md).
 * `host` - can be either a host name or an IP address. Passing the NULL value or the string "localhost" to this parameter, the local host is assumed. When possible, pipes will be used instead of the TCP/IP protocol.
 * `user` - the user name.
 * `passwd` - If provided or NULL, the server will attempt to authenticate the user against those user records which have no password only. This allows one username to be used with different permissions (depending on if a password as provided or not).
@@ -39,15 +40,32 @@ MYSQL * mysql_real_connect(MYSQL * mysql,
 
 ## Description
 
-Establishes a connection to a database server. Returns a MYSQL \* handle or NULL if an error occurred.
+Establishes a connection to a database server.&#x20;
+
+## Return Value
+
+Returns a connection handle (same as passed for 1st parameter) or `NULL` on error. On error, please check [mysql\_errno()](mysql_errno.md) and [mysql\_error()](mysql_error.md) functions for more information.
 
 {% hint style="info" %}
-The password doesn't need to be encrypted before executing `mysql_real_connect()`. This will be handled in the client server protocol.
+* The password doesn't need to be encrypted before executing `mysql_real_connect()`. This will be handled in the client server protocol.
+* The connection handle can't be reused for establishing a new connection. It must be closed and reinitialized before.
+* `mysql_real_connect()` must complete successfully before you can execute any other API functions beside [mysql\_optionsv()](mysql_optionsv.md).
+*   host parameter may contain multiple host/port combinations (supported since version 3.3.0). The following syntax is required:
 
-The connection handle can't be reused for establishing a new connection. It must be closed and reinitialized before.
+    * hostname and port must be separated by a colon (:)
+    * IPv6 addresses must be enclosed within square brackets
+    * hostname:port pairs must be be separated by a comma (,)
+    * if only one host:port was specified, the host string needs to end with a comma.
+    * if no port was specified, the default port will be used.
+
+    **Examples for failover host string:**
+
+    `host=[::1]:3306,192.168.0.1:3306,test.example.com`
+
+    `host=127.0.0.1:3306,`
 {% endhint %}
 
-## See also
+## See Also
 
 * [mariadb\_reconnect](mariadb_reconnect.md)
 * [mysql\_close()](mysql_close.md)

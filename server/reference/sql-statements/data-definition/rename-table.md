@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 RENAME TABLE[S] [IF EXISTS] tbl_name 
   [WAIT n | NOWAIT]
   TO new_tbl_name

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 REGEXP_SUBSTR(subject,pattern)
 ```
 

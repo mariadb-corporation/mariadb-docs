@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MAKE_SET(bits,str1,str2,...)
 ```
 

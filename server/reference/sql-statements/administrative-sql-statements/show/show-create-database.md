@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE {DATABASE | SCHEMA} db_name
 ```
 

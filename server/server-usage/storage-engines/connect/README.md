@@ -24,11 +24,8 @@ You can download a PDF version of the CONNECT documentation (1.7.0003):
 | Connect 1.04.0005 | [MariaDB 10.1.10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.10)                                                                                                                                                                                                                                                                                                                                           | Beta     |
 | Connect 1.04.0003 | [MariaDB 10.1.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.9)                                                                                                                                                                                                                                                                                                                                             | Beta     |
 
-The CONNECT storage engine enables MariaDB to access external local or remote\
-data (MED). This is done by defining tables based on different data types, in\
-particular files in various formats, data extracted from other DBMS or products\
-(such as Excel or MongoDB) via ODBC or JDBC, or data retrieved from the environment (for example DIR, WMI, and MAC tables)
+The CONNECT storage engine enables MariaDB to access external local or remote data (MED). This is done by defining tables based on different data types, in particular files in various formats, data extracted from other DBMS or products (such as Excel or MongoDB) via ODBC or JDBC, or data retrieved from the environment (for example DIR, WMI, and MAC tables)
 
-This storage engine supports table partitioning, MariaDB virtual columns and permits defining\_special\_ columns such as ROWID, FILEID, and SERVID.
+This storage engine supports table partitioning, MariaDB virtual columns and permits defining _special_ columns such as `ROWID`, `FILEID`, and `SERVID`.
 
 No precise definition of maturity exists. Because CONNECT handles many table types, each type has a different maturity depending on whether it is old and well-tested, less well-tested or newly implemented. This is indicated for all data types.

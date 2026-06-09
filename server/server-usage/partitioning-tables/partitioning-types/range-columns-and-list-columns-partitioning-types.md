@@ -18,7 +18,7 @@ All the specified columns are compared to the specified values to determine whic
 
 The last part of a [CREATE TABLE](../../../reference/sql-statements/data-definition/create/create-table.md) statement can be definition of the new table's partitions. In the case of `RANGE COLUMNS` partitioning, the syntax is as follows:
 
-```sql
+```bnf
 PARTITION BY RANGE COLUMNS (col1, col2, ...)
 (
 	PARTITION partition_name VALUES LESS THAN (value1, value2, ...),

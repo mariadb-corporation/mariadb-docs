@@ -13,11 +13,11 @@ CVE® stands for _Common Vulnerabilities and Exposures_. It is a publicly availa
 CPU stands for _Critical Patch Update_. Oracle publishes Critical Patch Update Advisories\
 four times a year, [on the Tuesday closest to the 17th day of January, April, July and October](https://www.oracle.com/technetwork/topics/security/alerts-086861.html#CriticalPatchUpdates). MySQL vulnerabilities are included in these CPU Advisories.
 
-Some vulnerabilities found in MySQL apply to MariaDB as well, they are listed on the [Security](./) page.
+Some vulnerabilities found in MySQL apply to MariaDB as well, they are listed on the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](enterprise-server.md) and [Security Vulnerabilities Fixed in MariaDB Community Server](community-server.md) pages.
 
 Other vulnerabilities found in MySQL do not apply to MariaDB.
 
-This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Advisories, but that — to the best of our knowledge — were never present in MariaDB.
+This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Advisories, but that — _to the best of our knowledge_ — were never present in MariaDB.
 
 ## Full List of CVEs Fixed in Oracle MySQL That Never Existed in MariaDB
 

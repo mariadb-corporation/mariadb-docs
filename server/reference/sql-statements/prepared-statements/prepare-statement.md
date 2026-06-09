@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 PREPARE stmt_name FROM preparable_stmt
 ```
 

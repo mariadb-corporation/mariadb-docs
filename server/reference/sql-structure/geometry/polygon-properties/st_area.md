@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_Area(poly)
 Area(poly)
 ```

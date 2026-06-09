@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_IsClosed(g)
 IsClosed(g)
 ```

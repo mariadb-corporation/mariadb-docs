@@ -1,8 +1,8 @@
 ---
 description: >-
-  mysql_debug enables debug output for a MariaDB Connector/C client using
-  the DBUG library, accepting a colon-separated control string to configure
-  trace and logging options.
+  mysql_debug enables debug output for a MariaDB Connector/C client using the
+  DBUG library, accepting a colon-separated control string to configure trace
+  and logging options.
 ---
 
 # mysql\_debug
@@ -64,7 +64,11 @@ Instead of using the mysql\_debug() function you also can set the environment va
 Enabling generation of debug information slows down the overall performance and generates huge files. In case you need debug information only for special places you can disable the generation of debug information by using mysql\_debug\_end().
 {% endhint %}
 
-## See also
+{% hint style="info" %}
+This function is deprecated and not supported anymore.
+{% endhint %}
+
+## See Also
 
 * mysql\_debug\_end()
 * [mysql\_dump\_debug\_info()](mysql_dump_debug_info.md)

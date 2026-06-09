@@ -1,5 +1,6 @@
 ---
 description: 'Step 4: Start and Configure MariaDB Enterprise Server'
+hidden: true
 ---
 
 # Step 4: Start and Configure MariaDB Enterprise Server
@@ -141,7 +142,7 @@ $ sudo mcsSetConfig CrossEngineSupport User util_user
 $ sudo mcsSetConfig CrossEngineSupport Password util_user_passwd
 ```
 
-For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/managing-columnstore/enterprise-columnstore-credentials-management)".
+For details about how to encrypt the password, see "[Credentials Management for MariaDB Enterprise ColumnStore](../../../../security/enterprise-columnstore-credentials-management.md)".
 
 Passwords should meet your organization's password policies. If your MariaDB Enterprise Server instance has a password validation plugin installed, then the password should also meet the configured requirements.
 

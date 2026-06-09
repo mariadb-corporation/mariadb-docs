@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 STRCMP(expr1,expr2)
 ```
 

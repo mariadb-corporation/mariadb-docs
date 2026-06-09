@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CURRENT_USER, CURRENT_USER()
 ```
 

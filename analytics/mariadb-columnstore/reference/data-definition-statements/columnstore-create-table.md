@@ -11,7 +11,7 @@ A database consists of tables that store user data. You can create multiple colu
 
 ## Syntax
 
-```sql
+```bnf
 CREATE TABLE [IF NOT EXISTS] tbl_name
     (create_definition,...)  
 ENGINE=columnstore  [ DEFAULT CHARSET=character-set] 

@@ -6,7 +6,7 @@ description: Synonym for INT. This keyword declares a standard 4-byte integer co
 
 ## Syntax
 
-```sql
+```bnf
 INTEGER[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

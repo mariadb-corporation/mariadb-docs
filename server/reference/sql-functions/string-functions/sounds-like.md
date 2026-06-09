@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 expr1 SOUNDS LIKE expr2
 ```
 

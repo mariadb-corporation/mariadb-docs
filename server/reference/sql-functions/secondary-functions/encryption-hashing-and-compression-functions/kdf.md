@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 KDF(key_str, salt [, {info | iterations} [, kdf_name [, width ]]])
 ```
 

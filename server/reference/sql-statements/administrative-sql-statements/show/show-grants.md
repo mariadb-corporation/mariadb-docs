@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW GRANTS [FOR user|role]
 ```
 

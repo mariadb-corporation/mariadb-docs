@@ -1,5 +1,6 @@
 ---
 description: 'Step 5: Bulk Import of Data'
+hidden: true
 ---
 
 # Step 5: Bulk Import of Data

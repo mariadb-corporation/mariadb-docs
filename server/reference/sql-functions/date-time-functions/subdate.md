@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SUBDATE(date,INTERVAL expr unit), SUBDATE(expr,days)
 ```
 

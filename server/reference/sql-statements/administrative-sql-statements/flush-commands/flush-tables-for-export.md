@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FLUSH TABLE[S] table_name [, table_name] FOR EXPORT
 ```
 

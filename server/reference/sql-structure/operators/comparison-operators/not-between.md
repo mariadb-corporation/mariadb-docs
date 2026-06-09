@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 expr NOT BETWEEN min AND max
 ```
 

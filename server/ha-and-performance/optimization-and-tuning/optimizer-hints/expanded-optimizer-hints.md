@@ -28,7 +28,7 @@ UPDATE /*+ NO_RANGE_OPTIMIZATION(t1 PRIMARY) */  * FROM t1 ...;
 
 Hints sequence starts with `/*+` and ends with `*/`. There can be an arbitrary number of hints in the sequence, separated by spaces. Hints are recognized by the parser if they follow the initial keyword `SELECT`, `UPDATE`, `DELETE`. Each query block can have its own set of hints, for example:
 
-```sql
+```bnf
 SELECT /*+ ... */ ... FROM t1 WHERE a IN (SELECT /*+ ... */ ...);
 UPDATE /*+ ... */ ... WHERE a IN (SELECT /*+ ... */ ... );
 SELECT /*+ ... */ ... UNION ALL SELECT /*+ ... */ ...;

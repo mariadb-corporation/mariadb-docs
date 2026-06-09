@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 LOAD TABLE tbl_name FROM MASTER
 ```
 

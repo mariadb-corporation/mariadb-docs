@@ -12,7 +12,7 @@ This page covers the `CHAR` data type. See [CHAR Function](../../sql-functions/s
 
 ## Syntax
 
-```sql
+```bnf
 [NATIONAL] CHAR[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
 ```
 

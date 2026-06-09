@@ -13,11 +13,17 @@ description: >-
 const char * mysql_stmt_sqlstate(MYSQL_STMT * stmt);
 ```
 
+## Parameter
+
 * `stmt` - a statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
 
 ## Description
 
 Returns a string containing the [SQLSTATE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-diagnostics/sqlstate) error code for the most recently invoked prepared statement function that can succeed or fail. The error code consists of five characters. '00000' means no error. The values are specified by ANSI SQL and ODBC.
+
+## Return Value
+
+Returns a 5 digit error code. '00000' means no error. The values are specified by ANSI SQL and ODBC.
 
 {% hint style="info" %}
 Please note that not all client library error codes are mapped to SQLSTATE errors. Errors which can't be mapped will returned as value HY000.
@@ -25,7 +31,7 @@ Please note that not all client library error codes are mapped to SQLSTATE error
 
 ## See Also
 
-* [mysql\_errno()](../api-functions/mysql_errno.md)
-* [mysql\_error()](../api-functions/mysql_error.md)
+* [mysql\_stmt\_errno()](mysql_stmt_errno.md)
+* [mysql\_stmt\_error()](mysql_stmt_error.md)
 
 {% @marketo/form formId="4316" %}

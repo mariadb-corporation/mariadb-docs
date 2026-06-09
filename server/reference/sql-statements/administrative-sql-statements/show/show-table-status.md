@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW TABLE STATUS [{FROM | IN} db_name]
     [LIKE 'pattern' | WHERE expr]
 ```

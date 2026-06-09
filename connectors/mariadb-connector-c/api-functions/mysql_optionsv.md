@@ -27,7 +27,7 @@ Used to set extra connect options and affect behavior for a connection. This fun
 
 Some of these options can also be set in [option files](../configuring-mariadb-connectorc-with-option-files.md), such as `my.cnf`.
 
-### Returns
+## Return Value
 
 Returns zero on success, non-zero if an error occurred (invalid option or value).
 

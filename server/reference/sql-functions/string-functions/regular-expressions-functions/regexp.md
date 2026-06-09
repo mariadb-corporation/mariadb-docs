@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 expr REGEXP pat, expr RLIKE pat
 ```
 

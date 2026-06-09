@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 EXTRACT(unit FROM date)
 ```
 

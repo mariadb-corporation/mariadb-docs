@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 [begin_label:] LOOP
     statement_list
 END LOOP [end_label]

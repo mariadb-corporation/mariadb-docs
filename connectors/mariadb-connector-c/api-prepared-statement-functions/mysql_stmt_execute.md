@@ -1,8 +1,8 @@
 ---
 description: >-
   mysql_stmt_execute runs a prepared statement previously set up with
-  mysql_stmt_prepare, substituting bound parameter values and returning zero
-  on success.
+  mysql_stmt_prepare, substituting bound parameter values and returning zero on
+  success.
 ---
 
 # mysql\_stmt\_execute
@@ -13,11 +13,15 @@ description: >-
 int mysql_stmt_execute(MYSQL_STMT * stmt);
 ```
 
+## Parameter
+
 * `stmt` - A statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
 
 ## Description
 
 Executes a prepared statement which was previously prepared by [mysql\_stmt\_prepare()](mysql_stmt_prepare.md). When executed any parameter markers which exist will automatically be replaced with the appropriate data.
+
+## Return Value
 
 Returns zero on success, non-zero on failure.
 

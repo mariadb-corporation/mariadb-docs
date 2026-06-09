@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_INTERSECTS(g1,g2)
 ```
 

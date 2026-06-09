@@ -13,7 +13,12 @@ description: >-
 MYSQL_RES * mysql_stmt_param_metadata(MYSQL_STMT * stmt);
 ```
 
+## Parameter
+
 * `stmt` - a statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
 
+## Return Value
+
+Always returns `NULL`.
 
 {% @marketo/form formId="4316" %}

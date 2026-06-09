@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 PREVIOUS VALUE FOR sequence_name
 ```
 

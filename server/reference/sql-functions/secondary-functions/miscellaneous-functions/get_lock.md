@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 GET_LOCK(str,timeout)
 ```
 

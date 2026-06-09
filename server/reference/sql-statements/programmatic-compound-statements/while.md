@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 [begin_label:] WHILE search_condition DO
     statement_list
 END WHILE [end_label]

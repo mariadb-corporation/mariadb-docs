@@ -23,7 +23,7 @@ Call [mysql\_library\_end()](mysql_library_end.md) to clean up after completion.
 `mysql_server_init()` is an alias.
 {% endhint %}
 
-## See also
+## See Also
 
 * [mysql\_library\_end()](mysql_library_end.md)
 

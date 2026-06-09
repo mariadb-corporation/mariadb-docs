@@ -10,7 +10,7 @@ The `INSERT` statement allows you to add data to tables.
 
 ## Syntax
 
-```sql
+```bnf
 INSERT 
  INTO tbl_name [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...

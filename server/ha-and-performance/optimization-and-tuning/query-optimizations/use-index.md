@@ -4,7 +4,7 @@ You can limit which indexes are considered with the `USE INDEX` option.
 
 ## Syntax
 
-```sql
+```bnf
 USE INDEX [{FOR {JOIN|ORDER BY|GROUP BY}] ([index_list])
 ```
 

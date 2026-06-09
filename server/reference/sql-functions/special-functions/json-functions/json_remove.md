@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_REMOVE(json_doc, path[, path] ...)
 ```
 

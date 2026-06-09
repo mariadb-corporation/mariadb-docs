@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 UTC_TIME
 UTC_TIME([precision])
 ```

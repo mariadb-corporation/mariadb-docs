@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 UNCOMPRESSED_LENGTH(compressed_string)
 ```
 

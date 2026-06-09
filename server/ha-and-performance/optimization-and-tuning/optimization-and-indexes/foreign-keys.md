@@ -21,7 +21,7 @@ Foreign keys can only be used with storage engines that support them. The defaul
 
 ## Syntax
 
-```sql
+```bnf
 CREATE TABLE b(for_key INT REFERENCES a(not_key));
 ```
 

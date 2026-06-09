@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FIELD(pattern, str1[,str2,...])
 ```
 

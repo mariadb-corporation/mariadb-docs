@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 EXTRACTVALUE(xml_frag, xpath_expr)
 ```
 

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_Dimension(g)
 Dimension(g)
 ```

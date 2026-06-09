@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP PACKAGE [IF EXISTS]  [ db_name . ] package_name
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 IF search_condition THEN statement_list
     [ELSEIF search_condition THEN statement_list] ...
     [ELSE statement_list]

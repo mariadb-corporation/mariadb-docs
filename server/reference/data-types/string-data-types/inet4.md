@@ -12,7 +12,7 @@ INET4 is available from MariaDB 10.10.
 
 ## Syntax
 
-```sql
+```bnf
 INET4
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP SERVER [ IF EXISTS ] server_name
 ```
 

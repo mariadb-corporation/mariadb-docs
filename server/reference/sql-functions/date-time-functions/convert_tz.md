@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CONVERT_TZ(dt,from_tz,to_tz)
 ```
 

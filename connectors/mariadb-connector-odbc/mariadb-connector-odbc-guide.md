@@ -19,8 +19,8 @@ description: >-
 
 The current release series are:
 
-* MariaDB Connector/ODBC 3.1 is the current stable release series.
-* MariaDB Connector/ODBC 3.0 and 2.0 are both previous stable release series.
+* MariaDB Connector/ODBC 3.2 is the current stable release series
+* MariaDB Connector/ODBC 3.1, 3.0, and 2.0 are all previous stable release series
 
 ## Recent Releases
 

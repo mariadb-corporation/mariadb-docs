@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MOD(N,M), N % M, N MOD M
 ```
 

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 /* 1. Granting Privileges */
 GRANT
     priv_type [(column_list)]

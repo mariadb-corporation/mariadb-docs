@@ -11,7 +11,7 @@ The `BACKUP STAGE` commands are a set of commands to make it possible to make an
 
 ## Syntax
 
-```sql
+```bnf
 BACKUP STAGE [START | FLUSH | BLOCK_DDL | BLOCK_COMMIT | END ]
 ```
 

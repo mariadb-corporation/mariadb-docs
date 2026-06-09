@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 [begin_label:] REPEAT
     statement_list
 UNTIL search_condition

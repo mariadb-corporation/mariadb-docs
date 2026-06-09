@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 UNCOMPRESS(string_to_uncompress)
 ```
 

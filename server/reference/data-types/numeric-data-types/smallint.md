@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SMALLINT[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

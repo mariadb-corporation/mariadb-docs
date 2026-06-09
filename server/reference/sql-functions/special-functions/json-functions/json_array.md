@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_ARRAY([value[, value2] ...])
 ```
 

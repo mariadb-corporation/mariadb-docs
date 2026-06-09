@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 EXPLAIN tbl_name [col_name | wildcard]
 ```
 

@@ -38,6 +38,7 @@ It's available in both [Artifact Hub](https://artifacthub.io/packages/helm/maria
 * Multiple [highly available](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/high_availability.md) topologies supported:
   * [Asynchronous replication](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/replication.md)
   * [Synchronous multi-master via Galera](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/galera.md)
+  * [Multi-cluster](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/multi-cluster.md): cross-cluster replication for multi-region deployments, disaster recovery, and blue-green upgrades.
   * [MaxScale](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maxscale.md) as database proxy to load balance requests and perform failover/switchover operations
 * Flexible [storage](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md) configuration. [Volume expansion](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/storage.md#volume-resize).
 * [Physical backups](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md) based on [mariadb-backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/full-backup-and-restore-with-mariadb-backup) and [Kubernetes VolumeSnapshots](https://kubernetes.io/docs/concepts/storage/volume-snapshots/).
@@ -46,13 +47,16 @@ It's available in both [Artifact Hub](https://artifacthub.io/packages/helm/maria
 * Flexible backup configuration: [scheduling](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#scheduling), [compression](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#compression), [encryption](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#server-side-encryption-with-customer-provided-keys-sse-c), [retention policy](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#retention-policy), [target policy](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#target-policy), [timeout](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#timeout), [staging area](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#staging-area)...
 * [Target recovery time](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#target-recovery-time): restore the closest available backup to the specified time.
 * [Bootstrap new instances](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/physical_backup.md#restoration) from: Physical backups, logical backups, S3, Azure Blob Storage, PVCs, `VolumeSnapshots`...
-* [Point-In-Time-Recovery](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/docs/pitr.md): Archive binary logs to enable point-in-time restoration and significantly reduce RPO.
+* [Point-In-Time-Recovery](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/pitr.md): Archive binary logs to enable point-in-time restoration and significantly reduce RPO.
 * [Cluster-aware rolling update](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/updates.md#replicasfirstprimarylast): roll out replica Pods one by one, wait for each of them to become ready, and then proceed with the primary Pod, using `ReplicasFirstPrimaryLast`.
+* Zero-downtime blue-green updates: leverage the [multi-cluster topology](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/multi-cluster.md) to maintain two identical cluster topologies, upgrade one in the background, and switch between them without downtime.
 * Manual [update strategies](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/updates.md#update-strategies): `OnDelete` and `Never`.
 * Automated [data-plane updates](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/updates.md#auto-update-data-plane).
 * [my.cnf change detection](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/configuration.md#mycnf). Automatically trigger [updates](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/updates.md) when my.cnf changes.
 * [Suspend](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/suspend.md) operator reconciliation for maintenance operations.
+* [Maintenance mode](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/maintenance.md) for safe operational windows: cordon, drain connections, and read-only modes.
 * Issue, configure and rotate [TLS certificates](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/tls.md) and CAs.
+* Automated [root password rotation](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/security.md#root-password-rotation) by updating the referenced `Secret`.
 * Native integration with [cert-manager](https://github.com/cert-manager/cert-manager). Automatically create `Certificate` resources.
 * [Prometheus metrics](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/metrics.md) via [mysqld-exporter](https://github.com/prometheus/mysqld_exporter) and maxscale-exporter.
 * Native integration with [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator). Automatically create `ServiceMonitor` resources.
@@ -65,6 +69,7 @@ It's available in both [Artifact Hub](https://artifacthub.io/packages/helm/maria
 * CRDs designed according to the Kubernetes [API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md).
 * Install it using [helm](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/helm.md), [OLM](https://operatorhub.io/operator/mariadb-operator) or [static manifests](https://github.com/mariadb-operator/mariadb-operator/blob/main/deploy/manifests).
 * Multiple [deployment modes](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/helm.md#deployment-modes): cluster-wide and single namespace.
+* Helm charts published as [OCI artifacts](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/helm.md#oci-based-installation).
 * Helm chart to deploy [MariaDB clusters](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/helm.md#mariadb-cluster-helm-chart) and its associated CRs.
 * Multi-arch distroless [image](https://github.com/orgs/mariadb-operator/packages/container/package/mariadb-operator).
 * GitOps friendly.

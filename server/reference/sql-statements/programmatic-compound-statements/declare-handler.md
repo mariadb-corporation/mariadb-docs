@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DECLARE handler_type HANDLER
     FOR condition_value [, condition_value] ...
     statement

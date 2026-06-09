@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_ExteriorRing(poly)
 ExteriorRing(poly)
 ```

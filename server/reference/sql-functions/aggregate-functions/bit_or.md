@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 BIT_OR(expr) [over_clause]
 ```
 

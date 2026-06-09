@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW ENGINE [engine-name] {STATUS | MUTEX}
 ```
 

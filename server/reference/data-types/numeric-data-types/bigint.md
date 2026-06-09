@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 BIGINT[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

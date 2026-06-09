@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 EXECUTE stmt_name
     [USING expression[, expression] ...]
 ```

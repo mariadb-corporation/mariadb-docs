@@ -4,7 +4,7 @@
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 OPEN cursor_name [[USING variable[,...]] | [expression[,...]]];
 ```
 {% endtab %}

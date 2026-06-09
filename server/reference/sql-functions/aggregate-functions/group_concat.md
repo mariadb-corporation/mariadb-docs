@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 GROUP_CONCAT(expr)
 ```
 

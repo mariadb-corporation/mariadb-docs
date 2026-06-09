@@ -17,7 +17,7 @@ In the syntax, these options are the same as for the [CREATE TABLE statement](..
 * partition\_definition
 {% endhint %}
 
-```sql
+```bnf
 ALTER [ONLINE] [IGNORE] TABLE [IF EXISTS] tbl_name
     [WAIT n | NOWAIT]
     alter_specification [, alter_specification] ...
@@ -108,6 +108,8 @@ index_option:
   table_option [[,] table_option] ...
 
 ```
+
+![This Railroad diagram is described in the preceding BNF diagram](../../../../../.gitbook/assets/alter-table-railroad.svg)
 
 ## Description
 

@@ -1,5 +1,6 @@
 ---
 description: 'Step 9: Import Data'
+hidden: true
 ---
 
 # Step 9: Import Data

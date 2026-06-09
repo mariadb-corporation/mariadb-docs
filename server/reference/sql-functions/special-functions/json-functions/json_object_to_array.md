@@ -13,7 +13,7 @@ JSON\_OBJECT\_TO\_ARRAY is available from MariaDB 11.2.
 
 ## Syntax
 
-```sql
+```bnf
 JSON_OBJECT_TO_ARRAY(Obj)
 ```
 

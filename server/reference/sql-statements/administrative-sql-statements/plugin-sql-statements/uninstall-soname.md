@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 UNINSTALL SONAME  [IF EXISTS] 'plugin_library'
 ```
 

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 SET GLOBAL sql_slave_skip_counter = N
 ```
 

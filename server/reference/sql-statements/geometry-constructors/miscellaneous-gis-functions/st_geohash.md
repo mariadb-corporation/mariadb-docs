@@ -13,7 +13,7 @@ ST\_GeoHash is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmU
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeoHash(longitude, latitude, max_length)
 ST_GeoHash(point, max_length)
 ```

@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_ARRAY_INTERSECT(arr1, arr2)
 ```
 

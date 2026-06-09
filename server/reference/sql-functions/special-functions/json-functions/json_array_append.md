@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_ARRAY_APPEND(json_doc, path, value[, path, value] ...)
 ```
 

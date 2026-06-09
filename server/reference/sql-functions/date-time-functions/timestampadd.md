@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMPADD(unit,interval,datetime_expr)
 ```
 
