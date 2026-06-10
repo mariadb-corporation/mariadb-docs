@@ -11,7 +11,7 @@ MariaDB Enterprise Kubernetes Operator supports issuing, configuring and rotatin
 ## `MariaDB` configuration
 
 {% hint style="info" %}
-This section covers TLS configuration in new instances. If you are looking to migrate an existing instance to use TLS, please refer to [Enabling TLS in existing instances](migrations/enabling-tls-in-existing-instances.md) instead.
+This section covers TLS configuration in new instances. If you are looking to migrate an existing instance to use TLS, please refer to [Enabling TLS in existing instances](../migrations/enabling-tls-in-existing-instances.md) instead.
 {% endhint %}
 
 TLS can be configured in `MariaDB` resources by setting `tls.enabled=true`:
@@ -68,7 +68,7 @@ Refer to further sections for a more advanced TLS configuration.
 ## `MaxScale` configuration
 
 {% hint style="info" %}
-This section covers TLS configuration in new instances. If you are looking to migrate an existing instance to use TLS, please refer to [Enabling TLS in existing instances](migrations/enabling-tls-in-existing-instances.md) instead.
+This section covers TLS configuration in new instances. If you are looking to migrate an existing instance to use TLS, please refer to [Enabling TLS in existing instances](../migrations/enabling-tls-in-existing-instances.md) instead.
 {% endhint %}
 
 TLS will be automatically enabled in `MaxScale` when the referred `MariaDB` (via `mariaDbRef`) has TLS enabled and enforced. Alternatively, you can explicitly enable TLS by setting `tls.enabled=true`:
@@ -901,7 +901,7 @@ spec:
 
 The following values are supported: `VERIFY_IDENTITY`, `VERIFY`, `REQUIRED` and `DISABLED`. Refer to the [MariaDB Enterprise Cluster documentation](https://mariadb.com/docs/galera-cluster/galera-security/mariadb-enterprise-cluster-security#sst-tls-modes) for further detail about these modes.
 
-If you are willing to increase the enforcement level in an existing instance, make sure you follow the migration guide provided in the [Enabling TLS in existing instances](migrations/enabling-tls-in-existing-instances.md) section.
+If you are willing to increase the enforcement level in an existing instance, make sure you follow the migration guide provided in the [Enabling TLS in existing instances](../migrations/enabling-tls-in-existing-instances.md) section.
 
 ## Secure application connections with TLS
 
