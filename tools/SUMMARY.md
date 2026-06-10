@@ -59,7 +59,7 @@
     * [Point-In-Time-Recovery](mariadb-enterprise-operator/backup-and-restore/pitr.md)
     * [CSI Specific Configuration](mariadb-enterprise-operator/backup-and-restore/csi-specific-configuration.md)
   * [Storage](mariadb-enterprise-operator/storage.md)
-  * [Security](mariadb-enterprise-operator/security.md)
+  * [Security](mariadb-enterprise-operator/README.md)
     * [TLS](mariadb-enterprise-operator/security/tls.md)
     * [FIPS](mariadb-enterprise-operator/security/fips.md)
   * [Configuration](mariadb-enterprise-operator/configuration.md)
