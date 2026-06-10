@@ -71,6 +71,42 @@ maria_declare_plugin(example)
 maria_declare_plugin_end;
 ```
 
+## Maturity Guidelines For Plugins
+
+### Plugin Maturity At a Galnce
+
+```mermaid
+stateDiagram-v2
+    state "Release Candidate" as RC
+    state "General Availability" as GA
+    state "Experimental" as Exp {
+      [*] --> Alpha
+      [*] --> Beta
+      Alpha --> Beta
+      Beta --> [*]
+      [*] --> [*]
+    }
+    Exp --> RC
+    RC --> GA
+```
+
+### Plugin Maturity Guidelines
+
+> [!NOTE]
+> New features or sufficiently big code changes to a plugin should lead to:
+> * an increase of the plugin version
+> * knocking the maturity level down.
+
+* First a plugin is Alpha
+* After at least 1.5 months (or more, in 3 month increments, until the quality is deemed acceptable) it becomes Gamma. Meanwhile it can transition through Beta as the maintainer wants (e,g. it can start directly from beta)
+* After at least 3 more months (or more, in 3 month increments — depending on the bug inflow) it becomes Stable
+
+If a plugin must be statically compiled into the server, it is a subject to an additional limitation — its maturity cannot be lower than the server's.
+
+## Beta Plugins In GA Releases
+
+If a plugin contribution is added directly at beta maturity to a GA release series, it will not be removed from that release series. However, we reserve the right to exclude a plugin from future release series if it is unmaintained (for example, if it stops receiving bug fixes).
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
