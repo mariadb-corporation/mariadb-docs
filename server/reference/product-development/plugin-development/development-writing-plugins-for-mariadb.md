@@ -71,6 +71,55 @@ maria_declare_plugin(example)
 maria_declare_plugin_end;
 ```
 
+## Maturity Guidelines For Plugins
+
+The maturity level selection criteria differ based on how the plugin is released.
+
+> [!NOTE]
+> Sufficiently big changes to a plugin should lead to:
+> * an increase of the plugin version
+> * knocking the maturity level down.
+
+### Static plugins
+
+Static plugins and other server features share a release cycle.
+
+```mermaid
+stateDiagram-v2
+    state "Release Candidate" as RC
+    state "General Availability" as GA
+    Experimental --> RC
+    RC --> GA
+```
+
+* First, a plugin is experimental
+* After at least 1.5 months of testing and bugfixing it is released as gamma (RC). This transition can take longer, in 3 month increments: 4.5 months, 7.5 months, etc. This goes on until the quality is deemed acceptable.
+* After 3 more months of testing and bugfixing the plugin is released as stable (GA)
+
+### Dynamic Plugins
+
+Dynamic plugins released together with the server must follow a unified maturity criteria.
+For plugins released separately this is a guideline.
+
+```mermaid
+stateDiagram-v2
+    state "Release Candidate" as RC
+    state "General Availability" as GA
+    state "Experimental" as Exp {
+      [*] --> Alpha
+      [*] --> Beta
+      Alpha --> Beta
+      Beta --> [*]
+      [*] --> [*]
+    }
+    Exp --> RC
+    RC --> GA
+```
+
+* first a plugin is experimental
+* after at least 1.5 months (or more, in 3 month increments, until the quality is deemed acceptable) it becomes gamma. Meanwhile it can transition through alpha and beta as the maintainer wants (e,g. it can start directly from beta)
+* after at least 3 more months (or more, in 3 month increments) it becomes stable
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
