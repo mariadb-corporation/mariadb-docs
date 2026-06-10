@@ -116,7 +116,7 @@ Even if we only create InnoDB tables, we use Aria indirectly, in two ways:
 * For system tables.
 * For internal temporary tables.
 
-Aria is a non-transactional storage engine. By default it is crash-safe, meaning that all changes to data are written and fsynced to a write-ahead log and can always be recovered in case of a crash.
+Aria is a non-transactional storage engine. By default it is crash-safe, meaning that all changes to data are durably written to a write-ahead log and can always be recovered in case of a crash.
 
 Aria caches indexes into the pagecache. Data are not directly cached by Aria, so it's important that the underlying filesystem caches reads and writes.
 
