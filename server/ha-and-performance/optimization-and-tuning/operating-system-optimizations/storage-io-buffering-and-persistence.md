@@ -39,25 +39,16 @@ MariaDB therefore exposes configuration that lets administrators choose between 
 
 ## Persist to Non-Volatile Storage
 
-**Behavior**: After one or more buffered writes, force any data still in the OS page cache or the storage device's own write cache out to non-volatile media. These calls also durably write the file's non-essential metadata such as access and modification timestamps. The call returns only once the data is durable.
+**Behavior**: After one or more buffered writes, force any data still in the OS page cache or the storage device's own write cache out to non-volatile media. The call returns only once the data is durable.
 
 **Trade-off**: Lets the application batch many writes cheaply and persist them with a single explicit call, instead of paying the durability cost on every write (as write-through does). This is the foundation of MariaDB's group-commit and binary-log durability behavior.
 
-| Operating system | Underlying mechanism |
-|------------------|----------------------|
-| Unix-like        | `fsync()` |
-| Windows          | `FlushFileBuffers()` |
-
-## Persist Data Without Metadata Sync
-
-**Behavior**: Like *persist to non-volatile storage*, but skips synchronization of non-essential file metadata such as the last-modified timestamp. The file contents and any metadata required to read them back are durable; bookkeeping metadata may still be in cache.
-
-**Trade-off**: Cheaper than a full persist on filesystems where metadata updates would otherwise trigger an additional disk write. MariaDB does not validate file access or modification timestamps anywhere, so it prefers this variant whenever the platform provides it; the full-persist call (see the previous section) is used only as a fallback when the data-only variant is unavailable.
+MariaDB does not validate file access or modification timestamps anywhere, so on each platform it prefers the lighter-weight call that omits those metadata updates, falling back to the full-persist call only when the lighter one is not available.
 
 | Operating system | Underlying mechanism |
 |------------------|----------------------|
-| Unix-like        | `fdatasync()`. Available on Linux, FreeBSD, Dragonfly BSD, NetBSD, OpenBSD, Solaris, and IBM AIX; not available on Apple macOS, where the full-persist call is used instead. |
-| Windows          | `NtFlushBuffersFileEx()` with the `FLUSH_FLAGS_FILE_DATA_SYNC_ONLY` flag. Documented for NTFS, and observed to work on ReFS as well. If the call fails (older Windows versions, other filesystems), MariaDB falls back to `FlushFileBuffers()`. |
+| Unix-like        | `fdatasync()` when available (Linux, FreeBSD, Dragonfly BSD, NetBSD, OpenBSD, Solaris, IBM AIX); `fsync()` otherwise (notably Apple macOS). |
+| Windows          | `NtFlushBuffersFileEx()` with the `FLUSH_FLAGS_FILE_DATA_SYNC_ONLY` flag when available — documented for NTFS, and observed to work on ReFS as well. `FlushFileBuffers()` otherwise (older Windows versions, non-NTFS filesystems, or if the lighter call fails at run time). |
 
 ## See Also
 
