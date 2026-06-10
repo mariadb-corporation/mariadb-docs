@@ -1347,19 +1347,44 @@ See [replication\_user](#replication_user)
 
 #### `replication_master_ssl`
 
-* Type: [boolean](../../maxscale-management/deployment/maxscale-configuration-guide.md#booleans)
+* Type: [enum](../../maxscale-management/deployment/maxscale-configuration-guide.md#enumerations)
 * Mandatory: No
 * Dynamic: Yes
-* Default: `false`
+* Default: `auto`
+* Values: `auto`, `off`, `on`
 
-If set to ON, any `CHANGE MASTER TO`-command generated will set `MASTER_SSL=1` to enable
-encryption for the replication stream. This setting should only be enabled if the backend
-servers are configured for ssl. This typically means setting _ssl\_ca_, _ssl\_cert_ and
-_ssl\_key_ in the server configuration file. Additionally, credentials for the replication
-user should require an encrypted connection (`e.g. ALTER USER repl@'%' REQUIRE SSL;`).
+If set to `on`, any `CHANGE MASTER TO`-commands the monitor generates will
+include `MASTER_SSL=1` to enable encryption for the replication stream.
+`on` should only be used if the backend servers are configured for ssl. This
+applies both to cluster internal replication and external replication
+connections.
 
-If the setting is left OFF, `MASTER_SSL` is not set at all, which will preserve existing
-settings when redirecting a replica connection.
+If set to `off`, monitors sets `MASTER_SSL=0` instead, disabling encryption
+for replication connections. Use `off` when you want to ensure that the monitor
+always sets up unencrypted replication.
+
+In `auto`-mode (default), the monitor attempts to guess the correct value for
+`MASTER_SSL`. The logic is as follows:
+
+1. When redirecting an existing replication connection (e.g. during switchover),
+do not define the `MASTER_SSL`-option at all. This preserves the existing value.
+2. When moving replication connections during switchover, preserve the settings.
+3. When rejoining a previous primary server to the cluster (e.g. the server was
+failed over and then came back), use the settings that the new primary used when
+it was still a replica.
+4. If no previous settings are available, e.g. due to MaxScale restart, match
+monitor connection SSL-mode.
+
+`auto` should work for most cases. It allows for a mix of SSL-modes, with some
+replication connections encrypted and others unencrypted.
+
+If MaxScale has to guess the encryption mode, then the replication connection
+will use SSL if the primary server for the replication connection is monitored
+via an encrypted connection.
+
+```
+replication_master_ssl=off
+```
 
 #### `replication_custom_options`
 
