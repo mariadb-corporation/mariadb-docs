@@ -898,7 +898,7 @@ Defines whether you want to store each InnoDB table as an `.ibd` file.
 
 ### `--innodb-flush-method`
 
-Defines the data flush method. Ignored from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110).
+Defines the data flush method. Ignored from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110). For the OS-level mechanisms behind these flag names, see [Storage I/O: Buffering and Persistence](../../../ha-and-performance/optimization-and-tuning/operating-system-optimizations/storage-io-buffering-and-persistence.md).
 
 ```bash
 --innodb-flush-method=fdatasync 
