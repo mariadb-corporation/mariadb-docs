@@ -747,7 +747,7 @@ When managed by the operator, CAs have a lifetime of 3 years by default, and are
 
 When managed by cert-manager, the renewal process is fully controlled by cert-manager, but the operator will also update the CA bundle after the CA is renewed.
 
-You may choose any of the available [update strategies](updates.md) to control the instance update process.
+You may choose any of the available [update strategies](../updates.md) to control the instance update process.
 
 ## Certificate renewal
 
@@ -757,7 +757,7 @@ When the [certificates are issued by the operator](tls.md#issue-certificates-wit
 
 When the [certificates are issued by cert-manager](tls.md#issue-certificates-with-cert-manager), the renewal process is fully managed by cert-manager, and the operator will not interfere with it. The operator will only update the instances whenever the CA or the certificates get renewed.
 
-You may choose any of the available [update strategies](updates.md) to control the instance update process.
+You may choose any of the available [update strategies](../updates.md) to control the instance update process.
 
 ## Certificate status
 
@@ -829,7 +829,7 @@ kubectl get maxscale maxscale-galera -o jsonpath="{.status.tls}" | jq
 
 ## TLS requirements for `Users`
 
-You are able to declaratively manage access to your `MariaDB` instances by creating [User SQL resources](sql-resources.md#user-cr). In particular, when TLS is enabled, you can provide additional requirements for the user when connecting over TLS.
+You are able to declaratively manage access to your `MariaDB` instances by creating [User SQL resources](../sql-resources.md#user-cr). In particular, when TLS is enabled, you can provide additional requirements for the user when connecting over TLS.
 
 For instance, if you want to require a valid x509 certificate for the user to be able o connect:
 
@@ -862,7 +862,7 @@ spec:
 
 When any of these TLS requirements are not met, the user will not be able to connect to the instance.
 
-See [MariaDB docs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls) and the [API reference](api-reference.md) for further detail.
+See [MariaDB docs](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#requiring-tls) and the [API reference](../api-reference.md) for further detail.
 
 ## Galera Enterprise SSL modes
 
