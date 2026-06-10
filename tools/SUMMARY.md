@@ -62,6 +62,7 @@
   * [Security](mariadb-enterprise-operator/README.md)
     * [TLS](mariadb-enterprise-operator/security/tls.md)
     * [FIPS](mariadb-enterprise-operator/security/fips.md)
+    * [Root Password Rotation](mariadb-enterprise-operator/security/root-password-rotation.md)
   * [Configuration](mariadb-enterprise-operator/configuration.md)
   * [Connections](mariadb-enterprise-operator/connections.md)
   * [Updates](mariadb-enterprise-operator/updates.md)
