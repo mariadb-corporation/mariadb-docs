@@ -23,6 +23,8 @@ PARTITION BY RANGE (partitioning_expression)
 )
 ```
 
+![Railroad diagram of RANGE partitioning — equivalent to the BNF above](../../../.gitbook/assets/range-partitioning-railroad.svg)
+
 `PARTITION BY RANGE` indicates that the partitioning type is `RANGE`.
 
 * _`partitioning_expression`_ is an SQL expression that returns a value from each row. In the simplest cases, it is a column name. This value is used to determine which partition should contain a row.

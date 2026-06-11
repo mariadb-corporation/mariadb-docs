@@ -14,6 +14,8 @@ SELECT col_name [, col_name] ...
     table_expr
 ```
 
+![Railroad diagram of SELECT INTO — equivalent to the BNF above](../../../.gitbook/assets/select-into-railroad.svg)
+
 ## Description
 
 `SELECT ... INTO` enables selected columns to be stored directly into variables. No resultset is produced. The query should return a single row. If the query returns no rows, a warning with error code 1329 occurs (`No data`), and the variable values remain unchanged. If the query returns multiple rows, error 1172 occurs (Result consisted of more than one row). If it is possible that the statement may retrieve multiple rows, you can use`LIMIT 1` to limit the result set to a single row.

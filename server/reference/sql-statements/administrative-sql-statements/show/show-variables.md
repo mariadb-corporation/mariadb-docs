@@ -13,6 +13,8 @@ SHOW [GLOBAL | SESSION] VARIABLES
     [LIKE 'pattern' | WHERE expr]
 ```
 
+![Railroad diagram of SHOW VARIABLES — equivalent to the BNF above](../../../../.gitbook/assets/show-variables-railroad.svg)
+
 ## Description
 
 `SHOW VARIABLES` shows the values of MariaDB [system variables](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md). This does not include user-defined variables - see [here](../../../sql-structure/sql-language-structure/user-defined-variables.md#viewing) for details on viewing those.

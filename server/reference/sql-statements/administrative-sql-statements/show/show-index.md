@@ -14,6 +14,8 @@ SHOW {INDEX | INDEXES | KEYS}
  [WHERE expr]
 ```
 
+![Railroad diagram of SHOW INDEX — equivalent to the BNF above](../../../../.gitbook/assets/show-index-railroad.svg)
+
 ## Description
 
 `SHOW INDEX` returns table index information. The format resembles that of the SQLStatistics call in ODBC.
