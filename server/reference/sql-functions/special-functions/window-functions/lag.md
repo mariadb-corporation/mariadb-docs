@@ -15,6 +15,8 @@ LAG (expr[, offset]) OVER (
 )
 ```
 
+![Railroad diagram of LAG — equivalent to the BNF above](../../../../.gitbook/assets/lag-railroad.svg)
+
 ## Description
 
 The `LAG` function accesses data from a previous row according to the `ORDER BY` clause without the need for a self-join. The specific row is determined by the _offset_ (default _1_), which specifies the number of rows behind the current row to use. An offset of _0_ is the current row.

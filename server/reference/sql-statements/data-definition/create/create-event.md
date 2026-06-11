@@ -18,7 +18,7 @@ CREATE [OR REPLACE]
     [ON COMPLETION [NOT] PRESERVE]
     [ENABLE | DISABLE | DISABLE ON SLAVE]
     [COMMENT 'comment']
-    DO sql_statement;
+    DO sql_statement
 
 schedule:
     AT timestamp [+ INTERVAL interval] ...
@@ -31,6 +31,12 @@ interval:
               WEEK | SECOND | YEAR_MONTH | DAY_HOUR | DAY_MINUTE |
               DAY_SECOND | HOUR_MINUTE | HOUR_SECOND | MINUTE_SECOND}
 ```
+
+![Railroad diagram of CREATE EVENT — equivalent to the BNF above](../../../../.gitbook/assets/create-event-railroad.svg)
+
+![Railroad diagram of schedule](../../../../.gitbook/assets/create-event-schedule-railroad.svg)
+
+![Railroad diagram of interval](../../../../.gitbook/assets/create-event-interval-railroad.svg)
 
 ## Description
 

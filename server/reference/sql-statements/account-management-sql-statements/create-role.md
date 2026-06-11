@@ -14,6 +14,8 @@ CREATE [OR REPLACE] ROLE [IF NOT EXISTS] role
     {CURRENT_USER | CURRENT_ROLE | user | role}]
 ```
 
+![Railroad diagram of CREATE ROLE — equivalent to the BNF above](../../../.gitbook/assets/create-role-railroad.svg)
+
 ## Description
 
 The `CREATE ROLE` statement creates one or more MariaDB [roles](../../../security/user-account-management/roles/). To use it, you must have the global [CREATE USER](grant.md#create-user) privilege or the [INSERT](grant.md#table-privileges) privilege for the mysql database. For each account, `CREATE ROLE` creates a new row in the [mysql.user](../../system-tables/the-mysql-database-tables/mysql-user-table.md) table that has no privileges, and with the corresponding `is_role` field set to `Y`. It also creates a record in the [mysql.roles\_mapping](../../system-tables/the-mysql-database-tables/mysql-roles_mapping-table.md) table.

@@ -13,6 +13,8 @@ SHOW TABLE STATUS [{FROM | IN} db_name]
     [LIKE 'pattern' | WHERE expr]
 ```
 
+![Railroad diagram of SHOW TABLE STATUS — equivalent to the BNF above](../../../../.gitbook/assets/show-table-status-railroad.svg)
+
 ## Description
 
 {% tabs %}

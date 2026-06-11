@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="539" height="113">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <polygon points="17 17 9 13 9 21"/>
+   <rect x="31" y="3" width="92" height="32" rx="10"/>
+   <rect x="29"
+         y="1"
+         width="92"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="39" y="21">TRUNCATE</text>
+   <rect x="163" y="35" width="62" height="32" rx="10"/>
+   <rect x="161"
+         y="33"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="171" y="53">TABLE</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#tbl_name"
+      xlink:title="tbl_name">
+      <rect x="265" y="3" width="80" height="32"/>
+      <rect x="263" y="1" width="80" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="273" y="21">tbl_name</text>
+   </a>
+   <rect x="385" y="35" width="58" height="32" rx="10"/>
+   <rect x="383"
+         y="33"
+         width="58"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="393" y="53">WAIT</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#n"
+      xlink:title="n">
+      <rect x="463" y="35" width="28" height="32"/>
+      <rect x="461" y="33" width="28" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="471" y="53">n</text>
+   </a>
+   <rect x="385" y="79" width="78" height="32" rx="10"/>
+   <rect x="383"
+         y="77"
+         width="78"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="393" y="97">NOWAIT</text>
+   <path class="line"
+         d="m17 17 h2 m0 0 h10 m92 0 h10 m20 0 h10 m0 0 h72 m-102 0 h20 m82 0 h20 m-122 0 q10 0 10 10 m102 0 q0 -10 10 -10 m-112 10 v12 m102 0 v-12 m-102 12 q0 10 10 10 m82 0 q10 0 10 -10 m-92 10 h10 m62 0 h10 m20 -32 h10 m80 0 h10 m20 0 h10 m0 0 h116 m-146 0 h20 m126 0 h20 m-166 0 q10 0 10 10 m146 0 q0 -10 10 -10 m-156 10 v12 m146 0 v-12 m-146 12 q0 10 10 10 m126 0 q10 0 10 -10 m-136 10 h10 m58 0 h10 m0 0 h10 m28 0 h10 m-136 -10 v20 m146 0 v-20 m-146 20 v24 m146 0 v-24 m-146 24 q0 10 10 10 m126 0 q10 0 10 -10 m-136 10 h10 m78 0 h10 m0 0 h28 m23 -76 h-3"/>
+   <polygon points="529 17 537 13 537 21"/>
+   <polygon points="529 17 521 13 521 21"/>
+</svg>

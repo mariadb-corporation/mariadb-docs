@@ -14,6 +14,8 @@ TRUNCATE [TABLE] tbl_name
   [WAIT n | NOWAIT]
 ```
 
+![Railroad diagram of TRUNCATE TABLE — equivalent to the BNF above](../../../.gitbook/assets/truncate-table-railroad.svg)
+
 ## Description
 
 `TRUNCATE TABLE` empties a table completely. It requires the `DROP` privilege. See [GRANT](../account-management-sql-statements/grant.md).
