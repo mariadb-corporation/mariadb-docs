@@ -51,6 +51,10 @@ master_def:
   | MASTER_RETRY_COUNT = {long | DEFAULT}
 ```
 
+![Railroad diagram of CHANGE MASTER TO — equivalent to the BNF above](../../../../.gitbook/assets/change-master-to-railroad.svg)
+
+![Railroad diagram of master_def](../../../../.gitbook/assets/change-master-to-master-def-railroad.svg)
+
 Note: The value is extracted from the corresponding server option or system variable that support `DEFAULT`. This allows you to reset a replication configuration parameter to its [server-level configuration](#using-configurable-defaults) without providing an explicit value.
 
 ## Replication Configuration

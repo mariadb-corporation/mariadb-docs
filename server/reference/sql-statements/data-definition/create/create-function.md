@@ -34,6 +34,12 @@ func_body:
     Valid SQL procedure statement
 ```
 
+![Railroad diagram of CREATE FUNCTION — equivalent to the BNF above](../../../../.gitbook/assets/create-function-railroad.svg)
+
+![Railroad diagram of func_parameter](../../../../.gitbook/assets/create-function-parameter-railroad.svg)
+
+![Railroad diagram of characteristic](../../../../.gitbook/assets/create-function-characteristic-railroad.svg)
+
 ## Description
 
 Use the `CREATE FUNCTION` statement to create a new [stored function](../../../../server-usage/stored-routines/stored-functions/). You must have the [CREATE ROUTINE](../../account-management-sql-statements/grant.md#database-privileges) database privilege to use `CREATE FUNCTION`. A function takes any number of arguments and returns a value from the function body. The function body can be any valid SQL expression as you would use, for example, in any select expression. If you have the appropriate privileges, you can call the function exactly as you would any built-in function. See [Security](create-function.md#security) below for details on privileges.

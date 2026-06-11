@@ -43,6 +43,18 @@ reference_option:
 ```
 {% endcode %}
 
+![Railroad diagram of CONSTRAINT — equivalent to the BNF above](../../../.gitbook/assets/constraint-railroad.svg)
+
+![Railroad diagram of constraint_expression](../../../.gitbook/assets/constraint-expression-railroad.svg)
+
+![Railroad diagram of index_type](../../../.gitbook/assets/constraint-index-type-railroad.svg)
+
+![Railroad diagram of index_col_name](../../../.gitbook/assets/constraint-index-col-name-railroad.svg)
+
+![Railroad diagram of index_option](../../../.gitbook/assets/constraint-index-option-railroad.svg)
+
+![Railroad diagram of reference_option](../../../.gitbook/assets/constraint-reference-option-railroad.svg)
+
 ## Description
 
 Constraints provide restrictions on the data you can add to a table. This allows to enforce data integrity in MariaDB, rather than through application logic. When a statement violates a constraint, MariaDB throws an error.

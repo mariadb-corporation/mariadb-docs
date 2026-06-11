@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="633" height="221">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <polygon points="17 17 9 13 9 21"/>
+   <rect x="91" y="67" width="36" height="32" rx="10"/>
+   <rect x="89"
+         y="65"
+         width="36"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="99" y="85">IN</text>
+   <rect x="167" y="35" width="48" height="32" rx="10"/>
+   <rect x="165"
+         y="33"
+         width="48"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="175" y="53">OUT</text>
+   <rect x="71" y="111" width="66" height="32" rx="10"/>
+   <rect x="69"
+         y="109"
+         width="66"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="129">INOUT</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#param_name"
+      xlink:title="param_name">
+      <rect x="255" y="3" width="104" height="32"/>
+      <rect x="253" y="1" width="104" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="263" y="21">param_name</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#type"
+      xlink:title="type">
+      <rect x="379" y="3" width="48" height="32"/>
+      <rect x="377" y="1" width="48" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="387" y="21">type</text>
+   </a>
+   <rect x="71" y="187" width="36" height="32" rx="10"/>
+   <rect x="69"
+         y="185"
+         width="36"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="205">IN</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#param_name"
+      xlink:title="param_name">
+      <rect x="147" y="155" width="104" height="32"/>
+      <rect x="145" y="153" width="104" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="155" y="173">param_name</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#type"
+      xlink:title="type">
+      <rect x="271" y="155" width="48" height="32"/>
+      <rect x="269" y="153" width="48" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="279" y="173">type</text>
+   </a>
+   <rect x="359" y="187" width="80" height="32" rx="10"/>
+   <rect x="357"
+         y="185"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="367" y="205">DEFAULT</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#default_value"
+      xlink:title="default_value">
+      <rect x="459" y="187" width="106" height="32"/>
+      <rect x="457" y="185" width="106" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="467" y="205">default_value</text>
+   </a>
+   <path class="line"
+         d="m17 17 h2 m40 0 h10 m0 0 h154 m-184 0 h20 m164 0 h20 m-204 0 q10 0 10 10 m184 0 q0 -10 10 -10 m-194 10 v12 m184 0 v-12 m-184 12 q0 10 10 10 m164 0 q10 0 10 -10 m-154 10 h10 m0 0 h46 m-76 0 h20 m56 0 h20 m-96 0 q10 0 10 10 m76 0 q0 -10 10 -10 m-86 10 v12 m76 0 v-12 m-76 12 q0 10 10 10 m56 0 q10 0 10 -10 m-66 10 h10 m36 0 h10 m20 -32 h10 m48 0 h10 m-174 -10 v20 m184 0 v-20 m-184 20 v56 m184 0 v-56 m-184 56 q0 10 10 10 m164 0 q10 0 10 -10 m-174 10 h10 m66 0 h10 m0 0 h78 m20 -108 h10 m104 0 h10 m0 0 h10 m48 0 h10 m0 0 h158 m-574 0 h20 m554 0 h20 m-594 0 q10 0 10 10 m574 0 q0 -10 10 -10 m-584 10 v132 m574 0 v-132 m-574 132 q0 10 10 10 m554 0 q10 0 10 -10 m-544 10 h10 m0 0 h46 m-76 0 h20 m56 0 h20 m-96 0 q10 0 10 10 m76 0 q0 -10 10 -10 m-86 10 v12 m76 0 v-12 m-76 12 q0 10 10 10 m56 0 q10 0 10 -10 m-66 10 h10 m36 0 h10 m20 -32 h10 m104 0 h10 m0 0 h10 m48 0 h10 m20 0 h10 m0 0 h216 m-246 0 h20 m226 0 h20 m-266 0 q10 0 10 10 m246 0 q0 -10 10 -10 m-256 10 v12 m246 0 v-12 m-246 12 q0 10 10 10 m226 0 q10 0 10 -10 m-236 10 h10 m80 0 h10 m0 0 h10 m106 0 h10 m43 -184 h-3"/>
+   <polygon points="623 17 631 13 631 21"/>
+   <polygon points="623 17 615 13 615 21"/>
+</svg>

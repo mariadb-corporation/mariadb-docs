@@ -35,6 +35,12 @@ routine_body:
     Valid SQL procedure statement
 ```
 
+![Railroad diagram of CREATE PROCEDURE — equivalent to the BNF above](../../../.gitbook/assets/create-procedure-railroad.svg)
+
+![Railroad diagram of proc_parameter](../../../.gitbook/assets/create-procedure-parameter-railroad.svg)
+
+![Railroad diagram of characteristic](../../../.gitbook/assets/create-procedure-characteristic-railroad.svg)
+
 The `IN OUT` parameter works only in [Oracle mode](create-procedure.md#oracle-mode).
 {% endtab %}
 

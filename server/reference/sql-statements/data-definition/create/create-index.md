@@ -9,8 +9,8 @@ description: >-
 ## Syntax
 
 ```bnf
-CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL|VECTOR] INDEX 
-  [IF NOT EXISTS] index_name
+CREATE [OR REPLACE] [UNIQUE|FULLTEXT|SPATIAL|VECTOR] INDEX
+    [IF NOT EXISTS] index_name
     [index_type]
     ON tbl_name (index_col_name,...)
     [WAIT n | NOWAIT]
@@ -24,14 +24,14 @@ index_type:
     USING {BTREE | HASH | RTREE}
 
 index_option:
-    [ KEY_BLOCK_SIZE [=] value
+    KEY_BLOCK_SIZE [=] value
   | index_type
   | WITH PARSER parser_name
   | COMMENT 'string'
-  | CLUSTERING={YES| NO} ]
-  [ IGNORED | NOT IGNORED ]
-  | DISTANCE={EUCLIDEAN| COSINE} ]
-  | M=number ]
+  | CLUSTERING = {YES | NO}
+  | IGNORED | NOT IGNORED
+  | DISTANCE = {EUCLIDEAN | COSINE}
+  | M = number
 
 algorithm_option:
     ALGORITHM [=] {DEFAULT|INPLACE|COPY|NOCOPY|INSTANT}
@@ -39,6 +39,18 @@ algorithm_option:
 lock_option:
     LOCK [=] {DEFAULT|NONE|SHARED|EXCLUSIVE}
 ```
+
+![Railroad diagram of CREATE INDEX — equivalent to the BNF above](../../../../.gitbook/assets/create-index-railroad.svg)
+
+![Railroad diagram of index_col_name](../../../../.gitbook/assets/create-index-col-name-railroad.svg)
+
+![Railroad diagram of index_type](../../../../.gitbook/assets/create-index-type-railroad.svg)
+
+![Railroad diagram of index_option](../../../../.gitbook/assets/create-index-option-railroad.svg)
+
+![Railroad diagram of algorithm_option](../../../../.gitbook/assets/create-index-algorithm-option-railroad.svg)
+
+![Railroad diagram of lock_option](../../../../.gitbook/assets/create-index-lock-option-railroad.svg)
 
 ## Description
 

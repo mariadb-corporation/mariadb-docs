@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="629" height="1709">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <polygon points="17 17 9 13 9 21"/>
+   <rect x="51" y="3" width="120" height="32" rx="10"/>
+   <rect x="49"
+         y="1"
+         width="120"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="21">MASTER_BIND</text>
+   <rect x="191" y="3" width="30" height="32" rx="10"/>
+   <rect x="189"
+         y="1"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="199" y="21">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#interface_name"
+      xlink:title="interface_name">
+      <rect x="241" y="3" width="118" height="32"/>
+      <rect x="239" y="1" width="118" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="249" y="21">interface_name</text>
+   </a>
+   <rect x="51" y="47" width="122" height="32" rx="10"/>
+   <rect x="49"
+         y="45"
+         width="122"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="65">MASTER_HOST</text>
+   <rect x="193" y="47" width="30" height="32" rx="10"/>
+   <rect x="191"
+         y="45"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="201" y="65">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#host_name"
+      xlink:title="host_name">
+      <rect x="243" y="47" width="92" height="32"/>
+      <rect x="241" y="45" width="92" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="251" y="65">host_name</text>
+   </a>
+   <rect x="51" y="91" width="120" height="32" rx="10"/>
+   <rect x="49"
+         y="89"
+         width="120"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="109">MASTER_USER</text>
+   <rect x="191" y="91" width="30" height="32" rx="10"/>
+   <rect x="189"
+         y="89"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="199" y="109">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#user_name"
+      xlink:title="user_name">
+      <rect x="241" y="91" width="92" height="32"/>
+      <rect x="239" y="89" width="92" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="249" y="109">user_name</text>
+   </a>
+   <rect x="51" y="135" width="164" height="32" rx="10"/>
+   <rect x="49"
+         y="133"
+         width="164"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="153">MASTER_PASSWORD</text>
+   <rect x="235" y="135" width="30" height="32" rx="10"/>
+   <rect x="233"
+         y="133"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="243" y="153">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#password"
+      xlink:title="password">
+      <rect x="285" y="135" width="80" height="32"/>
+      <rect x="283" y="133" width="80" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="293" y="153">password</text>
+   </a>
+   <rect x="51" y="179" width="122" height="32" rx="10"/>
+   <rect x="49"
+         y="177"
+         width="122"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="197">MASTER_PORT</text>
+   <rect x="193" y="179" width="30" height="32" rx="10"/>
+   <rect x="191"
+         y="177"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="201" y="197">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#port_num"
+      xlink:title="port_num">
+      <rect x="243" y="179" width="82" height="32"/>
+      <rect x="241" y="177" width="82" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="251" y="197">port_num</text>
+   </a>
+   <rect x="71" y="223" width="202" height="32" rx="10"/>
+   <rect x="69"
+         y="221"
+         width="202"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="241">MASTER_CONNECT_RETRY</text>
+   <rect x="71" y="267" width="226" height="32" rx="10"/>
+   <rect x="69"
+         y="265"
+         width="226"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="285">MASTER_HEARTBEAT_PERIOD</text>
+   <rect x="337" y="223" width="30" height="32" rx="10"/>
+   <rect x="335"
+         y="221"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="345" y="241">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#interval"
+      xlink:title="interval">
+      <rect x="407" y="223" width="68" height="32"/>
+      <rect x="405" y="221" width="68" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="415" y="241">interval</text>
+   </a>
+   <rect x="407" y="267" width="80" height="32" rx="10"/>
+   <rect x="405"
+         y="265"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="415" y="285">DEFAULT</text>
+   <rect x="51" y="311" width="152" height="32" rx="10"/>
+   <rect x="49"
+         y="309"
+         width="152"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="329">MASTER_LOG_FILE</text>
+   <rect x="223" y="311" width="30" height="32" rx="10"/>
+   <rect x="221"
+         y="309"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="231" y="329">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#master_log_name"
+      xlink:title="master_log_name">
+      <rect x="273" y="311" width="136" height="32"/>
+      <rect x="271" y="309" width="136" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="281" y="329">master_log_name</text>
+   </a>
+   <rect x="51" y="355" width="150" height="32" rx="10"/>
+   <rect x="49"
+         y="353"
+         width="150"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="373">MASTER_LOG_POS</text>
+   <rect x="221" y="355" width="30" height="32" rx="10"/>
+   <rect x="219"
+         y="353"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="229" y="373">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#master_log_pos"
+      xlink:title="master_log_pos">
+      <rect x="271" y="355" width="122" height="32"/>
+      <rect x="269" y="353" width="122" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="279" y="373">master_log_pos</text>
+   </a>
+   <rect x="51" y="399" width="140" height="32" rx="10"/>
+   <rect x="49"
+         y="397"
+         width="140"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="417">RELAY_LOG_FILE</text>
+   <rect x="211" y="399" width="30" height="32" rx="10"/>
+   <rect x="209"
+         y="397"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="219" y="417">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#relay_log_name"
+      xlink:title="relay_log_name">
+      <rect x="261" y="399" width="122" height="32"/>
+      <rect x="259" y="397" width="122" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="269" y="417">relay_log_name</text>
+   </a>
+   <rect x="51" y="443" width="138" height="32" rx="10"/>
+   <rect x="49"
+         y="441"
+         width="138"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="461">RELAY_LOG_POS</text>
+   <rect x="209" y="443" width="30" height="32" rx="10"/>
+   <rect x="207"
+         y="441"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="217" y="461">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#relay_log_pos"
+      xlink:title="relay_log_pos">
+      <rect x="259" y="443" width="110" height="32"/>
+      <rect x="257" y="441" width="110" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="267" y="461">relay_log_pos</text>
+   </a>
+   <rect x="51" y="487" width="128" height="32" rx="10"/>
+   <rect x="49"
+         y="485"
+         width="128"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="505">MASTER_DELAY</text>
+   <rect x="199" y="487" width="30" height="32" rx="10"/>
+   <rect x="197"
+         y="485"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="207" y="505">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#interval"
+      xlink:title="interval">
+      <rect x="249" y="487" width="68" height="32"/>
+      <rect x="247" y="485" width="68" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="257" y="505">interval</text>
+   </a>
+   <rect x="71" y="531" width="110" height="32" rx="10"/>
+   <rect x="69"
+         y="529"
+         width="110"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="549">MASTER_SSL</text>
+   <rect x="71" y="575" width="276" height="32" rx="10"/>
+   <rect x="69"
+         y="573"
+         width="276"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="593">MASTER_SSL_VERIFY_SERVER_CERT</text>
+   <rect x="387" y="531" width="30" height="32" rx="10"/>
+   <rect x="385"
+         y="529"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="395" y="549">=</text>
+   <rect x="457" y="531" width="28" height="32" rx="10"/>
+   <rect x="455"
+         y="529"
+         width="28"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="465" y="549">0</text>
+   <rect x="457" y="575" width="28" height="32" rx="10"/>
+   <rect x="455"
+         y="573"
+         width="28"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="465" y="593">1</text>
+   <rect x="457" y="619" width="80" height="32" rx="10"/>
+   <rect x="455"
+         y="617"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="465" y="637">DEFAULT</text>
+   <rect x="51" y="663" width="138" height="32" rx="10"/>
+   <rect x="49"
+         y="661"
+         width="138"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="681">MASTER_SSL_CA</text>
+   <rect x="209" y="663" width="30" height="32" rx="10"/>
+   <rect x="207"
+         y="661"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="217" y="681">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#ca_file_name"
+      xlink:title="ca_file_name">
+      <rect x="279" y="663" width="104" height="32"/>
+      <rect x="277" y="661" width="104" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="287" y="681">ca_file_name</text>
+   </a>
+   <rect x="279" y="707" width="80" height="32" rx="10"/>
+   <rect x="277"
+         y="705"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="287" y="725">DEFAULT</text>
+   <rect x="51" y="751" width="174" height="32" rx="10"/>
+   <rect x="49"
+         y="749"
+         width="174"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="769">MASTER_SSL_CAPATH</text>
+   <rect x="245" y="751" width="30" height="32" rx="10"/>
+   <rect x="243"
+         y="749"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="253" y="769">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#ca_directory_name"
+      xlink:title="ca_directory_name">
+      <rect x="315" y="751" width="142" height="32"/>
+      <rect x="313" y="749" width="142" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="323" y="769">ca_directory_name</text>
+   </a>
+   <rect x="315" y="795" width="80" height="32" rx="10"/>
+   <rect x="313"
+         y="793"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="323" y="813">DEFAULT</text>
+   <rect x="51" y="839" width="154" height="32" rx="10"/>
+   <rect x="49"
+         y="837"
+         width="154"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="857">MASTER_SSL_CERT</text>
+   <rect x="225" y="839" width="30" height="32" rx="10"/>
+   <rect x="223"
+         y="837"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="233" y="857">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#cert_file_name"
+      xlink:title="cert_file_name">
+      <rect x="295" y="839" width="114" height="32"/>
+      <rect x="293" y="837" width="114" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="303" y="857">cert_file_name</text>
+   </a>
+   <rect x="295" y="883" width="80" height="32" rx="10"/>
+   <rect x="293"
+         y="881"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="303" y="901">DEFAULT</text>
+   <rect x="51" y="927" width="146" height="32" rx="10"/>
+   <rect x="49"
+         y="925"
+         width="146"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="945">MASTER_SSL_CRL</text>
+   <rect x="217" y="927" width="30" height="32" rx="10"/>
+   <rect x="215"
+         y="925"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="225" y="945">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#crl_file_name"
+      xlink:title="crl_file_name">
+      <rect x="287" y="927" width="104" height="32"/>
+      <rect x="285" y="925" width="104" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="295" y="945">crl_file_name</text>
+   </a>
+   <rect x="287" y="971" width="80" height="32" rx="10"/>
+   <rect x="285"
+         y="969"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="295" y="989">DEFAULT</text>
+   <rect x="51" y="1015" width="182" height="32" rx="10"/>
+   <rect x="49"
+         y="1013"
+         width="182"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="1033">MASTER_SSL_CRLPATH</text>
+   <rect x="253" y="1015" width="30" height="32" rx="10"/>
+   <rect x="251"
+         y="1013"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="261" y="1033">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#crl_directory_name"
+      xlink:title="crl_directory_name">
+      <rect x="323" y="1015" width="142" height="32"/>
+      <rect x="321"
+            y="1013"
+            width="142"
+            height="32"
+            class="nonterminal"/>
+      <text class="nonterminal" x="331" y="1033">crl_directory_name</text>
+   </a>
+   <rect x="323" y="1059" width="80" height="32" rx="10"/>
+   <rect x="321"
+         y="1057"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="331" y="1077">DEFAULT</text>
+   <rect x="51" y="1103" width="146" height="32" rx="10"/>
+   <rect x="49"
+         y="1101"
+         width="146"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="1121">MASTER_SSL_KEY</text>
+   <rect x="217" y="1103" width="30" height="32" rx="10"/>
+   <rect x="215"
+         y="1101"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="225" y="1121">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#key_file_name"
+      xlink:title="key_file_name">
+      <rect x="287" y="1103" width="112" height="32"/>
+      <rect x="285"
+            y="1101"
+            width="112"
+            height="32"
+            class="nonterminal"/>
+      <text class="nonterminal" x="295" y="1121">key_file_name</text>
+   </a>
+   <rect x="287" y="1147" width="80" height="32" rx="10"/>
+   <rect x="285"
+         y="1145"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="295" y="1165">DEFAULT</text>
+   <rect x="51" y="1191" width="172" height="32" rx="10"/>
+   <rect x="49"
+         y="1189"
+         width="172"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="1209">MASTER_SSL_CIPHER</text>
+   <rect x="243" y="1191" width="30" height="32" rx="10"/>
+   <rect x="241"
+         y="1189"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="251" y="1209">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#cipher_list"
+      xlink:title="cipher_list">
+      <rect x="313" y="1191" width="84" height="32"/>
+      <rect x="311" y="1189" width="84" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="321" y="1209">cipher_list</text>
+   </a>
+   <rect x="313" y="1235" width="80" height="32" rx="10"/>
+   <rect x="311"
+         y="1233"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="321" y="1253">DEFAULT</text>
+   <rect x="51" y="1279" width="154" height="32" rx="10"/>
+   <rect x="49"
+         y="1277"
+         width="154"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="1297">MASTER_USE_GTID</text>
+   <rect x="225" y="1279" width="30" height="32" rx="10"/>
+   <rect x="223"
+         y="1277"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="233" y="1297">=</text>
+   <rect x="295" y="1279" width="102" height="32" rx="10"/>
+   <rect x="293"
+         y="1277"
+         width="102"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="303" y="1297">current_pos</text>
+   <rect x="295" y="1323" width="88" height="32" rx="10"/>
+   <rect x="293"
+         y="1321"
+         width="88"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="303" y="1341">slave_pos</text>
+   <rect x="295" y="1367" width="36" height="32" rx="10"/>
+   <rect x="293"
+         y="1365"
+         width="36"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="303" y="1385">no</text>
+   <rect x="295" y="1411" width="80" height="32" rx="10"/>
+   <rect x="293"
+         y="1409"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="303" y="1429">DEFAULT</text>
+   <rect x="51" y="1455" width="222" height="32" rx="10"/>
+   <rect x="49"
+         y="1453"
+         width="222"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="1473">MASTER_DEMOTE_TO_SLAVE</text>
+   <rect x="293" y="1455" width="30" height="32" rx="10"/>
+   <rect x="291"
+         y="1453"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="301" y="1473">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#bool"
+      xlink:title="bool">
+      <rect x="343" y="1455" width="46" height="32"/>
+      <rect x="341" y="1453" width="46" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="351" y="1473">bool</text>
+   </a>
+   <rect x="71" y="1499" width="172" height="32" rx="10"/>
+   <rect x="69"
+         y="1497"
+         width="172"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="1517">IGNORE_SERVER_IDS</text>
+   <rect x="263" y="1499" width="30" height="32" rx="10"/>
+   <rect x="261"
+         y="1497"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="271" y="1517">=</text>
+   <rect x="313" y="1499" width="26" height="32" rx="10"/>
+   <rect x="311"
+         y="1497"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="321" y="1517">(</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#server_id_list"
+      xlink:title="server_id_list">
+      <rect x="359" y="1499" width="106" height="32"/>
+      <rect x="357"
+            y="1497"
+            width="106"
+            height="32"
+            class="nonterminal"/>
+      <text class="nonterminal" x="367" y="1517">server_id_list</text>
+   </a>
+   <rect x="91" y="1543" width="142" height="32" rx="10"/>
+   <rect x="89"
+         y="1541"
+         width="142"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="99" y="1561">DO_DOMAIN_IDS</text>
+   <rect x="91" y="1587" width="176" height="32" rx="10"/>
+   <rect x="89"
+         y="1585"
+         width="176"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="99" y="1605">IGNORE_DOMAIN_IDS</text>
+   <rect x="307" y="1543" width="30" height="32" rx="10"/>
+   <rect x="305"
+         y="1541"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="315" y="1561">=</text>
+   <rect x="357" y="1543" width="26" height="32" rx="10"/>
+   <rect x="355"
+         y="1541"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="365" y="1561">(</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#domain_id_list"
+      xlink:title="domain_id_list">
+      <rect x="403" y="1543" width="112" height="32"/>
+      <rect x="401"
+            y="1541"
+            width="112"
+            height="32"
+            class="nonterminal"/>
+      <text class="nonterminal" x="411" y="1561">domain_id_list</text>
+   </a>
+   <rect x="555" y="1499" width="26" height="32" rx="10"/>
+   <rect x="553"
+         y="1497"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="563" y="1517">)</text>
+   <rect x="51" y="1631" width="186" height="32" rx="10"/>
+   <rect x="49"
+         y="1629"
+         width="186"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="1649">MASTER_RETRY_COUNT</text>
+   <rect x="257" y="1631" width="30" height="32" rx="10"/>
+   <rect x="255"
+         y="1629"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="265" y="1649">=</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#count"
+      xlink:title="count">
+      <rect x="327" y="1631" width="54" height="32"/>
+      <rect x="325" y="1629" width="54" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="335" y="1649">count</text>
+   </a>
+   <rect x="327" y="1675" width="80" height="32" rx="10"/>
+   <rect x="325"
+         y="1673"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="335" y="1693">DEFAULT</text>
+   <path class="line"
+         d="m17 17 h2 m20 0 h10 m120 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m118 0 h10 m0 0 h222 m-570 0 h20 m550 0 h20 m-590 0 q10 0 10 10 m570 0 q0 -10 10 -10 m-580 10 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m122 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m92 0 h10 m0 0 h246 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m120 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m92 0 h10 m0 0 h248 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m164 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m80 0 h10 m0 0 h216 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m122 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m82 0 h10 m0 0 h256 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-540 10 h10 m202 0 h10 m0 0 h24 m-266 0 h20 m246 0 h20 m-286 0 q10 0 10 10 m266 0 q0 -10 10 -10 m-276 10 v24 m266 0 v-24 m-266 24 q0 10 10 10 m246 0 q10 0 10 -10 m-256 10 h10 m226 0 h10 m20 -44 h10 m30 0 h10 m20 0 h10 m68 0 h10 m0 0 h12 m-120 0 h20 m100 0 h20 m-140 0 q10 0 10 10 m120 0 q0 -10 10 -10 m-130 10 v24 m120 0 v-24 m-120 24 q0 10 10 10 m100 0 q10 0 10 -10 m-110 10 h10 m80 0 h10 m20 -44 h74 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m152 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m136 0 h10 m0 0 h172 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m150 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m122 0 h10 m0 0 h188 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m140 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m122 0 h10 m0 0 h198 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m138 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m110 0 h10 m0 0 h212 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m128 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m68 0 h10 m0 0 h264 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-540 10 h10 m110 0 h10 m0 0 h166 m-316 0 h20 m296 0 h20 m-336 0 q10 0 10 10 m316 0 q0 -10 10 -10 m-326 10 v24 m316 0 v-24 m-316 24 q0 10 10 10 m296 0 q10 0 10 -10 m-306 10 h10 m276 0 h10 m20 -44 h10 m30 0 h10 m20 0 h10 m28 0 h10 m0 0 h52 m-120 0 h20 m100 0 h20 m-140 0 q10 0 10 10 m120 0 q0 -10 10 -10 m-130 10 v24 m120 0 v-24 m-120 24 q0 10 10 10 m100 0 q10 0 10 -10 m-110 10 h10 m28 0 h10 m0 0 h52 m-110 -10 v20 m120 0 v-20 m-120 20 v24 m120 0 v-24 m-120 24 q0 10 10 10 m100 0 q10 0 10 -10 m-110 10 h10 m80 0 h10 m20 -88 h24 m-560 -10 v20 m570 0 v-20 m-570 20 v112 m570 0 v-112 m-570 112 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m138 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m104 0 h10 m-144 0 h20 m124 0 h20 m-164 0 q10 0 10 10 m144 0 q0 -10 10 -10 m-154 10 v24 m144 0 v-24 m-144 24 q0 10 10 10 m124 0 q10 0 10 -10 m-134 10 h10 m80 0 h10 m0 0 h24 m20 -44 h178 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m174 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m142 0 h10 m-182 0 h20 m162 0 h20 m-202 0 q10 0 10 10 m182 0 q0 -10 10 -10 m-192 10 v24 m182 0 v-24 m-182 24 q0 10 10 10 m162 0 q10 0 10 -10 m-172 10 h10 m80 0 h10 m0 0 h62 m20 -44 h104 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m154 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m114 0 h10 m-154 0 h20 m134 0 h20 m-174 0 q10 0 10 10 m154 0 q0 -10 10 -10 m-164 10 v24 m154 0 v-24 m-154 24 q0 10 10 10 m134 0 q10 0 10 -10 m-144 10 h10 m80 0 h10 m0 0 h34 m20 -44 h152 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m146 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m104 0 h10 m-144 0 h20 m124 0 h20 m-164 0 q10 0 10 10 m144 0 q0 -10 10 -10 m-154 10 v24 m144 0 v-24 m-144 24 q0 10 10 10 m124 0 q10 0 10 -10 m-134 10 h10 m80 0 h10 m0 0 h24 m20 -44 h170 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m182 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m142 0 h10 m-182 0 h20 m162 0 h20 m-202 0 q10 0 10 10 m182 0 q0 -10 10 -10 m-192 10 v24 m182 0 v-24 m-182 24 q0 10 10 10 m162 0 q10 0 10 -10 m-172 10 h10 m80 0 h10 m0 0 h62 m20 -44 h96 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m146 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m112 0 h10 m-152 0 h20 m132 0 h20 m-172 0 q10 0 10 10 m152 0 q0 -10 10 -10 m-162 10 v24 m152 0 v-24 m-152 24 q0 10 10 10 m132 0 q10 0 10 -10 m-142 10 h10 m80 0 h10 m0 0 h32 m20 -44 h162 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m172 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m84 0 h10 m-124 0 h20 m104 0 h20 m-144 0 q10 0 10 10 m124 0 q0 -10 10 -10 m-134 10 v24 m124 0 v-24 m-124 24 q0 10 10 10 m104 0 q10 0 10 -10 m-114 10 h10 m80 0 h10 m0 0 h4 m20 -44 h164 m-560 -10 v20 m570 0 v-20 m-570 20 v68 m570 0 v-68 m-570 68 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m154 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m102 0 h10 m-142 0 h20 m122 0 h20 m-162 0 q10 0 10 10 m142 0 q0 -10 10 -10 m-152 10 v24 m142 0 v-24 m-142 24 q0 10 10 10 m122 0 q10 0 10 -10 m-132 10 h10 m88 0 h10 m0 0 h14 m-132 -10 v20 m142 0 v-20 m-142 20 v24 m142 0 v-24 m-142 24 q0 10 10 10 m122 0 q10 0 10 -10 m-132 10 h10 m36 0 h10 m0 0 h66 m-132 -10 v20 m142 0 v-20 m-142 20 v24 m142 0 v-24 m-142 24 q0 10 10 10 m122 0 q10 0 10 -10 m-132 10 h10 m80 0 h10 m0 0 h22 m20 -132 h164 m-560 -10 v20 m570 0 v-20 m-570 20 v156 m570 0 v-156 m-570 156 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m222 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m46 0 h10 m0 0 h192 m-560 -10 v20 m570 0 v-20 m-570 20 v24 m570 0 v-24 m-570 24 q0 10 10 10 m550 0 q10 0 10 -10 m-540 10 h10 m172 0 h10 m0 0 h10 m30 0 h10 m0 0 h10 m26 0 h10 m0 0 h10 m106 0 h10 m0 0 h50 m-484 0 h20 m464 0 h20 m-504 0 q10 0 10 10 m484 0 q0 -10 10 -10 m-494 10 v24 m484 0 v-24 m-484 24 q0 10 10 10 m464 0 q10 0 10 -10 m-454 10 h10 m142 0 h10 m0 0 h34 m-216 0 h20 m196 0 h20 m-236 0 q10 0 10 10 m216 0 q0 -10 10 -10 m-226 10 v24 m216 0 v-24 m-216 24 q0 10 10 10 m196 0 q10 0 10 -10 m-206 10 h10 m176 0 h10 m20 -44 h10 m30 0 h10 m0 0 h10 m26 0 h10 m0 0 h10 m112 0 h10 m20 -44 h10 m26 0 h10 m-560 -10 v20 m570 0 v-20 m-570 20 v112 m570 0 v-112 m-570 112 q0 10 10 10 m550 0 q10 0 10 -10 m-560 10 h10 m186 0 h10 m0 0 h10 m30 0 h10 m20 0 h10 m54 0 h10 m0 0 h26 m-120 0 h20 m100 0 h20 m-140 0 q10 0 10 10 m120 0 q0 -10 10 -10 m-130 10 v24 m120 0 v-24 m-120 24 q0 10 10 10 m100 0 q10 0 10 -10 m-110 10 h10 m80 0 h10 m20 -44 h154 m23 -1628 h-3"/>
+   <polygon points="619 17 627 13 627 21"/>
+   <polygon points="619 17 611 13 611 21"/>
+</svg>
