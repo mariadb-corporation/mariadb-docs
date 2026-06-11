@@ -76,13 +76,13 @@ maria_declare_plugin_end;
 The maturity level selection criteria differ based on how the plugin is released.
 
 > [!NOTE]
-> Sufficiently big changes to a plugin should lead to:
+> New features or sufficiently big code changes to a plugin should lead to:
 > * an increase of the plugin version
 > * knocking the maturity level down.
 
 ### Static plugins
 
-Static plugins and other server features share a release cycle.
+Static plugins and other server features share the [server release cycle](https://mariadb.com/docs/release-notes/community-server/about/release-model).
 
 ```mermaid
 stateDiagram-v2
