@@ -258,6 +258,35 @@ The steps involved in the switchover operation are:
 
 If the switchover operation is stuck waiting for replicas to be in sync, you can check the `MariaDB` status to identify which replicas are causing the issue. Furthermore, if still in this step, you can cancel the switchover operation by setting back the `spec.replication.primary.podIndex` field back to the previous primary index.
 
+### Primary Graceful Shutdown Switchover
+
+The operator can automatically trigger a primary switchover when a primary `Pod` is gracefully shutdown. This is useful in scenarios such as node drains, where you want to gracefully move the primary to another node before the current one is terminated.
+
+This feature is enabled by default. You can disable it by setting the `spec.replication.primary.autoSwitchoverOnGracefulShutdown` field to `false`:
+
+```yaml
+apiVersion: enterprise.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-repl
+spec:
+  storage:
+    size: 1Gi
+  replicas: 3
+  replication:
+    enabled: true
+    primary:
+      autoSwitchoverOnGracefulShutdown: false
+```
+
+{% hint style="warning" %}
+The switchover on graceful shutdown is executed in a `preStop` hook within the primary `Pod`. Consequently, there are no logs available for this operation. However, the operator emits Kubernetes events that can be inspected to observe the progress of the switchover. You can query these events using `kubectl get events` or watch them in real-time with `kubectl get events -w`.
+{% endhint %}
+
+{% hint style="warning" %}
+Kubernetes events are short-lived. Keep in mind, if an issue comes up with the new termination logic, collect the events for more information.
+{% endhint %}
+
 ## Primary failover
 
 {% hint style="info" %}
