@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="847" height="407">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 61 1 57 1 65"/>
+   <polygon points="17 61 9 57 9 65"/>
+   <rect x="31" y="47" width="72" height="32" rx="10"/>
+   <rect x="29"
+         y="45"
+         width="72"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="39" y="65">CREATE</text>
+   <rect x="143" y="79" width="40" height="32" rx="10"/>
+   <rect x="141"
+         y="77"
+         width="40"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="151" y="97">OR</text>
+   <rect x="203" y="79" width="80" height="32" rx="10"/>
+   <rect x="201"
+         y="77"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="211" y="97">REPLACE</text>
+   <rect x="323" y="47" width="56" height="32" rx="10"/>
+   <rect x="321"
+         y="45"
+         width="56"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="331" y="65">USER</text>
+   <rect x="419" y="79" width="34" height="32" rx="10"/>
+   <rect x="417"
+         y="77"
+         width="34"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="427" y="97">IF</text>
+   <rect x="473" y="79" width="48" height="32" rx="10"/>
+   <rect x="471"
+         y="77"
+         width="48"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="481" y="97">NOT</text>
+   <rect x="541" y="79" width="70" height="32" rx="10"/>
+   <rect x="539"
+         y="77"
+         width="70"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="549" y="97">EXISTS</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#user_specification"
+      xlink:title="user_specification">
+      <rect x="671" y="47" width="134" height="32"/>
+      <rect x="669" y="45" width="134" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="679" y="65">user_specification</text>
+   </a>
+   <rect x="671" y="3" width="24" height="32" rx="10"/>
+   <rect x="669"
+         y="1"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="679" y="21">,</text>
+   <rect x="65" y="161" width="82" height="32" rx="10"/>
+   <rect x="63"
+         y="159"
+         width="82"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="73" y="179">REQUIRE</text>
+   <rect x="187" y="161" width="58" height="32" rx="10"/>
+   <rect x="185"
+         y="159"
+         width="58"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="195" y="179">NONE</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#tls_option"
+      xlink:title="tls_option">
+      <rect x="207" y="271" width="84" height="32"/>
+      <rect x="205" y="269" width="84" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="215" y="289">tls_option</text>
+   </a>
+   <rect x="207" y="205" width="48" height="32" rx="10"/>
+   <rect x="205"
+         y="203"
+         width="48"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="215" y="223">AND</text>
+   <rect x="391" y="161" width="58" height="32" rx="10"/>
+   <rect x="389"
+         y="159"
+         width="58"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="399" y="179">WITH</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#resource_option"
+      xlink:title="resource_option">
+      <rect x="489" y="161" width="124" height="32"/>
+      <rect x="487" y="159" width="124" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="497" y="179">resource_option</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#lock_option"
+      xlink:title="lock_option">
+      <rect x="693" y="193" width="92" height="32"/>
+      <rect x="691" y="191" width="92" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="701" y="211">lock_option</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#password_option"
+      xlink:title="password_option">
+      <rect x="671" y="373" width="128" height="32"/>
+      <rect x="669" y="371" width="128" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="679" y="391">password_option</text>
+   </a>
+   <path class="line"
+         d="m17 61 h2 m0 0 h10 m72 0 h10 m20 0 h10 m0 0 h150 m-180 0 h20 m160 0 h20 m-200 0 q10 0 10 10 m180 0 q0 -10 10 -10 m-190 10 v12 m180 0 v-12 m-180 12 q0 10 10 10 m160 0 q10 0 10 -10 m-170 10 h10 m40 0 h10 m0 0 h10 m80 0 h10 m20 -32 h10 m56 0 h10 m20 0 h10 m0 0 h202 m-232 0 h20 m212 0 h20 m-252 0 q10 0 10 10 m232 0 q0 -10 10 -10 m-242 10 v12 m232 0 v-12 m-232 12 q0 10 10 10 m212 0 q10 0 10 -10 m-222 10 h10 m34 0 h10 m0 0 h10 m48 0 h10 m0 0 h10 m70 0 h10 m40 -32 h10 m134 0 h10 m-174 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m154 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-154 0 h10 m24 0 h10 m0 0 h110 m22 44 l2 0 m2 0 l2 0 m2 0 l2 0 m-824 114 l2 0 m2 0 l2 0 m2 0 l2 0 m22 0 h10 m82 0 h10 m20 0 h10 m58 0 h10 m0 0 h66 m-164 0 h20 m144 0 h20 m-184 0 q10 0 10 10 m164 0 q0 -10 10 -10 m-174 10 v90 m164 0 v-90 m-164 90 q0 10 10 10 m144 0 q10 0 10 -10 m-134 10 h10 m84 0 h10 m-124 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m104 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-104 0 h10 m0 0 h94 m-114 10 l0 -34 q0 -10 10 -10 m114 44 l0 -34 q0 -10 -10 -10 m-104 0 h10 m48 0 h10 m0 0 h36 m-266 -44 h20 m286 0 h20 m-326 0 q10 0 10 10 m306 0 q0 -10 10 -10 m-316 10 v124 m306 0 v-124 m-306 124 q0 10 10 10 m286 0 q10 0 10 -10 m-296 10 h10 m0 0 h276 m40 -144 h10 m58 0 h10 m20 0 h10 m124 0 h10 m-164 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m144 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-144 0 h10 m0 0 h134 m-262 32 h20 m262 0 h20 m-302 0 q10 0 10 10 m282 0 q0 -10 10 -10 m-292 10 v14 m282 0 v-14 m-282 14 q0 10 10 10 m262 0 q10 0 10 -10 m-272 10 h10 m0 0 h252 m40 -34 h10 m0 0 h102 m-132 0 h20 m112 0 h20 m-152 0 q10 0 10 10 m132 0 q0 -10 10 -10 m-142 10 v12 m132 0 v-12 m-132 12 q0 10 10 10 m112 0 q10 0 10 -10 m-122 10 h10 m92 0 h10 m22 -32 l2 0 m2 0 l2 0 m2 0 l2 0 m-198 180 l2 0 m2 0 l2 0 m2 0 l2 0 m22 0 h10 m0 0 h138 m-168 0 h20 m148 0 h20 m-188 0 q10 0 10 10 m168 0 q0 -10 10 -10 m-178 10 v12 m168 0 v-12 m-168 12 q0 10 10 10 m148 0 q10 0 10 -10 m-158 10 h10 m128 0 h10 m23 -32 h-3"/>
+   <polygon points="837 355 845 351 845 359"/>
+   <polygon points="837 355 829 351 829 359"/>
+</svg>

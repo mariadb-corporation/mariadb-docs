@@ -51,8 +51,23 @@ password_option:
 lock_option:
     ACCOUNT LOCK
   | ACCOUNT UNLOCK
-}
 ```
+
+![Railroad diagram of CREATE USER — equivalent to the BNF above](../../../.gitbook/assets/create-user-railroad.svg)
+
+![Railroad diagram of user_specification](../../../.gitbook/assets/create-user-specification-railroad.svg)
+
+![Railroad diagram of authentication_option](../../../.gitbook/assets/create-user-authentication-option-railroad.svg)
+
+![Railroad diagram of authentication_rule](../../../.gitbook/assets/create-user-authentication-rule-railroad.svg)
+
+![Railroad diagram of tls_option](../../../.gitbook/assets/create-user-tls-option-railroad.svg)
+
+![Railroad diagram of resource_option](../../../.gitbook/assets/create-user-resource-option-railroad.svg)
+
+![Railroad diagram of password_option](../../../.gitbook/assets/create-user-password-option-railroad.svg)
+
+![Railroad diagram of lock_option](../../../.gitbook/assets/create-user-lock-option-railroad.svg)
 
 ## Description
 

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1071" height="255">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <polygon points="17 17 9 13 9 21"/>
+   <rect x="51" y="3" width="60" height="32" rx="10"/>
+   <rect x="49"
+         y="1"
+         width="60"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="21">LIMIT</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#offset"
+      xlink:title="offset">
+      <rect x="171" y="35" width="56" height="32"/>
+      <rect x="169" y="33" width="56" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="179" y="53">offset</text>
+   </a>
+   <rect x="247" y="35" width="24" height="32" rx="10"/>
+   <rect x="245"
+         y="33"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="255" y="53">,</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#row_count"
+      xlink:title="row_count">
+      <rect x="311" y="3" width="86" height="32"/>
+      <rect x="309" y="1" width="86" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="319" y="21">row_count</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#row_count"
+      xlink:title="row_count">
+      <rect x="151" y="79" width="86" height="32"/>
+      <rect x="149" y="77" width="86" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="159" y="97">row_count</text>
+   </a>
+   <rect x="257" y="79" width="72" height="32" rx="10"/>
+   <rect x="255"
+         y="77"
+         width="72"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="265" y="97">OFFSET</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#offset"
+      xlink:title="offset">
+      <rect x="349" y="79" width="56" height="32"/>
+      <rect x="347" y="77" width="56" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="357" y="97">offset</text>
+   </a>
+   <rect x="445" y="111" width="62" height="32" rx="10"/>
+   <rect x="443"
+         y="109"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="453" y="129">ROWS</text>
+   <rect x="527" y="111" width="92" height="32" rx="10"/>
+   <rect x="525"
+         y="109"
+         width="92"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="535" y="129">EXAMINED</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#rows_limit"
+      xlink:title="rows_limit">
+      <rect x="639" y="111" width="84" height="32"/>
+      <rect x="637" y="109" width="84" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="647" y="129">rows_limit</text>
+   </a>
+   <rect x="71" y="177" width="72" height="32" rx="10"/>
+   <rect x="69"
+         y="175"
+         width="72"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="79" y="195">OFFSET</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#start"
+      xlink:title="start">
+      <rect x="163" y="177" width="50" height="32"/>
+      <rect x="161" y="175" width="50" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="171" y="195">start</text>
+   </a>
+   <rect x="253" y="177" width="54" height="32" rx="10"/>
+   <rect x="251"
+         y="175"
+         width="54"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="261" y="195">ROW</text>
+   <rect x="253" y="221" width="62" height="32" rx="10"/>
+   <rect x="251"
+         y="219"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="261" y="239">ROWS</text>
+   <rect x="395" y="177" width="62" height="32" rx="10"/>
+   <rect x="393"
+         y="175"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="403" y="195">FETCH</text>
+   <rect x="497" y="177" width="60" height="32" rx="10"/>
+   <rect x="495"
+         y="175"
+         width="60"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="505" y="195">FIRST</text>
+   <rect x="497" y="221" width="56" height="32" rx="10"/>
+   <rect x="495"
+         y="219"
+         width="56"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="505" y="239">NEXT</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#count"
+      xlink:title="count">
+      <rect x="617" y="209" width="54" height="32"/>
+      <rect x="615" y="207" width="54" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="625" y="227">count</text>
+   </a>
+   <rect x="731" y="177" width="54" height="32" rx="10"/>
+   <rect x="729"
+         y="175"
+         width="54"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="739" y="195">ROW</text>
+   <rect x="731" y="221" width="62" height="32" rx="10"/>
+   <rect x="729"
+         y="219"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="739" y="239">ROWS</text>
+   <rect x="853" y="177" width="58" height="32" rx="10"/>
+   <rect x="851"
+         y="175"
+         width="58"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="861" y="195">ONLY</text>
+   <rect x="853" y="221" width="58" height="32" rx="10"/>
+   <rect x="851"
+         y="219"
+         width="58"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="861" y="239">WITH</text>
+   <rect x="931" y="221" width="52" height="32" rx="10"/>
+   <rect x="929"
+         y="219"
+         width="52"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="939" y="239">TIES</text>
+   <path class="line"
+         d="m17 17 h2 m20 0 h10 m60 0 h10 m40 0 h10 m0 0 h110 m-140 0 h20 m120 0 h20 m-160 0 q10 0 10 10 m140 0 q0 -10 10 -10 m-150 10 v12 m140 0 v-12 m-140 12 q0 10 10 10 m120 0 q10 0 10 -10 m-130 10 h10 m56 0 h10 m0 0 h10 m24 0 h10 m20 -32 h10 m86 0 h10 m0 0 h346 m-632 0 h20 m612 0 h20 m-652 0 q10 0 10 10 m632 0 q0 -10 10 -10 m-642 10 v56 m632 0 v-56 m-632 56 q0 10 10 10 m612 0 q10 0 10 -10 m-622 10 h10 m86 0 h10 m0 0 h10 m72 0 h10 m0 0 h10 m56 0 h10 m20 0 h10 m0 0 h288 m-318 0 h20 m298 0 h20 m-338 0 q10 0 10 10 m318 0 q0 -10 10 -10 m-328 10 v12 m318 0 v-12 m-318 12 q0 10 10 10 m298 0 q10 0 10 -10 m-308 10 h10 m62 0 h10 m0 0 h10 m92 0 h10 m0 0 h10 m84 0 h10 m40 -108 h260 m-1012 0 h20 m992 0 h20 m-1032 0 q10 0 10 10 m1012 0 q0 -10 10 -10 m-1022 10 v122 m1012 0 v-122 m-1012 122 q0 10 10 10 m992 0 q10 0 10 -10 m-982 10 h10 m0 0 h274 m-304 0 h20 m284 0 h20 m-324 0 q10 0 10 10 m304 0 q0 -10 10 -10 m-314 10 v12 m304 0 v-12 m-304 12 q0 10 10 10 m284 0 q10 0 10 -10 m-294 10 h10 m72 0 h10 m0 0 h10 m50 0 h10 m20 0 h10 m54 0 h10 m0 0 h8 m-102 0 h20 m82 0 h20 m-122 0 q10 0 10 10 m102 0 q0 -10 10 -10 m-112 10 v24 m102 0 v-24 m-102 24 q0 10 10 10 m82 0 q10 0 10 -10 m-92 10 h10 m62 0 h10 m60 -76 h10 m0 0 h618 m-648 0 h20 m628 0 h20 m-668 0 q10 0 10 10 m648 0 q0 -10 10 -10 m-658 10 v12 m648 0 v-12 m-648 12 q0 10 10 10 m628 0 q10 0 10 -10 m-638 10 h10 m62 0 h10 m20 0 h10 m60 0 h10 m-100 0 h20 m80 0 h20 m-120 0 q10 0 10 10 m100 0 q0 -10 10 -10 m-110 10 v24 m100 0 v-24 m-100 24 q0 10 10 10 m80 0 q10 0 10 -10 m-90 10 h10 m56 0 h10 m0 0 h4 m40 -44 h10 m0 0 h64 m-94 0 h20 m74 0 h20 m-114 0 q10 0 10 10 m94 0 q0 -10 10 -10 m-104 10 v12 m94 0 v-12 m-94 12 q0 10 10 10 m74 0 q10 0 10 -10 m-84 10 h10 m54 0 h10 m40 -32 h10 m54 0 h10 m0 0 h8 m-102 0 h20 m82 0 h20 m-122 0 q10 0 10 10 m102 0 q0 -10 10 -10 m-112 10 v24 m102 0 v-24 m-102 24 q0 10 10 10 m82 0 q10 0 10 -10 m-92 10 h10 m62 0 h10 m40 -44 h10 m58 0 h10 m0 0 h72 m-170 0 h20 m150 0 h20 m-190 0 q10 0 10 10 m170 0 q0 -10 10 -10 m-180 10 v24 m170 0 v-24 m-170 24 q0 10 10 10 m150 0 q10 0 10 -10 m-160 10 h10 m58 0 h10 m0 0 h10 m52 0 h10 m63 -218 h-3"/>
+   <polygon points="1061 17 1069 13 1069 21"/>
+   <polygon points="1061 17 1053 13 1053 21"/>
+</svg>

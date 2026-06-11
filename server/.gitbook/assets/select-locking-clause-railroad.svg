@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="529" height="81">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 17 1 13 1 21"/>
+   <polygon points="17 17 9 13 9 21"/>
+   <rect x="51" y="3" width="48" height="32" rx="10"/>
+   <rect x="49"
+         y="1"
+         width="48"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="21">FOR</text>
+   <rect x="119" y="3" width="74" height="32" rx="10"/>
+   <rect x="117"
+         y="1"
+         width="74"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="127" y="21">UPDATE</text>
+   <rect x="51" y="47" width="56" height="32" rx="10"/>
+   <rect x="49"
+         y="45"
+         width="56"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="59" y="65">LOCK</text>
+   <rect x="127" y="47" width="36" height="32" rx="10"/>
+   <rect x="125"
+         y="45"
+         width="36"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="135" y="65">IN</text>
+   <rect x="183" y="47" width="66" height="32" rx="10"/>
+   <rect x="181"
+         y="45"
+         width="66"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="191" y="65">SHARE</text>
+   <rect x="269" y="47" width="60" height="32" rx="10"/>
+   <rect x="267"
+         y="45"
+         width="60"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="277" y="65">MODE</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#lock_option"
+      xlink:title="lock_option">
+      <rect x="389" y="35" width="92" height="32"/>
+      <rect x="387" y="33" width="92" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="397" y="53">lock_option</text>
+   </a>
+   <path class="line"
+         d="m17 17 h2 m20 0 h10 m48 0 h10 m0 0 h10 m74 0 h10 m0 0 h136 m-318 0 h20 m298 0 h20 m-338 0 q10 0 10 10 m318 0 q0 -10 10 -10 m-328 10 v24 m318 0 v-24 m-318 24 q0 10 10 10 m298 0 q10 0 10 -10 m-308 10 h10 m56 0 h10 m0 0 h10 m36 0 h10 m0 0 h10 m66 0 h10 m0 0 h10 m60 0 h10 m40 -44 h10 m0 0 h102 m-132 0 h20 m112 0 h20 m-152 0 q10 0 10 10 m132 0 q0 -10 10 -10 m-142 10 v12 m132 0 v-12 m-132 12 q0 10 10 10 m112 0 q10 0 10 -10 m-122 10 h10 m92 0 h10 m23 -32 h-3"/>
+   <polygon points="519 17 527 13 527 21"/>
+   <polygon points="519 17 511 13 511 21"/>
+</svg>

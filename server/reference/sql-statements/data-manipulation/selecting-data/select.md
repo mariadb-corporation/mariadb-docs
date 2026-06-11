@@ -31,7 +31,7 @@ SELECT
       [ROWS EXAMINED rows_limit] } |
         [OFFSET start { ROW | ROWS }]
         [FETCH { FIRST | NEXT } [ count ] { ROW | ROWS } { ONLY | WITH TIES }] ]
-      procedure|[PROCEDURE procedure_name(argument_list)]
+      [PROCEDURE procedure_name(argument_list)]
       [INTO OUTFILE 'file_name' [CHARACTER SET charset_name] [export_options] |
         INTO DUMPFILE 'file_name' | INTO var_name [, var_name] ]
       [FOR UPDATE lock_option | LOCK IN SHARE MODE lock_option]
@@ -48,6 +48,26 @@ export_options:
 lock_option:
     [WAIT n | NOWAIT | SKIP LOCKED]
 ```
+
+The SELECT grammar is broken out into named sub-clauses for readability. Each clause has its own diagram below.
+
+![Railroad diagram of SELECT — top-level](../../../../.gitbook/assets/select-railroad.svg)
+
+![Railroad diagram of from_clause](../../../../.gitbook/assets/select-from-clause-railroad.svg)
+
+![Railroad diagram of group_by_clause](../../../../.gitbook/assets/select-group-by-clause-railroad.svg)
+
+![Railroad diagram of order_by_clause](../../../../.gitbook/assets/select-order-by-clause-railroad.svg)
+
+![Railroad diagram of limit_clause](../../../../.gitbook/assets/select-limit-clause-railroad.svg)
+
+![Railroad diagram of into_clause](../../../../.gitbook/assets/select-into-clause-railroad.svg)
+
+![Railroad diagram of locking_clause](../../../../.gitbook/assets/select-locking-clause-railroad.svg)
+
+![Railroad diagram of export_options](../../../../.gitbook/assets/select-export-options-railroad.svg)
+
+![Railroad diagram of lock_option](../../../../.gitbook/assets/select-lock-option-railroad.svg)
 
 {% tabs %}
 {% tab title="Current" %}

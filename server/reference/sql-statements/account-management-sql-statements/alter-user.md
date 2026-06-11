@@ -29,19 +29,19 @@ authentication_rule:
   | authentication_plugin {USING|AS} 'authentication_string'
   | authentication_plugin {USING|AS} PASSWORD('password')
 
-tls_option
+tls_option:
   SSL 
   | X509
   | CIPHER 'cipher'
   | ISSUER 'issuer'
   | SUBJECT 'subject'
 
-resource_option
-  MAX_QUERIES_PER_HOUR COUNT
-  | MAX_UPDATES_PER_HOUR COUNT
-  | MAX_CONNECTIONS_PER_HOUR COUNT
-  | MAX_USER_CONNECTIONS COUNT
-  | MAX_STATEMENT_TIME TIME
+resource_option:
+  MAX_QUERIES_PER_HOUR count
+  | MAX_UPDATES_PER_HOUR count
+  | MAX_CONNECTIONS_PER_HOUR count
+  | MAX_USER_CONNECTIONS count
+  | MAX_STATEMENT_TIME time
 
 password_option:
   PASSWORD EXPIRE
@@ -52,8 +52,23 @@ password_option:
 lock_option:
     ACCOUNT LOCK
   | ACCOUNT UNLOCK
-}
 ```
+
+![Railroad diagram of ALTER USER — equivalent to the BNF above](../../../.gitbook/assets/alter-user-railroad.svg)
+
+![Railroad diagram of user_specification](../../../.gitbook/assets/alter-user-specification-railroad.svg)
+
+![Railroad diagram of authentication_option](../../../.gitbook/assets/alter-user-authentication-option-railroad.svg)
+
+![Railroad diagram of authentication_rule](../../../.gitbook/assets/alter-user-authentication-rule-railroad.svg)
+
+![Railroad diagram of tls_option](../../../.gitbook/assets/alter-user-tls-option-railroad.svg)
+
+![Railroad diagram of resource_option](../../../.gitbook/assets/alter-user-resource-option-railroad.svg)
+
+![Railroad diagram of password_option](../../../.gitbook/assets/alter-user-password-option-railroad.svg)
+
+![Railroad diagram of lock_option](../../../.gitbook/assets/alter-user-lock-option-railroad.svg)
 
 ## Description
 

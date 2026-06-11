@@ -96,6 +96,14 @@ tls_option:
   | SUBJECT 'subject'
 ```
 
+GRANT has three top-level forms. Sub-rule diagrams are not included here — the `priv_type` production alone is a ~60-row alternative list; readers can consult the BNF above for the sub-rule expansions.
+
+![Railroad diagram of GRANT (privileges form)](../../../.gitbook/assets/grant-privileges-railroad.svg)
+
+![Railroad diagram of GRANT PROXY](../../../.gitbook/assets/grant-proxy-railroad.svg)
+
+![Railroad diagram of GRANT (roles form)](../../../.gitbook/assets/grant-roles-railroad.svg)
+
 ## Description
 
 The `GRANT` statement allows you to grant privileges or [roles](grant.md#roles) to accounts. To use `GRANT`, you must have the `GRANT OPTION` privilege, and you must have the privileges that you are granting.
