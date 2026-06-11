@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 MPolyFromWKB(wkb[,srid])
 MultiPolygonFromWKB(wkb[,srid])
 ```

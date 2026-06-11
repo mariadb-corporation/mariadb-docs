@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 Polygon(ls1,ls2,...)
 ```
 

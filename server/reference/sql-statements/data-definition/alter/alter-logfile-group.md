@@ -12,7 +12,7 @@ The `ALTER LOGFILE GROUP` statement is not supported by MariaDB. It was original
 
 ## Syntax
 
-```sql
+```bnf
 ALTER LOGFILE GROUP logfile_group
     ADD UNDOFILE 'file_name'
     [INITIAL_SIZE [=] size]

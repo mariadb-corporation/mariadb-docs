@@ -24,7 +24,7 @@ You can sign up for a free account at [https://app.skysql.com](https://app.skysq
 
 ### How quickly can I launch a new database?
 
-Launching a new database service with MariaDB Cloud is quick and easy. Serverless database services start in miliseconds. Provisioned Database services start in 2-4 min.
+Launching a new database service with MariaDB Cloud is quick and easy. Serverless database services start in milliseconds. Provisioned Database services start in 2-4 min.
 
 ### Is MariaDB Cloud ready for production use?
 

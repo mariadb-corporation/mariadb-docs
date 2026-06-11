@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 [begin_label:] BEGIN [NOT ATOMIC]
     [statement_list]
 END [end_label]
@@ -63,7 +63,7 @@ BEGIN
 END;
 ```
 
-In this example, a [TINYINT](../../data-types/numeric-data-types/tinyint.md) variable, `x` is declared in the outter block. But in the inner block `x` is re-declared as a [CHAR](../../data-types/string-data-types/char.md) and an `y` variable is declared. The inner [SELECT](../data-manipulation/selecting-data/select.md) shows the "new" value of `x`, and the value of `y`. But when x is selected in the outer block, the "old" value is returned. The final [SELECT](../data-manipulation/selecting-data/select.md) doesn't try to read `y`, because it doesn't exist in that context.
+In this example, a [TINYINT](../../data-types/numeric-data-types/tinyint.md) variable, `x` is declared in the outer block. But in the inner block `x` is redeclared as a [CHAR](../../data-types/string-data-types/char.md) and an `y` variable is declared. The inner [SELECT](../data-manipulation/selecting-data/select.md) shows the "new" value of `x`, and the value of `y`. But when x is selected in the outer block, the "old" value is returned. The final [SELECT](../data-manipulation/selecting-data/select.md) doesn't try to read `y`, because it doesn't exist in that context.
 
 ## See Also
 

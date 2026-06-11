@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 expr NOT LIKE pat [ESCAPE 'escape_char']
 ```
 

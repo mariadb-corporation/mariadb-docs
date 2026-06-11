@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 GLength(ls)
 ```
 

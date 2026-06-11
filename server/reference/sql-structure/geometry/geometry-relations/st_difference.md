@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_DIFFERENCE(g1,g2)
 ```
 

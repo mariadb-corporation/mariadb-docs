@@ -472,7 +472,7 @@ the //xsamp// TABLE (NOT the //xsampall// TABLE) WITH the command:
 INSERT INTO xsamp
   (isbn, lang, subject, author, title, publisher,datepub)
   VALUES ('9782212090529','fr','général','Alain Michard',
-         'XML, Langage et Applications','Eyrolles Paris',1998);
+         'XML, Language et Applications','Eyrolles Paris',1998);
 ```
 
 Then if we ask:
@@ -487,7 +487,7 @@ Everything seems correct when we get the result:
 | ------------ | ------------------------ | ------------------------------ | ------------ | --------------------- |
 | applications | Jean-Christophe Bernadac | Construire une application XML |              | Eyrolles Paris        |
 | applications | William J. Pardi         | XML en Action                  | James Guerin | Microsoft Press Paris |
-| général      | Alain Michard            | XML, Langage et Applications   |              | Eyrolles Paris        |
+| général      | Alain Michard            | XML, Language et Applications   |              | Eyrolles Paris        |
 
 However if we enter the apparently equivalent query on the _xsampall_ table, based on the same file:
 
@@ -504,14 +504,14 @@ this returns an apparently wrong answer:
 | ------------ | ------------------------ | ------------------------------ | ------------ | --------------------- |
 | applications | Jean-Christophe Bernadac | Construire une application XML |              | Eyrolles Paris        |
 | applications | William J. Pardi         | XML en Action                  | James Guerin | Microsoft Press Paris |
-| général      |                          | XML, Langage et Applications   |              |                       |
+| général      |                          | XML, Language et Applications   |              |                       |
 
 What happened here? Simply, because we used the _xsamp_ table to do the Insert, what has been inserted within the XML file had the structure described for _xsamp_:
 
 ```xml
 <BOOK ISBN="9782212090529" LANG="fr" SUBJECT="général">
       <AUTHOR>Alain Michard</AUTHOR>
-      <TITLE>XML, Langage et Applications</TITLE>
+      <TITLE>XML, Language et Applications</TITLE>
       <TRANSLATOR></TRANSLATOR>
       <PUBLISHER>Eyrolles Paris</PUBLISHER>
       <DATEPUB>1998</DATEPUB>
@@ -526,7 +526,7 @@ DELETE FROM xsamp WHERE isbn = '9782212090529';
 INSERT INTO xsampall (isbn, LANGUAGE, subject, authorfn, authorln,
       title, publisher, LOCATION, YEAR)
    VALUES('9782212090529','fr','général','Alain','Michard',
-      'XML, Langage et Applications','Eyrolles','Paris',1998);
+      'XML, Language et Applications','Eyrolles','Paris',1998);
 ```
 
 Now the added book, in the XML file, will have the required structure:
@@ -537,7 +537,7 @@ Now the added book, in the XML file, will have the required structure:
          <FIRSTNAME>Alain</FIRSTNAME>
          <LASTNAME>Michard</LASTNAME>
       </AUTHOR>
-      <TITLE>XML, Langage et Applications</TITLE>
+      <TITLE>XML, Language et Applications</TITLE>
       <PUBLISHER>
          <NAME>Eyrolles</NAME>
          <PLACE>Paris</PLACE>
@@ -590,7 +590,7 @@ This will retrieve and display the following result:
 | 9782212090819 | applications | Jean-Christophe Bernadac | Construire une application XML |
 | 9782212090819 | applications | François Knab            | Construire une application XML |
 | 9782840825685 | applications | William J. Pardi         | XML en Action                  |
-| 9782212090529 | général      | Alain Michard            | XML, Langage et Applications   |
+| 9782212090529 | général      | Alain Michard            | XML, Language et Applications   |
 
 In this case, this is as if the table had four rows. However if we enter the query:
 
@@ -604,7 +604,7 @@ this time the result are:
 | ------------- | ------------ | ------------------------------ | --------------------- |
 | 9782212090819 | applications | Construire une application XML | Eyrolles Paris        |
 | 9782840825685 | applications | XML en Action                  | Microsoft Press Paris |
-| 9782212090529 | général      | XML, Langage et Applications   | Eyrolles Paris        |
+| 9782212090529 | général      | XML, Language et Applications   | Eyrolles Paris        |
 
 Because the author column does not appear in the query, the corresponding row was not expanded. This is somewhat strange because this would have been different if we had been working on a table of a different type. However, it is closer to the relational model for which there should not be two identical rows (tuples) in a table. Nevertheless, you should be aware of this somewhat erratic behavior. For instance:
 
@@ -622,7 +622,7 @@ This last query replies:
 | 9782212090819 | applications | Construire une application XML | Eyrolles Paris        |
 | 9782212090819 | applications | Construire une application XML | Eyrolles Paris        |
 | 9782840825685 | applications | XML en Action                  | Microsoft Press Paris |
-| 9782212090529 | général      | XML, Langage et Applications   | Eyrolles Paris        |
+| 9782212090529 | général      | XML, Language et Applications   | Eyrolles Paris        |
 
 Even though the author column does not appear in the result, the corresponding row was\
 expanded because the multiple column was used in the where clause.
@@ -687,7 +687,7 @@ This query displays:
 | applications | fr   | Construire une application XML | Jean-Christophe | Bernadac | 1999 |
 | applications | fr   | Construire une application XML | François        | Knab     | 1999 |
 | applications | fr   | XML en Action                  | William J.      | Pardi    | 1999 |
-| général      | fr   | XML, Langage et Applications   | Alain           | Michard  | 1998 |
+| général      | fr   | XML, Language et Applications   | Alain           | Michard  | 1998 |
 
 These composite tables, half array half tree, reserve some surprises for us when updating, deleting from or inserting into them. Insert just cannot generate this structure; if two rows are inserted with just a different author, two book nodes are generated in the XML file. Delete always deletes one book node and all its children nodes even if specified against only one author. Update is more complicated:
 
@@ -705,7 +705,7 @@ last one responding "Affected rows: 2", the last query answers:
 | applications | fr   | Construire une application XML | Jean-Christophe | Mercier | 2002 |
 | applications | fr   | Construire une application XML | François        | Knab    | 2002 |
 | applications | fr   | XML en Action                  | William J.      | Pardi   | 1999 |
-| général      | fr   | XML, Langage et Applications   | Alain           | Michard | 1998 |
+| général      | fr   | XML, Language et Applications   | Alain           | Michard | 1998 |
 
 What must be understood here is that the Update modifies node values in the XML file, not cell values in the relational table. The first update worked normally. The second update changed the year value of the book and this shows for the two expanded rows because there is only one DATEPUB node for that book. Because the third update applies to a row having a certain date value, both author names were updated.
 
@@ -729,7 +729,7 @@ We will get the following result:
 | ------------- | ------------ | --------------------------------------- | ------------------------------ |
 | 9782212090819 | applications | Jean-Christophe Bernadac, François Knab | Construire une application XML |
 | 9782840825685 | applications | William J. Pardi                        | XML en Action                  |
-| 9782212090529 | général      | Alain Michard                           | XML, Langage et Applications   |
+| 9782212090529 | général      | Alain Michard                           | XML, Language et Applications   |
 
 Note that updating the "multiple" column is not possible because CONNECT does\
 not know which of the nodes to update.

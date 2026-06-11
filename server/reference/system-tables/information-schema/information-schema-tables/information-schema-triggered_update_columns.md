@@ -7,7 +7,7 @@ description: >-
 # Information Schema TRIGGERED\_UPDATE\_COLUMNS
 
 {% hint style="info" %}
-This table is available from [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.2/mariadb-12.2-changes-and-improvements).
+This table is available from [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/old-releases/12.2/mariadb-12.2-changes-and-improvements).
 {% endhint %}
 
 The [Information Schema](../) `TRIGGERED_UPDATE_COLUMNS` table shows columns specified in [triggers](../../../../server-usage/triggers-events/triggers/) for [update](../../../sql-statements/data-manipulation/changing-deleting-data/update.md) operations.

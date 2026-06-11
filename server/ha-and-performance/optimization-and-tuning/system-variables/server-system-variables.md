@@ -132,7 +132,7 @@ The suffix can be upper or lower-case.
 * Data Type: `INT UNSIGNED`
 * Default Value: `4294967295 (4G)`
 * Range: `32` to `4294967295`
-* Introduced: [MariaDB 10.6.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.23), [MariaDB 10.11.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.14), [MariaDB 11.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.8), [MariaDB 11.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.3), [MariaDB 12.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/12.0.2), [MariaDB 12.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/12.1.1), [MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8)
+* Introduced: [MariaDB 10.6.23](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.23), [MariaDB 10.11.14](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.14), [MariaDB 11.4.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.8), [MariaDB 11.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.8/11.8.3), [MariaDB 12.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.0/12.0.2), [MariaDB 12.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/12.1.1), [MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new)
 
 #### `analyze_sample_percentage`
 
@@ -773,7 +773,7 @@ The suffix can be upper or lower-case.
 * Data Type: `numeric`
 * Default Value:
   * `1048576` (1M)
-* Range: `4` to `4294967295`
+* Range: `4` to `1073741824`
 
 .
 
@@ -1055,7 +1055,7 @@ The suffix can be upper or lower-case.
 * Description: Whether or not large page support is used.
   * This is set with `--large-pages` or disabled with `--skip-large-pages`.
   * Large pages are used for the [innodb buffer pool](../../../server-usage/storage-engines/innodb/innodb-buffer-pool.md) and for online DDL (of size 3\* [innodb\_sort\_buffer\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_sort_buffer_size) (or 6 when encryption is used)).
-  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/README.md)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`). The implementation supports multiple page sizes using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
+  * **Linux**: The `sysctl` variable `kernel.shmmax` must be larger than `llocation`, and the `sysctl` variable `vm.nr_hugepages` must be larger than the usage. The `ulimit` for locked memory must be sufficient to cover the amount used (`ulimit -l` and equivalent in `/etc/security/limits.conf/` or in systemd [LimitMEMLOCK](../../../server-management/starting-and-stopping-mariadb/systemd/)). If these operating system controls or insufficient free huge pages are available, the allocation of large pages falls back to conventional memory allocation, and a warning appears in the logs. Only allocations of the default `Hugepagesize` currently occur (see `/proc/meminfo`). The implementation supports multiple page sizes using the Linux built-in huge page feature with the enhancements available in the Linux kernel 3.8 and later.
     * To configure Linux to use huge pages, set the `hugepages` and `hugepagesz` [kernel parameters](https://www.kernel.org/doc/Documentation/admin-guide/kernel-parameters.txt), which can be done via [GRUB\_CMDLINE\_LINUX](https://help.ubuntu.com/community/Grub2/Setup#Specific_Entries).
     * To find possible huge page size values, issue this command:\
       `ls -la /sys/devices/system/node/node0/hugepages/`
@@ -1074,7 +1074,7 @@ The suffix can be upper or lower-case.
 
 #### `last_insert_id`
 
-* Description: Contains the same value as that returned by [LAST\_INSERT\_ID()](../../../reference/sql-functions/secondary-functions/information-functions/last_insert_id.md). Note that setting this variable doen't update the value returned by the underlying function.
+* Description: Contains the same value as that returned by [LAST\_INSERT\_ID()](../../../reference/sql-functions/secondary-functions/information-functions/last_insert_id.md). Note that setting this variable doesn't update the value returned by the underlying function.
 * Scope: Session
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -1843,7 +1843,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Data Type: `enumerated` (>=[MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7))
 * Default Value: See [alter\_algorithm](server-system-variables.md#alter_algorithm)
 * Valid Values: See [alter\_algorithm](server-system-variables.md#alter_algorithm) for the full list.
-* Deprecated: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7) (superceded by [alter\_algorithm](server-system-variables.md#alter_algorithm))
+* Deprecated: [MariaDB 10.3.7](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.7) (superseded by [alter\_algorithm](server-system-variables.md#alter_algorithm))
 * Removed: [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0)
 
 #### `old_mode`
@@ -1873,7 +1873,7 @@ MAX([max\_connections](server-system-variables.md#max_connections)\*5, [max\_con
 MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). MariaDB cannot set this to exceed the hard limit imposed by the operating system. Therefore, you may also need to change the hard limit. There are a few ways to do so.
 
 * If you are using [mariadbd\_safe](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md) to start `mariadbd`, then see the instructions at [mariadbd\_safe: Configuring the Open Files Limit](../../../server-management/starting-and-stopping-mariadb/mariadbd-safe.md#configuring-the-open-files-limit).
-* If you are using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/README.md) to start `mariadbd`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../server-management/starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-open-files-limit).
+* If you are using [systemd](../../../server-management/starting-and-stopping-mariadb/systemd/) to start `mariadbd`, then see the instructions at [systemd: Configuring the Open Files Limit](../../../server-management/starting-and-stopping-mariadb/systemd/configuring.md#configuring-the-open-files-limit).
 * Otherwise, you can change the hard limit for the `mysql` user account by modifying [/etc/security/limits.conf](https://linux.die.net/man/5/limits.conf). See [Configuring Linux for MariaDB: Configuring the Open Files Limit](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/configuring-linux-for-mariadb.md#configuring-the-open-files-limit) for more details.
 * Command line: `--open-files-limit=count`
 * Scope: Global
@@ -2839,7 +2839,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 
 #### `thread_cache_size`
 
-* Description: Number of threads server caches for re-use. If this limit hasn't been reached, when a client disconnects, its threads are put into the cache and re-used where possible. In [MariaDB 10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), and newer, the threads are freed after 5 minutes of idle time. Normally this setting has little effect, as the other aspects of the thread implementation are more important, but increasing it can help servers with high volumes of connections per second so that most can use a cached, rather than a new, thread. The cache miss rate can be calculated as the [server status variables](server-status-variables.md) threads\_created/connections. If the [thread pool](../buffers-caches-and-threads/thread-pool/) is active, `thread_cache_size` is ignored. If `thread_cache_size` is set to greater than the value of [max\_connections](server-system-variables.md#max_connections), `thread_cache_size` will be set to the [max\_connections](server-system-variables.md#max_connections) value.
+* Description: Number of threads server caches for reuse. If this limit hasn't been reached, when a client disconnects, its threads are put into the cache and reused where possible. In [MariaDB 10](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5), and newer, the threads are freed after 5 minutes of idle time. Normally this setting has little effect, as the other aspects of the thread implementation are more important, but increasing it can help servers with high volumes of connections per second so that most can use a cached, rather than a new, thread. The cache miss rate can be calculated as the [server status variables](server-status-variables.md) threads\_created/connections. If the [thread pool](../buffers-caches-and-threads/thread-pool/) is active, `thread_cache_size` is ignored. If `thread_cache_size` is set to greater than the value of [max\_connections](server-system-variables.md#max_connections), `thread_cache_size` will be set to the [max\_connections](server-system-variables.md#max_connections) value.
 * Command line: `--thread-cache-size=#`
 * Scope: Global
 * Dynamic: Yes
@@ -2940,7 +2940,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
   * `$TMPDIR` (environment variable) if set
   * otherwise `$TEMP` if set and on Windows
   * otherwise `$TMP` if set and on Windows
-  * otherwise, `P_tmpdir` (`"/tmp"`) or `C:\TEMP` (unless overridden during buid time)
+  * otherwise, `P_tmpdir` (`"/tmp"`) or `C:\TEMP` (unless overridden during build time)
 
 #### `transaction_alloc_block_size`
 

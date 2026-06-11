@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 NOW([precision])
 CURRENT_TIMESTAMP
 CURRENT_TIMESTAMP([precision])

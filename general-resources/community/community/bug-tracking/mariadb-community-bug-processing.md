@@ -125,7 +125,7 @@ When a new sprint is created, bugs which affect the scheduled release are evalua
   * among `Major` bugs,
     * bugs with patches, either external, or upstream, or internal, are usually prioritized above ordinary bug reports;
     * external reports (community reports) are ranked higher than bugs reported by the development team;
-    * bugs which can realistically be fixed in the given time interval are chosen more frequently than those that are likelly to take several cycles;
+    * bugs which can realistically be fixed in the given time interval are chosen more frequently than those that are likely to take several cycles;
     * bugs which affect the reporter in a worse matter get more attention than those that have viable workarounds;
   * `Minor` bugs are usually fixed when there are no more urgent tasks.
 
@@ -139,7 +139,7 @@ All JIRA fields are public, but some of them are mainly used for internal develo
 
 #### Resolution vs. Status
 
-It might come as counter-intuitive, but in the existing JIRA structure, the `Status` field does not mean much for the user, it is mainly used for development and management purposes. On the contrary, the `Resoluton` field is entirely user-facing: it does not participate in planning or development. It remains the same 'Unresolved' for the whole life of the report, and is only changed when the bug gets closed, demonstrating the reason why it was closed.
+It might come as counter-intuitive, but in the existing JIRA structure, the `Status` field does not mean much for the user, it is mainly used for development and management purposes. On the contrary, the `Resolution` field is entirely user-facing: it does not participate in planning or development. It remains the same 'Unresolved' for the whole life of the report, and is only changed when the bug gets closed, demonstrating the reason why it was closed.
 
 **Resolution**
 

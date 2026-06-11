@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 MBRTouches(g1,g2)
 ```
 

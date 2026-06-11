@@ -255,7 +255,7 @@ Although it may be a little confusing at first, once you've learned some of the 
 
 #### Clean up Time
 
-In addition to [DATE\_FORMAT( )](../reference/sql-functions/date-time-functions/date_format.md), MariaDB has a comparable built-in function for formating only time: [TIME\_FORMAT( )](../reference/sql-functions/date-time-functions/time_format.md). The syntax is the same and uses the same options as [DATE\_FORMAT( )](../reference/sql-functions/date-time-functions/date_format.md), except only the time related formatting options apply. As an example, here's an SQL statement that a doctor might use at the beginning of each day to get a list of her appointments for the day:
+In addition to [DATE\_FORMAT( )](../reference/sql-functions/date-time-functions/date_format.md), MariaDB has a comparable built-in function for formatting only time: [TIME\_FORMAT( )](../reference/sql-functions/date-time-functions/time_format.md). The syntax is the same and uses the same options as [DATE\_FORMAT( )](../reference/sql-functions/date-time-functions/date_format.md), except only the time related formatting options apply. As an example, here's an SQL statement that a doctor might use at the beginning of each day to get a list of her appointments for the day:
 
 ```sql
 SELECT patient_name AS Patient, 

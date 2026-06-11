@@ -152,7 +152,7 @@ The [ARCHIVE](../../server-usage/storage-engines/archive.md) storage engine does
 
 ## Missing Values
 
-An `AUTO_INCREMENT` column normally has missing values. This happens because if a row is deleted, or an `AUTO_INCREMENT` value is explicitly updated, old values are never re-used. The `REPLACE` statement also deletes a row, and its value is wasted. With InnoDB, values can be reserved by a transaction; but if the transaction fails (for example, because of a `ROLLBACK`) the reserved value will be lost.
+An `AUTO_INCREMENT` column normally has missing values. This happens because if a row is deleted, or an `AUTO_INCREMENT` value is explicitly updated, old values are never reused. The `REPLACE` statement also deletes a row, and its value is wasted. With InnoDB, values can be reserved by a transaction; but if the transaction fails (for example, because of a `ROLLBACK`) the reserved value will be lost.
 
 Thus `AUTO_INCREMENT` values can be used to sort results in a chronological order, but not to create a numeric sequence.
 

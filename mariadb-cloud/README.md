@@ -36,13 +36,12 @@ It has:
 
 So you can:
 
-* Start small&#x20;
+* Start small
 * Grow to extreme read-scale
 * HA with load balancing
 * Security by design
 * Purpose-built monitoring
 * Adapt to any workload
-*
 
 ```mermaid
 graph TD

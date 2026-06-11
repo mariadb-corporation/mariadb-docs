@@ -21,7 +21,7 @@ The simplest way to start database from the command line is:
 mariadbd.exe --console
 ```
 
-Pass other server parameters on the command line, or store them in a `my.ini` configuraton file and pass `--defaults-file=path\to\my.ini` .
+Pass other server parameters on the command line, or store them in a `my.ini` configuration file and pass `--defaults-file=path\to\my.ini` .
 
 The default search path on Windows for the `my.ini` file is:
 

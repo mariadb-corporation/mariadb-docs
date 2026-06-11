@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 IS_IPV4_COMPAT(expr)
 ```
 

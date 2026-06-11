@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 INET6_ATON(expr)
 ```
 
@@ -16,7 +16,7 @@ INET6_ATON(expr)
 
 Given an IPv6 or IPv4 network address as a string, returns a binary string that represents the numeric value of the address.
 
-No trailing zone ID's or traling network masks are permitted. For IPv4 addresses, or IPv6 addresses with IPv4 address parts, no classful addresses or trailing port numbers are permitted and octal numbers are not supported.
+No trailing zone ID's or trailing network masks are permitted. For IPv4 addresses, or IPv6 addresses with IPv4 address parts, no classful addresses or trailing port numbers are permitted and octal numbers are not supported.
 
 The returned binary string will be [VARBINARY(16)](../../../data-types/string-data-types/varbinary.md) or [VARBINARY(4)](../../../data-types/string-data-types/varbinary.md) for IPv6 and IPv4 addresses respectively.
 

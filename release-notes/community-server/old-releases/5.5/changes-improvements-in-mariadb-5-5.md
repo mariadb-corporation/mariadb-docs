@@ -19,7 +19,7 @@ See also a detailed breakdown of [System variable differences between MariaDB 5.
 
 * Significantly more efficient [thread pool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-pool/thread-pool-in-mariadb),\
   comparable in functionality to the closed source feature in MySQL Enterprise.
-* [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) ([MWL#192](https://askmonty.org/worklog/?tid=192))
+* [Non-blocking client API Library](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/non-blocking-client-library) ([MWL#192](https://askmonty.org/worklog/?tid=192))
 * [@@skip\_replication option](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log/selectively-skipping-replication-of-binlog-events) ([MWL#234](https://askmonty.org/worklog/?tid=234))
 * [SphinxSE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/sphinx-storage-engine) updated to version 2.0.4.
 * [Extended Keys](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/mariadb-internals/mariadb-internals-documentation-query-optimizer/extended-keys) support for XtraDB and InnoDB
@@ -80,9 +80,9 @@ New features are added to [MariaDB 10.0](https://github.com/mariadb-corporation/
 
 * [PBXT](https://github.com/mariadb-corporation/docs-release-notes/blob/test/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-5-5-series/pbxt-storage-engine/README.md) is no longer in the binary builds/distributions. It's however still in the source distributions and in the source tree. The reason is that PBXT is no longer actively maintained, has a few bugs that are not fixed and is not in widespread use.
 
-## Switching Between InnoDB and [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/innodb/innodb-unmaintained/about-xtradb)
+## Switching Between InnoDB and [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/innodb-unmaintained/about-xtradb)
 
-[MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) comes with both [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/storage-engines/innodb/innodb-unmaintained/about-xtradb) (compiled in) and InnoDB (as a plugin). By default [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) uses XtraDB. If you want to switch to use InnoDB you can do:
+[MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) comes with both [XtraDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/mariadb-enterprise-server-innodb-operations/innodb-unmaintained/about-xtradb) (compiled in) and InnoDB (as a plugin). By default [MariaDB 5.5](changes-improvements-in-mariadb-5-5.md) uses XtraDB. If you want to switch to use InnoDB you can do:
 
 ```bash
 mysqld --ignore-builtin-innodb --plugin-load=innodb=ha_innodb.so \

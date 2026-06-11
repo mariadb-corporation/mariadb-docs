@@ -7,14 +7,14 @@ description: >-
 # TO\_NUMBER
 
 {% hint style="info" %}
-`TO_NUMBER` is available from [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.2/mariadb-12.2-changes-and-improvements).
+`TO_NUMBER` is available from [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements).
 {% endhint %}
 
 `TO_NUMBER` converts an expression to the [NUMERIC](../../data-types/numeric-data-types/numeric.md) data type.
 
 ## Syntax
 
-```sql
+```bnf
 TO_NUMBER(number_or_string_subject)
 TO_NUMBER(string_subject,string_format)
 ```

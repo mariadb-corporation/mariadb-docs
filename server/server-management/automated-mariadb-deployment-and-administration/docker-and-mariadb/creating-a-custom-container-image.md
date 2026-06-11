@@ -77,7 +77,7 @@ ARG MARIADB_CONFIG_FILE
 ENTRYPOINT mariadbd --defaults-file=$MARIADB_CONFIG_FILE
 ```
 
-Here `ARG` is used after the `FROM` directive, thus the variable cannot be used in `FROM`. It is also possible to declare a variable before `FROM`, so we can use a variable to select the base image to use or its tag, but in this case the variable cannot be used after the `FROM` directive, unless `ARG` is re-declared after the `FROM`. Here is an example:
+Here `ARG` is used after the `FROM` directive, thus the variable cannot be used in `FROM`. It is also possible to declare a variable before `FROM`, so we can use a variable to select the base image to use or its tag, but in this case the variable cannot be used after the `FROM` directive, unless `ARG` is redeclared after the `FROM`. Here is an example:
 
 ```docker
 ARG UBUNTU_VERSION

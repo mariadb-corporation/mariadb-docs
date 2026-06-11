@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CURRENT_TIMESTAMP
 CURRENT_TIMESTAMP([precision])
 ```

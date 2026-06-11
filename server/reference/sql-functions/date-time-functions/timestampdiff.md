@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TIMESTAMPDIFF(unit,datetime_expr1,datetime_expr2)
 ```
 

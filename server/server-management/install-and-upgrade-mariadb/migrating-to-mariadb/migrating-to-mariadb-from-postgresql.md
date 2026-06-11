@@ -130,14 +130,14 @@ MariaDB and PostgreSQL: A technical deep-dive into how they differ (54 minutes �
 {% column %}
 This deep-dive explores the architectural and philosophy differences between MariaDB and PostgreSQL. It is particularly useful for users who are troubleshooting performance issues or deciding which database engine best suits their specific workload requirements.
 
-#### Core Topics Covered:
+**Core Topics Covered:**
 
 * Storage Engine Architecture: Explains MariaDB’s unique "pluggable storage engine" architecture (like InnoDB, MyRocks, and Aria) compared to PostgreSQL's single integrated storage engine approach.
 * SQL Compatibility & Standards: A look at how PostgreSQL strictly adheres to SQL standards, whereas MariaDB prioritizes high performance and "pragmatic" features (like temporal tables and virtual columns).
 * Concurrency Models: A comparison of how each handles multi-user traffic. The video highlights MariaDB’s thread-pool approach versus PostgreSQL’s process-per-connection model.
 * JSON & Modern Data Types: How both databases have evolved to handle NoSQL-style data, comparing MariaDB’s dynamic columns and JSON functions against PostgreSQL's JSONB.
 
-#### Key Takeaway for Troubleshooting:
+**Key Takeaway for Troubleshooting:**
 
 The video emphasizes that because MariaDB is a multi-engine database, connection or performance issues are often solved by tuning the specific engine being used (usually InnoDB) rather than the server as a whole – a major difference from the more "monolithic" troubleshooting approach in PostgreSQL.
 {% endcolumn %}

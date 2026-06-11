@@ -17,8 +17,8 @@ description: >-
 
 The current release series are:
 
-* MariaDB Connector/ODBC 3.1 is the current stable release series.
-* MariaDB Connector/ODBC 2.0 is the previous stable release series, which is currently still supported.
+* MariaDB Connector/ODBC 3.2 is the current stable release series.
+* MariaDB Connector/ODBC 3.1 is the previous stable release series, which is currently still supported.
 
 This page discusses how to create a data source with MariaDB Connector/ODBC.
 
@@ -159,7 +159,7 @@ Mac OS X uses [iODBC](https://www.iodbc.org) as a Driver Manager. To create a da
 
 ### Creating a Data Source with iODBC Administrator on Mac OS X
 
-iODBC Administrator is not installed by default. In order to use it, you need to dowload it from [iODBC's download page](https://www.iodbc.org/dataspace/doc/iodbc/wiki/iodbcWiki/Downloads#Mac%20OS%20X) and then install it.
+iODBC Administrator is not installed by default. In order to use it, you need to download it from [iODBC's download page](https://www.iodbc.org/dataspace/doc/iodbc/wiki/iodbcWiki/Downloads#Mac%20OS%20X) and then install it.
 
 ### Creating a Data Source with iODBC on Mac OS X
 

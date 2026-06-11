@@ -100,7 +100,7 @@ docker run -v $PWD:/source:z \
 The purposes of these, and other options include:
 
 | Command Component                              | Purpose                                                                           | Notes                                                                                     |
-| ---------------------------------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| ---------------------------------------------- | --------------------------------------------------------------------------------- |-------------------------------------------------------------------------------------------|
 | `podman run / docker run`                      | run a container                                                                   | other implementations use docker syntax (or at least close)                               |
 | `--rm`                                         | remove container on termination                                                   |                                                                                           |
 | `-ti`                                          | a `tty` and a `stdin` are connected                                               | for interactive container use                                                             |
@@ -112,7 +112,7 @@ The purposes of these, and other options include:
 | `--cap-add=SYS_PTRACE`                         | capability for tracing used by `gdb` and `rr`                                     | for debugging                                                                             |
 | Extra options                                  |                                                                                   |                                                                                           |
 | `--name containername`                         | useful if running multiple to keep track                                          | Used as a name for a new session in the container (podman exec -ti containername bash)    |
-| `--shm-size=10g`                               | Size of `/dev/shm` as alternate for mtr tests                                     | Default is unsable 64k, This is large enough for most `--big-tests` with some parallelism |
+| `--shm-size=10g`                               | Size of `/dev/shm` as alternate for mtr tests                                     | Default is usually 64k, this is large enough for most `--big-tests` with some parallelism |
 | `--privileged`                                 | Allow `rr` recording                                                              | Note security impacting, don't run untrusted code as root                                 |
 | `-v $DATADIR:/var/lib/mysql:Z`                 | Mount an existing `datadir`                                                       | For testing against some prepared data                                                    |
 

@@ -10,7 +10,7 @@ Modifies one or more characteristics of an existing event.
 
 ## Syntax
 
-```sql
+```bnf
 ALTER
     [DEFINER = { user | CURRENT_USER }]
     EVENT event_name

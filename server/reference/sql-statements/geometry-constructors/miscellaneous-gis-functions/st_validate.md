@@ -13,7 +13,7 @@ ST\_Validate is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXm
 
 ## Syntax
 
-```sql
+```bnf
 ST_Validate(g)
 ```
 
@@ -27,7 +27,7 @@ The function is useful to filter out invalid geometry data.
 
 ## Examples
 
-A [POINT](../geometry-constructors/point.md) requires both x and y co-ordinates:
+A [POINT](../geometry-constructors/point.md) requires both x and y coordinates:
 
 ```sql
 SELECT ST_ASTEXT(ST_VALIDATE(ST_GeomFromText('POINT(1 0)')));          

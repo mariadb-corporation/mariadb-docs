@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_COMPACT(json_doc)
 ```
 

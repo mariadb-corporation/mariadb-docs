@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP VIEW [IF EXISTS]
     view_name [, view_name] ...
     [RESTRICT | CASCADE]

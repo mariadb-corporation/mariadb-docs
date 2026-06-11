@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CONVERT(expr,type), CONVERT(expr USING transcoding_name)
 ```
 

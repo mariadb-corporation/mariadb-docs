@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TINYINT[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

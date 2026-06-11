@@ -12,7 +12,7 @@ description: >-
 
 Recovery is tested via the [RQG](http://github.com/RQG/RQG-Documentation/wiki/Category:RandomQueryGenerator), which provides a random workload against the server, and then uses kill -9 to kill the process. After that, recovery is attempted both by using `maria_read_log` and by restarting the `mysqld` process. Once the server has started up, the tables are verified in various ways, including `ALTER|OPTIMIZE|ANALYZE|REPAIR TABLE` as well `SELECT` queries that read the table back and forth using various access methods.
 
-A combinations `.CC` file named `lp:randgen/conf/engines/maria/maria_recovery.cc` is used to define various `mysql` options and RQG parameters that are relavant to recovery. Then, RQG's `combinations.pl` script is used to run hundreds of individual test runs. Each run uses a random permutation from the settings in the `.CC` file in order to generate a unique workload that is then validated via the `Recovery` RQG Reporter.
+A combinations `.CC` file named `lp:randgen/conf/engines/maria/maria_recovery.cc` is used to define various `mysql` options and RQG parameters that are relevant to recovery. Then, RQG's `combinations.pl` script is used to run hundreds of individual test runs. Each run uses a random permutation from the settings in the `.CC` file in order to generate a unique workload that is then validated via the `Recovery` RQG Reporter.
 
 ## Individual tests <a href="#individual-tests" id="individual-tests"></a>
 

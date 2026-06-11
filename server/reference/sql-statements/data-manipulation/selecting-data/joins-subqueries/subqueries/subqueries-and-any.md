@@ -8,9 +8,9 @@ description: >-
 
 ## Syntax
 
-`SOME` is a synonym for `ANY`.&#x20;
+`SOME` is a synonym for `ANY`.
 
-```sql
+```bnf
 scalar_expression comparison_operator ANY <Table subquery>
 scalar_expression comparison_operator SOME <Table subquery>
 ```
@@ -19,7 +19,7 @@ scalar_expression comparison_operator SOME <Table subquery>
 * `comparison_operator` may be any one of `=`, `>`, `<`, `>=`, `<=`, `<>` or `!=`.
 
 {% hint style="info" %}
-#### About IN
+**About IN**
 
 Although `IN` functions similarly to `= ANY`, it is documented separately due to unique optimization characteristics. Refer to [Subqueries with IN and NOT IN](../../subqueries/subqueries-with-in-and-not-in.md) for more details.
 {% endhint %}

@@ -62,7 +62,7 @@ To install the Spider storage engine, complete the installation process shown be
 
 {% tabs %}
 {% tab title="APT" %}
-#### APT (Debian, Ubuntu, etc.)
+**APT (Debian, Ubuntu, etc.)**
 
 To install the Spider storage engine, execute the following command:
 
@@ -72,7 +72,7 @@ $ sudo apt install mariadb-plugin-spider
 {% endtab %}
 
 {% tab title="YUM" %}
-#### YUM (CentOS etc.)
+**YUM (CentOS etc.)**
 
 To install the Spider storage engine, execute the following command:
 

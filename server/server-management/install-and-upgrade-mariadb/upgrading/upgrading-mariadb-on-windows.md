@@ -31,7 +31,7 @@ just replace 5.2.6 executables with 5.2.7 ones.
 
 Now imagine, that both 5.1 and 5.2 are installed on the same machine and we\
 want to upgrade the database instance running on 5.1 to the new version. In\
-this case special tools are requied. Traditionally, [mysql\_upgrade](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) is used\
+this case special tools are required. Traditionally, [mysql\_upgrade](../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md) is used\
 to accomplish this. On Windows, the[MySQL\
 upgrade](https://dev.mysql.com/doc/refman/5.5/en/windows-upgrading.html) is a complicated multiple-step manual process.
 
@@ -49,7 +49,7 @@ Windows service.
 The following install/upgrade sequence is recommended in case of "major" upgrades, like going from 5.3 to 5.5
 
 * Install new version, while still retaining the old one
-* Upgrade services one by one, like described later in the document (e.g with mysql\_upgrade\_service). It is recommeded to have services cleanly shut down before the upgrade.
+* Upgrade services one by one, like described later in the document (e.g with mysql\_upgrade\_service). It is recommended to have services cleanly shut down before the upgrade.
 * Uninstall old version when previous step is done.
 
 **Note**. This recommendation differs from the procedure on Unixes, where the upgrade sequence is "uninstall old version, install new version"

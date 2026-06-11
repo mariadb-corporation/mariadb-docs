@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LOCATE(substr,str), LOCATE(substr,str,pos)
 ```
 

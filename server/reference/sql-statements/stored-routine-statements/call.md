@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CALL sp_name([parameter[,...]])
 CALL sp_name[()]
 ```

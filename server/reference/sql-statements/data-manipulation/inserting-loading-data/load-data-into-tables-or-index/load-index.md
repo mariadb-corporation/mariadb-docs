@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LOAD INDEX INTO CACHE
   tbl_index_list [, tbl_index_list] ...
 

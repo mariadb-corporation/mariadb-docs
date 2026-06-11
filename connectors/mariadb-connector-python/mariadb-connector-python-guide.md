@@ -18,20 +18,38 @@ MariaDB Connector/Python enables python programs to access MariaDB and MySQL dat
 
 All implementations support both synchronous and asynchronous operations.
 
-**Installation:**
+{% hint style="info" %}
+**Version 1.1 is the latest stable (GA) release; version 2.0 is currently a Release Candidate (RC).** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
+{% endhint %}
+
+**Installation — version 1.1 (stable / GA):**
+
+A plain `pip3 install` installs the latest stable release (1.1). It always installs the C extension and requires MariaDB Connector/C to be pre-installed; connection pooling is included by default.
+
+```bash
+# Latest stable release (1.1)
+$ pip3 install mariadb
+
+# Pin to a specific 1.1 release
+$ pip3 install mariadb==1.1.14
+```
+
+**Installation — version 2.0 (Release Candidate):**
+
+Version 2.0 is a pre-release, so the `--pre` flag is required — without it, pip installs the latest GA release (1.1).
 
 ```bash
 # Pure Python (default)
-$ pip3 install mariadb
+$ pip3 install --pre mariadb
 
 # C extension for maximum performance
-$ pip3 install mariadb[c]
+$ pip3 install --pre mariadb[c]
 
 # Pre-compiled binary wheels
-$ pip3 install mariadb[binary]
+$ pip3 install --pre mariadb[binary]
 
 # With connection pooling
-$ pip3 install mariadb[binary,pool]
+$ pip3 install --pre mariadb[binary,pool]
 ```
 
 ### Links:

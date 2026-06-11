@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DES_ENCRYPT(str[,{key_num|key_str}])
 ```
 

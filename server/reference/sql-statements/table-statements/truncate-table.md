@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TRUNCATE [TABLE] tbl_name
   [WAIT n | NOWAIT]
 ```

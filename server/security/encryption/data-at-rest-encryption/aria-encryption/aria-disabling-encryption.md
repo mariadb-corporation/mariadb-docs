@@ -22,7 +22,7 @@ To fully disable encryption, you must set the relevant system variables and then
 
 {% stepper %}
 {% step %}
-#### Disable encryption for new data.
+**Disable encryption for new data.**
 
 First, prevent MariaDB from encrypting any new data by updating the global system variables.
 
@@ -51,7 +51,7 @@ SET GLOBAL encrypt_tmp_disk_tables = OFF;
 {% endstep %}
 
 {% step %}
-#### Identify encrypted Aria tables.
+**Identify encrypted Aria tables.**
 
 Aria does not use background encryption threads (unlike InnoDB). Therefore, tables already on disk will remain encrypted until you manually rebuild them.
 
@@ -68,7 +68,7 @@ WHERE ENGINE = 'Aria'
 {% endstep %}
 
 {% step %}
-#### Rebuild tables to decrypt.
+**Rebuild tables to decrypt.**
 
 To decrypt the tables identified in the previous step, you must rebuild them using an `ALTER TABLE` statement. This causes MariaDB to rewrite the data (`.MAD`) and index (`.MAI`) files in an unencrypted format.
 
@@ -95,7 +95,7 @@ WHERE ENGINE='Aria'
 {% endstep %}
 
 {% step %}
-#### Verify and clean up.
+**Verify and clean up.**
 
 * Verify: Run the query from Step 2 again to ensure no encrypted Aria tables remain.
 * Remove Plugins (optional): Once all Aria tables (and any InnoDB tables or binary logs) are decrypted, you can safely remove the Encryption Key Management plugin from your configuration file and restart the server.

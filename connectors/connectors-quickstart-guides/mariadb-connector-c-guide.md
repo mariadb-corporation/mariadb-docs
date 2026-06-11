@@ -1,5 +1,23 @@
 ---
 description: Quickstart Guide for Connector/C
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # MariaDB Connector/C Guide
@@ -25,8 +43,8 @@ If you're using Linux, the simplest way to install MariaDB Connector/C is via yo
 
 You can set up your repository using:
 
-* MariaDB Corporation's [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage).
-* MariaDB Foundation's [MariaDB Repository Configuration Tool](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-mariadb-source-configuration-options).
+* MariaDB Corporation's [MariaDB Package Repository setup script](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage).
+* MariaDB Foundation's [MariaDB Repository Configuration Tool](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/0B9HhpsUkjLe15Lk8wbL).
 
 **Install with `yum`/`dnf` (RHEL, CentOS, Fedora)**
 

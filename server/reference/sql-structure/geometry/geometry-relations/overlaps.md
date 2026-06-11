@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 OVERLAPS(g1,g2)
 ```
 

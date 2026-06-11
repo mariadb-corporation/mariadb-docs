@@ -10,7 +10,7 @@ You can control the ordering of execution on table operations using parentheses.
 
 ## Syntax
 
-```sql
+```bnf
 (  expression )
 [ORDER BY [column[, column...]]]
 [LIMIT {[offset,] row_count | row_count OFFSET offset}]

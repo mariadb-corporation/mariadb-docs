@@ -29,7 +29,7 @@ It contains the following columns:
 | COLLATION\_NAME            | [Collation](../../../data-types/string-data-types/character-sets/) if a non-binary [string data type](../../../data-types/string-data-types/), otherwise NULL.     |
 | DTD\_IDENTIFIER            | Description of the data type.                                                                                                                                      |
 | ROUTINE\_TYPE              | PROCEDURE or FUNCTION.                                                                                                                                             |
-| PARAMETER\_DEFAULT         | Default parameter value. From [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/12.2/mariadb-12.2-changes-and-improvements).          |
+| PARAMETER\_DEFAULT         | Default parameter value. From [MariaDB 12.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.2/mariadb-12.2-changes-and-improvements).          |
 
 Information from this table is similar to that found in the `param_list` column in the [mysql.proc](../../the-mysql-database-tables/mysql-proc-table.md) table, and the output of the [SHOW CREATE PROCEDURE](../../../sql-statements/administrative-sql-statements/show/show-create-procedure.md) and [SHOW CREATE FUNCTION](../../../sql-statements/administrative-sql-statements/show/show-create-function.md) statements.
 

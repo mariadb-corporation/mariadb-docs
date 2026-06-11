@@ -1,5 +1,6 @@
 ---
 description: 'Step 8: Test MariaDB MaxScale'
+hidden: true
 ---
 
 # Step 8: Test MariaDB MaxScale

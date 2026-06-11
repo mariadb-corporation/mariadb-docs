@@ -109,7 +109,7 @@ Ensure that the client remains connected to the primary server, so that the lock
 
 4. Make a copy or snapshot of the [Storage Manager directory](../../architecture/columnstore-storage-architecture.md#storage-manager-directory). By default, it is located at `/var/lib/columnstore/storagemanager`.
 
-For example, to make a copy of the directory with rsync:
+For example, to make a copy of the directory with `rsync`:
 
 ```bash
 $ sudo mkdir -p /backups/columnstore/202101291600/
@@ -156,7 +156,7 @@ $ sudo systemctl stop mariadb
 
 3. Restore the backup of the [Storage Manager directory](../../architecture/columnstore-storage-architecture.md#storage-manager-directory). By default, it is located at `/var/lib/columnstore/storagemanager`.
 
-For example, to restore the backup with rsync:
+For example, to restore the backup with `rsync`:
 
 ```bash
 $ sudo rsync -av /backups/columnstore/202101291600/storagemanager/ /var/lib/columnstore/storagemanager/

@@ -1,8 +1,8 @@
 ---
 description: >-
   Failover and load balancing in MariaDB Connector/J 2.x support sequential,
-  loadbalance, replication, and aurora modes across multi-master,
-  master-slave, and Amazon Aurora clusters.
+  loadbalance, replication, and aurora modes across multi-master, master-slave,
+  and Amazon Aurora clusters.
 ---
 
 # Failover and High availability with MariaDB Connector/J for 2.x driver
@@ -166,7 +166,7 @@ A connection pool will detect connection error in SQLException (SQLState begin w
 When a failover occurs, the connector cannot know if the last request has been received by the database server and executed. Applications may have failover design to handle these particular cases:
 
 * If the application was in autoCommit mode (not recommended), the last query may have been executed and committed. The application will have no possibility to know that but the application will be functional.
-* If not in autoCommit mode, the query has been launched in a transaction that will not be committed. Depending of what caused the exception, the host may have the connection open on his side during a certain amount of time. Take care of [transaction isolation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/transactions/set-transaction) level that may lock too much rows.
+* If not in autoCommit mode, the query has been launched in a transaction that will not be committed. Depending of what caused the exception, the host may have the connection open on his side during a certain amount of time. Take care of [transaction isolation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-transaction) level that may lock too much rows.
 
 ## Configuration
 

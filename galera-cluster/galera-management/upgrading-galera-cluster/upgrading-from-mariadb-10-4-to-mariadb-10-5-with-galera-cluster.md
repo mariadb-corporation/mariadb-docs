@@ -3,6 +3,7 @@ description: >-
   Rolling upgrade procedure for moving a Galera Cluster from MariaDB 10.4 to
   MariaDB 10.5, covering pre-upgrade checks, repository changes, drain steps,
   and per-node restart workflow.
+hidden: true
 ---
 
 # Upgrading from MariaDB 10.4 to MariaDB 10.5 with Galera Cluster

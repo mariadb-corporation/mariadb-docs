@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW BINLOG EVENTS
    [IN 'log_name'] [FROM pos] [LIMIT [offset,] row_count]
 ```

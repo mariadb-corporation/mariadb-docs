@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_AsText(g)
 AsText(g)
 ST_AsWKT(g)

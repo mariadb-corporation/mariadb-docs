@@ -77,7 +77,7 @@ In CONNECT version 1.03 (until [MariaDB 10.1.5](https://app.gitbook.com/s/aEnK0Z
 
 However, some queries require random access to an ODBC table; for instance when it is joined to another table or used in an order by queries applied to a long column or large tables.
 
-There are several ways to enable random (position) access to a CONNECT ODBC table. They are dependant on the following table options:
+There are several ways to enable random (position) access to a CONNECT ODBC table. They are dependent on the following table options:
 
 | Option       | Type    | Used For                          |
 | ------------ | ------- | --------------------------------- |
@@ -132,7 +132,7 @@ SELECT * FROM xlcont;
 
 This will extract the data from Excel and display:
 
-| Nom                 | Fonction                            | Societe                 |
+| Nom                 | Function                            | Societe                 |
 | ------------------- | ----------------------------------- | ----------------------- |
 | Boisseau Frederic   |                                     | 9 Telecom               |
 | Martelliere Nicolas |                                     | Vidal SA (Groupe UBM)   |
@@ -141,8 +141,8 @@ This will extract the data from Excel and display:
 | Vandamme Anna       |                                     | GDF                     |
 | Thomas Willy        |                                     | Europ Assistance France |
 | Thomas Dominique    |                                     | Acoss (DG des URSSAF)   |
-| Thomas Berengere    | Responsable SI Decisionnel          | DEXIA Credit Local      |
-| Husy Frederic       | Responsable Decisionnel             | Neuf Cegetel            |
+| Thomas Berengere    | Responsible SI Decisionnel          | DEXIA Credit Local      |
+| Husy Frederic       | Responsible Decisionnel             | Neuf Cegetel            |
 | Lemonnier Nathalie  | Directeur Marketing Client          | Louis Vuitton           |
 | Louis Loic          | Reporting International Decisionnel | Accor                   |
 | Menseau Eric        |                                     | Orange France           |

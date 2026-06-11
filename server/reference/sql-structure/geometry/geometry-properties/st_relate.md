@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_Relate(g1, g2, i)
 ```
 

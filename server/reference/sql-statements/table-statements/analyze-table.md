@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ANALYZE [NO_WRITE_TO_BINLOG | LOCAL] TABLE tbl_name [,tbl_name ...]
   [PERSISTENT FOR 
     { ALL
@@ -47,7 +47,7 @@ The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports 
 
 {% tabs %}
 {% tab title="Current" %}
-#### **Skipping Long CHAR/VARCHAR Columns**
+**Skipping Long CHAR/VARCHAR Columns**
 
 When using `ANALYZE TABLE PERSISTENT`, MariaDB skips long [`CHAR`](../../data-types/string-data-types/char.md)/[`VARCHAR`](../../data-types/string-data-types/varchar.md) columns during statistics collection if they exceed the value of the [`analyze_max_length`](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#analyze_max_length) system variable.
 
@@ -124,7 +124,7 @@ ANALYZE TABLE tbl PERSISTENT FOR ALL
 Focusing on particular columns, the statement looks like this — it collects statistics only for the specified table columns:
 
 ```sql
-ANALYZE TABLE tbl PERSISTENT FOR COLUMS (column1, column2, ...) INDEXES (index1, ...)
+ANALYZE TABLE tbl PERSISTENT FOR COLUMNS (column1, column2, ...) INDEXES (index1, ...)
 ```
 
 Focusing on columns helps, among other things, avoid including `BLOB` columns, for which MariaDB doesn't collect statistics.

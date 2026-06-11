@@ -12,7 +12,7 @@ This function is available from MariaDB 13.0.
 
 ## Syntax
 
-```sql
+```bnf
 OLD_VALUE(val)
 ```
 

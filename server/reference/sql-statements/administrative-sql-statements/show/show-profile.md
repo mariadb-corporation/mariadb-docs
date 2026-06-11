@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PROFILE [type [, type] ... ]
     [FOR QUERY n]
     [LIMIT row_count [OFFSET offset]]

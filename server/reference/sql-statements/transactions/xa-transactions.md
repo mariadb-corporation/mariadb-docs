@@ -44,7 +44,7 @@ See [Transaction Coordinator Log](../../../server-management/server-monitoring-l
 
 ## Syntax
 
-```sql
+```bnf
 XA {START|BEGIN} xid [JOIN|RESUME]
 
 XA END xid [SUSPEND [FOR MIGRATE]]

@@ -176,6 +176,9 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 10.11 Release  |
 | ------------------------------------------------------------------------------- | --------------- | ------------------------------- |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261)               | 10.0            | [MariaDB 10.11.18](10.11.18.md) |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165)               | 8.0             | [MariaDB 10.11.18](10.11.18.md) |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163)               | 8.0             | [MariaDB 10.11.18](10.11.18.md) |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0             | [MariaDB 10.11.17](10.11.17.md) |
 | [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0             | [MariaDB 10.11.17](10.11.17.md) |
 | [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3             | [MariaDB 10.11.17](10.11.17.md) |
@@ -202,6 +205,7 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | Date        | Release          | Status      | Release Notes                | Changelog                                    |
 | ----------- | ---------------- | ----------- | ---------------------------- | -------------------------------------------- |
+| 27 May 2026 | MariaDB 10.11.18 | Stable (GA) | [Release Notes](10.11.18.md) | [Changelog](../changelogs/10.11/10.11.18.md) |
 | 18 May 2026 | MariaDB 10.11.17 | Stable (GA) | [Release Notes](10.11.17.md) | [Changelog](../changelogs/10.11/10.11.17.md) |
 |  4 Feb 2026 | MariaDB 10.11.16 | Stable (GA) | [Release Notes](10.11.16.md) | [Changelog](../changelogs/10.11/10.11.16.md) |
 |  6 Nov 2025 | MariaDB 10.11.15 | Stable (GA) | [Release Notes](10.11.15.md) | [Changelog](../changelogs/10.11/10.11.15.md) |

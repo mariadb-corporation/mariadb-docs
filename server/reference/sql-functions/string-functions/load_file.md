@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LOAD_FILE(file_name)
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ATAN(Y,X), ATAN2(Y,X)
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ALTER FUNCTION func_name [characteristic ...]
 
 characteristic:

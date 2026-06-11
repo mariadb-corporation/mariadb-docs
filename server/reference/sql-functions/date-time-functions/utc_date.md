@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 UTC_DATE, UTC_DATE()
 ```
 

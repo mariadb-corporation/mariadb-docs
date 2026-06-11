@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_DETAILED(json_doc[, tab_size])
 JSON_PRETTY(json_doc[, tab_size])
 ```

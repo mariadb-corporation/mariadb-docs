@@ -28,7 +28,7 @@ description: >-
 * Fix problem when pushing multiple bzr revisions at one time:
   * Buildbot should wait a few moments before starting a build, and then start\
     building the latest (currently it seems to build the first revision\
-    immedeately, and even often seems to not build the latest revision at all,\
+    immediately, and even often seems to not build the latest revision at all,\
     getting confused about the order)
   * When pushing a change that changes revision numbers, the grid display can\
     get really confused, would be nice to fix this somehow.
@@ -56,7 +56,7 @@ description: >-
   and `--parallel` option to speed up the more powerful\
   machines).
 * For triggered builds (ie. one builder makes a source tarball which another\
-  builder consumes), make it so that the pushed changesets are also transfered,\
+  builder consumes), make it so that the pushed changesets are also transferred,\
   so the blamelist on the build page works (currently the blame list is empty).
 * Upgrade to Buildbot 0.8 on the master. Then use the facility to use a MariaDB\
   server as backend for both speedup (hopefully) and more flexible querying of\

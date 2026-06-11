@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW QUERY_RESPONSE_TIME
 ```
 

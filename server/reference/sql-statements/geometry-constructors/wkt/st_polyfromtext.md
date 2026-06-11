@@ -6,7 +6,7 @@ description: Constructs a Polygon value using its WKT representation and an opti
 
 ## Syntax
 
-```sql
+```bnf
 ST_PolyFromText(wkt[,srid])
 ST_PolygonFromText(wkt[,srid])
 PolyFromText(wkt[,srid])

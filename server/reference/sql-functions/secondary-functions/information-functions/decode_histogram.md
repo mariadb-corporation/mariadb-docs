@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DECODE_HISTOGRAM(hist_type,histogram)
 ```
 

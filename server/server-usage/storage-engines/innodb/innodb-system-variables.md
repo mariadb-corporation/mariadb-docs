@@ -498,7 +498,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 {% endhint %}
 
 * Description: Maximum `innodb_buffer_pool_size` value. On 64-bit systems other than IBM AIX, the default is 8 TiB, and the minimum 8 MiB. On other systems, the default and minimum are `0`, and the value `0` is replaced with the initial `innodb_buffer_pool_size` rounded up to the allocation unit (2 MiB or 8 MiB). The maximum value is 4GiB-2MiB on 32-bit systems and 16EiB-8MiB on 64-bit systems. This maximum is likely to be limited further by the operating system.\
-  On 64-bit systems, while the default maximum is 8 TiB, the actual available address space may be restricted by operating system limits (such as [`RLIMIT_AS`](#user-content-fn-2)[^2]) or specific hardware architectures. If MariaDB is unable to allocate the default 8 TiB of virtual address space at startup, it  automatically attempts to fall back to a 128 GiB limit to ensure the server can still start. (128 GiB is often chosen as a fallback because it’s a safe value that almost any modern 64-bit Linux kernel/CPU can handle without special configuration, while still being plenty large for the vast majority of database workloads.)
+  On 64-bit systems, while the default maximum is 8 TiB, the actual available address space may be restricted by operating system limits (such as [`RLIMIT_AS`](#user-content-fn-2)[^2]) or specific hardware architectures. If MariaDB is unable to allocate the default 8 TiB of virtual address space at startup, it automatically attempts to fall back to a 128 GiB limit to ensure the server can still start. (128 GiB is often chosen as a fallback because it’s a safe value that almost any modern 64-bit Linux kernel/CPU can handle without special configuration, while still being plenty large for the vast majority of database workloads.)
 * Command line: `--innodb-buffer-pool-size-max=#`
 * Scope: Global
 * Dynamic: No
@@ -756,7 +756,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_data_file_write_through`
 
-* Description: Whether writes to InnoDB data files (including the temporary tablespace) are write through. Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls.
+* Description: Whether writes to InnoDB data files (including the temporary tablespace) are write through. Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls. See [InnoDB Flush Method](innodb-flush-method.md) for a discussion of FUA and write-through behavior.
 * Command line: `--innodb-data-file-write-through={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -1217,7 +1217,32 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_flush_method`
 
-* Description: [InnoDB](./) flushing method. Windows always uses `async_unbuffered` , meaning that this variable has no effect. Adjusting this variable can give performance improvements, but behavior differs widely on different filesystems. Changing from the default value may cause problems in some situations, so test and benchmark carefully before adjusting. In MariaDB, Windows recognizes and correctly handles the Unix methods, but if no methods are specified, it uses its own default – unbuffered write (analog of `O_DIRECT`) plus syncs (for instance, `FileFlushBuffers()`) for all files.
+{% tabs %}
+{% tab title="Current" %}
+* Description: [InnoDB](./) flushing method. **Deprecated from** [**MariaDB 11.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)**.** The variable can still be set, but the preferred way to control flushing behavior is to use `SET GLOBAL` on the four replacement Boolean dynamic parameters, which can be changed while the server is running:
+  * [innodb\_log\_file\_buffering](innodb-system-variables.md#innodb_log_file_buffering) (enable file system cache on the InnoDB write-ahead log; added in 10.8.4, 10.9.2)
+  * [innodb\_data\_file\_buffering](innodb-system-variables.md#innodb_data_file_buffering) (enable file system cache on data files)
+  * [innodb\_log\_file\_write\_through](innodb-system-variables.md#innodb_log_file_write_through) (enable write-through on the log)
+  * [innodb\_data\_file\_write\_through](innodb-system-variables.md#innodb_data_file_write_through) (enable write-through on persistent data files)
+* For the full discussion of buffering, write-through, FUA, and the flag names used as values, see [InnoDB Flush Method](innodb-flush-method.md) and [Storage I/O: Buffering and Persistence](../../../ha-and-performance/optimization-and-tuning/operating-system-optimizations/storage-io-buffering-and-persistence.md).
+* When `innodb_flush_method` is set, the value is translated into the four Boolean parameters as follows:
+  * `O_DSYNC`: [innodb\_log\_file\_write\_through=ON](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=ON](innodb-system-variables.md#innodb_data_file_write_through), [innodb\_data\_file\_buffering=OFF](innodb-system-variables.md#innodb_data_file_buffering), and (if supported) [innodb\_log\_file\_buffering=OFF](innodb-system-variables.md#innodb_log_file_buffering).
+  * `fsync`, `littlesync`, `nosync`, or (on Windows) `normal`: [innodb\_log\_file\_write\_through=OFF](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=OFF](innodb-system-variables.md#innodb_data_file_write_through), and [innodb\_data\_file\_buffering=ON](innodb-system-variables.md#innodb_data_file_buffering).
+* Command line: `--innodb-flush-method=name`
+* Scope: Global
+* Dynamic: No
+* Data Type: `enumeration`
+* Default Value:
+  * `O_DIRECT` (Unix, >= MariaDB 10.6.0)
+  * `fsync` (only in MariaDB < 10.5)
+* Valid Values:
+  * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`, `O_DIRECT`, `O_DIRECT_NO_FSYNC`
+  * Windows: `unbuffered`, `async_unbuffered`, `normal`
+* Deprecated: [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)
+{% endtab %}
+
+{% tab title="< MariaDB 11.0" %}
+* Description: [InnoDB](./) flushing method. Windows always uses `async_unbuffered`, meaning that this variable has no effect. Adjusting this variable can give performance improvements, but behavior differs widely on different filesystems. Changing from the default value may cause problems in some situations, so test and benchmark carefully before adjusting. In MariaDB, Windows recognizes and correctly handles the Unix methods, but if no methods are specified, it uses its own default – unbuffered write (analog of `O_DIRECT`) plus syncs (for instance, `FileFlushBuffers()`) for all files.
 * A detailed description of the variable and its effects can be found [on this page](innodb-flush-method.md).
   * `O_DSYNC` is used to open and flush logs, and `fsync()` to flush the data files.
   * `O_DIRECT` is used to open data files, and `fsync()` to flush data and logs. This is the default on Unix from MariaDB 10.6.
@@ -1227,14 +1252,6 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `normal` - Windows-only, alias for `fsync`
   * `littlesync` - for internal testing only
   * `nosync` - for internal testing only
-* This variable is deprecated from [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110) and replaced by four boolean dynamic variables that can be changed while the server is running:
-  * [innodb\_log\_file\_buffering](innodb-system-variables.md#innodb_log_file_buffering) (enable file system cache, added in 10.8.4, 10.9.2)
-  * [innodb\_data\_file\_buffering](innodb-system-variables.md#innodb_data_file_buffering) (enable file system cache on data files)
-  * [innodb\_log\_file\_write\_through](innodb-system-variables.md#innodb_log_file_write_through) (enable write-through on the log)
-  * [innodb\_data\_file\_write\_through](innodb-system-variables.md#innodb_data_file_write_through) (enable write-through on persistent data files)
-  * If set to one of the following values, the values of the four boolean flags are as follows:
-    * `O_DSYNC`: [innodb\_log\_file\_write\_through=ON](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=ON](innodb-system-variables.md#innodb_data_file_write_through),[innodb\_data\_file\_buffering=OFF](innodb-system-variables.md#innodb_data_file_buffering), and (if supported) [innodb\_log\_file\_buffering=OFF](innodb-system-variables.md#innodb_log_file_buffering).
-    * `fsync`, `littlesync`, `nosync`, or (on Windows) `normal`: [innodb\_log\_file\_write\_through=OFF](innodb-system-variables.md#innodb_log_file_write_through), [innodb\_data\_file\_write\_through=OFF](innodb-system-variables.md#innodb_data_file_write_through), and [innodb\_data\_file\_buffering=ON](innodb-system-variables.md#innodb_data_file_buffering).
 * Command line: `--innodb-flush-method=name`
 * Scope: Global
 * Dynamic: No
@@ -1243,9 +1260,10 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * `O_DIRECT` (Unix, >= MariaDB 10.6.0)
   * `fsync` (only in MariaDB < 10.5)
 * Valid Values:
-  * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`. `O_DIRECT`, `O_DIRECT_NO_FSYNC`
+  * Unix: `fsync`, `O_DSYNC`, `littlesync`, `nosync`, `O_DIRECT`, `O_DIRECT_NO_FSYNC`
   * Windows: `unbuffered`, `async_unbuffered`, `normal`
-* Deprecated: [MariaDB 11.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/what-is-mariadb-110)
+{% endtab %}
+{% endtabs %}
 
 #### `innodb_flush_neighbor_pages`
 
@@ -1688,7 +1706,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
   * Encryption: While `innodb_log_archive` is `ON`, the value of [`innodb_encrypt_log`](innodb-system-variables.md#innodb_encrypt_log) and related encryption parameters cannot be changed. To change encryption, set `innodb_log_archive=OFF` and restart the server — this permanently discards the archived log history.
   * Startup: With `innodb_log_archive=ON`, the server refuses to start if `ib_logfile0` exists in the data directory.
   * Data Dictionary: This feature tracks InnoDB changes only. It does not cover `.frm` files or other non-InnoDB metadata.
-  * Backup tooling: No shipped tool yet generates or restores backups in this format. [`mariadb-backup`](../../backup-and-restore/mariadb-backup/README.md) only supports the legacy `ib_logfile0` format and fails when the server is running with `innodb_log_archive=ON`.
+  * Backup tooling: No shipped tool yet generates or restores backups in this format. [`mariadb-backup`](../../backup-and-restore/mariadb-backup/) only supports the legacy `ib_logfile0` format and fails when the server is running with `innodb_log_archive=ON`.
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `OFF`
@@ -1806,7 +1824,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 
 #### `innodb_log_file_write_through`
 
-* Description: Whether each write to ib\_logfile0 is write through (disabling any caching, as in O\_SYNC or O\_DSYNC). Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls.
+* Description: Whether each write to ib\_logfile0 is write through (disabling any caching, as in O\_SYNC or O\_DSYNC). Set to `OFF` by default, are set to `ON` if [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is set to `O_DSYNC`. On systems that support FUA it may make sense to enable write-through, to avoid extra system calls. See [InnoDB Flush Method](innodb-flush-method.md) for a discussion of FUA and write-through behavior.
 * Command line: `--innodb-log-file-write-through={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -2433,7 +2451,7 @@ If you set a target that is unreachable in the other direction (for example, low
 
 * Description: Whether or not to use snapshot isolation (write/write conflict detection within InnoDB).\
   If enabled (set to `ON`), an error `DB_RECORD_CHANGED` (`HA_ERR_RECORD_CHANGED`, [`ER_CHECKREAD`](../../../reference/error-codes/mariadb-error-codes-1000-to-1099/e1020.md)) is raised if an attempt is made to acquire a lock on a record that does not exist in the current read view. This error is treated in the same way as a deadlock, and the transaction is rolled back. This affects the default isolation level, [REPEATABLE READ](../../../reference/sql-statements/transactions/transactions-repeatable-read.md).\
-  In MariaDB 11.8 and later, changes to snapshot handling may affect how conflicts are detected in transactions that use the [Repeatable Read](../../../reference/sql-statements/transactions/transactions-repeatable-read.md) isolation level. Specifically, `DELETE` and `UPDATE` statements can return with [ERROR 1020](../../../reference/error-codes/mariadb-error-codes-1000-to-1099/e1020.md). This occurs when a transaction tries to modify rows using a snapshot that is inconsistent with the database's current state as a result of simultaneous modifications. In other words, this variable is designed to prevent non-repeatable reads and anomalies (like lost updates) by rejecting `UPDATE` or `DELETE` operations on rows that were modified by a concurrent transaction after the current transaction's snapshot was taken.
+  In MariaDB 11.8 and later, changes to snapshot handling may affect how conflicts are detected in transactions that use the [Repeatable Read](../../../reference/sql-statements/transactions/transactions-repeatable-read.md) isolation level. Specifically, `DELETE` and `UPDATE` statements can cause a rollback of the transaction, and return with [ERROR 1020](../../../reference/error-codes/mariadb-error-codes-1000-to-1099/e1020.md). This occurs when a transaction tries to modify rows using a snapshot that is inconsistent with the database's current state as a result of simultaneous modifications. In other words, this variable is designed to prevent non-repeatable reads and anomalies (like lost updates) by rejecting `UPDATE` or `DELETE` operations on rows that were modified by a concurrent transaction after the current transaction's snapshot was taken.
 * Command line: `--innodb-snapshot-isolation={0|1}`
 * Scope: Global, Session
 * Dynamic: Yes

@@ -3,6 +3,7 @@ description: >-
   Rolling upgrade procedure for moving a Galera Cluster from MariaDB 10.3 to
   MariaDB 10.4 one node at a time, with no downtime and a Galera 3 to Galera 4
   wsrep provider transition.
+hidden: true
 ---
 
 # Upgrading from MariaDB 10.3 to MariaDB 10.4 with Galera Cluster
@@ -118,7 +119,7 @@ Run [mysql\_upgrade](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-
 
 `mysql_upgrade` does two things:
 
-1. Ensures that the system tables in the [mysql ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables) `l` database are fully compatible with the new version.
+1. Ensures that the system tables in the [mysql ](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/the-mysql-database-tables)`l` database are fully compatible with the new version.
 2. Does a very quick check of all tables and marks them as compatible with the new version of MariaDB.
 {% endstep %}
 {% endstepper %}

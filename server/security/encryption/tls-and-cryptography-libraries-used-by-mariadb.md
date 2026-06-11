@@ -206,7 +206,7 @@ Then [restart](https://mariadb.com/kb/en/) MariaDB server and any clients or app
 
 [^1]: TLS stands for Transport Layer Security. It is a cryptographic protocol designed to provide communications security over a computer network. You likely interact with it every day, as it is the "S" in HTTPS.
 
-    #### What does it actually do?
+    **What does it actually do?**
 
     TLS provides three main pillars of security:
 

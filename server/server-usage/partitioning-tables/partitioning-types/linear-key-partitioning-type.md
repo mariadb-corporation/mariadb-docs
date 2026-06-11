@@ -10,7 +10,7 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 PARTITION BY LINEAR KEY [ALGORITHM={MYSQL51|MYSQL55|BASE31|CRC32C|XXH32|XXH3}]
 ([column_names])
 [PARTITIONS (number_of_partitions)]

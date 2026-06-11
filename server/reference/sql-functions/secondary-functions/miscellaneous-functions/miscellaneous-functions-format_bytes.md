@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FORMAT_BYTES(double)
 ```
 

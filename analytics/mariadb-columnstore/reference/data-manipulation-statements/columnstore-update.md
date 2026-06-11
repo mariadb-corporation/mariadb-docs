@@ -13,7 +13,7 @@ The `UPDATE` statement changes data stored in rows.
 
 ### Single-Table Syntax
 
-```sql
+```bnf
 UPDATE  table_reference 
   SET col1={expr1|DEFAULT} [,col2={expr2|DEFAULT}] ...
   [WHERE where_condition]

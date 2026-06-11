@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE PROCEDURE proc_name
 ```
 

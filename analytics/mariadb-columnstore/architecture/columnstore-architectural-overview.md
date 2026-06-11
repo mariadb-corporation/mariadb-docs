@@ -418,12 +418,12 @@ The S3-compatible object storage can be backed up by:
 
 ### Shared Local Storage
 
-MariaDB ColumnStore can leverage file system snapshots or file copy tools (such as rsync) to backup shared local storage when it is used for the [Storage Manager directory](columnstore-storage-architecture.md#storage-manager-directory) or the [DB Root directories](columnstore-storage-architecture.md#db-root-directories).
+MariaDB ColumnStore can leverage file system snapshots or file copy tools (such as `rsync`) to backup shared local storage when it is used for the [Storage Manager directory](columnstore-storage-architecture.md#storage-manager-directory) or the [DB Root directories](columnstore-storage-architecture.md#db-root-directories).
 
 The shared local storage can be backed up by:
 
 1. Locking the database on the primary node
-2. Performing a file system snapshot or using a file copy tool (such as rsync) to copy the contents of the [Storage Manager directory](columnstore-storage-architecture.md#storage-manager-directory) or the [DB Root directories](columnstore-storage-architecture.md#db-root-directories).
+2. Performing a file system snapshot or using a file copy tool (such as `rsync`) to copy the contents of the [Storage Manager directory](columnstore-storage-architecture.md#storage-manager-directory) or the [DB Root directories](columnstore-storage-architecture.md#db-root-directories).
 
 ### Enterprise Server Data Directory
 

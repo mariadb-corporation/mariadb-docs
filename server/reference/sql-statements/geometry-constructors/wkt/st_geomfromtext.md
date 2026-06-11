@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ST_GeomFromText(wkt[,srid])
 ST_GeometryFromText(wkt[,srid])
 GeomFromText(wkt[,srid])

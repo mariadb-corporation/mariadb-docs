@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 SELECT ... FROM ... WHERE ...
 [group_clause] [order_clause]
 LIMIT [[OFFSET,] row_count] ROWS EXAMINED rows_limit;

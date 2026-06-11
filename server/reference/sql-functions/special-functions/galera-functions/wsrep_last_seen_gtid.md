@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 WSREP_LAST_SEEN_GTID()
 ```
 

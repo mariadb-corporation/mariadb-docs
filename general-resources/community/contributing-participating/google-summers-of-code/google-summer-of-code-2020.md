@@ -152,7 +152,7 @@ Here is a suggested list of things to be done:
 * A GTID position means the point just after that GTID. So starting from\
   GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will\
   probably be 0-1-101 and the last one 0-1-200. Note that if some domain is\
-  not specified in the position, it means to start from the begining,\
+  not specified in the position, it means to start from the beginning,\
   respectively stop immediately in that domain.
 * Starting and stopping GTID should work both with local files, and with `--read-from-remote-server`. For the latter, there are a couple of extra things that need doing in the master-slave protocol, see `get_master_version_and_clock()` in `sql/slave.cc`.
 * At the end of the dump, put these statements, to reduce the risk of those session variables incorrectly spilling into subsequent statements run in the same session:
@@ -379,7 +379,7 @@ We need a bitmap to store NULL/empty values instead of in-column values for this
 
 #### Engine independent statistics for Columnstore
 
-CS now has a very rudimentary query optimization capabilities and we want to improve the situtation. We consider to use Server's optimizer for the purpose but the Server needs statistics namely values distribution histograms and Number of Distinct Values distribution histograms.\
+CS now has a very rudimentary query optimization capabilities and we want to improve the situation. We consider to use Server's optimizer for the purpose but the Server needs statistics namely values distribution histograms and Number of Distinct Values distribution histograms.\
 There are different levels of complexity for the task:
 
 * implement standalone segment files reader that in the end populates both mysql.column\_stats and mysql.table\_stats using out of band mariadb client connection
@@ -422,7 +422,7 @@ Here is the link on how to build fast a CS developer environment.
 
 #### Engine independent statistics for Columnstore
 
-CS now has a very rudimentary query optimization capabilities and we want to improve the situtation. We consider to use Server's optimizer for the purpose but the Server needs statistics namely values distribution histograms and Number of Distinct Values distribution histograms.\
+CS now has a very rudimentary query optimization capabilities and we want to improve the situation. We consider to use Server's optimizer for the purpose but the Server needs statistics namely values distribution histograms and Number of Distinct Values distribution histograms.\
 There are different levels of complexity for the task:
 
 * implement standalone segment files reader that in the end populates both mysql.column\_stats and mysql.table\_stats using out of band mariadb client connection

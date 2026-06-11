@@ -12,7 +12,7 @@ ST\_PointFromGeoHash is available from [MariaDB 12.0](https://app.gitbook.com/s/
 
 ## Syntax
 
-```sql
+```bnf
 ST_PointFromGeoHash(geohash, srid)
 ```
 

@@ -95,7 +95,7 @@ The `mariadb-backup` executable is included in MSI and ZIP packages on Windows.
 
 When using the [Windows MSI installer](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows.md), `mariadb-backup` can be installed by selecting _Backup utilities_:
 
-<figure><img src="../../../.gitbook/assets/mariadb_backup_windows.png" alt=""><figcaption><p>MariaDB MSI Installer showing the Backup utilites install option</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/mariadb_backup_windows.png" alt=""><figcaption><p>MariaDB MSI Installer showing the Backup utilities install option</p></figcaption></figure>
 
 ## Usage
 

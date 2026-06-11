@@ -15,7 +15,7 @@ This differs from a standard `START TRANSACTION` or `BEGIN` statement, which cre
 
 `START TRANSACTION` and its alias `BEGIN` can be modified with one or more characteristics.
 
-```sql
+```bnf
 START TRANSACTION [transaction_characteristic [, transaction_characteristic] ...]
 
 transaction_characteristic:
@@ -27,7 +27,7 @@ transaction_characteristic:
 For example:
 
 `BEGIN WITH CONSISTENT SNAPSHOT;`\
-`START TRANSACTION READ ONLY, WITH CONSISTENT SNAPSH`OT;
+`START TRANSACTION READ ONLY, WITH CONSISTENT SNAPSHOT`;
 
 ## **The InnoDB Read View**
 

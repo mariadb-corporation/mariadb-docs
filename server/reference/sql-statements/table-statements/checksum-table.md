@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CHECKSUM TABLE tbl_name [, tbl_name] ... [ QUICK | EXTENDED ]
 ```
 

@@ -569,7 +569,7 @@ gunzip < postgresql-9.1rc1.tar.gz |tar xf -
 ```
 
 
-1. Execute the following commnads into the shell to install PostgreSQL:
+1. Execute the following commands into the shell to install PostgreSQL:
 ```
 
 mkdir $PROJECT\_HOME/PostgreSQL\_bin\
@@ -805,7 +805,7 @@ There are default configuration files in the directory
 | RESULTS_DB_CONFIG | The configuration file for results DB settings |
 | TEST_CONFIG | The configuration file for the test settings |
 | QUERIES_CONFIG | The configuration file for the queries settings |
-| DB_CONFIG | The configuration file for the DBMS server settigns |
+| DB_CONFIG | The configuration file for the DBMS server settings |
 
 
 
@@ -856,7 +856,7 @@ Here is the list of parameters that could be set into this configuration file:
 
 | Parameter | Description |
 | --- | --- |
-| DBMS_HOME | Where the instalation folder of MariaDB / MySQL / PostgreSQL is located.NOTE: The automation script uses "./bin/mysqld_safe" to start the mysqld process. So the versions of MariaDB and MySQL should be a "binary distribution" ones. |
+| DBMS_HOME | Where the installation folder of MariaDB / MySQL / PostgreSQL is located.NOTE: The automation script uses "./bin/mysqld_safe" to start the mysqld process. So the versions of MariaDB and MySQL should be a "binary distribution" ones. |
 | DBMS_USER | The database user that will be used. |
 | CONFIG_FILE | The config file that mysqld or postgres will use when starting |
 | SOCKET | The socket that will be used to start the server |
@@ -1103,9 +1103,9 @@ Here is a list of the startup parameters:
 | results-output-dir | Where the results of the benchmark will be stored. A timestamp is automatically attached to the directory name so that it keeps track of time and date of the benchmark. This is a required parameter. |
 | dry-run | If set, no benchmark will be performed. Instead only messages will be displayed for the actions that were intended to be done. |
 | project-home | Required if any configuration file uses the variable '$PROJECT_HOME'. If all configuration files use absolute paths, not used. |
-| datadir-home | The value in this parameter will replace any occurrences of the string '$DATADIR_HOME' into the configuration files. If there are no such occurances, it is not a required parameter. |
-| queries-home | The value in this parameter will replace any occurrences of the string '$QUERIES_HOME' into the configuration files. If there are no such occurances, it is not a required parameter. |
-| scale-factor | The value in this parameter will replace any occurrences of the string '$SCALE_FACTOR' into the configuration files. If there are no such occurances, it is not a required parameter. |
+| datadir-home | The value in this parameter will replace any occurrences of the string '$DATADIR_HOME' into the configuration files. If there are no such occurrences, it is not a required parameter. |
+| queries-home | The value in this parameter will replace any occurrences of the string '$QUERIES_HOME' into the configuration files. If there are no such occurrences, it is not a required parameter. |
+| scale-factor | The value in this parameter will replace any occurrences of the string '$SCALE_FACTOR' into the configuration files. If there are no such occurrences, it is not a required parameter. |
 | CLEAR_CACHES | If set. this overrides the default setting set into the test configuration file. |
 | QUERIES_AT_ONCE | If set. this overrides the default setting set into the test configuration file. |
 | RUN | If set. this overrides the default setting set into the test configuration file. |

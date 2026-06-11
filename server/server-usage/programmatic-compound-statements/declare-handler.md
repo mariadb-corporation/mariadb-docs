@@ -45,7 +45,7 @@ values:
 
 * An [SQLSTATE](programmatic-compound-statements-diagnostics/sqlstate.md) value (a 5-character string literal) or a MariaDB error\
   code (a number). You should not use `SQLSTATE` value '00000' or MariaDB\
-  error code 0, because those indicate sucess rather than an error\
+  error code 0, because those indicate success rather than an error\
   condition. For a list of `SQLSTATE` values and MariaDB error codes, see [MariaDB Error Codes](broken-reference).
 * A condition name previously specified with `DECLARE ... CONDITION`. It must be in the same stored program. See [DECLARE CONDITION](declare-condition.md).
 * `SQLWARNING` is shorthand for the class of SQLSTATE values that begin\

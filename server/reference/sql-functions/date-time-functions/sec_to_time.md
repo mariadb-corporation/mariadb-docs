@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SEC_TO_TIME(seconds)
 ```
 

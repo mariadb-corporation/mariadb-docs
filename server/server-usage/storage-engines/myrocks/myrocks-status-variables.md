@@ -275,7 +275,7 @@ See also the [Full list of MariaDB options, system and status variables](../../.
 
 #### `Rocksdb_l0_num_files_stall_micros`
 
-* Description: Shows how long in microseconds throttled due to too mnay files in L0.
+* Description: Shows how long in microseconds throttled due to too many files in L0.
 * Scope: Global, Session
 * Data Type: `numeric`
 * Removed: [MariaDB 10.3.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.1), [MariaDB 10.2.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.8)

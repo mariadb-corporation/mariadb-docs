@@ -1,5 +1,6 @@
 ---
 description: 'Step 2: Install ColumnStore'
+hidden: true
 ---
 
 # Step 2: Install ColumnStore

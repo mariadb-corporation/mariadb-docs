@@ -16,7 +16,7 @@ Various cloud services: Amazon RDS, Amazon Aurora, Google Cloud, Oracle MySQL Cl
 
 Security connections: Secure Socket Layer (SSL), Secure Shell (SSH), HTTP Tunneling, PAM Percona.
 
-![compatiblity](../../.gitbook/assets/compatiblity.png)
+![compatibility](../../.gitbook/assets/compatibility.png)
 
 ## Database Structure
 

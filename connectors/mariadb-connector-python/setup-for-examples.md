@@ -1,8 +1,7 @@
 ---
 description: >-
   Set up the test database, contacts and accounts tables, and a user account
-  required by the MariaDB Connector/Python code examples in this
-  documentation.
+  required by the MariaDB Connector/Python code examples in this documentation.
 ---
 
 # Setup for Examples
@@ -16,7 +15,7 @@ The examples in this MariaDB Connector/Python documentation depend on a database
     ```sql
     CREATE DATABASE IF NOT EXISTS test;
     ```
-2.  Create tables in the `test` database for testing basic and advanced operations with [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) statements:
+2.  Create tables in the `test` database for testing basic and advanced operations with [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) statements:
 
     ```sql
     CREATE TABLE test.contacts (

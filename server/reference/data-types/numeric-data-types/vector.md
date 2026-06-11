@@ -6,7 +6,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 VECTOR(N)
 ```
 

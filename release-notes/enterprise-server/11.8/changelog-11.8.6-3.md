@@ -7,7 +7,7 @@ hidden: true
 
 # Changelog for MariaDB Enterprise Server 11.8.6-3
 
-<a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="11.8.6-3.md" class="button secondary">Release Notes</a> <a href="changelog-11.8.6-3.md" class="button secondary">Changelog</a> <a href="whats-new-in-mariadb-enterprise-server-11.8.md" class="button secondary">Overview of Enterprise Server 11.8</a>
+<a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="11.8.6-3.md" class="button secondary">Release Notes</a> <a href="changelog-11.8.6-3.md" class="button secondary">Changelog</a> <a href="whats-new.md" class="button secondary">Overview of Enterprise Server 11.8</a>
 
 **Release date:** 17 Mar 2026
 
@@ -19,7 +19,7 @@ hidden: true
 * A large number of joins in a SELECT can crash the server ([MDEV-38168](https://jira.mariadb.org/browse/MDEV-38168))
 * The HashiCorp Vault key management plugin has been updated to improve availability during intermittent network or server issues. Previously, the plugin only allowed the use of cached keys if a connection timed out. This behavior has been broadened and made the default to prevent MariaDB Server interruptions.
 * Expanded Error Handling: The plugin now treats common connectivity issues—such as “connection refused,” “no route to host,” and “internal server error”—the same as a timeout. This ensures the server continues to function using cached keys if the Vault server is briefly unreachable.
-* Updated Defaults:  ([MDEV-38203](https://jira.mariadb.org/browse/MDEV-38203))
+* Updated Defaults: ([MDEV-38203](https://jira.mariadb.org/browse/MDEV-38203))
   * The option to use cached values during communication errors is now enabled by default.
   * The cache timeout is now defaulting to the maximum value.
 * Restore of dumped databases can fail with ERROR 1100 if constraints are in place ([MDEV-38216](https://jira.mariadb.org/browse/MDEV-38216))

@@ -25,12 +25,24 @@ MariaDB Connector/Python 2.0 supports
 
 ## Installation Options
 
-### Installing Version 1.1
+{% hint style="info" %}
+**Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release.**
 
-If you need to install the version 1.1:
+Because 2.0 is not yet GA, a plain `pip install mariadb` installs the latest stable release (1.1). To install the 2.0 release candidate you must pass the `--pre` flag, for example `pip install --pre mariadb`. Do not use non-stable (non-GA) releases in production.
+{% endhint %}
+
+### Installing Version 1.1 (Stable / GA)
+
+Version 1.1 is the current GA release. A plain `pip install` installs the latest stable version:
 
 ```console
-pip install mariadb==1.1.10
+pip install mariadb
+```
+
+To pin to a specific 1.1 release:
+
+```console
+pip install mariadb==1.1.14
 ```
 
 Version 1.1:
@@ -41,7 +53,11 @@ Version 1.1:
 
 For version 1.1 documentation, see the [1.1 branch documentation](https://mariadb-corporation.github.io/mariadb-connector-python/).
 
-### Installing Version 2.0
+### Installing Version 2.0 (Release Candidate)
+
+{% hint style="info" %}
+Version 2.0 is a Release Candidate. The `--pre` flag is required so that pip will select the pre-release; without it, pip installs the latest GA release (1.1).
+{% endhint %}
 
 MariaDB Connector/Python 2.0 offers three installation options:
 
@@ -50,10 +66,10 @@ MariaDB Connector/Python 2.0 offers three installation options:
 Works everywhere, no compiler or C dependencies required:
 
 ```console
-pip install mariadb
+pip install --pre mariadb
 ```
 
-This is the default installation method. The pure Python implementation:
+This is the default installation method for 2.0. The pure Python implementation:
 - Works on all Python interpreters (CPython, PyPy, etc.)
 - Requires no compilation or system dependencies
 - Provides good performance for most use cases
@@ -64,7 +80,7 @@ This is the default installation method. The pure Python implementation:
 For maximum performance, install the C extension:
 
 ```console
-pip install mariadb[c]
+pip install --pre mariadb[c]
 ```
 
 The C extension:
@@ -78,7 +94,7 @@ The C extension:
 Pre-compiled wheels with no local C connector required:
 
 ```console
-pip install mariadb[binary]
+pip install --pre mariadb[binary]
 ```
 
 Binary wheels:
@@ -92,13 +108,13 @@ Binary wheels:
 Connection pooling is now a separate optional package:
 
 ```console
-pip install mariadb[pool]
+pip install --pre mariadb[pool]
 ```
 
 Or combine with binary wheels:
 
 ```console
-pip install mariadb[binary,pool]
+pip install --pre mariadb[binary,pool]
 ```
 
 ### Microsoft Windows
@@ -106,13 +122,13 @@ pip install mariadb[binary,pool]
 **Option 1: Binary wheels (recommended)**
 
 ```console
-pip install mariadb[binary,pool]
+pip install --pre mariadb[binary,pool]
 ```
 
 **Option 2: Pure Python**
 
 ```console
-pip install mariadb[pool]
+pip install --pre mariadb[pool]
 ```
 
 **Option 3: C extension from source**
@@ -122,7 +138,7 @@ First install MariaDB Connector/C. MSI installers for both 32-bit and 64-bit ope
 Then install the C extension:
 
 ```console
-pip install mariadb[c,pool]
+pip install --pre mariadb[c,pool]
 ```
 
 On success, you should see a message at the end "Successfully installed mariadb-2.0.0rc2".

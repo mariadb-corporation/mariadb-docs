@@ -21,7 +21,7 @@ bool isAutoCommit = conn->getAutoCommit();
 
 ## Multi-Statement Transactions
 
-MariaDB Connector/C++ supports multi-statement transactions when the  `auto-commit` is disabled.
+MariaDB Connector/C++ supports multi-statement transactions when the `auto-commit` is disabled.
 
 Disable auto-commit by calling `sql::Connection::setAutoCommit():`
 
@@ -33,12 +33,12 @@ When auto-commit is disabled, a new transaction is automatically started when th
 
 The transaction can be manually managed by performing the following operations:
 
-* Setting the transaction isolation by calling `sql::Connection::setTransactionIsolation()` or using [SET TRANSACTION ISOLATION LEVEL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/set-transaction).
-* Set the transaction to read-only by calling `sql::Connection::setReadOnly()` or using [SET TRANSACTION READ ONLY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/set-transaction).
+* Setting the transaction isolation by calling `sql::Connection::setTransactionIsolation()` or using [SET TRANSACTION ISOLATION LEVEL](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-transaction).
+* Set the transaction to read-only by calling `sql::Connection::setReadOnly()` or using [SET TRANSACTION READ ONLY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-transaction).
 * Create a `savepoint` by calling `sql::Connection::setSavepoint()` or using [SAVEPOINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/savepoint).
 * Roll back to a `savepoint` by calling `sql::Connection::releaseSavepoint()` or using [RELEASE SAVEPOINT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/savepoint).
 * Commit the transaction by calling `sql::Connection::commit()` or using [COMMIT](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/commit).
-* Roll back the transaction by calling `sql::Connection::rollback()` or using [ROLLBACK](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements-and-structure/sql-statements/transactions/rollback).
+* Roll back the transaction by calling `sql::Connection::rollback()` or using [ROLLBACK](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/rollback).
 
 ## Code Example: DML in Transaction
 

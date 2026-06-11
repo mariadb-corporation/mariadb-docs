@@ -13,7 +13,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_OVERLAPS(json_doc1, json_doc2)
 ```
 

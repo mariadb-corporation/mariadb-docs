@@ -39,7 +39,7 @@ The suggested upgrade procedure is:
 
 On most servers upgrading from 10.5 should be painless. However, there are some things that have changed which could affect an upgrade:
 
-The bahaviour of sorting non-deterministic variables in a Select query can be changed ,\
+The behaviour of sorting non-deterministic variables in a Select query can be changed ,\
 see ([MDEV-27745](https://jira.mariadb.org/browse/MDEV-27745))
 
 #### Reserved Word

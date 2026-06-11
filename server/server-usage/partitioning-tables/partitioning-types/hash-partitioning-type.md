@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 PARTITION BY HASH (partitioning_expression)
 [PARTITIONS(number_of_partitions)]
 ```

@@ -168,7 +168,7 @@ For each worker, the `run_worker()` function is called, which is executing the f
 
 From MariaDB Server 11.8.3, you can start `mtr` with the `--enable_serveroutput` option to enable `DBMS_OUTPUT` messages. Disable displaying those messages with `--disable_serveroutput`. See [this page](../../../server-usage/stored-routines/dbms_output.md) for details.
 
-A new package procedure was added, `DBMS_OUTPUT.GET_LINES_RESULT()`. It re-uses the SQL code fetching lines from the `DBMS_OUTPUT` buffer. All buffer lines are returned in a single result set. This procedure is MariaDB-specific; it does not exist in Oracle. This workaround is needed in MariaDB, instead of using the `GET_LINES()` function, because MariaDB does not support fetching arrays in the client-server protocol.
+A new package procedure was added, `DBMS_OUTPUT.GET_LINES_RESULT()`. It reuses the SQL code fetching lines from the `DBMS_OUTPUT` buffer. All buffer lines are returned in a single result set. This procedure is MariaDB-specific; it does not exist in Oracle. This workaround is needed in MariaDB, instead of using the `GET_LINES()` function, because MariaDB does not support fetching arrays in the client-server protocol.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

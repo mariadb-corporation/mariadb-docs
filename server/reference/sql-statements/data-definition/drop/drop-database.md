@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP {DATABASE | SCHEMA} [IF EXISTS] db_name
 ```
 

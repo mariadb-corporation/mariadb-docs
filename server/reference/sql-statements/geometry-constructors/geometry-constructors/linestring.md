@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 LineString(pt1,pt2,...)
 ```
 

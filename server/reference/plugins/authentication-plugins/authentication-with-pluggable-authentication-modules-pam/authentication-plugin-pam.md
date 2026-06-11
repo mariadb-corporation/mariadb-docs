@@ -217,7 +217,7 @@ It is important to note that the `mysql_clear_password` plugin has very limited 
 
 The `mysql_clear_password` client authentication plugin transmits the password to the server in clear text. Therefore, when you use the `pam` authentication plugin, it is incredibly important to [encrypt client connections using TLS](../../../../security/encryption/data-in-transit-encryption/) to prevent the clear-text passwords from being seen by unauthorized users.
 
-#### Compatiblity with MySQL Clients and Client Libraries
+#### Compatibility with MySQL Clients and Client Libraries
 
 The `mysql_clear_password` client authentication plugin is similar to MySQL's [mysql\_clear\_password](https://dev.mysql.com/doc/refman/5.7/en/cleartext-pluggable-authentication.html) client authentication plugin.
 

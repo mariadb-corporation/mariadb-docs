@@ -13,7 +13,7 @@ JSON\_OBJECT\_FILTER\_KEYS is available from MariaDB 11.2.
 
 ## Syntax
 
-```sql
+```bnf
 JSON_OBJECT_FILTER_KEYS(obj, array_keys)
 ```
 

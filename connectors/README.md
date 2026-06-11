@@ -3,6 +3,24 @@ description: >-
   Complete MariaDB Connectors guide. Complete reference for client libraries in
   Python, Java, Node.js, C, C++, ODBC, and R languages for production use.
 icon: nfc-symbol
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # MariaDB Connectors

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 /* 1. Granting Privileges */
 GRANT
     priv_type [(column_list)]
@@ -107,6 +107,24 @@ Use the [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md) stat
 ### Account Names
 
 For `GRANT` statements, account names are specified as the `username` argument in the same way as they are for [CREATE USER](create-user.md) statements. See [account names](create-user.md#account-names) from the `CREATE USER` page for details on how account names are specified.
+
+#### Database Name Wildcard Matching Order
+
+When multiple `GRANT` entries match a database name (since database names in `GRANT` can contain `%` and `_` wildcards), MariaDB applies the most specific matching grant. Specificity is determined by how many database names a pattern can match, a pattern matching fewer databases is more specific and takes precedence.
+
+From [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)), this ordering is managed correctly. In previous versions (before 10.4.6), the sort order among wildcard database patterns was determined only by the position of the first wildcard, which could generate insertion-order-dependent results.
+
+**Example**
+
+```sql
+CREATE USER 'jtest'@localhost IDENTIFIED BY 'jtest';
+GRANT SELECT ON `%test`.* TO 'jtest'@localhost;
+GRANT SELECT, INSERT, DELETE ON `j-%`.* TO 'jtest'@localhost;
+```
+
+Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), `` `%test`.* `` is considered more specific than `` `j-%`.* `` because it matches fewer database names. Since only the first matching grant is applied, the `SELECT`-only grant on `` `%test`.* `` takes precedence, and `INSERT` is not granted for the database `j-test`. &#x20;
+
+> This behavior changed in MariaDB 10.4.6. In earlier versions, `j-%` was incorrectly treated as more specific because sorting considered only the prefix before the first wildcard (`j-` is longer than the empty prefix of `%test`). If you are upgrading from MariaDB 10.3 or earlier, review any `GRANT` statements that use overlapping wildcard database patterns, as privilege resolution may differ.
 
 ### Implicit Account Creation
 
@@ -836,7 +854,7 @@ By default, when you create a user without specifying an authentication plugin, 
 
 It is possible to set per-account limits for certain server resources. The following table shows the values that can be set per account:
 
-| Limit Type                  | Decription                                                                                                                                                                                                                      |
+| Limit Type                  | Description                                                                                                                                                                                                                      |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MAX\_QUERIES\_PER\_HOUR     | Number of statements that the account can issue per hour (including updates)                                                                                                                                                    |
 | MAX\_UPDATES\_PER\_HOUR     | Number of updates (not queries) that the account can issue per hour                                                                                                                                                             |
@@ -938,7 +956,7 @@ GRANT select, insert on db.* TO alice;
 
 {% tabs %}
 {% tab title="Current" %}
-#### Syntax
+**Syntax**
 
 ```sql
 GRANT <privilege> ON <db_name>.<object> TO PUBLIC;
@@ -947,7 +965,7 @@ REVOKE <privilege> ON <db_name>.<object> FROM PUBLIC;
 
 `GRANT ... TO PUBLIC` grants privileges to all users with access to the server. The privileges also apply to users created after the privileges are granted. This can be useful when you only want to state once that all users need to have a certain set of privileges. When running [SHOW GRANTS](../administrative-sql-statements/show/show-grants.md), a user also sees all privileges inherited from `PUBLIC`. [SHOW GRANTS FOR PUBLIC](../administrative-sql-statements/show/show-grants.md#for-public) only shows `TO PUBLIC` grants.
 
-#### Example
+**Example**
 
 The following example shows the difference between granting privileges to particular users and granting privileges to `PUBLIC`.
 

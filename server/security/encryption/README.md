@@ -42,12 +42,10 @@ MariaDB links to cryptography libraries (OpenSSL, wolfSSL, GnuTLS, Schannel) eit
 {% content-ref url="data-in-transit-encryption/" %}
 [data-in-transit-encryption](data-in-transit-encryption/)
 {% endcontent-ref %}
-
-
 {% endcolumn %}
 
 {% column %}
-#### Data-in-Transit Encryption
+**Data-in-Transit Encryption**
 
 * Protects credentials and query results from "man-in-the-middle" attacks during client-server communication.
 * Uses the TLS protocol. It handles the handshake, identity verification, and encryption of the network stream.
@@ -61,12 +59,10 @@ MariaDB links to cryptography libraries (OpenSSL, wolfSSL, GnuTLS, Schannel) eit
 {% content-ref url="data-at-rest-encryption/" %}
 [data-at-rest-encryption](data-at-rest-encryption/)
 {% endcontent-ref %}
-
-
 {% endcolumn %}
 
 {% column %}
-#### Data-at-Rest Encryption
+**Data-at-Rest Encryption**
 
 * Protects physical data files (InnoDB/Aria tables, Redo logs, and Binary logs) if the storage media or backups are stolen.
 * Uses Symmetric Encryption (typically AES) managed by specialized Key Management Plugins.
@@ -74,6 +70,3 @@ MariaDB links to cryptography libraries (OpenSSL, wolfSSL, GnuTLS, Schannel) eit
 * Enabled via variables like `innodb_encrypt_tables` and requires a specific plugin (e.g., `file_key_management`) to be loaded.
 {% endcolumn %}
 {% endcolumns %}
-
-
-

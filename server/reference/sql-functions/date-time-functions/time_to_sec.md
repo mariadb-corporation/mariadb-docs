@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 TIME_TO_SEC(time)
 ```
 

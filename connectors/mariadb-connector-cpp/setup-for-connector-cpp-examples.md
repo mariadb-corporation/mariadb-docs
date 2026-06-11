@@ -17,7 +17,7 @@ Examples in the MariaDB Connector/C++ documentation depend on a database `test` 
 CREATE DATABASE IF NOT EXISTS test;
 ```
 
-1. Create tables in the `test` database for testing basic and advanced operations with [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-table) statements:
+1. Create tables in the `test` database for testing basic and advanced operations with [CREATE TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table) statements:
 
 ```sql
 CREATE TABLE test.contacts (

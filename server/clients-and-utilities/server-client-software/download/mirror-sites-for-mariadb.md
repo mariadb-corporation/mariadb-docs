@@ -207,7 +207,6 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 ### India
 
-- Bharat Datacenter (New Delhi)
 - Indian Institute Of Technology Delhi (New Delhi)
 
 ### Indonesia

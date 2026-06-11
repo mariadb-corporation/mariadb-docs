@@ -123,6 +123,9 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 10.6 Release |
 | ------------------------------------------------------------------------------- | --------------- | ----------------------------- |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261)               | 10.0            | [MariaDB 10.6.27](10.6.27.md) |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165)               | 8.0             | [MariaDB 10.6.27](10.6.27.md) |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163)               | 8.0             | [MariaDB 10.6.27](10.6.27.md) |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0             | [MariaDB 10.6.26](10.6.26.md) |
 | [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0             | [MariaDB 10.6.26](10.6.26.md) |
 | [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3             | [MariaDB 10.6.26](10.6.26.md) |
@@ -205,6 +208,7 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | Date        | Release         | Status      | Release Notes               | Changelog                                  |
 | ----------- | --------------- | ----------- | --------------------------- | ------------------------------------------ |
+| 27 May 2026 | MariaDB 10.6.27 | Stable (GA) | [Release Notes](10.6.27.md) | [Changelog](../changelogs/10.6/10.6.27.md) |
 | 18 May 2026 | MariaDB 10.6.26 | Stable (GA) | [Release Notes](10.6.26.md) | [Changelog](../changelogs/10.6/10.6.26.md) |
 |  4 Feb 2026 | MariaDB 10.6.25 | Stable (GA) | [Release Notes](10.6.25.md) | [Changelog](../changelogs/10.6/10.6.25.md) |
 |  6 Nov 2025 | MariaDB 10.6.24 | Stable (GA) | [Release Notes](10.6.24.md) | [Changelog](../changelogs/10.6/10.6.24.md) |

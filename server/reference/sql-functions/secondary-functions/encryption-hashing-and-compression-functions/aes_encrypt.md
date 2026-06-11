@@ -10,7 +10,7 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 AES_ENCRYPT(str, key, [, iv [, mode]])
 ```
 {% endtab %}

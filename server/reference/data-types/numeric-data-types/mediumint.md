@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MEDIUMINT[(M)] [SIGNED | UNSIGNED | ZEROFILL]
 ```
 

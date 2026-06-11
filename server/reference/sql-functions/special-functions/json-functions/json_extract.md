@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_EXTRACT(json_doc, path[, path] ...)
 ```
 

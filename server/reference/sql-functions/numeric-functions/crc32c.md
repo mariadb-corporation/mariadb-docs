@@ -14,7 +14,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CRC32C([par,]expr)
 ```
 

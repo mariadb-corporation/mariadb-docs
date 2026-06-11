@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 TIMEDIFF(expr1,expr2)
 ```
 

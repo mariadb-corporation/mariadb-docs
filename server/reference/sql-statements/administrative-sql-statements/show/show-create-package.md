@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW CREATE PACKAGE  [ db_name . ] package_name
 ```
 

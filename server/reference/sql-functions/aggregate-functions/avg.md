@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 AVG([DISTINCT] expr)
 ```
 

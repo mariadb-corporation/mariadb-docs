@@ -59,16 +59,16 @@ main();
 ```ts
 interface Animal {
   id: number;
-  name: string;
+  label: string;
 }
 
 // Typed result rows
-const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
-rows.forEach(row => console.log(row.name)); // row.name is string
+const rows = await conn.query<Animal[]>('SELECT id, label FROM animals');
+rows.forEach(row => console.log(row.label)); // row.label is string
 
 // Typed result rows AND typed values (since 3.5.1)
 const rows2 = await conn.query<Animal[], [number]>(
-  'SELECT id, name FROM animals WHERE id = ?',
+  'SELECT id, label FROM animals WHERE id = ?',
   [1]
 );
 ```
@@ -79,12 +79,90 @@ For `INSERT`, `UPDATE`, and `DELETE` queries, the result is a `UpsertResult` obj
 import { UpsertResult } from 'mariadb';
 
 const result: UpsertResult = await conn.query(
-  "INSERT INTO animals (name) VALUES (?)",
+  "INSERT INTO animals (label) VALUES (?)",
   ['sea lion']
 );
 console.log(result.insertId);      // bigint
 console.log(result.affectedRows);  // number
 ```
+
+## Accessing Result Metadata (`RowsWithMeta` / `WithMeta`)
+
+Every result-set carries column metadata, an array of [`FieldInfo`](#fieldinfo-column-metadata) objects describing each returned column. 
+Since 3.5.3, the connector exports two helper types so you can type that metadata without writing the intersection or tuple shapes by hand.
+
+### `RowsWithMeta<T>` default result shape
+
+By default, the result is a row array with a **non-enumerable** `meta` property attached. 
+Because `meta` is non-enumerable it does not appear in `JSON.stringify()`, `for...in`, or spreads, so a plain `T[]` type doesn't describe it. `RowsWithMeta<T>` adds it:
+
+```ts
+import { RowsWithMeta, FieldInfo } from 'mariadb';
+
+interface Animal {
+  id: number;
+  label: string;
+}
+
+// Pass the *row* type as the generic argument
+const rows = await conn.query<RowsWithMeta<Animal>>('SELECT id, label FROM animals');
+
+rows.forEach(row => console.log(row.label)); // row.label is string
+
+const meta: FieldInfo[] = rows.meta;        // typed column metadata
+console.log(meta[0].name());                // 'id'
+console.log(meta[0].type);                  // column type (Types enum), e.g. 'LONG'
+console.log(meta[0].columnLength);          // declared column length
+```
+
+`RowsWithMeta<Animal>` expands to `Animal[] & { meta: FieldInfo[] }`, so it is still iterable and indexable exactly like a normal row array.
+
+### `WithMeta<T>` tuple shape with `metaAsArray`
+
+Setting [`metaAsArray: true`](node-js-connection-options.md) (per-query or on the connection) returns `[rows, metadata]` as a tuple instead of attaching a `meta` property, 
+a compatibility shape that matches `mysql2`. `WithMeta<T>` describes that tuple:
+
+```ts
+import { WithMeta, UpsertResult } from 'mariadb';
+
+// SELECT — generic is the row *array* type
+const [rows, meta] = await conn.query<WithMeta<Animal[]>>({
+  metaAsArray: true,
+  sql: 'SELECT id, label FROM animals',
+});
+console.log(rows[0].label); // string
+console.log(meta[0].name()); // 'id'
+
+// INSERT / UPDATE / DELETE — generic is UpsertResult
+const [res, meta2] = await conn.query<WithMeta<UpsertResult>>({
+  metaAsArray: true,
+  sql: 'INSERT INTO animals (label) VALUES (?)',
+  values: ['sea lion'],
+});
+console.log(res.insertId); // bigint
+```
+
+`WithMeta<T>` resolves to `[T, FieldInfo[]]`. 
+If `T` is already a `[any, FieldInfo[]]` tuple it is returned unchanged, so pre-wrapped types keep working.
+
+### `FieldInfo` column metadata
+
+Each entry of `meta` is a `FieldInfo` describing one column, exposing both properties (`columnLength`, `type`, `scale`, `collation`, …) and accessor methods (`name()`, `db()`, `table()`, `signed()`, …):
+
+```ts
+const rows = await conn.query<RowsWithMeta<Animal>>('SELECT id, label FROM animals');
+
+for (const col of rows.meta) {
+  console.log(col.name());          // column name
+  console.log(col.type);            // column type (Types enum), e.g. 'LONG', 'VARCHAR'
+  console.log(col.columnLength);    // declared maximum column length
+  console.log(col.scale);           // number of decimals (numeric types)
+  console.log(col.collation.name);  // collation, e.g. 'utf8mb4_general_ci'
+  console.log(col.signed());        // true for signed numeric types
+}
+```
+
+Since 3.5.3, `FieldInfo` additionally exposes the MariaDB extended type name via the `dataTypeName` property (e.g. `'uuid'`, `'inet6'`, `'json'`; MariaDB 10.5+, `undefined` on MySQL) and the `isDataTypeFormatJson()` helper.
 
 ## Connection with Type-Safe Options
 
@@ -128,7 +206,7 @@ import { PoolConnection } from 'mariadb';
 
 const conn: PoolConnection = await pool.getConnection();
 try {
-  const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
+  const rows = await conn.query<Animal[]>('SELECT id, label FROM animals');
   console.log(rows);
 } finally {
   conn.release();
@@ -145,7 +223,7 @@ Since 3.5.1, `ConnectionPromise` implements `Symbol.asyncDispose`, enabling the 
 
 ```ts
 await using conn = await mariadb.createConnection(config);
-const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
+const rows = await conn.query<Animal[]>('SELECT id, label FROM animals');
 // conn.end() is called automatically here
 ```
 
@@ -153,7 +231,7 @@ const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
 
 ```ts
 await using conn = await pool.getConnection();
-const rows = await conn.query<Animal[]>('SELECT id, name FROM animals');
+const rows = await conn.query<Animal[]>('SELECT id, label FROM animals');
 // conn.release() is called automatically here
 ```
 

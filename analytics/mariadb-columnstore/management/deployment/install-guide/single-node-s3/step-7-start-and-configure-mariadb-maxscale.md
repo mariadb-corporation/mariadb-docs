@@ -1,5 +1,6 @@
 ---
 description: 'Step 7: Start and Configure MariaDB MaxScale'
+hidden: true
 ---
 
 # Step 7: Start and Configure MariaDB MaxScale
@@ -41,7 +42,7 @@ For additional information, see "Start and Stop Services".
 
 ## Configure Server Objects
 
-**On the MaxScale node**, use [maxctrl create](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each Enterprise ColumnStore node:
+**On the MaxScale node**, use [maxctrl create](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/maxscale-archive/archive/mariadb-maxscale-23-02/mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl#create-server) to create a server object for each Enterprise ColumnStore node:
 
 ```bash
 $ maxctrl create server mcs1 192.0.2.101

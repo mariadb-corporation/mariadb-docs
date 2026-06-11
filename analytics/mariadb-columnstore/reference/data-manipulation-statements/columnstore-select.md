@@ -11,7 +11,7 @@ The `SELECT` statement is used to query the database and display table data. You
 
 ## Syntax
 
-```sql
+```bnf
 SELECT
 [ALL | DISTINCT ]
     select_expr [, select_expr ...]

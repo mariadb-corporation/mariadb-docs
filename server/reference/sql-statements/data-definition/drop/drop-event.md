@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP EVENT [IF EXISTS] event_name
 ```
 

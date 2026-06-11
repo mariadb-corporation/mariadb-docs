@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 VEC_DISTANCE_COSINE(v, s)
 ```
 

@@ -1,8 +1,8 @@
 ---
 description: >-
   mysql_stmt_affected_rows returns the number of rows affected by the last
-  INSERT, UPDATE, DELETE, or REPLACE prepared statement, or -1 if the
-  statement failed.
+  INSERT, UPDATE, DELETE, or REPLACE prepared statement, or -1 if the statement
+  failed.
 ---
 
 # mysql\_stmt\_affected\_rows
@@ -12,6 +12,8 @@ description: >-
 ```c
 my_ulonglong mysql_stmt_affected_rows(MYSQL_STMT * stmt);
 ```
+
+## Parameter
 
 * `stmt` - a statement handle, which was previously allocated by [mysql\_stmt\_init().](mysql_stmt_init.md)
 

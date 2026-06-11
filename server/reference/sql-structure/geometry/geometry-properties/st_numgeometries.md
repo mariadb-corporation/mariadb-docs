@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_NumGeometries(gc)
 NumGeometries(gc)
 ```

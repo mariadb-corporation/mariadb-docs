@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
   [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
   {VALUES | VALUE} ({expr | DEFAULT},...),(...),...
@@ -192,7 +192,7 @@ SELECT Auto_increment FROM INFORMATION_SCHEMA.TABLES
 +----------------+
 ```
 
-Refering to column values from the INSERT portion of the statement:
+Referring to column values from the INSERT portion of the statement:
 
 ```sql
 INSERT INTO table (a,b,c) VALUES (1,2,3),(4,5,6)

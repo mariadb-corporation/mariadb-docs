@@ -18,7 +18,7 @@ To configure scrubbing one can use the following variables:
 
 |                                                                                                                       |           |                                                                                                 |
 | --------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------- |
-| [innodb-background-scrub-data-check-interval](innodb-system-variables.md#innodb_background_scrub_data_check_interval) | Seconds   | Check at this intervall if tablespaces needs scrubbing. Deprecated and ignored.                 |
+| [innodb-background-scrub-data-check-interval](innodb-system-variables.md#innodb_background_scrub_data_check_interval) | Seconds   | Check at this interval if tablespaces needs scrubbing. Deprecated and ignored.                 |
 | [innodb-background-scrub-data-compressed](innodb-system-variables.md#innodb_background_scrub_data_compressed)         | Boolean   | Enable scrubbing of compressed data by background threads. Deprecated and ignored.              |
 | [innodb-background-scrub-data-interval](innodb-system-variables.md#innodb_background_scrub_data_interval)             | Seconds   | Scrub spaces that were last scrubbed longer than this many seconds ago. Deprecated and ignored. |
 | [innodb-background-scrub-data-uncompressed](innodb-system-variables.md#innodb_background_scrub_data_uncompressed)     | Boolean   | Enable scrubbing of uncompressed data by background threads. Deprecated and ignored.            |

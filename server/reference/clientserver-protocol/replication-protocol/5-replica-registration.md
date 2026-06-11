@@ -59,7 +59,7 @@ T 127.0.0.1:23240 -> 127.0.0.1:42158 [AP]
   42 4c 45 53 0d 56 61 72    69 61 62 6c 65 5f 6e 61    BLES.Variable_na
   6d 65 0d 56 41 52 49 41    42 4c 45 5f 4e 41 4d 45    me.VARIABLE_NAME
   0c 08 00 40 00 00 00 fd    01 00 00 00 00 5d 00 00    ...@.........]..
-  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.informatio
+  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.information
   6e 5f 73 63 68 65 6d 61    11 53 45 53 53 49 4f 4e    n_schema.SESSION
   5f 56 41 52 49 41 42 4c    45 53 11 53 45 53 53 49    _VARIABLES.SESSI
   4f 4e 5f 56 41 52 49 41    42 4c 45 53 05 56 61 6c    ON_VARIABLES.Val
@@ -141,7 +141,7 @@ T 127.0.0.1:23240 -> 127.0.0.1:42367 [AP]
   42 4c 45 53 0d 56 61 72    69 61 62 6c 65 5f 6e 61    BLES.Variable_na
   6d 65 0d 56 41 52 49 41    42 4c 45 5f 4e 41 4d 45    me.VARIABLE_NAME
   0c 08 00 40 00 00 00 fd    01 00 00 00 00 5d 00 00    ...@.........]..
-  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.informatio
+  03 03 64 65 66 12 69 6e    66 6f 72 6d 61 74 69 6f    ..def.information
   6e 5f 73 63 68 65 6d 61    11 53 45 53 53 49 4f 4e    n_schema.SESSION
   5f 56 41 52 49 41 42 4c    45 53 11 53 45 53 53 49    _VARIABLES.SESSI
   4f 4e 5f 56 41 52 49 41    42 4c 45 53 05 56 61 6c    ON_VARIABLES.Val

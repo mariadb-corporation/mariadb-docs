@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_TOUCHES(g1,g2)
 ```
 

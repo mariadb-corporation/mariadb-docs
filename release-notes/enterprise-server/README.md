@@ -34,20 +34,8 @@ description: >-
 
 ## Old Releases
 
-{% content-ref url="old-releases/10.5/" %}
-[10.5](old-releases/10.5/)
-{% endcontent-ref %}
-
-{% content-ref url="old-releases/10.4/" %}
-[10.4](old-releases/10.4/)
-{% endcontent-ref %}
-
-{% content-ref url="old-releases/10.3/" %}
-[10.3](old-releases/10.3/)
-{% endcontent-ref %}
-
-{% content-ref url="old-releases/10.2/" %}
-[10.2](old-releases/10.2/)
+{% content-ref url="old-releases/" %}
+[old-releases](old-releases/)
 {% endcontent-ref %}
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}

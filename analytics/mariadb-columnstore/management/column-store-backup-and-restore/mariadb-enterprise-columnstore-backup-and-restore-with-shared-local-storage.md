@@ -107,7 +107,7 @@ Ensure that the client remains connected to the primary server, so that the lock
 
 4. Make a copy or snapshot of the [Storage Manager directory](../../architecture/columnstore-storage-architecture.md#storage-manager-directory). By default, it is located at `/var/lib/columnstore/storagemanager`.
 
-For example, to make a copy of the directory with rsync:
+For example, to make a copy of the directory with `rsync`:
 
 ```bash
 $ sudo mkdir -p /backups/columnstore/202101291600/
@@ -116,7 +116,7 @@ $ sudo rsync -av /var/lib/columnstore/storagemanager /backups/columnstore/202101
 
 5. Make a copy or snapshot of the [DB Root directories](../../architecture/columnstore-storage-architecture.md#db-root-directories). By default, they are located at `/var/lib/columnstore/dataN`, where the N in dataN represents a range of integers that starts at 1 and stops at the number of nodes in the deployment.
 
-For example, to make a copy of the directories with rsync in a 3-node deployment:
+For example, to make a copy of the directories with `rsync` in a 3-node deployment:
 
 ```bash
 $ sudo rsync -av /var/lib/columnstore/data1 /backups/columnstore/202101291600/

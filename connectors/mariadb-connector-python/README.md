@@ -11,6 +11,10 @@ icon: link
 
 MariaDB Connector/Python enables python programs to access MariaDB and MySQL databases, using an API which is compliant with the Python DB API 2.0 ([PEP-249](https://peps.python.org/pep-249)).
 
+{% hint style="info" %}
+**Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release.** Because 2.0 is not yet GA, install it with the `--pre` flag (for example `pip install --pre mariadb`); a plain `pip install mariadb` installs the latest stable release (1.1). See the [Installation](install.md) page for details. Do not use non-stable (non-GA) releases in production.
+{% endhint %}
+
 #### Contents
 
 ## Contents:

@@ -1,16 +1,20 @@
 # Download Latest Releases
 
-### MariaDB Server Development Release
+### MariaDB Enterprise Server Releases
 
-{% include ".gitbook/includes/latest-12-3 (1).md" %}
+{% include ".gitbook/includes/latest-es-11.8.md" %}
 
-{% include ".gitbook/includes/latest-12-2.md" %}
+{% include ".gitbook/includes/latest-es-11.4.md" %}
 
-### MariaDB Server Rolling Release
+{% include ".gitbook/includes/latest-es-10.6.md" %}
 
-{% include ".gitbook/includes/latest-12-1.md" %}
+### MariaDB Community Server Development Releases
 
-### MariaDB Server Long-Term Release
+{% include ".gitbook/includes/latest-13.0.md" %}
+
+### MariaDB Community Server Long-Term Releases
+
+{% include ".gitbook/includes/latest-12-3.md" %}
 
 {% include ".gitbook/includes/latest-11-8.md" %}
 
@@ -20,7 +24,7 @@
 
 {% include ".gitbook/includes/latest-10-6.md" %}
 
-### MariaDB Connectors
+### MariaDB Connector Releases
 
 {% include ".gitbook/includes/latest-c.md" %}
 

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DATE_FORMAT(date, format[, locale])
 ```
 
@@ -59,7 +59,7 @@ The options that can be used by `DATE_FORMAT()`, as well as its inverse [STR\_TO
 | %Z     | Timezone abbreviation. From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0).                                                          |
 | %z     | Numeric timezone +hhmm or -hhmm presenting the hour and minute offset from UTC. From [MariaDB 11.3.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/11.3.0). |
 | %#     | For [str\_to\_date](str_to_date.md)(), skip all numbers.                                                                                                                                         |
-| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctation characters.                                                                                                                           |
+| %.     | For [str\_to\_date](str_to_date.md)(), skip all punctuation characters.                                                                                                                           |
 | %@     | For [str\_to\_date](str_to_date.md)(), skip all alpha characters.                                                                                                                                |
 | %%     | A literal % character.                                                                                                                                                                           |
 
@@ -129,7 +129,7 @@ SELECT DATE_FORMAT(NOW(),'%W, %e. %M %Y, %k:%i Uhr (%Z)','de_DE');
 +------------------------------------------------------------+
 | DATE_FORMAT(NOW(),'%W, %e. %M %Y, %k:%i Uhr (%Z)','de_DE') |
 +------------------------------------------------------------+
-| Donnerstag, 5. Februar 2026, 20:50 Uhr (CET)               |
+| Donnerstag, 5. February 2026, 20:50 Uhr (CET)               |
 +------------------------------------------------------------+
 ```
 

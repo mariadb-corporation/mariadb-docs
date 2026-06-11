@@ -291,7 +291,7 @@ BEGIN
 
     -- Loop through, expanding search
     --   Search a 'square', repeat with bigger square until find enough rows
-    --   If the inital probe found _limit rows, then probably the first
+    --   If the initial probe found _limit rows, then probably the first
     --   iteration here will find the desired data.
     -- Hardcoded table name:
     -- This is the "first SELECT":

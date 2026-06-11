@@ -1,8 +1,7 @@
 ---
 description: >-
-  mysql_stmt_errno returns the numeric error code for the most recently
-  invoked Connector/C prepared statement function, or zero if no error
-  occurred.
+  mysql_stmt_errno returns the numeric error code for the most recently invoked
+  Connector/C prepared statement function, or zero if no error occurred.
 ---
 
 # mysql\_stmt\_errno
@@ -13,11 +12,17 @@ description: >-
 unsigned int mysql_stmt_errno(MYSQL_STMT * stmt);
 ```
 
+## Parameter
+
 * `stmt` - a statement handle, which was previously allocated by [mysql\_stmt\_init()](mysql_stmt_init.md).
 
 ## Description
 
-Returns the [error code](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes) for the most recently invoked statement function that can succeed or fail. Zero means no error occurred.
+Returns the [error code](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes) for the most recently invoked statement function that can succeed or fail.&#x20;
+
+## Return Value
+
+Returns error code. A zero value means that no error occurred.
 
 {% hint style="info" %}
 Client error messages are listed in `errmsg.h` header file, server error messages are listed in `mysqld_error.h` header file of the server source distribution.

@@ -54,6 +54,11 @@ CREATE TABLE embeddings (
 );
 ```
 
+{% hint style="info" %}
+Declare `DISTANCE` explicitly. The default is `euclidean`, and a query using a different distance function than the one the index was built for cannot use the index, it falls back to a full table scan. Match the distance function to the metric your embedding model recommends.
+{% endhint %}
+
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

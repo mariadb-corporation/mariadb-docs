@@ -36,7 +36,7 @@ Decide which columns need to be searched/sorted by SQL queries. No, you don't ne
 
 The solution uses one table for all the EAV stuff. The columns include the searchable fields plus one [BLOB](../../../reference/data-types/string-data-types/blob.md). Searchable fields are declared appropriately ([INT](../../../reference/data-types/numeric-data-types/int.md), [TIMESTAMP](../../../reference/data-types/date-and-time-data-types/timestamp.md), etc). The BLOB contains JSON-encoding of all the extra fields.
 
-The table should be [InnoDB](../../../server-usage/storage-engines/innodb/), hence it should have a PRIMARY KEY. The entitity\_id is the 'natural' PK. Add a small number of other indexes (often 'composite') on the searchable fields. [PARTITIONing](../../../server-usage/partitioning-tables/) is unlikely to be of any use, unless the Entities should purged after some time. (Example: News Articles)
+The table should be [InnoDB](../../../server-usage/storage-engines/innodb/), hence it should have a PRIMARY KEY. The entity\_id is the 'natural' PK. Add a small number of other indexes (often 'composite') on the searchable fields. [PARTITIONing](../../../server-usage/partitioning-tables/) is unlikely to be of any use, unless the Entities should purged after some time. (Example: News Articles)
 
 ## But what about the ad hoc queries?
 

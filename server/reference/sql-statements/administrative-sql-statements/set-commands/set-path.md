@@ -6,7 +6,7 @@ This functionality is available from MariaDB 12.3.
 
 ## Syntax
 
-```sql
+```bnf
 SET PATH 'db1 [, db2 [, ...]]'
 ```
 

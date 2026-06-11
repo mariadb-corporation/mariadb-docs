@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CREATE [OR REPLACE] SERVER [IF NOT EXISTS] server_name
     FOREIGN DATA WRAPPER wrapper_name
     OPTIONS (option [, option] ...)

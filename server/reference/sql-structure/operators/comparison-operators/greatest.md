@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 GREATEST(value1,value2,...)
 ```
 

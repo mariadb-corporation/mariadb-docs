@@ -12408,14 +12408,14 @@ components:
         maxscale_size:
           description: >-
             The instance size. Valid values are: sky-2x4, sky-2x8 etc. Not
-            applicable for the Serverless Analytics topology. Only aplicable if
+            applicable for the Serverless Analytics topology. Only applicable if
             maxscale_nodes > 0
           type: string
           examples:
             - sky-2x8
           x-gitbook-description-html: >-
             <p>The instance size. Valid values are: sky-2x4, sky-2x8 etc. Not
-            applicable for the Serverless Analytics topology. Only aplicable if
+            applicable for the Serverless Analytics topology. Only applicable if
             maxscale_nodes > 0</p>
         migration_source_database_id:
           type: string
@@ -12705,14 +12705,14 @@ components:
         maxscale_size:
           description: >-
             The instance size. Valid values are: sky-2x4, sky-2x8 etc. Not
-            applicable for the Serverless Analytics topology. Only aplicable if
+            applicable for the Serverless Analytics topology. Only applicable if
             maxscale_nodes > 0
           type: string
           examples:
             - sky-2x8
           x-gitbook-description-html: >-
             <p>The instance size. Valid values are: sky-2x4, sky-2x8 etc. Not
-            applicable for the Serverless Analytics topology. Only aplicable if
+            applicable for the Serverless Analytics topology. Only applicable if
             maxscale_nodes > 0</p>
         name:
           description: Name of the service.

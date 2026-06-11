@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 PERCENT_RANK() OVER (
   [ PARTITION BY partition_expression ] 
   [ ORDER BY order_list ]

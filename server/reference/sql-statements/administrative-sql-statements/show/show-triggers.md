@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW TRIGGERS [FROM db_name]
     [LIKE 'pattern' | WHERE expr]
 ```

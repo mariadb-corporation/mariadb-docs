@@ -10,7 +10,7 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [AS { TINYINT | SMALLINT | |MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
 [ INCREMENT [ BY | = ] number ]
@@ -18,7 +18,7 @@ CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [ MAXVALUE [=] number | NO MAXVALUE | NOMAXVALUE ]
 [ START [ WITH | = ] number ] 
 [ CACHE [=] number | NOCACHE ] [ CYCLE | NOCYCLE] 
-[table_options](../sql-statements/data-definition/create/create-table.md#table-options)
+[table_options]
 ```
 {% endtab %}
 
@@ -30,12 +30,12 @@ CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [ MAXVALUE [=] number | NO MAXVALUE | NOMAXVALUE ]
 [ START [ WITH | = ] number ] 
 [ CACHE [=] number | NOCACHE ] [ CYCLE | NOCYCLE] 
-[table_options](../sql-statements/data-definition/create/create-table.md#table-options)
+[table_options]
 ```
 {% endtab %}
 {% endtabs %}
 
-The options for `CREATE SEQUENCE` can be given in any order, optionally followed by `table_options`.
+The options for `CREATE SEQUENCE` can be given in any order, optionally followed by [table\_options](../../sql-statements/data-definition/create/create-table.md#table-options).
 
 _`table_options`_ can be any of the normal table options in [CREATE TABLE](../../sql-statements/data-definition/create/create-table.md) — the most used ones are `ENGINE=...` and `COMMENT=`.
 

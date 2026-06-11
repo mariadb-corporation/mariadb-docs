@@ -590,7 +590,7 @@ Microsecond precision in process list
 * Percona Inc
 * Patch was [licensed to Monty Program under BSD (new)](https://lists.askmonty.org/pipermailp/dev/2009-October/000075.html).
 
-Slow Query Log Extened Statistics
+Slow Query Log Extended Statistics
 
 * [microslow.patch](https://www.percona.com/mysql/5.1.26/patches/microslow.patch)
 * Percona Inc

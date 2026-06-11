@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 COLUMN_GET(dyncol_blob, column_nr as type)
 COLUMN_GET(dyncol_blob, column_name as type)
 ```

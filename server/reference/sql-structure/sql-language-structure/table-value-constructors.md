@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 VALUES ( row_value[, row_value...]), (...)...
 ```
 

@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 DROP [TEMPORARY] SEQUENCE [IF EXISTS] [/*COMMENT TO SAVE*/]
     sequence_name [, sequence_name] ...
 ```

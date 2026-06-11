@@ -774,6 +774,13 @@ See the [pool documentation](pool-datasource-implementation.md) for pool configu
 * Default Value: `false`
 * Introduced: 1.0.0
 
+#### **useIpForKillQuery**
+
+* Description: When cancelling a running query (for example with `Statement.cancel()` or a query timeout), the driver opens a new connection to send the `KILL QUERY` command. When enabled, that connection is established using the **socket IP** of the current connection instead of the configured host name. This is useful when the host name resolves to several servers (DNS round-robin, load balancer): the kill must reach the exact server running the query, which the IP guarantees. Leave it disabled when TLS is configured with host name / DNS certificate validation, since in that case the host name is required to validate the certificate.
+* Data Type: `boolean`
+* Default Value: `false`
+* Introduced: 3.5.9
+
 #### **useMysqlMetadata**
 
 * Description: [databaseMetaData.getDatabaseProductName()](https://docs.oracle.com/en/java/javase/11/docs/api/java.sql/java/sql/DatabaseMetaData.html#getDatabaseProductName\(\)) return "MariaDB" or "MySQL" according to server type

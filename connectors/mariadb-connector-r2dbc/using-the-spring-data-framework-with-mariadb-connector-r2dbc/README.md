@@ -3,6 +3,24 @@ description: >-
   Learn to integrate MariaDB Connector/R2DBC with Spring Data Framework. This
   guide covers reactive, non-blocking data access using Spring Data R2DBC for
   efficient and modern Java applications.
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: false
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
 ---
 
 # Using the Spring Data Framework with MariaDB Connector/R2DBC

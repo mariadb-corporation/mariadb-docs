@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 EXECUTE IMMEDIATE statement
     [USING param[, param] ...]
 

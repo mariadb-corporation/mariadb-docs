@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW ANALYZE [FORMAT=JSON] FOR <connection_id>;
 ```
 

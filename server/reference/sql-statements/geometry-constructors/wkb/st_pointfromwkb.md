@@ -6,7 +6,7 @@ description: Constructs a Point value using its WKB representation and an option
 
 ## Syntax
 
-```sql
+```bnf
 ST_PointFromWKB(wkb[,srid])
 PointFromWKB(wkb[,srid])
 ```

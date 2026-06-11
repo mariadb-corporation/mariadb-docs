@@ -1,8 +1,8 @@
 ---
 description: >-
-  MYSQL_BIND is the MariaDB Connector/C structure used to bind input
-  parameters and output result columns to a prepared statement, with support
-  for array binding and indicator variables.
+  MYSQL_BIND is the MariaDB Connector/C structure used to bind input parameters
+  and output result columns to a prepared statement, with support for array
+  binding and indicator variables.
 ---
 
 # MYSQL\_BIND
@@ -22,7 +22,7 @@ The `MYSQL_BIND` structure is used to bind parameters (which will be sent to the
 
 ### Array binding
 
-Array binding for bulk insert/updates was introduced with Connector/C 3.0 and requires [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/release-notes-mariadb-10-2-series/what-is-mariadb-102) or above. It allows clients to control the number of rows that will be physically transferred between the server and the client in one logical bind or fetch. This can greatly improve the performance of many applications by trading buffer space for time (network traffic) and is a better and more secure alternative to `LOAD DATA LOCAL INFILE`, especially when the data will be generated within application.
+Array binding for bulk insert/updates was introduced with Connector/C 3.0 and requires [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) or above. It allows clients to control the number of rows that will be physically transferred between the server and the client in one logical bind or fetch. This can greatly improve the performance of many applications by trading buffer space for time (network traffic) and is a better and more secure alternative to `LOAD DATA LOCAL INFILE`, especially when the data will be generated within application.
 
 #### Indicator variables
 

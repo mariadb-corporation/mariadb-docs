@@ -166,10 +166,10 @@ For detailed async usage, see [Async/Await Support](async-usage.md).
 
 Creates a synchronous connection pool.
 
-**Note:** Connection pooling requires the `mariadb[pool]` package to be installed:
+**Note:** Connection pooling requires the `mariadb[pool]` package to be installed (the `--pre` flag is required while 2.0 is a Release Candidate):
 
 ```console
-pip install mariadb[pool]
+pip install --pre mariadb[pool]
 ```
 
 **Usage:**

@@ -6,7 +6,7 @@ While `IN` is logically related to the `ANY` and `SOME` operators, it has distin
 
 ## Syntax
 
-```sql
+```bnf
 scalar_expression [NOT] IN (subquery)
 ```
 

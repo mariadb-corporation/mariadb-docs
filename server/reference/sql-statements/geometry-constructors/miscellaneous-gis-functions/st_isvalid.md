@@ -12,7 +12,7 @@ ST\_IsValid is available from [MariaDB 12.0](https://app.gitbook.com/s/aEnK0ZXmU
 
 ## Syntax
 
-```sql
+```bnf
 ST_IsValid(g)
 ```
 
@@ -40,7 +40,7 @@ SELECT ST_IsValid(ST_GeomFromText('LINESTRING (0 0, 0 0)'));
 +------------------------------------------------------+
 ```
 
-A [POINT](../geometry-constructors/point.md) requires both x and y co-ordinates:
+A [POINT](../geometry-constructors/point.md) requires both x and y coordinates:
 
 ```sql
 SELECT ST_IsValid(ST_GeomFromText('POINT (0)'));  

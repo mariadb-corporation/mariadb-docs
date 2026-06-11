@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_MERGE(json_doc, json_doc[, json_doc] ...)
 ```
 

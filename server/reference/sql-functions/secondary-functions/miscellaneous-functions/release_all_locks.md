@@ -12,7 +12,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 RELEASE_ALL_LOCKS()
 ```
 

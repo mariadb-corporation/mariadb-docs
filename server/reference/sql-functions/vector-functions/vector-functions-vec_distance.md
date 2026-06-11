@@ -13,7 +13,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 VEC_DISTANCE(v, s)
 ```
 
@@ -43,7 +43,7 @@ INSERT INTO v VALUES
      (10,x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
 
 SELECT id FROM v 
-  ORDER BY VEC_DISTANCE(v, x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e');
+  ORDER BY VEC_DISTANCE(v, x'6ca1d43e9df91b3fe580da3e1c247d3f147cf33e') LIMIT 10;
 +----+
 | id |
 +----+
@@ -59,6 +59,10 @@ SELECT id FROM v
 |  8 |
 +----+
 ```
+
+{% hint style="info" %}
+The vector index is only used for nearest-neighbor search when the query combines `ORDER BY VEC_DISTANCE(...)` with a `LIMIT`. Without `LIMIT`, the distance is computed for every row (a full table scan). See [Vector Overview](../../sql-structure/vectors/vector-overview.md).
+{% endhint %}
 
 ## See Also
 

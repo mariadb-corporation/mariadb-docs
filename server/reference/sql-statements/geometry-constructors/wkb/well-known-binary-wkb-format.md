@@ -12,7 +12,7 @@ WKB uses 1-byte unsigned integers, 4-byte unsigned integers, and 8-byte double-p
 
 * The first byte indicates the byte order. 00 for big endian, or 01 for little endian.
 * The next 4 bytes indicate the geometry type. Values from 1 to 7 indicate whether the type is Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, or GeometryCollection respectively.
-* The 8-byte floats represent the co-ordinates.
+* The 8-byte floats represent the coordinates.
 
 Take the following example, a sequence of 21 bytes each represented by two hex digits:
 
@@ -24,9 +24,9 @@ Take the following example, a sequence of 21 bytes each represented by two hex d
   * 000000000140000000000000004010000000000000
 * It's a POINT
   * 000000000140000000000000004010000000000000
-* The X co-ordinate is 2.0
+* The X coordinate is 2.0
   * 000000000140000000000000004010000000000000
-* The Y-co-ordinate is 4.0
+* The Y-coordinate is 4.0
   * 000000000140000000000000004010000000000000
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

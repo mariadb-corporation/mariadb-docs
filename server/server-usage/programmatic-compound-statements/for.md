@@ -49,7 +49,7 @@ If REVERSE is specified, the counter is decremented, and the upper bound value n
 
 ## Examples
 
-Intger range FOR loop:
+Integer range FOR loop:
 
 ```
 CREATE TABLE t1 (a INT);

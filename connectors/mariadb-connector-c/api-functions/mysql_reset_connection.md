@@ -13,6 +13,8 @@ description: >-
 int mysql_reset_connection(MYSQL * mysql);
 ```
 
+## Parameter
+
 * `mysql` - a MySQL handle, which was previously allocated by [mysql\_init()](mysql_init.md) or [mysql\_real\_connect()](mysql_real_connect.md).
 
 ## Description
@@ -35,8 +37,17 @@ On server side `mysql_reset_connection()`
 * closes active prepared statements
 * clears user variables
 
+## Return Value
+
 Returns zero on success, non-zero if an error occurred.
 
+## History
+
 This function was added in MariaDB Connector/C 3.0.0.
+
+## See Also
+
+* [mariadb\_cancel()](mariadb_cancel.md)
+* [mysql\_kill()](mysql_kill.md)
 
 {% @marketo/form formId="4316" %}

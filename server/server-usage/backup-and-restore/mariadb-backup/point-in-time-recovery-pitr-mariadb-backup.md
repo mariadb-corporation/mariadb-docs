@@ -14,7 +14,7 @@ Run the following commands as root unless indicated otherwise.
 
 {% stepper %}
 {% step %}
-#### Find the binary log position to restore to.
+**Find the binary log position to restore to.**
 
 When MariaDB Backup runs on a MariaDB Server with binary logs enabled (which is a prerequisite for PITR), it stores binary log information in the `xtrabackup_binlog_info` file. Consult this file to find the name of the binary log position to use. In the following example, the log position is 321:
 
@@ -26,7 +26,7 @@ mariadb-node4.00001     321
 {% endstep %}
 
 {% step %}
-#### Configure a new data directory.
+**Configure a new data directory.**
 
 Update the configuration file (for instance, `my.cnf`) to use a new data directory.
 
@@ -37,13 +37,13 @@ datadir=/var/lib/mysql_new
 {% endstep %}
 
 {% step %}
-#### Restore the backup.
+**Restore the backup.**
 
 Restore from the backup [as explained here](full-backup-and-restore-with-mariadb-backup.md).
 {% endstep %}
 
 {% step %}
-#### Start the database server.
+**Start the database server.**
 
 Start MariaDB Server.
 
@@ -53,7 +53,7 @@ systemctl start mariadb
 {% endstep %}
 
 {% step %}
-#### Create a script using mysqlbinlog.
+**Create a script using mysqlbinlog.**
 
 Use the mysqlbinlog utility to create an SQL script, using the binary log file in the _old_ data directory, the start position in the `xtrabackup_binlog_info` file, and the date and time you want to restore to. Issue the following command _as a regular user_:
 
@@ -66,7 +66,7 @@ $ mysqlbinlog --start-position=321 \
 {% endstep %}
 
 {% step %}
-#### Run the script.
+**Run the script.**
 
 In the _new_ data directory, run the script created in the previous step:
 
@@ -81,5 +81,5 @@ $ mariadb < mariadb-binlog.sql
 * [Point-In-Time Recovery (InnoDB log archiving)](../innodb-log-archive-pitr.md) — an alternative PITR procedure that replays archived InnoDB write-ahead logs instead of binary logs. Available from MariaDB 13.0.
 
 {% hint style="warning" %}
-[`mariadb-backup`](README.md) does not support the [`innodb_log_archive`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_archive)`=ON` log format and fails when the server is running with `innodb_log_archive=ON`. Use the [InnoDB log archiving PITR](../innodb-log-archive-pitr.md) procedure instead in that configuration.
+[`mariadb-backup`](./) does not support the [`innodb_log_archive`](../../storage-engines/innodb/innodb-system-variables.md#innodb_log_archive)`=ON` log format and fails when the server is running with `innodb_log_archive=ON`. Use the [InnoDB log archiving PITR](../innodb-log-archive-pitr.md) procedure instead in that configuration.
 {% endhint %}

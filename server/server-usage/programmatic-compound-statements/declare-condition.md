@@ -20,7 +20,7 @@ Conditions must be declared after [local variables](declare-variable.md), but be
 
 A condition\_value for `DECLARE ... CONDITION` can be an [SQLSTATE](programmatic-compound-statements-diagnostics/sqlstate.md) value (a\
 5-character string literal) or a MySQL error code (a number). You should not\
-use SQLSTATE value '00000' or MySQL error code 0, because those indicate sucess\
+use SQLSTATE value '00000' or MySQL error code 0, because those indicate success\
 rather than an error condition. If you try, or if you specify an invalid SQLSTATE value, an error like this is produced:
 
 ```

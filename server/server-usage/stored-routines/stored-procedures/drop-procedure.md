@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DROP PROCEDURE [IF EXISTS] sp_name
 ```
 

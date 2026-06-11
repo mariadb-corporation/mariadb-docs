@@ -6,7 +6,7 @@ description: Very small character string. A TINYTEXT column can store up to 255 
 
 ## Syntax
 
-```sql
+```bnf
 TINYTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
 ```
 

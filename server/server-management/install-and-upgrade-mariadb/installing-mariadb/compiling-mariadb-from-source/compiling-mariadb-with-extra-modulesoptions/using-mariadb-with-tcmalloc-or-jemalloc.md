@@ -186,7 +186,7 @@ To make MariaDB use `jemalloc` persistently, set it up like this. These instruct
 
 {% stepper %}
 {% step %}
-#### Identify the jemalloc library path.
+**Identify the jemalloc library path.**
 
 Identify the `jemalloc` library path, to find the exact location of the `jemalloc` shared library on your system:
 
@@ -198,7 +198,7 @@ Take a note of the output path. Typically, it is something like `/usr/lib64/libj
 {% endstep %}
 
 {% step %}
-#### Create or edit the MariaDB Systemd override file.
+**Create or edit the MariaDB Systemd override file.**
 
 This is the crucial step for persistence. Use `systemctl edit` to manage the override file:
 
@@ -217,7 +217,7 @@ Replace `/usr/lib64/libjemalloc.so.2` with the actual path you noted in step 1. 
 {% endstep %}
 
 {% step %}
-#### Restart services and MariaDB.
+**Restart services and MariaDB.**
 
 ```bash
 sudo systemctl daemon-reexec 
@@ -227,7 +227,7 @@ sudo systemctl restart mariadb
 {% endstep %}
 
 {% step %}
-#### Reboot the computer, and verify that jemalloc is used.
+**Reboot the computer, and verify that jemalloc is used.**
 
 You can verify this on various levels.
 

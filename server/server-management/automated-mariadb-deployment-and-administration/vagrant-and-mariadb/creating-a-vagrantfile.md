@@ -84,7 +84,7 @@ To find out how to develop a new provisioner, see [Plugin Development: Provision
 
 ### The `shell` Provisioner
 
-In the example above, the [shell](https://www.vagrantup.com/docs/provisioning/shell) provisioner runs boostrap.sh inside the Vagrant machine to provision it. A simple bootstrap.sh may look like the following:
+In the example above, the [shell](https://www.vagrantup.com/docs/provisioning/shell) provisioner runs bootstrap.sh inside the Vagrant machine to provision it. A simple bootstrap.sh may look like the following:
 
 ```bash
 #!/bin/bash

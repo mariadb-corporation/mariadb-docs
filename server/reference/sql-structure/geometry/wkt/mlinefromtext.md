@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 MLineFromText(wkt[,srid])
 MultiLineStringFromText(wkt[,srid])
 ```

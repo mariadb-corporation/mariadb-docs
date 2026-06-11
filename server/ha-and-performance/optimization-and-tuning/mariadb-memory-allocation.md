@@ -30,12 +30,12 @@ Now for the gory details.
 
 If the MariaDB server is crashing because of 'out-of-memory' then it is probably wrongly configured.
 
-There are two kind of buffers in MariaDB:
+There are three kind of buffers in MariaDB:
 
-* Global ones that are only allocated once during the lifetime of the server:
+* Global buffers that are only allocated once during the lifetime of the server:
   * Storage engine buffers ([innodb\_buffer\_pool\_size](../../reference/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size), [key\_buffer\_size](../../reference/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size), [aria\_pagecache\_buffer\_size](../../reference/storage-engines/aria/aria-system-variables.md#aria_pagecache_buffer_size), etc)
   * Query cache [query\_cache\_size](system-variables/server-system-variables.md#query_cache_size).
-* Global caches onces that grow and shrink dynamically on demand up to max limit:
+* Global caches that grow and shrink dynamically on demand up to max limit:
   * [max\_user\_connections](system-variables/server-system-variables.md#max_user_connections)
   * [table\_open\_cache](system-variables/server-system-variables.md#table_open_cache)
   * [table\_definition\_cache](system-variables/server-system-variables.md#table_definition_cache)
@@ -144,7 +144,7 @@ MySQL was designed in the days of single-CPU machines, and designed to be easily
 
 ### 32-bit OS and MariaDB
 
-First, the OS (and the hardware?) may conspire to not let you use all 4GB, if that is what you have. If you have more than 4GB of RAM, the excess beyond 4GB is _totally_ inaccessable and unusable on a 32-bit OS.
+First, the OS (and the hardware?) may conspire to not let you use all 4GB, if that is what you have. If you have more than 4GB of RAM, the excess beyond 4GB is _totally_ inaccessible and unusable on a 32-bit OS.
 
 Secondly, the OS probably has a limit on how much RAM it will allow any process to use.
 
@@ -250,7 +250,7 @@ If you have turned on [binary logging](../../server-management/server-monitoring
 
 ### Swappiness
 
-RHEL, in its infinite wisdom, decided to let you control how aggressively the OS will pre-emptively swap RAM. This is good in general, but lousy for MariaDB.
+RHEL, in its infinite wisdom, decided to let you control how aggressively the OS will preemptively swap RAM. This is good in general, but lousy for MariaDB.
 
 MariaDB would love for RAM allocations to be reasonably stable -- the caches are (mostly) pre-allocated; the threads, etc, are (mostly) of limited scope. ANY swapping is likely to severely hurt performance of MariaDB.
 
@@ -302,9 +302,9 @@ Normally, RAM is 'paged' in 4KB pieces; the TLB actually maps the top (64-12) bi
 
 For example, 128GB of RAM broken 4KB pages means 32M page-table entries. This is a lot, and probably far exceeds the capacity of the TLB. So, enter the "Huge page" trick.
 
-With the help of both the hardware and the OS, it is possible to have some of RAM in huge pages, of say 4MB (instead of 4KB). This leads to far fewer TLB entries, but it means the unit of paging is 4MB for such parts of RAM. Hence, huge pages tend to be non-pagable.
+With the help of both the hardware and the OS, it is possible to have some of RAM in huge pages, of say 4MB (instead of 4KB). This leads to far fewer TLB entries, but it means the unit of paging is 4MB for such parts of RAM. Hence, huge pages tend to be non-pageable.
 
-Now RAM is broken into pagable and non pagable parts; what parts can reasonably be non pagable? In MariaDB, the [Innodb Buffer Pool](../../reference/storage-engines/innodb/innodb-buffer-pool.md) is a perfect candidate. So, by correctly configuring these, InnoDB can run a little faster:
+Now RAM is broken into pageable and non-pageable parts; what parts can reasonably be non-pageable? In MariaDB, the [Innodb Buffer Pool](../../reference/storage-engines/innodb/innodb-buffer-pool.md) is a perfect candidate. So, by correctly configuring these, InnoDB can run a little faster:
 
 * Huge pages enabled
 * Tell the OS to allocate the right amount (namely to match the buffer\_pool)
@@ -327,7 +327,7 @@ In the text file my.cnf (my.ini on Windows), add or modify a line to say somethi
 
 [innodb\_buffer\_pool\_size](../../reference/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_size) = 5G
 
-That is, VARIABLE name, "=", and a value. Some abbreviations are allowed, such as M for million (1048576), G for billion.
+That is, VARIABLE name, "=", and a value. Some abbreviations are allowed, such as M for a million (1048576), G for a billion.
 
 For the server to see it, the settings must be in the "\[mysqld]" section of the file.
 
@@ -371,7 +371,7 @@ Maximum possible memory usage: 31.3G (266% of installed RAM)
 
 Don't let it scare you -- the formulas used are excessively conservative. They assume all of [max\_connections](system-variables/server-system-variables.md#max_connections) are in use and active, and doing something memory-intensive.
 
-Total fragmented tables: 23 This implies that OPTIMIZE TABLE _might_ help. I suggest it for tables with either a high percentage of "free space" (see SHOW TABLE STATUS) or where you know you do a lot of DELETEs and/or UPDATEs. Still, don't bother to OPTIMIZE too often. Once a month might suffice.
+Total fragmented tables: 23 This implies that OPTIMIZE TABLE _might_ help. I suggest it for tables with either a high percentage of "free space" (see SHOW TABLE STATUS) or where you know you do a lot of DELETEs and/or UPDATEs. Still, don't bother to optimize too often. Once a month might suffice.
 
 ### MySQL 5.7
 

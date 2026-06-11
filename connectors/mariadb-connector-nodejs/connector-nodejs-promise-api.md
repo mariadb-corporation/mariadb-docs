@@ -530,7 +530,7 @@ console.log(mariadb.defaultOptions({ timezone: '+00:00' }));
 
 `connection.threadId`
 
-_number_&#x20;
+_number_
 
 The connection ID is assigned by the MariaDB Server during the initial connection handshake. This identifier can also be retrieved by executing the following on the server:
 
@@ -555,7 +555,7 @@ const conn = await mariadb.createConnection({
   }
 ```
 
-When connecting through [MaxScale](https://app.gitbook.com/s/0pSbu5DcMSW4KwAkUcmX/), `threadId` does not have a meaningful interpretation, as MaxScale manages connections at the proxy level.&#x20;
+When connecting through [MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/), `threadId` represents the MaxScale session ID (as shown in `list sessions`) rather than the backend MariaDB Server connection ID. Hence, the value does not correspond to the result of `SELECT CONNECTION_ID()` executed on the backend server.
 
 #### `connection.query(sql[, values]) -> Promise`
 
@@ -903,7 +903,7 @@ The `queryStream()` method solves this by using Node.js's event-driven architect
 
 There are several ways to implement streaming:
 
-**Using for-await-of (Node.js 10+)**
+**Using for-await-of**
 
 The simplest approach using modern JavaScript syntax:
 
@@ -963,7 +963,7 @@ const fileStream = fs.createWriteStream('./query-results.jsonl');
 // Start the query stream
 const queryStream = connection.queryStream('SELECT * FROM mysql.user');
 
-// Using pipeline (Node.js 10+) to handle errors and cleanup
+// Using pipeline to handle errors and cleanup
 stream.pipeline(
   queryStream, 
   transformStream, 

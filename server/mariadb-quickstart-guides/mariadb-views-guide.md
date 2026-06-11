@@ -206,7 +206,7 @@ SELECT * FROM Employee_Tardiness WHERE Difference >= 5;
 * **Simplifying Complex Queries:** As demonstrated, views hide complex joins and calculations.
 * **Restricting Data Access (Column-Level Security):** Views can expose only a subset of columns from underlying tables, preventing users or applications from seeing sensitive information (e.g., `Home_Address`, `Home_Phone` were not included in our `Employee_Tardiness` view).
 * **Implementing Row-Level Security:** A view can include a `WHERE` clause that filters rows based on the user querying it or other criteria, effectively providing row-level access control. For updatable views, defining them with `WITH CHECK OPTION` (or the similar effect of a `CASCADE` clause mentioned in original text, usually `WITH CASCADED CHECK OPTION`) can ensure that `INSERT`s or `UPDATE`s through the view adhere to the view's `WHERE` clause conditions.
-* **Pre-emptive Optimization:** Complex, frequently used queries can be defined as views with optimal join strategies and indexing considerations. Other users or applications query the already optimized view, reducing the risk of running inefficient ad-hoc queries.
+* **Preemptive Optimization:** Complex, frequently used queries can be defined as views with optimal join strategies and indexing considerations. Other users or applications query the already optimized view, reducing the risk of running inefficient ad-hoc queries.
 * **Abstracting Table Structures:** Views provide a consistent interface to applications even if the underlying table structures change (e.g., tables are normalized, split, or merged). The view definition can be updated to map to the new structure, while applications continue to query the unchanged view.
 
 ### Summary of View Advantages

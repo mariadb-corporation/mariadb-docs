@@ -150,6 +150,6 @@ and select the one with the lowest estimated cost.
 
 * [optimizer\_prune\_level](../system-variables/server-system-variables.md#optimizer_prune_level)
 * [optimizer\_trace](../system-variables/server-system-variables.md#optimizer_trace)
-* [optmizer\_switch](optimizer-switch.md)
+* [optimizer\_switch](optimizer-switch.md)
 * [Optimizer Switch](index-hints-how-to-force-query-plans.md#optimizer-switch)
 * [EXPLAIN](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md)

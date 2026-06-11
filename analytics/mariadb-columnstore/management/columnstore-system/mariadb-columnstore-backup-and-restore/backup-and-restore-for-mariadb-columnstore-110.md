@@ -103,7 +103,7 @@ Running from the directory /home/user/:
 sudo ./columnstoreBackup -zv 192.168.1.2 home/user/columnstoreBackupData
 ```
 
-This will execute a backup for the system with a parent OAM module located at 192.168.1.2 and store all backup files inside the directory located at `home/user/columnstoreBackupData`. Option v will print out a more verbose logging of commands executed and option z will let rsync utilize the compression option for file transfers.
+This will execute a backup for the system with a parent OAM module located at 192.168.1.2 and store all backup files inside the directory located at `home/user/columnstoreBackupData`. Option v will print out a more verbose logging of commands executed and option z will let `rsync` utilize the compression option for file transfers.
 
 #### Backup Logging
 
@@ -134,7 +134,7 @@ um[moduleID] (NOTE: When UM/PM are combined on nodes UM1 is the mysql/db directo
 
 These directories are created if they do not exist and can be created prior to execution by the user.
 
-The columnstoreBackup option -n \[value] limits the number parallel rsync commands executed at a given time. The default 5 means up to 5 DBRoots will kick off rysnc commands to various PMs and the backup system will wait until all are complete and verified successful. At this time it will kick off another 5 DBRoots. The progress indicator should reflect the percentage of total completion and not individual rysnc commands. This value can be set higher via the -n command but if the number of DBRoots present in the system is large enough there may be a performance hit on system processing or network bandwidth limitations.
+The columnstoreBackup option -n \[value] limits the number parallel `rsync` commands executed at a given time. The default 5 means up to 5 DBRoots will kick off `rsync` commands to various PMs and the backup system will wait until all are complete and verified successful. At this time it will kick off another 5 DBRoots. The progress indicator should reflect the percentage of total completion and not individual `rsync` commands. This value can be set higher via the -n command but if the number of DBRoots present in the system is large enough there may be a performance hit on system processing or network bandwidth limitations.
 
 ## ColumnStore Restore
 
@@ -214,7 +214,7 @@ Running from the directory /home/user/ with the `columnstoreBackupData` director
 sudo ./columnstoreRestore -zv home/user/columnstoreBackupData 192.168.1.100
 ```
 
-This will execute a restore for the MariaDB ColumnStore system with a parent OAM module located at 192.168.1.100 from the directory located at home/user/columnstoreBackupData. Option v will print out a more verbose logging of commands executed, and option z will let rsync utilize the compression option for file transfers.
+This will execute a restore for the MariaDB ColumnStore system with a parent OAM module located at 192.168.1.100 from the directory located at home/user/columnstoreBackupData. Option v will print out a more verbose logging of commands executed, and option z will let `rsync` utilize the compression option for file transfers.
 
 #### Restore Logging
 
@@ -236,7 +236,7 @@ Logging is output to the console as well as to a columnstoreRestore.log that is 
 
 columnstoreRestore will create a `restoreConfig` directory inside the `backupServerLocation` defined at the command line. This is just meant to store a copy of the restored systems version and configuration file for verification the restore is possible.
 
-The columnstoreRestore option -n \[value] limits the number parallel `rsync` commands executed at a given time. The default 5 means up to 5 DBRoots will kick off `rysnc` commands to various PMs, and the backup system will wait until all are complete and verified successful. At this time, it will kick off another 5 DBRoots. The progress indicator should reflect the percentage of total completion and not individual `rysnc` commands. This value can be set higher via the -n command, but if the number of DBRoots present in the system is large enough there may be a performance hit on system processing or network bandwidth limitations.
+The columnstoreRestore option -n \[value] limits the number parallel `rsync` commands executed at a given time. The default 5 means up to 5 DBRoots will kick off `rsync` commands to various PMs, and the backup system will wait until all are complete and verified successful. At this time, it will kick off another 5 DBRoots. The progress indicator should reflect the percentage of total completion and not individual `rsync` commands. This value can be set higher via the -n command, but if the number of DBRoots present in the system is large enough there may be a performance hit on system processing or network bandwidth limitations.
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

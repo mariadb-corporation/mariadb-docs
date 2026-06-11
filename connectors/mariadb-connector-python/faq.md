@@ -68,20 +68,24 @@ of python3. If you are using python3.10 you may need to install python3.10-dev.
 
 ### Which installation option should I choose for version 2.0?
 
+{% hint style="info" %}
+Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release. The 2.0 commands below use the `--pre` flag because pip otherwise installs the latest stable release (1.1). Do not use non-stable (non-GA) releases in production.
+{% endhint %}
+
 **Version 2.0** offers three installation options:
 
-1. **Pure Python (default)** - `pip install mariadb`
+1. **Pure Python (default)** - `pip install --pre mariadb`
    - Works everywhere, no compiler required
    - Good performance for most use cases
    - Recommended for development and testing
 
-2. **Pre-compiled binary wheels** - `pip install mariadb[binary]`
+2. **Pre-compiled binary wheels** - `pip install --pre mariadb[binary]`
    - Best for production
    - **MariaDB Connector/C is bundled** - no separate installation needed
    - Maximum performance without compilation
    - No compiler required
 
-3. **C extension from source** - `pip install mariadb[c]`
+3. **C extension from source** - `pip install --pre mariadb[c]`
    - **Requires MariaDB Connector/C 3.3.1+ to be pre-installed** on your system
    - Maximum performance
    - Requires C compiler for building
@@ -89,7 +93,7 @@ of python3. If you are using python3.10 you may need to install python3.10-dev.
 
 **For connection pooling**, add `[pool]` to any option:
 ```console
-pip install mariadb[binary,pool]
+pip install --pre mariadb[binary,pool]
 ```
 
 ### Do I need MariaDB Connector/C for version 2.0?
@@ -100,7 +104,7 @@ pip install mariadb[binary,pool]
 - **Binary wheels** (`mariadb[binary]`): No separate installation needed - MariaDB Connector/C is bundled inside the wheel
 - **C extension from source** (`mariadb[c]`): Yes, requires MariaDB Connector/C 3.3.1+ to be pre-installed on your system
 
-For most users, `pip install mariadb[binary,pool]` provides the best experience with no external dependencies.
+For most users, `pip install --pre mariadb[binary,pool]` provides the best experience with no external dependencies (the `--pre` flag is required while 2.0 is a Release Candidate).
 
 ### ModuleNotFoundError: No module named ‘packaging’
 
@@ -217,7 +221,7 @@ python3 -m pip install .
 
 See the comprehensive [Migration Guide](migration-from-1.1-to-2.0.md) for detailed instructions. Key changes:
 
-1. **Installation**: `pip install mariadb[binary,pool]` for best experience
+1. **Installation**: `pip install --pre mariadb[binary,pool]` for best experience (the `--pre` flag is required while 2.0 is a Release Candidate)
 2. **Remove deprecated parameters**: `reconnect`, `auto_reconnect`, `cursor_type`, `prepared`
 3. **Update cursor creation**: Use `binary=True` instead of `prepared=True`
 4. **Update pooling**: Install `mariadb[pool]` and use `create_pool()` instead of `ConnectionPool()`

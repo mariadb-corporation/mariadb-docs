@@ -174,6 +174,29 @@ SELECT a,row_start,row_end FROM t;
 +------+----------------------------+----------------------------+
 ```
 
+### Updating Data
+
+When an `UPDATE` statement modifies a row in a system-versioned table, the server writes a new history row capturing the previous state of the row.
+
+**A history row is created for every `UPDATE` statement that includes a versioned column in its `SET` list, regardless of whether any column value actually changes.** Running `UPDATE t SET x = x` against an existing row of a versioned table still produces a new history row — what determines history-row creation is the presence of a versioned column in the `SET` list, not whether the supplied values differ from the stored values. `UPDATE` statements whose `SET` list references only columns declared `WITHOUT SYSTEM VERSIONING` do not produce a history row.
+
+```sql
+CREATE OR REPLACE TABLE t (x INT) WITH SYSTEM VERSIONING;
+INSERT INTO t VALUES (1);
+
+-- This UPDATE changes nothing about the stored value of x,
+-- but still produces a new history row:
+UPDATE t SET x = 1;
+
+SELECT x, ROW_START, ROW_END FROM t FOR SYSTEM_TIME ALL;
+```
+
+This statement-level behavior applies to the default timestamp-based versioning. For [transaction-precise versioning](system-versioned-tables.md#transaction-precise-history-in-innodb), history generation is handled at the storage-engine level by InnoDB's MVCC and is tied to actual row-level changes.
+
+**Reasoning for the behavior:** Logging updates that do not change data values ensures a complete audit trail and maintains consistent server behavior. In MariaDB, an `UPDATE` statement executes its associated triggers regardless of whether the data values actually change. Recording a historical row for these statements ensures that system-versioned tables follow this standard query logic. Furthermore, capturing the exact timestamp of these updates provides vital context for auditing and troubleshooting. It proves that an application explicitly targeted and processed a specific record at that exact moment—valuable information that would be lost if the server silently ignored the event.
+
+See [MDEV-23446](https://jira.mariadb.org/browse/MDEV-23446) for related discussion.
+
 ### Querying Historical Data
 
 #### `SELECT`

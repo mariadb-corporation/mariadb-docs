@@ -15,7 +15,7 @@ DMS reads changes from MariaDB using binary log replication. These settings must
 
 {% stepper %}
 {% step %}
-### Source AWS MariaDB RDS Configuration
+#### Source AWS MariaDB RDS Configuration
 
 * Enable automated backups: Set _Backup Retention Period_ to at least 1 day.
 * Create a custom parameter group: Apply the following parameters to ensure DMS can read row-level changes:
@@ -23,7 +23,7 @@ DMS reads changes from MariaDB using binary log replication. These settings must
 * `binlog_row_image = FULL`
 * `binlog_checksum = NONE`
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (10).png" alt="The DB instance parameter group displays mariadb118custom (In sync)." height="338" width="364"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown.png" alt="The DB instance parameter group displays mariadb118custom (In sync)." height="338" width="364"></div>
 
 * Apply and reboot: Associate the custom parameter group with your RDS instance and **reboot** to finalize the `ROW` mode.
 * Set log retention: Provide a buffer for DMS to read the continuous logs. Run this command:\
@@ -53,14 +53,14 @@ MariaDB [(none)]> SHOW VARIABLES LIKE 'binlog_format';
 {% endstep %}
 
 {% step %}
-### MariaDB Cloud Target Configuration
+#### MariaDB Cloud Target Configuration
 
 * Create database: Log into MariaDB Cloud and run `CREATE DATABASE db_name;`.
 * Create user (optional): Use the default user to create additional users with privileges (for instance, users in RDS, `dms_admin` etc.), setting the Allowed Host to `%` or to the specific IP of your DMS instance.
 * Verify settings: Issue the same `SHOW VARIABLES` statements as in the previous step.
 * Enable connectivity: Open the MariaDB Cloud allowlist during setup, narrow it to the _NAT Gateway EIP_ (or _DMS Public IP_) before go-live.
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (11).png" alt="Several IPs are whitelisted, including 13.205.232.134/32 labeled as AWS DMS, and 172.168.55.21/32 labeled as APP SERVER." height="246" width="417"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown (2).png" alt="Several IPs are whitelisted, including 13.205.232.134/32 labeled as AWS DMS, and 172.168.55.21/32 labeled as APP SERVER." height="246" width="417"></div>
 
 {% hint style="info" %}
 Note on Serverless: Unlike Provisioned instances, MariaDB Serverless creates temporary Elastic Network Interfaces (ENIs) in your subnets. These ENIs lack default Public IPs and cannot reach the internet via an Internet Gateway. A NAT Gateway in your VPC is required.
@@ -73,14 +73,14 @@ Note on Serverless: Unlike Provisioned instances, MariaDB Serverless creates tem
 The replication instance is the compute resource that handles the data migration.
 
 * Instance type: Using a _Provisioned_ instance is highly recommended for static IP stability.
-* VPC architecture: Deploy resources within private subnets for enhanced security, utilizing a NAT Gateway to establish the required outbound internet connection to MariaDB Cloud.&#x20;
+* VPC architecture: Deploy resources within private subnets for enhanced security, utilizing a NAT Gateway to establish the required outbound internet connection to MariaDB Cloud.
 * Public accessibility: Select _Publicly Accessible: Yes_ if your traffic is routing over the internet. Note the allocated _Public IP_ and add it to your MariaDB Cloud allowlist if you are not using an open `0.0.0.0/0` rule.
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (12).png" alt="AWS DMS Replication instances list - a provisioned instance named dmsprovisionedinstance is shown with Status = Available, Publicly accessible = Yes, and an assigned Public IP address." height="104" width="624"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown (3).png" alt="AWS DMS Replication instances list - a provisioned instance named dmsprovisionedinstance is shown with Status = Available, Publicly accessible = Yes, and an assigned Public IP address." height="104" width="624"></div>
 
 * Test Connections: Ensure both endpoints return a _Successful_ status.
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (13).png" alt="Successful connection test results in the DMS console. The endpoint identifier mdbprovisioned successfully connected via the dmsprovisionedinstance replication instance." height="171" width="624"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown (4).png" alt="Successful connection test results in the DMS console. The endpoint identifier mdbprovisioned successfully connected via the dmsprovisionedinstance replication instance." height="171" width="624"></div>
 
 {% hint style="info" %}
 Serverless Limits: Similar to the target database, DMS Serverless relies on ENIs without Public IPs and inherently struggles to reach MariaDB Cloud over the internet without a properly configured NAT Gateway.
@@ -109,24 +109,24 @@ Before creating endpoints, establish secure CA certificate trust between AWS DMS
 
 1. Download the Global Bundle or Regional CA from the AWS RDS connection information section.
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (14).png" alt="Under Connect using > Code snippets, commands are provided: 
+<div align="left"><img src="../../../.gitbook/assets/unknown (5).png" alt="Under Connect using > Code snippets, commands are provided: 
 curl -o global-bundle.pem https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem and the corresponding mariadb connection string." height="279" width="520"></div>
 
 2. In the DMS Console, go to _Certificates > Import Certificate_. Upload the `global-bundle.pem` file and rename it to `rds-source-ca`.
 3. In the _Source Endpoint_ settings, select SSL mode: `verify-ca` and choose the `rds-source-ca` certificate. Point to your RDS endpoint using the MariaDB user.
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (15).png" alt="The Source engine is MariaDB RDS. The Server name points to an RDS AWS domain. Secure Socket Layer (SSL) mode is set to verify-ca and the imported CA certificate is uploaded from AWS MariaDB RDS." height="448" width="513"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown (6).png" alt="The Source engine is MariaDB RDS. The Server name points to an RDS AWS domain. Secure Socket Layer (SSL) mode is set to verify-ca and the imported CA certificate is uploaded from AWS MariaDB RDS." height="448" width="513"></div>
 
 ### Target Endpoint (MariaDB Cloud)
 
 1. Download the MariaDB Cloud CA Certificate from your MariaDB Cloud portal (found in the Security or Connect tab).
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (16).png" alt="Primary Endpoint service details in MariaDB Cloud and a download link for the Certificate authority chain." height="332" width="376"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown (7).png" alt="Primary Endpoint service details in MariaDB Cloud and a download link for the Certificate authority chain." height="332" width="376"></div>
 
 2. Import this into the DMS Console as MariaDB Cloud-target-ca.
 3. Create the Target Endpoint, select SSL mode: `verify-full`, and point it to the MariaDB Cloud endpoint on Port `3306`.
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (17).png" alt="The target engine is MariaDB Cloud. The Server name points to a .skysql.com domain. SSL mode is set to verify-full with the appropriate CA certificate uploaded from MariaDB Cloud." height="433" width="503"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown (8).png" alt="The target engine is MariaDB Cloud. The Server name points to a .skysql.com domain. SSL mode is set to verify-full with the appropriate CA certificate uploaded from MariaDB Cloud." height="433" width="503"></div>
 
 ### Create the DMS Migration Task
 
@@ -142,7 +142,7 @@ curl -o global-bundle.pem https://truststore.pki.rds.amazonaws.com/global/global
 
 1. Executing the _Snapshot + Replica:_ Select _Start on create_ to initiate the _Full Load_. Watch the _Full Load_ progress bar until it hits 100%. The task status will transition to _Load complete, replication ongoing_. From this point forward, any `INSERT` or `UPDATE` statement on the RDS source is replicated to MariaDB Cloud instantaneously.
 
-<div align="left"><img src="../../../.gitbook/assets/unknown (18).png" alt="A task named provisioned-cdc-snap-r has a Status of Load completed, replication ongoing. The load progress reads 100% and CDC replication is active." height="126" width="458"></div>
+<div align="left"><img src="../../../.gitbook/assets/unknown (9).png" alt="A task named provisioned-cdc-snap-r has a Status of Load completed, replication ongoing. The load progress reads 100% and CDC replication is active." height="126" width="458"></div>
 
 2. Post-table migration (views, triggers, and procedures): AWS DMS does not migrate secondary objects. Once DMS shows the load is complete, apply the metadata you exported in Part 3 to your MariaDB Cloud Instance:
 
@@ -156,13 +156,13 @@ mariadb -h [MariaDB Cloud_HOST] -P 4000 -u [USER] -p db_name < metadata.sql
 Important CDC considerations for triggers: If you have triggers on the Target (MariaDB Cloud) that update other tables, DMS might accidentally trigger them again while replicating CDC events, causing duplicate data. It is best practice to keep triggers disabled on the target until the final cutover.
 {% endhint %}
 
-3. Cutover: Identify a low-traffic window, stop the application from writing to the RDS source, and wait for the CDC lag to hit zero. Update your connection strings to point to MariaDB Cloud, reenable your triggers, and finally terminate the DMS task and infrastructure.
+3. Cutover: Identify a low-traffic window, stop the application from writing to the RDS source, and wait for the CDC lag to hit zero. Update your connection strings to point to MariaDB Cloud, re-enable your triggers, and finally terminate the DMS task and infrastructure.
 
-## Phase 6 (Optional): Reverse Replication&#x20;
+## Phase 6 (Optional): Reverse Replication
 
 Switch master and slave to make MariaDB Cloud the master.
 
-Establishe MariaDB SkySQL as the primary (master) and AWS RDS as the replica (slave).&#x20;
+Establishe MariaDB SkySQL as the primary (master) and AWS RDS as the replica (slave).
 
 1. Prepare MariaDB Cloud (new master)
 
@@ -219,7 +219,5 @@ Decommissioning: Once `Seconds_Behind_Master` remains at `0`, the AWS DMS infras
 {% hint style="info" %}
 The DMS Task Console will now show _Zero Activity_ and may report _High Source Latency_. This is expected, as the data flow has successfully moved from the DMS pipe to native MariaDB replication.
 {% endhint %}
-
-
 
 [^1]: In databases, change data capture (CDC) is a set of software design patterns used to determine and track the data that has changed (the "deltas") so that action can be taken using the changed data. The result is a delta-driven dataset.

@@ -29,7 +29,7 @@ The following is a list of tools that are required for building MariaDB on Linux
 * boost
 * `libaio-devel` or `libaio-dev`
 * `systemd-devel` or `systemd-dev`
-* `pcre2-devel` (optiona, will be automatically downloaded and installed if not on the system)
+* `pcre2-devel` (optional, will be automatically downloaded and installed if not on the system)
 * `ccache` ; Will speed up builds if you are going to use the scripts in the BUILD directory.
 * `ctags` or `universal-ctags` ; If you plan to use BUILD scripts and local editors
 

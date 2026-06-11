@@ -65,7 +65,7 @@ BEGIN
         );
     select @stmt2;                    -- The statement that generates the result
     PREPARE _sql FROM @stmt2;
-    EXECUTE _sql;                     -- The resulting pivot table ouput
+    EXECUTE _sql;                     -- The resulting pivot table output
     DEALLOCATE PREPARE _sql;
     -- For debugging / tweaking, SELECT the various @variables after CALLing.
 END;

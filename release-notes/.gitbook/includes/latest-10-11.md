@@ -5,7 +5,7 @@ title: latest-10-11
 {% hint style="info" %}
 <p align="center">The most recent release of MariaDB 10.11 is:</p>
 
-<h3 align="center"><a href="../../community-server/10.11/10.11.17.md"><strong>MariaDB 10.11.17</strong></a> Stable (GA) <a href="https://mariadb.com/downloads/" class="button primary">Download Now</a></h3>
+<h3 align="center"><a href="../../community-server/10.11/10.11.18.md"><strong>MariaDB 10.11.18</strong></a> Stable (GA) <a href="https://mariadb.com/downloads/" class="button primary">Download Now</a></h3>
 
-<p align="center"><a href="https://downloads.mariadb.org/mariadb/10.11.17/"><sub><em>Alternate download from mariadb.org</em></sub></a></p>
+<p align="center"><a href="https://downloads.mariadb.org/mariadb/10.11.18/"><sub><em>Alternate download from mariadb.org</em></sub></a></p>
 {% endhint %}

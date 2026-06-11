@@ -119,7 +119,7 @@ We will deploy MariaDB on our cluster
 
 ![details-name](../../.gitbook/assets/20.PNG)
 
-* Select which resource group you want to use, it's for access controll and billing purposes. For more information please visit [resource groups](https://cloud.ibm.com/docs/account?topic=account-account_setup#bp_resourcegroups)
+* Select which resource group you want to use, it's for access control and billing purposes. For more information please visit [resource groups](https://cloud.ibm.com/docs/account?topic=account-account_setup#bp_resourcegroups)
 
 ![details-resource](../../.gitbook/assets/21.PNG)
 

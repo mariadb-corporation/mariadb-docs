@@ -22,7 +22,7 @@ This guide covers the process for safely decrypting InnoDB tablespaces, the syst
 
 {% stepper %}
 {% step %}
-#### Disable automatic encryption.
+**Disable automatic encryption.**
 
 To stop the server from encrypting new tables and to begin the background decryption process for "automatically" encrypted tables (those where `ENCRYPTED=DEFAULT`), update the global system variables.
 
@@ -48,7 +48,7 @@ innodb_encryption_rotate_key_age = 1
 {% endstep %}
 
 {% step %}
-#### Decrypt manually encrypted tables.
+**Decrypt manually encrypted tables.**
 
 Tables created with the explicit option `ENCRYPTED=YES` are not always automatically decrypted by background threads. You must manually issue an `ALTER TABLE` statement for these.
 
@@ -73,7 +73,7 @@ ALTER TABLE db_name.table_name ENCRYPTED=NO;
 {% endstep %}
 
 {% step %}
-#### Decrypt the redo log.
+**Decrypt the redo log.**
 
 The Redo Log must be decrypted separately. This requires a server restart.
 
@@ -104,7 +104,7 @@ The Redo Log is decrypted by ensuring the server can read the existing logs at s
 {% endstep %}
 
 {% step %}
-#### Monitor and verify decryption status.
+**Monitor and verify decryption status.**
 
 Before removing your encryption keys, you must verify that no tablespaces remain encrypted.
 
@@ -130,7 +130,7 @@ WHERE TABLE_SCHEMA = 'your_database_name';
 {% endstep %}
 
 {% step %}
-#### Clean up.
+**Clean up.**
 
 Once the count of encrypted tablespaces is `0` and the Redo Log has been rotated (after restart), you can safely:
 

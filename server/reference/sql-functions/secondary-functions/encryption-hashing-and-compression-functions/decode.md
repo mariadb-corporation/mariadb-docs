@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DECODE(crypt_str,pass_str)
 ```
 

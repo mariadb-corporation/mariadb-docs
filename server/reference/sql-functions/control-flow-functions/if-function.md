@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 IF(expr1,expr2,expr3)
 ```
 

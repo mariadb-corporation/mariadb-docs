@@ -1,8 +1,8 @@
 ---
 description: >-
   Install MariaDB Connector/C++ on Linux using RPM, DEB, or binary tarball
-  packages, or on Windows using the MSI installer, with MariaDB Connector/C
-  as a prerequisite.
+  packages, or on Windows using the MSI installer, with MariaDB Connector/C as a
+  prerequisite.
 ---
 
 # Install MariaDB Connector/C++
@@ -58,7 +58,7 @@ To install MariaDB Connector/C++ on Linux:
 2. Go to the [MariaDB Connector C++ download page](https://mariadb.com/downloads/connectors/connectors-data-access/cpp-connector).
 3. Ensure the "Product" dropdown reads "C++ connector."
 4. In the "Version" dropdown, select the version you want to download.
-5. In the "OS" dropdown, select the Linux distribution you want to use.
+5. In the "OS" dropdown, select the Linux distribution you want to use. For the binary tarball, select the `tar.gz` option.
 6. Click the "Download" button to download the binary tarball.
 7.  Extract the tarball:
 
@@ -121,7 +121,7 @@ To install MariaDB Connector/C++ on Windows:
 2. Go to the [MariaDB Connector C++ download page](https://mariadb.com/downloads/connectors/connectors-data-access/cpp-connector)
 3. Ensure the "Product" dropdown reads "C++ connector."
 4. In the "Version" dropdown, select the version you want to download.
-5. In the "OS" dropdown, select either "MS Windows (64-bit)" or "MS Windows (32-bit)", depending on whether you need a 64-bit or 32-bit connector.
+5. In the "OS" dropdown, select "MS Windows (64-bit)" when a 64‑bit connector is required.
 6. Click the "Download" button to download the MSI package.
 7. Run the MSI package and click "Next" to start the Setup Wizard.
 8. On the second screen, click the license agreement checkbox, then click "Next."

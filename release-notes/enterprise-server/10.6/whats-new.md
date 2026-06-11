@@ -176,6 +176,10 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score                                 | Enterprise Server 10.6 Release |
 | ----------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261) | 10.0                                            | [10.6.25-22](10.6.25-22.md)    |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |
 | [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5                                             | [10.6.24-20](10.6.24-20.md)    |
 | [CVE-2025-30693](https://www.cve.org/CVERecord?id=CVE-2025-30693) | 5.5                                             | [10.6.22-18](10.6.22-18.md)    |
 | [CVE-2023-52969](https://www.cve.org/CVERecord?id=CVE-2023-52969) | 4.9                                             | [10.6.22-18](10.6.22-18.md)    |
@@ -252,7 +256,7 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
 ## Upgrade Instructions <a href="#upgrade-instructions" id="upgrade-instructions"></a>
 
-* [Upgrade to MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/mariadb-enterprise-server-10.6/upgrade-to-mariadb-enterprise-server-10.6)
+* [Upgrade to MariaDB Enterprise Server 10.6](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-10.6/upgrade-to-mariadb-enterprise-server-10.6)
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

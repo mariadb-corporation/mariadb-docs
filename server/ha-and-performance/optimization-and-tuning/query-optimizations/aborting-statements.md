@@ -56,7 +56,7 @@ SELECT MAX_STATEMENT_TIME=2 * FROM t1;
 
 MySQL 5.7.4 introduced similar functionality, but the MariaDB implementation differs in a number of ways.
 
-* The MySQL version of [max\_statement\_time](../system-variables/server-system-variables.md#max_statement_time) (`max_execution_time`) is defined in millseconds, not seconds
+* The MySQL version of [max\_statement\_time](../system-variables/server-system-variables.md#max_statement_time) (`max_execution_time`) is defined in milliseconds, not seconds
 * MySQL's implementation can only kill SELECTs, while MariaDB's can kill any queries (excluding stored procedures).
 * MariaDB only introduced the [max\_statement\_time\_exceeded](../system-variables/server-status-variables.md#max_statement_time_exceeded) status variable, while MySQL also introduced a number of other variables which were not seen as necessary in MariaDB.
 * The `SELECT MAX_STATEMENT_TIME = N ...` syntax is not valid in MariaDB. In MariaDB one should use `SET STATEMENT MAX_STATEMENT_TIME=N FOR...`.

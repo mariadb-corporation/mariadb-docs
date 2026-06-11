@@ -14,7 +14,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_TABLE(json_doc, 
           context_path COLUMNS (column_list)
 ) [AS] alias

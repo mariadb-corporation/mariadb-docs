@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CURDATE()
 CURRENT_DATE
 CURRENT_DATE()

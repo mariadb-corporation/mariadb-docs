@@ -155,7 +155,7 @@ Log rotation is the process of periodically archiving the current log file and s
 
 {% tabs %}
 {% tab title="Linux" %}
-#### Linux: Using `logrotate`
+**Linux: Using `logrotate`**
 
 On Linux, the standard way to handle this is the [`logrotate`](https://linux.die.net/man/8/logrotate) utility. It allows you to compress old logs (saving space) and set a retention policy (for instance, keep only the last 30 days).
 
@@ -182,7 +182,7 @@ A typical MariaDB `logrotate` configuration (usually found in `/etc/logrotate.d/
 {% endtab %}
 
 {% tab title="Windows" %}
-#### Windows: Scripted Rotation
+**Windows: Scripted Rotation**
 
 Windows does not have a native `logrotate` equivalent. Most administrators use a PowerShell script triggered by the Task Scheduler.
 
@@ -195,7 +195,7 @@ A basic security workflow for Windows logs:
 {% endtab %}
 
 {% tab title="Internal Rotation (Binary Logs)" %}
-#### MariaDB Internal Rotation (Binary Logs)
+**MariaDB Internal Rotation (Binary Logs)**
 
 The Binary Log is unique because MariaDB manages its rotation internally. You should never use external tools like `logrotate` on binary logs, as it will break replication.
 

@@ -11,7 +11,7 @@ description: >-
 
 {% tabs %}
 {% tab title="Current" %}
-```sql
+```bnf
 DROP USER [IF EXISTS] user_name [, user_name] ... [FORCE]
 ```
 {% endtab %}

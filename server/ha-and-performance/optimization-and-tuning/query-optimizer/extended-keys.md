@@ -4,7 +4,7 @@
 
 Enable:
 
-```sql
+```bnf
 SET optimizer_switch='extended_keys=on';
 ```
 

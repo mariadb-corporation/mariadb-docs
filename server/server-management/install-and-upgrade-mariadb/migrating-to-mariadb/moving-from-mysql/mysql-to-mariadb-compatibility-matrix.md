@@ -41,7 +41,7 @@ The table below provides a granular breakdown of these differences. We recommend
 > Target Version Tip: If you are migrating from MySQL 8.4 LTS, the most logical targets are MariaDB 10.11 LTS or MariaDB 11.4 LTS to ensure you are moving from one stable long-term environment to another.
 
 {% hint style="info" %}
-#### Key changes from the 8.4 Nutshell you should keep in mind
+**Key changes from the 8.4 Nutshell you should keep in mind**
 
 * Authentication: The fact that `mysql_native_password` is now "off" by default in 8.4 is a huge point of divergence. Most MariaDB installs still rely on it.
 * Syntax: 8.4 officially removed `SET OPTION`, the `LOW_PRIORITY` prefix for some statements, and various SSL variables. If a user's app was updated to work with 8.4, it's "cleaner" but might be using syntax that MariaDB handles differently.
@@ -83,7 +83,7 @@ This section helps the DBA avoid "Unknown variable" errors when they first try t
 | Feature        | MySQL 8.0 / 8.4 Behavior             | MariaDB Behavior                      | Migration Impact                                                               |
 | -------------- | ------------------------------------ | ------------------------------------- | ------------------------------------------------------------------------------ |
 | GTID Format    | `UUID:Sequence`                      | `Domain:ServerID:Sequence`            | Critical. Formats are incompatible. GTID replication cannot be mixed directly. |
-| Repl. Syntax   | Uses `SOURCE` / `REPLICA` (8.0.22+). | Uses  `MASTER` and `REPLICA`.         | None. MariaDB is bi-lingual regarding replication syntax.                      |
+| Repl. Syntax   | Uses `SOURCE` / `REPLICA` (8.0.22+). | Uses `MASTER` and `REPLICA`.          | None. MariaDB is bi-lingual regarding replication syntax.                      |
 | Binary Logging | Defaulted to `ON`.                   | Defaulted to `ON` in recent versions. | Low. Standard binary log events are generally compatible.                      |
 
 ## Next Steps

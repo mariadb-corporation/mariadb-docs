@@ -68,7 +68,7 @@ TRUNCATE TABLE
 
 `SET autocommit = 1` causes an implicit commit if the value was 0.
 
-All these statements cause an implicit commit before execution. This means that, even if the statement fails with an error, the transaction is committed. Some of them, like `CREATE TABLE ... SELECT`, also cause a commit immediatly after execution. Such statements couldn't be rollbacked in any case.
+All these statements cause an implicit commit before execution. This means that, even if the statement fails with an error, the transaction is committed. Some of them, like `CREATE TABLE ... SELECT`, also cause a commit immediately after execution. Such statements couldn't be rollbacked in any case.
 
 If you are not sure whether a statement has implicitly committed the current transaction, you can query the [in\_transaction](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#in_transaction) server system variable.
 

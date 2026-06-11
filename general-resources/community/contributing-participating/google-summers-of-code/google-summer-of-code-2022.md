@@ -68,11 +68,11 @@ Also see the [List of beginner friendly issues](https://jira.mariadb.org/issues/
 
 * [MCOL-4995](https://jira.mariadb.org/browse/MCOL-4995) Research/implement basic vectorized filtering for ARM platforms (Full-time project - 350h)\
   AS of 6.2.2 Columnstore(MCS) supports vectorization on x86\_64 platforms only.\
-  The goal of the project is to implement a vectorized low-level filtering for ARM platforms using 128bit ARM NEON extention(SVE is optional). Low-level filtering in the context is the simple predicate WHERE filters, e.g. WHERE c1 = 5 AND c2 in (10, 25). Please see the corresponding Jira issue for details.
+  The goal of the project is to implement a vectorized low-level filtering for ARM platforms using 128bit ARM NEON extension(SVE is optional). Low-level filtering in the context is the simple predicate WHERE filters, e.g. WHERE c1 = 5 AND c2 in (10, 25). Please see the corresponding Jira issue for details.
   * Skills needed: C/C++, understand low-level platform specifics. Project difficulty: medium\
     Mentor Roman Nozdrin
 * [MCOL-4994](https://jira.mariadb.org/browse/MCOL-4994) Build/run Columnstore on MacOS (Part-time project - 175h)\
-  As of Columnstore(MCS) 6.2.2 there is no way to compile/use the MCS engine on MacOS. The goal of this project is to be able to boostrap MariaDB + basic(maybe rudimentary) MCS on MacOS. There are number of known issues that prevents MCS compilation on MacOS: a number of offending preprocessor macroses/definitions specific for Linux x86\_64 combination; MacOS doesn't provide syslog used by MCS as the only log messages sink. Please see the corresponding Jira issue for details.
+  As of Columnstore(MCS) 6.2.2 there is no way to compile/use the MCS engine on MacOS. The goal of this project is to be able to bootstrap MariaDB + basic(maybe rudimentary) MCS on MacOS. There are number of known issues that prevents MCS compilation on MacOS: a number of offending preprocessor macros/definitions specific for Linux x86\_64 combination; MacOS doesn't provide syslog used by MCS as the only log messages sink. Please see the corresponding Jira issue for details.
   * Skills needed: C/C++, MacOS specifics. Project difficulty: easy\
     Mentor Roman Nozdrin
 * [MCOL-785](https://jira.mariadb.org/browse/MCOL-785) Implement DISTRIBUTED JSON functions (Full-time project - 350h)\

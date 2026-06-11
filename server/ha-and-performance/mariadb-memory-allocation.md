@@ -55,7 +55,7 @@ On containers, cgroups[^1], or managed environments, use the memory limit seen b
 
 {% stepper %}
 {% step %}
-#### Confirm memory pressure.
+**Confirm memory pressure.**
 
 Check whether the host is swapping or being killed by the [OOM killer](#user-content-fn-2)[^2].
 
@@ -69,7 +69,7 @@ If the server is swapping, reduce major caches before tuning anything else.
 {% endstep %}
 
 {% step %}
-#### Review non-default variables.
+**Review non-default variables.**
 
 List variables that differ from the compiled defaults:
 
@@ -109,7 +109,7 @@ If the server is running out of memory, the cause is often in this list.
 {% endstep %}
 
 {% step %}
-#### Reduce the biggest consumers first.
+**Reduce the biggest consumers first.**
 
 Start with the variables that move total memory the most:
 
@@ -130,7 +130,7 @@ Large per-connection buffers are safe only when few sessions use them at the sam
 {% endstep %}
 
 {% step %}
-#### Re-test under real concurrency.
+**Re-test under real concurrency.**
 
 After each change, recheck swapping, memory use, and query latency.
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW PACKAGE STATUS
     [LIKE 'pattern' | WHERE expr]
 ```

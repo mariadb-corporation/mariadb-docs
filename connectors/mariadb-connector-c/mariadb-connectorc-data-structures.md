@@ -1,8 +1,8 @@
 ---
 description: >-
   Reference for the public data structures in MariaDB Connector/C, including
-  MYSQL, MYSQL_RES, MYSQL_STMT, MYSQL_FIELD, MYSQL_BIND, and MYSQL_TIME with
-  all member definitions.
+  MYSQL, MYSQL_RES, MYSQL_STMT, MYSQL_FIELD, MYSQL_BIND, and MYSQL_TIME with all
+  member definitions.
 ---
 
 # MariaDB Connector/C Data Structures
@@ -48,7 +48,7 @@ The `MYSQL_FIELD` structure describes the metadata of a column. It can be obtain
 
 It has the following members:
 
-|                         |                    |                                             |
+| Type                    | Member             | Description                                 |
 | ----------------------- | ------------------ | ------------------------------------------- |
 | char \*                 | name               | The name of the column                      |
 | unsigned int            | name\_length       | The length of column name                   |
@@ -74,26 +74,26 @@ It has the following members:
 
 The `MYSQL_BIND` structure is used to provide parameters for prepared statements or to receive output column value from prepared statements.
 
-|                         |                 |                                                                     |
-| ----------------------- | --------------- | ------------------------------------------------------------------- |
-| unsigned long \*        | length          | Pointer for the length of the buffer (not used for parameters). The length is ignored for numeric and fixed size data types, as the buffer_type value determines the size of the data. |
-| my\_bool \*             | is\_nulll       | Pointer which indicates if column is NULL (not used for parameters) |
-| my\_bool \*             | error           | Pointer which indicates if an error occured                         |
-| void \*                 | buffer          | Data buffer which contains or receives data                         |
-| char \*                 | u.indicator     | Array of indicator variables for bulk operation parameter           |
-| unsigned long           | buffer\_length  | Length of buffer                                                    |
-| enum enum\_field\_types | buffer\_type    | [Buffer type](mariadb-connectorc-types-and-definitions.md)          |
-| unsigned long           | length\_value   | Used if length pointer is NULL                                      |
-| my\_bool                | error\_value    | Used if error pointer is NULL                                       |
-| my\_bool                | is\_null\_value | Used if is\_null pointer is NULL                                    |
-| my\_bool                | is\_unsigned    | Set if integer type is unsigned                                     |
-| my\_bool                | is\_null\_value | Used if value is NULL                                               |
+| Type                    | Member          | Description                                                                                                                                                                             |
+| ----------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| unsigned long \*        | length          | Pointer for the length of the buffer (not used for parameters). The length is ignored for numeric and fixed size data types, as the buffer\_type value determines the size of the data. |
+| my\_bool \*             | is\_nulll       | Pointer which indicates if column is NULL (not used for parameters)                                                                                                                     |
+| my\_bool \*             | error           | Pointer which indicates if an error occurred                                                                                                                                            |
+| void \*                 | buffer          | Data buffer which contains or receives data                                                                                                                                             |
+| char \*                 | u.indicator     | Array of indicator variables for bulk operation parameter                                                                                                                               |
+| unsigned long           | buffer\_length  | Length of buffer                                                                                                                                                                        |
+| enum enum\_field\_types | buffer\_type    | [Buffer type](mariadb-connectorc-types-and-definitions.md)                                                                                                                              |
+| unsigned long           | length\_value   | Used if length pointer is NULL                                                                                                                                                          |
+| my\_bool                | error\_value    | Used if error pointer is NULL                                                                                                                                                           |
+| my\_bool                | is\_null\_value | Used if is\_null pointer is NULL                                                                                                                                                        |
+| my\_bool                | is\_unsigned    | Set if integer type is unsigned                                                                                                                                                         |
+| my\_bool                | is\_null\_value | Used if value is NULL                                                                                                                                                                   |
 
 ### MYSQL\_TIME
 
 The `MYSQL_TIME` structure is used for date and time values in prepared statements. It has the following members:
 
-|                                   |              |                                    |
+| Type                              | Member       | Description                        |
 | --------------------------------- | ------------ | ---------------------------------- |
 | unsigned int                      | year         | Year                               |
 | unsigned int                      | month        | Month                              |
@@ -103,7 +103,21 @@ The `MYSQL_TIME` structure is used for date and time values in prepared statemen
 | unsigned int                      | second       | Second                             |
 | unsigned long                     | second\_part | Fractional seconds (max. 6 digits) |
 | my\_bool                          | neg          | Negative value                     |
-| enum enum\_mysql\_timestamp\_type | time\_type   | Type                               |
+| enum enum\_mysql\_timestamp\_type | time\_type   | Time Type                          |
 
+### MARIADB\_X509\_INFO
+
+The `MARIADB_X509_INFO` structure contains information about the peer certificate. This information is only available for TLS/SSL connections.
+
+| Type        | Member        | Description                         |
+| ----------- | ------------- | ----------------------------------- |
+| `int`       | `version`     | Peer certificate version            |
+| `char *`    | `issuer`      | Issuer of peer certificate          |
+| `char *`    | `subject`     | Subject of peer certificate         |
+| `char *`    | `fingerprint` | Fingerprint (SHA256, 384 or 512)    |
+| `struct tm` | `notBefore`   | Start date of peer certificate      |
+| `struct tm` | `notAfter`    | Expiration date of peer certificate |
+
+MARIADB\_X509\_INFO was added in MariaDB Connector/C 3.4.1
 
 {% @marketo/form formId="4316" %}

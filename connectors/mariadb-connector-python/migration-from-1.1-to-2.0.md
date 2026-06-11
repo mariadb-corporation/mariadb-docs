@@ -9,6 +9,10 @@ description: >-
 
 This guide helps you migrate your applications from MariaDB Connector/Python 1.1 to version 2.0.0.
 
+{% hint style="info" %}
+**Version 2.0 is currently a Release Candidate (RC); version 1.1 is the latest stable (GA) release.** Until 2.0 reaches GA, install it with the `--pre` flag (for example `pip install --pre mariadb`); a plain `pip install mariadb` installs the latest stable release (1.1). Do not use non-stable (non-GA) releases in production.
+{% endhint %}
+
 ## API Reference
 
 - **[Connection API](connection.md)** - Connection parameters, methods, and attributes
@@ -38,28 +42,30 @@ This always installed the C extension and required MariaDB Connector/C to be pre
 
 ### Version 2.0 Installation Options
 
+Version 2.0 is still a Release Candidate, so the `--pre` flag is required; without it, pip installs the latest GA release (1.1).
+
 **Pure Python (default, works everywhere):**
 ```bash
-pip install mariadb
+pip install --pre mariadb
 ```
 
 **C extension (maximum performance):**
 ```bash
-pip install mariadb[c]
+pip install --pre mariadb[c]
 ```
 *Requires MariaDB Connector/C to be pre-installed on your system.*
 
 **Pre-compiled binary wheels (no local C connector required):**
 ```bash
-pip install mariadb[binary]
+pip install --pre mariadb[binary]
 ```
 *MariaDB Connector/C is bundled - no separate installation needed.*
 
 **With connection pooling:**
 ```bash
-pip install mariadb[pool]
+pip install --pre mariadb[pool]
 # or combined
-pip install mariadb[binary,pool]
+pip install --pre mariadb[binary,pool]
 ```
 
 ### Key Changes
@@ -181,8 +187,8 @@ pool = mariadb.ConnectionPool(
 
 **Version 2.0:**
 ```bash
-# First install pooling support
-pip install mariadb[pool]
+# First install pooling support (--pre is required while 2.0 is an RC)
+pip install --pre mariadb[pool]
 ```
 
 ```python
@@ -355,8 +361,8 @@ conn = mariadb.connect(
 ### Step 1: Update Installation
 
 ```bash
-# Choose your installation option
-pip install mariadb[binary,pool]
+# Choose your installation option (--pre is required while 2.0 is an RC)
+pip install --pre mariadb[binary,pool]
 ```
 
 ### Step 2: Update Cursor Creation

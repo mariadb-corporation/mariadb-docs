@@ -23,7 +23,7 @@ MariaDB Vector is coming to MariaDB Server to serve AI Workloads. The current in
 
 **Part-time (175h) or full-time project (350h) - depending on scope**
 
-Our GIS functionality is limitted compared to other DBMSes. Given that MariaDB looks to facilitate migration from MySQL, we should be on par. We have a list of functions that are missing in MariaDB compared to MySQL, as described in [function-differences-between-mariadb-10-10-and-mysql-8-0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-10-10-and-mysql-8-0).\
+Our GIS functionality is limited compared to other DBMSes. Given that MariaDB looks to facilitate migration from MySQL, we should be on par. We have a list of functions that are missing in MariaDB compared to MySQL, as described in [function-differences-between-mariadb-10-10-and-mysql-8-0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/function-differences-between-mariadb-and-mysql/function-differences-between-mariadb-and-mysql-unmaintained-series/function-differences-between-mariadb-10-10-and-mysql-8-0).\
 Our goal is to have as many of these functions available within MariaDB. Some of the functionality can be ported from MySQL, while others might require implementation from scratch.
 
 **Skills needed**: Understanding of C++ development. Ability to navigate a large codebase (with help from mentor).**Mentors:** Anel Husakovic (primary) / Vicențiu Ciorbaru (secondary)

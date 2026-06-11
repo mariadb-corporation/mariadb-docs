@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 {DEALLOCATE | DROP} PREPARE stmt_name
 ```
 

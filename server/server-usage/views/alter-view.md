@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 ALTER
     [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
     [DEFINER = { user | CURRENT_USER }]

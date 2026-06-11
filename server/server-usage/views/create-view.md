@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CREATE
     [OR REPLACE]
     [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
@@ -19,6 +19,8 @@ CREATE
     AS select_statement
     [WITH [CASCADED | LOCAL] CHECK OPTION]
 ```
+
+![Railroad diagram of CREATE VIEW — equivalent to the BNF above](../../.gitbook/assets/create-view-railroad.svg)
 
 ## Description
 

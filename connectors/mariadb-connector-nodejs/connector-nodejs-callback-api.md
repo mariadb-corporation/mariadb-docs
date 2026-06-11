@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB Connector/Node.js Callback API provides MySQL and mysql2
-  compatible callback-style access to MariaDB, with connection, query,
-  batch, and pool methods using familiar patterns.
+  MariaDB Connector/Node.js Callback API provides MySQL and mysql2 compatible
+  callback-style access to MariaDB, with connection, query, batch, and pool
+  methods using familiar patterns.
 ---
 
 # Connector/Node.js Callback API
@@ -71,7 +71,7 @@ Previous options `supportBigNumbers` and `bigNumberStrings` still exist for comp
 
 **Other considerations**
 
-MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the mariMariaDBadb driver, permitting the same query syntax for [Connection. Q](connector-nodejs-callback-api.md#connectionquerysql-values---promise)uery and [Connection.execute](connector-nodejs-callback-api.md#connectionexecutesql-values--promise).
+MySQL has an experimental syntax permitting the use of `??` characters as a placeholder to escape ID. This isn't implemented in the MariaDB driver, permitting the same query syntax for [Connection.query](connector-nodejs-callback-api.md#connectionquerysql-values---promise) and [Connection.execute](connector-nodejs-callback-api.md#connectionexecutesql-values--promise).
 
 Example:
 
@@ -772,7 +772,7 @@ escape per type:
 * JSON: Stringification of JSON, or if `permitSetMultiParamEntries` is enable, key escaped as identifier + value
 * String: escaped value, (\u0000, ', ", \b, \n, \r, \t, \u001A, and \ characters are escaped with '')
 
-Escape is done for [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql-mode) value without NO\_BACKSLASH\_ESCAPES that disable \ escaping (default); Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#connectionquerysql-values-callback---emitter) and avoid building the command manually.
+Escape is done for [sql\_mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/sql_mode) value without NO\_BACKSLASH\_ESCAPES that disable \ escaping (default); Escaping API are meant to prevent [SQL injection](https://en.wikipedia.org/wiki/SQL_injection). However, privilege the use of [`connection.query(sql [, values][, callback])`](connector-nodejs-callback-api.md#connectionquerysql-values-callback---emitter) and avoid building the command manually.
 
 ```javascript
 const myColVar = "let'go";
@@ -1072,7 +1072,7 @@ poolCluster(err => {
 
 ### `poolCluster.getConnection([pattern, ][selector, ]callback)`
 
-> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a  regex. Default: `'*'`  (matches all pools).
+> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a regex. Default: `'*'` (matches all pools).
 > * `selector`: _string_ pools selector. Can be 'RR' (round-robin), 'RANDOM' or 'ORDER' (use in sequence = always use first pools unless fails). default to the cluster option `defaultSelector` if set, 'RR' if not
 > * `callback`: _function_ Callback function with arguments ([Error](connector-nodejs-callback-api.md#error), [Connection](connector-nodejs-callback-api.md#connection-api)).
 
@@ -1097,7 +1097,7 @@ cluster.getConnection("^slave", (err, conn) => {
 
 ### `poolCluster events`
 
-PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration if the option `removeNodeErrorCount` is defined (default to 5) and connector fails to connect more than `removeNodeErrorCount` times. (if other nodes are present, each attemps will wait for value of the option `restoreNodeTimeout`)
+PoolCluster object inherits from the Node.js [`EventEmitter`](https://nodejs.org/api/events.html). Emits 'remove' event when a node is removed from configuration if the option `removeNodeErrorCount` is defined (default to 5) and connector fails to connect more than `removeNodeErrorCount` times. (if other nodes are present, each attempt will wait for value of the option `restoreNodeTimeout`)
 
 ```javascript
 const mariadb = require('mariadb/callback');
@@ -1112,7 +1112,7 @@ cluster.on('remove', node => {
 
 ### `poolCluster.of(pattern, selector) → FilteredPoolCluster`
 
-> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a  regex. Example: `"^slave"`. Default: `'*'`.
+> * `pattern`: _string_ used to match pool node identifiers. Internally, the value is considered as a regex. Example: `"^slave"`. Default: `'*'`.
 > * `selector`: _string_ pools selector. Can be 'RR' (round-robin), 'RANDOM' or 'ORDER' (use in sequence = always use first pools unless fails). default to the
 >
 > Returns :

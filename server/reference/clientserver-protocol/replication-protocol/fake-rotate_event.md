@@ -19,7 +19,7 @@ The fake `ROTATE_EVENT` event is not written in the binlog file. It's created by
 ## Header
 
 * Timestamp set to `0`.
-* Event Tye is `ROTATE_EVENT`.
+* Event Type is `ROTATE_EVENT`.
 * Next Pos is set to `0`.
 * Flags are set to `LOG_ARTIFICIAL_F` (`0x20`).
 

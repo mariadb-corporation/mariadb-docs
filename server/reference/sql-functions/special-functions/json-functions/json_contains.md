@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_CONTAINS(json_doc, val[, path])
 ```
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 INSTALL PLUGIN [IF NOT EXISTS] plugin_name SONAME 'plugin_library'
 ```
 
@@ -37,7 +37,7 @@ If the value of [plugin\_dir](../../../../ha-and-performance/optimization-and-tu
 
 To use `INSTALL PLUGIN`, you must have the [INSERT privilege](../../account-management-sql-statements/grant.md) for the `mysql.plugin` table.
 
-At server startup, the server loads and initializes any plugin that islisted in the `mysql.plugin` table. This means that a plugin is installedwith `INSTALL PLUGIN` only once, not every time the serverstarts. Plugin loading at startup does not occur if the server is started withthe `--skip-grant-tables` option.
+At server startup, the server loads and initializes any plugin that islisted in the `mysql.plugin` table. This means that a plugin is installedwith `INSTALL PLUGIN` only once, not every time the serverstarts. Plugin loading at startup does not occur if the server is started with the `--skip-grant-tables` option.
 
 When the server shuts down, it executes the de-initialization functionfor each plugin that is loaded so that the plugin has a chance toperform any final cleanup.
 

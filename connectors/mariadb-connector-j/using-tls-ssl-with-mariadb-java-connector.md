@@ -1,8 +1,8 @@
 ---
 description: >-
-  Configure TLS and SSL for MariaDB Connector/J using sslMode,
-  serverSslCert, and keyStore options, supporting trust, verify-ca,
-  verify-full, and zero-configuration encryption modes.
+  Configure TLS and SSL for MariaDB Connector/J using sslMode, serverSslCert,
+  and keyStore options, supporting trust, verify-ca, verify-full, and
+  zero-configuration encryption modes.
 ---
 
 # Using TLS/SSL with MariaDB Connector/J
@@ -20,7 +20,7 @@ The term SSL (Secure Sockets Layer) is often used interchangeably with TLS, alth
 
 ### Server configuration
 
-To ensure that SSL is correctly configured on the server, the query "SELECT @@have\_ssl;" must return YES. If not, please refer to the [server documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption).
+To ensure that SSL is correctly configured on the server, the query "SELECT @@have\_ssl;" must return YES. If not, please refer to the [server documentation](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption).
 
 Connecting to a server that doesn't support TLS with the TLS option set, an exception "Trying to connect with SSL, but SSL not enabled in the server" will be thrown.
 

@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 {DESCRIBE | DESC} tbl_name [col_name | wild]
 ```
 

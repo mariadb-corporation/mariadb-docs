@@ -164,6 +164,9 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | CVE ID (with cve.org link)                                                      | CVSS base score (v3.1) | Community Server 11.4 Release |
 | ------------------------------------------------------------------------------- | --------------- | ----------------------------- |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261)               | 10.0            | [MariaDB 11.4.12](11.4.12.md) |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165)               | 8.0             | [MariaDB 11.4.12](11.4.12.md) |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163)               | 8.0             | [MariaDB 11.4.12](11.4.12.md) |
 | [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173)               | 5.0             | [MariaDB 11.4.11](11.4.11.md) |
 | [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172)               | 5.0             | [MariaDB 11.4.11](11.4.11.md) |
 | [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171)               | 6.3             | [MariaDB 11.4.11](11.4.11.md) |
@@ -191,6 +194,7 @@ For a complete list of security vulnerabilities (CVEs) fixed across all versions
 
 | Date        | Release         | Status      | Release Notes               | Changelog                                  |
 | ----------- | --------------- | ----------- | --------------------------- | ------------------------------------------ |
+| 27 May 2026 | MariaDB 11.4.12 | Stable (GA) | [Release Notes](11.4.12.md) | [Changelog](../changelogs/11.4/11.4.12.md) |
 | 18 May 2026 | MariaDB 11.4.11 | Stable (GA) | [Release Notes](11.4.11.md) | [Changelog](../changelogs/11.4/11.4.11.md) |
 | 4 Feb 2026  | MariaDB 11.4.10 | Stable (GA) | [Release Notes](11.4.10.md) | [Changelog](../changelogs/11.4/11.4.10.md) |
 | 6 Nov 2025  | MariaDB 11.4.9  | Stable (GA) | [Release Notes](11.4.9.md)  | [Changelog](../changelogs/11.4/11.4.9.md)  |

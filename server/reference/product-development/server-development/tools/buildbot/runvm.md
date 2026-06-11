@@ -115,7 +115,7 @@ to the new image).
 
 The above two examples show basically how the package testing in our Buildbot\
 setup is done. There are some further details of course, like more options for\
-the build commmands and extra care to get logfiles out to debug problems; the\
+the build commands and extra care to get logfiles out to debug problems; the\
 full details are available in our [Buildbot configuration file](https://bazaar.launchpad.net/~maria-captains/mariadb-tools/trunk/annotate/head%3A/buildbot/maria-master.cfg).\
 But the basic principle is just a number of `runvm` commands like the examples above.
 
@@ -204,7 +204,7 @@ Available options:
                       of qemu-img(1). IMG is not modified in any way. This way,
                       the booted image can be discarded after use, so that each
                       use of IMG is using the same reference image with no risk
-                      of "polution" between different invocations.
+                      of "pollution" between different invocations.
                       Note that this DELETES any existing image of the same
                       name as the one specified on the command line to boot! It
                       will be replaced with the image created as a copy of IMG,

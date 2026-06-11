@@ -269,7 +269,7 @@ This panel shows the number of temporary tables created by the ES node during th
 
 ## MariaDB Thread Cache
 
-This panel shows the number of threads created and cached for re-use on the ES node during the selected time interval.
+This panel shows the number of threads created and cached for reuse on the ES node during the selected time interval.
 
 ## MariaDB Table Open Cache Status
 

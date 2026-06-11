@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SET [SESSION] sql_log_bin = {0|1}
 ```
 

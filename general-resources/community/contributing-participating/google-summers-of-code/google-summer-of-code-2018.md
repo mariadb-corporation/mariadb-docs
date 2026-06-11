@@ -68,7 +68,7 @@ Here is a suggested list of things to be done:
 * A GTID position means the point just after that GTID. So starting from\
   GTID 0-1-100 and stopping at GTID 0-1-200, the first GTID output will\
   probably be 0-1-101 and the last one 0-1-200. Note that if some domain is\
-  not specified in the position, it means to start from the begining,\
+  not specified in the position, it means to start from the beginning,\
   respectively stop immediately in that domain.
 * Starting and stopping GTID should work both with local files, and with
   1. \--read-from-remote-server`. For the latter, there are a couple of extra things that need doing in the master-slave protocol, see`
@@ -256,13 +256,13 @@ Then master will write QUERY\_EVENT on binlog with actual alter query .\
 On commit/rollback master will write COMMIT\_DDL\_EVENT/ROLLBACK\_DDL\_EVENT.
 
 On slave there will be pool of threads(configurable global variable), which\
-will apply these DDLs. On reciving BEGIN\_DDL\_EVENT slave thread will pass the\
-QUERY\_EVENT to one of the worker thread. Worker thread will execute untill\
+will apply these DDLs. On receiving BEGIN\_DDL\_EVENT slave thread will pass the\
+QUERY\_EVENT to one of the worker thread. Worker thread will execute until\
 ha\_inplace\_alter\_table. Actual commit\_inplace\_alter will be called by sql thread.\
-If sql thread recieve some kind of rollback event , then it will somehow signal\
-worker thread to stop executing alter. If none of the worker threads are avaliable\
-then event will be enqueued, then If we recieved rollback event the we will simply\
-discard event from queue, If we recieved commit event then SQL thread will syncrolysly\
+If sql thread receive some kind of rollback event , then it will somehow signal\
+worker thread to stop executing alter. If none of the worker threads are available\
+then event will be enqueued, then If we received rollback event the we will simply\
+discard event from queue, If we received commit event then SQL thread will syncrolysly\
 process DDL event.
 
 | Details: | Mentor:                                                  |
@@ -371,7 +371,7 @@ A multiple-table DELETE returning a result set does the following:
 
 ### Blacklist for access control a.k.a. "negative grants"/
 
-Currently, MariaDB privilege system only perform whiltelist check for access control to certain database, table and column. This makes it difficult if we need to block access to certain database/table/column while allow for all others.\
+Currently, MariaDB privilege system only perform whitelist check for access control to certain database, table and column. This makes it difficult if we need to block access to certain database/table/column while allow for all others.\
 —\
 A good solution would be to allow to `REVOKE` anything that a user is able to do — not only exactly those grants that were granted to a user, but also a subset. Like
 

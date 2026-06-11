@@ -1,0 +1,44 @@
+name: DOCS-5990 Nightly Error Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch: 
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write 
+
+    steps:
+      - name: Checkout Documentation Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Fetch and Generate Error Pages
+        run: python .github/scripts/update_mariadb_docs.py
+
+      - name: Commit and Push
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Changes detected. Committing..."
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            
+            # Stage the new error markdown folders and files
+            git add server/reference/error-codes/
+            
+            # Stage the updated navigation menu
+            git add server/SUMMARY.md
+            
+            git commit -m "docs: auto-generate missing error pages (DOCS-5990)"
+            git push origin HEAD
+          else
+            echo "No changes to commit. Everything is up to date."
+          fi

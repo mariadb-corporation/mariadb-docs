@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
  [INTO] tbl_name [PARTITION (partition_list)] [(col,...)]
  {VALUES | VALUE} ({expr | DEFAULT},...),(...),...
@@ -17,6 +17,10 @@ INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
      [, col=expr] ... ] [RETURNING select_expr 
       [, select_expr ...]]
 ```
+
+![Railroad diagram of INSERT ... VALUES — equivalent to the BNF above](../../../../.gitbook/assets/insert-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/insert-value-list-railroad.svg)
 
 Or:
 

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 SHOW { REPLICA | SLAVE} ["connection_name"] STATUS [FOR CHANNEL "connection_name"]
 ```
 

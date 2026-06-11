@@ -10,6 +10,10 @@ description: >-
 The `innodb_flush_method` variable has been deprecated from MariaDB 11.0.
 {% endhint %}
 
+{% hint style="info" %}
+For the OS-level mechanisms behind the values used on this page (`fdatasync()`, `fsync()`, `O_DIRECT`, `O_DSYNC`, and their Windows counterparts), see [Storage I/O: Buffering and Persistence](../../../ha-and-performance/optimization-and-tuning/operating-system-optimizations/storage-io-buffering-and-persistence.md).
+{% endhint %}
+
 ## Overview
 
 [innodb\_flush\_method](innodb-system-variables.md#innodb_flush_method) is a variable that has been available in MariaDB (and MySQL) for a long time. It defines the method used to flush data to InnoDB data files and log files, which can affect I/O throughput quite a bit.&#x20;
@@ -63,7 +67,7 @@ From MariaDB 11.0, the flushing behavior of InnoDB should no longer be controlle
 
 1. `innodb_log_file_buffering`: This is best left to its default value (`OFF`), except when backing up a write-heavy server.
 2. `innodb_data_file_buffering`: The default is `OFF`; set it to `ON` if you encounter read performance problems.
-3. `innodb_log_file_write_through`, `innodb_data_file_write_through`: The default is `OFF` for both variables; setting them to `ON` can improve or degrade write performance, depending on wether or not the hardware supports FUA (Forced Unit Access).
+3. `innodb_log_file_write_through`, `innodb_data_file_write_through`: The default is `OFF` for both variables; setting them to `ON` can improve or degrade write performance, depending on whether or not the hardware supports FUA (Forced Unit Access).
 
 ### FUA (Forced Unit Access)
 

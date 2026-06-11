@@ -29,22 +29,37 @@ Before installing MariaDB Connector/Python, ensure you have:
 
 #### 2. Installation
 
-Choose the installation option that best fits your needs:
+{% hint style="info" %}
+**Version 1.1 is the latest stable (GA) release; version 2.0 is currently a Release Candidate (RC).** Choose the version that fits your needs below. Do not use non-stable (non-GA) releases in production.
+{% endhint %}
 
-**Pure Python (recommended for most users):**
+**Version 1.1 (stable / GA)**
+
+A plain `pip install` installs the latest stable release (1.1). It always installs the C extension and requires MariaDB Connector/C to be pre-installed; connection pooling is included by default.
+
 ```bash
 pip install mariadb
 ```
 
-**Pre-compiled binary wheels (best for production):**
+To pin to a specific 1.1 release:
+
 ```bash
-pip install mariadb[binary,pool]
+pip install mariadb==1.1.14
 ```
 
-**C extension from source (maximum performance):**
+**Version 2.0 (Release Candidate)**
+
+Version 2.0 is a pre-release, so the `--pre` flag is required — without it, pip installs the latest GA release (1.1). Choose the option that best fits your needs:
+
 ```bash
-# Requires MariaDB Connector/C installed
-pip install mariadb[c,pool]
+# Pure Python (recommended for most users)
+pip install --pre mariadb
+
+# Pre-compiled binary wheels (best for production)
+pip install --pre mariadb[binary,pool]
+
+# C extension from source (maximum performance, requires MariaDB Connector/C)
+pip install --pre mariadb[c,pool]
 ```
 
 #### 3. Basic Usage

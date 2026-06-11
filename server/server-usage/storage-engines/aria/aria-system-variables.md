@@ -191,7 +191,7 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 * Data Type: `numeric`
 * Default Value: `1`
 * Range: `1` to `128`
-* Introduced: [MariaDB Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1), [MariaDB Enterprise Server 11.4.8-5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/11.4.8-5), [MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new-in-mariadb-enterprise-server-11.8)
+* Introduced: [MariaDB Community Server 12.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/12.1/changes-and-improvements-in-mariadb-12.1), [MariaDB Enterprise Server 11.4.8-5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.4/11.4.8-5), [MariaDB Enterprise Server 11.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-server/11.8/whats-new)
 
 #### `aria_recover`
 

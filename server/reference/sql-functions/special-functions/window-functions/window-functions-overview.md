@@ -164,7 +164,7 @@ Window functions are evaluated after `WHERE`, `GROUP BY`, and `HAVING`. Filter t
 
 ## Optimization
 
-Window functions often need sorted input. Query shape can decide whether MariaDB can reuse an existing order or must sort again.
+Window function evaluation invokes a sort pass per group of compatible windows. Each such pass appears as a `filesort` node in the execution plan. Query shape decides how many passes are needed and how cheap each one is to perform.
 
 ### `GROUP BY` Comes First
 
@@ -173,12 +173,12 @@ If a query uses both `GROUP BY` and window functions, MariaDB executes the group
 This affects index usage. An index that helps the base table scan does not automatically avoid later sorting for the window stage.
 
 {% hint style="info" %}
-When tuning this pattern, optimize the `GROUP BY` step first. Then check whether the window step still needs its own sort.
+When tuning this pattern, optimize the `GROUP BY` step first. Then check `EXPLAIN FORMAT=JSON` to confirm the window step's sort cost is low.
 {% endhint %}
 
 ### Sort Reuse Depends on Sort Keys
 
-If the `GROUP BY` definition and the window's `PARTITION BY` and `ORDER BY` definition use different sort keys, MariaDB usually needs another sort pass before evaluating the window functions.
+If the `GROUP BY` definition and the window's `PARTITION BY` and `ORDER BY` definition use different sort keys, the window's sort pass cannot reuse the grouped output's order — it has to re-sort the rows. Aligning the keys keeps the sort cheap; misaligning them forces a full sort.
 
 For example, this shape can require an extra sort:
 
@@ -199,7 +199,9 @@ The grouped result is ordered by `month, dept`. The window step needs `dept, mon
 
 ### Multiple Window Functions Can Share One Sort
 
-Multiple window functions can share the same sort pass when they use the same `PARTITION BY` and `ORDER BY` clause.
+Multiple window functions can share the same sort pass when their `PARTITION BY` and `ORDER BY` clauses are compatible. Two specs are compatible if they are identical, or if one is a prefix of the other — the longer specification then becomes the canonical sort order.
+
+**Identical specs:**
 
 ```sql
 SELECT
@@ -218,14 +220,28 @@ SELECT
 FROM revenue;
 ```
 
-Both window functions use the same partitioning and ordering. MariaDB can reuse the same sorted stream for both.
+Both window functions use the same partitioning and ordering. MariaDB reuses the same sorted stream for both — one `filesort` pass.
+
+**Prefix-compatible specs:**
+
+```sql
+SELECT
+  dept,
+  month,
+  day,
+  ROW_NUMBER() OVER (PARTITION BY dept ORDER BY month)      AS rn,
+  SUM(sales)   OVER (PARTITION BY dept ORDER BY month, day) AS running_sales
+FROM revenue;
+```
+
+The first window's order key (`dept`, `month`) is a prefix of the second's (`dept`, `month`, `day`). MariaDB sorts once by the longer key (`dept, month, day`) and both window functions consume the result.
 
 ### Practical Tuning Tips
 
 * Expect `GROUP BY` to shape the input seen by window functions.
-* Align `GROUP BY` keys with the window sort keys when possible.
-* Reuse the same `PARTITION BY` and `ORDER BY` across multiple window functions.
-* Check the execution plan to see whether an extra sort is still present.
+* Align `GROUP BY` keys with the window sort keys when possible — the sort still runs, but it is cheap when the data is already in the right order.
+* Reuse the same `PARTITION BY` and `ORDER BY` across multiple window functions, or make one a prefix of another, so MariaDB can collapse them into a single sort pass.
+* Use `EXPLAIN FORMAT=JSON` (or `ANALYZE FORMAT=JSON` for real timings) to count the window-function sort passes — each pass appears as a `filesort` node under the aggregation step.
 
 ## Examples
 

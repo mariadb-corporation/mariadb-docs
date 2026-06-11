@@ -11,7 +11,7 @@ The `DELETE` statement is used to remove rows from tables.
 
 ## Syntax
 
-```sql
+```bnf
 DELETE 
  [FROM] tbl_name 
     [WHERE where_condition]

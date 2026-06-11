@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 ST_PointN(ls,N)
 PointN(ls,N)
 ```

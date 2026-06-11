@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MultiPolygon(poly1,poly2,...)
 ```
 

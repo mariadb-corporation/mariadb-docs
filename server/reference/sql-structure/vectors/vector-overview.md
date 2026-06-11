@@ -140,6 +140,30 @@ SELECT id FROM v
 There is no function for _dot product_ (also called _inner product_) distance available in many other vector databases. Dot product is not a proper distance measure (for example, vector's closest match is not necessarily itself) and is only used for performance reasons, because it is often faster than cosine or euclidean and produces the same results if vectors are normalized. In MariaDB optimized implementation euclidean and cosine measures are the fastest, and dot product, if implemented, would not provide any performance benefits. Use euclidean or cosine (they are equally fast) for normalized vectors.
 {% endhint %}
 
+## Using the Vector Index Efficiently
+
+The optimizer uses the vector index only when the `ORDER BY` is the literal `VEC_DISTANCE_*(column, vector)` call (or its alias) sorted ascending, together with a `LIMIT`. Two common patterns defeat the index and fall back to a full table scan.
+
+**Wrapping the distance in an expression.** To sort by a similarity score (for example `1 - cosine distance`), compute the score in an outer query and keep the inner `ORDER BY` on the bare distance:
+
+```sql
+SELECT t.id, 1 - t.distance AS score FROM (
+    SELECT id, VEC_DISTANCE_COSINE(embedding, @query) AS distance
+    FROM documents ORDER BY distance LIMIT 10
+) AS t ORDER BY score DESC;
+```
+
+**Filtering by a distance threshold.** A bare `WHERE VEC_DISTANCE(...) < threshold` with no `ORDER BY ... LIMIT` is a range predicate that the index cannot drive, so it falls back to a full table scan. To use the index, retrieve an indexed top-K and apply the threshold to it, for example in a subquery:
+
+```sql
+SELECT * FROM (
+    SELECT content, VEC_DISTANCE_COSINE(embedding, @query) AS distance
+    FROM documents ORDER BY distance LIMIT 100
+) AS t WHERE t.distance < 0.5;
+```
+
+The `LIMIT` is a hard cap on how many rows the index returns *before* the threshold is applied, so choose it generously if many rows may match, otherwise qualifying rows beyond the limit are silently dropped. (Adding the `WHERE` directly to an `ORDER BY ... LIMIT` query also uses the index, but with the same hard cap.)
+
 ## System Variables
 
 There are a number of system variables used for vectors. See [Vector System Variables](vector-system-variables.md).

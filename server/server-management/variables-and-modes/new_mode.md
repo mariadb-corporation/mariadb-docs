@@ -20,7 +20,7 @@ A sample usage scenario is:
 
 You can set `NEW_MODE` from the [command line](../starting-and-stopping-mariadb/mariadbd-options.md) using the `--new-mode` option, or by setting the [new\_mode](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#new_mode) system variable.
 
-```sql
+```bnf
 SET [GLOBAL|SESSION] new_mode = 'fix_1[,fix_2]...';
 ```
 

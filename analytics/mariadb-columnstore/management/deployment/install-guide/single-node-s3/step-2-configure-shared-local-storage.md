@@ -1,5 +1,6 @@
 ---
 description: 'Step 2: Configure Shared Local Storage'
+hidden: true
 ---
 
 # Step 2: Configure Shared Local Storage

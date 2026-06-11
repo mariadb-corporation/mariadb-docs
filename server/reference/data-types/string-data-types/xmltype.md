@@ -21,7 +21,7 @@ XMLTYPE
 * Ensure compatibility with Oracle databases
 * Support future XML validation and processing capabilities
 
-In its initial implementatio&#x6E;_,_ `XMLTYPE` provides basic XML storage capabilities onl&#x79;_,_ without validation or specialized XML-specific functionalit&#x79;_._ When using string functions, the data type is effectively converted to strings and is maintained in temporary tables.
+In its initial implementation&#x6E;_,_ `XMLTYPE` provides basic XML storage capabilities only&#x79;_,_ without validation or specialized XML-specific functionalit&#x79;_._ When using string functions, the data type is effectively converted to strings and is maintained in temporary tables.
 
 ## Characteristics
 

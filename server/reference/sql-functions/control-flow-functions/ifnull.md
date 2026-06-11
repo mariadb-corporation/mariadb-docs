@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 IFNULL(expr1,expr2)
 NVL(expr1,expr2)
 ```

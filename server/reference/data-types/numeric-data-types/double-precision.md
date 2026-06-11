@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DOUBLE PRECISION[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 REAL[(M,D)] [SIGNED | UNSIGNED | ZEROFILL]
 ```

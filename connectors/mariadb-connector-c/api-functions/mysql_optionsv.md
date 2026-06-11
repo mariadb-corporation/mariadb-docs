@@ -1,8 +1,8 @@
 ---
 description: >-
   mysql_optionsv sets connection, TLS, plugin, and option-file options on a
-  MariaDB Connector/C handle before mysql_real_connect, supporting a
-  variable argument list.
+  MariaDB Connector/C handle before mysql_real_connect, supporting a variable
+  argument list.
 ---
 
 # mysql\_optionsv
@@ -27,9 +27,23 @@ Used to set extra connect options and affect behavior for a connection. This fun
 
 Some of these options can also be set in [option files](../configuring-mariadb-connectorc-with-option-files.md), such as `my.cnf`.
 
-### Returns
+## Return Value
 
 Returns zero on success, non-zero if an error occurred (invalid option or value).
+
+### Variable Types
+
+The following table shows the C variable type required for the `arg` parameter of each option:
+
+| Variable type                 | Options                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `my_bool`, `unsigned char`    | `MYSQL_OPT_RECONNECT`, `MYSQL_SECURE_AUTH`, `MYSQL_REPORT_DATA_TRUNCATION`, `MYSQL_OPT_SSL_ENFORCE`, `MYSQL_OPT_SSL_VERIFY_SERVER_CERT`, `MARIADB_OPT_SKIP_READ_RESPONSE`, `MYSQL_OPT_ZSTD_COMPRESSION_LEVEL`                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `unsigned int`                | `MYSQL_OPT_PORT`, `MYSQL_OPT_LOCAL_INFILE`, `MYSQL_OPT_CONNECT_TIMEOUT`, `MYSQL_OPT_PROTOCOL`, `MYSQL_OPT_READ_TIMEOUT`, `MYSQL_OPT_WRITE_TIMEOUT`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `unsigned long`               | `MYSQL_OPT_NET_BUFFER_LENGTH`, `MYSQL_OPT_MAX_ALLOWED_PACKET`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `const char *`                | `MYSQL_INIT_COMMAND`, `MARIADB_OPT_UNIXSOCKET`, `MARIADB_OPT_PASSWORD` , `MARIADB_OPT_USER`, `MARIADB_OPT_HOST`, `MARIADB_OPT_SCHEMA`, `MYSQL_OPT_SSL_KEY`, `MYSQL_OPT_SSL_CERT`, `MYSQL_OPT_SSL_CA`, `MYSQL_OPT_SSL_CAPATH`, `MYSQL_SET_CHARSET_NAME`, `MYSQL_SET_CHARSET_DIR`, `MYSQL_OPT_SSL_CIPHER`, `MYSQL_SHARED_MEMORY_BASE_NAME`, `MYSQL_PLUGIN_DIR`, `MYSQL_DEFAULT_AUTH`, `MARIADB_OPT_SSL_FP`, `MARIADB_OPT_SSL_FP_LIST`, `MARIADB_OPT_TLS_PASSPHRASE`, `MARIADB_OPT_TLS_VERSION`, `MYSQL_OPT_BIND`, `MYSQL_OPT_CONNECT_ATTR_DELETE`, `MYSQL_OPT_CONNECT_ATTR_ADD`, `MARIADB_OPT_CONNECTION_HANDLER`, `MYSQL_SERVER_PUBLIC_KEY`, `MARIADB_OPT_RESTRICTED_AUTH` |
+| `const char*`, `unsigned int` | `MARIADB_OPT_RPL_REGISTER_REPLICA`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -                             | `MYSQL_OPT_CONNECT_ATTR_RESET`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `void *`                      | `MARIADB_OPT_PROXY_HEADER`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ### Options
 
@@ -39,9 +53,11 @@ Returns zero on success, non-zero if an error occurred (invalid option or value)
     mysql_optionsv(mysql, MYSQL_INIT_COMMAND, (void *)"CREATE TABLE test.t1(a int)");
     mysql_optionsv(mysql, MYSQL_INIT_COMMAND, (void *)"SET @value := 1");
     ```
+
     * Each call adds one SQL statement to an internal list; all stored commands are executed in order.
     * You cannot concatenate multiple statements with semicolons; each statement must be added with a separate call.
-  
+
+    **Note**: When multiple option files are used, `init_command` entries are aggregated from all files read (for example, `/etc/my.cnf` and `~/.my.cnf`). The resulting combined list of statements executes on every connection and reconnection, without any clear indication that they originated from different sources. If unexpected statements run during a connection, review all active option files to identify their source.
 *   `MYSQL_OPT_CONNECT_TIMEOUT`: Connect timeout in seconds. This value will be passed as an unsigned `int` parameter.
 
     ```c
@@ -60,7 +76,7 @@ Returns zero on success, non-zero if an error occurred (invalid option or value)
     char *filename= "mydata.csv";
     mysql_optionsv(mysql, MARIADB_OPT_VERIFY_LOCAL_INFILE_CALLBACK, my_verify_filename, (void *)filename);
     ```
-*   `MYSQL_PROGRESS_CALLBACK`: Specifies a callback function which will be able to visualize the progress of certain long running statements (i.e. [LOAD DATA LOCAL INFILE](broken-reference) or [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table)).
+*   `MYSQL_PROGRESS_CALLBACK`: Specifies a callback function which will be able to visualize the progress of certain long running statements (i.e. [LOAD DATA LOCAL INFILE](broken-reference/) or [ALTER TABLE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table)).
 
     ```c
     static void report_progress(const MYSQL *mysql __attribute__((unused)),
@@ -195,7 +211,8 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_COMPRESS, NULL);
     ```
-*   `MYSQL_OPT_LOCAL_INFILE`: Enable or disable the use of [LOAD DATA LOCAL INFILE](broken-reference)
+* `MYSQL_OPT_ZSTD_COMPRESSION_LEVEL`: The compression level to use for connections that use the `zstd` compression algorithm. Acceptable values are integers in the range 1 (fastest) to 22 (maximum compression). This option has no effect if `zstd` compression is not in use. Added in MariaDB Connector/C 3.3.14 and 3.4.4 versions.
+*   `MYSQL_OPT_LOCAL_INFILE`: Enable or disable the use of [LOAD DATA LOCAL INFILE](broken-reference/)
 
     ```c
     unsigned int enable= 1, disable= 0;
@@ -221,84 +238,86 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
 
 #### TLS Options
 
-*   `MYSQL_OPT_SSL_KEY`: Defines a path to a private key file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. If the key is protected with a passphrase, the passphrase needs to be specified with `MARIADB_OPT_TLS_PASSPHRASE` option.
+*   `MYSQL_OPT_SSL_KEY`: Defines a path to a private key file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. If the key is protected with a passphrase, the passphrase needs to be specified with `MARIADB_OPT_TLS_PASSPHRASE` option.
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_KEY, (void *)"certs/client-key.pem");
     ```
-*   `MYSQL_OPT_SSL_CERT`: Defines a path to the X509 certificate file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
+*   `MYSQL_OPT_SSL_CERT`: Defines a path to the X509 certificate file to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path.
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CERT, (void *)"certs/client-cert.pem");
     ```
-*   `MYSQL_OPT_SSL_CA`: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
+*   `MYSQL_OPT_SSL_CA`: Defines a path to a PEM file that should contain one or more X509 certificates for trusted Certificate Authorities (CAs) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information.
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CA, (void *)"certs/ca-cert.pem");
     ```
-*   `MYSQL_OPT_SSL_CAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+*   `MYSQL_OPT_SSL_CAPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one X509 certificate for a trusted Certificate Authority (CA) to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Authorities (CAs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-authorities-cas) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");
     ```
-*   `MYSQL_OPT_SSL_CIPHER`: Defines a list of permitted ciphers or cipher suites to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption).
+*   `MYSQL_OPT_SSL_CIPHER`: Defines a list of permitted ciphers or cipher suites to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption).
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CIPHER, (void *)"DHE-RSA-AES256-SHA");
     ```
-*   `MYSQL_OPT_SSL_CRL`: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+*   `MYSQL_OPT_SSL_CRL`: Defines a path to a PEM file that should contain one or more revoked X509 certificates to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL or Schannel. If the connector was built with GnuTLS, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");\\\\<<code>>mysql_optionsv(mysql, MYSQL_OPT_SSL_CRL, (void *)"certs/crl.pem");
     ```
-*   `MYSQL_OPT_SSL_CRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+*   `MYSQL_OPT_SSL_CRLPATH`: Defines a path to a directory that contains one or more PEM files that should each contain one revoked X509 certificate to use for [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption). This option requires that you use the absolute path, not a relative path. The directory specified by this option needs to be run through the [openssl rehash](https://www.openssl.org/docs/man1.1.1/man1/rehash.html) command. See [Secure Connections Overview: Certificate Revocation Lists (CRLs)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#certificate-revocation-lists-crls) for more information. This option is only supported if the connector was built with OpenSSL. If the connector was built with GnuTLS or Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
     mysql_optionsv(mysql, MYSQL_OPT_SSL_CAPATH, (void *)"certs/ca-cert.pem");\\\\<<code>>mysql_optionsv(mysql, MYSQL_OPT_SSL_CRLPATH, (void *)"certs/crls");
     ```
-*   `MARIADB_OPT_SSL_FP`: Specify the SHA1 fingerprint of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake. This is deprecated. Use `MARIADB_OPT_TLS_PEER_FP` instead.
+*   `MARIADB_OPT_SSL_FP`: Specify the fingerprint hash of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. Before version 3.4.0, Connector/C accepted only `SHA1` hashes. Starting with version 3.4.0, support was extended to include `SHA256`, `SHA384`, and `SHA512`. This option is deprecated. Use `MARIADB_OPT_TLS_PEER_FP` instead.
 
     ```c
     mysql_optionsv(mysql, MARIADB_OPT_SSL_FP, (void *)"3a079e1a14ad326953a5d280f996b93d772a5bea");
     ```
-*   `MARIADB_OPT_TLS_PEER_FP`: Specify the SHA1 fingerprint of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake.
+*   `MARIADB_OPT_TLS_PEER_FP`: Specify the SHA1 fingerprint of a server certificate for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake.
 
     ```c
     mysql_optionsv(mysql, MARIADB_OPT_TLS_PEER_FP, (void *)"3a079e1a14ad326953a5d280f996b93d772a5bea");
     ```
-*   `MARIADB_OPT_SSL_FP_LIST`: Specify a file which contains one or more SHA1 fingerprints of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake. This is deprecated. Use `MARIADB_OPT_TLS_PEER_FP_LIST` instead.
+*   `MARIADB_OPT_SSL_FP_LIST`: Specify a file containing one or more fingerprint hashes of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake. Before version 3.4.0, Connector/C accepted only `SHA1` hashes. Starting with version 3.4.0, support was extended to include `SHA256`, `SHA384`, and `SHA512`. This is deprecated. Use `MARIADB_OPT_TLS_PEER_FP_LIST` instead.
 
     ```c
     mysql_optionsv(mysql, MARIADB_OPT_SSL_FP_LIST, (void *)"certs/fingerprints.txt");
     ```
-*   `MARIADB_OPT_TLS_PEER_FP_LIST`: Specify a file which contains one or more SHA1 fingerprints of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) handshake.
+*   `MARIADB_OPT_TLS_PEER_FP_LIST`: Specify a file which contains one or more SHA1 fingerprints of server certificates for validation during the [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) handshake.
 
     ```c
     mysql_optionsv(mysql, MARIADB_OPT_TLS_PEER_FP_LIST, (void *)"certs/fingerprints.txt");
     ```
-*   `MARIADB_OPT_TLS_PASSPHRASE`: Specify a passphrase for a passphrase-protected private key, as configured by the `MYSQL_OPT_SSL_KEY` option. This option is only supported if the connector was built with OpenSSL or GnuTLS. If the connector was built with Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
+*   `MARIADB_OPT_TLS_PASSPHRASE`: Specify a passphrase for a passphrase-protected private key, as configured by the `MYSQL_OPT_SSL_KEY` option. This option is only supported if the connector was built with OpenSSL or GnuTLS. If the connector was built with Schannel, then this option is not supported. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which libraries are used on which platforms.
 
     ```c
     mysql_optionsv(mysql, MARIADB_OPT_SSL_PASSPHRASE, (void *)"thisisashortpassphrase");
     ```
-*   `MARIADB_OPT_TLS_VERSION`: Defines which [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption) protocol versions are allowed. This should be a comma-separated list of TLS protocol versions to allow. Valid TLS protocol versions are `TLSv1.0`, `TLSv1.1`, `TLSv1.2`, and `TLSv1.3`. Both the client and server should support the allowed TLS protocol versions. See [Secure Connections Overview: TLS Protocol Version Support](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#tls-protocol-version-support) for information on which TLS libraries support which TLS protocol versions. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which TLS libraries are used on which platforms.
+*   `MARIADB_OPT_TLS_VERSION`: Defines which [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) protocol versions are allowed. This should be a comma-separated list of TLS protocol versions to allow. Valid TLS protocol versions are `TLSv1.0`, `TLSv1.1`, `TLSv1.2`, and `TLSv1.3`. Both the client and server should support the allowed TLS protocol versions. See [Secure Connections Overview: TLS Protocol Version Support](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#tls-protocol-version-support) for information on which TLS libraries support which TLS protocol versions. See [TLS and Cryptography Libraries Used by MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/tls-and-cryptography-libraries-used-by-mariadb) for more information about which TLS libraries are used on which platforms.
 
     ```c
     mysql_optionsv(mysql, MARIADB_OPT_TLS_VERSION, (void *)"TLSv1.2,TLSv1.3");
     ```
-*   `MYSQL_OPT_SSL_VERIFY_SERVER_CERT`: Enables (or disables) [server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification).
+*   `MYSQL_OPT_SSL_VERIFY_SERVER_CERT`: Enables (or disables) [server certificate verification](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview#server-certificate-verification).
 
     ```c
     my_bool verify= 1;
     mysql_optionsv(mysql, MYSQL_OPT_SSL_VERIFY_SERVER_CERT, (void *)&verify);
     ```
-*   `MYSQL_OPT_SSL_ENFORCE`: Whether to force [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/securing-mariadb/encryption/data-in-transit-encryption/secure-connections-overview). This enables TLS with the default system settings. It does not prevent the connection from being created if the server does not support TLS.
+*   `MYSQL_OPT_SSL_ENFORCE`: Enables [TLS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/secure-connections-overview) using the default system settings. Does not require TLS certificates, keys, or CAs to be explicitly configured.
 
     ```c
     my_bool enforce_tls= 1;
     mysql_optionsv(mysql, MYSQL_OPT_SSL_ENFORCE, (void *)&enforce_tls);
     ```
-*   `MARIADB_OPT_TLS_CIPHER_STRENGTH`: Cipher strength. This value will be passed as an unsigned `int` parameter.
+* **Note**: Despite the option name, this does **not** enforce TLS. If the server does not support TLS, the\
+  connection falls back to unencrypted communication without error. To prevent fallback and enforce TLS, use `MYSQL_OPT_SSL_VERIFY_SERVER_CERT` instead.
+*   `MARIADB_OPT_TLS_CIPHER_STRENGTH`: **Deprecated**. This option is no longer in use and has no effect. Cipher strength. This value will be passed as an unsigned `int` parameter.
 
     ```c
     unsigned int cipher_strength= 128;
@@ -322,6 +341,12 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     ```c
     mysql_optionsv(mysql, MARIADB_OPT_CONNECTION_HANDLER, (void *)"aurora");
     ```
+*   `MARIADB_OPT_RESTRICTED_AUTH`: Specifies a comma-separated list of authentication plugins that are permitted for authenticating this connection. If the server requests an authentication plugin that is not in this list, MariaDB Connector/C returns an error and the connection is refused. This option can be used to prevent the use of weaker authentication methods.\
+    Added in MariaDB Connector/C 3.3.0 version.
+
+    ```c
+    c mysql_optionsv(mysql, MARIADB_OPT_RESTRICTED_AUTH, (void *)"ed25519,caching_sha2_password");
+    ```
 *   `MARIADB_OPT_USERDATA`: Bundle user data to the current connection, e.g. for use in connection handler plugins. This option requires 4 parameters: connection, option, key and value.
 
     ```c
@@ -333,6 +358,7 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     my_bool read_only= 1;
     mysql_optionsv(mysql, MARIADB_OPT_CONNECTION_READ_ONLY, (void *)&read_only);
     ```
+* `MARIADB_OPT_SKIP_READ_RESPONSE`: Disables server response packet reading in the binary protocol. Designed for specialized connection handlers, not for typical application use. Added in Connector/C 3.1.13 version.&#x20;
 *   `MYSQL_PLUGIN_DIR`: Specify the location of client plugins. The plugin directory can also be specified with the `MARIADB_PLUGIN_DIR` environment variable.
 
     ```c
@@ -349,6 +375,59 @@ Some of these options can also be set as arguments to the [mysql\_real\_connect]
     mysql_optionsv(mysql, MYSQL_SERVER_PUBLIC_KEY, (void *)(void *)"certs/server-cert.pem);
     ```
 
+#### Callback Options
+
+*   `MARIADB_OPT_STATUS_CALLBACK`: Specifies a callback function that is invoked whenever the server sends a status change or session tracking information to the client. This can be used to monitor server status flags and session variable changes without polling.&#x20;
+
+
+
+    ```c
+    mysql_optionsv(mysql, MARIADB_OPT_STATUS_CALLBACK, (void *)my_status_callback, (void *)user_data);
+    ```
+
+    \
+    The callback function must match the following signature:
+
+    ```c
+    void status_callback(void *data, enum enum_mariadb_status_info type, ..)
+    ```
+
+&#x20;**Parameters**
+
+| Parameter | Type                            | Description                                                                                                                    |
+| --------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `data`    | `void *`                        | The pointer passed as the second argument when registering the callback (typically a connection handle or application context) |
+| `type`    | `enum enum_mariadb_status_info` | Indicates the category of information being delivered. Either `STATUS_TYPE` or `SESSION_TRACK_TYPE`.                           |
+
+**Variadic Parameters (vary by `type`)**
+
+When type is `STATUS_TYPE`:
+
+| Position | Type           | Description                      |
+| -------- | -------------- | -------------------------------- |
+| 1st      | `unsigned int` | The current server status flags. |
+
+When type is `SESSION_TRACK_TYPE`:
+
+<table><thead><tr><th width="211.22222900390625">Position</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>1st</td><td><code>enum enum_session_state_type</code></td><td>The session tracking type.</td></tr><tr><td>2nd</td><td><code>MARIADB_CONST_STRING *</code></td><td>If <code>track_type</code> is <code>SESSION_TRACK_SYSTEM_VARIABLES</code>: the variable name.</td></tr><tr><td>3rd </td><td><code>MARIADB_CONST_STRING *</code></td><td>If <code>track_type</code> is <code>SESSION_TRACK_SYSTEM_VARIABLES</code>: the variable value.</td></tr></tbody></table>
+
+{% hint style="info" %}
+When a status callback is registered, the connector’s built‑in session tracking functions are disabled. After calling `mysql_optionsv()` with `MARIADB_OPT_STATUS_CALLBACK`, the functions `mysql_session_track_get_first()` and `mysql_session_track_get_next()` will no longer provide session tracking data. Instead, all session tracking must be managed within the callback itself.
+{% endhint %}
+
+An example implementation can be found in the Connector/C source tree at `unittest/libmariadb/connection.c` (function `test_status_callback`). Added in MariaDB Connector/C 3.3.2 version.
+
+#### Replication/Binlog API Options
+
+*   `MARIADB_OPT_RPL_REGISTER_REPLICA`: Specifies the host name and port that the Binlog API will report when registering this client as a replica with the connected server. When this option is set, `mariadb_rpl_open()` will register the client using the provided host, port, and the server ID configured via `mariadb_rpl_optionsv()`. The registration is visible in the output of `SHOW SLAVE STATUS` on the server. <br>
+
+    ```c
+    mysql_optionsv(mysql, MARIADB_OPT_RPL_REGISTER_REPLICA, (void *)"replica-host.example.com", (unsigned int)3306);
+    ```
+
+    \
+    Added in MariaDB Connector/C 3.3.1 version.  See [Replication API Reference](../mariadb-binlogreplication-api-reference/).
+
 #### Option File Options
 
 * `MYSQL_READ_DEFAULT_FILE`: Read options from an [option file](../configuring-mariadb-connectorc-with-option-files.md).
@@ -361,6 +440,18 @@ These options work together, according to the following rules:
 * if `MYSQL_READ_DEFAULT_FILE` is set to a non-empty string, then it is interpreted as a path to a [custom option file](../configuring-mariadb-connectorc-with-option-files.md#custom-option-file-locations), and only that option file is read.
 * if `MYSQL_READ_DEFAULT_GROUP` is an empty string (or `NULL` and `MYSQL_READ_DEFAULT_FILE` is set) then only default groups — `[client]`, `[client-server]`, `[client-mariadb]` are read.
 * if `MYSQL_READ_DEFAULT_GROUP` is a non-empty string, then it is interpreted as a custom option group, and that custom option group is read in addition to default groups from above.
+
+#### Proxy Settings&#x20;
+
+As defined by the [proxy protocol specification](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt), a client may prefix its first packet with a proxy protocol header. The server will parse this header and treat the IP address it contains as the client's actual IP address, rather than the address of the connecting process.&#x20;
+
+* `MARIADB_OPT_PROXY_HEADER`: Specifies the proxy protocol header to prefix to the first packet sent to the server. The option requires two additional arguments:&#x20;
+  * a `void *` pointer to the header buffer, and&#x20;
+  * a `size_t` value for the buffer length.
+
+```sql
+const char *hdr = "PROXY TCP4 192.168.0.1 192.168.0.11 56324 443\r\n"; mysql_optionsv(mysql, MARIADB_OPT_PROXY_HEADER, (void *)hdr, strlen(hdr));
+```
 
 #### Connection Attribute Options
 

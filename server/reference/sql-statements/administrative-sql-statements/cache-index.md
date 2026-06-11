@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CACHE INDEX                      
   tbl_index_list [, tbl_index_list] ...
   IN key_cache_name                    

@@ -21,8 +21,8 @@ description: A list of all MariaDB Community Server releases
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
-| [12.2.2](12.2/12.2.2.md) | 2026-02-12   | Stable (GA)    |
-| [12.2.1](12.2/12.2.1.md) | 2025-11-21   | RC             |
+| [12.2.2](old-releases/12.2/12.2.2.md) | 2026-02-12   | Stable (GA)    |
+| [12.2.1](old-releases/12.2/12.2.1.md) | 2025-11-21   | RC             |
 | 12.2.0                   | 2025-09-23   | Preview        |
 
 ## MariaDB Community Server 12.1
@@ -45,6 +45,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                     | Release date | Release status |
 | ------------------------ | ------------ | -------------- |
+| [11.8.8](11.8/11.8.8.md) | 2026-05-27   | Stable         |
 | [11.8.7](11.8/11.8.7.md) | 2026-05-18   | Stable         |
 | [11.8.6](11.8/11.8.6.md) | 2026-02-04   | Stable         |
 | [11.8.5](11.8/11.8.5.md) | 2025-11-14   | Stable         |
@@ -83,6 +84,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                       | Release date | Release status |
 | -------------------------- | ------------ | -------------- |
+| [11.4.12](11.4/11.4.12.md) | 2026-05-27   | Stable         |
 | [11.4.11](11.4/11.4.11.md) | 2026-05-18   | Stable         |
 | [11.4.10](11.4/11.4.10.md) | 2026-02-04   | Stable         |
 | [11.4.9](11.4/11.4.9.md)   | 2025-11-06   | Stable         |
@@ -143,6 +145,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                          | Release date | Release status |
 | ----------------------------- | ------------ | -------------- |
+| [10.11.18](10.11/10.11.18.md) | 2026-05-27   | Stable         |
 | [10.11.17](10.11/10.11.17.md) | 2026-05-18   | Stable         |
 | [10.11.16](10.11/10.11.16.md) | 2026-02-04   | Stable         |
 | [10.11.15](10.11/10.11.15.md) | 2025-11-06   | Stable         |
@@ -218,6 +221,7 @@ description: A list of all MariaDB Community Server releases
 
 | Name                       | Release date | Release status |
 | -------------------------- | ------------ | -------------- |
+| [10.6.27](10.6/10.6.27.md) | 2026-05-27   | Stable         |
 | [10.6.26](10.6/10.6.26.md) | 2026-05-18   | Stable         |
 | [10.6.25](10.6/10.6.25.md) | 2026-02-04   | Stable         |
 | [10.6.24](10.6/10.6.24.md) | 2025-11-06   | Stable         |

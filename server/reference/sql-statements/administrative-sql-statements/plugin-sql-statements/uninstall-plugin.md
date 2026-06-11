@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 UNINSTALL PLUGIN [IF EXISTS] plugin_name
 ```
 

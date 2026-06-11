@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 START TRANSACTION [transaction_property [, transaction_property] ...] | BEGIN [WORK]
 COMMIT [WORK] [AND [NO] CHAIN] [[NO] RELEASE]
 ROLLBACK [WORK] [AND [NO] CHAIN] [[NO] RELEASE]

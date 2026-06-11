@@ -4,7 +4,7 @@
 
 ## About this Release
 
-* MariaDB Server 11.4.11 was released on 4 Feb 2026
+* MariaDB Server 11.4.11 was released on 18 May 2026
 * [What's new in this release?](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/11.4/11.4.11)
 * MariaDB Server is open source software, the [source code is available](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code)
 * This release is Stable (GA) maturity

@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_EXISTS(json_doc, json_path)
 ```
 

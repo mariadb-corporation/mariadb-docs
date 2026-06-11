@@ -24,7 +24,7 @@ And loaded in the R environment executing:
 library(RMariaDB)
 ```
 
-Basic notions on R Programming can be found in article:[R Statistical Programming Using MariaDB as the Background Database](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/use-cases/r-statistical-programming-using-mariadb-as-the-background-database)
+Basic notions on R Programming can be found in article:[R Statistical Programming Using MariaDB as the Background Database](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/use-cases/r-statistical-programming-using-mariadb-as-the-background-database)
 
 ## RMariaDB Package Function Examples
 

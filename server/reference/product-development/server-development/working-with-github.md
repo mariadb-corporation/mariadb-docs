@@ -34,7 +34,7 @@ So to make a GitHub pull request you already have some code/changes that you hav
 
 A pull request starts from a public branch. You can either create a pull request from a public fork of the MariaDB Server, or if you have access, a branch on the MariaDB Server. Both will achieve the same outcome.
 
-If you are creating on the MariaDB server, a branch name of the MDEV associated with the issue is recommended. If there are targetted branch names that need specific fixes, then prepending the target branch name to the newly created branch is recommended.
+If you are creating on the MariaDB server, a branch name of the MDEV associated with the issue is recommended. If there are targeted branch names that need specific fixes, then prepending the target branch name to the newly created branch is recommended.
 
 Previous documentation suggested a bb-\*prefix. This will trigger duplicate runs through Buildbot so your assistance in saving it some work would be appreciated.
 

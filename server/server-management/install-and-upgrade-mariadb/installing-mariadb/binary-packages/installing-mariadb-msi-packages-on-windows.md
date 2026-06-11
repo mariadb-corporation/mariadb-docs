@@ -136,7 +136,7 @@ MariaDB installation supports the following properties:
 
 _Feature_ is a Windows installer term for a unit of installation. Features can be selected and deselected in the UI in the feature tree in the "Custom Setup" dialog.
 
-Silent installation supports adding features with the special roperty`ADDLOCAL=Feature_1,..,Feature_N` and removing features with `REMOVE=Feature_1,..., Feature_N` .
+Silent installation supports adding features with the special property`ADDLOCAL=Feature_1,..,Feature_N` and removing features with `REMOVE=Feature_1,..., Feature_N` .
 
 Features in the MariaDB installer:
 

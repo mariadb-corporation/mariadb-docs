@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 FIRST_VALUE(expr) OVER (
   [ PARTITION BY partition_expression ]
   [ ORDER BY order_list ]

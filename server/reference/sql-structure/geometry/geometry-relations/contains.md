@@ -2,7 +2,7 @@
 
 ## Syntax
 
-```sql
+```bnf
 Contains(g1,g2)
 ```
 

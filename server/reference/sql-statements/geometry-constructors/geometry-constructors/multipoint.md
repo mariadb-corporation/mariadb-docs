@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 MultiPoint(pt1,pt2,...)
 ```
 

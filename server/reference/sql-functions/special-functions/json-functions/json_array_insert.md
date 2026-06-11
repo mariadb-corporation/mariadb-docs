@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 JSON_ARRAY_INSERT(json_doc, path, value[, path, value] ...)
 ```
 

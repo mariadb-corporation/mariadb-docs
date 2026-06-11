@@ -1,4 +1,4 @@
-# Point-In-Time Recovery (InnoDB log archiving)
+# Point-In-Time Recovery (InnoDB Log Archiving)
 
 {% hint style="info" %}
 This functionality is available from MariaDB 13.0.
@@ -9,7 +9,7 @@ When [InnoDB log archiving](../storage-engines/innodb/innodb-log-archiving.md) i
 This is an alternative to [PITR via mariadb-backup and binary logs](mariadb-backup/point-in-time-recovery-pitr-mariadb-backup.md), useful in InnoDB-only deployments or in recovery scenarios where binary logs are not available.
 
 {% hint style="warning" %}
-No shipped backup tool yet generates or restores backups in the `innodb_log_archive=ON` format — [`mariadb-backup`](mariadb-backup/README.md) does not support it and fails when the server is running with `innodb_log_archive=ON`. A backup tool that uses this format is being worked on. Until it ships, this procedure assumes you already have an externally-prepared restore that contains a consistent set of `ib_`_`lsn`_`.log` files alongside the InnoDB data files.
+No shipped backup tool yet generates or restores backups in the `innodb_log_archive=ON` format — [`mariadb-backup`](mariadb-backup/) does not support it and fails when the server is running with `innodb_log_archive=ON`. A backup tool that uses this format is being worked on. Until it ships, this procedure assumes you already have an externally-prepared restore that contains a consistent set of `ib_`_`lsn`_`.log` files alongside the InnoDB data files.
 {% endhint %}
 
 ## Recovery Parameters
@@ -27,13 +27,13 @@ The data files in the restore must correspond to an LSN that lies between `Innod
 
 {% stepper %}
 {% step %}
-#### Prepare the restore.
+**Prepare the restore.**
 
 Place the restored InnoDB data files and the corresponding `ib_`_`lsn`_`.log` archive files in the data directory. With `innodb_log_archive=ON`, the server refuses to start if a legacy `ib_logfile0` exists, so make sure it is not present.
 {% endstep %}
 
 {% step %}
-#### Stop the MariaDB Server (if it is running).
+**Stop the MariaDB Server (if it is running).**
 
 ```bash
 $ sudo systemctl stop mariadb
@@ -41,19 +41,19 @@ $ sudo systemctl stop mariadb
 {% endstep %}
 
 {% step %}
-#### Start the server with recovery parameters.
+**Start the server with recovery parameters.**
 
 Pass `innodb_log_recovery_start` and `innodb_log_recovery_target` either on the command line or in the configuration file, alongside `innodb_log_archive=ON`. While `innodb_log_recovery_target` is non-zero, the server replays the archived log up to the target LSN and then keeps the InnoDB tables read-only.
 {% endstep %}
 
 {% step %}
-#### Verify the state.
+**Verify the state.**
 
 Once the server reaches the target LSN, the recovery process stops. Inspect [`Innodb_lsn_archived`](../../ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables.md#innodb_lsn_archived), `Innodb_lsn_current`, and the contents of the recovered tables to confirm the data is at the expected logical point.
 {% endstep %}
 
 {% step %}
-#### Resume normal operation.
+**Resume normal operation.**
 
 To return to normal read-write operation, restart the server without `innodb_log_recovery_target` set.
 {% endstep %}

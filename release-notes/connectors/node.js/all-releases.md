@@ -9,7 +9,8 @@ description: A list of all MariaDB Connector/Node.js releases
 ## 3.5
 
 | Release               | Release Date | Release Status         |
-| --------------------- | ------------ | ---------------------- |
+|-----------------------|--------------| ---------------------- |
+| [3.5.3](3.x/3.5.3.md) | 2026-06-09   | Stable (GA)            |
 | [3.5.2](3.x/3.5.2.md) | 2026-03-06   | Stable (GA)            |
 | [3.5.1](3.x/3.5.1.md) | 2026-02-18   | Stable (GA)            |
 | [3.5.0](3.x/3.5.0.md) | 2025-10-10   | Release Candidate (RC) |
@@ -18,6 +19,7 @@ description: A list of all MariaDB Connector/Node.js releases
 
 | Release               | Release Date | Release Status |
 | --------------------- | ------------ | -------------- |
+| [3.4.6](3.x/3.4.6.md) | 2026-06-09   | Stable (GA)    |
 | [3.4.5](3.x/3.4.5.md) | 2025-07-25   | Stable (GA)    |
 | [3.4.4](3.x/3.4.4.md) | 2025-07-03   | Stable (GA)    |
 | [3.4.3](3.x/3.4.3.md) | 2025-07-02   | Stable (GA)    |
@@ -29,6 +31,7 @@ description: A list of all MariaDB Connector/Node.js releases
 
 | Release               | Release Date | Release Status |
 | --------------------- | ------------ | -------------- |
+| [3.3.3](3.x/3.3.3.md) | 2026-06-09   | Stable (GA)    |
 | [3.3.2](3.x/3.3.2.md) | 2024-09-18   | Stable (GA)    |
 | [3.3.1](3.x/3.3.1.md) | 2024-06-05   | Stable (GA)    |
 | [3.3.0](3.x/3.3.0.md) | 2024-03-21   | Stable (GA)    |
@@ -37,6 +40,7 @@ description: A list of all MariaDB Connector/Node.js releases
 
 | Release               | Release Date | Release Status |
 | --------------------- | ------------ | -------------- |
+| [3.2.4](3.x/3.2.4.md) | 2026-06-09   | Stable (GA)    |
 | [3.2.3](3.x/3.2.3.md) | 2023-12-19   | Stable (GA)    |
 | [3.2.2](3.x/3.2.2.md) | 2023-10-16   | Stable (GA)    |
 | [3.2.1](3.x/3.2.1.md) | 2023-09-14   | Stable (GA)    |

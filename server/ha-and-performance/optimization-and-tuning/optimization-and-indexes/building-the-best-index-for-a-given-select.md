@@ -413,7 +413,7 @@ Notes:
 * "MEDIUMINT" -- This is a reminder that all INTs should be made as small as is safe (smaller ⇒ faster). Of course the declaration here must match the definition in the table being linked to.
 * "UNSIGNED" -- Nearly all INTs may as well be declared non-negative
 * "NOT NULL" -- Well, that's true, isn't it?
-* "InnoDB" -- More effecient than MyISAM because of the way the PRIMARY KEY is clustered with the data in InnoDB.
+* "InnoDB" -- More efficient than MyISAM because of the way the PRIMARY KEY is clustered with the data in InnoDB.
 * "INDEX(y\_id, x\_id)" -- The PRIMARY KEY makes it efficient to go one direction; this index makes the other direction efficient. No need to say UNIQUE; that would be extra effort on INSERTs.
 * In the secondary index, saying justINDEX(y\_id) would work because it would implicit include x\_id. But I would rather make it more obvious that I am hoping for a 'covering' index.
 
@@ -429,7 +429,7 @@ Exception: In a "correlated" ("dependent") subquery, the part of the WHERE that 
 
 ## JOINs
 
-The first step is to decide what order the optimizer will go through the tables. If you cannot figure it out, then you may need to be pessimistic and create two indexes for each table -- one assuming the table will be used first, one assiming that it will come later in the table order.
+The first step is to decide what order the optimizer will go through the tables. If you cannot figure it out, then you may need to be pessimistic and create two indexes for each table -- one assuming the table will be used first, one assuming that it will come later in the table order.
 
 The optimizer usually starts with one table and extracts the data needed from it. As it finds a useful (that is, matches the WHERE clause, if any) row, it reaches into the 'next' table. This is called NLJ ("Nested Loop Join"). The process of filtering and reaching to the next table continues through the rest of the tables.
 
@@ -451,7 +451,7 @@ The second (and subsequent) table will be reached into based on the ON clause. (
 
 PARTITIONing is rarely a substitute for a good INDEX.
 
-PARTITION BY RANGE is a technique that is sometimes useful when indexing fails to be good enough. In a two-dimensional situation such as nearness in a geographical sense, one dimension can partially be handled by partition pruning; then the other dimension can be handled by a regular index (preferrably the PRIMARY KEY). This goes into more detail: [Find nearest 10 pizza parlors](../../../server-usage/partitioning-tables/partition-maintenance.md).
+PARTITION BY RANGE is a technique that is sometimes useful when indexing fails to be good enough. In a two-dimensional situation such as nearness in a geographical sense, one dimension can partially be handled by partition pruning; then the other dimension can be handled by a regular index (preferably the PRIMARY KEY). This goes into more detail: [Find nearest 10 pizza parlors](../../../server-usage/partitioning-tables/partition-maintenance.md).
 
 ## FULLTEXT
 

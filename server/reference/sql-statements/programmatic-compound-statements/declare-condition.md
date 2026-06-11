@@ -9,7 +9,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 DECLARE condition_name CONDITION FOR condition_value
 
 condition_value:

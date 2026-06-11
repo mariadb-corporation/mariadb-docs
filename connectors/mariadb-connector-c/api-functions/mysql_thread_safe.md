@@ -16,14 +16,17 @@ unsigned int mysql_thread_safe(void );
 
 Indicates whether or not the client library is compiled as thread safe. Returns `1` if the client library was compiled as thread safe otherwise zero.
 
+## Return Value
+
+Returns always 1.
+
 {% hint style="info" %}
-By default the mariadb client library is compiled as thread safe.
+This function exists for compatibility reasons and returns always 1.
 {% endhint %}
 
-## See also
+## See Also
 
 * [mysql\_thread\_init()](mysql_thread_init.md)
 * [mysql\_thread\_end()](mysql_thread_end.md)
-
 
 {% @marketo/form formId="4316" %}

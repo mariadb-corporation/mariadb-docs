@@ -1036,13 +1036,17 @@ MAX_MEMORY_USED: 392544
 For a complete list of security vulnerabilities (CVE) fixed across all versions of MariaDB Enterprise Server, see the [Security Vulnerabilities Fixed in MariaDB Enterprise Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/enterprise-server) page.
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Enterprise Server 11.4 Release |
-| ----------------------------------------------------------------- | --------------- | ------------------------------ |
-| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5             | [11.4.9-6](11.4.9-6.md)        |
-| [CVE-2025-30693](https://www.cve.org/CVERecord?id=CVE-2025-30693) | 5.5             | [11.4.7-4](11.4.7-4.md)        |
-| [CVE-2023-52969](https://www.cve.org/CVERecord?id=CVE-2023-52969) | 4.9             | [11.4.7-4](11.4.7-4.md)        |
-| [CVE-2023-52970](https://www.cve.org/CVERecord?id=CVE-2023-52970) | 4.9             | [11.4.7-4](11.4.7-4.md)        |
-| [CVE-2023-52971](https://www.cve.org/CVERecord?id=CVE-2023-52971) | 4.9             | [11.4.7-4](11.4.7-4.md)        |
-| [CVE-2025-21490](https://www.cve.org/CVERecord?id=CVE-2025-21490) | 4.9             | [11.4.5-3](11.4.5-3.md)        |
+| ----------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261) | 10.0                   | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |
+| [CVE-2026-21968](https://www.cve.org/CVERecord?id=CVE-2026-21968) | 6.5                    | [11.4.9-6](11.4.9-6.md)        |
+| [CVE-2025-30693](https://www.cve.org/CVERecord?id=CVE-2025-30693) | 5.5                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52969](https://www.cve.org/CVERecord?id=CVE-2023-52969) | 4.9                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52970](https://www.cve.org/CVERecord?id=CVE-2023-52970) | 4.9                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2023-52971](https://www.cve.org/CVERecord?id=CVE-2023-52971) | 4.9                    | [11.4.7-4](11.4.7-4.md)        |
+| [CVE-2025-21490](https://www.cve.org/CVERecord?id=CVE-2025-21490) | 4.9                    | [11.4.5-3](11.4.5-3.md)        |
 
 ## Available Versions
 
@@ -1058,8 +1062,8 @@ See also: [All MariaDB Enterprise Releases](../all-releases.md)
 
 ## Upgrade Instructions
 
-* [Upgrade to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-to-mariadb-enterprise-server-11.4)
-* [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-enterprise-server/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-from-mariadb-community-server-to-mariadb-enterprise-server-11.4)
+* [Upgrade to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-to-mariadb-enterprise-server-11.4)
+* [Upgrade from MariaDB Community Server to MariaDB Enterprise Server 11.4](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4/upgrade-from-mariadb-community-server-to-mariadb-enterprise-server-11.4)
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/pNHZQXPP5OEz2TgvhFva/" %}
 

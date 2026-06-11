@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 CONCAT_WS(separator,str1,str2,...)
 ```
 

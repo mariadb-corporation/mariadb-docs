@@ -68,7 +68,7 @@ The following options should be removed or renamed if you use them in your [opti
 
 | Option                                                                                                                                  | Reason                                                                                                                                                |
 | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [old\_alter\_table](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table) | Superceded by [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm). |
+| [old\_alter\_table](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_alter_table) | Superseded by [alter\_algorithm](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#alter_algorithm). |
 
 #### Deprecated Options
 

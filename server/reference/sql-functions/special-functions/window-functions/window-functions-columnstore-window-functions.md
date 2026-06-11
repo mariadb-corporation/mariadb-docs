@@ -24,7 +24,7 @@ Window functions are applied after joins, group by, and having clauses are calcu
 
 A window function is applied in the select clause using the following syntax:
 
-```sql
+```bnf
 function_name ([expression [, expression ... ]]) OVER ( window_definition )
 ```
 

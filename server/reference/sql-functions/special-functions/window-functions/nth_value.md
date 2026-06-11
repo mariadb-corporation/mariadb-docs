@@ -8,7 +8,7 @@ description: >-
 
 ## Syntax
 
-```sql
+```bnf
 NTH_VALUE (expr[, num_row]) OVER ( 
   [ PARTITION BY partition_expression ] 
   [ ORDER BY order_list ]

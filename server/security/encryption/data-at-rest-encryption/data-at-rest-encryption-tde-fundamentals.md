@@ -302,7 +302,7 @@ Transparent Data Encryption (TDE) is designed to protect data "at rest" while re
 
 ### Automatic Encryption (InnoDB & Aria)
 
-For the subsequent instructions, we use these tables. With encrytion turned on, note that they're encrypted without using any special syntax:
+For the subsequent instructions, we use these tables. With encryption turned on, note that they're encrypted without using any special syntax:
 
 ```sql
 -- Create an InnoDB table

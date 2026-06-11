@@ -10,8 +10,12 @@ description: >-
 *Since version 2.0:* Connection pooling is now a separate optional package. Install with:
 
 ```console
-pip install mariadb[pool]
+pip install --pre mariadb[pool]
 ```
+
+{% hint style="info" %}
+Version 2.0 is currently a Release Candidate (RC), so the `--pre` flag is required. Version 1.1 (the latest stable/GA release) includes connection pooling by default.
+{% endhint %}
 
 A connection pool is a cache of connections to a database server where connections can be reused for future requests.
 Since establishing a connection is resource-expensive and time-consuming, especially when used inside a middle tier
@@ -197,8 +201,8 @@ conn = pool.get_connection()
 
 **Version 2.0:**
 ```python
-# Install pooling package first
-# pip install mariadb[pool]
+# Install pooling package first (--pre is required while 2.0 is an RC)
+# pip install --pre mariadb[pool]
 
 pool = mariadb.create_pool(
     host="localhost",

@@ -250,7 +250,7 @@ See [Securing Connections for Client and Server](../../../security/encryption/da
 
 It is possible to set per-account limits for certain server resources. The following table shows the values that can be set per account:
 
-| Limit Type                  | Decription                                                                                                                                                                                                                      |
+| Limit Type                  | Description                                                                                                                                                                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MAX\_QUERIES\_PER\_HOUR     | Number of statements that the account can issue per hour (including updates)                                                                                                                                                    |
 | MAX\_UPDATES\_PER\_HOUR     | Number of updates (not queries) that the account can issue per hour                                                                                                                                                             |
@@ -292,6 +292,10 @@ the [LIKE](../../sql-functions/string-functions/like.md) clause. If you need to 
 match a domain name with an underscore), prefix the character with a backslash. See `LIKE`\
 for more information on escaping wildcard characters.
 
+Before [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), when multiple host patterns could match a connecting client, the sort order among wildcard patterns was determined only by the position of the first wildcard character. This approach often produced incorrect results or made the outcome dependent on insertion order.
+
+Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)), the matching algorithm correctly ranks host patterns by specificity, the number of hosts a pattern can match, ensuring deterministic and accurate privilege resolution.
+
 Host name matches are case-insensitive. Host names can match either domain names or IP\
 addresses. Use `'localhost'` as the host name to allow only local client connections. On Linux, the loopback interface (127.0.0.1) will not match 'localhost' as it is not considered a local connection: this means that only connections via UNIX-domain sockets will match 'localhost'.
 
@@ -328,9 +332,9 @@ the first matching account after sorting according to the following criteria:
 
 * Accounts with an exact host name are sorted before accounts using a wildcard in the\
   host name. Host names using a netmask are considered to be exact for sorting.
-* Accounts with a wildcard in the host name are sorted according to the position of\
-  the first wildcard character. Those with a wildcard character later in the host name\
-  sort before those with a wildcard character earlier in the host name.
+* Accounts with a wildcard in the host name are sorted by specificity: a hostname that can match fewer hosts is considered more specific and is sorted first. Exact hostnames (no wildcards) are most specific; a bare `%` (matches any host) is least specific. Among patterns with wildcards, those that can match a narrower set of hosts sort before those that match a broader set. For example, `%.foo.bar` sorts before `%.bar` because it matches fewer hosts. \
+  \
+  Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), this ordering is handled correctly by the improved `get_sort()` algorithm ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)). In earlier versions, sorting was based only on the length of the prefix before the first wildcard, which led to indeterminate ordering for patterns such as `%.bar` versus `%.foo.bar`.
 * Accounts with a non-empty user name sort before accounts with an empty user name.
 * Accounts with an empty user name are sorted last. As mentioned previously, these are known as anonymous accounts. These are described more in the next section.
 
@@ -347,22 +351,34 @@ The following table shows a list of example account as sorted by these criteria:
 +---------+-------------+
 ```
 
-Once connected, you only have the privileges granted to the account that matched,\
-not all accounts that could have matched. For example, consider the following\
+Once connected, you only have the privileges granted on a particular object to the account that matched, not all accounts that could have matched. For example, consider the following\
 commands:
 
 ```sql
 CREATE USER 'joffrey'@'192.168.0.3';
 CREATE USER 'joffrey'@'%';
 GRANT SELECT ON test.t1 TO 'joffrey'@'192.168.0.3';
-GRANT SELECT ON test.t2 TO 'joffrey'@'%';
+GRANT INSERT ON test.t1 TO 'joffrey'@'%';
 ```
 
-If you connect as joffrey from `192.168.0.3`, you will have the `SELECT`\
-privilege on the table `test.t1`, but not on the table `test.t2`. If you connect as joffrey from any other IP address, you will have the `SELECT` privilege on the table `test.t2`, but not\
-on the table `test.t1`.
+If you connect as joffrey from `192.168.0.3`, you will have the `SELECT` privilege on the table `test.t1`, but not INSERT. If you connect as joffrey from any other IP address, you will have the `INSERT` privilege on the table `test.t1`, but not `SELECT`.
 
 Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
+
+Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog),  patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
+
+```sql
++---------+-------------+
+| User    | Host        |
++---------+-------------+
+| alice   | db.foo.bar  |  <- exact, matched first
+| alice   | %.foo.bar   |  <- more specific wildcard
+| alice   | %.bar       |  <- less specific wildcard
+| alice   | %           |  <- least specific, matched last
++---------+-------------+
+```
+
+**Note:** The ordering of wildcard host patterns shown above reflects the behavior introduced in [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)). In earlier versions, `%.foo.bar` and `%.bar` could sort indeterminately because the algorithm only compared the length of the prefix before the first wildcard character, both patterns have an empty prefix, so their relative order was undefined and could depend on insertion order in `mysql.user`. &#x20;
 
 ### Anonymous Accounts
 
