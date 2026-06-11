@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="895" height="85">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 33 1 29 1 37"/>
+   <polygon points="17 33 9 29 9 37"/>
+   <rect x="31" y="19" width="56" height="32" rx="10"/>
+   <rect x="29"
+         y="17"
+         width="56"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="39" y="37">CASE</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#value"
+      xlink:title="value">
+      <rect x="107" y="19" width="54" height="32"/>
+      <rect x="105" y="17" width="54" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="115" y="37">value</text>
+   </a>
+   <rect x="201" y="19" width="62" height="32" rx="10"/>
+   <rect x="199"
+         y="17"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="209" y="37">WHEN</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#compare_value"
+      xlink:title="compare_value">
+      <rect x="303" y="51" width="116" height="32"/>
+      <rect x="301" y="49" width="116" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="311" y="69">compare_value</text>
+   </a>
+   <rect x="459" y="19" width="56" height="32" rx="10"/>
+   <rect x="457"
+         y="17"
+         width="56"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="467" y="37">THEN</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#result"
+      xlink:title="result">
+      <rect x="535" y="19" width="56" height="32"/>
+      <rect x="533" y="17" width="56" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="543" y="37">result</text>
+   </a>
+   <rect x="651" y="51" width="52" height="32" rx="10"/>
+   <rect x="649"
+         y="49"
+         width="52"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="659" y="69">ELSE</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#result"
+      xlink:title="result">
+      <rect x="723" y="51" width="56" height="32"/>
+      <rect x="721" y="49" width="56" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="731" y="69">result</text>
+   </a>
+   <rect x="819" y="19" width="48" height="32" rx="10"/>
+   <rect x="817"
+         y="17"
+         width="48"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="827" y="37">END</text>
+   <path class="line"
+         d="m17 33 h2 m0 0 h10 m56 0 h10 m0 0 h10 m54 0 h10 m20 0 h10 m62 0 h10 m20 0 h10 m0 0 h126 m-156 0 h20 m136 0 h20 m-176 0 q10 0 10 10 m156 0 q0 -10 10 -10 m-166 10 v12 m156 0 v-12 m-156 12 q0 10 10 10 m136 0 q10 0 10 -10 m-146 10 h10 m116 0 h10 m20 -32 h10 m56 0 h10 m0 0 h10 m56 0 h10 m-430 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m410 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-410 0 h10 m0 0 h400 m40 32 h10 m0 0 h138 m-168 0 h20 m148 0 h20 m-188 0 q10 0 10 10 m168 0 q0 -10 10 -10 m-178 10 v12 m168 0 v-12 m-168 12 q0 10 10 10 m148 0 q10 0 10 -10 m-158 10 h10 m52 0 h10 m0 0 h10 m56 0 h10 m20 -32 h10 m48 0 h10 m3 0 h-3"/>
+   <polygon points="885 33 893 29 893 37"/>
+   <polygon points="885 33 877 29 877 37"/>
+</svg>

@@ -12,8 +12,10 @@ description: >-
 IF search_condition THEN statement_list
     [ELSEIF search_condition THEN statement_list] ...
     [ELSE statement_list]
-END IF;
+END IF
 ```
+
+![Railroad diagram of the IF statement — equivalent to the BNF above](../../../.gitbook/assets/if-statement-railroad.svg)
 
 ## Description
 

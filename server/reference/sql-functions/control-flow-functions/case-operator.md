@@ -16,6 +16,12 @@ CASE WHEN [condition] THEN result [WHEN [condition] THEN result ...]
 [ELSE result] END
 ```
 
+The BNF documents the two CASE-operator forms (simple and searched); each gets its own diagram.
+
+![Railroad diagram of the simple CASE form](../../../.gitbook/assets/case-operator-simple-railroad.svg)
+
+![Railroad diagram of the searched CASE form](../../../.gitbook/assets/case-operator-searched-railroad.svg)
+
 ## Description
 
 The first version returns the result for the first `value=compare_value` comparison that is true. The second version returns the result for the first condition that is true. If there was no matching result value, the result after ELSE is returned, or NULL if there is no ELSE part.

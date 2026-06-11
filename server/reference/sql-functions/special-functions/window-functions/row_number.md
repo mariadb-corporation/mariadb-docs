@@ -15,6 +15,8 @@ ROW_NUMBER() OVER (
 )
 ```
 
+![Railroad diagram of ROW_NUMBER — equivalent to the BNF above](../../../../.gitbook/assets/row-number-railroad.svg)
+
 ## Description
 
 `ROW_NUMBER()` is a [window function](./) that displays the number of a given row, starting at one and following the [ORDER BY](../../../sql-statements/data-manipulation/selecting-data/order-by.md) sequence of the window function, with identical values receiving different row numbers. It is similar to the [RANK()](rank.md) and [DENSE\_RANK()](dense_rank.md) functions except that in that function, identical values will receive the same rank for each result.

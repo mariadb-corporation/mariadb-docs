@@ -13,10 +13,13 @@ description: >-
 NOW([precision])
 CURRENT_TIMESTAMP
 CURRENT_TIMESTAMP([precision])
-LOCALTIME, LOCALTIME([precision])
+LOCALTIME
+LOCALTIME([precision])
 LOCALTIMESTAMP
 LOCALTIMESTAMP([precision])
 ```
+
+![Railroad diagram of NOW and synonyms — equivalent to the BNF above](../../../.gitbook/assets/now-railroad.svg)
 
 ## Description
 

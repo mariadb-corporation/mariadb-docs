@@ -15,6 +15,8 @@ INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
     [ ON DUPLICATE KEY UPDATE col_name=expr, ... ]
 ```
 
+![Railroad diagram of INSERT ... SELECT — equivalent to the BNF above](../../../../.gitbook/assets/insert-select-railroad.svg)
+
 ## Description
 
 With `INSERT ... SELECT`, you can quickly insert many rows into a table from one or more other tables. For example:
