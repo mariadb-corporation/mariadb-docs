@@ -13,6 +13,8 @@ SHOW [FULL] TABLES [FROM db_name]
     [LIKE 'pattern' | WHERE expr]
 ```
 
+![Railroad diagram of SHOW TABLES — equivalent to the BNF above](../../../../.gitbook/assets/show-tables-railroad.svg)
+
 ## Description
 
 {% tabs %}

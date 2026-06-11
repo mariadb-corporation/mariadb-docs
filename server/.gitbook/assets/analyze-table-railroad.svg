@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1077" height="343">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="11 61 3 57 3 65"/>
+   <polygon points="19 61 11 57 11 65"/>
+   <rect x="33" y="47" width="82" height="32" rx="10"/>
+   <rect x="31"
+         y="45"
+         width="82"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="41" y="65">ANALYZE</text>
+   <rect x="155" y="79" width="188" height="32" rx="10"/>
+   <rect x="153"
+         y="77"
+         width="188"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="163" y="97">NO_WRITE_TO_BINLOG</text>
+   <rect x="155" y="123" width="64" height="32" rx="10"/>
+   <rect x="153"
+         y="121"
+         width="64"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="163" y="141">LOCAL</text>
+   <rect x="383" y="47" width="62" height="32" rx="10"/>
+   <rect x="381"
+         y="45"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="391" y="65">TABLE</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#tbl_name"
+      xlink:title="tbl_name">
+      <rect x="485" y="47" width="80" height="32"/>
+      <rect x="483" y="45" width="80" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="493" y="65">tbl_name</text>
+   </a>
+   <rect x="485" y="3" width="24" height="32" rx="10"/>
+   <rect x="483"
+         y="1"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="493" y="21">,</text>
+   <rect x="45" y="189" width="106" height="32" rx="10"/>
+   <rect x="43"
+         y="187"
+         width="106"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="53" y="207">PERSISTENT</text>
+   <rect x="171" y="189" width="48" height="32" rx="10"/>
+   <rect x="169"
+         y="187"
+         width="48"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="179" y="207">FOR</text>
+   <rect x="259" y="189" width="44" height="32" rx="10"/>
+   <rect x="257"
+         y="187"
+         width="44"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="267" y="207">ALL</text>
+   <rect x="259" y="277" width="88" height="32" rx="10"/>
+   <rect x="257"
+         y="275"
+         width="88"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="267" y="295">COLUMNS</text>
+   <rect x="367" y="277" width="26" height="32" rx="10"/>
+   <rect x="365"
+         y="275"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="375" y="295">(</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#col_name"
+      xlink:title="col_name">
+      <rect x="453" y="277" width="80" height="32"/>
+      <rect x="451" y="275" width="80" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="461" y="295">col_name</text>
+   </a>
+   <rect x="453" y="233" width="24" height="32" rx="10"/>
+   <rect x="451"
+         y="231"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="461" y="251">,</text>
+   <rect x="593" y="277" width="26" height="32" rx="10"/>
+   <rect x="591"
+         y="275"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="601" y="295">)</text>
+   <rect x="639" y="277" width="80" height="32" rx="10"/>
+   <rect x="637"
+         y="275"
+         width="80"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="647" y="295">INDEXES</text>
+   <rect x="739" y="277" width="26" height="32" rx="10"/>
+   <rect x="737"
+         y="275"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="747" y="295">(</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#index_name"
+      xlink:title="index_name">
+      <rect x="825" y="277" width="98" height="32"/>
+      <rect x="823" y="275" width="98" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="833" y="295">index_name</text>
+   </a>
+   <rect x="825" y="233" width="24" height="32" rx="10"/>
+   <rect x="823"
+         y="231"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="833" y="251">,</text>
+   <rect x="983" y="277" width="26" height="32" rx="10"/>
+   <rect x="981"
+         y="275"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="991" y="295">)</text>
+   <path class="line"
+         d="m19 61 h2 m0 0 h10 m82 0 h10 m20 0 h10 m0 0 h198 m-228 0 h20 m208 0 h20 m-248 0 q10 0 10 10 m228 0 q0 -10 10 -10 m-238 10 v12 m228 0 v-12 m-228 12 q0 10 10 10 m208 0 q10 0 10 -10 m-218 10 h10 m188 0 h10 m-218 -10 v20 m228 0 v-20 m-228 20 v24 m228 0 v-24 m-228 24 q0 10 10 10 m208 0 q10 0 10 -10 m-218 10 h10 m64 0 h10 m0 0 h124 m20 -76 h10 m62 0 h10 m20 0 h10 m80 0 h10 m-120 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m100 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-100 0 h10 m24 0 h10 m0 0 h56 m22 44 l2 0 m2 0 l2 0 m2 0 l2 0 m-604 142 l2 0 m2 0 l2 0 m2 0 l2 0 m22 0 h10 m106 0 h10 m0 0 h10 m48 0 h10 m20 0 h10 m44 0 h10 m0 0 h706 m-790 0 h20 m770 0 h20 m-810 0 q10 0 10 10 m790 0 q0 -10 10 -10 m-800 10 v68 m790 0 v-68 m-790 68 q0 10 10 10 m770 0 q10 0 10 -10 m-780 10 h10 m88 0 h10 m0 0 h10 m26 0 h10 m40 0 h10 m80 0 h10 m-120 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m100 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-100 0 h10 m24 0 h10 m0 0 h56 m-140 44 h20 m140 0 h20 m-180 0 q10 0 10 10 m160 0 q0 -10 10 -10 m-170 10 v14 m160 0 v-14 m-160 14 q0 10 10 10 m140 0 q10 0 10 -10 m-150 10 h10 m0 0 h130 m20 -34 h10 m26 0 h10 m0 0 h10 m80 0 h10 m0 0 h10 m26 0 h10 m40 0 h10 m98 0 h10 m-138 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m118 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-118 0 h10 m24 0 h10 m0 0 h74 m-158 44 h20 m158 0 h20 m-198 0 q10 0 10 10 m178 0 q0 -10 10 -10 m-188 10 v14 m178 0 v-14 m-178 14 q0 10 10 10 m158 0 q10 0 10 -10 m-168 10 h10 m0 0 h148 m20 -34 h10 m26 0 h10 m-1004 -88 h20 m1004 0 h20 m-1044 0 q10 0 10 10 m1024 0 q0 -10 10 -10 m-1034 10 v118 m1024 0 v-118 m-1024 118 q0 10 10 10 m1004 0 q10 0 10 -10 m-1014 10 h10 m0 0 h994 m23 -138 h-3"/>
+   <polygon points="1067 203 1075 199 1075 207"/>
+   <polygon points="1067 203 1059 199 1059 207"/>
+</svg>

@@ -13,6 +13,8 @@ SHOW {DATABASES | SCHEMAS}
     [LIKE 'pattern' | WHERE expr]
 ```
 
+![Railroad diagram of SHOW DATABASES — equivalent to the BNF above](../../../../.gitbook/assets/show-databases-railroad.svg)
+
 ## Description
 
 `SHOW DATABASES` lists the databases on the MariaDB server host.`SHOW SCHEMAS` is a synonym for`SHOW DATABASES`. The `LIKE` clause, if present on its own, indicates which database names to match. The `WHERE` and `LIKE` clauses can be given to select rows using more general conditions, as discussed in [Extended SHOW](extended-show.md).

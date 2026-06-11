@@ -21,6 +21,18 @@ transaction_property:
   | READ ONLY
 ```
 
+The BNF above documents four related statements together; each gets its own diagram below.
+
+![Railroad diagram of START TRANSACTION / BEGIN](../../../.gitbook/assets/start-transaction-railroad.svg)
+
+![Railroad diagram of COMMIT](../../../.gitbook/assets/commit-railroad.svg)
+
+![Railroad diagram of ROLLBACK](../../../.gitbook/assets/rollback-railroad.svg)
+
+![Railroad diagram of SET autocommit](../../../.gitbook/assets/set-autocommit-railroad.svg)
+
+![Railroad diagram of transaction_property](../../../.gitbook/assets/start-transaction-property-railroad.svg)
+
 ## Description
 
 The `START TRANSACTION` or `BEGIN` statement begins a new transaction. [COMMIT](commit.md) commits the current transaction, making its changes permanent. [ROLLBACK](rollback.md) rolls back the current transaction, canceling its changes. The [SET](../programmatic-compound-statements/set-variable.md) [autocommit](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) statement disables or enables the default autocommit mode for the current session.

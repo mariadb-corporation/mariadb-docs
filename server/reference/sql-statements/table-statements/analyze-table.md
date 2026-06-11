@@ -17,6 +17,8 @@ ANALYZE [NO_WRITE_TO_BINLOG | LOCAL] TABLE tbl_name [,tbl_name ...]
   ]
 ```
 
+![Railroad diagram of ANALYZE TABLE — equivalent to the BNF above](../../../.gitbook/assets/analyze-table-railroad.svg)
+
 ## Description
 
 `ANALYZE TABLE` analyzes and stores the key distribution for a table ([index statistics](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/index-statistics.md)). This statement works with [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/), [Aria](../../../server-usage/storage-engines/aria/), and [InnoDB](../../../server-usage/storage-engines/innodb/) tables. During the analysis, InnoDB will allow reads/writes, and MyISAM/Aria reads/inserts. For MyISAM tables, this statement is equivalent to using [myisamchk --analyze](../../../clients-and-utilities/myisam-clients-and-utilities/myisamchk.md).

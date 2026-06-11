@@ -20,6 +20,10 @@ REPLACE [LOW_PRIORITY | DELAYED]
       [, select_expr ...]]
 ```
 
+![Railroad diagram of REPLACE — equivalent to the BNF above](../../../../.gitbook/assets/replace-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/replace-value-list-railroad.svg)
+
 Or:
 
 ```sql
