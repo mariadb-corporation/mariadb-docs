@@ -15,6 +15,8 @@ RENAME TABLE[S] [IF EXISTS] tbl_name
     [, tbl_name2 TO new_tbl_name2] ...
 ```
 
+![Railroad diagram of RENAME TABLE — equivalent to the BNF above](../../../.gitbook/assets/rename-table-railroad.svg)
+
 ## Description
 
 This statement renames one or more tables or [views](../../../server-usage/views/), but not the privileges associated with them. For InnoDB tables, it also triggers a reload of [InnoDB statistics](../../../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/innodb-persistent-statistics.md).

@@ -12,7 +12,7 @@ description: >-
 {% tab title="Current" %}
 ```bnf
 CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
-[AS { TINYINT | SMALLINT | |MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
+[AS { TINYINT | SMALLINT | MEDIUMINT | INT | INTEGER | BIGINT } [SIGNED | UNSIGNED]]
 [ INCREMENT [ BY | = ] number ]
 [ MINVALUE [=] number | NO MINVALUE | NOMINVALUE ]
 [ MAXVALUE [=] number | NO MAXVALUE | NOMAXVALUE ]
@@ -20,6 +20,9 @@ CREATE [OR REPLACE] [TEMPORARY] SEQUENCE [IF NOT EXISTS] sequence_name
 [ CACHE [=] number | NOCACHE ] [ CYCLE | NOCYCLE] 
 [table_options]
 ```
+
+![Railroad diagram of CREATE SEQUENCE — equivalent to the BNF above](../../../.gitbook/assets/create-sequence-railroad.svg)
+
 {% endtab %}
 
 {% tab title="< 11.5" %}

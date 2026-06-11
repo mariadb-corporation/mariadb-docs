@@ -23,6 +23,10 @@ INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
       [, select_expr ...]]
 ```
 
+![Railroad diagram of INSERT (with RETURNING and ON DUPLICATE KEY UPDATE branches) — equivalent to the BNF above](../../../../.gitbook/assets/insert-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/insert-value-list-railroad.svg)
+
 Or:
 
 ```sql

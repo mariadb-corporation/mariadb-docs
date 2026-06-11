@@ -13,6 +13,8 @@ SHOW [FULL] {COLUMNS | FIELDS} FROM tbl_name [FROM db_name]
     [LIKE 'pattern' | WHERE expr]
 ```
 
+![Railroad diagram of SHOW COLUMNS — equivalent to the BNF above](../../../../.gitbook/assets/show-columns-railroad.svg)
+
 ## Description
 
 `SHOW COLUMNS` displays information about the columns in a given table. It also works for views. The `LIKE` clause, if present on its own, indicates which column names to match. The `WHERE` and `LIKE` clauses can be given to select rows using more general conditions, as discussed in [Extended SHOW](extended-show.md).

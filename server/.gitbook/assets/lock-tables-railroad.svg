@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="861" height="157">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 61 1 57 1 65"/>
+   <polygon points="17 61 9 57 9 65"/>
+   <rect x="31" y="47" width="56" height="32" rx="10"/>
+   <rect x="29"
+         y="45"
+         width="56"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="39" y="65">LOCK</text>
+   <rect x="127" y="47" width="62" height="32" rx="10"/>
+   <rect x="125"
+         y="45"
+         width="62"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="135" y="65">TABLE</text>
+   <rect x="127" y="91" width="72" height="32" rx="10"/>
+   <rect x="125"
+         y="89"
+         width="72"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="135" y="109">TABLES</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#tbl_name"
+      xlink:title="tbl_name">
+      <rect x="259" y="47" width="80" height="32"/>
+      <rect x="257" y="45" width="80" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="267" y="65">tbl_name</text>
+   </a>
+   <rect x="399" y="111" width="38" height="32" rx="10"/>
+   <rect x="397"
+         y="109"
+         width="38"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="407" y="129">AS</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#alias"
+      xlink:title="alias">
+      <rect x="477" y="79" width="50" height="32"/>
+      <rect x="475" y="77" width="50" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="485" y="97">alias</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#lock_type"
+      xlink:title="lock_type">
+      <rect x="567" y="47" width="80" height="32"/>
+      <rect x="565" y="45" width="80" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="575" y="65">lock_type</text>
+   </a>
+   <rect x="259" y="3" width="24" height="32" rx="10"/>
+   <rect x="257"
+         y="1"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="267" y="21">,</text>
+   <rect x="707" y="79" width="58" height="32" rx="10"/>
+   <rect x="705"
+         y="77"
+         width="58"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="715" y="97">WAIT</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#n"
+      xlink:title="n">
+      <rect x="785" y="79" width="28" height="32"/>
+      <rect x="783" y="77" width="28" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="793" y="97">n</text>
+   </a>
+   <rect x="707" y="123" width="78" height="32" rx="10"/>
+   <rect x="705"
+         y="121"
+         width="78"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="715" y="141">NOWAIT</text>
+   <path class="line"
+         d="m17 61 h2 m0 0 h10 m56 0 h10 m20 0 h10 m62 0 h10 m0 0 h10 m-112 0 h20 m92 0 h20 m-132 0 q10 0 10 10 m112 0 q0 -10 10 -10 m-122 10 v24 m112 0 v-24 m-112 24 q0 10 10 10 m92 0 q10 0 10 -10 m-102 10 h10 m72 0 h10 m40 -44 h10 m80 0 h10 m20 0 h10 m0 0 h158 m-188 0 h20 m168 0 h20 m-208 0 q10 0 10 10 m188 0 q0 -10 10 -10 m-198 10 v12 m188 0 v-12 m-188 12 q0 10 10 10 m168 0 q10 0 10 -10 m-158 10 h10 m0 0 h48 m-78 0 h20 m58 0 h20 m-98 0 q10 0 10 10 m78 0 q0 -10 10 -10 m-88 10 v12 m78 0 v-12 m-78 12 q0 10 10 10 m58 0 q10 0 10 -10 m-68 10 h10 m38 0 h10 m20 -32 h10 m50 0 h10 m20 -32 h10 m80 0 h10 m-428 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m408 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-408 0 h10 m24 0 h10 m0 0 h364 m40 44 h10 m0 0 h116 m-146 0 h20 m126 0 h20 m-166 0 q10 0 10 10 m146 0 q0 -10 10 -10 m-156 10 v12 m146 0 v-12 m-146 12 q0 10 10 10 m126 0 q10 0 10 -10 m-136 10 h10 m58 0 h10 m0 0 h10 m28 0 h10 m-136 -10 v20 m146 0 v-20 m-146 20 v24 m146 0 v-24 m-146 24 q0 10 10 10 m126 0 q10 0 10 -10 m-136 10 h10 m78 0 h10 m0 0 h28 m23 -76 h-3"/>
+   <polygon points="851 61 859 57 859 65"/>
+   <polygon points="851 61 843 57 843 65"/>
+</svg>

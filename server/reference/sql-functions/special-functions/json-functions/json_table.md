@@ -20,6 +20,8 @@ JSON_TABLE(json_doc,
 ) [AS] alias
 ```
 
+![Railroad diagram of JSON_TABLE — equivalent to the BNF above](../../../../.gitbook/assets/json-table-railroad.svg)
+
 ```sql
 column_list:
     column[, column][, ...]

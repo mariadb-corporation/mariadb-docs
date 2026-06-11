@@ -23,6 +23,12 @@ lock_type:
 UNLOCK TABLES
 ```
 
+![Railroad diagram of LOCK TABLES](../../../.gitbook/assets/lock-tables-railroad.svg)
+
+![Railroad diagram of lock_type](../../../.gitbook/assets/lock-tables-type-railroad.svg)
+
+![Railroad diagram of UNLOCK TABLES](../../../.gitbook/assets/unlock-tables-railroad.svg)
+
 ## Description
 
 The _lock\_type_ can be one of:
