@@ -17,6 +17,8 @@ INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
       [, col=expr] ... ]
 ```
 
+For a Railroad diagram of this form (without the `RETURNING` clause that is also valid on plain `INSERT`), see the diagram on the [INSERT](insert.md#syntax) page.
+
 Or:
 
 ```sql

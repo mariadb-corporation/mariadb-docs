@@ -17,6 +17,8 @@ SET PASSWORD [FOR user] =
     }
 ```
 
+![Railroad diagram of SET PASSWORD — equivalent to the BNF above](../../../.gitbook/assets/set-password-railroad.svg)
+
 ## Description
 
 The `SET PASSWORD` statement assigns a password to an existing MariaDB user account.

@@ -25,6 +25,10 @@ export_options:
     ]
 ```
 
+![Railroad diagram of SELECT INTO OUTFILE — equivalent to the BNF above](../../../../.gitbook/assets/select-into-outfile-railroad.svg)
+
+![Railroad diagram of export_options](../../../../.gitbook/assets/select-into-outfile-export-options-railroad.svg)
+
 ## Description
 
 `SELECT INTO OUTFILE` writes the resulting rows to a file, and allows the use of column and row terminators to specify a particular output format. The default is to terminate fields with tabs () and lines with newlines ().

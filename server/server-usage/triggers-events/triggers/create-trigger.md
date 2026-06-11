@@ -12,21 +12,27 @@ description: >-
 ```bnf
 CREATE [OR REPLACE]
     [DEFINER = { user | CURRENT_USER | role | CURRENT_ROLE }]
-    TRIGGER [IF NOT EXISTS] 
-            trigger_name trigger_time {trigger_event [ OR trigger_event] [...]}
+    TRIGGER [IF NOT EXISTS]
+            trigger_name trigger_time {trigger_event [OR trigger_event] ...}
     ON tbl_name FOR EACH ROW
-   [{ FOLLOWS | PRECEDES } other_trigger_name ]
-   trigger_stmt;
+    [{ FOLLOWS | PRECEDES } other_trigger_name]
+    trigger_stmt
 
-trigger time:
+trigger_time:
     BEFORE
   | AFTER
 
 trigger_event:
     INSERT
-  | UPDATE [ OF column_name [, colunm_name [, ...]]
+  | UPDATE [OF column_name [, column_name] ...]
   | DELETE
 ```
+
+![Railroad diagram of CREATE TRIGGER — equivalent to the BNF above](../../../.gitbook/assets/create-trigger-railroad.svg)
+
+![Railroad diagram of trigger_time](../../../.gitbook/assets/create-trigger-time-railroad.svg)
+
+![Railroad diagram of trigger_event](../../../.gitbook/assets/create-trigger-event-railroad.svg)
 
 ## Description
 

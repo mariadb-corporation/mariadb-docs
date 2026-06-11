@@ -27,6 +27,8 @@ LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE 'file_name'
     [SET col_name = expr,...]
 ```
 
+![Railroad diagram of LOAD DATA INFILE — equivalent to the BNF above](../../../../../.gitbook/assets/load-data-infile-railroad.svg)
+
 ## Description
 
 `LOAD DATA INFILE` is [unsafe](../../../../../ha-and-performance/standard-replication/unsafe-statements-for-statement-based-replication.md) for statement-based replication.
