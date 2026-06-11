@@ -7,17 +7,17 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 ## Syntax
 
 ```bnf
-STOP { SLAVE | REPLICA } ["connection_name"] [thread_type [, thread_type] ... ] 
-[FOR CHANNEL "connection_name"]
+STOP { SLAVE | REPLICA } ["connection_name"] [thread_type [, thread_type] ... ]
+    [FOR CHANNEL "connection_name"]
 
 STOP ALL { SLAVES | REPLICAS } [thread_type [, thread_type]]
 
-STOP { SLAVE | REPLICA } ["connection_name"] [thread_type [, thread_type] ... ]
-
-STOP ALL { SLAVES | REPLICAS } [thread_type [, thread_type]] 
-
 thread_type: IO_THREAD | SQL_THREAD
 ```
+
+![Railroad diagram of STOP REPLICA — equivalent to the BNF above](../../../../.gitbook/assets/stop-replica-railroad.svg)
+
+![Railroad diagram of thread_type](../../../../.gitbook/assets/stop-replica-thread-type-railroad.svg)
 
 ## Description
 

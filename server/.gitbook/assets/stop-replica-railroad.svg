@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="965" height="323">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="11 17 3 13 3 21"/>
+   <polygon points="19 17 11 13 11 21"/>
+   <rect x="33" y="3" width="56" height="32" rx="10"/>
+   <rect x="31"
+         y="1"
+         width="56"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="41" y="21">STOP</text>
+   <rect x="65" y="113" width="64" height="32" rx="10"/>
+   <rect x="63"
+         y="111"
+         width="64"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="73" y="131">SLAVE</text>
+   <rect x="65" y="157" width="78" height="32" rx="10"/>
+   <rect x="63"
+         y="155"
+         width="78"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="73" y="175">REPLICA</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#connection_name"
+      xlink:title="connection_name">
+      <rect x="203" y="145" width="132" height="32"/>
+      <rect x="201" y="143" width="132" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="211" y="163">connection_name</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#thread_type"
+      xlink:title="thread_type">
+      <rect x="415" y="113" width="98" height="32"/>
+      <rect x="413" y="111" width="98" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="423" y="131">thread_type</text>
+   </a>
+   <rect x="415" y="69" width="24" height="32" rx="10"/>
+   <rect x="413"
+         y="67"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="423" y="87">,</text>
+   <rect x="593" y="145" width="48" height="32" rx="10"/>
+   <rect x="591"
+         y="143"
+         width="48"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="601" y="163">FOR</text>
+   <rect x="661" y="145" width="84" height="32" rx="10"/>
+   <rect x="659"
+         y="143"
+         width="84"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="669" y="163">CHANNEL</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#connection_name"
+      xlink:title="connection_name">
+      <rect x="765" y="145" width="132" height="32"/>
+      <rect x="763" y="143" width="132" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="773" y="163">connection_name</text>
+   </a>
+   <rect x="45" y="245" width="44" height="32" rx="10"/>
+   <rect x="43"
+         y="243"
+         width="44"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="53" y="263">ALL</text>
+   <rect x="129" y="245" width="72" height="32" rx="10"/>
+   <rect x="127"
+         y="243"
+         width="72"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="137" y="263">SLAVES</text>
+   <rect x="129" y="289" width="88" height="32" rx="10"/>
+   <rect x="127"
+         y="287"
+         width="88"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="137" y="307">REPLICAS</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#thread_type"
+      xlink:title="thread_type">
+      <rect x="297" y="245" width="98" height="32"/>
+      <rect x="295" y="243" width="98" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="305" y="263">thread_type</text>
+   </a>
+   <rect x="297" y="201" width="24" height="32" rx="10"/>
+   <rect x="295"
+         y="199"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="305" y="219">,</text>
+   <path class="line"
+         d="m19 17 h2 m0 0 h10 m56 0 h10 m2 0 l2 0 m2 0 l2 0 m2 0 l2 0 m-108 110 l2 0 m2 0 l2 0 m2 0 l2 0 m42 0 h10 m64 0 h10 m0 0 h14 m-118 0 h20 m98 0 h20 m-138 0 q10 0 10 10 m118 0 q0 -10 10 -10 m-128 10 v24 m118 0 v-24 m-118 24 q0 10 10 10 m98 0 q10 0 10 -10 m-108 10 h10 m78 0 h10 m40 -44 h10 m0 0 h142 m-172 0 h20 m152 0 h20 m-192 0 q10 0 10 10 m172 0 q0 -10 10 -10 m-182 10 v12 m172 0 v-12 m-172 12 q0 10 10 10 m152 0 q10 0 10 -10 m-162 10 h10 m132 0 h10 m60 -32 h10 m98 0 h10 m-138 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m118 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-118 0 h10 m24 0 h10 m0 0 h74 m-158 44 h20 m158 0 h20 m-198 0 q10 0 10 10 m178 0 q0 -10 10 -10 m-188 10 v14 m178 0 v-14 m-178 14 q0 10 10 10 m158 0 q10 0 10 -10 m-168 10 h10 m0 0 h148 m40 -34 h10 m0 0 h314 m-344 0 h20 m324 0 h20 m-364 0 q10 0 10 10 m344 0 q0 -10 10 -10 m-354 10 v12 m344 0 v-12 m-344 12 q0 10 10 10 m324 0 q10 0 10 -10 m-334 10 h10 m48 0 h10 m0 0 h10 m84 0 h10 m0 0 h10 m132 0 h10 m-892 -32 h20 m892 0 h20 m-932 0 q10 0 10 10 m912 0 q0 -10 10 -10 m-922 10 v112 m912 0 v-112 m-912 112 q0 10 10 10 m892 0 q10 0 10 -10 m-902 10 h10 m44 0 h10 m20 0 h10 m72 0 h10 m0 0 h16 m-128 0 h20 m108 0 h20 m-148 0 q10 0 10 10 m128 0 q0 -10 10 -10 m-138 10 v24 m128 0 v-24 m-128 24 q0 10 10 10 m108 0 q10 0 10 -10 m-118 10 h10 m88 0 h10 m60 -44 h10 m98 0 h10 m-138 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m118 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-118 0 h10 m24 0 h10 m0 0 h74 m-158 44 h20 m158 0 h20 m-198 0 q10 0 10 10 m178 0 q0 -10 10 -10 m-188 10 v14 m178 0 v-14 m-178 14 q0 10 10 10 m158 0 q10 0 10 -10 m-168 10 h10 m0 0 h148 m20 -34 h482 m23 -132 h-3"/>
+   <polygon points="955 127 963 123 963 131"/>
+   <polygon points="955 127 947 123 947 131"/>
+</svg>

@@ -19,6 +19,12 @@ START ALL { SLAVES | REPLICAS } [thread_type [, thread_type]]
 thread_type: IO_THREAD | SQL_THREAD
 ```
 
+![Railroad diagram of START REPLICA — equivalent to the BNF above](../../../../.gitbook/assets/start-replica-railroad.svg)
+
+![Railroad diagram of until_clause](../../../../.gitbook/assets/start-replica-until-clause-railroad.svg)
+
+![Railroad diagram of thread_type](../../../../.gitbook/assets/start-replica-thread-type-railroad.svg)
+
 ## Description
 
 {% tabs %}

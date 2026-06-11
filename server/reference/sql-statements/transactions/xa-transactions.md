@@ -60,6 +60,22 @@ XA RECOVER [FORMAT=['RAW'|'SQL']]
 xid: gtrid [, bqual [, formatID ]]
 ```
 
+The BNF documents six XA statements together; each gets its own diagram.
+
+![Railroad diagram of XA START / XA BEGIN](../../../.gitbook/assets/xa-start-begin-railroad.svg)
+
+![Railroad diagram of XA END](../../../.gitbook/assets/xa-end-railroad.svg)
+
+![Railroad diagram of XA PREPARE](../../../.gitbook/assets/xa-prepare-railroad.svg)
+
+![Railroad diagram of XA COMMIT](../../../.gitbook/assets/xa-commit-railroad.svg)
+
+![Railroad diagram of XA ROLLBACK](../../../.gitbook/assets/xa-rollback-railroad.svg)
+
+![Railroad diagram of XA RECOVER](../../../.gitbook/assets/xa-recover-railroad.svg)
+
+![Railroad diagram of xid](../../../.gitbook/assets/xa-transactions-xid-railroad.svg)
+
 The interface to XA transactions is a set of SQL statements starting with `XA`. Each statement changes a transaction's state, determining which actions it can perform. A transaction which does not exist is in the `NON-EXISTING` state.
 
 When trying to execute an operation which is not allowed for the transaction's current state, an error is produced:

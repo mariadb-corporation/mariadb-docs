@@ -13,8 +13,10 @@ description: >-
 ```bnf
 REPAIR [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     tbl_name [, tbl_name] ...
-    [QUICK] [EXTENDED] [USE_FRM] [FORCE
+    [QUICK] [EXTENDED] [USE_FRM] [FORCE]
 ```
+
+![Railroad diagram of REPAIR TABLE — equivalent to the BNF above](../../../.gitbook/assets/repair-table-railroad.svg)
 {% endtab %}
 
 {% tab title="< 11.5" %}
