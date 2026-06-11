@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="529" height="157">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 61 1 57 1 65"/>
+   <polygon points="17 61 9 57 9 65"/>
+   <rect x="31" y="47" width="64" height="32" rx="10"/>
+   <rect x="29"
+         y="45"
+         width="64"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="39" y="65">FLUSH</text>
+   <rect x="135" y="79" width="188" height="32" rx="10"/>
+   <rect x="133"
+         y="77"
+         width="188"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="143" y="97">NO_WRITE_TO_BINLOG</text>
+   <rect x="135" y="123" width="64" height="32" rx="10"/>
+   <rect x="133"
+         y="121"
+         width="64"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="143" y="141">LOCAL</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#flush_option"
+      xlink:title="flush_option">
+      <rect x="383" y="47" width="98" height="32"/>
+      <rect x="381" y="45" width="98" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="391" y="65">flush_option</text>
+   </a>
+   <rect x="383" y="3" width="24" height="32" rx="10"/>
+   <rect x="381"
+         y="1"
+         width="24"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="391" y="21">,</text>
+   <path class="line"
+         d="m17 61 h2 m0 0 h10 m64 0 h10 m20 0 h10 m0 0 h198 m-228 0 h20 m208 0 h20 m-248 0 q10 0 10 10 m228 0 q0 -10 10 -10 m-238 10 v12 m228 0 v-12 m-228 12 q0 10 10 10 m208 0 q10 0 10 -10 m-218 10 h10 m188 0 h10 m-218 -10 v20 m228 0 v-20 m-228 20 v24 m228 0 v-24 m-228 24 q0 10 10 10 m208 0 q10 0 10 -10 m-218 10 h10 m64 0 h10 m0 0 h124 m40 -76 h10 m98 0 h10 m-138 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -24 q0 -10 10 -10 m118 44 l20 0 m-20 0 q10 0 10 -10 l0 -24 q0 -10 -10 -10 m-118 0 h10 m24 0 h10 m0 0 h74 m23 44 h-3"/>
+   <polygon points="519 61 527 57 527 65"/>
+   <polygon points="519 61 511 57 511 65"/>
+</svg>

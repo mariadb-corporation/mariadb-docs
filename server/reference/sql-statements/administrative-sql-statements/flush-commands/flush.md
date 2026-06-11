@@ -14,6 +14,8 @@ FLUSH [NO_WRITE_TO_BINLOG | LOCAL]
     flush_option [, flush_option] ...
 ```
 
+![Railroad diagram of FLUSH — equivalent to the BNF above](../../../../.gitbook/assets/flush-railroad.svg)
+
 or when flushing tables:
 
 ```sql

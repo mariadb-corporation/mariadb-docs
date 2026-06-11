@@ -13,6 +13,8 @@ PURGE { BINARY | MASTER } LOGS
     { TO 'log_name' | BEFORE datetime_expr }
 ```
 
+![Railroad diagram of PURGE BINARY LOGS — equivalent to the BNF above](../../../.gitbook/assets/purge-binary-logs-railroad.svg)
+
 ## Description
 
 The `PURGE BINARY LOGS` statement deletes all the [binary log](../../../server-management/server-monitoring-logs/binary-log/) files listed in the log index file prior to the specified log file name ordate. `BINARY` and `MASTER` are synonyms.Deleted log files also are removed from the list recorded in the index file, sothat the given log file becomes the first in the list.

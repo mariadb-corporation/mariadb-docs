@@ -17,7 +17,9 @@ INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
       [, col=expr] ... ]
 ```
 
-For a Railroad diagram of this form (without the `RETURNING` clause that is also valid on plain `INSERT`), see the diagram on the [INSERT](insert.md#syntax) page.
+![Railroad diagram of INSERT ... ON DUPLICATE KEY UPDATE — equivalent to the BNF above](../../../../.gitbook/assets/insert-on-duplicate-key-update-railroad.svg)
+
+![Railroad diagram of value_list](../../../../.gitbook/assets/insert-on-duplicate-key-update-value-list-railroad.svg)
 
 Or:
 

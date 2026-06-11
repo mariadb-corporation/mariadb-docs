@@ -15,6 +15,8 @@ OPTIMIZE [NO_WRITE_TO_BINLOG | LOCAL] TABLE
     [WAIT n | NOWAIT]
 ```
 
+![Railroad diagram of OPTIMIZE TABLE — equivalent to the BNF above](../../../.gitbook/assets/optimize-table-railroad.svg)
+
 ## Description
 
 `OPTIMIZE TABLE` has two main functions. It can either be used to defragment tables, or to update the InnoDB fulltext index.

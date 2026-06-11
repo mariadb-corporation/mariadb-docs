@@ -16,6 +16,8 @@ CASE case_value
 END CASE
 ```
 
+![Railroad diagram of the simple CASE form — equivalent to the BNF above](../../../.gitbook/assets/case-statement-railroad.svg)
+
 Or:
 
 ```sql

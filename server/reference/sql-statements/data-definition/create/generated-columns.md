@@ -9,9 +9,11 @@ description: >-
 ## Syntax
 
 ```bnf
-<type>  [GENERATED ALWAYS]  AS   ( <expression> )
-[VIRTUAL | PERSISTENT | STORED]  [UNIQUE] [UNIQUE KEY] [COMMENT <text>]
+<type> [GENERATED ALWAYS] AS (<expression>)
+[VIRTUAL | PERSISTENT | STORED] [UNIQUE [KEY]] [COMMENT <text>]
 ```
+
+![Railroad diagram of a generated-column definition — equivalent to the BNF above](../../../../.gitbook/assets/generated-columns-railroad.svg)
 
 {% tabs %}
 {% tab title="Current" %}
