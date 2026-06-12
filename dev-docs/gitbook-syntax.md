@@ -3,10 +3,9 @@
 Pages are Markdown plus GitBook block extensions. These blocks are the most common
 machine-authoring mistakes — use them as shown, not plain-Markdown lookalikes.
 
-Canonical source: the **GitBook Editing** page in Confluence (DOCS space) —
-`https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3114106904/GitBook+Editing`. When it
-disagrees with this digest, it wins; update this file to match. Prose/grammar style lives in
-`dev-docs/style-guide.md`.
+Canonical source: the docs team's internal **GitBook Editing** page in Confluence (DOCS space) —
+it wins when it disagrees with this digest; update this file to match. Prose/grammar style lives
+in `dev-docs/style-guide.md`.
 
 ## Frontmatter
 

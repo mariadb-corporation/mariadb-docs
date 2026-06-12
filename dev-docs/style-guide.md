@@ -1,15 +1,13 @@
 # Style guide (local digest)
 
 This is the **agent-facing digest** of the MariaDB documentation style rules. The **canonical
-sources** are in Confluence (DOCS space) and the published guide — when they disagree with this
-file, **they win**, and this file should be updated to match:
+sources** win when they disagree with this file (update this file to match):
 
-- **Documentation Guidelines** (generic, tool-independent) —
-  `https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3168239632/Documentation+Guidelines`
-- **GitBook Editing** (tool-specific; see `dev-docs/gitbook-syntax.md` for the source-format
-  digest) — `https://mariadbcorp.atlassian.net/wiki/spaces/DOCS/pages/3114106904/GitBook+Editing`
-- **Published style guide** —
+- The **published style guide** —
   `https://mariadb.com/docs/general-resources/about/about-mariadb-documentation/documentation-style-guide/`
+- The docs team's internal **Documentation Guidelines** (generic) and **GitBook Editing**
+  (tool-specific) pages in Confluence (DOCS space) — the fuller sources; ask the docs team for
+  access. `dev-docs/gitbook-syntax.md` digests the GitBook-source-format parts.
 
 The `style-apply` skill enforces the checkable parts of this digest.
 
