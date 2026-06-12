@@ -40,6 +40,10 @@ tool that isn't installed (CI still runs it).
   contain a brace would be skipped too. Don't rely on lychee to catch braced URLs; just don't
   hand-expand aliases.
 
+> **CI failure notices.** When a workflow run fails on GitHub, the run summary may link to
+> internal Atlassian SOP pages (`mariadbcorp.atlassian.net/...`) for fix steps. Those URLs
+> require MariaDB SSO — they're not public and won't open from an external browser session.
+
 > **Hook vs. PR scope.** The pre-commit hook and `/precommit` check only **staged** files; CI
 > checks the **full PR diff**. Passing the hook is not a guarantee CI passes — run the
 > whole-branch command above before opening the PR. (See `.claude/README.md`.)

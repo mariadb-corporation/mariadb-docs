@@ -134,3 +134,4 @@ canonical MariaDB style guide: `dev-docs/style-guide.md`.
    Keep agent docs clean too.
 6. Server alone is ~4,540 files — scope searches and bulk edits to a space/path, never the whole repo.
 7. Both GitBook-UI and Git edits are live; don't assume Git is the only writer.
+8. **`server/reference/**/*.md` heading invariant.** Pages under `server/reference/` must keep the `# Title` / `## Syntax` / `## Description` (or `## Overview`) / `## Examples` / `## See Also` heading shape — `help-tables/markdown_extractor.py` parses these to build the MariaDB CLI's `HELP` content. Full detail: `help-tables/HELP_TABLES_PIPELINE.md`.

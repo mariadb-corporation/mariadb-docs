@@ -17,7 +17,9 @@ Example:
 ```
 
 The `expand-gitbook-aliases.yml` Action rewrites `{galera}` to the full
-`https://app.gitbook.com/...` URL on the PR branch automatically.
+`https://app.gitbook.com/...` URL on the PR branch automatically. The expansion is committed
+back to the PR branch as `docs: expand GitBook aliases` from the `github-actions` bot — expect
+that follow-up commit to appear shortly after opening or pushing to a PR.
 
 ## Available aliases
 
