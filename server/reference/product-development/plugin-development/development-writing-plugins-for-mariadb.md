@@ -71,6 +71,54 @@ maria_declare_plugin(example)
 maria_declare_plugin_end;
 ```
 
+## Maturity Guidelines For Plugins
+
+### Plugin Maturity At a Galnce
+
+```mermaid
+stateDiagram-v2
+    state "Release Candidate" as RC
+    state "General Availability" as GA
+    state "Experimental" as Exp {
+      [*] --> Alpha
+      [*] --> Beta
+      Alpha --> Beta
+      Beta --> [*]
+      [*] --> [*]
+    }
+    Exp --> RC
+    RC --> GA
+```
+
+> [!NOTE]
+> New features or sufficiently big code changes to a plugin should lead to:
+> * an increase of the plugin version
+> * knocking the maturity level down.
+
+> [!IMPORTANT]
+> if a plugin contribution is added directly with 'beta' maturity to a GA release series, it **cannot** be removed from that release series later. Therefore, the contributor commits to maintaining it.
+
+The maturity level selection criteria differ based on how the plugin is released.
+
+### Static plugins
+
+Static plugins and other server features share the [server release cycle](https://mariadb.com/docs/release-notes/community-server/about/release-model).
+But they cannot have maturity level that's less than the server's. Static plugins are considered an integral part of the server. And if the server binary is marked stable, every part of it has to be stable.
+A static plugin can be alpha or beta when the server is still experimental.
+
+* First, a plugin is experimental. This means it can also be Alpha and Beta.
+* After at least 1.5 months of testing and bugfixing it is released as gamma (RC). This transition can take longer, in 3 month increments: 4.5 months, 7.5 months, etc. This goes on until the quality is deemed acceptable.
+* After 3 more months of testing and bugfixing the plugin is released as stable (GA)
+
+### Dynamic Plugins
+
+Dynamic plugins released together with the server must follow a unified maturity criteria.
+For plugins released separately this is a guideline.
+
+* first a plugin is experimental
+* after at least 1.5 months (or more, in 3 month increments, until the quality is deemed acceptable) it becomes gamma. Meanwhile it can transition through alpha and beta as the maintainer wants (e,g. it can start directly from beta)
+* after at least 3 more months (or more, in 3 month increments) it becomes stable
+
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
