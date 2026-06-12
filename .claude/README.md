@@ -12,6 +12,38 @@ Code. It contains:
 | `skills/` | Shared skills (e.g. `docs-check`) |
 | `commands/` | Shared slash commands (e.g. `/precommit`) |
 
+## First-time setup (new teammates)
+
+The skills and commands need **no installation** — they're committed here, so cloning the repo
+and opening it in Claude Code makes all of them available automatically (Claude Code auto-loads
+`.claude/skills/`, `.claude/commands/`, and `CLAUDE.md` → `AGENTS.md`). Type `/` to see the
+commands. What you *do* set up is the per-user, gitignored pieces below.
+
+1. **Install Claude Code** and get access to the `mariadb-docs` repo. Clone it and open the repo
+   folder in Claude Code.
+2. **Approve the project hooks.** On first open, Claude Code asks you to trust this project's
+   settings — the committed `PreToolUse` hook (see *Trust model* below). Approve it to enable the
+   pre-commit doc check.
+3. **Connect the MariaDB Jira** (needed for `/jira-*`, `/doc-ticket`, `/impact`, `/skill-bug`,
+   `/propose-improvement`). This is a **second** MCP connection, separate from any GridGain one:
+   ```bash
+   claude mcp add --transport http atlassian-mariadb https://mcp.atlassian.com/v1/mcp
+   ```
+   then `/mcp` → `atlassian-mariadb` → authenticate **in a browser signed in to your MariaDB
+   account** (`mariadbcorp.atlassian.net`). Full steps + the wrong-account pitfall:
+   `dev-docs/cookbook-jira-workflow.md › Connecting the MariaDB Jira`.
+4. **Configure local source repos** (for `/doc-ticket` and `/impact` verification). Clone the
+   MariaDB source you work on (e.g. `MariaDB/server`); the **first run** of those commands prompts
+   for the path + authoritative ref and saves `.claude/doc-sources.local.json` (gitignored).
+5. **Install the local check tools** (for `/precommit`, `docs-check`, and the pre-commit hook):
+   `pipx install codespell`, install [`lychee`](https://github.com/lycheeverse/lychee), and ensure
+   `jq` is present. If they're missing, the checks just warn — **CI still gates** every PR.
+   Optional: `gh` (GitHub CLI) for PR linking in `/jira-resolve`.
+6. **Read, then try.** Skim `CLAUDE.md` (golden rules + skill/command list) and `AGENTS.md` (repo
+   map). Smoke-test with `/jira-mine` and `/precommit`.
+
+> Only steps 3–5 are per-user. Everything else comes with the clone.
+
 ## ⚠️ Trust model — read before cloning
 
 `settings.json` registers a **`PreToolUse(Bash)` hook**. Once you open this repo in Claude Code,
