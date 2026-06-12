@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+#
+# doc-lint.sh — the SINGLE SOURCE OF TRUTH for the codespell + lychee invocations that mirror
+# CI (.github/workflows/codespell.yml and link-check-pr.yml).
+#
+# The pre-commit hook, the /precommit command, the docs-check skill, and dev-docs/cookbook-pre-pr.md
+# all delegate here instead of re-spelling the flags, so the CI-mirroring options live in exactly
+# one place. If CI changes its codespell flags or lychee excludes, update THIS file only.
+#
+# Usage:   .claude/hooks/doc-lint.sh <file> [<file> ...]
+#          (paths are filtered to existing *.md / *.html; run from the repo root so that
+#           .codespellignore resolves)
+# Exit:    0 = all runnable checks passed (a check whose tool is missing is SKIPPED, not failed)
+#          1 = a real failure (misspelling or broken link)
+# Output:  failures and "tool missing / SKIPPED" notices go to stderr.
+#
+# Portability: no `mapfile` here — takes files as args — so it runs under bash 3.2 (macOS) too.
+
+set -uo pipefail
+
+# Keep only existing Markdown/HTML paths.
+files=()
+for f in "$@"; do
+  case "$f" in
+    *.md|*.html) [ -f "$f" ] && files+=("$f") ;;
+  esac
+done
+[ "${#files[@]}" -eq 0 ] && exit 0
+
+# Must run from the repo root so `.codespellignore` and the repo-relative file paths resolve.
+# Guard explicitly so a wrong-CWD invocation reports a config error (exit 2), not a bogus
+# "misspellings found" failure.
+if [ ! -f .codespellignore ]; then
+  echo "doc-lint: must be run from the repo root (.codespellignore not found in $PWD)." >&2
+  exit 2
+fi
+
+rc=0
+
+# --- codespell — mirrors codespell.yml (--check-filenames, ignore_words_file -> -I) ---------
+if command -v codespell >/dev/null 2>&1; then
+  if ! out="$(codespell --check-filenames -I .codespellignore "${files[@]}" 2>&1)"; then
+    echo "codespell found possible misspellings:" >&2
+    printf '%s\n' "$out" >&2
+    rc=1
+  fi
+else
+  echo "doc-lint: codespell not installed — SKIPPED (CI will run it). Install: pipx install codespell" >&2
+fi
+
+# --- lychee — mirrors link-check-pr.yml excludes EXACTLY -----------------------------------
+# (--max-concurrency only bounds load; it does not change which links pass/fail, so CI fidelity
+#  is preserved. Keep the --exclude set character-for-character identical to the workflow.)
+if command -v lychee >/dev/null 2>&1; then
+  if ! out="$(lychee --no-progress --max-concurrency 8 \
+      --exclude 'dev\.mysql\.com' \
+      --exclude 'docs\.oracle\.com' \
+      --exclude 'kubernetes\.io\/docs' \
+      --exclude '.*\{.*' \
+      --exclude '.*%7B.*' \
+      --exclude 'localhost' \
+      --exclude '127\.0\.0\.1' \
+      --exclude 'http://localhost:[0-9]+.*' \
+      --exclude 'https://localhost:[0-9]+.*' \
+      "${files[@]}" 2>&1)"; then
+    echo "lychee found broken links:" >&2
+    printf '%s\n' "$out" >&2
+    rc=1
+  fi
+else
+  echo "doc-lint: lychee not installed — SKIPPED (CI will run it). Install: https://github.com/lycheeverse/lychee" >&2
+fi
+
+exit "$rc"
