@@ -14,6 +14,11 @@ and proper links. Use it when authoring new content or cleaning up a page that u
 plain-Markdown substitutes for GitBook blocks. Canonical references:
 `dev-docs/gitbook-syntax.md` and `dev-docs/link-aliases.md` — defer to those for exact syntax.
 
+For block types **outside this skill's daily-use set** (stepper, columns, updates, cards,
+embeds, files, buttons, icons, expandable, variables, expressions, `.gitbook.yaml`,
+`SUMMARY.md` format, OpenAPI), defer to the vendored
+[`gitbook-canonical`](../gitbook-canonical/SKILL.md) skill — the upstream GitBook reference.
+
 ## When to use
 
 The user says: "add a note/hint/callout", "make this a warning", "turn this into tabs",

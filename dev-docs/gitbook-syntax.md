@@ -7,6 +7,11 @@ Canonical source: the docs team's internal **GitBook Editing** page in Confluenc
 it wins when it disagrees with this digest; update this file to match. Prose/grammar style lives
 in `dev-docs/style-guide.md`.
 
+For block types and configuration options **not covered here** — stepper, columns, updates,
+cards, embeds, files, buttons, icons, expandable (`<details>`), GitBook variables / expressions,
+`.gitbook.yaml` configuration, full `SUMMARY.md` format spec, OpenAPI — see the vendored
+`.claude/skills/gitbook-canonical/SKILL.md` (refreshed periodically from upstream).
+
 ## Frontmatter
 
 About half of existing pages open with YAML frontmatter; the rest have none. **New pages should
