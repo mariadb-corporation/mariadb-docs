@@ -108,7 +108,7 @@ content inline rather than inventing an include.
 ### 6. Links
 
 - **Same space** → relative `.md` path: `[CREATE TABLE](reference/.../create-table.md)`.
-- **Other space** → alias: `[MaxScale]({maxscale}/readme)`. Alias table:
+- **Other space** → alias: `[MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/readme)`. Alias table:
   `dev-docs/link-aliases.md`.
 - **Convert** raw `https://app.gitbook.com/...` URLs and hard-coded cross-space URLs into the
   appropriate alias. **Never** expand an existing `{alias}` into a URL — the CI Action does that.

@@ -188,5 +188,5 @@ Markdown tables. Notes from the GitBook Editing guide:
 
 - **Within the same space:** relative Markdown link to the `.md` file
   — `[CREATE TABLE](reference/.../create-table.md)`.
-- **To another space:** a link alias — `[MaxScale]({maxscale}/readme)`. See `link-aliases.md`.
+- **To another space:** a link alias — `[MaxScale](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/0pSbu5DcMSW4KwAkUcmX/readme)`. See `link-aliases.md`.
 - Never paste raw `https://app.gitbook.com/...` URLs.
