@@ -29,7 +29,7 @@ This will inject the required environment variable into the operator's Pod to en
 
 ### OpenShift
 
-If you have deployed the operator on OpenShift via OperatorHub, you need to edit the `Subscription` for the MariaDB Enterprise Operator to inject the environment variable. After deploying the operator, edit the subscription and add the `config` section to the spec:
+If you have deployed the operator on OpenShift, you need to edit the `Subscription` for the MariaDB Enterprise Operator to inject the environment variable. After deploying the operator, edit the subscription and add the `config` section to the spec:
 
 ```yaml
 apiVersion: operators.coreos.com/v1alpha1
@@ -48,7 +48,11 @@ spec:
 
 ## Implications of FIPS Mode
 
-When FIPS mode is enabled, the Go runtime enforces strict rules on the cryptographic algorithms that can be used. The MariaDB Operator ensures that all its communications are FIPS-compliant.
+When FIPS mode is enabled, strict rules are enforced on the cryptographic algorithms that can be used across the Operator and the managed resources.
+
+### Go Cryptography (Operator & Exporters)
+
+The Operator and Prometheus exporters are written in Go. Enabling FIPS mode via `GODEBUG=fips140=on` ensures that their standard library cryptographic routines are compliant. This guarantees that the core Operator logic and metrics collection adhere to FIPS standards.
 
 ### TLS Communication
 
@@ -62,15 +66,14 @@ This enforcement applies to communication with:
 - Amazon S3 compatible storage
 - Azure Blob Storage
 - The MariaDB Agent Sidecars
-- Health check probes
 
 By enforcing these specific curves, the operator guarantees that all its external communication over TLS is FIPS-compliant.
 
-### OpenSSL Configuration
+### OpenSSL Configuration (Operand Containers)
 
-While the Go runtime's FIPS mode (`GODEBUG=fips140=on`) ensures that the Operator's standard library cryptographic routines are compliant, it does not affect other cryptographic libraries running inside the operand containers, most notably OpenSSL. The MariaDB server, MaxScale, and various system utilities rely on OpenSSL for their cryptographic operations.
+The MariaDB server, MaxScale, and various system utilities running inside the operand containers rely on OpenSSL for their cryptographic operations.
 
-To ensure end-to-end FIPS compliance within the Pod, OpenSSL must also be configured to operate in FIPS mode. **The Operator relies on the underlying host operating system to be FIPS compliant and to provide the necessary validated OpenSSL FIPS provider modules.**
+To ensure end-to-end FIPS compliance within the Pod, OpenSSL must also be configured to operate in FIPS mode. **The operand containers rely on the underlying host operating system to be FIPS compliant and to provide the necessary validated OpenSSL FIPS provider modules.**
 
 When FIPS mode is enabled for the Operator, it automatically handles configuring OpenSSL for the managed databases by dynamically injecting the FIPS provider configuration. For each `MariaDB` and `MaxScale` custom resource, the Operator will:
 
