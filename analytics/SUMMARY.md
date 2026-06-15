@@ -18,6 +18,7 @@
     * [MariaDB ColumnStore Locking](mariadb-columnstore/architecture/mariadb-enterprise-columnstore-locking.md)
     * [ColumnStore Performance Module](mariadb-columnstore/architecture/columnstore-performance-module.md)
     * [ColumnStore User Module](mariadb-columnstore/architecture/columnstore-user-module.md)
+    * [ColumnStore System Paths and Logs](mariadb-columnstore/architecture/columnstore-system-paths-and-logs.md)
   * [Management](mariadb-columnstore/management/README.md)
     * [Deployment](mariadb-columnstore/management/deployment/README.md)
       * [Installing ColumnStore](mariadb-columnstore/management/deployment/install-guide/README.md)

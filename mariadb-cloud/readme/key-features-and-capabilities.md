@@ -27,7 +27,7 @@ icon: clouds
 
 * Available in 40+ regions across AWS, GCP, and Azure, offering unparalleled flexibility and reach.
 
-### Robust High Availability (HA
+### Robust High Availability (HA)
 
 * **Resilient Infrastructure:** Multi-layered protection across disks, compute, zones/regions, network, and load balancing.
 * **Intelligent Proxy through MaxScale:** Ensures seamless failover and monitors replication lag, maintaining service continuity.

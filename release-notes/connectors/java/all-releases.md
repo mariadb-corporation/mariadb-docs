@@ -7,8 +7,8 @@ description: A list of all MariaDB Connector/J releases
 ## 3.5
 
 | Release               | Release Date | Status      | Min. Java Compat. |
-|-----------------------|--------------| ----------- | ----------------- |
-| [3.5.9](3.5/3.5.9.md) | 09 Jun 2026  | Stable (GA) | Java 8            |
+| --------------------- | ------------ | ----------- | ----------------- |
+| [3.5.9](3.5/3.5.9.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.5.8](3.5/3.5.8.md) | 01 Apr 2026  | Stable (GA) | Java 8            |
 | [3.5.7](3.5/3.5.7.md) | 17 Dec 2025  | Stable (GA) | Java 8            |
 | [3.5.6](3.5/3.5.6.md) | 12 Aug 2025  | Stable (GA) | Java 8            |
@@ -23,7 +23,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
-| [3.4.3](3.4/3.4.3.md) | 09 Jun 2026  | Stable (GA) | Java 8            |
+| [3.4.3](3.4/3.4.3.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.4.2](3.4/3.4.2.md) | 27 Mar 2025  | Stable (GA) | Java 8            |
 | [3.4.1](3.4/3.4.1.md) | 17 Jul 2024  | Stable (GA) | Java 8            |
 | [3.4.0](3.4/3.4.0.md) | 17 May 2024  | Stable (GA) | Java 8            |
@@ -32,7 +32,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release               | Release Date | Status      | Min. Java Compat. |
 | --------------------- | ------------ | ----------- | ----------------- |
-| [3.3.5](3.3/3.3.5.md) | 09 Jun 2026  | Stable (GA) | Java 8            |
+| [3.3.5](3.3/3.3.5.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [3.3.4](3.3/3.3.4.md) | 27 Mar 2025  | Stable (GA) | Java 8            |
 | [3.3.3](3.3/3.3.3.md) | 20 Feb 2024  | Stable (GA) | Java 8            |
 | [3.3.2](3.3/3.3.2.md) | 19 Dec 2023  | Stable (GA) | Java 8            |
@@ -76,7 +76,7 @@ description: A list of all MariaDB Connector/J releases
 
 | Release                 | Release Date | Status      | Min. Java Compat. |
 | ----------------------- | ------------ | ----------- | ----------------- |
-| [2.7.14](2.7/2.7.14.md) | 09 Jun 2026  | Stable (GA) | Java 8            |
+| [2.7.14](2.7/2.7.14.md) | 15 Jun 2026  | Stable (GA) | Java 8            |
 | [2.7.13](2.7/2.7.13.md) | 17 Dec 2025  | Stable (GA) | Java 8            |
 | [2.7.12](2.7/2.7.12.md) | 20 Feb 2024  | Stable (GA) | Java 8            |
 | [2.7.11](2.7/2.7.11.md) | 08 Nov 2023  | Stable (GA) | Java 8            |

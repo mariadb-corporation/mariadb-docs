@@ -26,4 +26,4 @@ MariaDB Server Solution Stacks are partner-developed reference architectures bui
 
 ## Where's the Hub?
 
-Find the MariaDB Ecosystem Hub here: [https://ecohub.mariadb.com](https://ecohub.mariadb.org/)
+Find the MariaDB Ecosystem Hub here: [https://ecohub.mariadb.org](https://ecohub.mariadb.org/)
