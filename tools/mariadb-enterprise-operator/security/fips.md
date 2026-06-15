@@ -68,7 +68,7 @@ By enforcing these specific curves, the operator guarantees that all its externa
 
 ### OpenSSL Configuration
 
-While the Go runtime's FIPS mode (`GODEBUG=fips140=on`) ensures that the Operator's standard library cryptographic routines are compliant, it does not affect other cryptographic libraries running inside the containers, most notably OpenSSL. The MariaDB server, MaxScale, and various system utilities rely on OpenSSL for their cryptographic operations.
+While the Go runtime's FIPS mode (`GODEBUG=fips140=on`) ensures that the Operator's standard library cryptographic routines are compliant, it does not affect other cryptographic libraries running inside the operand containers, most notably OpenSSL. The MariaDB server, MaxScale, and various system utilities rely on OpenSSL for their cryptographic operations.
 
 To ensure end-to-end FIPS compliance within the Pod, OpenSSL must also be configured to operate in FIPS mode. **The Operator relies on the underlying host operating system to be FIPS compliant and to provide the necessary validated OpenSSL FIPS provider modules.**
 
