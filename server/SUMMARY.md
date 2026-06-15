@@ -183,6 +183,7 @@
     * [CSV](server-usage/storage-engines/csv/README.md)
       * [CSV Overview](server-usage/storage-engines/csv/csv-overview.md)
       * [Checking and Repairing CSV Tables](server-usage/storage-engines/csv/checking-and-repairing-csv-tables.md)
+    * [DuckDB](server-usage/storage-engines/duckdb-storage-engine.md)
     * [FederatedX](server-usage/storage-engines/federatedx-storage-engine/README.md)
       * [About FederatedX](server-usage/storage-engines/federatedx-storage-engine/about-federatedx.md)
       * [Differences Between FederatedX and Federated](server-usage/storage-engines/federatedx-storage-engine/differences-between-federatedx-and-federated.md)
