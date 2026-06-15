@@ -44,3 +44,7 @@ icon: house-blank
 [mariadb-enterprise-columnstore-locking.md](mariadb-enterprise-columnstore-locking.md)
 {% endcontent-ref %}
 
+{% content-ref url="columnstore-system-paths-and-logs.md" %}
+[columnstore-system-paths-and-logs.md](columnstore-system-paths-and-logs.md)
+{% endcontent-ref %}
+
