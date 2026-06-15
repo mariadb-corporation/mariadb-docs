@@ -19,6 +19,11 @@ and opening it in Claude Code makes all of them available automatically (Claude 
 `.claude/skills/`, `.claude/commands/`, and `CLAUDE.md` → `AGENTS.md`). Type `/` to see the
 commands. What you *do* set up is the per-user, gitignored pieces below.
 
+> Launching Claude from a **parent workspace folder** that contains this repo as a subdirectory
+> (instead of opening `mariadb-docs/` directly)? Auto-loading won't reach the project skills.
+> See [`dev-docs/cookbook-multi-repo-workspace.md`](../dev-docs/cookbook-multi-repo-workspace.md)
+> for the user-global symlink setup that fixes it.
+
 1. **Install Claude Code** and get access to the `mariadb-docs` repo. Clone it and open the repo
    folder in Claude Code.
 2. **Approve the project hooks.** On first open, Claude Code asks you to trust this project's
