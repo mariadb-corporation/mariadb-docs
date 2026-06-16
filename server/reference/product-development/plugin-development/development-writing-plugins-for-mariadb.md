@@ -73,7 +73,7 @@ maria_declare_plugin_end;
 
 ## Maturity Guidelines For Plugins
 
-### Plugin Maturity At a Galnce
+### Plugin Maturity At a Glance
 
 ```mermaid
 stateDiagram-v2
