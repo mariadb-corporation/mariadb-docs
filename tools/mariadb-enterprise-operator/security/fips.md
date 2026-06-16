@@ -52,7 +52,7 @@ When FIPS mode is enabled, strict rules are enforced on the cryptographic algori
 
 ### Go Cryptography (Operator & Exporters)
 
-The Operator and Prometheus exporters are written in Go. Enabling FIPS mode via `GODEBUG=fips140=on` ensures that their standard library cryptographic routines are compliant. This guarantees that the core Operator logic and metrics collection adhere to FIPS standards.
+The Operator and Prometheus exporters are written in Go. Enabling FIPS mode via `GODEBUG=fips140=on` ensures that their standard library cryptographic routines are compliant. This compliance is achieved because they utilize [NIST-approved cryptographic modules](#nist-cmvp-certificates), rather than merely adhering to recommended algorithms. This guarantees that the core Operator logic and metrics collection adhere to strict FIPS standards.
 
 ### TLS Communication
 
