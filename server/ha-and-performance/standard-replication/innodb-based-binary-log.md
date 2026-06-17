@@ -17,19 +17,20 @@ Traditionally, MariaDB treated the [binary log](../../server-management/server-m
 
 InnoDB-based binary logs entirely replace traditional file-based binary logs. When enabled, the server stops writing traditional binlog files, and the new format becomes the only binary log implementation in use.
 
-Additionally, this feature is limited to the binary log on the server. Replicas continue to use the traditional relay log implementation, therefore it does not affect them.
+Additionally, this feature is limited to the binary log on the server. The relay log on slaves continues to use the traditional implementation and is not affected by the use of InnoDB-based binary logs.
 
 ## Enabling the InnoDB Binlog
 
 ```bash
---binlog-storage-engine
+--binlog-storage-engine=innodb
+--log-bin
 ```
 
 ## Benefits
 
 The InnoDB-based binlog offers two key performance advantages:
 
-1. **Crash-safe recovery without sync operations**: The binlog seamlessly integrates with InnoDB's crash recovery mechanism. This enables you to set `--innodb-flush-log-at-trx-commit=0` or `--innodb-flush-log-at-trx-commit=2` for better performance while maintaining crash safety and consistency.
+1. **Crash-safe recovery without durability cost**: The binlog seamlessly integrates with InnoDB's crash recovery mechanism. This enables you to set `--innodb-flush-log-at-trx-commit=0` or `--innodb-flush-log-at-trx-commit=2` for better performance while maintaining crash safety and consistency.
 2. **Efficient commits with reduced** `fsync` **operations**: When using the `--innodb-flush-log-at-trx-commit=1` setting, the system performs only a single coordinated `fsync` per commit, instead of the multiple syncs required by the traditional 2PC.
 3. The `sync_binlog` option is no longer required as the binlog files are now crash-safe.
 
@@ -37,10 +38,10 @@ The InnoDB-based binlog offers two key performance advantages:
 
 | Feature         | Traditional Binlog                                         | New InnoDB-Based Binlog               |
 | --------------- | ---------------------------------------------------------- | ------------------------------------- |
-| File Extension  | `.idx`, `.index` files                                     | `.ibb`                                |
-| Crash Safety    | Needs `sync_binlog=1`                                      | Native / Inherited from InnoDB engine |
-| Commit Protocol | Two-Phase Commit (Slow)                                    | Integrated (Fast)                     |
-| Positioning     | Filename/Offset or [Global Transaction ID](gtid.md) (GTID) | GTID Only                             |
+| File Extension  | `.000001`, `.idx`, `.index`, `.state` files                | `.ibb`                                |
+| Crash Safety    | Needs `sync_binlog=1`                                      | Native / inherited from InnoDB engine |
+| Commit Protocol | Two-Phase Commit (Slow)                                    | Integrated (fast)                     |
+| Positioning     | Filename/Offset or [Global Transaction ID](gtid.md) (GTID) | GTID only                             |
 | File Allocation | Incremental                                                | Pre-allocated (`max_binlog_size`)     |
 
 ## When to Use InnoDB-Based Binlogs
@@ -109,10 +110,11 @@ The new binlog implementation requires GTID-based replication. The GTID state is
 
 ```ini
 [mariadb]
-innodb-binlog-state-interval
+innodb-binlog-state-interval=2097152
 ```
 
-The binary log from the last GTID state record is scanned when a replica connects in order to find the determined location.
+The binary log from the last GTID state record is scanned when a slave connects in order to find the determined location.
+The variable innodb-binlog-state-interval can be used to balance the cost of this scan against the extra space needed for the records; however this should have little impact in practice and normally can be left at the default.
 
 For additional configuration options, see [Replication and Binary Log System Variables](replication-and-binary-log-system-variables.md).
 
@@ -120,8 +122,8 @@ For additional configuration options, see [Replication and Binary Log System Var
 
 Using the new binlog, [replication](./) configuration from the master can be performed as usual. For that:
 
-* Replicas must use GTID to connect to the master (default).
-* Replicas should run MariaDB 12.3 or later when replicating from master.
+* Slaves must use GTID to connect to the master (this is the default).
+* Slaves should run MariaDB 12.3 or later when replicating from master.
 * The master and slave can independently use either the traditional or new binlog format.
 
 ### Viewing Binlog Events
@@ -138,9 +140,6 @@ SHOW BINLOG EVENTS;
 
 -- View events from a specific file
 SHOW BINLOG EVENTS IN 'binlog-000001.ibb';
-
--- View events from a GTID position
-SHOW BINLOG EVENTS FROM GTID_POS('0-1-1024');
 ```
 
 Note that event offsets are generally reported as zero; GTID positions can be used instead for navigation.
@@ -197,14 +196,14 @@ SET GLOBAL binlog_expire_log_days = 14;
 -- Limit total binary log disk usage to 100 GB
 SET GLOBAL max_binlog_total_size = 107374182400;
 
--- Purge even with slave
+-- Allow purge in setups where no slaves are configured
 slave_connections_needed_for_purge=0
 ```
 
 Note that binary log files are only deleted when:
 
-* Limits on time and size are exceeded.
-* Files are not required for crash recovery or by active replicas.
+* Limits on time or size are exceeded.
+* Files are not required for crash recovery or by active slaves.
 
 ## Backup using mariadb-backup
 
@@ -216,18 +215,15 @@ Key features:
 
 * Consistent transactional backup for binlog files, similar to other [InnoDB](../../server-usage/storage-engines/innodb/) data.
 * Backups are non-blocking, meaning the server continues running normally. By default, only `RESET MASTER`**,** `PURGE BINARY LOGS`, and `FLUSH BINARY LOGS` are blocked during backup. This blocking can be disabled with the `--no-lock` option.
-* Restored backups can serve as replicas for replication.
+* A restored backup can be used to set up a slave for replication.
 
-### Setting Up Replica from Backup
+### Setting Up Slave from Backup
 
 ```bash
 # Default backup includes binlog files
 mariadb-backup --backup --target-dir=/backup/path
 
-# Exclude binlog files (save space)
-mariadb-backup --backup --target-dir=/backup/path --skip-binlog
-
-# Restore on replica
+# Restore on slave
 mariadb-backup --prepare --target-dir=/backup/path
 mariadb-backup --copy-back --target-dir=/backup/path
 
@@ -244,9 +240,9 @@ CHANGE MASTER TO
 START SLAVE;  
 ```
 
-When the `MASTER_DEMOTE_TO_SLAVE=1` option is set, the restored backup can replicate from the original location.
+When the `MASTER_DEMOTE_TO_SLAVE=1` option is set, the restored backup can automatically start replicating from the point the backup was taken, using the binlog files included in the backup.
 
-Note that the restored server will behave as if `RESET MASTER` was executed at backup time. Also, any number of prepared transactions will be rolled back on the first startup.
+Note that if the `--skip-binlog` option of `mariadb-backup --backup` is used, then the restored server will behave as if `RESET MASTER` was executed at backup time; and the `MASTER_DEMOTE_TO_SLAVE=1` option cannot be used to initialize the replication starting position, instead the `gtid_slave_pos` variable must be set explicitly from the information saved by `mariadb-backup`.
 
 ## Migration and Upgrades
 
@@ -268,19 +264,19 @@ Starting with MariaDB 12.3, there are three primary methods to migrate from the 
 
 #### Method 1: Direct Restart Migration (Simple)
 
-This is the simplest approach, appropriate for cases where point-in-time recovery does not require maintaining old binary log files.
+This is the simplest approach, appropriate for cases where replication or point-in-time recovery do not require keeping old binary log files.
 
 1. Stop the MariaDB server.
-2. &#x20;Add `--log-bin` and `--binlog-storage-engine=innodb` to your configuration.
-3. The new binlog begins empty if the server is restarted.
+2. Add `--log-bin` and `--binlog-storage-engine=innodb` to your configuration.
+3. The new binlog begins empty when the server is restarted.
 4. Remove the old binlog files from the storage directory manually.
 
 #### Method 2: Replication State Migration (GTID Preservation)
 
-This approach is used to switch a master server while ensuring that connected replicas can continue replicating without the need for a full reconfiguration.
+This approach is used to switch a master server while ensuring that connected slaves can continue replicating without the need for a full reconfiguration.
 
 1. Stop all writing to the master.
-2. Wait for all replicas to catch up to the master's current position.
+2. Wait for all slaves to catch up to the master's current position.
 3. Capture the current GTID state by noting down the value of `@@binlog_gtid_state`.
 4. Restart the master with this configuration:
 
@@ -291,17 +287,17 @@ This approach is used to switch a master server while ensuring that connected re
 ```
 
 5. Immediately execute `SET GLOBAL binlog_gtid_state=<old value>` using the value saved in step 3.
-6. Allow replicas to reconnect; they will continue from where they left off.
+6. Allow slaves to reconnect; they will continue from where they left off.
 
 #### Method 3: Live Migration (Zero downtime)
 
 This is the most robust method for production environments, as it avoids master downtime during the format transition.
 
-1. Ensure that all replicas are upgraded to at least MariaDB version 12.3 before switching the master.
-2. Choose a replica and restart it with `--binlog-storage-engine=innodb`.
-3. Allow the replica to replicate from the old-format master until it has enough binlog data.
-4. Promote this replica to be the new master.
-5. Restart the remaining replicas to point to the new master after stopping them one at a time and changing their configuration to the new binlog format.
+1. Ensure that all slaves are upgraded to at least MariaDB version 12.3 before switching the master.
+2. Choose a slave and restart it with `--binlog-storage-engine=innodb`.
+3. Allow the slave to replicate from the old-format master until it has enough binlog data.
+4. Promote this slave to be the new master.
+5. Restart the remaining slaves to point to the new master after stopping them one at a time and changing their configuration to the new binlog format.
 
 ## Performance Characteristics
 
@@ -316,13 +312,9 @@ Commit durability is now controlled solely by the [--innodb-flush-log-at-trx-com
 ### Flush Policy
 
 * `--innodb-flush-log-at-trx-commit=1`: Performs a single coordinated flush of both table data and binary log, offering greater efficiency compared to the traditional binlog implementation
-* `--innodb-flush-log-at-trx-commit=2`: Provides higher throughput with acceptable crash trade-offs
+* `--innodb-flush-log-at-trx-commit=2`: Provides higher throughput and crash-safety with reduced durability
 
 The `sync_binlog` option is effectively ignored when using the InnoDB-based binary log.
-
-### GTID State Interval
-
-The `--innodb-binlog-state-interval` configuration option controls how often GTID state records are written to the binary log. Lowering this value helps replicas reconnect faster during high traffics.
 
 ## Limitations and Unsupported Features
 
@@ -330,7 +322,7 @@ The following list of features are not supported when using the InnoDB-based bin
 
 #### Replication Positioning
 
-Old-style filename/offset replication positions are not supported. Replication must use GTID-based replication (default).
+Old-style filename/offset replication positions are not supported. Replication must use GTID-based replication (this is the default).
 
 #### Semi-Synchronous Replication
 
@@ -342,17 +334,15 @@ The InnoDB-based binary log cannot be used with MariaDB Galera Cluster.
 
 #### Heuristic Recovery
 
-The `--tc-heuristic-recover` option is not supported with the InnoDB-based binary log. If the binary log is empty (i.e., deleted manually), pending transactions will be rolled back.&#x20;
+The `--tc-heuristic-recover` option is not supported with the InnoDB-based binary log. If the binary log is empty (i.e., deleted manually), pending transactions will be rolled back.
 
 #### SHOW BINLOG EVENTS FROM Behavior
 
-If an event group starts in the middle of the provided position, `SHOW BINLOG EVENTS FROM` fails to produce an error.
-
-Rather, the command begins at the first GTID event that comes after the designated point. An empty result is returned if the position is past the log's end.
+If an event group starts in the middle of the provided position, `SHOW BINLOG EVENTS FROM` does not give an error. Rather, the command begins at the first GTID event that comes after the designated point. An empty result is returned if the position is past the log's end.
 
 #### Multiple Storage Engines
 
-During the initial implementation, only InnoDB is available as an engine for the binlog (`--binlog-storage-engine=innodb`).&#x20;
+During the initial implementation, only InnoDB is available as an engine for the binlog (`--binlog-storage-engine=innodb`).
 
 ## See Also
 
