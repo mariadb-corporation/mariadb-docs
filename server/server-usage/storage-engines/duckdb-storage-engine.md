@@ -10,9 +10,9 @@ description: >-
 **Experimental — for evaluation only.** The DuckDB storage engine is at **alpha** maturity. It is not yet merged into MariaDB Server `main`, not built into MariaDB releases, and not signed in any official package. Interfaces, configuration variables, behavior, and supported operations are subject to change. **Do not use in production.**
 {% endhint %}
 
-The DuckDB storage engine embeds [DuckDB](https://duckdb.org/) — a columnar, vectorized, in-process analytical database — inside MariaDB Server as a loadable plugin (`ha_duckdb.so`). Tables created with `ENGINE=DuckDB` store data in DuckDB's native columnar format, and queries against them are executed by the DuckDB engine. Cross-engine joins between DuckDB and other engines (e.g. InnoDB) are supported in a single `SELECT`.
+The DuckDB storage engine embeds [DuckDB](https://duckdb.org/) — a columnar, vectorized, in-process analytical database engine — inside MariaDB Server as a loadable plugin (`ha_duckdb.so`). Tables created with `ENGINE=DuckDB` store data in DuckDB's native columnar format, and queries against them are executed by the DuckDB engine. Cross-engine joins between DuckDB and other engines (e.g. InnoDB) are supported in a single `SELECT`.
 
-The engine is ported from Alibaba's [AliSQL](https://github.com/alibaba/AliSQL) DuckDB integration and adapted to MariaDB's handler API, plugin system, and packaging.
+The engine borrows its design from Alibaba's [AliSQL](https://github.com/alibaba/AliSQL) DuckDB integration. The original code was heavily refactored to use MariaDB's handler API and plugin system, and the engine links against vanilla upstream DuckDB.
 
 ## Use cases
 
@@ -61,18 +61,18 @@ sudo dpkg -i mariadb-server*.deb mariadb-plugin-duckdb*.deb || sudo apt -f insta
 
 ### Option 2: build from source
 
-The engine integration lives on the `bb-11.4-duckdb` branch of [`MariaDB/server`](https://github.com/MariaDB/server). The engine sources themselves are fetched at configure time from [`MariaDB/duckdb-engine`](https://github.com/MariaDB/duckdb-engine) via CMake `FetchContent`. A helper script handles dependency installation and the build.
+The engine integration lives on the `11.4` branch of [`MariaDB/server`](https://github.com/MariaDB/server). The engine sources themselves are fetched at configure time from [`MariaDB/duckdb-engine`](https://github.com/MariaDB/duckdb-engine) via CMake `FetchContent`. A helper script handles dependency installation and the build.
 
 ```sh
-git clone --recurse-submodules -b bb-11.4-duckdb \
+git clone --recurse-submodules -b 11.4 \
   https://github.com/MariaDB/server.git mariadb-server
 cd mariadb-server
 
 # Install build prerequisites (requires root)
 ./storage/duckdb/duckdb/build.sh -D
 
-# Build and install
-./storage/duckdb/duckdb/build.sh
+# Build, install and start MariaDB server
+./storage/duckdb/duckdb/build.sh -S
 
 # Optional: build a DEB or RPM instead
 ./storage/duckdb/duckdb/build.sh -p
@@ -190,7 +190,7 @@ A maintained compatibility matrix is published in the engine repository at [`doc
 
 - [MDEV-39234](https://jira.mariadb.org/browse/MDEV-39234) — upstream feature ticket.
 - [`MariaDB/duckdb-engine`](https://github.com/MariaDB/duckdb-engine) — canonical engine source repository.
-- [`bb-11.4-duckdb`](https://github.com/MariaDB/server/tree/bb-11.4-duckdb) branch — the MariaDB Server fork containing the integration scaffolding.
+- [`11.4`](https://github.com/MariaDB/server/tree/11.4) branch — the MariaDB Server fork containing the integration scaffolding.
 - [DuckDB Storage Engine for MariaDB: When the Sea Lion Learns to Quack](https://mariadb.org/duckdb-storage-engine-for-mariadb-when-the-sea-lion-learns-to-quack/) — Roman Nozdrin, 2026-06-09.
 - [MariaDB DuckDB: A New Playground for Analytics](https://mariadb.org/mariadb-duckdb-a-new-playground-for-analytics-a-first-look-at-the-new-storage-engine/) — Frédéric Descamps, 2026-06-12.
 - [SHOW ENGINES](../../reference/sql-statements/administrative-sql-statements/show/show-engines.md)
