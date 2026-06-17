@@ -1,0 +1,31 @@
+{
+  "$comment": "Index of all MariaDB agent skills for DOCS-6206. Hand-maintained for now; a CI step can regenerate it from the directory tree + frontmatter once the layout is final.",
+  "baseline": "11.8 LTS",
+  "layers": {
+    "granular-statements": {
+      "tier": 1,
+      "path": "granular/statements",
+      "author": "docs-team",
+      "skills": [
+        { "name": "mariadb-create-table", "path": "granular/statements/mariadb-create-table/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-alter-table", "path": "granular/statements/mariadb-alter-table/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-select", "path": "granular/statements/mariadb-select/SKILL.md", "status": "pilot" }
+      ]
+    },
+    "granular-functions": {
+      "tier": 2,
+      "path": "granular/functions",
+      "author": "docs-team+extractor",
+      "skills": [
+        { "name": "mariadb-json-functions", "path": "granular/functions/mariadb-json-functions/SKILL.md", "status": "pilot" }
+      ]
+    },
+    "topical": {
+      "path": "topical",
+      "author": "mariadb-foundation",
+      "vendored_from": "https://github.com/MariaDB/skills",
+      "vendored_ref": null,
+      "skills": []
+    }
+  }
+}
