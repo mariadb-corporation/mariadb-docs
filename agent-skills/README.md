@@ -53,8 +53,8 @@ want an index rather than a directory walk.
 
 ## Maintenance
 
-See `dev-docs/` (TODO: link the DX skill maintenance doc once written) for the
-authoring and per-LTS update workflows. In short:
+See [`dev-docs/agent-skills-maintenance.md`](../dev-docs/agent-skills-maintenance.md)
+for the authoring and per-LTS update workflows. In short:
 
 - **Tier 1** — hand-authored, human-verified against `server/reference/**` and
   `mariadb-server/sql/`. Reviewed per LTS release.
