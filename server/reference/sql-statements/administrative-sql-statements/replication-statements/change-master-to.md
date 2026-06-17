@@ -13,7 +13,7 @@ The terms _master_ and _slave_ have historically been used in replication, and M
 
 ## Description
 
-The `CHANGE MASTER TO` statement sets up a replication replica server to connect to a specific primary server and defines the replication coordinates (binary log file and position or GTID) and connection parameters (host, user, password, port, SSL options, etc.). When executed, the replica updates its internal replication metadata accordingly.
+The `CHANGE MASTER TO` statement sets up a replication slave server to connect to a specific master server and defines the replication coordinates (binary log file and position or GTID) and connection parameters (host, user, password, port, SSL options, etc.). When executed, the slave updates its internal replication metadata accordingly.
 
 ## Syntax
 
@@ -59,7 +59,7 @@ Note: The value is extracted from the corresponding server option or system vari
 
 ## Replication Configuration
 
-`CHANGE MASTER` is used on a replica to set up or change [replication](../../../../ha-and-performance/standard-replication/) settings for connecting to the primary.
+`CHANGE MASTER` is used on a slave to set up or change [replication](../../../../ha-and-performance/standard-replication/) settings for connecting to the master.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -105,7 +105,7 @@ Starting with MariaDB 12.3, replication connection parameters can be set at the 
 
 When an option in `CHANGE MASTER TO` is set to `DEFAULT`, the value is obtained from the corresponding server option (e.g., options defined in configuration files like `my.cnf` or provided on the command line). Instead of keeping a fixed value, the replication channel derives the value from the appropriate server option when `DEFAULT` is selected.
 
-<table><thead><tr><th width="224">CHANGE MASTER Option</th><th width="230">System Variable</th><th>Description</th></tr></thead><tbody><tr><td><code>MASTER_CONNECT_RETRY</code></td><td><code>--master-connect-retry</code></td><td>The interval to wait between connection retry attempts.</td></tr><tr><td><code>MASTER_RETRY_COUNT</code></td><td><code>--master-retry-count</code></td><td>Number of connection attempts before stopping.</td></tr><tr><td><code>MASTER_HEARTBEAT_PERIOD</code></td><td><code>--master-heartbeat-period</code></td><td>Interval between replication heartbeats.</td></tr><tr><td><code>MASTER_SSL</code></td><td><code>--master-ssl</code></td><td>Enables or disables TLS for the connection.</td></tr><tr><td><code>MASTER_SSL_CA</code></td><td><code>--master-ssl-ca</code></td><td>Path to the Certificate Authority (CA) file.</td></tr><tr><td><code>MASTER_SSL_CERT</code></td><td><code>--master-ssl-cert</code></td><td>Path to the client certificate file.</td></tr><tr><td><code>MASTER_SSL_KEY</code></td><td><code>--master-ssl-key</code></td><td>Path to the client private key file.</td></tr><tr><td><code>MASTER_SSL_CAPATH</code></td><td><code>--master-ssl-capath</code></td><td>Path to the directory containing CA certificates.</td></tr><tr><td><code>MASTER_SSL_VERIFY_SERVER_CERT</code></td><td><code>--master-ssl-verify-server-cert</code></td><td>Enable verification of the primary's certificate.</td></tr><tr><td><code>MASTER_SSL_CRL</code></td><td><code>--master-ssl-crl</code></td><td>Path to the Certificate Revocation List (CRL) file.</td></tr><tr><td><code>MASTER_SSL_CRLPATH</code></td><td><code>--master-ssl-crlpath</code></td><td>Path to the directory containing CRL files.</td></tr><tr><td><code>MASTER_SSL_CIPHER</code></td><td><code>--master-ssl-cipher</code></td><td>List of permitted TLS ciphers.</td></tr><tr><td><code>MASTER_USE_GTID</code></td><td><code>--master-use-gtid</code></td><td>Setting for Global Transaction ID (GTID) mode.</td></tr></tbody></table>
+<table><thead><tr><th width="224">CHANGE MASTER Option</th><th width="230">System Variable</th><th>Description</th></tr></thead><tbody><tr><td><code>MASTER_CONNECT_RETRY</code></td><td><code>--master-connect-retry</code></td><td>The interval to wait between connection retry attempts.</td></tr><tr><td><code>MASTER_RETRY_COUNT</code></td><td><code>--master-retry-count</code></td><td>Number of connection attempts before stopping.</td></tr><tr><td><code>MASTER_HEARTBEAT_PERIOD</code></td><td><code>--master-heartbeat-period</code></td><td>Interval between replication heartbeats.</td></tr><tr><td><code>MASTER_SSL</code></td><td><code>--master-ssl</code></td><td>Enables or disables TLS for the connection.</td></tr><tr><td><code>MASTER_SSL_CA</code></td><td><code>--master-ssl-ca</code></td><td>Path to the Certificate Authority (CA) file.</td></tr><tr><td><code>MASTER_SSL_CERT</code></td><td><code>--master-ssl-cert</code></td><td>Path to the client certificate file.</td></tr><tr><td><code>MASTER_SSL_KEY</code></td><td><code>--master-ssl-key</code></td><td>Path to the client private key file.</td></tr><tr><td><code>MASTER_SSL_CAPATH</code></td><td><code>--master-ssl-capath</code></td><td>Path to the directory containing CA certificates.</td></tr><tr><td><code>MASTER_SSL_VERIFY_SERVER_CERT</code></td><td><code>--master-ssl-verify-server-cert</code></td><td>Enable verification of the master's certificate.</td></tr><tr><td><code>MASTER_SSL_CRL</code></td><td><code>--master-ssl-crl</code></td><td>Path to the Certificate Revocation List (CRL) file.</td></tr><tr><td><code>MASTER_SSL_CRLPATH</code></td><td><code>--master-ssl-crlpath</code></td><td>Path to the directory containing CRL files.</td></tr><tr><td><code>MASTER_SSL_CIPHER</code></td><td><code>--master-ssl-cipher</code></td><td>List of permitted TLS ciphers.</td></tr><tr><td><code>MASTER_USE_GTID</code></td><td><code>--master-use-gtid</code></td><td>Setting for Global Transaction ID (GTID) mode.</td></tr></tbody></table>
 
 For example, a configuration file can specify default values:
 
@@ -128,7 +128,7 @@ CHANGE MASTER 'primary_node_1' TO
   MASTER_SSL_KEY = DEFAULT,
   MASTER_USE_GTID = DEFAULT;
 
-START REPLICA 'primary_node_1';
+START SLAVE 'primary_node_1';
 ```
 
 If an option is explicitly set in `CHANGE MASTER TO`, the value overrides the corresponding server option. The replication channel receives the current server-level value if `DEFAULT` is used.
@@ -160,15 +160,15 @@ These options determine values automatically and may override `--master-*` setti
 
 #### MASTER\_USER
 
-The `MASTER_USER` option for `CHANGE MASTER` defines the user account that the [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) will use to connect to the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
+The `MASTER_USER` option for `CHANGE MASTER` defines the user account that the [slave](../../../../ha-and-performance/standard-replication/setting-up-replication.md) will use to connect to the [master](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
 
 {% tabs %}
 {% tab title="Current" %}
-This user account will need the [REPLICATION REPLICA](../../account-management-sql-statements/grant.md#replication-replica) privilege on the primary.
+This user account will need the [REPLICATION SLAVE/REPLICATIION_REPLICA](../../account-management-sql-statements/grant.md#replication-replica) privilege on the master.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
-This user account will need the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege on the primary.
+This user account will need the [REPLICATION SLAVE](../../account-management-sql-statements/grant.md#replication-slave) privilege on the master.
 {% endtab %}
 {% endtabs %}
 
@@ -194,7 +194,7 @@ The maximum length of the `MASTER_USER` string is 96 characters.
 
 #### MASTER\_PASSWORD
 
-The `MASTER_PASSWORD` option for `CHANGE MASTER` defines the password that the [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) will use to connect to the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md) as the user account defined by the [MASTER\_USER](change-master-to.md#master_user) option.
+The `MASTER_PASSWORD` option for `CHANGE MASTER` defines the password that the [slave](../../../../ha-and-performance/standard-replication/setting-up-replication.md) will use to connect to the [master](../../../../ha-and-performance/standard-replication/setting-up-replication.md) as the user account defined by the [MASTER\_USER](change-master-to.md#master_user) option.
 
 For example:
 
@@ -213,7 +213,7 @@ Due to [MDEV-29994](https://jira.mariadb.org/browse/MDEV-29994), the password ca
 
 #### MASTER\_HOST
 
-The `MASTER_HOST` option for `CHANGE MASTER` defines the hostname or IP address of the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
+The `MASTER_HOST` option for `CHANGE MASTER` defines the hostname or IP address of the [master](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
 
 {% tabs %}
 {% tab title="Current" %}
@@ -238,11 +238,11 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-If you set the value of the `MASTER_HOST` option in a `CHANGE MASTER` command, then the replica assumes that the primary is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the replica will consider the old values for the primary's [binarylog](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new primary. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
+If you set the value of the `MASTER_HOST` option in a `CHANGE MASTER` command, then the slave assumes that the master is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the slave will consider the old values for the master's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new master. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
 {% endhint %}
 
 {% hint style="info" %}
-Replicas cannot connect to primaries using Unix socket files or Windows named pipes. The replica must connect to the primary using TCP/IP.
+Slaves cannot connect to masters using Unix socket files or Windows named pipes. The slave must connect to the master using TCP/IP.
 {% endhint %}
 
 {% tabs %}
@@ -257,7 +257,7 @@ The maximum length of the `MASTER_HOST` string is 60 characters.
 
 #### MASTER\_PORT
 
-The `MASTER_PORT` option for `CHANGE MASTER` defines the TCP/IP port of the [primary](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
+The `MASTER_PORT` option for `CHANGE MASTER` defines the TCP/IP port of the [master](../../../../ha-and-performance/standard-replication/setting-up-replication.md).
 
 For example:
 
@@ -273,16 +273,16 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-If you set the value of the `MASTER_PORT` option in a `CHANGE MASTER` command, then the replica assumes that the primary is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the replica will consider the old values for the primary's [binarylog](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new primary. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
+If you set the value of the `MASTER_PORT` option in a `CHANGE MASTER` command, then the slave assumes that the master is different from before, even if you set the value of this option to the same value it had previously. In this scenario, the slave will consider the old values for the master's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file name and position to be invalid for the new master. As a side effect, if you do not explicitly set the values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options in the statement, then the statement will be implicitly appended with `MASTER_LOG_FILE=''` and `MASTER_LOG_POS=4`. However, if you enable [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode for replication by setting the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option to some value other than `no` in the statement, then these values will effectively be ignored anyway.
 {% endhint %}
 
 {% hint style="info" %}
-Replicas cannot connect to primaries using Unix socket files or Windows named pipes. The replica must connect to the primary using TCP/IP.
+Slaves cannot connect to masters using Unix socket files or Windows named pipes. The slave must connect to the master using TCP/IP.
 {% endhint %}
 
 #### MASTER\_CONNECT\_RETRY
 
-The `MASTER_CONNECT_RETRY` option for `CHANGE MASTER` defines how many seconds that the replica will wait between connection retries. The default is `60`.
+The `MASTER_CONNECT_RETRY` option for `CHANGE MASTER` defines how many seconds that the slave will wait between connection retries. The default is `60`.
 
 ```sql
 STOP SLAVE;
@@ -297,7 +297,7 @@ START SLAVE;
 
 #### MASTER\_RETRY\_COUNT
 
-The `MASTER_RETRY_COUNT` option limits the number of connection attempts (i.e., `Connects_Tried` in [SHOW REPLICA STATUS](../show/show-replica-status.md)). For example:
+The `MASTER_RETRY_COUNT` option limits the number of connection attempts (i.e., `Connects_Tried` in [SHOW SLAVE STATUS](../show/show-replica-status.md)). For example:
 
 ```sql
 STOP SLAVE;
@@ -306,7 +306,7 @@ CHANGE MASTER TO
 START SLAVE;
 ```
 
-Setting this option resets the `Connects_Tried` statistic in [SHOW REPLICA STATUS](../show/show-replica-status.md) to 0.
+Setting this option resets the `Connects_Tried` statistic in [SHOW SLAVE STATUS](../show/show-replica-status.md) to 0.
 
 The default is the [`--master-retry-count`](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option, which can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
@@ -326,7 +326,7 @@ The maximum value is 18446744073709551615 (64-bit). Before MariaDB 12.3, the max
 
 > Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-retry-count`).
 >
-> The option can now be set to `0`, allowing the replica to retry indefinitely.
+> The option can now be set to `0`, allowing the slave to retry indefinitely.
 > \
 > When it is set to 1, the connection attempt is only made once, hence disabling retries.
 
@@ -336,11 +336,11 @@ The maximum value is 18446744073709551615 (64-bit). Before MariaDB 12.3, the max
 The `MASTER_BIND` option for `CHANGE MASTER` is only supported by MySQL 5.6.2 and later and by MySQL NDB Cluster 7.3.1 and later. This option is not supported by MariaDB. See [MDEV-19248](https://jira.mariadb.org/browse/MDEV-19248) for more information.
 {% endhint %}
 
-The `MASTER_BIND` option for `CHANGE MASTER` can be used on replicas that have multiple network interfaces to choose which network interface the replica will use to connect to the primary.
+The `MASTER_BIND` option for `CHANGE MASTER` can be used on slaves that have multiple network interfaces to choose which network interface the slave will use to connect to the master.
 
 #### MASTER\_HEARTBEAT\_PERIOD
 
-The `MASTER_HEARTBEAT_PERIOD` option for `CHANGE MASTER` can be used to set the interval in seconds between replication heartbeats. Whenever the primary's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) is updated with an event, the waiting period for the next heartbeat is reset.
+The `MASTER_HEARTBEAT_PERIOD` option for `CHANGE MASTER` can be used to set the interval in seconds between replication heartbeats. Whenever the master's [binary log](../../../../server-management/server-monitoring-logs/binary-log/) is updated with an event, the waiting period for the next heartbeat is reset.
 
 This option's _interval_ argument has the following characteristics:
 
@@ -350,7 +350,7 @@ This option's _interval_ argument has the following characteristics:
 * Its default value is the value of the [slave\_net\_timeout](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable divided by 2.
 * If it's set to `0`, then heartbeats are disabled.
 
-Heartbeats are sent by the primary only if there are no unsent events in the binary log file for a period longer than the interval.
+Heartbeats are sent by the master only if there are no unsent events in the binary log file for a period longer than the interval.
 
 > Starting with MariaDB 12.3, this option accepts the `DEFAULT` keyword. When set to `DEFAULT`, the value is taken from the corresponding server option (for example, `--master-heartbeat-period`).
 
@@ -362,7 +362,7 @@ If the [slave\_net\_timeout](../../../../ha-and-performance/standard-replication
 
 ### TLS Options
 
-The TLS options are used for providing information about [TLS](../../../../security/encryption/data-in-transit-encryption/). The options can be set even on replicas that are compiled without TLS support. The TLS options are saved to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, but these TLS options are ignored unless the replica supports TLS.
+The TLS options are used for providing information about [TLS](../../../../security/encryption/data-in-transit-encryption/). The options can be set even on slaves that are compiled without TLS support. The TLS options are saved to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, but these TLS options are ignored unless the slave supports TLS.
 
 See [Replication with Secure Connections](../../../../security/encryption/data-in-transit-encryption/replication-with-secure-connections.md) for more information.
 
@@ -370,7 +370,7 @@ Starting with MariaDB 12.3, the `DEFAULT` keyword is accepted by the TLS options
 
 #### MASTER\_SSL
 
-The `MASTER_SSL` option for `CHANGE MASTER` tells the replica whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since MariaDB 12.3). The option must be set to `1` for the other `MASTER_SSL*` options to have any effect.
+The `MASTER_SSL` option for `CHANGE MASTER` tells the slave whether to force [TLS](../../../../security/encryption/data-in-transit-encryption/) for the connection. The valid values are `0`, `1` , or `DEFAULT` (available since MariaDB 12.3). The option must be set to `1` for the other `MASTER_SSL*` options to have any effect.
 
 For example:
 
@@ -560,11 +560,11 @@ See [Secure Connections Overview: Server Certificate Verification](../../../../s
 
 ### Binary Log Options
 
-These options are related to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position on the primary.
+These options are related to the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position on the master.
 
 #### MASTER\_LOG\_FILE
 
-The `MASTER_LOG_FILE` option for `CHANGE MASTER` can be used along with `MASTER_LOG_POS` to specify the coordinates at which the [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) should begin reading from the primary's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
+The `MASTER_LOG_FILE` option for `CHANGE MASTER` can be used along with `MASTER_LOG_POS` to specify the coordinates at which the [slave's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) should begin reading from the master's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
 
 For example:
 
@@ -586,7 +586,7 @@ The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_P
 
 #### MASTER\_LOG\_POS
 
-The `MASTER_LOG_POS` option for `CHANGE MASTER` can be used along with `MASTER_LOG_FILE` to specify the coordinates at which the [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) should begin reading from the primary's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
+The `MASTER_LOG_POS` option for `CHANGE MASTER` can be used along with `MASTER_LOG_FILE` to specify the coordinates at which the [slave's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) should begin reading from the master's [binary logs](../../../../server-management/server-monitoring-logs/binary-log/) the next time the thread starts.
 
 For example:
 
@@ -608,15 +608,15 @@ The [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_P
 
 ### Relay Log Options
 
-These options are related to the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position on the replica.
+These options are related to the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position on the slave.
 
 #### RELAY\_LOG\_FILE
 
-The `RELAY_LOG_FILE` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) option to specify the coordinates at which the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
+The `RELAY_LOG_FILE` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) option to specify the coordinates at which the [slave's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
 
 The `CHANGE MASTER` statement usually deletes all [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files. However, if the `RELAY_LOG_FILE` and/or `RELAY_LOG_POS` options are specified, then existing [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files are kept.
 
-When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) can continue running. The [STOP SLAVE](stop-replica.md) and [START SLAVE](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
+When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [slave's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). The [slave's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) can continue running. The [STOP SLAVE](stop-replica.md) and [START SLAVE](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
 
 ```sql
 STOP SLAVE SQL_THREAD;
@@ -626,7 +626,7 @@ CHANGE MASTER TO
 START SLAVE SQL_THREAD;
 ```
 
-When the value of this option is changed, the metadata about the [replica's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
+When the value of this option is changed, the metadata about the [slave's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
 
 {% hint style="info" %}
 The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options cannot be specified if the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options were also specified.
@@ -634,11 +634,11 @@ The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS]
 
 #### RELAY\_LOG\_POS
 
-The `RELAY_LOG_POS` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) option to specify the coordinates at which the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
+The `RELAY_LOG_POS` option for `CHANGE MASTER` can be used along with the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) option to specify the coordinates at which the [slave's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) should begin reading from the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) the next time the thread starts.
 
 The `CHANGE MASTER` statement usually deletes all [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files. However, if the `RELAY_LOG_FILE` and/or `RELAY_LOG_POS` options are specified, then existing [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) files are kept.
 
-When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) can continue running. The [STOP SLAVE](stop-replica.md) and [START SLAVE](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
+When you want to change the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position, you only need to stop the [slave's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread). The [slave's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) can continue running. The [STOP SLAVE](stop-replica.md) and [START SLAVE](start-replica.md) statements support the `SQL_THREAD` option for this scenario. For example:
 
 ```sql
 STOP SLAVE SQL_THREAD;
@@ -648,7 +648,7 @@ CHANGE MASTER TO
 START SLAVE SQL_THREAD;
 ```
 
-When the value of this option is changed, the metadata about the [replica's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
+When the value of this option is changed, the metadata about the [slave's SQL thread's](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) position in the [relay logs](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) will also be changed in the `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable.
 
 {% hint style="info" %}
 The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options cannot be specified if the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options were also specified.
@@ -660,26 +660,26 @@ The [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS]
 
 {% tabs %}
 {% tab title="Current" %}
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
+The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the slave to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a master. The possible values are:
 
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using to transition to primary can break the replication state if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `replica_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the primary.
+* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the master. Using this on a slave server can break replication if the slave executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
+* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the master. `replica_pos` is an alias for `slave_pos`.
 * `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
+The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the slave to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a master. The possible values are:
 
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using to transition to primary can break the replication state if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the primary.
+* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the master. Using this on a slave server can break replication if the slave executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
+* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the master.
 * `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode.
 {% endtab %}
 {% endtabs %}
 
-The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the replica to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a primary. The possible values are:
+The `MASTER_USE_GTID` option for `CHANGE MASTER` can be used to configure the slave to use the [global transaction ID (GTID)](../../../../ha-and-performance/standard-replication/gtid.md) when connecting to a master. The possible values are:
 
-* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the primary. Using to transition to primary can break the replication state if the replica executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
-* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the primary. From [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), `replica_pos` is an alias for `slave_pos`.
+* `current_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_current\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_current_pos) as the position to start downloading transactions from the master. Using this on a slave server can break replication if the slave executes local transactions due to actively updating gtid\_current\_pos with gtid\_binlog\_pos and gtid\_slave\_pos. Use the new, safe, [MASTER\_DEMOTE\_TO\_SLAVE=](change-master-to.md#master_demote_to_slave) option instead.
+* `slave_pos` - Replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode and use [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) as the position to start downloading transactions from the master. From [MariaDB 10.5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.1), `replica_pos` is an alias for `slave_pos`.
 * `no` - Don't replicate in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode.
 
 For example:
@@ -707,7 +707,7 @@ START SLAVE;
 
 {% tabs %}
 {% tab title="Current" %}
-Used to transition a primary to become a replica. Replaces the old [MASTER\_USE\_GTID=current\_pos](change-master-to.md#master_use_gtid) with a safe alternative by forcing users to set `Using_Gtid=Slave_Pos` and merging `gtid_binlog_pos` into `gtid_slave_pos` once at `CHANGE MASTER TO` time. If `gtid_slave_pos` is morerecent than `gtid_binlog_pos` (as in the case of chain replication), the replication state should be preserved.
+Used to transition a master to become a . Replaces the old [MASTER\_USE\_GTID=current\_pos](change-master-to.md#master_use_gtid) with a safe alternative by forcing users to set `Using_Gtid=Slave_Pos` and merging `gtid_binlog_pos` into `gtid_slave_pos` once at `CHANGE MASTER TO` time. If `gtid_slave_pos` is more recent than `gtid_binlog_pos` (as in the case of chain replication), the replication state should be preserved.
 
 For example:
 
@@ -730,7 +730,7 @@ Also see [Replication filters](../../../../ha-and-performance/standard-replicati
 
 #### IGNORE\_SERVER\_IDS
 
-The `IGNORE_SERVER_IDS` option for `CHANGE MASTER` can be used to configure a [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to ignore [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that originated from certain servers. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The `IGNORE_SERVER_IDS` option for `CHANGE MASTER` can be used to configure a [slave](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to ignore [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that originated from certain servers. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the slave’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the slave.
 
 The option's value can be specified by providing a comma-separated list of [server\_id](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#server_id) values. For example:
 
@@ -752,7 +752,7 @@ START SLAVE;
 
 #### DO\_DOMAIN\_IDS
 
-The `DO_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to only apply [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The `DO_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [slave](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to only apply [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the slave’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the slave.
 
 The option's value can be specified by providing a comma-separated list of [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) values. Duplicate values are automatically ignored. For example:
 
@@ -785,12 +785,12 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-The `DO_DOMAIN_IDS` option can only be specified if the replica is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
+The `DO_DOMAIN_IDS` option can only be specified if the slave is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
 {% endhint %}
 
 #### IGNORE\_DOMAIN\_IDS
 
-The `IGNORE_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [replica](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to ignore [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The `IGNORE_DOMAIN_IDS` option for `CHANGE MASTER` can be used to configure a [slave](../../../../ha-and-performance/standard-replication/setting-up-replication.md) to ignore [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events if the transaction's [GTID](../../../../ha-and-performance/standard-replication/gtid.md) is in a specific [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) value. Filtered [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the slave’s [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the slave.
 
 The option's value can be specified by providing a comma-separated list of [gtid\_domain\_id](../../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id) values. Duplicate values are automatically ignored. For example:
 
@@ -823,14 +823,14 @@ START SLAVE;
 ```
 
 {% hint style="info" %}
-The `IGNORE_DOMAIN_IDS` option can only be specified if the replica is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
+The `IGNORE_DOMAIN_IDS` option can only be specified if the slave is replicating in [GTID](../../../../ha-and-performance/standard-replication/gtid.md) mode. Therefore, the [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) option must also be set to some value other than `no` in order to use this option.
 {% endhint %}
 
 ### Delayed Replication Options
 
 #### MASTER\_DELAY
 
-The `MASTER_DELAY` option for `CHANGE MASTER` can be used to enable [delayed replication](../../../../ha-and-performance/standard-replication/delayed-replication.md). This option specifies the time in seconds (at least) that a replica should lag behind the primary up to a maximum value of 2147483647, or about 68 years. Before executing an event, the replica will first wait, if necessary, until the given time has passed since the event was created on the primary. The result is that the replica will reflect the state of the primary some time back in the past. The default is zero, no delay.
+The `MASTER_DELAY` option for `CHANGE MASTER` can be used to enable [delayed replication](../../../../ha-and-performance/standard-replication/delayed-replication.md). This option specifies the time in seconds (at least) that a slave should lag behind the master up to a maximum value of 2147483647, or about 68 years. Before executing an event, the slave will first wait, if necessary, until the given time has passed since the event was created on the master. The result is that the slave will reflect the state of the master some time back in the past. The default is zero, no delay.
 
 ```sql
 STOP SLAVE;
@@ -841,7 +841,7 @@ START SLAVE;
 
 ## Changing Option Values
 
-If you don't specify a given option when executing the `CHANGE MASTER` statement, then the option keeps its old value in most cases. Most of the time, there is no need to specify the options that do not need to change. For example, if the password for the user account that the replica uses to connect to its primary has changed, but no other options need to change, then you can just change the [MASTER\_PASSWORD](change-master-to.md#master_password) option by executing the following commands:
+If you don't specify a given option when executing the `CHANGE MASTER` statement, then the option keeps its old value in most cases. Most of the time, there is no need to specify the options that do not need to change. For example, if the password for the user account that the slave uses to connect to its master has changed, but no other options need to change, then you can just change the [MASTER\_PASSWORD](change-master-to.md#master_password) option by executing the following commands:
 
 ```sql
 STOP SLAVE;
@@ -854,7 +854,7 @@ There are some cases where options are implicitly reset, such as when the [MASTE
 
 ## Option Persistence
 
-The values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options (i.e. the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position on the primary) and most other options are written to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option. The [replica's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) keeps this [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position updated as it downloads events only when [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) optionis set to `NO`. Otherwise the file is not updated on a per event basis.
+The values of the [MASTER\_LOG\_FILE](change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](change-master-to.md#master_log_pos) options (i.e. the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position on the master) and most other options are written to either the default `master.info` file or the file that is configured by the [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option. The [slave's I/O thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-io-thread) keeps this [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position updated as it downloads events only when [MASTER\_USE\_GTID](change-master-to.md#master_use_gtid) optionis set to `NO`. Otherwise the file is not updated on a per event basis.
 
 The [master\_info\_file](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
@@ -864,7 +864,7 @@ The [master\_info\_file](../../../../server-management/starting-and-stopping-mar
 master_info_file=/mariadb/myserver1-master.info
 ```
 
-The values of the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options (i.e. the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) are written to either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable. The [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) keeps this [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
+The values of the [RELAY\_LOG\_FILE](change-master-to.md#relay_log_file) and [RELAY\_LOG\_POS](change-master-to.md#relay_log_pos) options (i.e. the [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) are written to either the default `relay-log.info` file or the file that is configured by the [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable. The [slave's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) keeps this [relay log](../../../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
 
 The [relay\_log\_info\_file](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_info_file) system variable can be set either on the command-line or in a server [option group](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md) prior to starting up the server. For example:
 
@@ -876,15 +876,15 @@ relay_log_info_file=/mariadb/myserver1-relay-log.info
 
 ## GTID Persistence
 
-If the replica is replicating [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md), then the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../../system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable.
+If the slave is replicating [binary log](../../../../server-management/server-monitoring-logs/binary-log/) events that contain [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md), then the [slave's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) will write every GTID that it applies to the [mysql.gtid\_slave\_pos](../../../system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This GTID can be inspected and modified through the [gtid\_slave\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_slave_pos) system variable.
 
-If the replica has the [log\_slave\_updates](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the replica has the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [replica's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) will also go into the replica's [binary log](../../../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_binlog_pos) system variable.
+If the slave has the [log\_slave\_updates](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_slave_updates) system variable enabled and if the slave has the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) enabled, then every write by the [slave's SQL thread](../../../../ha-and-performance/standard-replication/replication-threads.md#slave-sql-thread) will also go into the slave's [binary log](../../../../server-management/server-monitoring-logs/binary-log/). This means that [GTIDs](../../../../ha-and-performance/standard-replication/gtid.md) of replicated transactions would be reflected in the value of the [gtid\_binlog\_pos](../../../../ha-and-performance/standard-replication/gtid.md#gtid_binlog_pos) system variable.
 
-## Creating a Replica from a Backup
+## Creating a slave from a backup
 
-The `CHANGE MASTER` statement is useful for setting up a replica when you have a backup of the primary and you also have the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position or [GTID](../../../../ha-and-performance/standard-replication/gtid.md) position corresponding to the backup.
+The `CHANGE MASTER` statement is useful for setting up a slave when you have a backup of the master and you also have the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position or [GTID](../../../../ha-and-performance/standard-replication/gtid.md) position corresponding to the backup.
 
-After restoring the backup on the replica, you could execute something like this to use the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position:
+After restoring the backup on the slave, you could execute something like this to use the [binary log](../../../../server-management/server-monitoring-logs/binary-log/) position:
 
 ```sql
 CHANGE MASTER TO
@@ -906,7 +906,7 @@ See [Setting up a Replication Slave with mariadb-backup](../../../../server-usag
 
 ## Example
 
-The following example changes the primary and primary's binary log coordinates. This is used when you want to set up the replica to replicate the primary:
+The following example changes the master and master's binary log coordinates. This is used when you want to set up the slave to replicate the master:
 
 ```sql
 CHANGE MASTER TO

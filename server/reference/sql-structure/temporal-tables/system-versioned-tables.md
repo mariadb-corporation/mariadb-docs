@@ -344,11 +344,11 @@ SELECT * FROM v1 FOR SYSTEM_TIME AS OF TIMESTAMP'2016-10-09 08:07:06';
 
 #### Use in Replication and Binary Logs
 
-Tables that use system-versioning implicitly add the `row_end` column to the Primary Key. While this is generally not an issue for most use cases, it can lead to problems when re-applying write statements from the binary log or in replication environments, where a primary retries an SQL statement on the replica.
+Tables that use system-versioning implicitly add the `row_end` column to the Primary Key. While this is generally not an issue for most use cases, it can lead to problems when re-applying write statements from the binary log or in replication environments, where a master retries an SQL statement on the slave.
 
 Specifically, these writes include a value on the `row_end` column containing the timestamp from when the write was initially made. The re-occurrence of the Primary Key with the old system-versioning columns raises an error due to the duplication.
 
-To mitigate this with MariaDB Replication, set the [secure\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_timestamp) system variable to `YES` on the replica. When set, the replica uses its own system clock when applying to the row log, meaning that the primary can retry as many times as needed without causing a conflict. The retries generate new historical rows with new values for the `row_start` and `row_end` columns.
+To mitigate this with MariaDB Replication, set the [secure\_timestamp](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_timestamp) system variable to `YES` on the slave. When set, the slave uses its own system clock when applying to the row log, meaning that the master can retry as many times as needed without causing a conflict. The retries generate new historical rows with new values for the `row_start` and `row_end` columns.
 
 ### Transaction-Precise History in InnoDB
 

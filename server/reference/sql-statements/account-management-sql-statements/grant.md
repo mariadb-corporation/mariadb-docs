@@ -259,7 +259,7 @@ New name for [REPLICATION CLIENT](grant.md#replication-client). `REPLICATION CLI
 {% endtab %}
 
 {% tab title="< 10.5" %}
-Use [REPLICATION CLIENT](grant.md#replication-client) instead. [SHOW REPLICA STATUS](../administrative-sql-statements/show/show-replica-status.md) isn't included in this privilege, and [REPLICA MONITOR](grant.md#replica-monitor) is required.
+Use [REPLICATION CLIENT](grant.md#replication-client) instead. [SHOW SLAVE STATUS](../administrative-sql-statements/show/show-replica-status.md) isn't included in this privilege, and [SLAVE MONITOR](grant.md#replica-monitor) is required.
 {% endtab %}
 {% endtabs %}
 
@@ -345,7 +345,7 @@ User ignores the [read\_only](../../../ha-and-performance/optimization-and-tunin
 
 A user with that privilege can also change the (global) value of `read_only`.
 
-The `READ_ONLY ADMIN` privilege has been removed from [SUPER](grant.md#super). The benefit of this is that one can remove the `READ_ONLY ADMIN` privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on replicas when one wants to ensure that the replica is kept identical to the primary.
+The `READ_ONLY ADMIN` privilege has been removed from [SUPER](grant.md#super). The benefit of this is that one can remove the `READ_ONLY ADMIN` privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on slaves when one wants to ensure that the slave is kept identical to the master.
 {% endtab %}
 
 {% tab title="< 10.11" %}
@@ -391,7 +391,7 @@ Execute [SHOW MASTER STATUS](../administrative-sql-statements/show/show-binlog-s
 
 {% tabs %}
 {% tab title="Current" %}
-Permits administration of primary servers, including the [SHOW REPLICA HOSTS](../administrative-sql-statements/show/show-replica-hosts.md) statement, and setting the [gtid\_binlog\_state](../../../ha-and-performance/standard-replication/gtid.md#gtid_binlog_state), [gtid\_domain\_id](../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id), [master\_verify\_checksum](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#master_verify_checksum) and [server\_id](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#server_id) system variables.
+Permits administration of master servers, including the [SHOW SLAVE HOSTS](../administrative-sql-statements/show/show-replica-hosts.md) statement, and setting the [gtid\_binlog\_state](../../../ha-and-performance/standard-replication/gtid.md#gtid_binlog_state), [gtid\_domain\_id](../../../ha-and-performance/standard-replication/gtid.md#gtid_domain_id), [master\_verify\_checksum](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#master_verify_checksum) and [server\_id](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#server_id) system variables.
 {% endtab %}
 
 {% tab title="< 10.5" %}
@@ -399,27 +399,27 @@ Permits administration of primary servers, including the [SHOW REPLICA HOSTS](..
 {% endtab %}
 {% endtabs %}
 
-#### **REPLICA MONITOR**
+#### **SLAVE MONITOR**
 
 {% tabs %}
 {% tab title="Current" %}
-Permit [SHOW REPLICA STATUS](../administrative-sql-statements/show/show-replica-status.md) and [SHOW RELAYLOG EVENTS](../administrative-sql-statements/show/show-relaylog-events.md).
+Permit [SHOW SLAVE STATUS](../administrative-sql-statements/show/show-replica-status.md) and [SHOW RELAYLOG EVENTS](../administrative-sql-statements/show/show-relaylog-events.md).
 
 See _Reasoning_ tab as to why this was implemented.
 {% endtab %}
 
 {% tab title="Reasoning" %}
-When a user would upgrade from an older major release to a [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) minor release prior to [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), certain user accounts would lose capabilities. For example, a user account that had the REPLICATION CLIENT privilege in older major releases could run [SHOW REPLICA STATUS](../administrative-sql-statements/show/show-replica-status.md), but after upgrading to a [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) minor release prior to [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), they could no longer run [SHOW REPLICA STATUS](../administrative-sql-statements/show/show-replica-status.md), because that statement was changed to require the REPLICATION REPLICA ADMIN privilege.
+When a user would upgrade from an older major release to a [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) minor release prior to [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), certain user accounts would lose capabilities. For example, a user account that had the REPLICATION CLIENT privilege in older major releases could run [SHOW SLAVE STATUS](../administrative-sql-statements/show/show-replica-status.md), but after upgrading to a [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105) minor release prior to [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9), they could no longer run [SHOW SLAVE STATUS](../administrative-sql-statements/show/show-replica-status.md), because that statement was changed to require the REPLICATION REPLICA ADMIN privilege.
 
 This issue is fixed in [MariaDB 10.5.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.9) with this new privilege, which now grants the user the ability to execute `SHOW [ALL] (SLAVE | REPLICA) STATUS`.
 
-When a database is upgraded from an older major release to MariaDB Server 10.5.9 or later, any user accounts with the `REPLICATION CLIENT` or `REPLICATION SLAVE` privileges will automatically be granted the new `REPLICA MONITOR` privilege. The privilege fix occurs when the server is started up, not when mariadb-upgrade is performed.
+When a database is upgraded from an older major release to MariaDB Server 10.5.9 or later, any user accounts with the `REPLICATION CLIENT` or `REPLICATION SLAVE` privileges will automatically be granted the new `SLAVE MONITOR` privilege. The privilege fix occurs when the server is started up, not when mariadb-upgrade is performed.
 
 However, when a database is upgraded from an early 10.5 minor release to 10.5.9 and later, the user will have to fix any user account privileges manually.
 {% endtab %}
 
 {% tab title="< 10.5.9" %}
-`REPLICA MONITOR` is not available.
+`SLAVE MONITOR` is not available.
 {% endtab %}
 {% endtabs %}
 
@@ -439,11 +439,11 @@ Synonym for [REPLICATION SLAVE](grant.md#replication-slave).
 
 {% tabs %}
 {% tab title="Current" %}
-Accounts used by replica servers on the primary need this privilege. This is needed to get the updates made on the master. [REPLICATION REPLICA](grant.md#replication-replica) is an alias for `REPLICATION SLAVE`.
+Accounts used by slave servers on the master need this privilege. This is needed to get the updates made on the master. [REPLICATION REPLICA](grant.md#replication-replica) is an alias for `REPLICATION SLAVE`.
 {% endtab %}
 
 {% tab title="< 10.5" %}
-Accounts used by replica servers on the primary need this privilege. This is needed to get the updates made on the master.
+Accounts used by slave servers on the master need this privilege. This is needed to get the updates made on the master.
 {% endtab %}
 {% endtabs %}
 
@@ -451,7 +451,7 @@ Accounts used by replica servers on the primary need this privilege. This is nee
 
 {% tabs %}
 {% tab title="Current" %}
-Permits administering replica servers, including [START REPLICA/SLAVE](../administrative-sql-statements/replication-statements/start-replica.md), [STOP REPLICA/SLAVE](../administrative-sql-statements/replication-statements/stop-replica.md), [CHANGE MASTER](../administrative-sql-statements/replication-statements/change-master-to.md), [SHOW REPLICA/SLAVE STATUS](../administrative-sql-statements/show/show-replica-status.md), [SHOW RELAYLOG EVENTS](../administrative-sql-statements/show/show-relaylog-events.md) statements, replaying the binary log with the [BINLOG](../administrative-sql-statements/binlog.md) statement (generated by [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/)), and setting the system variables:
+Permits administering slave servers, including [START SLAVE/REPLICA](../administrative-sql-statements/replication-statements/start-replica.md), [STOP SLAVE/REPLICA](../administrative-sql-statements/replication-statements/stop-replica.md), [CHANGE MASTER](../administrative-sql-statements/replication-statements/change-master-to.md), [SHOW SLAVE/REPLICA STATUS](../administrative-sql-statements/show/show-replica-status.md), [SHOW RELAYLOG EVENTS](../administrative-sql-statements/show/show-relaylog-events.md) statements, replaying the binary log with the [BINLOG](../administrative-sql-statements/binlog.md) statement (generated by [mariadb-binlog](../../../clients-and-utilities/logging-tools/mariadb-binlog/)), and setting the system variables:
 
 * [gtid\_cleanup\_batch\_size](../../../ha-and-performance/standard-replication/gtid.md#gtid_cleanup_batch_size)
 * [gtid\_ignore\_duplicates](../../../ha-and-performance/standard-replication/gtid.md#gtid_ignore_duplicates)
@@ -515,7 +515,7 @@ Shut down the server using [SHUTDOWN](../administrative-sql-statements/shutdown.
 
 #### **SUPER**
 
-Execute superuser statements: [CHANGE MASTER TO](../administrative-sql-statements/replication-statements/change-master-to.md), [KILL](../administrative-sql-statements/kill.md) (users who do not have this privilege can only `KILL` their own threads), [PURGE LOGS](../administrative-sql-statements/purge-binary-logs.md), [SET global system variables](../administrative-sql-statements/set-commands/set.md), or the [mariadb-admin debug](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) command. Also, this permission allows the user to write data even if the [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) startup option is set, enable or disable logging, enable or disable replication on replica, specify a `DEFINER` for statements that support that clause, connect once reaching the `MAX_CONNECTIONS`. If a statement has been specified for the [init-connect](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#init_connect) [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, that command will not be executed when a user with `SUPER` privileges connects to the server.
+Execute superuser statements: [CHANGE MASTER TO](../administrative-sql-statements/replication-statements/change-master-to.md), [KILL](../administrative-sql-statements/kill.md) (users who do not have this privilege can only `KILL` their own threads), [PURGE LOGS](../administrative-sql-statements/purge-binary-logs.md), [SET global system variables](../administrative-sql-statements/set-commands/set.md), or the [mariadb-admin debug](../../../clients-and-utilities/administrative-tools/mariadb-admin.md) command. Also, this permission allows the user to write data even if the [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) startup option is set, enable or disable logging, enable or disable replication on slave, specify a `DEFINER` for statements that support that clause, connect once reaching the `MAX_CONNECTIONS`. If a statement has been specified for the [init-connect](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#init_connect) [mariadbd](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) option, that command will not be executed when a user with `SUPER` privileges connects to the server.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -527,14 +527,14 @@ The SUPER privilege has been split into multiple smaller privileges to allow for
 * [REPLICATION SLAVE ADMIN](grant.md#replication-slave-admin)
 * [BINLOG ADMIN](grant.md#binlog-admin)
 * [BINLOG REPLAY](grant.md#binlog-replay)
-* [REPLICA MONITOR](grant.md#replica-monitor)
+* [SLAVE MONITOR](grant.md#replica-monitor)
 * [BINLOG MONITOR](grant.md#binlog-monitor)
 * [REPLICATION MASTER ADMIN](grant.md#replication-master-admin)
 * [READ\_ONLY ADMIN](grant.md#read_only-admin)
 
 These grants are no longer a part of SUPER and need to be granted separately.
 
-The [READ\_ONLY ADMIN](grant.md#read_only-admin) privilege has been removed from `SUPER`. The benefit of this is that one can remove the READ\_ONLY ADMIN privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on replicas when one wants to ensure that the replica is kept identical to the primary ([MDEV-29596](https://jira.mariadb.org/browse/MDEV-29596)).
+The [READ\_ONLY ADMIN](grant.md#read_only-admin) privilege has been removed from `SUPER`. The benefit of this is that one can remove the READ\_ONLY ADMIN privilege from all users and ensure that no one can make any changes on any non-temporary tables. This is useful on slaves when one wants to ensure that the slave is kept identical to the master ([MDEV-29596](https://jira.mariadb.org/browse/MDEV-29596)).
 {% endtab %}
 
 {% tab title="< 11.0.1" %}
@@ -546,7 +546,7 @@ The SUPER privilege has been split into multiple smaller privileges to allow for
 * [REPLICATION SLAVE ADMIN](grant.md#replication-slave-admin)
 * [BINLOG ADMIN](grant.md#binlog-admin)
 * [BINLOG REPLAY](grant.md#binlog-replay)
-* [REPLICA MONITOR](grant.md#replica-monitor)
+* [SLAVE MONITOR](grant.md#replica-monitor)
 * [BINLOG MONITOR](grant.md#binlog-monitor)
 * [REPLICATION MASTER ADMIN](grant.md#replication-master-admin)
 * [READ\_ONLY ADMIN](grant.md#read_only-admin)

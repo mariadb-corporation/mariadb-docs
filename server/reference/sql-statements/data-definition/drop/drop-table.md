@@ -73,7 +73,7 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../../transactions/wait-and-now
   * `DROP TEMPORARY TABLE list_of_transactional_temporary_tables`
   * `DROP TABLE list_of_normal_tables`
 
-`DROP TABLE` on the primary is treated on the replica as `DROP TABLE IF EXISTS`. You can change that by setting [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
+`DROP TABLE` on the master is treated on the slave as `DROP TABLE IF EXISTS`. You can change that by setting [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
 
 ## Dropping an Internal #sql-... Table
 

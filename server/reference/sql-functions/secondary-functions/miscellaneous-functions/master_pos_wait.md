@@ -1,7 +1,7 @@
 ---
 description: >-
-  Wait for a replica to reach a log position. This function blocks until the
-  replica has read and applied updates up to a specified position in the
+  Wait for a slave to reach a log position. This function blocks until the
+  slave has read and applied updates up to a specified position in the
   master's binary log.
 ---
 
@@ -15,8 +15,8 @@ MASTER_POS_WAIT(log_name,log_pos[,timeout,["connection_name"]])
 
 ## Description
 
-This function is useful in [replication](../../../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) for controlling primary/replica synchronization. It blocks until the replica has read and applied all updates up to the specified position (`log_name,log_pos`) in the primary log. The return value is the number of log events the replica had to wait for to advance to the specified position. The function returns `NULL` if the replica SQL thread is not started, the replica's primary information is not initialized, the arguments are incorrect, or an error occurs. It returns -1 if\
-the timeout has been exceeded. If the replica SQL thread stops while`MASTER_POS_WAIT()` is waiting, the function returns `NULL`. If the replica is past the specified position, the function returns immediately.
+This function is useful in [replication](../../../../ha-and-performance/standard-replication/replication-overview.md) for controlling master/slave synchronization. It blocks until the slave has read and applied all updates up to the specified position (`log_name,log_pos`) in the master's binary log. The return value is the number of log events the slave had to wait for to advance to the specified position. The function returns `NULL` if the slave SQL thread is not started, the slave's master information is not initialized, the arguments are incorrect, or an error occurs. It returns -1 if\
+the timeout has been exceeded. If the slave SQL thread stops while`MASTER_POS_WAIT()` is waiting, the function returns `NULL`. If the slave is past the specified position, the function returns immediately.
 
 If a `timeout` value is specified, `MASTER_POS_WAIT()` stops waiting when `timeout` seconds have elapsed. `timeout` must be greater than 0; a zero or negative `timeout` means no `timeout`.
 
