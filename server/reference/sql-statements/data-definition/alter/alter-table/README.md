@@ -621,7 +621,7 @@ The [old\_alter\_table](../../../../../ha-and-performance/optimization-and-tunin
 
 * alter\_algorithm was introduced as a replacement for the old\_alter\_table that was used to force the usage of the original alter table algorithm (copy) in cases where the new alter algorithm did not work. The new option was added as a way to force the usage of a specific algorithm when it should instead have made it possible to disable algorithms that would not work for some reason.
 * alter\_algorithm introduced some cases where ALTER TABLE would not work without specifying the ALGORITHM=XXX option together with ALTER TABLE.
-* Having different values of alter\_algorithm on the master and slave could cause slavess to stop unexpectedly.
+* Having different values of alter\_algorithm on the primary and replica could cause replicas to stop unexpectedly.
 * ALTER TABLE FORCE, as used by mariadb-upgrade, would not always work if alter\_algorithm was set for the server.
 * As part of [MDEV-33449](https://jira.mariadb.org/browse/MDEV-33449) "improving repair of tables" it became clear that alter-algorithm made it harder to provide a better and more consistent ALTER TABLE FORCE and REPAIR TABLE, and it would be better to remove it.
 
@@ -763,7 +763,7 @@ Atomic `ALTER TABLE` is not available.
 
 {% tabs %}
 {% tab title="Current" %}
-`ALTER TABLE` got fully executed on the master first, and only then was it replicated and started executing on slaves. [An option](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) was added to replicate sooner and begin executing on slaves, directly when it _starts_ executing on the master, not when it _finishes_. This way the replication lag caused by a heavy `ALTER TABLE` can be completely eliminated ([MDEV-11675](https://jira.mariadb.org/browse/MDEV-11675)).
+`ALTER TABLE` got fully executed on the primary first, and only then was it replicated and started executing on replicas. [An option](../../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#binlog_alter_two_phase) was added to replicate sooner and begin executing on replicas, directly when it _starts_ executing on the primary, not when it _finishes_. This way the replication lag caused by a heavy `ALTER TABLE` can be completely eliminated ([MDEV-11675](https://jira.mariadb.org/browse/MDEV-11675)).
 {% endtab %}
 
 {% tab title="< 10.8" %}
@@ -841,7 +841,7 @@ ALTER TABLE rooms ADD PRIMARY KEY(room_number, p WITHOUT OVERLAPS);
 SET @@SESSION.binlog_alter_two_phase = TRUE;
 ```
 
-Binlog would contain two event groups, of which the first one gets delivered to slaves before ALTER is taken to actual execution on the master:
+Binlog would contain two event groups, of which the first one gets delivered to replicas before ALTER is taken to actual execution on the primary:
 
 ```sql
 | master-bin.000001 | 495 | Gtid              |         1 |         537 | GTID 0-1-2 START ALTER                                        |

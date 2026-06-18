@@ -251,7 +251,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_row_event_fragment_threshold`
 
-* Description: When a `Rows_log_event` exceeds this threshold, it is fragmented into multiple `Partial_rows_log_event` events in the binary log, each of it configured to maximum size. That is, all `Partial_rows_log_event` events up to the last in the group have this configured maximum size, and the last event takes the remaining size. This is relevant for events that would surpass the `slave_max_allowed_packet` length when sending to the replica, and thereby a sensible value would reflect the slave's configured `slave_max_allowed_packet` size.
+* Description: When a `Rows_log_event` exceeds this threshold, it is fragmented into multiple `Partial_rows_log_event` events in the binary log, each of it configured to maximum size. That is, all `Partial_rows_log_event` events up to the last in the group have this configured maximum size, and the last event takes the remaining size. This is relevant for events that would surpass the `slave_max_allowed_packet` length when sending to the replica, and thereby a sensible value would reflect the replica's configured `slave_max_allowed_packet` size.
 * Command line: `--binlog-row-event-fragment-threshold`
 * Scope: Global
 * Dynamic: Yes
@@ -382,7 +382,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `init_slave`
 
-* Description: Similar to [init\_connect](../optimization-and-tuning/system-variables/server-system-variables.md#init_connect), but the string contains one or more SQL statements (separated by semicolons) that are executed by a replica server each time the SQL thread starts. These statements are only executed after the acknowledgement is sent to the replica and [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) completes.
+* Description: Similar to [init\_connect](../optimization-and-tuning/system-variables/server-system-variables.md#init_connect), but the string contains one or more SQL statements (separated by semicolons) that are executed by a replica server each time the SQL thread starts. These statements are only executed after the acknowledgement is sent to the replica and [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) completes.
 * Command line: `--init-slave=name`
 * Scope: Global
 * Dynamic: Yes
@@ -483,7 +483,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `master_info_file`
 
-* Description: The location and name of the file that remembers the master and where the I/O replication thread is in the master's binlogs. Defaults to master.info.
+* Description: The location and name of the file that remembers the primary and where the I/O replication thread is in the primary's binlogs. Defaults to primary.info.
 * Command line: `--master-info-file=val`
 * Scope: Global
 * Dynamic: No
@@ -752,7 +752,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `report_host`
 
-* Description: The host name or IP address the replica reports to the primary when it registers. If left unset, the replica does not register itself. Reported by [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md). Note that it is not sufficient for the primary to simply read the IP of the replica from the socket once the replica connects. Due to NAT and other routing issues, that IP may not be valid for connecting to the replica from the primary or other hosts.
+* Description: The host name or IP address the replica reports to the primary when it registers. If left unset, the replica does not register itself. Reported by [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md). Note that it is not sufficient for the primary to simply read the IP of the replica from the socket once the replica connects. Due to NAT and other routing issues, that IP may not be valid for connecting to the replica from the primary or other hosts.
 * Command line: `--report-host=host_name`
 * Scope: Global
 * Dynamic: No
@@ -760,7 +760,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `report_password`
 
-* Description: Replica password reported to the primary when it registers. Reported by [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This password has no connection with user privileges or with the [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) user account password.
+* Description: Replica password reported to the primary when it registers. Reported by [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This password has no connection with user privileges or with the [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) user account password.
 * Command line: `--report-password=password`
 * Scope: Global
 * Dynamic: No
@@ -778,7 +778,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `report_user`
 
-* Description: Replica's account user name reported to the primary when it registers. Reported by [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This username has no connection with user privileges or with the [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) user account.
+* Description: Replica's account user name reported to the primary when it registers. Reported by [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This username has no connection with user privileges or with the [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) user account.
 * Command line: `--report-user=name`
 * Scope: Global
 * Dynamic: No
@@ -935,7 +935,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
     * [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) \* [slave\_parallel\_threads](replication-and-binary-log-system-variables.md)
   * This system variable is only meaningful when parallel\
     replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
-  * See [Parallel Replication: Configuring the Maximum Size of the Parallel Slave Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-slave-queue) for more information.
+  * See [Parallel Replication: Configuring the Maximum Size of the Parallel Replica Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-slave-queue) for more information.
 * Command line: `--slave-parallel-max-queued=#`
 * Scope: Global
 * Dynamic: Yes
@@ -980,7 +980,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `slave_run_triggers_for_rbr`
 
-* Description: See [Running triggers on the slave for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting.
+* Description: See [Running triggers on the replica for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting.
 * Command line: `--slave-run-triggers-for-rbr=value`
 * Scope: Global
 * Dynamic: Yes
@@ -1086,7 +1086,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `sync_master_info`
 
-* Description: A [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) replica synchronizes its master.info file to disk after this many events. If set to 0, the operating system handles flushing the file to disk.
+* Description: A [replication](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) replica synchronizes its primary.info file to disk after this many events. If set to 0, the operating system handles flushing the file to disk.
 * Command line: `--sync-master-info=#`
 * Scope: Global
 * Dynamic: Yes

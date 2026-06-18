@@ -1,4 +1,4 @@
-# STOP SLAVE
+# STOP REPLICA
 
 {% hint style="info" %}
 The terms _master_ and _slave_ have historically been used in replication, and MariaDB has begun the process of adding _primary_ and _replica_ synonyms. The old terms will continue to be used to maintain backward compatibility - see [MDEV-18777](https://jira.mariadb.org/browse/MDEV-18777) to follow progress on this effort.
@@ -15,29 +15,29 @@ STOP ALL { SLAVES | REPLICAS } [thread_type [, thread_type]]
 thread_type: IO_THREAD | SQL_THREAD
 ```
 
-![Railroad diagram of STOP SLAVE — equivalent to the BNF above](../../../../.gitbook/assets/stop-replica-railroad.svg)
+![Railroad diagram of STOP REPLICA — equivalent to the BNF above](../../../../.gitbook/assets/stop-replica-railroad.svg)
 
 ![Railroad diagram of thread_type](../../../../.gitbook/assets/stop-replica-thread-type-railroad.svg)
 
 ## Description
 
-Stops the slave threads. `STOP SLAVE` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
+Stops the replica threads. `STOP SLAVE` requires the [SUPER](../../account-management-sql-statements/grant.md#super) privilege, or, from [MariaDB 10.5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.2), the [REPLICATION SLAVE ADMIN](../../account-management-sql-statements/grant.md#replication-slave-admin) privilege.
 
-Like [START SLAVE](start-replica.md), this statement may be used with the `IO_THREAD` and`SQL_THREAD` options to name the thread or threads to be stopped. In almost all cases, one never need to use the `thread_type` options.
+Like [START REPLICA](start-replica.md), this statement may be used with the `IO_THREAD` and`SQL_THREAD` options to name the thread or threads to be stopped. In almost all cases, one never need to use the `thread_type` options.
 
 `STOP SLAVE` waits until any current replication event group affecting one or more non-transactional tables has finished executing (if there is any such replication group), or until the user issues a [KILL QUERY](../kill.md) or [KILL CONNECTION](../kill.md) statement.
 
-Note that `STOP SLAVE` doesn't delete the connection permanently. Next time you execute [START SLAVE](start-replica.md) or the MariaDB server restarts, the slave connection is restored with it's [original arguments](change-master-to.md). If you want to delete a connection, you should execute [RESET SLAVE](reset-replica.md).
+Note that `STOP SLAVE` doesn't delete the connection permanently. Next time you execute [START REPLICA](start-replica.md) or the MariaDB server restarts, the replica connection is restored with it's [original arguments](change-master-to.md). If you want to delete a connection, you should execute [RESET REPLICA](reset-replica.md).
 
-#### STOP ALL SLAVES
+#### STOP ALL REPLICAS
 
-`STOP ALL SLAVES` stops all your running slaves. It will give you a `note` for every stopped connection. You can check the notes with [SHOW WARNINGS](../show/show-warnings.md). `STOP ALL REPLICAS` is an alias for `STOP ALL SLAVES`.
+`STOP ALL SLAVES` stops all your running replicas. It will give you a `note` for every stopped connection. You can check the notes with [SHOW WARNINGS](../show/show-warnings.md). `STOP ALL REPLICAS` is an alias for `STOP ALL SLAVES`.
 
 #### connection\_name
 
 The `connection_name` option is used for [multi-source replication](../../../../ha-and-performance/standard-replication/multi-source-replication.md).
 
-If there is only one nameless master, or the default master (as specified by the [default\_master\_connection](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable) is intended, `connection_name` can be omitted. If provided, the `STOP SLAVE` statement will apply to the specified master. `connection_name` is case-insensitive.
+If there is only one nameless primary, or the default primary (as specified by the [default\_master\_connection](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable) is intended, `connection_name` can be omitted. If provided, the `STOP SLAVE` statement will apply to the specified primary. `connection_name` is case-insensitive.
 
 **MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)
 
@@ -54,8 +54,8 @@ The `FOR CHANNEL` keyword is not available.
 ## See Also
 
 * [CHANGE MASTER TO](change-master-to.md) is used to create and change connections.
-* [START SLAVE](start-replica.md) is used to start a predefined connection.
-* [RESET SLAVE](reset-replica.md) is used to reset parameters for a connection and also to permanently delete a master connection.
+* [START REPLICA](start-replica.md) is used to start a predefined connection.
+* [RESET REPLICA](reset-replica.md) is used to reset parameters for a connection and also to permanently delete a primary connection.
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

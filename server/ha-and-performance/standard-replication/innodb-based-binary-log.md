@@ -17,7 +17,7 @@ Traditionally, MariaDB treated the [binary log](../../server-management/server-m
 
 InnoDB-based binary logs entirely replace traditional file-based binary logs. When enabled, the server stops writing traditional binlog files, and the new format becomes the only binary log implementation in use.
 
-Additionally, this feature is limited to the binary log on the server. The relay log on slaves continues to use the traditional implementation and is not affected by the use of InnoDB-based binary logs.
+Additionally, this feature is limited to the binary log on the server. The relay log on replicas continues to use the traditional implementation and is not affected by the use of InnoDB-based binary logs.
 
 ## Enabling the InnoDB Binlog
 
@@ -113,18 +113,18 @@ The new binlog implementation requires GTID-based replication. The GTID state is
 innodb-binlog-state-interval=2097152
 ```
 
-The binary log from the last GTID state record is scanned when a slave connects in order to find the determined location.
+The binary log from the last GTID state record is scanned when a replica connects in order to find the determined location.
 The variable innodb-binlog-state-interval can be used to balance the cost of this scan against the extra space needed for the records; however this should have little impact in practice and normally can be left at the default.
 
 For additional configuration options, see [Replication and Binary Log System Variables](replication-and-binary-log-system-variables.md).
 
 #### Replication
 
-Using the new binlog, [replication](./) configuration from the master can be performed as usual. For that:
+Using the new binlog, [replication](./) configuration from the primary can be performed as usual. For that:
 
-* Slaves must use GTID to connect to the master (this is the default).
-* Slaves should run MariaDB 12.3 or later when replicating from master.
-* The master and slave can independently use either the traditional or new binlog format.
+* Replicas must use GTID to connect to the primary (this is the default).
+* Replicas should run MariaDB 12.3 or later when replicating from primary.
+* The primary and replica can independently use either the traditional or new binlog format.
 
 ### Viewing Binlog Events
 
@@ -203,7 +203,7 @@ slave_connections_needed_for_purge=0
 Note that binary log files are only deleted when:
 
 * Limits on time or size are exceeded.
-* Files are not required for crash recovery or by active slaves.
+* Files are not required for crash recovery or by active replicas.
 
 ## Backup using mariadb-backup
 
@@ -215,9 +215,9 @@ Key features:
 
 * Consistent transactional backup for binlog files, similar to other [InnoDB](../../server-usage/storage-engines/innodb/) data.
 * Backups are non-blocking, meaning the server continues running normally. By default, only `RESET MASTER`**,** `PURGE BINARY LOGS`, and `FLUSH BINARY LOGS` are blocked during backup. This blocking can be disabled with the `--no-lock` option.
-* A restored backup can be used to set up a slave for replication.
+* A restored backup can be used to set up a replica for replication.
 
-### Setting Up Slave from Backup
+### Setting Up Replica from Backup
 
 ```bash
 # Default backup includes binlog files
@@ -273,12 +273,12 @@ This is the simplest approach, appropriate for cases where replication or point-
 
 #### Method 2: Replication State Migration (GTID Preservation)
 
-This approach is used to switch a master server while ensuring that connected slaves can continue replicating without the need for a full reconfiguration.
+This approach is used to switch a primary server while ensuring that connected replicas can continue replicating without the need for a full reconfiguration.
 
-1. Stop all writing to the master.
-2. Wait for all slaves to catch up to the master's current position.
+1. Stop all writing to the primary.
+2. Wait for all replicas to catch up to the primary's current position.
 3. Capture the current GTID state by noting down the value of `@@binlog_gtid_state`.
-4. Restart the master with this configuration:
+4. Restart the primary with this configuration:
 
 ```ini
 [mariadb]
@@ -287,17 +287,17 @@ This approach is used to switch a master server while ensuring that connected sl
 ```
 
 5. Immediately execute `SET GLOBAL binlog_gtid_state=<old value>` using the value saved in step 3.
-6. Allow slaves to reconnect; they will continue from where they left off.
+6. Allow replicas to reconnect; they will continue from where they left off.
 
 #### Method 3: Live Migration (Zero downtime)
 
-This is the most robust method for production environments, as it avoids master downtime during the format transition.
+This is the most robust method for production environments, as it avoids primary downtime during the format transition.
 
-1. Ensure that all slaves are upgraded to at least MariaDB version 12.3 before switching the master.
-2. Choose a slave and restart it with `--binlog-storage-engine=innodb`.
-3. Allow the slave to replicate from the old-format master until it has enough binlog data.
-4. Promote this slave to be the new master.
-5. Restart the remaining slaves to point to the new master after stopping them one at a time and changing their configuration to the new binlog format.
+1. Ensure that all replicas are upgraded to at least MariaDB version 12.3 before switching the primary.
+2. Choose a replica and restart it with `--binlog-storage-engine=innodb`.
+3. Allow the replica to replicate from the old-format primary until it has enough binlog data.
+4. Promote this replica to be the new primary.
+5. Restart the remaining replicas to point to the new primary after stopping them one at a time and changing their configuration to the new binlog format.
 
 ## Performance Characteristics
 

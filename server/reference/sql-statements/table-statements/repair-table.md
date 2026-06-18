@@ -52,7 +52,7 @@ By default, `REPAIR TABLE` statements are written to the [binary log](../../../s
 
 {% tabs %}
 {% tab title="Current" %}
-`REPAIR TABLE` statements are not logged to the binary log if [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Slaves](../../../ha-and-performance/standard-replication/read-only-replicas.md).
+`REPAIR TABLE` statements are not logged to the binary log if [read\_only](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Replicas](../../../ha-and-performance/standard-replication/read-only-replicas.md).
 {% endtab %}
 
 {% tab title="< 10.3.19" %}

@@ -33,7 +33,7 @@ This statement requires [SELECT and INSERT privileges](../../../reference/sql-st
 
 By default, `OPTIMIZE TABLE` statements are written to the [binary log](../../../server-management/server-monitoring-logs/binary-log/) and will be [replicated](../../standard-replication/replication-overview.md). The `NO_WRITE_TO_BINLOG` keyword (`LOCAL` is an alias) will ensure the statement is not written to the binary log.
 
-`OPTIMIZE TABLE` statements are not logged to the binary log if [read\_only](../system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Slaves](../../standard-replication/read-only-replicas.md).
+`OPTIMIZE TABLE` statements are not logged to the binary log if [read\_only](../system-variables/server-system-variables.md#read_only) is set. See also [Read-Only Replicas](../../standard-replication/read-only-replicas.md).
 
 `OPTIMIZE TABLE` is also supported for partitioned tables. You can use [ALTER TABLE ... OPTIMIZE PARTITION](../../../reference/sql-statements/data-definition/alter/alter-table/#optimize-partition) to optimize one or more partitions.
 

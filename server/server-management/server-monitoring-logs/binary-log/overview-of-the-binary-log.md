@@ -15,7 +15,7 @@ If a statement may potentially have an effect, but doesn't, such as an `UPDATE` 
 
 The purpose of the binary log is:
 
-* To enable [replication](../../../ha-and-performance/standard-replication/), where data is sent from one or more master servers to one or more slave servers based on the contents of the binary log.
+* To enable [replication](../../../ha-and-performance/standard-replication/), where data is sent from one or more primary servers to one or more replica servers based on the contents of the binary log.
 * To assist in backup operations.
 
 A MariaDB server with the binary log enabled runs slightly more slowly.

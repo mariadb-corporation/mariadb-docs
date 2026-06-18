@@ -1,7 +1,7 @@
 ---
 description: >-
   Official PURGE BINARY LOGS syntax: delete binlogs using TO 'log_name' or
-  BEFORE datetime_expr, slave read constraints, and SHOW BINARY LOGS commands.
+  BEFORE datetime_expr, replica read constraints, and SHOW BINARY LOGS commands.
 ---
 
 # PURGE BINARY LOGS
@@ -21,13 +21,13 @@ The `PURGE BINARY LOGS` statement deletes all the [binary log](../../../server-m
 
 The datetime expression is in the format 'YYYY-MM-DD hh:mm:ss'.
 
-If a slave is active but has yet to read from a binary log file you attempt to delete, the statement will fail with an error. However, if the slave is not connected and has yet to read from a log file you delete, the file will be deleted, but the slave will be unable to continue replicating once it connects again.
+If a replica is active but has yet to read from a binary log file you attempt to delete, the statement will fail with an error. However, if the replica is not connected and has yet to read from a log file you delete, the file will be deleted, but the replica will be unable to continue replicating once it connects again.
 
 This statement has no effect if the server was not started with the [--log-bin](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#log_bin) option to enable binary logging.
 
 {% tabs %}
 {% tab title="Current" %}
-To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW SLAVE STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
+To list the binary log files on the server, use [SHOW BINARY LOGS](show/show-binary-logs.md). To see which files they are reading, use [SHOW REPLICA STATUS](show/show-replica-status.md). You can only delete the files that are older than the oldest file that is used by the slaves.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
