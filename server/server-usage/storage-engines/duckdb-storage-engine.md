@@ -61,7 +61,7 @@ sudo dpkg -i mariadb-server*.deb mariadb-plugin-duckdb*.deb || sudo apt -f insta
 
 ### Option 2: build from source
 
-The engine integration lives on the `11.4` branch of [`MariaDB/server`](https://github.com/MariaDB/server). The engine sources themselves are fetched at configure time from [`MariaDB/duckdb-engine`](https://github.com/MariaDB/duckdb-engine) via CMake `FetchContent`. A helper script handles dependency installation and the build.
+The engine integration lives on the `11.4` branch of [`MariaDB/server`](https://github.com/MariaDB/server). The engine source resides in the server repository under `storage/duckdb/`; a helper script there handles dependency installation and the build.
 
 ```sh
 git clone --recurse-submodules -b 11.4 \
@@ -69,21 +69,19 @@ git clone --recurse-submodules -b 11.4 \
 cd mariadb-server
 
 # Install build prerequisites (requires root)
-./storage/duckdb/duckdb/build.sh -D
+./storage/duckdb/build.sh -D
 
 # Build, install and start MariaDB server
-./storage/duckdb/duckdb/build.sh -S
+./storage/duckdb/build.sh -S
 
 # Optional: build a DEB or RPM instead
-./storage/duckdb/duckdb/build.sh -p
+./storage/duckdb/build.sh -p
 ```
-
-The path `storage/duckdb/duckdb/` reflects the two-level layout: `storage/duckdb/` is the MariaDB build scaffolding, and `storage/duckdb/duckdb/` is the engine source tree populated at configure time.
 
 On Rocky Linux 8, pass `-R` to use `gcc-toolset-12`:
 
 ```sh
-./storage/duckdb/duckdb/build.sh -R
+./storage/duckdb/build.sh -R
 ```
 
 ### Enabling the plugin
