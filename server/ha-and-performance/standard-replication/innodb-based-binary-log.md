@@ -1,8 +1,8 @@
 ---
 description: >-
-  MariaDB 12.3 introduces a new binary log implementation that stores binlog
-  events directly into InnoDB-managed tablespaces instead of separate flat files
-  on disk.
+  From MariaDB 12.3, the binary log can be stored in InnoDB-managed,
+  page-structured files integrated with InnoDB crash recovery, instead of
+  traditional flat binary log files.
 ---
 
 # InnoDB-Based Binary Log
@@ -13,23 +13,19 @@ This feature is available from MariaDB 12.3.
 
 ## Description
 
-Traditionally, MariaDB treated the [binary log](../../server-management/server-monitoring-logs/binary-log/) (binlog) and the [InnoDB storage engine](../../server-usage/storage-engines/innodb/) as separate components, requiring a complex two-phase commit (2PC) protocol to keep them synchronized. With this new binlog implementation, binlog transactions are stored within InnoDB-managed pages. This change eliminates the need for an expensive 2PC between the binlog and InnoDB, allowing significant performance improvements and simplified crash recovery behavior.
+Traditionally, MariaDB treated the [binary log](../../server-management/server-monitoring-logs/binary-log/) (binlog) and the [InnoDB storage engine](../../server-usage/storage-engines/innodb/) as separate components, requiring a complex two-phase commit (2PC) protocol to keep them synchronized. With this new binlog implementation, binlog events are written to InnoDB-managed, page-structured files that are integrated with the InnoDB redo log and crash recovery. This change eliminates the need for an expensive 2PC between the binlog and InnoDB, allowing significant performance improvements and simplified crash recovery behavior.
+
+The binlog files remain separate files on disk (with the `.ibb` extension), but instead of the traditional flat, sequential format they use InnoDB's page format and durability machinery.
 
 InnoDB-based binary logs entirely replace traditional file-based binary logs. When enabled, the server stops writing traditional binlog files, and the new format becomes the only binary log implementation in use.
 
 Additionally, this feature is limited to the binary log on the server. Replicas continue to use the traditional relay log implementation, therefore it does not affect them.
 
-## Enabling the InnoDB Binlog
-
-```bash
---binlog-storage-engine
-```
-
 ## Benefits
 
-The InnoDB-based binlog offers two key performance advantages:
+The InnoDB-based binlog offers these key performance advantages:
 
-1. **Crash-safe recovery without sync operations**: The binlog seamlessly integrates with InnoDB's crash recovery mechanism. This enables you to set `--innodb-flush-log-at-trx-commit=0` or `--innodb-flush-log-at-trx-commit=2` for better performance while maintaining crash safety and consistency.
+1. **Crash-safe recovery integrated with InnoDB**: The binlog integrates with InnoDB's crash recovery mechanism, so the binary log and InnoDB always recover to a mutually consistent state without a separate sync of the binlog. You can therefore set `--innodb-flush-log-at-trx-commit=0` or `--innodb-flush-log-at-trx-commit=2` for better performance. As with regular InnoDB tables, those settings trade durability of the most recently committed transactions for speed — but the binlog and InnoDB stay consistent with each other after a crash.
 2. **Efficient commits with reduced** `fsync` **operations**: When using the `--innodb-flush-log-at-trx-commit=1` setting, the system performs only a single coordinated `fsync` per commit, instead of the multiple syncs required by the traditional 2PC.
 3. The `sync_binlog` option is no longer required as the binlog files are now crash-safe.
 
@@ -37,7 +33,7 @@ The InnoDB-based binlog offers two key performance advantages:
 
 | Feature         | Traditional Binlog                                         | New InnoDB-Based Binlog               |
 | --------------- | ---------------------------------------------------------- | ------------------------------------- |
-| File Extension  | `.idx`, `.index` files                                     | `.ibb`                                |
+| Files on Disk   | Numbered files (e.g. `binlog.000001`) plus a `.index` listing file | `.ibb` files (e.g. `binlog-000001.ibb`) |
 | Crash Safety    | Needs `sync_binlog=1`                                      | Native / Inherited from InnoDB engine |
 | Commit Protocol | Two-Phase Commit (Slow)                                    | Integrated (Fast)                     |
 | Positioning     | Filename/Offset or [Global Transaction ID](gtid.md) (GTID) | GTID Only                             |
@@ -112,6 +108,8 @@ The new binlog implementation requires GTID-based replication. The GTID state is
 innodb-binlog-state-interval
 ```
 
+The interval is specified in bytes (default 2MB) and must be a power-of-two multiple of the binlog page size (16KB).
+
 The binary log from the last GTID state record is scanned when a replica connects in order to find the determined location.
 
 For additional configuration options, see [Replication and Binary Log System Variables](replication-and-binary-log-system-variables.md).
@@ -152,6 +150,7 @@ The `mariadb-binlog` utility allows inspection of binary log files either locall
 ```bash
 # Read binary log from a remote server
 mariadb-binlog --read-from-remote-server \
+               --host=master.example.com --user=repl binlog-000001.ibb
 
 # Read a local binary log file
 mariadb-binlog /path/to/binlog-000000.ibb
@@ -281,7 +280,7 @@ This approach is used to switch a master server while ensuring that connected re
 
 1. Stop all writing to the master.
 2. Wait for all replicas to catch up to the master's current position.
-3. Capture the current GTID state by noting down the value of `@@binlog_gtid_state`.
+3. Capture the current GTID state by noting down the value of `@@gtid_binlog_state`.
 4. Restart the master with this configuration:
 
 ```ini
@@ -290,7 +289,7 @@ This approach is used to switch a master server while ensuring that connected re
 --binlog-storage-engine=innodb
 ```
 
-5. Immediately execute `SET GLOBAL binlog_gtid_state=<old value>` using the value saved in step 3.
+5. Immediately execute `SET GLOBAL gtid_binlog_state=<old value>` using the value saved in step 3.
 6. Allow replicas to reconnect; they will continue from where they left off.
 
 #### Method 3: Live Migration (Zero downtime)
@@ -339,6 +338,10 @@ Semi-synchronous replication is not supported in the initial implementation. Als
 #### Galera Cluster
 
 The InnoDB-based binary log cannot be used with MariaDB Galera Cluster.
+
+#### Binary Log Encryption
+
+Binary log encryption (`--encrypt-binlog`) is not supported with the InnoDB-based binary log. Use full-disk encryption at the operating-system level instead.
 
 #### Heuristic Recovery
 
