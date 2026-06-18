@@ -182,13 +182,12 @@ The engine is at alpha maturity. Known limitations at the time of writing:
 - **Cross-engine scan is single-threaded** — only the DuckDB side of a cross-engine query is parallelized.
 - **Cross-engine `INSERT` (DuckDB → InnoDB)** has restrictions; see the engine compatibility matrix.
 
-A maintained compatibility matrix is published in the engine repository at [`docs/mariadb-duckdb-incompatibilities.md`](https://github.com/MariaDB/duckdb-engine/blob/main/docs/mariadb-duckdb-incompatibilities.md).
+A maintained compatibility matrix is published in the server repository at [`storage/duckdb/docs/mariadb-duckdb-incompatibilities.md`](https://github.com/MariaDB/server/blob/11.4/storage/duckdb/docs/mariadb-duckdb-incompatibilities.md).
 
 ## See also
 
 - [MDEV-39234](https://jira.mariadb.org/browse/MDEV-39234) — upstream feature ticket.
-- [`MariaDB/duckdb-engine`](https://github.com/MariaDB/duckdb-engine) — canonical engine source repository.
-- [`11.4`](https://github.com/MariaDB/server/tree/11.4) branch — the MariaDB Server fork containing the integration scaffolding.
+- [`11.4`](https://github.com/MariaDB/server/tree/11.4) branch — the MariaDB Server branch where the engine source resides, under [`storage/duckdb/`](https://github.com/MariaDB/server/tree/11.4/storage/duckdb).
 - [DuckDB Storage Engine for MariaDB: When the Sea Lion Learns to Quack](https://mariadb.org/duckdb-storage-engine-for-mariadb-when-the-sea-lion-learns-to-quack/) — Roman Nozdrin, 2026-06-09.
 - [MariaDB DuckDB: A New Playground for Analytics](https://mariadb.org/mariadb-duckdb-a-new-playground-for-analytics-a-first-look-at-the-new-storage-engine/) — Frédéric Descamps, 2026-06-12.
 - [SHOW ENGINES](../../reference/sql-statements/administrative-sql-statements/show/show-engines.md)
