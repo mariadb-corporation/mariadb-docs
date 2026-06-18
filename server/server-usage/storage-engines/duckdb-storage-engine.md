@@ -14,7 +14,7 @@ The DuckDB storage engine embeds [DuckDB](https://duckdb.org/) — a columnar, v
 
 The engine borrows its design from Alibaba's [AliSQL](https://github.com/alibaba/AliSQL) DuckDB integration. The original code was heavily refactored to use MariaDB's handler API and plugin system, and the engine links against vanilla upstream DuckDB.
 
-## Use cases
+## Use Cases
 
 - **HTAP (Hybrid Transactional/Analytical Processing)** — InnoDB serves the transactional workload, DuckDB serves analytics, both in the same MariaDB server.
 - **Ad-hoc analytical queries** — joins, aggregations, and window functions over large datasets without exporting data to a separate system.
@@ -26,7 +26,7 @@ DuckDB 1.5.2 is statically linked into a single plugin shared library (`ha_duckd
 
 Cross-engine queries (a single `SELECT` joining a `DuckDB` table with, for example, an `InnoDB` table) are handled as follows: the entire query is pushed down to DuckDB. When DuckDB references a non-DuckDB table, a callback re-enters the MariaDB query pipeline through a cooperative fiber to stream rows back. The MariaDB optimizer still chooses the access path on the non-DuckDB side, and DuckDB's optimizer drives join order, hashing, and aggregation.
 
-## Supported platforms
+## Supported Platforms
 
 - **OS:** Linux only.
 - **Architectures:** `x86_64` and `aarch64` (ARM64).
@@ -38,7 +38,7 @@ Cross-engine queries (a single `SELECT` joining a `DuckDB` table with, for examp
 
 The engine is **not** included in MariaDB releases. There are two ways to obtain it: prebuilt test packages from MariaDB CI, or building from source.
 
-### Option 1: prebuilt test packages
+### Option 1: Prebuilt Test Packages
 
 MariaDB CI builds the engine for several Linux distributions and publishes the artifacts on [ci.mariadb.org](https://ci.mariadb.org/). Each CI run has its own job number and a subdirectory per distribution and architecture, for example `amd64-ubuntu-2404-deb-autobake/` or `aarch64-ubuntu-2404-deb-autobake/`.
 
@@ -59,7 +59,7 @@ wget -r -np -nH --cut-dirs=2 -A '*.deb' \
 sudo dpkg -i mariadb-server*.deb mariadb-plugin-duckdb*.deb || sudo apt -f install
 ```
 
-### Option 2: build from source
+### Option 2: Build From Source
 
 The engine integration lives on the `11.4` branch of [`MariaDB/server`](https://github.com/MariaDB/server). The engine source resides in the server repository under `storage/duckdb/`; a helper script there handles dependency installation and the build.
 
@@ -84,7 +84,7 @@ On Rocky Linux 8, pass `-R` to use `gcc-toolset-12`:
 ./storage/duckdb/build.sh -R
 ```
 
-### Enabling the plugin
+### Enabling the Plugin
 
 The DuckDB plugin is not loaded by default. Add a configuration file to the server's drop-in directory:
 
@@ -112,7 +112,7 @@ SHOW ENGINES\G
 
 The output should include a `DuckDB` row with `Support: YES`.
 
-### Verifying the install
+### Verifying the Install
 
 ```sql
 CREATE DATABASE analytics;
@@ -131,7 +131,7 @@ SELECT SUM(amount) FROM orders;
 
 DuckDB requires UTF-8: specify `DEFAULT CHARSET=utf8mb4` (or another UTF-8 charset) on every DuckDB table. Non-UTF8 charsets fall back to binary comparison.
 
-## Supported operations
+## Supported Operations
 
 - **DDL:** `CREATE TABLE`, `DROP TABLE`, `ALTER TABLE`, `RENAME TABLE`. `ALTER TABLE ... ENGINE=DuckDB` migrates an existing table into DuckDB storage.
 - **`INSERT`:** all major MariaDB column types.
@@ -149,7 +149,7 @@ DuckDB requires UTF-8: specify `DEFAULT CHARSET=utf8mb4` (or another UTF-8 chars
 
 - **User-defined functions:** DuckDB-side UDFs are registered with MariaDB.
 
-## Configuration variables
+## Configuration Variables
 
 The plugin adds a family of `duckdb_*` server variables. The most commonly tuned ones:
 
@@ -184,7 +184,7 @@ The engine is at alpha maturity. Known limitations at the time of writing:
 
 A maintained compatibility matrix is published in the server repository at [`storage/duckdb/docs/mariadb-duckdb-incompatibilities.md`](https://github.com/MariaDB/server/blob/11.4/storage/duckdb/docs/mariadb-duckdb-incompatibilities.md).
 
-## See also
+## See Also
 
 - [MDEV-39234](https://jira.mariadb.org/browse/MDEV-39234) — upstream feature ticket.
 - [`11.4`](https://github.com/MariaDB/server/tree/11.4) branch — the MariaDB Server branch where the engine source resides, under [`storage/duckdb/`](https://github.com/MariaDB/server/tree/11.4/storage/duckdb).
