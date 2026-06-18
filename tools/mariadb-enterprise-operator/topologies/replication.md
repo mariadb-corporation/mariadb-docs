@@ -214,6 +214,10 @@ Refrain from removing the `enterprise.mariadb.com/gtid` annotation in the `Volum
 Our recommendation for production environments is to rely on [MaxScale](maxscale.md) for the [switchover operation](maxscale.md#primary-server-switchover), as it provides [several advantages](high-availability.md#maxscale).
 {% endhint %}
 
+{% hint style="warning" %}
+If `MaxScale` is enabled and configured for a `MariaDB` resource, primary switchover **cannot** be triggered by editing `spec.replication.primary.podIndex`. Instead, you must trigger the switchover via the `MaxScale` Custom Resource. Please refer to the [MaxScale Primary Server Switchover](maxscale.md#primary-server-switchover) documentation for instructions.
+{% endhint %}
+
 You can declaratively trigger a primary switchover by updating the `spec.replication.primary.podIndex` field in the `MariaDB` CR to the index of the replica you want to promote as the new primary. For example, to promote the replica at index `1`:
 
 ```yaml
