@@ -7,6 +7,7 @@
   * [Best Practices](mariadb-platform-quickstart-guides/mariadb-best-practices-guide.md)
   * [Security](mariadb-platform-quickstart-guides/security.md)
 * [Post Download](post-download/README.md)
+  * [MariaDB Server 13.1.0](post-download/mariadb-server-13.1.0.md)
   * [MariaDB Connector/J 3.5.9](post-download/mariadb-connector-j-3.5.9.md)
   * [MariaDB Connector/J 3.4.3](post-download/mariadb-connector-j-3.4.3.md)
   * [MariaDB Connector/J 3.3.5](post-download/mariadb-connector-j-3.3.5.md)

@@ -4,6 +4,12 @@ description: A list of all MariaDB Community Server releases
 
 # All Releases
 
+## MariaDB Community Server 13.1
+
+| Name                     | Release date | Release status |
+| ------------------------ | ------------ | -------------- |
+| 13.1.0                   | 2026-06-19   | Preview        |
+
 ## MariaDB Community Server 13.0
 
 | Name                     | Release date | Release status |

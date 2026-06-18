@@ -260,6 +260,8 @@
     * [Maintenance Policy](community-server/about/maintenance-policy.md)
     * [Security Vulnerabilities (CVE) Fixed in MariaDB Community Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/cve/community-server)
   * [All Releases](community-server/all-releases.md)
+  * [Release Notes - MariaDB 13.1 Series](community-server/13.1/README.md)
+    * [MariaDB 13.1 Changes & Improvements](community-server/13.1/mariadb-13.1-changes-and-improvements.md)
   * [Release Notes - MariaDB 13.0 Series](community-server/13.0/README.md)
     * [MariaDB 13.0 Changes & Improvements](community-server/13.0/mariadb-13.0-changes-and-improvements.md)
     * [MariaDB 13.0.1 Release Notes](community-server/13.0/13.0.1.md)
