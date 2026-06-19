@@ -1,0 +1,65 @@
+---
+description: >-
+  The MySQL to MariaDB Migrator automates end-to-end MySQL to MariaDB
+  migrations — schema, data, users, and validation — in four selectable modes.
+---
+
+# MySQL to MariaDB Migrator
+
+{% hint style="info" %}
+**Enterprise tooling.** The MySQL to MariaDB Migrator is proprietary MariaDB software, available to MariaDB customers and partners under approved usage terms. It is not open source and is not available for general public use. It is distributed from the [MariaDB downloads page](https://mariadb.com/downloads/) under **Enterprise Tooling**.
+{% endhint %}
+
+The **MySQL to MariaDB Migrator** is a MariaDB tool that automates end-to-end migrations from MySQL to MariaDB in a repeatable, auditable way. It orchestrates schema migration, data transfer, user and privilege migration, and post-migration validation, and it drives the standard MariaDB client tools (`mariadb-dump`, the `mariadb` client, and the `mariadb-mtk` data-transfer engine) under a single launcher.
+
+{% hint style="info" %}
+The migrator is currently in **beta**. All four migration modes have been exercised end-to-end against representative source and target pairs, including AWS RDS sources and MariaDB Cloud targets. Validate it in your own environment before a production migration.
+{% endhint %}
+
+The migrator complements the manual workflows in the [MySQL to MariaDB Migration: The Master Guide](../mysql-to-mariadb-migration-the-master-guide.md): the Master Guide explains the migration paths and the compatibility considerations, while the migrator automates the dump, load, user-migration, and validation steps for you.
+
+## Supported Versions
+
+* **Source:** MySQL 8.0 and 8.4 (some modes have version-specific requirements — see [Migration Modes](migration-modes.md)).
+* **Target:** MariaDB 11.x (LTS).
+* **MariaDB Cloud** is validated as a target for the Offline Copy (`staged`), Parallel Restartable Streaming Copy (`two_step`), and Serial Streaming Copy (`one_step`) modes.
+
+## Migration Modes at a Glance
+
+The launcher presents four migration modes as a numbered menu. The internal identifier in parentheses is the canonical form used in configuration files, environment variables (`MODE=...`), and the command line (`--mode <id>`).
+
+| Mode | Internal ID | Type | Best For |
+| --- | --- | --- | --- |
+| Serial Streaming Copy | `one_step` | Offline | Smaller databases and standard maintenance windows |
+| Parallel Restartable Streaming Copy | `two_step` | Offline | Larger datasets that need schema-then-parallel-data loading |
+| Offline Copy | `staged` | Offline | Source and target not network-reachable, or a deferred / two-host load |
+| Replication | `binlog` | Online | Low-downtime cutover with ongoing replication |
+
+See [Migration Modes](migration-modes.md) for the detailed playbook for each.
+
+## How the Tool Runs
+
+When launched interactively, the migrator first offers two top-level choices:
+
+* **Assess & Plan** — inspect the source and target, validate connectivity and compatibility, and produce an assessment report and a migration plan. No data is moved and nothing is written to the target.
+* **Assess + Run** — assess the source, then proceed to the full migration, with confirmation steps between phases.
+
+Preview a migration with **Assess & Plan** before committing to it; the assess and plan phases write their artifacts under `artifacts/` and leave the target untouched.
+
+## In This Section
+
+{% content-ref url="installation-and-first-run.md" %}
+[installation-and-first-run.md](installation-and-first-run.md)
+{% endcontent-ref %}
+
+{% content-ref url="migration-modes.md" %}
+[migration-modes.md](migration-modes.md)
+{% endcontent-ref %}
+
+{% content-ref url="application-user-migration.md" %}
+[application-user-migration.md](application-user-migration.md)
+{% endcontent-ref %}
+
+{% content-ref url="environment-variables.md" %}
+[environment-variables.md](environment-variables.md)
+{% endcontent-ref %}
