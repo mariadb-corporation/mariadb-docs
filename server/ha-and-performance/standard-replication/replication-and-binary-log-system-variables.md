@@ -23,7 +23,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `auto_increment_increment`
 
-* Description: The increment for all [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) values on the server, by default `1`. Intended for use in primary-to-primary [replication](./).
+* Description: The increment for all [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) values on the server, by default `1`. Intended for use in master-to-master [replication](./).
 * Command line: `--auto-increment-increment[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -33,7 +33,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `auto_increment_offset`
 
-* Description: The offset for all [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) values on the server, by default `1`. Intended for use in primary-to-primary [replication](./). Should be not be larger than [auto\_increment\_increment](replication-and-binary-log-system-variables.md#auto_increment_increment). See [AUTO\_INCREMENT#Replication](../../reference/data-types/auto_increment.md#replication).
+* Description: The offset for all [AUTO\_INCREMENT](../../reference/data-types/auto_increment.md) values on the server, by default `1`. Intended for use in master-to-master [replication](./). Should be not be larger than [auto\_increment\_increment](replication-and-binary-log-system-variables.md#auto_increment_increment). See [AUTO\_INCREMENT#Replication](../../reference/data-types/auto_increment.md#replication).
 * Command line: `--auto-increment-offset[=#]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -43,7 +43,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_alter_two_phase`
 
-* Description: When set, split ALTER at binary logging into two statements: `START ALTER` and `COMMIT`/`ROLLBACK ALTER`. The `ON` setting is recommended for long-running `ALTER TABLE` statements, so it could start on replica before its actual execution on primary.
+* Description: When set, split ALTER at binary logging into two statements: `START ALTER` and `COMMIT`/`ROLLBACK ALTER`. The `ON` setting is recommended for long-running `ALTER TABLE` statements, so it could start on slave before its actual execution on master.
 * Command line: `--binlog-alter-two-phase[={0|1}]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -53,7 +53,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `binlog_annotate_row_events`
 
-* Description: This option tells the primary to write [annotate\_rows\_events](../../clients-and-utilities/logging-tools/mariadb-binlog/annotate_rows_log_event.md) to the binary log.
+* Description: This option tells the master to write [annotate\_rows\_events](../../clients-and-utilities/logging-tools/mariadb-binlog/annotate_rows_log_event.md) to the binary log.
 * Command line: `--binlog-annotate-row-events[={0|1}]`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -91,8 +91,8 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 * Description: Configures the behavior of [group commit for the binary log](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md), which can help increase transaction throughput and is used to enable [conservative mode of in-order parallel replication](parallel-replication.md#conservative-mode-of-in-order-parallel-replication).\
   With [group commit for the binary log](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md), the server can delay flushing a committed transaction into [binary log](../../server-management/server-monitoring-logs/binary-log/) until the given number of transactions are ready to be flushed as a group. However, the delay is not longer than the value set by [binlog\_commit\_wait\_usec](replication-and-binary-log-system-variables.md#binlog_commit_wait_usec). The default value of `0` means that no delay is introduced.\
-  Setting this value can reduce I/O on the binary log and give an increased opportunity for parallel apply on the replica when [conservative mode of in-order parallel replication](parallel-replication.md#conservative-mode-of-in-order-parallel-replication) is enabled, but too high a value decreases the transaction throughput. By monitoring the status variable [binlog\_group\_commit\_trigger\_count](replication-and-binary-log-status-variables.md#binlog_group_commit_trigger_count), it is possible to see how often this is occurring.
-* If the server detects that one of the committing transactions T1 holds an [InnoDB](../../server-usage/storage-engines/innodb/) row lock that another transaction T2 is waiting for, the commit completes immediately without further delay. This helps avoid losing throughput when many transactions need conflicting locks. This often makes it safe to use this option without losing throughput on a replica with [conservative mode of in-order parallel replication](parallel-replication.md#conservative-mode-of-in-order-parallel-replication), provided the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads) is sufficiently high.
+  Setting this value can reduce I/O on the binary log and give an increased opportunity for parallel apply on the slave when [conservative mode of in-order parallel replication](parallel-replication.md#conservative-mode-of-in-order-parallel-replication) is enabled, but too high a value decreases the transaction throughput. By monitoring the status variable [binlog\_group\_commit\_trigger\_count](replication-and-binary-log-status-variables.md#binlog_group_commit_trigger_count), it is possible to see how often this is occurring.
+* If the server detects that one of the committing transactions T1 holds an [InnoDB](../../server-usage/storage-engines/innodb/) row lock that another transaction T2 is waiting for, the commit completes immediately without further delay. This helps avoid losing throughput when many transactions need conflicting locks. This often makes it safe to use this option without losing throughput on a slave with [conservative mode of in-order parallel replication](parallel-replication.md#conservative-mode-of-in-order-parallel-replication), provided the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads) is sufficiently high.
 * Command line: `--binlog-commit-wait-count=#]`
 * Scope: Global
 * Dynamic: Yes
@@ -131,7 +131,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 #### `binlog_do_db`
 
-* Description: This option allows you to configure a [replication primary](./) to write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions are not present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas are not able to replicate them.
+* Description: This option allows you to configure a [replication master](./) to write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions are not present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its slaves are not able to replicate them.
   * This option does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging), or with cross-database DDL statements in any logging format, because DDL statements are always logged in statement format. See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * Until [MariaDB 11.2.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.2/11.2.0), only available as an option, not a system variable. This option can not be set dynamically.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
@@ -166,7 +166,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 #### `binlog_format`
 
-* Description: Determines whether [replication](./) is row-based, statement-based or mixed. Be careful of changing the binary log format when a replication environment is already running. See [Binary Log Formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md). A replica applies any events it gets from the primary, regardless of the binary log format. `binlog_format` only applies to normal (not replicated) updates.
+* Description: Determines whether [replication](./) is row-based, statement-based or mixed. Be careful of changing the binary log format when a replication environment is already running. See [Binary Log Formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md). A slave applies any events it gets from the master, regardless of the binary log format. `binlog_format` only applies to normal (not replicated) updates.
 * Command line: `--binlog-format=format`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -208,7 +208,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 #### `binlog_ignore_db`
 
-* Description: This option allows you to configure a [replication primary](./) to not write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions are not present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its replicas are not able to replicate them.
+* Description: This option allows you to configure a [replication master](./) to not write statements and transactions affecting databases that match a specified name into its [binary log](../../server-management/server-monitoring-logs/binary-log/). Since the filtered statements or transactions are not present in the [binary log](../../server-management/server-monitoring-logs/binary-log/), its slaves are not able to replicate them.
   * This option does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging), or with cross-database DDL statements in any logging format, because DDL statements are always logged in statement format. See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
   * See [Replication Filters](replication-filters.md) for more information.
@@ -255,7 +255,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 #### `binlog_row_event_fragment_threshold`
 
-* Description: When a `Rows_log_event` exceeds this threshold, it is fragmented into multiple `Partial_rows_log_event` events in the binary log, each of it configured to maximum size. That is, all `Partial_rows_log_event` events up to the last in the group have this configured maximum size, and the last event takes the remaining size. This is relevant for events that would surpass the `slave_max_allowed_packet` length when sending to the replica, and thereby a sensible value would reflect the replica's configured `slave_max_allowed_packet` size.
+* Description: When a `Rows_log_event` exceeds this threshold, it is fragmented into multiple `Partial_rows_log_event` events in the binary log, each of it configured to maximum size. That is, all `Partial_rows_log_event` events up to the last in the group have this configured maximum size, and the last event takes the remaining size. This is relevant for events that would surpass the `slave_max_allowed_packet` length when sending to the slave, and thereby a sensible value would reflect the slave's configured `slave_max_allowed_packet` size.
 * Command line: `--binlog-row-event-fragment-threshold`
 * Scope: Global
 * Dynamic: Yes
@@ -276,7 +276,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 #### `binlog_row_image`
 
-* Description: Controls the logging format in [row-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) [replication](./). In row-based replication (the variable has no effect with [statement-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging)), each row change event contains an image for matching against when choosing the row to be updated, and another image containing the changes. Before the introduction of this variable, all columns were logged for both of these images. In certain circumstances, this is not necessary, and memory, disk and network resources can be saved by partial logging. Note that to safely change this setting from the default, the table being replicated to must contain identical primary key definitions, and columns must be present, in the same order, and use the same data types as the original table. If these conditions are not met, matches may not be correctly determined and updates and deletes may diverge on the replica, with no warnings or errors returned.
+* Description: Controls the logging format in [row-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) [replication](./). In row-based replication (the variable has no effect with [statement-based replication](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging)), each row change event contains an image for matching against when choosing the row to be updated, and another image containing the changes. Before the introduction of this variable, all columns were logged for both of these images. In certain circumstances, this is not necessary, and memory, disk and network resources can be saved by partial logging. Note that to safely change this setting from the default, the table being replicated to must contain identical primary key definitions, and columns must be present, in the same order, and use the same data types as the original table. If these conditions are not met, matches may not be correctly determined and updates and deletes may diverge on the slave, with no warnings or errors returned.
   * `FULL`: All columns in the before and after image are logged. This is the default, and the only behavior in earlier versions.
   * `NOBLOB`: mariadbd avoids logging blob and text columns whenever possible (eg, blob column was not changed or is not part of primary key).
   * `MINIMAL`: A PK equivalent (PK columns or full row if there is no PK in the table) is logged in the before image, and only changed columns are logged in the after image.
@@ -294,7 +294,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 * Description: Controls the format used for binlog metadata logging – _value_ is one of the following:
   * `NO_LOG`: No metadata is logged (default).
-  * `MINIMAL`: Only metadata required by a replica is logged.
+  * `MINIMAL`: Only metadata required by a slave is logged.
   * `FULL`: All metadata is logged.
     * From MariaDB 12.3, row events are mapped to using column names. This addresses [a potential issue in multi-master replication](replication-when-the-primary-and-replica-have-different-table-definitions.md#alter-table-issues).
 * Command line: `--binlog-row-metadata=*value*`
@@ -332,7 +332,7 @@ From MariaDB 12.3, if the binary log is stored in InnoDB (`binlog_storage_engine
 
 #### `create_tmp_table_binlog_formats`
 
-* Description: The [binary logging formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) under which the primary logs `CREATE TEMPORARY` statements to the [binary log](../../server-management/server-monitoring-logs/binary-log/). If `CREATE TEMPORARY` is not logged, all usage of the temporary table is logged in `ROW` format. Allowed values are `STATEMENT` or `MIXED`,`STATEMENT`.
+* Description: The [binary logging formats](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md) under which the master logs `CREATE TEMPORARY` statements to the [binary log](../../server-management/server-monitoring-logs/binary-log/). If `CREATE TEMPORARY` is not logged, all usage of the temporary table is logged in `ROW` format. Allowed values are `STATEMENT` or `MIXED`,`STATEMENT`.
 * Command line: `--create-tmp-table-binlog-formats=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -367,7 +367,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `expire_logs_days`
 
-* Description: Number of days after which the [binary log](../../server-management/server-monitoring-logs/binary-log/) can be automatically removed. By default, 0, or no automatic removal. When using [replication](./), should always be set higher than the maximum lag by any replica. Removals take place when the server starts up, when the binary log is flushed, when the next binary log is created after the previous one reaches the maximum size, or when running [PURGE BINARY LOGS](../../reference/sql-statements/administrative-sql-statements/purge-binary-logs.md). Units are 1/1000000 precision (double). `expire_logs_days` and [binlog\_expire\_logs\_seconds](replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) are forms of aliases, such that changes to one automatically reflect in the other. Some container configs explicitly set `expire_logs_days` to 10, rather than leave it as the default, zero.
+* Description: Number of days after which the [binary log](../../server-management/server-monitoring-logs/binary-log/) can be automatically removed. By default, 0, or no automatic removal. When using [replication](./), should always be set higher than the maximum lag by any slave. Removals take place when the server starts up, when the binary log is flushed, when the next binary log is created after the previous one reaches the maximum size, or when running [PURGE BINARY LOGS](../../reference/sql-statements/administrative-sql-statements/purge-binary-logs.md). Units are 1/1000000 precision (double). `expire_logs_days` and [binlog\_expire\_logs\_seconds](replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) are forms of aliases, such that changes to one automatically reflect in the other. Some container configs explicitly set `expire_logs_days` to 10, rather than leave it as the default, zero.
 * Command line: `--expire-logs-days=#`
 * Scope: Global
 * Dynamic: Yes
@@ -380,19 +380,19 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 * Command line: `--init-rpl-role=name`
 *   Description: Sets the replication role for the server.
 
-    In older versions of MariaDB, a primary server configured with both `rpl_semi_sync_master_enabled=1` and `rpl_semi_sync_slave_enabled=1` could experience data loss after a restart. Upon recovery, the primary might truncate its binary log, dropping transactions that replicas had already received and executed. This caused the replica's `gtid_slave_pos` to be ahead of the primary's `gtid_binlog_pos`, leading to an error state.
+    In older versions of MariaDB, a master server configured with both `rpl_semi_sync_master_enabled=1` and `rpl_semi_sync_slave_enabled=1` could experience data loss after a restart. Upon recovery, the master might truncate its binary log, dropping transactions that slaves had already received and executed. This caused the slave's `gtid_slave_pos` to be ahead of the master's `gtid_binlog_pos`, leading to an error state.
 
     Starting with MariaDB 10.6.19, MariaDB 10.11.9, MariaDB 11.1.6, MariaDB 11.2.5, MariaDB 11.4.3, and MariaDB 11.5.2, the condition for binary log truncation during semi-synchronous recovery has changed:
 
-    * Preventing Data Loss: If you restart a primary server and do not set `--init-rpl-role` to `SLAVE`, the server will not truncate transactions required by the replicas.
-    * Requirements: This protection allows you to keep both `rpl_semi_sync_master_enabled` and `rpl_semi_sync_slave_enabled` active on a primary to ensure no transactions are lost during a restart.
+    * Preventing Data Loss: If you restart a master server and do not set `--init-rpl-role` to `SLAVE`, the server will not truncate transactions required by the slaves.
+    * Requirements: This protection allows you to keep both `rpl_semi_sync_master_enabled` and `rpl_semi_sync_slave_enabled` active on a master to ensure no transactions are lost during a restart.
 * Default Value: `MASTER`
 * Valid values: `MASTER` or `SLAVE`&#x20;
 * Introduced (as a variable): MariaDB 13.0.1 (prior, it was only an option you could set in a [configuration file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md)). The variable can be queried with `SHOW VARIABLES LIKE 'init_rpl_role'` or `SELECT @@init_rpl_role` ([MDEV-38202](https://jira.mariadb.org/browse/MDEV-38202)).
 
 #### `init_slave`
 
-* Description: Similar to [init\_connect](../optimization-and-tuning/system-variables/server-system-variables.md#init_connect), but the string contains one or more SQL statements (separated by semicolons) that are executed by a replica server each time the SQL thread starts. These statements are only executed after the acknowledgement is sent to the replica and [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) completes.
+* Description: Similar to [init\_connect](../optimization-and-tuning/system-variables/server-system-variables.md#init_connect), but the string contains one or more SQL statements (separated by semicolons) that are executed by a slave server each time the SQL thread starts. These statements are only executed after the acknowledgement is sent to the slave and [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md) completes.
 * Command line: `--init-slave=name`
 * Scope: Global
 * Dynamic: Yes
@@ -459,7 +459,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `log_bin_trust_function_creators`
 
-* Description: Functions and triggers can be dangerous when used with [replication](./). Certain types of functions and triggers may have unintended consequences when the statements are applied on a replica. For that reason, there are some restrictions on the creation of functions and triggers when the [binary log](../../server-management/server-monitoring-logs/binary-log/) is enabled by default, such as:
+* Description: Functions and triggers can be dangerous when used with [replication](./). Certain types of functions and triggers may have unintended consequences when the statements are applied on a slave. For that reason, there are some restrictions on the creation of functions and triggers when the [binary log](../../server-management/server-monitoring-logs/binary-log/) is enabled by default, such as:
   * When `log_bin_trust_function_creators` is `OFF` and [log\_bin](replication-and-binary-log-system-variables.md#log_bin) is `ON`, [CREATE FUNCTION](../../reference/sql-statements/data-definition/create/create-function.md) and [ALTER FUNCTION](../../reference/sql-statements/data-definition/alter/alter-function.md) statements trigger an error if the function is defined with any of the `NOT DETERMINISTIC`, `CONTAINS SQL` or `MODIFIES SQL DATA` characteristics.
   * This means that when `log_bin_trust_function_creators` is `OFF` and [log\_bin](replication-and-binary-log-system-variables.md#log_bin) is `ON`, [CREATE FUNCTION](../../reference/sql-statements/data-definition/create/create-function.md) and [ALTER FUNCTION](../../reference/sql-statements/data-definition/alter/alter-function.md) statements only succeed if the function is defined with any of the `DETERMINISTIC`, `NO SQL`, or `READS SQL DATA` characteristics.
   * When `log_bin_trust_function_creators` is `OFF` and [log\_bin](replication-and-binary-log-system-variables.md#log_bin) is `ON`, the [SUPER](../../reference/sql-statements/account-management-sql-statements/grant.md#super) privilege is also required to execute the following statements:
@@ -476,7 +476,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `log_slow_slave_statements`
 
-* Description: Log slow statements executed by replica thread to the [slow log](../../server-management/server-monitoring-logs/slow-query-log/) if it is open.
+* Description: Log slow statements executed by slave thread to the [slow log](../../server-management/server-monitoring-logs/slow-query-log/) if it is open.
 * Command line: `--log-slow-slave-statements`
 * Scope: Global
 * Dynamic: Yes
@@ -485,7 +485,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `log_slave_updates`
 
-* Description: If set to `0`, the default, updates on a replica received from a primary during [replication](./) are not logged in the replica's binary log. If set to `1`, they are. The replica's binary log needs to be enabled for this to have an effect. Set to `1` if you want to daisy-chain the replicas.
+* Description: If set to `0`, the default, updates on a slave received from a master during [replication](./) are not logged in the slave's binary log. If set to `1`, they are. The slave's binary log needs to be enabled for this to have an effect. Set to `1` if you want to daisy-chain the slaves.
 * Command line: `--log-slave-updates`
 * Scope: Global
 * Dynamic: No
@@ -494,7 +494,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `master_info_file`
 
-* Description: The location and name of the file that remembers the primary and where the I/O replication thread is in the primary's binlogs. Defaults to primary.info.
+* Description: The location and name of the file that remembers the master and where the I/O replication thread is in the master's binlogs. Defaults to master.info.
 * Command line: `--master-info-file=val`
 * Scope: Global
 * Dynamic: No
@@ -504,7 +504,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `master_verify_checksum`
 
-* Description: Verify [binlog checksums](binlog-event-checksums.md) when reading events from the binlog on the primary.
+* Description: Verify [binlog checksums](binlog-event-checksums.md) when reading events from the binlog on the master.
 * Command line: `--master-verify-checksum=[0|1]`
 * Scope: Global
 * Access Type: Can be changed dynamically
@@ -554,7 +554,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `max_relay_log_size`
 
-* Description: The replica rotates its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) if it exceeds this size after a write. If set to `0`, the [max\_binlog\_size](replication-and-binary-log-system-variables.md#max_binlog_size) setting is used instead. Previously global only, since the implementation of [multi-source replication](multi-source-replication.md), it can be set per session as well.
+* Description: The slave rotates its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) if it exceeds this size after a write. If set to `0`, the [max\_binlog\_size](replication-and-binary-log-system-variables.md#max_binlog_size) setting is used instead. Previously global only, since the implementation of [multi-source replication](multi-source-replication.md), it can be set per session as well.
 * Command line: `--max-relay-log-size=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -564,7 +564,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `read_binlog_speed_limit`
 
-* Description: Used to restrict the speed at which a [replica](./) can read the binlog from the primary. This can be used to reduce the load on a primary if many replicas need to download large amounts of old binlog files at the same time. The network traffic is restricted to the specified number of kilobytes per second.
+* Description: Used to restrict the speed at which a [slave](./) can read the binlog from the master. This can be used to reduce the load on a master if many slaves need to download large amounts of old binlog files at the same time. The network traffic is restricted to the specified number of kilobytes per second.
 * Command line: `--read-binlog-speed-limit=#`
 * Scope: Global
 * Dynamic: Yes
@@ -602,7 +602,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `relay_log_info_file`
 
-* Description: Name and location of the file where the `RELAY_LOG_FILE` and `RELAY_LOG_POS` options (i.e. the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement are written. The [replica's SQL thread](replication-threads.md#replica-sql-thread) keeps this [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
+* Description: Name and location of the file where the `RELAY_LOG_FILE` and `RELAY_LOG_POS` options (i.e. the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position) for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement are written. The [slave's SQL thread](replication-threads.md#replica-sql-thread) keeps this [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) position updated as it applies events.
   * See [CHANGE MASTER TO: Option Persistence](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#option-persistence) for more information.
 * Command line: `--relay-log-info-file=file_name`
 * Scope: Global
@@ -613,7 +613,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 #### `relay_log_purge`
 
 * Description: If set to `1` (the default), [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) are purged as soon as they are no longer necessary.
-  * A relay log only becomes unnecessary once the [replica's SQL thread](replication-threads.md#replica-sql-thread) has applied all of its events, so the default value does not discard events that a semisynchronous replica has acknowledged but not yet applied. Both values are therefore safe with [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), with one exception: `relay_log_purge=0` combined with `relay_log_recovery=1` can lead to data inconsistencies. See [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery).
+  * A relay log only becomes unnecessary once the [slave's SQL thread](replication-threads.md#replica-sql-thread) has applied all of its events, so the default value does not discard events that a semisynchronous slave has acknowledged but not yet applied. Both values are therefore safe with [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), with one exception: `relay_log_purge=0` combined with `relay_log_recovery=1` can lead to data inconsistencies. See [relay\_log\_recovery](replication-and-binary-log-system-variables.md#relay_log_recovery).
 * Command line: `--relay-log-purge={0|1}`
 * Scope: Global
 * Dynamic: Yes
@@ -622,9 +622,9 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `relay_log_recovery`
 
-* Description: If set to `1` (`0` is default), on startup the replica drops all [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) that haven't yet been processed, and retrieve relay logs from the primary. Can be useful after the replica has crashed to prevent the processing of corrupt relay logs. relay\_log\_recovery should always be set together with [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge). Setting `relay-log-recovery=1` with `relay-log-purge=0` can cause the relay log to be read from files that were not purged, leading to data inconsistencies.
-  * This variable only has an effect on replicas that connect using binary log file and position coordinates (that is, `CHANGE MASTER TO MASTER_USE_GTID=NO`). A replica that connects using [GTIDs](gtid/README.md) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
-  * With [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), setting this variable to `1` discards transactions that the replica has already acknowledged to the primary. Those transactions are refetched from the primary, so this is only a problem if the primary has lost them as well. Use `relay_log_recovery=0` on semisynchronous replicas that connect using binary log coordinates.
+* Description: If set to `1` (`0` is default), on startup the slave drops all [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md) that haven't yet been processed, and retrieve relay logs from the master. Can be useful after the slave has crashed to prevent the processing of corrupt relay logs. relay\_log\_recovery should always be set together with [relay\_log\_purge](replication-and-binary-log-system-variables.md#relay_log_purge). Setting `relay-log-recovery=1` with `relay-log-purge=0` can cause the relay log to be read from files that were not purged, leading to data inconsistencies.
+  * This variable only has an effect on slaves that connect using binary log file and position coordinates (that is, `CHANGE MASTER TO MASTER_USE_GTID=NO`). A slave that connects using [GTIDs](gtid/README.md) purges its relay logs every time the replication threads start, including after a restart, regardless of this setting.
+  * With [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), setting this variable to `1` discards transactions that the slave has already acknowledged to the master. Those transactions are refetched from the mastre, so this is only a problem if the master has lost them as well. Use `relay_log_recovery=0` on semisynchronous slaves that connect using binary log coordinates.
 * Command line: `--relay-log-recovery`
 * Scope: Global
 * Dynamic: Yes
@@ -644,7 +644,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_annotate_row_events`
 
-* Description: Tells the replica to reproduce [annotate\_rows\_events](../../clients-and-utilities/logging-tools/mariadb-binlog/annotate_rows_log_event.md) received from the primary in its own binary log. This option is sensible only when used in tandem with the [log\_slave\_updates](replication-and-binary-log-system-variables.md#log_slave_updates) option.
+* Description: Tells the slave to reproduce [annotate\_rows\_events](../../clients-and-utilities/logging-tools/mariadb-binlog/annotate_rows_log_event.md) received from the master in its own binary log. This option is sensible only when used in tandem with the [log\_slave\_updates](replication-and-binary-log-system-variables.md#log_slave_updates) option.
 * Command line: `--replicate-annotate-row-events`
 * Scope: Global
 * Dynamic: No
@@ -653,7 +653,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_do_db`
 
-* Description: This system variable allows you to configure a [replica](./) to apply statements and transactions affecting databases that match a specified name.
+* Description: This system variable allows you to configure a [slave](./) to apply statements and transactions affecting databases that match a specified name.
   * This system variable does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md), the system variable accepts a comma-separated list of filters.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times.
@@ -666,7 +666,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_do_table`
 
-* Description: This system variable allows you to configure a [replica](./) to apply statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
+* Description: This system variable allows you to configure a [slave](./) to apply statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
   * This system variable does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md), the system variable accepts a comma-separated list of filters.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times.
@@ -679,7 +679,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_events_marked_for_skip`
 
-* Description: Tells the replica whether to [replicate](./) events that are marked with the `@@skip_replication` flag. See [Selectively skipping replication of binlog events](selectively-skipping-replication-of-binlog-events.md) for more information.
+* Description: Tells the slave whether to [replicate](./) events that are marked with the `@@skip_replication` flag. See [Selectively skipping replication of binlog events](selectively-skipping-replication-of-binlog-events.md) for more information.
 * Command line: `--replicate-events-marked-for-skip`
 * Scope: Global
 * Dynamic: Yes
@@ -689,7 +689,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_ignore_db`
 
-* Description: This system variable allows you to configure a [replica](./) to ignore statements and transactions affecting databases that match a specified name.
+* Description: This system variable allows you to configure a [slave](./) to ignore statements and transactions affecting databases that match a specified name.
   * This system variable does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md), the system variable accepts a comma-separated list of filters.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times.
@@ -702,7 +702,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_ignore_table`
 
-* Description: This system variable allows you to configure a [replica](./) to ignore statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
+* Description: This system variable allows you to configure a [slave](./) to ignore statements and transactions that affect tables that match a specified name. The table name is specified in the format: `dbname.tablename`.
   * This system variable does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md), the system variable accepts a comma-separated list of filters.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times.
@@ -715,12 +715,12 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_rewrite_db`
 
-* Description: This option allows you to configure a [replica](./) to rewrite database names. It uses the format `primary_database->replica_database`. If a replica encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement) is `primary_database`, then the replica applies the event in `replica_database` instead.
+* Description: This option allows you to configure a [slave](./) to rewrite database names. It uses the format `master_database->slave_database`. If a slave encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement) is `master_database`, then the slave applies the event in `slave_database` instead.
   * This option does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * This option only affects statements that involve tables. This option does not affect statements involving the database itself, such as [CREATE DATABASE](../../reference/sql-statements/data-definition/create/create-database.md), [ALTER DATABASE](../../reference/sql-statements/data-definition/alter/alter-database.md), and [DROP DATABASE](../../reference/sql-statements/data-definition/drop/drop-database.md).
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.
   * See [Replication Filters](replication-filters.md) for more information.
-* Command line: `--replicate-rewrite-db=primary_database->replica_database`
+* Command line: `--replicate-rewrite-db=master_database->slave_database`
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `string`
@@ -739,7 +739,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_wild_do_table`
 
-* Description: This system variable allows you to configure a [replica](./) to apply statements and transactions that affect tables that match a specified wildcard pattern. The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator.
+* Description: This system variable allows you to configure a [slave](./) to apply statements and transactions that affect tables that match a specified wildcard pattern. The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator.
   * This system variable works with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md), the system variable accepts a comma-separated list of filters.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times.
@@ -752,7 +752,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `replicate_wild_ignore_table`
 
-* Description: This system variable allows you to configure a [replica](./) to ignore statements and transactions that affect tables that match a specified wildcard pattern. The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator.
+* Description: This system variable allows you to configure a [slave](./) to ignore statements and transactions that affect tables that match a specified wildcard pattern. The wildcard pattern uses the same semantics as the [LIKE](../../reference/sql-functions/string-functions/like.md) operator.
   * This system variable work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * When setting it dynamically with [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session), the system variable accepts a comma-separated list of filters.
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the system variable does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the system variable multiple times.
@@ -765,7 +765,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `report_host`
 
-* Description: The host name or IP address the replica reports to the primary when it registers. If left unset, the replica does not register itself. Reported by [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md). Note that it is not sufficient for the primary to simply read the IP of the replica from the socket once the replica connects. Due to NAT and other routing issues, that IP may not be valid for connecting to the replica from the primary or other hosts.
+* Description: The host name or IP address the slave reports to the master when it registers. If left unset, the slave does not register itself. Reported by [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md). Note that it is not sufficient for the master to simply read the IP of the slave from the socket once the slave connects. Due to NAT and other routing issues, that IP may not be valid for connecting to the slave from the master or other hosts.
 * Command line: `--report-host=host_name`
 * Scope: Global
 * Dynamic: No
@@ -773,7 +773,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `report_password`
 
-* Description: Replica password reported to the primary when it registers. Reported by [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This password has no connection with user privileges or with the [replication](./) user account password.
+* Description: Slave password reported to the master when it registers. Reported by [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This password has no connection with user privileges or with the [replication](./) user account password.
 * Command line: `--report-password=password`
 * Scope: Global
 * Dynamic: No
@@ -781,7 +781,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `report_port`
 
-* Description: The command line option sets the TCP/IP port for connecting to the replica that is reported to the [replicating](./) primary during the replica's registration. Viewing the variable shows this value.
+* Description: The command line option sets the TCP/IP port for connecting to the slave that is reported to the [replicating](./) master during the slave's registration. Viewing the variable shows this value.
 * Command line: `--report-port=#`
 * Scope: Global
 * Dynamic: No
@@ -791,7 +791,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `report_user`
 
-* Description: Replica's account user name reported to the primary when it registers. Reported by [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This username has no connection with user privileges or with the [replication](./) user account.
+* Description: Slave's account user name reported to the master when it registers. Reported by [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) if `--show-slave-auth-info` is set. This username has no connection with user privileges or with the [replication](./) user account.
 * Command line: `--report-user=name`
 * Scope: Global
 * Dynamic: No
@@ -799,7 +799,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `server_id`
 
-* Description: This system variable is used with [MariaDB replication](./) to identify unique primary and replica servers in a topology. This system variable is also used with the [binary log](../../server-management/server-monitoring-logs/binary-log/) to determine which server a specific transaction originated on.
+* Description: This system variable is used with [MariaDB replication](./) to identify unique master and slave servers in a topology. This system variable is also used with the [binary log](../../server-management/server-monitoring-logs/binary-log/) to determine which server a specific transaction originated on.
   * When [MariaDB replication](./) is used with standalone MariaDB Server, each server in the replication topology must have a unique `server_id` value.
   * When [MariaDB replication](./) is used with [MariaDB Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/), see [Using MariaDB Replication with MariaDB Galera Cluster: Setting server\_id on Cluster Nodes](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/high-availability/using-mariadb-replication-with-mariadb-galera-cluster/using-mariadb-replication-with-mariadb-galera-cluster-using-mariadb-replica#setting-server_id-on-cluster-nodes) for more information on how to set the `server_id` values.
 * Command line: `--server-id =#`
@@ -811,7 +811,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `show_slave_auth_info`
 
-* Description: Show user and password in [SHOW REPLICA HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) on this primary.
+* Description: Show user and password in [SHOW SLAVE HOSTS](../../reference/sql-statements/administrative-sql-statements/show/show-replica-hosts.md) on this master.
 * Command line: `--show-slave-auth-info[={0|1}]`
 * Scope: Global
 * Dynamic: No
@@ -821,7 +821,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `skip_parallel_replication`
 
-* Description: If set when a transaction is written to the binlog, parallel apply of that transaction is avoided on a replica where [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode) is not `aggressive`. Can be used to avoid unnecessary rollback and retry for transactions that are likely to cause a conflict if replicated in parallel. See [parallel replication](parallel-replication.md).
+* Description: If set when a transaction is written to the binlog, parallel apply of that transaction is avoided on a slave where [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode) is not `aggressive`. Can be used to avoid unnecessary rollback and retry for transactions that are likely to cause a conflict if replicated in parallel. See [parallel replication](parallel-replication.md).
 * Command line: None
 * Scope: Session
 * Dynamic: Yes
@@ -830,7 +830,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `skip_replication`
 
-* Description: Changes are logged into the [binary log](../../server-management/server-monitoring-logs/binary-log/) with the @@skip\_replication flag set. Such events are not be [replicated](./) by replica that run with `--replicate-events-marked-for-skip` set different from its default of `REPLICATE`. See [Selectively skipping replication of binlog events](selectively-skipping-replication-of-binlog-events.md) for more information.
+* Description: Changes are logged into the [binary log](../../server-management/server-monitoring-logs/binary-log/) with the @@skip\_replication flag set. Such events are not [replicated](./) by slaves that run with `--replicate-events-marked-for-skip` set different from its default of `REPLICATE`. See [Selectively skipping replication of binlog events](selectively-skipping-replication-of-binlog-events.md) for more information.
 * Command line: None
 * Scope: Session
 * Dynamic: Yes
@@ -839,7 +839,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_abort_blocking_timeout`
 
-* Description: Maximum time a replica DDL waits for a blocking `SELECT` or other user query until that query is aborted. The argument is treated as a decimal value with nanosecond precision. The variable is intended to solve a problem where a long-running `SELECT` on a replica causes DDL to wait for that `SELECT` to complete, potentially causing massive replica lag.
+* Description: Maximum time a slave DDL waits for a blocking `SELECT` or other user query until that query is aborted. The argument is treated as a decimal value with nanosecond precision. The variable is intended to solve a problem where a long-running `SELECT` on a slave causes DDL to wait for that `SELECT` to complete, potentially causing massive slave lag.
 * Command line: `--slave-abort-blocking-timeout=num`
 * Scope: Global
 * Dynamic: Yes
@@ -850,7 +850,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_compressed_protocol`
 
-* Description: If set to `1` (`0` is the default), uses compression for the replica/primary protocol if both primary and replica support this.
+* Description: If set to `1` (`0` is the default), uses compression for the master/slave protocol if both master and slave support this.
 * Command line: `--slave-compressed-protocol`
 * Scope: Global
 * Dynamic: Yes
@@ -859,7 +859,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_connections_needed_for_purge`
 
-* Description: Minimum number of connected replicas required for automatic [binary log](../../server-management/server-monitoring-logs/binary-log/) purge with [max\_binlog\_total\_size](replication-and-binary-log-system-variables.md#max_binlog_total_size), [binlog\_expire\_logs\_seconds](replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) or [expire\_logs\_days](replication-and-binary-log-system-variables.md#expire_logs_days).\
+* Description: Minimum number of connected slaves required for automatic [binary log](../../server-management/server-monitoring-logs/binary-log/) purge with [max\_binlog\_total\_size](replication-and-binary-log-system-variables.md#max_binlog_total_size), [binlog\_expire\_logs\_seconds](replication-and-binary-log-system-variables.md#binlog_expire_logs_seconds) or [expire\_logs\_days](replication-and-binary-log-system-variables.md#expire_logs_days).\
   Change of the value triggers an attempt to purging, though without binlog rotation, with the purged set of
   files satisfying the above two parameters and the value that is set itself.
 * Command line: `--slave-connections-needed-for-purge=#`
@@ -872,7 +872,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_ddl_exec_mode`
 
-* Description: Modes for how [replication](./) of DDL events should be executed. Legal values are `STRICT` and `IDEMPOTENT` (default). In `IDEMPOTENT` mode, the replica does not stop for failed DDL operations that would not cause a difference between the primary and the replica. In particular [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md) is treated as [CREATE OR REPLACE TABLE](../../reference/sql-statements/data-definition/create/create-table.md#create-or-replace) and [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md) is treated as `DROP TABLE IF EXISTS`.
+* Description: Modes for how [replication](./) of DDL events should be executed. Legal values are `STRICT` and `IDEMPOTENT` (default). In `IDEMPOTENT` mode, the slave does not stop for failed DDL operations that would not cause a difference between the master and the slave. In particular [CREATE TABLE](../../reference/sql-statements/data-definition/create/create-table.md) is treated as [CREATE OR REPLACE TABLE](../../reference/sql-statements/data-definition/create/create-table.md#create-or-replace) and [DROP TABLE](../../reference/sql-statements/data-definition/drop/drop-table.md) is treated as `DROP TABLE IF EXISTS`.
 * Command line: `--slave-ddl-exec-mode=name`
 * Scope: Global
 * Dynamic: Yes
@@ -882,7 +882,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_domain_parallel_threads`
 
-* Description: When set to a non-zero value, each [replication](./) domain in one primary connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other primary connections
+* Description: When set to a non-zero value, each [replication](./) domain in one master connection can reserve at most that many worker threads at any one time, leaving the rest (up to the value of [slave\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_parallel_threads)) free for other master connections
   or replication domains to use in parallel. See [Parallel Replication](parallel-replication.md#configuration-variable-slave_domain_parallel_threads) for details.
 * Command line: `--slave-domain-parallel-threads=#`
 * Scope: Global
@@ -893,7 +893,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_exec_mode`
 
-* Description: Determines the mode used for [replication](./) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are Galera nodes, multiple primaries, or circular replication. In MariaDB Enterprise Server 12.3, `IDEMPOTENT` also disables the before-image consistency check used by [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), and the combination of the two is not supported.
+* Description: Determines the mode used for [replication](./) error checking and conflict resolution. `STRICT` mode is the default, and catches all errors and conflicts. `IDEMPOTENT` mode suppresses duplicate key or no key errors, which can be useful in certain replication scenarios, such as when there are Galera nodes, multiple masters, or circular replication. In MariaDB Enterprise Server 12.3, `IDEMPOTENT` also disables the before-image consistency check used by [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md), and the combination of the two is not supported.
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `enumeration`
@@ -902,7 +902,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_load_tmpdir`
 
-* Description: Directory where the replica stores temporary files for [replicating](./) [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statements. If not set, the replica uses [tmpdir](../optimization-and-tuning/system-variables/server-system-variables.md#tmpdir). Should be set to a disk-based directory that survives restarts, or else replication can fail.
+* Description: Directory where the slave stores temporary files for [replicating](./) [LOAD DATA INFILE](../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statements. If not set, the slave uses [tmpdir](../optimization-and-tuning/system-variables/server-system-variables.md#tmpdir). Should be set to a disk-based directory that survives restarts, or else replication can fail.
 * Command line: `--slave-load-tmpdir=path`
 * Scope: Global
 * Dynamic: No
@@ -911,7 +911,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_max_allowed_packet`
 
-* Description: Maximum packet size in bytes for replica SQL and I/O threads. This value overrides [max\_allowed\_packet](../optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) for [replication](./) purposes. Set in multiples of 1024 (the minimum) up to 1GB
+* Description: Maximum packet size in bytes for slave SQL and I/O threads. This value overrides [max\_allowed\_packet](../optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) for [replication](./) purposes. Set in multiples of 1024 (the minimum) up to 1GB
 * Command line: `--slave-max-allowed-packet=#`
 * Scope: Global
 * Dynamic: Yes
@@ -921,7 +921,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_max_statement_time`
 
-* Description: A query that has taken more than this in seconds to run on the replica is aborted. The argument is treated as a decimal value with microsecond precision. A value of `0` (default) means no timeout.
+* Description: A query that has taken more than this in seconds to run on the slave is aborted. The argument is treated as a decimal value with microsecond precision. A value of `0` (default) means no timeout.
 * Command line: `--slave-max-statement-time=#`
 * Scope: Global
 * Dynamic: Yes
@@ -932,7 +932,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_net_timeout`
 
-* Description: Time in seconds for the replica to wait for more data from the primary before considering the connection broken, after which it aborts the read and attempt to reconnect. The retry interval is determined by the `MASTER_CONNECT_RETRY` open for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement, while the maximum number of reconnection attempts is set by the [master-retry-count](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option. The first reconnect attempt takes place immediately.
+* Description: Time in seconds for the slave to wait for more data from the master before considering the connection broken, after which it aborts the read and attempt to reconnect. The retry interval is determined by the `MASTER_CONNECT_RETRY` open for the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) statement, while the maximum number of reconnection attempts is set by the [master-retry-count](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md#master-retry-count) option. The first reconnect attempt takes place immediately.
 * Command line: `--slave-net-timeout=#`
 * Scope: Global
 * Dynamic: Yes
@@ -948,7 +948,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
     * [slave\_parallel\_max\_queued](replication-and-binary-log-system-variables.md) \* [slave\_parallel\_threads](replication-and-binary-log-system-variables.md)
   * This system variable is only meaningful when parallel
     replication is configured (i.e. when [slave\_parallel\_threads](replication-and-binary-log-system-variables.md) > `0`).
-  * See [Parallel Replication: Configuring the Maximum Size of the Parallel Replica Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-replica-queue) for more information.
+  * See [Parallel Replication: Configuring the Maximum Size of the Parallel Slave Queue](parallel-replication.md#configuring-the-maximum-size-of-the-parallel-replica-queue) for more information.
 * Command line: `--slave-parallel-max-queued=#`
 * Scope: Global
 * Dynamic: Yes
@@ -964,7 +964,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
   * `aggressive`: tries to maximize the parallelism, possibly at the cost of increased conflict rate.
   * `minimal`: only parallelizes the commit steps of transactions.
   * `none` disables parallel apply completely.
-* In MariaDB Enterprise Server 12.3, a replica that uses [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) must be set to `optimistic` or a more conservative value. Conflicts are not routed to a CDR trigger in `aggressive` mode.
+* In MariaDB Enterprise Server 12.3, a slave that uses [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) must be set to `optimistic` or a more conservative value. Conflicts are not routed to a CDR trigger in `aggressive` mode.
 * Command line: None
 * Scope: Global
 * Dynamic: Yes
@@ -975,11 +975,11 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 #### `slave_parallel_threads`
 
 * Description: This system variable is used to configure [parallel replication](parallel-replication.md).
-  * If this system variable is set to a value greater than `0`, then its value determines how many replica [worker threads](replication-threads.md#worker-threads) are created to apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events in parallel.
-  * If this system variable is set to `0` (which is the default value), no replica [worker threads](replication-threads.md#worker-threads) are created. Instead, when replication is enabled, [binary log](../../server-management/server-monitoring-logs/binary-log/) events are applied by the replica's [SQL thread](replication-threads.md#replica-sql-thread).
-  * The [replica threads](replication-threads.md#threads-on-the-replica) must be [stopped](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) in order to change this option's value dynamically.
+  * If this system variable is set to a value greater than `0`, then its value determines how many slave [worker threads](replication-threads.md#worker-threads) are created to apply [binary log](../../server-management/server-monitoring-logs/binary-log/) events in parallel.
+  * If this system variable is set to `0` (which is the default value), no slave [worker threads](replication-threads.md#worker-threads) are created. Instead, when replication is enabled, [binary log](../../server-management/server-monitoring-logs/binary-log/) events are applied by the slave's [SQL thread](replication-threads.md#replica-sql-thread).
+  * The [slave threads](replication-threads.md#threads-on-the-replica) must be [stopped](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) in order to change this option's value dynamically.
   * Events that were logged with [GTIDs](gtid/README.md) with different [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) values can be applied in parallel in an [out-of-order](parallel-replication.md#out-of-order-parallel-replication) manner. Each [gtid\_domain\_id](gtid/gtid-system-variables.md#gtid_domain_id) can use the number of threads configured by [slave\_domain\_parallel\_threads](replication-and-binary-log-system-variables.md#slave_domain_parallel_threads).
-  * Events that were [group-committed](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the primary can be applied in parallel in an [in-order](parallel-replication.md#in-order-parallel-replication) manner, and the specific behavior can be configured by setting [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode).
+  * Events that were [group-committed](../../server-management/server-monitoring-logs/binary-log/group-commit-for-the-binary-log.md) on the master can be applied in parallel in an [in-order](parallel-replication.md#in-order-parallel-replication) manner, and the specific behavior can be configured by setting [slave\_parallel\_mode](replication-and-binary-log-system-variables.md#slave_parallel_mode).
 * Command line: `--slave-parallel-threads=#`
 * Scope: Global
 * Dynamic: Yes
@@ -994,7 +994,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_run_triggers_for_rbr`
 
-* Description: See [Running triggers on the replica for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting. In MariaDB Enterprise Server 12.3, this variable also enables [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) on the replica.
+* Description: See [Running triggers on the slave for Row-based events](running-triggers-on-the-replica-for-row-based-events.md) for a description and use-case for this setting. In MariaDB Enterprise Server 12.3, this variable also enables [Conflict Detection and Resolution (CDR) triggers](conflict-detection-and-resolution-triggers.md) on the slave.
 * Command line: `--slave-run-triggers-for-rbr=value`
 * Scope: Global
 * Dynamic: Yes
@@ -1004,7 +1004,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_skip_errors`
 
-* Description: When an error occurs on the replica, [replication](./) usually halts. This option permits a list of [error codes](../../reference/error-codes/mariadb-error-code-reference.md) to ignore, and for which replication continues. This option should never be needed in normal use, and careless use could lead to replica that are out of sync with primaries. Error codes are in the format of the number from the replica error log. Using `all` as an option permits the replica the keep replicating no matter what error it encounters, an option you would never normally need in production, and which could rapidly lead to data inconsistencies. A count of these is kept in [slave\_skipped\_errors](replication-and-binary-log-status-variables.md#slave_skipped_errors).
+* Description: When an error occurs on the slave, [replication](./) usually halts. This option permits a list of [error codes](../../reference/error-codes/mariadb-error-code-reference.md) to ignore, and for which replication continues. This option should never be needed in normal use, and careless use could lead to slave that are out of sync with masters. Error codes are in the format of the number from the slave error log. Using `all` as an option permits the slave the keep replicating no matter what error it encounters, an option you would never normally need in production, and which could rapidly lead to data inconsistencies. A count of these is kept in [slave\_skipped\_errors](replication-and-binary-log-status-variables.md#slave_skipped_errors).
 * Command line: `--slave-skip-errors=[error_code1,error_code2,...|all]`
 * Scope: Global
 * Dynamic: No
@@ -1014,7 +1014,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_sql_verify_checksum`
 
-* Description: Verify [binlog checksums](binlog-event-checksums.md) when the replica SQL thread reads events from the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md).
+* Description: Verify [binlog checksums](binlog-event-checksums.md) when the slave SQL thread reads events from the [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md).
 * Command line: `--slave-sql-verify-checksum=[0|1]`
 * Scope: Global
 * Access Type: Can be changed dynamically
@@ -1023,7 +1023,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_transaction_retries`
 
-* Description: Number of times a [replication](./) replica retries to execute an SQL thread after it fails due to InnDB deadlock or by exceeding the transaction execution time limit. If after this number of tries the SQL thread has still failed to execute, the replica stops with an error. See also the [innodb\_lock\_wait\_timeout](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_lock_wait_timeout) system variable.
+* Description: Number of times a [replication](./) slave retries to execute an SQL thread after it fails due to InnDB deadlock or by exceeding the transaction execution time limit. If after this number of tries the SQL thread has still failed to execute, the slave stops with an error. See also the [innodb\_lock\_wait\_timeout](../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_lock_wait_timeout) system variable.
 * Command line: `--slave-transaction-retries=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1034,7 +1034,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_transaction_retry_errors`
 
-* Description: When an error occurs during a transaction on the replica, [replication](./) usually halts. By default, transactions that caused a deadlock or elapsed lock wait timeout is retried. One can add other errors to the list of errors that should be retried by adding a comma-separated list of [error numbers](../../reference/error-codes/mariadb-error-code-reference.md) to this variable. This is particularly useful in some [Spider](../../server-usage/storage-engines/spider/) setups. Some recommended errors to retry for Spider are 1020, 1158, 1159, 1160, 1161, 1429, 2013, 12701 (these are in the default value in recent versions).
+* Description: When an error occurs during a transaction on the slave, [replication](./) usually halts. By default, transactions that caused a deadlock or elapsed lock wait timeout is retried. One can add other errors to the list of errors that should be retried by adding a comma-separated list of [error numbers](../../reference/error-codes/mariadb-error-code-reference.md) to this variable. This is particularly useful in some [Spider](../../server-usage/storage-engines/spider/) setups. Some recommended errors to retry for Spider are 1020, 1158, 1159, 1160, 1161, 1429, 2013, 12701 (these are in the default value in recent versions).
 * Command line: `--slave-transaction_retry-errors=[error_code1,error_code2,...]`
 * Scope: Global
 * Dynamic: No
@@ -1047,7 +1047,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_transaction_retry_interval`
 
-* Description: Interval in seconds for the replica SQL thread to retry a failed transaction due to a deadlock, elapsed lock waits timeout or an error listed in [slave\_transaction\_retry\_errors](replication-and-binary-log-system-variables.md#slave_transaction_retry_errors). The interval is calculated as `max(slave_transaction_retry_interval, min(retry_count, 5))`.
+* Description: Interval in seconds for the slave SQL thread to retry a failed transaction due to a deadlock, elapsed lock waits timeout or an error listed in [slave\_transaction\_retry\_errors](replication-and-binary-log-system-variables.md#slave_transaction_retry_errors). The interval is calculated as `max(slave_transaction_retry_interval, min(retry_count, 5))`.
 * Command line: `--slave-transaction-retry-interval=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1057,11 +1057,11 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `slave_type_conversions`
 
-* Description: Determines the type conversion mode on the replica when using [row-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging) [replication](./), including replications in MariaDB Galera cluster. Multiple options can be set, delimited by commas. If left empty, the default, type conversions are disallowed. The variable is dynamic and a change in its value takes effect immediately. This variable tells the server what to do if the table definition is different between the primary and replica (for example a column has a data type of `INT` on the primary and `BIGINT` on the replica).
+* Description: Determines the type conversion mode on the slave when using [row-based](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#row-based-logging) [replication](./), including replications in MariaDB Galera cluster. Multiple options can be set, delimited by commas. If left empty, the default, type conversions are disallowed. The variable is dynamic and a change in its value takes effect immediately. This variable tells the server what to do if the table definition is different between the master and slave (for example a column has a data type of `INT` on the master and `BIGINT` on the slave).
   * `ALL_NON_LOSSY` means that all safe conversions (no data loss) are allowed.
   * `ALL_LOSSY` means that all lossy conversions are allowed (for example 'bigint' to 'int'). This, however, does not imply that safe conversions (non-lossy) are allowed as well. In order to allow all conversions, one needs to allow both lossy as well as non-lossy conversions by setting this variable to `ALL_NON_LOSSY,ALL_LOSSY`.
-  * Empty (default) means that the server gives an error and replication stops if the table definition is different between the primary and replica.
-  * `ERROR_IF_MISSING_FIELD`. This value is available from MariaDB 12.3. When provided, the replica aborts replication if it is missing a field that exists on the primary server. When absent, replication continues, although if [`log_warnings`](../optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is set to `1` or greater, a warning is logged to the error log.
+  * Empty (default) means that the server gives an error and replication stops if the table definition is different between the master and slave.
+  * `ERROR_IF_MISSING_FIELD`. This value is available from MariaDB 12.3. When provided, the slave aborts replication if it is missing a field that exists on the master server. When absent, replication continues, although if [`log_warnings`](../optimization-and-tuning/system-variables/server-system-variables.md#log_warnings) is set to `1` or greater, a warning is logged to the error log.
 * Command line: `--slave-type-conversions=set`
 * Scope: Global
 * Dynamic: Yes
@@ -1080,7 +1080,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `sql_slave_skip_counter`
 
-* Description: Number of events that a replica skips from the primary. If this would cause the replica to begin in the middle of an event group, the replica instead starts from the beginning of the next event group. See [SET GLOBAL sql\_slave\_skip\_counter](../../reference/sql-statements/administrative-sql-statements/replication-statements/set-global-sql_slave_skip_counter.md).
+* Description: Number of events that a slave skips from the master. If this would cause the slave to begin in the middle of an event group, the slave instead starts from the beginning of the next event group. See [SET GLOBAL sql\_slave\_skip\_counter](../../reference/sql-statements/administrative-sql-statements/replication-statements/set-global-sql_slave_skip_counter.md).
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`
@@ -1100,7 +1100,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `sync_master_info`
 
-* Description: A [replication](./) replica synchronizes its primary.info file to disk after this many events. If set to 0, the operating system handles flushing the file to disk.
+* Description: A [replication](./) slave synchronizes its master.info file to disk after this many events. If set to 0, the operating system handles flushing the file to disk.
 * Command line: `--sync-master-info=#`
 * Scope: Global
 * Dynamic: Yes
@@ -1109,9 +1109,9 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `sync_relay_log`
 
-* Description: The number of events after which the replica synchronizes its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) to disk. `1` is the safest, but slowest, choice, since the relay log is synced after every event. `0` disables explicit synchronization and leaves the timing to the operating system.
-  * The replica's IO thread writes each event to the relay log file as soon as it receives it, but the file is only synced to disk every `sync_relay_log` events. Events that have been written but not yet synced can be lost if the replica's host or operating system crashes.
-  * This matters for [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), where the replica acknowledges a transaction to the primary as soon as the transaction's events have been written to the relay log. Unless the relay log has been synced, an acknowledged transaction can still be lost by the replica although the primary has already treated it as safely replicated. Set `sync_relay_log=1` on semisynchronous replicas so that every event is synced before it is acknowledged.
+* Description: The number of events after which the slave synchronizes its [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md) to disk. `1` is the safest, but slowest, choice, since the relay log is synced after every event. `0` disables explicit synchronization and leaves the timing to the operating system.
+  * The slave's IO thread writes each event to the relay log file as soon as it receives it, but the file is only synced to disk every `sync_relay_log` events. Events that have been written but not yet synced can be lost if the slave's host or operating system crashes.
+  * This matters for [semisynchronous replication](semisynchronous-replication.md#relay-log-durability), where the slave acknowledges a transaction to the master as soon as the transaction's events have been written to the relay log. Unless the relay log has been synced, an acknowledged transaction can still be lost by the slave although the master has already treated it as safely replicated. Set `sync_relay_log=1` on semisynchronous slaves so that every event is synced before it is acknowledged.
   * A single transaction consists of several events, so `sync_relay_log=1` means several syncs per transaction. If the disk has a write cache backed by battery, synchronization is fast and a larger value can be chosen.
   * See `Syncing the Relay Log to Disk` on the Relay Log page for more information.
 * Command line: `--sync-relay-log=#`
@@ -1123,7 +1123,7 @@ Logging a `CREATE TEMPORARY` statement always requires `STATEMENT`, so any value
 
 #### `sync_relay_log_info`
 
-* Description: A [replication](./) replica synchronizes its `relay-log.info` file to disk after the specified number of transactions. `1` is the most secure choice, because at most one event can be lost in the event of a crash, but it's also the slowest.
+* Description: A [replication](./) slave synchronizes its `relay-log.info` file to disk after the specified number of transactions. `1` is the most secure choice, because at most one event can be lost in the event of a crash, but it's also the slowest.
 * Command line: `--sync-relay-log-info=#`
 * Scope: Global,
 * Dynamic: Yes

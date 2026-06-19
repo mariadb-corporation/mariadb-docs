@@ -115,7 +115,7 @@ In you specify `ON COMPLETION NOT PRESERVE`, and you specify a timestamp in the 
 
 #### ENABLE/DISABLE/DISABLE ON SLAVE
 
-Events are `ENABLE`d by default. If you want to stop MariaDB from executing an event, you may specify `DISABLE`. When it is ready to be activated, you may enable it using [ALTER EVENT](../../../../server-usage/triggers-events/event-scheduler/alter-event.md). Another option is `DISABLE ON SLAVE`, which indicates that an event was created on a master and has been replicated to the slave, which is prevented from executing the event. If `DISABLE ON SLAVE` is specifically set, the event will be disabled everywhere. It will not be executed on the master or the replicas.
+Events are `ENABLE`d by default. If you want to stop MariaDB from executing an event, you may specify `DISABLE`. When it is ready to be activated, you may enable it using [ALTER EVENT](../../../../server-usage/triggers-events/event-scheduler/alter-event.md). Another option is `DISABLE ON SLAVE`, which indicates that an event was created on a master and has been replicated to the slave, which is prevented from executing the event. If `DISABLE ON SLAVE` is specifically set, the event will be disabled everywhere. It will not be executed on the master or the slaves.
 
 #### COMMENT
 

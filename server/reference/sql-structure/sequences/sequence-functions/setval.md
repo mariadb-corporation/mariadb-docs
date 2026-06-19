@@ -26,7 +26,7 @@ The result returned by `SETVAL()` is `next_value` or NULL if the given `next_val
 
 If `CYCLE` is used, first `round` and then `next_value` are compared to see if the value is bigger than the current value.
 
-Internally, in the MariaDB server, `SETVAL()` is used to inform replicas that a `SEQUENCE` has changed value. The replica may get`SETVAL()` statements out of order, but this is ok as only the biggest one will have an effect.
+Internally, in the MariaDB server, `SETVAL()` is used to inform slaves that a `SEQUENCE` has changed value. The slave may get`SETVAL()` statements out of order, but this is ok as only the biggest one will have an effect.
 
 `SETVAL` requires the [INSERT privilege](../../../sql-statements/account-management-sql-statements/grant.md).
 

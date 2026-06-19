@@ -18,7 +18,7 @@ Returns a "short" universally unique identifier as a 64-bit unsigned integer (ra
 
 The value of `UUID_SHORT()` is guaranteed to be unique if the following conditions hold:
 
-* The server\_id of the current host is unique among your set of master and replica servers.
+* The server\_id of the current host is unique among your set of master and slave servers.
 * `server_id` is between 0 and 255.
 * You don't set back your system time for your server between mariadbd restarts.
 * You do not invoke `UUID_SHORT()` on average more than 16 million times per second between mariadbd restarts
