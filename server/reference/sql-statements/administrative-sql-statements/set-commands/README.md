@@ -38,7 +38,7 @@ Map strings to a specific character set. This command updates the character set 
 {% endcolumn %}
 
 {% column %}
-SET GLOBAL sql_slave_skip_counter skips the next N events from the primary to recover from replication stops, and is valid only while the replica threads are stopped.
+SET GLOBAL sql_slave_skip_counter skips the next N events from the master to recover from replication stops, and is valid only while the slave threads are stopped.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -86,7 +86,7 @@ SET PATH sets the list of schemas MariaDB searches when invoking stored routines
 {% endcolumn %}
 
 {% column %}
-Enable or disable binary logging for the current session. This statement allows administrators to perform operations without replicating them to replicas.
+Enable or disable binary logging for the current session. This statement allows administrators to perform operations without replicating them to slaves.
 {% endcolumn %}
 {% endcolumns %}
 

@@ -267,7 +267,7 @@ CREATE TABLE "t1" (
 This created two problems:
 
 * It was not clear whether DATE referred to the MariaDB DATE type or the Oracle-compatible DATETIME.
-* It broke replication, causing a data type mismatch between the primary and the replica. (see [MDEV-19632](https://jira.mariadb.org/browse/MDEV-19632)).
+* It broke replication, causing a data type mismatch between the master and the slave. (see [MDEV-19632](https://jira.mariadb.org/browse/MDEV-19632)).
 
 To address this problem, MariaDB included schema qualifiers to explicitly qualify data types:
 

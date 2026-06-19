@@ -46,7 +46,7 @@ Executing the `CREATE TABLE` statement requires the [CREATE](../../account-manag
 
 If the `OR REPLACE` clause is used and the table already exists, then instead of returning an error, the server will replace the existing table with the newly defined table.
 
-This syntax was originally added to make [replication](../../../../ha-and-performance/standard-replication/) more robust if it has to rollback and repeat statements such as `CREATE ... SELECT` on replicas.
+This syntax was originally added to make [replication](../../../../ha-and-performance/standard-replication/) more robust if it has to rollback and repeat statements such as `CREATE ... SELECT` on slaves.
 
 ```sql
 CREATE OR REPLACE TABLE table_name (a INT);
@@ -72,13 +72,13 @@ The server drops the existing table first, as in the `DROP TABLE IF EXISTS` and 
 * The statement creates a `TEMPORARY` table.
 * The existing object is a view.
 * The existing table uses a storage engine for which renaming a table is expensive, such as [S3](../../../../server-usage/storage-engines/s3-storage-engine/README.md).
-* The statement runs on a [replica](../../../../ha-and-performance/standard-replication/) as part of replication.
+* The statement runs on a [slave](../../../../ha-and-performance/standard-replication/) as part of replication.
 
 ### Things to be Aware of With CREATE OR REPLACE
 
 * Before MariaDB 13.2, and in the cases listed above where the existing table is dropped first, the table is dropped (if it existed), and after that, the `CREATE` is done. Because of this, if the `CREATE` fails, then the table will not exist anymore after the statement. If the table was used with `LOCK TABLES`, it will be unlocked.
 * One can't use `OR REPLACE` together with `IF EXISTS`.
-* [Replicas](../../../../ha-and-performance/standard-replication/) will, by default, use `CREATE OR REPLACE` when replicating `CREATE` statements that don't use `IF EXISTS`. This can be changed by setting the variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
+* [Slaves](../../../../ha-and-performance/standard-replication/) will, by default, use `CREATE OR REPLACE` when replicating `CREATE` statements that don't use `IF EXISTS`. This can be changed by setting the variable [slave-ddl-exec-mode](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) to `STRICT`.
 
 ## CREATE TABLE IF NOT EXISTS
 
@@ -114,7 +114,7 @@ Before MariaDB 10.7:
 From MariaDB 12.0:
 {% endhint %}
 
-By default, temporary tables are only created on the replica if the primary is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
+By default, temporary tables are only created on the slave if the master is using the [STATEMENT binary log format](../../../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging).
 
 The new deterministic rules for logging of temporary tables are:
 
@@ -128,12 +128,12 @@ The new deterministic rules for logging of temporary tables are:
 Before MariaDB 12.0:
 {% endhint %}
 
-In some contexts, temporary tables on the primary and replica can become inconsistent.\
-One example is if a temporary table is updated with the value of a non deterministic function like [UUID](../../../sql-functions/secondary-functions/miscellaneous-functions/uuid.md)(), in which the change is never sent to the replica.
+In some contexts, temporary tables on the master and slave can become inconsistent.\
+One example is if a temporary table is updated with the value of a non deterministic function like [UUID](../../../sql-functions/secondary-functions/miscellaneous-functions/uuid.md)(), in which the change is never sent to the slave.
 
 In some other contexts, while using `MIXED` mode, all changes will be logged in `ROW` mode while the user has any active temporary tables, even if the temporary tables are not used in the query. This depends on in which format some previous independent commands were logged.
 
-There are many other pitfalls with logging temporary table to the replica.
+There are many other pitfalls with logging temporary table to the slave.
 {% endtab %}
 {% endtabs %}
 
@@ -701,7 +701,7 @@ MyISAM uses `MAX_ROWS` and `AVG_ROW_LENGTH` to decide the maximum size of a tabl
 
 ### DATA DIRECTORY/INDEX DIRECTORY
 
-`DATA DIRECTORY` and `INDEX DIRECTORY` are supported for MyISAM and Aria, and DATA DIRECTORY is also supported by InnoDB if the [innodb\_file\_per\_table](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is enabled, but only in CREATE TABLE, not in [ALTER TABLE](../alter/alter-table/). So, carefully choose a path for InnoDB tables at creation time, because it cannot be changed without dropping and re-creating the table. These options specify the paths for data files and index files, respectively. If these options are omitted, the database's directory will be used to store data files and index files. Note that these table options do not work for [partitioned](../../../../server-usage/partitioning-tables/) tables (use the partition options instead), or if the server has been invoked with the [--skip-symbolic-links startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). To avoid the overwriting of old files with the same name that could be present in the directories, you can use [the --keep\_files\_on\_create option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) (an error will be issued if files already exist). These options are ignored if the `NO_DIR_IN_CREATE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled (useful for replicas). Also note that symbolic links cannot be used for InnoDB tables.
+`DATA DIRECTORY` and `INDEX DIRECTORY` are supported for MyISAM and Aria, and DATA DIRECTORY is also supported by InnoDB if the [innodb\_file\_per\_table](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_file_per_table) server system variable is enabled, but only in CREATE TABLE, not in [ALTER TABLE](../alter/alter-table/). So, carefully choose a path for InnoDB tables at creation time, because it cannot be changed without dropping and re-creating the table. These options specify the paths for data files and index files, respectively. If these options are omitted, the database's directory will be used to store data files and index files. Note that these table options do not work for [partitioned](../../../../server-usage/partitioning-tables/) tables (use the partition options instead), or if the server has been invoked with the [--skip-symbolic-links startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md). To avoid the overwriting of old files with the same name that could be present in the directories, you can use [the --keep\_files\_on\_create option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) (an error will be issued if files already exist). These options are ignored if the `NO_DIR_IN_CREATE` [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) is enabled (useful for slaves). Also note that symbolic links cannot be used for InnoDB tables.
 
 `DATA DIRECTORY` works by creating symlinks from where the table would normally have been (inside the [datadir](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir)) to where the option specifies. For security reasons, to avoid bypassing the privilege system, the server does not permit symlinks inside the datadir. Therefore, `DATA DIRECTORY` cannot be used to specify a location inside the datadir. An attempt to do so will result in an error `1210 (HY000) Incorrect arguments to DATA DIRECTORY`.
 
