@@ -32,7 +32,7 @@ MariaDB 13.1 is a [rolling release](../about/release-model.md). It is an evoluti
  * `AND`/`OR` can now short-circuit the execution for any argument not in a strictly left-to-right fashion ([MDEV-37713](https://jira.mariadb.org/browse/MDEV-37713), [MDEV-37714](https://jira.mariadb.org/browse/MDEV-37714))
  * `XXH3`, `XXH32`, `XXH64`, `XXH128` family of hash functions ([MDEV-38180](https://jira.mariadb.org/browse/MDEV-38180))
  * Adaptive hash index statistics is shown in ANALYZE FORMAT=JSON ([MDEV-38305](https://jira.mariadb.org/browse/MDEV-38305))
- * Optimizer Trace Replay ([MDEV-38701](https://jira.mariadb.org/browse/MDEV-38701))
+ * Optimizer Context Recorder to record the optimizer data and then analyze query optimization on another server instance ([MDEV-38701](https://jira.mariadb.org/browse/MDEV-38701))
  * `innodb_tablespace_size_warning_threshold` and `innodb_tablespace_size_warning_pct` variables to get a warning when InnoDB tablespace is getting close to full (before it's 100% full and the service is disrupted) ([MDEV-38936](https://jira.mariadb.org/browse/MDEV-38936))
  * MEMORY tables support variable-length data types, `VARCHAR` and `TEXT`/`BLOB` ([MDEV-38975](https://jira.mariadb.org/browse/MDEV-38975))
  * Local routine variables usable in `PREPARE`/`EXECUTE`/`DEALLOCATE` and `OPEN ... FOR` ([MDEV-39022](https://jira.mariadb.org/browse/MDEV-39022))
