@@ -23,6 +23,16 @@ This page lists all CVEs that were fixed in MySQL and mentioned in Oracle CPU Ad
 
 <details>
 
+<summary>June 2026</summary>
+
+[**June 2026**](https://www.oracle.com/security-alerts/cspujun2026.html#AppendixMSQL)
+
+* [CVE-2026-46863](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-46863)
+
+</details>
+
+<details>
+
 <summary>April 2026</summary>
 
 [**April 2026**](https://www.oracle.com/security-alerts/cpuapr2026.html#AppendixMSQL)
