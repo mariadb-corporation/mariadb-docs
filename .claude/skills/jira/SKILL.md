@@ -164,8 +164,24 @@ Use when the doc PR is open and ready for editorial review. Moves the ticket to 
      commentBody="Docs PR: [<repo>#<n>](<pr-url>)", contentFormat="markdown")
    ```
    `contentFormat="markdown"` is required or links render as literal text.
-5. **Transition to `Review`** (id 2) — fetch live transitions, match by name.
-6. **Confirm**: `Ticket / Status: Review / PR link`.
+5. **Post the fact-check report** (the paper trail — `dev-docs/cookbook-fact-trail.md`). Read
+   `reports_dir` from `.claude/doc-sources.local.json` and find the report by key (it's grouped by
+   space, so don't assume a flat path):
+   ```bash
+   report="$(find "$reports_dir" -type d -name 'DOCS-XXXX' -not -path '*/runs/*' | head -1)/report.md"
+   ```
+   - If found, post its **full contents** as a second Markdown comment:
+     ```
+     addCommentToJiraIssue(cloudId, issueIdOrKey="DOCS-XXXX",
+       commentBody="### Fact-check report\n\n<report file contents>", contentFormat="markdown")
+     ```
+     Then update the report's header `Status:` to `handed-off` and regenerate `INDEX.md` (cookbook).
+   - If **not found**, don't fabricate one — warn the user that this ticket has no fact-check
+     report (expected from `/doc-ticket`) and ask whether to resolve without it. A doc edit with
+     no report is a gap, not a hard stop.
+   - Skip silently for tickets that aren't doc-content edits (e.g. an Epic, a tooling task).
+6. **Transition to `Review`** (id 2) — fetch live transitions, match by name.
+7. **Confirm**: `Ticket / Status: Review / PR link / report posted (yes|no)`.
 
 ## Procedure: CLOSE (`/jira-close DOCS-XXXX`) — final step after merge
 
