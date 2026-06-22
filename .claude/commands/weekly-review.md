@@ -9,9 +9,11 @@ report at the end.
 
 ## Inputs (all LOCAL — that's why this runs locally, not as a cloud routine)
 
-1. **Session transcripts** — under `~/.claude/projects/-Users-tauseefkhanmdb-Documents-GitHub-mariadb-docs/`.
+1. **Session transcripts** — under `~/.claude/projects/-Users-stefanhinz-maria/`.
+   (Machine-specific: this is the project dir for a session launched from `/Users/stefanhinz/maria`;
+   adjust it to your own checkout's project dir if you run this elsewhere.)
    Find session files modified in the last 7 days:
-   `find ~/.claude/projects/-Users-tauseefkhanmdb-Documents-GitHub-mariadb-docs -name '*.jsonl' -mtime -7 -print` (also check `.json`).
+   `find ~/.claude/projects/-Users-stefanhinz-maria -name '*.jsonl' -mtime -7 -print` (also check `.json`).
    Sample / skim them (they can be large — use `jq`/`grep` to pull user messages, tool names, and
    DOCS-XXXX mentions rather than reading whole files).
 2. **Research paper trail** — `research/*.md` in the repo (gitignored). List those modified in the
@@ -19,6 +21,10 @@ report at the end.
 3. **DOCS tickets** — derive the set of `DOCS-XXXX` ids touched this week from the transcripts and
    research notes. If the Atlassian (`atlassian-mariadb` / Rovo) MCP is available, optionally fetch
    their current status; if not, just list the ids.
+4. **In-flight skill proposals** — `dev-docs/skill-proposals/*.md` and `dev-docs/agent-improvements/*.md`.
+   For each, read its `**Related tickets:**` DOCS id; if the Atlassian MCP is available, optionally
+   fetch the ticket status and whether its PR merged. These are tracked so proposals (e.g.
+   `jira-chase`, DOCS-6274) don't stall unnoticed between filing and promotion.
 
 ## Steps
 
@@ -43,6 +49,14 @@ For each recurring pattern that showed up **3+ times** or cost real repeated eff
 - **Proposal** — a concrete new skill or `/slash-command` (name + one-line purpose), or "fold into
   an existing skill X".
 - **Confidence** — high/medium/low.
+
+### 3. In-flight proposals — status & promotion
+For each open proposal under `dev-docs/skill-proposals/` and `dev-docs/agent-improvements/`:
+- **Proposal** — name + DOCS ticket + PR (if any).
+- **Status** — proposed / in review / dogfooding / ready to promote / stalled.
+- **Dogfood signal** — how often the proposed skill's pattern showed up in this week's transcripts
+  (e.g. `jira-chase` chasing DOCS reviewers), plus any friction noticed.
+- **Recommended next step** — advance, revise, or drop. (Report only — don't act.)
 
 End with a single recommended next action (e.g. "file a propose-improvement for /foo"), but do NOT
 act on it — leave that to me.
