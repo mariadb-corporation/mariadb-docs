@@ -1,8 +1,7 @@
 ---
 description: >-
-  How to obtain the complete list of MariaDB MaxScale runtime and build
-  dependencies on Debian, Ubuntu, RHEL, Rocky Linux, Alma Linux, SLES, and
-  container images.
+  How to obtain the complete list of MariaDB MaxScale runtime dependencies on
+  Debian, Ubuntu, RHEL, Rocky Linux, Alma Linux, SLES, and container images.
 ---
 
 # MaxScale Dependencies
@@ -97,11 +96,3 @@ ldd /usr/lib/*/maxscale/*.so       # adjust path for your distribution layout
 ```
 
 This is the most reliable way to answer "Does my host have everything MaxScale needs?" — `ldd` reports any unresolved symbols as `not found`.
-
-## Building from source
-
-When you build MaxScale from source, build-time dependencies are exhaustive and distribution-specific. The canonical list is the script that the MariaDB build infrastructure itself uses:
-
-[`BUILD/install_build_deps.sh`](https://github.com/mariadb-corporation/MaxScale/blob/develop/BUILD/install_build_deps.sh) in the MaxScale source repository contains the full `apt-get install`, `yum install`, and `zypper install` invocations for every supported build platform. Running it (as root) installs everything required to build MaxScale on that host.
-
-For step-by-step source-build instructions, see [Building MariaDB MaxScale from Source Code](https://github.com/mariadb-corporation/MaxScale/blob/develop/Documentation/Getting-Started/Building-MaxScale-from-Source-Code.md) in the MaxScale repository.
