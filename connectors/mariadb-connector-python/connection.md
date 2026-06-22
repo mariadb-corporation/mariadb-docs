@@ -60,8 +60,11 @@ The `mariadb.connect()` function accepts the following parameters:
 
 ### Configuration File Parameters
 
-- **`default_file`** (`str`) - Read connection options from the specified MariaDB option file. On Windows the file must be a `.ini` file. If an empty string is passed, the connector reads from the default configuration files. Default: `None`
-- **`default_group`** (`str`) - Read connection options from the specified group within the option file. If not given, the default group name is the connection type. Default: `None`
+- **`default_file`** (`str`) - Read connection options from a MariaDB/MySQL option file. Option files are read only if this parameter or `default_group` is set. Explicit connection arguments take precedence over option-file values. On Windows the file must be an `.ini` file. Default: `None`
+  - `None` (the default) reads no option file.
+  - A path reads only that file.
+  - An empty string (`""`) reads the default option files instead: `/etc`, `/etc/mysql`, `$MARIADB_HOME`/`$MYSQL_HOME`, and `~/.my.cnf`.
+- **`default_group`** (`str`) - An additional option-file group to read, on top of the always-read `[client]`, `[client-server]`, and `[client-mariadb]` groups. Setting it without `default_file` triggers reading of the default option files. Default: `None`
 
 For a description of configuration file handling and accepted settings, see the [Configuration files](https://github.com/mariadb-corporation/mariadb-connector-c/wiki/config_files#configuration-options) chapter of the MariaDB Connector/C documentation.
 
