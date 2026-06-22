@@ -264,6 +264,7 @@
   * [PHP](other/mariadb-php-connectors-guide.md)
   * [RMariaDB: MariaDB Driver for R](other/rmariadb.md)
   * [Ruby](other/mariadb-connector-ruby-guide.md)
+  * [Rust](other/mariadb-rust-connector-guide.md)
   * [LangChain MariaDB](other/langchain-mariadb/README.md)
     * [API Reference](other/langchain-mariadb/api-reference/README.md)
       * [Vector Stores](other/langchain-mariadb/api-reference/vectorstores.md)
