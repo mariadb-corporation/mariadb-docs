@@ -275,7 +275,7 @@ Make sure when rotating the token, to do so in advance of the token expiring.
 2.  **Restart MariaDB Pods.** MariaDB will continue using the old token until the Pods are restarted. You can add the following annotation to the Pods in order to trigger an update, see the [updates documentation](https://mariadb.com/docs/tools/mariadb-enterprise-operator/updates) for further detail:
 
     ```yaml
-    apiVersion: k8s.mariadb.com/v1alpha1
+    apiVersion: enterprise.mariadb.com/v1alpha1
     kind: MariaDB
     metadata:
       name: mariadb
