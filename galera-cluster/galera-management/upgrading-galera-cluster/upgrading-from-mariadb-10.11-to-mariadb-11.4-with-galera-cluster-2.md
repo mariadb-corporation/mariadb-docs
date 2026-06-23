@@ -13,8 +13,15 @@ description: >-
 
 As of MariaDB 12.3, Galera is no longer a dependency of the standard server packages ([MDEV-30953](https://jira.mariadb.org/browse/MDEV-30953)):
 
-* **Up to MariaDB 11.8**, the standard server package (`mariadb-server` on Debian/Ubuntu, `MariaDB-server` on RHEL/SLES) depended directly on `galera-4`.
-* **From MariaDB 12.3**, Galera is no longer a server dependency. A new package — `mariadb-server-galera` (Debian/Ubuntu) / `MariaDB-server-galera` (RHEL/SLES) — must be installed explicitly.
+{% tabs %}
+{% tab title="Up to MariaDB 11.8" %}
+The standard server package (`mariadb-server` on Debian/Ubuntu, `MariaDB-server` on RHEL/SLES) depends directly on `galera-4`.
+{% endtab %}
+
+{% tab title="From MariaDB 12.3" %}
+Galera is no longer a server dependency. A new package — `mariadb-server-galera` (Debian/Ubuntu) / `MariaDB-server-galera` (RHEL/SLES) — must be installed explicitly.
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 `galera-4` did not *become* `mariadb-server-galera`. `galera-4` is the wsrep provider library and still exists in MariaDB 12.3 — `mariadb-server-galera` depends on it. What moved is the dependency, not the package identity: Galera is still shipped in the MariaDB repositories, but it is no longer installed automatically with `mariadb-server`.
