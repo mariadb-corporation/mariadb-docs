@@ -14,6 +14,11 @@ In order to use the tarball, the following libraries are required:
 * libatomic
 * unixODBC
 
+In addition, in order to use the `maxctrl` command line client, you'll need to
+install Node.js. The minimum required version is Node.js 10 but we recommend
+using the latest LTS release of Node.js if the one in the operating system
+repositories is old.
+
 The tarball has been built with the assumption that it will be installed in `/usr/local`.\
 However, it is possible to install it in any directory, but in that case MariaDB MaxScale\
 must be invoked with a flag.
