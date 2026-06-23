@@ -32,6 +32,10 @@ The functionality of `mariadb-install-db.exe` is comparable with the shell scrip
 | `-c`, `--config`                   | `my.ini` config template file, since `MariaDB 10.6.1` |
 
 {% hint style="info" %}
+`--config` takes a **template** option file: `mariadb-install-db.exe` copies it into the data directory as `my.ini` and then appends the server settings it generates (such as `datadir` and `port`). The template must be a valid option file. Note that `config` is a command-line option of this tool, not a server variable, so it must not appear as a setting inside the template.
+{% endhint %}
+
+{% hint style="info" %}
 **T**o create a Windows service, `mariadb-install-db.exe` should be run\
 by a user with full administrator privileges (which means elevated command\
 prompt on systems with UAC).
