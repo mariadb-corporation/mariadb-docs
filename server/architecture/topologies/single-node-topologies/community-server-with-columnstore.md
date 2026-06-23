@@ -459,7 +459,7 @@ For single-node ColumnStore deployments, only a single user account needs to be 
 
 ### Create the Cross Engine Join User
 
-The credentials for cross engine joins were previously configured in the [Cross Engine Joins](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/managing-columnstore-database-environment/configuring-columnstore-cross-engine-joins) section. The user account must also be created and granted the necessary privileges to access data.
+The credentials for cross engine joins were previously configured in the [Cross Engine Joins](community-server-with-columnstore.md#configure-cross-engine-joins) section. The user account must also be created and granted the necessary privileges to access data.
 
 1.  Connect to the server using [MariaDB Client](../../../clients-and-utilities/server-client-software/client-libraries/connect-and-query.md#mariadb-client) using the `root@localhost` user account:
 
