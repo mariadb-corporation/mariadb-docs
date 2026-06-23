@@ -587,7 +587,7 @@ For deployments in AWS:
 
 Filestore is high-performance, fully managed storage for GCP (Google Cloud Platform).
 
-aFor ColumnStore deployments in GCP:
+for ColumnStore deployments in GCP:
 
 * Filestore is the recommended option for the Storage Manager directory.
 * Google Object Storage (S3-compatible) is the recommended option for data.

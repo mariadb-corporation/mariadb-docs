@@ -440,7 +440,7 @@ nosqlprotocol.password=thepassword
 
 then each MongoDB® client will use those credentials when accessing the\
 MariaDB server. Note that from the perspective of the MariaDB server, it\
-is not possibe to distinguish between different MongoDB® clients.
+is not possible to distinguish between different MongoDB® clients.
 
 #### Unique Credentials
 
@@ -1858,7 +1858,7 @@ The following fields are relevant.
 | usersInfo       | various | Specifies what to return. See below.                                           |
 | showCredentials | boolean | Optional, default false. Specifies whether the credentials should be returned. |
 
-The returned information depends the valie of `usersInfo`:
+The returned information depends the value of `usersInfo`:
 
 | Argument                              | Result                                                                              |
 | ------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -1977,7 +1977,7 @@ The following fields are relevant.
 
 **NOTE** Currently it is not possible to create indexes and thus there\
 will never be any indexes that could be dropped. However, provided the\
-specfied collection exists, dropping indexes will always succeed except\
+specified collection exists, dropping indexes will always succeed except\
 for an attempt to drop the built-in `_id_` index.
 
 #### fsync
@@ -2804,7 +2804,7 @@ MariaDB [(none)]> select * from test.collection;
 ```
 
 The collection `collection` is represented by a table `collection` with\
-the two colums `id` and `doc`. `id` is a virtual column whose content is\
+the two columns `id` and `doc`. `id` is a virtual column whose content is\
 the value of the `_id` field of the document in the `doc` column.
 
 All MongoDB® commands that _mongdbprotocol_ support (but for the ones that\
@@ -2828,7 +2828,7 @@ added can be found out like:
 }
 ```
 
-Similarily, the SQL of the `find` command can be find out like:
+Similarly, the SQL of the `find` command can be find out like:
 
 ```
 > db.runCommand({mxsDiagnose: {find: "collection"}});

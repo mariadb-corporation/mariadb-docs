@@ -91,7 +91,7 @@ if the query was a DELETE, SELECT, INSERT or UPDATE. The EXPLAIN will\
 be executed using the same connection that was used for executing the\
 original statement. In the normal case, the EXPLAIN will be executed\
 immediately after the original statement, but if the client is\
-streaming requests, an other statement may have been exceuted in\
+streaming requests, an other statement may have been executed in\
 between.
 
 EXPLAINs are not always executed, but the frequency is controlled by [explain\_entries](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#explain_entries) and [explain\_period](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#explain_period). The EXPLAIN results are included in\
@@ -446,7 +446,7 @@ second argument the results compared to the baseline.
 ### Continuous Reporting
 
 If the value of [report](mariadb-maxscale-2501-maxscale-2501-diff-router-for-comparing-servers.md#report) is something else but `never`, Diff\
-will continously log results to a file whose name is the concatenation\
+will continuously log results to a file whose name is the concatenation\
 for the main and other server followed by a timestamp. In the example\
 above, the name would be something like`MyServer1_MariaDB_112_2024-02-15_152838.json`.
 
@@ -606,7 +606,7 @@ be closed. By default it will not.
 * Max: 100
 * Default: 99
 
-Specifies the percentile of sampels that will be considered when\
+Specifies the percentile of samples that will be considered when\
 calculating the width and number of bins of the histogram.
 
 #### `qps_window`

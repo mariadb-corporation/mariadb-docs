@@ -904,7 +904,7 @@ _Nosqlprotocol_ translates that query into something like
 
 The former condition picks out objects whose `color` field contains a literal value `"red"` while the latter picks out objects whose `color` field contains an array containing the value `"color"`.
 
-In MariaDB Server it is currently not possible to create an index that would be appropritate for that use-case. It is also not possible to create an index that would work predictably, if the data types of the values of a field are different.
+In MariaDB Server it is currently not possible to create an index that would be appropriate for that use-case. It is also not possible to create an index that would work predictably, if the data types of the values of a field are different.
 
 Currently, an index is created with the assumption that the field is a literal text-value.
 
@@ -1559,7 +1559,7 @@ The following fields are relevant.
 | usersInfo       | various | Specifies what to return. See below.                                           |
 | showCredentials | boolean | Optional, default false. Specifies whether the credentials should be returned. |
 
-The returned information depends the valie of `usersInfo`:
+The returned information depends the value of `usersInfo`:
 
 | Argument                              | Result                                                                              |
 | ------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -2489,7 +2489,7 @@ For instance, the SQL that the insert command with which the document was added 
 }
 ```
 
-Similarily, the SQL of the `find` command can be find out like:
+Similarly, the SQL of the `find` command can be find out like:
 
 ```
 > db.runCommand({mxsDiagnose: {find: "collection"}});
