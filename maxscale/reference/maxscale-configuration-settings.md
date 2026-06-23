@@ -2308,7 +2308,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`&#x20;
-* Description: Log queries in canonical format,replacing user-defined constants with placeholders to ensure consistent and secure output.
+* Description: Log queries in canonical format, replacing user-defined constants with placeholders to ensure consistent and secure output.
 
 [**user**](maxscale-filters/maxscale-query-log-all-filter.md#user)
 
