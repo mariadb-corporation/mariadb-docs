@@ -262,7 +262,7 @@ The steps involved in the switchover operation are:
 
 If the switchover operation is stuck waiting for replicas to be in sync, you can check the `MariaDB` status to identify which replicas are causing the issue. Furthermore, if still in this step, you can cancel the switchover operation by setting back the `spec.replication.primary.podIndex` field back to the previous primary index.
 
-### Primary Graceful Shutdown Switchover
+### Switchover on Graceful Shutdown 
 
 The operator can automatically trigger a primary switchover when a primary `Pod` is gracefully shutdown. This is useful in scenarios such as node drains, where you want to gracefully move the primary to another node before the current one is terminated.
 
