@@ -542,7 +542,7 @@ In the examples above, a PVC with the default `StorageClass` will be provisioned
  Before using this feature, ensure that you meet the following prerequisites :
  - [external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter) and its CRs are installed in the cluster.
  - You have a compatible CSI driver that supports `VolumeSnapshots` installed in the cluster.
- - You have a `VolumeSnapshotClass` configured configured for your CSI driver.
+ - You have a `VolumeSnapshotClass` configured for your CSI driver.
 
 {% endhint %}
 

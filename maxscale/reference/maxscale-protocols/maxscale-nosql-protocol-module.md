@@ -962,7 +962,7 @@ docs.find({f: [1, 2, 3]}).hint();
 docs.find({f: {g:3}}).hint();
 ```
 
-Even integer values can be sought after using the index, but the index will not be used unless the the value is enclosed in quotes and the conversion is correct. For instance,
+Even integer values can be sought after using the index, but the index will not be used unless the value is enclosed in quotes and the conversion is correct. For instance,
 
 ```
 docs.find({f: "1"}).hint();

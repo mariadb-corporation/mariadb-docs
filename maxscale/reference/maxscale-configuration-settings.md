@@ -3559,7 +3559,7 @@ description: >-
 * Dynamic: Yes
 * Values: `close`, `ignore`
 * Default: `ignore`&#x20;
-* Description: Determines whether errors from replica servers close the session or are are ignored.
+* Description: Determines whether errors from replica servers close the session or are ignored.
 
 [**percentile**](maxscale-routers/maxscale-diff.md#percentile)
 

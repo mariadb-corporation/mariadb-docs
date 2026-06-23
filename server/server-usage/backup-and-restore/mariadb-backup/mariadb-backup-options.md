@@ -262,7 +262,7 @@ mariadb-backup --backup \
       --databases-exclude="example.table1 example.table2"
 ```
 
-To include databases in the backup, see the `--databases` option option.
+To include databases in the backup, see the `--databases` option.
 
 If a backup is a partial backup, then `mariadb-backup` records that detail in the `xtrabackup_info` file.
 

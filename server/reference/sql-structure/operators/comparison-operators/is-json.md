@@ -40,7 +40,7 @@ The object keys must be unique in order to use `WITH UNIQUE KEYS` option. `WITHO
 * JSON Validation is based on RFC 8259.
 * JSON literal names must be all lowercase: `true`, `false`, `null`.
 * Other literal names are not permitted.
-* `IS JSON` works in in generated columns, CHECK constraints, and DEFAULT expressions.
+* `IS JSON` works in generated columns, CHECK constraints, and DEFAULT expressions.
 
 ### Examples
 

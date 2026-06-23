@@ -3902,7 +3902,7 @@ comma-separated list of key-value arguments. The keys or values cannot contain\
 commas in them.
 
 Any values that are set to `auto` will be substituted with the value of the\
-corresponding MariaDB system variable. Any system variables that do not not\
+corresponding MariaDB system variable. Any system variables that do not\
 exist or have empty or null values will not be sent to the client. The system\
 variable values are read from the first `Master` server that's reachable from\
 the listener's service. If no `Master` server is reachable, the value is read\

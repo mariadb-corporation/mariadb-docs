@@ -1037,7 +1037,7 @@ With this configuration item it is specified in what circumstances MaxScale
 should write the last statements that a client sent to the log.
 
 If the statements end up being logged, they are logged into the MaxScale
-log as as notice level log messages well as the system journal, if
+log as notice level log messages well as the system journal, if
 enabled.
 
 * `never`: the statements are never logged and are only kept in memory. The

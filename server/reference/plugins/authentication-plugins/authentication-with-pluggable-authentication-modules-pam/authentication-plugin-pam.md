@@ -265,7 +265,7 @@ For MySQL compatibility, [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT
 
 ## Logging
 
-MariaDB PAM authentication can be collected from a variety from sources in the authentication framework, including the underlying PAM modules, the PAM authentication authentication plugin, and custom scripts like pam\_exec. The destination of these logs is decided by the layer that generated message and the configuration of your system.
+MariaDB PAM authentication can be collected from a variety of sources in the authentication framework, including the underlying PAM modules, the PAM authentication plugin, and custom scripts like pam\_exec. The destination of these logs is decided by the layer that generated message and the configuration of your system.
 
 ### PAM Module Logging
 
