@@ -87,8 +87,11 @@ The per-function entries are generated; the scaffold around them is not.
 - The body between the `BEGIN/END GENERATED` markers is produced by
   `agent-skills/extractor/extract_function_category.py` against the canonical
   `server/reference/sql-functions/**/<category>/` pages.
-- CI (`extract-function-skills.yml`, stub) re-runs the extractor when those
-  pages change and opens a regeneration PR, preserving the scaffold sections.
+- CI (`.github/workflows/extract-function-skills.yml`, weekly + manual) runs
+  `agent-skills/extractor/regenerate.py`, which re-runs the extractor for every
+  Tier 2 skill and rewrites only the content between the `BEGIN/END GENERATED`
+  markers; it opens a regeneration PR when anything drifted, scaffold preserved.
+  Run `regenerate.py --check` locally to see drift without writing.
 
 ## Update cadence and triggers
 
