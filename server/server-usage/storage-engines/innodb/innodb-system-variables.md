@@ -1799,7 +1799,7 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Introduced: [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/10.8/10.8.4), [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/10.9/10.9.2)
 
 {% hint style="info" %}
-A change requested with `SET GLOBAL innodb_log_file_buffering` is ignored while a `SET GLOBAL innodb_log_file_size` resize is in progress. From MariaDB 13.0 ([MDEV-39862](https://jira.mariadb.org/browse/MDEV-39862)), it is also ignored whenever InnoDB has more than one log file open on a circular-format log (`ib_logfile0`), such as during the tail of a resize or an `innodb_log_archive=ON` log-file switch. The change takes effect when InnoDB holds only one log file open, which is the case most of the time. The setting has no effect when the log is mapped to persistent memory (PMEM).
+A change requested with `SET GLOBAL innodb_log_file_buffering` takes effect only when InnoDB is holding a single log file open, which is the case most of the time. It is ignored while a `SET GLOBAL innodb_log_file_size` resize is in progress on a circular-format log (`ib_logfile0`). From MariaDB 13.0 ([MDEV-39862](https://jira.mariadb.org/browse/MDEV-39862)), it is also ignored while a log file switch is in progress with [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive) set to `ON`, because InnoDB then has more than one log file open; when this occurs, and how long it lasts, is hard to predict, as it depends on `innodb_log_file_size` and the workload. The setting also has no effect when the log is mapped to persistent memory (PMEM).
 
 Because the request can be silently ignored, confirm that it took effect by reading the value back:
 
@@ -1843,7 +1843,7 @@ SELECT @@GLOBAL.innodb_log_file_buffering;
 * Introduced: [MariaDB 11.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.0)
 
 {% hint style="info" %}
-A change requested with `SET GLOBAL innodb_log_file_write_through` is ignored while a `SET GLOBAL innodb_log_file_size` resize is in progress. From MariaDB 13.0 ([MDEV-39862](https://jira.mariadb.org/browse/MDEV-39862)), it is also ignored whenever InnoDB has more than one log file open on a circular-format log (`ib_logfile0`), such as during the tail of a resize or an `innodb_log_archive=ON` log-file switch. The change takes effect when InnoDB holds only one log file open, which is the case most of the time. The setting has no effect when the log is mapped to persistent memory (PMEM).
+A change requested with `SET GLOBAL innodb_log_file_write_through` takes effect only when InnoDB is holding a single log file open, which is the case most of the time. It is ignored while a `SET GLOBAL innodb_log_file_size` resize is in progress on a circular-format log (`ib_logfile0`). From MariaDB 13.0 ([MDEV-39862](https://jira.mariadb.org/browse/MDEV-39862)), it is also ignored while a log file switch is in progress with [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive) set to `ON`, because InnoDB then has more than one log file open; when this occurs, and how long it lasts, is hard to predict, as it depends on `innodb_log_file_size` and the workload. The setting also has no effect when the log is mapped to persistent memory (PMEM).
 
 Because the request can be silently ignored, confirm that it took effect by reading the value back:
 
