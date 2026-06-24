@@ -154,4 +154,4 @@ A prompt — `Run ANALYZE TABLE on target after load? (y/n)` — appears during 
 * The migration fails by default if the target database already exists. Set `ALLOW_TARGET_DB_OVERWRITE=1` only when an overwrite is intentional. (For `staged` `load_only`, the database list comes from the manifest, and the same overwrite check applies before the load begins.)
 * `root` source and target users are blocked by default; set `ALLOW_ROOT_USERS=1` to allow them.
 * Offline Copy per-database load resume is not supported. If a multi-database load fails partway through, drop the partially loaded databases on the target and re-run with `STAGED_PHASE=load_only`.
-* The migrator has been tested primarily on Ubuntu and Rocky Linux. Support hooks exist for other Linux distributions, but validate in your target environment before production use.
+* The migrator is built and tested for Linux on x86-64 and ARM64. Validate it in your target environment before production use.
