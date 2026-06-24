@@ -87,6 +87,6 @@ Use `TRUNCATE` only to fast-empty a standalone table outside a transaction.
 - **`mariadb-system-versioned-tables`** — `DELETE HISTORY` semantics, the `DELETE HISTORY` privilege, `BEFORE SYSTEM_TIME` TIMESTAMP vs TRANSACTION
 - **`mariadb-select`** — shared `PARTITION`, `ORDER BY`/`LIMIT`, and subquery surface
 - **`mariadb-update`** — the sibling write statement; multi-table rules and `FOR PORTION OF` mirror DELETE's
-- Canonical references (consult only for edge cases not covered here):
-  - `server/reference/sql-statements/data-manipulation/changing-deleting-data/delete.md` (~240 lines; note: stale on multi-table `ORDER BY`/`LIMIT`)
-  - `…/table-statements/truncate-table.md` (~90 lines)
+- Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/delete> (note: as of writing, stale on multi-table `ORDER BY`/`LIMIT` — tracked in DOCS-6286)
+  - <https://mariadb.com/docs/server/reference/sql-statements/table-statements/truncate-table>

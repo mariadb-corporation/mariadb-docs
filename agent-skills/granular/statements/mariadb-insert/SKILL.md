@@ -84,9 +84,11 @@ Priority/queue modifiers: `[LOW_PRIORITY | DELAYED | HIGH_PRIORITY]` on the `VAL
 - **`mariadb-replace`** — `REPLACE` (delete-then-insert) and exactly when `ON DUPLICATE KEY UPDATE` is the better upsert
 - **`mariadb-select`** — the `SELECT` source for `INSERT … SELECT`, plus `PARTITION` pruning and priority semantics
 - **`mariadb-create-table`** / **`mariadb-alter-table`** — `AUTO_INCREMENT`, `DEFAULT` expressions, and `UNIQUE`/`PRIMARY KEY` definitions that drive `ON DUPLICATE KEY UPDATE` and `IGNORE` behavior
-- Canonical references (consult only for edge cases not covered here):
-  - `server/reference/sql-statements/data-manipulation/inserting-loading-data/insert.md` (~185 lines)
-  - `…/insert-on-duplicate-key-update.md` (~220 lines)
-  - `…/insertreturning.md` (~120 lines)
-  - `…/insert-ignore.md` (~110 lines)
-  - `…/insert-delayed.md`, `…/insert-select.md`, `…/insert-default-duplicate-values.md`
+- Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-on-duplicate-key-update>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insertreturning>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-ignore>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-select>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/inserting-loading-data/insert-default-duplicate-values>
