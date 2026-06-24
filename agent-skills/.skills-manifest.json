@@ -9,7 +9,11 @@
       "skills": [
         { "name": "mariadb-create-table", "path": "granular/statements/mariadb-create-table/SKILL.md", "status": "pilot" },
         { "name": "mariadb-alter-table", "path": "granular/statements/mariadb-alter-table/SKILL.md", "status": "pilot" },
-        { "name": "mariadb-select", "path": "granular/statements/mariadb-select/SKILL.md", "status": "pilot" }
+        { "name": "mariadb-select", "path": "granular/statements/mariadb-select/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-insert", "path": "granular/statements/mariadb-insert/SKILL.md", "status": "draft" },
+        { "name": "mariadb-update", "path": "granular/statements/mariadb-update/SKILL.md", "status": "draft" },
+        { "name": "mariadb-delete", "path": "granular/statements/mariadb-delete/SKILL.md", "status": "draft" },
+        { "name": "mariadb-replace", "path": "granular/statements/mariadb-replace/SKILL.md", "status": "draft" }
       ]
     },
     "granular-functions": {
