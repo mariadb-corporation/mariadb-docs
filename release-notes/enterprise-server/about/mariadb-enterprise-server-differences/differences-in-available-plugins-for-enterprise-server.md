@@ -1,6 +1,5 @@
 ---
 description: Plugin Evolution Across Enterprise Releases
-hidden: true
 ---
 
 # Differences in Available Plugins for Enterprise Server
