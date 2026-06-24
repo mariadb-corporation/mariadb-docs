@@ -294,6 +294,7 @@ When switching an existing server to the new binlog format, the old binlog files
 #### Method 1: Direct Restart Migration (Simple)
 
 This method stops the server, switches the configuration to the new binlog format, and restarts with an empty binlog. It is the simplest migration approach and is applicable for setups where:
+
 - The server is standalone or not part of an active replication topology.
 - The old binary log files are no longer needed after the transition.
 - Point-in-time recovery from the old binary log files is not required.
@@ -311,7 +312,7 @@ This approach is used to switch a master server while ensuring connected replica
 This method switches the master to the new binlog format while preserving the GTID state, so that connected replicas can reconnect 
 and continue replicating from where they left off without requiring a full reconfiguration.
 
-It is applicable for the following types of setups:
+This applies to the following types of setups:
 
 - Active replication topologies where replicas must continue replicating after the master switches format.
 - Setups where all replicas have already been upgraded to at least MariaDB 12.3.
@@ -337,9 +338,10 @@ binlog-storage-engine=innodb
 This method promotes a replica, already running the new binlog format, to become the new master, avoiding any downtime on the original master during the format transition.
 
 It is applicable for the following types of setups:
+
 - Production environments where master downtime is not acceptable.
 - Active replication topologies with at least one available replica that can be promoted to master.
-- Setups where all replicas have already been upgraded to at least MariaDB 12.3.
+- Configurations where all replicas have been upgraded to MariaDB 12.3 or higher.
 
 To perform a live migration, follow these steps:
 
