@@ -65,7 +65,7 @@ log_bin
 binlog_storage_engine=innodb
 ```
 
-* The `log_bin` option must be specified without any value; it is not an on/off switch.
+* The `log_bin` option must be specified without any value.
 * The new binlog format is mutually exclusive with the traditional file-based binlog. Old binlog files are ignored after switching to the new format.
 
 For additional configuration options, see [Replication and Binary Log System Variables](replication-and-binary-log-system-variables.md).
@@ -164,7 +164,7 @@ mariadb-binlog /path/to/binlog-000000.ibb \
                /path/to/binlog-000002.ibb
 ```
 
-When viewing events across multiple binlog files, all binlog files should be passed to the `mariadb-binlog` at once in the correct order; this ensures that events that cross file boundaries are included in the output exactly once.
+When viewing events across multiple binlog files, all binlog files should be passed to the `mariadb-binlog` program at once in the correct order; this ensures that events that cross file boundaries are included in the output exactly once.
 
 When using `--start-position` and `--stop-position`, it is recommended to use GTID positions. File offsets used in the traditional binlog format are not used in the new binlog and will mostly be reported as zero.
 
@@ -293,16 +293,30 @@ When switching an existing server to the new binlog format, the old binlog files
 
 #### Method 1: Direct Restart Migration (Simple)
 
-This is the simplest approach, suitable when maintaining old binary log files for point-in-time recovery is unnecessary.
+This method stops the server, switches the configuration to the new binlog format, and restarts with an empty binlog. It is the simplest migration approach and is applicable for setups where:
+- The server is standalone or not part of an active replication topology.
+- The old binary log files are no longer needed after the transition.
+- Point-in-time recovery from the old binary log files is not required.
+
+To perform a direct restart migration, follow the steps below:
 
 1. Stop the MariaDB server.
-2. &#x20;Add `--log-bin` and `--binlog-storage-engine=innodb` to your configuration.
+2. &#x20;If `log-bin` is already present in your configuration with a filename (e.g. `log-bin=my-old-binlog`), remove the filename so it reads as just `log-bin` without any value. Then add `binlog-storage-engine=innodb`.
 3. Start the server. The new binlog starts empty.
 4. Remove the old binlog files from the data directory manually.
 
 #### Method 2: Replication State Migration (GTID Preservation)
 
 This approach is used to switch a master server while ensuring connected replicas can continue replicating without full reconfiguration.
+This method switches the master to the new binlog format while preserving the GTID state, so that connected replicas can reconnect 
+and continue replicating from where they left off without requiring a full reconfiguration.
+
+It is applicable for the following types of setups:
+
+- Active replication topologies where replicas must continue replicating after the master switches format.
+- Setups where all replicas have already been upgraded to at least MariaDB 12.3.
+
+Follow the steps below to perform a replication state migration:
 
 1. Stop all writes to the master.
 2. Wait for all replicas to catch up to the master's current position.
@@ -318,9 +332,16 @@ binlog-storage-engine=innodb
 5. Immediately execute `SET GLOBAL gtid_binlog_state=<old value>` using the value saved in step 3.
 6. Allow replicas to reconnect; they will continue from where they left off.
 
-#### Method 3: Live Migration (Zero downtime)
+#### Method 3: Live Migration (Zero Downtime)
 
-This is the most robust method for production environments, as it avoids master downtime during the format transition.
+This method promotes a replica, already running the new binlog format, to become the new master, avoiding any downtime on the original master during the format transition.
+
+It is applicable for the following types of setups:
+- Production environments where master downtime is not acceptable.
+- Active replication topologies with at least one available replica that can be promoted to master.
+- Setups where all replicas have already been upgraded to at least MariaDB 12.3.
+
+To perform a live migration, follow these steps:
 
 1. Ensure that all replicas are upgraded to at least MariaDB version 12.3 before switching the master.
 2. Choose a replica and restart it with `--binlog-storage-engine=innodb`.
@@ -422,7 +443,7 @@ The InnoDB-based binary log cannot be used with MariaDB Galera Cluster. Users ru
 
 External XA transactions are fully supported and crash-safe on the master. The new binlog stores `XA PREPARE` and `XA COMMIT`/`XA ROLLBACK` records internally (see chunk types 5 and 6 in the Binlog File Format Reference), and the server will always recover prepared transactions to a state consistent with the binlog after a crash.
 
-However, replicating `XA PREPARE` to a replica is not supported. This means that if the master has transactions in a prepared-but-not-yet-committed state at the time of a failover, it is not possible to promote the replica and rescue those prepared transactions. In general, this is unlikely to cause issues, as external XA users typically do not rely on this failover path.
+However, replicating `XA PREPARE` to a replica is not supported. This means that if the master has transactions in a prepared-but-not-yet-committed state at the time of a failover, it is not possible to promote the replica and rescue those prepared transactions.
 
 #### Binary Log Encryption
 
