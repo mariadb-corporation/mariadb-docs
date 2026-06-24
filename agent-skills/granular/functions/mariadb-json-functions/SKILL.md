@@ -28,7 +28,7 @@ Catalog of every built-in JSON function in MariaDB, with signature and a one-lin
 
 ## Functions
 
-The list below is **auto-generated** from `server/reference/sql-functions/special-functions/json-functions/` by `_extractors/extract_function_category.py`. Regenerate when the doc tree changes.
+The list below is **auto-generated** from `server/reference/sql-functions/special-functions/json-functions/` by `agent-skills/extractor/extract_function_category.py`. Regenerate when the doc tree changes.
 
 
 ### JSON_ARRAY
