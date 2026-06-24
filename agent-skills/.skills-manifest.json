@@ -14,11 +14,11 @@
         { "name": "mariadb-update", "path": "granular/statements/mariadb-update/SKILL.md", "status": "pilot" },
         { "name": "mariadb-delete", "path": "granular/statements/mariadb-delete/SKILL.md", "status": "pilot" },
         { "name": "mariadb-replace", "path": "granular/statements/mariadb-replace/SKILL.md", "status": "pilot" },
-        { "name": "mariadb-create-view", "path": "granular/statements/mariadb-create-view/SKILL.md", "status": "draft" },
-        { "name": "mariadb-create-index", "path": "granular/statements/mariadb-create-index/SKILL.md", "status": "draft" },
-        { "name": "mariadb-drop-table", "path": "granular/statements/mariadb-drop-table/SKILL.md", "status": "draft" },
-        { "name": "mariadb-create-database", "path": "granular/statements/mariadb-create-database/SKILL.md", "status": "draft" },
-        { "name": "mariadb-load-data", "path": "granular/statements/mariadb-load-data/SKILL.md", "status": "draft" }
+        { "name": "mariadb-create-view", "path": "granular/statements/mariadb-create-view/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-create-index", "path": "granular/statements/mariadb-create-index/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-drop-table", "path": "granular/statements/mariadb-drop-table/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-create-database", "path": "granular/statements/mariadb-create-database/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-load-data", "path": "granular/statements/mariadb-load-data/SKILL.md", "status": "pilot" }
       ]
     },
     "granular-functions": {
@@ -33,8 +33,8 @@
       "path": "granular/tools",
       "author": "docs-team",
       "skills": [
-        { "name": "mariadb-dump", "path": "granular/tools/mariadb-dump/SKILL.md", "status": "draft" },
-        { "name": "mariadb-import", "path": "granular/tools/mariadb-import/SKILL.md", "status": "draft" }
+        { "name": "mariadb-dump", "path": "granular/tools/mariadb-dump/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-import", "path": "granular/tools/mariadb-import/SKILL.md", "status": "pilot" }
       ]
     },
     "topical": {
