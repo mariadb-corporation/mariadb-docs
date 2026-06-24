@@ -27,10 +27,10 @@
       "author": "docs-team+extractor",
       "skills": [
         { "name": "mariadb-json-functions", "path": "granular/functions/mariadb-json-functions/SKILL.md", "status": "pilot" },
-        { "name": "mariadb-string-functions", "path": "granular/functions/mariadb-string-functions/SKILL.md", "status": "draft" },
-        { "name": "mariadb-date-time-functions", "path": "granular/functions/mariadb-date-time-functions/SKILL.md", "status": "draft" },
-        { "name": "mariadb-numeric-functions", "path": "granular/functions/mariadb-numeric-functions/SKILL.md", "status": "draft" },
-        { "name": "mariadb-aggregate-functions", "path": "granular/functions/mariadb-aggregate-functions/SKILL.md", "status": "draft" }
+        { "name": "mariadb-string-functions", "path": "granular/functions/mariadb-string-functions/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-date-time-functions", "path": "granular/functions/mariadb-date-time-functions/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-numeric-functions", "path": "granular/functions/mariadb-numeric-functions/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-aggregate-functions", "path": "granular/functions/mariadb-aggregate-functions/SKILL.md", "status": "pilot" }
       ]
     },
     "granular-tools": {
