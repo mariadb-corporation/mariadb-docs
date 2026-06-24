@@ -57,6 +57,10 @@ See [xtrabackup-v2 SST Method](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha
 
 This SST method simply uses the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) (previously mysqldump) utility, so TLS would be enabled by following the guide at [Securing Connections for Client and Server: Enabling TLS for MariaDB Clients](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#enabling-tls-for-mariadb-clients)
 
+{% hint style="warning" %}
+The `wsrep_sst_mysqldump.sh` script does not pass any `--ssl-*` options to the client. TLS is used during a mysqldump SST only if the `[client]` or `[mariadb-dump]` option group enables it through the standard `ssl-ca`, `ssl-cert`, `ssl-key`, and `ssl-verify-server-cert` options. Note that `ssl-verify-server-cert` is **off by default** in the MariaDB client, so even with the `ssl-*` options configured, the joiner does not verify the donor's identity unless `ssl-verify-server-cert` is explicitly enabled.
+{% endhint %}
+
 ### rsync
 
 This SST method supports encryption in transit via [stunnel](https://www.stunnel.org/). See [Introduction to State Snapshot Transfers (SSTs): rsync](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#rsync) for more information.

@@ -66,6 +66,16 @@ When the `wsrep_ssl_mode` system variable is set to `SERVER` or `SERVER_X509`, e
 | [ssl\_cert](ssl_cert.md)     | Set this system variable to the path of the node's X509 certificate file.                                                                                                                                                                                                                                   |
 | [ssl\_key](ssl_key.md)       | Set this system variable to the path of the node's private key file.                                                                                                                                                                                                                                        |
 
+## Security Considerations
+
+In the default `SERVER` mode, MariaDB Enterprise Cluster encrypts replication traffic but **does not verify the peer's X.509 certificate**. A node accepts any peer that completes the TLS handshake, so `SERVER` mode provides encryption in transit without peer authentication — it cannot distinguish a legitimate cluster member from a rogue server presenting an arbitrary certificate.
+
+{% hint style="warning" %}
+The default value, `SERVER`, does not authenticate peers. For production — and for deployments with compliance requirements (PCI DSS, SOC 2, ISO 27001) or any threat model that includes a network-position attacker — set `wsrep_ssl_mode=SERVER_X509` to require X.509 certificate verification on every inter-node connection.
+{% endhint %}
+
+Because `wsrep_ssl_mode` is read-only, changing it requires restarting the node. To migrate an existing cluster from `SERVER` to `SERVER_X509`, first confirm every node has a certificate signed by the cluster's CA, then restart one node at a time.
+
 #### Parameters
 
 | Command-line          | --wsrep\_ssl\_mode={PROVIDER\|SERVER\|SERVER\_X509} |
