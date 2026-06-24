@@ -71,6 +71,6 @@ Returns the newly inserted rows. Expressions, virtual columns, `AS` aliases, sto
 
 - **`mariadb-insert`** — `INSERT … ON DUPLICATE KEY UPDATE` (the upsert you usually want), `INSERT IGNORE`, and the shared `RETURNING`/`PARTITION`/priority surface
 - **`mariadb-create-table`** — `AUTO_INCREMENT`, `DEFAULT` expressions, and the `PRIMARY KEY`/`UNIQUE` indexes that determine when `REPLACE` fires and which columns reset
-- Canonical references (consult only for edge cases not covered here):
-  - `server/reference/sql-statements/data-manipulation/changing-deleting-data/replace.md` (~215 lines)
-  - `…/replacereturning.md` (~110 lines)
+- Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/replace>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/replacereturning>

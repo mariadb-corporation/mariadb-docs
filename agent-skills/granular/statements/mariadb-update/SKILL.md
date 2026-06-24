@@ -105,6 +105,6 @@ UPDATE page_hit SET processed = 1
 - **`mariadb-select`** — shared `ORDER BY`, `LIMIT`, `PARTITION`, and subquery surface; row-locking semantics that interact with UPDATE
 - **`mariadb-delete`** — the sibling write statement, with the *opposite* same-table-subquery restriction
 - **`mariadb-insert`** — `INSERT … ON DUPLICATE KEY UPDATE` when you mean "update if present, else insert"
-- Canonical references (consult only for edge cases not covered here):
-  - `server/reference/sql-statements/data-manipulation/changing-deleting-data/update.md` (~195 lines)
-  - `…/high_priority-and-low_priority.md` (LOW_PRIORITY engine scope)
+- Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/update>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/changing-deleting-data/high_priority-and-low_priority> (LOW_PRIORITY engine scope)
