@@ -44,7 +44,7 @@
     * [MariaDB Cloud Intelligent Proxy](cloud-management/config/maxscale.md)
   * [Autonomously Scale Compute & Storage](cloud-management/autonomously-scale-compute-storage.md)
   * [Observability](cloud-management/observability.md)
-* [Cloud UI Portal](cloud-usage/README.md)
+* [Cloud Portal](cloud-usage/README.md)
   * [MariaDB Cloud UI Portal](cloud-usage/portal-features.md)
   * [Launch Page](cloud-usage/launch-page.md)
   * [Manage Your Service](cloud-usage/manage-your-service.md)
