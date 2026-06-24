@@ -45,7 +45,7 @@
   * [Autonomously Scale Compute & Storage](cloud-management/autonomously-scale-compute-storage.md)
   * [Observability](cloud-management/observability.md)
 * [Cloud Portal](cloud-usage/README.md)
-  * [MariaDB Cloud UI Portal](cloud-usage/portal-features.md)
+  * [MariaDB Cloud Portal](cloud-usage/portal-features.md)
   * [Launch Page](cloud-usage/launch-page.md)
   * [Manage Your Service](cloud-usage/manage-your-service.md)
   * [Service Details Page](cloud-usage/service-details-page.md)
