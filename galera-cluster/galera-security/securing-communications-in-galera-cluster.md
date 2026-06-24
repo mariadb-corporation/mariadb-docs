@@ -41,6 +41,10 @@ And then restart the server to make the changes persistent.
 
 By setting both MariaDB Server's TLS-related system variables and Galera Cluster's TLS-related wsrep\_provider\_options, the server can secure both external client connections and Galera Cluster's replication traffic.
 
+{% hint style="info" %}
+The [Galera Arbitrator (garbd)](../galera-management/configuration/galera-arbitrator-daemon-garbd.md) participates in the same replication traffic as full nodes and must be configured with the same TLS posture — its own `socket.ssl_cert`, `socket.ssl_key`, and `socket.ssl_ca`, using a certificate signed by the same cluster CA. See [TLS Configuration for garbd](../galera-management/configuration/galera-arbitrator-daemon-garbd.md#tls-configuration).
+{% endhint %}
+
 ## Securing State Snapshot Transfers
 
 The method that you would use to enable TLS for [State Snapshot Transfers (SSTs)](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) would depend on the value of [wsrep\_sst\_method](../reference/galera-cluster-system-variables.md#wsrep_sst_method).
@@ -64,6 +68,10 @@ The `wsrep_sst_mysqldump.sh` script does not pass any `--ssl-*` options to the c
 ### rsync
 
 This SST method supports encryption in transit via [stunnel](https://www.stunnel.org/). See [Introduction to State Snapshot Transfers (SSTs): rsync](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#rsync) for more information.
+
+## Raft Plugin TLS
+
+MariaDB Advanced Cluster's Raft-based replication backend configures inter-node TLS through its own `raft_ssl_*` system variables, separate from the `wsrep_ssl_mode` and `socket.ssl_*` settings described above. By default, `raft_ssl_verify_server_cert` is `OFF`, so Raft inter-node TLS encrypts traffic but does not verify peer certificates. See the [MariaDB Advanced Cluster Team FAQ and Architectural Guide](../reference/mariadb-advanced-cluster-team-faq-and-architectural-guide.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

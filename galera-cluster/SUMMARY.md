@@ -54,6 +54,8 @@
   * [Routine Certificate Rotation](galera-security/routine-certificate-rotation.md)
   * [Cluster CA Rotation](galera-security/cluster-ca-rotation.md)
   * [Responding to a Key or Certificate Compromise](galera-security/responding-to-a-key-or-certificate-compromise.md)
+  * [Connection Allowlist](galera-security/connection-allowlist.md)
+  * [Cluster TLS State Inspection](galera-security/cluster-tls-state-inspection.md)
 * [Galera Use Cases](galera-use-cases.md)
 * [High Availability](high-availability/README.md)
   * [Monitoring MariaDB Galera Cluster](high-availability/monitoring-mariadb-galera-cluster.md)
