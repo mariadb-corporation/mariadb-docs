@@ -21,8 +21,9 @@ The migrator complements the manual workflows in the [MySQL to MariaDB Migration
 ## Supported Versions
 
 * **Source:** MySQL 8.0 and 8.4 (some modes have version-specific requirements — see [Migration Modes](migration-modes.md)).
-* **Target:** MariaDB 11.x (LTS).
+* **Target:** supported MariaDB Enterprise and Community editions.
 * **MariaDB Cloud** is validated as a target for the Offline Copy (`staged`), Parallel Restartable Streaming Copy (`two_step`), and Serial Streaming Copy (`one_step`) modes.
+* **Platforms:** the migrator is built and tested for Linux on x86-64 and ARM64.
 
 ## Migration Modes at a Glance
 
