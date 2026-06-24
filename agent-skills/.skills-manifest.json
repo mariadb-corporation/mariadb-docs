@@ -17,7 +17,8 @@
         { "name": "mariadb-create-view", "path": "granular/statements/mariadb-create-view/SKILL.md", "status": "draft" },
         { "name": "mariadb-create-index", "path": "granular/statements/mariadb-create-index/SKILL.md", "status": "draft" },
         { "name": "mariadb-drop-table", "path": "granular/statements/mariadb-drop-table/SKILL.md", "status": "draft" },
-        { "name": "mariadb-create-database", "path": "granular/statements/mariadb-create-database/SKILL.md", "status": "draft" }
+        { "name": "mariadb-create-database", "path": "granular/statements/mariadb-create-database/SKILL.md", "status": "draft" },
+        { "name": "mariadb-load-data", "path": "granular/statements/mariadb-load-data/SKILL.md", "status": "draft" }
       ]
     },
     "granular-functions": {
@@ -26,6 +27,14 @@
       "author": "docs-team+extractor",
       "skills": [
         { "name": "mariadb-json-functions", "path": "granular/functions/mariadb-json-functions/SKILL.md", "status": "pilot" }
+      ]
+    },
+    "granular-tools": {
+      "path": "granular/tools",
+      "author": "docs-team",
+      "skills": [
+        { "name": "mariadb-dump", "path": "granular/tools/mariadb-dump/SKILL.md", "status": "draft" },
+        { "name": "mariadb-import", "path": "granular/tools/mariadb-import/SKILL.md", "status": "draft" }
       ]
     },
     "topical": {
