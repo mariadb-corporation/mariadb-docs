@@ -7,7 +7,7 @@ description: "MariaDB JSON functions — complete catalog of JSON_*, JSON_ARRAY/
 
 *Last updated: 2026-06-02*
 
-Catalog of every built-in JSON function in MariaDB, with signature and a one-line semantic summary per entry. For a function not listed here, fall back to the canonical reference at `server/reference/sql-functions/special-functions/json-functions/`. For JSONPath syntax (used by `JSON_EXTRACT`, `JSON_QUERY`, `JSON_VALUE`, `JSON_TABLE`, etc.), see the JSONPath reference page in the same directory.
+Catalog of every built-in JSON function in MariaDB, with signature and a one-line semantic summary per entry. For a function not listed here, fall back to the canonical reference at <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions>. For JSONPath syntax (used by `JSON_EXTRACT`, `JSON_QUERY`, `JSON_VALUE`, `JSON_TABLE`, etc.), see <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions/jsonpath-expressions>.
 
 > **Default context:** Assume MariaDB **11.8 LTS** (GA May 2025) unless the user states another version. Functions with a `*(since X.Y)*` annotation are only available from that version onward; everything else is in every current LTS branch (10.6, 10.11, 11.4, 11.8).
 
@@ -28,7 +28,7 @@ Catalog of every built-in JSON function in MariaDB, with signature and a one-lin
 
 ## Functions
 
-The list below is **auto-generated** from `server/reference/sql-functions/special-functions/json-functions/` by `_extractors/extract_function_category.py`. Regenerate when the doc tree changes.
+The list below is **auto-generated** from `server/reference/sql-functions/special-functions/json-functions/` by `agent-skills/extractor/extract_function_category.py`. Regenerate when the doc tree changes.
 
 
 ### JSON_ARRAY
@@ -201,4 +201,4 @@ Given a JSON document, returns the scalar specified by the path.
 
 - **`mariadb-create-table`** — declaring `JSON`-typed columns (alias for `LONGTEXT` with auto `CHECK`)
 - **`mariadb-select`** — `JSON_TABLE` in the `FROM` clause for relational projection of JSON documents
-- Canonical reference: `server/reference/sql-functions/special-functions/json-functions/` (41 pages); JSONPath syntax at `…/jsonpath-expressions.md`
+- Canonical reference on `mariadb.com/docs`: <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions> (the JSON Functions section); JSONPath syntax at <https://mariadb.com/docs/server/reference/sql-functions/special-functions/json-functions/jsonpath-expressions>

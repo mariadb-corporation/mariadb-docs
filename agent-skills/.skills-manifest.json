@@ -9,7 +9,16 @@
       "skills": [
         { "name": "mariadb-create-table", "path": "granular/statements/mariadb-create-table/SKILL.md", "status": "pilot" },
         { "name": "mariadb-alter-table", "path": "granular/statements/mariadb-alter-table/SKILL.md", "status": "pilot" },
-        { "name": "mariadb-select", "path": "granular/statements/mariadb-select/SKILL.md", "status": "pilot" }
+        { "name": "mariadb-select", "path": "granular/statements/mariadb-select/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-insert", "path": "granular/statements/mariadb-insert/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-update", "path": "granular/statements/mariadb-update/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-delete", "path": "granular/statements/mariadb-delete/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-replace", "path": "granular/statements/mariadb-replace/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-create-view", "path": "granular/statements/mariadb-create-view/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-create-index", "path": "granular/statements/mariadb-create-index/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-drop-table", "path": "granular/statements/mariadb-drop-table/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-create-database", "path": "granular/statements/mariadb-create-database/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-load-data", "path": "granular/statements/mariadb-load-data/SKILL.md", "status": "pilot" }
       ]
     },
     "granular-functions": {
@@ -17,15 +26,34 @@
       "path": "granular/functions",
       "author": "docs-team+extractor",
       "skills": [
-        { "name": "mariadb-json-functions", "path": "granular/functions/mariadb-json-functions/SKILL.md", "status": "pilot" }
+        { "name": "mariadb-json-functions", "path": "granular/functions/mariadb-json-functions/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-string-functions", "path": "granular/functions/mariadb-string-functions/SKILL.md", "status": "draft" },
+        { "name": "mariadb-date-time-functions", "path": "granular/functions/mariadb-date-time-functions/SKILL.md", "status": "draft" },
+        { "name": "mariadb-numeric-functions", "path": "granular/functions/mariadb-numeric-functions/SKILL.md", "status": "draft" },
+        { "name": "mariadb-aggregate-functions", "path": "granular/functions/mariadb-aggregate-functions/SKILL.md", "status": "draft" }
+      ]
+    },
+    "granular-tools": {
+      "path": "granular/tools",
+      "author": "docs-team",
+      "skills": [
+        { "name": "mariadb-dump", "path": "granular/tools/mariadb-dump/SKILL.md", "status": "pilot" },
+        { "name": "mariadb-import", "path": "granular/tools/mariadb-import/SKILL.md", "status": "pilot" }
       ]
     },
     "topical": {
       "path": "topical",
       "author": "mariadb-foundation",
       "vendored_from": "https://github.com/MariaDB/skills",
-      "vendored_ref": null,
-      "skills": []
+      "vendored_ref": "86623494f8051e766c973d35c1f07368c3b4c267",
+      "vendored_license": "MIT",
+      "skills": [
+        { "name": "mariadb-features", "path": "topical/mariadb-features/SKILL.md", "status": "vendored" },
+        { "name": "mariadb-query-optimization", "path": "topical/mariadb-query-optimization/SKILL.md", "status": "vendored" },
+        { "name": "mariadb-system-versioned-tables", "path": "topical/mariadb-system-versioned-tables/SKILL.md", "status": "vendored" },
+        { "name": "mysql-to-mariadb", "path": "topical/mysql-to-mariadb/SKILL.md", "status": "vendored" },
+        { "name": "mariadb-vector", "path": "topical/mariadb-vector/SKILL.md", "status": "vendored" }
+      ]
     }
   }
 }

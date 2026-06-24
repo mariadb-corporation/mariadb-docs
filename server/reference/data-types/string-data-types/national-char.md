@@ -1,7 +1,7 @@
 ---
 description: >-
   NATIONAL CHAR is a synonym for the CHAR data type that uses the predefined
-  utf8 character set.
+  utf8mb3 character set.
 ---
 
 # NATIONAL CHAR
@@ -26,7 +26,7 @@ SHOW CREATE TABLE national_char_example\G
 *************************** 1. row ***************************
        Table: national_char_example
 Create Table: CREATE TABLE `national_char_example` (
-  `example` char(32) CHARACTER SET utf8 DEFAULT NULL
+  `example` char(32) CHARACTER SET utf8mb3 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
