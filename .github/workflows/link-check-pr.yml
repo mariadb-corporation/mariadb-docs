@@ -20,6 +20,11 @@ jobs:
           files: |
             **.md
             **.html
+          # agent-skills/topical/ is vendored verbatim from MariaDB/skills
+          # (see agent-skills/topical/VENDORED.md). Link fixes go upstream, not
+          # here. Our own authored skills under agent-skills/granular/ stay in scope.
+          files_ignore: |
+            agent-skills/topical/**
 
       - name: Scan for broken links
         if: steps.changes.outputs.any_changed == 'true'
