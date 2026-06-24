@@ -28,8 +28,11 @@ Catalog of every built-in JSON function in MariaDB, with signature and a one-lin
 
 ## Functions
 
-The list below is **auto-generated** from `server/reference/sql-functions/special-functions/json-functions/` by `agent-skills/extractor/extract_function_category.py`. Regenerate when the doc tree changes.
+Auto-generated from the canonical `server/reference/sql-functions/special-functions/json-functions/` pages by `agent-skills/extractor/extract_function_category.py`; regenerate when the doc tree changes. Do not hand-edit between the markers.
 
+<!-- BEGIN GENERATED -->
+<!-- Extracted from server/reference/sql-functions/special-functions/json-functions -->
+<!-- 40 functions, 3 pages skipped on extraction failure -->
 
 ### JSON_ARRAY
 `JSON_ARRAY([value[, value2] ...])`  
@@ -189,7 +192,7 @@ Indicates whether the given value is a valid JSON document or not.
 ### JSON_VALUE
 `JSON_VALUE(json_doc, path)`  
 Given a JSON document, returns the scalar specified by the path.
-
+<!-- END GENERATED -->
 
 ## Related Operators (Not Covered Above)
 
