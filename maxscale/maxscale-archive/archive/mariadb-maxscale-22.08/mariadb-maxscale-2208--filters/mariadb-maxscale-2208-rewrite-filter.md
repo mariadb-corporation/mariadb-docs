@@ -64,10 +64,10 @@ that the above becomes `@{1}from mytable@{2}`. The automatically added\
 placeholders cannot be used in the replace template.
 
 Matching the whole input also means that Native syntax does not support\
-(and is not intended to support) scan and replace. Only the first occurrance\
+(and is not intended to support) scan and replace. Only the first occurrence\
 of the above `from mytable` can be modified in the replace template.\
 However, one can selectively choose to modify e.g. the first through\
-third occurrance of `from mytable` by writing`from mytable @{1} from mytable @{2} from mytable @{3}`.
+third occurrence of `from mytable` by writing`from mytable @{1} from mytable @{2} from mytable @{3}`.
 
 For scan and replace use a different regex\_grammar (see below).
 
@@ -158,8 +158,8 @@ Rewritten: select zip_code from address_book where id = 1234
 For scan and replace the regex\_grammar must be set to something else than\
 Native. An example will illustrate the usage.
 
-Replace all occurrances of "wrong\_table\_name" with "correct\_table\_name".\
-Further, if the replacement was made then replace all occurrances\
+Replace all occurrences of "wrong\_table\_name" with "correct\_table\_name".\
+Further, if the replacement was made then replace all occurrences\
 of wrong\_column\_name with correct\_column\_name.
 
 ```

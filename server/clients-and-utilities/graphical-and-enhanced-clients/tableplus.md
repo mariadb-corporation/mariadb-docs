@@ -4,7 +4,7 @@
 
 ![](../../.gitbook/assets/table.png)
 
-TablePlus is is available for macOS, Windows, iOS, and Linux.
+TablePlus is available for macOS, Windows, iOS, and Linux.
 
 Some notable features:
 

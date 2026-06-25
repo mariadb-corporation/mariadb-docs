@@ -90,22 +90,69 @@ The per-function entries are generated; the scaffold around them is not.
 - CI (`extract-function-skills.yml`, stub) re-runs the extractor when those
   pages change and opens a regeneration PR, preserving the scaffold sections.
 
-## Per-LTS update workflow
+## Update cadence and triggers
 
-Roughly annually, per LTS release:
+Skills need refreshing roughly **3–4 times a year** — but most of that frequency
+is **automated**, and the human part only touches the skills actually affected.
+Don't sweep all skills every cycle.
 
-1. **Structured review per Tier 1 skill** against its `server/reference/**`
-   page(s) and `mariadb-server/sql/` source. For every "since X.Y" / "removed in
-   X.Y" claim, verify. For every trap-table row, confirm the trap is still real.
-   Flag new doc content not yet reflected. ~15–30 min per skill — cheaper than
-   authoring.
-2. **Targeted review** for releases with notable removals/deprecations
-   (e.g. query cache removed in 13.0): review only the affected skills.
-3. **Tier 2:** re-run the extractor (CI handles this on doc change).
-4. **Topical:** re-vendor from upstream at the new pinned ref; update
-   `topical/VENDORED.md`.
-5. **Empirical-fresh-session sweep every 12–18 months.** As LLMs improve, some
-   traps stop being traps; prune them so the tables don't accumulate dead weight.
+| Trigger | Frequency | Scope |
+| --- | --- | --- |
+| MariaDB **minor release** (e.g. 11.8.1, 11.8.2) | ~quarterly — the main 3–4×/year driver | Event-driven: only skills whose statements/functions changed |
+| **Doc-page changes** under `server/reference/**` | continuous | Tier 2 auto-regenerates (CI); Tier 1 pages flagged by the staleness report |
+| **Major LTS** / notable removal or deprecation (e.g. query cache removed in 13.0) | ~annual | Full review pass; targeted review of the affected skills |
+| **LLM-prior drift** | every 12–18 months | Empirical fresh-session sweep — prune traps that stopped being traps |
+
+## What is automated vs. human
+
+**Automated (no human effort):**
+
+- **Tier 2 functions** — `.github/workflows/extract-function-skills.yml` re-runs
+  the extractor when the relevant `sql-functions/**` pages change and opens a
+  regeneration PR. The per-function catalog stays current; the hand-written
+  scaffold (frontmatter, intro, "What LLMs Often Miss") is preserved between the
+  `BEGIN/END GENERATED` markers.
+- **Topical** — `.github/workflows/sync-topical-skills.yml` re-vendors
+  `MariaDB/skills` at a new pinned ref and updates `topical/VENDORED.md`.
+
+**Human review (the editorial delta — can't be automated), per *affected* skill,
+~15–30 min each:**
+
+1. Walk each "What LLMs Often Miss" row and confirm the trap is still real.
+2. Verify every `*(since X.Y)*` / "removed in X.Y" claim against
+   `mariadb-server/sql/` or the canonical `server/reference/**` page.
+3. Diff the skill's source page(s) since its `last_reviewed` date for new
+   `{% hint %}` warnings or `{% tabs %}` version blocks — those are the docs team
+   flagging new traps.
+4. Check `mariadb-features` "Defaults Changed" / "Behavior Changed" for anything
+   newly relevant.
+
+After a review pass, bump that skill's `last_reviewed` (and `baseline_version`
+if re-verified against a newer LTS) in `.skills-manifest.json`.
+
+## Tracking staleness
+
+Each skill in `.skills-manifest.json` carries `last_reviewed` (date of the last
+human verification) and `baseline_version` (the LTS it was last verified
+against). A **staleness report** turns each cycle into a short worklist instead
+of a full sweep: for every skill, diff its referenced `server/reference/**`
+page(s) `git log` since `last_reviewed` and list only the skills with upstream
+changes (plus any whose `baseline_version` lags the current default LTS). A
+typical quarterly cycle then reviews ~2–4 skills, not all of them.
+
+## Per-LTS (annual) pass
+
+At each major LTS, do the fuller version of the above across **all** skills (not
+just the changed ones), plus:
+
+- **Tier 2:** confirm the extractor still parses the (possibly restructured)
+  function pages; re-run it.
+- **Topical:** re-vendor from upstream at the new pinned ref; update
+  `topical/VENDORED.md`.
+- **Empirical-fresh-session sweep** (also on its own 12–18-month clock): open a
+  fresh agent session with no MariaDB skill loaded, re-run representative
+  prompts, and prune trap rows that the current generation of LLMs no longer
+  gets wrong, so the tables don't accumulate dead weight.
 
 ## Scope discipline ("good enough" over "perfect")
 

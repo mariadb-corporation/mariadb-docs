@@ -18,7 +18,7 @@ Replace "EXPLAIN" with the output of the EXPLAIN command and "CLIENT" with the n
 
 ### Client Banner
 
-If you like, you can have a banner promoting your client appear at the bottom of the page. Once you've added support for the `EXPLAIN` Analyzer to your client application, just send a logo, the name of your client, and what you want the name and logo to link to to bryan AT montyprogram DOT com.
+If you like, you can have a banner promoting your client appear at the bottom of the page. Once you've added support for the `EXPLAIN` Analyzer to your client application, just send a logo, the name of your client, and what you want the name and logo to link to bryan AT montyprogram DOT com.
 
 CC BY-SA / Gnu FDL
 

@@ -250,7 +250,7 @@ The possible values for this parameter are:
   discarded for any `SELECT` statement that also modifies a user\
   variable. With this mode, the state of user variables is not deterministic\
   if they are modified inside of a `SELECT` statement. `SET` statements that\
-  modify user variabels are still routed to all servers.
+  modify user variables are still routed to all servers.
 
 DML statements, such as `INSERT`, `UPDATE` or `DELETE`, that modify SQL user\
 variables are still treated as writes and are only routed to the primary\
@@ -1184,7 +1184,7 @@ of the following group:
 * All statements within an explicit read-only transaction (`START TRANSACTION READ ONLY`)
 * `SHOW` statements except `SHOW MASTER STATUS`
 
-The list of supported built-in fuctions can be found [here](https://github.com/mariadb-corporation/MaxScale/blob/23.02/query_classifier/qc_sqlite/builtin_functions.cc).
+The list of supported built-in functions can be found [here](https://github.com/mariadb-corporation/MaxScale/blob/23.02/query_classifier/qc_sqlite/builtin_functions.cc).
 
 #### Routing to every session backend
 

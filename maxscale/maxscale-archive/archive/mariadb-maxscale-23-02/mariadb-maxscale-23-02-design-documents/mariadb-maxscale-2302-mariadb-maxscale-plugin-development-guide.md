@@ -128,7 +128,7 @@ module. This function must be exported without C++ name mangling, so in C++ code
 it should be defined `extern "C"`.
 
 The information container describes the module in general and is constructed\
-once during program excecution. A module may have multiple _instances_ with\
+once during program execution. A module may have multiple _instances_ with\
 different values for configuration parameters. For example, a filter module can\
 be used with two different configurations in different services (or even in the\
 same service). In this case the loader uses the same module information\
@@ -314,7 +314,7 @@ be NULL, in which case the filter will be skipped for that packet type.
 `routeQuery` is often the most complicated function in a router, as it\
 implements the routing logic. It typically considers the client request `queue`,\
 the router settings in `instance` and the session state in `session` when making\
-a routing decision. For filters aswell, `routeQuery` typically implements the\
+a routing decision. For filters as well, `routeQuery` typically implements the\
 main logic, although the routing target is constant. For router modules,`routeQuery` should send data forward with `dcb->func.write()`. Filters should\
 directly call `routeQuery` for the next filter or router in the chain.
 
@@ -338,7 +338,7 @@ If a router or filter sets no capabilities, `routeQuery` or `clientReply` may be
 called to route partial packets. If the routing logic does not require any\
 information on the contents of the packets or even tracking the number of\
 packets, this may be fine. For many cases though, receiving a data packet in a\
-complete GWBUF chain or in one contiguos GWBUF is required. The former can be\
+complete GWBUF chain or in one contiguous GWBUF is required. The former can be\
 requested by `getCapabilities` returning _RCAP\_TYPE\_STMT_, the latter by_RCAP\_TYPE\_CONTIGUOUS_. Separate settings exist for queries and replies. For\
 replies, an additional value, _RCAP\_TYPE\_RESULTSET\_OUTPUT_ is defined. This\
 requests the protocol module to gather partial results into one result set.\
@@ -406,7 +406,7 @@ configuration file.
 
 In this example, the RoundRobinRouter is compiled, installed and tested. The\
 software environment this section was written and tested is listed below. Any\
-recent Linux setup should be applicaple.
+recent Linux setup should be applicable.
 
 * Linux Mint 18
 * gcc 5.4.0, glibc 2.23
@@ -578,7 +578,7 @@ complexity depends on the routing logic requirements.
 The provided RoundRobinRouter example code should serve as a valid starting\
 point for both filters and routers. Studying the MaxScale Public Interface\
 headers to get a general idea of what services the core provides for plugins,\
-is also highly recommeded.
+is also highly recommended.
 
 Lastly, MariaDB MaxScale is an open-source project, so code contributions can be\
 accepted if they fulfill the [requirements](https://github.com/mariadb-corporation/MaxScale/wiki/Contributing).

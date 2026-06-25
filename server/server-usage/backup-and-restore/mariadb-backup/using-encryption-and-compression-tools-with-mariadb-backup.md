@@ -80,7 +80,7 @@ Compress
 mariadb-backup --user=root --backup --stream=xbstream  | zstd - -o backup.xb.zst -f -1
 ```
 
-Decompress , unpack
+Decompress, unpack
 
 ```bash
 zstd -d backup.xbstream.zst -c | mbstream -x

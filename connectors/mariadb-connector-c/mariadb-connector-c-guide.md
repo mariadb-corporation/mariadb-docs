@@ -13,6 +13,41 @@ description: >-
 
 MariaDB Connector/C is used to connect applications developed in C/C++ to MariaDB and MySQL databases.The client library is LGPL licensed.
 
+## Supported Versions
+
+### Server Compatibility
+
+MariaDB Connector/C is compatible with all MariaDB and MySQL server versions.
+
+### Supported Release Series
+
+The following MariaDB Connector/C release series are currently supported:
+
+| Release Series | Stable (GA) Date |
+| -------------- | ---------------- |
+| 3.4            | February 2025    |
+| 3.3            | July 2022        |
+
+For End of Standard Support and End of Life dates, see the [MariaDB Engineering Policy](https://mariadb.com/engineering-policies/).
+
+### Checking Your Installed Version
+
+Most users install MariaDB Connector/C from the packages distributed with MariaDB Server, which use the server's versioning scheme rather than the connector's. To find the installed Connector/C version, use the `mariadb_config` utility with the `--cc_version` option:
+
+```bash
+mariadb_config --cc_version
+```
+
+```
+3.4.10
+```
+
+{% hint style="warning" %}
+The `mariadb_config --version` option returns the **MariaDB Server package** version, not the Connector/C version. Use `--cc_version` for the Connector/C version.
+{% endhint %}
+
+An application can also retrieve the client library version at runtime by calling [`mysql_get_client_info()`](api-functions/mysql_get_client_info.md) (string) or [`mysql_get_client_version()`](api-functions/mysql_get_client_version.md) (numeric).
+
 ## Integration with MariaDB Server
 
 MariaDB Connector/C is distributed with MariaDB Server packages. Eventually, it will completely replace the functionality that has traditionally been performed by `libmysqlclient` in those packages. Currently, MariaDB Connector/C has replaced `libmysqlclient` as the client library for client utilities that are distributed with MariaDB Server. See [MDEV-9055](https://jira.mariadb.org/browse/MDEV-9055) for more information.

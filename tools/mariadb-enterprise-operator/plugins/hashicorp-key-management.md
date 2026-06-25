@@ -23,7 +23,7 @@ Transparent Data Encryption (TDE) can be configured in MariaDB leveraging the Ha
     ```sh
     vault secrets enable -path /mariadb -version=2 kv
     ```
-2.  **Adding necessary secrets.** We will put 2 secrets with ids `1` and `2`. `2` will be used for temporary files, while `1` will be used for everything else. It is not neccessary to create 2 of them and in that case, temporary files will use `1`.
+2.  **Adding necessary secrets.** We will put 2 secrets with ids `1` and `2`. `2` will be used for temporary files, while `1` will be used for everything else. It is not necessary to create 2 of them and in that case, temporary files will use `1`.
 
     Note: Here you should use the `path` we chose in the previous step.
 
@@ -237,7 +237,7 @@ Transparent Data Encryption (TDE) can be configured in MariaDB leveraging the Ha
     kubectl run mariadb-connect --rm -it --image=mariadb:11.4 -- bash -c "mariadb -u root -p'MariaDB11!' --ssl=false -h mariadb"
     ```
 
-    If you check the encrpytion status again:
+    If you check the encryption status again:
 
     ```sql
     SELECT * from information_schema.INNODB_TABLESPACES_ENCRYPTION;

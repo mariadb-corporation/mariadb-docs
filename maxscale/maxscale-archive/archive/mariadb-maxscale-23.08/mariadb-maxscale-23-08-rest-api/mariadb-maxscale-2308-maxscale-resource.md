@@ -737,7 +737,7 @@ Client didn't request a WebSocket upgrade:
 
 
 Any PATCH requests done to this endpoint will be redirected to the
- `/v1/maxscale` endpoint. Due to the mispelling of the `ms_timestamp` and
+ `/v1/maxscale` endpoint. Due to the misspelling of the `ms_timestamp` and
  `log_throttling` parameters, this is not fully backwards compatible.
 
 

@@ -34,7 +34,7 @@ A difference in the response time of individual queries is not a meaningful crit
 
 ### EXPLAIN
 
-When a discrepancy is detected, an EXPLAIN statement will be executed if the query was a DELETE, SELECT, INSERT or UPDATE. The EXPLAIN will be executed using the same connection that was used for executing the original statement. In the normal case, the EXPLAIN will be executed immediately after the original statement, but if the client is streaming requests, an other statement may have been exceuted in between.
+When a discrepancy is detected, an EXPLAIN statement will be executed if the query was a DELETE, SELECT, INSERT or UPDATE. The EXPLAIN will be executed using the same connection that was used for executing the original statement. In the normal case, the EXPLAIN will be executed immediately after the original statement, but if the client is streaming requests, an other statement may have been executed in between.
 
 EXPLAINs are not always executed, but the frequency is controlled by [explain\_entries](maxscale-diff.md#explain_entries) and [explain\_period](maxscale-diff.md#explain_period). The EXPLAIN results are included in the [output](maxscale-diff.md#reporting) of Diff.
 
@@ -321,7 +321,7 @@ The order is significant; the first argument is the baseline and the second argu
 
 ## Continuous Reporting
 
-If the value of [report](maxscale-diff.md#report) is something else but `never`, Diff will continously log results to a file whose name is the concatenation for the main and other server followed by a timestamp. In the example above, the name would be something like`MyServer1_MariaDB_112_2024-02-15_152838.json`.
+If the value of [report](maxscale-diff.md#report) is something else but `never`, Diff will continuously log results to a file whose name is the concatenation for the main and other server followed by a timestamp. In the example above, the name would be something like`MyServer1_MariaDB_112_2024-02-15_152838.json`.
 
 Each line (here expanded for readability) in the file will look like:
 
@@ -457,7 +457,7 @@ Specifies whether an error from _other_, will cause the session to be closed. By
 * Max: 100
 * Default: 99
 
-Specifies the percentile of sampels that will be considered when calculating the width and number of bins of the histogram.
+Specifies the percentile of samples that will be considered when calculating the width and number of bins of the histogram.
 
 ### `qps_window`
 
