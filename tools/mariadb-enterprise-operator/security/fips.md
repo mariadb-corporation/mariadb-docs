@@ -94,7 +94,7 @@ The MariaDB Enterprise Operator utilizes the `mysql_native_password` authenticat
 
 #### AWS S3 SSE-C Encryption
 
-Backups configured to use [Server-Side Encryption with Customer-Provided Keys (SSE-C)](../../backup-and-restore/physical_backup.md#server-side-encryption-with-customer-provided-keys-sse-c-for-s3) with an S3-compatible storage provider are not supported when FIPS mode is enabled. The S3 protocol for SSE-C requires the use of the MD5 hashing algorithm for integrity checking, which is not approved for FIPS.
+Backups configured to use [Server-Side Encryption with Customer-Provided Keys (SSE-C)](../backup-and-restore/physical_backup.md#server-side-encryption-with-customer-provided-keys-sse-c-for-s3) with an S3-compatible storage provider are not supported when FIPS mode is enabled. The S3 protocol for SSE-C requires the use of the MD5 hashing algorithm for integrity checking, which is not approved for FIPS.
 
 ## NIST CMVP Certificates
 
