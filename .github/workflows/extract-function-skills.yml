@@ -1,0 +1,61 @@
+name: Regenerate Tier 2 function skills
+
+# Re-runs the function-category extractor and opens a PR if any Tier 2 skill's
+# generated catalog drifted from the canonical docs. Only the content between
+# each skill's BEGIN/END GENERATED markers changes; hand-written scaffolds are
+# untouched. Opens a PR (never commits to main directly) — a human reviews.
+#
+# Requires the repo setting: Settings → Actions → General →
+# "Allow GitHub Actions to create and approve pull requests".
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * 1'   # weekly, Monday 04:17 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: regen-tier2-functions
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Regenerate Tier 2 function-skill catalogs
+        run: python3 agent-skills/extractor/regenerate.py
+
+      - name: Open a PR if anything changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: agent-skills/regen-tier2-functions
+          base: main
+          title: 'DOCS-6206 Regenerate Tier 2 function-skill catalogs'
+          commit-message: |
+            DOCS-6206 Regenerate Tier 2 function-skill catalogs
+
+            Automated by extract-function-skills.yml. Only the content between
+            the BEGIN/END GENERATED markers changes; hand-written scaffolds
+            (frontmatter, intro, "What LLMs Often Miss") are preserved.
+          body: |
+            Automated regeneration of the Tier 2 function catalogs from the
+            canonical `server/reference/sql-functions/**` pages, via
+            `agent-skills/extractor/regenerate.py`.
+
+            Only the per-function entries between each skill's
+            `BEGIN/END GENERATED` markers change — the hand-written scaffold is
+            untouched. Review the diff and merge if the doc changes are expected.
+          labels: |
+            agent-skills
+            automated
+          add-paths: |
+            agent-skills/granular/functions/**

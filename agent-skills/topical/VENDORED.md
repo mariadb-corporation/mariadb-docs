@@ -11,7 +11,7 @@ local edits would be lost. File content bugs against the upstream repository.
 | Pinned ref (commit) | `86623494f8051e766c973d35c1f07368c3b4c267` |
 | Upstream license | **MIT** — Copyright (c) 2026 Robert Silén; see `LICENSE` in this directory |
 | Last synced | 2026-06-24 |
-| Synced by | Manual (initial vendor); `.github/workflows/sync-topical-skills.yml` to automate (stub) |
+| Synced by | `.github/workflows/sync-topical-skills.yml` (weekly + manual); initial vendor was manual |
 
 ## What is vendored
 
@@ -41,13 +41,20 @@ files here; pinning to a release tag keeps it reproducible.
 
 ## Re-syncing
 
-To pull a newer upstream revision (until `sync-topical-skills.yml` automates it):
+Normally automated: `.github/workflows/sync-topical-skills.yml` runs weekly (and
+on demand) and opens a PR when upstream has moved. To trigger or pin a specific
+ref manually, run that workflow with the `ref` input, or locally:
 
-1. Pick the new upstream commit/tag.
-2. Overwrite each vendored `SKILL.md` and the `LICENSE` from that ref. Do not
-   hand-edit the skills — file content bugs upstream against `MariaDB/skills`.
-3. Update the table above (pinned ref, last-synced date), the skill list if the
-   vendored subset changed, and `vendored_ref` in `../.skills-manifest.json`.
+```bash
+python3 agent-skills/topical/sync_topical.py --ref <branch|tag|sha>
+```
+
+That downloads each keeper's `SKILL.md` + the `LICENSE` at the resolved commit
+and updates the table above (pinned ref, last-synced date) and `vendored_ref` in
+`../.skills-manifest.json`. The files are vendored verbatim — do not hand-edit;
+file content bugs upstream against `MariaDB/skills`. If the **vendored subset**
+changes (a keeper added/removed), update `KEEPERS` in `sync_topical.py` and the
+skill list above.
 
 ## Known upstream nits (file against `MariaDB/skills`, do not fix here)
 

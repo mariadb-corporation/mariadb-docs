@@ -87,8 +87,11 @@ The per-function entries are generated; the scaffold around them is not.
 - The body between the `BEGIN/END GENERATED` markers is produced by
   `agent-skills/extractor/extract_function_category.py` against the canonical
   `server/reference/sql-functions/**/<category>/` pages.
-- CI (`extract-function-skills.yml`, stub) re-runs the extractor when those
-  pages change and opens a regeneration PR, preserving the scaffold sections.
+- CI (`.github/workflows/extract-function-skills.yml`, weekly + manual) runs
+  `agent-skills/extractor/regenerate.py`, which re-runs the extractor for every
+  Tier 2 skill and rewrites only the content between the `BEGIN/END GENERATED`
+  markers; it opens a regeneration PR when anything drifted, scaffold preserved.
+  Run `regenerate.py --check` locally to see drift without writing.
 
 ## Update cadence and triggers
 
@@ -107,13 +110,16 @@ Don't sweep all skills every cycle.
 
 **Automated (no human effort):**
 
-- **Tier 2 functions** — `.github/workflows/extract-function-skills.yml` re-runs
-  the extractor when the relevant `sql-functions/**` pages change and opens a
-  regeneration PR. The per-function catalog stays current; the hand-written
-  scaffold (frontmatter, intro, "What LLMs Often Miss") is preserved between the
+- **Tier 2 functions** — `.github/workflows/extract-function-skills.yml` runs
+  weekly (and on demand), re-runs the extractor for every Tier 2 skill, and
+  opens a regeneration PR only if a catalog drifted from its `sql-functions/**`
+  pages. The per-function catalog stays current; the hand-written scaffold
+  (frontmatter, intro, "What LLMs Often Miss") is preserved between the
   `BEGIN/END GENERATED` markers.
-- **Topical** — `.github/workflows/sync-topical-skills.yml` re-vendors
-  `MariaDB/skills` at a new pinned ref and updates `topical/VENDORED.md`.
+- **Topical** — `.github/workflows/sync-topical-skills.yml` runs weekly (and on
+  demand), re-vendors `MariaDB/skills` at the current upstream ref, and opens a
+  PR only if the pin moved (updating `topical/VENDORED.md` and
+  `.skills-manifest.json`).
 
 **Human review (the editorial delta — can't be automated), per *affected* skill,
 ~15–30 min each:**
