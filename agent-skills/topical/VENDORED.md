@@ -10,7 +10,7 @@ local edits would be lost. File content bugs against the upstream repository.
 | Upstream repository | https://github.com/MariaDB/skills |
 | Pinned ref (commit) | `86623494f8051e766c973d35c1f07368c3b4c267` |
 | Upstream license | **MIT** — Copyright (c) 2026 Robert Silén; see `LICENSE` in this directory |
-| Last synced | 2026-06-24 |
+| Last synced | 2026-06-25 |
 | Synced by | `.github/workflows/sync-topical-skills.yml` (weekly + manual); initial vendor was manual |
 
 ## What is vendored
