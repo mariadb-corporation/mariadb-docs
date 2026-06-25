@@ -11,6 +11,10 @@ Run by .github/workflows/sync-topical-skills.yml; that workflow opens a PR only
 if anything actually changed (i.e. upstream moved). Vendored verbatim — file
 content bugs upstream, do not hand-edit the downloaded files.
 
+Idempotent: if the resolved ref already matches the recorded pin and no vendored
+file has drifted on disk, nothing is written (so the workflow opens no PR). The
+last-synced date only advances when content actually changes.
+
 Usage:
     sync_topical.py [--ref <branch|tag|sha>] [--date YYYY-MM-DD]
 
@@ -72,12 +76,29 @@ def main() -> int:
     sha = resolve_sha(args.ref)
     date = args.date or datetime.datetime.now(datetime.timezone.utc).date().isoformat()
 
-    # Download the keeper SKILL.md files + the upstream LICENSE, verbatim.
-    for name in KEEPERS:
-        dest = HERE / name / "SKILL.md"
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_bytes(fetch(raw_url(sha, f"{name}/SKILL.md")))
-    (HERE / "LICENSE").write_bytes(fetch(raw_url(sha, "LICENSE")))
+    # Current pin, so we can no-op when upstream hasn't moved.
+    manifest_text = MANIFEST.read_text(encoding="utf-8")
+    old_ref_match = re.search(r'"vendored_ref": "([^"]*)"', manifest_text)
+    old_ref = old_ref_match.group(1) if old_ref_match else None
+
+    # Download the keeper SKILL.md files + the upstream LICENSE into memory.
+    downloads = {HERE / name / "SKILL.md": fetch(raw_url(sha, f"{name}/SKILL.md"))
+                 for name in KEEPERS}
+    downloads[HERE / "LICENSE"] = fetch(raw_url(sha, "LICENSE"))
+
+    # Nothing to do unless the pin moved or a vendored file drifted on disk.
+    # (Without this guard the "Last synced" date would change every run, opening
+    # a content-free PR on every weekly cron.)
+    files_differ = any(not path.exists() or path.read_bytes() != blob
+                       for path, blob in downloads.items())
+    if sha == old_ref and not files_differ:
+        print(f"up to date at {sha}; nothing to do")
+        return 0
+
+    # Write the vendored files verbatim.
+    for path, blob in downloads.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(blob)
 
     # Update the VENDORED.md provenance table (line-oriented, robust to spacing).
     v = VENDORED.read_text(encoding="utf-8")
@@ -88,8 +109,8 @@ def main() -> int:
     VENDORED.write_text(v, encoding="utf-8")
 
     # Update the manifest's topical.vendored_ref.
-    m = MANIFEST.read_text(encoding="utf-8")
-    m = re.sub(r'("vendored_ref": ")[^"]*(")', lambda x: x.group(1) + sha + x.group(2), m)
+    m = re.sub(r'("vendored_ref": ")[^"]*(")',
+               lambda x: x.group(1) + sha + x.group(2), manifest_text)
     json.loads(m)   # validate before writing
     MANIFEST.write_text(m, encoding="utf-8")
 
