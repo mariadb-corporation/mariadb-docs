@@ -1,15 +1,14 @@
 ---
 description: >-
   Evaluate MariaDB MaxScale with the free Trial version. Learn about its
-  features and installation steps, limited only by a 30 day license key.
+  features and installation steps, limited only by a license key.
 ---
 
 # MaxScale Trial
 
-With the release of MaxScale 25.10.2, MariaDB has updated the MaxScale Trial
-experience to provide a more flexible evaluation period. This free version
-allows users to explore the latest GA features of MaxScale under a
-[proprietary license](https://mariadb.com/terms/).
+MariaDB MaxScale offers a free Trial version with a flexible, license-key based
+evaluation period. This free version allows users to explore the latest GA
+features of MaxScale under a [proprietary license](https://mariadb.com/terms/).
 
 Unlike previous versions, access to this trial is now managed via a specific
 license key. This key determines the duration of your evaluation period,
@@ -20,7 +19,7 @@ The next section explains how to obtain your license key.
 
 ### Getting the License Key
 
-To use MaxScale 25.10.2 Trial mode, you must first obtain a trial license
+To use MaxScale 25.10.3 Trial mode, you must first obtain a trial license
 key from the MariaDB Customer Portal. This key validates your trial and
 determines the duration of your evaluation period.
 
@@ -45,11 +44,29 @@ a directory and extract the package into that.
 ```
 mkdir maxscale
 cd maxscale
-tar -xf path/to/maxscale-25.10.2-trial-release.ubuntu.noble.x86_64.tar
+tar -xf path/to/maxscale-25.10.3-trial-release.ubuntu.noble.x86_64.tar
 ```
 The filename will be different for different OSs.
 
+The extracted tar contains 6 packages.
+
+* `maxscale-common_25.10.3~noble-1_amd64.deb`
+* `maxscale-trial_25.10.3~noble-1_amd64.deb`
+* `maxscale-maxctrl_25.10.3~noble-1_amd64.deb`
+* `maxscale-maxctrl2_25.10.3~noble-1_amd64.deb`
+* `maxscale-exasol_25.10.3~noble-1_amd64.deb`
+
+Also these filenames will be different depending on the OS.
+
+* `maxscale-common` contains common components used by the other packages, except for `maxscale-maxctrl`.
+* `maxscale-trial` contains _MaxScale_  itself.
+* `maxscale-maxctrl` contains _maxctrl_, a [Node.js](https://nodejs.org/en) based command line tool for managing _MaxScale_.
+* `maxscale-maxctrl2` contains _maxctrl2_, which provides the same functionality as _maxctrl_, but is a native application.
+* `maxscale-exasol` contains [exasolrouter](../reference/maxscale-routers/maxscale-exasolrouter.md), a router capable of routing to [Exasol](https://www.exasol.com/).
+
 ### Installing MaxScale Trial <a href="#installing-maxscale-trial" id="installing-maxscale-trial"></a>
+
+**NOTE** If you have an earlier MaxScale Trial version, please uninstall it first.
 
 Enter the directory where the tar-package was extracted and execute
 on a Debian based system
@@ -208,7 +225,7 @@ The configuration file of MaxScale Trial is 100% compatible with MaxScale. To re
 with MaxScale, the following steps are needed:
 
 * Uninstall MaxScale Trial.
-* Install MaxScale 25.10.2 or higher.
+* Install MaxScale 25.10.3 or higher.
 
 Although the uninstallation of MaxScale Trial will not cause the configuration file to be erased,
 it is recommended to make a backup of it before the operation.
