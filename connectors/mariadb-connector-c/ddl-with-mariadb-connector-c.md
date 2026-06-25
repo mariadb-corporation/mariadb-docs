@@ -13,13 +13,13 @@ C and C++ developers can use MariaDB Connector/C to perform basic DDL (Data Defi
 
 DDL (Data Definition Language) refers to all SQL-schema statements in the SQL standard (ISO/IEC 9075-2:2016).
 
-Some examples of DDL include [ALTER TABLE]({server}/reference/sql-statements/data-definition/alter/alter-table), [CREATE TABLE]({server}/server-usage/tables/create-table), [DROP TABLE]({server}/server-usage/tables/drop-table), [CREATE DATABASE]({server}/reference/sql-statements/data-definition/create/create-database), and [TRUNCATE TABLE]({server}/reference/sql-statements/table-statements/truncate-table).
+Some examples of DDL include [ALTER TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table), [CREATE TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/create-table), [DROP TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/server-usage/tables/drop-table), [CREATE DATABASE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/create/create-database), and [TRUNCATE TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/truncate-table).
 
 In MariaDB Connector/C, DDL statements are executed with [`mysql_query()`](api-functions/mysql_query.md) (or [`mysql_real_query()`](api-functions/mysql_real_query.md) for statements that contain binary data or null bytes).
 
 ## Code Example: ALTER TABLE
 
-[ALTER TABLE]({server}/reference/sql-statements/data-definition/alter/alter-table) is a DDL operation that changes an existing table.
+[ALTER TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-definition/alter/alter-table) is a DDL operation that changes an existing table.
 
 The following code demonstrates how to execute `ALTER TABLE` on the [example table](setup-for-examples.md):
 
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-Confirm the table was altered by using [MariaDB Client]({server}/clients-and-utilities/mariadb-client) to execute a [DESCRIBE]({server}/reference/sql-statements/administrative-sql-statements/describe) statement on the same table:
+Confirm the table was altered by using [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) to execute a [DESCRIBE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/describe) statement on the same table:
 
 ```sql
 DESC contacts;
@@ -89,7 +89,7 @@ DESC contacts;
 
 ## Code Example: TRUNCATE TABLE
 
-[TRUNCATE TABLE]({server}/reference/sql-statements/table-statements/truncate-table) is a DDL operation that deletes all data from an existing table.
+[TRUNCATE TABLE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/table-statements/truncate-table) is a DDL operation that deletes all data from an existing table.
 
 To truncate the table instead, replace the `ALTER TABLE` statement in the code example above with:
 
