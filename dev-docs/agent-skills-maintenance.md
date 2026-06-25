@@ -110,13 +110,16 @@ Don't sweep all skills every cycle.
 
 **Automated (no human effort):**
 
-- **Tier 2 functions** — `.github/workflows/extract-function-skills.yml` re-runs
-  the extractor when the relevant `sql-functions/**` pages change and opens a
-  regeneration PR. The per-function catalog stays current; the hand-written
-  scaffold (frontmatter, intro, "What LLMs Often Miss") is preserved between the
+- **Tier 2 functions** — `.github/workflows/extract-function-skills.yml` runs
+  weekly (and on demand), re-runs the extractor for every Tier 2 skill, and
+  opens a regeneration PR only if a catalog drifted from its `sql-functions/**`
+  pages. The per-function catalog stays current; the hand-written scaffold
+  (frontmatter, intro, "What LLMs Often Miss") is preserved between the
   `BEGIN/END GENERATED` markers.
-- **Topical** — `.github/workflows/sync-topical-skills.yml` re-vendors
-  `MariaDB/skills` at a new pinned ref and updates `topical/VENDORED.md`.
+- **Topical** — `.github/workflows/sync-topical-skills.yml` runs weekly (and on
+  demand), re-vendors `MariaDB/skills` at the current upstream ref, and opens a
+  PR only if the pin moved (updating `topical/VENDORED.md` and
+  `.skills-manifest.json`).
 
 **Human review (the editorial delta — can't be automated), per *affected* skill,
 ~15–30 min each:**
