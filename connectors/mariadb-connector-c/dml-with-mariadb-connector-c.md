@@ -11,11 +11,11 @@ C and C++ developers can use MariaDB Connector/C to perform basic DML (Data Mani
 
 ## DML Operations
 
-DML (Data Manipulation Language) refers to all SQL data statements in the SQL standard (_ISO/IEC 9075-2:2016_). Some examples of DML include [DELETE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/delete), [INSERT]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/insert), [REPLACE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/replace), [SELECT]({server}/reference/sql-statements/data-manipulation/selecting-data/select), and [UPDATE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/update).
+DML (Data Manipulation Language) refers to all SQL data statements in the SQL standard (_ISO/IEC 9075-2:2016_). Some examples of DML include [DELETE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete), [INSERT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert), [REPLACE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/replace), [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select), and [UPDATE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update).
 
 ## Code Example: INSERT, UPDATE, DELETE
 
-[INSERT]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/insert), [UPDATE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/update), and [DELETE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/delete) are DML operations that modify the data in a table.
+[INSERT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert), [UPDATE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update), and [DELETE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete) are DML operations that modify the data in a table.
 
 The following code demonstrates how to execute an `INSERT` on the [example table](setup-for-examples.md) using a [prepared statement](api-prepared-statement-functions/), which safely binds user-supplied values to statement parameters.
 
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-Confirm the data was inserted by using [MariaDB Client]({server}/clients-and-utilities/mariadb-client) to execute a [SELECT]({server}/reference/sql-statements/data-manipulation/selecting-data/select) statement:
+Confirm the data was inserted by using [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) to execute a [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) statement:
 
 ```sql
 SELECT * FROM test.contacts;
@@ -105,7 +105,7 @@ SELECT * FROM test.contacts;
 
 ## Code Example: SELECT
 
-[SELECT]({server}/reference/sql-statements/data-manipulation/selecting-data/select) is a DML operation that reads the data from a table.
+[SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) is a DML operation that reads the data from a table.
 
 The following code demonstrates how to execute `SELECT` on the [example table](setup-for-examples.md) and iterate over the result set with [`mysql_fetch_row()`](api-functions/mysql_fetch_row.md):
 

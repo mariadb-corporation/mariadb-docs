@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-Confirm the rows were inserted by using [MariaDB Client]({server}/clients-and-utilities/mariadb-client) to execute a [SELECT]({server}/reference/sql-statements/data-manipulation/selecting-data/select) statement:
+Confirm the rows were inserted by using [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) to execute a [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) statement:
 
 ```sql
 SELECT * FROM test.contacts;

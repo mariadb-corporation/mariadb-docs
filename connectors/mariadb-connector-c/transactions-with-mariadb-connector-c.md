@@ -23,19 +23,19 @@ Disable auto-commit by calling [`mysql_autocommit()`](api-functions/mysql_autoco
 mysql_autocommit(conn, 0);
 ```
 
-When auto-commit is disabled, a new transaction is automatically started when the current transaction is manually committed or rolled back. The application does not need to manually start each new transaction with [START TRANSACTION]({server}/reference/sql-statements/transactions/start-transaction) or [BEGIN]({server}/reference/sql-statements/transactions/begin-end).
+When auto-commit is disabled, a new transaction is automatically started when the current transaction is manually committed or rolled back. The application does not need to manually start each new transaction with [START TRANSACTION](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/start-transaction) or [BEGIN](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/begin-end).
 
 The transaction can be manually managed by performing the following operations:
 
-* Commit the transaction by calling [`mysql_commit()`](api-functions/mysql_commit.md) or using [COMMIT]({server}/reference/sql-statements/transactions/commit).
-* Roll back the transaction by calling [`mysql_rollback()`](api-functions/mysql_rollback.md) or using [ROLLBACK]({server}/reference/sql-statements/transactions/rollback).
+* Commit the transaction by calling [`mysql_commit()`](api-functions/mysql_commit.md) or using [COMMIT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/commit).
+* Roll back the transaction by calling [`mysql_rollback()`](api-functions/mysql_rollback.md) or using [ROLLBACK](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/transactions/rollback).
 * Re-enable auto-commit by calling [`mysql_autocommit()`](api-functions/mysql_autocommit.md) with a `mode` of `1`.
 
 ## Code Example: DML in a Transaction
 
-[UPDATE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/update), [INSERT]({server}/reference/sql-statements/data-manipulation/inserting-loading-data/insert), and [DELETE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/delete) are DML operations that modify data in a table.
+[UPDATE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update), [INSERT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/inserting-loading-data/insert), and [DELETE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/delete) are DML operations that modify data in a table.
 
-The following code demonstrates how to execute several [UPDATE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/update) statements on the [example table](setup-for-examples.md) within a single transaction with auto-commit disabled. All of the updates are committed together; if any update fails, the transaction is rolled back so none of them are applied.
+The following code demonstrates how to execute several [UPDATE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update) statements on the [example table](setup-for-examples.md) within a single transaction with auto-commit disabled. All of the updates are committed together; if any update fails, the transaction is rolled back so none of them are applied.
 
 ```c
 #include <stdio.h>
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-The query below confirms the [UPDATE]({server}/reference/sql-statements/data-manipulation/changing-deleting-data/update) of the [example table](setup-for-examples.md):
+The query below confirms the [UPDATE](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/changing-deleting-data/update) of the [example table](setup-for-examples.md):
 
 ```sql
 SELECT * FROM test.contacts;
