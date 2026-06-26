@@ -155,6 +155,28 @@ warranted, **stop and confirm with the user** (a new page needs a `SUMMARY.md` e
 
 ## 5. Draft the edit
 
+**Branch precondition (MANDATORY — check before writing or even drafting a page edit).**
+A doc edit must live on a `DOCS-XXXX` feature branch, never on `main`. Verify the working tree
+first:
+
+```bash
+docs_root="$(git rev-parse --show-toplevel)"
+branch="$(git -C "$docs_root" branch --show-current)"
+case "$branch" in
+  main|master|"")
+    echo "REFUSE: working tree is on '$branch' (or detached) — do not draft here." ;;
+  *) echo "OK: on feature branch '$branch'" ;;
+esac
+```
+
+- If the check **refuses** (on `main`/`master` or detached HEAD): **stop. Do not create, edit, or
+  write any file.** Tell the user to run **`/jira-start DOCS-XXXX`** first (it cuts the
+  `DOCS-XXXX-slug` branch off `main` and moves the ticket to In Progress), then re-run this skill.
+  Drafting straight onto `main` muddles unrelated work and breaks the branch→PR→review→merge flow.
+- If the branch name doesn't contain the ticket's `DOCS-XXXX` key, warn the user and confirm it's
+  the intended branch before writing (it may be the wrong ticket's branch).
+- Only once on a valid feature branch, proceed:
+
 - Match the voice and structure of the surrounding page (American English; see
   `dev-docs/style-guide.md`).
 - Use correct GitBook syntax — delegate blocks/links to the **`gitbook-format`** skill
@@ -169,7 +191,8 @@ warranted, **stop and confirm with the user** (a new page needs a `SUMMARY.md` e
 
 Show the proposed edit (target `file:line`, the snippet, the source citations, the
 verification table). **Wait for the user's go-ahead before writing.** If they said "apply" /
-"just do it", apply with `Edit`, then validate with `.claude/hooks/doc-lint.sh <file>` (or the
+"just do it", **re-confirm the §5 branch precondition still holds** (refuse on `main`/`master`),
+then apply with `Edit`, and validate with `.claude/hooks/doc-lint.sh <file>` (or the
 `docs-check` skill).
 
 **Never `git add`, `git commit`, `git push`, or open a PR.** Editing the file on the current
@@ -210,6 +233,9 @@ After drafting, report:
 
 ## Guardrails
 
+- **Never draft onto `main`.** Before writing any page (§5), confirm the working tree is on a
+  `DOCS-XXXX` feature branch; refuse on `main`/`master` or detached HEAD and send the user to
+  `/jira-start DOCS-XXXX` first. This skill creates/edits files only — it never branches.
 - **Verification is mandatory.** Unverifiable claims are flagged, never asserted.
 - **The fact-check report is mandatory** (§7) — every source-verified edit leaves one in
   `reports_dir`. It is written outside the repo and **never committed**.
