@@ -4,6 +4,7 @@
 **Owner(s):** @shinz
 **Date:** 2026-06-22
 **Related tickets:** [DOCS-6274](https://mariadbcorp.atlassian.net/browse/DOCS-6274)
+**Status:** Implemented — landed as the **NUDGE** procedure in `.claude/skills/jira/SKILL.md` plus the `/jira-chase` command (`.claude/commands/jira-chase.md`). Dogfood next per the plan below.
 
 ## Problem
 

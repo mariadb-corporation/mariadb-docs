@@ -33,7 +33,7 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 - **`new-page`** — scaffold a new page (frontmatter, style, GitBook syntax, `SUMMARY.md` nav entry) in the right space.
 - **`gitbook-format`** — emit/repair GitBook blocks (`hint`/`tabs`/`code`/`content-ref`/`include`) and fix link/alias form.
 - **`style-apply`** — editorial pass: fix mechanical style violations (product naming, American spelling, banned words, heading case) and surface voice/structure issues for your call.
-- **`jira`** — MariaDB DOCS Jira workflow; backs the `/jira-start`, `/jira-create`, `/jira-resolve`, `/jira-close`, `/jira-comment`, `/jira-mine` commands. Needs the `atlassian-mariadb` MCP connection (see the Jira cookbook).
+- **`jira`** — MariaDB DOCS Jira workflow; backs the `/jira-start`, `/jira-create`, `/jira-resolve`, `/jira-close`, `/jira-comment`, `/jira-mine`, `/jira-chase` commands. Needs the `atlassian-mariadb` MCP connection (see the Jira cookbook); `/jira-chase` also needs the Slack MCP.
 - **`doc-impact`** (`/impact <MDEV|DOCS|PR>`) — the "explain"/triage step: analyze a source change for doc impact (user-facing? which pages? claims to verify?) and report — no edits. Writes the **fact-check report skeleton**. Feeds `/doc-ticket`.
 - **`doc-from-ticket`** (`/doc-ticket DOCS-XXXX`) — turn a DOCS ticket into a **source-verified** doc edit (verifies claims against local MariaDB source; first run configures the source repos). Writes the completed **fact-check report** (`dev-docs/cookbook-fact-trail.md`).
 - **`verify-claims`** (`/verify-claims DOCS-XXXX`) — re-audit a fact-check report in a later session: re-prove each claim against source at the recorded SHA and the current ref, flag drift. Read-only.
