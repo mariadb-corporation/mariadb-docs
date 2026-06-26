@@ -60,7 +60,7 @@
     * [Point-In-Time-Recovery](mariadb-enterprise-operator/backup-and-restore/pitr.md)
     * [CSI Specific Configuration](mariadb-enterprise-operator/backup-and-restore/csi-specific-configuration.md)
   * [Storage](mariadb-enterprise-operator/storage.md)
-  * [Security](mariadb-enterprise-operator/README.md)
+  * [Security](mariadb-enterprise-operator/security/README.md)
     * [TLS](mariadb-enterprise-operator/security/tls.md)
     * [FIPS 140-3 Mode](mariadb-enterprise-operator/security/fips.md)
     * [Root Password Rotation](mariadb-enterprise-operator/security/root-password-rotation.md)
