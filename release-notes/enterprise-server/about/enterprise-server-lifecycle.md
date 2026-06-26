@@ -19,9 +19,9 @@ MariaDB Enterprise Server incorporates enhancements that are not present in Mari
 
 For details on features added to enhance, harden, and secure MariaDB Enterprise Server, see the following pages:
 
-* [What's New in MariaDB Enterprise Server 11.8](11.8/whats-new.md)
-* [What's New in MariaDB Enterprise Server 11.4](11.4/whats-new.md)
-* [What's New in MariaDB Enterprise Server 10.6](10.6/whats-new.md)
+* [What's New in MariaDB Enterprise Server 11.8](../11.8/whats-new.md)
+* [What's New in MariaDB Enterprise Server 11.4](../11.4/whats-new.md)
+* [What's New in MariaDB Enterprise Server 10.6](../10.6/whats-new.md)
 
 ## Enterprise Server Releases <a href="#enterprise-server-releases" id="enterprise-server-releases"></a>
 
