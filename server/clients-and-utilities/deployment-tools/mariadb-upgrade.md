@@ -112,6 +112,10 @@ mariadb-upgrade --verbose --verbose other-options
 
 `mariadb-upgrade` also saves the MariaDB version number in a file named `mysql_upgrade_info` in the [data directory](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). This is used to quickly check whether all tables have been checked for this release so that table-checking can be skipped. For this reason,`mariadb-upgrade` needs to be run as a user with write access to the data directory. To ignore this file and perform the check regardless, use the `--force` option.
 
+{% hint style="warning" %}
+Because this check relies on the version recorded in `mysql_upgrade_info`, restoring a `mariadb-dump` (`mysqldump`) backup taken from an older server version can leave the restored system tables out of date while the file still shows the current version. In that case, `mariadb-upgrade` reports that no upgrade is needed, so run it with the `--force` option to upgrade the restored tables.
+{% endhint %}
+
 ## Options
 
 `mariadb-upgrade` supports the following options:
