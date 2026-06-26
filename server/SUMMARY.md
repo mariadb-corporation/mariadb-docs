@@ -1936,6 +1936,8 @@
       * [TAN](reference/sql-functions/numeric-functions/tan.md)
       * [TO\_NUMBER](reference/sql-functions/numeric-functions/to_number.md)
       * [TRUNCATE](reference/sql-functions/numeric-functions/truncate.md)
+      * [XXH3](reference/sql-functions/numeric-functions/xxh3.md)
+      * [XXH32](reference/sql-functions/numeric-functions/xxh32.md)
     * [Pseudo Columns](reference/sql-functions/pseudo-columns/README.md)
       * [\_rowid](reference/sql-functions/pseudo-columns/_rowid.md)
     * [Secondary Functions](reference/sql-functions/secondary-functions/README.md)
