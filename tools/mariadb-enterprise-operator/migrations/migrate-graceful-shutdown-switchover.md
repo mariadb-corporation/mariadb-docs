@@ -1,6 +1,6 @@
-# Migrate to Switchover on Graceful Shutdown
+# Migrate to Primary Switchover on Graceful Shutdown
 
-The MariaDB Enterprise Operator 26.06 introduces a new feature: **Switchover on Graceful Shutdown**. This feature is enabled by default and automatically triggers a primary switchover when a primary Pod is gracefully terminated (e.g., during a node drain).
+The MariaDB Enterprise Operator 26.06 introduces a new feature: **Primary Switchover on Graceful Shutdown**. This feature is enabled by default and automatically triggers a primary switchover when a primary Pod is gracefully terminated (e.g., during a node drain).
 
 If you are upgrading from a version prior to 26.06 and wish to maintain the previous behavior (i.e., you do not want switchovers to happen automatically on graceful shutdown), you must update your MariaDB Custom Resources (CRs).
 
@@ -35,4 +35,4 @@ kubectl patch mariadb mariadb-repl \
 
 ## More Information
 
-For more details about the Graceful Shutdown Switchover feature and its implications, please refer to the [Primary Graceful Shutdown Switchover](../topologies/replication.md#primary-graceful-shutdown-switchover) section in the Replication documentation.
+For more details, please refer to the [Primary Switchover on Graceful Shutdown](../topologies/replication.md#primary-switchover-on-graceful-shutdown) section in the Replication documentation.
