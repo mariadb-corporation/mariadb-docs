@@ -20,8 +20,8 @@ description: >-
 
 ## Current Releases
 
-{% content-ref url="11.8/" %}
-[11.8](11.8/)
+{% content-ref url="11.8/whats-new.md" %}
+[whats-new.md](11.8/whats-new.md)
 {% endcontent-ref %}
 
 {% content-ref url="11.4/" %}
