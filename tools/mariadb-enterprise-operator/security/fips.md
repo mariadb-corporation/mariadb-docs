@@ -46,6 +46,41 @@ spec:
   # [...]
 ```
 
+## Verifying FIPS Mode
+
+### Operator Logs
+
+The simplest runtime check is the operator log. When FIPS mode is active, the operator emits a log line at startup:
+
+```sh
+kubectl logs deploy/mariadb-enterprise-operator | grep FIPS
+```
+
+Expected output when FIPS is enabled:
+
+```
+{"level":"info","logger":"setup","msg":"FIPS-140 mode is enabled"}
+```
+
+No output means FIPS is off (the default).
+
+### Binary Build Settings
+
+To confirm the operator binary was built with the validated Go Cryptographic Module, extract it from the image and inspect its embedded build metadata:
+
+```sh
+docker create --name fipschk docker.mariadb.com/mariadb-enterprise-operator:<version>
+docker cp fipschk:/bin/mariadb-enterprise-operator /tmp/op
+docker rm fipschk
+go version -m /tmp/op | grep -E 'GOFIPS140'
+```
+
+Expected output:
+
+```
+build  GOFIPS140=v1.0.0-...        <- frozen CMVP In-Process module
+```
+
 ## Implications of FIPS Mode
 
 When FIPS mode is enabled, strict rules are enforced on the cryptographic algorithms that can be used across the Operator and the managed resources.
