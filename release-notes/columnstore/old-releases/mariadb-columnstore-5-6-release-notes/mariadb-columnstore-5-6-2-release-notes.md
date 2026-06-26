@@ -16,7 +16,7 @@ MariaDB ColumnStore 5.6.2 was released on 2021-06-30.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.6.2 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.6.2 is provided for:
 
 * CentOS 7
 * CentOS 8

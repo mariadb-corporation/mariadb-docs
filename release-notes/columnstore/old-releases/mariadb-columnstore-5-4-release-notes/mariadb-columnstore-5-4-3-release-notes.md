@@ -20,7 +20,7 @@ MariaDB ColumnStore 5.4.3 was released on 2020-11-09.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.4.3 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.4.3 is provided for:
 
 * CentOS 8
 * CentOS 7

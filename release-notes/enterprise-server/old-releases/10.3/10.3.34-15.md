@@ -112,7 +112,7 @@ Last_Error: Error 'Duplicate entry 'VALUE' for key 'KEY_NAME'' on query. Default
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.34-15 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.34-15 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 9 (x86\_64, ARM64)

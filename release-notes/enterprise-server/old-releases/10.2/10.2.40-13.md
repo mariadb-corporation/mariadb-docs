@@ -95,7 +95,7 @@ InnoDB: WSREP: referenced FK check fail: Lock wait index `PRIMARY` table `schema
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.40-13 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.40-13 is provided for:
 
 * CentOS 7 (x86\_64)
 * CentOS 8 (x86\_64, ARM64)

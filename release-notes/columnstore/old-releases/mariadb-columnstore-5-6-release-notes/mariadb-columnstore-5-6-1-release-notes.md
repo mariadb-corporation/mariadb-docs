@@ -91,7 +91,7 @@ curl -X DELETE https://127.0.0.1:8640/cmapi/0.4.0/cluster/node --header 'Content
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.5.2 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.5.2 is provided for:
 
 * CentOS 7
 * CentOS 8

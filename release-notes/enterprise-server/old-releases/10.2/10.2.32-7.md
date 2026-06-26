@@ -57,7 +57,7 @@ MariaDB CVEs are assigned a word rating instead of a CVSS base score. See the [M
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.32-7 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.32-7 is provided for:
 
 * Red Hat Enterprise Linux 8
 * Red Hat Enterprise Linux 7
