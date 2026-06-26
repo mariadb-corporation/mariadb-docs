@@ -262,11 +262,13 @@ The steps involved in the switchover operation are:
 
 If the switchover operation is stuck waiting for replicas to be in sync, you can check the `MariaDB` status to identify which replicas are causing the issue. Furthermore, if still in this step, you can cancel the switchover operation by setting back the `spec.replication.primary.podIndex` field back to the previous primary index.
 
-### Switchover on Graceful Shutdown 
+### Primary Switchover on Graceful Shutdown
 
-The operator can automatically trigger a primary switchover when a primary `Pod` is gracefully shutdown. This is useful in scenarios such as node drains, where you want to gracefully move the primary to another node before the current one is terminated.
+When you upgrade a Kubernetes cluster, you usually can't control the order in which nodes are updated. If the node holding your MariaDB primary is drained, its Pod is evicted along with everything else on that node. To avoid an interruption, a switchover must be triggered before the Pod shuts down. Without it, Kubernetes terminates the primary abruptly, leaving MaxScale to fail over instead. On a large fleet, doing this manually for every upgrade is impractical, and on managed Kubernetes services (for example, EKS, GKE, or AKS) it is not possible at all, since you manage node pools rather than individual nodes.
 
-This feature is enabled by default. You can disable it by setting the `spec.replication.primary.autoSwitchoverOnGracefulShutdown` field to `false`:
+The operator addresses this by automatically triggering a primary switchover when a primary Pod is gracefully shutting down, ensuring write availability is maintained with minimal disruption.
+
+This feature is **enabled by default** and controlled via the `spec.replication.primary.autoSwitchoverOnGracefulShutdown` feature flag:
 
 ```yaml
 apiVersion: enterprise.mariadb.com/v1alpha1
@@ -280,15 +282,47 @@ spec:
   replication:
     enabled: true
     primary:
-      autoSwitchoverOnGracefulShutdown: false
+      autoSwitchoverOnGracefulShutdown: true
+```
+
+To opt out, set it to `false`.
+
+{% hint style="danger" %}
+Do not run this command directly in a production environment. Try it in a non-production environment first.
+{% endhint %}
+
+For example, an easy way to trigger a graceful shutdown is deleting the primary Pod with the default kubectl options:
+
+```bash
+kubectl get mariadbs
+NAME           READY   STATUS    PRIMARY          UPDATES                    AGE
+mariadb-repl   True    Running   mariadb-repl-0   ReplicasFirstPrimaryLast   2m45s
+
+kubectl delete pod mariadb-repl-0
+pod "mariadb-repl-0" deleted
+```
+
+When this happens, a switchover process is triggered in the primary Pod's [preStop hook](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks), emitting the following Kubernetes events:
+
+```bash
+kubectl get events --field-selector involvedObject.name=mariadb-repl --watch
+
+LAST SEEN   TYPE      REASON                       OBJECT                     MESSAGE
+0s          Normal    TerminateSwitchoverStarted           mariadb/mariadb-repl               Pod (mariadb-repl-0) is primary, triggering switchover. Waiting 25 seconds for new primary...
+0s          Normal    TerminateMaxScaleSwitchoverStarted   mariadb/mariadb-repl               MaxScale switchover started. Waiting 24 seconds for new primary mariadb-repl-1...
+0s          Normal    TerminateMaxScaleSwitchoverSuccess   mariadb/mariadb-repl               Primary successfully switched over via MaxScale
+```
+
+Resulting in the primary Pod eventually switched:
+
+```bash
+kubectl get mariadbs
+NAME           READY   STATUS    PRIMARY          UPDATES                    AGE
+mariadb-repl   True    Running   mariadb-repl-1   ReplicasFirstPrimaryLast   23m
 ```
 
 {% hint style="warning" %}
-The switchover on graceful shutdown is executed in a `preStop` hook within the primary `Pod`. Consequently, there are no logs available for this operation. However, the operator emits Kubernetes events that can be inspected to observe the progress of the switchover. You can query these events using `kubectl get events` or watch them in real-time with `kubectl get events -w`.
-{% endhint %}
-
-{% hint style="warning" %}
-Kubernetes events are short-lived. Keep in mind, if an issue comes up with the new termination logic, collect the events for more information.
+The primary switchover on graceful shutdown is executed in a `preStop` hook within the primary `Pod`. Consequently, there are no logs available for this operation. However, the operator emits Kubernetes events that can be inspected to observe the progress of the switchover. You can query these events using `kubectl get events` or watch them in real-time with `kubectl get events -w`. Note that Kubernetes events are short-lived, so monitor them while they still exist.
 {% endhint %}
 
 ## Primary failover

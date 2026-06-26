@@ -88,7 +88,7 @@
     * [Migrate Community operator to Enterprise operator](mariadb-enterprise-operator/migrations/migrate-community-operator-to-enterprise-operator.md)
     * [Migrate external MariaDB into Kubernetes](mariadb-enterprise-operator/migrations/migrate-external-mariadb-into-kubernetes.md)
     * [Migrate Embedded MaxScale To MaxScale Resource](mariadb-enterprise-operator/migrations/migrate-embedded-maxscale-to-maxscale-resource.md)
-    * [Migrate to Switchover on Graceful Shutdown ](mariadb-enterprise-operator/migrations/migrate-graceful-shutdown-switchover.md)
+    * [Migrate to Primary Switchover on Graceful Shutdown](mariadb-enterprise-operator/migrations/migrate-graceful-shutdown-switchover.md)
 * [MariaDB Enterprise MCP Server](mariadb-enterprise-mcp-server/README.md)
   * [Overview](mariadb-enterprise-mcp-server/introduction/README.md)
   * [Features](mariadb-enterprise-mcp-server/features/README.md)

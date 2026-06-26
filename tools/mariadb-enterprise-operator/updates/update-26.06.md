@@ -26,7 +26,7 @@ helm repo update mariadb-enterprise-operator
 helm upgrade --install mariadb-enterprise-operator-crds mariadb-enterprise-operator/mariadb-enterprise-operator-crds --version 26.6.0
 ```
 
-- **Switchover on Graceful Shutdown** is enabled by default in `26.6.0` If you do not want primary switchovers to happen automatically when a primary Pod is gracefully terminated, you must disable the feature on your `MariaDB` resources before updating the operator. Refer to [this migration guide](../migrations/migrate-graceful-shutdown-switchover.md) for instructions.
+- **Primary Switchover on Graceful Shutdown** is enabled by default in `26.6.0` If you do not want primary switchovers to happen automatically when a primary Pod is gracefully terminated, you must disable the feature on your `MariaDB` resources before updating the operator. Refer to [this migration guide](../migrations/migrate-graceful-shutdown-switchover.md) for instructions.
 
 - **Helm values changes**: Some changes have been introduced to facilitate and standardize how the default images used by the operator are configured. In particular, `config` has been split into `repository` and `tag` to facilitate overriding the image registry. If you are setting the `config` field explicitly, you must update your `values.yaml` from:
 
