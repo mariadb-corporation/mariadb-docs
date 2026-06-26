@@ -9,11 +9,11 @@ report at the end.
 
 ## Inputs (all LOCAL — that's why this runs locally, not as a cloud routine)
 
-1. **Session transcripts** — under `~/.claude/projects/-Users-stefanhinz-maria/`.
-   (Machine-specific: this is the project dir for a session launched from `/Users/stefanhinz/maria`;
-   adjust it to your own checkout's project dir if you run this elsewhere.)
-   Find session files modified in the last 7 days:
-   `find ~/.claude/projects/-Users-stefanhinz-maria -name '*.jsonl' -mtime -7 -print` (also check `.json`).
+1. **Session transcripts** — under this session's Claude Code project dir. Don't hardcode a path:
+   the project-dir name is derived from the launch directory (path separators and `.` → `-`), so
+   derive it at runtime and it works on any machine/checkout. Find session files modified in the
+   last 7 days:
+   `find ~/.claude/projects/"$(pwd | sed 's#[/.]#-#g')" -name '*.jsonl' -mtime -7 -print` (also check `.json`).
    Sample / skim them (they can be large — use `jq`/`grep` to pull user messages, tool names, and
    DOCS-XXXX mentions rather than reading whole files).
 2. **Research paper trail** — `research/*.md` in the repo (gitignored). List those modified in the
