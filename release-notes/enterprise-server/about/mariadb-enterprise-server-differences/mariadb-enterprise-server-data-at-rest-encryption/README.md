@@ -6,7 +6,7 @@ description: Data-at-rest encryption secures data on the file system.
 
 ## Overview
 
-[MariaDB Enterprise Server](https://github.com/mariadb-corporation/docs-release-notes/blob/test/en/mariadb-enterprise-server/README.md) and MariaDB Community Server support data-at-rest encryption, which secures data on the file system. The server and storage engines encrypt data before writing and decrypt it during reads, ensuring that the data is only unencrypted when accessed directly through the server.
+MariaDB Enterprise Server and MariaDB Community Server support data-at-rest encryption, which secures data on the file system. The server and storage engines encrypt data before writing and decrypt it during reads, ensuring that the data is only unencrypted when accessed directly through the server.
 
 ## Encryption Plugins
 
@@ -14,7 +14,7 @@ description: Data-at-rest encryption secures data on the file system.
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Encryption Plugins            | [Choosing an Encryption Plugin](encryption-plugins/choosing-an-encryption-plugin.md)                                                                                                                                              |
 | HashiCorp Vault               | [HashiCorp Vault and MariaDB](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/automated-mariadb-deployment-and-administration/hashicorp-vault-and-mariadb)                                                       |
-| Amazon Web Services (AWS) KMS | [Understanding the AWS KMS Encryption Plugin](encryption-plugins/amazon-web-services-aws-kms-understanding-the-amazon-web-services-aws-kms-e.md)                                                                                  |
+| Amazon Web Services (AWS) KMS | [Understanding the AWS KMS Encryption Plugin](encryption-plugins/understanding-the-amazon-web-services-aws-kms-encryption-plugin.md)                                                                                  |
 | File Key Management           | [Understanding the File Key Management Encryption Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin) |
 
 ## Storage Engine Encryption

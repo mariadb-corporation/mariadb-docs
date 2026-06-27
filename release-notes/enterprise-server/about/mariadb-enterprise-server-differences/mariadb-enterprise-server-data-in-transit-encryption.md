@@ -7,7 +7,6 @@
 [Additional information](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption) is available on the MariaDB documentation.
 
 * [Enabling TLS on MariaDB Server](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/data-in-transit-encryption-enabling-tls-on-mariadb-server)
-* [Requiring TLS on MariaDB Server](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/aPPYh73VLkhNpW6qjMxa)
 
 {% @marketo/form formid="4316" formId="4316" %}
 
