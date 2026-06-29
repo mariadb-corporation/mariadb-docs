@@ -478,6 +478,14 @@ With the [InnoDB](../../../../server-usage/storage-engines/innodb/) storage engi
 
 For information about the `KEY_BLOCK_SIZE` index option, see the [KEY\_BLOCK\_SIZE](create-table.md#key_block_size) table option below.
 
+#### ADAPTIVE\_HASH\_INDEX Index Option
+
+{% hint style="info" %}
+Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+The `ADAPTIVE_HASH_INDEX` index option takes the same `DEFAULT`, `YES`, and `NO` values as the [ADAPTIVE\_HASH\_INDEX](create-table.md#adaptive_hash_index) table option, but applies to a single index. When set to `YES` or `NO`, it overrides the table-level setting for that index. This option applies only to [InnoDB](../../../../server-usage/storage-engines/innodb/).
+
 #### Index Types
 
 Each storage engine supports some or all index types. See [Storage Engine Index Types](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/storage-engine-index-types.md) for details on permitted index types for each storage engine.
@@ -586,6 +594,7 @@ If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/vari
 ```bnf
 table_option:    
     [STORAGE] ENGINE [=] engine_name
+  | ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   | AUTO_INCREMENT [=] number
   | AVG_ROW_LENGTH [=] number
   | [DEFAULT] CHARACTER SET [=] <a data-footnote-ref href="#user-content-fn-7">charset_name</a>
@@ -622,6 +631,20 @@ table_option:
 ### \[STORAGE] ENGINE
 
 `[STORAGE] ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
+
+### ADAPTIVE\_HASH\_INDEX
+
+{% hint style="info" %}
+The `ADAPTIVE_HASH_INDEX` table and index options were added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+`ADAPTIVE_HASH_INDEX` controls whether the InnoDB adaptive hash index (AHI) is used for an individual [InnoDB](../../../../server-usage/storage-engines/innodb/) table. It takes one of three values:
+
+* `DEFAULT` — no per-table preference: the table follows the global [innodb\_adaptive\_hash\_index](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) setting. This is the default, and removes the option from the stored table definition.
+* `YES` — request the adaptive hash index for this table. AHI is built for the table only when it is also enabled at the server level (`innodb_adaptive_hash_index` set to `ON` or `IF_SPECIFIED`).
+* `NO` — never use the adaptive hash index for this table, even when it is enabled at the server level.
+
+The option only affects [InnoDB](../../../../server-usage/storage-engines/innodb/) tables, and only on servers built with adaptive hash index support. The same option can be set per index (see [ADAPTIVE\_HASH\_INDEX Index Option](#adaptive_hash_index-index-option)); an index-level `YES` or `NO` overrides the table-level setting for that index.
 
 ### AUTO\_INCREMENT
 
