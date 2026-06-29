@@ -12,6 +12,7 @@ description: >-
 LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE 'file_name'
     [REPLACE | IGNORE]
     INTO TABLE tbl_name
+    [PARTITION (partition_name, ...)]
     [CHARACTER SET charset_name]
     [{FIELDS | COLUMNS}
         [TERMINATED BY 'string']
