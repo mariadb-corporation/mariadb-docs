@@ -7,7 +7,7 @@ description: >-
 # MySQL to MariaDB Migrator
 
 {% hint style="info" %}
-**Enterprise tooling.** The MySQL to MariaDB Migrator is proprietary MariaDB software, available to MariaDB customers and partners under approved usage terms. It is not open source and is not available for general public use. It is distributed from the [MariaDB downloads page](https://mariadb.com/downloads/) under **Enterprise Tooling**.
+**MariaDB tool.** The MySQL to MariaDB Migrator is proprietary MariaDB software, provided free to MariaDB customers and partners under approved usage terms. It is distributed from the [MariaDB community downloads page](https://mariadb.com/downloads/community/).
 {% endhint %}
 
 The **MySQL to MariaDB Migrator** is a MariaDB tool that automates end-to-end migrations from MySQL to MariaDB in a repeatable, auditable way. It orchestrates schema migration, data transfer, user and privilege migration, and post-migration validation, and it drives the standard MariaDB client tools (`mariadb-dump`, the `mariadb` client, and the `mariadb-mtk` data-transfer engine) under a single launcher.
@@ -64,3 +64,13 @@ Preview a migration with **Assess & Plan** before committing to it; the assess a
 {% content-ref url="environment-variables.md" %}
 [environment-variables.md](environment-variables.md)
 {% endcontent-ref %}
+
+## Feedback
+
+Join the [MariaDB Community on Slack](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/joining-the-community) to share your feedback.
+
+## License
+
+The [MariaDB Software License Terms](https://legal.mariadb.com/agreements/enterprise/MariaDB_Software_License_Terms_2026-05-15.pdf) apply to all MariaDB Software unless otherwise stated. They do not alter the license terms of any free and open-source software (FOSS) or software subject to the Business Source License (BSL); see Section 7 of the MariaDB Software License Terms.
+
+For additional legal information, see the [MariaDB Terms](https://mariadb.com/terms/).

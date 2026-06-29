@@ -7,7 +7,7 @@ description: >-
 # Migration Modes
 
 {% hint style="info" %}
-**Enterprise tooling.** The MySQL to MariaDB Migrator is proprietary MariaDB software, available to MariaDB customers and partners under approved usage terms. It is not open source and is not available for general public use.
+**MariaDB tool.** The MySQL to MariaDB Migrator is proprietary MariaDB software, provided free to MariaDB customers and partners under approved usage terms.
 {% endhint %}
 
 The MySQL to MariaDB Migrator offers four migration modes. This page describes how to select a mode and the playbook for each one. For the variables each mode requires, see [Environment Variables](environment-variables.md).

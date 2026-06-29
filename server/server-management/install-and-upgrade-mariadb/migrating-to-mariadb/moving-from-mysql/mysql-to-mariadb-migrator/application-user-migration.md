@@ -7,7 +7,7 @@ description: >-
 # Application User Migration
 
 {% hint style="info" %}
-**Enterprise tooling.** The MySQL to MariaDB Migrator is proprietary MariaDB software, available to MariaDB customers and partners under approved usage terms. It is not open source and is not available for general public use.
+**MariaDB tool.** The MySQL to MariaDB Migrator is proprietary MariaDB software, provided free to MariaDB customers and partners under approved usage terms.
 {% endhint %}
 
 When you answer `y` to the `Migrate application users? (y/n)` prompt, the migrator migrates application users and roles from the source MySQL server to the target MariaDB server during the run phase. This runs in every mode (`one_step`, `two_step`, `staged`, and `binlog`), and the assess phase produces a prediction report ahead of the run.
