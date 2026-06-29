@@ -18,7 +18,7 @@ LIMIT row_count OFFSET offset
 
 When you provide an offset _m_ with a limit _n_, the first _m_ rows will be ignored, and the following _n_ rows will be returned.
 
-Executing an [UPDATE](../changing-deleting-data/update.md) with the `LIMIT` clause is not safe for replication. `LIMIT 0` is an exception to this rule (see [MDEV-6170](https://jira.mariadb.org/browse/MDEV-6170)).
+Executing an [UPDATE](../changing-deleting-data/update.md) with the `LIMIT` clause is not safe for replication. `LIMIT 0` is an exception to this rule.
 
 There is a [LIMIT ROWS EXAMINED](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/limit-rows-examined.md) optimization which provides the means to terminate the execution of [SELECT](select.md) statements which examine too many rows, and thus use too many resources. See [LIMIT ROWS EXAMINED](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/limit-rows-examined.md).
 
