@@ -7,7 +7,7 @@ description: >-
 # Environment Variables
 
 {% hint style="info" %}
-**Enterprise tooling.** The MySQL to MariaDB Migrator is proprietary MariaDB software, available to MariaDB customers and partners under approved usage terms. It is not open source and is not available for general public use.
+**MariaDB tool.** The MySQL to MariaDB Migrator is proprietary MariaDB software, provided free to MariaDB customers and partners under approved usage terms.
 {% endhint %}
 
 The migrator reads its configuration from environment variables (or the configuration file it writes from your interactive answers). This page lists the variables **required** to run each mode. A complete reference of every variable, with defaults and descriptions, ships with the tool.
