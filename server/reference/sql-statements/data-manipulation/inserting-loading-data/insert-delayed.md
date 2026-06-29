@@ -32,7 +32,7 @@ The number of concurrent `INSERT DELAYED` threads is limited by the [max\_delaye
 There are some limitations on the use of `DELAYED`:
 
 * `INSERT DELAYED` works only with [MyISAM](../../../../server-usage/storage-engines/myisam-storage-engine/), [MEMORY](../../../../server-usage/storage-engines/memory-storage-engine.md), [ARCHIVE](../../../../server-usage/storage-engines/archive.md),\
-  and [BLACKHOLE](../../../../server-usage/storage-engines/blackhole.md) tables. If you execute INSERT DELAYED with another storage engine, you will get an error like this: `ERROR 1616 (HY000): DELAYED option not supported for table 'tab_name'`
+  [BLACKHOLE](../../../../server-usage/storage-engines/blackhole.md), non-transactional [Aria](../../../../server-usage/storage-engines/aria/) (Aria tables are transactional by default), and [OQGRAPH](../../../../server-usage/storage-engines/oqgraph-storage-engine/) tables. If you execute INSERT DELAYED with another storage engine, you will get an error like this: `ERROR 1616 (HY000): DELAYED option not supported for table 'tab_name'`
 * For MyISAM tables, if there are no free blocks in the middle of the data file, concurrent SELECT and INSERT statements are supported. Under these circumstances, you very seldom need to use `INSERT DELAYED` with MyISAM.
 * `INSERT DELAYED` should be used only for`INSERT` statements that specify value lists. The server\
   ignores `DELAYED` for `INSERT ... SELECT` or `INSERT ... ON DUPLICATE KEY UPDATE` statements.

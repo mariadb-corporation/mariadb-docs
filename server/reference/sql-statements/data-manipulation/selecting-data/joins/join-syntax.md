@@ -27,7 +27,7 @@ table_factor (<= MariaDB 11.6):
         [query_system_time_period_specification] [[AS] alias] [index_hint_list]
   | table_subquery [query_system_time_period_specification] [AS] alias
   | ( table_references )
-  | { ON table_reference LEFT OUTER JOIN table_reference
+  | { OJ table_reference LEFT OUTER JOIN table_reference
         ON conditional_expr }
 
 table_factor (>= MariaDB 11.7):
@@ -35,7 +35,7 @@ table_factor (>= MariaDB 11.7):
         [query_system_time_period_specification] [[AS] alias] [index_hint_list]
   | table_subquery [query_system_time_period_specification] [AS] alias [(column_name_list)] 
   | ( table_references )
-  | { ON table_reference LEFT OUTER JOIN table_reference
+  | { OJ table_reference LEFT OUTER JOIN table_reference
         ON conditional_expr }
 
 join_table:
@@ -222,7 +222,7 @@ The following limitations apply:
 * The `(+)` operator can only be used in a `WHERE` clause.
 * The `(+)` operator can only be applied to a table column, and the column should be from the local `SELECT`, not from an outer `SELECT`.
 * The `(+)` operator cannot be used with other `JOIN` methods – it must be a comma-separated list in the `FROM` clause.
-* When the `WHERE` clause is split into subexpressions by `AND`, `(+)` cannot be used.
+* When the `WHERE` clause combines subexpressions with `OR`, the `(+)` operator cannot be used.
 * The `(+)` operator cannot be used on the right side of an `IN` function.
 * The `(+)` operator cannot be used in row operations.
 * The `(+)` operator cannot be used when two or more tables are on one side of and marked with the `(+)` operator and some are not.
@@ -237,6 +237,8 @@ The following errors may occur when not adhering to the `(+)` operator limitatio
 * `ER_INVALID_USE_OF_ORA_JOIN_WRONG_FUNC`
 * `ER_INVALID_USE_OF_ORA_JOIN_ONE_TABLE`
 * `ER_INVALID_USE_OF_ORA_JOIN_CYCLE`
+* `ER_INVALID_USE_OF_ORA_JOIN_MIX`
+* `WARN_ORA_JOIN_IGNORED`
 
 You can find examples of the errors by error code in these files (which are [available on GitHub](https://github.com/MariaDB/server/tree/main/mysql-test/suite/compat/oracle/t)):
 

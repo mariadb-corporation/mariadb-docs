@@ -69,7 +69,7 @@ The list of value follow the `VALUES` or `VALUE` keyword (which are interchangea
 
 For one-row statements, the `SET` clause may be more simple, because you don't need to remember the columns order. All values are specified in the form `col` = `expr`.
 
-Values can also be specified in the form of a SQL expression or subquery. However, the subquery cannot access the same table that is named in the `INTO` clause.
+Values can also be specified in the form of a SQL expression or subquery. A subquery in the `VALUES` list may read the same table named in the `INTO` clause — its result is computed before the insert. A subquery in a `RETURNING` clause, however, cannot read the table being inserted into.
 
 If you use the `LOW_PRIORITY` keyword, execution of the `INSERT` is delayed until no other clients are reading from the table. If you use the `HIGH_PRIORITY` keyword, the statement has the same priority as `SELECT`s. This affects only storage engines that use only table-level locking (MyISAM, MEMORY, MERGE). However, if one of these keywords is specified, [concurrent inserts](concurrent-inserts.md) cannot be used. See [HIGH\_PRIORITY and LOW\_PRIORITY clauses](../changing-deleting-data/high_priority-and-low_priority.md) for details.
 

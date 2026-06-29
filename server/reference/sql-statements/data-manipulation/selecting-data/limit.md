@@ -24,15 +24,7 @@ There is a [LIMIT ROWS EXAMINED](../../../../ha-and-performance/optimization-and
 
 ### Multi-Table Updates
 
-{% tabs %}
-{% tab title="Current" %}
 It is possible to use `LIMIT` (or [ORDER BY](order-by.md)) in a multi-table [UPDATE](../changing-deleting-data/update.md) statement.
-{% endtab %}
-
-{% tab title="< 10.3.1" %}
-It is **not** possible to use `LIMIT` (or [ORDER BY](order-by.md)) in a multi-table [UPDATE](../changing-deleting-data/update.md) statement.
-{% endtab %}
-{% endtabs %}
 
 ### GROUP\_CONCAT
 
@@ -112,7 +104,7 @@ SELECT * FROM members ORDER BY name LIMIT 2,1;
 +-------+
 ```
 
-From [MariaDB 10.3.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.2), `LIMIT` can be used in a multi-table update:
+`LIMIT` can be used in a multi-table update:
 
 ```sql
 CREATE TABLE warehouse (product_id INT, qty INT);
@@ -187,7 +179,7 @@ ORDER BY cc DESC LIMIT 1) FROM d;
 * [SELECT](select.md)
 * [UPDATE](../changing-deleting-data/update.md)
 * [DELETE](../changing-deleting-data/delete.md)
-* [Joins and Subqueries](set-operations/)
+* [Joins and Subqueries](joins-subqueries/)
 * [ORDER BY](order-by.md)
 * [GROUP BY](group-by.md)
 * [Common Table Expressions](common-table-expressions/)
