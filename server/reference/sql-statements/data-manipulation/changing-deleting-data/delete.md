@@ -17,9 +17,9 @@ Single-table syntax:
 
 ```bnf
 DELETE [LOW_PRIORITY] [QUICK] [IGNORE] 
-  FROM tbl_name [PARTITION (partition_list)]
-  [FOR PORTION OF PERIOD FROM expr1 TO expr2]
-  [AS alias]                    -- from MariaDB 11.6
+  FROM tbl_name [[AS] alias]    -- alias from MariaDB 11.6
+  [PARTITION (partition_list)]
+  [FOR PORTION OF period_name FROM expr1 TO expr2]
   [{USE|FORCE|IGNORE} {INDEX|KEY}
     [FOR {JOIN|ORDER BY|GROUP BY}]
     (index_list)]               -- from MariaDB 11.8.1

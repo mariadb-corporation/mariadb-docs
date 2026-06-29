@@ -25,7 +25,6 @@ UPDATE [LOW_PRIORITY] [IGNORE] table_reference
   [LIMIT row_count]
   [RETURNING select_expr 
     [, select_expr ...]]
-  RETURNING OLD_VALUE(val) AS old [, val as new]
 ```
 
 ![Railroad diagram of single-table UPDATE — equivalent to the BNF above](../../../../.gitbook/assets/update-railroad.svg)
