@@ -47,8 +47,19 @@ SELECT XXH3('abc');
 +---------------------+
 | XXH3('abc')         |
 +---------------------+
-| 2615927343983396622 |
+| 5167207402487786768 |
 +---------------------+
+```
+
+The result depends on the session collation, so a bare literal reproduces only under the same collation (the result above is for the default `utf8mb4_uca1400_ai_ci`). For a byte-exact hash that doesn't depend on collation, hash the binary form:
+
+```sql
+SELECT XXH3(CAST('abc' AS BINARY));
++-----------------------------+
+| XXH3(CAST('abc' AS BINARY)) |
++-----------------------------+
+|         8696274497037089104 |
++-----------------------------+
 ```
 
 `NULL` and the empty string:
@@ -78,7 +89,7 @@ A non-text argument is rejected:
 
 ```sql
 SELECT XXH3(11223344);
-ERROR HY000: Illegal parameter data type int for operation 'XXH3'
+ERROR 4079 (HY000): Illegal parameter data type int for operation 'XXH3'
 ```
 
 ## See Also
