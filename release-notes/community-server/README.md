@@ -25,7 +25,7 @@ This section contains release notes for MariaDB Server releases divided into the
 * [MariaDB 12.3 Series](12.3/)
 * [MariaDB 11.8 Series](11.8/)
 * [MariaDB 11.4 Series](11.4/)
-* [MariaDB 10.11 Series](11.4/)
+* [MariaDB 10.11 Series](10.11/)
 * [MariaDB 10.6 Series](10.6/)
 
 ## Old Releases
