@@ -47,8 +47,19 @@ SELECT XXH32('abc');
 +--------------+
 | XXH32('abc') |
 +--------------+
-|   2154901205 |
+|    560666315 |
 +--------------+
+```
+
+The result depends on the session collation, so a bare literal reproduces only under the same collation (the result above is for the default `utf8mb4_uca1400_ai_ci`). For a byte-exact hash that doesn't depend on collation, hash the binary form:
+
+```sql
+SELECT XXH32(CAST('abc' AS BINARY));
++------------------------------+
+| XXH32(CAST('abc' AS BINARY)) |
++------------------------------+
+|                    852579327 |
++------------------------------+
 ```
 
 `NULL` and the empty string:
@@ -65,8 +76,8 @@ SELECT XXH32(NULL), XXH32('');
 Equal values under a case-insensitive collation hash to the same number:
 
 ```sql
-SELECT XXH32(_latin1'ABC' COLLATE latin1_swedish_ci)
-     = XXH32(_latin1'abc' COLLATE latin1_swedish_ci) AS equal_ci;
+SELECT XXH32(_utf8mb4'ABC' COLLATE utf8mb4_general_ci)
+     = XXH32(_utf8mb4'abc' COLLATE utf8mb4_general_ci) AS equal_ci;
 +----------+
 | equal_ci |
 +----------+
@@ -78,7 +89,7 @@ A non-text argument is rejected:
 
 ```sql
 SELECT XXH32(11223344);
-ERROR HY000: Illegal parameter data type int for operation 'XXH32'
+ERROR 4079 (HY000): Illegal parameter data type int for operation 'XXH32'
 ```
 
 ## See Also
