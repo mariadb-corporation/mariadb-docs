@@ -8,7 +8,8 @@ description: >-
 # Multi-cluster
 
 {% hint style="info" %}
-Multi-cluster topology is available as a **Tech Preview**. It is not recommended for production use yet.{% endhint %}
+Multi-cluster topology is available as a **Tech Preview**. It is not recommended for production use yet.
+{% endhint %}
 
 The multi-cluster feature enables high availability by replicating data between multiple MariaDB clusters. It builds on top of either [replication](replication.md) or [Galera](galera.md) clusters, creating a topology where one cluster acts as the primary and the others as replicas, with each cluster maintaining its own internal HA mechanism.
 
