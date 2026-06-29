@@ -20,6 +20,9 @@ DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
   FROM tbl_name [PARTITION (partition_list)]
   [FOR PORTION OF PERIOD FROM expr1 TO expr2]
   [AS alias]                    -- from MariaDB 11.6
+  [{USE|FORCE|IGNORE} {INDEX|KEY}
+    [FOR {JOIN|ORDER BY|GROUP BY}]
+    (index_list)]               -- from MariaDB 11.8.1
   [WHERE where_condition]
   [ORDER BY ...]
   [LIMIT row_count]
@@ -38,6 +41,8 @@ DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
     tbl_name[.*] [, tbl_name[.*]] ...
     FROM table_references
     [WHERE where_condition]
+    [ORDER BY ...]              -- from MariaDB 11.8.1
+    [LIMIT row_count]          -- from MariaDB 11.8.1
 ```
 
 Or:
@@ -47,6 +52,8 @@ DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
     FROM tbl_name[.*] [, tbl_name[.*]] ...
     USING table_references
     [WHERE where_condition]
+    [ORDER BY ...]              -- from MariaDB 11.8.1
+    [LIMIT row_count]          -- from MariaDB 11.8.1
 ```
 
 Trimming history:
@@ -86,7 +93,9 @@ DELETE FROM non_cte_table expression
 
 For the single-table syntax, the `DELETE` statement deletes rows from tbl\_name and returns a count of the number of deleted rows. This count can be obtained by calling the [ROW\_COUNT()](../../../sql-functions/secondary-functions/information-functions/row_count.md) function. The`WHERE` clause, if given, specifies the conditions that identify which rows to delete. With no `WHERE` clause, all rows are deleted. If the [ORDER BY](../selecting-data/order-by.md) clause is specified, the rows are deleted in the order that is specified. The [LIMIT](../selecting-data/limit.md) clause places a limit on the number of rows that can be deleted.
 
-For the multiple-table syntax, `DELETE` deletes from each `tbl_name` the rows that satisfy the conditions. In this case, [ORDER BY](../selecting-data/order-by.md) and [LIMIT](../selecting-data/limit.md) cannot be used. A `DELETE` can also reference tables which are located in different databases; see [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for the syntax.
+For the multiple-table syntax, `DELETE` deletes from each `tbl_name` the rows that satisfy the conditions. From MariaDB 11.8.1, the multiple-table syntax also accepts [ORDER BY](../selecting-data/order-by.md) and [LIMIT](../selecting-data/limit.md); in earlier releases, these clauses could not be used with multiple-table `DELETE`. A `DELETE` can also reference tables which are located in different databases; see [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for the syntax.
+
+From MariaDB 11.8.1, single-table `DELETE` accepts index hints (`USE INDEX`, `FORCE INDEX`, and `IGNORE INDEX`) to influence which index the optimizer uses, with the same syntax as in [SELECT](../selecting-data/select.md). See [Index Hints: How to Force Query Plans](../../../../ha-and-performance/optimization-and-tuning/query-optimizations/index-hints-how-to-force-query-plans.md).
 
 `where_condition` is an expression that evaluates to true for each row to be deleted. It is specified as described in [SELECT](../selecting-data/select.md).
 
@@ -153,6 +162,12 @@ How to use the [ORDER BY](../selecting-data/order-by.md) and [LIMIT](../selectin
 
 ```sql
 DELETE FROM page_hit ORDER BY TIMESTAMP LIMIT 1000000;
+```
+
+From MariaDB 11.8.1, `ORDER BY` and `LIMIT` can also be used with the multiple-table syntax:
+
+```sql
+DELETE t1.*, t2.* FROM t1, t2 ORDER BY t1.id DESC LIMIT 3;
 ```
 
 How to use the `RETURNING` clause:
