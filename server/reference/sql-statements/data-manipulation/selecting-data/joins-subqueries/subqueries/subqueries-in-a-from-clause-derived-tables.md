@@ -70,7 +70,7 @@ SELECT AVG(sq_sum) FROM (SELECT SUM(score) AS sq_sum FROM student GROUP BY name)
 +-------------+
 ```
 
-The following is permitted:
+The following is permitted only in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), where a derived table may omit its alias:
 
 ```sql
 SELECT * FROM (SELECT 1 FROM DUAL), (SELECT 2 FROM DUAL);
@@ -81,7 +81,7 @@ In this example, the second column of the derived table `dt` is used both within
 ```sql
 CREATE OR REPLACE TABLE t1(c1 INT, c2 INT, c3 INT);
 
-SELECT a1, a2 FROM (SELECT c1, c2, c3 FROM t1 WHERE c2 > 0) AS dt (a1, a2, a3);
+SELECT a1, a2 FROM (SELECT c1, c2, c3 FROM t1 WHERE c2 > 0) AS dt (a1, a2, a3) WHERE a2 > 10;
 ```
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

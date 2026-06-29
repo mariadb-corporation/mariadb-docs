@@ -99,10 +99,6 @@ From MariaDB 11.8.1, single-table `DELETE` accepts index hints (`USE INDEX`, `FO
 
 `where_condition` is an expression that evaluates to true for each row to be deleted. It is specified as described in [SELECT](../selecting-data/select.md).
 
-{% hint style="info" %}
-You cannot delete from a table and select from the same table in a subquery.
-{% endhint %}
-
 You need the `DELETE` privilege on a table to delete rows from it. You need only the `SELECT` privilege for any columns that are only read, such as those named in the `WHERE` clause. See [GRANT](../../account-management-sql-statements/grant.md).
 
 As stated, a `DELETE` statement with no `WHERE` clause deletes all rows. A faster way to do this, when you do not need to know the number of deleted rows, is to use `TRUNCATE TABLE`. However, within a transaction or if you have a lock on the table,`TRUNCATE TABLE` cannot be used whereas `DELETE` can. See [TRUNCATE TABLE](../../table-statements/truncate-table.md), and [LOCK](../../transactions/lock-tables.md).
@@ -196,24 +192,11 @@ CREATE TABLE t1 (c1 INT, c2 INT);
 DELETE FROM t1 WHERE c1 IN (SELECT b.c1 FROM t1 b WHERE b.c2=0);
 ```
 
-{% tabs %}
-{% tab title="Current" %}
 The statement returns:
 
 ```
 Query OK, 0 rows affected (0.00 sec)
 ```
-{% endtab %}
-
-{% tab title="< 10.3.1" %}
-The statement returns:
-
-```sql
-ERROR 1093 (HY000): Table 't1' is specified twice, both as a target for 'DELETE' 
-  AND AS a separate source FOR
-```
-{% endtab %}
-{% endtabs %}
 
 ### CTE Single-Table
 
@@ -234,7 +217,7 @@ WITH cte1 AS (SELECT * FROM t1 WHERE c < 5),
 ```sql
 WITH cte1 AS (SELECT * FROM t1 WHERE c < 5),
      cte2 AS (SELECT * FROM t2 WHERE b < 5)
-     DELETE FROM t3 USING t3, cte1, cte2 WHERE cte1.a AND cte1.b = ctd2.b;
+     DELETE FROM t3 USING t3, cte1, cte2 WHERE cte1.a AND cte1.b = cte2.b;
 ```
 
 ## See Also

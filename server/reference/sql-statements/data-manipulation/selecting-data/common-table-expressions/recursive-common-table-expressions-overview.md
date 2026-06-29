@@ -193,7 +193,7 @@ ORDER BY level, mid;
 
 This query fails with an error with MariaDB versions that incorporate the fix for [MDEV-12325](https://jira.mariadb.org/browse/MDEV-12325):
 
-`Error 1690 (22003): Out of range value for column 'mid' in 'cteReports'`
+`Error 1264 (22003): Out of range value for column 'mid' in 'cteReports'`
 
 This happens because the anchor member selects `mid` as the standard integer, but the recursive part attempts to add `1000000000000`, which exceeds the `INT` limit.
 
