@@ -1,7 +1,7 @@
 ---
 description: >-
   Combine standard MariaDB replication with MariaDB Galera Cluster, configuring
-  a cluster node as a replication master or replica via log_slave_updates and
+  a cluster node as a replication primary or replica via log_slave_updates and
   wsrep_restart_slave.
 ---
 
@@ -16,32 +16,32 @@ If you want to use [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2
 * [Configuring MariaDB Replication between MariaDB Galera Cluster and MariaDB Server](configuring-mariadb-replication-between-mariadb-galera-cluster-and-mariadb.md)
 * [Configuring MariaDB Replication between Two MariaDB Galera Clusters](configuring-mariadb-replication-between-two-mariadb-galera-clusters.md)
 
-## Configuring a Cluster Node as a Replication Master
+## Configuring a Cluster Node as a Replication Primary
 
-If a Galera Cluster node is also a [replication master](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-overview), then some additional configuration may be needed.
+If a Galera Cluster node is also a [replication primary](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-overview), then some additional configuration may be needed.
 
 Like with [MariaDB replication](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication), write sets that are received by a node with [Galera Cluster's certification-based replication](../../readme/about-galera-replication.md) are not written to the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log) by default.
 
-If the node is a replication master, then its replication slaves only replicate transactions that are in the binary log, so this means that the transactions that correspond to Galera Cluster write-sets would not be replicated by any replication slaves by default. If you would like a node to write its replicated write sets to the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log), then you will have to set [log\_slave\_updates=ON](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates). If the node has any replication slaves, then this would also allow those slaves to replicate the transactions that corresponded to those write sets.
+If the node is a replication primary, then its replicas only replicate transactions that are in the binary log, so this means that the transactions that correspond to Galera Cluster write-sets would not be replicated by any replicas by default. If you would like a node to write its replicated write sets to the [binary log](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/server-monitoring-logs/binary-log), then you will have to set [log\_slave\_updates=ON](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates). If the node has any replicas, then this would also allow those replicas to replicate the transactions that corresponded to those write sets.
 
 See [Configuring MariaDB Galera Cluster: Writing Replicated Write Sets to the Binary Log](../../galera-management/configuration/configuring-mariadb-galera-cluster.md#writing-replicated-write-sets-to-the-binary-log) for more information.
 
-## Configuring a Cluster Node as a Replication Slave
+## Configuring a Cluster Node as a Replication Replica
 
-If a Galera Cluster node is also a [replication slave](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-overview), then some additional configuration may be needed.
+If a Galera Cluster node is also a [replication replica](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-overview), then some additional configuration may be needed.
 
-If the node is a replication slave, then the node's [slave SQL thread](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-threads#slave-sql-thread) will be applying transactions that it replicates from its replication master. Transactions applied by the slave SQL thread will only generate Galera Cluster write-sets if the node has [log\_slave\_updates=ON](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates) set. Therefore, in order to replicate these transactions to the rest of the nodes in the cluster, [log\_slave\_updates=ON](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates) must be set.
+If the node is a replication replica, then the node's [replica SQL thread](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-threads#slave-sql-thread) will be applying transactions that it replicates from its replication primary. Transactions applied by the replica SQL thread will only generate Galera Cluster write-sets if the node has [log\_slave\_updates=ON](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates) set. Therefore, in order to replicate these transactions to the rest of the nodes in the cluster, [log\_slave\_updates=ON](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-and-binary-log-system-variables#log_slave_updates) must be set.
 
-If the node is a replication slave, then it is probably also a good idea to enable [wsrep\_restart\_slave](../../reference/galera-cluster-system-variables.md#wsrep_restart_slave). When this is enabled, the node will restart its [slave threads](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-threads#threads-on-the-slave) whenever it rejoins the cluster.
+If the node is a replication replica, then it is probably also a good idea to enable [wsrep\_restart\_slave](../../reference/galera-cluster-system-variables.md#wsrep_restart_slave). When this is enabled, the node will restart its [replica threads](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/standard-replication/replication-threads#threads-on-the-slave) whenever it rejoins the cluster.
 
 ## Parallel Replication Support
 
-Historically, Galera Cluster nodes acting as asynchronous replication slaves were restricted to single-threaded execution (`slave_parallel_threads=0`). Enabling parallel replication often resulted in deadlocks due to conflicts between [Binary Log Group Commit (BGC)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/binary-log-group-commit-and-innodb-flushing-performance) ordering and Galera's internal pre-commit ordering.
+Historically, Galera Cluster nodes acting as asynchronous replication replicas were restricted to single-threaded execution (`slave_parallel_threads=0`). Enabling parallel replication often resulted in deadlocks due to conflicts between [Binary Log Group Commit (BGC)](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/storage-engines/innodb/binary-log-group-commit-and-innodb-flushing-performance) ordering and Galera's internal pre-commit ordering.
 
 As of MariaDB 12.1.1, this limitation has been resolved.
 
 {% hint style="info" %}
-This fix is specific to MariaDB 12.1.1 and newer versions. It has not been backported to earlier release series such as 10.5, 10.6, 10.11, or 11.4.
+This fix is available in MariaDB 12.1.1 and later.
 {% endhint %}
 
 On supported versions, you can safely configure `slave_parallel_threads` to a value greater than `0` to improve the performance of incoming replication streams.
