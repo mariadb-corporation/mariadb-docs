@@ -20,9 +20,9 @@ description: >-
 
 ## Current Releases
 
-* [MariaDB Enterprise Server 11.8](11.8/)
-* [MariaDB Enterprise Server 11.4](11.4/)
-* [MariaDB Enterprise Server 10.6](10.6/)
+* [MariaDB Enterprise Server 11.8](https://mariadb.com/docs/release-notes/enterprise-server/11.8)
+* [MariaDB Enterprise Server 11.4](https://mariadb.com/docs/release-notes/enterprise-server/11.4)
+* [MariaDB Enterprise Server 10.6](https://mariadb.com/docs/release-notes/enterprise-server/10.6)
 
 ## Old Releases
 
