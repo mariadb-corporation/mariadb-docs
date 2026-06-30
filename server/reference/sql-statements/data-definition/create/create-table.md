@@ -486,6 +486,32 @@ Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-3
 
 The `ADAPTIVE_HASH_INDEX` index option takes the same `DEFAULT`, `YES`, and `NO` values as the [ADAPTIVE\_HASH\_INDEX](create-table.md#adaptive_hash_index) table option, but applies to a single index. When set to `YES` or `NO`, it overrides the table-level setting for that index. This option applies only to [InnoDB](../../../../server-usage/storage-engines/innodb/).
 
+#### Advanced Adaptive Hash Index Tuning Options
+
+{% hint style="info" %}
+Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+Three additional [InnoDB](../../../../server-usage/storage-engines/innodb/) index options give fine-grained control over how the adaptive hash index is built for an index:
+
+| Option | Values | Effect |
+| --- | --- | --- |
+| `COMPLETE_FIELDS` | `0` to the number of columns the index is defined on (maximum `64`) | Number of complete index columns to include in the hash. |
+| `BYTES_FROM_INCOMPLETE_FIELD` | `0` to `16383` | Number of leading bytes to take from the next column, beyond those covered by `COMPLETE_FIELDS`. Only meaningful for `memcmp()`-comparable index fields such as `VARBINARY` or integer types. For example, a 3-byte prefix on an `INT` returns one hash value for 0‥255, another for 256‥511, and so on. |
+| `FOR_EQUAL_HASH_POINT_TO_LAST_RECORD` | `DEFAULT`, `YES`, `NO` | For a set of records that share the same hash value, controls which record the hash entry points to: `NO` points to the first record, `YES` points to the last. |
+
+The default for all three is unset (automatic), in which case InnoDB chooses the values from its internal heuristic.
+
+{% hint style="warning" %}
+These are power-user options and are not needed for typical workloads. They override InnoDB's internal heuristic, which is computed and *then* replaced by the values you supply. Because the three options work together, set **all three** to known-good values whenever you set even one of them — setting only one or two leaves the others to interact with the overridden heuristic and can produce unintended results.
+
+InnoDB does not expose the values its heuristic would otherwise compute, so suitable settings must be derived from prior knowledge of the data and confirmed through performance testing.
+{% endhint %}
+
+The main reason to fix these values is to avoid *adaptive-hash-index churn*: when an index's lookup pattern is not constant, the internal heuristic keeps changing its parameters, repeatedly destroying and rebuilding the hash index. Pinning the parameters keeps a single hash index in place — less optimal for some queries, but stable and beneficial for the rest, instead of being continually rebuilt.
+
+These options apply only to [InnoDB](../../../../server-usage/storage-engines/innodb/), and only on servers built with adaptive hash index support.
+
 #### Index Types
 
 Each storage engine supports some or all index types. See [Storage Engine Index Types](../../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/storage-engine-index-types.md) for details on permitted index types for each storage engine.
