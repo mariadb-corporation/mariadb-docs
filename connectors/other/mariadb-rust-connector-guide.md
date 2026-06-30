@@ -23,6 +23,10 @@ MariaDB recommends these Rust crates, which provide robust MySQL‑protocol comp
 
 Select the driver based on your application’s architecture: use `mysql` for blocking/synchronous I/O, or `mysql_async` for non‑blocking I/O with Tokio. Both drivers have received the same MariaDB-specific contributions for the features described below.
 
+## Why MariaDB Recommends These Crates
+
+While other Rust crates implement the MySQL protocol, and some have higher download counts on [crates.io](https://crates.io/), MariaDB evaluated several available crates based on internal connector benchmarks. The `mysql` and `mysql_async` crates performed well in these evaluations and already included native support for MariaDB-specific features, such as the `ed25519` authentication plugin, before MariaDB began contributing to them directly.
+
 ## MariaDB-Specific Contributions
 
 MariaDB has contributed MariaDB‑specific features directly to these crates. The following features have been implemented and incorporated into the official releases (mysql_async v0.37.0 and the corresponding rust‑mysql‑simple version):
