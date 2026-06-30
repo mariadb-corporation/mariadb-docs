@@ -30,7 +30,7 @@ wsrep_allowlist = "10.0.0.11,10.0.0.12"
 
 ## How It Works
 
-The allowlist is enforced through the wsrep allowlist service, which the Galera library calls to authorize each incoming connection by its IP address. This service is the foundation that a planned identity-based allowlist will extend.
+The allowlist is enforced through the wsrep allowlist service, which the Galera library calls to authorize each incoming connection by its IP address.
 
 ## See Also
 

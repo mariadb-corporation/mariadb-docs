@@ -8,8 +8,8 @@ icon: table-list
 
 # Cluster TLS State Inspection
 
-{% hint style="warning" %}
-This page documents a forthcoming feature and is a draft. The `wsrep_connections` `INFORMATION_SCHEMA` view is present in MariaDB Advanced Cluster (Raft-based, 12.3) source and may change before general availability. Verify against your server version.
+{% hint style="info" %}
+The `information_schema.wsrep_connections` view is available in MariaDB Enterprise Server from version 11.8.3-1.
 {% endhint %}
 
 Operators and auditors often need to answer "which certificate is each node presenting, and over what cipher" without scraping logs. The `wsrep_connections` view exposes per-connection TLS state.

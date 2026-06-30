@@ -75,11 +75,12 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_adaptive_hash_index`
 
-* Description: If set to `1`, the default until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the [InnoDB](./) hash index is enabled. Based on performance testing ([MDEV-17492](https://jira.mariadb.org/browse/MDEV-17492)), the InnoDB adaptive hash index helps performance in mostly read-only workloads, and could slow down performance in other environments, especially [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md), [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md), [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), or [DROP INDEX](../../../reference/sql-statements/data-definition/drop/drop-index.md) operations.
-* Command line: `--innodb-adaptive-hash-index={0|1}`
+* Description: If set to `1`, the default until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the [InnoDB](./) hash index is enabled. Based on performance testing ([MDEV-17492](https://jira.mariadb.org/browse/MDEV-17492)), the InnoDB adaptive hash index helps performance in mostly read-only workloads, and could slow down performance in other environments, especially [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md), [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md), [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), or [DROP INDEX](../../../reference/sql-statements/data-definition/drop/drop-index.md) operations. From [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070), this variable is an enumeration. The `IF_SPECIFIED` value enables the adaptive hash index only for tables and indexes whose [ADAPTIVE\_HASH\_INDEX](../../../reference/sql-statements/data-definition/create/create-table.md#adaptive_hash_index) option is set to `YES`.
+* Command line: `--innodb-adaptive-hash-index[={OFF|ON|IF_SPECIFIED}]`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `boolean`
+* Data Type: `enumeration` (`boolean` before [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070))
+* Valid Values: `OFF`, `ON`, `IF_SPECIFIED` (from [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070))
 * Default Value: `OFF` (>= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)), `ON` (<= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104))
 
 #### **`innodb_adaptive_hash_index_cells`**

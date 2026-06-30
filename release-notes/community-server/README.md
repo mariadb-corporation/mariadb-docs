@@ -20,13 +20,13 @@ This section contains release notes for MariaDB Server releases divided into the
 
 ## Current Releases
 
-* [MariaDB 13.1 Series](13.1/)
-* [MariaDB 13.0 Series](13.0/)
-* [MariaDB 12.3 Series](12.3/)
-* [MariaDB 11.8 Series](11.8/)
-* [MariaDB 11.4 Series](11.4/)
-* [MariaDB 10.11 Series](10.11/)
-* [MariaDB 10.6 Series](10.6/)
+* [MariaDB 13.1 Series](https://mariadb.com/docs/release-notes/community-server/13.1)
+* [MariaDB 13.0 Series](https://mariadb.com/docs/release-notes/community-server/13.0)
+* [MariaDB 12.3 Series](https://mariadb.com/docs/release-notes/community-server/12.3)
+* [MariaDB 11.8 Series](https://mariadb.com/docs/release-notes/community-server/11.8)
+* [MariaDB 11.4 Series](https://mariadb.com/docs/release-notes/community-server/11.4)
+* [MariaDB 10.11 Series](https://mariadb.com/docs/release-notes/community-server/10.11)
+* [MariaDB 10.6 Series](https://mariadb.com/docs/release-notes/community-server/10.6)
 
 ## Old Releases
 
