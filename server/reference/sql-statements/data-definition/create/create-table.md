@@ -385,7 +385,11 @@ index_option:
   {{{|}}} WITH PARSER parser_name
   {{{|}}} VISIBLE
   {{{|}}} COMMENT 'string'
-  {{{|}}} CLUSTERING={YES| NO} ]
+  {{{|}}} CLUSTERING={YES| NO}
+  {{{|}}} ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
+  {{{|}}} COMPLETE_FIELDS [=] number
+  {{{|}}} BYTES_FROM_INCOMPLETE_FIELD [=] number
+  {{{|}}} FOR_EQUAL_HASH_POINT_TO_LAST_RECORD [=] {DEFAULT | YES | NO} ]
   [ IGNORED | NOT IGNORED ]
 
 reference_definition:
