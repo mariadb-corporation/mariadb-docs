@@ -30,10 +30,6 @@ In `SERVER` mode a node encrypts replication traffic but accepts any peer that c
 If compliance requires mutual authentication of endpoints — as PCI DSS, SOC 2, ISO 27001, and most internal audit programs interpret "strong cryptography" — the default `SERVER` mode is insufficient. Use `SERVER_X509`.
 {% endhint %}
 
-{% hint style="info" %}
-A future per-peer identity scheme (`[cluster_tls] verify=identity`, based on URI-SAN matching) is **planned** to provide encryption with per-peer identity verification. It is not yet available.
-{% endhint %}
-
 ## Why the Distinction Matters
 
 Encryption alone defends against a passive eavesdropper, but not against an active attacker who can place a rogue server at a cluster member's address. Without peer authentication a node cannot tell a legitimate member from an impostor presenting an arbitrary certificate. Peer authentication closes that gap by requiring each node to present a certificate that chains to the cluster's trusted CA.

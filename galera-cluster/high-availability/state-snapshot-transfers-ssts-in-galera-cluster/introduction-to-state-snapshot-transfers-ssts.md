@@ -194,7 +194,7 @@ For logical SST methods like `mysqldump`, each node should be able to have diffe
 
 ## Certificate Requirements for TLS
 
-During an SST or IST, the donor node connects *to* the joiner node. Each node therefore acts as both a TLS server and a TLS client at different times, so every node's certificate must include **both** the `serverAuth` and `clientAuth` Extended Key Usage (EKU) values. Certificates issued from a web-server template (which restrict EKU to `serverAuth` only) cause the TLS handshake to abort during state transfer, even when replication itself works. For details, see [Choosing a Certificate Authority for Galera Cluster](../../galera-security/choosing-a-certificate-authority-for-galera-cluster.md).
+During an SST or IST, the donor node connects *to* the joiner node. Each node therefore acts as both a TLS server and a TLS client at different times, so a node certificate that sets an Extended Key Usage (EKU) extension must include **both** the `serverAuth` and `clientAuth` values (certificates with no EKU extension also work). Certificates issued from a web-server template (which restrict EKU to `serverAuth` only) cause the TLS handshake to abort during state transfer, even when replication itself works. For details, see [Choosing a Certificate Authority for Galera Cluster](../../galera-security/choosing-a-certificate-authority-for-galera-cluster.md).
 
 ## Minimal Cluster Size
 

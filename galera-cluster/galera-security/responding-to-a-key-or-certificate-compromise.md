@@ -11,13 +11,13 @@ If a node's private key or certificate is compromised, the goal is to stop trust
 
 ## Revoke via a Certificate Revocation List (CRL)
 
-In the `SERVER` and `SERVER_X509` TLS modes, inter-node TLS uses the server's TLS configuration, which supports a CRL through the `ssl_crl` (file) and `ssl_crlpath` (directory) system variables.
+Only the `SERVER_X509` TLS mode requests and verifies peer certificates (the `SERVER` mode encrypts traffic but does not request a peer certificate), so a CRL applies only in `SERVER_X509`. In that mode, inter-node TLS uses the server's TLS configuration, which supports a CRL through the `ssl_crl` (file) and `ssl_crlpath` (directory) system variables.
 
 1. Add the compromised certificate to the CRL and distribute the updated CRL to every node.
 2. Run `FLUSH SSL;` on each node so the new CRL takes effect.
 
 {% hint style="info" %}
-CRL checking applies to inter-node traffic only in the server-based TLS modes (`SERVER`, `SERVER_X509`).
+CRL checking applies to inter-node traffic only in the `SERVER_X509` TLS mode, which is the only mode that requests and verifies peer certificates.
 {% endhint %}
 
 ## Reissue from a New CA

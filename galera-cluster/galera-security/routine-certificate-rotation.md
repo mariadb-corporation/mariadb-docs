@@ -9,6 +9,10 @@ icon: clock-rotate-left
 
 Node certificates should be replaced before they expire. Because certificates can be reloaded without a restart (see [Reloading TLS Certificates Without Downtime](reloading-tls-certificates-without-downtime.md)), routine rotation needs no coordinated downtime.
 
+{% hint style="info" %}
+To know when a node is approaching expiry, set [wsrep\_certificate\_expiration\_hours\_warning](mariadb-enterprise-cluster-security.md#certificate-expiration-warnings). MariaDB Enterprise Cluster then logs a warning to the error log a configurable number of hours before the node's TLS certificate expires — use it to trigger rotation ahead of time.
+{% endhint %}
+
 ## Procedure
 
 1. Issue a new certificate for each node from the **same cluster CA**, with a validity period that overlaps the current certificate (the new certificate should be valid before the old one expires).
