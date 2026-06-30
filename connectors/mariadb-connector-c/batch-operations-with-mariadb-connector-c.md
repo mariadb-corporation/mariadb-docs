@@ -11,10 +11,14 @@ C and C++ developers can use MariaDB Connector/C to perform batch (bulk) operati
 
 ## Array Binding
 
-MariaDB Connector/C implements batch operations through array binding. Instead of binding a single value to each statement parameter, the application binds the first element of an array and tells the connector how many rows to send and how far apart the rows are in memory:
+MariaDB Connector/C implements batch operations through array binding. Instead of binding a single value to each statement parameter, the application binds an array of values per parameter and tells the connector how many rows to send:
 
-* [`mysql_stmt_attr_set()`](api-prepared-statement-functions/mysql_stmt_attr_set.md) with `STMT_ATTR_ARRAY_SIZE` sets the number of rows in the batch.
-* [`mysql_stmt_attr_set()`](api-prepared-statement-functions/mysql_stmt_attr_set.md) with `STMT_ATTR_ROW_SIZE` sets the size, in bytes, of one row (the stride between consecutive rows in the array). This enables row-wise binding, where each row's values are stored together in a structure.
+* [`mysql_stmt_attr_set()`](api-prepared-statement-functions/mysql_stmt_attr_set.md) with `STMT_ATTR_ARRAY_SIZE` sets the number of rows in the batch. This is the only attribute required for a batch.
+
+The connector supports two ways of laying out the bound values in memory:
+
+* **Column-wise binding (the default).** Without `STMT_ATTR_ROW_SIZE`, each parameter's buffer is treated as an array of values, one per row — a contiguous array for fixed-length types, or an array of pointers for variable-length types such as strings.
+* **Row-wise binding.** Setting [`mysql_stmt_attr_set()`](api-prepared-statement-functions/mysql_stmt_attr_set.md) with `STMT_ATTR_ROW_SIZE` to the size, in bytes, of one row makes the connector stride through an array of structures, where each row's values are stored together in a single `struct`.
 
 Each bound parameter uses an indicator variable to describe its value. For null-terminated strings, the indicator is `STMT_INDICATOR_NTS`; other indicators include `STMT_INDICATOR_NULL` for `NULL` values and `STMT_INDICATOR_DEFAULT` for default values.
 
