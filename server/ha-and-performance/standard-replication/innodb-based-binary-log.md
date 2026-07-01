@@ -19,7 +19,7 @@ The binlog files remain separate files on disk (with the `.ibb` extension), but 
 
 InnoDB-based binary logs entirely replace traditional file-based binary logs. When enabled, the server stops writing traditional binlog files, and the new format becomes the only binary log implementation in use.
 
-Additionally, this feature is limited to the binary log on the server. Replicas continue to use the traditional relay log implementation, therefore it does not affect them.
+Additionally, this feature is limited to the binary log on the server. The relay log on replicas continues to use the traditional implementation and is not affected by the use of InnoDB-based binary logs.
 
 ## Benefits
 
@@ -98,7 +98,7 @@ binlog-000001.ibb
 * The file size is managed by `max_binlog_size` (by default 1GB).
 * Files are page-based (16 KB pages) with a CRC32 checksum at the end of each page.
 * There are no binlog index files (`.index`)_,_ GTID index files (`.idx`)_,_ or GTID state files (`.state`)_._
-* The `--binlog-checksum` option is no longer used. Binlog files are always checksummed with a CRC32 at the end of each page. To checksum data sent over the network between master and replica, use the `MASTER_SSL` option in `CHANGE MASTER` to enable SSL.
+* The `--binlog-checksum` option is no longer used. Binlog files are always checksummed with a CRC32 at the end of each page. To checksum data sent over the network between primary and replica, use the `MASTER_SSL` option in `CHANGE MASTER` to enable SSL.
 
 #### GTID Handling
 
@@ -108,7 +108,7 @@ The interval between state records is controlled by:
 
 ```ini
 [mariadb]
-innodb-binlog-state-interval
+innodb-binlog-state-interval=2097152
 ```
 
 The interval is specified in bytes (default: 2 MB) and must be a power-of-two multiple of the binlog page size (16 KB). This option can be increased to reduce the overhead of state records, or decreased to speed up finding the initial GTID position at replica connect. The overhead is small either way, so normally there is little reason to change the default.
@@ -119,11 +119,11 @@ For additional configuration options, see [Replication and Binary Log System Var
 
 #### Replication
 
-[Replication](./) configuration from the master can be performed as usual. Requirements:
+[Replication](./) configuration from the primary can be performed as usual. Requirements:
 
-* Replicas must use GTID to connect to the master (this is the default). The old filename/offset-based replication position is not available when using the new binlog on the master.
-* Replicas should be upgraded to at least MariaDB 12.3 before switching the master to the new binlog format.
-* The master and replica can independently use either the traditional or new binlog format.
+* Replicas must use GTID to connect to the primary (this is the default). The old filename/offset-based replication position is not available when using the new binlog on the primary.
+* Replicas should be upgraded to at least MariaDB 12.3 before switching the primary to the new binlog format.
+* The primary and replica can independently use either the traditional or new binlog format.
 
 ### Viewing Binlog Events
 
@@ -139,9 +139,6 @@ SHOW BINLOG EVENTS;
 
 -- View events from a specific file
 SHOW BINLOG EVENTS IN 'binlog-000001.ibb';
-
--- View events from a GTID position
-SHOW BINLOG EVENTS FROM GTID_POS('0-1-1024');
 ```
 
 **Note:** Event offsets are generally reported as zero; GTID positions should be used instead for navigation.
@@ -202,7 +199,7 @@ SET GLOBAL binlog_expire_log_days = 14;
 -- Limit total binary log disk usage to 100 GB
 SET GLOBAL max_binlog_total_size = 107374182400;
 
--- Purge even with slave
+-- Allow purge in setups where no replicas are configured
 slave_connections_needed_for_purge=0
 ```
 
@@ -248,9 +245,9 @@ CHANGE MASTER TO
 START SLAVE;  
 ```
 
-When the `MASTER_DEMOTE_TO_SLAVE=1` option is set, the restored backup can replicate from the original location.
+When the `MASTER_DEMOTE_TO_SLAVE=1` option is set, the restored backup can automatically start replicating from the point the backup was taken, using the binlog files included in the backup.
 
-Note that when binlog files are omitted from the backup (`--skip-binlog`), the restored server behaves as if `RESET MASTER` was run at the point of the backup. Any transactions that were prepared but not yet committed at backup time will be rolled back on first startup.
+Note that when binlog files are omitted from the backup (`--skip-binlog`), the restored server behaves as if `RESET MASTER` was run at the point of the backup. In that case, the `MASTER_DEMOTE_TO_SLAVE=1` option cannot be used to initialize the replication starting position; instead, the `gtid_slave_pos` variable must be set explicitly from the information saved by `mariadb-backup`. Any transactions that were prepared but not yet committed at backup time will be rolled back on first startup.
 
 ## Performance Characteristics
 
@@ -308,21 +305,21 @@ To perform a direct restart migration, follow the steps below:
 
 #### Method 2: Replication State Migration (GTID Preservation)
 
-This approach is used to switch a master server while ensuring connected replicas can continue replicating without full reconfiguration.
-This method switches the master to the new binlog format while preserving the GTID state, so that connected replicas can reconnect 
+This approach is used to switch a primary server while ensuring connected replicas can continue replicating without full reconfiguration.
+This method switches the primary to the new binlog format while preserving the GTID state, so that connected replicas can reconnect 
 and continue replicating from where they left off without requiring a full reconfiguration.
 
 This applies to the following types of setups:
 
-- Active replication topologies where replicas must continue replicating after the master switches format.
+- Active replication topologies where replicas must continue replicating after the primary switches format.
 - Setups where all replicas have already been upgraded to at least MariaDB 12.3.
 
 Follow the steps below to perform a replication state migration:
 
-1. Stop all writes to the master.
-2. Wait for all replicas to catch up to the master's current position.
+1. Stop all writes to the primary.
+2. Wait for all replicas to catch up to the primary's current position.
 3. Capture the current GTID state by noting down the value of `@@gtid_binlog_state`.
-4. Restart the master with the following configuration:
+4. Restart the primary with the following configuration:
 
 ```ini
 [mariadb]
@@ -335,20 +332,20 @@ binlog-storage-engine=innodb
 
 #### Method 3: Live Migration (Zero Downtime)
 
-This method promotes a replica, already running the new binlog format, to become the new master, avoiding any downtime on the original master during the format transition.
+This method promotes a replica, already running the new binlog format, to become the new primary, avoiding any downtime on the original primary during the format transition.
 
 It is applicable for the following types of setups:
 
-- Production environments where master downtime is not acceptable.
-- Active replication topologies with at least one available replica that can be promoted to master.
+- Production environments where primary downtime is not acceptable.
+- Active replication topologies with at least one available replica that can be promoted to primary.
 - Configurations where all replicas have been upgraded to MariaDB 12.3 or higher.
 
 To perform a live migration, follow these steps:
 
-1. Ensure that all replicas are upgraded to at least MariaDB version 12.3 before switching the master.
+1. Ensure that all replicas are upgraded to at least MariaDB version 12.3 before switching the primary.
 2. Choose a replica and restart it with `--binlog-storage-engine=innodb`.
-3. Allow the replica to replicate from the old-format master until it has enough binlog data.
-4. Promote this replica to be the new master.
+3. Allow the replica to replicate from the old-format primary until it has enough binlog data.
+4. Promote this replica to be the new primary.
 5. Stop the remaining replicas one at a time, update their configuration to the new binlog format, and restart them.
 
 ## Using the New Binlog with 3rd-Party Programs
@@ -443,13 +440,13 @@ The InnoDB-based binary log cannot be used with MariaDB Galera Cluster. Users ru
 
 #### XA Transaction Replication
 
-External XA transactions are fully supported and crash-safe on the master. The new binlog stores `XA PREPARE` and `XA COMMIT`/`XA ROLLBACK` records internally (see chunk types 5 and 6 in the Binlog File Format Reference), and the server will always recover prepared transactions to a state consistent with the binlog after a crash.
+External XA transactions are fully supported and crash-safe on the primary. The new binlog stores `XA PREPARE` and `XA COMMIT`/`XA ROLLBACK` records internally (see chunk types 5 and 6 in the Binlog File Format Reference), and the server will always recover prepared transactions to a state consistent with the binlog after a crash.
 
-However, replicating `XA PREPARE` to a replica is not supported. This means that if the master has transactions in a prepared-but-not-yet-committed state at the time of a failover, it is not possible to promote the replica and rescue those prepared transactions.
+However, replicating `XA PREPARE` to a replica is not supported. This means that if the primary has transactions in a prepared-but-not-yet-committed state at the time of a failover, it is not possible to promote the replica and rescue those prepared transactions.
 
 #### Binary Log Encryption
 
-Binary log encryption (`--encrypt-binlog`) is not supported with the InnoDB-based binary log. Use full-disk encryption at the operating-system level instead, and/or SSL for the replica's connection to the master (use the `MASTER_SSL` option in `CHANGE MASTER`).
+Binary log encryption (`--encrypt-binlog`) is not supported with the InnoDB-based binary log. Use full-disk encryption at the operating-system level instead, and/or SSL for the replica's connection to the primary (use the `MASTER_SSL` option in `CHANGE MASTER`).
 
 #### Heuristic Recovery
 
