@@ -16,10 +16,10 @@ Run the following commands as root unless indicated otherwise.
 {% step %}
 **Find the binary log position to restore to.**
 
-When MariaDB Backup runs on a MariaDB Server with binary logs enabled (which is a prerequisite for PITR), it stores binary log information in the `xtrabackup_binlog_info` file. Consult this file to find the name of the binary log position to use. In the following example, the log position is 321:
+When MariaDB Backup runs on a MariaDB Server with binary logs enabled (which is a prerequisite for PITR), it stores binary log information in the `mariadb_backup_binlog_info` (or `xtrabackup_binlog_info` in [older releases](files-created-by-mariadb-backup.md)) file. Consult this file to find the name of the binary log position to use. In the following example, the log position is 321:
 
 ```bash
-cat /data/backups/full/xtraback_binlog_info
+cat /data/backups/full/mariadb_backup_binlog_info
 
 mariadb-node4.00001     321
 ```

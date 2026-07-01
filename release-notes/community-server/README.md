@@ -20,35 +20,17 @@ This section contains release notes for MariaDB Server releases divided into the
 
 ## Current Releases
 
-{% content-ref url="13.0/" %}
-[13.0](13.0/)
-{% endcontent-ref %}
-
-{% content-ref url="12.3/" %}
-[12.3](12.3/)
-{% endcontent-ref %}
-
-{% content-ref url="11.8/" %}
-[11.8](11.8/)
-{% endcontent-ref %}
-
-{% content-ref url="11.4/" %}
-[11.4](11.4/)
-{% endcontent-ref %}
-
-{% content-ref url="10.11/" %}
-[10.11](10.11/)
-{% endcontent-ref %}
-
-{% content-ref url="10.6/" %}
-[10.6](10.6/)
-{% endcontent-ref %}
+* [MariaDB 13.1 Series](https://mariadb.com/docs/release-notes/community-server/13.1)
+* [MariaDB 13.0 Series](https://mariadb.com/docs/release-notes/community-server/13.0)
+* [MariaDB 12.3 Series](https://mariadb.com/docs/release-notes/community-server/12.3)
+* [MariaDB 11.8 Series](https://mariadb.com/docs/release-notes/community-server/11.8)
+* [MariaDB 11.4 Series](https://mariadb.com/docs/release-notes/community-server/11.4)
+* [MariaDB 10.11 Series](https://mariadb.com/docs/release-notes/community-server/10.11)
+* [MariaDB 10.6 Series](https://mariadb.com/docs/release-notes/community-server/10.6)
 
 ## Old Releases
 
-{% content-ref url="old-releases/" %}
-[old-releases](old-releases/)
-{% endcontent-ref %}
+* [Old MariaDB Community Server Releases](old-releases/)
 
 {% include "https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/~/reusable/7hzG0V6AUK8DqF4oiVaW/" %}
 

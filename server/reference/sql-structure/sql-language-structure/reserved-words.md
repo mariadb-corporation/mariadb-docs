@@ -38,6 +38,7 @@ The definitive list of reserved words for each version can be found by examining
 | CONDITION                         |
 | CONSTRAINT                        |
 | CONTINUE                          |
+| CONVERSION (> 12.2)               |
 | CONVERT                           |
 | CREATE                            |
 | CROSS                             |
@@ -224,6 +225,7 @@ The definitive list of reserved words for each version can be found by examining
 | STATS\_PERSISTENT                 |
 | STATS\_SAMPLE\_PAGES              |
 | STRAIGHT\_JOIN                    |
+| ST\_COLLECT (> 11.8)              |
 | TABLE                             |
 | TERMINATED                        |
 | THEN                              |
@@ -231,6 +233,7 @@ The definitive list of reserved words for each version can be found by examining
 | TINYINT                           |
 | TINYTEXT                          |
 | TO                                |
+| TO\_DATE (> 12.2)                 |
 | TRAILING                          |
 | TRIGGER                           |
 | TRUE                              |

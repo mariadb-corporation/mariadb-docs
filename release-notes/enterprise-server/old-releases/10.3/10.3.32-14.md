@@ -52,7 +52,7 @@ MariaDB Enterprise Server 10.3.32-14 was released on 2021-12-13.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.34-15 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.34-15 is provided for:
 
 * CentOS 7 (x86\_64)
 * CentOS 8 (x86\_64, ARM64)

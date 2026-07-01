@@ -28,7 +28,7 @@ When query statistics are enabled:
 Before enabling query statistics, ensure the following requirements are met:
 
 * MariaDB ColumnStore is installed and operational
-* Cross-engine join support is configured. The utility user (cross-engine join user) must exist. For setup instructions, see [Configuring ColumnStore Cross-Engine Joins](../../management/managing-columnstore-database-environment/configuring-columnstore-cross-engine-joins.md).
+* Cross-engine join support is configured. The utility user (cross-engine join user) must exist. For setup instructions, see [Configure the Mandatory Utility User Account](../../architecture/columnstore-storage-engine-overview.md#configure-the-mandatory-utility-user-account).
 
 #### Enable Query Statistics
 
@@ -135,4 +135,4 @@ It is recommended to disable query statistics when active analysis is complete o
 * [​ColumnStore Query Tuning](./)
 * [​ColumnStore Configuration](../mariadb-columnstore-performance-related-configuration-settings.md)
 * ​[Analyzing Queries](../analyzing-queries-in-columnstore.md)
-* [Cross-Engine Joins in ColumnStore](../../management/managing-columnstore-database-environment/configuring-columnstore-cross-engine-joins.md)
+* [Configure the Mandatory Utility User Account](../../architecture/columnstore-storage-engine-overview.md#configure-the-mandatory-utility-user-account)

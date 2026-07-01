@@ -16,7 +16,10 @@
 # CLAUDE.md is now committed and shared (see CLAUDE.md / AGENTS.md).
 # Personal, machine-specific Claude Code overrides stay local:
 .claude/settings.local.json
-# doc-from-ticket source-repo config (paths differ per user/machine):
+# doc-from-ticket source-repo config + fact-check reports_dir (paths differ per user/machine;
+# fact-check reports themselves live OUTSIDE the repo and are never committed):
 .claude/doc-sources.local.json
 # bulk-campaign resumable progress state (per-run, machine-local):
 .claude/bulk-campaign.local.json
+# per-task research paper trail (source-verification notes, one file per Jira ID):
+research/

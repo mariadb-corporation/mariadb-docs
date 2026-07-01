@@ -6,7 +6,7 @@ description: >-
 
 # MariaDB Release Notes
 
-Release dates for upcoming MariaDB Enterprise Server releases can be found [here](enterprise-server/enterprise-server-release-schedule.md#next-scheduled-releases). Release dates for MariaDB Community Server releases can be found [on Jira](https://jira.mariadb.org/).
+Release dates for upcoming MariaDB Enterprise Server releases can be found [here](enterprise-server/about/enterprise-server-release-schedule.md#next-scheduled-releases). Release dates for MariaDB Community Server releases can be found [on Jira](https://jira.mariadb.org/).
 
 ## MariaDB Server Release Notes
 

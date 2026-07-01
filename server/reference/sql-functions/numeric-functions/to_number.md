@@ -42,7 +42,7 @@ The function was introduced for Oracle compatibility, but does not include the f
 * The third parameter (nlsparam)
 * Internationalized components: G, D, C, L, U
 
-These features are planned to be be implemented via [MDEV-36978](https://jira.mariadb.org/browse/MDEV-36978).
+These features are planned to be implemented via [MDEV-36978](https://jira.mariadb.org/browse/MDEV-36978).
 
 ## Examples
 

@@ -19,7 +19,7 @@ MariaDB and MySQL have different GTID implementations, and they are **not compat
 
 MariaDB replication in general works as follows (see [Replication overview](replication-overview.md) for more information):
 
-On a master server, all updates to the database (DML and DDL) are written into the [binary log](../../server-management/server-monitoring-logs/binary-log/) as binlog events. A replica server connects to the primary and reads the binlog events, then applies the events locally to replicate the same changes as done on the primary. A server can be both a primary and a replica at the same time, and it is thus possible for binlog events to be replicated through multiple levels of servers.
+On a primary server, all updates to the database (DML and DDL) are written into the [binary log](../../server-management/server-monitoring-logs/binary-log/) as binlog events. A replica server connects to the primary and reads the binlog events, then applies the events locally to replicate the same changes as done on the primary. A server can be both a primary and a replica at the same time, and it is thus possible for binlog events to be replicated through multiple levels of servers.
 
 A replica server keeps track of the position in the primary's binlog of the last event applied on the replica. This allows the replica server to re-connect and resume from where it left off after replication has been temporarily stopped. It also allows a replica to disconnect, be cloned and then have the new replica resume replication from the same primary.
 
@@ -35,9 +35,9 @@ The replica remembers the global transaction ID of the last event group applied 
 
 2. The state of the replica is recorded in a crash-safe way.
 
-The replica keeps track of its current position (the global transaction ID of the last transaction applied) in the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) system table. If this table is using a transactional storage engine (such as InnoDB, which is the default), then updates to the state are done in the same transaction as the updates to the data. This makes the state crash-safe; if the replica server crashes, crash recovery on restart will make sure that the recorded replication position matches the changes that were actually replicated. This is not the case for old-style replication, where the state is recorded in a file relay-log.info, which is updated independently of the actual data changes and can easily get out of sync if the replica server crashes. (This works for DML to transactional tables; non-transactional tables and DDL in general are not crash-safe in MariaDB.)
+The replica keeps track of its current position (the global transaction ID of the last transaction applied) in the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) system table. If this table is using a transactional storage engine (such as InnoDB, which is the default), then updates to the state are done in the same transaction as the updates to the data. This makes the state crash-safe; if the replica server crashes, crash recovery on restart will make sure that the recorded replication position matches the changes that were actually replicated. This is not the case for old-style replication, where the state is recorded in a file relay-log.info, which is updated independently of the actual data changes and can easily get out of sync if the replica server crashes. (This works for DML to transactional tables; non-transactional tables in general are not crash-safe in MariaDB, and DDL is not yet fully crash-safe in replication.)
 
-Because of these two benefits, it is generally recommended to use global transaction ID for any replication setups. However, old-style replication continues to work as always, so there is no pressing need to change existing setups. Global transaction ID integrates smoothly with old-style replication, and the two can be used freely together in the same replication hierarchy. There is no special configuration needed of the server to start using global transaction ID. However, it must be explicitly set for a replica server with the appropriate [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) option; by default old-style replication is used by a replication replica, to maintain backwards compatibility.
+Because of these two benefits, it is generally recommended to use global transaction ID for any replication setups. However, old-style replication continues to work as always, so there is no pressing need to change existing setups. Global transaction ID integrates smoothly with old-style replication, and the two can be used freely together in the same replication hierarchy. There is no special configuration needed of the server to start using global transaction ID. Before MariaDB 10.10, it must be explicitly enabled for a replica server with the appropriate [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) option. Since MariaDB 10.10, global transaction ID is used by default.
 
 ## Implementation
 
@@ -59,16 +59,15 @@ When events are replicated from a primary server to a replica server, the events
 
 This consistent binlog order is used by the replica to keep track of its current position in the replication. Basically, the replica remembers the GTID of the last event group replicated from the primary. When reconnecting to a primary, whether the same one or a new one, it sends this GTID position to the primary, and the primary starts sending events from the first event after the corresponding event group.
 
-However, if user updates are done independently on multiple servers at the same time, then in general it is not possible for binlog order to be identical across all servers. This can happen when using multi-source replication, with multi-primary ring topologies, or just if manual updates are done on a replica that is replicating from active primary. If the binlog order is different on the new primary from the order on the old primary, then it is not sufficient for the replica to keep track of a single GTID to completely record the current state.
+However, if user updates are done independently on multiple servers at the same time, then in general it is not possible for binlog order to be identical across all servers. This can happen when using multi-source replication, with multi-master ring topologies, or just if manual updates are done on a replica that is replicating from active primary. If the binlog order is different on the new primary from the order on the old primary, then it is not sufficient for the replica to keep track of a single GTID to completely record the current state.
 
 The domain ID, the first component of the GTID, is used to handle this.
 
-In general, the binlog is not a single ordered stream. Rather, it consists of a number of different streams, each one identified by its own domain ID. Within each stream, GTIDs always have the same order in every server binlog. However, different streams can be interleaved in different ways on\
-different servers.
+In general, the binlog is not a single ordered stream. Rather, it consists of a number of different streams, each one identified by its own domain ID. Within each stream, GTIDs always have the same order in every server binlog. However, different streams can be interleaved in different ways on different servers.
 
 A replica server then keeps track of its replication position by recording the last GTID applied within each replication stream. When connecting to a new primary, the replica can start replication from a different point in the binlog for each domain ID.
 
-For more details on using multi-primary setups and multiple domain IDs, see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-primary-setups).
+For more details on using multi-master setups and multiple domain IDs, see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-primary-setups).
 
 Simple replication setups only have a single primary being updated by the application at any one time. In such setups, there is only a single replication stream needed. Then domain ID can be ignored, and left as the default of `0` on all servers.
 
@@ -83,7 +82,7 @@ SELECT @@GLOBAL.gtid_slave_pos
 0-1-1
 ```
 
-When a replica connects to a primary, it can use either global transaction ID or old-style filename/offset to decide where in the primary binlogs to start replicating from. To use global transaction ID, use the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) _master\_use\_gtid_ option:
+When a replica connects to a primary, it can use either global transaction ID or old-style filename/offset to decide where in the primary binlogs to start replicating from. To use global transaction ID, use the [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) _master\_use\_gtid_ option (default since MariaDB 10.10):
 
 ```sql
 CHANGE MASTER TO master_use_gtid = { slave_pos | current_pos | no }
@@ -93,25 +92,21 @@ A replica is configured to use GTID by `CHANGE MASTER TO master_use_gtid=slave_p
 
 But suppose that we set up two servers A and B and let A be the primary and B the replica. It runs for a while. Then at some point we take down A, and B becomes the new primary. Then later we want to add A back, this time as a replica.
 
-Since A was never a replica before, it does not have any prior replicated GTIDs, and [gtid\_slave\_pos](gtid.md#gtid_slave_pos) is empty. To allow A to be added as a replica automatically,`master_use_gtid=current_pos` can be used. This connects using the value of the variable [gtid\_current\_pos](gtid.md#gtid_current_pos) instead of [gtid\_slave\_pos](gtid.md#gtid_slave_pos), which also takes into account GTIDs written into the binlog when the server was a primary.
+Since A was never a replica before, it does not have any prior replicated GTIDs, and [gtid\_slave\_pos](gtid.md#gtid_slave_pos) is empty. To allow A to be added as a replica automatically, use `CHANGE MASTER TO MASTER_DEMOTE_TO_SLAVE = 1`. This initializes the GTID position from  the value of the variable [gtid\_current\_pos](gtid.md#gtid_current_pos), which also takes into account GTIDs written into the binlog when the server was a primary.
 
-When using `master_use_gtid=current_pos` there is no need to consider whether a server was a primary or a replica prior to using [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md). But care must be taken not to inject extra transactions into the binlog on the replica server that are not intended to be replicated to other servers. If such an extra transaction is the most recent when the replica starts, it will be used as the\
-starting point of replication. This will probably fail because that transaction is not present on the primary. To avoid local changes on a replica server to go into the binlog, set [sql\_log\_bin](replication-and-binary-log-system-variables.md#sql_log_bin) to `0`.
+As an alternative, the option `master_use_gtid=current_pos` can be used to always connect using the value of the variable [gtid\_current\_pos](gtid.md#gtid_current_pos) instead of [gtid\_slave\_pos](gtid.md#gtid_slave_pos). When using `master_use_gtid=current_pos` there is no need to consider whether a server was a primary or a replica prior to using [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md). But care must be taken not to inject extra transactions into the binlog on the replica server that are not intended to be replicated to other servers. If such an extra transaction is the most recent when the replica starts, it will be used as the starting point of replication. This will probably fail because that transaction is not present on the primary. To avoid local changes on a replica server to go into the binlog, set [sql\_log\_bin](replication-and-binary-log-system-variables.md#sql_log_bin) to `0`.
 
-If it is undesirable that changes to the binlog on the replica affects the GTID replication position, then `master_use_gtid=slave_pos` should be used. Then the replica always connects to the primary at the position of the last replicated GTID. This may avoid some surprises for users that expect behavior consistent with traditional replication, where the replication position is never changed by local changes done on a server.
-
-When [GTID strict mode](gtid.md#gtid_strict_mode) is enabled (by setting`@@GLOBAL.gtid_strict_mode` to 1), it is normally best to use`current_pos`. In strict mode, extra transactions on the replica are disallowed as they would generate a local GTID. The local GTID contains the current `seqno` the replica is at, incremented by `1`, at the next transaction that will come from the Primary, the replica would find such `seqno` already used by its own local transaction and it will stop replicating for safety until the situation is assessed.
+Because of the potential problem with extra transactions on the replica,  the use of `master_use_gtid=current_pos` is not recommended. Using `master_use_gtid=slave_pos` avoids that changes to the binlog on the replica affects the GTID replication position. Then the replica always connects to the primary at the position of the last replicated GTID. This may avoid some surprises for users that expect behavior consistent with traditional replication, where the replication position is never changed by local changes done on a server. And a server that was previously primary can still easily be turned into a replica using the `MASTER_DEMOTE_TO_SLAVE` option of `CHANGE MASTER`.
 
 If a replica is configured with the binlog disabled,`current_pos` and `slave_pos` are equivalent.
 
-Even when a replica is configured to connect with the old-style binlog filename and offset (`CHANGE MASTER TO master_log_file=..., master_log_pos=...`), it still keeps track of the current GTID position in `@@GLOBAL.gtid_slave_pos`. This means that an existing replica previously configured and running can be changed to connect with GTID (to the same or a new master) simply with:
+Even when a replica is configured to connect with the old-style binlog filename and offset (`CHANGE MASTER TO master_log_file=..., master_log_pos=...`), it still keeps track of the current GTID position in `@@GLOBAL.gtid_slave_pos`. This means that an existing replica previously configured and running can be changed to connect with GTID (to the same or a new primary) simply with:
 
 ```sql
 CHANGE MASTER TO master_use_gtid = slave_pos
 ```
 
-The replica remembers that `master_use_gtid=slave_pos|master_pos` was specified, and uses it also\
-for subsequent connects, until it is explicitly changed by specifying`master_log_file/pos=...` or `master_use_gtid=no`. The current value can be seen as the field `Using_Gtid` of `SHOW SLAVE STATUS`:
+The replica remembers that `master_use_gtid=slave_pos|master_pos` was specified, and uses it also for subsequent connects, until it is explicitly changed by specifying`master_log_file/pos=...` or `master_use_gtid=no`. The current value can be seen as the field `Using_Gtid` of `SHOW SLAVE STATUS`:
 
 ```sql
 SHOW SLAVE STATUS\G
@@ -133,22 +128,7 @@ The [mysql.gtid\_slave\_pos table](../../reference/system-tables/the-mysql-datab
 SET GLOBAL gtid_slave_pos = '0-1-1'
 ```
 
-The server variable [gtid\_pos\_auto\_engines](gtid.md#gtid_pos_auto_engines) can preferably be set to make the server handle this automatically. See the description of the [mysql.gtid\_slave\_pos table](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) for details.
-
-### Using `current_pos` vs. `slave_pos`
-
-When setting the [MASTER\_USE\_GTID](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_use_gtid) replication parameter, you have the option of enabling Global Transaction IDs to use either the `current_pos` or `slave_pos` values.
-
-Using the value `current_pos` causes the replica to set its position based on the [gtid\_current\_pos](gtid.md#gtid_current_pos) system variable, which is a union of [gtid\_binlog\_pos](gtid.md#gtid_binlog_pos) and [gtid\_slave\_pos](gtid.md#gtid_slave_pos). Using the value `slave_pos` causes the replica to instead set its position based on the [gtid\_slave\_pos](gtid.md#gtid_slave_pos) system variable.
-
-You may run into issues when you use the value `current_pos` if you write any local transactions on the replica. For instance, if you issue an [INSERT](../../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statement or otherwise write to a table while the [replica threads](replication-threads.md#threads-on-the-slave) are stopped, then new local GTIDs may be generated in [gtid\_binlog\_pos](gtid.md#gtid_binlog_pos), which will affect the replica's value of [gtid\_current\_pos](gtid.md#gtid_current_pos). This may cause errors when the [replica threads](replication-threads.md#threads-on-the-slave) are restarted, since the local GTIDs will be absent from the primary.
-
-You can correct this issue by setting the [MASTER\_USE\_GTID](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_use_gtid) replication parameter to `slave_pos` instead of `current_pos`. For example:
-
-```sql
-CHANGE MASTER TO MASTER_USE_GTID = slave_pos;
-START SLAVE;
-```
+The server variable [gtid\_pos\_auto\_engines](gtid.md#gtid_pos_auto_engines) can preferably be set to make the server handle the correct use of storage engine automatically. See the description of the [mysql.gtid\_slave\_pos table](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) for details.
 
 ### Using GTIDs with Parallel Replication
 
@@ -175,14 +155,14 @@ The replica server is installed in the normal way. By default, the GTID position
 SET GLOBAL gtid_slave_pos = "";
 ```
 
-Next, point the replica to the master with [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md). Specify `master_host` etc. as usual. But instead of specifying `master_log_file` and `master_log_pos` manually, use `master_use_gtid=current_pos` (or`slave_pos` to have GTID do it automatically:
+Next, point the replica to the primary with [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md). Specify `master_host` etc. as usual. But instead of specifying `master_log_file` and `master_log_pos` manually, use `master_use_gtid=slave_pos` to have GTID do it automatically:
 
 ```sql
 CHANGE MASTER TO 
  master_host="127.0.0.1", 
  master_port=3310, 
  master_user="root", 
- master_use_gtid=current_pos;
+ master_use_gtid=slave_pos;
 START SLAVE;
 ```
 
@@ -200,7 +180,7 @@ Once the current binary log position for the backup has been obtained, in the fo
 SELECT BINLOG_GTID_POS("master-bin.000001", 600);
 ```
 
-The new replica can then start replicating from the primary by setting the correct value for [gtid\_slave\_pos](gtid.md#gtid_slave_pos), and then executing [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) with the relevant values for the primary, and then starting the [replica threads](replication-threads.md#threads-on-the-slave) by executing [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md). For example:
+The new replica can then start replicating from the primary by setting the correct value for [gtid\_slave\_pos](gtid.md#gtid_slave_pos), and then executing [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) with the relevant values for the primary, and then starting the [replica threads](replication-threads.md#threads-on-the-slave) by executing [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md). For example:
 
 ```sql
 SET GLOBAL gtid_slave_pos = "0-1-2";
@@ -214,8 +194,7 @@ START SLAVE;
 
 This method is particularly useful when setting up a new replica from a backup of the primary. Remember to ensure that the value of [server\_id](replication-and-binary-log-system-variables.md#server_id) configured on the new replica is different from that of any other server in the replication topology.
 
-If the backup was taken of an existing replica server, then the new replica should already have the\
-correct GTID position stored in the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This is assuming that this table was backed up and that it was backed up in a consistent manner with changes to other tables. In this case, there is no need to explicitly look up the GTID position on the old server and set it on the new replica - it will be already correctly loaded from the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This however does not work if the backup was taken from the primary - because then the current GTID position is contained in the binary log, not in the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table or any other table.
+If the backup was taken of an existing replica server, then the new replica should already have the correct GTID position stored in the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This is assuming that this table was backed up and that it was backed up in a consistent manner with changes to other tables. In this case, there is no need to explicitly look up the GTID position on the old server and set it on the new replica - it will be already correctly loaded from the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table. This however does not work if the backup was taken from the primary - because then the current GTID position is contained in the binary log, not in the [mysql.gtid\_slave\_pos](../../reference/system-tables/the-mysql-database-tables/mysqlgtid_slave_pos-table.md) table or any other table.
 
 #### Setting up a New Replica with mariadb-backup
 
@@ -225,9 +204,7 @@ A new replica can easily be set up with [mariadb-backup](../../server-usage/back
 
 A new replica can also be set up with [mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md).
 
-[mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) automatically includes the\
-GTID position as a comment in the backup file if either the [--master-data](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) or [--dump-slave](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) option is used. It also automatically includes the commands to set [gtid\_slave\_pos](gtid.md#gtid_slave_pos) and execute [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md)\
-in the backup file if the [--gtid](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) option is used with either the [--master-data](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) or [--dump-slave](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) option.
+[mariadb-dump](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) automatically includes the GTID position as a comment in the backup file if either the [--master-data](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) or [--dump-slave](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) option is used. It also automatically includes the commands to set [gtid\_slave\_pos](gtid.md#gtid_slave_pos) and execute [CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) in the backup file if the [--gtid](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) option is used with either the [--master-data](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) or [--dump-slave](../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md#options) option.
 
 ### Switching An Existing Old-Style Replica To Use GTID.
 
@@ -241,14 +218,13 @@ CHANGE MASTER TO
  master_host="127.0.0.1", 
  master_port=3310, 
  master_user="root", 
- master_use_gtid=current_pos;
+ master_use_gtid=slave_pos;
 START SLAVE;
 ```
 
 ## Changing a Replica to Replicate From a Different Primary
 
-Once replication is running with GTID (`master_use_gtid=current_pos|slave_pos`), the replica can be\
-pointed to a new primary simply by specifying in `CHANGE MASTER` the new `master_host` (and if required `master_port`, `master_user`, and `master_password`):
+Once replication is running with GTID (`master_use_gtid=current_pos|slave_pos`), the replica can be pointed to a new primary simply by specifying in `CHANGE MASTER` the new `master_host` (and if required `master_port`, `master_user`, and `master_password`):
 
 ```sql
 STOP SLAVE;
@@ -260,8 +236,7 @@ START SLAVE;
 
 The replica has a record of the GTID of the last applied transaction from the old primary, and since GTIDs are identical across all servers in a replication hierarchy, the replica will just continue from the appropriate point in the new primary's binlog.
 
-It is important to understand how this change of primary work. The binlog is an ordered stream of events (or multiple streams, one per replication domain, (see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-master-setups)). Events within the stream are always applied in the same order on every replica that replicates it. The MariaDB GTID relies on this ordering, so that it is sufficient to remember just a single point within the stream. Since event order is the same on every server, switching to the\
-point of the same GTID in the binlog of another server will give the same result.
+It is important to understand how this change of primary work. The binlog is an ordered stream of events (or multiple streams, one per replication domain, (see [Use with multi-source replication and other multi-primary setups](gtid.md#use-with-multi-source-replication-and-other-multi-master-setups)). Events within the stream are always applied in the same order on every replica that replicates it. The MariaDB GTID relies on this ordering, so that it is sufficient to remember just a single point within the stream. Since event order is the same on every server, switching to the point of the same GTID in the binlog of another server will give the same result.
 
 This translates into some responsibility for the user. The MariaDB GTID replication is fully asynchronous, and fully flexible in how it can be configured. This makes it possible to use it in ways where the assumption that binlog sequence is the same on all servers is violated. In such cases, when changing primary, GTID will still attempt to continue at the point of current GTID in the new binlog.
 
@@ -269,13 +244,13 @@ The most common way that binlog sequence gets different between servers is when 
 
 It is normally best to avoid any differences in binlogs between servers. That being said, MariaDB replication is designed for maximum flexibility, and there can be valid reasons for introducing such differences from time to time. It this case, it just needs to be understood that the GTID position is a single point in each binlog stream (one per replication domain), and how this affects the user's particular setup.
 
-Differences can also occur when two primary are active at the same time in a replication hierarchy. This happens when using a multi-primary ring. But it can also occur in a simple primary-replica setup, during switch to a new primary, if changes on the old primary is not allowed to fully replicate to all replica servers before switching primary. Normally, to switch primary, first writes to the old primary should be stopped, then one should wait for all changes to be replicated to the new primary, and only then should writes begin on the new primary. Deliberately using multiple active primary is also supported, this is described in the next section.
+Differences can also occur when two primary are active at the same time in a replication hierarchy. This happens when using a multi-master ring. But it can also occur in a simple master-slave setup, during switch to a new primary, if changes on the old primary is not allowed to fully replicate to all replica servers before switching primary. Normally, to switch primary, first writes to the old primary should be stopped, then one should wait for all changes to be replicated to the new primary, and only then should writes begin on the new primary. Deliberately using multiple active primary is also supported, this is described in the next section.
 
 The [GTID strict mode](gtid.md#gtid_strict_mode) can be used to enforce identical binlogs across servers. When it is enabled, most actions that would cause differences are rejected with an error.
 
-## Use With Multi-Source Replication and Other Multi-Primary Setups
+## Use With Multi-Source Replication and Other Multi-Master Setups
 
-MariaDB global transaction ID supports having multiple primaries active at the same time. Typically this happens with either multi-source replication or multi-primary ring setups.
+MariaDB global transaction ID supports having multiple primaries active at the same time. Typically this happens with either multi-source replication or multi-master ring setups.
 
 In such setups, each active primary must be configured with its own distinct replication domain ID, [gtid\_domain\_id](gtid.md#gtid_domain_id). The binlog will then in effect consists of multiple independent streams, one per active primary. Within one replication domain, binlog order is always the same on every server. But two different streams can be interleaved differently in different server binlogs.
 
@@ -285,9 +260,9 @@ Domain IDs are assigned by the DBA, according to the need of the application. Th
 
 When using multi-source replication, where a single replica connects to multiple primaries at the same time, each such primary should be configured with its own distinct domain ID.
 
-Similarly, in a multi-primary ring topology, where all primary in the ring are updated by the application concurrently (with some mechanism to avoid conflicts), a distinct domain ID should be configured for each server (In a multi-primary ring where the application is careful to only do updates on one primary at a time, a single domain ID is sufficient).
+Similarly, in a multi-master ring topology, where all primary in the ring are updated by the application concurrently (with some mechanism to avoid conflicts), a distinct domain ID should be configured for each server (In a multi-master ring where the application is careful to only do updates on one primary at a time, a single domain ID is sufficient).
 
-Normally, a replica server should not receive direct updates (as this creates binlog differences compared to the primary). Thus it does not matter what value of `gtid_domain_id` is set on a replica, though it may make sense to make it the same as the primary (if not using multi-primary) to make it easy to promote the replica as a new primary. Of course, if a replica is itself an active primary, as in a multi-primary ring topology, the domain ID should be set according to the server's role as active primary.
+Normally, a replica server should not receive direct updates (as this creates binlog differences compared to the primary). Thus it does not matter what value of `gtid_domain_id` is set on a replica, though it may make sense to make it the same as the primary (if not using multi-master) to make it easy to promote the replica as a new primary. Of course, if a replica is itself an active primary, as in a multi-master ring topology, the domain ID should be set according to the server's role as active primary.
 
 Note that domain ID and server ID are distinct concepts. It is possible to use a different domain ID on each server, but this is normally not desirable. It makes the current GTID position (`@@global.gtid_slave_pos`) more complicated to understand and work with, and loses the concept of a single ordered binlog stream across all servers. It is recommended only to configure as many domain IDs as there are primary servers actively being updated by the application at the same time.
 
@@ -309,9 +284,9 @@ Here, M1 and M2 are setup in a master-master ring. S1 and S2 both replicate from
 
 The option [--gtid-ignore-duplicates](gtid.md#gtid_ignore_duplicates) must be enabled to use multiple redundant replication paths. This is necessary to avoid each event being applied twice on the replica as it arrives through each path. The GTID of every event will be compared against the sequence number of the current GTID replica position (within each domain), and will be skipped if less than or equal. Thus it is required that sequence numbers are strictly increasing within each domain for [--gtid-ignore-duplicates](gtid.md#gtid_ignore_duplicates) to function correctly, and setting [--gtid-strict-mode=1](gtid.md#gtid_strict_mode) to help enforce this is recommended.
 
-The --gtid-ignore-duplicates options also relaxes the requirement for connection to the master. In the above example, when S1 connects to M2, it may connect at a GTID position from M1 that has not yet been applied on M2.
+The --gtid-ignore-duplicates options also relaxes the requirement for connection to the primary. In the above example, when S1 connects to M2, it may connect at a GTID position from M1 that has not yet been applied on M2.
 
-When --gtid-ignore-duplicates is enabled, the connection will be allowed, and S1 will start receiving events from M2 once the GTID has been replicated from M1 to M2. This can also be used to use replication filters in parts of a replication topology, to allow a replica to connect to a GTID position which was filtered on a master. When --gtid-ignore-duplicates is enabled, the connecting replica will start receiving events from the master at the first GTID sequence number that is larger than the connect-position.
+When --gtid-ignore-duplicates is enabled, the connection will be allowed, and S1 will start receiving events from M2 once the GTID has been replicated from M1 to M2. This can also be used to use replication filters in parts of a replication topology, to allow a replica to connect to a GTID position which was filtered on a primary. When --gtid-ignore-duplicates is enabled, the connecting replica will start receiving events from the primary at the first GTID sequence number that is larger than the connect-position.
 
 ### Deleting Unused Domains
 
@@ -329,16 +304,15 @@ SET GLOBAL gtid_slave_pos="<position with the old or unused domains removed>
 
 ### CHANGE MASTER
 
-[CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) has an option, `master_use_gtid=[current_pos|slave_pos|no]`. When enabled (set to _`current_pos`_ or _`slave_pos`_), the replica will connect to the master using the GTID position. When\
-disabled (set to "no"), the old-style binlog filename/offset position is used to decide where to start replicating when connecting. Unlike in the old-style, when GTID is enabled, the values of the [MASTER\_LOG\_FILE](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_log_pos) options are not updated per received event in [master\_info\_file](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) file.
+[CHANGE MASTER](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md) has an option, `master_use_gtid=[current_pos|slave_pos|no]`. When enabled (set to _`current_pos`_ or _`slave_pos`_), the replica will connect to the primary using the GTID position. When disabled (set to "no"), the old-style binlog filename/offset position is used to decide where to start replicating when connecting. The value _`replica_pos`_ can be used as an alias for _`slave_pos`_. Unlike in the old-style, when GTID is enabled, the values of the [MASTER\_LOG\_FILE](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_log_file) and [MASTER\_LOG\_POS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#master_log_pos) options are not updated per received event in [master\_info\_file](../../server-management/starting-and-stopping-mariadb/mariadbd-options.md) file.
 
 The value of `master_use_gtid` is saved across server restarts (in `master.info`). The current value can be seen as the field `Using_Gtid` in the output of `SHOW SLAVE STATUS`.
 
 For a detailed look at the difference between the _`current_pos`_ and _`slave_pos`_ options, see [Using global transaction IDs](gtid.md#using-global-transaction-ids)
 
-### START SLAVE UNTIL master\_gtid\_pos=xxx
+### START REPLICA UNTIL master\_gtid\_pos=xxx
 
-When starting replication with [START SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md), it is possible to request the replica to run only until a specific GTID position is reached. Once that position is reached, the replica stops.
+When starting replication with [START REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/start-replica.md), it is possible to request the replica to run only until a specific GTID position is reached. Once that position is reached, the replica stops.
 
 The syntax for this is:
 
@@ -362,7 +336,7 @@ When using `START SLAVE UNTIL master_gtid_pos = XXX`, if the UNTIL position is p
 
 Both replica threads must be already stopped when using `UNTIL master_gtid_pos`, otherwise an error occurs. It is also an error if the replica is not configured to use GTID (`CHANGE MASTER TO master_use_gtid=current_pos|slave_pos`). And both threads must be started at the same time, the `IO_THREAD` or `SQL_THREAD` options can not be used to start only one of them.
 
-`START SLAVE UNTIL master_gtid_pos=XXX` is particularly useful for promoting a new primary among a set of replicas when the old master goes away and replicas may have reached different positions in the old primary's binlog. The new primary needs to be ahead of all the other replicas to avoid losing events. This can be achieved by picking one server, say S1, and replicating any missing events from each other server S2, S3, ..., Sn:
+`START SLAVE UNTIL master_gtid_pos=XXX` is particularly useful for promoting a new primary among a set of replicas when the old primary goes away and replicas may have reached different positions in the old primary's binlog. The new primary needs to be ahead of all the other replicas to avoid losing events. This can be achieved by picking one server, say S1, and replicating any missing events from each other server S2, S3, ..., Sn:
 
 ```sql
 CHANGE MASTER TO master_host="S2";
@@ -409,7 +383,7 @@ The [BINLOG\_GTID\_POS()](../../reference/sql-functions/secondary-functions/info
 
 ### MASTER\_GTID\_WAIT
 
-The [MASTER\_GTID\_WAIT](../../reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait.md) function is useful in replication for controlling primary/replica synchronization, and blocks until the replica has read and applied all updates up to the specified position in the primary log. See [MASTER\_GTID\_WAIT](../../reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait.md) for details.
+The [MASTER\_GTID\_WAIT](../../reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait.md) function is useful in replication for controlling primary/replica synchronization, and blocks until the replica has read and applied all updates up to and including the specified GTID position. See [MASTER\_GTID\_WAIT](../../reference/sql-functions/secondary-functions/miscellaneous-functions/master_gtid_wait.md) for details.
 
 ## Binlog Indexing
 
@@ -450,7 +424,7 @@ This system variable contains the GTID of the last transaction applied to the da
 
 When using [multi-source replication](multi-source-replication.md), the same GTID position is shared by all replica connections. In this case, different primaries should use different replication domains by configuring different [gtid\_domain\_id](gtid.md#gtid_domain_id) values. If one primary was using a [gtid\_domain\_id](gtid.md#gtid_domain_id) value of `1`, and if another primary was using a [gtid\_domain\_id](gtid.md#gtid_domain_id) value of `2`, then any replicas replicating from both primaries would have GTIDs with both [gtid\_domain\_id](gtid.md#gtid_domain_id) values in `gtid_slave_pos`.
 
-This system variable's value can be manually changed by executing [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session), but all replica threads to be stopped with [STOP SLAVE](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) first. For example:
+This system variable's value can be manually changed by executing [SET GLOBAL](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md#global-session), but all replica threads to be stopped with [STOP REPLICA](../../reference/sql-statements/administrative-sql-statements/replication-statements/stop-replica.md) first. For example:
 
 ```sql
 STOP ALL SLAVES;
@@ -496,17 +470,15 @@ The value is read-only, but it is updated whenever a DML or DDL statement is wri
 
 This variable holds the internal state of the binlog. The state consists of the last GTID ever logged to the binary log for every combination of `domain_id` and `server_id`. This information is used by the primary to determine whether a given GTID has been logged to the binlog in the past, even if it has later been deleted due to binlog purge. For each domain\_id, the last entry in `@@gtid_binlog_state` is the last GTID logged into binlog, for instance, this is the value that appears in `@@gtid_binlog_pos`.
 
-Normally this internal state is not needed by users, as `@@gtid_binlog_pos` is more useful in most cases. The main usage of `@@gtid_binlog_state` is to restore the state of the binlog after `RESET MASTER` (or equivalently if the binlog files are lost). If the value of `@@gtid_binlog_state` is saved before `RESET`\
-`MASTER` and restored afterwards, the primary will retain information about past\
-history, same as if `PURGE BINARY LOGS` had been used (of course the actual events in the binary logs are still deleted).
+Normally this internal state is not needed by users, as `@@gtid_binlog_pos` is more useful in most cases. The main usage of `@@gtid_binlog_state` is to restore the state of the binlog after `RESET MASTER` (or equivalently if the binlog files are lost). If the value of `@@gtid_binlog_state` is saved before `RESET MASTER` and restored afterwards, the primary will retain information about past history, same as if `PURGE BINARY LOGS` had been used (of course the actual events in the binary logs are still deleted).
 
 {% hint style="info" %}
 To set the value of `@@gtid_binlog_state`, the binary log must be empty, that is, it must not contain any GTID events and the previous value of `@@gtid_binlog_state` must be the empty string. If not, then `RESET MASTER` must be used first to erase the binary log first.
 {% endhint %}
 
-The value of `@@gtid_binlog_state` is preserved by the server across restarts by writing a file `MASTER-BIN.state`, where `MASTER-BIN` is the base name of the binlog set with the `--log-bin` option. This file is written at server shutdown, and re-read at next server start. (In case of a server crash, the data in the `MASTER-BIN.state` is not correct, and the server instead recovers the correct value during binlog crash recovery by scanning the binlog files and recording each GTID found).
+The value of `@@gtid_binlog_state` is preserved by the server across restarts by writing a file `MASTER-BIN.state`, where `MASTER-BIN` is the base name of the binlog set with the `--log-bin` option. This file is written at server shutdown, and re-read at next server start. (In case of a server crash, the data in the `MASTER-BIN.state` is not correct, and the server instead recovers the correct value during binlog crash recovery by scanning the binlog files and recording each GTID found). When using the InnoDB-based binary log (`--binlog-storage-engine=innodb`), the value of `@@gtid_binlog_state` is preserved internally by the InnoDB binlog implementation, and the file `MASTER-BIN.state` is not used.
 
-For completeness, note that setting @@gtid\_binlog\_state internally executes a `RESET MASTER`. This is normally not noticeable as it can only be changed when the binlog is empty of GTID events. However, if executed e.g. immediately after upgrading to MariaDB 10, it is possible that the binlog is non-empty but without any GTID events, in which case all such events will be deleted, just as if `RESET MASTER` had been run.
+For completeness, note that setting @@gtid\_binlog\_state internally executes a `RESET MASTER`. This is normally not noticeable as it can only be changed when the binlog is empty of GTID events. However, if executed e.g. immediately after upgrading to MariaDB 10.0, it is possible that the binlog is non-empty but without any GTID events, in which case all such events will be deleted, just as if `RESET MASTER` had been run.
 
 * Command line: None
 * Scope: Global

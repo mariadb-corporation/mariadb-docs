@@ -1,7 +1,7 @@
 ---
 description: >-
   Define your database backend servers in MaxScale. Learn to configure server
-  objects set addresses and ports and and enable TLS encryption for secure
+  objects set addresses and ports and enable TLS encryption for secure
   connections.
 ---
 

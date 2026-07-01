@@ -2664,7 +2664,7 @@ paths:
         - BearerAuth: []
       description: Retrieve a list of available maintenance windows
       tags:
-        - Offering
+        - Maintenance and Upgrade
       summary: Read Maintenance Windows
       responses:
         '200':
@@ -4968,7 +4968,7 @@ paths:
         - BearerAuth: []
       description: Set the maintenance window the service.
       tags:
-        - Services
+        - Maintenance and Upgrade
       summary: Set Service Maintenance Window
       parameters:
         - schema:
@@ -5034,6 +5034,194 @@ paths:
                     text: Set the maintenance window the service.
                     marks: []
       x-gitbook-description-html: <p>Set the maintenance window the service.</p>
+  /provisioning/v1/services/{service_id}/maintenance:
+    get:
+      security:
+        - BearerAuth: []
+      description: Retrieve the list of maintenance activities for a specific service.
+      tags:
+        - Maintenance and Upgrade
+      summary: List Maintenance Activities
+      parameters:
+        - schema:
+            type: string
+          description: The ID for the service.
+          name: service_id
+          in: path
+          required: true
+          x-gitbook-description-html: <p>The ID for the service.</p>
+        - schema:
+            type: boolean
+          description: 'Include completed/failed/cancelled activities (default: true)'
+          name: include_completed
+          in: query
+          x-gitbook-description-html: '<p>Include completed/failed/cancelled activities (default: true)</p>'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/v1.MaintenanceActivityResponse'
+          x-gitbook-description-html: <p>OK</p>
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Bad Request</p>
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Unauthorized</p>
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Not Found</p>
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Internal Server Error</p>
+      x-gitbook-description-html: <p>Retrieve the list of maintenance activities for a specific service.</p>
+  /provisioning/v1/services/{service_id}/maintenance/apply:
+    post:
+      security:
+        - BearerAuth: []
+      description: >-
+        Immediately execute maintenance activities for a service. If the request
+        body contains an empty activity_ids array, all active activities are
+        applied. Activities are executed sequentially (infrastructure first,
+        then security, then database). If the service is not ready, activities
+        are rescheduled to the next maintenance window.
+      tags:
+        - Maintenance and Upgrade
+      summary: Apply Maintenance Activities
+      parameters:
+        - schema:
+            type: string
+          description: The ID for the service.
+          name: service_id
+          in: path
+          required: true
+          x-gitbook-description-html: <p>The ID for the service.</p>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/v1.MaintenanceActivityResponse'
+          x-gitbook-description-html: <p>OK</p>
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Bad Request</p>
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Not Found</p>
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Internal Server Error</p>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        description: Apply request
+        required: true
+        x-gitbook-description-html: <p>Apply request</p>
+      x-gitbook-description-html: <p>Immediately execute maintenance activities for a service.</p>
+  /provisioning/v1/services/{service_id}/maintenance/schedule:
+    post:
+      security:
+        - BearerAuth: []
+      description: >-
+        Schedule maintenance activities for a service at a specific maintenance
+        window. If the request body contains an empty activity_ids array, all
+        active activities are scheduled. Also serves as reschedule/defer: a
+        previously scheduled activity can be moved to a different window.
+        Rejected if any active activity for the service is past its
+        forced_apply_by deadline.
+      tags:
+        - Maintenance and Upgrade
+      summary: Schedule Maintenance Activities
+      parameters:
+        - schema:
+            type: string
+          description: The ID for the service.
+          name: service_id
+          in: path
+          required: true
+          x-gitbook-description-html: <p>The ID for the service.</p>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/v1.MaintenanceActivityResponse'
+          x-gitbook-description-html: <p>OK</p>
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Bad Request</p>
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Not Found</p>
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Internal Server Error</p>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.ScheduleMaintenanceRequest'
+        description: Schedule request
+        required: true
+        x-gitbook-description-html: <p>Schedule request</p>
+      x-gitbook-description-html: >-
+        <p>Schedule maintenance activities for a service at a specific
+        maintenance window.</p>
   /provisioning/v1/services/{service_id}/nodes:
     post:
       security:
@@ -6515,13 +6703,70 @@ paths:
                     text: Update the service tags.
                     marks: []
       x-gitbook-description-html: <p>Update the service tags.</p>
+  /provisioning/v1/services/{service_id}/upgrade/database:
+    post:
+      security:
+        - BearerAuth: []
+      description: Upgrade Database Version
+      tags:
+        - Maintenance and Upgrade
+      summary: Upgrade Database Version
+      parameters:
+        - schema:
+            type: string
+          description: service id
+          name: service_id
+          in: path
+          required: true
+          x-gitbook-description-html: <p>service id</p>
+      responses:
+        '204':
+          description: No Content
+          x-gitbook-description-html: <p>No Content</p>
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Bad Request</p>
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Unauthorized</p>
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Not Found</p>
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errr.ErrorResponse'
+          x-gitbook-description-html: <p>Internal Server Error</p>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1.UpgradeDatabaseVersionRequest'
+        description: upgrade database version request
+        required: true
+        x-gitbook-description-html: <p>upgrade database version request</p>
+      x-gitbook-description-html: <p>Upgrade Database Version</p>
   /provisioning/v1/services/{service_id}/upgrade/kubernetes_version:
     post:
       security:
         - BearerAuth: []
       description: Upgrade Kubernetes Version
       tags:
-        - Services
+        - Maintenance and Upgrade
       summary: Upgrade Kubernetes Version
       parameters:
         - schema:
@@ -11810,6 +12055,28 @@ paths:
         - Observability
       operationId: get-metrics-2
       summary: Returns client metrics presented according to the Prometheus data model
+tags:
+  - name: Offering
+  - name: Services
+  - name: Maintenance and Upgrade
+    description: >-
+      Manage scheduled maintenance and version upgrades for a service. View and
+      set maintenance windows, list maintenance activities, apply or schedule
+      (reschedule) them, and trigger database and Kubernetes version upgrades.
+  - name: Copilot
+  - name: Backups
+  - name: Restores
+  - name: Config
+  - name: Users
+  - name: Roles
+  - name: Invites
+  - name: Organizations
+  - name: Billing
+  - name: Notifications
+  - name: Serverless
+  - name: Progress
+  - name: Projects
+  - name: Observability
 openapi: 3.1.1
 servers:
   - url: https://api.skysql.com/
@@ -13866,6 +14133,98 @@ components:
       type: object
       properties:
         name:
+          type: string
+    v1.MaintenanceActivityResponse:
+      type: object
+      properties:
+        auto_apply_after:
+          type: string
+        classification:
+          type: string
+          enum:
+            - infrastructure
+            - security
+            - database
+        completed_at:
+          type: string
+        created_by:
+          type: string
+        created_on:
+          type: string
+        current_version:
+          type: string
+        deferral_count:
+          type: integer
+        deferred_until:
+          type: string
+        description:
+          type: string
+        expected_impact:
+          type: string
+          enum:
+            - no_downtime
+            - brief_downtime
+            - extended_downtime
+        expected_impact_description:
+          type: string
+        expected_impact_label:
+          description: >-
+            ExpectedImpactLabel / ExpectedImpactDescription are the
+            backend-owned display strings for ExpectedImpact — the UI renders
+            them verbatim instead of mapping the enum itself.
+          type: string
+        forced_apply_by:
+          type: string
+        id:
+          type: string
+        is_critical:
+          type: boolean
+        metadata:
+          type: object
+        priority:
+          type: string
+          enum:
+            - recommended
+            - required
+        reschedule_count:
+          type: integer
+        scheduled_at:
+          type: string
+        scheduled_window:
+          type: string
+        service_id:
+          type: string
+        started_at:
+          type: string
+        state:
+          type: string
+          enum:
+            - available
+            - scheduled
+            - deferred
+            - in_progress
+            - completed
+            - failed
+            - cancelled
+        target_completion_date:
+          type: string
+        target_version:
+          type: string
+        updated_on:
+          type: string
+    v1.ScheduleMaintenanceRequest:
+      type: object
+      properties:
+        activity_ids:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+    v1.UpgradeDatabaseVersionRequest:
+      type: object
+      properties:
+        version:
           type: string
     v1.SetQuotaRequest:
       type: object

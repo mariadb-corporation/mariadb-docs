@@ -33,7 +33,7 @@ MariaDB Enterprise Server 10.2.27-3 was released on 2019-09-30.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.27-3 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.27-3 is provided for:
 
 * CentOS 8
 * CentOS 7

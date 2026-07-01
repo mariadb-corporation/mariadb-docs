@@ -34,6 +34,15 @@ To view historical notifications, click the "View more" link at the bottom of th
 
 _Notifications - current and historical_
 
+## Maintenance Notifications
+
+To ensure transparency around system updates, MariaDB Cloud sends automated notifications for all scheduled maintenance activities. See [Maintenance Management](maintenance-management.md) for how to view and act on maintenance.
+
+* **Notification schedule**: You receive automated reminders at three intervals — **1 week**, **1 day**, and **1 hour** before the scheduled maintenance window.
+* **Delivery channels**: Notifications are delivered as in-product alerts and through your configured notification channels (for example, email).
+* **Content**: Each notification includes a description of the activity, its classification (Infrastructure or Database Security), its priority level, and the expected system impact, including any potential downtime.
+* **In-app visibility**: Service cards display a maintenance banner for available or scheduled activities, with a direct link to the **Maintenance** tab. The Notifications page also tracks the full lifecycle states of maintenance tasks.
+
 ## Notification Categories
 
 * Service Alerts, which are based on `Alerts`

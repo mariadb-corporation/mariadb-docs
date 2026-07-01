@@ -9,7 +9,7 @@ description: >-
 ## Syntax
 
 ```bnf
-SHOW { REPLICA | SLAVE } HOSTS
+SHOW { SLAVE | REPLICA } HOSTS
 ```
 
 ## Description
@@ -17,7 +17,7 @@ SHOW { REPLICA | SLAVE } HOSTS
 This command is run on the primary and displays a list of replicas that are currently registered with it. The output looks like this:
 
 ```sql
-SHOW REPLICA HOSTS;
+SHOW SLAVE HOSTS;
 +------------+-----------+------+-----------+
 | Server_id  | Host      | Port | Master_id |
 +------------+-----------+------+-----------+
@@ -68,7 +68,7 @@ Requires the [REPLICATION SLAVE](../../account-management-sql-statements/grant.m
 
 * [MariaDB replication](../../../../ha-and-performance/standard-replication/)
 * [Replication threads](../../../../ha-and-performance/standard-replication/replication-threads.md)
-* [SHOW PROCESSLIST](show-processlist.md). In [SHOW PROCESSLIST](show-processlist.md) output, replica threads are identified by `Binlog Dump`
+* [SHOW PROCESSLIST](show-processlist.md). In [SHOW PROCESSLIST](show-processlist.md) output on the primary, connected replicas are identified by `Binlog Dump`
 
 <sub>_This page is licensed: GPLv2, originally from_</sub> [<sub>_fill\_help\_tables.sql_</sub>](https://github.com/MariaDB/server/blob/main/scripts/fill_help_tables.sql)
 

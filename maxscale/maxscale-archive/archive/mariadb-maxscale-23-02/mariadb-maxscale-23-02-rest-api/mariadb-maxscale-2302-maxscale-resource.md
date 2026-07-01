@@ -614,7 +614,7 @@ Client didn't request a WebSocket upgrade:
 **Note:** The modification of logging parameters via this endpoint has\
 deprecated in MaxScale 6.0. The parameters should be modified with the`/v1/maxscale` endpoint instead.
 
-Any PATCH requests done to this endpoint will be redirected to the`/v1/maxscale` endpoint. Due to the mispelling of the `ms_timestamp` and`log_throttling` parameters, this is not fully backwards compatible.
+Any PATCH requests done to this endpoint will be redirected to the`/v1/maxscale` endpoint. Due to the misspelling of the `ms_timestamp` and`log_throttling` parameters, this is not fully backwards compatible.
 
 ```
 PATCH /v1/maxscale/logs

@@ -91,6 +91,19 @@ pointing at the correct path. Flag pages with no nav entry, and `SUMMARY.md` ent
 at non-existent files. (Note: the nightly error-sync job legitimately auto-commits
 `server/SUMMARY.md` — don't treat its entries as anomalies.)
 
+### 7. Fact-check report present (heuristic, paper trail)
+
+If the current branch is a `DOCS-XXXX` branch **and** the changed set includes doc-content pages,
+check the paper trail (`dev-docs/cookbook-fact-trail.md`): read `reports_dir` from
+`.claude/doc-sources.local.json` and find the ticket's report (it's grouped by space:
+`find "$reports_dir" -type d -name 'DOCS-XXXX' -not -path '*/runs/*'`, then `report.md`). As a
+light sanity pass, confirm the report's `Doc location` entries still point at files in the changed
+set.
+
+Treat a missing report or stale doc locations as a **warning**, not a failure — surface it so the
+author runs `/doc-ticket` (to generate it) or `/verify-claims DOCS-XXXX` (to re-audit), and note
+it's `SKIPPED` if `reports_dir` isn't configured or the branch isn't a `DOCS-XXXX` branch.
+
 ## Output
 
 Report a compact summary, e.g.:
@@ -103,6 +116,7 @@ docs-check on 3 files:
   gitbook blocks . FAIL (unclosed {% tabs %} in server/foo.md)
   link style ..... PASS
   SUMMARY.md ..... PASS
+  fact-check ..... WARN (no report for DOCS-1234 under reports_dir — run /doc-ticket)
 ```
 
 List each failure with file:line and a concrete fix. Don't auto-fix unless the user asks;

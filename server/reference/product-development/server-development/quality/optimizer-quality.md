@@ -25,7 +25,7 @@ The RQG[^1] has two primary modes for validating the results:
 * Using a reference implementation. This can be a PostgreSQL, JavaDB or another version or flavor of MySQL/Maria/Drizzle. Testing this way requires trusting external software that is not under our control. Also, it is sometimes difficult to determine which implementation has returned the correct result. Technically, 3 implementations can "vote" as to which is the correct result, but this is not reliable if the implementations all derive from one another.
 * Executing the generated query using a different execution plan. This is usually achieved by disabling particular optimizations and thus "downgrading" the plan to a more basic, presumed stable one. It is assumed that a nested-loop-join that takes no advantage of indexes would always provide the correct result. The advantage of this approach is that there is no need for a reference implementation and the source of the wrong result can be obtained by diffing the original and the downgraded execution plan.
 
-In addition to result set validation, there is a module which executes each generated `SELECT` in various contexts, such as as part of a union, stored procedure, trigger, etc. and makes sure that the query returns a correct result. This is most often used for testing subselects.
+In addition to result set validation, there is a module which executes each generated `SELECT` in various contexts, such as part of a union, stored procedure, trigger, etc. and makes sure that the query returns a correct result. This is most often used for testing subselects.
 
 ### Running a Complete Test Cycle <a href="#running-a-complete-test-cycle" id="running-a-complete-test-cycle"></a>
 

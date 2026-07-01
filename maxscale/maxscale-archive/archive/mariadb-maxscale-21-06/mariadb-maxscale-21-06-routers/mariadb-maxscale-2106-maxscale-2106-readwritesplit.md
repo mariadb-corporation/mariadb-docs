@@ -127,7 +127,7 @@ For MaxScale 2.5.12 and newer, the minimum value is 0.
 
 For MaxScale versions 2.5.11 and older, the minimum value is 1. These versions\
 suffer from a bug ([MXS-3536](https://jira.mariadb.org/browse/MXS-3536)) that\
-causes the parameter to accept any values but only function when a value greated\
+causes the parameter to accept any values but only function when a value greater\
 than one was given.
 
 Starting with MaxScale 2.5.0, the use of percentage values in`max_slave_connections` is deprecated. The support for percentages will be\
@@ -1130,7 +1130,7 @@ of the following group:
 * All statements within an explicit read-only transaction (`START TRANSACTION READ ONLY`)
 * `SHOW` statements except `SHOW MASTER STATUS`
 
-The list of supported built-in fuctions can be found [here](https://github.com/mariadb-corporation/MaxScale/blob/6.4/query_classifier/qc_sqlite/builtin_functions.c).
+The list of supported built-in functions can be found [here](https://github.com/mariadb-corporation/MaxScale/blob/6.4/query_classifier/qc_sqlite/builtin_functions.c).
 
 #### Routing to every session backend
 

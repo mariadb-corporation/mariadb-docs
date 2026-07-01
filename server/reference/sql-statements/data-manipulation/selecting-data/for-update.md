@@ -12,7 +12,7 @@ The `FOR UPDATE` clause of [SELECT](select.md) applies only when [autocommit](..
 
 If `autocommit` is set to 1, the [LOCK IN SHARE MODE](lock-in-share-mode.md) and `FOR UPDATE` clauses have no effect in InnoDB. For non-transactional storage engines like MyISAM and ARIA, a table level lock will be taken even if autocommit is set to 1.
 
-If the isolation level is set to [SERIALIZABLE](../../transactions/set-transaction.md), all plain `SELECT` statements are converted to `SELECT ... LOCK IN SHARE MODE`.
+If the isolation level is set to [SERIALIZABLE](../../transactions/set-transaction.md), all plain `SELECT` statements are converted to `SELECT ... LOCK IN SHARE MODE`, provided `AUTOCOMMIT` is disabled (or the statement runs inside an explicit transaction). With `AUTOCOMMIT` enabled, plain `SELECT` statements run as consistent reads.
 
 ## Example
 

@@ -169,7 +169,7 @@ END;
 
 ## RECORD Types
 
-In `sql_mode=ORACLE`, the `TYPE ... IS RECORD` statement allows you to define a user-defined data structure consisting of one or more fields.&#x20;
+In `sql_mode=ORACLE`, the `TYPE ... IS RECORD` statement allows you to define a user-defined data structure consisting of one or more fields.
 
 Previously, TYPE-defined `RECORD` types could only be used in local program blocks and not in routine parameters or function `RETURN` clauses.
 
@@ -251,9 +251,9 @@ $$
 DELIMITER ;
 ```
 
-### Limitation
+### Requirement
 
-This feature is available in Oracle SQL mode. To enable it, run `SET sql_mode=ORACLE` before executing the package code.
+This feature is available in Oracle SQL mode. The SQL mode is stored when the package is created, so `SET sql_mode=ORACLE` must be executed before creating the package.
 
 ## REF CURSOR Types
 

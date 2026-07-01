@@ -67,7 +67,7 @@ To connect a database service in MariaDB Cloud to MindsDB, perform the following
 
     For information about which clients are supported and how to connect, see "[Connecting](../)".
 3. Login to your MindsDB Cloud account.
-4.  In the MindsDB Cloud Editor, execute a `CREATE DATABASE` statement to connect your MindsDB account to the the database service in MariaDB Cloud.
+4.  In the MindsDB Cloud Editor, execute a `CREATE DATABASE` statement to connect your MindsDB account to the database service in MariaDB Cloud.
 
     ```sql
     CREATE DATABASE mariadb_cloud

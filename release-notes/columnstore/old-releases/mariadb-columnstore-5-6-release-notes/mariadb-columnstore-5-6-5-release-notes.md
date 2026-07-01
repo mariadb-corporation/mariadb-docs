@@ -23,7 +23,7 @@ For additional information, see "Release Notes for CMAPI 1.6.2" and "Release Not
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.6.5 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.6.5 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64)

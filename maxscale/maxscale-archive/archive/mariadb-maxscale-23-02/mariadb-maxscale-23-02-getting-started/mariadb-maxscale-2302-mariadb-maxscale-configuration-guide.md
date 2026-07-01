@@ -35,7 +35,7 @@ is also possible to update the status of a server manually.
 | Draining                 | The server is being drained. Existing connections can continue to be used, but no new connections will be created to the server. Typically this status bit is turned on manually using maxctrl, but a monitor may also turn it on.                                                                                        |
 | Drained                  | The server has been drained. The server was being drained and now the number of connections to the server has dropped to 0.                                                                                                                                                                                               |
 | Auth Error               | The monitor cannot login and query the server due to insufficient privileges.                                                                                                                                                                                                                                             |
-| Maintenance              | The server is under maintenance. Typically this status bit is turned on manually using maxctrl, but it will also be turned on for a server that for some reason is blocking connections from MaxScale. When a server is in maintenace mode, no connections will be created to it and existing connections will be closed. |
+| Maintenance              | The server is under maintenance. Typically this status bit is turned on manually using maxctrl, but it will also be turned on for a server that for some reason is blocking connections from MaxScale. When a server is in maintenance mode, no connections will be created to it and existing connections will be closed. |
 | Slave of External Master | The server is a replica of a primary that is not being monitored.                                                                                                                                                                                                                                                         |
 | Master Stickiness        | The server is monitored by a galeramon with disable\_master\_failback=true. See [disable\_master\_failback](../../mariadb-maxscale-21-06/) for more information.                                                                                                                                                          |
 
@@ -99,7 +99,7 @@ Listeners have sections of their own in the MaxScale configuration file.
 
 ## Administration
 
-The administation of MaxScale can be divided in two parts:
+The administration of MaxScale can be divided in two parts:
 
 * Writing the MaxScale configuration file, which is described in the following [section](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#configuration).
 * Performing runtime modifications using [MaxCtrl](../mariadb-maxscale-23-02-reference/mariadb-maxscale-2302-maxctrl.md)
@@ -404,7 +404,7 @@ defined in the root configuration file which by default is `/etc/maxscale.cnf`.
 
 This parameter specifies whether a core file should be generated if MaxScale\
 crashes. The default is `true` although usually a core file is not needed,\
-as MaxScale is capable of logging the full strack trace of all threads\
+as MaxScale is capable of logging the full stack trace of all threads\
 when it crashes.
 
 #### `auto_tune`
@@ -1092,7 +1092,7 @@ cache. If it can, the statement will not be parsed at all but the cached result\
 is used.
 
 The configuration parameter takes one integer that specifies the maximum size of\
-the cache. The size of the cache can be specifed as explained [here](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#sizes).
+the cache. The size of the cache can be specified as explained [here](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#sizes).
 
 ```
 # 1MB query classifier cache
@@ -1345,7 +1345,7 @@ purposes. Currently the session trace log is written to the log in the following
 * When MaxScale receives a fatal signal and is about to crash.
 * Whenever an unexpected response is read from a server
 * If the session is not closed gracefully (i.e. client doesn't send a COM\_QUIT packet)
-* Whenever readwritesplit receives a responce that is was not expecting.
+* Whenever readwritesplit receives a response that is was not expecting.
 
 It would be good to enable this if a session is disconnected and the log is not\
 detailed enough. In this case the info log might reveal the true cause of why\
@@ -1405,7 +1405,7 @@ the MaxScale log.
 
 High water mark for network write buffer. When the size of the outbound network\
 buffer in MaxScale for a single connection exceeds this value, network traffic\
-throtting for that connection is started. The parameter accepts [size type\
+throttling for that connection is started. The parameter accepts [size type\
 values](mariadb-maxscale-2302-mariadb-maxscale-configuration-guide.md#sizes). The default value was 16777216 bytes before 22.08.4.
 
 More specifically, if the client side write queue is above this value, it will\
@@ -1497,7 +1497,7 @@ only for testing purposes and are not to be used in production.
 #### REST API Configuration
 
 The MaxScale REST API is an HTTP interface that provides JSON format data\
-intended to be consumed by monitoring appllications and visualization tools.
+intended to be consumed by monitoring applications and visualization tools.
 
 The following options must be defined under the `[maxscale]` section in the\
 configuration file.
@@ -1709,7 +1709,7 @@ Asymmetric key algorithms make it possible for the clients of the REST API to\
 validate that the token was indeed generated by the correct entity.
 
 Symmetric algorithms make it easy to share the same tokens between\
-multiple MaxScale instaces as the shared secret can be stored in a key\
+multiple MaxScale instances as the shared secret can be stored in a key\
 management system.
 
 The possible values for this parameter are:
@@ -1992,7 +1992,7 @@ file.keyfile=/path/to/keyfile
 ### Events
 
 MaxScale logs warnings and errors for various reasons and often it is self-\
-evident and generally applicable whether some occurence should warrant a\
+evident and generally applicable whether some occurrence should warrant a\
 warning or an error, or perhaps just an info-level message.
 
 However, there are events whose seriousness is not self-evident. For\
@@ -2579,10 +2579,10 @@ a lot of `PREPARE stmt FROM <sql>` commands, it is recommended that the value of
 
 In older versions of MaxScale, binary protocol prepared statements were limited\
 by `max_sescmd_history` and were also pruned by `prune_sescmd_history` but this\
-caused problems when the binary protocol prepared statment were pruned while\
+caused problems when the binary protocol prepared statement were pruned while\
 they were still open from the client's point of view. In older versions, the\
 recommended value of `max_sescmd_history` is the number of state modifying\
-commands plus the maximum number of open prepared statments that any application\
+commands plus the maximum number of open prepared statements that any application\
 may use.
 
 This parameter was moved into the MaxScale core in MaxScale 6.0. The parameter\
@@ -4507,7 +4507,7 @@ In addition there is an `os` object that contains what the Linux command `uname`
 If `threads` has not been specified at all in the MaxScale configuration file,\
 or if its value is `auto`, then MaxScale will use as many routing threads as\
 there are physical cores on the machine. This is the right choice, if MaxScale\
-is running on a dedicated machine or in a container that has not been restriced\
+is running on a dedicated machine or in a container that has not been restricted\
 in any way.
 
 However, if the number of cores available to MaxScale have been restricted or\
@@ -4525,7 +4525,7 @@ that value is `1` it may be beneficial to check whether `2` gives better perform
 If `query_classifier_cache_size` has not been specified in the MaxScale\
 configuration file, then MaxScale will use at most 15% of the amount of physical\
 memory in the machine for the cache. This is a good starting point, if MaxScale\
-is running on a dedicated machine or in a container that has not been restriced\
+is running on a dedicated machine or in a container that has not been restricted\
 in any way. Note that the amount specifies how much memory the cache at maximum\
 is allowed to use, not what would immediately be allocated for the cache.
 

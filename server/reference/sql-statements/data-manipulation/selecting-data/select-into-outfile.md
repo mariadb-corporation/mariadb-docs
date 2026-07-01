@@ -1,7 +1,5 @@
 ---
-description: >-
-  Complete guide to SELECT queries in MariaDB. Complete syntax reference for
-  joins, subqueries, WHERE clauses, GROUP BY, and aggregate functions.
+description: Write the result of a SELECT statement to a file with SELECT ... INTO OUTFILE.
 ---
 
 # SELECT INTO OUTFILE
@@ -33,7 +31,7 @@ export_options:
 
 `SELECT INTO OUTFILE` writes the resulting rows to a file, and allows the use of column and row terminators to specify a particular output format. The default is to terminate fields with tabs () and lines with newlines ().
 
-The file must not exist. It cannot be overwritten. A user needs the [FILE](../../account-management-sql-statements/grant.md#global-privileges) privilege to run this statement. Also, MariaDB needs permission to write files in the specified location. If the [secure\_file\_priv](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_file_priv) system variable is set to a non-empty directory name, the file can only be written to that directory.
+The file must not exist. It cannot be overwritten. A user needs the [FILE](../../account-management-sql-statements/grant.md#global-privileges) privilege to run this statement. Also, MariaDB needs permission to write files in the specified location. If the [secure\_file\_priv](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_file_priv) system variable is set to a non-empty directory name, the file can only be written to that directory or one of its subdirectories.
 
 The [LOAD DATA INFILE](../inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statement complements `SELECT INTO OUTFILE`.
 
@@ -73,7 +71,7 @@ FROM (SELECT * FROM t1 UNION SELECT * FROM t1);
 ## See Also
 
 * [SELECT](select.md)
-* [LOAD\_DATA()](../../../sql-functions/string-functions/load_file.md) function
+* [LOAD\_FILE()](../../../sql-functions/string-functions/load_file.md) function
 * [LOAD DATA INFILE](../inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md)
 * [SELECT INTO Variable](../../programmatic-compound-statements/selectinto.md)
 * [SELECT INTO DUMPFILE](select-into-dumpfile.md)

@@ -130,7 +130,7 @@ but to make them stand out and to indicate what they are used for, they have\
 the word _bootstrap_ in their name.
 
 In principle, it is sufficient with a single entry, but to cater for the\
-case that a node happens to be down, it is adviseable to have more than one.\
+case that a node happens to be down, it is advisable to have more than one.\
 Once the monitor has been able to connect to a node, it will fetch the\
 configuration and store information about the nodes locally. On subsequent\
 startups, the monitor will use the bootstrap information only if it cannot\

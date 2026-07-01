@@ -51,6 +51,10 @@ If one datacenter fails or loses its WAN (Wide Area Network) connection, the nod
 
 In the event that Galera Arbitrator fails, it won't affect cluster operation. You can attach a new instance to the cluster at any time and there can be several instances running in the cluster.&#x20;
 
+## TLS Configuration
+
+The arbitrator participates in the same gcomm replication traffic as full cluster nodes, so it needs the same TLS posture. Configure it with its own `socket.ssl_cert`, `socket.ssl_key`, and `socket.ssl_ca` (through the `--option` argument or the `GALERA_OPTIONS` setting shown below), using a certificate signed by the **same cluster CA** as the other nodes. Without matching TLS configuration, the arbitrator cannot join a cluster that requires TLS.
+
 ## Starting Galera Arbitrator&#x20;
 
 Galera Arbitrator is a separate daemon from Galera Cluster, called `garbd`. This means that you must start it separately from the cluster. It also means that you cannot configure Galera Arbitrator through the standard `my.cnf` configuration file. How you configure Galera Arbitrator depends entirely on how you start it—whether it runs from the shell or as a system service.

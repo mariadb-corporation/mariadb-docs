@@ -1,7 +1,7 @@
 ---
 description: >-
-  Complete SHOW REPLICA STATUS: FOR CHANNEL/connection_name syntax, SHOW ALL
-  REPLICAS option, thread states (Slave_IO/SQL_Running), and lag/log/GTID
+  Complete SHOW REPLICA STATUS statement reference: FOR CHANNEL/connection_name syntax, SHOW ALL
+  SLAVES option, thread states (Slave_IO/SQL_Running), and lag/log/GTID
   fields.
 ---
 
@@ -10,13 +10,13 @@ description: >-
 ## Syntax
 
 ```bnf
-SHOW { REPLICA | SLAVE} ["connection_name"] STATUS [FOR CHANNEL "connection_name"]
+SHOW { SLAVE | REPLICA} ["connection_name"] STATUS [FOR CHANNEL "connection_name"]
 ```
 
 or
 
 ```sql
-SHOW ALL { REPLICAS | SLAVES } STATUS
+SHOW ALL { SLAVES | REPLICAS } STATUS
 ```
 
 ## Description
@@ -43,7 +43,7 @@ The `ALL` and `"connection_name"` options allow you to connect to [many primarie
 
 {% tabs %}
 {% tab title="Current" %}
-`ALL REPLICAS` gives you a list of all connections to the primary nodes.
+`ALL SLAVES` or `ALL REPLICAS` gives you a list of all connections to the primary nodes.
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
@@ -75,19 +75,19 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 {% tabs %}
 {% tab title="Current" %}
-**Connection\_name:** Name of the primary connection. Returned with SHOW ALL REPLICAS STATUS only.
+**Connection\_name:** Name of the primary connection. Returned with SHOW ALL SLAVES/REPLICAS STATUS only.
 
-**Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL REPLICAS STATUSonly. See [Slave SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Slave I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
+**Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL SLAVES/REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
 {% endtab %}
 
 {% tab title="< 10.5.1" %}
-**Connection\_name:** Name of the primary connection. Returned with SHOW ALL SLAVES STATUS only.
+**Connection\_name:** Name of the primary connection. Returned with SHOW ALL REPLICAS STATUS only.
 
-**Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL SLAVES STATUS only. See [Slave SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Slave I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
+**Slave\_SQL\_State:** State of SQL thread. Returned with SHOW ALL REPLICAS STATUS only. See [Replica SQL Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/slave-sql-thread-states.md). Slave\_IO\_State: State of I/O thread. See [Replica I/O Thread States](../../../../ha-and-performance/optimization-and-tuning/buffers-caches-and-threads/thread-states/replica-io-thread-states.md).
 {% endtab %}
 {% endtabs %}
 
-**Master\_host:** Master host that the replica is connected to.
+**Master\_host:** Primary host that the replica is connected to.
 
 **Master\_user:** Account user name being used to connect to the primary.
 
@@ -125,19 +125,19 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 **Last\_Error:** Alias for Last\_SQL\_Error (see below)
 
-**Skip\_Counter:** Number of events that a replica skips from the master, as recorded in the [sql\_slave\_skip\_counter](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable.
+**Skip\_Counter:** Number of events that a replica skips from the primary, as recorded in the [sql\_slave\_skip\_counter](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) system variable.
 
-**Exec\_Master\_Log\_Pos:** Position up to which the SQL thread has processed in the current master [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file. Can be used to start a new replica from a current replica with the [CHANGE MASTER TO ... MASTER\_LOG\_POS](../replication-statements/change-master-to.md) option.
+**Exec\_Master\_Log\_Pos:** Position up to which the SQL thread has processed in the current primary [binary log](../../../../server-management/server-monitoring-logs/binary-log/) file. Can be used to start a new replica from a current replica with the [CHANGE MASTER TO ... MASTER\_LOG\_POS](../replication-statements/change-master-to.md) option.
 
 **Relay\_Log\_Space:** Total size of all relay log files combined.
 
-**Until\_Condition:** One of four possible values: None, Master, Relay, or Gtid, depending on the respective [START SLAVE UNTIL](../replication-statements/start-replica.md) condition.
+**Until\_Condition:** One of four possible values: None, Primary, Relay, or Gtid, depending on the respective [START REPLICA UNTIL](../replication-statements/start-replica.md) condition.
 
-**Until\_Log\_File:** The MASTER\_LOG\_FILE value of the [START SLAVE UNTIL](../replication-statements/start-replica.md) condition.
+**Until\_Log\_File:** The MASTER\_LOG\_FILE value of the [START REPLICA UNTIL](../replication-statements/start-replica.md) condition.
 
-**Until\_Log\_Pos:** The MASTER\_LOG\_POS value of the [START SLAVE UNTIL](../replication-statements/start-replica.md) condition.
+**Until\_Log\_Pos:** The MASTER\_LOG\_POS value of the [START REPLICA UNTIL](../replication-statements/start-replica.md) condition.
 
-**Master\_SSL\_Allowed:** Whether an SSL connection to the master is permitted (Yes) or not permitted (No). The value reflects the `MASTER_SSL` option configured via [CHANGE MASTER TO](../replication-statements/change-master-to.md) and is independent of the runtime `have_ssl` state. A third value, Ignored, is emitted only on MariaDB builds compiled without SSL/TLS support (`HAVE_OPENSSL` undefined at build time); this does not apply to standard packaged builds, which always include OpenSSL, WolfSSL, or GnuTLS support.
+**Master\_SSL\_Allowed:** Whether an SSL connection to the primary is permitted (Yes) or not permitted (No). The value reflects the `MASTER_SSL` option configured via [CHANGE MASTER TO](../replication-statements/change-master-to.md) and is independent of the runtime `have_ssl` state. A third value, Ignored, is emitted only on MariaDB builds compiled without SSL/TLS support (`HAVE_OPENSSL` undefined at build time); this does not apply to standard packaged builds, which always include OpenSSL, WolfSSL, or GnuTLS support.
 
 **Master\_SSL\_CA\_File:** The MASTER\_SSL\_CA option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md) statement.
 
@@ -151,7 +151,7 @@ These columns cannot be viewed/extracted from the [INFORMATION\_SCHEMA.SLAVE\_ST
 
 {% tabs %}
 {% tab title="Current" %}
-**Seconds\_Behind\_Master:** Difference between the timestamp logged on the master for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit. An exception is thrown on the parallel replica to additionally update `seconds_behind_master` when the first transaction received after idling is queued to a worker for execution, to provide a reliable initial value for the duration until a transaction commits.
+**Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit. As a special case, the parallel replica additionally updates `seconds_behind_master` when the first transaction received after idling is queued to a worker for execution, to provide a reliable initial value for the duration until a transaction commits.
 
 Additional behavior to be aware of:
 
@@ -162,7 +162,7 @@ Additional behavior to be aware of:
 {% endtab %}
 
 {% tab title="< 10.11.12 / 10.10.3 / 10.9.5 / 10.8.7 / 10.6.12 / 10.5.19" %}
-**Seconds\_Behind\_Master:** Difference between the timestamp logged on the master for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit.
+**Seconds\_Behind\_Master:** Difference between the timestamp logged on the primary for the event that the replica is currently processing, and the current timestamp on the replica. Zero if the replica is not currently processing an event. With serial replication, seconds\_behind\_master is updated when the SQL thread begins executing a transaction. With [parallel replication](../../../../ha-and-performance/standard-replication/parallel-replication.md), seconds\_behind\_master is updated only after transactions commit.
 
 Additional behavior to be aware of:
 
@@ -175,17 +175,17 @@ Additional behavior to be aware of:
 
 **Master\_SSL\_Verify\_Server\_Cert:** The MASTER\_SSL\_VERIFY\_SERVER\_CERT option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md) statement.
 
-**Last\_IO\_Errno:** Error code of the most recent error that caused the I/O thread to stop (also recorded in the replica's error log). 0 means no error. [RESET SLAVE](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
+**Last\_IO\_Errno:** Error code of the most recent error that caused the I/O thread to stop (also recorded in the replica's error log). 0 means no error. [RESET REPLICA](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
 
-**Last\_IO\_Error:** Error message of the most recent error that caused the I/O thread to stop (also recorded in the replica's error log). An empty string means no error. [RESET SLAVE](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
+**Last\_IO\_Error:** Error message of the most recent error that caused the I/O thread to stop (also recorded in the replica's error log). An empty string means no error. [RESET REPLICA](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
 
-**Last\_SQL\_Errno:** Error code of the most recent error that caused the SQL thread to stop (also recorded in the replica's error log). 0 means no error. [RESET SLAVE](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
+**Last\_SQL\_Errno:** Error code of the most recent error that caused the SQL thread to stop (also recorded in the replica's error log). 0 means no error. [RESET REPLICA](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
 
-**Last\_SQL\_Error:** Error message of the most recent error that caused the SQL thread to stop (also recorded in the replica's error log). An empty string means no error. [RESET SLAVE](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
+**Last\_SQL\_Error:** Error message of the most recent error that caused the SQL thread to stop (also recorded in the replica's error log). An empty string means no error. [RESET REPLICA](../replication-statements/reset-replica.md) or [RESET MASTER](../replication-statements/reset-master.md) will reset this value.
 
 **Replicate\_Ignore\_Server\_Ids:** List of [server\_ids](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) that are currently being ignored for replication purposes, or an empty string for none, as specified in the IGNORE\_SERVER\_IDS option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md#ignore_server_ids) statement.
 
-**Master\_Server\_Id:** The master's [server\_id](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) value.
+**Master\_Server\_Id:** The primary's [server\_id](../../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md) value.
 
 **Master\_SSL\_Crl:** The MASTER\_SSL\_CRL option of the [CHANGE MASTER TO](../replication-statements/change-master-to.md) statement.
 
@@ -205,13 +205,13 @@ Additional behavior to be aware of:
 
 **SQL\_Remaining\_Delay:** When the replica is delaying the execution of an event due to `MASTER_DELAY`, this is the number of seconds of delay remaining before the event will be applied. Otherwise, the value is NULL.
 
-**Slave\_SQL\_Running\_State:** The state of the SQL driver threads, same as in [SHOW PROCESSLIST](show-processlist.md). When the replica is delaying the execution of an event due to MASTER\_DELAY, this field displays: "Waiting until `MASTER_DELAY` seconds after master executed event".
+**Slave\_SQL\_Running\_State:** The state of the SQL driver threads, same as in [SHOW PROCESSLIST](show-processlist.md). When the replica is delaying the execution of an event due to MASTER\_DELAY, this field displays: "Waiting until `MASTER_DELAY` seconds after primary executed event".
 
-**Slave\_DDL\_Groups:** This status variable counts the occurrence of DDL statements. This is a replica-side counter for optimistic parallel replication.
+**Slave\_DDL\_Groups:** This status variable counts the occurrence of DDL statements. This is a slave-side counter for optimistic parallel replication.
 
-**Slave\_Non\_Transactional\_Groups:** This status variable counts the occurrence of non-transactional event groups. This is a replica-side counter for optimistic parallel replication.
+**Slave\_Non\_Transactional\_Groups:** This status variable counts the occurrence of non-transactional event groups. This is a slave-side counter for optimistic parallel replication.
 
-**Slave\_Transactional\_Groups:** This status variable counts the occurrence of transactional event groups. This is a replica-side counter for optimistic parallel replication.
+**Slave\_Transactional\_Groups:** This status variable counts the occurrence of transactional event groups. This is a slave-side counter for optimistic parallel replication.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -219,7 +219,7 @@ Additional behavior to be aware of:
 {% endtab %}
 
 {% tab title="< 10.11" %}
-**Replica\_Rewrite\_DB** is not available.
+**Replicate\_Rewrite\_DB** is not available.
 {% endtab %}
 {% endtabs %}
 
@@ -229,7 +229,7 @@ Additional behavior to be aware of:
 
 **Executed\_log\_entries:** Number of binary log events that have been executed, irrespective of error outcome (i.e. if the event execution results in an error, this number will still increase). Returned with `SHOW ALL SLAVES STATUS` only.
 
-**Slave\_received\_heartbeats:** Number of [Heartbeat Log Events](../../../clientserver-protocol/replication-protocol/heartbeat_log_event.md) that the slave has received. Note this counter does not reset when the slave is restarted; only when a new [CHANGE MASTER](../replication-statements/change-master-to.md) command has executed. Returned with `SHOW ALL SLAVES STATUS` only.
+**Slave\_received\_heartbeats:** Number of [Heartbeat Log Events](../../../clientserver-protocol/replication-protocol/heartbeat_log_event.md) that the replica has received. Note this counter does not reset when the replica is restarted; only when a new [CHANGE MASTER](../replication-statements/change-master-to.md) command has executed. Returned with `SHOW ALL SLAVES STATUS` only.
 
 **Slave\_heartbeat\_period:** Configured (by [CHANGE MASTER TO MASTER\_HEARTBEAT\_PERIOD](../replication-statements/change-master-to.md#master_heartbeat_period)) interval in seconds between replication heartbeats. Returned with `SHOW ALL SLAVES STATUS` only.
 
@@ -237,11 +237,11 @@ Additional behavior to be aware of:
 
 {% tabs %}
 {% tab title="Current" %}
-**Master\_last\_event\_time:** Timestamp of the last event read from the primary by the IO thread. NULL until the replica has started and the replica has read one query event from the primary that changes data.
+**Master\_last\_event\_time:** Timestamp of the last event read from the primary by the IO thread. NULL until the replica has started and has read one query event from the primary that changes data.
 
-**Slave\_last\_event\_time:** Primary timestamp of the last event committed on the replica. NULL until the replica has started and the replica has read one query event from the primary that changes data.
+**Slave\_last\_event\_time:** Timestamp, from the primary, of the last event committed on the replica. NULL until the replica has started and has read one query event from the primary that changes data.
 
-**Master\_Slave\_time\_diff:** The difference of the above two timestamps. NULL until the replica has started and the replica has read one query event from the primary that changes data.
+**Master\_Slave\_time\_diff:** The difference of the above two timestamps. NULL until the replica has started and has read one query event from the primary that changes data.
 {% endtab %}
 
 {% tab title="< 11.6" %}
@@ -251,7 +251,7 @@ Additional behavior to be aware of:
 
 {% tabs %}
 {% tab title="Current" %}
-**Connects\_Tried:** The number of attempts done to connect to the primary. It starts from 0 with [_START_ REPLICA](../replication-statements/start-replica.md) (but not [STOP REPLICA](../replication-statements/stop-replica.md)), [RESET REPLICA](../replication-statements/reset-replica.md) or [`CHANGE MASTER TO MASTER_RETRY_COUNT`](../replication-statements/change-master-to.md#master_retry_count), and increments after each connection attempt until one succeeds or, after this reaches `Master_Retry_Count`, aborts the connection.
+**Connects\_Tried:** The number of attempts done to connect to the primary. It starts from 0 with [START REPLICA](../replication-statements/start-replica.md) (but not [STOP REPLICA](../replication-statements/stop-replica.md)), [RESET REPLICA](../replication-statements/reset-replica.md) or [`CHANGE MASTER TO MASTER_RETRY_COUNT`](../replication-statements/change-master-to.md#master_retry_count), and increments after each connection attempt until one succeeds or, after this reaches `Master_Retry_Count`, aborts the connection.
 
 **Master\_Retry\_Count:** The limit to `Connects_Tried` as configured by [`CHANGE MASTER TO MASTER_RETRY_COUNT`](../replication-statements/change-master-to.md#master_retry_count).
 {% endtab %}

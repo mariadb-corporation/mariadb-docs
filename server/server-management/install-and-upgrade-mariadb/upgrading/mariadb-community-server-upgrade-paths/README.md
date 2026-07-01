@@ -8,6 +8,20 @@ description: >-
 
 {% columns %}
 {% column %}
+{% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-8-to-mariadb-12-3.md" %}
+[upgrading-from-mariadb-11-8-to-mariadb-12-3.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-8-to-mariadb-12-3.md)
+{% endcontent-ref %}
+
+
+{% endcolumn %}
+
+{% column %}
+Upgrade guide for moving from MariaDB 11.8 to 12.3, covering removed options and replication caveats.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-4-to-mariadb-11-8.md" %}
 [upgrading-from-mariadb-11-4-to-mariadb-11-8.md](../upgrading-from-to-specific-versions/upgrading-from-mariadb-11-4-to-mariadb-11-8.md)
 {% endcontent-ref %}

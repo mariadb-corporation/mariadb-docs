@@ -253,6 +253,10 @@ On RHEL/CentOS, `socat` can be installed from the [Extra Packages for Enterprise
 
 ## TLS <a href="#tls" id="tls"></a>
 
+{% hint style="warning" %}
+**By default, mariadb-backup SSTs are not encrypted.** The default value of the `[sst]` `encrypt` option is `0`, which streams the snapshot through an unencrypted `socat` TCP pipe. Enabling TLS for replication traffic (through `wsrep_provider_options` or `wsrep_ssl_mode`) does **not** encrypt SST traffic — snapshot encryption must be configured separately. To encrypt the snapshot, set `encrypt=3` or `encrypt=4` in the `[sst]` section (below), or set the `[sst]` `ssl-mode` option.
+{% endhint %}
+
 This SST method supports three different TLS methods. The specific method can be selected by setting the `encrypt` option in the `[sst]` section of the MariaDB configuration file. The options are:
 
 * TLS using OpenSSL encryption built into `socat` (`encrypt=2`)
@@ -334,6 +338,29 @@ tcert=/etc/my.cnf.d/certificates/server1-cert.pem
 {% hint style="warning" %}
 Make sure to replace the paths with whatever is relevant on your system. This should allow your SSTs to be encrypted.
 {% endhint %}
+
+### \[sst] ssl-mode
+
+The `ssl-mode` option in the `[sst]` section is the higher-level TLS control for State Snapshot Transfers, honored by the SST methods that support TLS (`mariabackup` and `rsync`):
+
+| `ssl-mode`        | Behavior                                                                       |
+| ----------------- | ------------------------------------------------------------------------------ |
+| `DISABLED`        | Default. TLS not required (legacy `encrypt`/`tca`/`tcert`/`tkey` still apply).  |
+| `REQUIRED`        | TLS mandatory; peer certificate chain not verified.                            |
+| `VERIFY_CA`       | TLS mandatory; peer chain verified against the CA.                             |
+| `VERIFY_IDENTITY` | TLS mandatory; chain verified and peer host identity checked.                  |
+
+When `ssl-mode` is set to any value other than `DISABLED` and a certificate and key are configured, `mariadb-backup` automatically sets `encrypt=3`, reusing the server's TLS certificates.
+
+{% hint style="info" %}
+**Do not confuse `ssl-mode` with similarly named options:**
+
+* `[sst]` `ssl-mode` (this option) controls **SST** traffic: `DISABLED`, `REQUIRED`, `VERIFY_CA`, `VERIFY_IDENTITY`.
+* [`wsrep_ssl_mode`](../../reference/wsrep-variable-details/wsrep_ssl_mode.md) controls **replication** traffic: `PROVIDER`, `SERVER`, `SERVER_X509`.
+* The MySQL client `--ssl-mode` option does **not** exist in the MariaDB client, which uses `--ssl-verify-server-cert` instead.
+{% endhint %}
+
+See [SST TLS Modes](../../galera-security/mariadb-enterprise-cluster-security.md#sst-tls-modes) for the full description of each mode.
 
 ## Logs <a href="#logs" id="logs"></a>
 

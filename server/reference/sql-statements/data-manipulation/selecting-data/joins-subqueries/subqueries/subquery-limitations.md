@@ -26,7 +26,7 @@ INSERT INTO customer VALUES
 
 ### ORDER BY and LIMIT
 
-To use [ORDER BY](../../order-by.md) or limit [LIMIT](../../limit.md) in [subqueries](./) both must be used.. For example:
+[LIMIT](../../limit.md) is not permitted in a [subquery](./) used with `IN`, `ALL`, `ANY`, or `SOME`. [ORDER BY](../../order-by.md) on its own is allowed. For example:
 
 ```sql
 SELECT * FROM staff WHERE name IN (SELECT name FROM customer ORDER BY name);
@@ -79,7 +79,7 @@ For example:
 
 ```sql
 SELECT * FROM staff WHERE (name,age) NOT IN (
-  SELECT name,age FROM customer WHERE age >=51]
+  SELECT name,age FROM customer WHERE age >=51
 );
 +--------+------+
 | name   | age  |

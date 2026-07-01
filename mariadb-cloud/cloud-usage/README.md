@@ -42,12 +42,12 @@ View detailed information on the hardware architecture, instance size, software 
 [service-details-page.md](service-details-page.md)
 {% endcontent-ref %}
 
-## Infrastructure Upgrades
+## Maintenance Management
 
-Handle mandatory infrastructure upgrades to ensure that your MariaDB Cloud services remain compliant with the performance, security, and compliance standards set by cloud providers.
+Manage infrastructure and database security maintenance for your MariaDB Cloud services — schedule upgrades in weekly maintenance windows, defer or apply updates, and track them through their lifecycle, keeping your services compliant with the performance, security, and compliance standards set by cloud providers.
 
-{% content-ref url="infrastructure-upgrades.md" %}
-[infrastructure-upgrades.md](infrastructure-upgrades.md)
+{% content-ref url="maintenance-management.md" %}
+[maintenance-management.md](maintenance-management.md)
 {% endcontent-ref %}
 
 ## Notifications
