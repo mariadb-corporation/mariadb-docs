@@ -3,6 +3,8 @@ description: >-
   The MySQL to MariaDB Migrator automates end-to-end MySQL to MariaDB migrations
   — schema, data, users, and validation — in four selectable modes.
 hidden: true
+noIndex: true
+noRobotsIndex: true
 ---
 
 # MySQL to MariaDB Migrator
