@@ -1,8 +1,8 @@
 ---
 description: >-
-  Complete MariaDB performance optimization guide. Complete reference for query
-  tuning, indexing strategies, and configuration improvements for production
-  use.
+  Optimize and tune MariaDB Server. This section covers buffers and caches,
+  indexing, the query optimizer and hints, compression, and the system
+  variables that control performance.
 ---
 
 # Optimization and Tuning

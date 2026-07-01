@@ -1,8 +1,8 @@
 ---
 description: >-
-  Complete MariaDB replication guide. Complete reference for data redundancy,
-  failover, read scaling, and multi-source topologies with comprehensive
-  examples and.
+  Replicate data with MariaDB Server. This section covers primary and replica
+  setup, binary log formats, global transaction IDs, and multi-source, parallel,
+  and semisynchronous replication.
 layout:
   width: default
   title:

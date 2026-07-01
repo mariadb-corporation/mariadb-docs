@@ -1,8 +1,8 @@
 ---
 description: >-
-  Complete Starting & Stopping guide for MariaDB. Complete reference
-  documentation for implementation, configuration, and usage with comprehensive
-  examples and.
+  Start and stop MariaDB Server. This section covers service managers like
+  systemd, the mariadbd and mariadbd-safe programs, startup options, and
+  troubleshooting when the server won't start.
 layout:
   width: default
   title:
