@@ -1,7 +1,8 @@
 ---
 description: >-
-  The MySQL to MariaDB Migrator automates end-to-end MySQL to MariaDB
-  migrations — schema, data, users, and validation — in four selectable modes.
+  The MySQL to MariaDB Migrator automates end-to-end MySQL to MariaDB migrations
+  — schema, data, users, and validation — in four selectable modes.
+hidden: true
 ---
 
 # MySQL to MariaDB Migrator
@@ -29,12 +30,12 @@ The migrator complements the manual workflows in the [MySQL to MariaDB Migration
 
 The launcher presents four migration modes as a numbered menu. The internal identifier in parentheses is the canonical form used in configuration files, environment variables (`MODE=...`), and the command line (`--mode <id>`).
 
-| Mode | Internal ID | Type | Best For |
-| --- | --- | --- | --- |
-| Serial Streaming Copy | `one_step` | Offline | Smaller databases and standard maintenance windows |
-| Parallel Restartable Streaming Copy | `two_step` | Offline | Larger datasets that need schema-then-parallel-data loading |
-| Offline Copy | `staged` | Offline | Source and target not network-reachable, or a deferred / two-host load |
-| Replication | `binlog` | Online | Low-downtime cutover with ongoing replication |
+| Mode                                | Internal ID | Type    | Best For                                                               |
+| ----------------------------------- | ----------- | ------- | ---------------------------------------------------------------------- |
+| Serial Streaming Copy               | `one_step`  | Offline | Smaller databases and standard maintenance windows                     |
+| Parallel Restartable Streaming Copy | `two_step`  | Offline | Larger datasets that need schema-then-parallel-data loading            |
+| Offline Copy                        | `staged`    | Offline | Source and target not network-reachable, or a deferred / two-host load |
+| Replication                         | `binlog`    | Online  | Low-downtime cutover with ongoing replication                          |
 
 See [Migration Modes](migration-modes.md) for the detailed playbook for each.
 
