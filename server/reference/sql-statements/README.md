@@ -1,7 +1,8 @@
 ---
 description: >-
-  Complete reference for SQL Statements in MariaDB. Complete syntax guide with
-  all options, clauses, and practical examples with comprehensive examples.
+  Reference for MariaDB Server SQL statements. Find the syntax, clauses, and
+  options for data definition, data manipulation, administrative, and other SQL
+  statements.
 ---
 
 # SQL Statements

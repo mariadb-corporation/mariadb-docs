@@ -140,7 +140,7 @@ You can encrypt a number of database objects by setting the respective variables
 
 * InnoDB user tables – [innodb\_encrypt\_tables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_tables)
 * InnoDB redo log – [innodb\_encrypt\_log](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_log)
-* InnoDB temporary files – [encrypt\_temporary\_tables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_temporary_tables)\
+* InnoDB temporary files – [innodb\_encrypt\_temporary\_tables](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_encrypt_temporary_tables)\
   MariaDB creates temporary files on disk, for instance, files used for file sorts. It is recommended to encrypt those, too.
 * Aria user tables – [aria\_encrypt\_tables](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_encrypt_tables)
 * Aria temporary tables – [encrypt\_tmp\_disk\_tables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#encrypt_tmp_disk_tables)
@@ -152,7 +152,7 @@ To configure global encryption for all of those objects, add this to your config
 [mariadb]
 innodb_encrypt_tables = ON
 innodb_encrypt_log = ON
-encrypt_temporary_tables = ON
+innodb_encrypt_temporary_tables = ON
 aria_encrypt_tables = ON
 encrypt_tmp_disk_tables = ON
 ```

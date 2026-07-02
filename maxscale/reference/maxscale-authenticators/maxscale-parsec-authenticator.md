@@ -7,6 +7,10 @@ description: >-
 
 # MaxScale PARSEC Authenticator
 
+{% hint style="info" %}
+This functionality is available from MaxScale 25.10.0.
+{% endhint %}
+
 ## PARSEC Authenticator
 
 The [PARSEC](../../../server/reference/plugins/authentication-plugins/authentication-plugin-parsec.md) (Password Authentication using Response Signed with Elliptic Curve) authentication plugin uses salted passwords, key derivation, extensible password storage format, and both server-side and client-side scrambles.

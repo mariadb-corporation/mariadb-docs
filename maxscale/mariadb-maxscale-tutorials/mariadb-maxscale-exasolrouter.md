@@ -41,17 +41,30 @@ This architecture allows applications to use a single connection endpoint for bo
 * Operational Exasol deployment
 * Network connectivity between MaxScale, MariaDB, and Exasol
 
-Default ports:
+Typical ports used across the deployment:
 
-* MariaDB: 3306
-* MaxScale: 3306
-* Exasol: 8563
+| Component | Port | Purpose |
+| --------- | ---- | ------- |
+| MariaDB   | 3306 | Client + replication |
+| MaxScale  | 3306 | Default read/write listener |
+| MaxScale  | 3310 | SmartRouter |
+| MaxScale  | 3311 | Exasolrouter |
+| MaxScale  | 8989 | REST API / GUI |
+| Exasol    | 8563 | Exasol client SQL |
+| Exasol    | 8443 | Admin console |
+| Exasol    | 2581 | BucketFS |
+
+At minimum, open MariaDB 3306; MaxScale 3306 and 3310; and Exasol 8563.
 
 ## Configuring the Exasolrouter in MariaDB MaxScale
 
 ### Step 1. Install the Exasol ODBC driver on the MaxScale host.
 
 The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
+
+{% hint style="info" %}
+The Exasol ODBC driver ships with the `maxscale-exasol` package at `/usr/lib64/maxscale/exasol/current/libexaodbc.so`. On most installations you can use that path directly and skip the manual download below. Referencing the driver through the `current` symlink keeps the configuration working across driver updates. Download the driver manually only if it is not already present on your MaxScale host.
+{% endhint %}
 
 * Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) and select the driver version that matches the operating system of the MaxScale host.
 * Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).
@@ -137,13 +150,13 @@ Create the Exasolrouter service. This service contains the connection informatio
 maxctrl create service mariadb_exasolrouter exasolrouter \
   user=maxuser \
   password=aBcd123% \
-  preprocessor=auto \
-  connection_string='DRIVER=/home/rocky/Exasol_ODBC-26.2.6-Linux_x86_64/lib/libexaodbc.so;EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
+  preprocessor=internal \
+  connection_string='DRIVER=/usr/lib64/maxscale/exasol/current/libexaodbc.so;EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
 ```
 
 Replace the following placeholders with values that match your actual environment:
 
-* `DRIVER`: Full path to the `libexaodbc.so` file from Step 1
+* `DRIVER`: Full path to `libexaodbc.so` — the bundled driver at `/usr/lib64/maxscale/exasol/current/libexaodbc.so`, or the path from Step 1 if you downloaded it manually
 * `EXAHOST`: Your Exasol host and port
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
 
@@ -246,8 +259,47 @@ The Exasolrouter does not replicate data — it only routes queries. To keep Exa
 
 binlogrouter connects to the MariaDB cluster as a replica and reads its binary log. Committed changes are compacted, batched, and bulk-loaded into Exasol staging tables, then applied to the target tables with a `MERGE` in GTID order, so Exasol reflects committed writes with minimal lag. Replication is asynchronous.
 
+```mermaid
+flowchart LR
+    App["Application<br/>MariaDB connector"]
+    subgraph MS["MaxScale"]
+        SR["Smart Router<br/>routes writes and reads"]
+        CDC["MaxScale CDC<br/>tails binlog, applies to Exasol"]
+    end
+    MDB["MariaDB<br/>transactional core, binlog, GTID"]
+    EXA["Exasol<br/>analytics engine, columnar"]
+    App -->|"1 - reads and writes"| SR
+    SR ==>|"2 - write committed to binlog"| MDB
+    MDB -.->|"3 - CDC tails binlog (async)"| CDC
+    CDC -.->|"4 - applies change + GTID"| EXA
+    classDef ms fill:#0e2a3b,color:#fff,stroke:#0e2a3b;
+    classDef maria fill:#2e7d64,color:#fff,stroke:#204d40;
+    classDef exa fill:#1f8fa3,color:#fff,stroke:#155f6e;
+    class SR,CDC ms;
+    class MDB maria;
+    class EXA exa;
+```
+
+_Solid arrows show the synchronous write path; dotted arrows show asynchronous CDC replication._
+
+Internally, the pipeline runs in four stages, then applies each batch to Exasol through a staging table and a `MERGE`:
+
+```mermaid
+flowchart LR
+    C1["01 Capture<br/>tail MariaDB binlog as a replica"]
+    C2["02 Compact<br/>collapse row updates to final state"]
+    C3["03 Batch<br/>accumulate many rows per write"]
+    C4["04 Bulk insert<br/>apply to Exasol in one transaction, matching GTID"]
+    C1 --> C2 --> C3 --> C4
+    C4 --> M["Staging table + MERGE<br/>bulk-load into _stagingN,<br/>then MERGE inserts, updates, deletes atomically"]
+    classDef step fill:#eef4f1,stroke:#2e7d64,color:#0e2a3b;
+    classDef merge fill:#0e2a3b,color:#fff,stroke:#0e2a3b;
+    class C1,C2,C3,C4 step;
+    class M merge;
+```
+
 {% hint style="info" %}
-CDC to Exasol uses the Exasol ODBC driver shipped in the `maxscale-exasol` package and is available from MaxScale 25.10.
+CDC to Exasol uses the Exasol ODBC driver shipped in the `maxscale-exasol` package, and is part of the same MaxScale Exasol integration described at the top of this page.
 {% endhint %}
 
 ### Step 1. Enable binary logging on MariaDB.
@@ -324,6 +376,18 @@ CDC has no automatic failover. If the MaxScale instance running the CDC service 
 ## Behavior during Backend Unavailability
 
 SmartRouter automatically connects to the designated master (MariaDB) in the event that Exasol is unavailable (for example, due to a network outage or unavailability). To maintain availability for OLTP activities, all reads and writes will only be sent to MariaDB.
+
+In a full deployment, each layer handles its own failure:
+
+| Layer | Failure handling |
+| ----- | ---------------- |
+| MariaDB | Automatic primary promotion — the monitor detects a failed primary and promotes the replica with the highest GTID. binlogrouter re-points to the new primary through `select_master=true`, CDC keeps writing, and the application sees no change because MaxScale holds the single endpoint. |
+| MaxScale | Two nodes, no single point of failure — the connector fails over between them (for example, `sequential://mxs1:3306,mxs2:3306`). Cooperative monitoring ensures only one node acts at a time; no keepalived or application reconnect logic is required. |
+| Exasol | A reserve node stands by and takes over on failure. If the failed node returns within 10 minutes, only a re-sync is needed; after 10 minutes, data segments are copied to the reserve node. Redundancy level 2 (best practice) mirrors each segment to a neighbor. |
+
+{% hint style="warning" %}
+The CDC pipeline itself has no automatic failover: if the MaxScale instance running the CDC service goes down, CDC does not automatically start on another node. Because the GTID position is persisted, CDC safely resumes from where it stopped when the service restarts, with no data loss.
+{% endhint %}
 
 ## Known Limitations
 

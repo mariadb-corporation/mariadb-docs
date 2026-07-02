@@ -57,6 +57,15 @@ Releases of MariaDB Enterprise Server are given an identifier such as 'MariaDB E
 * The release postfix of MariaDB Enterprise Server starts with '-1' and is incremented for subsequent releases in that release series (-5, spoken "ten-five-eight-dash-five").
 * On the Debian and Ubuntu platforms, the release postfix contains a period instead of a dash, such that release postfixes start with .1 and increment for subsequent releases in that release series (.5, spoken "ten-five-eight-dot-five").
 
+{% hint style="info" %}
+**Note:** The release postfix (for example, the `-4` in `11.8.6-4`) increases consecutively with each new Enterprise Server release in a series, but the Community Server point release it is based on does not. As a result:
+
+* An Enterprise Server release can **skip** a Community Server point release. For example, `11.8.6-4` is followed by `11.8.8-5`, skipping `11.8.7`.
+* Two consecutive Enterprise Server releases can be based on the **same** Community Server point release. For example, `11.8.6-3` is followed by `11.8.6-4`.
+
+The release postfix — not the point release — is the reliable indicator of release order.
+{% endhint %}
+
 Additional information on the release numbering for MariaDB Enterprise Server can be found in [MariaDB Corporation Engineering Policy](https://mariadb.com/engineering-policies).
 
 ## Enterprise Server Support <a href="#enterprise-server-support" id="enterprise-server-support"></a>
