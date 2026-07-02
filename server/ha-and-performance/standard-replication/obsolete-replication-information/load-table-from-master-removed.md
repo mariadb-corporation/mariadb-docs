@@ -1,3 +1,8 @@
+---
+description: >-
+  Documents the removed LOAD TABLE ... FROM MASTER statement.
+---
+
 # LOAD TABLE FROM MASTER (removed)
 
 ## Syntax
@@ -26,7 +31,7 @@ works using `SELECT`.
 Transfers a copy of the table from the master to the slave. This statement is\
 implemented mainly debugging `LOAD DATA FROM MASTER`\
 operations. To use `LOAD TABLE`, the account used for\
-connecting to the master server must have the `RELOAD` and [SUPER](../../../../reference/sql-statements-and-structure/sql-statements/account-management-sql-commands/grant.md#global-privileges) privileges on the master and the`SELECT` privilege for the master table to load. On the slave\
+connecting to the master server must have the `RELOAD` and [SUPER](../../../reference/sql-statements/account-management-sql-statements/grant.md#global-privileges) privileges on the master and the`SELECT` privilege for the master table to load. On the slave\
 side, the user that issues `LOAD TABLE FROM MASTER` must have\
 privileges for dropping and creating the table.
 

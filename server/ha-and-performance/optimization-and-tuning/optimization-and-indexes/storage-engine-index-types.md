@@ -1,3 +1,8 @@
+---
+description: >-
+  The index types available when creating an index: BTREE, HASH, and RTREE.
+---
+
 # Storage Engine Index Types
 
 This refers to the index\_type definition when creating an index, i.e. BTREE, HASH or RTREE.
