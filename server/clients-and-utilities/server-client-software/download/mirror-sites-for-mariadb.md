@@ -1,3 +1,9 @@
+---
+description: >-
+  How MariaDB is distributed through mirror sites, and how to volunteer your
+  server as an official MariaDB mirror.
+---
+
 # Mirror Sites for MariaDB
 
 We rely on mirrors to distribute MariaDB to the world through the official download site at [download](https://mariadb.org/download). If you would like to volunteer to become a mirror, thank you! Getting you set up is easy.
