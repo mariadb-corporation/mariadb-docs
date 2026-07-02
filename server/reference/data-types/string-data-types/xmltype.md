@@ -1,3 +1,8 @@
+---
+description: >-
+  The XMLTYPE data type, available from MariaDB 12.3, for storing XML data.
+---
+
 # XMLTYPE
 
 ## Introduced
