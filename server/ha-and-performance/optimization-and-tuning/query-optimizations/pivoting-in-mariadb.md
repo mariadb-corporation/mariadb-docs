@@ -268,8 +268,7 @@ Posted, Feb. 2015
 
 ## See Also
 
-* [Brawley's notes](https://www.artfulsoftware.com/queries.php)\
-  Rick James graciously allowed us to use this article in the documentation.[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
+* Rick James graciously allowed us to use this article in the documentation.[Rick James' site](https://mysql.rjweb.org/) has other useful tips, how-tos,\
   optimizations, and debugging tips.
 
 Original source: [pivot](https://mysql.rjweb.org/doc.php/pivot)
