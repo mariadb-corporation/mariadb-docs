@@ -1,3 +1,9 @@
+---
+description: >-
+  The optimizer_switch system variable, used to enable or disable individual
+  optimizations.
+---
+
 # optimizer\_switch
 
 [optimizer\_switch](../system-variables/server-system-variables.md#optimizer_switch) is a server variable that one can use to enable/disable specific optimizations.

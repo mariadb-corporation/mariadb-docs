@@ -1,3 +1,8 @@
+---
+description: >-
+  Techniques for improving performance of data-warehouse-style tables.
+---
+
 # Data Warehousing Techniques
 
 ## Preface

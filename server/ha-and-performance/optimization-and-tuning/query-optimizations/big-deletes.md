@@ -1,3 +1,8 @@
+---
+description: >-
+  Techniques for deleting large numbers of rows from big tables efficiently.
+---
+
 # Big DELETEs
 
 ## The problem

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Charset Narrowing optimization, which speeds up equality comparisons
+  between columns of different character sets.
+---
+
 # Charset Narrowing Optimization
 
 The Charset Narrowing optimization handles equality comparisons like:

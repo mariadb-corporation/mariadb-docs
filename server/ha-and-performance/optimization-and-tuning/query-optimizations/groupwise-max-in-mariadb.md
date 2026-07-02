@@ -1,3 +1,8 @@
+---
+description: >-
+  Techniques for finding the largest, or top, row within each group.
+---
+
 # Groupwise Max in MariaDB
 
 ## The problem
