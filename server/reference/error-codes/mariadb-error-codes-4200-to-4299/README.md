@@ -1,2 +1,15 @@
 # MariaDB Error Codes 4200 to 4299
 
+- [Error 4200: ORDER BY](e4200.md)
+- [Error 4201: The variable is ignored](e4201.md)
+- [Error 4202: Incorrect column name count for derived table](e4202.md)
+- [Error 4203: Values were longer than max\_sort\_length. Sorting used only the first bytes](e4203.md)
+- [Error 4204: Invalid binary vector format](e4204.md)
+- [Error 4205: Invalid vector format at offset](e4205.md)
+- [Error 4206: Cannot determine distance type for VEC\_DISTANCE, index is not found](e4206.md)
+- [Error 4221: Unresolved table name for hint](e4221.md)
+- [Error 4222: Unresolved index name for hint](e4222.md)
+- [Error 4223: Optimizer hints are not supported inside view definitions](e4223.md)
+- [Error 4224: Hint is ignored as malformed](e4224.md)
+- [Error 4225: Optimizer hints at the INSERT part of a INSERT..SELECT statement are not supported](e4225.md)
+- [Error 4226: Slave SQL thread aborted](e4226.md)
