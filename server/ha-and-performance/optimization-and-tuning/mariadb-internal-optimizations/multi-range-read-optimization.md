@@ -1,3 +1,9 @@
+---
+description: >-
+  The Multi-Range Read (MRR) optimization, which improves performance for
+  I/O-bound queries scanning many rows.
+---
+
 # Multi Range Read Optimization
 
 Multi Range Read is an optimization aimed at improving performance for IO-bound queries that need to scan lots of rows.
@@ -5,7 +11,7 @@ Multi Range Read is an optimization aimed at improving performance for IO-bound 
 Multi Range Read can be used with
 
 * `range` access
-* `ref` and `eq_ref` access, when they are using [Batched Key Access](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2#batch-key-access-join)
+* `ref` and `eq_ref` access, when they are using [Batched Key Access](../query-optimizer/block-based-join-algorithms.md#batch-key-access-join)
 
 as shown in this diagram:
 
