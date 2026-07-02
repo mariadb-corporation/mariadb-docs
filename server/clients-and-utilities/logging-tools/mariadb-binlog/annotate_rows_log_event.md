@@ -1,3 +1,9 @@
+---
+description: >-
+  The ANNOTATE_ROWS_EVENT, which records the original SQL statement alongside
+  row-based binary log events.
+---
+
 # Annotate\_rows\_log\_event
 
 {% hint style="info" %}

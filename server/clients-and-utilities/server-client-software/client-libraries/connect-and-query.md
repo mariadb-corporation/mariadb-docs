@@ -1,3 +1,9 @@
+---
+description: >-
+  Connect to and query MariaDB using a connector (from an application) or a
+  client (interactively or from scripts).
+---
+
 # Connect and Query
 
 Database connections are made using a **connector** (from an application) or a **client** (interactively or from scripts).

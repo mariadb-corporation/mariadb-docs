@@ -1,3 +1,8 @@
+---
+description: >-
+  How to pause and resume mariadb-test-run.pl while a test run is in progress.
+---
+
 # Pausing mariadb-test-run.pl
 
 Sometimes you need to work when your computer is busy running [mariadb-test-run.pl](mariadb-test-run-pl-options.md). The mariadb-test-run.pl script allows you to stop it temporarily so you can use\

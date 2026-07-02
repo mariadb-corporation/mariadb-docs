@@ -1,3 +1,9 @@
+---
+description: >-
+  The fundamentals of MariaDB data-at-rest encryption (Transparent Data
+  Encryption, TDE), which encrypts files on storage.
+---
+
 # Data-at-Rest Encryption (TDE) Fundamentals
 
 MariaDB Data-at-Rest Encryption, also known as Transparent Data Encryption (TDE), protects your data by encrypting files directly on the storage media. This ensures that if physical disks or backup files are stolen, the data remains unreadable without the corresponding encryption keys.

@@ -1,3 +1,9 @@
+---
+description: >-
+  The Debug Sync facility for placing synchronization points to coordinate
+  tests.
+---
+
 # The Debug Sync Facility
 
 The Debug Sync Facility allows placement of synchronization points in\
@@ -148,7 +154,7 @@ separated by '&|' must be present or both of them.
 
 ### Activation/Deactivation
 
-With a [MariaDB for debug build](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7), it can be enabled by a mysqld command line option:
+With a [MariaDB for debug build](../../../reference/product-development/debugging-mariadb/compiling-mariadb-for-debugging.md), it can be enabled by a mysqld command line option:
 
 ```
 --debug-sync-timeout[=default_wait_timeout_value_in_seconds]

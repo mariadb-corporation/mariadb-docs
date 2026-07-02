@@ -1,3 +1,9 @@
+---
+description: >-
+  Proxy protocol support, which lets proxy programs relay client IP addresses
+  to MariaDB Server.
+---
+
 # Proxy Protocol Support
 
 The proxy protocol allows proxy programs to relay the IP addresses of the clients to the server programs. It is important in the case of MariaDB, since IP information is actually a part of user identity.
