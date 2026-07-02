@@ -1,3 +1,9 @@
+---
+description: >-
+  New-style optimizer hints (MariaDB 12.0+) that give granular, per-query
+  control over optimizer choices without changing server-wide variables.
+---
+
 # Expanded New-Style Optimizer Hints
 
 {% hint style="info" %}

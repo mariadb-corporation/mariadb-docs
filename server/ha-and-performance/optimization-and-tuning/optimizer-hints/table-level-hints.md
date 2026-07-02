@@ -1,3 +1,9 @@
+---
+description: >-
+  Table-level optimizer hints that influence join order and per-table optimizer
+  behavior, optionally scoped to a named query block.
+---
+
 # Table-Level Hints
 
 Supported variants of syntax:
