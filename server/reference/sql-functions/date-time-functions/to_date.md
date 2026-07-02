@@ -1,3 +1,9 @@
+---
+description: >-
+  TO_DATE() converts a string to a date using a specified format, with
+  optional handling for conversion errors.
+---
+
 # TO\_DATE
 
 {% hint style="info" %}

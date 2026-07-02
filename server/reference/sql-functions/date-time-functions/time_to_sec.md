@@ -1,3 +1,9 @@
+---
+description: >-
+  TIME_TO_SEC() converts a time value to the number of seconds, returning a
+  DOUBLE that preserves microseconds.
+---
+
 # TIME\_TO\_SEC
 
 ## Syntax
