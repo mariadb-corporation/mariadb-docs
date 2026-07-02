@@ -44,7 +44,7 @@ end
 
 ## Other Settings
 
-* May need to set [innodb\_fatal\_semaphore\_wait\_threshold](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/storage-engines/innodb/innodb-system-variables.md#innodb_fatal_semaphore_wait_threshold) to be high enough?
+* May need to set [innodb\_fatal\_semaphore\_wait\_threshold](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fatal_semaphore_wait_threshold) to be high enough?
 
 ## Other development topics
 
