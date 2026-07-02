@@ -272,12 +272,15 @@ flowchart LR
     SR ==>|"2 - write committed to binlog"| MDB
     MDB -.->|"3 - CDC tails binlog (async)"| CDC
     CDC -.->|"4 - applies change + GTID"| EXA
+    classDef app fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
     classDef ms fill:#0e2a3b,color:#fff,stroke:#0e2a3b;
     classDef maria fill:#2e7d64,color:#fff,stroke:#204d40;
     classDef exa fill:#1f8fa3,color:#fff,stroke:#155f6e;
+    class App app;
     class SR,CDC ms;
     class MDB maria;
     class EXA exa;
+    style MS fill:#eef2f7,color:#0e2a3b,stroke:#0e2a3b;
 ```
 
 _Solid arrows show the synchronous write path; dotted arrows show asynchronous CDC replication._
