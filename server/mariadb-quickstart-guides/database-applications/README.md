@@ -38,3 +38,53 @@ Here's a summary of key areas and advice covered; find the full guide on the sub
   * Views: Create separate databases for new versions with views referencing data in older or newer schemas to manage transitions.
   * Replication: Use MariaDB replication, particularly statement-based replication (SBR), for canary testing by replicating from the production system to a new server with the updated schema.
   * Invisible Columns: A MariaDB feature allowing columns to exist without being exposed by default, useful in scenarios where old applications use `SELECT *` or `INSERT` without column names, allowing new columns to be added without breaking existing code.
+
+## In This Guide
+
+{% columns %}
+{% column %}
+{% content-ref url="introduction-and-background.md" %}
+[introduction-and-background.md](introduction-and-background.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+This section provides an introduction to developing database-backed applications with MariaDB, discussing maintenance, upgrades, and separation of concerns.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="database-design.md" %}
+[database-design.md](database-design.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Learn about best practices for database schema design, including naming conventions, choosing appropriate data types, and using views to abstract complexity.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="application-code.md" %}
+[application-code.md](application-code.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+This guide covers application-side considerations, such as using ORMs, stored procedures, and writing robust SQL that handles schema changes gracefully.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="canary-testing.md" %}
+[canary-testing.md](canary-testing.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explore strategies for safely testing schema and application changes using canary deployments, replication, and features like invisible columns.
+{% endcolumn %}
+{% endcolumns %}
