@@ -1,8 +1,8 @@
 ---
 description: >-
-  Complete Troubleshooting Connection Issues Guide guide for MariaDB. Complete
-  resource with setup instructions, configuration, usage examples, and best
-  practices.
+  Diagnose and fix common MariaDB Server connection problems, such as "Can't
+  connect to local server" and access-denied errors, with step-by-step
+  troubleshooting.
 ---
 
 # Troubleshooting Connection Issues Guide
