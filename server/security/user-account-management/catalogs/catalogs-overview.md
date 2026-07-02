@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduces MariaDB catalogs, a multi-tenancy feature that lets a single server
+  host multiple independent tenants, each with their own users, schemas, and
+  logs.
+---
+
 # Catalogs Overview
 
 {% include "../../../.gitbook/includes/catalogs.md" %}
