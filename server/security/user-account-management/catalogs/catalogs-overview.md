@@ -143,7 +143,7 @@ Client changes:
 * Add --catalog option to all standard MariaDB clients
 * Add support for looping over all existing catalogs to:
   * [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md)
-  * [mariadb-backup](../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/)
+  * [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/)
   * [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md)
 
 Changes to [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md):
