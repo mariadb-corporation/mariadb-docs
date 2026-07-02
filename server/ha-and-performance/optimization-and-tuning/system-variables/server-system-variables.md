@@ -1,8 +1,8 @@
 ---
 description: >-
-  Complete server system variables reference for MariaDB. Complete guide for
-  connection handling, caching, logging, and performance tuning for production
-  use.
+  Reference for MariaDB Server system variables — how to view and set them,
+  their scope and dynamism, and their effect on connections, caching, logging,
+  and performance.
 ---
 
 # Server System Variables
