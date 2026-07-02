@@ -1,3 +1,9 @@
+---
+description: >-
+  Query, join, or migrate tables on a remote MariaDB Enterprise Server node from
+  a Spider Node using virtual Spider Tables and the MariaDB foreign data wrapper.
+---
+
 # Federated MariaDB Enterprise Spider Topology
 
 ## Federated MariaDB Enterprise Spider Topology
@@ -144,7 +150,7 @@ COMMENT='server "hq_server", table "invoices"';
 
 ### Deployment
 
-* [Deploy MariaDB Enterprise Spider](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/BbZ3TNWsYNwHXVyiSQ6z#spider-topologies)
+* [Deploy MariaDB Enterprise Spider](../topologies-overview.md#spider-topologies)
 
 ### Operations
 
