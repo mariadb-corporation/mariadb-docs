@@ -53,6 +53,10 @@ Default ports:
 
 The `Exasolrouter` leverages Exasol’s native ODBC connector to deliver optimal performance and full functionality.<br>
 
+{% hint style="info" %}
+The Exasol ODBC driver ships with the `maxscale-exasol` package at `/usr/lib64/maxscale/exasol/current/libexaodbc.so`. On most installations you can use that path directly and skip the manual download below. Referencing the driver through the `current` symlink keeps the configuration working across driver updates. Download the driver manually only if it is not already present on your MaxScale host.
+{% endhint %}
+
 * Go to the [Exasol ODBC download page](https://downloads.exasol.com/clients-and-drivers/odbc) and select the driver version that matches the operating system of the MaxScale host.
 * Download the appropriate Exasol ODBC driver for your operating system (x86\_64 architecture is required).
 * Install the downloaded driver according to the platform-specific installation instructions.
@@ -137,13 +141,13 @@ Create the Exasolrouter service. This service contains the connection informatio
 maxctrl create service mariadb_exasolrouter exasolrouter \
   user=maxuser \
   password=aBcd123% \
-  preprocessor=auto \
-  connection_string='DRIVER=/home/rocky/Exasol_ODBC-26.2.6-Linux_x86_64/lib/libexaodbc.so;EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
+  preprocessor=internal \
+  connection_string='DRIVER=/usr/lib64/maxscale/exasol/current/libexaodbc.so;EXAHOST=102.22.2.22:8563;UID=admin_user;PWD=aBc123%%;FINGERPRINT=NOCERTCHECK' 
 ```
 
 Replace the following placeholders with values that match your actual environment:
 
-* `DRIVER`: Full path to the `libexaodbc.so` file from Step 1
+* `DRIVER`: Full path to `libexaodbc.so` — the bundled driver at `/usr/lib64/maxscale/exasol/current/libexaodbc.so`, or the path from Step 1 if you downloaded it manually
 * `EXAHOST`: Your Exasol host and port
 * `UID` and `PWD`: The Exasol user credentials created in Step 2
 
@@ -247,7 +251,7 @@ The Exasolrouter does not replicate data — it only routes queries. To keep Exa
 binlogrouter connects to the MariaDB cluster as a replica and reads its binary log. Committed changes are compacted, batched, and bulk-loaded into Exasol staging tables, then applied to the target tables with a `MERGE` in GTID order, so Exasol reflects committed writes with minimal lag. Replication is asynchronous.
 
 {% hint style="info" %}
-CDC to Exasol uses the Exasol ODBC driver shipped in the `maxscale-exasol` package and is available from MaxScale 25.10.
+CDC to Exasol uses the Exasol ODBC driver shipped in the `maxscale-exasol` package, and is part of the same MaxScale Exasol integration described at the top of this page.
 {% endhint %}
 
 ### Step 1. Enable binary logging on MariaDB.

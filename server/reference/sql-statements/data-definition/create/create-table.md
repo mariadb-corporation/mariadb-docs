@@ -385,7 +385,11 @@ index_option:
   {{{|}}} WITH PARSER parser_name
   {{{|}}} VISIBLE
   {{{|}}} COMMENT 'string'
-  {{{|}}} CLUSTERING={YES| NO} ]
+  {{{|}}} CLUSTERING={YES| NO}
+  {{{|}}} ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
+  {{{|}}} COMPLETE_FIELDS [=] number
+  {{{|}}} BYTES_FROM_INCOMPLETE_FIELD [=] number
+  {{{|}}} FOR_EQUAL_HASH_POINT_TO_LAST_RECORD [=] {DEFAULT | YES | NO} ]
   [ IGNORED | NOT IGNORED ]
 
 reference_definition:
@@ -477,6 +481,40 @@ The `KEY_BLOCK_SIZE` index option is similar to the [KEY\_BLOCK\_SIZE](create-ta
 With the [InnoDB](../../../../server-usage/storage-engines/innodb/) storage engine, if you specify a non-zero value for the `KEY_BLOCK_SIZE` table option for the whole table, then the table will implicitly be created with the [ROW\_FORMAT](create-table.md#row_format) table option set to `COMPRESSED`. However, this does not happen if you just set the `KEY_BLOCK_SIZE` index option for one or more indexes in the table. The [InnoDB](../../../../server-usage/storage-engines/innodb/) storage engine ignores the `KEY_BLOCK_SIZE` index option. However, the [SHOW CREATE TABLE](../../administrative-sql-statements/show/show-create-table.md) statement may still report it for the index.
 
 For information about the `KEY_BLOCK_SIZE` index option, see the [KEY\_BLOCK\_SIZE](create-table.md#key_block_size) table option below.
+
+#### ADAPTIVE\_HASH\_INDEX Index Option
+
+{% hint style="info" %}
+Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+The `ADAPTIVE_HASH_INDEX` index option takes the same `DEFAULT`, `YES`, and `NO` values as the [ADAPTIVE\_HASH\_INDEX](create-table.md#adaptive_hash_index) table option, but applies to a single index. When set to `YES` or `NO`, it overrides the table-level setting for that index. This option applies only to [InnoDB](../../../../server-usage/storage-engines/innodb/).
+
+#### Advanced Adaptive Hash Index Tuning Options
+
+{% hint style="info" %}
+Added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+Three additional [InnoDB](../../../../server-usage/storage-engines/innodb/) index options give fine-grained control over how the adaptive hash index is built for an index:
+
+| Option | Values | Effect |
+| --- | --- | --- |
+| `COMPLETE_FIELDS` | `0` to the number of columns the index is defined on (maximum `64`) | Number of complete index columns to include in the hash. |
+| `BYTES_FROM_INCOMPLETE_FIELD` | `0` to `16383` | Number of leading bytes to take from the next column, beyond those covered by `COMPLETE_FIELDS`. Only meaningful for `memcmp()`-comparable index fields such as `VARBINARY` or integer types. For example, a 3-byte prefix on an `INT` returns one hash value for 0‥255, another for 256‥511, and so on. |
+| `FOR_EQUAL_HASH_POINT_TO_LAST_RECORD` | `DEFAULT`, `YES`, `NO` | For a set of records that share the same hash value, controls which record the hash entry points to: `NO` points to the first record, `YES` points to the last. |
+
+The default for all three is unset (automatic), in which case InnoDB chooses the values from its internal heuristic.
+
+{% hint style="warning" %}
+These are power-user options and are not needed for typical workloads. They override InnoDB's internal heuristic, which is computed and *then* replaced by the values you supply. Because the three options work together, set **all three** to known-good values whenever you set even one of them — setting only one or two leaves the others to interact with the overridden heuristic and can produce unintended results.
+
+InnoDB does not expose the values its heuristic would otherwise compute, so suitable settings must be derived from prior knowledge of the data and confirmed through performance testing.
+{% endhint %}
+
+The main reason to fix these values is to avoid *adaptive-hash-index churn*: when an index's lookup pattern is not constant, the internal heuristic keeps changing its parameters, repeatedly destroying and rebuilding the hash index. Pinning the parameters keeps a single hash index in place — less optimal for some queries, but stable and beneficial for the rest, instead of being continually rebuilt.
+
+These options apply only to [InnoDB](../../../../server-usage/storage-engines/innodb/), and only on servers built with adaptive hash index support.
 
 #### Index Types
 
@@ -586,6 +624,7 @@ If the `IGNORE_BAD_TABLE_OPTIONS` [SQL\_MODE](../../../../server-management/vari
 ```bnf
 table_option:    
     [STORAGE] ENGINE [=] engine_name
+  | ADAPTIVE_HASH_INDEX [=] {DEFAULT | YES | NO}
   | AUTO_INCREMENT [=] number
   | AVG_ROW_LENGTH [=] number
   | [DEFAULT] CHARACTER SET [=] <a data-footnote-ref href="#user-content-fn-7">charset_name</a>
@@ -622,6 +661,20 @@ table_option:
 ### \[STORAGE] ENGINE
 
 `[STORAGE] ENGINE` specifies a [storage engine](../../../../server-usage/storage-engines/) for the table. If this option is not used, the default storage engine is used instead. That is, the [default\_storage\_engine](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#default_storage_engine) session option value if it is set, or the value specified for the `--default-storage-engine` [mariadbd startup option](../../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), or the default storage engine, [InnoDB](../../../../server-usage/storage-engines/innodb/). If the specified storage engine is not installed and active, the default value will be used, unless the `NO_ENGINE_SUBSTITUTION` [SQL MODE](../../../../server-management/variables-and-modes/sql_mode.md) is set (default). This is only true for `CREATE TABLE`, not for `ALTER TABLE`. For a list of storage engines that are present in your server, issue a [SHOW ENGINES](../../administrative-sql-statements/show/show-engines.md).
+
+### ADAPTIVE\_HASH\_INDEX
+
+{% hint style="info" %}
+The `ADAPTIVE_HASH_INDEX` table and index options were added in **MariaDB 13.1.1** ([MDEV-37070](https://jira.mariadb.org/browse/MDEV-37070)).
+{% endhint %}
+
+`ADAPTIVE_HASH_INDEX` controls whether the InnoDB adaptive hash index (AHI) is used for an individual [InnoDB](../../../../server-usage/storage-engines/innodb/) table. It takes one of three values:
+
+* `DEFAULT` — no per-table preference: the table follows the global [innodb\_adaptive\_hash\_index](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_adaptive_hash_index) setting. This is the default, and removes the option from the stored table definition.
+* `YES` — request the adaptive hash index for this table. AHI is built for the table only when it is also enabled at the server level (`innodb_adaptive_hash_index` set to `ON` or `IF_SPECIFIED`).
+* `NO` — never use the adaptive hash index for this table, even when it is enabled at the server level.
+
+The option only affects [InnoDB](../../../../server-usage/storage-engines/innodb/) tables, and only on servers built with adaptive hash index support. The same option can be set per index (see [ADAPTIVE\_HASH\_INDEX Index Option](#adaptive_hash_index-index-option)); an index-level `YES` or `NO` overrides the table-level setting for that index.
 
 ### AUTO\_INCREMENT
 
