@@ -1,3 +1,8 @@
+---
+description: >-
+  ALTER SEQUENCE changes the properties of an existing sequence object.
+---
+
 # ALTER SEQUENCE
 
 ### Syntax
