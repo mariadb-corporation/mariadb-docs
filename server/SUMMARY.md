@@ -2035,6 +2035,7 @@
       * [JSON Functions](reference/sql-functions/special-functions/json-functions/README.md)
         * [JSONPath Expressions](reference/sql-functions/special-functions/json-functions/jsonpath-expressions.md)
         * [Differences between JSON\_QUERY and JSON\_VALUE](reference/sql-functions/special-functions/json-functions/differences-between-json_query-and-json_value.md)
+        * [JSON Arrow Operators](reference/sql-functions/special-functions/json-functions/json-arrow-operators.md)
         * [JSON\_ARRAY](reference/sql-functions/special-functions/json-functions/json_array.md)
         * [JSON\_ARRAYAGG](reference/sql-functions/special-functions/json-functions/json_arrayagg.md)
         * [JSON\_ARRAY\_APPEND](reference/sql-functions/special-functions/json-functions/json_array_append.md)
