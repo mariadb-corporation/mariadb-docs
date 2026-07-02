@@ -1,3 +1,9 @@
+---
+description: >-
+  The filesort optimization that uses a priority queue when sorting with a
+  small LIMIT.
+---
+
 # Filesort with Small LIMIT Optimization
 
 ## Optimization Description

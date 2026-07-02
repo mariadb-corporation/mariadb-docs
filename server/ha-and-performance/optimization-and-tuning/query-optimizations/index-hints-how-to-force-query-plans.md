@@ -1,3 +1,9 @@
+---
+description: >-
+  Using index hints to influence the query plan when the optimizer's choice is
+  not ideal.
+---
+
 # Index Hints: How to Force Query Plans
 
 The optimizer is largely cost-based and will try to choose the optimal plan for any query. However in some cases it does not have enough information to choose a perfect plan and in these cases you may have to provide hints to force the optimizer to use another plan.

@@ -1,3 +1,8 @@
+---
+description: >-
+  Techniques for pivoting row data into a spreadsheet-like columnar layout.
+---
+
 # Pivoting in MariaDB
 
 ## The problem

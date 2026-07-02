@@ -1,3 +1,8 @@
+---
+description: >-
+  Creating and maintaining summary tables to speed up data-warehouse queries.
+---
+
 # Data Warehousing Summary Tables
 
 ## Preface

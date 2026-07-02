@@ -1,3 +1,9 @@
+---
+description: >-
+  The optimizer_adjust_secondary_key_costs setting, which tunes cost estimates
+  for secondary keys.
+---
+
 # optimizer\_adjust\_secondary\_key\_costs
 
 #### `optimizer_adjust_secondary_key_costs`

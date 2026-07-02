@@ -1,3 +1,8 @@
+---
+description: >-
+  Optimizer support for virtual (generated) columns.
+---
+
 # Virtual Column Support in the Optimizer
 
 {% hint style="info" %}

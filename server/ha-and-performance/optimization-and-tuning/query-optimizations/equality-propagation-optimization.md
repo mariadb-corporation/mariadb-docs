@@ -1,3 +1,9 @@
+---
+description: >-
+  The equality propagation optimization, which propagates equality conditions
+  through a query's WHERE clause.
+---
+
 # Equality propagation optimization
 
 ## Basic idea

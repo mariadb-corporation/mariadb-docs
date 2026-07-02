@@ -1,3 +1,9 @@
+---
+description: >-
+  How the optimizer removes redundant DISTINCT from aggregate-function
+  arguments.
+---
+
 # DISTINCT removal in aggregate functions
 
 ## Basics

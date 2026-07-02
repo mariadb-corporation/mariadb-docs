@@ -1,3 +1,9 @@
+---
+description: >-
+  The reorder_outer_joins optimizer_switch flag, which controls reordering of
+  independent outer joins.
+---
+
 # reorder\_outer\_joins
 
 * **Introduced in**: MariaDB 12.3
