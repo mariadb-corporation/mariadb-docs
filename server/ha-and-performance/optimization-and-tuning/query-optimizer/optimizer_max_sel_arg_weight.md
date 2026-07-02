@@ -1,3 +1,9 @@
+---
+description: >-
+  The optimizer_max_sel_arg_weight setting, which caps the complexity of range
+  analysis.
+---
+
 # optimizer\_max\_sel\_arg\_weight
 
 ## Basics

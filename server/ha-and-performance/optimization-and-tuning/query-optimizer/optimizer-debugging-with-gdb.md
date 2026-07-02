@@ -1,3 +1,8 @@
+---
+description: >-
+  Tips for debugging MariaDB optimizer code with GDB.
+---
+
 # Optimizer Debugging With GDB
 
 Some useful things for debugging optimizer code.
@@ -64,7 +69,7 @@ git diff -U0 --no-color --relative HEAD^ | clang-format-diff -p1 -i
 
 ## See Also
 
-* [How to collect large optimizer traces](mariadb-internals-documentation-optimizer-trace/how-to-collect-large-optimizer-traces.md)
+* [How to collect large optimizer traces](optimizer-trace/how-to-collect-large-optimizer-traces.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

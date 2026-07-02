@@ -1,3 +1,8 @@
+---
+description: >-
+  Session-scoped user-defined variables (@var), and how to set and use them.
+---
+
 # User-Defined Variables
 
 User-defined variables are variables which can be created by the user and exist in the session. This means that no one can access user-defined variables that have been set by another user, and when the session is closed these variables expire. However, these variables can be shared between several queries and [stored programs](../../../server-usage/stored-routines/).

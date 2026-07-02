@@ -1,3 +1,8 @@
+---
+description: >-
+  Status variables for the Spider storage engine.
+---
+
 # Spider Status Variables
 
 The following status variables are associated with the [Spider storage engine](../../../server-usage/storage-engines/spider/). See [Server Status Variables](server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md).

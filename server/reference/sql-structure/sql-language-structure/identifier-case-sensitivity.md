@@ -1,3 +1,9 @@
+---
+description: >-
+  How identifier case sensitivity depends on the object type and the operating
+  system.
+---
+
 # Identifier Case Sensitivity
 
 Whether objects are case sensitive or not is partly determined by the underlying operating system. Unix-based systems are case sensitive, Windows is not, while Mac OS X is usually case insensitive by default, but devices can be configured as case sensitive using Disk Utility.
@@ -9,7 +15,8 @@ Log file group names are case sensitive.
 {% hint style="info" %}
 In some cases, the table exists but that you are referring to it incorrectly:
 
-*  Because MariaDB uses directories and files to store databases and tables, database and table names are case-sensitive if they are located on a file system that has case-sensitive file names.
+*
+  Because MariaDB uses directories and files to store databases and tables, database and table names are case-sensitive if they are located on a file system that has case-sensitive file names.
 * Even for file systems that are not case-sensitive, such as on Windows, all references to a given table within a query must use the same lettercase. 
 {% endhint %}
 

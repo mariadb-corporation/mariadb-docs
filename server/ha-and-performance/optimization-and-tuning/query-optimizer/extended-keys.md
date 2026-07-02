@@ -1,3 +1,9 @@
+---
+description: >-
+  The Extended Keys optimization, which uses primary-key parts appended to
+  secondary indexes.
+---
+
 # Extended Keys
 
 ## Syntax

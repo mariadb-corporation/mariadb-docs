@@ -1,3 +1,8 @@
+---
+description: >-
+  String literal syntax, quoting, and escape sequences.
+---
+
 # String Literals
 
 Strings are sequences of characters and enclosed with quotes.

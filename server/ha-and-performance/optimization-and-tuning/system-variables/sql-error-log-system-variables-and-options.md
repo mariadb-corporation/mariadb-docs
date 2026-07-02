@@ -1,3 +1,8 @@
+---
+description: >-
+  System variables and options for the SQL Error Log plugin.
+---
+
 # SQL Error Log System Variables and Options
 
 This page documents system variables and options related to the [SQL\_Error\_Log Plugin](../../../server-management/server-monitoring-logs/sql-error-log-plugin.md). See [Server System Variables](server-system-variables.md) for a complete list of system variables and instructions on setting them.

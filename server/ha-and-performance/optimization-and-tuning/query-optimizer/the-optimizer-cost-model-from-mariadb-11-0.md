@@ -1,3 +1,8 @@
+---
+description: >-
+  The optimizer cost model introduced in MariaDB 11.0.
+---
+
 # The Optimizer Cost Model from MariaDB 11.0
 
 ## Background

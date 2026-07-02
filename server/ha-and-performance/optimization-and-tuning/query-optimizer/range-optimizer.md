@@ -1,3 +1,8 @@
+---
+description: >-
+  The range optimizer, which builds range scans from WHERE conditions.
+---
+
 # Range Optimizer
 
 Range optimizer is a part of MariaDB (and MySQL) optimizer that takes as input

@@ -1,3 +1,9 @@
+---
+description: >-
+  The MIN/MAX optimization, which resolves MIN() and MAX() from an index
+  without scanning rows.
+---
+
 # MIN/MAX optimization
 
 ## Min/Max optimization without GROUP BY

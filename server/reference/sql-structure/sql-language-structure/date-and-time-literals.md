@@ -1,3 +1,9 @@
+---
+description: >-
+  Syntax for DATE, TIME, DATETIME, and TIMESTAMP literals, including SQL-
+  standard and ODBC forms.
+---
+
 # Date and Time Literals
 
 ## Standard syntaxes
