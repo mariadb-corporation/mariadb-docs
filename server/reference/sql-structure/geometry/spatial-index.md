@@ -1,3 +1,9 @@
+---
+description: >-
+  Create SPATIAL (R-tree) indexes on geometry columns in MyISAM, Aria, and
+  InnoDB tables.
+---
+
 # SPATIAL INDEX
 
 ## Description
