@@ -1,3 +1,9 @@
+---
+description: >-
+  The EXPLAIN Analyzer API let applications submit EXPLAIN output to the
+  online analyzer. It is no longer active.
+---
+
 # EXPLAIN Analyzer API
 
 {% hint style="warning" %}

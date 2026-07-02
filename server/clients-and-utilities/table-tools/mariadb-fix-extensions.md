@@ -1,3 +1,9 @@
+---
+description: >-
+  Fix the file extensions of MyISAM table files with mariadb-fix-extensions
+  (formerly mysql_fix_extensions).
+---
+
 # mariadb-fix-extensions
 
 `mariadb-fix-extensions` converts the extensions for [MyISAM](https://github.com/mariadb-corporation/docs-server/blob/test/server/clients-and-utilities/reference/storage-engines/myisam-storage-engine/README.md) (or ISAM) table files to their canonical forms.

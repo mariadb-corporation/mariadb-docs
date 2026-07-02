@@ -1,3 +1,9 @@
+---
+description: >-
+  Where to download MariaDB — tarballs, source, and Linux and Windows
+  binaries, plus distribution packages.
+---
+
 # Downloads
 
 #### Latest Packages

@@ -1,3 +1,9 @@
+---
+description: >-
+  Compress Aria tables into read-only form that is typically 40 to 70 percent
+  smaller with aria_pack.
+---
+
 # aria\_pack
 
 `aria_pack` is a tool for compressing [Aria](../../server-usage/storage-engines/aria/) tables. The resulting tables are read-only, and usually about 40% to 70% smaller.

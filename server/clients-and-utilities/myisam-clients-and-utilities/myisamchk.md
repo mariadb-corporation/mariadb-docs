@@ -1,3 +1,9 @@
+---
+description: >-
+  Check, repair, and optimize non-partitioned MyISAM tables from the command
+  line with myisamchk.
+---
+
 # myisamchk
 
 ## myisamchk

@@ -1,3 +1,9 @@
+---
+description: >-
+  Compress MyISAM tables into read-only form that is typically 40 to 70
+  percent smaller with myisampack.
+---
+
 # myisampack
 
 ## myisampack
