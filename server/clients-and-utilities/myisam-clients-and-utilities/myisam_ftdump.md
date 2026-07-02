@@ -1,3 +1,9 @@
+---
+description: >-
+  Display information about MyISAM FULLTEXT indexes with the myisam_ftdump
+  utility.
+---
+
 # myisam\_ftdump
 
 myisam\_ftdump is a utility for displaying information about [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) [FULLTEXT](../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/) indexes. It will scan and dump the entire index, and can be a lengthy process.

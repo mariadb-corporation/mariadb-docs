@@ -1,3 +1,9 @@
+---
+description: >-
+  Deploy the MariaDB ColumnStore object-storage topology, a columnar OLAP
+  store that keeps data on S3-compatible object storage.
+---
+
 # Columnstore Object Storage
 
 ## Overview

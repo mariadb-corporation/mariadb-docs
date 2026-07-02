@@ -1,3 +1,9 @@
+---
+description: >-
+  Deploy the Galera Cluster topology for MariaDB — synchronous, multi-primary
+  replication for high availability.
+---
+
 # Galera Cluster
 
 ## Overview

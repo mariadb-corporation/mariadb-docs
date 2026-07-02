@@ -1,3 +1,9 @@
+---
+description: >-
+  A list of projects and applications that officially support MariaDB or its
+  enhanced features.
+---
+
 # Applications Supporting MariaDB
 
 This page lists projects which officially implement MariaDB's enhanced features, or state that they work with MariaDB. If you know of a project which officially supports MariaDB and it isn't listed here, please let us know in the comments.
