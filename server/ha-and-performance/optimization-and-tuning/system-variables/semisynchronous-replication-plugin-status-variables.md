@@ -1,3 +1,8 @@
+---
+description: >-
+  Status variables for the semisynchronous replication plugin.
+---
+
 # Semisynchronous Replication Plugin Status Variables
 
 This page documents status variables related to the [Semisynchronous Replication Plugin](../../standard-replication/semisynchronous-replication.md) (which has been merged into the main server from [MariaDB 10.3.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.3)). See [Server Status Variables](server-status-variables.md) for a complete list of status variables that can be viewed with [SHOW STATUS](../../../reference/sql-statements/administrative-sql-statements/show/show-status.md).

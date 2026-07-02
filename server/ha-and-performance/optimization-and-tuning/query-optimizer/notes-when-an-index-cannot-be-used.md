@@ -1,3 +1,8 @@
+---
+description: >-
+  Situations in which the optimizer cannot use an index.
+---
+
 # Notes When an Index Cannot Be Used
 
 **MariaDB starting with** [**10.6.16**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16)

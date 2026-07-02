@@ -1,3 +1,9 @@
+---
+description: >-
+  Rules for naming identifiers such as databases, tables, columns, and other
+  objects.
+---
+
 # Identifier Names
 
 Databases, tables, indexes, columns, aliases, views, stored routines, triggers, events, variables, partitions, tablespaces, savepoints, labels, users, roles, are collectively known as identifiers, and have certain rules for naming.

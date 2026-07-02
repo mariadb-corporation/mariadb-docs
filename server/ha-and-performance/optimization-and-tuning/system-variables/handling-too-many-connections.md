@@ -1,3 +1,8 @@
+---
+description: >-
+  How to handle and avoid the 'too many connections' error on busy servers.
+---
+
 
 # Handling Too Many Connections
 

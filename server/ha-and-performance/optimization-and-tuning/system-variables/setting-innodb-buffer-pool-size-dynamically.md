@@ -1,3 +1,8 @@
+---
+description: >-
+  How to resize the InnoDB buffer pool dynamically, in chunks.
+---
+
 # Setting Innodb Buffer Pool Size Dynamically
 
 Resizing the buffer pool is performed in chunks determined by the size of the [innodb\_buffer\_pool\_chunk\_size](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_buffer_pool_chunk_size) variable.
