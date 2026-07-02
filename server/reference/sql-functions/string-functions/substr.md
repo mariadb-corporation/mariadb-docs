@@ -1,3 +1,8 @@
+---
+description: >-
+  SUBSTR() is a synonym for SUBSTRING(), returning a substring from a string.
+---
+
 
 # SUBSTR
 
