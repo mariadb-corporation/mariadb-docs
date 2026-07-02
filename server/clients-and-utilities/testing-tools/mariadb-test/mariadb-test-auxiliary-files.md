@@ -1,3 +1,8 @@
+---
+description: >-
+  The auxiliary files the mariadb-test framework uses to control test runs.
+---
+
 # mariadb-test Auxiliary Files
 
 The mariadb-test framework utilizes many other files that affect the testing\
