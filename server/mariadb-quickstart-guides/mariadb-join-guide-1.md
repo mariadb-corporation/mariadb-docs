@@ -96,7 +96,7 @@ That should give you a bit more understanding of how JOINS work!
 ## See Also
 
 * [More Advanced JOINs](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
-* [Comma vs JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/comma-vs-join.md)
+* [Comma vs JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/comma-vs-join.md)
 * [mysql\_p5.shtml](https://www.keithjbrown.co.uk/vworks/mysql/mysql_p5.shtml) - Nice tutorial.\
   Part 5 covers joins.
 

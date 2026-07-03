@@ -180,7 +180,7 @@ Notice that the [ORDER BY](../reference/sql-statements/data-manipulation/selecti
 
 #### Friendlier and More Complicated
 
-So far we've been working with one table of data containing information on books for a fictitious bookstore. A database will usually have more than one table, of course. In this particular database, there's also one called authors in which the name and other information on authors is contained. To be able to select data from two tables in one [SELECT](../reference/sql-statements/data-manipulation/selecting-data/select.md) statement, we will have to tell MariaDB that we want to join the tables and will need to provide a join point. This can be done with a [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause as shown in the following SQL statement, with the results following it:
+So far we've been working with one table of data containing information on books for a fictitious bookstore. A database will usually have more than one table, of course. In this particular database, there's also one called authors in which the name and other information on authors is contained. To be able to select data from two tables in one [SELECT](../reference/sql-statements/data-manipulation/selecting-data/select.md) statement, we will have to tell MariaDB that we want to join the tables and will need to provide a join point. This can be done with a [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause as shown in the following SQL statement, with the results following it:
 
 ```sql
 SELECT isbn, title, 
@@ -205,7 +205,7 @@ LIMIT 5;
 5 rows in set (0.00 sec)
 ```
 
-Our [SELECT](../reference/sql-statements/data-manipulation/selecting-data/select.md) statement is getting hefty, but it's the same one to which we've been adding. Don't let the clutter fluster you. Looking for the new elements, let's focus on the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause first. There are a few possible ways to construct a join. This method works if both tables contain a column of the same name and value. Otherwise you'll have to redo the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause to look something like this:
+Our [SELECT](../reference/sql-statements/data-manipulation/selecting-data/select.md) statement is getting hefty, but it's the same one to which we've been adding. Don't let the clutter fluster you. Looking for the new elements, let's focus on the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause first. There are a few possible ways to construct a join. This method works if both tables contain a column of the same name and value. Otherwise you'll have to redo the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause to look something like this:
 
 ```sql
 ...
@@ -213,7 +213,7 @@ JOIN authors ON author_id = row_id
 ...
 ```
 
-This excerpt is based on the assumption that the key field in the authors table is not called author\_id, but row\_id instead. There's much more that can be said about joins, but that would make for a much longer article. If you want to learn more on joins, look at MariaDB's documentation page on [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) syntax.
+This excerpt is based on the assumption that the key field in the authors table is not called author\_id, but row\_id instead. There's much more that can be said about joins, but that would make for a much longer article. If you want to learn more on joins, look at MariaDB's documentation page on [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) syntax.
 
 Looking again at the last full SQL statement above, you must have spotted the [CONCAT()](../reference/sql-functions/string-functions/concat.md) function that we added to the on-going example statement. This string function takes the values of the columns and strings given and pastes them together, to give one neat field in the results. We also employed the AS parameter to change the heading of the results set for the field to author. This is much tidier. Since we joined the books and the authors tables together, we were able to search for books based on the author's last name rather than having to look up the author ID first. This is a much friendlier method, albeit more complicated. Incidentally, we can have MariaDB check columns from both tables to narrow our search. We would just add _column = value_ pairs, separated by commas in the WHERE clause. Notice that the string containing the author's name is wrapped in quotes—otherwise, the string would be considered a column name and we'd get an error.
 
@@ -294,7 +294,7 @@ ORDER BY title;
 +------------------------+
 ```
 
-You may have noticed in the one example earlier in which the results are shown, that there's a status line displayed that specifies the number of rows in the results set. This is less than the number of rows that were found in the database that met the statement's criteria. It's less because we used a [LIMIT](../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause. If we add the [SQL\_CALC\_FOUND\_ROWS](../reference/sql-statements/data-manipulation/selecting-data/optimizer-hints.md#sql_calc_found_rows) flag just before the column list, MariaDB will calculate the number of columns found even if there is a [LIMIT](../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause.
+You may have noticed in the one example earlier in which the results are shown, that there's a status line displayed that specifies the number of rows in the results set. This is less than the number of rows that were found in the database that met the statement's criteria. It's less because we used a [LIMIT](../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause. If we add the [SQL\_CALC\_FOUND\_ROWS](../ha-and-performance/optimization-and-tuning/optimizer-hints/README.md#sql_calc_found_rows) flag just before the column list, MariaDB will calculate the number of columns found even if there is a [LIMIT](../reference/sql-statements/data-manipulation/selecting-data/select.md#limit) clause.
 
 ```sql
 SELECT SQL_CALC_FOUND_ROWS isbn, title

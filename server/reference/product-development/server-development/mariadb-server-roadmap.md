@@ -45,7 +45,7 @@ We manage our development plans in JIRA, so the definitive list will be there. [
 
 ### Contributing
 
-If you want to be part of developing any of these features, see [Contributing to the MariaDB Project](../../community/contributing-participating/contributing-to-the-mariadb-project.md). You can also add new features to this list or to [JIRA](tools/jira.md).
+If you want to be part of developing any of these features, see Contributing to the MariaDB Project. You can also add new features to this list or to [JIRA](tools/jira.md).
 
 ## See Also
 

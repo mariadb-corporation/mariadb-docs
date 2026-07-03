@@ -25,7 +25,7 @@ Note that `INSERT DELAYED` is slower than a normal`INSERT` if the table is not o
 
 The queued rows are held only in memory until they are inserted into the table. This means that if you terminate mariadbd forcibly (for example, with kill -9) or if mariadbd dies unexpectedly, any queued rows that have not been written to disk are lost.
 
-The number of concurrent `INSERT DELAYED` threads is limited by the [max\_delayed\_threads](../../../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#max_delayed_threads) server system variables. If it is set to 0, `INSERT DELAYED` is disabled. The session value can be equal to the global value, or 0 to disable this statement for the current session. If this limit has been reached, the `DELAYED` clause will be silently ignore for subsequent statements (no error will be produced).
+The number of concurrent `INSERT DELAYED` threads is limited by the [max\_delayed\_threads](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_delayed_threads) server system variables. If it is set to 0, `INSERT DELAYED` is disabled. The session value can be equal to the global value, or 0 to disable this statement for the current session. If this limit has been reached, the `DELAYED` clause will be silently ignore for subsequent statements (no error will be produced).
 
 ### Limitations
 

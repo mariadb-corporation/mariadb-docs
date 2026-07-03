@@ -50,7 +50,7 @@ Since [MariaDB 11.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-se
 
 ## Authentication
 
-* The [unix\_socket](../../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin is installed by default in new installations that use the [.deb](../../binary-packages/installing-mariadb-deb-files.md) packages provided by Debian's default repositories in Debian 9 and later and Ubuntu's default repositories in Ubuntu 15.10 and later.
+* The [unix\_socket](../../../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin is installed by default in new installations that use the [.deb](../../binary-packages/installing-mariadb-deb-files.md) packages provided by Debian's default repositories in Debian 9 and later and Ubuntu's default repositories in Ubuntu 15.10 and later.
 * The `root@localhost` created by [mariadb-install-db](../../../../../clients-and-utilities/deployment-tools/mariadb-install-db.md) will also be created to authenticate via the [unix\_socket](../../../../../reference/plugins/authentication-plugins/authentication-plugin-unix-socket.md) authentication plugin in these builds.
 
 ## See Also

@@ -19,7 +19,7 @@ accomplished with a [LEAVE](leave.md) statement.
 A `LOOP` statement can be [labeled](labels.md). `end_label` cannot be given unless`begin_label` also is present. If both are present, they must be the\
 same.
 
-See [Delimiters](../../clients-and-utilities/mariadb-client/delimiters.md) in the [mariadb](../../clients-and-utilities/mariadb-client/) client for more on delimiter usage in the client.
+See [Delimiters](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) in the [mariadb](../../clients-and-utilities/mariadb-client/) client for more on delimiter usage in the client.
 
 ## See Also
 

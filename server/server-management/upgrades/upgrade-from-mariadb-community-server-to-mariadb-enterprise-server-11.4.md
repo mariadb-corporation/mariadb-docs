@@ -76,7 +76,7 @@ MariaDB Enterprise Server 11.4 changes the `COMPRESSED` row format to read-only.
     WHERE NAME NOT LIKE 'SYS_%'
        AND ROW_FORMAT = 'COMPRESSED';
     ```
-2.  Execute an [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table.md) statement for each table, changing its row format from `COMPRESSED` to `DYNAMIC`:
+2.  Execute an [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/README.md) statement for each table, changing its row format from `COMPRESSED` to `DYNAMIC`:
 
     ```sql
     ALTER TABLE accounts.hq_sales

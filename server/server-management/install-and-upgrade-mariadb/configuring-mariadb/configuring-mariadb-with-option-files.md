@@ -325,7 +325,7 @@ You can check which options a given program is going to use by using the [--prin
 | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [--print-defaults](../../starting-and-stopping-mariadb/mariadbd-options.md#-print-defaults) | Read options from option files, print all option values, and then exit the program. |
 
-This command-line argument can be used with most of MariaDB's command-line tools, not just [mariadbd](starting-and-stopping-mariadb/mariadbd-options.md). It must be given as the first argument on the command-line:
+This command-line argument can be used with most of MariaDB's command-line tools, not just [mariadbd](../../starting-and-stopping-mariadb/mariadbd-options.md). It must be given as the first argument on the command-line:
 
 ```bash
 $ mariadb-dump --print-defaults

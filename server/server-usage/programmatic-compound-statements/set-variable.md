@@ -8,7 +8,7 @@ SET var_name = expr [, var_name = expr] ...
 
 ## Description
 
-The `SET` statement in [stored programs](../stored-routines/) is an extended version of the general [SET](../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/set-commands/set.md) statement. Referenced variables may be ones declared inside a stored program, global system variables, or user-defined variables.
+The `SET` statement in [stored programs](../stored-routines/) is an extended version of the general [SET](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) statement. Referenced variables may be ones declared inside a stored program, global system variables, or user-defined variables.
 
 The `SET` statement in stored programs is implemented as part of the\
 pre-existing [SET](../../reference/sql-statements/administrative-sql-statements/set-commands/set.md) syntax. This allows an extended syntax of `SET a=x, b=y, ...` where different variable types (locally declared variables,\
@@ -21,7 +21,7 @@ options are recognized but ignored.
 
 When setting several variables using the columns returned by a query, [SELECT INTO](selectinto.md) should be preferred.
 
-To set many variables to the same value, the [LAST_VALUE( )](../../../reference/sql-statements-and-structure/sql-statements/built-in-functions/secondary-functions/information-functions/last_value.md) function can be used.
+To set many variables to the same value, the [LAST_VALUE( )](../../reference/sql-functions/secondary-functions/information-functions/last_value.md) function can be used.
 
 Below is an example of how a user-defined variable may be set:
 
