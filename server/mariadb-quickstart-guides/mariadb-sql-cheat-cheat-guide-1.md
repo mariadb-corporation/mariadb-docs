@@ -10,7 +10,7 @@ Also see [Common MariaDB Queries](mariadb-advanced-sql-guide.md) for examples of
 * [DROP DATABASE](../reference/sql-statements/data-definition/drop/drop-database.md) is used to completely destroy an existing database.
 * [USE](../reference/sql-statements/administrative-sql-statements/use-database.md) is used to select a default database.
 * [CREATE TABLE](../reference/sql-statements/data-definition/create/create-table.md) is used to create a new table, which is where your data is actually stored.
-* [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) is used to modify an existing table's definition.
+* [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) is used to modify an existing table's definition.
 * [DROP TABLE](../reference/sql-statements/data-definition/drop/drop-table.md) is used to completely destroy an existing table.
 * [DESCRIBE](../reference/sql-statements/administrative-sql-statements/describe.md) shows the structure of a table.
 

@@ -20,7 +20,7 @@ In the following text, a transactional table means InnoDB, or specifically an In
 ## Goals with BACKUP STAGE Commands
 
 * To be able to do a majority of the backup with the minimum possible server locks. Especially for transactional tables (InnoDB, MyRocks etc) there is only need for a very short block of new commits while copying statistics and log tables.
-* DDL are only needed to be blocked for a very short duration of the backup while [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) is copying the tables affected by DDL during the initial part of the backup.
+* DDL are only needed to be blocked for a very short duration of the backup while [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) is copying the tables affected by DDL during the initial part of the backup.
 * Most non transactional tables (those that are not in use) will be copied during `BACKUP STAGE START`. The exceptions are system statistic and log tables that are not blocked during the backup until `BLOCK_COMMIT`.
 * Should work efficiently with backup tools that use disk snapshots.
 * Should work as efficiently as possible for all table types that store data on the local disks.
@@ -82,15 +82,15 @@ The `BACKUP STAGE` statements are a set of statements that make it possible to m
 {% endtab %}
 
 {% tab title="< 11.2.4 / 11.1.5 / 11.0.6" %}
-The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
+The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
 {% endtab %}
 
 {% tab title="< 10.11.8" %}
-The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
+The `BACKUP STAGE` statements are a set of statements that make it possible to make an efficient external backup tool. How [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) uses these statements depends on which version you are using. It depends on whether you are using the version that is bundled with MariaDB Community Server or the version that is bundled with MariaDB Enterprise Server.
 {% endtab %}
 {% endtabs %}
 
-See [mariadb-backup and BACKUP STAGE Commands](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands.md) for some examples on how [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these commands.
+See [mariadb-backup and BACKUP STAGE Commands](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands.md) for some examples on how [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md) uses these commands.
 
 ### Using `BACKUP STAGE` Commands with Storage Snapshots
 
