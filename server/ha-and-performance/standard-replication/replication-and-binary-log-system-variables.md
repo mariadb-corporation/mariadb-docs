@@ -348,7 +348,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `encrypt_binlog`
 
-* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Encrypting Binary Logs](/broken/pages/qmWqVsVK0P5Ggx0MwFrf).
+* Description: Encrypt [binary logs](../../server-management/server-monitoring-logs/binary-log/) (including [relay logs](../../server-management/server-monitoring-logs/binary-log/relay-log.md)). See [Data at Rest Encryption](../../security/encryption/data-at-rest-encryption/README.md) and [Encrypting Binary Logs](../../security/encryption/data-at-rest-encryption/managing-binary-log-encryption.md).
 * Command line: `--encrypt-binlog[={0|1}]`
 * Scope: Global
 * Dynamic: No
@@ -702,7 +702,7 @@ Also see [mariadbd replication options](../../server-management/starting-and-sto
 
 #### `replicate_rewrite_db`
 
-* Description: This option allows you to configure a [replica](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) to rewrite database names. It uses the format `primary_database->replica_database`. If a replica encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/use-database.md) statement) is `primary_database`, then the replica applies the event in `replica_database` instead.
+* Description: This option allows you to configure a [replica](../../server-usage/storage-engines/myrocks/myrocks-and-replication.md) to rewrite database names. It uses the format `primary_database->replica_database`. If a replica encounters a [binary log](../../server-management/server-monitoring-logs/binary-log/) event in which the default database (i.e. the one selected by the [USE](../../reference/sql-statements/administrative-sql-statements/use-database.md) statement) is `primary_database`, then the replica applies the event in `replica_database` instead.
   * This option does not work with cross-database updates with [statement-based logging](../../server-management/server-monitoring-logs/binary-log/binary-log-formats.md#statement-based-logging). See the [Statement-Based Logging](replication-filters.md#statement-based-logging) section for more information.
   * This option only affects statements that involve tables. This option does not affect statements involving the database itself, such as [CREATE DATABASE](../../reference/sql-statements/data-definition/create/create-database.md), [ALTER DATABASE](../../reference/sql-statements/data-definition/alter/alter-database.md), and [DROP DATABASE](../../reference/sql-statements/data-definition/drop/drop-database.md).
   * When setting it on the command-line or in a server [option group](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md#option-groups) in an [option file](../../server-management/install-and-upgrade-mariadb/configuring-mariadb/configuring-mariadb-with-option-files.md), the option does not accept a comma-separated list. If you would like to specify multiple filters, then you need to specify the option multiple times.

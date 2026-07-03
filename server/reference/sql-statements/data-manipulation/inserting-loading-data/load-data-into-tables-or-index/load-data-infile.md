@@ -110,7 +110,7 @@ The `LOW_PRIORITY` and `CONCURRENT` keywords are mutually exclusive. They cannot
 
 ### Progress Reporting
 
-The `LOAD DATA INFILE` statement supports [progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
+The `LOAD DATA INFILE` statement supports [progress reporting](../../../../product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
 
 ### Using mariadb-import
 

@@ -20,7 +20,7 @@ Instructions how to install the packages can be found [here](../../../server-man
 ## Pre-Release Binaries
 
 Binaries from our [Buildbot](https://buildbot.askmonty.org) system (see also\
-the [Buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA) page), are available at [archive](https://hasky.askmonty.org/archive). They are not suitable for use in\
+the [Buildbot](../../../reference/product-development/server-development/tools/buildbot/about-buildbot.md) page), are available at [archive](https://hasky.askmonty.org/archive). They are not suitable for use in\
 production systems but may be of use for debugging.
 
 Once at the above URL you will need to click on the MariaDB tree you are\
@@ -35,14 +35,14 @@ In this case, the value is "2434".
 
 You can find all the source code at [server](https://github.com/MariaDB/server)
 
-To retrieve the code, the [Git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM) source control software offers\
+To retrieve the code, the [Git](../../../reference/product-development/server-development/tools/using-git-with-mariadb/using-git.md) source control software offers\
 the path of least resistance. If you are unfamiliar with git, please refer to\
 the [git documentation](https://git-scm.com/doc) for an understanding\
 of version control with git.
 
 For instructions on creating a local branch of MariaDB, see the [Getting the MariaDB Source Code](getting-the-mariadb-source-code.md) page.
 
-See the [Generic Build Instructions](/broken/pages/bjatfkHoY1LmiorFXFKZ) page for\
+See the [Generic Build Instructions](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) page for\
 general instructions on compiling MariaDB from the source.\
 The [source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/) page has links to platform and distribution-specific\
 information, including information on how we build the release packages.

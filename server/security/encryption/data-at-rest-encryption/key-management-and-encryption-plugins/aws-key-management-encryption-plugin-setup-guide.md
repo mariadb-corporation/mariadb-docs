@@ -23,7 +23,7 @@ The AWS Key Management plugin depends on the [AWS SDK for C++](https://github.co
 
 When [compiling MariaDB from source](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/), the AWS Key Management plugin is built by default on systems that support it.
 
-Compilation is controlled by the `-DPLUGIN_AWS_KEY_MANAGEMENT=DYNAMIC -DAWS_SDK_EXTERNAL_PROJECT=1` [cmake](/broken/pages/bjatfkHoY1LmiorFXFKZ#using-cmake) arguments.
+Compilation is controlled by the `-DPLUGIN_AWS_KEY_MANAGEMENT=DYNAMIC -DAWS_SDK_EXTERNAL_PROJECT=1` [cmake](../../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) arguments.
 
 The plugin uses [AWS C++ SDK](https://github.com/awslabs/aws-sdk-cpp), which introduces the following restrictions:
 
@@ -263,7 +263,7 @@ Query OK, 0 rows affected (0.91 sec)
 -rw-rw----. 1 mysql mysql 188 Feb 25 19:10 /var/lib/mysql/aws-kms-key.3.1
 ```
 
-Read more about encrypting data in the [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) section of the MariaDB Documentation.
+Read more about encrypting data in the [Data at Rest Encryption](../README.md) section of the MariaDB Documentation.
 
 ## AWS KMS Plugin Option Reference
 
