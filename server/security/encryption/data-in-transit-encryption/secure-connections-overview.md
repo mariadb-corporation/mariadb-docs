@@ -244,7 +244,7 @@ The server verifies a client certificate by checking the client's known `SUBJECT
 * [Replication with Secure Connections](replication-with-secure-connections.md)
 * [Securing Communications in Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
 * [SSL/TLS System Variables](ssltls-system-variables.md)
-* [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N)
+* [Data-at-Rest Encryption](../data-at-rest-encryption/README.md)
 * [Cyberciti tutorial: How to set up MariaDB SSL and secure connections from clients](https://www.cyberciti.biz/faq/how-to-setup-mariadb-ssl-and-secure-connections-from-clients/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

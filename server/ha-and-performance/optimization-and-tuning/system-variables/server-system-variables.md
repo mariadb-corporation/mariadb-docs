@@ -387,7 +387,7 @@ The suffix can be upper or lower-case.
 #### `core_file`
 
 * Description: Write a core-file on crashes. The file name and location are system dependent. On Linux it is usually called `core.${PID}`, and it is usually written to the data directory. However, this can be changed.
-  * See [Enabling Core Dumps](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YszphlxXpuc64pTHiGem) for more information.
+  * See [Enabling Core Dumps](../../../reference/product-development/debugging-mariadb/enabling-core-dumps.md) for more information.
   * Previously this system variable existed only as an [option](../../../server-management/starting-and-stopping-mariadb/mariadbd-options.md), but it was also made into a read-only system variable starting with [MariaDB 10.3.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/10.3.9), [MariaDB 10.2.17](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/10.2.17) and [MariaDB 10.1.35](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/10.1.35).
   * On Windows >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3), this option is set by default.
   * Note that the option accepts no arguments; specifying `--core-file` sets the value to `ON`. It cannot be disabled in the case of Windows >= [MariaDB 10.4.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/10.4.3).
@@ -565,7 +565,7 @@ The suffix can be upper or lower-case.
 
 #### `encrypt_tmp_disk_tables`
 
-* Description: Enables automatic encryption of all internal on-disk temporary tables that are created during query execution if [aria\_used\_for\_temp\_tables=ON](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) is set. See [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N) and [Enabling Encryption for Internal On-disk Temporary Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
+* Description: Enables automatic encryption of all internal on-disk temporary tables that are created during query execution if [aria\_used\_for\_temp\_tables=ON](../../../server-usage/storage-engines/aria/aria-system-variables.md#aria_used_for_temp_tables) is set. See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/README.md) and [Enabling Encryption for Internal On-disk Temporary Tables](../../../security/encryption/data-at-rest-encryption/aria-encryption/aria-encryption-overview.md).
 * Command line: `--encrypt-tmp-disk-tables[={0|1}]`
 * Scope: Global
 * Dynamic: Yes
@@ -574,7 +574,7 @@ The suffix can be upper or lower-case.
 
 #### `encrypt_tmp_files`
 
-* Description: Enables automatic encryption of temporary files, such as those created for filesort operations, binary log file caches, etc. See [Data at Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
+* Description: Enables automatic encryption of temporary files, such as those created for filesort operations, binary log file caches, etc. See [Data at Rest Encryption](../../../security/encryption/data-at-rest-encryption/README.md).
 * Command line: `--encrypt-tmp-files[={0|1}]`
 * Scope: Global
 * Dynamic: No
@@ -583,7 +583,7 @@ The suffix can be upper or lower-case.
 
 #### `encryption_algorithm`
 
-* Description: Which encryption algorithm to use for table encryption. `aes_cbc` is the recommended one. See [Table and Tablespace Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N).
+* Description: Which encryption algorithm to use for table encryption. `aes_cbc` is the recommended one. See [Table and Tablespace Encryption](../../../security/encryption/data-at-rest-encryption/README.md).
 * Command line: `--encryption-algorithm=value`
 * Scope: Global
 * Dynamic: No

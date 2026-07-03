@@ -65,7 +65,7 @@ From [MariaDB 10.4.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-s
 
 ## Example
 
-Here is an example of the dramatic impact histogram-based statistics can make. The query is based on [DBT3 Benchmark Q20](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/3KNoCmtJOul2yME0zY0x) with 60 million records in the `lineitem` table.
+Here is an example of the dramatic impact histogram-based statistics can make. The query is based on [DBT3 Benchmark Q20](../../../../reference/product-development/server-development/quality/benchmarks-and-long-running-tests/benchmarks/dbt3-benchmark-results-myisam.md#benchmark-for-q20) with 60 million records in the `lineitem` table.
 
 ```sql
 SELECT SQL_CALC_FOUND_ROWS s_name, s_address FROM 

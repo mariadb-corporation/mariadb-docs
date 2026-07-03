@@ -8,7 +8,7 @@ description: >-
 
 ## Published Results
 
-* [Benchmark Results](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/Y8bPFaOuzfEwsco9DIkw)
+* [Benchmark Results](../reference/product-development/server-development/quality/benchmarks-and-long-running-tests/benchmark-results/README.md)
 
 ## Systemtap
 

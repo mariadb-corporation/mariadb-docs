@@ -364,7 +364,7 @@ MariaDB:
 ## See Also
 
 * [Window Frames](window-frames.md)
-* [Aggregate Functions as Window Functions](/broken/spaces/SsmexDFPv2xG2OTyO5yV/pages/T8uOYfwo7PbEMtMvwoDd)
+* [Aggregate Functions as Window Functions](window-functions-overview.md#aggregate-functions-as-window-functions)
 * [ROW\_NUMBER](row_number.md)
 * [RANK](rank.md)
 * [AVG](../../aggregate-functions/avg.md)

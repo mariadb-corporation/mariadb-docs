@@ -92,7 +92,7 @@ The `FORCE` option is not available.
 
 ### Progress Reporting
 
-The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for this statement.
+The [Aria](../../../server-usage/storage-engines/aria/) storage engine supports [progress reporting](../../product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for this statement.
 
 ## See Also
 
