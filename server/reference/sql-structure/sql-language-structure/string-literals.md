@@ -77,7 +77,7 @@ There are other escape sequences:
 | '               | Single quote.                                       |
 | "               | Double quote.                                       |
 | \b              | Backspace.                                          |
-| \n              | Newline, or linefeed,.                              |
+| \n              | New line / linefeed.                                |
 | \r              | Carriage return.                                    |
 | \t              | Tab.                                                |
 | \Z              | ASCII 26 (Control+Z). See note following the table. |
