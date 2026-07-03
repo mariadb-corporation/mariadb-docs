@@ -134,7 +134,7 @@ See [Differences in MariaDB in Debian (and Ubuntu)](../../server-management/inst
 
 **MariaDB Server in RPM Packages**
 
-MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/) packages.
+MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/README.md) packages.
 
 ### MariaDB Clients and Utilities
 
@@ -158,7 +158,7 @@ See [Differences in MariaDB in Debian (and Ubuntu)](../../server-management/inst
 
 **MariaDB Clients and Utilities in RPM Packages**
 
-MariaDB's [clients and utilities](../../clients-and-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/) packages.
+MariaDB's [clients and utilities](../../clients-and-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/README.md) packages.
 
 ## Updating Dynamically Linked OpenSSL Libraries on Linux
 

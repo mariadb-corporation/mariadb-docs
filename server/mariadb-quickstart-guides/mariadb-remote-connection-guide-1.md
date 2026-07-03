@@ -150,7 +150,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MariaDB [(none)]>
 ```
 
-* if you are interested in viewing any existing remote users, issue the following SQL statement on the [mysql.user](../reference/system-tables/the-mysql-database-tables/mysql-user-table.md) table:
+* if you are interested in viewing any existing remote users, issue the following SQL statement on the [mysql.user](../reference/sql-statements/administrative-sql-statements/system-tables/the-mysql-database-tables/mysql-user-table.md) table:
 
 ```sql
 SELECT User, Host FROM mysql.user WHERE Host <> 'localhost';

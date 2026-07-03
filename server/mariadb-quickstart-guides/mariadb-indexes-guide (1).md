@@ -28,7 +28,7 @@ CREATE TABLE `Employees` (
 );
 ```
 
-You cannot create a primary key with the [CREATE INDEX](../reference/sql-statements/data-definition/create/create-index.md) command. If you do want to add one after the table has already been created, use [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md), for example:
+You cannot create a primary key with the [CREATE INDEX](../reference/sql-statements/data-definition/create/create-index.md) command. If you do want to add one after the table has already been created, use [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md), for example:
 
 ```sql
 ALTER TABLE Employees ADD PRIMARY KEY(ID);
@@ -36,7 +36,7 @@ ALTER TABLE Employees ADD PRIMARY KEY(ID);
 
 ### Finding Tables Without Primary Keys
 
-Tables in the `INFORMATION_SCHEMA`database can be queried to find tables that do not have primary keys. For example, here is a query using the [TABLES](../reference/system-tables/information-schema/information-schema-tables/information-schema-tables-table.md) and [KEY\_COLUMN\_USAGE](../reference/system-tables/information-schema/information-schema-tables/information-schema-key_column_usage-table.md) tables that can be used:
+Tables in the `INFORMATION_SCHEMA`database can be queried to find tables that do not have primary keys. For example, here is a query using the [TABLES](../reference/sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-tables-table.md) and [KEY\_COLUMN\_USAGE](../reference/sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-key_column_usage-table.md) tables that can be used:
 
 ```sql
 SELECT t.TABLE_SCHEMA, t.TABLE_NAME
@@ -75,7 +75,7 @@ CREATE TABLE `Employees` (
 );
 ```
 
-Unique keys can also be added after the table is created with the [CREATE INDEX](../reference/sql-statements/data-definition/create/create-index.md) command, or with the [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) command, for example:
+Unique keys can also be added after the table is created with the [CREATE INDEX](../reference/sql-statements/data-definition/create/create-index.md) command, or with the [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) command, for example:
 
 ```sql
 ALTER TABLE Employees ADD UNIQUE `EmpCode`(`Employee_Code`);
@@ -267,7 +267,7 @@ If you want to know how to re-create an index, run `SHOW CREATE TABLE` .
 If an index is rarely used (or not used at all) then remove it to increase INSERT,\
 and UPDATE performance.
 
-If [user statistics](../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) are enabled, the [Information Schema](../reference/sql-statements/administrative-sql-statements/system-tables/information-schema/) [INDEX\_STATISTICS](../reference/system-tables/information-schema/information-schema-tables/information-schema-index_statistics-table.md) table stores the index usage.
+If [user statistics](../ha-and-performance/optimization-and-tuning/query-optimizations/statistics-for-optimizing-queries/user-statistics.md) are enabled, the [Information Schema](../reference/sql-statements/administrative-sql-statements/system-tables/information-schema/) [INDEX\_STATISTICS](../reference/sql-statements/administrative-sql-statements/system-tables/information-schema/information-schema-tables/information-schema-index_statistics-table.md) table stores the index usage.
 
 If the [slow query log](../server-management/server-monitoring-logs/slow-query-log/) is enabled and the `log_queries_not_using_indexes` server system variable is `ON`, the queries which do not use indexes are logged.
 

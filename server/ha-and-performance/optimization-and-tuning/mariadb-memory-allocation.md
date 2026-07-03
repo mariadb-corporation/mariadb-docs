@@ -9,7 +9,7 @@ description: >-
 
 ### Allocating RAM for MariaDB - The Short Answer
 
-If only using [MyISAM](../../reference/storage-engines/myisam-storage-engine/), set [key\_buffer\_size](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) to 20% of **available** RAM. (Plus [innodb\_buffer\_pool\_size=0](../../server-usage/storage-engines/innodb/innodb-system-variables.md))
+If only using [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md), set [key\_buffer\_size](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) to 20% of **available** RAM. (Plus [innodb\_buffer\_pool\_size=0](../../server-usage/storage-engines/innodb/innodb-system-variables.md))
 
 If only using InnoDB, set [innodb\_buffer\_pool\_size](../../server-usage/storage-engines/innodb/innodb-system-variables.md) to 70% of **available** RAM. (Plus [key\_buffer\_size](../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md#key_buffer_size) = 10M, small, but not zero.)
 
@@ -80,7 +80,7 @@ system_variables.default_value <> 0
 
 ### What is the Key Buffer?
 
-[MyISAM](../../reference/storage-engines/myisam-storage-engine/) does two different things for caching.
+[MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md) does two different things for caching.
 
 * Index blocks (1KB each, BTree structured, from .MYI file) live in the "key buffer".
 * Data block caching (from .MYD file) is left to the OS, so be sure to leave a bunch of free space for this.\
@@ -240,7 +240,7 @@ If you decide the QC is right for you, then I recommend
 
 ### thread\_cache\_size
 
-It is not necessary to tune [thread\_cache\_size](system-variables/server-system-variables.md#thread_cache_size) from [MariaDB 10.2.0](broken-reference/). Previously, it was minor tunable variable. Zero will slow down thread (connection) creation. A small (say, 10), non-zero number is good. The setting has essentially no impact on RAM usage.
+It is not necessary to tune [thread\_cache\_size](system-variables/server-system-variables.md#thread_cache_size) from MariaDB 10.2.0. Previously, it was minor tunable variable. Zero will slow down thread (connection) creation. A small (say, 10), non-zero number is good. The setting has essentially no impact on RAM usage.
 
 It is the number of extra processes to hang onto. It does not restrict the number of threads; [max\_connections](system-variables/server-system-variables.md#max_connections) does.
 
@@ -319,7 +319,7 @@ Jumbo Pages? Turn off.
 
 ### ENGINE=MEMORY
 
-The [Memory Storage Engine](../../server-usage/storage-engines/memory-storage-engine.md) is a little-used alternative to [MyISAM](../../reference/storage-engines/myisam-storage-engine/) and [InnoDB](../../reference/storage-engines/innodb/). The data is not persistent, so it has limited uses. The size of a MEMORY table is limited to [max\_heap\_table\_size](system-variables/server-system-variables.md#max_heap_table_size), which defaults to 16MB. I mention it in case you have changed the value to something huge; this would stealing from other possible uses of RAM.
+The [Memory Storage Engine](../../server-usage/storage-engines/memory-storage-engine.md) is a little-used alternative to [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md) and [InnoDB](../../server-usage/storage-engines/innodb/README.md). The data is not persistent, so it has limited uses. The size of a MEMORY table is limited to [max\_heap\_table\_size](system-variables/server-system-variables.md#max_heap_table_size), which defaults to 16MB. I mention it in case you have changed the value to something huge; this would stealing from other possible uses of RAM.
 
 ### How to Set Variables
 

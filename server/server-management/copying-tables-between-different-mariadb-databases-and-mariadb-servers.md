@@ -1,7 +1,7 @@
 # Copying Tables Between Different MariaDB Databases and MariaDB Servers
 
 With MariaDB it's very easy to copy tables between different MariaDB databases\
-and different MariaDB servers. This works for tables created with the [Archive](../reference/storage-engines/archive/), [Aria](../reference/storage-engines/aria/), [CSV](../reference/storage-engines/csv/), [InnoDB](../reference/storage-engines/innodb/), [MyISAM](../reference/storage-engines/myisam-storage-engine/), [MERGE](../server-usage/storage-engines/merge.md), and [XtraDB](../reference/storage-engines/innodb/) engines.
+and different MariaDB servers. This works for tables created with the [Archive](../server-usage/storage-engines/archive/README.md), [Aria](../server-usage/storage-engines/aria/README.md), [CSV](../server-usage/storage-engines/csv/README.md), [InnoDB](../server-usage/storage-engines/innodb/README.md), [MyISAM](../server-usage/storage-engines/myisam-storage-engine/README.md), [MERGE](../server-usage/storage-engines/merge.md), and [XtraDB](../server-usage/storage-engines/innodb/README.md) engines.
 
 The normal procedures to copy a table is:
 
@@ -33,10 +33,10 @@ The following storage engines support export without `FLUSH TABLES ... FOR EXPOR
 
 | Engine                                                        | Comment                                                                                                                                                                                                         |
 | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Archive](../reference/storage-engines/archive/)              |                                                                                                                                                                                                                 |
-| [Aria](../reference/storage-engines/aria/)                    | Requires clean shutdown. Table will automatically be fixed on the receiving server if aria\_chk --zerofill was not run. If aria\_chk --zerofill is run, then the table is immediately usable without any delays |
-| [CSV](../reference/storage-engines/csv/)                      |                                                                                                                                                                                                                 |
-| [MyISAM](../reference/storage-engines/myisam-storage-engine/) |                                                                                                                                                                                                                 |
+| [Archive](../server-usage/storage-engines/archive/README.md)              |                                                                                                                                                                                                                 |
+| [Aria](../server-usage/storage-engines/aria/README.md)                    | Requires clean shutdown. Table will automatically be fixed on the receiving server if aria\_chk --zerofill was not run. If aria\_chk --zerofill is run, then the table is immediately usable without any delays |
+| [CSV](../server-usage/storage-engines/csv/README.md)                      |                                                                                                                                                                                                                 |
+| [MyISAM](../server-usage/storage-engines/myisam-storage-engine/README.md) |                                                                                                                                                                                                                 |
 | [MERGE](../server-usage/storage-engines/merge.md)                | .MRG files can be copied even while server is running as the file only contains a list of tables that are part of merge.                                                                                        |
 
 ## Copying Tables Live From a Running MariaDB Server
@@ -107,7 +107,7 @@ InnoDB's file-per-table tablespaces are transportable, which means that you can 
 
 Tables that use most storage engines are immediately usable when their files are copied to the new [datadir](../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir).
 
-However, this is not true for tables that use [InnoDB](../reference/storage-engines/innodb/). InnoDB tables have to be imported with [ALTER TABLE ... IMPORT TABLESPACE](../reference/sql-statements/data-definition/alter/alter-table/README.md#import-tablespace). See [Copying Transportable Tablespaces](../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces) for more information.
+However, this is not true for tables that use [InnoDB](../server-usage/storage-engines/innodb/README.md). InnoDB tables have to be imported with [ALTER TABLE ... IMPORT TABLESPACE](../reference/sql-statements/data-definition/alter/alter-table/README.md#import-tablespace). See [Copying Transportable Tablespaces](../server-usage/storage-engines/innodb/innodb-tablespaces/innodb-file-per-table-tablespaces.md#copying-transportable-tablespaces) for more information.
 
 ## See Also
 

@@ -23,7 +23,7 @@ See [Delimiters](../../clients-and-utilities/mariadb-client/mariadb-command-line
 
 ## See Also
 
-* [LOOP in Oracle mode](broken-reference)
+* LOOP in Oracle mode
 * [ITERATE](iterate.md)
 * [LEAVE](leave.md)
 * [FOR Loops](for.md)
