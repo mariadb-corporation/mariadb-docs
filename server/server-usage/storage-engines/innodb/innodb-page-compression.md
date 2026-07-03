@@ -403,7 +403,7 @@ innodb_use_fallocate=ON
 
 InnoDB page compression was designed to be optimized on solid state drives (SSDs) and other flash storage.
 
-InnoDB page compression was originally developed by collaborating with [Fusion-io](https://fusionio.com). As a consequence, it was originally designed to work best on [FusionIO devices](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/fusion-io/fusion-io-introduction.md) using [NVMFS](https://ieeexplore.ieee.org/document/6558434). [Fusion-io](https://fusionio.com) has since been acquired by [Western Digital](https://www.westerndigital.com/), and they have decided not to continue supporting [NVMFS](https://ieeexplore.ieee.org/document/6558434).
+InnoDB page compression was originally developed by collaborating with Fusion-io. As a consequence, it was originally designed to work best on [FusionIO devices](../../../server-management/install-and-upgrade-mariadb/configuring-mariadb/mariadb-performance-advanced-configurations/fusion-io/fusion-io-introduction.md) using [NVMFS](https://ieeexplore.ieee.org/document/6558434). Fusion-io has since been acquired by [Western Digital](https://www.westerndigital.com/), and they have decided not to continue supporting [NVMFS](https://ieeexplore.ieee.org/document/6558434).
 
 However, InnoDB page compression is still likely to be most optimized on solid state drives (SSDs) and other flash storage.
 
@@ -491,7 +491,7 @@ SHOW GLOBAL STATUS LIKE 'Innodb_num_pages_page_compressed';
 
 ## Acknowledgements
 
-* InnoDB page compression was developed by collaborating with [Fusion-io](https://fusionio.com). Special thanks especially to Dhananjoy Das and Torben Mathiasen.
+* InnoDB page compression was developed by collaborating with Fusion-io. Special thanks especially to Dhananjoy Das and Torben Mathiasen.
 
 ## See Also
 

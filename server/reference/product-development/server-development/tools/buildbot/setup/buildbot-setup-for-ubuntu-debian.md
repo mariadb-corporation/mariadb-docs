@@ -81,7 +81,7 @@ sudo buildslave create-slave ~/maria-slave buildbot.askmonty.org slavename passw
 ```
 {% endcode %}
 
-Put some appropriate info in info/admin and info/host files that are created, this will display on the information screen about your builder. See here for example: [bb01](https://buildbot.askmonty.org/buildbot/buildslaves/bb01)
+Put some appropriate info in info/admin and info/host files that are created, this will display on the information screen about your builder. See here for example: bb01
 
 Submit your builder information to the MariaDB Buildbot admins. Also let them know if your machine can run multiple builds at the same time (and how many). After adding your builder's information to the main buildbot configuration, all that's left is for you to do is to start your builder.
 

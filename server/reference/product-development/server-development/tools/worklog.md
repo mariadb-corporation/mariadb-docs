@@ -16,7 +16,7 @@ If you find something in the worklog that you really would like to have done, yo
 
 If there is something in worklog which you would like to develop, you can contact us at 'maria-developers (at) lists.launchpad.com' or 'community (at) askmonty.org'. If you deliver a working solutions that is [accepted into the MariaDB source tree](https://kb.askmonty.org/v/community-contributing-to-the-mariadb-project#expectations-for-developers), you will get 60 % of the so far committed money. The rest of the money is kept by MariaDB Corporation Ab for help managing the project, code reviews, bug fixes, testing, maintenance, updates and merges to future MariaDB versions.
 
-You can also add a link in the MariaDB worklog to tasks to the [MySQL worklog](https://forge.mysql.com/worklog/). Just refer to the MySQL task as #WL
+You can also add a link in the MariaDB worklog to tasks to the MySQL worklog. Just refer to the MySQL task as #WL
 
 ## Source Code for Worklog
 

@@ -110,7 +110,7 @@ PostgreSQL's [COPY TO](https://www.postgresql.org/docs/current/sql-copy.html) al
 
 MySQL Workbench has a [migration feature](https://www.mysql.com/products/workbench/migrate/) that requires an [ODBC](https://en.wikipedia.org/wiki/Open_Database_Connectivity) driver. PostgreSQL does have a freely available ODBC driver called [psqlODBC](https://odbc.postgresql.org/).
 
-See [Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard](https://mysqlworkbench.org/2012/11/set-up-and-configure-postgresql-odbc-drivers-for-the-mysql-workbench-migration-wizard/) for more information.
+See Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard for more information.
 
 ## Known Issues
 
@@ -145,7 +145,7 @@ The video emphasizes that because MariaDB is a multi-engine database, connection
 
 ## See Also
 
-* [Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard](https://mysqlworkbench.org/2012/11/set-up-and-configure-postgresql-odbc-drivers-for-the-mysql-workbench-migration-wizard/)
+* Set up and configure PostgreSQL ODBC drivers for the MySQL Workbench Migration Wizard
 * [MariaDB and PostgreSQL: A technical deep-dive into how they differ](https://youtu.be/l_5AgRPTa54) (54 minutes • 2024)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
