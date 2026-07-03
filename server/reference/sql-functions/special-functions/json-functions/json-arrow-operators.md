@@ -5,10 +5,6 @@ description: >-
   JSON_EXTRACT() and JSON_UNQUOTE(JSON_EXTRACT()), added for MySQL 5.7
   compatibility. Syntax, string-literal path restriction, chaining, and
   quoting behavior.
-# EDITORIAL NOTE (remove before publishing): Feature is on the
-# preview-13.1-preview branch only and not yet merged to main as of this
-# writing. Confirm the "MariaDB 13.1" version against the release notes
-# before this page goes live.
 ---
 
 # JSON Arrow Operators
@@ -23,7 +19,7 @@ json_doc ->> path
 ## Description
 
 {% hint style="info" %}
-The `->` and `->>` operators were introduced in **MariaDB 13.1** for MySQL 5.7 compatibility.
+The `->` and `->>` operators were introduced in MariaDB 13.1.
 {% endhint %}
 
 The `->` and `->>` operators are shorthand for extracting a value from a JSON document by a [JSONPath expression](jsonpath-expressions.md):
@@ -31,7 +27,7 @@ The `->` and `->>` operators are shorthand for extracting a value from a JSON do
 * `json_doc -> path` is equivalent to [`JSON_EXTRACT(json_doc, path)`](json_extract.md).
 * `json_doc ->> path` is equivalent to [`JSON_UNQUOTE`](json_unquote.md)`(`[`JSON_EXTRACT`](json_extract.md)`(json_doc, path))`.
 
-Both operators are purely syntactic sugar: they build the same expression as the equivalent function calls and inherit their `NULL` and error behavior. On the left, `json_doc` is any JSON expression — typically a column, a function result, or a JSON literal.
+MariaDB supports these operators for compatibility with MySQL 5.7 and later, where they originated. Each operator builds the same expression as its equivalent function call and inherits the same `NULL` and error behavior. On the left, `json_doc` is any JSON expression — typically a column, a function result, or a JSON literal.
 
 The two operators differ only in quoting:
 
