@@ -90,7 +90,7 @@ The `BACKUP STAGE` statements are a set of statements that make it possible to m
 {% endtab %}
 {% endtabs %}
 
-See [mariadb-backup and BACKUP STAGE Commands](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/mariadb-backup-and-backup-stage-commands.md) for some examples on how [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these commands.
+See [mariadb-backup and BACKUP STAGE Commands](../../../../server-usage/backup-and-restore/mariadb-backup/mariadb-backup-and-backup-stage-commands.md) for some examples on how [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) uses these commands.
 
 ### Using `BACKUP STAGE` Commands with Storage Snapshots
 

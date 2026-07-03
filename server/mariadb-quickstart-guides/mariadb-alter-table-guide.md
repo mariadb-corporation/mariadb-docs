@@ -38,14 +38,14 @@ Notice that this line does not use the `mariadb-dump` utility. It uses the `mari
 
 #### Basic Addition and More
 
-In order to add a column to an existing MariaDB table, one would use the [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) statement. To demonstrate, suppose that it has been decided that there should be a column for the client's account status (i.e., active or inactive). To make this change, the following is entered:
+In order to add a column to an existing MariaDB table, one would use the [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) statement. To demonstrate, suppose that it has been decided that there should be a column for the client's account status (i.e., active or inactive). To make this change, the following is entered:
 
 ```sql
 ALTER TABLE clients 
 ADD COLUMN status CHAR(2);
 ```
 
-This will add the column `status` to the end with a fixed width of two characters (i.e., _AC_ for active and _IA_ for inactive). In looking over the table again, it's decided that another field for client apartment numbers or the like needs to be added. That data could be stored in the address column, but it would better for it to be in a separate column. An [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) statement could be entered like above, but it will look tidier if the new column is located right after the address column. To do this, we'll use the `AFTER` option:
+This will add the column `status` to the end with a fixed width of two characters (i.e., _AC_ for active and _IA_ for inactive). In looking over the table again, it's decided that another field for client apartment numbers or the like needs to be added. That data could be stored in the address column, but it would better for it to be in a separate column. An [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) statement could be entered like above, but it will look tidier if the new column is located right after the address column. To do this, we'll use the `AFTER` option:
 
 ```sql
 ALTER TABLE clients 
@@ -117,7 +117,7 @@ ALTER TABLE clients
 MODIFY active ENUM('yes','NO');
 ```
 
-The first SQL statement above changes address and modifies active in preparation for the transition. Notice the use of a `MODIFY` clause. It works the same as `CHANGE`, but it is only used for changing data types and not column names. Therefore, the column name isn't respecified. Notice also that there is a comma after the CHANGE clause. You can string several `CHANGE` and `MODIFY` clauses together with comma separators. We've enumerated both the new choices and the old ones to be able to migrate the data. The two [UPDATE](../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statements are designed to adjust the data accordingly and the last [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) statement is to remove the old enumerated choices for the status column.
+The first SQL statement above changes address and modifies active in preparation for the transition. Notice the use of a `MODIFY` clause. It works the same as `CHANGE`, but it is only used for changing data types and not column names. Therefore, the column name isn't respecified. Notice also that there is a comma after the CHANGE clause. You can string several `CHANGE` and `MODIFY` clauses together with comma separators. We've enumerated both the new choices and the old ones to be able to migrate the data. The two [UPDATE](../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statements are designed to adjust the data accordingly and the last [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) statement is to remove the old enumerated choices for the status column.
 
 In talking to the boss, we find out that the `client_type` column isn't going to be used. So we enter the following in MariaDB:
 
@@ -130,7 +130,7 @@ This deletes `client_type` and its data, but not the whole table, obviously. Nev
 
 #### The Default
 
-You may have noticed that the results of the [DESCRIBE](../reference/sql-statements/administrative-sql-statements/describe.md) statements shown before have a heading called 'Default' and just about all of the fields have a default value of NULL. This means that there are no default values and a null value is allowed and will be used if a value isn't specified when a row is created. To be able to specify a default value other than NULL, an [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) statement can be entered with a `SET` clause. Suppose we're located in Louisiana and we want a default value of 'LA' for state since that's where our clients are usually located. We would enter the following to set the default:
+You may have noticed that the results of the [DESCRIBE](../reference/sql-statements/administrative-sql-statements/describe.md) statements shown before have a heading called 'Default' and just about all of the fields have a default value of NULL. This means that there are no default values and a null value is allowed and will be used if a value isn't specified when a row is created. To be able to specify a default value other than NULL, an [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) statement can be entered with a `SET` clause. Suppose we're located in Louisiana and we want a default value of 'LA' for state since that's where our clients are usually located. We would enter the following to set the default:
 
 ```sql
 ALTER TABLE clients
@@ -148,7 +148,7 @@ This particular `DROP` doesn't delete data, by the way.
 
 #### Indexes
 
-One of the most irritating tasks in making changes to a table for newcomers is dealing with indexes. If they try to rename a column that is indexed by only using an [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) statement like we used earlier, they will get a frustrating and confusing error message:
+One of the most irritating tasks in making changes to a table for newcomers is dealing with indexes. If they try to rename a column that is indexed by only using an [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) statement like we used earlier, they will get a frustrating and confusing error message:
 
 ```sql
 ALTER TABLE clients

@@ -128,7 +128,7 @@ MariaDB Server is statically linked with the bundled [wolfSSL](https://www.wolfs
 
 **MariaDB Server in DEB Packages**
 
-MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
+MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
 
 See [Differences in MariaDB in Debian (and Ubuntu)](../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md) for more information.
 
@@ -152,7 +152,7 @@ MariaDB's [clients and utilities](https://github.com/mariadb-corporation/docs-se
 
 **MariaDB Clients and Utilities in DEB Packages**
 
-MariaDB's [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/en/clients-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
+MariaDB's [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/en/clients-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
 
 See [Differences in MariaDB in Debian (and Ubuntu)](../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md) for more information.
 
@@ -166,7 +166,7 @@ When the MariaDB Server or clients and utilities are dynamically linked to the s
 
 ### Updating Dynamically Linked OpenSSL Libraries with yum/dnf
 
-On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to update the libraries using [yum](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/yum.md) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`. Update the package by executing the following command:
+On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to update the libraries using [yum](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum.md) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`. Update the package by executing the following command:
 
 ```bash
 sudo yum update openssl
@@ -192,7 +192,7 @@ Then [restart](https://mariadb.com/kb/en/) MariaDB server and any clients or app
 
 ### Updating Dynamically Linked OpenSSL Libraries with zypper
 
-On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to update the libraries using [zypper](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md). Update the package by executing the following command:
+On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to update the libraries using [zypper](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md). Update the package by executing the following command:
 
 ```bash
 sudo zypper update openssl

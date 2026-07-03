@@ -19,7 +19,7 @@ legal.
 
 Note that `END` will perform a commit. If you are running in [autocommit](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#autocommit) mode, every statement are committed separately. If you are not running in `autocommit` mode, you must execute a [COMMIT](../../reference/sql-statements/transactions/commit.md) or [ROLLBACK](../../reference/sql-statements/transactions/rollback.md) after `END` to get the database up to date.
 
-Use of multiple statements requires that a client is able to send statement strings containing the ; statement delimiter. This is handled in the [mysql](https://mariadb.com/kb/en/mysql-command-line_client) command-line client with the [DELIMITER](../../clients-and-utilities/mariadb-client/delimiters.md) command.\
+Use of multiple statements requires that a client is able to send statement strings containing the ; statement delimiter. This is handled in the [mysql](https://mariadb.com/kb/en/mysql-command-line_client) command-line client with the [DELIMITER](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) command.\
 Changing the `;` end-of-statement delimiter (for example, to`//`) allows `;` to be used in a program body.
 
 A compound statement within a [stored program](../stored-routines/) can be [labeled](labels.md). `end_label` cannot be given unless `begin_label` also is present. If both are present, they must be the same.

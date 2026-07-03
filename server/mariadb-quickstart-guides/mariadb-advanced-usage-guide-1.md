@@ -56,7 +56,7 @@ DESCRIBE books;
 +--------------+-------------+------+-----+---------+-------+
 ```
 
-To change the settings of a table, you can use the [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table.md) statement. I'll cover that statement in another article. To delete a table completely (including its data), you can use the [DROP TABLE](../reference/sql-statements/data-definition/drop/drop-table.md) statement, followed by the table name. Be careful with this statement since it's not reversible.
+To change the settings of a table, you can use the [ALTER TABLE](../reference/sql-statements/data-definition/alter/alter-table/README.md) statement. I'll cover that statement in another article. To delete a table completely (including its data), you can use the [DROP TABLE](../reference/sql-statements/data-definition/drop/drop-table.md) statement, followed by the table name. Be careful with this statement since it's not reversible.
 
 The next table we'll create for our examples is the authors table to hold author information. This table will save us from having to enter the author's name and other related data for each book written by each author. It also helps to ensure consistency of data: there's less chance of inadvertent spelling deviations.
 
@@ -125,7 +125,7 @@ FROM books
 LIMIT 5;
 ```
 
-This will limit the number of rows displayed to five. To be able to list the author's name for each book along with the title, you will have to join the books table with the authors table. To do this, we can use the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause like so:
+This will limit the number of rows displayed to five. To be able to list the author's name for each book along with the title, you will have to join the books table with the authors table. To do this, we can use the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause like so:
 
 ```sql
 SELECT title, name_last 
@@ -133,7 +133,7 @@ FROM books
 JOIN authors USING (author_id);
 ```
 
-Notice that the primary table from which we're drawing data is given in the `FROM` clause. The table to which we're joining is given in the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/join-syntax.md) clause along with the commonly named column (i.e., author\_id) that we're using for the join.
+Notice that the primary table from which we're drawing data is given in the `FROM` clause. The table to which we're joining is given in the [JOIN](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) clause along with the commonly named column (i.e., author\_id) that we're using for the join.
 
 To retrieve the titles of only books written by Kafka based on his name (not the author\_id), we would use the `WHERE` clause with the [SELECT](../reference/sql-statements/data-manipulation/selecting-data/select.md) statement. This would be entered like the following:
 

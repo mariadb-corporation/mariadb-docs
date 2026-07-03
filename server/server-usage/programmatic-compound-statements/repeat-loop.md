@@ -18,7 +18,7 @@ A `REPEAT` statement can be [labeled](labels.md). end\_label cannot be given unl
 begin\_label also is present. If both are present, they must be the\
 same.
 
-See [Delimiters](../../clients-and-utilities/mariadb-client/delimiters.md) in the [mariadb](../../clients-and-utilities/mariadb-client/) client for more on client delimiter usage.
+See [Delimiters](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) in the [mariadb](../../clients-and-utilities/mariadb-client/) client for more on client delimiter usage.
 
 ```
 DELIMITER //

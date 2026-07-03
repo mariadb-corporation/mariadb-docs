@@ -308,7 +308,7 @@ sudo apt-get install mariadb-backup
 
 Some [plugins](../../../../reference/plugins/) may also need to be installed.
 
-For example, to install the [cracklib\_password\_check](../../../reference/plugins/password-validation-plugins/cracklib-password-check-plugin.md) password validation plugin, first you would have to update the package cache by executing the following command:
+For example, to install the [cracklib\_password\_check](../../../../reference/plugins/password-validation-plugins/cracklib-password-check-plugin.md) password validation plugin, first you would have to update the package cache by executing the following command:
 
 ```bash
 sudo apt update

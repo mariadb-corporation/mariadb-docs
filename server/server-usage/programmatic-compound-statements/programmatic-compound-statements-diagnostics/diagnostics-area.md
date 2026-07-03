@@ -84,7 +84,7 @@ When a statement produces one or more error conditions (errors, warnings, notes)
 
 When a table-based statement (like INSERT) is executed, the old data in the diagnostics area is cleared even if the statement doesn't produce any condition. However, statements which don't access any table (like SET, or a SELECT with no FROM clause) is executed and produces no warnings, the diagnostics area remains unchanged.
 
-The maximum number of conditions that can be in the diagnostics area is [max_error_count](../../../replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#max_error_count). If this value is 0, the diagnostics area is empty. If this variable is changed, the new value takes effect with the next statement (that is, the diagnostics area is not immediately truncated).
+The maximum number of conditions that can be in the diagnostics area is [max_error_count](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_error_count). If this value is 0, the diagnostics area is empty. If this variable is changed, the new value takes effect with the next statement (that is, the diagnostics area is not immediately truncated).
 
 ## How to Access the Diagnostics Area
 

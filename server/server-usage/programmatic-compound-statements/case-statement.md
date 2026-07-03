@@ -60,7 +60,7 @@ END;
 ```
 
 The indentation used here in the `ELSE` clause is for purposes of clarity only,\
-and is not otherwise significant. See [Delimiters in the mariadb client](../../clients-and-utilities/mariadb-client/delimiters.md) for more on the use of the delimiter command.
+and is not otherwise significant. See [Delimiters in the mariadb client](../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#delimiters) for more on the use of the delimiter command.
 
 **Note:** The syntax of the `CASE` statement used inside stored programs\
 differs slightly from that of the SQL CASE expression described in [CASE OPERATOR](../../reference/sql-functions/control-flow-functions/case-operator.md).\
