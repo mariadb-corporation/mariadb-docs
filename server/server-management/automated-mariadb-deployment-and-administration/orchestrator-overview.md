@@ -99,7 +99,7 @@ The `--debug` and `--stack` options can be added to the above commands to make t
 * [Documentation](https://github.com/openark/orchestrator/tree/master/docs).
 * [Raft consensus protocol website](https://raft.github.io/).
 
-The [README.md](https://github.com/openark/orchestrator/blob/master/README) file lists some related community projects, including modules to automate Orchestrator with [Puppet](automated-mariadb-deployment-and-administration-puppet-and-mariadb/) and other technologies.
+The [README.md](https://github.com/openark/orchestrator/blob/master/README.md) file lists some related community projects, including modules to automate Orchestrator with [Puppet](automated-mariadb-deployment-and-administration-puppet-and-mariadb/) and other technologies.
 
 On GitHub you can also find links to projects that allow the use of automation software to deploy and manage Orchestrator.
 

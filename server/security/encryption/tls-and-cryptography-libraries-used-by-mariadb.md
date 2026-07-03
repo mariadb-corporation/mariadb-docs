@@ -89,7 +89,7 @@ $ readelf -a /lib64/libcrypto.so.10 | grep SSLeay_version
 
 ## FIPS Certification
 
-[Federal Information Processing Standards (FIPS)](https://www.nist.gov/itl/itl-publications/federal-information-processing-standards-fips) are standards published by the U.S. federal government that are used to establish requirements for various aspects of computer systems. [FIPS 140-2](https://www.nist.gov/publications/security-requirements-cryptographic-modules-includes-change-notices-1232002?pub_id=902003) is a set of standards for security requirements for cryptographic modules.
+Federal Information Processing Standards (FIPS) are standards published by the U.S. federal government that are used to establish requirements for various aspects of computer systems. [FIPS 140-2](https://www.nist.gov/publications/security-requirements-cryptographic-modules-includes-change-notices-1232002?pub_id=902003) is a set of standards for security requirements for cryptographic modules.
 
 This standard is relevant when discussing the TLS and cryptography libraries used by MariaDB. Some of these libraries have been certified to meet the standards set by FIPS 140-2.
 

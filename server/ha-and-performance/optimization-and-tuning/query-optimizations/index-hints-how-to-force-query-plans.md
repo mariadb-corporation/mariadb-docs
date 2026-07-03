@@ -14,7 +14,7 @@ For the following queries, we will use the world database for the examples.
 
 ## Setting up the World Example Database
 
-Download it from [world.sql.gz](https://mariadb.com/kb/en/ftp://ftp.askmonty.org/public/world.sql.gz)
+Download it from world.sql.gz
 
 Install it with:
 

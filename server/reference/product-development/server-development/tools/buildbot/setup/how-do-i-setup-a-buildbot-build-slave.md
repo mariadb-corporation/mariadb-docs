@@ -12,7 +12,7 @@ To setup a build slave, the basic outline is:
 
 1. Install Python (2.4 or later)
 2. Install Twisted (twistedmatrix.com 8.0.x or later) - need Core, Mail, Web and Words (possibly Conch too)
-3. Install ZopeInterface ([ZopeInterface](https://www.zope.org/Products/ZopeInterface))
+3. Install ZopeInterface (ZopeInterface)
 4. Install all the necessary compiler/build components.
 5. Install Buildbot
 6. Install [Git](../../using-git-with-mariadb/using-git.md) and make sure you can clone from the main project

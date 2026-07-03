@@ -48,7 +48,7 @@ If you simply want to browse the source code, you can do so from [maria](https:/
 
 ### Prerequisites
 
-You need [Bazaar](https://bazaar-vcs.org) for revision control.
+You need Bazaar for revision control.
 
 ### Instructions
 
@@ -89,7 +89,7 @@ For a complete list, go to [Launchpad](https://launchpad.net/~maria-captains/) a
 bzr: ERROR: Unknown repository format: 'Bazaar RepositoryFormatKnitPack6 (bzr 1.9)'
 ```
 
-then the version of bzr you are using is too old. Using [version 1.12](https://bazaar-vcs.org/Download) or higher will fix this error.
+then the version of bzr you are using is too old. Using version 1.12 or higher will fix this error.
 
 1. If you have upgraded your bzr and are unable to successfully branch from launchpad, try using the source tree tarball (below) instead.
 2. You can see the current history with:
@@ -109,7 +109,7 @@ tarball of a complete repository of the MariaDB tree.
 
 ### Prerequisites
 
-You need [Bazaar](https://bazaar-vcs.org) to work with the repository.
+You need Bazaar to work with the repository.
 
 ### Using the Source Tree Tarball
 

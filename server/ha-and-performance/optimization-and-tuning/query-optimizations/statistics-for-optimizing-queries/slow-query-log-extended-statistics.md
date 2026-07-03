@@ -92,7 +92,7 @@ If one enables the warning option for `log_slow_verbosity`, all notes and warnin
 
 ## Credits
 
-Part of this addition is based on the [microslow](https://www.percona.com/percona-builds/Percona-SQL-5.0/Percona-SQL-5.0-5.0.87-b20/patches/microslow_innodb.patch) patch from [Percona](https://www.percona.com/).
+Part of this addition is based on the microslow patch from [Percona](https://www.percona.com/).
 
 ## See also
 

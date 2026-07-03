@@ -368,7 +368,7 @@ This can be configured for [Active Directory](https://en.wikipedia.org/wiki/Acti
 
 ### pam\_lsass
 
-The `pam_lsass` PAM module provides support for [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) authentication. It is provided by [PowerBroker Identity Services – Open Edition](https://github.com/BeyondTrust/pbis-open/wiki).
+The `pam_lsass` PAM module provides support for [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) authentication. It is provided by PowerBroker Identity Services – Open Edition.
 
 ### pam\_winbind
 
