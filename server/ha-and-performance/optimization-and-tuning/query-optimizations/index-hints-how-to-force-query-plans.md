@@ -186,7 +186,7 @@ The optimizer uses several strategies to optimize [GROUP BY](../../../reference/
   * Sort the keys + reference to row (with filesort)
   * Scan the table in sorted order
 * Use a temporary table for [ORDER BY](../../../reference/sql-statements/data-manipulation/selecting-data/order-by.md):
-  * Create a temporary (in memory) table for the 'to-be-sorted' data. (If this gets bigger than `max_heap_table_size` or contains blobs then an [Aria](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/aria/README.md) or [MyISAM](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/myisam-storage-engine/README.md) disk based table will be used)
+  * Create a temporary (in memory) table for the 'to-be-sorted' data. (If this gets bigger than `max_heap_table_size` or contains blobs then an [Aria](../../../server-usage/storage-engines/aria/README.md) or [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/README.md) disk based table will be used)
   * Sort the keys + reference to row (with filesort)
   * Scan the table in sorted order
 

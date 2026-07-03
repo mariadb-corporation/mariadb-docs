@@ -35,7 +35,7 @@ To use the script, execute the following command:
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 ```
 
-Note that this script also configures a repository for [MariaDB MaxScale](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/maxscale/README.md) and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) and its dependencies.
+Note that this script also configures a repository for MariaDB MaxScale and a repository for MariaDB Tools, which currently only contains [Percona XtraBackup](../../../../clients-and-utilities/legacy-clients-and-utilities/backing-up-and-restoring-databases-percona-xtrabackup/percona-xtrabackup-overview.md) and its dependencies.
 
 See [MariaDB Package Repository Setup and Usage](../../mariadb-package-repository-setup-and-usage.md) for more information.
 
@@ -43,7 +43,7 @@ See [MariaDB Package Repository Setup and Usage](../../mariadb-package-repositor
 
 If you want to install MariaDB with `apt`, then you can configure `apt` to install from MariaDB Foundation's MariaDB Repository by using the [MariaDB Repository Configuration Tool](https://mariadb.org/download/?t=repo-config).
 
-The MariaDB Foundation provides a MariaDB repository for several Linux distributions that use `apt-get` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md), [client libraries](../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../reference/plugins/), and [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/). The MariaDB Repository Configuration Tool can easily generate the appropriate commands to add the repository for your distribution.
+The MariaDB Foundation provides a MariaDB repository for several Linux distributions that use `apt-get` to manage packages. This repository contains software packages related to MariaDB Server, including the server itself, [clients and utilities](../../../../clients-and-utilities/README.md), [client libraries](../../../../clients-and-utilities/server-client-software/client-libraries/), [plugins](../../../../reference/plugins/), and [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/). The MariaDB Repository Configuration Tool can easily generate the appropriate commands to add the repository for your distribution.
 
 There are several ways to add the repository.
 
@@ -276,7 +276,7 @@ See [Galera Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4
 
 #### Installing MariaDB Clients and Client Libraries with APT
 
-[MariaDB Connector/C](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/about-mariadb-connector-c/README.md) is included as the client library.
+MariaDB Connector/C is included as the client library.
 
 To Install the clients and client libraries, first you would have to update the package cache by executing the following command:
 

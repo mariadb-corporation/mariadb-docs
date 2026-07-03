@@ -343,7 +343,7 @@ See [Server System Variables](../../../../ha-and-performance/optimization-and-tu
 
 #### `tokudb_read_status_frequency`
 
-* Description: Progress is measured every this many reads for display by [SHOW PROCESSLIST](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/sql-statements/administrative-sql-statements/show/show-processlist.md). Useful to set to `1` to examine slow queries.
+* Description: Progress is measured every this many reads for display by [SHOW PROCESSLIST](../../../../reference/sql-statements/administrative-sql-statements/show/show-processlist.md). Useful to set to `1` to examine slow queries.
 * Scope: Global,
 * Dynamic: Yes
 * Data Type: numeric

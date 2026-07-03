@@ -34,7 +34,7 @@ sudo apt-get install devscripts fakeroot doxygen texlive-latex-base ghostscript 
 
 After setting up the build environment do a test build to confirm that things are working. First get the source code using the **git** instructions on the [Getting the MariaDB Source Code](../../../../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md) page, then follow the steps on the [Generic Build Instructions](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/generic-build-instructions) page for building MariaDB using **cmake**. If your build succeeds, you're ready to move on to the next step of installing and configuring buildbot.
 
-Do not hesitate to ask for help on the [maria-developers](https://launchpad.net/~maria-developers) mailing list or on [IRC](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc/README.md).
+Do not hesitate to ask for help on the [maria-developers](https://launchpad.net/~maria-developers) mailing list or on IRC.
 
 ### Buildbot Installation and Setup
 
@@ -63,7 +63,7 @@ sudo pip install buildbot-slave==0.8.9
 
 #### Creating the Buildbot Builder
 
-After the buildbot-slave package is installed (either via apt or pip), you need to create the builder using the `buildslave create-slave` command. As part of this command you will need to specify a name for your buildslave and a password. Both need to be given to the MariaDB Buildbot maintainers so that they can add your builder to the build pool. Ask on the [maria-developers](https://launchpad.net/~maria-developers) mailing list or on [IRC](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc/README.md) for who these people are.
+After the buildbot-slave package is installed (either via apt or pip), you need to create the builder using the `buildslave create-slave` command. As part of this command you will need to specify a name for your buildslave and a password. Both need to be given to the MariaDB Buildbot maintainers so that they can add your builder to the build pool. Ask on the [maria-developers](https://launchpad.net/~maria-developers) mailing list or on IRC for who these people are.
 
 An example command for creating the slave is:
 

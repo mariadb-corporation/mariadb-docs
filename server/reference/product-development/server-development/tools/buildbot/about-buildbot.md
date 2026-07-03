@@ -109,7 +109,7 @@ integration test framework. For more information on BuildBot, see the [the Build
 
 ## Volunteering to Run a Build Slave
 
-Many of our build hosts are run by [community](https://github.com/mariadb-corporation/docs-server/blob/test/en/community/README.md) members, and we are always\
+Many of our build hosts are run by community members, and we are always\
 looking for additional volunteers to help us cover additional platforms or\
 build options in BuildBot.
 
