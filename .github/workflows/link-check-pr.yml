@@ -56,6 +56,10 @@ jobs:
             --exclude www\.linux-pam\.org
             --exclude www\.bzip\.org
             --exclude selinuxproject\.org
+            --exclude www\.gnu\.org
+            --exclude manpages\.ubuntu\.com
+            --exclude packages\.ubuntu\.com
+            --exclude www\.canonware\.com
             ${{ steps.changes.outputs.all_changed_files }}
           fail: true
           # Don't error when the changed files contain no links to check. lychee
