@@ -33,7 +33,7 @@ This is also safe to do when using the standard C library.
 ## See Also
 
 * [mysql\_library\_init](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c/api-functions/mysql_library_init)
-* [mariadb client with MariaDB embedded](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/clients-and-utilities/mariadb-embedded.md)
+* [mariadb client with MariaDB embedded](../../../../../clients-and-utilities/administrative-tools/mariadb-embedded.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
