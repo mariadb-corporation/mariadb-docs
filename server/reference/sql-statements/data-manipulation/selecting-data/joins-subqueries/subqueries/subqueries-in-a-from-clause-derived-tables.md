@@ -20,7 +20,7 @@ If a subquery is used in this way, you must also use an AS clause to name the re
 {% endtab %}
 
 {% tab title="< 10.6" %}
-[Anonymous subqueries in a FROM clause](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/subqueries/broken-reference/README.md) (no `AS` clause) are **not** permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
+Anonymous subqueries in a FROM clause (no `AS` clause) are **not** permitted in [ORACLE mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle).
 {% endtab %}
 {% endtabs %}
 

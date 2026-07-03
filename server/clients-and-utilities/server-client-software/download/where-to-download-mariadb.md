@@ -5,7 +5,7 @@
 Tarballs, binaries (Linux, Solaris, and Windows), and packages for some Linux\
 distributions are available at [mariadb.com/downloads/](https://mariadb.com/downloads/) or [mariadb.org/download/](https://mariadb.org/download/) (which also contains a PDF version of the MariaDB Server documentation).
 
-We hope that interested [community](https://github.com/mariadb-corporation/docs-server/blob/test/en/community/README.md) package maintainers will step forward, as\
+We hope that interested community package maintainers will step forward, as\
 others already have, to build packages for their distributions. We ask for\
 strict adherence to your packaging system's best practices and invite you to\
 create a [bug report](https://mariadb.org/jira) if our project impedes this in\

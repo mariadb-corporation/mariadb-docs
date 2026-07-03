@@ -436,9 +436,9 @@ If you encounter some problem in MariaDB, then MariaDB's developers would apprec
 * [SHOW ENGINE INNODB STATUS](../../sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md)
 * [SHOW CREATE TABLE {table](../../sql-statements/administrative-sql-statements/show/show-create-table.md) (for each table in query) and [EXPLAIN {query}](../../sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) if a query related crash.
 
-A [MariaDB FTP server](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-ftp-server/README.md) is available for large and/or sensitive information. Please upload in `.tar.gz` or `.zip` archive.
+A MariaDB FTP server is available for large and/or sensitive information. Please upload in `.tar.gz` or `.zip` archive.
 
-For very difficult or critical errors, you should consider uploading the following information to the [MariaDB FTP server](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-ftp-server/README.md) the following:
+For very difficult or critical errors, you should consider uploading the following information to the MariaDB FTP server the following:
 
 * Your build of `mariadbd` (if you compiled it), otherwise version information on the mariadb-server package.
 * Your core file.

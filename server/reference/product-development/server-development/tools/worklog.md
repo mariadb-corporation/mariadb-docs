@@ -8,7 +8,7 @@ description: >-
 
 **Worklog has been replaced, please refer to** [**JIRA - project planning and tracking**](jira.md) **for further information**.
 
-[Worklog](https://askmonty.org/worklog/index.pl) is the tool used to track all development of [MariaDB](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb/README.md).
+[Worklog](https://askmonty.org/worklog/index.pl) is the tool used to track all development of MariaDB.
 
 The MariaDB Worklog is open to everyone at [index.pl](https://askmonty.org/worklog/index.pl) (a free account on [the developer wiki](https://askmonty.org/wiki) is required to suggest new tasks and add comments, votes, donations etc.). The account signup page for the wiki is [here](https://askmonty.org/w/index.php?title=Special:Userlogin\&type=signup).
 

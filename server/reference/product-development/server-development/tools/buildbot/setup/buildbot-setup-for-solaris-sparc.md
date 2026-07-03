@@ -124,7 +124,7 @@ sudo su - buildbot -c "/usr/bin/buildbot start /export/home/buildbot/maria-slave
 
 OPTIONAL: You can create a proper service by following (and modifying as necessary) these [directions](https://wadofstuff.blogspot.com/2007/01/smf-manifest-for-buildbot.html)
 
-1. Please ask on the #maria [IRC](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc/README.md) channel on irc.freenode.net if you have\
+1. Please ask on the #maria IRC channel on irc.freenode.net if you have\
    problems or questions setting up your buildbot. Or ask on the on the [maria-developers](https://launchpad.net/~maria-developers) mailing list.
 2. Check the status of your buildbot through the [BuildBot buildslaves](https://buildbot.askmonty.org/buildbot/buildslaves) page.
 

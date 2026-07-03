@@ -16,7 +16,7 @@ To setup a build slave, the basic outline is:
 4. Install all the necessary compiler/build components.
 5. Install Buildbot
 6. Install [Git](../../using-git-with-mariadb/using-git.md) and make sure you can clone from the main project
-7. Get a username/login and password from the buildmaster (dbart on [Libera.Chat](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/irc/README.md))
+7. Get a username/login and password from the buildmaster (dbart on Libera.Chat)
 8. Verify your buildbot can talk to the buildbot master instance and can run builds.
 
 The following links will also help:

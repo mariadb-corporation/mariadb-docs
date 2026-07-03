@@ -51,7 +51,7 @@ On most servers upgrading from 10.1 should be painless. However, there are some 
 
 #### InnoDB Instead of XtraDB
 
-[MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) uses [InnoDB](../../../../server-usage/storage-engines/innodb/) as the default storage engine, rather than XtraDB, used in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and before. See [Why does MariaDB 10.2 use InnoDB instead of XtraDB?](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/why-does-mariadb-102-use-innodb-instead-of-xtradb/README.md) In most cases this should have minimal effect as the latest InnoDB has incorporated most of the improvements made in earlier versions of XtraDB. Note that certain [XtraDB system variables](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md) are now ignored (although they still exist so as to permit easy upgrading).
+[MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102) uses [InnoDB](../../../../server-usage/storage-engines/innodb/) as the default storage engine, rather than XtraDB, used in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1) and before. See Why does MariaDB 10.2 use InnoDB instead of XtraDB? In most cases this should have minimal effect as the latest InnoDB has incorporated most of the improvements made in earlier versions of XtraDB. Note that certain [XtraDB system variables](../../../../server-usage/storage-engines/innodb/innodb-system-variables.md) are now ignored (although they still exist so as to permit easy upgrading).
 
 #### Options That Have Changed Default Values
 
@@ -134,7 +134,7 @@ New [reserved words](../../../../reference/sql-structure/sql-language-structure/
 
 #### TLS
 
-Starting with [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), when the user specifies the `--ssl` option with a [client or utility](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md), the [client or utility](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md) will not [verify the server certificate](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option to the [client or utility](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md). For more information, see the [list of options](../../../../clients-and-utilities/mariadb-client/mysql-command-line-client.md#options) for the [mysql](../../../../clients-and-utilities/mariadb-client/mysql-command-line-client.md) client.
+Starting with [MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102), when the user specifies the `--ssl` option with a [client or utility](../../../../clients-and-utilities/README.md), the [client or utility](../../../../clients-and-utilities/README.md) will not [verify the server certificate](../../../../security/encryption/data-in-transit-encryption/secure-connections-overview.md#server-certificate-verification) by default. In order to verify the server certificate, the user must specify the `--ssl-verify-server-cert` option to the [client or utility](../../../../clients-and-utilities/README.md). For more information, see the [list of options](../../../../clients-and-utilities/mariadb-client/mysql-command-line-client.md#options) for the [mysql](../../../../clients-and-utilities/mariadb-client/mysql-command-line-client.md) client.
 
 ### Major New Features To Consider
 
@@ -149,7 +149,7 @@ You might consider using the following major new features in [MariaDB 10.2](http
 ### See Also
 
 * [The features in MariaDB 10.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.2/what-is-mariadb-102)
-* [Upgrading from MariaDB 10.1 to MariaDB 10.2 with Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/getting-installing-and-upgrading-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-101-to-mariadb-102-with-galera-cluster/README.md)
+* Upgrading from MariaDB 10.1 to MariaDB 10.2 with Galera Cluster
 * [Upgrading from MariaDB 10.0 to MariaDB 10.1](upgrading-from-mariadb-100-to-mariadb-101.md)
 * [Upgrading from MariaDB 5.5 to MariaDB 10.0](upgrading-from-mariadb-10-4-to-mariadb-10-5.md)
 

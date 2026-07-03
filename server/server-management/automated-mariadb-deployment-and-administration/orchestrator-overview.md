@@ -31,7 +31,7 @@ Currently, Orchestrator fully supports MariaDB [GTID](../../ha-and-performance/s
 
 ## Architecture
 
-Orchestrator consists of a single executable called `orchestrator`. This is a process that periodically connects to the target servers. It will run SQL queries against target servers, so it needs a user with proper permissions. When the process is running, a GUI is available via a web browser, at the URL '[localhost:3000'](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/getting-installing-and-upgrading-mariadb/binary-packages/automated-mariadb-deployment-and-administration/https:/localhost:3000'/README.md). It also exposes a REST API (see [Using the web API](https://github.com/openark/orchestrator/blob/master/docs/using-the-web-api.md) in the Orchestrator documentation).
+Orchestrator consists of a single executable called `orchestrator`. This is a process that periodically connects to the target servers. It will run SQL queries against target servers, so it needs a user with proper permissions. When the process is running, a GUI is available via a web browser, at the URL 'localhost:3000'. It also exposes a REST API (see [Using the web API](https://github.com/openark/orchestrator/blob/master/docs/using-the-web-api.md) in the Orchestrator documentation).
 
 Orchestrator expects to find a JSON configuration file called `orchestrator.conf.json`, in `/etc`.
 
