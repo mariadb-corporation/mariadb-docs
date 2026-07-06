@@ -577,7 +577,7 @@ loose-abort-source-on-error
 * [Troubleshooting Connection Issues](../../../mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide.md)
 * [MariaDB Enterprise Audit](../../../reference/plugins/mariadb-enterprise-audit.md)
 * [Information\_schema.SYSTEM\_VARIABLES Table](../../../reference/system-tables/information-schema/information-schema-tables/information-schema-system_variables-table.md)
-* [Configuring MariaDB for Remote Client Access](../../../server-usage/connecting/mariadb-remote-connection-guide-1.md)
+* [Configuring MariaDB for Remote Client Access](../../../mariadb-quickstart-guides/mariadb-remote-connection-guide.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

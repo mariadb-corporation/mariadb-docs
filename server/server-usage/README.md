@@ -24,30 +24,6 @@ Grasp the basics of using MariaDB Server. This section introduces fundamental co
 
 {% columns %}
 {% column %}
-{% content-ref url="connecting/" %}
-[connecting](connecting/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Learn how to connect to MariaDB Server. This section details various methods and tools for establishing secure and efficient connections to your database from different applications and environments.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="data-handling/" %}
-[data-handling](data-handling/)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Learn effective data handling in MariaDB Server. This section covers data types, storage engines, data manipulation, and best practices for managing your information efficiently.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="backup-and-restore/" %}
 [backup-and-restore](backup-and-restore/)
 {% endcontent-ref %}

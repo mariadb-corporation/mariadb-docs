@@ -13,8 +13,8 @@ This guide introduces methods and tools for efficiently importing bulk data into
 The most common approach for bulk importing is to use a delimited text file.
 
 1. **Export Source Data:** Load your data in its original software (e.g., MS Excel, MS Access) and export it as a delimited text file.
-   * **Delimiter:** Use a character not commonly found in your data to separate fields. The pipe symbol (`|`) is often a good choice. Tab () is also common.
-   * **Record Separator:** Use line feeds () to separate records.
+   * **Delimiter:** Use a character not commonly found in your data to separate fields. The pipe symbol (`|`) is often a good choice. Tab (`\t`) is also common.
+   * **Record Separator:** Use line feeds (`\n`) to separate records.
 2. **Align Columns (Recommended for Simplicity):** Ideally, the order and number of columns in your text file should match the target MariaDB table.
    * If the table has extra columns not in your file, they will be filled with their default values (or `NULL`).
    * If your file has extra columns not in the table, you'll need to specify which file columns to load (see "Mapping File Columns to Table Columns" below) or remove them from the text file.
@@ -25,7 +25,7 @@ The most common approach for bulk importing is to use a delimited text file.
 
 ### Using `LOAD DATA INFILE`
 
-The `LOAD DATA INFILE` statement is a powerful SQL command for importing data from text files. Ensure the MariaDB user has the `FILE` privilege.
+The [`LOAD DATA INFILE`](../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md) statement is a powerful SQL command for importing data from text files. Ensure the MariaDB user has the `FILE` privilege.
 
 Basic Syntax:
 
@@ -46,7 +46,7 @@ FIELDS TERMINATED BY '|';
 * Replace `/tmp/prospects.txt` with the actual path to your data file on the server. On Windows, paths use forward slashes (e.g., `'C:/tmp/prospects.txt'`).
 * `prospect_contact` is the target table. You can also specify `database_name.table_name`.
 * `FIELDS TERMINATED BY '|'` specifies the field delimiter. For tab-delimited, use `'\t'`.
-* The default record delimiter is the line feed ().
+* The default record delimiter is the line feed (`\n`).
 
 Specifying Line Terminators and Enclosing Characters:
 
@@ -162,7 +162,7 @@ IGNORE 1 LINES
 
 ### Using the `mariadb-import` Utility
 
-The `mariadb-import` utility (known as `mysqlimport` before MariaDB 10.5) is a command-line program that acts as a wrapper for `LOAD DATA INFILE`. It's useful for scripting imports.
+The [`mariadb-import`](../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md) utility (known as `mysqlimport` before MariaDB 10.5) is a command-line program that acts as a wrapper for `LOAD DATA INFILE`. It's useful for scripting imports.
 
 **Syntax:**
 
@@ -185,7 +185,7 @@ mariadb-import --user='your_username' --password='your_password' \
 
 ### Dealing with Web Hosting Restraints
 
-Some web hosts disable `LOAD DATA INFILE` or `mariadb-import` for security reasons. A workaround involves using `mariadb-dump`:
+Some web hosts disable `LOAD DATA INFILE` or `mariadb-import` for security reasons. A workaround involves using [`mariadb-dump`](../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md):
 
 1. **Prepare Data Locally:** Prepare your delimited text file (e.g., `prospects.txt`).
 2. **Local Import:** If you have a local MariaDB server, import the text file into a local table (e.g., `local_db.prospect_contact`) using `LOAD DATA INFILE` as described above.

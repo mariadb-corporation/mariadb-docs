@@ -237,7 +237,7 @@ docker run --detach \
 ```
 
 * Configure the container using [environment variables](mariadb-enterprise-docker-registry-for-mariadb-enterprise-server.md#environment-variables) by setting the `--env` command-line option.
-* Configure the port for MariaDB Enterprise Server by setting the [--port](../../../server-usage/connecting/mariadb-connecting-guide-1.md#port) command-line option.
+* Configure the port for MariaDB Enterprise Server by setting the [--port](../../../mariadb-quickstart-guides/mariadb-connecting-guide.md#port) command-line option.
 * Configure MariaDB Enterprise Server by setting [mariadbd command-line options](../../starting-and-stopping-mariadb/mariadbd-options.md).
 
 To confirm the Docker container is running, execute [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/):
