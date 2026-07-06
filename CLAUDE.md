@@ -41,6 +41,7 @@ Guidance for Claude Code (and other AI agents) working in the **MariaDB document
 - **`bulk-campaign`** — drive a batched, verified, resumable multi-file pass across one space (e.g. a railroad-diagram campaign or a terminology rename), tied to a DOCS ticket; keeps one campaign fact-check report.
 - **`propose-improvement`** (`/propose-improvement <topic>`) — file an agent-tooling proposal (new skill or broader change) as a DOCS Task + write the interviewed proposal MD.
 - **`report-skill-bug`** (`/skill-bug <name>`) — file a DOCS Task (label `claude-skill-bug`) when a skill breaks.
+- **`gitbook-redirects`** (`/redirects-csv`) — build a GitBook redirect CSV when pages are renamed/moved/retired (header `source,destination`; destination must be a full URL). Reference: `dev-docs/cookbook-gitbook-redirects.md`.
 
 ## Agent-tooling layout
 
