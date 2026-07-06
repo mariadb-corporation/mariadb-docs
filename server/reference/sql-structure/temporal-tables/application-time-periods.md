@@ -1,3 +1,9 @@
+---
+description: >-
+  Application-time period tables define a time period between two temporal
+  columns, for application-level data versioning.
+---
+
 # Application-Time Periods
 
 Extending [system-versioned tables](system-versioned-tables.md), MariaDB supports application-time period tables. Time periods are defined by a range between two temporal columns. The columns must be of the same [temporal data type](../../data-types/date-and-time-data-types/), i.e. [DATE](../../data-types/date-and-time-data-types/date.md), [TIMESTAMP](../../data-types/date-and-time-data-types/timestamp.md) or [DATETIME](../../data-types/date-and-time-data-types/datetime.md) ([TIME](../../data-types/date-and-time-data-types/time.md) and [YEAR](../../data-types/date-and-time-data-types/year-data-type.md) are not supported), and of the same width.

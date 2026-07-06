@@ -89,11 +89,11 @@ The information below refers to the old Buildbot (), and not the new Buildbot ()
 ## Overview
 
 The current state of the MariaDB trees with respect to build or test failures\
-is always available from the [Buildbot setup](https://buildbot.askmonty.org/buildbot/) page.
+is always available from the Buildbot setup page.
 
-* [MariaDB-5.5 waterfall status page.](https://buildbot.askmonty.org/buildbot/waterfall?branch=5.5)
-* [MariaDB-10.0 waterfall status page.](https://buildbot.askmonty.org/buildbot/waterfall?branch=10.0)
-* [MariaDB-10.1 waterfall status page.](https://buildbot.askmonty.org/buildbot/waterfall?branch=10.1)
+* MariaDB-5.5 waterfall status page.
+* MariaDB-10.0 waterfall status page.
+* MariaDB-10.1 waterfall status page.
 
 The BuildBot setup polls the Launchpad trees every 5 minutes for\
 changes. Whenever a new push is found in one of our trees, the new\
@@ -105,11 +105,11 @@ it ASAP. If it was your push, then the someone who needs to look at it\
 is you!
 
 BuildBot is a generic, GPL'ed program providing a continuous\
-integration test framework. For more information on BuildBot, see the [the BuildBot project homepage](https://buildbot.net/trac).
+integration test framework. For more information on BuildBot, see the the BuildBot project homepage.
 
 ## Volunteering to Run a Build Slave
 
-Many of our build hosts are run by [community](https://github.com/mariadb-corporation/docs-server/blob/test/en/community/README.md) members, and we are always\
+Many of our build hosts are run by community members, and we are always\
 looking for additional volunteers to help us cover additional platforms or\
 build options in BuildBot.
 
@@ -161,8 +161,8 @@ The more people show interest in this, the faster it is likely to happen!
 ## Reports
 
 We are developing new reports fed off the test results in the\
-database. These reports will be located [here](https://buildbot.askmonty.org/buildbot/reports/). The first\
-report is the [Cross Reference](https://buildbot.askmonty.org/buildbot/reports/cross_reference)\
+database. These reports will be located here. The first\
+report is the Cross Reference\
 report. This report allows all test failures to be searched.
 
 ## Buildbot Maintenance

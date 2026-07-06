@@ -1,3 +1,9 @@
+---
+description: >-
+  Quickly back up MyISAM and Aria tables by copying table files with the
+  mariadb-hotcopy Perl script (formerly mysqlhotcopy).
+---
+
 # mariadb-hotcopy
 
 `mariadb-hotcopy` is a Perl script that was originally written and contributed by Tim Bunce. It uses [FLUSH TABLES](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md), [LOCK TABLES](../../reference/sql-statements/transactions/lock-tables.md), and cp or scp to make a database backup.

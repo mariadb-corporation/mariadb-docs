@@ -1,3 +1,10 @@
+---
+description: >-
+  Partition a large table across multiple MariaDB Enterprise Server Data Nodes
+  using virtual Spider Tables and standard partitioning syntax for horizontal
+  scalability.
+---
+
 # Sharded MariaDB Enterprise Spider Topology
 
 ## Sharded MariaDB Enterprise Spider Topology
@@ -146,7 +153,7 @@ PARTITION BY LIST(branch_id) (
 
 ### Deployment
 
-* [Deploy MariaDB Enterprise Spider](/broken/spaces/aEnK0ZXmUbJzqQrTjFyb/pages/BbZ3TNWsYNwHXVyiSQ6z#spider-topologies)
+* [Deploy MariaDB Enterprise Spider](../topologies-overview.md#spider-topologies)
 
 ### Schema Design
 

@@ -10,9 +10,9 @@ This guide introduces SQL Views in MariaDB, virtual tables based on the result-s
 
 ### Prerequisites
 
-* A basic understanding of SQL, particularly `JOIN` operations. (You may want to refer to guides like "Basic Joins Guide" or "More Advanced Joins" if available.)
+* A basic understanding of SQL, particularly `JOIN` operations. (You may want to refer to [More Advanced Joins](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md).)
 * Access to a MariaDB database.
-* Privileges to `CREATE TABLE` and `CREATE VIEW`.
+* Privileges to `CREATE TABLE` and [`CREATE VIEW`](../server-usage/views/create-view.md).
 
 ### Setup: Example Employee Database
 
@@ -217,6 +217,11 @@ Views offer a powerful way to:
 * **Abstract database logic:** Separate application code from the complexities of the database schema.
 * **Enhance security:** Control access to specific rows and columns.
 * **Improve maintainability:** Changes to underlying tables can often be managed by updating the view definition without altering application queries.
+
+### See Also
+
+* [Views](../server-usage/views/) — the full reference for `CREATE VIEW`, `ALTER VIEW`, `DROP VIEW`, and updatable views
+* [More Advanced Joins](../reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/joins/more-advanced-joins.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

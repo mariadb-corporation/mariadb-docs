@@ -86,7 +86,7 @@ Replication is used in a number of common scenarios. Uses include:
 * Provides read and write scaling.
 * Doesn’t handle conflicts.
 * Have to use replication filters to avoid duplication of data.
-* [MariaDB Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera-cluster/README.md), which is a [virtually synchronous](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication) multi-primary (multi-master) cluster for MariaDB, has a similar configuration and can handle conflicts.
+* [MariaDB Galera Cluster](../../architecture/topologies/galera-cluster/README.md), which is a [virtually synchronous](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/about-galera-replication) multi-primary (multi-master) cluster for MariaDB, has a similar configuration and can handle conflicts.
 
 ### Multi-Source Replication
 

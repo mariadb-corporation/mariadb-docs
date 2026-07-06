@@ -6,7 +6,7 @@ description: >-
 
 # Getting Data Guide
 
-This guide explains how to retrieve data from MariaDB using the `SELECT` statement, progressing from basic syntax to more involved queries. Learn to select specific columns, limit results, filter with `WHERE`, sort with `ORDER BY`, join tables, and use various helpful options and functions.
+This guide explains how to retrieve data from MariaDB using the [`SELECT`](../reference/sql-statements/data-manipulation/selecting-data/select.md) statement, progressing from basic syntax to more involved queries. Learn to select specific columns, limit results, filter with `WHERE`, sort with `ORDER BY`, join tables, and use various helpful options and functions.
 
 ### Setup: Creating and Populating Example Tables
 
@@ -222,12 +222,12 @@ LIMIT 5;
 ```
 
 * Alternative `JOIN` syntax: `... JOIN authors ON books.author_id = authors.author_id ...`. For more on joins, see the [JOIN Syntax documentation](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md) or a "Basic Joins Guide".
-* **`CONCAT(str1, str2, ...)`:** Concatenates strings.
+* [**`CONCAT(str1, str2, ...)`**](../reference/sql-functions/string-functions/concat.md)**:** Concatenates strings.
 * **`AS alias_name`:** Assigns an alias to an output column.
 
 Pattern Matching with LIKE:
 
-Use LIKE in the WHERE clause for pattern matching. % is a wildcard for zero or more characters.
+Use [LIKE](../reference/sql-functions/string-functions/like.md) in the WHERE clause for pattern matching. % is a wildcard for zero or more characters.
 
 ```sql
 SELECT isbn, title, CONCAT(name_first, ' ', name_last) AS author
@@ -341,7 +341,13 @@ Place these modifiers immediately after the `SELECT` keyword.
     1 row in set (0.000 sec)
     ```
 
-    The value from `FOUND_ROWS()` is temporary and specific to the current session.
+    The value from [`FOUND_ROWS()`](../reference/sql-functions/secondary-functions/information-functions/found_rows.md) is temporary and specific to the current session.
+
+### See Also
+
+* [SELECT](../reference/sql-statements/data-manipulation/selecting-data/select.md) — the full statement reference, including `LIMIT`, `ORDER BY`, `DISTINCT`, and `GROUP BY`
+* [JOIN Syntax](../reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax.md)
+* [A MariaDB Primer](mariadb-usage-guide.md) and [MariaDB Basics](basics-guide.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

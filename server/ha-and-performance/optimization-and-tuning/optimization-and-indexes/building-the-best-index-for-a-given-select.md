@@ -1,3 +1,8 @@
+---
+description: >-
+  A cookbook for designing the best index for a given SELECT query.
+---
+
 # Building the best INDEX for a given SELECT
 
 ## The problem

@@ -1,3 +1,9 @@
+---
+description: >-
+  Settings and features aimed at big queries, several of which are disabled by
+  default.
+---
+
 # Big Query Settings
 
 MariaDB 5.3 and beyond have a number of features that are targeted at big queries and so are disabled by default.
@@ -32,7 +38,7 @@ Turn on [index\_merge/sort-intersection](../query-optimizations/index_merge-sort
 optimizer_switch='index_merge_sort_intersection=on'
 ```
 
-If your queries examine big fraction of the tables (somewhere more than \~ 30%), turn on [hash join](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2#block-hash-join):
+If your queries examine big fraction of the tables (somewhere more than \~ 30%), turn on [hash join](../query-optimizer/block-based-join-algorithms.md#block-hash-join):
 
 ```sql
 # Turn on both Hash Join and Batched Key Access

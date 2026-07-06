@@ -8,7 +8,7 @@ description: >-
 
 This guide provides a quick overview of essential SQL statements in MariaDB, categorized by their function in data definition, data manipulation, and transaction control. Find brief descriptions and links to detailed documentation for each statement, along with a simple illustrative example sequence.
 
-_(If you need a basic tutorial on how to use the MariaDB database server and execute simple commands, see_ [_A MariaDB Primer_](../server-usage/basics/mariadb-usage-guide-1.md)_. Also see_ [_Essential Queries Guide_](mariadb-advanced-sql-guide.md) _for examples of commonly-used queries.)_
+_(If you need a basic tutorial on how to use the MariaDB database server and execute simple commands, see_ [_A MariaDB Primer_](mariadb-usage-guide.md)_. Also see_ [_Essential Queries Guide_](mariadb-advanced-sql-guide.md) _for examples of commonly-used queries.)_
 
 ### Defining How Your Data Is Stored
 
@@ -155,6 +155,8 @@ SELECT COUNT(*) FROM mytable; -- Or SELECT COUNT(1) FROM mytable;
 ```
 
 _(Note: This query would typically be run on an existing table, for example, before it or its database is dropped.)_
+
+_The first version of this article was copied, with permission, from_ [_Basic\_SQL\_Statements_](https://hashmysql.org/wiki/Basic_SQL_Statements) _on 2012-10-05._
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

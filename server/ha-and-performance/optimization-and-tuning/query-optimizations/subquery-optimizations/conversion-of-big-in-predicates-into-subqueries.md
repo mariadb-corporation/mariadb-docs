@@ -37,7 +37,7 @@ by trying to construct a range access. If the list is large, the analysis may ta
 
 Conversion of IN predicates into subqueries bypass the range analysis, which means the query optimization phase will use less CPU and memory.
 
-Possible disadvantages of the conversion are are:
+Possible disadvantages of the conversion are:
 
 * The optimization may convert 'IN LIST elements' key accesses to a table scan (if there is no other usable index for the table)
 * The estimates for the number of rows matching the `IN (...)` are less precise.

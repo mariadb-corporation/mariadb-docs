@@ -12,6 +12,7 @@ description: >-
 LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE 'file_name'
     [REPLACE | IGNORE]
     INTO TABLE tbl_name
+    [PARTITION (partition_name, ...)]
     [CHARACTER SET charset_name]
     [{FIELDS | COLUMNS}
         [TERMINATED BY 'string']
@@ -72,7 +73,7 @@ The used command is not allowed because the MariaDB server or client
 
 ### REPLACE and IGNORE
 
-If you load data from a file into a table that already contains data and has a [primary key](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key), you may encounter issues where the statement attempts to insert a row with a primary key that already exists. When this happens, the statement fails with Error 1064, protecting the data already on the table. If you want MariaDB to overwrite duplicates, use the `REPLACE` keyword.
+If you load data from a file into a table that already contains data and has a [primary key](../../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key), you may encounter issues where the statement attempts to insert a row with a primary key that already exists. When this happens, the statement fails with Error 1062, protecting the data already on the table. If you want MariaDB to overwrite duplicates, use the `REPLACE` keyword.
 
 The `REPLACE` keyword works like the [REPLACE](../../changing-deleting-data/replace.md) statement. Here, the statement attempts to load the data from the file. If the row does not exist, it adds it to the table. If the row contains an existing primary key, it replaces the table data. That is, in the event of a conflict, it assumes the file contains the desired row.
 
@@ -109,7 +110,7 @@ The `LOW_PRIORITY` and `CONCURRENT` keywords are mutually exclusive. They cannot
 
 ### Progress Reporting
 
-The `LOAD DATA INFILE` statement supports [progress reporting](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
+The `LOAD DATA INFILE` statement supports [progress reporting](../../../../product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md). You may find this useful when dealing with long-running operations. Using another client you can issue a [SHOW PROCESSLIST](../../../administrative-sql-statements/show/show-processlist.md) query to check the progress of the data load.
 
 ### Using mariadb-import
 
@@ -142,7 +143,7 @@ You have a file with this content (note the separator is ',', not tab, which is 
 ```
 
 ```sql
-CREATE TABLE t1 (a INT, b INT, c INT, d INT, PRIMARY KEY (a));
+CREATE TABLE t1 (a INT, b INT, c INT, PRIMARY KEY (a));
 LOAD DATA LOCAL INFILE 
  '/tmp/loaddata7.dat' INTO TABLE t1 FIELDS TERMINATED BY ',' (a,b) SET c=a+b;
 SELECT * FROM t1;

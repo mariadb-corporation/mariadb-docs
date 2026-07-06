@@ -99,7 +99,7 @@ OPTION_LIST='Ftype=XML,Depth=3,Rownode=weatherdata';
 
 Note: this last example returns an XML file whose format was not recognized by old CONNECT versions. It is here the reason of the option ‘Rownode=weatherdata’.
 
-If you have trouble making the module, you can post an issue on [JIRA](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/8H2QW24PZkCSvuwPkQtB).
+If you have trouble making the module, you can post an issue on [JIRA](../../../reference/product-development/server-development/tools/jira.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

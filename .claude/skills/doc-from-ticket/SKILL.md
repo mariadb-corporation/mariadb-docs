@@ -25,7 +25,10 @@ run after `/jira-start DOCS-XXXX` has put you on the ticket's branch.
 
 If a **`doc-impact` report** (`/impact`) is already in the conversation, **reuse it** — its
 affected-page list and "claims to verify" are exactly this skill's inputs; don't redo the
-change-analysis from scratch. Skip drafting if that report concluded **no docs are needed**.
+change-analysis from scratch. Skip drafting if that report concluded **no docs are needed**. Also
+check `reports_dir` for an on-disk skeleton from a prior `/impact` run — find it by key per the
+cookbook (`find "$reports_dir" -type d -name 'DOCS-XXXX' -o -name 'MDEV-XXXXX'`); if present, build
+on its `PENDING` rows rather than starting fresh — §7 explains the move/rename.
 
 ## 0. Source configuration (first-run, then remembered)
 
@@ -64,6 +67,11 @@ Schema:
 > Verification uses the configured **single default ref** per repo (not the ticket's Release
 > Series). Still record the ticket's `Release Series` in your notes, and if a claim looks
 > version-specific, flag that it was verified against `<ref>`, not that series.
+
+The same config file also holds **`reports_dir`** — the directory **outside this repo** where the
+fact-check report (§7) is written; it is **never committed**. If `reports_dir` is missing, prompt
+and validate it per `dev-docs/cookbook-fact-trail.md` › *Where reports live* (reject any path
+inside the repo), then continue.
 
 ## 1. Connection check + fetch the ticket
 
@@ -147,6 +155,28 @@ warranted, **stop and confirm with the user** (a new page needs a `SUMMARY.md` e
 
 ## 5. Draft the edit
 
+**Branch precondition (MANDATORY — check before writing or even drafting a page edit).**
+A doc edit must live on a `DOCS-XXXX` feature branch, never on `main`. Verify the working tree
+first:
+
+```bash
+docs_root="$(git rev-parse --show-toplevel)"
+branch="$(git -C "$docs_root" branch --show-current)"
+case "$branch" in
+  main|master|"")
+    echo "REFUSE: working tree is on '$branch' (or detached) — do not draft here." ;;
+  *) echo "OK: on feature branch '$branch'" ;;
+esac
+```
+
+- If the check **refuses** (on `main`/`master` or detached HEAD): **stop. Do not create, edit, or
+  write any file.** Tell the user to run **`/jira-start DOCS-XXXX`** first (it cuts the
+  `DOCS-XXXX-slug` branch off `main` and moves the ticket to In Progress), then re-run this skill.
+  Drafting straight onto `main` muddles unrelated work and breaks the branch→PR→review→merge flow.
+- If the branch name doesn't contain the ticket's `DOCS-XXXX` key, warn the user and confirm it's
+  the intended branch before writing (it may be the wrong ticket's branch).
+- Only once on a valid feature branch, proceed:
+
 - Match the voice and structure of the surrounding page (American English; see
   `dev-docs/style-guide.md`).
 - Use correct GitBook syntax — delegate blocks/links to the **`gitbook-format`** skill
@@ -161,12 +191,34 @@ warranted, **stop and confirm with the user** (a new page needs a `SUMMARY.md` e
 
 Show the proposed edit (target `file:line`, the snippet, the source citations, the
 verification table). **Wait for the user's go-ahead before writing.** If they said "apply" /
-"just do it", apply with `Edit`, then validate with `.claude/hooks/doc-lint.sh <file>` (or the
+"just do it", **re-confirm the §5 branch precondition still holds** (refuse on `main`/`master`),
+then apply with `Edit`, and validate with `.claude/hooks/doc-lint.sh <file>` (or the
 `docs-check` skill).
 
 **Never `git add`, `git commit`, `git push`, or open a PR.** Editing the file on the current
 branch is the limit — staging/committing and the Jira transition (`/jira-resolve`) are separate,
 user-driven steps.
+
+## 7. Write the fact-check report (paper trail)
+
+The verification table you built in §3 **is** the paper trail — persist it. Format, location, and
+naming are defined once in `dev-docs/cookbook-fact-trail.md`; follow it.
+
+- Write/update `<reports_dir>/<space>/DOCS-XXXX/report.md` (space = the edited page's space). If a
+  skeleton from `/impact` exists under the **MDEV** key (e.g. `_unfiled/MDEV-XXXXX/`), **move that
+  directory** to `<space>/DOCS-XXXX/` (record the MDEV in the header) so there's one canonical
+  directory per ticket. Regenerate `INDEX.md` after writing (cookbook).
+- Header: DOCS/MDEV/Release Series, the page(s) edited, `Source: <product> @ <sha>` (the **pinned
+  commit** from §3, not the branch name), `Status: drafted`.
+- One claim row per checkable fact in your edit: the claim **as it reads in the doc**, its **doc
+  `file:line`**, the **source evidence** (`<product> <file>:<line> @ <sha>`), and the **verdict**
+  (`VERIFIED` / `CORRECTED` / `UNVERIFIED`). Every `VERIFIED`/`CORRECTED` row must carry the SHA;
+  anything you marked `<!-- TODO: confirm -->` in the doc is an `UNVERIFIED` row.
+- Write the report whether or not the user applied the edit (it records what you verified). If the
+  edit isn't applied yet, use the proposed `file:line`; correct them if/when you apply.
+
+This is the **only** file written outside the repo, and it is **never committed** — `/jira-resolve`
+posts its contents to the ticket as a comment.
 
 ## Output summary
 
@@ -175,10 +227,18 @@ After drafting, report:
   the branch name).
 - A **verification table**: each claim → verified (`file:line` @ SHA) / corrected / unverifiable.
 - The target page + line, and whether a counterpart edit (another version/page) is advisable.
+- The **fact-check report path** (`<reports_dir>/<space>/DOCS-XXXX/report.md`) and that
+  `/jira-resolve` will post it to the ticket. Suggest `/verify-claims DOCS-XXXX` to re-audit it in
+  a later session.
 
 ## Guardrails
 
+- **Never draft onto `main`.** Before writing any page (§5), confirm the working tree is on a
+  `DOCS-XXXX` feature branch; refuse on `main`/`master` or detached HEAD and send the user to
+  `/jira-start DOCS-XXXX` first. This skill creates/edits files only — it never branches.
 - **Verification is mandatory.** Unverifiable claims are flagged, never asserted.
+- **The fact-check report is mandatory** (§7) — every source-verified edit leaves one in
+  `reports_dir`. It is written outside the repo and **never committed**.
 - Source is read **read-only** via `git -C <path> grep/show <ref>` — never modify or check out
   branches in the source repo.
 - One ticket at a time; if the ticket implies several distinct pages, draft one at a time and

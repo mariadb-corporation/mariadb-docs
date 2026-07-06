@@ -1,3 +1,8 @@
+---
+description: >-
+  Tips for debugging MariaDB optimizer code with GDB.
+---
+
 # Optimizer Debugging With GDB
 
 Some useful things for debugging optimizer code.
@@ -39,7 +44,7 @@ end
 
 ## Other Settings
 
-* May need to set [innodb\_fatal\_semaphore\_wait\_threshold](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/storage-engines/innodb/innodb-system-variables.md#innodb_fatal_semaphore_wait_threshold) to be high enough?
+* May need to set [innodb\_fatal\_semaphore\_wait\_threshold](../../../server-usage/storage-engines/innodb/innodb-system-variables.md#innodb_fatal_semaphore_wait_threshold) to be high enough?
 
 ## Other development topics
 
@@ -64,7 +69,7 @@ git diff -U0 --no-color --relative HEAD^ | clang-format-diff -p1 -i
 
 ## See Also
 
-* [How to collect large optimizer traces](mariadb-internals-documentation-optimizer-trace/how-to-collect-large-optimizer-traces.md)
+* [How to collect large optimizer traces](optimizer-trace/how-to-collect-large-optimizer-traces.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

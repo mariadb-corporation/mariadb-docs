@@ -1,3 +1,8 @@
+---
+description: >-
+  Binary literal syntax in MariaDB: b'value', B'value', and 0bvalue.
+---
+
 # Binary Literals
 
 Binary literals can be written in one of the following formats: `b'value'`, `B'value'` or `0bvalue`, where `value` is a string composed by `0` and `1` digits.

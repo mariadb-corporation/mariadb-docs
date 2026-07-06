@@ -33,7 +33,7 @@ Source repositories for the MariaDB Connectors are:
 
 See also:
 
-* [Using git](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/xRCtl21mrR3GrhPpJgOM) page for instructions on how to use git to check out the source code and switch between the various branches.
+* [Using git](../../../reference/product-development/server-development/tools/using-git-with-mariadb/using-git.md) page for instructions on how to use git to check out the source code and switch between the various branches.
 * [Compiling MariaDB from source](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/)
 
 {% hint style="danger" %}
@@ -48,7 +48,7 @@ If you simply want to browse the source code, you can do so from [maria](https:/
 
 ### Prerequisites
 
-You need [Bazaar](https://bazaar-vcs.org) for revision control.
+You need Bazaar for revision control.
 
 ### Instructions
 
@@ -89,7 +89,7 @@ For a complete list, go to [Launchpad](https://launchpad.net/~maria-captains/) a
 bzr: ERROR: Unknown repository format: 'Bazaar RepositoryFormatKnitPack6 (bzr 1.9)'
 ```
 
-then the version of bzr you are using is too old. Using [version 1.12](https://bazaar-vcs.org/Download) or higher will fix this error.
+then the version of bzr you are using is too old. Using version 1.12 or higher will fix this error.
 
 1. If you have upgraded your bzr and are unable to successfully branch from launchpad, try using the source tree tarball (below) instead.
 2. You can see the current history with:
@@ -100,7 +100,7 @@ bzr log | less
 ```
 
 1. If you are going to be hacking on the MariaDB source code. See the [Contributing Code](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/contributing-participating/contributing-code) page for help.
-2. If you just want to compile MariaDB at this point, see the [Compiling MariaDB](/broken/pages/bjatfkHoY1LmiorFXFKZ) page.
+2. If you just want to compile MariaDB at this point, see the [Compiling MariaDB](../../../server-management/install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md) page.
 
 ## Source Tree Tarball
 
@@ -109,7 +109,7 @@ tarball of a complete repository of the MariaDB tree.
 
 ### Prerequisites
 
-You need [Bazaar](https://bazaar-vcs.org) to work with the repository.
+You need Bazaar to work with the repository.
 
 ### Using the Source Tree Tarball
 
@@ -159,7 +159,7 @@ bzr pull
 ## Alternate Bazaar Instructions
 
 The following alternative instructions are what we have used for setting up\
-repositories on our build machines in [buildbot](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YDeiIobaziVWZCxk4IlA).
+repositories on our build machines in [buildbot](../../../reference/product-development/server-development/tools/buildbot/about-buildbot.md).
 
 ### Shell Variables
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  How to reclaim free space and defragment InnoDB tablespaces after deleting
+  rows.
+---
+
 # Defragmenting InnoDB Tablespaces
 
 ## Overview

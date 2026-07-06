@@ -59,7 +59,7 @@ Connects to the MariaDB server on the given host.
 
 Default: localhost.
 
-MariaDB typically does not permit remote logins by default; see Configuring MariaDB for Remote Client Access.
+MariaDB typically does not permit remote logins by default; see [Configuring MariaDB for Remote Client Access](mariadb-remote-connection-guide.md).
 
 #### password
 
@@ -124,7 +124,7 @@ Specifies the MariaDB user name for the connection.
 
 Default: Your Unix login name (on Unix-like systems) or ODBC (on Windows).
 
-See the GRANT command for information on creating MariaDB user accounts.
+See the [GRANT](../reference/sql-statements/account-management-sql-statements/grant.md) command for information on creating MariaDB user accounts.
 
 ### TLS Options
 
@@ -143,5 +143,15 @@ These options control the use of TLS (Transport Layer Security) for secure conne
 ### Option Files
 
 Connection parameters and other options can also be set in option files (configuration files), which most MariaDB clients read upon startup. To see which option files a client reads and the option groups it recognizes, typically run the client with the `--help` option.
+
+### See Also
+
+* [A MariaDB Primer](mariadb-usage-guide.md)
+* [mariadb client](../clients-and-utilities/mariadb-client/)
+* [Clients and Utilities](../clients-and-utilities/)
+* [Configuring MariaDB for Remote Client Access](mariadb-remote-connection-guide.md)
+* [`--skip-grant-tables`](../server-management/starting-and-stopping-mariadb/mariadbd-options.md) allows you to start MariaDB without `GRANT`. This is useful if you lost your root password.
+
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}

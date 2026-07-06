@@ -1,3 +1,9 @@
+---
+description: >-
+  Dynamic columns let each row store a different set of columns inside a blob,
+  for schema-flexible (NoSQL-style) data.
+---
+
 # Dynamic Columns
 
 ## Overview
@@ -298,7 +304,7 @@ It is also possible to create or parse dynamic columns blobs on the client side.
 
 ## See Also
 
-* [Dynamic Columns](broken-reference/)
+* [Dynamic Column API](dynamic-column-api.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

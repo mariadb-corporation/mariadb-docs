@@ -192,6 +192,10 @@ Look at the description of each SST method to determine which methods support [D
 
 For logical SST methods like `mysqldump`, each node should be able to have different [encryption keys](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview). For physical SST methods, all nodes need to have the same [encryption keys](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/data-at-rest-encryption-overview), since the donor node will copy encrypted data files to the joiner node, and the joiner node will need to be able to decrypt them.
 
+## Certificate Requirements for TLS
+
+During an SST or IST, the donor node connects *to* the joiner node. Each node therefore acts as both a TLS server and a TLS client at different times, so a node certificate that sets an Extended Key Usage (EKU) extension must include **both** the `serverAuth` and `clientAuth` values (certificates with no EKU extension also work). Certificates issued from a web-server template (which restrict EKU to `serverAuth` only) cause the TLS handshake to abort during state transfer, even when replication itself works. For details, see [Choosing a Certificate Authority for Galera Cluster](../../galera-security/choosing-a-certificate-authority-for-galera-cluster.md).
+
 ## Minimal Cluster Size
 
 In order to avoid a split-brain condition, the minimum recommended number of nodes in a cluster is 3.

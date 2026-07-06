@@ -1,3 +1,9 @@
+---
+description: >-
+  dbForge Studio is a proprietary third-party tool, not included with MariaDB,
+  for backup, restore, and data export and import.
+---
+
 # dbForge Studio
 
 {% hint style="info" %}

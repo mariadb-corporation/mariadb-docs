@@ -1,3 +1,10 @@
+---
+description: >-
+  Build instructions for compiling Percona XtraBackup from source, including
+  platform-specific notes. Percona XtraBackup is unsupported in MariaDB; use
+  mariadb-backup instead.
+---
+
 # Percona XtraBackup Build Instructions
 
 {% hint style="danger" %}

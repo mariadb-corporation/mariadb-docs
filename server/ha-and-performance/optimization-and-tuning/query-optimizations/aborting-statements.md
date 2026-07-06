@@ -1,3 +1,8 @@
+---
+description: >-
+  How to abort statements that exceed a maximum execution time.
+---
+
 # Aborting Statements that Exceed a Certain Time to Execute
 
 ## Overview

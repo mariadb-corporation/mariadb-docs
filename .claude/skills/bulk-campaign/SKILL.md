@@ -31,6 +31,14 @@ Gather, asking only what's missing:
 - **The tracking ticket** — a `DOCS-XXXX` campaign ticket. If none exists, offer `/jira-create`
   (and `/jira-start` to branch + go IN PROGRESS). Commits and the branch carry that key.
 
+A campaign also keeps **one fact-check report** for the ticket (the paper trail —
+`dev-docs/cookbook-fact-trail.md`): `<reports_dir>/<space>/DOCS-XXXX/report.md` (the campaign is
+already scoped to one space), appended per batch (§3) and re-indexed into `INDEX.md`. Ensure
+`reports_dir` is configured (prompt + validate per the cookbook if missing). For a **mechanical**
+campaign that asserts no new facts (frontmatter backfill, railroad diagrams, a pure rename), the
+report records the scope and a "no factual claims — structural transformation only" note instead
+of claim rows. `/jira-resolve` posts it on handoff like any other.
+
 ## 1. Build the work-list (and confirm before editing)
 
 Enumerate the matching files within scope, then **stop and confirm**:
@@ -63,7 +71,12 @@ For every file in the batch:
 2. **Verify it actually applied** — re-read the changed region; don't assume the edit matched.
 3. **Validate** — `.claude/hooks/doc-lint.sh <file>` (or the `docs-check` skill). Record the
    result.
-4. **Record** the file as `done` / `failed` (with the reason) in the progress log (§5).
+4. **Record any factual claims** the transformation introduces into the campaign fact-check report
+   (`<reports_dir>/<space>/DOCS-XXXX/report.md`) — one row per claim with its doc `file:line`, source evidence
+   `@ SHA`, and verdict (same format as `doc-from-ticket`; see the cookbook). A claim you can't
+   source-verify is an `UNVERIFIED` row, not a silent omission. A file whose transformation
+   asserts nothing new (formatting/structure) adds no rows.
+5. **Record** the file as `done` / `failed` (with the reason) in the progress log (§5).
 
 Never skip a file silently. A file you couldn't transform is `failed` with a reason, surfaced in
 the summary — not omitted.
@@ -109,6 +122,8 @@ State any bound you applied (top-N, sampling) explicitly — **no silent caps**.
 - **One space/path at a time.** Never sweep the whole repo without an explicit, confirmed scope.
 - **Confirm the work-list before editing**; surface exclusions and size.
 - **Per-file verification is mandatory**; failures are reported, never hidden.
+- **The campaign keeps one fact-check report** in `reports_dir` (outside the repo, never
+  committed); factual claims get rows, mechanical passes get a "no claims" note.
 - **Never push or open PRs**; commit per-batch only with explicit approval, with `DOCS-XXXX` in
   the message.
 - Respect generated content (`help-tables/`) and `SUMMARY.md` ownership; coordinate structural

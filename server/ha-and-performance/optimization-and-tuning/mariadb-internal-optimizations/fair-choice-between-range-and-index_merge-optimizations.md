@@ -1,3 +1,9 @@
+---
+description: >-
+  How the optimizer chooses fairly between the range and index_merge access
+  methods.
+---
+
 # Fair Choice Between Range and Index\_merge Optimizations
 
 `index_merge` is a method used by the optimizer to retrieve rows from a single table using several index scans. The results of the scans are then merged.

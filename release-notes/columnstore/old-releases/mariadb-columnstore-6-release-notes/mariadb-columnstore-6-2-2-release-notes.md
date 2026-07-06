@@ -53,7 +53,7 @@ ERROR 1178 (42000): The storage engine for the table doesn't support IDB-1001: F
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.2.2 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.2.2 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 9 (x86\_64)

@@ -19,7 +19,7 @@ The `mysql_old_password` authentication plugin is statically linked into the ser
 
 ## Creating Users
 
-The easiest way to create a user account with the `mysql_old_password` authentication plugin is to make sure that [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) that does not specify an authentication plugin, but instead specifies a password via the [IDENTIFIED BY](../../sql-statements-and-structure/sql-statements/account-management-sql-commands/create-user.md#identified-by-password) clause:
+The easiest way to create a user account with the `mysql_old_password` authentication plugin is to make sure that [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and create a user account via [CREATE USER](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) that does not specify an authentication plugin, but instead specifies a password via the [IDENTIFIED BY](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) clause:
 
 ```sql
 SET old_passwords=1;
@@ -66,7 +66,7 @@ You can change a user account's password with the [SET PASSWORD](../../sql-state
 SET PASSWORD =  PASSWORD('new_secret')
 ```
 
-You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to make sure that [old\_passwords=1](../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and you have to specify a password via the [IDENTIFIED BY](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) clause:
+You can also change the user account's password with the [ALTER USER](../../sql-statements/account-management-sql-statements/alter-user.md) statement. You have to make sure that [old\_passwords=1](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#old_passwords) is set, and you have to specify a password via the [IDENTIFIED BY](../../sql-statements/account-management-sql-statements/create-user.md#identified-by-password) clause:
 
 ```sql
 SET old_passwords=1;

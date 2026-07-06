@@ -249,7 +249,7 @@ Print the program argument list and exit. Must be given as the first option.
 
 #### `--progress-reports`
 
-Get [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
+Get [progress reports](../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for long running commands (such as [ALTER TABLE](../../reference/sql-statements/data-definition/alter/alter-table/)). (Defaults to `ON`; use `--skip-progress-reports` to disable.)
 
 #### `--prompt=`_`name`_
 
@@ -361,7 +361,7 @@ Don't write line number for errors. See `--line-numbers`.
 
 #### `--skip-progress-reports`
 
-Disables getting [progress reports](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KgSCnuNXCMSK6rHfTpO5) for long running commands. See `--progress-reports`.
+Disables getting [progress reports](../../reference/product-development/mariadb-internals/using-mariadb-with-your-programs-api/progress-reporting.md) for long running commands. See `--progress-reports`.
 
 #### `--skip-reconnect`
 

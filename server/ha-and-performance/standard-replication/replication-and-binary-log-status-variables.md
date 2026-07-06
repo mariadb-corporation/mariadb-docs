@@ -104,7 +104,7 @@ See also the [Full list of MariaDB options, system and status variables](../../r
 
 #### `Binlog_stmt_cache_use`
 
-* Description: Number of non-transaction statement which used the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being smaller than [binlog\_stmt\_cache\_size](../optimization-and-tuning/system-variables/server-system-variables.md#binlog_stmt_cache_size). The global value can be flushed by [FLUSH STATUS](../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: Number of non-transaction statement which used the regular [binary log](../../server-management/server-monitoring-logs/binary-log/) cache, being smaller than [binlog\_stmt\_cache\_size](../optimization-and-tuning/system-variables/server-system-variables.md#binlog_stmt_cache_size). The global value can be flushed by [FLUSH STATUS](../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `numeric`
 

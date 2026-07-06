@@ -223,7 +223,7 @@ The [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authenti
 {% hint style="danger" %}
 The [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authentication plugin is not considered secure. It is recommended to avoid using this authentication plugin. To help prevent undesired use of the [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authentication plugin, the server supports the [secure\_auth](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#secure_auth) system variable that configures the server to refuse connections trying to use the [mysql\_old\_password](authentication-plugin-mysql_old_password.md) authentication plugin.
 
-Most [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md) support `secure_auth`.
+Most [clients and utilities](../../../clients-and-utilities/README.md) support `secure_auth`.
 {% endhint %}
 
 | Server Option                                                                                                                            | Description                                                                                                                                                                                                                                                                                                              |

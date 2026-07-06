@@ -1,3 +1,8 @@
+---
+description: >-
+  Using LIMIT ROWS EXAMINED to cap how many rows a query examines.
+---
+
 # LIMIT ROWS EXAMINED
 
 ## Syntax

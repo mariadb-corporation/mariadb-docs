@@ -195,7 +195,7 @@ The second step is to switch the firewall to the learning mode.
 maxctrl alter filter MyFirewall mode=learn-clear
 ```
 
-The firewall will switch to the learning mode and start collecting the canonical form of the statements that flow through it. While the firewall is learning, a representative workload should be run through it. In this case, since there was no allow list, it does not matter whether the mode is set to to `learn-clear` or `learn-append`.
+The firewall will switch to the learning mode and start collecting the canonical form of the statements that flow through it. While the firewall is learning, a representative workload should be run through it. In this case, since there was no allow list, it does not matter whether the mode is set to `learn-clear` or `learn-append`.
 
 The third step, once there is confidence that the firewall has seen all relevant statements, is to switch the firewall to supervising mode.
 

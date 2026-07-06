@@ -1,3 +1,10 @@
+---
+description: >-
+  Configuration reference for the official MariaDB Enterprise container images —
+  environment variables, command-line flags, and sidecar patterns for
+  production deployments.
+---
+
 # MariaDB Enterprise Container Image Configuration Reference
 
 Orchestrating a MariaDB Enterprise deployment within containerized environments involves more than just launching a database instance; it requires the precise alignment of server logic, intelligent traffic routing, and robust observability tools. This reference serves as the definitive technical roadmap for configuring the official images provided by the MariaDB Enterprise Docker Registry. It details the standardized environment variables, specialized sidecar patterns, and command-line flags required to transform raw images into a production-ready, cloud-native ecosystem.

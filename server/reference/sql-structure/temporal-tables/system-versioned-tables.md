@@ -110,8 +110,6 @@ Create Table: CREATE TABLE `t` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 WITH SYSTEM VERSIONING
 ```
 
-**MariaDB starting with** [**11.7**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.7/what-is-mariadb-117)
-
 {% tabs %}
 {% tab title="Current" %}
 It is possible to convert a versioned table from implicit to explicit `row_start`/`row_end` columns. Note that, in order to do any `ALTER` on a system versioned table, [system\_versioning\_alter\_history](system-versioned-tables.md#system_versioning_alter_history) must be set to `KEEP`.

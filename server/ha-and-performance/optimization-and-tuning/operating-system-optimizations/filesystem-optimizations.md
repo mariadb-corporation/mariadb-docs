@@ -1,3 +1,8 @@
+---
+description: >-
+  Filesystem choices and settings that affect MariaDB Server performance.
+---
+
 # Filesystem Optimizations
 
 ## Suitability of Filesystems

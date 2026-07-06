@@ -1,3 +1,9 @@
+---
+description: >-
+  Index-level optimizer hints that tell the optimizer which indexes to use,
+  ignore, or prefer for a given table.
+---
+
 # Index-Level Hints
 
 ## Overview

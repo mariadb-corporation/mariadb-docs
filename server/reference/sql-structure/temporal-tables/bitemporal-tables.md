@@ -1,3 +1,9 @@
+---
+description: >-
+  Bitemporal tables combine system-versioning and application-time periods,
+  versioning data at both levels.
+---
+
 # Bitemporal Tables
 
 Bitemporal tables are tables that use versioning both at the [system](system-versioned-tables.md) and [application-time period](application-time-periods.md) levels.

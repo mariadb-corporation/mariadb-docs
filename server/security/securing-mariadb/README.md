@@ -72,7 +72,7 @@ Learn how to harden MariaDB log files by implementing at-rest encryption, TLS fo
 {% endcolumn %}
 
 {% column %}
-This is is the master list of CVEs fixed across all versions of MariaDB.
+This is the master list of CVEs fixed across all versions of MariaDB.
 {% endcolumn %}
 {% endcolumns %}
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Block-based join algorithms in MariaDB: Block Nested Loop, Block Hash Join,
+  and Batch Key Access.
+---
+
 # Block-Based Join Algorithms
 
 In the versions of MariaDB/MySQL before 5.3, only one block-based join algorithm was implemented: the Block Nested Loops (BNL) join algorithm, which could only be used for inner joins.

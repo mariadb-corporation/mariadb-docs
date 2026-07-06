@@ -1,3 +1,8 @@
+---
+description: >-
+  Documents the obsolete --innodb-release-locks-early XtraDB option.
+---
+
 # XtraDB option --innodb-release-locks-early
 
 The --innodb-release-locks-early feature ([MWL#163](https://askmonty.org/worklog/?tid=163)) was included in the [5.2\

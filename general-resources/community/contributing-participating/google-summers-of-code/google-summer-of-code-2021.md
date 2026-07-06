@@ -107,7 +107,7 @@ MEM\_ROOT can be changed to have debug mode which make it read only which can be
 Background is this question on stackexchange:[mariadb-compare-json](https://dba.stackexchange.com/questions/208481/mariadb-compare-json)\
 The task is to provide a function that can be used to compare 2 json documents for equality, then name can be e.g JSON\_NORMALIZE\
 JSON\_COMPACT already takes care of removing spaces, but this is not sufficient.\
-Keys need to be (recursively) sorted , and if spaces are removed, then documents can be compared as binary strings.
+Keys need to be (recursively) sorted, and if spaces are removed, then documents can be compared as binary strings.
 
 | Details: | Mentor:                                                  |
 | -------- | -------------------------------------------------------- |

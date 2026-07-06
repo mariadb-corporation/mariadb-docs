@@ -17,8 +17,8 @@ For an overview of [MariaDB ColumnStore](https://github.com/mariadb-corporation/
 3. [MariaDB ColumnStore Data API to programmatically load data into PM nodes](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md).
 4. Text and Blob Data Types.
 5. [User defined distributed aggregate and window functions.](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/reference/columnstore-user-defined-aggregate-and-window-functions)
-6. [ColumnStore Backup/Restore Tool](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-110).
-7. MariaDB Server [Audit Plugin Integration](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/columnstore-audit-plugin).
+6. [ColumnStore Backup/Restore Tool](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/yn4SWQY8RLlgQnWFvQEh).
+7. MariaDB Server [Audit Plugin Integration](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/4KBxv24rtKJEW91X5BBe).
 8. Built-in data redundancy using GlusterFS integration for installations that use local disks for data storage on PMs. Please refer to [Preparing ColumnStore Installation](https://github.com/mariadb-corporation/docs-server/blob/test/release-notes/columnstore/columnstore-1-1/broken-reference/README.md) for using GlusterFS with MariaDB ColumnStore.
 9. Several performance improvements in string handling, memory utilization and general area.
 
@@ -95,7 +95,7 @@ There are a number bugs and known limitations within this version of MariaDB Col
 * [MCOL-912](https://jira.mariadb.org/browse/MCOL-912) : fter adding two PMs with gluster, cpimport failed on newly added PMs. The system must be restarted after adding PM modules with data redundancy / gluster storage.
 * [MCOL-916](https://jira.mariadb.org/browse/MCOL-916) : Gluster failover: Stack did not recover completely after PM1 reboot. Under certain topologies (replication count < pm count) failover may not work correctly. Recommend limiting testing to replication count = pm count.
 * [MCOL-926](https://jira.mariadb.org/browse/MCOL-926) : multiple application of a UDAF on the same column will result in a null value except for the first occurence.
-* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](https://app.gitbook.com/s/rBEU9juWLfTDcdwF3Q14/mariadb-columnstore/management/columnstore-system/columnstore-system-monitoring-configuration).
+* The current logging default generates full verbose debug logs. This can be controlled by making logging configuration changes as described [here](/broken/spaces/rBEU9juWLfTDcdwF3Q14/pages/dXPqB8aK1YApDlya8q3W).
 * While Millisecond and Microsecond storage is supported for datetime, time and timestamp columns, at this time the query results cannot return millisecond and microseconds.
 * UTF-8 Limitation
   * UTF-8 must be declared at the table level if the instance has been set up with a UTF-8 profile. Tables created with a non-matching character set will yield indeterminate results.

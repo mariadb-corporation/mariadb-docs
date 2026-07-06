@@ -1,3 +1,9 @@
+---
+description: >-
+  Optimizing string and character columns, including matching character sets
+  and collations for faster comparisons.
+---
+
 # Optimizing String and Character Fields
 
 ## Comparing String Columns

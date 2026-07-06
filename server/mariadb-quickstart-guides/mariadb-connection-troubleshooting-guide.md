@@ -1,15 +1,15 @@
 ---
 description: >-
-  Complete Troubleshooting Connection Issues Guide guide for MariaDB. Complete
-  resource with setup instructions, configuration, usage examples, and best
-  practices.
+  Diagnose and fix common MariaDB Server connection problems, such as "Can't
+  connect to local server" and access-denied errors, with step-by-step
+  troubleshooting.
 ---
 
 # Troubleshooting Connection Issues Guide
 
 The guide helps diagnose and resolve common issues encountered when connecting to a MariaDB server. Identify causes for errors like 'Can't connect to local server' or access denied messages, and learn steps to effectively troubleshoot these connection problems.
 
-If you are completely new to MariaDB and relational databases, you may want to start with [A MariaDB Primer](../server-usage/basics/mariadb-usage-guide-1.md). Also, ensure you understand the connection parameters discussed in the [Connection Parameters Guide](mariadb-connecting-guide.md).
+If you are completely new to MariaDB and relational databases, you may want to start with [A MariaDB Primer](mariadb-usage-guide.md). Also, ensure you understand the connection parameters discussed in the [Connection Parameters Guide](mariadb-connecting-guide.md).
 
 ## Server Not Running or Incorrect Location
 
@@ -97,7 +97,7 @@ OS error code 115: Operation now in progress
 
 By default, MariaDB often does not accept remote TCP/IP connections, or is bound only to `localhost` (`127.0.0.1`).
 
-**Solution:** See [Configuring MariaDB for Remote Client Access](../server-usage/connecting/mariadb-remote-connection-guide-1.md) for detailed instructions on how to enable remote connections by adjusting the `bind-address` server variable and ensuring user accounts are configured correctly for remote hosts.
+**Solution:** See [Configuring MariaDB for Remote Client Access](mariadb-remote-connection-guide.md) for detailed instructions on how to enable remote connections by adjusting the `bind-address` server variable and ensuring user accounts are configured correctly for remote hosts.
 
 ## Authentication Problems
 

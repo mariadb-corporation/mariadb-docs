@@ -29,7 +29,7 @@ port=3306
 protocol=MySQLBackend
 ```
 
-That server defintion will be used by the monitor in order to connect\
+That server definition will be used by the monitor in order to connect\
 to the Xpand cluster. There can be more than one such "bootstrap"\
 definition to cater for the case that the node used as a bootstrap\
 server is down when MaxScale starts.
@@ -151,7 +151,7 @@ port=4008
 The primary purpose of the router _readwritesplit_ is to split\
 statements between one primary and multiple replicas. In the case of\
 Xpand, all servers will be primaries, but _readwritesplit_ may still\
-be the right choise.
+be the right choice.
 
 Namely, as _readwritesplit_ is transaction aware and capable of\
 replaying transactions, it can be used for hiding certain events\

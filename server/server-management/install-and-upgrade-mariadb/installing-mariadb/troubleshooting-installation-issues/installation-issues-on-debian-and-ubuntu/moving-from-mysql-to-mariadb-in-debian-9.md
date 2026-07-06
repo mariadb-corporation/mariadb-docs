@@ -54,7 +54,7 @@ performance. They should not use much additional memory, but some of them do use
 | [max\_allowed\_packet](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet)                          | 1M                | 4M                                                               |
 | [max-connect-errors](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_connect_errors)                            | 10                | 100                                                              |
 | [max-relay-log-size](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_relay_log_size)                            | 0                 | 1024M                                                            |
-| [myisam-sort-buffer-size](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/myisam-storage-engine/myisam-system-variables.md) | 8M                | 128M                                                             |
+| [myisam-sort-buffer-size](../../../../../server-usage/storage-engines/myisam-storage-engine/myisam-system-variables.md) | 8M                | 128M                                                             |
 | [optimizer-switch](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#optimizer_switch)                                | ...               | Added extended\_keys=on, exists\_to\_in=on                       |
 | [query\_alloc\_block\_size](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#query_alloc_block_size)                 | 8192              | 16384                                                            |
 | [query\_cache\_size](../../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#query_cache_size)                              | 0                 | 1M                                                               |
@@ -169,7 +169,7 @@ You should always perform a compete backup of your data prior to performing any 
 
 ## MariaDB Galera Cluster
 
-If you have been using MariaDB Galera Cluster 5.5 or 10.0 on Debian 8 "Jessie" it is worth mentioning that [Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/en/galera/README.md) is included by default in [MariaDB 10.1](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series) , there is no longer a need to install a separate `mariadb-galera-server` package.
+If you have been using MariaDB Galera Cluster 5.5 or 10.0 on Debian 8 "Jessie" it is worth mentioning that [Galera Cluster](../../../../../architecture/topologies/galera-cluster/README.md) is included by default in [MariaDB 10.1](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series) , there is no longer a need to install a separate `mariadb-galera-server` package.
 
 ## Configuration options for advanced database users
 
@@ -197,7 +197,7 @@ This only affects new installs. Upgrades from old versions will continue to use 
 * [Configuring MariaDB for optimal performance](../../../configuring-mariadb/mariadb-performance-advanced-configurations/configuring-mariadb-for-optimal-performance.md)
 * [New features in MariaDB you should considering using](https://mariadb.com/docs/release-notes/compatibility-and-differences/mariadb-vs-mysql-features)
 * [What is MariaDB 10.1](https://mariadb.com/docs/release-notes/mariadb-community-server-release-notes/old-releases/release-notes-mariadb-10-1-series/changes-improvements-in-mariadb-10-1)
-* [General instructions for upgrading from MySQL to MariaDB](/broken/pages/Wvw3Hz582uZdUAGua5bc)
+* [General instructions for upgrading from MySQL to MariaDB](../../../upgrading/upgrading-mariadb-upgrading-from-mysql-to-mariadb.md)
 
 ## Comments and suggestions
 

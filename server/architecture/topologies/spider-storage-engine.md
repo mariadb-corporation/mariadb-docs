@@ -1,3 +1,9 @@
+---
+description: >-
+  Scale MariaDB horizontally with the Spider storage engine, which shards
+  tables across remote nodes through virtual federated tables.
+---
+
 # Spider Storage Engine
 
 ### Spider Topologies

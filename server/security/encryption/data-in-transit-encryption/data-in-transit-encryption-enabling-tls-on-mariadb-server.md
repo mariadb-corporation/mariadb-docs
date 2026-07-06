@@ -57,7 +57,7 @@ It is not recommended to make changes to one of the bundled configuration files.
 {% step %}
 **Set your system variables and options in the configuration file.**
 
-They need to be set in a group that is read by [MariaDB Server](https://github.com/mariadb-corporation/docs-server/blob/test/en/mariadb-enterprise-server/README.md), such as `[mariadb]` , `[server]`, or `[client-server]`:
+They need to be set in a group that is read by MariaDB Server, such as `[mariadb]` , `[server]`, or `[client-server]`:
 
 ```ini
 [mariadb]

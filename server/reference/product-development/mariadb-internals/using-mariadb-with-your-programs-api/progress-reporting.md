@@ -43,15 +43,15 @@ Some Aria storage engine operations also support progress messages:
 * [CHECK TABLE](../../../sql-statements/table-statements/check-table.md)
 * [REPAIR TABLE](../../../sql-statements/table-statements/repair-table.md)
 * [ANALYZE TABLE](../../../sql-statements/table-statements/analyze-table.md)
-* [OPTIMIZE TABLE](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md)
+* [OPTIMIZE TABLE](../../../../ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table.md)
 
 ### Limitations
 
-Although the above commands support progress reporting, there are some limitations to what progress is reported. To be specific, when executing one of these commands against an InnoDB table with [ALGORITHM=INPLACE](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md) (which is the default in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)+), progress is only reported during the merge sort phase while reconstructing indexes.
+Although the above commands support progress reporting, there are some limitations to what progress is reported. To be specific, when executing one of these commands against an InnoDB table with [ALGORITHM=INPLACE](../../../../server-usage/storage-engines/innodb/innodb-online-ddl/innodb-online-ddl-operations-with-the-inplace-alter-algorithm.md) (which is the default in [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)+), progress is only reported during the merge sort phase while reconstructing indexes.
 
 ## Enabling and Disabling Progress Reporting
 
-`mysqld` (the MariaDB server) automatically sends progress report messages to clients that support the new protocol, using the value of the [progress\_report\_time](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#progress_report_time) variable. They are sent every\
+`mysqld` (the MariaDB server) automatically sends progress report messages to clients that support the new protocol, using the value of the [progress\_report\_time](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#progress_report_time) variable. They are sent every\
 max(`global.progress_report_time` , `progress_report_time`) seconds (by default 5). You can disable the sending of progress report messages to the client by setting either the local variable (affects only the current connection) or the global variable (affects all connections) to `0`.
 
 If the extra column in `SHOW PROCESSLIST` gives you a compatibility problem,\
@@ -59,13 +59,13 @@ you can disable it by starting `mysqld` with the `--old` flag.
 
 ## Clients Which Support Progress Reporting
 
-* The [mariadb command line client](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/clients-and-utilities/mariadb-client/mariadb-command-line-client.md)
+* The [mariadb command line client](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md)
 * The `mytop` that comes with MariaDB has a `'%'` column which shows\
   the progress.
 
 ## Progress Reporting in the mysql Command Line Client
 
-Progress reporting is enabled by default in the [mariadb client](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/clients-and-utilities/mariadb-client/mariadb-command-line-client.md). You can\
+Progress reporting is enabled by default in the [mariadb client](../../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md). You can\
 disable it with `--disable-progress-reports`. It is automatically disabled in\
 batch mode.
 
@@ -76,7 +76,7 @@ ALTER TABLE my_mail ENGINE=aria;
 Stage: 1 of 2 'copy to tmp table'  5.37% of stage done
 ```
 
-This is updated every [progress\_report\_time](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#progress_report_time) seconds (the default is 5). If the global `progress_report_time` is higher, this will be used. You can also disable error reporting by setting the variable to `0`.
+This is updated every [progress\_report\_time](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#progress_report_time) seconds (the default is 5). If the global `progress_report_time` is higher, this will be used. You can also disable error reporting by setting the variable to `0`.
 
 ## How to Add Support for Progress Reporting to a Client
 

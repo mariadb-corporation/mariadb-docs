@@ -1,3 +1,8 @@
+---
+description: >-
+  The optimizer cost model introduced in MariaDB 11.0.
+---
+
 # The Optimizer Cost Model from MariaDB 11.0
 
 ## Background
@@ -60,10 +65,10 @@ OPTIMIZER_INDEX_BLOCK_COPY_COST: 0.035600
       OPTIMIZER_ROWID_COPY_COST: 0.002653
 ```
 
-The above costs are the default (base) for all engines and should be reasonable for engines that does not have a clustered index (like [MyISAM](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/storage-engines/myisam-storage-engine/README.md), [Aria](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/storage-engines/aria/README.md) etc). The default costs can be changed by specifying just the cost as an argument, like `mariadbd --optimizer-disk-read-cost=20` or from SQL: `set global optimizer_disk_read_cost=20`. An engine specific cost can be tuned by prefixing the cost with the engine name, like `set global innodb.optimizer_disk_read_cost=20`.
+The above costs are the default (base) for all engines and should be reasonable for engines that does not have a clustered index (like [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/README.md), [Aria](../../../server-usage/storage-engines/aria/README.md) etc). The default costs can be changed by specifying just the cost as an argument, like `mariadbd --optimizer-disk-read-cost=20` or from SQL: `set global optimizer_disk_read_cost=20`. An engine specific cost can be tuned by prefixing the cost with the engine name, like `set global innodb.optimizer_disk_read_cost=20`.
 
 An engine can tune some or all of the above cost in the storage engine interface.\
-Here follows the cost for the [InnoDB storage engine](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/storage-engines/innodb/README.md).
+Here follows the cost for the [InnoDB storage engine](../../../server-usage/storage-engines/innodb/README.md).
 
 ```sql
 SELECT * FROM information_schema.optimizer_costs WHERE engine="innodb"\G
@@ -125,7 +130,7 @@ things, except for `OPTIMIZER_DISK_READ_COST` as one should use published/tested
 | OPTIMIZER\_SCAN\_SETUP\_COST        | Session | Cost of starting a table or index scan. This has a low value to encourage the optimizer to use index lookup also tables with very few rows                                                                                                                                                   |
 | OPTIMIZER\_WHERE\_COST              | Session | Cost to execute the WHERE clause for every found row. Increasing this variable will encourage the optimizer to find plans which read fewer rows                                                                                                                                              |
 
-More information of the costs and how they were calculated can be found in the `Docs/optimizer_costs.txt` file in the [MariaDB Source distributions](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md).
+More information of the costs and how they were calculated can be found in the `Docs/optimizer_costs.txt` file in the [MariaDB Source distributions](../../../clients-and-utilities/server-client-software/download/getting-the-mariadb-source-code.md).
 
 ## Other Optimizer Cost Changes
 

@@ -40,7 +40,7 @@ interval:
 
 ## Description
 
-This statement creates and schedules a new [event](../../../../server-usage/triggers-events/event-scheduler/events.md). It requires the [EVENT](../../account-management-sql-commands/grant.md#database-privileges) privilege for the schema in which the event is to be created.
+This statement creates and schedules a new [event](../../../../server-usage/triggers-events/event-scheduler/events.md). It requires the [EVENT](../../account-management-sql-statements/grant.md#database-privileges) privilege for the schema in which the event is to be created.
 
 The minimum requirements for a valid CREATE EVENT statement are as follows:
 

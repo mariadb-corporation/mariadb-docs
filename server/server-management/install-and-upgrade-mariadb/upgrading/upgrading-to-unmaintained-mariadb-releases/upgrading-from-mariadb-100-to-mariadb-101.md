@@ -44,7 +44,7 @@ The suggested upgrade procedure is:
 3. Run [mysql\_upgrade](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md).
 
 * `mysql_upgrade` does two things:
-  1. Ensures that the system tables in the `[mysq](../../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/system-tables/the-mysql-database-tables/README.md) l` database are fully compatible with the new version.
+  1. Ensures that the system tables in the `[mysq](../../../../reference/system-tables/the-mysql-database-tables/README.md) l` database are fully compatible with the new version.
   2. Does a very quick check of all tables and marks them as compatible with the new version of MariaDB .
 
 ### Incompatible Changes Between 10.0 and 10.1
@@ -100,7 +100,7 @@ Note that explicit or implicit casts from MAX(string) to INT, DOUBLE or DECIMAL 
 You might consider using the following major new features in [MariaDB 10.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.1/changes-improvements-in-mariadb-10-1):
 
 * [Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/readme/mariadb-galera-cluster-usage-guide) is now included by default.
-* [Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N)
+* [Encryption](../../../../security/encryption/data-at-rest-encryption/README.md)
 * [InnoDB/XtraDB Page Compression](../../../../server-usage/storage-engines/innodb/innodb-page-compression.md)
 
 ## Notes

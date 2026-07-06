@@ -1,3 +1,8 @@
+---
+description: >-
+  MariaDB Vector integrations with popular AI and application frameworks.
+---
+
 # Vector Framework Integrations
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}

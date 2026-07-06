@@ -176,6 +176,14 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score                                 | Enterprise Server 10.6 Release |
 | ----------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-32710](https://www.cve.org/CVERecord?id=CVE-2026-32710) | 8.5                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171) | 6.3                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170) | 5.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                                             | [10.6.27-23](10.6.27-23.md)    |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                                             | [10.6.27-23](10.6.27-23.md)    |
 | [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261) | 10.0                                            | [10.6.25-22](10.6.25-22.md)    |
 | [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |
 | [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163) | 8.0                                             | [10.6.25-22](10.6.25-22.md)    |

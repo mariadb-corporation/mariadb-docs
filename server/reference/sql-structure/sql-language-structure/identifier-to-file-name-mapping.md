@@ -1,3 +1,8 @@
+---
+description: >-
+  How MariaDB maps identifiers to file names on disk.
+---
+
 # Identifier to File Name Mapping
 
 Some identifiers map to a file name on the filesystem. Databases each have their own directory, while, depending on the [storage engine](../../../server-usage/storage-engines/), table names and index names may map to a file name.

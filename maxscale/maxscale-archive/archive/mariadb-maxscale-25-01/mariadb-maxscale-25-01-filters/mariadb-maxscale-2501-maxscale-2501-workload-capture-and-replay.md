@@ -444,7 +444,7 @@ Options:
 -i              During capture there can be long delays where there is no traffic.
                 One hour of no capture traffic would mean replay waits for one hour.
                 idle-wait allows to move simulation time forwards when such gaps
-                occure. A 'gap' starts when all prior queries have fully executed.
+                occur. A 'gap' starts when all prior queries have fully executed.
                 --idle-wait takes a duration value. A negative value turns the feature off,
                             i.e. the one hour wait would happen.
                 --idle-wait 0s means time moves to the event start-time immediately
@@ -460,7 +460,7 @@ Options:
                 once the databases to be tested have been prepared (see full documentation)
                 and optionally either a write-only run, or a full replay has been run.
                 Now multiple read-only runs against the server(s) are simple as no further
-                data syncronization is needed.
+                data synchronization is needed.
                 Note that this mode has its limitations as the query results may
                 be very different than what they were during capture.
 
