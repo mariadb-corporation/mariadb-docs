@@ -31,7 +31,7 @@ This architecture allows applications to use a single connection endpoint for bo
 
 ## Prerequisites
 
-* MariaDB MaxScale **25.10.1 or later** must be installed.\
+* MariaDB MaxScale **25.10.1 or later** must be installed (CDC to Exasol requires **25.10.3 or later**).\
   See the [installation guide](../maxscale-quickstart-guides/mariadb-maxscale-installation-guide.md) if required.
 * MaxScale running on x86\_64 architecture
   * The Exasolrouter module uses the Exasol ODBC driver to establish communication with Exasol.
