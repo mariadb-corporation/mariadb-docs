@@ -1,3 +1,10 @@
+---
+description: >-
+  Convert every table in a database to a given storage engine (MyISAM by
+  default) with mariadb-convert-table-format (formerly
+  mysql_convert_table_format).
+---
+
 # mariadb-convert-table-format
 
 `mariadb-convert-table-format` converts the tables in a database to use a particular storage engine ([MyISAM](../../server-usage/storage-engines/myisam-storage-engine/) by default).

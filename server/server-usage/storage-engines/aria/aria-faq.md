@@ -101,7 +101,7 @@ All except Guilhem Bichot are working for [MariaDB Corporation Ab](https://maria
 
 ### What is the release policy/schedule of Aria?
 
-Aria follows the same [release criteria](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) as for [MariaDB](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb/README.md). Some clarifications, unique for the Aria storage engine:
+Aria follows the same [release criteria](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/release-criteria) as for MariaDB. Some clarifications, unique for the Aria storage engine:
 
 * Aria index and data file formats should be backwards and forwards compatible to ensure easy upgrades and downgrades.
 * The [log file](aria-storage-engine.md#aria-log-files) format should also be compatible, but we don't make any guarantees yet. In some cases when upgrading, you must remove the old `aria_log.%` and `maria_log.%` files before restarting MariaDB. (So far, this has only occurred in the upgrade from [MariaDB 5.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.1/changes-improvements-in-mariadb-5-1) and [MariaDB 5.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.2/changes-improvements-in-mariadb-5-2)).

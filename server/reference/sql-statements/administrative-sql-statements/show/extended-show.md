@@ -25,7 +25,7 @@ The following [SHOW](./) statements can be extended using a `WHERE` clause and a
 * [SHOW TRIGGERS](show-triggers.md)
 * [SHOW VARIABLES](show-variables.md)
 
-As with a regular [SELECT](../../data-manipulation/selecting-data/select.md), the `WHERE` clause can be used for the specific columns returned, and the [LIKE](../../built-in-functions/string-functions/like.md) clause with the regular wildcards.
+As with a regular [SELECT](../../data-manipulation/selecting-data/select.md), the `WHERE` clause can be used for the specific columns returned, and the [LIKE](../../../sql-functions/string-functions/like.md) clause with the regular wildcards.
 
 ## Examples
 

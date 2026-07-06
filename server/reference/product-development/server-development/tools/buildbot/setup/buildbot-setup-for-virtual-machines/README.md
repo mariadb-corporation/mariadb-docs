@@ -30,3 +30,75 @@ generally an 8Gb image was configured, of which 1/2 Gb was reserved for swap\
 and the rest for a single root partition "/".
 
 For details on setting up a host server to run these VMs, see [Buildbot Setup for VM host](../buildbot-setup-for-vm-host.md).
+
+{% columns %}
+{% column %}
+{% content-ref url="buildbot-setup-for-virtual-machines-freebsd-92.md" %}
+[buildbot-setup-for-virtual-machines-freebsd-92.md](buildbot-setup-for-virtual-machines-freebsd-92.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="buildbot-setup-for-virtual-machines-general-principles.md" %}
+[buildbot-setup-for-virtual-machines-general-principles.md](buildbot-setup-for-virtual-machines-general-principles.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="buildbot-setup-for-virtual-machines-additional-steps/" %}
+[buildbot-setup-for-virtual-machines-additional-steps](buildbot-setup-for-virtual-machines-additional-steps/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="buildbot-setup-for-virtual-machines-debian/" %}
+[buildbot-setup-for-virtual-machines-debian](buildbot-setup-for-virtual-machines-debian/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="buildbot-setup-for-virtual-machines-red-hat/" %}
+[buildbot-setup-for-virtual-machines-red-hat](buildbot-setup-for-virtual-machines-red-hat/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="buildbot-setup-for-virtual-machines-ubuntu/" %}
+[buildbot-setup-for-virtual-machines-ubuntu](buildbot-setup-for-virtual-machines-ubuntu/)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Explains how to provision and configure virtual machine instances specifically for Buildbot testing.
+{% endcolumn %}
+{% endcolumns %}

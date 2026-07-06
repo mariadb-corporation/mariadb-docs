@@ -88,15 +88,15 @@ Note that in any case, only queries that takes longer than **log\_slow\_time** o
 
 **MariaDB starting with** [10.6.16](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.16)
 
-If one enables the warning option for `log_slow_verbosity`, all notes and warnings for a slow query will also be added to the slow query log. This is very usable when one has enabled warnings for [Notes when an index cannot be used](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/6i8fZzcvmNSFbrzV3oWU). `log_slow_max_warnings` limits the number of warnings printed to the slow query log per query. The default value is 10.
+If one enables the warning option for `log_slow_verbosity`, all notes and warnings for a slow query will also be added to the slow query log. This is very usable when one has enabled warnings for [Notes when an index cannot be used](../../query-optimizer/notes-when-an-index-cannot-be-used.md). `log_slow_max_warnings` limits the number of warnings printed to the slow query log per query. The default value is 10.
 
 ## Credits
 
-Part of this addition is based on the [microslow](https://www.percona.com/percona-builds/Percona-SQL-5.0/Percona-SQL-5.0-5.0.87-b20/patches/microslow_innodb.patch) patch from [Percona](https://www.percona.com/).
+Part of this addition is based on the microslow patch from [Percona](https://www.percona.com/).
 
 ## See also
 
-* [Notes when an index cannot be used because of type conversions](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/6i8fZzcvmNSFbrzV3oWU)
+* [Notes when an index cannot be used because of type conversions](../../query-optimizer/notes-when-an-index-cannot-be-used.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

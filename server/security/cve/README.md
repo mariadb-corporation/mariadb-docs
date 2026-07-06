@@ -28,13 +28,29 @@ For additional information, see [Vulnerability Metrics](https://nvd.nist.gov/vul
 
 ## Fixed Security Vulnerabilities
 
+{% columns %}
+{% column %}
 {% content-ref url="enterprise-server.md" %}
 [enterprise-server.md](enterprise-server.md)
 {% endcontent-ref %}
+{% endcolumn %}
 
+{% column %}
+This page contains a full list of CVEs fixed in all versions and series of MariaDB Enterprise Server.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="community-server.md" %}
 [community-server.md](community-server.md)
 {% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+This page contains a full list of CVEs fixed in all versions and series of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
 
 Some CVE apply to MySQL but are not present in MariaDB Enterprise Server or MariaDB Community Server; these are listed on the [Security Vulnerabilities fixed in Oracle MySQL that did not exist in MariaDB](security-vulnerabilities-in-oracle-mysql-that-did-not-exist-in-mariadb.md) page.
 

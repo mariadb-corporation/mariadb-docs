@@ -1,3 +1,9 @@
+---
+description: >-
+  The hash_join_cardinality optimizer_switch flag, which affects hash-join
+  cardinality estimates.
+---
+
 # hash\_join\_cardinality optimizer\_switch Flag
 
 **MariaDB starting with** [**10.6.13**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.13)
@@ -27,7 +33,7 @@ output cardinality as if customer was cross-joined with orders.
 
 ## Hash Join
 
-MariaDB supports [Block Hash Join](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/VWjZF4UcCaSJJtdMzBO2#block-hash-join). It is not enabled by default, one needs to set it [join\_cache\_level](../system-variables/server-system-variables.md#join_cache_level) to 3 or a bigger value to enable it.
+MariaDB supports [Block Hash Join](../query-optimizer/block-based-join-algorithms.md#block-hash-join). It is not enabled by default, one needs to set it [join\_cache\_level](../system-variables/server-system-variables.md#join_cache_level) to 3 or a bigger value to enable it.
 
 Before [MDEV-30812](https://jira.mariadb.org/browse/MDEV-30812), Query optimization for Block Hash Join would work as described in the above example: It would assume that the join operation is a cross join.
 

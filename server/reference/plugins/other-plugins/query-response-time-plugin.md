@@ -251,7 +251,7 @@ It is **not** possible to specify flushing read and/or write statements with the
 ### `query_response_time_exec_time_debug`
 
 * Description: Pretend queries take this many microseconds. When 0 (the default) use the actual execution time.
-  * This system variable is only available when the plugin is a [debug build](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7).
+  * This system variable is only available when the plugin is a [debug build](../../product-development/debugging-mariadb/compiling-mariadb-for-debugging.md).
 * Scope: Global
 * Dynamic: Yes
 * Data Type: `numeric`

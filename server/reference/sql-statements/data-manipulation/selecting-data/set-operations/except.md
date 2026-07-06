@@ -35,10 +35,6 @@ SELECT ...
 | FETCH { FIRST | NEXT } [ count ] { ROW | ROWS } { ONLY | WITH TIES } ]
 ```
 
-{% hint style="warning" %}
-Brackets for explicit operation precedence are not supported; use a subquery in the `FROM` clause as a workaround.
-{% endhint %}
-
 ### Description
 
 MariaDB supports `EXCEPT` and [INTERSECT](intersect.md) in addition to [UNION](union.md).
@@ -55,9 +51,7 @@ The result of `EXCEPT` is all records of the left `SELECT` result except records
 
 #### Parentheses
 
-Parentheses can be used to specify precedence. Before this, a syntax error would be returned.
-
-**MariaDB starting with** [**10.5.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.0)
+Parentheses can be used to specify precedence.
 
 #### ALL/DISTINCT
 

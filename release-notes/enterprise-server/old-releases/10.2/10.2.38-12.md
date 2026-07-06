@@ -101,7 +101,7 @@ MariaDB Enterprise Server 10.2.38-12 was released on 2021-06-14.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.38-12 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.38-12 is provided for:
 
 * CentOS 7
 * CentOS 8

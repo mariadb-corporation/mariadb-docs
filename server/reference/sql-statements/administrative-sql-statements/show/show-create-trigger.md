@@ -14,9 +14,9 @@ SHOW CREATE TRIGGER trigger_name
 
 ## Description
 
-This statement shows a [CREATE TRIGGER](../../../../../server-usage/programming-customizing-mariadb/triggers-events/triggers/create-trigger.md) statement that creates the given trigger, as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) that was used when the trigger has been created and the character set used by the connection.
+This statement shows a [CREATE TRIGGER](../../../../server-usage/triggers-events/triggers/create-trigger.md) statement that creates the given trigger, as well as the [SQL\_MODE](../../../../server-management/variables-and-modes/sql_mode.md) that was used when the trigger has been created and the character set used by the connection.
 
-The [TRIGGER](../../account-management-sql-commands/grant.md#table-privileges) privilege is required on the table the trigger is defined for to execute this statement.
+The [TRIGGER](../../account-management-sql-statements/grant.md#table-privileges) privilege is required on the table the trigger is defined for to execute this statement.
 
 {% tabs %}
 {% tab title="Current" %}

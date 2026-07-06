@@ -499,7 +499,7 @@ Total fragmented tables: 23
 ```
 {% endcode %}
 
-This implies that [OPTIMIZE TABLE](optimization-and-tuning/optimizing-tables/optimize-table.md) _might_ help. Use it for tables with either a high percentage of "free space" (see [SHOW TABLE STATUS](../reference/sql-statements/administrative-sql-statements/show/show-table-status.md)) or where you know you run a lot of `DELETE` and/or `UPDATE` statements. Still, don't bother to optimze too often. Once a month should suffice.
+This implies that [OPTIMIZE TABLE](optimization-and-tuning/optimizing-tables/optimize-table.md) _might_ help. Use it for tables with either a high percentage of "free space" (see [SHOW TABLE STATUS](../reference/sql-statements/administrative-sql-statements/show/show-table-status.md)) or where you know you run a lot of `DELETE` and/or `UPDATE` statements. Still, don't bother to optimize too often. Once a month should suffice.
 
 ## See Also
 

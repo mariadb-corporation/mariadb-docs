@@ -1,3 +1,9 @@
+---
+description: >-
+  Install and configure single-node MariaDB deployments, including a single-
+  node columnar store with optional S3-compatible object storage.
+---
+
 # Single Node Topologies
 
 ## Overview

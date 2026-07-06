@@ -1,3 +1,8 @@
+---
+description: >-
+  Why random GUID/UUID keys hurt index performance, and how to mitigate it.
+---
+
 # GUID/UUID Performance
 
 ## The problem

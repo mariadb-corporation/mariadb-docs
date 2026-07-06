@@ -1,3 +1,8 @@
+---
+description: >-
+  Using IGNORE INDEX to tell the optimizer not to consider specific indexes.
+---
+
 # IGNORE INDEX
 
 ## Syntax

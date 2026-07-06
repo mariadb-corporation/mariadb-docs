@@ -1,3 +1,8 @@
+---
+description: >-
+  Tuning table_open_cache to balance performance against open-file usage.
+---
+
 # Optimizing table\_open\_cache
 
 [_table\_open\_cache_](server-system-variables.md#table_open_cache) can be a useful variable to adjust to improve performance.

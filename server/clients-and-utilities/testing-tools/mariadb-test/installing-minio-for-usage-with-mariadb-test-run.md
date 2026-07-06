@@ -1,3 +1,9 @@
+---
+description: >-
+  Install MinIO to provide S3-compatible storage for testing the S3 storage
+  engine with mariadb-test-run.
+---
+
 # Installing MinIO for Usage With mariadb-test-run
 
 When testing the S3 storage engine with the s3 test suite, [mariadb-test-run](./) needs access to Amazon S3 compatible storage.

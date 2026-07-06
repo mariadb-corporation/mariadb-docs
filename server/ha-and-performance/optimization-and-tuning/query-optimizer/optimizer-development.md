@@ -1,3 +1,8 @@
+---
+description: >-
+  Notes on MariaDB optimizer development.
+---
+
 # Optimizer Development
 
 Notes about Optimizer Development

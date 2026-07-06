@@ -25,14 +25,13 @@ UPDATE [LOW_PRIORITY] [IGNORE] table_reference
   [LIMIT row_count]
   [RETURNING select_expr 
     [, select_expr ...]]
-  RETURNING OLD_VALUE(val) AS old [, val as new]
 ```
 
 ![Railroad diagram of single-table UPDATE — equivalent to the BNF above](../../../../.gitbook/assets/update-railroad.svg)
 
 ![Railroad diagram of set_value](../../../../.gitbook/assets/update-set-value-railroad.svg)
 
-`order_by_specification` stands in for the abbreviated `ORDER BY ...` in the source BNF; see [ORDER BY](../selecting-data/order-by.md) for its full form.
+The abbreviated `[ORDER BY ...]` shown above is the standard `ORDER BY` clause; see [ORDER BY](../selecting-data/order-by.md) for its full form.
 
 {% hint style="info" %}
 The `RETURNING` clause is available from MariaDB 13.0.
@@ -50,6 +49,8 @@ Multiple-table syntax:
 UPDATE [LOW_PRIORITY] [IGNORE] table_references
     SET col1={expr1|DEFAULT} [, col2={expr2|DEFAULT}] ...
     [WHERE where_condition]
+    [ORDER BY ...]
+    [LIMIT row_count]
 ```
 
 ### CTE Syntax
@@ -66,7 +67,7 @@ UPDATE non_cte_table expression
 ```
 
 * `non_cte_table` is a table not defined by a CTE (common table expression).
-* `expression` is a `WHERE` clause.
+* `expression` is the rest of the `UPDATE` statement body (the `SET` clause, and optionally `WHERE`, `ORDER BY`, `LIMIT`, and `RETURNING`).
 * Supporting CTEs with `UPDATE` is an extension of the SQL standard, similar to how MySQL does it.
 * With `UPDATE`, CTEs are read-only, like other derived tables – you cannot update columns from tables in the CTE expression.
 * For use cases, see the [CTE examples](update.md#single-table).
@@ -76,15 +77,7 @@ UPDATE non_cte_table expression
 For the single-table syntax, the `UPDATE` statement updates columns of existing rows in the named table with new values. The`SET` clause indicates which columns to modify and the values they should be given. Each value can be given as an expression, or the keyword`DEFAULT` to set a column explicitly to its default value. The`WHERE` clause, if given, specifies the conditions that identify which rows to update. With no `WHERE` clause, all rows are updated. If the [ORDER BY](../selecting-data/order-by.md) clause is specified, the rows are\
 updated in the order that is specified. The [LIMIT](../selecting-data/limit.md) clause places a limit on the number of rows that can be updated.
 
-{% tabs %}
-{% tab title="Current" %}
-Both clauses can be used with multiple-table updates.
-{% endtab %}
-
-{% tab title="< 10.3" %}
-Both clauses can be used with multiple-table updates. For the multiple-table syntax, `UPDATE` updates rows in each table named in `table_references` that satisfy the conditions. In this case, [ORDER BY](../selecting-data/order-by.md) and [LIMIT](../selecting-data/limit.md) could not be used.
-{% endtab %}
-{% endtabs %}
+Both clauses can be used with multiple-table updates. For the multiple-table syntax, `UPDATE` updates rows in each table named in `table_references` that satisfy the conditions.
 
 An `UPDATE` can also reference tables which are located in different databases; see [Identifier Qualifiers](../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for the syntax.
 

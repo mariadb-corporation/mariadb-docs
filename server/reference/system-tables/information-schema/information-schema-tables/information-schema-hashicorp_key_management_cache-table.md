@@ -10,7 +10,7 @@ description: >-
 This table is available from MariaDB 12.3.
 {% endhint %}
 
-The `INFORMATION_SCHEMA.HASHICORP_KEY_MANAGEMENT_CACHE` table lists the Key ID and the latest Key Version for keys managed by the [HashiCorp Key Management plugin](../../../../security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md). The table's contents can be queried directly, or viewed using the `SHOW HASHICORP_KEY_MANAGEMENT_CACHE` statement.
+The `INFORMATION_SCHEMA.HASHICORP_KEY_MANAGEMENT_CACHE` table lists the Key ID and the latest Key Version for keys managed by the [HashiCorp Key Management plugin](../../../../security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md). The table's contents can be queried directly, or viewed using the `SHOW HASHICORP_KEY_MANAGEMENT_CACHE` statement.
 
 You can reload the data from the Vault server into the cache by issuing this statement:
 

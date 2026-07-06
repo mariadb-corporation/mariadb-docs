@@ -1,3 +1,9 @@
+---
+description: >-
+  Display and apply records from the Aria transaction log with the
+  aria_read_log tool.
+---
+
 # aria\_read\_log
 
 `aria_read_log` is a tool for displaying and applying log records from an [Aria](../../server-usage/storage-engines/aria/) [transaction log](../../server-usage/storage-engines/aria/aria-storage-engine.md#aria-log-files).

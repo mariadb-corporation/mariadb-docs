@@ -1,3 +1,10 @@
+---
+description: >-
+  Introduces MariaDB catalogs, a multi-tenancy feature that lets a single server
+  host multiple independent tenants, each with their own users, schemas, and
+  logs.
+---
+
 # Catalogs Overview
 
 {% include "../../../.gitbook/includes/catalogs.md" %}
@@ -136,7 +143,7 @@ Client changes:
 * Add --catalog option to all standard MariaDB clients
 * Add support for looping over all existing catalogs to:
   * [mariadb-dump](../../../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md)
-  * [mariadb-backup](../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/)
+  * [mariadb-backup](../../../server-usage/backup-and-restore/mariadb-backup/)
   * [mariadb-upgrade](../../../clients-and-utilities/deployment-tools/mariadb-upgrade.md)
 
 Changes to [mariadb-install-db](../../../clients-and-utilities/deployment-tools/mariadb-install-db.md):

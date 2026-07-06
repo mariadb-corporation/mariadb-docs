@@ -1,3 +1,9 @@
+---
+description: >-
+  How MariaDB handles primary keys over nullable columns, following the SQL
+  standard.
+---
+
 # Primary Keys with Nullable Columns
 
 MariaDB deals with primary keys over nullable columns according to the SQL standards.

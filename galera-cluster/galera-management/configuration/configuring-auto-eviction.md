@@ -31,7 +31,7 @@ The value of `evs.auto_evict` determines the threshold for eviction. It defines 
 wsrep_provider_options = "evs.auto_evict=5"
 ```
 
-In the above example example, if a node registers that a peer has been delayed 5 times, it will vote to have that peer evicted from the cluster.
+In the above example, if a node registers that a peer has been delayed 5 times, it will vote to have that peer evicted from the cluster.
 
 To disable Auto-Eviction, you can set the value to `0`:
 

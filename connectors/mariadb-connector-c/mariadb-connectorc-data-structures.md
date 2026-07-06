@@ -77,17 +77,16 @@ The `MYSQL_BIND` structure is used to provide parameters for prepared statements
 | Type                    | Member          | Description                                                                                                                                                                             |
 | ----------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | unsigned long \*        | length          | Pointer for the length of the buffer (not used for parameters). The length is ignored for numeric and fixed size data types, as the buffer\_type value determines the size of the data. |
-| my\_bool \*             | is\_nulll       | Pointer which indicates if column is NULL (not used for parameters)                                                                                                                     |
+| my\_bool \*             | is\_null        | Pointer which indicates if column is NULL (not used for parameters)                                                                                                                     |
 | my\_bool \*             | error           | Pointer which indicates if an error occurred                                                                                                                                            |
 | void \*                 | buffer          | Data buffer which contains or receives data                                                                                                                                             |
 | char \*                 | u.indicator     | Array of indicator variables for bulk operation parameter                                                                                                                               |
 | unsigned long           | buffer\_length  | Length of buffer                                                                                                                                                                        |
 | enum enum\_field\_types | buffer\_type    | [Buffer type](mariadb-connectorc-types-and-definitions.md)                                                                                                                              |
-| unsigned long           | length\_value   | Used if length pointer is NULL                                                                                                                                                          |
-| my\_bool                | error\_value    | Used if error pointer is NULL                                                                                                                                                           |
-| my\_bool                | is\_null\_value | Used if is\_null pointer is NULL                                                                                                                                                        |
+| unsigned long           | length\_value   | Used if address of `length_value` is assigned to `MYSQL_BIND::length`                                                                                                                   |
+| my\_bool                | error\_value    | Used if address of `error_value` is assigned to `MYSQL_BIND::error`                                                                                                                     |
+| my\_bool                | is\_null\_value | Used if address of `is_null_value` is assigned to `MYSQL_BIND::is_null`                                                                                                                  |
 | my\_bool                | is\_unsigned    | Set if integer type is unsigned                                                                                                                                                         |
-| my\_bool                | is\_null\_value | Used if value is NULL                                                                                                                                                                   |
 
 ### MYSQL\_TIME
 

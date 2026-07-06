@@ -1,3 +1,9 @@
+---
+description: >-
+  Load-test MariaDB with mariadb-slap by emulating many concurrent clients
+  running a set of queries repeatedly (formerly mysqlslap).
+---
+
 # mariadb-slap
 
 `mariadb-slap` is a tool for load-testing MariaDB. It allows you to emulate multiple concurrent connections, and run a set of queries multiple times.

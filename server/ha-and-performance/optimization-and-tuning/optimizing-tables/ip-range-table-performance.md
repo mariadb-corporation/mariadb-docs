@@ -1,3 +1,9 @@
+---
+description: >-
+  Efficiently storing and querying large sets of non-overlapping ranges, such
+  as IP address ranges.
+---
+
 # IP Range Table Performance
 
 ## The situation

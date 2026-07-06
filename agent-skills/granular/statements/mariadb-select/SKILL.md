@@ -194,11 +194,9 @@ Constraints and traps:
 
 - **`mariadb-system-versioned-tables`** — full `FOR SYSTEM_TIME` semantics, transaction-precise history, versioning-aware partitioning
 - **`mariadb-create-table`** / **`mariadb-alter-table`** — shared column, index, and table-option surface
-- Canonical references:
-  - `server/reference/sql-statements/data-manipulation/selecting-data/select.md` (~220 lines)
-  - `…/select-into-outfile.md` (~80 lines)
-  - `…/select-into-dumpfile.md` (~60 lines)
-  - `…/select-offset-fetch.md` (~120 lines)
-  - `…/select-with-rollup.md` (~155 lines)
-
-  Consult only for edge cases not covered here.
+- Canonical references on `mariadb.com/docs` (consult only for edge cases not covered here):
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select-into-outfile>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select-into-dumpfile>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select-offset-fetch>
+  - <https://mariadb.com/docs/server/reference/sql-statements/data-manipulation/selecting-data/select-with-rollup>

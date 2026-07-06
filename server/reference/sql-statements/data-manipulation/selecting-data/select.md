@@ -214,11 +214,11 @@ Set the lock wait timeout. See [WAIT and NOWAIT](../../transactions/wait-and-now
 SELECT f1,f2 FROM t1 WHERE (f3<=10) AND (f4='y');
 ```
 
-See [Getting Data from MariaDB](../../../../server-usage/data-handling/mariadb-selecting-data-guide-1.md) (Beginner tutorial), or the various sub-articles, for more examples.
+See [Getting Data from MariaDB](../../../../mariadb-quickstart-guides/mariadb-selecting-data-guide.md) (Beginner tutorial), or the various sub-articles, for more examples.
 
 ## See Also
 
-* [Getting Data from MariaDB](../../../../server-usage/data-handling/mariadb-selecting-data-guide-1.md) (Beginner tutorial)
+* [Getting Data from MariaDB](../../../../mariadb-quickstart-guides/mariadb-selecting-data-guide.md) (Beginner tutorial)
 * [Joins and Subqueries](set-operations/)
 * [LIMIT](limit.md)
 * [ORDER BY](order-by.md)

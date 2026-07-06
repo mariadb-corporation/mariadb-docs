@@ -1,3 +1,9 @@
+---
+description: >-
+  Resolve host names to IP addresses and the reverse with the resolveip
+  utility, useful when configuring host-based privileges.
+---
+
 # resolveip
 
 resolveip is a utility for resolving IP addresses to host names and vice versa.

@@ -19,7 +19,7 @@ which dispatches on the command code (in Lex) to the corresponding code for\
 executing that particular query.
 
 There are three structures involved in the execution of a query which are of\
-interest to the [stored procedure](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/server-usage/stored-routines/stored-procedures/README.md) implementation:
+interest to the [stored procedure](../../../../server-usage/stored-routines/stored-procedures/README.md) implementation:
 
 * Lex (mentioned above) is the "compiled" query, that is the output from\
   the parser and what is then interpreted to do the actual work.\
@@ -97,7 +97,7 @@ procedure in the [mysql.proc table](../../../system-tables/the-mysql-database-ta
 
 #### Parsing CREATE PROCEDURE
 
-When parsing a [CREATE PROCEDURE](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/server-usage/stored-routines/stored-procedures/create-procedure.md) the parser first initializes the`sphead` and `spcont` (runtime context) fields in the Lex.\
+When parsing a [CREATE PROCEDURE](../../../../server-usage/stored-routines/stored-procedures/create-procedure.md) the parser first initializes the`sphead` and `spcont` (runtime context) fields in the Lex.\
 The sql\_command code for the result of parsing a is`SQLCOM_CREATE_PROCEDURE`.
 
 The parsing of the parameter list and body is relatively\
@@ -121,7 +121,7 @@ straightforward:
   containing the variable's frame offset, the expression (an Item),\
   and the type.
 * Flow control:\
-  Flow control constructs such as [IF](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/server-usage/programmatic-compound-statements/if.md), [WHILE](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/server-usage/programmatic-compound-statements/while.md), etc, generate a conditional\
+  Flow control constructs such as [IF](../../../sql-statements/programmatic-compound-statements/if.md), [WHILE](../../../sql-statements/programmatic-compound-statements/while.md), etc, generate a conditional\
   and unconditional jumps in the "obvious" way, but a few notes may\
   be required:
 * Forward jumps: When jumping forward, the exact destination is not\
@@ -296,7 +296,7 @@ For this the support function, `sp_head.cc:eval_func_item()` is needed.
 
 Functions don't have an explicit call keyword like procedures. Instead,\
 they appear in expressions with the conventional syntax "fun(arg, ...)".\
-The problem is that we already have [User Defined Functions](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/server-usage/user-defined-functions/README.md) (UDFs) which\
+The problem is that we already have [User Defined Functions](../../../../server-usage/user-defined-functions/README.md) (UDFs) which\
 are called the same way. A UDF is detected by the lexical analyzer (not\
 the parser!), in the `find_keyword()` function, and returns a `UDF_*_FUNC`\
 or `UDA_*_SUM` token with the `udf_func` object as the yylval.
@@ -360,7 +360,7 @@ The sql\_command code for the result of parsing a is`SQLCOM_DROP_PROCEDURE`/`SQL
 Dropping is done by simply getting the procedure with the sp\_find()\
 function and calling `sp_drop()` (both in `sp.{cc,h}`).
 
-[DROP PROCEDURE](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/server-usage/stored-routines/stored-procedures/drop-procedure.md)/[DROP FUNCTION](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/server-usage/stored-routines/stored-functions/drop-function.md) also supports the non-standard "IF EXISTS", analogous to other [DROP](../../../sql-statements/data-definition/drop/) statements in MariaDB.
+[DROP PROCEDURE](../../../../server-usage/stored-routines/stored-procedures/drop-procedure.md)/[DROP FUNCTION](../../../../server-usage/stored-routines/stored-functions/drop-function.md) also supports the non-standard "IF EXISTS", analogous to other [DROP](../../../sql-statements/data-definition/drop/) statements in MariaDB.
 
 #### Condition and Handlers
 

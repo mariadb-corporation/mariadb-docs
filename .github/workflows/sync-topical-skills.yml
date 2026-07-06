@@ -1,0 +1,68 @@
+name: Sync topical agent-skills from MariaDB/skills
+
+# Re-vendors the topical "keeper" skills + LICENSE from MariaDB/skills at the
+# current upstream ref, bumps the pin in topical/VENDORED.md and
+# .skills-manifest.json, and opens a PR if upstream moved. Vendored verbatim —
+# file content bugs upstream, do not hand-edit. Opens a PR (never commits to
+# main directly) — a human reviews and adopts the new ref.
+#
+# Requires the repo setting: Settings → Actions → General →
+# "Allow GitHub Actions to create and approve pull requests".
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Upstream branch/tag/sha to vendor'
+        required: false
+        default: 'main'
+  schedule:
+    - cron: '37 4 * * 1'   # weekly, Monday 04:37 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-topical-skills
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Re-vendor topical skills
+        run: python3 agent-skills/topical/sync_topical.py --ref "${{ inputs.ref || 'main' }}"
+
+      - name: Open a PR if upstream moved
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: agent-skills/sync-topical
+          base: main
+          title: 'DOCS-6206 Sync topical agent-skills from MariaDB/skills'
+          commit-message: |
+            DOCS-6206 Sync topical agent-skills from MariaDB/skills
+
+            Automated by sync-topical-skills.yml. Re-vendors the keeper skills +
+            LICENSE at the current upstream ref and bumps the pin in
+            topical/VENDORED.md and .skills-manifest.json. Vendored verbatim.
+          body: |
+            Re-vendors the topical keepers + `LICENSE` from
+            [`MariaDB/skills`](https://github.com/MariaDB/skills) at the current
+            upstream ref and bumps the pin in `topical/VENDORED.md` and
+            `.skills-manifest.json`.
+
+            Vendored verbatim — do not hand-edit; file content bugs upstream.
+            Review the diff and merge to adopt the new ref.
+          labels: |
+            agent-skills
+            automated
+          add-paths: |
+            agent-skills/topical/**
+            agent-skills/.skills-manifest.json

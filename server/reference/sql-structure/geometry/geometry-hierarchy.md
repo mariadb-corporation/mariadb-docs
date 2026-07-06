@@ -1,3 +1,9 @@
+---
+description: >-
+  The geometry class hierarchy — the abstract Geometry base class and its
+  instantiable point, line, and polygon subclasses.
+---
+
 # Geometry Hierarchy
 
 ## Description

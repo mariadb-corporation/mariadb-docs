@@ -1,3 +1,8 @@
+---
+description: >-
+  Efficient pagination techniques for splitting long lists across pages.
+---
+
 # Pagination Optimization
 
 ## The Desire

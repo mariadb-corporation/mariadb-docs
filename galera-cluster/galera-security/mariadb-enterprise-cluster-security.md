@@ -70,6 +70,10 @@ The Server X.509 `WSREP TLS` Mode can be configured by setting the [wsrep\_ssl\_
 
 In MariaDB Enterprise Server 10.6.8-4 and higher, TLS is not mandatory in the Server WSREP TLS Mode. When MariaDB Enterprise Server is not configured to use TLS on a node or TLS is not working, then the Galera library will not activate the TLS service, and connections between nodes will be unencrypted. Prior to version 10.6.8-4 TLS is mandatory when setting the Server WSREP TLS Mode, but X.509 certificate verification is not performed.
 
+{% hint style="warning" %}
+**The default `SERVER` mode does not authenticate peers.** It does not verify the peer's X.509 certificate, so a node will accept any peer that completes the TLS handshake — encryption without peer authentication. For production, and for compliance regimes such as PCI DSS, SOC 2, or ISO 27001 that require peer authentication, use `SERVER_X509`, which makes X.509 certificate verification mandatory.
+{% endhint %}
+
 For both 'Server' and "Server X.509' WSREP TLS Modes, each node obtains its TLS configuration from the node's MariaDB Enterprise Server configuration. The following system variables are used:
 
 | System Variables                                                 | Description                                                                                                                                                                                                                                                                      |
@@ -177,6 +181,18 @@ When the [backward-compatible TLS parameters in the \[sst\] group](mariadb-enter
 new ssl configuration options (ssl-ca, ssl-cert and ssl-key) are ignored by SST due to presence of the tca, tcert and/or tkey in the [sst] section
 ```
 {% endcode %}
+
+{% hint style="info" %}
+**`VERIFY_IDENTITY` binds to host identity.** In `VERIFY_IDENTITY` mode the peer certificate's Common Name or `subjectAltName` must match the hostname or IP address used for the connection (for the Rsync method this is enforced through the stunnel `checkHost`/`checkIP` checks). In clusters where addresses change — cloud auto-scaling, NAT, or container restarts — or where there is no reliable internal DNS, certificates would have to be reissued on every address change. Where that is impractical, use `VERIFY_CA`, which verifies the certificate chain without binding to a specific host identity.
+{% endhint %}
+
+Identity verification differs by SST method:
+
+| SST Method    | Peer Identity Check          | Identifier Type                            |
+| ------------- | ---------------------------- | ------------------------------------------ |
+| `mariabackup` | `VERIFY_IDENTITY` (ssl-mode) | hostname / IP                              |
+| `rsync`       | `VERIFY_IDENTITY` (ssl-mode) | hostname / IP (stunnel checkHost/checkIP)  |
+| `mysqldump`   | none by default              | relies on client `ssl-verify-server-cert`  |
 
 ## Cluster Name Verification
 

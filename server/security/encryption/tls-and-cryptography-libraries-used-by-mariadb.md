@@ -89,7 +89,7 @@ $ readelf -a /lib64/libcrypto.so.10 | grep SSLeay_version
 
 ## FIPS Certification
 
-[Federal Information Processing Standards (FIPS)](https://www.nist.gov/itl/itl-publications/federal-information-processing-standards-fips) are standards published by the U.S. federal government that are used to establish requirements for various aspects of computer systems. [FIPS 140-2](https://www.nist.gov/publications/security-requirements-cryptographic-modules-includes-change-notices-1232002?pub_id=902003) is a set of standards for security requirements for cryptographic modules.
+Federal Information Processing Standards (FIPS) are standards published by the U.S. federal government that are used to establish requirements for various aspects of computer systems. [FIPS 140-2](https://www.nist.gov/publications/security-requirements-cryptographic-modules-includes-change-notices-1232002?pub_id=902003) is a set of standards for security requirements for cryptographic modules.
 
 This standard is relevant when discussing the TLS and cryptography libraries used by MariaDB. Some of these libraries have been certified to meet the standards set by FIPS 140-2.
 
@@ -128,37 +128,37 @@ MariaDB Server is statically linked with the bundled [wolfSSL](https://www.wolfs
 
 **MariaDB Server in DEB Packages**
 
-MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
+MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
 
 See [Differences in MariaDB in Debian (and Ubuntu)](../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md) for more information.
 
 **MariaDB Server in RPM Packages**
 
-MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/) packages.
+MariaDB Server is dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/README.md) packages.
 
 ### MariaDB Clients and Utilities
 
-[MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) has been included with MariaDB Server, and the bundled and the clients and utilities are linked with it. On some platforms, [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) and these [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/en/clients-utilities/README.md) may use a different TLS library than the one used by MariaDB Server and [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html).
+[MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) has been included with MariaDB Server, and the bundled and the clients and utilities are linked with it. On some platforms, [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) and these [clients and utilities](../../clients-and-utilities/README.md) may use a different TLS library than the one used by MariaDB Server and [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html).
 
 #### MariaDB Clients and Utilities on Windows
 
-MariaDB's [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/en/clients-utilities/README.md) and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [Schannel](https://docs.microsoft.com/en-us/windows/desktop/secauthn/secure-channel) libraries in [MSI](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows.md) and [ZIP](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-windows-zip-packages.md) packages on Windows. [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html) is still statically linked with the bundled [wolfSSL](https://www.wolfssl.com/products/wolfssl/) library.
+MariaDB's [clients and utilities](../../clients-and-utilities/README.md) and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [Schannel](https://docs.microsoft.com/en-us/windows/desktop/secauthn/secure-channel) libraries in [MSI](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-msi-packages-on-windows.md) and [ZIP](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-windows-zip-packages.md) packages on Windows. [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html) is still statically linked with the bundled [wolfSSL](https://www.wolfssl.com/products/wolfssl/) library.
 
 #### MariaDB Clients and Utilities on Linux
 
 **MariaDB Clients and Utilities in Binary Tarballs**
 
-MariaDB's [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/en/clients-utilities/README.md) and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are statically linked with the [GnuTLS](https://www.gnutls.org/) library in [binary tarballs](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) on Linux. [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html) is still statically linked with the bundled [wolfSSL](https://www.wolfssl.com/products/wolfssl/) library.
+MariaDB's [clients and utilities](../../clients-and-utilities/README.md) and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are statically linked with the [GnuTLS](https://www.gnutls.org/) library in [binary tarballs](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-binary-tarballs.md) on Linux. [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html) is still statically linked with the bundled [wolfSSL](https://www.wolfssl.com/products/wolfssl/) library.
 
 **MariaDB Clients and Utilities in DEB Packages**
 
-MariaDB's [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/en/clients-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
+MariaDB's [clients and utilities](../../clients-and-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.deb](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/installing-mariadb-deb-files.md) packages.
 
 See [Differences in MariaDB in Debian (and Ubuntu)](../../server-management/install-and-upgrade-mariadb/installing-mariadb/troubleshooting-installation-issues/installation-issues-on-debian-and-ubuntu/differences-in-mariadb-in-debian-and-ubuntu.md) for more information.
 
 **MariaDB Clients and Utilities in RPM Packages**
 
-MariaDB's [clients and utilities](https://github.com/mariadb-corporation/docs-server/blob/test/en/clients-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/) packages.
+MariaDB's [clients and utilities](../../clients-and-utilities/README.md), [libmysqlclient](https://dev.mysql.com/doc/refman/5.5/en/c-api.html), and [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT2MVP4nd3IyW2L/mariadb-connector-c) are dynamically linked with the system's [OpenSSL](https://www.openssl.org/) library in [.rpm](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/README.md) packages.
 
 ## Updating Dynamically Linked OpenSSL Libraries on Linux
 
@@ -166,7 +166,7 @@ When the MariaDB Server or clients and utilities are dynamically linked to the s
 
 ### Updating Dynamically Linked OpenSSL Libraries with yum/dnf
 
-On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to update the libraries using [yum](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/yum.md) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`. Update the package by executing the following command:
+On RHEL, CentOS, Fedora, and other similar Linux distributions, it is highly recommended to update the libraries using [yum](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/yum.md) or [dnf](https://en.wikipedia.org/wiki/DNF_\(software\)). Starting with RHEL 8 and Fedora 22, `yum` has been replaced by `dnf`, which is the next major version of `yum`. However, `yum` commands still work on many systems that use `dnf`. Update the package by executing the following command:
 
 ```bash
 sudo yum update openssl
@@ -192,7 +192,7 @@ Then [restart](https://mariadb.com/kb/en/) MariaDB server and any clients or app
 
 ### Updating Dynamically Linked OpenSSL Libraries with zypper
 
-On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to update the libraries using [zypper](../../server-management/getting-installing-and-upgrading-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md). Update the package by executing the following command:
+On SLES, OpenSUSE, and other similar Linux distributions, it is highly recommended to update the libraries using [zypper](../../server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/rpm/installing-mariadb-with-zypper.md). Update the package by executing the following command:
 
 ```bash
 sudo zypper update openssl

@@ -14,7 +14,7 @@ Previously, the client was called `mysql_upgrade`. It can still be accessed unde
 
 ## Overview
 
-You should run `mariadb-upgrade` after upgrading from one major MySQL/MariaDB release to another, such as from MySQL 5.0 or MariaDB 10.4 to MariaDB 10.5. You also have to use `mariadb-upgrade` after a direct "horizontal" migration, for example from MySQL 5.5.40 to MariaDB 5.5.40. It's also safe to run `mariadb-upgrade` for minor upgrades, as, if there are no incompatibilities, nothing is changed.
+You should run `mariadb-upgrade` after upgrading from one major MariaDB release to another, such as from MariaDB 10.11 to MariaDB 11.4. You also have to use `mariadb-upgrade` after migrating to MariaDB from MySQL. It's also safe to run `mariadb-upgrade` for minor upgrades, as, if there are no incompatibilities, nothing is changed.
 
 {% tabs %}
 {% tab title="Current" %}
@@ -29,6 +29,12 @@ Starting from [mariadb-upgrade 2.0](mariadb-upgrade.md#mariadb-upgrade-2.0), the
 {% endtabs %}
 
 `mariadb-upgrade` is run after starting the new MariaDB server. Running it before you shut down the old version will not hurt anything and will allow you to make sure it works and figure out authentication for it ahead of time.
+
+{% hint style="info" %}
+The MariaDB server never performs the upgrade itself. On startup, if it detects an out-of-date system table or a version mismatch, it only writes a message to the [error log](../../server-management/server-monitoring-logs/error-log.md) recommending that you run `mariadb-upgrade`.
+
+On Debian and Ubuntu, the server packages run `mariadb-upgrade` for you automatically after a package upgrade: once the new server has started, the startup script runs it in the background, using `--version-check` so the work is only done once per major version. On RPM-based distributions, and whenever you start the server directly (for example with `systemd` or by running `mariadbd`), `mariadb-upgrade` is not run automatically and you must run it yourself.
+{% endhint %}
 
 {% hint style="success" %}
 It is recommended to make a [backup](../../server-usage/backup-and-restore/) of all databases before running `mariadb-upgrade`.
@@ -105,6 +111,10 @@ mariadb-upgrade --verbose --verbose other-options
 ```
 
 `mariadb-upgrade` also saves the MariaDB version number in a file named `mysql_upgrade_info` in the [data directory](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#datadir). This is used to quickly check whether all tables have been checked for this release so that table-checking can be skipped. For this reason,`mariadb-upgrade` needs to be run as a user with write access to the data directory. To ignore this file and perform the check regardless, use the `--force` option.
+
+{% hint style="warning" %}
+Because this check relies on the version recorded in `mysql_upgrade_info`, restoring a `mariadb-dump` (`mysqldump`) backup taken from an older server version can leave the restored system tables out of date while the file still shows the current version. In that case, `mariadb-upgrade` reports that no upgrade is needed, so run it with the `--force` option to upgrade the restored tables.
+{% endhint %}
 
 ## Options
 

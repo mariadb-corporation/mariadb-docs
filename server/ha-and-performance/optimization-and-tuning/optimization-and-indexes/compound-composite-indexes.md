@@ -1,3 +1,9 @@
+---
+description: >-
+  How compound (composite) indexes work in MariaDB and how to design them
+  effectively.
+---
+
 # Compound (Composite) Indexes
 
 ## A mini-lesson in "compound indexes" ("composite indexes")

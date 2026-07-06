@@ -10,7 +10,7 @@ This guide provides essential instructions for modifying existing table structur
 
 ### Before You Begin: Backup Your Tables
 
-Before making any structural changes to a table, especially if it contains data, **always create a backup**. The `mariadb-dump` utility is a common and effective tool for this.
+Before making any structural changes to a table, especially if it contains data, **always create a backup**. The [`mariadb-dump`](../clients-and-utilities/backup-restore-and-import-clients/mariadb-dump.md) utility is a common and effective tool for this.
 
 Example: Backing up a single table
 
@@ -59,7 +59,7 @@ For the examples that follow, we'll assume structural changes are being made, so
 
 ### Adding Columns
 
-Use the `ALTER TABLE` statement with the `ADD COLUMN` clause.
+Use the [`ALTER TABLE`](../reference/sql-statements/data-definition/alter/alter-table/) statement with the `ADD COLUMN` clause.
 
 Add a column to the end of the table:
 
@@ -213,7 +213,7 @@ This `DROP DEFAULT` does not delete existing data in the column.
 
 Indexes are separate objects from columns. Modifying an indexed column often requires managing its index.
 
-View existing indexes on a table:
+View existing indexes on a table with [`SHOW INDEX`](../reference/sql-statements/administrative-sql-statements/show/show-index.md):
 
 The \G displays results in a vertical format, which can be easier to read for wide output.
 
@@ -316,4 +316,6 @@ After this, `SELECT * FROM client_addresses` (without an `ORDER BY` clause) migh
 * **Indexes:** Understand that indexes are distinct from columns. Modifying indexed columns often requires separate steps to manage the associated indexes.
 * **Performance:** `ALTER TABLE` operations on large tables can be time-consuming and resource-intensive, potentially locking the table and impacting application performance. Plan these operations during maintenance windows if possible.
 
-CC BY-SA / Gnu FDL
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

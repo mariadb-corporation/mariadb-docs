@@ -1,3 +1,8 @@
+---
+description: >-
+  External resources and further reading on GIS and spatial data in MariaDB.
+---
+
 # GIS Resources
 
 GIS stands for [Geographic Information System](https://en.wikipedia.org/wiki/Geographic_information_system).

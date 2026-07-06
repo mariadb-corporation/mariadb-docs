@@ -1,3 +1,8 @@
+---
+description: >-
+  CHAR VARYING is a synonym for the VARCHAR string data type.
+---
+
 # CHAR VARYING
 
 ## Overview

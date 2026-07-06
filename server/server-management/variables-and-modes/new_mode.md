@@ -1,8 +1,7 @@
 ---
 description: >-
-  Explains the `NEW_MODE` system variable, introduced in MariaDB 11.4, which
-  allows users to opt-in to new, potentially incompatible behaviors or
-  optimizations that will become default in future version
+  Explains the `NEW_MODE` system variable (from MariaDB 11.4), which lets you
+  opt in to new behaviors and optimizations in otherwise stable versions.
 ---
 
 # NEW\_MODE

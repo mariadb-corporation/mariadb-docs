@@ -10,7 +10,7 @@ description: >-
 {% hint style="warning" %}
 **This page is for the `mariadb-install-db` script for Linux/Unix only.**
 
-For the Windows specific tool of similar name and purpose see [mysql\_install\_db.exe](../legacy-clients-and-utilities/mysql_install_db.md).
+For the Windows-specific tool of similar name and purpose, see [Installing System Tables on Windows](../../server-management/install-and-upgrade-mariadb/installing-mariadb/installing-system-tables-mariadb-install-db/mariadb-install-db-exe.md).
 
 The Windows version shares the common theme (creating system tables), yet has a lot of functionality specific to Windows systems, for example creating a Windows service. The Windows version does _not_ share command line parameters with the Unix shell script.
 {% endhint %}
@@ -75,7 +75,7 @@ _Password_ for [catalog-user](../../security/user-account-management/catalogs/).
 
 #### --catalog-client-arg=_argument_
 
-Other _arguments_ to `mariadb` when adding new [catalogs](https://github.com/mariadb-corporation/docs-server/blob/test/server/clients-and-utilities/security/user-account-management/catalogs/README.md). This option is available from MariaDB 11.7.
+Other _arguments_ to `mariadb` when adding new [catalogs](../../security/user-account-management/catalogs/). This option is available from MariaDB 11.7.
 
 #### --cross-bootstrap
 

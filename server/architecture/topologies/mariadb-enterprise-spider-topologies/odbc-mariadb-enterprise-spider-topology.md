@@ -1,3 +1,10 @@
+---
+description: >-
+  Read from and write to external ODBC data sources from a Spider Node using
+  virtual Spider Tables and the ODBC foreign data wrapper (Enterprise Server
+  10.5 and later).
+---
+
 # ODBC MariaDB Enterprise Spider Topology
 
 ## Overview

@@ -360,7 +360,7 @@ On slave there will be pool of threads(configurable global variable), which\
 will apply these DDLs. On receiving BEGIN\_DDL\_EVENT slave thread will pass the\
 QUERY\_EVENT to one of the worker thread. Worker thread will execute until\
 ha\_inplace\_alter\_table. Actual commit\_inplace\_alter will be called by sql thread.\
-If sql thread receive some kind of rollback event , then it will somehow signal\
+If sql thread receive some kind of rollback event, then it will somehow signal\
 worker thread to stop executing alter. If none of the worker threads are available\
 then event will be enqueued, then If we received rollback event the we will simply\
 discard event from queue, If we received commit event then SQL thread will syncrolysly\

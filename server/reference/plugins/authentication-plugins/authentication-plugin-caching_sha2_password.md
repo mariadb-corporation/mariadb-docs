@@ -1,3 +1,10 @@
+---
+description: >-
+  MySQL-compatible caching_sha2_password authentication plugin, for migrating
+  MySQL users to MariaDB without changing their passwords (migration use;
+  PARSEC is recommended otherwise).
+---
+
 # Authentication Plugin - caching\_sha2\_password
 
 {% hint style="info" %}

@@ -17,7 +17,7 @@ ERROR 1364 (HY000): Field 'col' doesn't have a default value
 
 In all other cases, if a `NOT NULL` column without a `DEFAULT` value is not referenced, an empty value will be inserted (for example, 0 for `INTEGER` columns and '' for `CHAR` columns). See [NULL Values in MariaDB:Inserting](../../../data-types/null-values.md) for examples.
 
-If a `NOT NULL` column having a `DEFAULT` value is not referenced, `NULL` will be inserted.
+If a `NOT NULL` column that has a `DEFAULT` value is not referenced, its declared `DEFAULT` value is inserted.
 
 If a `NULL` column having a `DEFAULT` value is not referenced, its default value will be inserted. It is also possible to explicitly assign the default value using the `DEFAULT` keyword or the [DEFAULT()](../../../sql-functions/secondary-functions/information-functions/default.md) function.
 
@@ -35,7 +35,7 @@ By default, if you try to insert a duplicate row and there is a `UNIQUE` index, 
 ERROR 1062 (23000): Duplicate entry 'dup_value' for key 'col'
 ```
 
-To handle duplicates you can use the [IGNORE](ignore.md) clause, [INSERT ON DUPLICATE KEY UPDATE](insert-on-duplicate-key-update.md) or the [REPLACE](../changing-deleting-data/replace.md) statement. Note that the IGNORE and DELAYED options are ignored when you use [ON DUPLICATE KEY UPDATE](insert-on-duplicate-key-update.md).
+To handle duplicates you can use the [IGNORE](ignore.md) clause, [INSERT ON DUPLICATE KEY UPDATE](insert-on-duplicate-key-update.md) or the [REPLACE](../changing-deleting-data/replace.md) statement. Note that the DELAYED option is ignored when you use [ON DUPLICATE KEY UPDATE](insert-on-duplicate-key-update.md).
 
 ## See Also
 

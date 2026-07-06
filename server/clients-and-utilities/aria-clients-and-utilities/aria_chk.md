@@ -1,3 +1,9 @@
+---
+description: >-
+  Check, repair, optimize, and report information about Aria tables with the
+  aria_chk command-line tool.
+---
+
 # aria\_chk
 
 `aria_chk` is used to check, repair, optimize, sort and get information about [Aria](../../server-usage/storage-engines/aria/aria-storage-engine.md) tables.

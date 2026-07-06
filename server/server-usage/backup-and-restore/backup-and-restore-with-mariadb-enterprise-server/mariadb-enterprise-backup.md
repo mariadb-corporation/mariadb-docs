@@ -225,7 +225,7 @@ Once the incremental backup has been applied to the full backup, the full backup
 
 ### Restoring from Incremental Backups
 
-Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Community Server, [Empty](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/backing-up-and-restoring-databases/backup-and-restore-with-mariadb-enterprise-server/mariadb-backup-enterprise-docs/README.md#restore-requires-empty-data-directory) its data directory, and restore from the original full backup directory using the --copy-back option:
+Once you have prepared the full backup directory with all the incremental changes you need (as described above), stop the MariaDB Community Server, Empty its data directory, and restore from the original full backup directory using the --copy-back option:
 
 ```bash
 mariadb-backup --copy-back --target-dir=/data/backups/full

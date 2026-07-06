@@ -1,3 +1,8 @@
+---
+description: >-
+  The VALUES table value constructor, which produces a set of rows.
+---
+
 # Table Value Constructors
 
 ## Syntax

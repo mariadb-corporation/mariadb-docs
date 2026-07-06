@@ -1,7 +1,7 @@
 ---
 name: doc-impact
 description: Analyze a MariaDB source change for its documentation impact — the "explain" step before drafting. Given an MDEV ticket, a DOCS ticket, or a MariaDB/server PR/commit, it reads the actual code change, determines what is user-facing, whether docs are needed and which pages, and lists the claims to verify. Produces an analysis report; it does NOT edit docs (hand off to doc-from-ticket / /doc-ticket for that). Use when asked to "explain the doc impact of X", "what docs does MDEV-XXXXX need", "analyze this PR for documentation", or to triage whether a change needs docs.
-allowed-tools: Bash, Read, Grep, Glob, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources
+allowed-tools: Bash, Read, Grep, Glob, Write, WebFetch, mcp__atlassian-mariadb__getJiraIssue, mcp__atlassian-mariadb__getAccessibleAtlassianResources
 owners: [igusev]
 last_verified: 2026-06-12
 status: active
@@ -18,6 +18,12 @@ affected, and the specific claims a writer must verify. This is the MariaDB anal
 Source access reuses `doc-from-ticket`'s config — the local MariaDB repos in
 `.claude/doc-sources.local.json` (gitignored). If it's absent, configure it the same way
 `doc-from-ticket` §0 describes (prompt for product → path → authoritative ref), then continue.
+
+**Paper trail.** This skill also writes the **fact-check report skeleton** (§4 below) — the
+triage half of the two-part paper trail described in `dev-docs/cookbook-fact-trail.md`. That
+report needs a `reports_dir` (a directory **outside this repo** where reports are stored, never
+committed), also kept in `.claude/doc-sources.local.json`. If `reports_dir` is missing, prompt and
+validate it per the cookbook's *Where reports live* section before writing.
 
 ## When to use
 
@@ -99,7 +105,30 @@ Decide and state plainly:
   shipped), flag it — per the style guide, forward-looking statements are avoided unless backed
   by exactly such a ticket. Note the version gating.
 
-## 4. Output: the impact report
+## 4. Write the fact-check report skeleton (paper trail)
+
+Persist the triage as a report so the drafting step (and a later session) can build on it. Format,
+location, and naming are defined once in `dev-docs/cookbook-fact-trail.md` — follow it; don't
+re-spell the format here.
+
+- Ensure `reports_dir` is configured (prompt + validate per the cookbook if missing).
+- Path follows the cookbook's space-grouped layout: `<reports_dir>/<space>/<KEY>/report.md`. Use
+  the affected space + **DOCS** key when both are known; if the space isn't settled yet, write
+  `<reports_dir>/_unfiled/MDEV-XXXXX/report.md` (or `<space>/MDEV-XXXXX/report.md`) —
+  `doc-from-ticket` moves/renames it to the DOCS key later.
+- Write the header (DOCS/MDEV/Release Series/affected page(s)/source `@ change_sha`/`Status:
+  triaged`) and one **`PENDING`** claim row per "claim to verify" — claim text + the source
+  pointer you found (`<product> <file>:<line> @ <change_sha>`), **Doc location** left as `—`
+  (no page drafted yet).
+- If a report for this key already exists (find it per the cookbook's lookup), update it in place
+  rather than clobbering it.
+- If the triage concluded **NO docs needed**, still write a minimal report stating that (status
+  `triaged`, no claim rows, a one-line "no user-facing change" note) so the decision is recorded.
+- Regenerate `INDEX.md` (cookbook) after writing.
+
+Tell the user the report path in the output below.
+
+## 5. Output: the impact report
 
 ```
 Doc-impact — MDEV-XXXXX  (DOCS-XXXX if known) — <summary>
@@ -120,13 +149,15 @@ Claims to verify (hand to /doc-ticket):
   - <syntax `…` exists since <X.Y>>
 
 Recommendation: edit <page> | new page | NO docs needed | needs human triage
+Report:   <reports_dir>/<space>/<DOCS-XXXX>/report.md   (or _unfiled/MDEV-XXXXX/; skeleton, triaged)
 Next: /doc-ticket DOCS-XXXX   (or /jira-create to file the DOCS ticket first, then /doc-ticket)
 ```
 
 ## Guardrails
 
 - **Analysis only — never edit, stage, commit, push, or open a PR.** This skill reports; it
-  hands drafting to `doc-from-ticket` / `/doc-ticket`.
+  hands drafting to `doc-from-ticket` / `/doc-ticket`. The **one** thing it writes is the
+  fact-check report in `reports_dir` (§4) — a file **outside the repo**, never a repo/doc file.
 - **Source is read-only** (`git -C <repo> show/log/grep`, never checkout); Jira/MDEV reads are
   read-only.
 - **Don't assert beyond the diff.** If the code doesn't show it, say "unverified" — the ticket's

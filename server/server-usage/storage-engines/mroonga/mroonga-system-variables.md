@@ -1,3 +1,8 @@
+---
+description: >-
+  System variables for the Mroonga storage engine, and how to set them.
+---
+
 # Mroonga System Variables
 
 This page documents system variables related to the [Mroonga storage engine](./). See [Server System Variables](../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md) for instructions on setting them.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Combine full-text (keyword) and vector search using Reciprocal Rank Fusion
+  (RRF) for higher-quality hybrid search results.
+---
+
 # Optimizing Hybrid Search Query with Reciprocal Rank Fusion (RRF)
 
 Hybrid search combines the keyword precision of full-text search with the conceptual understanding of vector search to produce a single, superior set of results.

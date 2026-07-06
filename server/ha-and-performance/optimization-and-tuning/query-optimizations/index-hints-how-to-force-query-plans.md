@@ -1,3 +1,9 @@
+---
+description: >-
+  Using index hints to influence the query plan when the optimizer's choice is
+  not ideal.
+---
+
 # Index Hints: How to Force Query Plans
 
 The optimizer is largely cost-based and will try to choose the optimal plan for any query. However in some cases it does not have enough information to choose a perfect plan and in these cases you may have to provide hints to force the optimizer to use another plan.
@@ -8,7 +14,7 @@ For the following queries, we will use the world database for the examples.
 
 ## Setting up the World Example Database
 
-Download it from [world.sql.gz](https://mariadb.com/kb/en/ftp://ftp.askmonty.org/public/world.sql.gz)
+Download it from world.sql.gz
 
 Install it with:
 
@@ -180,7 +186,7 @@ The optimizer uses several strategies to optimize [GROUP BY](../../../reference/
   * Sort the keys + reference to row (with filesort)
   * Scan the table in sorted order
 * Use a temporary table for [ORDER BY](../../../reference/sql-statements/data-manipulation/selecting-data/order-by.md):
-  * Create a temporary (in memory) table for the 'to-be-sorted' data. (If this gets bigger than `max_heap_table_size` or contains blobs then an [Aria](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/aria/README.md) or [MyISAM](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/myisam-storage-engine/README.md) disk based table will be used)
+  * Create a temporary (in memory) table for the 'to-be-sorted' data. (If this gets bigger than `max_heap_table_size` or contains blobs then an [Aria](../../../server-usage/storage-engines/aria/README.md) or [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/README.md) disk based table will be used)
   * Sort the keys + reference to row (with filesort)
   * Scan the table in sorted order
 

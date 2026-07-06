@@ -75,11 +75,12 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 
 #### `innodb_adaptive_hash_index`
 
-* Description: If set to `1`, the default until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the [InnoDB](./) hash index is enabled. Based on performance testing ([MDEV-17492](https://jira.mariadb.org/browse/MDEV-17492)), the InnoDB adaptive hash index helps performance in mostly read-only workloads, and could slow down performance in other environments, especially [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md), [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md), [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), or [DROP INDEX](../../../reference/sql-statements/data-definition/drop/drop-index.md) operations.
-* Command line: `--innodb-adaptive-hash-index={0|1}`
+* Description: If set to `1`, the default until [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105), the [InnoDB](./) hash index is enabled. Based on performance testing ([MDEV-17492](https://jira.mariadb.org/browse/MDEV-17492)), the InnoDB adaptive hash index helps performance in mostly read-only workloads, and could slow down performance in other environments, especially [DROP TABLE](../../../reference/sql-statements/data-definition/drop/drop-table.md), [TRUNCATE TABLE](../../../reference/sql-statements/table-statements/truncate-table.md), [ALTER TABLE](../../../reference/sql-statements/data-definition/alter/alter-table/), or [DROP INDEX](../../../reference/sql-statements/data-definition/drop/drop-index.md) operations. From [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070), this variable is an enumeration. The `IF_SPECIFIED` value enables the adaptive hash index only for tables and indexes whose [ADAPTIVE\_HASH\_INDEX](../../../reference/sql-statements/data-definition/create/create-table.md#adaptive_hash_index) option is set to `YES`.
+* Command line: `--innodb-adaptive-hash-index[={OFF|ON|IF_SPECIFIED}]`
 * Scope: Global
 * Dynamic: Yes
-* Data Type: `boolean`
+* Data Type: `enumeration` (`boolean` before [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070))
+* Valid Values: `OFF`, `ON`, `IF_SPECIFIED` (from [MariaDB 13.1.1](https://jira.mariadb.org/browse/MDEV-37070))
 * Default Value: `OFF` (>= [MariaDB 10.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/what-is-mariadb-105)), `ON` (<= [MariaDB 10.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.4/what-is-mariadb-104))
 
 #### **`innodb_adaptive_hash_index_cells`**
@@ -1798,6 +1799,16 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Default Value: `OFF`
 * Introduced: [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/10.8/10.8.4), [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/10.9/10.9.2)
 
+{% hint style="info" %}
+A change requested with `SET GLOBAL innodb_log_file_buffering` takes effect only when InnoDB is holding a single log file open, which is the case most of the time. It is ignored while a `SET GLOBAL innodb_log_file_size` resize is in progress on a circular-format log (`ib_logfile0`). From MariaDB 13.0 ([MDEV-39862](https://jira.mariadb.org/browse/MDEV-39862)), it is also ignored while a log file switch is in progress with [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive) set to `ON`, because InnoDB then has more than one log file open; when this occurs, and how long it lasts, is hard to predict, as it depends on `innodb_log_file_size` and the workload. The setting also has no effect when the log is mapped to persistent memory (PMEM).
+
+Because the request can be silently ignored, confirm that it took effect by reading the value back:
+
+```sql
+SELECT @@GLOBAL.innodb_log_file_buffering;
+```
+{% endhint %}
+
 #### `innodb_log_file_mmap`
 
 * Description: Whether ib\_logfile0 resides in persistent memory or should initially be memory-mapped. When using the default innodb\_log\_buffer\_size=2m, mariadb-backup --backup would spend a lot of time re-reading and re-parsing the log. For reading the log file during mariadb-backup --backup, it is beneficial to memory-map the entire ib\_logfile0 to the address space (typically 48 bits or 256 TiB) and read it from there,\
@@ -1831,6 +1842,16 @@ Automatic upward dynamic resizing is not yet implemented ([MDEV-36197](https://j
 * Data Type: `boolean`
 * Default Value: `OFF`
 * Introduced: [MariaDB 11.0.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.0)
+
+{% hint style="info" %}
+A change requested with `SET GLOBAL innodb_log_file_write_through` takes effect only when InnoDB is holding a single log file open, which is the case most of the time. It is ignored while a `SET GLOBAL innodb_log_file_size` resize is in progress on a circular-format log (`ib_logfile0`). From MariaDB 13.0 ([MDEV-39862](https://jira.mariadb.org/browse/MDEV-39862)), it is also ignored while a log file switch is in progress with [`innodb_log_archive`](innodb-system-variables.md#innodb_log_archive) set to `ON`, because InnoDB then has more than one log file open; when this occurs, and how long it lasts, is hard to predict, as it depends on `innodb_log_file_size` and the workload. The setting also has no effect when the log is mapped to persistent memory (PMEM).
+
+Because the request can be silently ignored, confirm that it took effect by reading the value back:
+
+```sql
+SELECT @@GLOBAL.innodb_log_file_write_through;
+```
+{% endhint %}
 
 #### `innodb_log_files_in_group`
 

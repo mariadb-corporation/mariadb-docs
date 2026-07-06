@@ -1,8 +1,14 @@
+---
+description: >-
+  Compress MyISAM tables into read-only form that is typically 40 to 70
+  percent smaller with myisampack.
+---
+
 # myisampack
 
 ## myisampack
 
-`myisampack` is a tool for compressing [MyISAM](https://github.com/mariadb-corporation/docs-server/blob/test/server/reference/storage-engines/myisam-storage-engine/README.md) tables. The resulting tables\
+`myisampack` is a tool for compressing [MyISAM](../../server-usage/storage-engines/myisam-storage-engine/README.md) tables. The resulting tables\
 are read-only, and usually about 40% to 70% smaller. It is run as follows:
 
 ```
