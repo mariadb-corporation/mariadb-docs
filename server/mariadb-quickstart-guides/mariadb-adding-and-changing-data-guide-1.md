@@ -10,7 +10,7 @@ This guide explains how to add new data and modify existing data in MariaDB usin
 
 ### Adding Data with `INSERT`
 
-The `INSERT` statement is used to add new rows to a table.
+The [`INSERT`](../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md) statement is used to add new rows to a table.
 
 Basic Syntax:
 
@@ -73,20 +73,19 @@ INSERT LOW_PRIORITY INTO table1 VALUES('value1','value2','value3');
 
 DELAYED:
 
-(Note: INSERT DELAYED is a feature that was primarily associated with the MyISAM storage engine. It is deprecated in older MariaDB/MySQL versions and removed in modern MariaDB versions (e.g., from MariaDB 10.5). Check your MariaDB version for support and consider alternatives if using a recent version.)
-
-`INSERT DELAYED` allowed the server to queue the insert request and return control to the client immediately. Data was written when the table was not in use. Multiple `DELAYED` inserts were batched.
+[`INSERT DELAYED`](../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) lets the server queue the insert request and return control to the client immediately; the rows are written when the table is not in use, and inserts from many clients are batched together.
 
 ```sql
--- Syntax for historical reference; may not be supported
 INSERT DELAYED INTO table1 VALUES('value1','value2','value3');
 ```
 
-Flaws included no confirmation of successful insertion and potential data loss if the server crashed before data was written from memory.
+* `DELAYED` works only with non-transactional storage engines — `MyISAM`, `MEMORY`, `ARCHIVE`, `BLACKHOLE`, non-transactional `Aria`, and `OQGRAPH`. Using it with another engine returns an error.
+* It is controlled by the `max_delayed_threads` system variable; setting that to `0` disables `DELAYED`.
+* Because control returns before the rows are written, there is no confirmation of success, and queued rows held in memory are lost if the server stops before they are written. See [INSERT DELAYED](../reference/sql-statements/data-manipulation/inserting-loading-data/insert-delayed.md) for the full list of limitations.
 
 ### Inserting Data from Another Table (`INSERT...SELECT`)
 
-You can insert rows into a table based on data retrieved from another table (or tables) using `INSERT ... SELECT`.
+You can insert rows into a table based on data retrieved from another table (or tables) using [`INSERT ... SELECT`](../reference/sql-statements/data-manipulation/inserting-loading-data/insert-select.md).
 
 ```sql
 INSERT INTO softball_team (last_name, first_name, telephone)
@@ -100,7 +99,7 @@ INSERT INTO softball_team (last_name, first_name, telephone)
 
 ### Replacing Data with `REPLACE`
 
-The `REPLACE` statement works like `INSERT`, but if a new row has the same value as an existing row for a `PRIMARY KEY` or a `UNIQUE` index, the existing row is deleted before the new row is inserted. If no such conflict exists, it acts like a normal `INSERT`.
+The [`REPLACE`](../reference/sql-statements/data-manipulation/changing-deleting-data/replace.md) statement works like `INSERT`, but if a new row has the same value as an existing row for a `PRIMARY KEY` or a `UNIQUE` index, the existing row is deleted before the new row is inserted. If no such conflict exists, it acts like a normal `INSERT`.
 
 ```sql
 REPLACE LOW_PRIORITY INTO table2 (id_col, data_col1, data_col2) VALUES
@@ -115,7 +114,7 @@ REPLACE LOW_PRIORITY INTO table2 (id_col, data_col1, data_col2) VALUES
 
 ### Modifying Data with `UPDATE`
 
-Use the `UPDATE` statement to change data in existing rows.
+Use the [`UPDATE`](../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statement to change data in existing rows.
 
 **Basic Syntax:**
 
@@ -169,7 +168,7 @@ WHERE s.warehouse_id = 'WHA';
 
 ### Conditional Inserts or Updates (`INSERT ... ON DUPLICATE KEY UPDATE`)
 
-This powerful feature allows you to `INSERT` a new row, but if a duplicate key (Primary or Unique) conflict occurs, it performs an `UPDATE` on the existing row instead.
+This powerful feature allows you to [`INSERT ... ON DUPLICATE KEY UPDATE`](../reference/sql-statements/data-manipulation/inserting-loading-data/insert-on-duplicate-key-update.md) a new row, but if a duplicate key (Primary or Unique) conflict occurs, it performs an `UPDATE` on the existing row instead.
 
 ```sql
 INSERT INTO table1 (id, col1, col2, status_column)
@@ -186,6 +185,8 @@ ON DUPLICATE KEY UPDATE status_column = 'old', col2 = VALUES(col2);
 Beyond these SQL statements, MariaDB offers bulk methods for adding data, such as:
 
 * [`LOAD DATA INFILE`](../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md): For importing data from text files.
-* [`mariadb-import` utility](../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md): A command-line tool that uses `LOAD DATA INFILE`. These are covered in "[Bulk Data Importing Guide](mariadb-importing-data-guide.md)").
+* [`mariadb-import` utility](../clients-and-utilities/backup-restore-and-import-clients/mariadb-import.md): A command-line tool that uses `LOAD DATA INFILE`. These are covered in the [Importing Data Guide](mariadb-importing-data-guide.md).
 
-CC BY-SA / Gnu FDL
+<sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
+
+{% @marketo/form formId="4316" %}

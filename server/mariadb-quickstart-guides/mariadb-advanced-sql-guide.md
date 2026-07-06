@@ -54,7 +54,7 @@ INSERT INTO student_tests
  ('Tatiana', 'Tuning', 83, '2013-09-30');
 ```
 
-For more information, see the official INSERT documentation.
+For more information, see [INSERT](../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md).
 
 ### Using AUTO\_INCREMENT
 
@@ -142,7 +142,7 @@ SELECT MIN(a) FROM t1;
 +--------+
 ```
 
-See the MIN() function documentation.
+See the [MIN() function](../reference/sql-functions/aggregate-functions/min.md) documentation.
 
 ### Finding the Average Value
 
@@ -181,7 +181,7 @@ SELECT name, MAX(score) FROM student_tests GROUP BY name;
 +---------+------------+
 ```
 
-Further details are available in the MAX() function documentation.
+Further details are available in the [MAX() function](../reference/sql-functions/aggregate-functions/max.md) documentation.
 
 ### Ordering Results
 

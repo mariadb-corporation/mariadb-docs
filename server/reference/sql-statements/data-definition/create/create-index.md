@@ -56,7 +56,7 @@ lock_option:
 
 The `CREATE INDEX` statement is used to add indexes to a table. Indexes can be created at the same as the table, with the [CREATE TABLE](create-table.md) statement. In some cases, such as for InnoDB primary keys, doing so during creation is preferable, as adding a primary key will involve rebuilding the table.
 
-The statement is mapped to an `ALTER TABLE` statement to create [indexes](../../../../server-usage/tables/mariadb-indexes-guide-1.md). See [ALTER TABLE](../alter/alter-table/). `CREATE INDEX` cannot be used to create a [PRIMARY KEY](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key); use `ALTER TABLE` instead.
+The statement is mapped to an `ALTER TABLE` statement to create [indexes](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md). See [ALTER TABLE](../alter/alter-table/). `CREATE INDEX` cannot be used to create a [PRIMARY KEY](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key); use `ALTER TABLE` instead.
 
 If another connection is using the table, a [metadata lock](../../transactions/metadata-locking.md) is active, and this statement will wait until the lock is released. This is also true for non-transactional tables.
 
