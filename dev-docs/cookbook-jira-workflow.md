@@ -63,6 +63,8 @@ exists. Supporting commands: `/jira-create <desc>` (file a new ticket),
 - Work lands via **PR** (so codespell / lychee / alias-expansion CI runs). Keep `DOCS-XXXX` in
   the branch name and commit messages.
 - The skills **never** commit, push, or open the PR — those stay user-driven.
+- If the ticket renames, moves, or retires published pages, also produce a GitBook redirect CSV
+  (`dev-docs/cookbook-gitbook-redirects.md` or `/redirects-csv`) — old URLs dead-end otherwise.
 
 ## `doc-from-ticket` and source verification
 
