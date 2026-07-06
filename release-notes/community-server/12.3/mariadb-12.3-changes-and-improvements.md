@@ -17,20 +17,20 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 * Support for passphrase protected keys ([MDEV-14091](https://jira.mariadb.org/browse/MDEV-14091))
   * [ssl\_passphrase system](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#ssl_passphrase) variable
 * New statement [SET SESSION AUTHORIZATION](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/set-session-authorization) for performing actions as another user ([MDEV-20299](https://jira.mariadb.org/browse/MDEV-20299))
-* Implement SHA2 (SHA-256/SHA-512) support for the [file\_key\_management.so](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/file-key-management-encryption-plugin#current-greater-than-12.0.1) plugin (TDE) — note: `.so` is Linux only ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
+* Implement SHA2 support for file\_key\_management.so plugin (TDE) ([MDEV-34712](https://jira.mariadb.org/browse/MDEV-34712))
 
 ### Compatibility Features
 
-* Oracle [`TO_DATE()`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/to_date) function ([MDEV-19683](https://jira.mariadb.com/browse/MDEV-19683))
-* Support for [cursors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) on prepared statements ([MDEV-33830](https://jira.mariadb.com/browse/MDEV-33830))
-* SQL Standard [`SET PATH`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/administrative-sql-statements/set-commands/set-path) statement ([MDEV-34391](https://jira.mariadb.com/browse/MDEV-34391))
-* SQL Standard [`IS JSON`](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure/operators/comparison-operators/is-json) predicate ([MDEV-37072](https://jira.mariadb.com/browse/MDEV-37072))
-* Allow [`UPDATE`/`DELETE` to read from a CTE](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/common-table-expressions) ([MDEV-37220](https://jira.mariadb.com/browse/MDEV-37220))
-* Basic [XML data type](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/data-types/string-data-types/xmltype) ([MDEV-37261](https://jira.mariadb.com/browse/MDEV-37261))
-* Support for [cursors](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/programmatic-compound-statements-cursors) on prepared statements ([MDEV-33830](https://jira.mariadb.org/browse/MDEV-33830))
+* Oracle `TO_DATE()` function ([MDEV-19683](https://jira.mariadb.com/browse/MDEV-19683))
+* Support for cursors on prepared statements ([MDEV-33830](https://jira.mariadb.com/browse/MDEV-33830))
+* SQL Standard `SET PATH` statement ([MDEV-34391](https://jira.mariadb.com/browse/MDEV-34391))
+* SQL Standard `IS JSON` predicate ([MDEV-37072](https://jira.mariadb.com/browse/MDEV-37072))
+* Allow `UPDATE`/`DELETE` to read from a CTE ([MDEV-37220](https://jira.mariadb.com/browse/MDEV-37220))
+* Basic XML data type ([MDEV-37261](https://jira.mariadb.com/browse/MDEV-37261))
+* Support for cursors on prepared statements ([MDEV-33830](https://jira.mariadb.org/browse/MDEV-33830))
 * New authentication plugin [caching\_sha2\_password](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/clientserver-protocol/1-connecting/caching_sha2_password-authentication-plugin) for MySQL compatibility ([MDEV-9804](https://jira.mariadb.org/browse/MDEV-9804))
 * [( + ) for outer join syntax in Oracle mode](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/joins/join-syntax#oracle-mode) ([MDEV-13817](https://jira.mariadb.org/browse/MDEV-13817))
-* Associative arrays: [DECLARE TYPE .. TABLE OF .. INDEX BY](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/programmatic-compound-statements/declare-type) ([MDEV-34319](https://jira.mariadb.org/browse/MDEV-34319)) ([blog post](https://mariadb.org/bringing-oracles-associative-arrays-to-mariadb/))
+* Associative arrays: DECLARE TYPE .. TABLE OF .. INDEX BY ([MDEV-34319](https://jira.mariadb.org/browse/MDEV-34319)) ([blog post](https://mariadb.org/bringing-oracles-associative-arrays-to-mariadb/))
 * [DROP USER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/account-management-sql-statements/drop-user) will now by default issue a warning if the user has active sessions, or fail in [Oracle mode](../../about/compatibility-and-differences/sql_modeoracle.md) ([MDEV-35617](https://jira.mariadb.org/browse/MDEV-35617))
 * Implement Oracle [TO\_NUMBER](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/numeric-functions/to_number) function ([MDEV-20022](https://jira.mariadb.org/browse/MDEV-20022))
 * Implement Oracle [TRUNC](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-functions/date-time-functions/trunc) function ([MDEV-20023](https://jira.mariadb.org/browse/MDEV-20023))
@@ -49,7 +49,7 @@ MariaDB 12.3 is a [long term release](../about/release-model.md), maintained unt
 ### Audit Plugin <a href="#audit-plugin" id="audit-plugin"></a>
 
 * The [Audit Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/plugins/mariadb-audit-plugin/mariadb-audit-plugin-overview) now logs HOST:PORT of incoming connections instead of just the host ([MDEV-1282](https://jira.mariadb.org/browse/MDEV-1282))
-* Added [tls\_version](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/ssltls-system-variables#tls_version) field for connection audit plugins ([MDEV-33834](https://jira.mariadb.org/browse/MDEV-33834))
+* Added tls\_version field for connection audit plugins ([MDEV-33834](https://jira.mariadb.org/browse/MDEV-33834))
 
 ### Configuration <a href="#configuration" id="configuration"></a>
 
@@ -145,14 +145,14 @@ New [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure
 
 ### Miscellaneous
 
-* [Hashicorp Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin): Implement cache flush for forced key rotation ([MDEV-30847](https://jira.mariadb.com/browse/MDEV-30847))
+* Hashicorp Plugin: Implement cache flush for forced key rotation ([MDEV-30847](https://jira.mariadb.com/browse/MDEV-30847))
 * New hash algorithms for `PARTITION BY KEY` ([MDEV-9826](https://jira.mariadb.com/browse/MDEV-9826))
 * Optimise reorderable LEFT JOINs ([MDEV-36055](https://jira.mariadb.com/browse/MDEV-36055))
 * Retry applying of write sets on [Galera](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) nodes ([MDEV-36077](https://jira.mariadb.org/browse/MDEV-36077))
   * Controlled through the [wsrep\_applier\_retry\_count](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/reference/galera-cluster-system-variables#wsrep_applier_retry_count) system variable
 * [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) now supports [wildcards](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump#l-wildcards) with the `-L` or `--wildcards` option ([MDEV-21376](https://jira.mariadb.org/browse/MDEV-21376))
 * [Foreign key](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys) constraint names no longer need to be unique per database, only per table ([MDEV-28933](https://jira.mariadb.org/browse/MDEV-28933)) ([blog post](https://mariadb.org/per-table-unique-foreign-key-constraint-names-new-feature-in-mariadb-12-1/))
-* Remove [depth limit of 32](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/error-codes/mariadb-error-codes-4000-to-4099/e4043) from JSON functions ([MDEV-32854](https://jira.mariadb.org/browse/MDEV-32854))
+* Remove depth limit of 32 from JSON functions ([MDEV-32854](https://jira.mariadb.org/browse/MDEV-32854))
 * Add [INFORMATION\_SCHEMA.TRIGGERED\_UPDATE\_COLUMNS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-triggered_update_columns) ([MDEV-36996](https://jira.mariadb.org/browse/MDEV-36996))
 * Implement [INFORMATION\_SCHEMA.PARAMETERS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/system-tables/information-schema/information-schema-tables/information-schema-parameters-table).PARAMETER\_DEFAULT column ([MDEV-37054](https://jira.mariadb.org/browse/MDEV-37054))
 
