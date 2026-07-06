@@ -164,6 +164,6 @@ ERROR HY000: Data type 'xmltype' doesn't support LENGTH attribute.
 
 * [CAST](../../sql-functions/string-functions/cast.md)
 * [Data Types](../)
-* [String Functions](../../../server-usage/basics/mariadb-string-functions-guide-1.md)
+* [String Functions](../../../mariadb-quickstart-guides/mariadb-string-functions-guide.md)
 * [LONGBLOB](longblob.md)
 * [Data Type Storage Requirements](../data-type-storage-requirements.md)

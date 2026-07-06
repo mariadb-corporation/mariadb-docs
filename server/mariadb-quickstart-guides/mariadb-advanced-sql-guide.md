@@ -54,7 +54,7 @@ INSERT INTO student_tests
  ('Tatiana', 'Tuning', 83, '2013-09-30');
 ```
 
-For more information, see the official INSERT documentation.
+For more information, see [INSERT](../reference/sql-statements/data-manipulation/inserting-loading-data/insert.md).
 
 ### Using AUTO\_INCREMENT
 
@@ -98,7 +98,7 @@ SELECT * FROM student_details;
 
 For more details, see the [AUTO\_INCREMENT](../reference/data-types/auto_increment.md) documentation.
 
-### Querying from two tables on a common value (JOIN)
+### Querying from Two Tables on a Common Value (JOIN)
 
 To combine rows from two tables based on a related column:
 
@@ -142,7 +142,7 @@ SELECT MIN(a) FROM t1;
 +--------+
 ```
 
-See the MIN() function documentation.
+See the [MIN() function](../reference/sql-functions/aggregate-functions/min.md) documentation.
 
 ### Finding the Average Value
 
@@ -181,7 +181,7 @@ SELECT name, MAX(score) FROM student_tests GROUP BY name;
 +---------+------------+
 ```
 
-Further details are available in the MAX() function documentation.
+Further details are available in the [MAX() function](../reference/sql-functions/aggregate-functions/max.md) documentation.
 
 ### Ordering Results
 
@@ -286,7 +286,7 @@ To calculate current age, replace the specific date string (e.g., '2014-08-02') 
 
 See the [TIMESTAMPDIFF()](../reference/sql-functions/date-time-functions/timestampdiff.md) documentation for more.
 
-### Using User-defined Variables
+### Using User-Defined Variables
 
 [User-defined variables ](../reference/sql-structure/sql-language-structure/user-defined-variables.md)can store values for use in subsequent queries within the same session.
 
