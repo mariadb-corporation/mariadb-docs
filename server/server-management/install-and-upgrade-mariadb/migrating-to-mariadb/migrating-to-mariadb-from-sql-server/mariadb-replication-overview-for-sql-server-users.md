@@ -227,7 +227,7 @@ The timeout is set via the [rpl\_semi\_sync\_master\_timeout](../../../../ha-and
 
 ## Galera Cluster
 
-[Galera](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/galera-cluster/README.md) is a technology that implements virtually synchronous, primary-primary replication for a cluster of MariaDB servers.
+[Galera](../../../../architecture/topologies/galera-cluster/README.md) is a technology that implements virtually synchronous, primary-primary replication for a cluster of MariaDB servers.
 
 ### Raft and the Primary Cluster
 

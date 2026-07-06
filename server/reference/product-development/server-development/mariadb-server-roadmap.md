@@ -26,7 +26,7 @@ We are also putting a lot of effort into speeding up MariaDB Server, and to keep
 
 The MariaDB Server source tree is maintained by MariaDB the company and its developers. They are the primary contributors to the MariaDB Server project and the ones who are ultimately responsible for the quality of the code.
 
-MariaDB Server 5.1, MariaDB Server 5.2, and MariaDB Server 5.3 were built off of [MySQL 5.1](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/development-articles/general-info/broken-reference/README.md).
+MariaDB Server 5.1, MariaDB Server 5.2, and MariaDB Server 5.3 were built off of MySQL 5.1.
 
 MariaDB Server 5.5 was a combination of MariaDB Server 5.3 and MySQL 5.5.
 
@@ -45,7 +45,7 @@ We manage our development plans in JIRA, so the definitive list will be there. [
 
 ### Contributing
 
-If you want to be part of developing any of these features, see [Contributing to the MariaDB Project](../../community/contributing-participating/contributing-to-the-mariadb-project.md). You can also add new features to this list or to [JIRA](tools/jira.md).
+If you want to be part of developing any of these features, see Contributing to the MariaDB Project. You can also add new features to this list or to [JIRA](tools/jira.md).
 
 ## See Also
 

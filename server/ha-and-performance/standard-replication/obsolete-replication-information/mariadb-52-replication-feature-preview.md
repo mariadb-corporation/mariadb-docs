@@ -1,3 +1,9 @@
+---
+description: >-
+  An obsolete feature-preview page for early MariaDB replication features
+  (historical).
+---
+
 # MariaDB 5.2 Replication Feature Preview
 
 **Note:** This page is obsolete. The information is old, outdated, or otherwise currently incorrect. We are keeping the page for historical reasons only. **Do not** rely on the information in this article.

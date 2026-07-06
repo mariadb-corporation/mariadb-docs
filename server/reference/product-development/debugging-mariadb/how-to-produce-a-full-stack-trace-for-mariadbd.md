@@ -83,7 +83,7 @@ stack_bottom = 0x7ff4dc62ccc8 thread_stack 0x49000
 /lib/x86_64-linux-gnu/libc.so.6(clone+0x3f)[0x7ffa09b6dd0f]
 ```
 
-If you plan to [report a bug](../../community/community/bug-tracking/reporting-bugs.md) about the problem, then this information can be very useful for MariaDB's developers to track down the root cause. However, notice that some of the function names in the call stack are missing. In some cases, this partial stack trace may not be enough to find out exactly where the problem is.
+If you plan to report a bug about the problem, then this information can be very useful for MariaDB's developers to track down the root cause. However, notice that some of the function names in the call stack are missing. In some cases, this partial stack trace may not be enough to find out exactly where the problem is.
 
 A full stack trace can only be produced if you have debugging symbols for your `mariadbd` binary.
 
@@ -427,7 +427,7 @@ skip_stack_trace
 
 ## Reporting the Problem
 
-If you encounter some problem in MariaDB, then MariaDB's developers would appreciate if you would [report a bug](../../community/community/bug-tracking/reporting-bugs.md) at the [MariaDB JIRA bug tracker](https://jira.mariadb.org). Please include the following information:
+If you encounter some problem in MariaDB, then MariaDB's developers would appreciate if you would report a bug at the [MariaDB JIRA bug tracker](https://jira.mariadb.org). Please include the following information:
 
 * Your full stack trace.
 * Your [error log](../../../server-management/server-monitoring-logs/error-log.md).
@@ -436,14 +436,14 @@ If you encounter some problem in MariaDB, then MariaDB's developers would apprec
 * [SHOW ENGINE INNODB STATUS](../../sql-statements/administrative-sql-statements/show/show-engine-innodb-status.md)
 * [SHOW CREATE TABLE {table](../../sql-statements/administrative-sql-statements/show/show-create-table.md) (for each table in query) and [EXPLAIN {query}](../../sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) if a query related crash.
 
-A [MariaDB FTP server](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-ftp-server/README.md) is available for large and/or sensitive information. Please upload in `.tar.gz` or `.zip` archive.
+A MariaDB FTP server is available for large and/or sensitive information. Please upload in `.tar.gz` or `.zip` archive.
 
-For very difficult or critical errors, you should consider uploading the following information to the [MariaDB FTP server](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb-ftp-server/README.md) the following:
+For very difficult or critical errors, you should consider uploading the following information to the MariaDB FTP server the following:
 
 * Your build of `mariadbd` (if you compiled it), otherwise version information on the mariadb-server package.
 * Your core file.
 * Your contact information.
-* The associated [JIRA issue identifier](https://jira.mariadb.org) for the bug, if you [reported a bug](../../community/community/bug-tracking/reporting-bugs.md).
+* The associated [JIRA issue identifier](https://jira.mariadb.org) for the bug, if you reported a bug.
 
 This information will allow MariaDB developers to analyze it and try to create a fix.
 

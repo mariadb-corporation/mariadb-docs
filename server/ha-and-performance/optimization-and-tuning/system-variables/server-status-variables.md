@@ -45,7 +45,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Aborted_connects_preauth`
 
-* Description: Number of connection attempts that were aborted prior to authentication (regardless of whether or not an error occured).
+* Description: Number of connection attempts that were aborted prior to authentication (regardless of whether or not an error occurred).
 * Scope: Global
 * Data Type: `numeric`
 
@@ -283,7 +283,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Com_compound_sql`
 
-* Description: Number of [compund](../../../reference/sql-statements/programmatic-compound-statements/) sql statements.
+* Description: Number of [compound](../../../reference/sql-statements/programmatic-compound-statements/) sql statements.
 * Scope: Global, Session
 * Data Type: `numeric`
 
@@ -1642,7 +1642,7 @@ Issuing a [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-st
 
 #### `Max_used_connections_time`
 
-* Description: The time at which the last change of [max\_used\_connections](server-status-variables.md#max_used_connections) occured. The global value can be flushed by [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
+* Description: The time at which the last change of [max\_used\_connections](server-status-variables.md#max_used_connections) occurred. The global value can be flushed by [FLUSH STATUS](../../../reference/sql-statements/administrative-sql-statements/flush-commands/flush.md).
 * Scope: Global
 * Data Type: `datetime`
 * Introduced: [MariaDB 11.0.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.2), [MariaDB 11.1.1](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.1/11.1.1)

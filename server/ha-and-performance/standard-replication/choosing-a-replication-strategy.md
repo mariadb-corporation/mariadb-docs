@@ -1,3 +1,10 @@
+---
+description: >-
+  Choose a MariaDB replication strategy by matching the replication method and
+  format to your goal — reducing downtime, scaling reads, or aggregating data —
+  and weigh the trade-offs.
+---
+
 # Choosing a Replication Strategy
 
 Choosing the right replication strategy in MariaDB is less about the underlying technology itself and more about which specific "pain point" your architecture needs to solve: preventing downtime, accelerating slow reads, securing data across distances, or aggregating data for analytics.

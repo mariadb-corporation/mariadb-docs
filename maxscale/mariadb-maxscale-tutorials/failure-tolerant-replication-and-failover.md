@@ -66,7 +66,7 @@ Semi-synchronous replication by itself does not remove the possibility of the pr
 
 ### Enable Semi-Synchronous Replication
 
-To enable semi semi-synchronous replication, add the following to the configuration files of all servers:
+To enable semi-synchronous replication, add the following to the configuration files of all servers:
 
 ```ini
 rpl_semi_sync_master_enabled=ON

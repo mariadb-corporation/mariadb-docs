@@ -1,3 +1,7 @@
+---
+description: String literal syntax, quoting, and escape sequences.
+---
+
 # String Literals
 
 Strings are sequences of characters and enclosed with quotes.
@@ -70,16 +74,16 @@ There are other escape sequences:
 | Escape sequence | Character                                           |
 | --------------- | --------------------------------------------------- |
 | \0              | ASCII NUL (0x00).                                   |
-| '               | Single quote (“'”).                                 |
-| "               | Double quote (“"”).                                 |
+| '               | Single quote.                                       |
+| "               | Double quote.                                       |
 | \b              | Backspace.                                          |
-|                 | Newline, or linefeed,.                              |
-|                 | Carriage return.                                    |
-|                 | Tab.                                                |
+| \n              | New line / linefeed.                                |
+| \r              | Carriage return.                                    |
+| \t              | Tab.                                                |
 | \Z              | ASCII 26 (Control+Z). See note following the table. |
-| \\              | Backslash (“\”).                                    |
-| %               | “%” character. See note following the table.        |
-| \_              | A “\_” character. See note following the table.     |
+| \\              | Backslash.                                          |
+| %               | Percentage character. See note following the table. |
+| \_              | Underscore character. See note following the table. |
 
 Escaping the `%` and `_` characters can be necessary when using the [LIKE](../../sql-functions/string-functions/like.md) operator, which treats them as special characters.
 

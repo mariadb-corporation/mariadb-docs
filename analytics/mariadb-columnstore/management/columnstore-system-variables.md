@@ -308,27 +308,28 @@ MariaDB ColumnStore has the ability to utilize the cpimport fast data import too
 
 ### Enable/Disable Using cpimport for Batch Insert
 
-The `infinidb_use_import_for_batchinsert` variable is used to control if cpimport is used for these statements. This variable may be set as a default for the instance, set at the session level, or at the statement level by toggling this variable on and off.
+The `columnstore_use_import_for_batchinsert` variable is used to control if cpimport is used for these statements. This variable may be set as a default for the instance, set at the session level, or at the statement level.
 
-To enable/disable the use of the use cpimport for batch insert at the session level, the following command is used. Once the session has ended, any subsequent session will return to the default for the instance.
+To control the use of cpimport for batch insert at the session level, the following command is used. Once the session has ended, any subsequent session will return to the default for the instance.
 
 ```sql
-SET infinidb_use_import_for_batchinsert = n
+SET columnstore_use_import_for_batchinsert = value
 ```
 
-where n is:
+where `value` is:
 
-* 0 (disabled)
-* 1 (enabled)
+* `OFF` (disabled)
+* `ON` (enabled; the default)
+* `ALWAYS` (always use cpimport)
 
 ### Changing Default Delimiter for INSERT SELECT
 
-* The `infinidb_import_for_batchinsert_delimite`r variable is used internally by MariaDB ColumnStore on a non-transactional `INSERT INTO SELECT FROM` statement as the default delimiter passed to the cpimport tool. With a default value ascii 7, there should be no need to change this value unless your data contains ascii 7 values.
+* The `columnstore_import_for_batchinsert_delimiter` variable is used internally by MariaDB ColumnStore on a non-transactional `INSERT INTO SELECT FROM` statement as the default delimiter passed to the cpimport tool. With a default value ascii 7, there should be no need to change this value unless your data contains ascii 7 values.
 
-To change this variable value at the at the session level, the following command is used. Once the session has ended, any subsequent session will return to the default for the instance.
+To change this variable value at the session level, the following command is used. Once the session has ended, any subsequent session will return to the default for the instance.
 
 ```sql
-SET infinidb_import_for_batchinsert_delimiter = ascii_value
+SET columnstore_import_for_batchinsert_delimiter = ascii_value
 ```
 
 where `ascii_value` is an ASCII value representation of the delimiter desired.

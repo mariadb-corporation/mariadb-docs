@@ -1,3 +1,9 @@
+---
+description: >-
+  Create spatial columns for geometry types in MariaDB, supported on MyISAM,
+  InnoDB, and ARCHIVE tables.
+---
+
 # Geometry Types
 
 ## Description

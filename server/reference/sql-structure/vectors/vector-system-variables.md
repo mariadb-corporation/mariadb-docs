@@ -1,3 +1,9 @@
+---
+description: >-
+  System variables that control MariaDB's vector storage and similarity-search
+  features.
+---
+
 # Vector System Variables
 
 {% include "https://app.gitbook.com/s/GxVnu02ec8KJuFSxmB93/~/reusable/pBQsCgBA6SJpi0m3pZuk/" %}

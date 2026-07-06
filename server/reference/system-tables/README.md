@@ -56,15 +56,3 @@ The `sys` schema contains a collection of views, procedures, and functions that 
 Contains the core system tables in the `mysql` database, including privilege tables, logging tables, and status variables.
 {% endcolumn %}
 {% endcolumns %}
-
-{% columns %}
-{% column %}
-{% content-ref url="/broken/pages/KDJaEOMqwidgyDABQ6La" %}
-[Broken link](/broken/pages/KDJaEOMqwidgyDABQ6La)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-The `mariadb_schema` table stores information regarding the database schema versions and migration history.
-{% endcolumn %}
-{% endcolumns %}

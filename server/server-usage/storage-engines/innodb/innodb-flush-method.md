@@ -69,6 +69,10 @@ From MariaDB 11.0, the flushing behavior of InnoDB should no longer be controlle
 2. `innodb_data_file_buffering`: The default is `OFF`; set it to `ON` if you encounter read performance problems.
 3. `innodb_log_file_write_through`, `innodb_data_file_write_through`: The default is `OFF` for both variables; setting them to `ON` can improve or degrade write performance, depending on whether or not the hardware supports FUA (Forced Unit Access).
 
+{% hint style="info" %}
+A `SET GLOBAL` change to `innodb_log_file_buffering` or `innodb_log_file_write_through` can be silently ignored — for example, while an `innodb_log_file_size` resize is in progress, or when the log is mapped to persistent memory (PMEM). Confirm the change took effect by reading the value back, as described for [`innodb_log_file_buffering`](innodb-system-variables.md#innodb_log_file_buffering) and [`innodb_log_file_write_through`](innodb-system-variables.md#innodb_log_file_write_through).
+{% endhint %}
+
 ### FUA (Forced Unit Access)
 
 FUA is a hardware-level flag used during write operations to ensure data integrity. When InnoDB sends a write command with the FUA flag, it tells the storage device (SSD or HDD) that the write must be written directly to the non-volatile, stable media before the device can report that the task is finished.

@@ -1,3 +1,9 @@
+---
+description: >-
+  The sargable UPPER optimization, letting the optimizer use indexes for
+  UPPER() expressions.
+---
+
 # Sargable UPPER
 
 Starting from [MariaDB 11.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.3/what-is-mariadb-113), expressions in the form

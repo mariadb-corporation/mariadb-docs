@@ -8,7 +8,7 @@ description: >-
 
 MariaDB Enterprise Server is a premium version of MariaDB Community Server that focuses on stability, robustness, and predictability.
 
-MariaDB Enterprise Server enables a predictable development and operations experience through an enterprise lifecycle. This enterprise lifecycle incorporates optimized builds, predictable release behavior, and vendor support. For more information about the Enterprise Server Lifecycle [look here](../../enterprise-server-lifecycle.md).
+MariaDB Enterprise Server enables a predictable development and operations experience through an enterprise lifecycle. This enterprise lifecycle incorporates optimized builds, predictable release behavior, and vendor support. For more information about the Enterprise Server Lifecycle [look here](../enterprise-server-lifecycle.md).
 
 In addition to different release cycle, QA, and etc..., there are also feature differences. MariaDB Enterprise Server has different default settings to be more secure from the start and also only includes features that are fully supported and maintained.
 
@@ -21,7 +21,7 @@ In addition to this there are Enterprise Features and some backported features. 
 * Index limit increased to 128 indexes
 * Slow master shutdown as default
 * [MariaDB Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) (powered by Galera)
-  * [Enhanced Enterprise Data-at-Rest Encryption](../../mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/)
+  * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
 * [Hashicorp Vault Plugin](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin)
 
 ## Backported Features

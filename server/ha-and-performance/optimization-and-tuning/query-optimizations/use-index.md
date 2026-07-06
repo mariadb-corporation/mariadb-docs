@@ -1,3 +1,8 @@
+---
+description: >-
+  Using USE INDEX to limit which indexes the optimizer considers.
+---
+
 # USE INDEX
 
 You can limit which indexes are considered with the `USE INDEX` option.

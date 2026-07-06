@@ -74,7 +74,7 @@ $ sudo bin/maxscale --user=maxscale -d
 ```
 
 The `-d` flag causes maxscale _not_ to turn itself into a daemon,\
-which is adviseable the first time MariaDB MaxScale is started, as it makes it easier to spot problems.
+which is advisable the first time MariaDB MaxScale is started, as it makes it easier to spot problems.
 
 If you want to place the configuration file somewhere else but in `/etc`\
 you can invoke MariaDB MaxScale with the `--config` flag,\

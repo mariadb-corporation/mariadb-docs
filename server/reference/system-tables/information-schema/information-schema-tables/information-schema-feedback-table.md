@@ -15,7 +15,7 @@ It contains two columns:
 | VARIABLE\_NAME  | Name of the item of information being collected.     |
 | VARIABLE\_VALUE | Contents of the item of information being collected. |
 
-It is possible to disable automatic collection, by setting the [feedback\_url](../../../../plugins/other-plugins/feedback-plugin.md#feedback_url) variable to an empty string, and to submit the contents manually, as follows:
+It is possible to disable automatic collection, by setting the [feedback\_url](../../../plugins/other-plugins/feedback-plugin.md#feedback_url) variable to an empty string, and to submit the contents manually, as follows:
 
 ```sql
 $ mysql -e 'SELECT * FROM information_schema.FEEDBACK' > report.txt

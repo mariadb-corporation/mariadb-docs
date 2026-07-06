@@ -1,3 +1,9 @@
+---
+description: >-
+  Implementing the entity-attribute-value (EAV) model in MariaDB, and its
+  trade-offs.
+---
+
 # Entity-Attribute-Value Implementation
 
 ## The desires

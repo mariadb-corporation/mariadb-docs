@@ -75,7 +75,7 @@ Out of range value for column 'COLUMN_NAME' at row ROW_NUM
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.36-17 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.36-17 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64, ARM64)

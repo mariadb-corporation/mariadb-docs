@@ -1,14 +1,14 @@
 ---
 description: >-
   wsrep_ssl_mode selects the TLS implementation for Galera wsrep traffic in
-  MariaDB 11.4 and 10.6: PROVIDER for built-in TLS, SERVER for server TLS, or
-  SERVER_X509 with X.509 verification.
+  MariaDB Enterprise Server from 10.6: PROVIDER for built-in TLS, SERVER for
+  server TLS, or SERVER_X509 with X.509 verification.
 ---
 
 # wsrep\_ssl\_mode
 
 {% hint style="info" %}
-This system variable is available from MariaDB 11.4 and 10.6.
+This system variable is available in MariaDB Enterprise Server from version 10.6.
 {% endhint %}
 
 Select which SSL implementation is used for wsrep provider communications: PROVIDER - wsrep provider internal SSL implementation; SERVER - use server side SSL implementation; SERVER\_X509 - as SERVER and require valid X509 certificate.
@@ -65,6 +65,16 @@ When the `wsrep_ssl_mode` system variable is set to `SERVER` or `SERVER_X509`, e
 | [ssl\_capath](ssl_capath.md) | Optionally set this system variables to the path of the CA chain directory. The directory must have been processed by `openssl rehash`. When your CA chain is stored in a single file, use the [ssl\_ca](https://docs-archive.mariadb.net/server/ref/mdb/system-variables/ssl_ca/) system variable instead. |
 | [ssl\_cert](ssl_cert.md)     | Set this system variable to the path of the node's X509 certificate file.                                                                                                                                                                                                                                   |
 | [ssl\_key](ssl_key.md)       | Set this system variable to the path of the node's private key file.                                                                                                                                                                                                                                        |
+
+## Security Considerations
+
+In the default `SERVER` mode, MariaDB Enterprise Cluster encrypts replication traffic but **does not verify the peer's X.509 certificate**. A node accepts any peer that completes the TLS handshake, so `SERVER` mode provides encryption in transit without peer authentication — it cannot distinguish a legitimate cluster member from a rogue server presenting an arbitrary certificate.
+
+{% hint style="warning" %}
+The default value, `SERVER`, does not authenticate peers. For production — and for deployments with compliance requirements (PCI DSS, SOC 2, ISO 27001) or any threat model that includes a network-position attacker — set `wsrep_ssl_mode=SERVER_X509` to require X.509 certificate verification on every inter-node connection.
+{% endhint %}
+
+Because `wsrep_ssl_mode` is read-only, changing it requires restarting the node. To migrate an existing cluster from `SERVER` to `SERVER_X509`, first confirm every node has a certificate signed by the cluster's CA, then restart one node at a time.
 
 #### Parameters
 

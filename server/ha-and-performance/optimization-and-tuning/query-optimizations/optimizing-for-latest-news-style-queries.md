@@ -1,3 +1,9 @@
+---
+description: >-
+  Optimizing queries that fetch the latest items on a topic, such as news
+  feeds.
+---
+
 # Optimizing for "Latest News"-style Queries
 
 ## The problem space

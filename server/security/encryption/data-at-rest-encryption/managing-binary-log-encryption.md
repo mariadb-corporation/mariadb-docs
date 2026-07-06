@@ -1,3 +1,9 @@
+---
+description: >-
+  How to encrypt binary logs and relay logs so on-disk data modifications are
+  only accessible through the server.
+---
+
 # Managing Binary Log Encryption
 
 MariaDB can encrypt binary logs and relay logs to ensure that data modifications stored on disk are only accessible through the database server.

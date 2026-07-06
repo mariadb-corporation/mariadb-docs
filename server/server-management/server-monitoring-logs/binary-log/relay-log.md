@@ -32,7 +32,7 @@ Failed to open the relay log and Could not find target log during relay log init
 
 To prevent this, you can specify the relay log file name by setting the [relay\_log](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log) and [relay\_log\_index](../../../ha-and-performance/standard-replication/replication-and-binary-log-system-variables.md#relay_log_index) system variables.
 
-If you need to overcome this issue while replication is already underway,you can stop the replica, prepend the old relay log index file to the new relay log index file, and restart the replica.
+If you need to overcome this issue while replication is already underway, you can stop the replica, prepend the old relay log index file to the new relay log index file, and restart the replica.
 
 For example:
 

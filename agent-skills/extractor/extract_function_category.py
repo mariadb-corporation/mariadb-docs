@@ -54,10 +54,14 @@ DESC_RE = re.compile(
 # (e.g. `JSON\_EXTRACT`).
 TITLE_RE = re.compile(r"^#\s+(.+?)\s*$", re.MULTILINE)
 
-# First fenced SQL code block under the Syntax heading.
-# Tolerates `## Syntax` and `### Syntax` (some pages are inconsistent).
+# First fenced code block under the Syntax heading.
+# Tolerates `## Syntax` and `### Syntax` (some pages are inconsistent); any (or
+# no) fence language tag — categories vary: `sql` (json-functions), `bnf`
+# (string/date/numeric/aggregate), or a bare ``` fence; and optional GitBook
+# `{% tabs %}`/`{% tab %}` markup between the heading and the fence (version-
+# tabbed syntax, e.g. CRC32) — the first fence is the "Current" form.
 SYNTAX_BLOCK_RE = re.compile(
-    r"^#{2,3}\s+Syntax\s*\n+```sql\s*\n(.*?)\n```",
+    r"^#{2,3}\s+Syntax\s*\n+(?:\{%[^\n]*%\}\s*\n+)*```[A-Za-z0-9]*\s*\n(.*?)\n```",
     re.DOTALL | re.MULTILINE,
 )
 
@@ -69,9 +73,12 @@ DESCRIPTION_BODY_RE = re.compile(
 )
 
 # Alias-only stub: pages like JSON_PRETTY whose body is just
-# "FOO is an alias for [BAR](bar.md)." with no Syntax section.
+# "FOO is an alias for [BAR](bar.md)." with no Syntax section. Also matches
+# "is a synonym for" (e.g. SUBSTR -> SUBSTRING). The captured target is
+# validated as a function name (uppercase) by the caller, so prose like
+# "synonym for the Oracle mode version of ..." is correctly rejected.
 ALIAS_RE = re.compile(
-    r"`?\w+`?\s+is\s+an\s+alias\s+for\s+\[?`?(\w+)`?\]?",
+    r"is\s+(?:an\s+alias|a\s+synonym)\s+for\s+\[?`?(\w+)`?\]?",
     re.IGNORECASE,
 )
 
@@ -144,6 +151,13 @@ def extract_function(path: Path) -> dict:
         raise ExtractionError(f"no `# Title` heading in {path.name}")
     name = unescape_title(title_match.group(1))
 
+    # Some function pages disambiguate the title with a " Function" suffix
+    # because the name collides with a type/statement/keyword (e.g.
+    # "CHAR Function", "INSERT Function", "REPLACE Function", "DATE FUNCTION").
+    # Strip it so the real function name is recovered. Operator/editorial
+    # suffixes ("Operator", "Units", …) are left alone and still rejected below.
+    name = re.sub(r"\s+Function$", "", name, flags=re.IGNORECASE).strip()
+
     # Editorial pages (e.g. "Differences between X and Y") don't look like
     # function names. Function names are uppercase with underscores/digits.
     if not re.match(r"^[A-Z][A-Z0-9_]*$", name):
@@ -162,7 +176,10 @@ def extract_function(path: Path) -> dict:
     syntax_match = SYNTAX_BLOCK_RE.search(text)
     if not syntax_match:
         alias = ALIAS_RE.search(body)
-        if alias:
+        # Only treat as an alias if the target reads like a function name
+        # (uppercase). Rejects prose like "synonym for the Oracle mode ...".
+        if alias and re.match(r"^[A-Z][A-Z0-9_]*$", alias.group(1).upper()) \
+                and alias.group(1).isupper():
             return {
                 "path": path,
                 "name": name,

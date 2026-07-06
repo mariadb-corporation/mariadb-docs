@@ -1,3 +1,9 @@
+---
+description: >-
+  Deploy the MariaDB ColumnStore shared-local-storage topology, a columnar
+  OLAP store for analytical workloads.
+---
+
 # ColumnStore Shared Local Storage
 
 ## Overview

@@ -215,7 +215,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `""`&#x20;
-* Description: Path to the CA sertificate for outgoing HTTPS requests.
+* Description: Path to the CA certificate for outgoing HTTPS requests.
 
 [**admin\_ssl\_cert**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#admin_ssl_cert)
 
@@ -449,7 +449,7 @@ description: >-
 * Dynamic: Yes
 * Values: `none`, `file`, `kmip`, `vault`
 * Default: `none`&#x20;
-* Description: Defines the encrytion key manager that MaxScale uses.
+* Description: Defines the encryption key manager that MaxScale uses.
 
 [**libdir**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#libdir)
 
@@ -545,7 +545,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `10`&#x20;
-* Description: Maximum number of authentication failures before temprarily blocking a host.
+* Description: Maximum number of authentication failures before temporarily blocking a host.
 
 [**maxlog**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#maxlog)
 
@@ -701,7 +701,7 @@ description: >-
 * Mandatory: No
 * Dynamic: No
 * Default: `/usr/share/maxscale`&#x20;
-* Description: Defines the directory where static data assests are loaded.
+* Description: Defines the directory where static data assets are loaded.
 
 [**skip\_name\_resolve**](../maxscale-management/deployment/installation-and-configuration/maxscale-configuration-guide.md#skip_name_resolve)
 
@@ -2308,7 +2308,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `false`&#x20;
-* Description: Log queries in canonical format,replacing user-defined constants with placeholders to ensure consistent and secure output.
+* Description: Log queries in canonical format, replacing user-defined constants with placeholders to ensure consistent and secure output.
 
 [**user**](maxscale-filters/maxscale-query-log-all-filter.md#user)
 
@@ -2606,7 +2606,7 @@ description: >-
 * Dynamic: No
 * Values: `ignorecase`, `case`, `extended`
 * Default: `case`&#x20;
-* Description: Determines how the `match` and `exlcude` regex patterns are handled, including case sensitivity and extended syntax.
+* Description: Determines how the `match` and `exclude` regex patterns are handled, including case sensitivity and extended syntax.
 
 [**source**](maxscale-filters/maxscale-top-filter.md#source)
 
@@ -2690,7 +2690,7 @@ description: >-
 * Mandatory: No
 * Dynamic: Yes
 * Default: `3s`&#x20;
-* Description: Specifies the timeout for reading query resuts from a backend server. Deprecated and ignored since MaxScale 25.08.0.&#x20;
+* Description: Specifies the timeout for reading query results from a backend server. Deprecated and ignored since MaxScale 25.08.0.&#x20;
 
 [**backend\_write\_timeout**](maxscale-monitors/common-monitor-parameters.md#backend_write_timeout)
 
@@ -3542,7 +3542,7 @@ description: >-
 * Type: server
 * Mandatory: Yes
 * Dynamic: No
-* Description: Specifes the primary server from which query results are returned to the client.
+* Description: Specifies the primary server from which query results are returned to the client.
 
 [**max\_request\_lag**](maxscale-routers/maxscale-diff.md#max_request_lag)
 
@@ -3559,7 +3559,7 @@ description: >-
 * Dynamic: Yes
 * Values: `close`, `ignore`
 * Default: `ignore`&#x20;
-* Description: Determines whether errors from replica servers close the session or are are ignored.
+* Description: Determines whether errors from replica servers close the session or are ignored.
 
 [**percentile**](maxscale-routers/maxscale-diff.md#percentile)
 
@@ -3655,7 +3655,7 @@ description: >-
 * Dynamic: No
 * Values: `auto`, `activate-only`, `custom:<path>`, `disabled`
 * Default: `auto`&#x20;
-* Description: Defines how the Exasol preprocesser script is managed: auto-installed, activate-only, custom path, or disabled.
+* Description: Defines how the Exasol preprocessor script is managed: auto-installed, activate-only, custom path, or disabled.
 
 [**preprocessor\_script**](maxscale-routers/maxscale-exasolrouter.md#preprocessor_script)
 

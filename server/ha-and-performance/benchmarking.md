@@ -1,8 +1,14 @@
+---
+description: >-
+  Benchmark MariaDB Server performance using published benchmark results and
+  SystemTap scripts for measuring throughput and behavior under load.
+---
+
 # Benchmarking
 
 ## Published Results
 
-* [Benchmark Results](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/Y8bPFaOuzfEwsco9DIkw)
+* [Benchmark Results](../reference/product-development/server-development/quality/benchmarks-and-long-running-tests/benchmark-results/README.md)
 
 ## Systemtap
 

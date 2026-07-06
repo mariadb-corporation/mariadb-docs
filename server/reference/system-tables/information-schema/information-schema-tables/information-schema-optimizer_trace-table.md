@@ -8,7 +8,7 @@ description: >-
 
 ## Description
 
-The [Information Schema](../) `OPTIMIZER_TRACE` table contains [Optimizer Trace](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/wIjY1kOpUvbr3Rbr8GXl) information.
+The [Information Schema](../) `OPTIMIZER_TRACE` table contains [Optimizer Trace](../../../../ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace/README.md) information.
 
 It contains the following columns:
 

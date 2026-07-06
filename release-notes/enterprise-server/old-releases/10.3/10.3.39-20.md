@@ -23,7 +23,7 @@ MariaDB CVEs are assigned a word rating instead of a CVSS base score. See the [M
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.39-20 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.3.39-20 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64, ARM64)

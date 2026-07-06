@@ -103,7 +103,7 @@ Our platform features:
 
 ### How much does MariaDB Cloud cost?
 
-You can get started on MariaDB Cloud at no cost for experimenting and early development using the forever-free serverless option. Provisioned database services on MariaDB Cloud are billed based on the topology, cloud region, instance and storage sizes. For example, you can run a single 2 vCPU, 4 GB RAM instance with 100GB storage on AWS us-east-1 region 24/7 for for little over $100 a month.
+You can get started on MariaDB Cloud at no cost for experimenting and early development using the forever-free serverless option. Provisioned database services on MariaDB Cloud are billed based on the topology, cloud region, instance and storage sizes. For example, you can run a single 2 vCPU, 4 GB RAM instance with 100GB storage on AWS us-east-1 region 24/7 for little over $100 a month.
 
 When you [launch a database service](../cloud-usage/launch-page.md), MariaDB Cloud provides a handy estimate of how much your service selections will cost. Multi-node database services incur charge for running our intelligent proxy. Data Transfer charges associated with your service vary based on the usage and are not included in the estimates. We passthrough data transfer charges levied by cloud providers with no additional markup.
 

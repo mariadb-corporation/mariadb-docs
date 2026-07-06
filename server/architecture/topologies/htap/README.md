@@ -1,3 +1,9 @@
+---
+description: >-
+  Deploy the HTAP topology, pairing MariaDB row storage with ColumnStore
+  columnar storage for mixed transactional and analytical workloads.
+---
+
 # HTAP
 
 ## Overview

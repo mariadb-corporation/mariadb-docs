@@ -8,7 +8,7 @@ description: >-
 
 This guide explains the different types of indexes in MariaDB, their characteristics, and how they are used. Learn to create and manage Primary Keys, Unique Indexes, and Plain Indexes, along with key considerations for choosing and maintaining effective indexes for optimal query performance.
 
-In MariaDB, the terms `KEY` and `INDEX` are generally used interchangeably in SQL statements.
+In MariaDB, the terms `KEY` and `INDEX` are generally used interchangeably in SQL statements. For a gentler conceptual overview, see [The Essentials of an Index](essentials-of-an-index-guide.md).
 
 ### Index Types Overview
 
@@ -28,7 +28,7 @@ A primary key uniquely identifies each record in a table. Its values must be uni
 * In InnoDB tables, the primary key is included as a suffix in all other indexes. Therefore, keeping the primary key compact (e.g., using an appropriate integer type) is important for performance and storage efficiency.
 * If a table has no explicitly defined primary key and no `UNIQUE` indexes, InnoDB automatically creates an invisible 6-byte clustered index.
 
-**Using `AUTO_INCREMENT`:** The `AUTO_INCREMENT` attribute is commonly used with numeric primary keys to automatically generate a unique ID for each new row.
+**Using `AUTO_INCREMENT`:** The [`AUTO_INCREMENT`](../reference/data-types/auto_increment.md) attribute is commonly used with numeric primary keys to automatically generate a unique ID for each new row.
 
 ```sql
 CREATE TABLE `Employees` (
@@ -42,7 +42,7 @@ CREATE TABLE `Employees` (
 
 Note: The column defined as a primary key (or part of it) must be explicitly declared as `NOT NULL`.
 
-**Adding a Primary Key to an Existing Table:** Use `ALTER TABLE`. You cannot create a primary key with `CREATE INDEX`.
+**Adding a Primary Key to an Existing Table:** Use [`ALTER TABLE`](../reference/sql-statements/data-definition/alter/alter-table/). You cannot create a primary key with [`CREATE INDEX`](../reference/sql-statements/data-definition/create/create-index.md).
 
 ```sql
 ALTER TABLE Employees ADD PRIMARY KEY(ID);
@@ -66,14 +66,6 @@ WHERE t.TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'mysql'
 A unique index ensures that all values in the indexed column (or combination of columns) are unique. However, unlike a primary key, columns in a unique index can store `NULL` values.
 
 Each key value uniquely identifies a row, but not every row needs to be represented if `NULL`s are allowed.
-
-```python
-### INSERT INTO `securedb`.`t_long_keys`
-### SET
-###   @1=1 /* INT meta=0 nullable=0 is_null=0 */
-###   @2='a' /* VARSTRING(4073) meta=4073 nullable=1 is_null=0 */
-###   @3=580 /* LONGINT meta=0 nullable=1 is_null=0 */
-```
 
 **Behavior (MariaDB 10.5+):**
 
@@ -222,7 +214,7 @@ Full-text indexes are used for performing full-text searches on text data. For d
 * **Index for Queries:** Add indexes that match the `WHERE` clauses, `JOIN` conditions, and `ORDER BY` clauses of your application's queries.
 * **Avoid Over-Indexing:** Extra indexes consume storage and can slow down `INSERT`, `UPDATE`, and `DELETE` operations.
 * **Impact of Table Size:** Indexes provide more significant speed-ups on large tables (larger than buffer sizes) than on very small tables.
-* **Use `EXPLAIN`:** Analyze your queries with the `EXPLAIN` statement to determine if indexes are being used effectively and identify columns that might benefit from indexing.
+* **Use `EXPLAIN`:** Analyze your queries with the [`EXPLAIN`](../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md) statement to determine if indexes are being used effectively and identify columns that might benefit from indexing.
 * **`LIKE '%word%'`:** Queries using a leading wildcard in a `LIKE` clause (e.g., `LIKE '%word%'`) typically cannot use standard BTREE indexes effectively and may result in full table scans unless a full-text index is used.
 * **Delayed Writes:** For tables with many reads and writes, consider storage engine options or server configurations related to delayed writes to potentially improve performance by batching disk I/O. (This is an advanced topic.)
 * **Creating Indexes on Existing Tables:** Use `CREATE INDEX index_name ON table_name (column_list);`
@@ -230,7 +222,7 @@ Full-text indexes are used for performing full-text searches on text data. For d
 
 ### Viewing Indexes
 
-*   **`SHOW INDEX FROM table_name;`**: Displays information about all indexes on a table.SQL
+*   [**`SHOW INDEX FROM table_name;`**](../reference/sql-statements/administrative-sql-statements/show/show-index.md): Displays information about all indexes on a table.
 
     ```sql
     SHOW INDEX FROM Employees;

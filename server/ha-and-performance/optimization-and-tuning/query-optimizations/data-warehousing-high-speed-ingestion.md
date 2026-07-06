@@ -1,3 +1,9 @@
+---
+description: >-
+  Techniques for high-speed data ingestion when INSERT performance is the
+  bottleneck.
+---
+
 # Data Warehousing High Speed Ingestion
 
 ## The problem

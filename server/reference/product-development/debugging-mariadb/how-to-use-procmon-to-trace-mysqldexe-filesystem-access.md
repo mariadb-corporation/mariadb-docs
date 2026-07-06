@@ -45,7 +45,7 @@ To save it, choose File/Save.
 
 ## (Advanced) Seeing stack traces corresponding to events
 
-It is also possible to see stacktraces corresponding to the events. For this to work , symbols support needs to be configured. This needs to be only done once.
+It is also possible to see stacktraces corresponding to the events. For this to work, symbols support needs to be configured. This needs to be only done once.
 
 1. Install Debugging Tools for Windows (google on how to do that).
 2. Switch to Process Monitor's menu Options => Configure symbols.

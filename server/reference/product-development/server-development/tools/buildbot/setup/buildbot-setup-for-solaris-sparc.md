@@ -36,7 +36,7 @@ $ pkgadd -d python-2.5.4-sol10-sparc-local
 ```
 
 If you are unfamiliar with howto install packages from Sunfreeware please\
-read their [howto](https://www.sunfreeware.com/indexsparc10.html).
+read their howto.
 
 1. Setup your environment:
 
@@ -93,7 +93,7 @@ libtool, sed, libgcc, gcc, libintl, libiconv, zlib, binutils, groff, cmake
 
 * You can find a package on [Google Code](https://code.google.com/p/bzrunix/downloads/list).
 * Install the latest Bazaar for Solaris 10. At the time of this writing it was\
-  1.14.1: [bzr-1.14.1-sol10-sparc-local.gz](https://bzrunix.googlecode.com/files/bzr-1.14.1-sol10-sparc-local.gz) .
+  1.14.1: bzr-1.14.1-sol10-sparc-local.gz .
 
 1. Volunteer your buildbot to the Maria team. Follow the directions listed in the Volunteering to run a build slave section of the [About Buildbot](../about-buildbot.md) page.
 2. Create the buildbot as the buildbot user:
@@ -124,11 +124,11 @@ sudo su - buildbot -c "/usr/bin/buildbot start /export/home/buildbot/maria-slave
 
 OPTIONAL: You can create a proper service by following (and modifying as necessary) these [directions](https://wadofstuff.blogspot.com/2007/01/smf-manifest-for-buildbot.html)
 
-1. Please ask on the #maria [IRC](https://github.com/mariadb-corporation/docs-server/blob/test/en/irc/README.md) channel on irc.freenode.net if you have\
+1. Please ask on the #maria IRC channel on irc.freenode.net if you have\
    problems or questions setting up your buildbot. Or ask on the on the [maria-developers](https://launchpad.net/~maria-developers) mailing list.
-2. Check the status of your buildbot through the [BuildBot buildslaves](https://buildbot.askmonty.org/buildbot/buildslaves) page.
+2. Check the status of your buildbot through the BuildBot buildslaves page.
 
-This howto was contributed by Adam Dutko. The original version is [here](https://littlehat.homelinux.org/tuts/MariaDB/buildbot/README-SOL10-SPARC).
+This howto was contributed by Adam Dutko. The original version is here.
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -8,10 +8,28 @@ local edits would be lost. File content bugs against the upstream repository.
 | Field | Value |
 | --- | --- |
 | Upstream repository | https://github.com/MariaDB/skills |
-| Pinned ref (tag/commit) | _TBD — set when first vendored_ |
-| Upstream license | **PENDING** — confirmation requested from Robert Silen (MariaDB Foundation); do not vendor until confirmed |
-| Last synced | _not yet synced_ |
-| Synced by | `.github/workflows/sync-topical-skills.yml` (stub) |
+| Pinned ref (commit) | `86623494f8051e766c973d35c1f07368c3b4c267` |
+| Upstream license | **MIT** — Copyright (c) 2026 Robert Silén; see `LICENSE` in this directory |
+| Last synced | 2026-06-24 |
+| Synced by | `.github/workflows/sync-topical-skills.yml` (weekly + manual); initial vendor was manual |
+
+## What is vendored
+
+The five application-developer "keepers" from DOCS-6206:
+
+| Skill | Upstream path |
+| --- | --- |
+| `mariadb-features` | `mariadb-features/SKILL.md` |
+| `mariadb-query-optimization` | `mariadb-query-optimization/SKILL.md` |
+| `mariadb-system-versioned-tables` | `mariadb-system-versioned-tables/SKILL.md` |
+| `mysql-to-mariadb` | `mysql-to-mariadb/SKILL.md` |
+| `mariadb-vector` | `mariadb-vector/SKILL.md` |
+
+Not vendored (lower priority for the app-dev use case): `mariadb-mcp`,
+`mariadb-replication-and-ha`, `oracle-to-mariadb`.
+
+The MIT license requires the copyright and permission notice to travel with the
+files, so the upstream `LICENSE` is copied into this directory verbatim.
 
 ## Why vendored rather than a submodule
 
@@ -21,13 +39,29 @@ would leave this directory as an empty gitlink unless the consumer runs
 `--recurse-submodules`, which defeats that goal. Vendoring materializes the real
 files here; pinning to a release tag keeps it reproducible.
 
-## Before the first sync
+## Re-syncing
 
-1. Confirm the upstream license and how it must be reproduced (LICENSE file,
-   per-file header, attribution line). Record it in the table above.
-2. Decide the subset to vendor. Per DOCS-6206, the application-developer
-   "keepers" are: `mariadb-features`, `mariadb-query-optimization`,
-   `mariadb-system-versioned-tables`, `mysql-to-mariadb`, `mariadb-vector`.
-   (`mariadb-mcp`, `mariadb-replication-and-ha`, `oracle-to-mariadb` are lower
-   priority for this use case.)
-3. Pin the upstream ref and fill in the table.
+Normally automated: `.github/workflows/sync-topical-skills.yml` runs weekly (and
+on demand) and opens a PR when upstream has moved. To trigger or pin a specific
+ref manually, run that workflow with the `ref` input, or locally:
+
+```bash
+python3 agent-skills/topical/sync_topical.py --ref <branch|tag|sha>
+```
+
+That downloads each keeper's `SKILL.md` + the `LICENSE` at the resolved commit
+and updates the table above (pinned ref, last-synced date) and `vendored_ref` in
+`../.skills-manifest.json`. The files are vendored verbatim — do not hand-edit;
+file content bugs upstream against `MariaDB/skills`. If the **vendored subset**
+changes (a keeper added/removed), update `KEEPERS` in `sync_topical.py` and the
+skill list above.
+
+## Known upstream nits (file against `MariaDB/skills`, do not fix here)
+
+Flagged in DOCS-6206; left as-is because this directory is vendored verbatim:
+
+- `mariadb-features`: the `latin1`→`utf8mb4` default change is tagged 11.6, but
+  several sources cite 10.10 / MDEV-25829.
+- `mariadb-vector`: typo "euclidian" → "euclidean"; the "5× faster than
+  `VEC_FromText()`" claim should be validated against current builds.
+- `mariadb-system-versioned-tables`: duplicate identical "Sources" link.

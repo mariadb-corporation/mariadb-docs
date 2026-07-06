@@ -49,7 +49,7 @@ MariaDB [test]> SHOW LOCALES;
 
 ## FLUSH
 
-To support the `FLUSH` statement, a plugin must declare the `reset_table` callback. For example, in the [QUERY\_RESPONSE\_TIME](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/community/plugins/other-plugins/query-response-time-plugin.md) plugin:
+To support the `FLUSH` statement, a plugin must declare the `reset_table` callback. For example, in the [QUERY\_RESPONSE\_TIME](../../plugins/other-plugins/query-response-time-plugin.md) plugin:
 
 ```c
 static int query_response_time_info_init(void *p)

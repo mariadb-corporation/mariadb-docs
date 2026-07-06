@@ -1,3 +1,9 @@
+---
+description: >-
+  The VECTOR data type, available from MariaDB 11.7.1, for storing fixed-
+  length numeric arrays used in vector search.
+---
+
 # VECTOR
 
 {% hint style="info" %}

@@ -1,3 +1,9 @@
+---
+description: >-
+  Process and display the contents of a MyISAM log file with the myisamlog
+  utility.
+---
+
 # myisamlog
 
 `myisamlog` processes and returns the contents of a [MyISAM log file](../../server-management/server-monitoring-logs/myisam-log.md).

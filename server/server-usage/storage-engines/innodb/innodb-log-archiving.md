@@ -1,3 +1,10 @@
+---
+description: >-
+  Retain the full InnoDB write-ahead log history (from MariaDB 13.0) by
+  archiving log files, enabling point-in-time recovery and incremental
+  backups.
+---
+
 # InnoDB Log Archiving
 
 {% hint style="info" %}

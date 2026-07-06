@@ -8,16 +8,12 @@ description: >-
 
 MariaDB makes use of numerous environment variables that may be set on your system. Environment variables have the lowest precedence, so any options set on the command line or in an option file will take precedence.
 
-It's usually better not to rely on environment variables, and to rather set the options you need directly, as this makes the system a little more robust and easy to administer.
+It's usually better not to rely on environment variables, and to rather set the options you need directly, as this makes the system a little more robust and easier to administer.
 
 Here is a list of environment variables used by MariaDB:
 
 | Environment Variable | Description                                                                                                                                                                                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CXX`                | Name of the C++ compiler, used for running CMake.                                                                                                                                                                                                                    |
-| `CC`                 | Name of the C compiler, used for running CMake.                                                                                                                                                                                                                      |
-| `DBI_USER`           | Perl DBI default username.                                                                                                                                                                                                                                           |
-| `DBI_TRACE`          | Perl DBI trace options.                                                                                                                                                                                                                                              |
 | `HOME`               | Default directory for the [mysql\_history file](../../../clients-and-utilities/mariadb-client/mariadb-command-line-client.md#the-mysql_history-file).                                                                                                                |
 | `MYSQL_DEBUG`        | Debug trace options used when debugging.                                                                                                                                                                                                                             |
 | `MYSQL_GROUP_SUFFIX` | In addition to the given option groups, also read groups with this suffix.                                                                                                                                                                                           |

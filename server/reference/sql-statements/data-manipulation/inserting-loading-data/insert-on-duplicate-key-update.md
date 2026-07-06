@@ -51,11 +51,11 @@ The row/s affected value is reported as 1 if a row is inserted, and 2 if a row i
 
 If more than one unique index is matched, only the first is updated. It is not recommended to use this statement on tables with more than one unique index.
 
-If the table has an [AUTO\_INCREMENT](../../../data-types/auto_increment.md) [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key) and the statement inserts or updates a row, the [LAST\_INSERT\_ID()](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) function returns its AUTO\_INCREMENT value.
+If the table has an [AUTO\_INCREMENT](../../../data-types/auto_increment.md) [primary key](../../../../mariadb-quickstart-guides/mariadb-indexes-guide.md#primary-key) and the statement inserts a new row, the [LAST\_INSERT\_ID()](../../../sql-functions/secondary-functions/information-functions/last_insert_id.md) function returns the AUTO\_INCREMENT value of that newly inserted row. It is not affected when the statement updates an existing row instead.
 
 The [VALUES()](../../../sql-functions/secondary-functions/miscellaneous-functions/values-value.md) function can only be used in a `ON DUPLICATE KEY UPDATE` clause and has no meaning in any other context. It returns the column values from the `INSERT` portion of the statement. This function is particularly useful for multi-rows inserts.
 
-The [IGNORE](ignore.md) and [DELAYED](insert-delayed.md) options are ignored when you use `ON DUPLICATE KEY UPDATE`.
+The [DELAYED](insert-delayed.md) option is ignored when you use `ON DUPLICATE KEY UPDATE`.
 
 See [Partition Pruning and Selection](../../../../server-usage/partitioning-tables/partition-pruning-and-selection.md) for details on the PARTITION clause.
 

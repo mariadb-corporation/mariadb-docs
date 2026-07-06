@@ -74,9 +74,16 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude 'http://localhost:[0-9]+.*' \
       --exclude 'https://localhost:[0-9]+.*' \
       "${files[@]}" 2>&1)"; then
-    echo "lychee found broken links:" >&2
-    printf '%s\n' "$out" >&2
-    rc=1
+    # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
+    # "No links were found" when the changed files contain no links, which is a
+    # false failure for link-free pages (e.g. nav stubs). See DOCS-6272.
+    if printf '%s' "$out" | grep -q "No links were found"; then
+      : # no links to check — not a failure
+    else
+      echo "lychee found broken links:" >&2
+      printf '%s\n' "$out" >&2
+      rc=1
+    fi
   fi
 else
   echo "doc-lint: lychee not installed — SKIPPED (CI will run it). Install: https://github.com/lycheeverse/lychee" >&2

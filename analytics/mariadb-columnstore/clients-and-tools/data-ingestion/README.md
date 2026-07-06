@@ -17,7 +17,7 @@ ColumnStore provides several mechanisms to ingest data:
 * DML, i.e. `INSERT`, `UPDATE`, and `DELETE`, provide row-level changes. ColumnStore is optimized towards bulk modifications, so these operations are slower than they would be in, for instance, InnoDB.
   * Currently ColumnStore does not support operating as a replication replica target.
   * Bulk DML operations will in general perform better than multiple individual statements.
-    * [INSERT INTO SELECT](columnstore-batch-insert-mode.md) with autocommit behaves similarly to `LOAD DATE INFILE` because, internally, it is mapped to `cpimport` for higher performance.
+    * [INSERT INTO SELECT](../data-import/mariadb-enterprise-columnstore-data-loading-with-insert-select.md) with autocommit behaves similarly to `LOAD DATA INFILE` because, internally, it is mapped to `cpimport` for higher performance.
     * Bulk update operations based on a join with a small staging table can be relatively fast, especially if updating a single column.
 * Using ColumnStore Bulk Write SDK or [ColumnStore Streaming Data Adapters](columnstore-streaming-data-adapters.md).
 

@@ -200,9 +200,9 @@ To verify whether the server's certificate belong to server's host, [clients and
 
 #### Server Certificate Verification with Subject Alternative Names (SANs)
 
-The [**Subject Alternative Name (SAN)**](https://tools.ietf.org/html/rfc5280#section-4.2.1.6) field, which is an X.509v3 extension, can also be used for server certificate verification, if it is present in the server certificate. This field is also sometimes called **subjectAltName**. When using a [client or utility](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md) that supports server certificate verification with **subjectAltName** fields, if the server certificate contains any **subjectAltName** fields, then those fields will also be checked against the server's host name and IP address.
+The [**Subject Alternative Name (SAN)**](https://tools.ietf.org/html/rfc5280#section-4.2.1.6) field, which is an X.509v3 extension, can also be used for server certificate verification, if it is present in the server certificate. This field is also sometimes called **subjectAltName**. When using a [client or utility](../../../clients-and-utilities/README.md) that supports server certificate verification with **subjectAltName** fields, if the server certificate contains any **subjectAltName** fields, then those fields will also be checked against the server's host name and IP address.
 
-Whether server certificate verification with **subjectAltName** fields is supported depends on the underlying TLS library used by the [client or utility](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/clients-utilities/README.md).
+Whether server certificate verification with **subjectAltName** fields is supported depends on the underlying TLS library used by the [client or utility](../../../clients-and-utilities/README.md).
 
 See [TLS and Cryptography Libraries Used by MariaDB](../tls-and-cryptography-libraries-used-by-mariadb.md) for more information about which libraries are used on which platforms.
 
@@ -244,7 +244,7 @@ The server verifies a client certificate by checking the client's known `SUBJECT
 * [Replication with Secure Connections](replication-with-secure-connections.md)
 * [Securing Communications in Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-security/securing-communications-in-galera-cluster)
 * [SSL/TLS System Variables](ssltls-system-variables.md)
-* [Data-at-Rest Encryption](/broken/pages/oH1AAxPLSc6Wq96yMJ2N)
+* [Data-at-Rest Encryption](../data-at-rest-encryption/README.md)
 * [Cyberciti tutorial: How to set up MariaDB SSL and secure connections from clients](https://www.cyberciti.biz/faq/how-to-setup-mariadb-ssl-and-secure-connections-from-clients/)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>

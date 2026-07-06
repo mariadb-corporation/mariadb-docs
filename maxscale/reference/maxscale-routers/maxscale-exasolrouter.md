@@ -105,7 +105,7 @@ will be honored. Otherwise this value will override.
 * Mandatory: No
 * Dynamic: No
 * Values: `disabled`, `external[:preprocessor-script-name]`, `internal[:preprocessor-script-path]`
-* Default: `internal`
+* Default: `internal`, if the distribution provides a new enough Python implementation, `disabled` if not.
 
 The values mean:
 
@@ -128,6 +128,20 @@ The values mean:
   in the _share_ directory of MaxScale. A different script can be used by
   providing it as an argument. Unless an absolute path is used, it is
   interpreted relative to the _share_ directory.
+
+_Internal_ transpilation is performed using Python, but it is supported only
+if the Linux distribution supports a sufficiently new version of Python.
+On Ubuntu 24.04, Python 3.12 is sufficient, but on all other distributions
+the version must be at least Python 3.13. In practice this means that
+internal transpilation is available on the following distributions:
+
+* Ubuntu 24.04
+* Ubuntu 26.04
+* Redhat 9
+* Redhat 10
+* Debian 13
+
+On all other platforms, specifying `internal` will cause a startup error.
 
 ### `python_libdir`
 

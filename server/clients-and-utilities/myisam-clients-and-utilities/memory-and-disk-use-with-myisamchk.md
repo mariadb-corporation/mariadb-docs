@@ -1,3 +1,9 @@
+---
+description: >-
+  Tune myisamchk memory and disk usage to speed up checking and repairing
+  large MyISAM tables.
+---
+
 # Memory and Disk Use With myisamchk
 
 myisamchk's performance can be dramatically enhanced for larger tables by making sure that its memory-related variables are set to an optimum level.

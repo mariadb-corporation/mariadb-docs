@@ -4,6 +4,7 @@ title: all-releases-es-10.6
 
 | Version                                                  | Release Date | Release Status |
 | -------------------------------------------------------- | ------------ | -------------- |
+| [10.6.27-23](../../enterprise-server/10.6/10.6.27-23.md) | 2026-06-17   | Stable (GA)    |
 | [10.6.25-22](../../enterprise-server/10.6/10.6.25-22.md) | 2026-06-02   | Stable (GA)    |
 | [10.6.25-21](../../enterprise-server/10.6/10.6.25-21.md) | 2026-03-17   | Stable (GA)    |
 | [10.6.24-20](../../enterprise-server/10.6/10.6.24-20.md) | 2025-12-11   | Stable (GA)    |

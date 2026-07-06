@@ -1,3 +1,9 @@
+---
+description: >-
+  Efficiently rolling up unique-user counts without repeatedly reprocessing
+  large logs.
+---
+
 # Rollup Unique User Counts
 
 ## The Problem

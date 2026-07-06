@@ -1,3 +1,9 @@
+---
+description: >-
+  An obsolete optimizer-debugging facility from an early MariaDB release
+  (historical).
+---
+
 # MariaDB 5.3 Optimizer Debugging
 
 MariaDB 5.3 has an optimizer debugging patch. The patch is pushed into:

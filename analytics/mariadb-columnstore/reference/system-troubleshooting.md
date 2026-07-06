@@ -160,6 +160,11 @@ writeenginesplit[4423]: Please make sure both schema and table exists!!
     CREATE TABLE flights xxxx;
     ```
 * Remediation Action (System-Wide Mismatch): If numerous database tables throw this same exception concurrently when queried, the wrong extent map file has likely been loaded into memory. Restore system operations by restoring a valid historical extent map backup and its matching transaction journal. If a functional backup map cannot be obtained, execute `mcsRebuildEM` to reconstruct the map properties, which may succeed if the raw data files still reside intact inside each independent `dbroot` workspace directory path. If those source data files are also missing, no further recovery paths exist.
+*   Remediation Action (Front-End/Back-End Out of Sync): If the table information between the front end and back end is out of sync, a table can become impossible to either drop or create &mdash; `DROP TABLE` fails with `IDB-2006: ... does not exist in Columnstore`, while `CREATE TABLE` fails with `Table ... already exists`. Drop the table with the `RESTRICT` option to clear the mismatch, after which the table can be created again:
+
+    ```sql
+    DROP TABLE table1 RESTRICT;
+    ```
 
 ### 2. Hanging Ingestion Rollbacks on Cluster Boot
 

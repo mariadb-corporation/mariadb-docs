@@ -37,7 +37,7 @@ MariaDB Enterprise Server 10.2.25-1 was released on 2019-07-08.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.25-1 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.25-1 is provided for:
 
 * CentOS 7
 * CentOS 6

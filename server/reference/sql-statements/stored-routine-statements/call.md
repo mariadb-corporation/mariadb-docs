@@ -28,7 +28,7 @@ parameters. If no value is assigned to an `OUT` parameter, `NULL` is assigned (a
 
 `CALL` can also be executed as a prepared statement. Placeholders can be used for `IN` parameters in all versions of MariaDB; for `OUT` and `INOUT` parameters, placeholders can be used since [MariaDB 5.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.5/changes-improvements-in-mariadb-5-5).
 
-When the procedure returns, a client program can also obtain the number of rows affected for the final statement executed within the routine: At the SQL level, call the [ROW\_COUNT()](../built-in-functions/secondary-functions/information-functions/row_count.md) function; from the C\
+When the procedure returns, a client program can also obtain the number of rows affected for the final statement executed within the routine: At the SQL level, call the [ROW\_COUNT()](../../sql-functions/secondary-functions/information-functions/row_count.md) function; from the C\
 API, call the `mysql_affected_rows()` function.
 
 If the `CLIENT_MULTI_RESULTS` API flag is set, `CALL` can return any number of result sets and the called stored procedure can execute prepared statements. If it is not set, at most one result set can be returned and prepared statements cannot be used within procedures.

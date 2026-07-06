@@ -1,3 +1,10 @@
+---
+description: >-
+  Summarize and analyze the MariaDB slow query log with mariadb-dumpslow
+  (formerly mysqldumpslow), grouping similar queries to surface the slowest
+  statements.
+---
+
 # mariadb-dumpslow
 
 {% hint style="info" %}

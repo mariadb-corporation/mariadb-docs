@@ -1,3 +1,9 @@
+---
+description: >-
+  The index_merge sort_intersection access method, which merges results from
+  several index scans.
+---
+
 # index\_merge sort\_intersection
 
 Prior to [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3), the `index_merge` access method supported `union`,`sort-union`, and `intersection` operations. Starting from [MariaDB 5.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/5.3/changes-improvements-in-mariadb-5-3), the`sort-intersection` operation is also supported. This allows the use of`index_merge` in a broader number of cases.

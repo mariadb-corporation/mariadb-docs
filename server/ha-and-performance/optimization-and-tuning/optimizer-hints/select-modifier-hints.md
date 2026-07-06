@@ -1,3 +1,9 @@
+---
+description: >-
+  SELECT modifier hints such as HIGH_PRIORITY, SQL_CACHE, SQL_NO_CACHE, and
+  SQL_BUFFER_RESULT that adjust how individual SELECT statements are executed.
+---
+
 # SELECT Modifier Hints
 
 ## HIGH PRIORITY

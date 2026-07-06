@@ -1,8 +1,7 @@
 ---
 description: >-
-  Complete Restoring Data from Dump Files Guide guide for MariaDB. Complete
-  resource with setup instructions, configuration, usage examples, and best
-  practices.
+  Restore MariaDB data from mariadb-dump backup files using the mariadb client,
+  including how to selectively restore a single table.
 ---
 
 # Restoring Data from Dump Files Guide

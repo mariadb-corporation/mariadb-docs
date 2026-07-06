@@ -54,7 +54,7 @@ Returns a connection handle (same as passed for 1st parameter) or `NULL` on erro
 
     * hostname and port must be separated by a colon (:)
     * IPv6 addresses must be enclosed within square brackets
-    * hostname:port pairs must be be separated by a comma (,)
+    * hostname:port pairs must be separated by a comma (,)
     * if only one host:port was specified, the host string needs to end with a comma.
     * if no port was specified, the default port will be used.
 

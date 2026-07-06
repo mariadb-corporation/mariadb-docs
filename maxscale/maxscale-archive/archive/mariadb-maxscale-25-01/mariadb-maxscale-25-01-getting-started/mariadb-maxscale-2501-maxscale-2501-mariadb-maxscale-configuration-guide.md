@@ -688,7 +688,7 @@ defined in the root configuration file which by default is `/etc/maxscale.cnf`.
 
 This parameter specifies whether a core file should be generated if MaxScale\
 crashes. The default is `true` although usually a core file is not needed,\
-as MaxScale is capable of logging the full strack trace of all threads\
+as MaxScale is capable of logging the full stack trace of all threads\
 when it crashes.
 
 #### `auto_tune`
@@ -1698,7 +1698,7 @@ the MaxScale log.
 
 High water mark for network write buffer. When the size of the outbound network\
 buffer in MaxScale for a single connection exceeds this value, network traffic\
-throtting for that connection is started. The parameter accepts [size type\
+throttling for that connection is started. The parameter accepts [size type\
 values](mariadb-maxscale-2501-maxscale-2501-mariadb-maxscale-configuration-guide.md#sizes). The default value was 16777216 bytes before 22.08.4.
 
 More specifically, if the client side write queue is above this value, it will\
@@ -2981,10 +2981,10 @@ a lot of `PREPARE stmt FROM <sql>` commands, it is recommended that the value of
 
 In older versions of MaxScale, binary protocol prepared statements were limited\
 by `max_sescmd_history` and were also pruned by `prune_sescmd_history` but this\
-caused problems when the binary protocol prepared statment were pruned while\
+caused problems when the binary protocol prepared statement were pruned while\
 they were still open from the client's point of view. In older versions, the\
 recommended value of `max_sescmd_history` is the number of state modifying\
-commands plus the maximum number of open prepared statments that any application\
+commands plus the maximum number of open prepared statements that any application\
 may use.
 
 This parameter was moved into the MaxScale core in MaxScale 6.0. The parameter\
@@ -4026,7 +4026,7 @@ comma-separated list of key-value arguments. The keys or values cannot contain\
 commas in them.
 
 Any values that are set to `auto` will be substituted with the value of the\
-corresponding MariaDB system variable. Any system variables that do not not\
+corresponding MariaDB system variable. Any system variables that do not\
 exist or have empty or null values will not be sent to the client. The system\
 variable values are read from the first `Master` server that's reachable from\
 the listener's service. If no `Master` server is reachable, the value is read\

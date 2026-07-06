@@ -80,7 +80,7 @@ This release is of General Availability (GA) maturity.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.4.1 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.4.1 is provided for:
 
 * CentOS 8
 * CentOS 7

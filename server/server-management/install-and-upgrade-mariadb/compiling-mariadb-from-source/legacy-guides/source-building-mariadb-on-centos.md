@@ -71,7 +71,7 @@ yum install cpan
 cpan App::cpanminus
 ```
 
-For more information on dependencies, see [Linux Build Environment](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/Build_Environment_Setup_for_Linux/README.md).
+For more information on dependencies, see [Linux Build Environment](build-environment-setup-for-linux.md).
 
 ## Building MariaDB
 

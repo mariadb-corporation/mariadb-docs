@@ -47,7 +47,7 @@ MariaDB Enterprise Server 10.2.41-14 was released on 2021-12-13.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.41-14 is provided for:
+In alignment with the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.41-14 is provided for:
 
 * CentOS 7 (x86\_64)
 * CentOS 8 (x86\_64, ARM64)

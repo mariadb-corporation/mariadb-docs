@@ -23,7 +23,7 @@ MariaDB MaxScale can be deployed in the cloud or on-premises.
 
 ## Scheduled Releases
 
-MariaDB MaxScale follows the MariaDB Enterprise release schedule, which can be found [here](../../release-notes/enterprise-server/enterprise-server-release-schedule.md).
+MariaDB MaxScale follows the MariaDB Enterprise release schedule, which can be found [here](../../release-notes/enterprise-server/about/enterprise-server-release-schedule.md).
 
 ## Software Releases
 

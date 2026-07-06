@@ -14,7 +14,7 @@ This release of MariaDB ColumnStore is included with MariaDB Enterprise Server 1
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.6.7 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 5.6.7 is provided for:
 
 * CentOS 7 (x86\_64)
 * Debian 10 (x86\_64)

@@ -20,6 +20,11 @@ jobs:
           files: |
             **.md
             **.html
+          # agent-skills/topical/ is vendored verbatim from MariaDB/skills
+          # (see agent-skills/topical/VENDORED.md). Link fixes go upstream, not
+          # here. Our own authored skills under agent-skills/granular/ stay in scope.
+          files_ignore: |
+            agent-skills/topical/**
 
       - name: Scan for broken links
         if: steps.changes.outputs.any_changed == 'true'
@@ -37,8 +42,30 @@ jobs:
             --exclude 127\.0\.0\.1
             --exclude 'http://localhost:[0-9]+.*'
             --exclude 'https://localhost:[0-9]+.*'
+            --exclude access\.redhat\.com
+            --exclude docs\.redhat\.com
+            --exclude blogs\.oracle\.com
+            --exclude bugs\.mysql\.com
+            --exclude forums\.mysql\.com
+            --exclude www\.mysql\.com
+            --exclude en\.opensuse\.org
+            --exclude www\.cyberciti\.biz
+            --exclude linux\.die\.net
+            --exclude mariadb\.org\/feedback_plugin
+            --exclude security-certs\.docs\.ubuntu\.com
+            --exclude www\.linux-pam\.org
+            --exclude www\.bzip\.org
+            --exclude selinuxproject\.org
+            --exclude www\.gnu\.org
+            --exclude manpages\.ubuntu\.com
+            --exclude packages\.ubuntu\.com
+            --exclude www\.canonware\.com
             ${{ steps.changes.outputs.all_changed_files }}
           fail: true
+          # Don't error when the changed files contain no links to check. lychee
+          # otherwise exits non-zero with "No links were found", which is a false
+          # failure for link-free pages (e.g. nav stubs). See DOCS-6272.
+          failIfEmpty: false
 
       - name: 📖 Help & Documentation
         if: failure()

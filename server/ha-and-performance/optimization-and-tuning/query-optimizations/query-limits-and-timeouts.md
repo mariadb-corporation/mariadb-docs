@@ -1,3 +1,8 @@
+---
+description: >-
+  The methods MariaDB provides to limit or time out queries.
+---
+
 # Query Limits and Timeouts
 
 This article describes the different methods MariaDB provides to limit/timeout a query:

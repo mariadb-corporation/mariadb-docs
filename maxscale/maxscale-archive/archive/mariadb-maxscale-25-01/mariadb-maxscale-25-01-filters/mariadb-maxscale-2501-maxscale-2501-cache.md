@@ -796,7 +796,7 @@ The purpose of this variable is make it possible for an application to decide\
 statement by statement what _hard ttl_ should be applied.
 
 Note that as `@maxscale.cache.hard_ttl` overrules `@maxscale.cache.soft_ttl`,\
-is is important to ensure that the former is at least as large as the latter\
+is important to ensure that the former is at least as large as the latter\
 and for best overall performance that it is larger.
 
 ```

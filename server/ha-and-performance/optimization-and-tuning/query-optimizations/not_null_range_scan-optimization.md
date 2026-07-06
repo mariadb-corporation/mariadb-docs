@@ -1,3 +1,9 @@
+---
+description: >-
+  The not_null_range_scan optimization, which builds range scans from inferred
+  NOT NULL conditions.
+---
+
 # not\_null\_range\_scan Optimization
 
 The NOT NULL range scan optimization enables the optimizer to construct range scans from NOT NULL conditions that it was able to infer from the WHERE clause.

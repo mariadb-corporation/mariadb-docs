@@ -1,3 +1,8 @@
+---
+description: >-
+  Hexadecimal literal syntax in MariaDB, such as x'value' and 0xvalue.
+---
+
 # Hexadecimal Literals
 
 Hexadecimal literals can be written using any of the following syntaxes:

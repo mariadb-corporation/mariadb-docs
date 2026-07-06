@@ -37,7 +37,7 @@ This is a list of [system variables](../server-system-variables.md) that have be
 | [thread\_pool\_dedicated\_listener](../../buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_pool_dedicated_listener)                                                                  | [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)     |
 | [thread\_pool\_exact\_stats](../../buffers-caches-and-threads/thread-pool/thread-pool-system-status-variables.md#thread_pool_exact_stats)                                                                                | [MariaDB 10.5.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/mariadb-10-5-series/mariadb-1050-release-notes)     |
 
-For system variables that have been removed or deprecated, see [Upgrading from MariaDB 10.4 to MariaDB 10.5](../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-from-to-specific-versions/upgrading-from-mariadb-10-4-to-mariadb-10-5.md).
+For system variables that have been removed or deprecated, see [Upgrading from MariaDB 10.4 to MariaDB 10.5](../../../../server-management/install-and-upgrade-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-4-to-mariadb-10-5.md).
 
 ## See Also
 

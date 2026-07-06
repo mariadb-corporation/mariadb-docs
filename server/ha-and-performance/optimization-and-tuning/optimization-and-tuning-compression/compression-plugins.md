@@ -1,3 +1,8 @@
+---
+description: >-
+  Compression provider plugins that supply compression algorithms to MariaDB.
+---
+
 # Compression Plugins
 
 **MariaDB starting with** [**10.7.0**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.0)

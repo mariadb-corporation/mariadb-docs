@@ -1,3 +1,9 @@
+---
+description: >-
+  The client-side API for reading and writing dynamic-column blobs, as an
+  alternative to the in-server dynamic-column functions.
+---
+
 # Dynamic Column API
 
 This page describes the client-side API for reading and writing [Dynamic Columns](dynamic-columns.md) blobs.

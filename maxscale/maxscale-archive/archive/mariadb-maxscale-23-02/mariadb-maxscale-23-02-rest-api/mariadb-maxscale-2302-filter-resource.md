@@ -206,10 +206,10 @@ least the following fields.
 * Name of the filter
 * `data.type`
 * Type of the object, must be `filters`
-* `data.atttributes.module`
+* `data.attributes.module`
 * The filter module to use
 
-All of the filter parameters should be defined at creation time in the`data.atttributes.parameters` object.
+All of the filter parameters should be defined at creation time in the`data.attributes.parameters` object.
 
 As the service to filter relationship is ordered (filters are applied in the\
 order they are listed), filter to service relationships cannot be defined at\

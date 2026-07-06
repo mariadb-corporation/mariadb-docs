@@ -1037,6 +1037,14 @@ For a complete list of security vulnerabilities (CVE) fixed across all versions 
 
 | CVE ID (with cve.org link)                                        | CVSS base score (v3.1) | Enterprise Server 11.4 Release |
 | ----------------------------------------------------------------- | ---------------------- | ------------------------------ |
+| [CVE-2026-3494](https://www.cve.org/CVERecord?id=CVE-2026-3494)   | 4.3                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44173](https://www.cve.org/CVERecord?id=CVE-2026-44173) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44172](https://www.cve.org/CVERecord?id=CVE-2026-44172) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44171](https://www.cve.org/CVERecord?id=CVE-2026-44171) | 6.3                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44170](https://www.cve.org/CVERecord?id=CVE-2026-44170) | 5.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44169](https://www.cve.org/CVERecord?id=CVE-2026-44169) | 4.3                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-44168](https://www.cve.org/CVERecord?id=CVE-2026-44168) | 8.0                    | [11.4.12-9](11.4.12-9.md)      |
+| [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                    | [11.4.12-9](11.4.12-9.md)      |
 | [CVE-2026-49261](https://www.cve.org/CVERecord?id=CVE-2026-49261) | 10.0                   | [11.4.10-8](11.4.10-8.md)      |
 | [CVE-2026-48165](https://www.cve.org/CVERecord?id=CVE-2026-48165) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |
 | [CVE-2026-48163](https://www.cve.org/CVERecord?id=CVE-2026-48163) | 8.0                    | [11.4.10-8](11.4.10-8.md)      |

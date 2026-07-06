@@ -1,3 +1,8 @@
+---
+description: >-
+  Status variables related to TLS/SSL-encrypted connections.
+---
+
 # SSL/TLS Status Variables
 
 The status variables listed on this page relate to encrypting data during transfer with the Transport Layer Security (TLS) protocol. Often, the term Secure Socket Layer (SSL) is used interchangeably with TLS, although strictly speaking, the SSL protocol is a predecessor to TLS and is no longer considered secure.

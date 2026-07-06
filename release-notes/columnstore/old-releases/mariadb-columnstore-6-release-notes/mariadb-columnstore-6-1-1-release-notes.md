@@ -89,7 +89,7 @@ ERROR 1815 (HY000): Internal error: IDB-1003: Circular joins are not supported.
 
 ## Platforms
 
-In alignment with the [enterprise lifecycle](../../../enterprise-server/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.1.1 is provided for:
+In alignment with the [enterprise lifecycle](../../../enterprise-server/about/enterprise-server-lifecycle.md), MariaDB ColumnStore 6.1.1 is provided for:
 
 * CentOS 7
 * CentOS 8

@@ -70,14 +70,11 @@ To ensure that MaxScale functions properly, do not commit or rollback a transact
 
 #### Limitations with MySQL/MariaDB Protocol support (MariaDBClient)
 
-* Compression is not included in the server handshake.
 * If a `KILL [CONNECTION] <ID>` statement is executed, MaxScale will intercept it. If the ID matches a MaxScale session ID, it will be closed by sending modified `KILL` commands of the same type to all backend server to which the session in question is connected to. This results in behavior that is similar to how MariaDB does it. If the `KILL CONNECTION USER <user>` form is given, all connections with a matching username will be closed instead.
 * MariaDB MaxScale does not support `KILL QUERY ID <query_id>` type statements. If a query by a query ID is to be killed, it needs to be done directly on the backend databases.
-* Any `KILL` commands executed using a prepared statement are ignored by MaxScale. If any are executed, it is highly likely that the wrong connection ends up being killed.
-* If a `KILL` connection kills a session that is connected to a readwritesplit service that has `transaction_replay` or `delayed_retry` enabled, it is possible that the query is retried even if the connection is killed. To avoid this, use `KILL QUERY` instead.
-* A `KILL` on one service can cause a connection from another service to be closed even if it uses a different protocol.
-* The change user command (COM\_CHANGE\_USER) only works with standard authentication.
-* If a COM\_CHANGE\_USER succeeds on MaxScale yet fails on the server the session ends up in an inconsistent state. This can happen if the password of the target user is changed and MaxScale uses old user account data when processing the change user. In such a situation, MaxScale and server will disagree on the current user. This can affect e.g. reconnections.
+* Any `KILL` commands executed using a prepared statement are ignored by MaxScale. If any are executed, it is highly likely that the wrong connection ends up being killed. Killing a connection with `COM_PROCESS_KILL` is supported and is recommended as it's more efficient.
+* A `KILL` on one service can cause a connection from another service to be closed even if it uses a different protocol. This is because session IDs are allocated from one global pool across all protocols and services.
+* If a `COM_CHANGE_USER` succeeds on MaxScale yet fails on the server the session ends up in an inconsistent state. This can happen if the password of the target user is changed and MaxScale uses old user account data when processing the change user. In such a situation, MaxScale and server will disagree on the current user. This can affect e.g. reconnections.
 
 ### Authenticator limitations
 

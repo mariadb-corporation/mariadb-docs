@@ -1,3 +1,8 @@
+---
+description: >-
+  The list of reserved words in MariaDB.
+---
+
 # Reserved Words
 
 The following is a list of all reserved words in MariaDB.

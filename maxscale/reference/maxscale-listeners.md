@@ -220,7 +220,7 @@ An example mapping file is below.
 
 Metadata that's sent to all connecting clients. The value must be a comma-separated list of key-value arguments. The keys or values cannot contain commas in them.
 
-Any values that are set to `auto` will be substituted with the value of the corresponding MariaDB system variable. Any system variables that do not not exist or have empty or null values will not be sent to the client. The system variable values are read from the first `Master` server that's reachable from the listener's service. If no `Master` server is reachable, the value is read from the first `Slave` server and if no `Slave` servers are available, from the first `Running` server. If no running servers are available, the system variables are not sent.
+Any values that are set to `auto` will be substituted with the value of the corresponding MariaDB system variable. Any system variables that do not exist or have empty or null values will not be sent to the client. The system variable values are read from the first `Master` server that's reachable from the listener's service. If no `Master` server is reachable, the value is read from the first `Slave` server and if no `Slave` servers are available, from the first `Running` server. If no running servers are available, the system variables are not sent.
 
 The exception to this is the `maxscale=auto` value where the `auto` will be replaced with the MaxScale version string. This is useful for detecting whether a client is connected to MaxScale. To make MaxScale completely transparent to the client application, the `maxscale=auto` value can be removed from `connection_metadata`.
 

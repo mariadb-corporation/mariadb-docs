@@ -1,6 +1,6 @@
 ---
 description: >-
-  NCHAR is a synonym for the fixed-length CHAR string data type using the utf8
+  NCHAR is a synonym for the fixed-length CHAR string data type using the utf8mb3
   character set.
 ---
 
@@ -26,7 +26,7 @@ SHOW CREATE TABLE nchar_example\G
 *************************** 1. row ***************************
        Table: nchar_example
 Create Table: CREATE TABLE `nchar_example` (
-  `example` char(32) CHARACTER SET utf8 DEFAULT NULL
+  `example` char(32) CHARACTER SET utf8mb3 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 ```
 
