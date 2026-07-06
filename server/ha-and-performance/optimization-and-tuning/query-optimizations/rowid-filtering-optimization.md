@@ -1,3 +1,9 @@
+---
+description: >-
+  The rowid filtering optimization, which pre-filters rowids to reduce
+  expensive row lookups.
+---
+
 # Rowid Filtering Optimization
 
 The target use case for rowid filtering is as follows:

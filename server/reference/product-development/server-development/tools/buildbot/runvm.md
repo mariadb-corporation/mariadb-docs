@@ -6,7 +6,7 @@ description: >-
 
 # Buildbot runvm
 
-One type of build we do in BuildBot is to build and test [MariaDB](https://github.com/mariadb-corporation/docs-server/blob/test/kb/en/mariadb/README.md) binary\
+One type of build we do in BuildBot is to build and test MariaDB binary\
 packages for the platforms we release on. We build and test packages for Debian\
 (4 and 5), Ubuntu (8.04 to 10.04), Centos 5, and generic Linux; amd64 and i386\
 architectures. This testing is done with virtual machines run in [KVM](https://www.linux-kvm.org/page/Main_Page).
@@ -116,12 +116,12 @@ to the new image).
 The above two examples show basically how the package testing in our Buildbot\
 setup is done. There are some further details of course, like more options for\
 the build commands and extra care to get logfiles out to debug problems; the\
-full details are available in our [Buildbot configuration file](https://bazaar.launchpad.net/~maria-captains/mariadb-tools/trunk/annotate/head%3A/buildbot/maria-master.cfg).\
+full details are available in our Buildbot configuration file.\
 But the basic principle is just a number of `runvm` commands like the examples above.
 
 ## Getting runvm
 
-The `runvm` tool is available under GPL on Lauchpad in the project [Tools for MariaDB](https://launchpad.net/mariadb-tools). In the bzr repository it is found as [buildbot/runvm](https://bazaar.launchpad.net/~maria-captains/mariadb-tools/trunk/annotate/head%3A/buildbot/runvm). 0If someone finds it useful or has suggestions for improvements, please drop us a line on the [maria-developers](https://launchpad.net/~maria-developers)\
+The `runvm` tool is available under GPL on Lauchpad in the project [Tools for MariaDB](https://launchpad.net/mariadb-tools). In the bzr repository it is found as buildbot/runvm. 0If someone finds it useful or has suggestions for improvements, please drop us a line on the [maria-developers](https://launchpad.net/~maria-developers)\
 mailing list.
 
 ## runvm --help

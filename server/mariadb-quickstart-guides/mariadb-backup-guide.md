@@ -1,7 +1,8 @@
 ---
 description: >-
-  Complete MariaDB backup and recovery guide. Complete resource for backup
-  methods, mariabackup usage, scheduling, and restoration for production use.
+  Create logical backups of MariaDB databases with the mariadb-dump utility,
+  covering how to back up all databases, specific databases, or individual
+  tables.
 ---
 
 # Making Backups with mariadb-dump Guide

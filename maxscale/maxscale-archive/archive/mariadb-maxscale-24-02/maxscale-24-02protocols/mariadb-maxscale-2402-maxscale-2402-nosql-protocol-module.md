@@ -1858,7 +1858,7 @@ The following fields are relevant.
 | usersInfo       | various | Specifies what to return. See below.                                           |
 | showCredentials | boolean | Optional, default false. Specifies whether the credentials should be returned. |
 
-The returned information depends the valie of `usersInfo`:
+The returned information depends the value of `usersInfo`:
 
 | Argument                              | Result                                                                              |
 | ------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -2828,7 +2828,7 @@ added can be found out like:
 }
 ```
 
-Similarily, the SQL of the `find` command can be find out like:
+Similarly, the SQL of the `find` command can be find out like:
 
 ```
 > db.runCommand({mxsDiagnose: {find: "collection"}});

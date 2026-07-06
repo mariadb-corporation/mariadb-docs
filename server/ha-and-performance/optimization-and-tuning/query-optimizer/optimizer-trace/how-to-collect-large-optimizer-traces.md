@@ -19,9 +19,9 @@ Now, one can run the query and save the large trace.
 
 ## See Also
 
-* [optimizer\_trace](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#optimizer_trace) system variable
-* [optimizer\_trace\_max\_mem\_size](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#optimizer_trace_max_mem_size) system variable
-* [max\_allowed\_packet](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_allowed_packet) system variable
+* [optimizer\_trace](../../system-variables/server-system-variables.md#optimizer_trace) system variable
+* [optimizer\_trace\_max\_mem\_size](../../system-variables/server-system-variables.md#optimizer_trace_max_mem_size) system variable
+* [max\_allowed\_packet](../../system-variables/server-system-variables.md#max_allowed_packet) system variable
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

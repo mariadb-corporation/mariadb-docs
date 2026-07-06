@@ -45,7 +45,7 @@ options supported by [mariadbd](mariadbd-options.md). If an unknown option is pr
 | --flush-caches                           | Flush and purge buffers/caches before starting the server.                                                                                                                                                                                                                                                                                                                                 |
 | --ledir=path                             | If mariadbd-safe cannot find the server, use this option to indicate the path name to the directory where the server is located.                                                                                                                                                                                                                                                           |
 | --log-error=file\_name                   | Write the error log to the given file.                                                                                                                                                                                                                                                                                                                                                     |
-| --malloc-lib=lib                         | Preload shared library lib if available. See [debugging MariaDB](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/KggZ6kWNn0qD0bBBw1kX) for an example.                                                                                                                                                                                                                                           |
+| --malloc-lib=lib                         | Preload shared library lib if available. See [debugging MariaDB](../../reference/product-development/debugging-mariadb/debugging-a-running-server-on-linux.md) for an example.                                                                                                                                                                                                                                           |
 | --mysqld=prog\_nam                       | The name of the server program (in the ledir directory) that you want to start. This option is needed if you use the MariaDB binary distribution but have the data directory outside of the binary distribution. If mariadbd-safe cannot find the server, use the --ledir option to indicate the path name to the directory where the server is located.                                   |
 | --mysqld-version=suffix                  | This option is similar to the --mysqld option, but you specify only the suffix for the server program name. The basename is assumed to be mysqld. For example, if you use--mysqld-version=debug, mariadbd-safe starts the mariadbd-debug program in the ledir directory. If the argument to --mysqld-version is empty, mariadbd-safe uses mysqld in the ledir directory.                   |
 | --nice=priority                          | Use the nice program to set the server´s scheduling priority to the given value.                                                                                                                                                                                                                                                                                                           |
@@ -127,7 +127,7 @@ When `mariadbd-safe` starts `mariadbd`, it also uses this option to set the valu
 
 ### Configuring the Core File Size
 
-When using `mariadbd-safe`, if you would like to [enable core dumps](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/YszphlxXpuc64pTHiGem), the system's core file size limit can be changed by providing the `--core-file-size` option either on the command-line or in an option file. For example:
+When using `mariadbd-safe`, if you would like to [enable core dumps](../../reference/product-development/debugging-mariadb/enabling-core-dumps.md), the system's core file size limit can be changed by providing the `--core-file-size` option either on the command-line or in an option file. For example:
 
 ```ini
 [mariadbd-safe]
@@ -161,7 +161,7 @@ By default, it will look for `mariadbd` in the following locations in the follow
 * `$PWD/sbin/mysqld`
 * `@libexecdir@/mysql`
 
-Where `$BASEDIR` is set by the `--basedir` option, `$PWD` is the current working directory where `mariadbd-safe` was invoked, and `@libexecdir@` is set at compile-time by the `INSTALL_BINDIR` option for [cmake](../compiling-mariadb-from-source/generic-build-instructions.md#using-cmake).
+Where `$BASEDIR` is set by the `--basedir` option, `$PWD` is the current working directory where `mariadbd-safe` was invoked, and `@libexecdir@` is set at compile-time by the `INSTALL_BINDIR` option for [cmake](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md#common-cmake-configuration-flags).
 
 You can also specify where the executable is located by providing the `--ledir` option either on the command-line or in an option file.
 
@@ -175,7 +175,7 @@ By default, `mariadbd-safe` will look for the `datadir` in the following locatio
 * `$BASEDIR/var`
 * `@localstatedir@`
 
-Where `$BASEDIR` is set by the `--basedir` option, and `@localstatedir@` is set at compile-time by the `INSTALL_MYSQLDATADIR` option for [cmake](../compiling-mariadb-from-source/generic-build-instructions.md#using-cmake).
+Where `$BASEDIR` is set by the `--basedir` option, and `@localstatedir@` is set at compile-time by the `INSTALL_MYSQLDATADIR` option for [cmake](../install-and-upgrade-mariadb/installing-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide.md#common-cmake-configuration-flags).
 
 You can also specify where the `datadir` is located by providing the `--datadir` option either on the command-line or in an option file.
 

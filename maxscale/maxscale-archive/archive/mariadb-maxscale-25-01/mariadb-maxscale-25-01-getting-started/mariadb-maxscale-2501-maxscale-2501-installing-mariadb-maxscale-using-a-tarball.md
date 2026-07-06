@@ -7,12 +7,16 @@ identifies the operating system, e.g. `maxscale-2.5.6.centos.7.tar.gz`.
 
 In order to use the tarball, the following libraries are required:
 
-* libcurl
-* libaio
+* `libcurl`
+* `libaio`
 * OpenSSL
-* gnutls
-* libatomic
-* unixODBC
+* `gnutls`
+* `libatomic`
+* `unixODBC`
+
+{% hint style="warning" %}
+The `maxctrl` command line client requires at least Node.js 10. We recommend the latest LTS release of Node.js, especially if the version in your operating system's repositories is old.
+{% endhint %}
 
 The tarball has been built with the assumption that it will be installed in `/usr/local`.\
 However, it is possible to install it in any directory, but in that case MariaDB MaxScale\
@@ -25,7 +29,7 @@ the user and group `maxscale`.
 
 The required steps are as follows:
 
-```
+```bash
 $ sudo groupadd maxscale
 $ sudo useradd -g maxscale maxscale
 $ cd /usr/local
@@ -45,7 +49,7 @@ just make the symbolic link point to another installation.
 In addition, the first time you install MariaDB MaxScale from a tarball\
 you need to create the following directories:
 
-```
+```bash
 $ sudo mkdir /var/log/maxscale
 $ sudo mkdir /var/lib/maxscale
 $ sudo mkdir /run/maxscale
@@ -54,7 +58,7 @@ $ sudo mkdir /var/cache/maxscale
 
 and make `maxscale` the owner of them:
 
-```
+```bash
 $ sudo chown maxscale /var/log/maxscale
 $ sudo chown maxscale /var/lib/maxscale
 $ sudo chown maxscale /run/maxscale
@@ -67,7 +71,7 @@ Please refer to [Configuration Guide](mariadb-maxscale-2501-maxscale-2501-mariad
 
 When the configuration file has been created, MariaDB MaxScale can be started.
 
-```
+```bash
 $ sudo bin/maxscale --user=maxscale -d
 ```
 
@@ -81,7 +85,7 @@ for instance, `--config=/usr/local/maxscale/etc/maxscale.cnf`.
 Note also that if you want to keep _everything_ under `/usr/local/maxscale`\
 you can invoke MariaDB MaxScale using the flag `--basedir`.
 
-```
+```bash
 $ sudo bin/maxscale --user=maxscale --basedir=/usr/local/maxscale -d
 ```
 
@@ -91,7 +95,7 @@ That will cause MariaDB MaxScale to look for its configuration file in`/usr/loca
 
 Enter a directory where you have the right to create a subdirectory. Then do as follows.
 
-```
+```bash
 $ tar -xzvf maxscale-x.y.z.OS.tar.gz
 ```
 
@@ -101,7 +105,7 @@ Please refer to [Configuration Guide](mariadb-maxscale-2501-maxscale-2501-mariad
 
 When the configuration file has been created, MariaDB MaxScale can be started.
 
-```
+```bash
 $ cd maxscale-x.y.z.OS
 $ bin/maxscale -d --basedir=.
 ```
@@ -114,7 +118,7 @@ and the `var` and `etc` directories in `/`.
 It is also possible to specify the directories and the location of\
 the configuration file individually. Invoke MaxScale like
 
-```
+```bash
 $ bin/maxscale --help
 ```
 

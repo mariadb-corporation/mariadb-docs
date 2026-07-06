@@ -402,3 +402,20 @@ Maximum depth for certificate chain verification. This variable is read-only and
 | Data Type    | Numeric         |
 | Range        | 0 to 4294967295 |
 | Default      | 9               |
+
+### raft-ssl-verify-server-cert
+
+Enables verification of the peer's TLS certificate to prevent man-in-the-middle attacks. This variable is read-only and must be set at server startup.
+
+| Property     | Value   |
+| ------------ | ------- |
+| Command Line |         |
+| Scope        | Global  |
+| Dynamic      | No      |
+| Data Type    | Boolean |
+| Range        |         |
+| Default      | OFF     |
+
+{% hint style="warning" %}
+The default is `OFF`, so by default Raft inter-node TLS encrypts traffic but does **not** verify the peer's certificate — encryption without peer authentication. Set `raft_ssl_verify_server_cert=ON` (and configure `raft_ssl_ca`) to require certificate verification.
+{% endhint %}

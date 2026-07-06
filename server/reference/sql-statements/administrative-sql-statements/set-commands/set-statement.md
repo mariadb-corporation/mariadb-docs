@@ -33,7 +33,7 @@ The server parses the whole statement before executing it, so any variables set 
 
 ## Examples
 
-One can limit statement execution time [max\_statement\_time](../../../../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#max_statement_time):
+One can limit statement execution time [max\_statement\_time](../../../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#max_statement_time):
 
 ```sql
 SET STATEMENT max_statement_time=1000 FOR SELECT ... ;

@@ -103,7 +103,7 @@ sudo dnf install -y \
 MariaDB-server MariaDB-columnstore-engine MariaDB-columnstore-cmapi
 ```
 
-Refer to [this blog post](../columnstore-quickstart-guides/mariadb-columnstore-usage-guide.md) for additional information.
+Refer to [this blog post](https://mariadb.com/resources/blog/mariadb-columnstore-quick-start-guide/) for additional information.
 
 **For DEB-based systems**, run these commands:
 

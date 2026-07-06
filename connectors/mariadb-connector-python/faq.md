@@ -316,7 +316,7 @@ with older Python 3.x versions, it doesn’t work with Python version 2.x.
 
 ### Q: How can I see a transformed statement? Is there a mogrify() method available?
 
-No, MariaDB Connector/Python Python uses binary protocol for client/server communication. Before a statement will be executed
+No, MariaDB Connector/Python uses binary protocol for client/server communication. Before a statement will be executed
 it will be parsed and parameter markers which are different than question marks will be replaced by question
 marks. Afterwards the statement will be sent together with data to the server. The transformed statement can
 be obtained by cursor.statement attribute.

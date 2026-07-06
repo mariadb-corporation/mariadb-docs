@@ -1,3 +1,9 @@
+---
+description: >-
+  Assign names to query blocks with QB_NAME() so optimizer hints can target
+  specific subqueries or statement blocks.
+---
+
 # Query Block Naming
 
 Optimizer hints can address certain named query blocks within the query. Query block is either a top-level `SELECT`/`UPDATE`/`DELETE` statement or a subquery within the statement.

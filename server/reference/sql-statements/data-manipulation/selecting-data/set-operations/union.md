@@ -28,7 +28,7 @@ If they don't, the type and length of the columns in the result take into accoun
 
 Table names can be specified as `db_name`.`tbl_name`. This permits writing `UNION`s which involve multiple databases. See [Identifier Qualifiers](../../../../sql-structure/sql-language-structure/identifier-qualifiers.md) for syntax details.
 
-UNION queries cannot be used with [aggregate functions](../../../../sql-functions/aggregate-functions/).
+A UNION's global `ORDER BY` cannot reference an [aggregate function](../../../../sql-functions/aggregate-functions/). (Aggregate functions are allowed within the individual `SELECT` statements of a UNION.)
 
 `EXCEPT` and `UNION` have the same operation precedence and `INTERSECT` has a higher precedence, unless [running in Oracle mode](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/about/compatibility-and-differences/sql_modeoracle), in which case all three have the same precedence.
 

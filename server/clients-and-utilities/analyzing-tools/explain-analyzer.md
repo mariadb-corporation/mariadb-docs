@@ -1,3 +1,9 @@
+---
+description: >-
+  The EXPLAIN Analyzer was an online tool for analyzing and sharing EXPLAIN
+  output. It is no longer active.
+---
+
 # EXPLAIN Analyzer
 
 {% hint style="warning" %}

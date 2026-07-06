@@ -39,7 +39,7 @@ podman login --compat-auth-file .docker/config.json docker.mariadb.com
 This installer performs an in-place update of an existing Enterprise Manager deployment. Download and run it in the directory that contains the existing deployment’s `enterprise-manager/` installation directory.
 {% endhint %}
 
-Insert your Customer Download Token into the download URL and download the latest installer in the the same folder where you have folder `enterprise-manager`:
+Insert your Customer Download Token into the download URL and download the latest installer in the same folder where you have folder `enterprise-manager`:
 
 ```bash
 # Download installer

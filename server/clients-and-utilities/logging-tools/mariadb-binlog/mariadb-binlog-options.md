@@ -1,3 +1,8 @@
+---
+description: >-
+  Command-line options for the mariadb-binlog client (formerly mysqlbinlog).
+---
+
 # mariadb-binlog Options
 
 {% hint style="info" %}

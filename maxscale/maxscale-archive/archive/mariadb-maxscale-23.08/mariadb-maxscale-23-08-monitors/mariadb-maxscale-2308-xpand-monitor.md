@@ -37,7 +37,7 @@ dynamically find out the configuration of the cluster; after startup it\
 will completely rely upon information obtained at runtime. To change the\
 default behaviour, please see the parameter [dynamic\_node\_detection](mariadb-maxscale-2308-xpand-monitor.md#dynamic_node_detection).
 
-To ensure that the Xpand monitor will be able to start, it is adviseable\
+To ensure that the Xpand monitor will be able to start, it is advisable\
 to provide _more_ than one server to cater for the case that not all nodes\
 are always up when MaxScale starts.
 
@@ -85,7 +85,7 @@ the names of the created server objects will be:
 @@TheXpandMonitor:node-3
 ```
 
-When dynamic servers are created, the values for the configuraton settings`max_routing_connections`, `persistmaxtime`, `persistpoolmax` and`proxy_protocol` are copied from the settings of the bootstrap servers.\
+When dynamic servers are created, the values for the configuration settings`max_routing_connections`, `persistmaxtime`, `persistpoolmax` and`proxy_protocol` are copied from the settings of the bootstrap servers.\
 Note that the values of these settings must be **identical** on every\
 bootstrap server.
 
@@ -190,7 +190,7 @@ is `false`. Note also that the port must be the same for all nodes.
 
 Mutually exclusive with `region_oid`.
 
-`region_name` speficies the name of the region the instance MaxScale is\
+`region_name` specifies the name of the region the instance MaxScale is\
 running in. Should be specified only if Xpand Multi-Region HA cluster,\
 which is available from Xpand 23.08 onwards, is used. With `region_name`\
 specified, MaxScale will only consider nodes from that region.
@@ -204,7 +204,7 @@ specified, MaxScale will only consider nodes from that region.
 
 Mutually exclusive with `region_name`.
 
-`region_oid` speficies the oid of the region the instance MaxScale is\
+`region_oid` specifies the oid of the region the instance MaxScale is\
 running in. Should be specified only if Xpand Multi-Region HA cluster,\
 which is available from Xpand 23.08 onwards, is used. With `region_oid`\
 specified, MaxScale will only consider nodes from that region.

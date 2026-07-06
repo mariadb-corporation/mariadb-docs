@@ -1,3 +1,8 @@
+---
+description: >-
+  DROP SEQUENCE removes one or more sequence objects.
+---
+
 # DROP SEQUENCE
 
 ## Syntax

@@ -126,7 +126,7 @@ A newly created socket with get the right context.
 
 ### Allowing Access to the Tmpfs File Context
 
-If you wanted to mount your [tmpdir](../../server-usage/replication-cluster-multi-master/optimization-and-tuning/system-variables/server-system-variables.md#tmpdir) on a `tmpfs` file system or wanted to use a `tmpfs` file system on `/run/shm`, then you might need to allow `mysqld_t` to have access to a couple tmpfs-related file contexts. For example:
+If you wanted to mount your [tmpdir](../../ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#tmpdir) on a `tmpfs` file system or wanted to use a `tmpfs` file system on `/run/shm`, then you might need to allow `mysqld_t` to have access to a couple tmpfs-related file contexts. For example:
 
 ```bash
 cd /usr/share/mysql/policy/selinux/

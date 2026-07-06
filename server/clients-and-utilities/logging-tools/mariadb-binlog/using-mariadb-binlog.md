@@ -1,3 +1,9 @@
+---
+description: >-
+  How to use the mariadb-binlog client (formerly mysqlbinlog) to read and
+  process binary log files.
+---
+
 # Using mariadb-binlog
 
 {% hint style="info" %}

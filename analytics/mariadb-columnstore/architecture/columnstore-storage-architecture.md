@@ -334,7 +334,7 @@ Every node in a multi-node deployment has its own [DB Root directory](columnstor
 
 **Legacy behavior**
 
-DB Root directories could be managed with `mcsadmin` in previous versions of [ColumnStore 1.x](../management/columnstore-system/mariadb-columnstore-backup-and-restore/backup-and-restore-for-mariadb-columnstore-10x.md). This behavior does not apply to ColumnStore version 5 and later.
+DB Root directories could be managed with `mcsadmin` in previous versions of ColumnStore 1.x. This behavior does not apply to ColumnStore version 5 and later.
 
 ### Extents
 

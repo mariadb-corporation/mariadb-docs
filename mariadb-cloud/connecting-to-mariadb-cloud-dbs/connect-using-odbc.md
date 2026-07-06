@@ -195,7 +195,7 @@ The following syntax is required:
 
 * IPv6 addresses must be enclosed within square brackets `"[]"`
 * hostname and port must be separated by a colon `":"`
-* `hostname:port` pairs must be be separated by a comma `","`
+* `hostname:port` pairs must be separated by a comma `","`
 * If only one `hostname:port` is specified, the host string must end with a comma
 * If no port is specified, the default port will be used
 

@@ -10,7 +10,7 @@ For Windows, see [Upgrading MariaDB on Windows](../upgrading-mariadb-on-windows.
 
 For MariaDB Galera Cluster, see [Upgrading with Galera Cluster](https://app.gitbook.com/s/3VYeeVGUV4AMqrA3zwy7/galera-management/upgrading-galera-cluster) instead.
 
-Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/).
+Before you upgrade, it would be best to take a backup of your database. This is always a good idea to do before an upgrade. We would recommend [mariadb-backup](../../../../server-usage/backup-and-restore/mariadb-backup/README.md).
 
 The suggested upgrade procedure is:
 
@@ -38,7 +38,7 @@ The suggested upgrade procedure is:
 3. Run [mysql\_upgrade](../../../../clients-and-utilities/legacy-clients-and-utilities/mysql_upgrade.md).
 
 * `mysql_upgrade` does two things:
-  1. Ensures that the system tables in the `[mysq](../../../../reference/sql-statements-and-structure/sql-statements/administrative-sql-statements/system-tables/the-mysql-database-tables/README.md) l` database are fully compatible with the new version.
+  1. Ensures that the system tables in the `[mysq](../../../../reference/system-tables/the-mysql-database-tables/README.md) l` database are fully compatible with the new version.
   2. Does a very quick check of all tables and marks them as compatible with the new version of MariaDB .
 
 ### Incompatible Changes Between 10.2 and 10.3
@@ -125,7 +125,7 @@ You might consider using the following major new features in [MariaDB 10.3](http
 ### See Also
 
 * [The features in MariaDB 10.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.3/what-is-mariadb-103)
-* [Upgrading from MariaDB 10.2 to MariaDB 10.3 with Galera Cluster](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-management/getting-installing-and-upgrading-mariadb/upgrading/upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-102-to-mariadb-103-with-galera-cluster/README.md)
+* Upgrading from MariaDB 10.2 to MariaDB 10.3 with Galera Cluster
 * [Upgrading from MariaDB 10.1 to MariaDB 10.2](upgrading-from-mariadb-101-to-mariadb-102.md)
 * [Upgrading from MariaDB 10.0 to MariaDB 10.1](upgrading-from-mariadb-100-to-mariadb-101.md)
 

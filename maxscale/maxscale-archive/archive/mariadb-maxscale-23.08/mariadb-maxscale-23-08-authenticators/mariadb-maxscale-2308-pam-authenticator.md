@@ -64,7 +64,7 @@ account         required        pam_unix.so
 
 If enabled, MaxScale communicates with the client as if using [mysql\_clear\_password](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/clientserver-protocol/1-connecting/connection#mysql_clear_password-plugin).\
 This setting has no effect on MaxScale-to-backend communication, which adapts to\
-either "dialog" or "mysql\_clear\_password", depeding on which one the backend\
+either "dialog" or "mysql\_clear\_password", depending on which one the backend\
 suggests. This setting is meant to be used with the similarly named MariaDB\
 Server setting.
 

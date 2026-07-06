@@ -124,6 +124,25 @@ Pull requests run these GitHub Actions. Mirror them locally with the **`docs-che
 American English; Google developer-documentation tone. Local summary and links to the
 canonical MariaDB style guide: `dev-docs/style-guide.md`.
 
+## Fact-check paper trail
+
+Every **source-verified** doc edit leaves a re-verifiable record so a later session — or a
+different writer/developer — can confirm each documented claim is source-proven without redoing
+the analysis. Two parts:
+
+- **Local report** — a Markdown file (claim → doc `file:line` → source `file:line @ pinned-SHA` →
+  verdict) written to a per-user `reports_dir` that lives **outside this repo** and is **never
+  committed**. The path is stored in the gitignored `.claude/doc-sources.local.json`.
+  `doc-impact` writes the skeleton; `doc-from-ticket` completes it; `bulk-campaign` keeps one per
+  campaign.
+- **Jira copy** — on `/jira-resolve` (handoff for review) the report's contents are posted to the
+  DOCS ticket as a Markdown **comment** (the Rovo MCP exposes no attachment endpoint, and an
+  inline comment renders + searches better than a downloadable blob anyway).
+
+`verify-claims` (`/verify-claims`) re-audits a report against source in any session. Format,
+location, and lifecycle are defined once in `dev-docs/cookbook-fact-trail.md` — skills defer there
+rather than re-spelling the format.
+
 ## Common gotchas
 
 1. `SUMMARY.md` is published navigation — edit deliberately, preserve indentation/link style.
@@ -135,3 +154,5 @@ canonical MariaDB style guide: `dev-docs/style-guide.md`.
 6. Server alone is ~4,540 files — scope searches and bulk edits to a space/path, never the whole repo.
 7. Both GitBook-UI and Git edits are live; don't assume Git is the only writer.
 8. **`server/reference/**/*.md` heading invariant.** Pages under `server/reference/` must keep the `# Title` / `## Syntax` / `## Description` (or `## Overview`) / `## Examples` / `## See Also` heading shape — `help-tables/markdown_extractor.py` parses these to build the MariaDB CLI's `HELP` content. Full detail: `help-tables/HELP_TABLES_PIPELINE.md`.
+9. Fact-check reports live in a `reports_dir` **outside the repo** and are **never committed** —
+   they reach reviewers via the Jira comment posted on `/jira-resolve`, not via the PR.

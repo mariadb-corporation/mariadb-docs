@@ -265,7 +265,7 @@ For MySQL compatibility, [MariaDB Connector/C](https://app.gitbook.com/s/CjGYMsT
 
 ## Logging
 
-MariaDB PAM authentication can be collected from a variety from sources in the authentication framework, including the underlying PAM modules, the PAM authentication authentication plugin, and custom scripts like pam\_exec. The destination of these logs is decided by the layer that generated message and the configuration of your system.
+MariaDB PAM authentication can be collected from a variety of sources in the authentication framework, including the underlying PAM modules, the PAM authentication plugin, and custom scripts like pam\_exec. The destination of these logs is decided by the layer that generated message and the configuration of your system.
 
 ### PAM Module Logging
 
@@ -284,7 +284,7 @@ Jan  9 05:35:41 ip-172-30-0-198 mysqld: pam_unix(mariadb:auth): authentication f
 
 ### PAM Authentication Plugin's Debug Logging
 
-MariaDB's `pam` authentication plugin can also log additional verbose debug logging to the [error log](../../../../server-management/server-monitoring-logs/error-log.md). This is only done if the plugin is a [debug build](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7) and if [pam\_debug](authentication-plugin-pam.md#pam_debug) is set.
+MariaDB's `pam` authentication plugin can also log additional verbose debug logging to the [error log](../../../../server-management/server-monitoring-logs/error-log.md). This is only done if the plugin is a [debug build](../../../product-development/debugging-mariadb/compiling-mariadb-for-debugging.md) and if [pam\_debug](authentication-plugin-pam.md#pam_debug) is set.
 
 The output looks like this:
 
@@ -368,7 +368,7 @@ This can be configured for [Active Directory](https://en.wikipedia.org/wiki/Acti
 
 ### pam\_lsass
 
-The `pam_lsass` PAM module provides support for [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) authentication. It is provided by [PowerBroker Identity Services – Open Edition](https://github.com/BeyondTrust/pbis-open/wiki).
+The `pam_lsass` PAM module provides support for [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) authentication. It is provided by PowerBroker Identity Services – Open Edition.
 
 ### pam\_winbind
 
@@ -504,7 +504,7 @@ See also [MDEV-26212](https://jira.mariadb.org/browse/MDEV-26212) and [MDEV-3073
 ### `pam_debug`
 
 * Description: Enables verbose debug logging to the [error log](../../../../server-management/server-monitoring-logs/error-log.md) for all authentication handled by the plugin.
-  * This system variable is only available when the plugin is a [debug build](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7).
+  * This system variable is only available when the plugin is a [debug build](../../../product-development/debugging-mariadb/compiling-mariadb-for-debugging.md).
 * Command line: `--pam-debug`
 * Scope: Global
 * Dynamic: No

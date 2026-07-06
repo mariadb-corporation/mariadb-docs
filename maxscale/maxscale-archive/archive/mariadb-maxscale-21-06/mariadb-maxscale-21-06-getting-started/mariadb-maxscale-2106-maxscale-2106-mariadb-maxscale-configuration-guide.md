@@ -228,7 +228,7 @@ is also possible to update the status of a server manually.
 | Draining                 | The server is being drained. Existing connections can continue to be used, but no new connections will be created to the server. Typically this status bit is turned on manually using maxctrl, but a monitor may also turn it on.                                                                                        |
 | Drained                  | The server has been drained. The server was being drained and now the number of connections to the server has dropped to 0.                                                                                                                                                                                               |
 | Auth Error               | The monitor cannot login and query the server due to insufficient privileges.                                                                                                                                                                                                                                             |
-| Maintenance              | The server is under maintenance. Typically this status bit is turned on manually using maxctrl, but it will also be turned on for a server that for some reason is blocking connections from MaxScale. When a server is in maintenace mode, no connections will be created to it and existing connections will be closed. |
+| Maintenance              | The server is under maintenance. Typically this status bit is turned on manually using maxctrl, but it will also be turned on for a server that for some reason is blocking connections from MaxScale. When a server is in maintenance mode, no connections will be created to it and existing connections will be closed. |
 | Slave of External Master | The server is a slave of a master that is not being monitored.                                                                                                                                                                                                                                                            |
 | Master Stickiness        | The server is monitored by a galeramon with disable\_master\_failback=true. See [disable\_master\_failback](../) for more information.                                                                                                                                                                                    |
 
@@ -295,7 +295,7 @@ Listeners have sections of their own in the MaxScale configuration file.
 
 ## Administration
 
-The administation of MaxScale can be divided in two parts:
+The administration of MaxScale can be divided in two parts:
 
 * Writing the MaxScale configuration file, which is described in the following [section](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-configuration-guide.md#configuration).
 * Performing runtime modifications using [MaxCtrl](../mariadb-maxscale-21-06-reference/mariadb-maxscale-2106-maxscale-2106-maxctrl.md)
@@ -314,7 +314,7 @@ separate user credentials database. By default, that database contains the user`
 
 Note that if MaxCtrl is invoked without explicitly providing a user and password\
 then it will by default use `admin` and `mariadb`. That means that when the\
-default user is removed, the credentials must always be provded.
+default user is removed, the credentials must always be provided.
 
 ### Static Configuration Parameters
 
@@ -1208,7 +1208,7 @@ cache. If it can, the statement will not be parsed at all but the cached result\
 is used.
 
 The configuration parameter takes one integer that specifies the maximum size of\
-the cache. The size of the cache can be specifed as explained [here](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-configuration-guide.md#sizes).
+the cache. The size of the cache can be specified as explained [here](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-configuration-guide.md#sizes).
 
 ```
 # 1MB query classifier cache
@@ -1461,7 +1461,7 @@ purposes. Currently the session trace log is written to the log in the following
 * When MaxScale receives a fatal signal and is about to crash.
 * Whenever an unexpected response is read from a server
 * If the session is not closed gracefully (i.e. client doesn't send a COM\_QUIT packet)
-* Whenever readwritesplit receives a responce that is was not expecting.
+* Whenever readwritesplit receives a response that is was not expecting.
 
 It would be good to enable this if a session is disconnected and the log is not\
 detailed enough. In this case the info log might reveal the true cause of why\
@@ -1521,7 +1521,7 @@ the MaxScale log.
 
 High water mark for network write buffer. When the size of the outbound network\
 buffer in MaxScale for a single connection exceeds this value, network traffic\
-throtting for that connection is started. The parameter accepts [size type values](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-configuration-guide.md#sizes). The default value is 16777216 bytes.
+throttling for that connection is started. The parameter accepts [size type values](mariadb-maxscale-2106-maxscale-2106-mariadb-maxscale-configuration-guide.md#sizes). The default value is 16777216 bytes.
 
 More specifically, if the client side write queue is above this value, it will\
 block traffic coming from backend servers. If the backend side write queue is\
@@ -1598,7 +1598,7 @@ only for testing purposes and are not to be used in production.
 #### REST API Configuration
 
 The MaxScale REST API is an HTTP interface that provides JSON format data\
-intended to be consumed by monitoring appllications and visualization tools.
+intended to be consumed by monitoring applications and visualization tools.
 
 The following options must be defined under the `[maxscale]` section in the\
 configuration file.
@@ -1884,7 +1884,7 @@ and an error is reported to the client that did the change.
 ### Events
 
 MaxScale logs warnings and errors for various reasons and often it is self-\
-evident and generally applicable whether some occurence should warrant a\
+evident and generally applicable whether some occurrence should warrant a\
 warning or an error, or perhaps just an info-level message.
 
 However, there are events whose seriousness is not self-evident. For\
@@ -2469,10 +2469,10 @@ a lot of `PREPARE stmt FROM <sql>` commands, it is recommended that the value of
 
 In older versions of MaxScale, binary protocol prepared statements were limited\
 by `max_sescmd_history` and were also pruned by `prune_sescmd_history` but this\
-caused problems when the binary protocol prepared statment were pruned while\
+caused problems when the binary protocol prepared statement were pruned while\
 they were still open from the client's point of view. In older versions, the\
 recommended value of `max_sescmd_history` is the number of state modifying\
-commands plus the maximum number of open prepared statments that any application\
+commands plus the maximum number of open prepared statements that any application\
 may use.
 
 This parameter was moved into the MaxScale core in MaxScale 6.0. The parameter\

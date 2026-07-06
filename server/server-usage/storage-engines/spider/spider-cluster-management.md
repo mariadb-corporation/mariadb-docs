@@ -139,7 +139,7 @@ SET GLOBAL spider_log_result_error_with_sql=3;
 
 ## Compiling in Debug Mode
 
-See [Compiling MariaDB for Debugging](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/MMYhmTTercFhxHtmbvW7) and [Creating a Trace File](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/NUEN5ddQGEvSv2bnyq5F).
+See [Compiling MariaDB for Debugging](../../../reference/product-development/debugging-mariadb/compiling-mariadb-for-debugging.md) and [Creating a Trace File](../../../reference/product-development/debugging-mariadb/creating-a-trace-file.md).
 
 Report the issue in [MariaDB JIRA](https://jira.mariadb.org) (see [Reporting Bugs](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/community/bug-tracking/reporting-bugs)) or to the MariaDB Corporation support center.
 

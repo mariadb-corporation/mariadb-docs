@@ -9,7 +9,7 @@ description: >-
 
 Not complete yet - still being updated
 
-F(_) Federation only , P(_)partitioning only .\
+F(_) Federation only, P(_)partitioning only.\
 Spider column is for SpiderForMySQL found on the Spider web sIte.
 
 | Feature                                                                                              | Spider | 10.0  |

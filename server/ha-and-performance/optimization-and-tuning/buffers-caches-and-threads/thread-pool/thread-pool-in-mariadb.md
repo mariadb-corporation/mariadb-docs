@@ -194,7 +194,7 @@ The [thread\_cache\_size](../../system-variables/server-system-variables.md#thre
 ## See Also
 
 * [Thread Pool System and Status Variables](thread-pool-system-status-variables.md)
-* [Threadpool Benchmarks](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/NjF2WOIopM5lc1QQVp2d)
+* [Threadpool Benchmarks](../../../../reference/product-development/server-development/quality/benchmarks-and-long-running-tests/benchmark-results/threadpool-benchmarks.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

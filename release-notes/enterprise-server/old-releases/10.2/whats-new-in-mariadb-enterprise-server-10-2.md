@@ -10,7 +10,7 @@ MariaDB Enterprise Server 10.2 introduces the following new features:
 
 ## Enterprise Lifecycle
 
-MariaDB Enterprise Server uses an [Enterprise Lifecycle](../../enterprise-server-lifecycle.md) which provides optimized builds, predictable release behavior, and vendor support.
+MariaDB Enterprise Server uses an [Enterprise Lifecycle](../../about/enterprise-server-lifecycle.md) which provides optimized builds, predictable release behavior, and vendor support.
 
 ## Enterprise Backup
 

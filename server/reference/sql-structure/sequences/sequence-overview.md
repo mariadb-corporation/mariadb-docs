@@ -1,3 +1,9 @@
+---
+description: >-
+  An overview of sequence objects, which generate a sequence of numeric values
+  as defined by CREATE SEQUENCE.
+---
+
 # Sequence Overview
 
 This page is about sequence objects. For details about the storage engine, see [Sequence Storage Engine](../../../server-usage/storage-engines/sequence-storage-engine.md).

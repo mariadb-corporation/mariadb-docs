@@ -1,3 +1,8 @@
+---
+description: >-
+  How the optimizer computes condition selectivities (internals).
+---
+
 # Condition Selectivity Computation Internals
 
 This page describes how the MariaDB optimizer computes condition selectivities.

@@ -1,3 +1,10 @@
+---
+description: >-
+  Perform point-in-time recovery in MariaDB by replaying archived InnoDB
+  write-ahead logs at startup to restore the server to a specific Log Sequence
+  Number (LSN).
+---
+
 # Point-In-Time Recovery (InnoDB Log Archiving)
 
 {% hint style="info" %}

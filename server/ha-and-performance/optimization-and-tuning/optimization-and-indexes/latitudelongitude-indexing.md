@@ -1,3 +1,9 @@
+---
+description: >-
+  Techniques for indexing latitude/longitude data to speed up nearest-location
+  queries.
+---
+
 # Latitude/Longitude Indexing
 
 ## The problem

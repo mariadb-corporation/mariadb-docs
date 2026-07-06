@@ -1,3 +1,8 @@
+---
+description: >-
+  The auxiliary files the mariadb-test framework uses to control test runs.
+---
+
 # mariadb-test Auxiliary Files
 
 The mariadb-test framework utilizes many other files that affect the testing\
@@ -173,7 +178,7 @@ binlog-format=mixed
 ```
 
 It uses `my.cnf` file syntax, with groups (where group names define\
-combination names) and options. But, despite the similarity, it is not a`my.cnf` template, and it cannot use the templating extentions. Instead,\
+combination names) and options. But, despite the similarity, it is not a`my.cnf` template, and it cannot use the templating extensions. Instead,\
 options from the `combinations` file are added to the server command line. In\
 this regard, combination file is closer to `suite.opt` file. And just like\
 it, combination file can use environment variables using the `$NAME` syntax.
@@ -291,7 +296,7 @@ files, they contain a patch that should be applied to one result file to create\
 a new result file. This is very useful when a result of some test in one\
 combination differs slightly from the result of the same test, but in another\
 combination. Or when a result of a test in an overlay differs from the test\
-result in the overlayed suite.
+result in the overlaid suite.
 
 It is quite difficult to edit `.rdiff` files to update them after the test\
 file has changed. But luckily, it is never needed. When a test fails, mtr\
@@ -332,7 +337,7 @@ qwe-rty.foo 'aa,bb'                     [ pass ]
 For this test a result can be in
 
 * either `.rdiff` or `.result` file
-* either in the overlay "`rty/`" or in the overlayed suite "`qwe/`"
+* either in the overlay "`rty/`" or in the overlaid suite "`qwe/`"
 * with or without combinations in the file name ("`,a`", "`,b`",\
   "`,a,b`", or nothing)
 

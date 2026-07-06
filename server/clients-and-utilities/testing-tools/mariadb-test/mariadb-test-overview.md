@@ -1,3 +1,9 @@
+---
+description: >-
+  How mariadb-test runs a test file and compares its output against a result
+  file to decide pass or fail.
+---
+
 # mariadb-test Overview
 
 ## Basics

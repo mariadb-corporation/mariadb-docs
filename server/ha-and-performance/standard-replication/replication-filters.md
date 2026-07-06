@@ -406,7 +406,7 @@ The [DO\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statemen
 
 #### `IGNORE_DOMAIN_IDS`
 
-The [IGNORE\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to ignore [binary log](https://github.com/mariadb-corporation/docs-server/blob/test/server/server-usage/replication-cluster-multi-master/standard-replication/binary_log/README.md) events if the transaction's [GTID](gtid.md) is in a specific [gtid\_domain\_id](gtid.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
+The [IGNORE\_DOMAIN\_IDS](../../reference/sql-statements/administrative-sql-statements/replication-statements/change-master-to.md#ignore_domain_ids) option for `CHANGE MASTER` can be used to configure a [replica](replication-overview.md) to ignore [binary log](../../server-management/server-monitoring-logs/binary-log/README.md) events if the transaction's [GTID](gtid.md) is in a specific [gtid\_domain\_id](gtid.md#gtid_domain_id) value. Filtered [binary log](../../server-management/server-monitoring-logs/binary-log/) events will not get logged to the replica’s [relay log](../../server-management/server-monitoring-logs/binary-log/relay-log.md), and they will not be applied by the replica.
 
 ## Replication Filters and Binary Log Formats
 

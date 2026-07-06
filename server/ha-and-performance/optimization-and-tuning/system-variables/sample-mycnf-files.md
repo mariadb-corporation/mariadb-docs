@@ -1,3 +1,9 @@
+---
+description: >-
+  Sample my.cnf configuration files for different memory sizes and storage
+  engines.
+---
+
 
 # Sample my.cnf Files
 

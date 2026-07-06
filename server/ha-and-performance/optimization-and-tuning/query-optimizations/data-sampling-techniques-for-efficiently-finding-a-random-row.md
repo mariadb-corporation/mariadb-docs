@@ -1,3 +1,9 @@
+---
+description: >-
+  Efficient techniques for selecting random rows, avoiding a slow ORDER BY
+  RAND().
+---
+
 # Data Sampling: Techniques for Efficiently Finding a Random Row
 
 ## Fetching random rows from a table (beyond ORDER BY RAND())

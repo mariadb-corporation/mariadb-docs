@@ -57,7 +57,7 @@ The common warnings/errors are:
 
 * Using obsolete options. If this is the case, remove them from your [my.cnf files](../configuring-mariadb/configuring-mariadb-with-option-files.md).
 * Check the manual for [new features](./) that have been added since your last MariaDB version.
-* Test that your application works as before. The main difference from before is that because of optimizer improvements your application should work better than before, but in some rare cases the optimizer may get something wrong. In this case, you can try to use [explain](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md), [optimizer trace](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/wIjY1kOpUvbr3Rbr8GXl) or [optimizer\_switch](../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimizer-switch.md) to fix the queries.
+* Test that your application works as before. The main difference from before is that because of optimizer improvements your application should work better than before, but in some rare cases the optimizer may get something wrong. In this case, you can try to use [explain](../../../reference/sql-statements/administrative-sql-statements/analyze-and-explain-statements/explain.md), [optimizer trace](../../../ha-and-performance/optimization-and-tuning/query-optimizer/optimizer-trace/README.md) or [optimizer\_switch](../../../ha-and-performance/optimization-and-tuning/query-optimizations/optimizer-switch.md) to fix the queries.
 
 ## If Something Goes Wrong
 
@@ -93,7 +93,7 @@ MariaDB server is not designed for downgrading. That said, in most cases, as lon
 
 ## See Also
 
-* [Upgrading from MySQL to MariaDB](/broken/pages/Wvw3Hz582uZdUAGua5bc)
+* [Upgrading from MySQL to MariaDB](upgrading-mariadb-upgrading-from-mysql-to-mariadb.md)
 * [Upgrading from MariaDB 10.11 to MariaDB 11.4](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-11-to-mariadb-11-4.md)
 * [Upgrading from MariaDB 10.6 to MariaDB 10.11](upgrading-from-to-specific-versions/upgrading-from-mariadb-10-6-to-mariadb-10-11.md)
 * [Upgrading from MariaDB 10.6 to MariaDB 10.7](upgrading-to-unmaintained-mariadb-releases/upgrading-from-mariadb-10-6-to-mariadb-10-7.md)

@@ -251,7 +251,7 @@ $$
 DELIMITER ;
 ```
 
-### Limitation
+### Requirement
 
 This feature is available in Oracle SQL mode. The SQL mode is stored when the package is created, so `SET sql_mode=ORACLE` must be executed before creating the package.
 

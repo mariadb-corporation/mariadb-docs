@@ -1,3 +1,9 @@
+---
+description: >-
+  Segmented key caches, which split the MyISAM key cache into structures to
+  reduce contention.
+---
+
 # Segmented Key Cache
 
 ## About Segmented Key Cache
@@ -12,7 +18,7 @@ page. Pages are evenly distributed among segments.
 
 The idea and the original code of the segmented key cache was provided by Fredrik Nylander from Stardoll.com. The code was extensively reworked, improved, and eventually merged into MariaDB by Igor Babaev from Monty Program (now MariaDB Corporation).
 
-You can find some benchmark results comparing various settings on the [Segmented Key Cache Performance](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/ySaANiCpRqROWwoll9yo) page.
+You can find some benchmark results comparing various settings on the [Segmented Key Cache Performance](../../../reference/product-development/server-development/quality/benchmarks-and-long-running-tests/benchmarks/segmented-key-cache-performance.md) page.
 
 ## Segmented Key Cache Syntax
 
@@ -43,7 +49,7 @@ Statistics about the key cache can be found by looking at the [KEY\_CACHES](../.
 
 ## See Also
 
-* [Segmented Key Cache Performance](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/ySaANiCpRqROWwoll9yo)
+* [Segmented Key Cache Performance](../../../reference/product-development/server-development/quality/benchmarks-and-long-running-tests/benchmarks/segmented-key-cache-performance.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

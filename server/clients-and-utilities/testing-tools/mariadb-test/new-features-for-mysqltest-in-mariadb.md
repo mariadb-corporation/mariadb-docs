@@ -1,3 +1,8 @@
+---
+description: >-
+  MariaDB enhancements to the mariadb-test (mysqltest) framework.
+---
+
 # New Features for mysqltest in MariaDB
 
 {% hint style="info" %}
@@ -49,7 +54,7 @@ The `replace_regex` command supports paired delimiters (like in perl, etc). If t
 
 ## Dumping "exec" output on errors only
 
-Sometimes it is only interesting to see the output of a utility to stdout/stderr, if utility failed. In case of success , the output might be unpredictable, and contain timestamps, startup messages etc. mariadb-backup can be a good example of such utility.
+Sometimes it is only interesting to see the output of a utility to stdout/stderr, if utility failed. In case of success, the output might be unpredictable, and contain timestamps, startup messages etc. mariadb-backup can be a good example of such utility.
 
 mysqltest in MariaDB can helps in this situation. In the example below, the output of $XTRABACKUP is suppressed, however if `exec` fails, stdout and stderr both is dumped , to aid diagnostics:
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Use myisamchk options to report information about MyISAM tables and their
+  indexes.
+---
+
 # myisamchk Table Information
 
 [myisamchk](myisamchk.md) can be used to obtain information about MyISAM tables, particularly with the _-d_, _-e_, _-i_ and _-v_ options.

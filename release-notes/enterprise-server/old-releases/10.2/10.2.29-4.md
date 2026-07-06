@@ -55,7 +55,7 @@ If unable to upgrade to MariaDB Enterprise Server 10.2.29-4, where this bug is f
 
 ## Platforms
 
-In alignment to the [enterprise lifecycle](../../enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.29-4 is provided for:
+In alignment to the [enterprise lifecycle](../../about/enterprise-server-lifecycle.md), MariaDB Enterprise Server 10.2.29-4 is provided for:
 
 * CentOS 8
 * CentOS 7

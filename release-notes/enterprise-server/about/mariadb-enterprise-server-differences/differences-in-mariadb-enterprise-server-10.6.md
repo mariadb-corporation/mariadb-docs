@@ -19,7 +19,7 @@ In addition to this there are Enterprise Features and some backported features. 
 * Index limit increased to 128 indexes
 * Slow master shutdown as default
 * [MariaDB Enterprise Cluster](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/3VYeeVGUV4AMqrA3zwy7/) (powered by Galera)
-  * [Enhanced Enterprise Data-at-Rest Encryption](../../mariadb-enterprise-server-differences/mariadb-enterprise-server-data-at-rest-encryption/)
+  * [Enhanced Enterprise Data-at-Rest Encryption](mariadb-enterprise-server-data-at-rest-encryption/)
   * XA Support
   * Non-Blocking operation for DDLs
   * TLS certificate expiration monitoring

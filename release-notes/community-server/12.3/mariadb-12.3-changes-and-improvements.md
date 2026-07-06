@@ -171,7 +171,7 @@ For a list of all new variables added since MariaDB 11.8, see:
 
 ## Incompatible Changes
 
-Since MariaDB 12.3 is the first long-term release after [MariaDB 11.8](../11.8/what-is-mariadb-118.md), the following backward-incompatible changes may affect an upgrade. For the full upgrade procedure, see [Upgrading from MariaDB 11.8 to MariaDB 12.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/upgrading-from-to-specific-versions/upgrading-from-mariadb-11-8-to-mariadb-12-3).
+Since MariaDB 12.3 is the first long-term release after [MariaDB 11.8](../11.8/what-is-mariadb-118.md), the following backward-incompatible changes may affect an upgrade. For the full upgrade procedure, see [Upgrading from MariaDB 11.8 to MariaDB 12.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-from-mariadb-11-8-to-mariadb-12-3).
 
 ### New Reserved Words
 
@@ -185,13 +185,13 @@ The following keywords are now [reserved words](https://app.gitbook.com/s/SsmexD
 
 The following deprecated system variables have been removed:
 
-* [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables), deprecated in [MariaDB 10.5.0](../old-releases/10.5/10.5.0.md)
-* [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size), deprecated in [MariaDB 10.5.3](../old-releases/10.5/10.5.3.md)
-* [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine), deprecated in [MariaDB 5.5](../old-releases/5.5/changes-improvements-in-mariadb-5-5.md)
+* [big\_tables](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#big_tables), deprecated in [MariaDB 10.5.0](../old-releases/10.5/10.5.0.md), removed in [MariaDB 12.0](../old-releases/12.0/what-is-mariadb-120.md)
+* [large\_page\_size](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#large_page_size), deprecated in [MariaDB 10.5.3](../old-releases/10.5/10.5.3.md), removed in [MariaDB 12.0](../old-releases/12.0/what-is-mariadb-120.md)
+* [storage\_engine](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/variables-and-modes/server-system-variables#storage_engine), deprecated in [MariaDB 5.5](../old-releases/5.5/changes-improvements-in-mariadb-5-5.md), removed in [MariaDB 12.0](../old-releases/12.0/what-is-mariadb-120.md)
 
 ### Replication
 
-* When running `mariadb-upgrade`, the `CHANGE MASTER TO ... master_use_gtid` option is not currently carried over and is reset to `DEFAULT` ([MDEV-39788](https://jira.mariadb.org/browse/MDEV-39788)). After upgrading a replica, re-apply `master_use_gtid` if you rely on it. Downgrading is not affected. See [Upgrading from MariaDB 11.8 to MariaDB 12.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-from-mariadb-11-8-to-mariadb-12-3) for details.
+* When upgrading a replica from a pre-12.3 release to MariaDB 12.3, the `CHANGE MASTER TO ... master_use_gtid` setting is not currently carried over and is reset to `DEFAULT` ([MDEV-39788](https://jira.mariadb.org/browse/MDEV-39788)). After upgrading, re-apply `master_use_gtid` if you rely on it. Downgrading is not affected. See [Upgrading from MariaDB 11.8 to MariaDB 12.3](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/upgrading/mariadb-community-server-upgrade-paths/upgrading-from-mariadb-11-8-to-mariadb-12-3) for details.
 
 ## Security Vulnerabilities Fixed in MariaDB 12.3
 

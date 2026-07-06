@@ -372,7 +372,7 @@ All modifying operations are supported. However, inserting into arrays must be d
 From Connect 1.7.0002
 
 ```
-CREATE TABLE testin (
+CREATE TABLE testing (
 n INT NOT NULL,
 m CHAR(12) NOT NULL,
 surname CHAR(16) NOT NULL jpath='person.name.first',
@@ -388,7 +388,7 @@ CONNECTION='mongodb://localhost:27017';
 Before Connect 1.7.0002
 
 ```
-CREATE TABLE testin (
+CREATE TABLE testing (
 n INT NOT NULL,
 m CHAR(12) NOT NULL,
 surname CHAR(16) NOT NULL field_format='person.name.first',
@@ -404,7 +404,7 @@ CONNECTION='mongodb://localhost:27017';
 Now it is possible to populate it by:
 
 ```
-INSERT INTO testin VALUES
+INSERT INTO testing VALUES
 (1789, 'Welcome', 'Olivier','Bertrand',56, 3.14, 2.36, 8.45),
 (1515, 'Hello', 'John','Smith',32, 65.17, 98.12, NULL),
 (2014, 'Coucou', 'Foo','Bar',20, -1.0, 74, 81356);

@@ -41,6 +41,10 @@ And then restart the server to make the changes persistent.
 
 By setting both MariaDB Server's TLS-related system variables and Galera Cluster's TLS-related wsrep\_provider\_options, the server can secure both external client connections and Galera Cluster's replication traffic.
 
+{% hint style="info" %}
+The [Galera Arbitrator (garbd)](../galera-management/configuration/galera-arbitrator-daemon-garbd.md) participates in the same replication traffic as full nodes and must be configured with the same TLS posture — its own `socket.ssl_cert`, `socket.ssl_key`, and `socket.ssl_ca`, using a certificate signed by the same cluster CA. See [TLS Configuration for garbd](../galera-management/configuration/galera-arbitrator-daemon-garbd.md#tls-configuration).
+{% endhint %}
+
 ## Securing State Snapshot Transfers
 
 The method that you would use to enable TLS for [State Snapshot Transfers (SSTs)](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md) would depend on the value of [wsrep\_sst\_method](../reference/galera-cluster-system-variables.md#wsrep_sst_method).
@@ -57,9 +61,17 @@ See [xtrabackup-v2 SST Method](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/ha
 
 This SST method simply uses the [mariadb-dump](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump) (previously mysqldump) utility, so TLS would be enabled by following the guide at [Securing Connections for Client and Server: Enabling TLS for MariaDB Clients](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/security/encryption/data-in-transit-encryption/securing-connections-for-client-and-server#enabling-tls-for-mariadb-clients)
 
+{% hint style="warning" %}
+The `wsrep_sst_mysqldump.sh` script does not pass any `--ssl-*` options to the client. TLS is used during a mysqldump SST only if the `[client]` or `[mariadb-dump]` option group enables it through the standard `ssl-ca`, `ssl-cert`, `ssl-key`, and `ssl-verify-server-cert` options. Note that `ssl-verify-server-cert` is **off by default** in the MariaDB client, so even with the `ssl-*` options configured, the joiner does not verify the donor's identity unless `ssl-verify-server-cert` is explicitly enabled.
+{% endhint %}
+
 ### rsync
 
 This SST method supports encryption in transit via [stunnel](https://www.stunnel.org/). See [Introduction to State Snapshot Transfers (SSTs): rsync](../high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts.md#rsync) for more information.
+
+## Raft Plugin TLS
+
+MariaDB Advanced Cluster's Raft-based replication backend configures inter-node TLS through its own `raft_ssl_*` system variables, separate from the `wsrep_ssl_mode` and `socket.ssl_*` settings described above. By default, `raft_ssl_verify_server_cert` is `OFF`, so Raft inter-node TLS encrypts traffic but does not verify peer certificates. See the [MariaDB Advanced Cluster Team FAQ and Architectural Guide](../reference/mariadb-advanced-cluster-team-faq-and-architectural-guide.md).
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

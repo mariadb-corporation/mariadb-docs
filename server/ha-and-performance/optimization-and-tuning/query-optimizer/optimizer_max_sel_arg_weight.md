@@ -1,3 +1,9 @@
+---
+description: >-
+  The optimizer_max_sel_arg_weight setting, which caps the complexity of range
+  analysis.
+---
+
 # optimizer\_max\_sel\_arg\_weight
 
 ## Basics
@@ -52,13 +58,13 @@ SELECT * FROM information_schema.optimizer_trace\G
                          ],
 ```
 
-This number is fine but if your IN-list are thousands then the number of ranges can in the millions which may cause excessive CPU or memory usage (Note: this however is avoided in some cases when [IN-predicate is converted into subquery](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/query-optimizations/subquery-optimizations/conversion-of-big-in-predicates-into-subqueries.md). But there are cases when that is not done)
+This number is fine but if your IN-list are thousands then the number of ranges can in the millions which may cause excessive CPU or memory usage (Note: this however is avoided in some cases when [IN-predicate is converted into subquery](../query-optimizations/subquery-optimizations/conversion-of-big-in-predicates-into-subqueries.md). But there are cases when that is not done)
 
 ## SEL\_ARG graph
 
 Internally, the Range Optimizer builds this kind of graph:
 
-![](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/.gitbook/assets/optimizer_max_sel_arg_weight/+image/sel-arg-graph1.png)
+![](../../../.gitbook/assets/sel-arg-graph1.png)
 
 Vertical black lines connect adjacent "intervals" on the same key part.\
 Red lines connect a key part to a subsequent key part.
@@ -78,7 +84,7 @@ Due to the way the graph is constructed, we cannot tell how many ranges it would
 we introduce a parameter "weight" which is easy to compute and is roughly proportional to the number of\
 ranges we estimate to produce.
 
-![](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/.gitbook/assets/optimizer_max_sel_arg_weight/+image/sel-arg-subgraphs.png)
+![](../../../.gitbook/assets/sel-arg-subgraphs.png)
 
 Here is how the weight is computed:
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  An optimization that can pick a join order which shortens ORDER BY ... LIMIT
+  queries.
+---
+
 # optimizer\_join\_limit\_pref\_ratio Optimization
 
 ## Basics

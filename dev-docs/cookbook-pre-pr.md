@@ -58,6 +58,9 @@ samples legitimately contain `{`, `%`, and raw URLs.
 - **`SUMMARY.md`:** if you added/moved/renamed a page, its `SUMMARY.md` entry exists, points at
   the right path, and matches the surrounding indentation/link style. (The nightly error-sync
   job legitimately auto-commits `server/SUMMARY.md` — that's an authorized exception.)
+- **Retired/moved URLs → redirects:** if the PR renames, moves, or deletes published pages,
+  produce a GitBook redirect CSV so old bookmarks don't dead-end (there's no in-repo redirect
+  mechanism). See `dev-docs/cookbook-gitbook-redirects.md` or run `/redirects-csv`.
 - **GitBook blocks:** hints use a valid style (`info`/`warning`/`danger`/`success`); `tabs`,
   `code`, `content-ref` blocks are balanced (every open has its `end…`).
 - **Links:** same-space links are relative `.md` paths; cross-space links use `{alias}`.

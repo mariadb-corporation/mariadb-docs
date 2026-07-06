@@ -14,7 +14,7 @@ RESET reset_option [, reset_option] ...
 
 ## Description
 
-The `RESET` statement is used to clear the state of various server operations. You must have the [RELOAD privilege](../account-management-sql-commands/grant.md) to execute`RESET`.
+The `RESET` statement is used to clear the state of various server operations. You must have the [RELOAD privilege](../account-management-sql-statements/grant.md) to execute`RESET`.
 
 `RESET` acts as a stronger version of the [FLUSH](flush-commands/flush.md) statement.
 

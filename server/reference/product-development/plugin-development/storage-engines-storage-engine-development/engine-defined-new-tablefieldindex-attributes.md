@@ -119,7 +119,7 @@ With the `IGNORE_BAD_TABLE_OPTIONS` [sql mode](../../../../server-management/var
 
 ## See Also
 
-* [Writing Plugins for MariaDB](/broken/spaces/WCInJQ9cmGjq1lsTG91E/pages/6TIILYWsiIrVC57q1o1p)
+* [Writing Plugins for MariaDB](../development-writing-plugins-for-mariadb.md)
 * [Storage Engines](../../../../server-usage/storage-engines/)
 * [Storage Engine Development](./)
 

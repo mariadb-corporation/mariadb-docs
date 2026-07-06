@@ -1,3 +1,9 @@
+---
+description: >-
+  The Extended Keys optimization, which uses primary-key parts appended to
+  secondary indexes.
+---
+
 # Extended Keys
 
 ## Syntax
@@ -16,7 +22,7 @@ SET optimizer_switch='extended_keys=off';
 
 ## Description
 
-Extended Keys is an optimization set with the [optimizer\_switch](https://github.com/mariadb-corporation/docs-server/blob/test/general-resources/ha-and-performance/optimization-and-tuning/system-variables/server-system-variables.md#optimizer_switch) system variable, which makes use of existing components of InnoDB keys to generate more efficient execution plans. Using these components in many cases allows the server to generate execution plans which employ index-only look-ups. It is set by default.
+Extended Keys is an optimization set with the [optimizer\_switch](../system-variables/server-system-variables.md#optimizer_switch) system variable, which makes use of existing components of InnoDB keys to generate more efficient execution plans. Using these components in many cases allows the server to generate execution plans which employ index-only look-ups. It is set by default.
 
 Extended keys can be used with:
 

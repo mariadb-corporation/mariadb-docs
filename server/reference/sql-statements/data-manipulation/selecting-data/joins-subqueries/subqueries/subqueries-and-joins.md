@@ -23,7 +23,7 @@ It can be rewritten like this:
 SELECT DISTINCT table1.* FROM table1, table2 WHERE table1.col1=table2.col1;
 ```
 
-`NOT IN` or `NOT EXISTS` queries can also be rewritten. For example, these two queries return the same result:
+`NOT IN` or `NOT EXISTS` queries can also be rewritten. For example, these two queries return the same result when the compared columns contain no `NULL` values. They can differ when `NULL`s are present, because `NOT IN` evaluates to `UNKNOWN` against a `NULL`:
 
 ```sql
 SELECT * FROM table1 WHERE col1 NOT IN (SELECT col1 FROM table2);
@@ -34,8 +34,8 @@ SELECT * FROM table1 WHERE NOT EXISTS (SELECT col1 FROM table2
 They can both be rewritten like this:
 
 ```sql
-SELECT table1.* FROM table1 LEFT JOIN table2 ON table1.id=table2.id 
-       WHERE table2.id IS NULL;
+SELECT table1.* FROM table1 LEFT JOIN table2 ON table1.col1=table2.col1 
+       WHERE table2.col1 IS NULL;
 ```
 
 Subqueries that can be rewritten as a `LEFT JOIN` are sometimes more efficient.

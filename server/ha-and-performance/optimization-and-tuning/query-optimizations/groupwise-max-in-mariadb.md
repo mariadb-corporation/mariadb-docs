@@ -1,3 +1,8 @@
+---
+description: >-
+  Techniques for finding the largest, or top, row within each group.
+---
+
 # Groupwise Max in MariaDB
 
 ## The problem
@@ -338,7 +343,6 @@ I did not include the technique(s) using GROUP\_CONCAT. They are useful in some 
 
 ## See also
 
-* This has some of these algorithms, plus some others: [Peter Brawley's blog](https://www.artfulsoftware.com/infotree/queries.php?\&bw=1179#101)
 * [Jan Kneschke's blog from 2007](https://jan.kneschke.de/projects/mysql/groupwise-max)
 * [StackOverflow discussion of 'Uncorrelated'](https://stackoverflow.com/questions/14770671/mysql-order-by-before-group-by)
 * Other references: [Inner ORDER BY thrown away](https://mariadb.com/kb/en/mariadb/group-by-trick-has-been-optimized-away/)

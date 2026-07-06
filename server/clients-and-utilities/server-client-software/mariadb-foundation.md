@@ -1,3 +1,9 @@
+---
+description: >-
+  The MariaDB Foundation is the custodian of the MariaDB code and steward of
+  its open, vendor-neutral development.
+---
+
 # About the MariaDB Foundation
 
 The [MariaDB Foundation](https://mariadb.org) ensures that there is not just one person or one company driving MariaDB/MySQL development. It is the custodian of the MariaDB code and guardian of the MariaDB community.
