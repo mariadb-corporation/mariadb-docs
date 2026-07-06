@@ -302,7 +302,7 @@ flowchart LR
 ```
 
 {% hint style="info" %}
-CDC to Exasol uses the Exasol ODBC driver shipped in the `maxscale-exasol` package, and is part of the same MaxScale Exasol integration described at the top of this page.
+CDC to Exasol uses the Exasol ODBC driver shipped in the `maxscale-exasol` package and is available from MaxScale 25.10.3.
 {% endhint %}
 
 ### Step 1. Enable binary logging on MariaDB.
