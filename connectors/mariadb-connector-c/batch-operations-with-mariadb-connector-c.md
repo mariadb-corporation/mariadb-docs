@@ -22,9 +22,105 @@ The connector supports two ways of laying out the bound values in memory:
 
 Each bound parameter uses an indicator variable to describe its value. For null-terminated strings, the indicator is `STMT_INDICATOR_NTS`; other indicators include `STMT_INDICATOR_NULL` for `NULL` values and `STMT_INDICATOR_DEFAULT` for default values.
 
-## Code Example: Batch Insert
+## Code Example: Column-wise Binding
 
-The following code inserts several contacts into the [example table](setup-for-examples.md) in a single batch using row-wise binding. Each contact is stored in a `struct`, and an indicator variable accompanies each string to mark it as null-terminated:
+The following code inserts several contacts into the [example table](setup-for-examples.md) in a single batch using column-wise binding, the default. Each parameter is bound to its own array — for the string columns, an array of pointers — with a matching array of indicators. `STMT_ATTR_ROW_SIZE` is not set:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mysql.h>
+
+int main(int argc, char *argv[])
+{
+   // Initialize Connection
+   MYSQL *conn;
+   if (!(conn = mysql_init(0)))
+   {
+      fprintf(stderr, "unable to initialize connection struct\n");
+      exit(1);
+   }
+
+   // Connect to the database
+   if (!mysql_real_connect(
+         conn, "mariadb.example.net", "db_user", "db_user_password",
+         "test", 3306, NULL, 0))
+   {
+      fprintf(stderr, "Error connecting to Server: %s\n", mysql_error(conn));
+      mysql_close(conn);
+      exit(1);
+   }
+
+   // One array per parameter. For the string columns the buffer is an array
+   // of pointers, and each column has its own array of indicators.
+   const char *first_names[] = { "John", "Jon", "Johnny" };
+   const char *last_names[]  = { "Smith", "Smith", "Smith" };
+   const char *emails[]      = { "john.smith@example.com", "jon.smith@example.com", "johnny.smith@example.com" };
+   char first_ind[] = { STMT_INDICATOR_NTS, STMT_INDICATOR_NTS, STMT_INDICATOR_NTS };
+   char last_ind[]  = { STMT_INDICATOR_NTS, STMT_INDICATOR_NTS, STMT_INDICATOR_NTS };
+   char email_ind[] = { STMT_INDICATOR_NTS, STMT_INDICATOR_NTS, STMT_INDICATOR_NTS };
+   unsigned int array_size = 3;
+
+   // Initialize and prepare the statement
+   MYSQL_STMT *stmt = mysql_stmt_init(conn);
+   if (mysql_stmt_prepare(stmt,
+         "INSERT INTO test.contacts(first_name, last_name, email) VALUES (?, ?, ?)", -1))
+   {
+      fprintf(stderr, "Error preparing statement: %s\n", mysql_stmt_error(stmt));
+      exit(1);
+   }
+
+   // Bind each parameter to its array
+   MYSQL_BIND bind[3];
+   memset(bind, 0, sizeof(bind));
+   bind[0].buffer_type = MYSQL_TYPE_STRING;
+   bind[0].buffer = first_names;
+   bind[0].u.indicator = first_ind;
+   bind[1].buffer_type = MYSQL_TYPE_STRING;
+   bind[1].buffer = last_names;
+   bind[1].u.indicator = last_ind;
+   bind[2].buffer_type = MYSQL_TYPE_STRING;
+   bind[2].buffer = emails;
+   bind[2].u.indicator = email_ind;
+
+   // Set only the batch size; without STMT_ATTR_ROW_SIZE the binding is column-wise
+   mysql_stmt_attr_set(stmt, STMT_ATTR_ARRAY_SIZE, &array_size);
+
+   // Bind and execute the batch in a single call
+   if (mysql_stmt_bind_param(stmt, bind) || mysql_stmt_execute(stmt))
+   {
+      fprintf(stderr, "Error executing batch: %s\n", mysql_stmt_error(stmt));
+      exit(1);
+   }
+
+   // Close the statement and the connection
+   mysql_stmt_close(stmt);
+   mysql_close(conn);
+
+   return 0;
+}
+```
+
+Confirm the rows were inserted by using [MariaDB Client]({server}/clients-and-utilities/mariadb-client) to execute a [SELECT]({server}/reference/sql-statements/data-manipulation/selecting-data/select) statement:
+
+```sql
+SELECT * FROM test.contacts;
+```
+
+```sql
++----+------------+-----------+--------------------------+
+| id | first_name | last_name | email                    |
++----+------------+-----------+--------------------------+
+|  1 | John       | Smith     | john.smith@example.com   |
+|  2 | Jon        | Smith     | jon.smith@example.com    |
+|  3 | Johnny     | Smith     | johnny.smith@example.com |
++----+------------+-----------+--------------------------+
+```
+
+## Code Example: Row-wise Binding
+
+The following code inserts the same contacts using row-wise binding. Each contact is stored in a `struct`, an indicator variable accompanies each string to mark it as null-terminated, and `STMT_ATTR_ROW_SIZE` is set to the size of one row:
 
 ```c
 #include <stdio.h>
@@ -110,25 +206,11 @@ int main(int argc, char *argv[])
 }
 ```
 
-Confirm the rows were inserted by using [MariaDB Client](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/clients-and-utilities/mariadb-client) to execute a [SELECT](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/SsmexDFPv2xG2OTyO5yV/reference/sql-statements/data-manipulation/selecting-data/select) statement:
-
-```sql
-SELECT * FROM test.contacts;
-```
-
-```sql
-+----+------------+-----------+--------------------------+
-| id | first_name | last_name | email                    |
-+----+------------+-----------+--------------------------+
-|  1 | John       | Smith     | john.smith@example.com   |
-|  2 | Jon        | Smith     | jon.smith@example.com    |
-|  3 | Johnny     | Smith     | johnny.smith@example.com |
-+----+------------+-----------+--------------------------+
-```
+This produces the same result as the column-wise example above — the two approaches differ only in how the values are laid out in memory, not in what is inserted.
 
 ## See Also
 
-For more batch insert examples, including column-wise binding, see [Prepared Statement Examples](api-prepared-statement-functions/prepared-statement-examples/):
+For additional batch insert examples, see [Prepared Statement Examples](api-prepared-statement-functions/prepared-statement-examples/):
 
 * [Bulk Insert (Row-wise Binding)](api-prepared-statement-functions/prepared-statement-examples/bulk-insert-row-wise-binding.md)
 * [Bulk Insert (Column-wise Binding)](api-prepared-statement-functions/prepared-statement-examples/bulk-insert-column-wise-binding.md)
