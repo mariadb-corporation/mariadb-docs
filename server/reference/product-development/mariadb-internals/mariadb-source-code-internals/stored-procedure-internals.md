@@ -121,7 +121,7 @@ straightforward:
   containing the variable's frame offset, the expression (an Item),\
   and the type.
 * Flow control:\
-  Flow control constructs such as [IF](../../../../server-usage/programmatic-compound-statements/if.md), [WHILE](../../../../server-usage/programmatic-compound-statements/while.md), etc, generate a conditional\
+  Flow control constructs such as [IF](../../../sql-statements/programmatic-compound-statements/if.md), [WHILE](../../../sql-statements/programmatic-compound-statements/while.md), etc, generate a conditional\
   and unconditional jumps in the "obvious" way, but a few notes may\
   be required:
 * Forward jumps: When jumping forward, the exact destination is not\
