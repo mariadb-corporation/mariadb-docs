@@ -84,7 +84,7 @@ WHERE
 
 Each alias is just a little longer, but the table initials give enough clues that anyone familiar with the database only need see the full table name once, and can generally remember which table goes with which alias while reading the rest of the query.
 
-### Placing JOIN conditions
+### Placing JOIN Conditions
 
 The manual warns against using the `JOIN` condition (that is, the ON clause) for restricting rows. Some queries, particularly those using implicit joins, take the opposite extreme - all join conditions are moved to the `WHERE` clause. In consequence, the table relationships are mixed with the business logic.
 
@@ -144,7 +144,7 @@ Look for incomplete clauses, often indicated by an exposed comma:
 SELECT * FROM someTable WHERE field = 1 GROUP BY id,
 ```
 
-### Checking for keywords
+### Checking for Keywords
 
 MariaDB allows table and field names and aliases that are also [reserved words](../reference/sql-structure/sql-language-structure/reserved-words.md). To prevent ambiguity, such names must be enclosed in backticks (\`):
 
@@ -162,7 +162,7 @@ A text editor with color highlighting for SQL syntax helps to find these errors.
 
 Some keywords are so common that MariaDB makes a special allowance to use them unquoted. My advice: don't. If it's a keyword, quote it.
 
-### Version specific syntax
+### Version Specific Syntax
 
 As MariaDB adds new features, the syntax must change to support them. Most of the time, old syntax will work in newer versions of MariaDB. One notable exception is the change in precedence of the comma operator relative to the JOIN keyword in version 5.0. A query that used to work, such as
 

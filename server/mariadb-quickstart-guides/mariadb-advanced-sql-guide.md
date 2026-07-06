@@ -98,7 +98,7 @@ SELECT * FROM student_details;
 
 For more details, see the [AUTO\_INCREMENT](../reference/data-types/auto_increment.md) documentation.
 
-### Querying from two tables on a common value (JOIN)
+### Querying from Two Tables on a Common Value (JOIN)
 
 To combine rows from two tables based on a related column:
 
@@ -286,7 +286,7 @@ To calculate current age, replace the specific date string (e.g., '2014-08-02') 
 
 See the [TIMESTAMPDIFF()](../reference/sql-functions/date-time-functions/timestampdiff.md) documentation for more.
 
-### Using User-defined Variables
+### Using User-Defined Variables
 
 [User-defined variables ](../reference/sql-structure/sql-language-structure/user-defined-variables.md)can store values for use in subsequent queries within the same session.
 
