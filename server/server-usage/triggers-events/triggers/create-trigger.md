@@ -30,9 +30,9 @@ trigger_event:
 
 ![Railroad diagram of CREATE TRIGGER — equivalent to the BNF above](../../../.gitbook/assets/create-trigger-railroad.svg)
 
-![Railroad diagram of trigger_time](../../../.gitbook/assets/create-trigger-time-railroad.svg)
+![Railroad diagram of trigger\_time](../../../.gitbook/assets/create-trigger-time-railroad.svg)
 
-![Railroad diagram of trigger_event](../../../.gitbook/assets/create-trigger-event-railroad.svg)
+![Railroad diagram of trigger\_event](../../../.gitbook/assets/create-trigger-event-railroad.svg)
 
 ## Description
 
@@ -87,6 +87,29 @@ Only one _`trigger_event`_ can be specified.
 * `INSERT`: The trigger is activated whenever a new row is inserted into the table; for example, through [INSERT](../../../reference/sql-statements/data-manipulation/inserting-loading-data/), [LOAD DATA](../../../reference/sql-statements/data-manipulation/inserting-loading-data/load-data-into-tables-or-index/load-data-infile.md), and [REPLACE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/replace.md) statements.
 * `UPDATE`: The trigger is activated whenever a row is modified; for example, through [UPDATE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/update.md) statements.
 * `DELETE`: The trigger is activated whenever a row is deleted from the table; for example, through [DELETE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/delete.md) and [REPLACE](../../../reference/sql-statements/data-manipulation/changing-deleting-data/replace.md) statements. However, `DROP TABLE` and `TRUNCATE` statements on the table do not activate this trigger, because they do not use `DELETE`. Dropping a partition does not activate `DELETE` triggers, either.
+
+#### `INSERTING`, `UPDATING`, and `DELETING` Predicates
+
+When a trigger is defined for multiple events, the `INSERTING`, `UPDATING`, and `DELETING` predicates can be used within the trigger body to determine which event fired the trigger:
+
+* `INSERTING`: Evaluates to `TRUE` when the trigger was executed by an `INSERT` statement
+* `UPDATING`: Returns `TRUE` when the trigger was executed by an `UPDATE` statement
+* `DELETING`: Indicates `TRUE` when the trigger was executed by a `DELETE` statement
+
+**Example**
+
+```sql
+CREATE TRIGGER t1_b_any BEFORE INSERT OR UPDATE OR DELETE ON t1 FOR EACH ROW
+BEGIN
+  IF INSERTING THEN
+    INSERT INTO t2 VALUES (NEW.a, 'INSERTING');
+  ELSEIF UPDATING THEN
+    INSERT INTO t2 VALUES (NEW.a, 'UPDATING');
+  ELSEIF DELETING THEN
+    INSERT INTO t2 VALUES (OLD.a, 'DELETING');
+  END IF;
+END
+```
 
 #### FOLLOWS/PRECEDES _other\_trigger\_name_
 
