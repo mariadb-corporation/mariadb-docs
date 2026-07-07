@@ -44,7 +44,7 @@ The internal mode identifiers — `one_step`, `two_step`, `staged`, and `binlog`
 
 ## Serial Streaming Copy (`one_step`)
 
-Best for smaller databases and standard maintenance windows.
+Best for smaller databases and standard maintenance windows. For a step-by-step walkthrough, see [Migrate with Serial Streaming Copy](migrate-with-serial-streaming-copy.md).
 
 * Uses `mariadb-dump` on the source and streams directly to the target `mariadb` client.
 * A single pipe transfers tables sequentially, giving a predictable memory and network profile with no concurrency tuning.
@@ -54,7 +54,7 @@ Best for smaller databases and standard maintenance windows.
 
 ## Parallel Restartable Streaming Copy (`two_step`)
 
-Best for larger datasets or tighter migration windows. This mode requires the `mariadb-mtk` engine (see [Installation and First Run](installation-and-first-run.md)).
+Best for larger datasets or tighter migration windows. This mode requires the `mariadb-mtk` engine (see [Installation and First Run](installation-and-first-run.md)). For a step-by-step walkthrough, see [Migrate with Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md).
 
 The mode runs in stages: a schema-only dump first, then a parallel data load through `mariadb-mtk`, a post-load row-count validation, and finally an object-finalization step for triggers, routines, and events. `mariadb-mtk` uses multiple concurrent worker sessions per database for the data phase.
 
@@ -90,7 +90,7 @@ This is a post-load **report, not a gate**. The data transfer itself is the gate
 
 ## Offline Copy (`staged`)
 
-Best when the source and target are not directly network-reachable, or when you want a checkpoint between the dump and the load.
+Best when the source and target are not directly network-reachable, or when you want a checkpoint between the dump and the load. For a step-by-step walkthrough, see [Migrate with Offline Copy](migrate-with-offline-copy.md).
 
 This mode is phase-driven through the `STAGED_PHASE` variable:
 
@@ -128,7 +128,7 @@ Target connections negotiate TLS where the server requires it (for example, Mari
 
 ## Replication (`binlog`)
 
-Best for low-downtime cutover.
+Best for low-downtime cutover. For a step-by-step walkthrough, see [Migrate with Replication](migrate-with-replication.md).
 
 * Seeds the target from a consistent dump snapshot with embedded binlog coordinates, then starts MariaDB replication from the MySQL binary log using the `REPL_USER` and `REPL_PASS` credentials.
 * Verifies replication thread health and lag after replication starts.
