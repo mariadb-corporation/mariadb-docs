@@ -129,4 +129,4 @@ Review the run reports under `artifacts/run_two_step_<timestamp>/`, rotate any d
 
 ## Other Modes
 
-If Parallel Restartable Streaming Copy does not fit your situation, see [Migrate from MySQL to MariaDB](README.md) to choose another mode: Serial Streaming Copy for a smaller database, Offline Copy for hosts that cannot reach each other, or Replication for a low-downtime cutover.
+If Parallel Restartable Streaming Copy does not fit your situation, see the [migrator overview](README.md) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) for a smaller database, [Offline Copy](migrate-with-offline-copy.md) for hosts that cannot reach each other, or [Replication](migrate-with-replication.md) for a low-downtime cutover.
