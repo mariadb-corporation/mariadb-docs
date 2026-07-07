@@ -9,6 +9,30 @@ description: >-
 
 {% columns %}
 {% column %}
+{% content-ref url="system-variables-added-in-mariadb-12.3.md" %}
+[system-variables-added-in-mariadb-12.3.md](system-variables-added-in-mariadb-12.3.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Lists the system variables added in the MariaDB 12.3 series, with links to each and the release in which it was added.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="system-variables-added-in-mariadb-12.2.md" %}
+[system-variables-added-in-mariadb-12.2.md](system-variables-added-in-mariadb-12.2.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Lists the system variables added in the MariaDB 12.2 series. No new system variables were added in this series.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
 {% content-ref url="system-variables-added-in-mariadb-12.1.md" %}
 [system-variables-added-in-mariadb-12.1.md](system-variables-added-in-mariadb-12.1.md)
 {% endcontent-ref %}
