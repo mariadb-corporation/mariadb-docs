@@ -12,38 +12,78 @@ Installation and configuration instructions are available for the deployment of 
 
 ### MariaDB ColumnStore
 
-These instructions detail a single-node deployment of a columnar data store, for MariaDB Community Server, with data optionally stored on S3-compatible object storage:
+{% columns %}
+{% column %}
+{% content-ref url="community-server-with-columnstore.md" %}
+[community-server-with-columnstore.md](community-server-with-columnstore.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-* [Single-Node ColumnStore Topology with MariaDB Community Server](community-server-with-columnstore.md)
+{% column %}
+These instructions detail a single-node deployment of a columnar data store, for MariaDB Community Server, with data optionally stored on S3-compatible object storage.
+{% endcolumn %}
+{% endcolumns %}
 
 For high availability and scalability, see "[Enterprise ColumnStore with Object Storage](../columnstore-object-storage/)" or "[Enterprise ColumnStore with Shared Local Storage](../columnstore-shared-local-storage/)".
 
 ### MariaDB Community Server
 
-These instructions detail a single-node deployment of MariaDB Community Server:
+{% columns %}
+{% column %}
+{% content-ref url="community-server.md" %}
+[community-server.md](community-server.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-* [Single-Node Server Topology with MariaDB Community Server](community-server.md)
+{% column %}
+These instructions detail a single-node deployment of MariaDB Community Server.
+{% endcolumn %}
+{% endcolumns %}
 
 ### MariaDB Enterprise ColumnStore with Local Storage
 
-These instructions detail a single-node deployment of a columnar data store:
+{% columns %}
+{% column %}
+{% content-ref url="enterprise-server-with-columnstore-local-storage/" %}
+[enterprise-server-with-columnstore-local-storage](enterprise-server-with-columnstore-local-storage/)
+{% endcontent-ref %}
+{% endcolumn %}
 
-* [Single-Node Enterprise ColumnStore Local Storage Topology with MariaDB Enterprise Server](enterprise-server-with-columnstore-local-storage/)
+{% column %}
+These instructions detail a single-node deployment of a columnar data store.
+{% endcolumn %}
+{% endcolumns %}
 
 For high availability and scalability, see "[Enterprise ColumnStore with Shared Local Storage](../columnstore-shared-local-storage/)".
 
 ### MariaDB Enterprise ColumnStore with Object Storage
 
-These instructions detail a single-node deployment of a columnar data store for MariaDB Enterprise Server, with data stored on S3-compatible object storage:
+{% columns %}
+{% column %}
+{% content-ref url="enterprise-server-with-columnstore-object-storage/" %}
+[enterprise-server-with-columnstore-object-storage](enterprise-server-with-columnstore-object-storage/)
+{% endcontent-ref %}
+{% endcolumn %}
 
-* [Single-Node Enterprise ColumnStore Object Storage Topology with MariaDB Enterprise Server](enterprise-server-with-columnstore-object-storage/)
+{% column %}
+These instructions detail a single-node deployment of a columnar data store for MariaDB Enterprise Server, with data stored on S3-compatible object storage.
+{% endcolumn %}
+{% endcolumns %}
 
 For high availability and scalability, see "[Enterprise ColumnStore with Object Storage](../columnstore-object-storage/)".
 
 ### MariaDB Enterprise Server
 
-These instructions detail a single-node deployment of MariaDB Enterprise Server:
+{% columns %}
+{% column %}
+{% content-ref url="enterprise-server.md" %}
+[enterprise-server.md](enterprise-server.md)
+{% endcontent-ref %}
+{% endcolumn %}
 
-* [Single-Node Enterprise Server Topology with MariaDB Enterprise Server](enterprise-server.md)
+{% column %}
+These instructions detail a single-node deployment of MariaDB Enterprise Server.
+{% endcolumn %}
+{% endcolumns %}
 
 \\

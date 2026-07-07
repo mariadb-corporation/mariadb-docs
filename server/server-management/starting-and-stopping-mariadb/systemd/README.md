@@ -22,8 +22,29 @@ The service name is `mariadb.service`.
 
 ## In this Section
 
-* [Starting MariaDB on systemd](starting.md) — installing, starting, stopping, restarting, and inspecting the MariaDB service, including multi-instance setups, Galera Cluster integration, and the systemd journal.
-* [Configuring MariaDB for systemd](configuring.md) — drop-in configuration files, timeouts, open-file and core-size limits, `LimitMEMLOCK` (`io_uring` and `aio`), error-log redirection, home-directory access, umask, data directory, socket activation, and converting `mariadbd-safe` options to `systemd` options. Also includes a quick-setup script for developers running MariaDB from a build directory.
+{% columns %}
+{% column %}
+{% content-ref url="starting.md" %}
+[starting.md](starting.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Installing, starting, stopping, restarting, and inspecting the MariaDB service, including multi-instance setups, Galera Cluster integration, and the systemd journal.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="configuring.md" %}
+[configuring.md](configuring.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Drop-in configuration files, timeouts, open-file and core-size limits, `LimitMEMLOCK` (`io_uring` and `aio`), error-log redirection, home-directory access, umask, data directory, socket activation, and converting `mariadbd-safe` options to `systemd` options. Also includes a quick-setup script for developers running MariaDB from a build directory.
+{% endcolumn %}
+{% endcolumns %}
 
 ## Contents of the MariaDB Service's Unit File
 
