@@ -1133,7 +1133,8 @@ Options that are also system variables are listed after:
 #### `--des-key-file`
 
 * Command line: `--des-key-file=name`
-* Description: Load keys for [des\_encrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_encrypt.md) and des\_encrypt from given file.
+* Description: Load keys for [des\_encrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_encrypt.md) and [des\_decrypt()](../../reference/sql-functions/secondary-functions/encryption-hashing-and-compression-functions/des_decrypt.md) from the given file.
+* Removed: MariaDB 13.0, together with the `DES_ENCRYPT()`/`DES_DECRYPT()` functions and the `FLUSH DES_KEY_FILE` statement.
 
 #### `--exit-info`
 
