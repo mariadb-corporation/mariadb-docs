@@ -29,6 +29,7 @@ The session command history can require a lot of memory if connections are long-
 | transaction\_replay                      | • When this parameter is enabled, transactions will be replayed if they are interrupted. It also implicitly enables the delayed\_retry and master\_reconnection parameters. • When this parameter is disabled, interrupted transactions will cause the client connection to be closed. • This parameter is disabled by default. |
 | transaction\_replay\_max\_size           | • The maximum size of the transaction cache for each client connection. The unit is bytes, but EIC binary prefixes (Ki, Mi, Gi, and Ti) and SI prefixes (k, M, G, and T) can also be specified. • The default value is 1 MiB.                                                                                                   |
 | transaction\_replay\_attempts            | • The maximum number of attempts to make when replaying a transaction. • The default value is 5.                                                                                                                                                                                                                                |
+| transaction\_replay\_timeout             | • The time limit for how long a transaction replay is attempted before the connection is closed. This is the recommended way to control transaction replay timeouts. • To explicitly disable it, set the value to 0 seconds. • The default value is 30 seconds (MaxScale 24.02 and later).                                       |
 | transaction\_replay\_retry\_on\_deadlock | • When this parameter is enabled, transactions will be replayed if a deadlock occurs. • When this parameter is disabled, the client will receive an error if a deadlock occurs. • This parameter is disabled by default.                                                                                                        |
 
 For example:
@@ -41,6 +42,7 @@ router                   = readwritesplit
 transaction_replay                   = true
 transaction_replay_max_size          = 10Mi
 transaction_replay_attempts          = 10
+transaction_replay_timeout           = 30s
 transaction_replay_retry_on_deadlock = true
 ```
 
