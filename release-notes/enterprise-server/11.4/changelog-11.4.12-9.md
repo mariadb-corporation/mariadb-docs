@@ -9,7 +9,7 @@ hidden: true
 
 <a href="https://mariadb.com/downloads/enterprise/enterprise-server/" class="button primary">Download</a> <a href="11.4.12-9.md" class="button secondary">Release Notes</a> <a class="button secondary">Changelog</a> <a href="whats-new.md" class="button secondary">Overview of Enterprise Server 11.4</a>
 
-**Release date:** ?
+**Release date:** 26 Jun 2026
 
 ## Issues Fixed
 
