@@ -2,12 +2,13 @@
 description: A list of all MariaDB Connector/ODBC releases
 ---
 
-# Connector/ODBC All Releases
+# All Releases
 
 ## 3.2
 
 | Release               | Release Date | Release Status         |
 | --------------------- | ------------ | ---------------------- |
+| [3.2.9](3.2/3.2.9.md) | 2026-07-07   | Stable (GA)            |
 | [3.2.8](3.2/3.2.8.md) | 2025-12-19   | Stable (GA)            |
 | [3.2.7](3.2/3.2.7.md) | 2025-10-10   | Stable (GA)            |
 | [3.2.6](3.2/3.2.6.md) | 2025-05-30   | Stable (GA)            |
@@ -22,6 +23,7 @@ description: A list of all MariaDB Connector/ODBC releases
 
 | Release                 | Release Date | Release Status         |
 | ----------------------- | ------------ | ---------------------- |
+| [3.1.23](3.1/3.1.23.md) | 2026-07-07   | Stable (GA)            |
 | [3.1.22](3.1/3.1.22.md) | 2025-05-30   | Stable (GA)            |
 | [3.1.21](3.1/3.1.21.md) | 2025-02-24   | Stable (GA)            |
 | [3.1.20](3.1/3.1.20.md) | 2023-12-04   | Stable (GA)            |
