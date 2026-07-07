@@ -364,7 +364,7 @@ Also see the [Full list of MariaDB options, system and status variables](../../.
 * Description: The file that holds the [buffer pool](innodb-buffer-pool.md) list of page numbers set by [innodb\_buffer\_pool\_dump\_at\_shutdown](innodb-system-variables.md#innodb_buffer_pool_dump_at_shutdown) and [innodb\_buffer\_pool\_dump\_now](innodb-system-variables.md#innodb_buffer_pool_dump_now).
 * Command line: `--innodb-buffer-pool-filename=file`
 * Scope: Global
-* Dynamic: Yes
+* Dynamic: No
 * Data Type: `string`
 * Default Value: `ib_buffer_pool`
 * Introduced: [MariaDB 10.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.0/changes-improvements-in-mariadb-10-0)
