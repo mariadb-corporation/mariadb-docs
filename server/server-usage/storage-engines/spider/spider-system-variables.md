@@ -13,6 +13,10 @@ See [Server System Variables](../../../ha-and-performance/optimization-and-tunin
 
 See also the [Full list of MariaDB options, system and status variables](../../../reference/full-list-of-mariadb-options-system-and-status-variables.md).
 
+{% hint style="warning" %}
+As of MariaDB 13.0, the following Spider table parameters can no longer be set through a table's `COMMENT` or `CONNECTION` string (in either their short or full form): `buffer_size` (`bfz`), `bka_table_name_type` (`btt`), `crd_mode` (`cmd`), `crd_type` (`ctp`), `crd_weight` (`cwg`), `init_sql_alloc_size` (`isa`), `internal_limit` (`ilm`), `internal_offset` (`ios`), `sts_mode` (`smd`), `semi_table_lock` (`stl`), and `semi_table_lock_connection` (`stc`). They were deprecated in earlier releases and have no corresponding table option; set the matching system variable below (for example, `spider_crd_mode`) instead.
+{% endhint %}
+
 **MariaDB starting with** [**10.5.22**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.22)
 
 Starting from [MariaDB 10.5.22](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.5/10.5.22), [MariaDB 10.6.15](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.6/10.6.15), [MariaDB 10.9.8](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.8), [MariaDB 10.10.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.10/10.10.6), [MariaDB 10.11.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/10.11/10.11.5), [MariaDB 11.0.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/11.0/11.0.3), all spider system variables with the value -1 for deferring to table parameter values follow the correct overriding mechanism: table parameter (if set) overrides system variables (if not -1) overrides actual variable default. As a side effect, all such system variables in all versions have the same default value as the table param default value.\
@@ -313,7 +317,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `1`
 * Default Table Value: `1`
 * Range: `-1` to `3`
-* DSN Parameter Name: `cmd`
+* DSN Parameter Name: `cmd` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_crd_sync`
@@ -344,7 +348,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `2`
 * Default Table Value: `2`
 * Range: `-1` to `2`
-* DSN Parameter Name: `ctp`
+* DSN Parameter Name: `ctp` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_crd_weight`
@@ -358,7 +362,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `2`
 * Default Table Value: `2`
 * Range: `-1` to `2147483647`
-* DSN Parameter Name: `cwg`
+* DSN Parameter Name: `cwg` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_delete_all_rows_type`
@@ -513,7 +517,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Data Type: `numeric`
 * Default Session Value: `1024`
 * Default Table Value: `1024`
-* DSN Parameter Name: `isa`
+* DSN Parameter Name: `isa` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Range: `-1` to `2147483647`
 * Deprecated: [MariaDB 10.7.5](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5), [MariaDB 10.8.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.4), [MariaDB 10.9.2](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/10.9.2)
 
@@ -528,7 +532,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `9223372036854775807`
 * Default Table Value: `9223372036854775807`
 * Range: `-1` to `9223372036854775807`
-* DSN Parameter Name: `ilm`
+* DSN Parameter Name: `ilm` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_internal_offset`
@@ -542,7 +546,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `0`
 * Default Table Value: `0`
 * Range: `-1` to `9223372036854775807`
-* DSN Parameter Name: `ios`
+* DSN Parameter Name: `ios` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_internal_optimize`
@@ -1206,7 +1210,7 @@ Before this change, a non-minus-one system variable value would override the tab
 * Default Session Value: `1`
 * Default Table Value: `1`
 * Range: `-1` to `2`
-* DSN Parameter Name: `smd`
+* DSN Parameter Name: `smd` (`COMMENT`/`CONNECTION`-string parameter removed in MariaDB 13.0)
 * Deprecated: [MariaDB 10.7.4](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.4), [MariaDB 10.8.3](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.3)
 
 #### `spider_sts_sync`
