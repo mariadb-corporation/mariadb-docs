@@ -1,7 +1,7 @@
 ---
 description: >-
   MariaDB Enterprise Server 11.8.8-5 is a Stable (GA) maintenance release of
-  MariaDB Enterprise Server 11.8, released on
+  MariaDB Enterprise Server 11.8, released on 2026-06-26
 hidden: true
 ---
 

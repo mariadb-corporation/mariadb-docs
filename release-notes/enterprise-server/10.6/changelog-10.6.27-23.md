@@ -1,7 +1,7 @@
 ---
 description: >-
   MariaDB Enterprise Server 10.6.27-23 is a Stable (GA) maintenance release of
-  MariaDB Enterprise Server 10.6, released on
+  MariaDB Enterprise Server 10.6, released on 2026-06-26
 hidden: true
 ---
 

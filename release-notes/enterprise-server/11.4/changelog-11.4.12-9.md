@@ -1,7 +1,7 @@
 ---
 description: >-
   MariaDB Enterprise Server 11.4.12-9 is a Stable (GA) maintenance release of
-  MariaDB Enterprise Server 11.4, released on
+  MariaDB Enterprise Server 11.4, released on 2026-06-26
 hidden: true
 ---
 
