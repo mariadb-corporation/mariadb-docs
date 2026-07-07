@@ -7,7 +7,7 @@ description: >-
 # DES\_ENCRYPT
 
 {% hint style="warning" %}
-`DES_ENCRYPT` is deprecated and will be removed in a future release.
+`DES_ENCRYPT` was **removed in MariaDB 13.0**, together with the `--des-key-file` option and the `FLUSH DES_KEY_FILE` statement. It was deprecated in earlier releases. Use [AES_ENCRYPT()](aes_encrypt.md) instead. The description below applies to MariaDB releases before 13.0.
 {% endhint %}
 
 ## Syntax

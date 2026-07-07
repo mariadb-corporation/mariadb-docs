@@ -1027,7 +1027,7 @@ The suffix can be upper or lower-case.
 
 #### `keep_files_on_create`
 
-* Description: If a [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) table is created with no DATA DIRECTORY option, the .MYD file is stored in the database directory. When set to `0`, the default, if MariaDB finds another .MYD file in the database directory it will overwrite it. Setting this variable to `1` means that MariaDB will return an error instead, just as it usually does in the same situation outside of the database directory. The same applies for .MYI files and no INDEX DIRECTORY option. Deprecated in [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0).
+* Description: If a [MyISAM](../../../server-usage/storage-engines/myisam-storage-engine/) table is created with no DATA DIRECTORY option, the .MYD file is stored in the database directory. When set to `0`, the default, if MariaDB finds another .MYD file in the database directory it will overwrite it. Setting this variable to `1` means that MariaDB will return an error instead, just as it usually does in the same situation outside of the database directory. The same applies for .MYI files and no INDEX DIRECTORY option. This variable was deprecated in [MariaDB 10.8.0](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.8/10.8.0), but that deprecation was reverted in MariaDB 13.0 and the variable is no longer deprecated.
 * Command line: `--keep-files-on-create=#`
 * Scope: Global, Session
 * Dynamic: Yes
@@ -1834,6 +1834,7 @@ This setting removes the artificial cap, allowing `max_connections` to scale per
 * Data Type: `boolean`
 * Default Value: `OFF`
 * Deprecated: [MariaDB 10.9](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.9/what-is-mariadb-109)
+* Removed: MariaDB 13.0. Use [old\_mode](server-system-variables.md#old_mode) instead.
 
 #### `old_alter_table`
 
@@ -2382,6 +2383,7 @@ MariaDB sets the limit with [setrlimit](https://linux.die.net/man/2/setrlimit). 
 * Dynamic: Yes
 * Data Type: `boolean`
 * Default Value: `ON`
+* Removed: MariaDB 13.0. The `secure_auth` system variable and the `--secure-auth` server option were removed. The protection they provided (blocking connections that use the [mysql\_old\_password](../../../reference/plugins/authentication-plugins/authentication-plugin-mysql_old_password.md) authentication plugin, and refusing to start when the privilege tables are in the old, pre-MySQL 4.1 format) is now always enforced and can no longer be disabled.
 
 #### `secure_file_priv`
 
