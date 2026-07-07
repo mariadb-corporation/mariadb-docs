@@ -92,9 +92,9 @@ Only one _`trigger_event`_ can be specified.
 
 When a trigger is defined for multiple events, the `INSERTING`, `UPDATING`, and `DELETING` predicates can be used within the trigger body to determine which event fired the trigger:
 
-* `INSERTING`: Evaluates to `TRUE` when the trigger was executed by an `INSERT` statement
-* `UPDATING`: Returns `TRUE` when the trigger was executed by an `UPDATE` statement
-* `DELETING`: Indicates `TRUE` when the trigger was executed by a `DELETE` statement
+* `INSERTING`: Evaluates to `TRUE` when the `trigger_event` is `INSERT`
+* `UPDATING`: Evaluates to `TRUE` when the `trigger_event` is `UPDATE`
+* `DELETING`: Evaluates to `TRUE` when the `trigger_event` is `DELETE`
 
 **Example**
 
