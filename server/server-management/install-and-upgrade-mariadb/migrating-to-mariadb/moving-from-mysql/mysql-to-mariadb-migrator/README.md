@@ -34,12 +34,25 @@ The launcher presents four migration modes as a numbered menu. The internal iden
 
 | Mode                                | Internal ID | Type    | Best For                                                               |
 | ----------------------------------- | ----------- | ------- | ---------------------------------------------------------------------- |
-| Serial Streaming Copy               | `one_step`  | Offline | Smaller databases and standard maintenance windows                     |
-| Parallel Restartable Streaming Copy | `two_step`  | Offline | Larger datasets that need schema-then-parallel-data loading            |
-| Offline Copy                        | `staged`    | Offline | Source and target not network-reachable, or a deferred / two-host load |
-| Replication                         | `binlog`    | Online  | Low-downtime cutover with ongoing replication                          |
+| [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) | `one_step`  | Offline | Smaller databases and standard maintenance windows                     |
+| [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) | `two_step`  | Offline | Larger datasets that need schema-then-parallel-data loading            |
+| [Offline Copy](migrate-with-offline-copy.md) | `staged`    | Offline | Source and target not network-reachable, or a deferred / two-host load |
+| [Replication](migrate-with-replication.md) | `binlog`    | Online  | Low-downtime cutover with ongoing replication                          |
 
-See [Migration Modes](migration-modes.md) for the detailed playbook for each.
+Each mode links to its step-by-step guide above. For the variable-level detail on all four modes in one place, see [Migration Modes](migration-modes.md).
+
+## Choose a Guide
+
+If you are not sure which mode fits, match your situation to a guide:
+
+| Your situation | Guide |
+| --- | --- |
+| A small or medium database, a standard maintenance window is acceptable, and one host can reach both the source and the target | [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) |
+| The source and target cannot reach each other (air-gapped or separate networks), or you want a checkpoint between the dump and the load | [Offline Copy](migrate-with-offline-copy.md) |
+| A large database where a single serial transfer is too slow, you can install the `mariadb-mtk` engine, and you can start from a clean target | [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) |
+| Downtime must be minimal, the source uses `binlog_format=ROW` with no JSON columns, and you can perform a cutover | [Replication](migrate-with-replication.md) |
+
+If more than one row fits, use this order: minimal downtime points to Replication (when the source qualifies); otherwise, if one host cannot reach both sides, use Offline Copy; otherwise choose Serial Streaming Copy for a small or medium database and Parallel Restartable Streaming Copy for a large one.
 
 ## How the Tool Runs
 
@@ -51,6 +64,8 @@ When launched interactively, the migrator first offers two top-level choices:
 Preview a migration with **Assess & Plan** before committing to it; the assess and plan phases write their artifacts under `artifacts/` and leave the target untouched.
 
 ## In This Section
+
+Start with the reference pages to understand how the tool installs, runs, and handles users:
 
 {% content-ref url="installation-and-first-run.md" %}
 [installation-and-first-run.md](installation-and-first-run.md)
@@ -66,6 +81,24 @@ Preview a migration with **Assess & Plan** before committing to it; the assess a
 
 {% content-ref url="environment-variables.md" %}
 [environment-variables.md](environment-variables.md)
+{% endcontent-ref %}
+
+Then follow the step-by-step guide for your mode:
+
+{% content-ref url="migrate-with-serial-streaming-copy.md" %}
+[migrate-with-serial-streaming-copy.md](migrate-with-serial-streaming-copy.md)
+{% endcontent-ref %}
+
+{% content-ref url="migrate-with-offline-copy.md" %}
+[migrate-with-offline-copy.md](migrate-with-offline-copy.md)
+{% endcontent-ref %}
+
+{% content-ref url="migrate-with-parallel-restartable-streaming-copy.md" %}
+[migrate-with-parallel-restartable-streaming-copy.md](migrate-with-parallel-restartable-streaming-copy.md)
+{% endcontent-ref %}
+
+{% content-ref url="migrate-with-replication.md" %}
+[migrate-with-replication.md](migrate-with-replication.md)
 {% endcontent-ref %}
 
 ## Feedback
