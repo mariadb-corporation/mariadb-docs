@@ -162,4 +162,4 @@ The dump phase accepts tuning variables including `STAGED_PARALLEL` (concurrent 
 
 ## Other Modes
 
-If Offline Copy does not fit your situation, see [Migrate from MySQL to MariaDB](README.md) to choose another mode: Serial Streaming Copy for a single-pipe transfer when both servers are reachable, Parallel Restartable Streaming Copy for large databases, or Replication for a low-downtime cutover.
+If Offline Copy does not fit your situation, see the [migrator overview](README.md) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) for a single-pipe transfer when both servers are reachable, [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for large databases, or [Replication](migrate-with-replication.md) for a low-downtime cutover.

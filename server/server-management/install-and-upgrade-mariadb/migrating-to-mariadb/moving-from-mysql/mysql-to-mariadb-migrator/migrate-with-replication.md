@@ -163,4 +163,4 @@ Beyond the common source and target variables, Replication requires `REPL_USER` 
 
 ## Other Modes
 
-If Replication does not fit your situation, see [Migrate from MySQL to MariaDB](README.md) to choose another mode: Serial Streaming Copy or Parallel Restartable Streaming Copy for an offline transfer when both servers are reachable, or Offline Copy when they are not.
+If Replication does not fit your situation, see the [migrator overview](README.md) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) or [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for an offline transfer when both servers are reachable, or [Offline Copy](migrate-with-offline-copy.md) when they are not.
