@@ -544,6 +544,15 @@ sudo zypper install maxscale
 
 ## Versions
 
+The version number of each script is a date, which you can find by running the script with the `--version` option, or by opening the script in a text editor and looking at line 4, `version="..."`. The tables below list the released versions of each script and their `sha256sum` checksums.
+
+{% hint style="info" %}
+For the list of changes made in each version, see the changelogs:
+
+* [mariadb\_repo\_setup Changelog](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/tools/mariadb-repo-setup-changelog)
+* [mariadb\_es\_repo\_setup Changelog](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/tools/mariadb-es-repo-setup-changelog)
+{% endhint %}
+
 {% tabs %}
 {% tab title="mariadb_es_repo_setup" %}
 **mariadb\_es\_repo\_setup Versions**
