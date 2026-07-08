@@ -2295,7 +2295,7 @@ description: >-
 * [Tokudb\_pivots\_fetched\_for\_write\_bytes](../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-status-variables.md#tokudb_pivots_fetched_for_write_bytes)
 * [Tokudb\_pivots\_fetched\_for\_write\_seconds](../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-status-variables.md#tokudb_pivots_fetched_for_write_seconds)
 * [tokudb\_pk\_insert\_mode](../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-system-variables.md#tokudb_pk_insert_mode)
-* [tokudb\_prelock\_empty](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-usage/storage-engines/tokudb/tokudb-system-variables.md_prelock_empty)
+* [tokudb\_prelock\_empty](../server-usage/storage-engines/tokudb/tokudb-system-variables.md_prelock_empty)
 * [Tokudb\_promotion\_h1\_roots\_injected\_into](../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-status-variables.md#tokudb_promotion_h1_roots_injected_into)
 * [Tokudb\_promotion\_injections\_at\_depth\_0](../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-status-variables.md#tokudb_promotion_injections_at_depth_0)
 * [Tokudb\_promotion\_injections\_at\_depth\_1](../server-usage/storage-engines/legacy-storage-engines/tokudb/tokudb-status-variables.md#tokudb_promotion_injections_at_depth_1)

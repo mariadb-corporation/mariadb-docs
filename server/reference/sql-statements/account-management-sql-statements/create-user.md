@@ -55,19 +55,19 @@ lock_option:
 
 ![Railroad diagram of CREATE USER — equivalent to the BNF above](../../../.gitbook/assets/create-user-railroad.svg)
 
-![Railroad diagram of user\_specification](../../../.gitbook/assets/alter-user-specification-railroad.svg)
+![Railroad diagram of user_specification](../../../.gitbook/assets/create-user-specification-railroad.svg)
 
-![Railroad diagram of authentication\_option](../../../.gitbook/assets/alter-user-authentication-option-railroad.svg)
+![Railroad diagram of authentication_option](../../../.gitbook/assets/create-user-authentication-option-railroad.svg)
 
-![Railroad diagram of authentication\_rule](../../../.gitbook/assets/alter-user-authentication-rule-railroad.svg)
+![Railroad diagram of authentication_rule](../../../.gitbook/assets/create-user-authentication-rule-railroad.svg)
 
-![Railroad diagram of tls\_option](../../../.gitbook/assets/alter-user-tls-option-railroad.svg)
+![Railroad diagram of tls_option](../../../.gitbook/assets/create-user-tls-option-railroad.svg)
 
-![Railroad diagram of resource\_option](../../../.gitbook/assets/alter-user-resource-option-railroad.svg)
+![Railroad diagram of resource_option](../../../.gitbook/assets/create-user-resource-option-railroad.svg)
 
-![Railroad diagram of password\_option](../../../.gitbook/assets/alter-user-password-option-railroad.svg)
+![Railroad diagram of password_option](../../../.gitbook/assets/create-user-password-option-railroad.svg)
 
-![Railroad diagram of lock\_option](../../../.gitbook/assets/alter-user-lock-option-railroad.svg)
+![Railroad diagram of lock_option](../../../.gitbook/assets/create-user-lock-option-railroad.svg)
 
 ## Description
 
@@ -347,7 +347,7 @@ the first matching account after sorting according to the following criteria:
 
 * Accounts with an exact host name are sorted before accounts using a wildcard in the\
   host name. Host names using a netmask are considered to be exact for sorting.
-* Accounts with a wildcard in the host name are sorted by specificity: a hostname that can match fewer hosts is considered more specific and is sorted first. Exact hostnames (no wildcards) are most specific; a bare `%` (matches any host) is least specific. Among patterns with wildcards, those that can match a narrower set of hosts sort before those that match a broader set. For example, `%.foo.bar` sorts before `%.bar` because it matches fewer hosts.\
+* Accounts with a wildcard in the host name are sorted by specificity: a hostname that can match fewer hosts is considered more specific and is sorted first. Exact hostnames (no wildcards) are most specific; a bare `%` (matches any host) is least specific. Among patterns with wildcards, those that can match a narrower set of hosts sort before those that match a broader set. For example, `%.foo.bar` sorts before `%.bar` because it matches fewer hosts. \
   \
   Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), this ordering is handled correctly by the improved `get_sort()` algorithm ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)). In earlier versions, sorting was based only on the length of the prefix before the first wildcard, which led to indeterminate ordering for patterns such as `%.bar` versus `%.foo.bar`.
 * Accounts with a non-empty user name sort before accounts with an empty user name.
@@ -380,7 +380,7 @@ If you connect as joffrey from `192.168.0.3`, you will have the `SELECT` privile
 
 Usernames can be up to 80 characters long before 10.6 and starting from 10.6 it can be 128 characters long.
 
-Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog), patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
+Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog),  patterns are ranked according to how many hosts they can match; those that match fewer hosts are considered more specific and take precedence in the ordering. The following example shows how domain-name wildcard patterns are sorted by specificity.
 
 ```sql
 +---------+-------------+
@@ -393,7 +393,7 @@ Starting with [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/co
 +---------+-------------+
 ```
 
-**Note:** The ordering of wildcard host patterns shown above reflects the behavior introduced in [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)). In earlier versions, `%.foo.bar` and `%.bar` could sort indeterminately because the algorithm only compared the length of the prefix before the first wildcard character, both patterns have an empty prefix, so their relative order was undefined and could depend on insertion order in `mysql.user`.
+**Note:** The ordering of wildcard host patterns shown above reflects the behavior introduced in [MariaDB 10.4.6](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/changelogs/changelogs-mariadb-10-4-series/mariadb-1046-changelog) ([MDEV-14735](https://jira.mariadb.org/browse/MDEV-14735)). In earlier versions, `%.foo.bar` and `%.bar` could sort indeterminately because the algorithm only compared the length of the prefix before the first wildcard character, both patterns have an empty prefix, so their relative order was undefined and could depend on insertion order in `mysql.user`. &#x20;
 
 ### Anonymous Accounts
 

@@ -25,7 +25,7 @@ export_options:
 
 ![Railroad diagram of SELECT INTO OUTFILE — equivalent to the BNF above](../../../../.gitbook/assets/select-into-outfile-railroad.svg)
 
-![Railroad diagram of export\_options](../../../../.gitbook/assets/select-export-options-railroad.svg)
+![Railroad diagram of export_options](../../../../.gitbook/assets/select-into-outfile-export-options-railroad.svg)
 
 ## Description
 
