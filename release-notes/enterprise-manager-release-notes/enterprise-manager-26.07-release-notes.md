@@ -1,0 +1,51 @@
+---
+description: >-
+  MariaDB Enterprise Manager 26.07.0 is a Stable (GA) release of MariaDB
+  Enterprise Manager 26.07, released on 2026-07-08
+---
+
+# Enterprise Manager 26.07 Release Notes
+
+**Release Date:** 08 July 2026
+
+Release 26.07.0 is a GA release.
+
+### New Features <a href="#new-features" id="new-features"></a>
+
+#### Air-gapped deployment support
+
+Enterprise Manager can now be deployed and updated in air-gapped environments, pulling the installation tarball and container images from a private OCI-compatible registry.
+
+#### **ARM64 architecture support**&#x20;
+
+The Enterprise Manager server can now be deployed on ARM64 (aarch64) hosts in addition to x86-64. The installer detects the host architecture automatically and pulls the matching container images.
+
+### Improvement
+
+#### Backend rewritten in Go
+
+The Enterprise Manager backend has been rewritten in Go, modernizing its foundation. This is an internal change with no impact on existing configuration or workflows. In-place upgrade from the previous release is supported: the installer preserves existing configuration, TLS certificates, and data volumes.
+
+### Packaging <a href="#packaging" id="packaging"></a>
+
+* Enterprise Manager is delivered as a suite of container images (via MariaDB Enterprise Docker Registry).
+* The Agent is delivered via the `mema-agent` OS package via RPM/DEB packages (via MariaDB Enterprise Tools repository).
+
+### Artifact and image versions
+
+This release consists of the following OCI artifact (installer tarball):
+
+| Image                      | Tag     |
+| -------------------------- | ------- |
+| enterprise-manager-distrib | 26.07.0 |
+
+And the following container image versions:
+
+| Image                           | Tag     |
+| ------------------------------- | ------- |
+| enterprise-manager-frontend     | 2.0.7   |
+| enterprise-manager-backend      | 2.0.7   |
+| opentelemetry-collector-contrib | 0.135.0 |
+| grafana                         | 12.1    |
+| prometheus                      | v3.5.0  |
+
