@@ -13,14 +13,14 @@ description: >-
 The MySQL to MariaDB Migrator is distributed as a release archive (`.tar.gz` or `.zip`) from the [MariaDB community downloads page](https://mariadb.com/downloads/community/). Download the latest version (for example, `v1.3.1-beta`), extract it, and run the launcher — it bootstraps its own Python environment, so there is no manual setup beyond the prerequisites below.
 
 ```bash
-tar -xzf Mysql-to-MariaDB-Migration-<version>.tar.gz
+tar -xzf mariadb-migrator-<version>.tar.gz
 cd Mysql-to-MariaDB-Migration-<version>
 ./mariadb-migrator
 ```
 
 The `.zip` archive is equivalent: `unzip` it, then change into the extracted directory and run `./mariadb-migrator`. The version embedded in the archive and directory names matches the release you download.
 
-The data-transfer engine used by Parallel Restartable Streaming Copy — `mariadb-mtk`, the MariaDB-packaged SQLines Data engine — is available from the same [MariaDB community downloads page](https://mariadb.com/downloads/community/). See [Prerequisites](#prerequisites) below.
+The data-transfer engine `mariadb-mtk` used by Parallel Restartable Streaming Copy is available from the same [MariaDB community downloads page](https://mariadb.com/downloads/community/). See [Prerequisites](#prerequisites) below.
 
 ## Prerequisites
 
@@ -30,7 +30,13 @@ The data-transfer engine used by Parallel Restartable Streaming Copy — `mariad
 * **Python 3.9 or later** on the host that runs the migrator. On the first run, the launcher creates a project-local virtual environment (`.venv`) and installs its Python dependencies into it automatically — no manual `pip install` is needed. On Debian and Ubuntu, install the venv module first: `sudo apt-get install -y python3-venv`.
 * **The `mariadb` client** on the host that runs the migrator, used for connectivity, version, and database checks. If it is missing, the launcher detects your platform and offers to install it on the first run. You can also install it manually, for example with `dnf install mariadb`, `apt-get install mariadb-client`, `zypper install mariadb-client`, or `brew install mariadb`.
 * **Network connectivity** from the host that runs the migrator to both the source MySQL server and the target MariaDB server. The exception is Offline Copy (`staged`) in its `dump_only` or `load_only` phase, which only needs connectivity to one side.
-* For **Parallel Restartable Streaming Copy** (`two_step`), the `mariadb-mtk` engine must be installed. It is available from the [MariaDB community downloads page](https://mariadb.com/downloads/community/). The launcher auto-detects a `sqldata` (or `sqlinesdata`) binary on `PATH`; if it is installed under a different name or location, point the `SQLINESDATA_BIN` environment variable at its full path. The engine may provide a temporary license for evaluation — use a production license before production migration runs.
+* For **Parallel Restartable Streaming Copy** (`two_step`), the `mariadb-mtk` engine must be installed by extracting its release archive:
+
+  ```bash
+  tar -xzf mariadb-mtk-<version>_<x86_64/arm_64>_linux.tar.gz
+  ```
+
+  It is available from the [MariaDB community downloads page](https://mariadb.com/downloads/community/). Set the `SQLINESDATA_BIN` environment variable to the full path of the `mariadb-mtk` binary.
 
 {% hint style="info" %}
 `pv` is recommended for live progress visibility but is optional. When it is missing, Offline Copy (`staged`) falls back to a 60-second file-size probe and Serial Streaming Copy (`one_step`) falls back to a 60-second heartbeat.
