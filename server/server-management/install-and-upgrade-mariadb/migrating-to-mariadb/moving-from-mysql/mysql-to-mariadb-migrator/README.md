@@ -70,7 +70,7 @@ Preview a migration with **Assess & Plan** before committing to it; the assess a
 
 ## Feedback
 
-Join the [MariaDB Community on Slack](https://app.gitbook.com/s/WCInJQ9cmGjq1lsTG91E/community/joining-the-community) to share your feedback.
+Join the [MariaDB Community on Slack](https://r.mariadb.com/join-community-slack) to share your feedback.
 
 ## License
 
