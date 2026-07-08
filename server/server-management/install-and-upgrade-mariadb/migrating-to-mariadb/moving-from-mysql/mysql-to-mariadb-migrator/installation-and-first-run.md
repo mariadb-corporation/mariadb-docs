@@ -20,7 +20,7 @@ cd Mysql-to-MariaDB-Migration-<version>
 
 The `.zip` archive is equivalent: `unzip` it, then change into the extracted directory and run `./mariadb-migrator`. The version embedded in the archive and directory names matches the release you download.
 
-The data-transfer engine `mariadb-mtk` used by Parallel Restartable Streaming Copy is available from the same [MariaDB community downloads page](https://mariadb.com/downloads/community/). See [Prerequisites](#prerequisites) below.
+The data-transfer engine `mariadb-mtk` used by [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) is available from the same [MariaDB community downloads page](https://mariadb.com/downloads/community/). See [Prerequisites](#prerequisites) below.
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ The data-transfer engine `mariadb-mtk` used by Parallel Restartable Streaming Co
 * **Python 3.9 or later** on the host that runs the migrator. On the first run, the launcher creates a project-local virtual environment (`.venv`) and installs its Python dependencies into it automatically — no manual `pip install` is needed. On Debian and Ubuntu, install the venv module first: `sudo apt-get install -y python3-venv`.
 * **The `mariadb` client** on the host that runs the migrator, used for connectivity, version, and database checks. If it is missing, the launcher detects your platform and offers to install it on the first run. You can also install it manually, for example with `dnf install mariadb`, `apt-get install mariadb-client`, `zypper install mariadb-client`, or `brew install mariadb`.
 * **Network connectivity** from the host that runs the migrator to both the source MySQL server and the target MariaDB server. The exception is Offline Copy (`staged`) in its `dump_only` or `load_only` phase, which only needs connectivity to one side.
-* For **Parallel Restartable Streaming Copy** (`two_step`), the `mariadb-mtk` engine must be installed by extracting its release archive:
+* For **[Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md)** (`two_step`), the `mariadb-mtk` engine must be installed by extracting its release archive:
 
   ```bash
   tar -xzf mariadb-mtk-<version>_<x86_64/arm_64>_linux.tar.gz
@@ -39,7 +39,7 @@ The data-transfer engine `mariadb-mtk` used by Parallel Restartable Streaming Co
   It is available from the [MariaDB community downloads page](https://mariadb.com/downloads/community/). Set the `SQLINESDATA_BIN` environment variable to the full path of the `mariadb-mtk` binary.
 
 {% hint style="info" %}
-`pv` is recommended for live progress visibility but is optional. When it is missing, Offline Copy (`staged`) falls back to a 60-second file-size probe and Serial Streaming Copy (`one_step`) falls back to a 60-second heartbeat.
+`pv` is recommended for live progress visibility but is optional. When it is missing, [Offline Copy](migrate-with-offline-copy.md) (`staged`) falls back to a 60-second file-size probe and [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) (`one_step`) falls back to a 60-second heartbeat.
 {% endhint %}
 
 ### User Privileges

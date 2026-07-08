@@ -40,13 +40,7 @@ Finally, the migrator host needs **Python 3.9 or later** and the **`mariadb` cli
 
 ## Step 1: Download and Start the Migrator
 
-Download the migrator release archive from the [MariaDB community downloads page](https://mariadb.com/downloads/community/) or the [GitHub releases page](https://github.com/mariadb-corporation/Mysql-to-MariaDB-Migration/releases), extract it, and run the launcher (example for `v1.3.1-beta`):
-
-```bash
-tar -xzf Mysql-to-MariaDB-Migration-1.3.1-beta.tar.gz
-cd Mysql-to-MariaDB-Migration-1.3.1-beta
-./mariadb-migrator
-```
+See [Installation and First Run](installation-and-first-run.md) for details on downloading and installing the MariaDB Migrator.
 
 On the first run, the launcher creates a project-local Python environment (`.venv`), installs its dependencies into it, and checks for the `mariadb` client. Your system Python is never modified, and later runs reuse `.venv` and go straight to the menu.
 
