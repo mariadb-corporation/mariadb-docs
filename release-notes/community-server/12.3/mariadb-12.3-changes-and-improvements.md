@@ -140,7 +140,7 @@ New [GIS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/reference/sql-structure
 
 ### Trigger <a href="#trigger" id="trigger"></a>
 
-* Add support for [TRIGGERS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers) that fire on multiple events ([MDEV-10164](https://jira.mariadb.org/browse/MDEV-10164))
+* Add support for [TRIGGERS](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-usage/triggers-events/triggers/create-trigger#trigger_event) that fire on multiple events ([MDEV-10164](https://jira.mariadb.org/browse/MDEV-10164))
 
 ### Miscellaneous
 
