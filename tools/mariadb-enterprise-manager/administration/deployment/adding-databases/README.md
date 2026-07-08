@@ -7,7 +7,7 @@ description: >-
 # Adding Databases
 
 {% hint style="warning" %}
-To install `mema-agent`, you need to setup [MariaDB Enterprise Repository - "MariaDB Enterprise Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#repositories)
+To install `mema-agent`, you need to setup [MariaDB Enterprise Repository - "MariaDB Enterprise Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#repositories)
 {% endhint %}
 
 This guide outlines the two primary methods for registering and monitoring your database topologies in MariaDB Enterprise Manager: adding a standalone server directly or adding a full topology via its MaxScale instance.
@@ -18,7 +18,7 @@ Use this method for a single MariaDB Server or to manually define a Primary/Repl
 
 {% stepper %}
 {% step %}
-#### Prepare your server(s)
+**Prepare your server(s)**
 
 First, perform these actions **on each MariaDB Server** you plan to add.
 
@@ -54,7 +54,7 @@ Replace `<password>` with a secure password.
 {% endstep %}
 
 {% step %}
-#### Register in the UI
+**Register in the UI**
 
 1. Go to your MariaDB Enterprise Manager web interface (for example `https://<Enterprise_Manager_IP>:8090`).
 2. Log in with user who has `edit` permission.
@@ -68,7 +68,7 @@ Replace `<password>` with a secure password.
 {% endstep %}
 
 {% step %}
-#### Standalone server or a Topology
+**Standalone server or a Topology**
 
 To add a Standalone Server: Click **Add** and proceed to the next step (4).
 
@@ -80,7 +80,7 @@ To create a Topology:
 2. Fill in the connection details for the second server in your topology and click **Confirm**. Repeat for all nodes in your topology.
 3.  Once all nodes are added, select the Topology Type (e.g., Primary/Replica — default — or Galera Cluster) and click **Confirm**.\\
 
-    <figure><img src="../../../../.gitbook/assets/image (36) (1).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 To convert an existing standalone server into a topology of multiple servers: click the three-dot menu (⋮) next to the server, choose **Edit**, and click the Plus icon (+). Then follow the same steps to add nodes.
@@ -90,7 +90,7 @@ To convert an existing standalone server into a topology of multiple servers: cl
 {% endstep %}
 
 {% step %}
-#### Link the Agent(s) 🔗
+**Link the Agent(s) 🔗**
 
 For each server added, link its agent:
 
@@ -110,7 +110,7 @@ Use this method to add a complete primary/replica or Galera cluster that is mana
 
 {% stepper %}
 {% step %}
-#### Prepare all servers in the topology
+**Prepare all servers in the topology**
 
 Perform these actions on every server in the topology: the MaxScale instance(s) and each backend MariaDB Server attached.
 
@@ -137,7 +137,7 @@ Replace `<password>` with a secure password.
 {% endstep %}
 
 {% step %}
-#### Register the MaxScale instance in the UI 🖥️
+**Register the MaxScale instance in the UI 🖥️**
 
 1. Begin the Add Database process:
    * If this is your first time and no databases are present, you'll be on the "Add Database" screen to begin with.
@@ -148,7 +148,7 @@ Replace `<password>` with a secure password.
 {% endstep %}
 
 {% step %}
-#### Link all a 🔗
+**Link all a 🔗**
 
 You must link the agent on every server in the topology to Enterprise Manager. The UI will show the MaxScale instance and discovered backend servers marked as "Not Registered."
 

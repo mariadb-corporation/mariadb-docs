@@ -17,7 +17,7 @@ This procedure outlines the steps required to access and utilize the Query Edito
 2.  In the "Connect to..." dialog, select your target server, enter your credentials, and click Connect.\\
 
     <figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
-3.  Upon successful connection, the main [Query Editor worksheet](broken-reference/) will appear, ready for you to begin.\\
+3.  Upon successful connection, the main [Query Editor worksheet](https://github.com/mariadb-corporation/mariadb-docs/blob/main/tools/mariadb-enterprise-manager/usage/workspace/broken-reference/README.md) will appear, ready for you to begin.\\
 
     <figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -75,13 +75,13 @@ Easily share or archive query results. You can export data grids directly into c
 
 {% stepper %}
 {% step %}
-#### From results tab, click Export Results
+**From results tab, click Export Results**
 
-<figure><img src="../../../.gitbook/assets/image (4) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### From Export results window, make the selection.
+**From Export results window, make the selection.**
 
 <figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -101,7 +101,7 @@ Easily share or archive query results. You can export data grids directly into c
 {% endstep %}
 
 {% step %}
-#### Click Import
+**Click Import**
 
 <figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}

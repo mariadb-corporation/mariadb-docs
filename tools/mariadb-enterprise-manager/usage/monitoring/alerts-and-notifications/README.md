@@ -14,25 +14,25 @@ The alerting process in MariaDB Enterprise Manager follows a clear, four-step fl
 
 {% stepper %}
 {% step %}
-#### Alert Rule is Defined
+**Alert Rule is Defined**
 
 An alert rule contains a query (what to measure, e.g., disk usage), a condition (the threshold, e.g., `> 90%`), and labels for routing (e.g., `type = server disk`).
 {% endstep %}
 
 {% step %}
-#### Instances are Evaluated
+**Instances are Evaluated**
 
 Grafana periodically runs the query against your monitored targets. It creates an **Alert Instance** for each distinct entity (e.g., one for Server 01, one for Server 02, etc.).
 {% endstep %}
 
 {% step %}
-#### An Instance "Fires"
+**An Instance "Fires"**
 
 If the condition is met for a specific instance (e.g., Server 01's disk usage is over 90%), that instance enters a "firing" state.
 {% endstep %}
 
 {% step %}
-#### Notifications are Sent
+**Notifications are Sent**
 
 The firing alert is routed through a **Notification Policy**. The policy matches the alert's labels (e.g., `type = server disk`) and sends a notification to the configured **Contact Point** (such as Email, Slack, or PagerDuty).
 {% endstep %}

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Deploy MariaDB AI RAG as a Docker stack by downloading the compose file
-  and config template, setting a license key and model credentials, then
-  launching with docker compose up.
+  Deploy MariaDB AI RAG as a Docker stack by downloading the compose file and
+  config template, setting a license key and model credentials, then launching
+  with docker compose up.
 ---
 
 # Deployment
@@ -31,7 +31,7 @@ Ensure your environment meets the following requirements before starting the dep
 
 {% stepper %}
 {% step %}
-### Prepare Your Directory
+#### Prepare Your Directory
 
 Create a dedicated deployment folder on your host machine and navigate into it:
 
@@ -42,7 +42,7 @@ cd mariadb-rag-deployment
 {% endstep %}
 
 {% step %}
-### Obtain Configuration Files
+#### Obtain Configuration Files
 
 Download the following essential files from the public AI RAG GitHub repository and place them in your new folder:
 
@@ -51,7 +51,7 @@ Download the following essential files from the public AI RAG GitHub repository 
 {% endstep %}
 
 {% step %}
-### Create Local Storage Directory
+#### Create Local Storage Directory
 
 Manually create these folders to prevent Docker from assigning 'root' permissions, which can cause access errors later:
 
@@ -62,7 +62,7 @@ mkdir logs
 {% endstep %}
 
 {% step %}
-### Obtain the MariaDB License Key
+#### Obtain the MariaDB License Key
 
 The application performs a mandatory validation check at startup and will fail to start if this key is missing, invalid, or expired. Each license is valid for 30 days from the day of generation.
 
@@ -86,7 +86,7 @@ MariaDB trial license keys are valid for 30 days from the date of issue.
 {% endstep %}
 
 {% step %}
-### **Configure Database and Security Keys**
+#### **Configure Database and Security Keys**
 
 {% hint style="info" %}
 For a full breakdown of every variable in `config.env.secure`, see the [AI-RAG Configuration Guide](../reference/configuration-guide-config.env.md).
@@ -94,7 +94,7 @@ For a full breakdown of every variable in `config.env.secure`, see the [AI-RAG C
 
 Open `config.env.secure` in a text editor to set your environment variables.
 
-#### Security & Unified Authentication
+**Security & Unified Authentication**
 
 To enable unified authentication across the API and MCP server, set these three variables to the same secure string
 
@@ -105,14 +105,14 @@ To enable unified authentication across the API and MCP server, set these three 
 {% hint style="success" %}
 **Secure String Generation**
 
-You may generate a secure 32-character string to assign to the three variables using  `openssl rand -hex 32`
+You may generate a secure 32-character string to assign to the three variables using `openssl rand -hex 32`
 {% endhint %}
 
 {% hint style="danger" %}
 Using a unique, randomly generated key prevents "replay attacks" and ensures that only your authorized MCP Gateway can trigger heavy-lifting tasks in the RAG API.
 {% endhint %}
 
-#### Model Provider Configuration
+**Model Provider Configuration**
 
 Specify the models and API keys for your chosen providers.
 
@@ -153,7 +153,7 @@ embedding_model=text-embedding-3-small
 {% endtab %}
 {% endtabs %}
 
-#### **Reranking & Search Accuracy**
+**Reranking & Search Accuracy**
 
 Reranking ensures that the most relevant document chunks are sent to the AI model, significantly reducing "hallucinations".
 
@@ -161,7 +161,7 @@ Reranking ensures that the most relevant document chunks are sent to the AI mode
 * `RERANKING_MODEL_TYPE`: Defaults to `flashrank` (local/CPU efficient). Cloud options include `cohere`.
 * `RERANKING_MODEL_NAME`: The specific model used for scoring. Default: `ms-marco-MiniLM-L-12-v2`.
 
-#### **Database Configuration**
+**Database Configuration**
 
 These variables define how the application connects to your MariaDB 11.8+ instance.Common Connection Variables:
 
@@ -171,9 +171,9 @@ These variables define how the application connects to your MariaDB 11.8+ instan
 * `DB_NAME`: The name of the database schema.
 
 {% hint style="warning" %}
-**SSL Mandatory for Cloud Databases**&#x20;
+**SSL Mandatory for Cloud Databases**
 
-For cloud-hosted instances, you must set `DB_SSL_ENABLED=true` to ensure secure, encrypted communication over the public internet.&#x20;
+For cloud-hosted instances, you must set `DB_SSL_ENABLED=true` to ensure secure, encrypted communication over the public internet.
 {% endhint %}
 
 Update the `DB_HOST` variables based on your database location:
@@ -194,16 +194,16 @@ Set `DB_HOST` to your cloud database URL. Also set `DB_USER`, `DB_PASSWORD`, and
 {% endstep %}
 
 {% step %}
-### Admin User Configuration
+#### Admin User Configuration
 
 Set the admin credentials that will be used to access the AI RAG APIs:
 
-* `ADMIN_EMAIL`  - Admin username
+* `ADMIN_EMAIL` - Admin username
 * `ADMIN_PASSWORD` - Admin user password
 {% endstep %}
 
 {% step %}
-### **Launch the Application**
+#### **Launch the Application**
 
 Run the following command to start the service
 
@@ -215,7 +215,7 @@ docker compose -f docker-compose.yml --env-file config.env.secure up -d
 {% endstep %}
 
 {% step %}
-### **Verify and Access**
+#### **Verify and Access**
 
 Check the status of your services:
 

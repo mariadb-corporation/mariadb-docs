@@ -11,7 +11,7 @@ This guide aims to provide a quick way to get started with the MariaDB Enterpris
 Before you begin, ensure you meet the following prerequisites:
 
 * Configure your [customer access for docker.mariadb.com](customer-access-to-docker-mariadb-com.md)
-* [Install the MariaDB Enterprise Kubernetes Operator](mariadb-enterprise-operator-installation/)
+* [Install the MariaDB Enterprise Kubernetes Operator](https://github.com/mariadb-corporation/mariadb-docs/blob/main/tools/mariadb-enterprise-operator/mariadb-enterprise-operator-installation/README.md)
 
 The first step will be configuring a `Secret` with the credentials used by the `MariaDB` CR:
 

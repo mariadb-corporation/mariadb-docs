@@ -18,14 +18,14 @@ This guide describes steps to install MariaDB Enterprise Manager for evaluation 
 
 [Machine requirements](administration/deployment/hardware-and-system-requirements.md) (minimal hardware resources for evaluation):
 
-* CPU: 2 cores (or 2 vCPUs) with x86-64 architecture
+* CPU: 2 cores (or 2 vCPUs) with x86-64 or ARM64 architecture
 * RAM: 4 GB
 * Storage: 100 GB
 
 Other requirements:
 
 * 64-bit Linux OS with either of the supported container engines
-  * Docker with Docker Compose    \
+  * Docker with Docker Compose\
     https://docs.docker.com/engine/install
   * Podman with Podman Compose
     * The podman-docker compatibility package is required to enable the docker CLI for Podman. All commands in this guide documented for Docker work similarly with Podman.
@@ -43,7 +43,7 @@ Other requirements:
 {% step %}
 **Setup MariaDB Enterprise Repository - "MariaDB Enterprise Tools"**
 
-[Set up the repository for each monitored MariaDB Server and MaxScale](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#mariadb_es_repo_setup)
+[Set up the repository for each monitored MariaDB Server and MaxScale](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#mariadb_es_repo_setup)
 {% endstep %}
 {% endstepper %}
 
@@ -180,7 +180,7 @@ Wait 1–2 minutes for [metrics](../mariadb-enterprise-operator/metrics.md) to s
 {% endstep %}
 {% endstepper %}
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Topology with MaxScale
 

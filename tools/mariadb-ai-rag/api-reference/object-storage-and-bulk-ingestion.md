@@ -1,8 +1,8 @@
 ---
 description: >-
-  Bulk ingestion in MariaDB AI RAG syncs documents from S3, GCS, or MinIO
-  using ETag-based Smart Sync, with managed local or S3 file storage for
-  direct API uploads.
+  Bulk ingestion in MariaDB AI RAG syncs documents from S3, GCS, or MinIO using
+  ETag-based Smart Sync, with managed local or S3 file storage for direct API
+  uploads.
 ---
 
 # Object Storage and Bulk Ingestion
@@ -83,7 +83,7 @@ All endpoints require a valid JWT token in `Authorization: Bearer <token>`.
 
 {% stepper %}
 {% step %}
-#### Create the integration
+**Create the integration**
 
 **Endpoint:** `POST /integrations`
 
@@ -112,7 +112,7 @@ Save the returned `id`, such as `int_abc123`. You need it in later requests.
 {% endstep %}
 
 {% step %}
-#### Validate the integration
+**Validate the integration**
 
 **Endpoint:** `POST /integrations/{integration_id}/validate`
 
@@ -131,7 +131,7 @@ Tests bucket connectivity and confirms read access.
 {% endstep %}
 
 {% step %}
-#### Trigger a manual sync
+**Trigger a manual sync**
 
 **Endpoint:** `POST /integrations/{integration_id}/sync`
 
@@ -141,7 +141,7 @@ This step parses and loads documents, similar to `POST /documents/ingest`. Chunk
 {% endstep %}
 
 {% step %}
-#### List integrations
+**List integrations**
 
 **Endpoint:** `GET /integrations`
 
@@ -149,7 +149,7 @@ Returns configured integrations, status, and last sync time.
 {% endstep %}
 
 {% step %}
-#### Update an integration
+**Update an integration**
 
 **Endpoint:** `PATCH /integrations/{integration_id}`
 
@@ -195,7 +195,7 @@ Example: disable an integration
 {% endstep %}
 
 {% step %}
-#### Delete an integration
+**Delete an integration**
 
 **Endpoint:** `DELETE /integrations/{integration_id}`
 
@@ -203,7 +203,7 @@ This removes the integration and deletes related file records and database entri
 {% endstep %}
 
 {% step %}
-#### Ingest through orchestration
+**Ingest through orchestration**
 
 **Endpoint:** `POST /orchestrate/ingestion`
 

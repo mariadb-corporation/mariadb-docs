@@ -11,7 +11,7 @@ MariaDB Enterprise Manager provides two primary methods for exporting metrics, a
 
 {% stepper %}
 {% step %}
-#### Scraping the built-in Prometheus endpoint (Server-to-Server)
+**Scraping the built-in Prometheus endpoint (Server-to-Server)**
 
 The Prometheus server integrated within MariaDB Enterprise Manager exposes its metrics via a standard federation endpoint. You can configure your own external Prometheus server (or any Prometheus-compatible system) to "scrape" these metrics.
 
@@ -52,7 +52,7 @@ After adding this configuration and restarting your external Prometheus, it will
 {% endstep %}
 
 {% step %}
-#### Pushing metrics with the OpenTelemetry agent (Agent-to-External)
+**Pushing metrics with the OpenTelemetry agent (Agent-to-External)**
 
 The `mema-agent` can be configured to push metrics directly to a third-party monitoring system that supports the OpenTelemetry Protocol (OTLP). This method sends data straight from the agent to your external endpoint, bypassing the built-in Prometheus server.
 

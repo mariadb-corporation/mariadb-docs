@@ -1,9 +1,9 @@
 # Hashicorp Key Management
 
-The [Hashicorp Key Management Plugin](../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md) is used to implement encryption using keys stored in the Hashicorp Vault KMS.
+The [Hashicorp Key Management Plugin](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md) is used to implement encryption using keys stored in the Hashicorp Vault KMS.
 
 {% hint style="info" %}
-For more information about configuring the plugin as well as different capabilities, please check the [documentation](../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md). This guide will cover a minimal example for configuring the plugin with the operator.
+For more information about configuring the plugin as well as different capabilities, please check the [documentation](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md). This guide will cover a minimal example for configuring the plugin with the operator.
 {% endhint %}
 
 ## Configuring TDE in MariaDB Using Hashicorp Key Management Plugin
@@ -74,7 +74,7 @@ Transparent Data Encryption (TDE) can be configured in MariaDB leveraging the Ha
     export TOKEN="EXAMPLE_TOKEN"
     kubeclt create secret generic mariadb-vault-token --from-literal=token="$TOKEN"
     ```
-5.  **Create a Secret for the Certificate Authority (CA) used to issue the Vault certificate.** For further information, consult [the docs](../../../server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md#hashicorp-key-management-vault-ca) If you have the certificate locally in a file called `ca.crt` you can run:
+5.  **Create a Secret for the Certificate Authority (CA) used to issue the Vault certificate.** For further information, consult [the docs](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/security/securing-mariadb/encryption/data-at-rest-encryption/key-management-and-encryption-plugins/hashicorp-key-management-plugin.md#hashicorp-key-management-vault-ca) If you have the certificate locally in a file called `ca.crt` you can run:
 
     ```sh
     kubectl create secret generic vault-tls --from-file=./ca.crt

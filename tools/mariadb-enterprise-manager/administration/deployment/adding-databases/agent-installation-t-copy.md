@@ -8,7 +8,7 @@ description: >-
 # Agent Installation
 
 {% hint style="warning" %}
-To install `mema-agent`, you need to set up [MariaDB Enterprise Repository - "MariaDB Enterprise Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage#repositories).
+To install `mema-agent`, you need to set up [MariaDB Enterprise Repository - "MariaDB Enterprise Tools"](https://app.gitbook.com/s/SsmexDFPv2xG2OTyO5yV/server-management/install-and-upgrade-mariadb/mariadb-package-repository-setup-and-usage#repositories).
 {% endhint %}
 
 The `mema-agent` is a small application that must be installed on every server you wish to monitor with MariaDB Enterprise Manager, including MariaDB Server nodes and MaxScale nodes.
@@ -40,14 +40,14 @@ If you haven't already configured the MariaDB Enterprise repository on the serve
 
 {% stepper %}
 {% step %}
-#### Get your Customer Download Token
+**Get your Customer Download Token**
 
 * Navigate to the [MariaDB Customer Portal](https://customers.mariadb.com/downloads/token/) and log in.
 * Copy your **Customer Download Token**. You will need this for the script.
 {% endstep %}
 
 {% step %}
-#### Download the repository setup script
+**Download the repository setup script**
 
 In your server's terminal, download the official setup script:
 
@@ -57,7 +57,7 @@ curl -LsSO https://dlm.mariadb.com/enterprise-release-helpers/mariadb_es_repo_se
 {% endstep %}
 
 {% step %}
-#### Run the script
+**Run the script**
 
 Make the script executable, then run it with your download token:
 
