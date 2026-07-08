@@ -33,19 +33,11 @@ The target must be **clean** for this mode: Parallel Restartable Streaming Copy 
 
 ### The mariadb-mtk engine
 
-This mode requires the `mariadb-mtk` data-transfer engine (the SQLines Data engine, invoked as `sqldata`). The other three modes do not use it. Download it from the [MariaDB community downloads page](https://mariadb.com/downloads/community/). The launcher auto-detects a `sqldata` or `sqlinesdata` binary on `PATH`; if it is installed elsewhere, set `SQLINESDATA_BIN` to its full path. The engine may ship a temporary evaluation license; use a production license before production runs.
+This mode requires the `mariadb-mtk` data-transfer engine (the SQLines Data engine, invoked as `sqldata`). The other three modes do not use it. See [Installation and First Run](installation-and-first-run.md) for details on downloading and installing mariadb-mtk.
 
 ## Step 1: Download and Start the Migrator
 
-Download the migrator release archive from the [MariaDB community downloads page](https://mariadb.com/downloads/community/) or the [GitHub releases page](https://github.com/mariadb-corporation/Mysql-to-MariaDB-Migration/releases), extract it, and run the launcher (example for `v1.3.1-beta`):
-
-```bash
-tar -xzf Mysql-to-MariaDB-Migration-1.3.1-beta.tar.gz
-cd Mysql-to-MariaDB-Migration-1.3.1-beta
-./mariadb-migrator
-```
-
-On the first run, the launcher creates a project-local Python environment (`.venv`) and checks for the `mariadb` client. Your system Python is never modified.
+See [Installation and First Run](installation-and-first-run.md) for details on downloading and installing the MariaDB Migrator.
 
 ## Step 2: Preview with Assess & Plan
 
