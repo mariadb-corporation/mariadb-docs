@@ -7,7 +7,7 @@ description: >-
 
 # BACKUP LOCK
 
-`BACKUP LOCK` blocks a table from DDL statements. This is mainly intended to be used by tools like [mariadb-backup](../../../../server-usage/backing-up-and-restoring-databases/mariadb-backup/) that need to ensure there are no DDL[^1] statements on a table while the table files are opened. For example, for an Aria table that stores data in 3 files with extensions `.frm`, `.MAI` and `.MAD`. Normal read/write operations can continue as normal.
+`BACKUP LOCK` blocks a table from DDL statements. This is mainly intended to be used by tools like [mariadb-backup](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-usage/backing-up-and-restoring-databases/mariadb-backup/README.md) that need to ensure there are no DDL statements on a table while the table files are opened. For example, for an Aria table that stores data in 3 files with extensions `.frm`, `.MAI` and `.MAD`. Normal read/write operations can continue as normal.
 
 ## Syntax
 
@@ -68,5 +68,3 @@ BACKUP LOCK requires the [RELOAD](../../account-management-sql-statements/grant.
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
 {% @marketo/form formId="4316" %}
-
-[^1]: 

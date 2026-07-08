@@ -179,7 +179,7 @@ ORDER BY cc DESC LIMIT 1) FROM d;
 * [SELECT](select.md)
 * [UPDATE](../changing-deleting-data/update.md)
 * [DELETE](../changing-deleting-data/delete.md)
-* [Joins and Subqueries](joins-subqueries/)
+* [Joins and Subqueries](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/reference/sql-statements/data-manipulation/selecting-data/joins-subqueries/README.md)
 * [ORDER BY](order-by.md)
 * [GROUP BY](group-by.md)
 * [Common Table Expressions](common-table-expressions/)

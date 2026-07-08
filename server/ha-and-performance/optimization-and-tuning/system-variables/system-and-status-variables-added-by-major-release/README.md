@@ -9,18 +9,6 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="system-variables-added-in-enterprise-server-12.3.md" %}
-[system-variables-added-in-enterprise-server-12.3.md](system-variables-added-in-enterprise-server-12.3.md)
-{% endcontent-ref %}
-{% endcolumn %}
-
-{% column %}
-Lists the system variables new in MariaDB Enterprise Server 12.3, relative to Enterprise Server 11.8.
-{% endcolumn %}
-{% endcolumns %}
-
-{% columns %}
-{% column %}
 {% content-ref url="system-variables-added-in-mariadb-12.3.md" %}
 [system-variables-added-in-mariadb-12.3.md](system-variables-added-in-mariadb-12.3.md)
 {% endcontent-ref %}

@@ -8,8 +8,8 @@ description: >-
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-server-10.5/" %}
-[mariadb-enterprise-server-10.5](mariadb-enterprise-server-10.5/)
+{% content-ref url="https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.5" %}
+[https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.5](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.5)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -20,8 +20,8 @@ A collection of upgrade guides for older, end-of-life versions of MariaDB Enterp
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-server-10.4/" %}
-[mariadb-enterprise-server-10.4](mariadb-enterprise-server-10.4/)
+{% content-ref url="https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.4" %}
+[https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.4](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.4)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -32,8 +32,8 @@ A collection of upgrade guides for older, end-of-life versions of MariaDB Enterp
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-server-10.3/" %}
-[mariadb-enterprise-server-10.3](mariadb-enterprise-server-10.3/)
+{% content-ref url="https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.3" %}
+[https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.3](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/archived/mariadb-enterprise-server-10.3)
 {% endcontent-ref %}
 {% endcolumn %}
 

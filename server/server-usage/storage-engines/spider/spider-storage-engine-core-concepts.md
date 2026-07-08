@@ -21,7 +21,7 @@ In the default high availability setup Spider Nodes produce SQL errors when a ba
 
 **MariaDB starting with** [**10.7.5**](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/community-server/old-releases/10.7/10.7.5)
 
-Spider's high availability feature has been deprecated (MDEV-28479), and are deleted. Please use other high availability solutions like [replication](../myrocks/myrocks-and-replication.md) or [galera-cluster](../../../../galera-cluster/README.md).
+Spider's high availability feature has been deprecated (MDEV-28479), and are deleted. Please use other high availability solutions like [replication](../myrocks/myrocks-and-replication.md) or [galera-cluster](https://github.com/mariadb-corporation/mariadb-docs/blob/main/galera-cluster/README.md).
 
 ### Spider Storage Engine Federation
 
@@ -48,16 +48,13 @@ Spider stores resultsets into memory, but [spider\_quick\_mode](spider-system-va
 
 Spider tables connect to remote servers by reading connection information from one or more sources. MariaDB supports several methods for defining this information, each introduced at different versions. When more than one method is present, a defined precedence order determines which takes effect.
 
-Connection information for Spider tables can be provided in different
-ways:
+Connection information for Spider tables can be provided in different ways:
 
 * Foreign server options (using `CREATE SERVER`)
 * `CONNECTION` or `COMMENT` strings
 * Engine-defined options (such as `REMOTE_SERVER`, `REMOTE_DATABASE`, and `REMOTE_TABLE`)
 
-Connection information for Spider tables can also be specified for
-different levels, where partition-level info overrides table-level
-info.
+Connection information for Spider tables can also be specified for different levels, where partition-level info overrides table-level info.
 
 Spider has a predefined precedence order when using multiple methods.
 
@@ -65,20 +62,13 @@ Spider has a predefined precedence order when using multiple methods.
 
 The following behavior applies to both CS and ES:
 
-* Connection specification methods: (foreign server options, `COMMENT` string,
-  `CONNECTION` string, and engine-defined options).
-* Precedence rules (engine-defined options > `COMMENT` string >
-  `CONNECTION` string > foreign server options; partition-level
-  overrides table-level)
-* Version-based behavior, such as the deprecation of
-  `COMMENT`/`CONNECTION` in 11.4.1 and the introduction of
-  engine-defined options `REMOTE_SERVER`, `REMOTE_DATABASE`, and
-  `REMOTE_TABLE` in 10.8.1 and further options in 11.3.1
+* Connection specification methods: (foreign server options, `COMMENT` string, `CONNECTION` string, and engine-defined options).
+* Precedence rules (engine-defined options > `COMMENT` string > `CONNECTION` string > foreign server options; partition-level overrides table-level)
+* Version-based behavior, such as the deprecation of `COMMENT`/`CONNECTION` in 11.4.1 and the introduction of engine-defined options `REMOTE_SERVER`, `REMOTE_DATABASE`, and `REMOTE_TABLE` in 10.8.1 and further options in 11.3.1
 
 **ES Additional Behavior (ODBC)**
 
-ODBC connection strings are used by Spider in Enterprise Server to
-create connections via ODBC drivers.
+ODBC connection strings are used by Spider in Enterprise Server to create connections via ODBC drivers.
 
 The source of the ODBC connection string could be:
 
@@ -141,9 +131,7 @@ In the following instances, `CONNECTION=` is used directly as the ODBC connectio
 * `COMMENT=` / `CONNECTION=` are explicitly ignored (i.e., engine-defined options are present, per [MDEV-28856](https://jira.mariadb.org/browse/MDEV-28856))
 * The value of `CONNECTION=` follows the ODBC connection string format (`param1=val1;param2=val2;...`)
 
-In previous ES versions, the chosen `COMMENT=`, `CONNECTION=`, and
-`OPTIONS` fields were used to create the ODBC connection string. See
-[MENT-2076 comment](https://jira.mariadb.org/browse/MENT-2076?focusedCommentId=312663&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-312663) for a complete list of fields used.
+In previous ES versions, the chosen `COMMENT=`, `CONNECTION=`, and `OPTIONS` fields were used to create the ODBC connection string. See [MENT-2076 comment](https://jira.mariadb.org/browse/MENT-2076?focusedCommentId=312663\&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-312663) for a complete list of fields used.
 
 **CREATE SERVER with FOREIGN DATA WRAPPER ODBC**
 
@@ -159,11 +147,11 @@ CREATE SERVER s
 
 `CREATE SERVER ... FOREIGN DATA WRAPPER` supports the following wrapper types:
 
-| Wrapper Value | Description                                         | Availability |
-| ------------- | --------------------------------------------------- | ------------ |
-| `mysql`       | Connects to a remote MySQL server natively | CS + ES      |
-| `mariadb`     | Connects to a remote MariaDB server natively                 | CS + ES      |
-| `odbc`        | Connects to a remote server via ODBC                | ES only      |
+| Wrapper Value | Description                                  | Availability |
+| ------------- | -------------------------------------------- | ------------ |
+| `mysql`       | Connects to a remote MySQL server natively   | CS + ES      |
+| `mariadb`     | Connects to a remote MariaDB server natively | CS + ES      |
+| `odbc`        | Connects to a remote server via ODBC         | ES only      |
 
 **Note**: The `odbc` wrapper value is only available in MariaDB Enterprise Server (ES). It is not supported in Community Server (CS).
 
@@ -178,7 +166,7 @@ The MariaDB version and configuration method determine the exact resolution beha
 * [Spider Table Parameters](spider-table-parameters.md)
 * [Spider System Variables](spider-system-variables.md)
 * [CREATE SERVER Statement](../../../reference/sql-statements/data-definition/create/create-server.md)
-* [Spider Storage Engine](../../../architecture/topologies/spider-storage-engine.md)&#x20;
+* [Spider Storage Engine](../../../architecture/topologies/spider-storage-engine.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

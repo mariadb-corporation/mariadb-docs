@@ -18,14 +18,16 @@ layout:
     visible: true
   tags:
     visible: true
+  actions:
+    visible: true
 ---
 
 # MariaDB Enterprise Server Upgrade Paths
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-server-11.8/" %}
-[mariadb-enterprise-server-11.8](mariadb-enterprise-server-11.8/)
+{% content-ref url="https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8" %}
+[https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.8)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -36,8 +38,8 @@ Upgrade guide for MariaDB Enterprise Server 11.8, highlighting significant perfo
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-server-11.4/" %}
-[mariadb-enterprise-server-11.4](mariadb-enterprise-server-11.4/)
+{% content-ref url="https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4" %}
+[https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-11.4)
 {% endcontent-ref %}
 {% endcolumn %}
 
@@ -48,13 +50,13 @@ Instructions for upgrading to MariaDB Enterprise Server 11.4, which introduces n
 
 {% columns %}
 {% column %}
-{% content-ref url="mariadb-enterprise-server-10.6/" %}
-[mariadb-enterprise-server-10.6](mariadb-enterprise-server-10.6/)
+{% content-ref url="https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-10.6" %}
+[https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-10.6](https://github.com/mariadb-corporation/mariadb-docs/blob/main/server/server-management/install-and-upgrade-mariadb/upgrading/upgrade-paths/mariadb-enterprise-server-10.6)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Upgrade documentation for MariaDB Enterprise Server 10.6, featuring Atomic DDL support, JSON_TABLE function, improved Oracle compatibility modes, and the removal of older storage engines.
+Upgrade documentation for MariaDB Enterprise Server 10.6, featuring Atomic DDL support, JSON\_TABLE function, improved Oracle compatibility modes, and the removal of older storage engines.
 {% endcolumn %}
 {% endcolumns %}
 

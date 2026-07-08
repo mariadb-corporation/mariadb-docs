@@ -45,15 +45,15 @@ reference_option:
 
 ![Railroad diagram of CONSTRAINT — equivalent to the BNF above](../../../.gitbook/assets/constraint-railroad.svg)
 
-![Railroad diagram of constraint_expression](../../../.gitbook/assets/constraint-expression-railroad.svg)
+![Railroad diagram of constraint\_expression](../../../.gitbook/assets/constraint-expression-railroad.svg)
 
-![Railroad diagram of index_type](../../../.gitbook/assets/constraint-index-type-railroad.svg)
+![Railroad diagram of index\_type](../../../.gitbook/assets/create-index-type-railroad.svg)
 
-![Railroad diagram of index_col_name](../../../.gitbook/assets/constraint-index-col-name-railroad.svg)
+![Railroad diagram of index\_col\_name](../../../.gitbook/assets/create-index-col-name-railroad.svg)
 
-![Railroad diagram of index_option](../../../.gitbook/assets/constraint-index-option-railroad.svg)
+![Railroad diagram of index\_option](../../../.gitbook/assets/constraint-index-option-railroad.svg)
 
-![Railroad diagram of reference_option](../../../.gitbook/assets/constraint-reference-option-railroad.svg)
+![Railroad diagram of reference\_option](../../../.gitbook/assets/constraint-reference-option-railroad.svg)
 
 ## Description
 
@@ -61,13 +61,13 @@ Constraints provide restrictions on the data you can add to a table. This allows
 
 There are four types of table constraints:
 
-* PRIMARY KEY – Sets the column for referencing rows. Values must be `UNIQUE` and `NOT NULL`.&#x20;
+* PRIMARY KEY – Sets the column for referencing rows. Values must be `UNIQUE` and `NOT NULL`.
   * This constraint is documented [here](../../../architecture/server-constraints/primary-key-constraints.md).
-* FOREIGN KEY – Sets the column to reference the primary key on another table.&#x20;
+* FOREIGN KEY – Sets the column to reference the primary key on another table.
   * This constraint is documented [here](constraint.md#foreign-key-constraints) and, in more detail, [here](../../../architecture/server-constraints/foreign-key-constraints.md) and [here](../../../ha-and-performance/optimization-and-tuning/optimization-and-indexes/foreign-keys.md).
-* UNIQUE – Requires values in column or columns only occur once in the table.&#x20;
+* UNIQUE – Requires values in column or columns only occur once in the table.
   * This constraint is documented [here](../../../architecture/server-constraints/unique-constraints-with-mariadb-enterprise-server.md).
-* CHECK – Checks whether the data meets the given condition.&#x20;
+* CHECK – Checks whether the data meets the given condition.
   * This constraint is documented [here](constraint.md#check-constraints) and, in more detail, [here](constraint.md#check-constraints).
 
 The [Information Schema TABLE\_CONSTRAINTS Table](../../system-tables/information-schema/information-schema-tables/information-schema-table_constraints-table.md) contains information about tables that have constraints:
@@ -103,7 +103,7 @@ reference_option:
 ```
 
 {% hint style="info" %}
-The symbol clause is optional. If you omit it, MariaDB automatically sets one.&#x20;
+The symbol clause is optional. If you omit it, MariaDB automatically sets one.
 {% endhint %}
 
 The [Information Schema REFERENTIAL\_CONSTRAINTS](../../system-tables/information-schema/information-schema-tables/information-schema-referential_constraints-table.md) table has more information about foreign keys:

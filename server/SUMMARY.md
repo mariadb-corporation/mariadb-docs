@@ -1108,7 +1108,6 @@
       * [SQL Error Log System Variables and Options](ha-and-performance/optimization-and-tuning/system-variables/sql-error-log-system-variables-and-options.md)
       * [SSL/TLS Status Variables](ha-and-performance/optimization-and-tuning/system-variables/ssltls-status-variables.md)
       * [System and Status Variables Added By Major Release](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/README.md)
-        * [System Variables Added in Enterprise Server 12.3](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-enterprise-server-12.3.md)
         * [System Variables Added in MariaDB 12.3](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-12.3.md)
         * [System Variables Added in MariaDB 12.2](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-12.2.md)
         * [System Variables Added in MariaDB 12.1](ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-12.1.md)

@@ -22,7 +22,7 @@ REPLACE [LOW_PRIORITY | DELAYED]
 
 ![Railroad diagram of REPLACE — equivalent to the BNF above](../../../../.gitbook/assets/replace-railroad.svg)
 
-![Railroad diagram of value_list](../../../../.gitbook/assets/replace-value-list-railroad.svg)
+![Railroad diagram of value\_list](../../../../.gitbook/assets/insert-value-list-railroad.svg)
 
 Or:
 
