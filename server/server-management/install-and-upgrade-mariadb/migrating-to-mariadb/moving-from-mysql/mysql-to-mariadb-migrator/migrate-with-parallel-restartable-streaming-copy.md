@@ -33,7 +33,7 @@ The target must be **clean** for this mode: Parallel Restartable Streaming Copy 
 
 ### The mariadb-mtk engine
 
-This mode requires the `mariadb-mtk` data-transfer engine (the SQLines Data engine, invoked as `sqldata`). The other three modes do not use it. See [Installation and First Run](installation-and-first-run.md) for details on downloading and installing mariadb-mtk.
+This mode requires the `mariadb-mtk` data-transfer engine. The other three modes do not use it. See the "[Required](installation-and-first-run.md#required)" section of the Installation and First Run page for details on downloading and installing mariadb-mtk.
 
 ## Step 1: Download and Start the Migrator
 
