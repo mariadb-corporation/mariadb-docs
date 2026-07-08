@@ -253,7 +253,7 @@ DELIMITER ;
 
 ### Requirement
 
-This feature is available in Oracle SQL mode. The SQL mode is stored when the package is created, so `SET sql_mode=ORACLE` must be executed before creating the package.
+This feature requires Oracle SQL mode at package creation time. The SQL mode is stored when the package is created, so `SET sql_mode=ORACLE` must be executed before running `CREATE PACKAGE` and `CREATE PACKAGE BODY`. It does not need to be set when calling the package's stored procedures or functions. &#x20;
 
 ## REF CURSOR Types
 
@@ -268,7 +268,7 @@ ref_cursor_type_definition:
    TYPE type_name IS REF CURSOR [ RETURN return_type ];
 ```
 
-* If `RETURN` is deleted, the cursor type is weak.
+* If `RETURN` is omitted, the cursor type is weak.
 * If `RETURN` is specified, the cursor type is strong and limited to a single row structure.
 
 ### Weak REF CURSOR
@@ -418,16 +418,6 @@ BEGIN
   END LOOP;
 END;
 ```
-
-### Limitations
-
-The following form is not supported:
-
-```sql
-TYPE cur1_t IS REF CURSOR RETURN cur0_t;
-```
-
-The `RETURN` clause must refer to a specific record type, not another `REF CURSOR` type.
 
 ## See Also
 
