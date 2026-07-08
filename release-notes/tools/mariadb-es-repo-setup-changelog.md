@@ -2,7 +2,6 @@
 description: >-
   Changelog for mariadb_es_repo_setup, the MariaDB Enterprise Server package
   repository setup script.
-icon: clock-rotate-left
 ---
 
 # mariadb\_es\_repo\_setup Changelog
