@@ -2,7 +2,6 @@
 description: >-
   Changelog for mariadb_repo_setup, the MariaDB Community Server package
   repository setup script.
-icon: clock-rotate-left
 ---
 
 # mariadb\_repo\_setup Changelog
