@@ -73,6 +73,7 @@ if command -v lychee >/dev/null 2>&1; then
       --exclude '127\.0\.0\.1' \
       --exclude 'http://localhost:[0-9]+.*' \
       --exclude 'https://localhost:[0-9]+.*' \
+      --exclude 'r\.mariadb\.com' \
       "${files[@]}" 2>&1)"; then
     # Mirror the workflow's failIfEmpty: false — lychee exits non-zero with
     # "No links were found" when the changed files contain no links, which is a
