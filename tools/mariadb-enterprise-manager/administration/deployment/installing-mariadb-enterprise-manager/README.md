@@ -128,7 +128,7 @@ Prerequisites
 
 * A private registry that supports OCI artifacts (for example, Harbor, Zot, or JFrog Artifactory).
 * A staging host with internet access and access to private registry, with docker (or podman) and the ORAS CLI installed.
-* Obtain container image versions from the [Enterprise Manager release notes](https://app.gitbook.com/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-manager-release-notes) and substitute them wherever a version placeholder appears below.
+* Obtain container image versions from the [Enterprise Manager release notes](https://app.gitbook.com/o/diTpXxF5WsbHqTReoBsS/s/aEnK0ZXmUbJzqQrTjFyb/enterprise-manager) and substitute them wherever a version placeholder appears below.
 * Preparation of air-gapped machine for Enterprise Manager installation:
   * The latest version of installer is downloaded and placed on the machine as an executable
   * A supported [container engine](../hardware-and-system-requirements.md#system-requirements) is installed

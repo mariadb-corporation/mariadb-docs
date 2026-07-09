@@ -50,7 +50,7 @@ Top-level directories that look like content but are **not** browsable spaces:
 
 **`release-notes/`** is partitioned by product: `community-server/`, `enterprise-server/`,
 `maxscale/`, `columnstore/`, `galera-cluster/`, `connectors/`, `enterprise-operator/`,
-`enterprise-manager-release-notes/`, `mcp-server-release-notes/`, `ai-rag-release-notes/`,
+`enterprise-manager/`, `mcp-server-release-notes/`, `ai-rag-release-notes/`,
 `advanced-cluster/`.
 
 **`connectors/`** has one directory per connector (`mariadb-connector-c/`,
