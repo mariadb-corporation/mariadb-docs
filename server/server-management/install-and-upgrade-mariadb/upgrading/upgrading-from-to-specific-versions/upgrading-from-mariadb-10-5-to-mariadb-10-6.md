@@ -111,7 +111,7 @@ The following options have been deprecated. They have not yet been removed, but 
 
 ### Major New Features To Consider
 
-* See also [System Variables Added in MariaDB 10.6](../../../../ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/system-variables-added-in-mariadb-10-6.md).
+* See also [System Variables Added in MariaDB 10.6](../../../../ha-and-performance/optimization-and-tuning/system-variables/system-and-status-variables-added-by-major-release/community-server/system-variables-added-in-mariadb-10-6.md).
 
 ### See Also
 

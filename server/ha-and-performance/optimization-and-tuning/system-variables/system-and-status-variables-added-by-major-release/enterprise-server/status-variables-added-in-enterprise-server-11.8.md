@@ -4,7 +4,7 @@ description: Status variables added in MariaDB Enterprise Server 11.8.
 
 # Status Variables Added in Enterprise Server 11.8
 
-This is a list of [status variables](../server-status-variables.md) that are new in MariaDB Enterprise Server 11.8, relative to the previous Enterprise Server release series, Enterprise Server 11.4.
+This is a list of [status variables](../../server-status-variables.md) that are new in MariaDB Enterprise Server 11.8, relative to the previous Enterprise Server release series, Enterprise Server 11.4.
 
 Because Enterprise Server backports selected features across release lines, some status variables that were introduced in Community Server 11.5 through 11.8 are **not** listed here: they had already been backported into Enterprise Server 11.4 and so were not new in Enterprise Server 11.8. Examples are `Max_tmp_space_used` and `Tmp_space_used`.
 
@@ -12,7 +12,7 @@ Because Enterprise Server backports selected features across release lines, some
 
 ## See Also
 
-* [Status Variables Added in MariaDB 11.8](status-variables-added-in-mariadb-11-8.md) (Community Server)
+* [Status Variables Added in MariaDB 11.8](../community-server/status-variables-added-in-mariadb-11-8.md) (Community Server)
 * [System Variables Added in Enterprise Server 11.8](system-variables-added-in-enterprise-server-11.8.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
