@@ -14,7 +14,7 @@ This is a list of [system variables](../../server-system-variables.md) that have
 ## See Also
 
 * [Status Variables Added in MariaDB 11.5](status-variables-added-in-mariadb-11-5.md)
-* [System Variables Added in MariaDB 11.4](../system-variables-added-in-mariadb-11-4.md)
+* [System Variables Added in MariaDB 11.4](../community-server/system-variables-added-in-mariadb-11-4.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

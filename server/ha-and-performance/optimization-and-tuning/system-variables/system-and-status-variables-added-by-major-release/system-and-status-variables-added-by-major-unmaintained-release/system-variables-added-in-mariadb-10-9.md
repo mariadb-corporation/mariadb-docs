@@ -10,7 +10,7 @@ This is a list of [system variables](../../server-system-variables.md) that have
 ## See Also
 
 * [System Variables Added in MariaDB 10.8](system-variables-added-in-mariadb-10-8.md)
-* [System Variables Added in MariaDB 10.6](../system-variables-added-in-mariadb-10-6.md)
+* [System Variables Added in MariaDB 10.6](../community-server/system-variables-added-in-mariadb-10-6.md)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

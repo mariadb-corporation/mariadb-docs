@@ -4,7 +4,7 @@ description: System variables added in MariaDB Enterprise Server 12.3.
 
 # System Variables Added in Enterprise Server 12.3
 
-This is a list of [system variables](../server-system-variables.md) that are new in MariaDB Enterprise Server 12.3, relative to the previous Enterprise Server release series, Enterprise Server 11.8.
+This is a list of [system variables](../../server-system-variables.md) that are new in MariaDB Enterprise Server 12.3, relative to the previous Enterprise Server release series, Enterprise Server 11.8.
 
 Because Enterprise Server backports selected features across release lines, some system variables that were introduced in Community Server 12.0, 12.1, and 12.3 are **not** listed here: they had already been backported into Enterprise Server 11.8 and so were not new in Enterprise Server 12.3. Examples are `analyze_max_length`, `aria_pagecache_segments`, `max_open_cursors`, and `metadata_locks_instances`.
 
@@ -12,7 +12,7 @@ Because Enterprise Server backports selected features across release lines, some
 
 ## See Also
 
-* [System Variables Added in MariaDB 12.3](system-variables-added-in-mariadb-12.3.md) (Community Server)
+* [System Variables Added in MariaDB 12.3](../community-server/system-variables-added-in-mariadb-12.3.md) (Community Server)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

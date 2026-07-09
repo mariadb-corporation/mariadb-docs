@@ -4,7 +4,7 @@ description: System variables added in MariaDB Enterprise Server 11.8.
 
 # System Variables Added in Enterprise Server 11.8
 
-This is a list of [system variables](../server-system-variables.md) that are new in MariaDB Enterprise Server 11.8, relative to the previous Enterprise Server release series, Enterprise Server 11.4.
+This is a list of [system variables](../../server-system-variables.md) that are new in MariaDB Enterprise Server 11.8, relative to the previous Enterprise Server release series, Enterprise Server 11.4.
 
 Because Enterprise Server backports selected features across release lines, some system variables that were introduced in Community Server 11.5 through 11.8 are **not** listed here: they had already been backported into Enterprise Server 11.4 and so were not new in Enterprise Server 11.8. Examples are `max_tmp_total_space_usage` and the `mhnsw_*` vector-index variables.
 
@@ -12,7 +12,7 @@ Because Enterprise Server backports selected features across release lines, some
 
 ## See Also
 
-* [System Variables Added in MariaDB 11.8](system-variables-added-in-mariadb-11-8.md) (Community Server)
+* [System Variables Added in MariaDB 11.8](../community-server/system-variables-added-in-mariadb-11-8.md) (Community Server)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 

@@ -4,7 +4,7 @@ description: System variables added in MariaDB Enterprise Server 11.4.
 
 # System Variables Added in Enterprise Server 11.4
 
-This is a list of [system variables](../server-system-variables.md) that are new in MariaDB Enterprise Server 11.4, relative to the previous Enterprise Server release series, Enterprise Server 10.6.
+This is a list of [system variables](../../server-system-variables.md) that are new in MariaDB Enterprise Server 11.4, relative to the previous Enterprise Server release series, Enterprise Server 10.6.
 
 Because Enterprise Server backports selected features across release lines, some system variables that were introduced in Community Server 10.7 through 11.4 are **not** listed here: they had already been backported into Enterprise Server 10.6 and so were not new in Enterprise Server 11.4. Examples are `replicate_rewrite_db` and `slave_max_statement_time`.
 
@@ -12,7 +12,7 @@ Because Enterprise Server backports selected features across release lines, some
 
 ## See Also
 
-* [System Variables Added in MariaDB 11.4](system-variables-added-in-mariadb-11-4.md) (Community Server)
+* [System Variables Added in MariaDB 11.4](../community-server/system-variables-added-in-mariadb-11-4.md) (Community Server)
 
 <sub>_This page is licensed: CC BY-SA / Gnu FDL_</sub>
 
