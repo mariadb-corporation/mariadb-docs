@@ -40,8 +40,8 @@ Release dates for upcoming MariaDB Enterprise Server releases can be found [here
 [enterprise-operator](enterprise-operator/)
 {% endcontent-ref %}
 
-{% content-ref url="enterprise-manager-release-notes/" %}
-[enterprise-manager-release-notes](enterprise-manager-release-notes/)
+{% content-ref url="enterprise-manager/" %}
+[enterprise-manager](enterprise-manager/)
 {% endcontent-ref %}
 
 {% content-ref url="ai-rag-release-notes/" %}
