@@ -23,12 +23,7 @@ Another option for MariaDB Community Server is to use the MariaDB Foundation's r
 
 ## Using MariaDB Corporation's Repository Setup Scripts
 
-MariaDB Corporation provides two convenient shell scripts that will automatically configure the appropriate repositories for you. These scripts are:
-
-* `mariadb_es_repo_setup` for MariaDB Enterprise Server
-* `mariadb_repo_setup` for MariaDB Community Server
-
-### Download and Verify the Script
+### Downloading and Verifying the Scripts
 
 The scripts can be downloaded and verified in the following ways:
 
@@ -68,7 +63,7 @@ Checksums of the various releases of the MariaDB Corporation's repository setup 
 The version number is a date and can be found by running the script with the `--version` option, or by opening the script in a text editor and looking at line 4, `version="..."`.
 {% endhint %}
 
-### Prerequisites
+### Script Prerequisites
 
 For the scripts to work, the `curl` package needs to be installed on your system. Additionally, on Debian and Ubuntu, the `apt-transport-https` package needs to be installed. The script will check if these are installed and let you know before it attempts to create the repository configuration on your system.
 
@@ -95,9 +90,9 @@ sudo zypper install curl
 {% endtab %}
 {% endtabs %}
 
-### Run the Script
+### Running the Scripts
 
-After the script you are using is downloaded, you need to run it with `root` user permissions. This is normally accomplished by using the `sudo` command:
+After the script you are using is downloaded, you need to run it with `root` user permissions. This is normally accomplished using the `sudo` command:
 
 {% tabs %}
 {% tab title="mariadb_es_repo_setup" %}
@@ -135,27 +130,6 @@ sudo ./mariadb_repo_setup
 {% endtabs %}
 
 ## Repositories
-
-
-
-{% tabs %}
-{% tab title="mariadb_es_repo_setup default repositories" %}
-The default repositories set up by `mariadb_es_repo_setup` are:
-
-* MariaDB Enterprise Server Repository
-  * Debug packages via the `main/debug` component _(Ubuntu only)_
-* MariaDB Enterprise MaxScale Repository
-* MariaDB Enterprise Tools Repository
-{% endtab %}
-
-{% tab title="mariadb_repo_setup default repositories" %}
-The default repositories set up by `mariadb_repo_setup` are:
-
-* MariaDB Community Server Repository
-  * Debug packages via the `main/debug` component _(Ubuntu only)_
-* MariaDB MaxScale Repository
-{% endtab %}
-{% endtabs %}
 
 <details open>
 
