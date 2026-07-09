@@ -1,13 +1,11 @@
 ---
 description: >-
   Migrate MySQL to MariaDB with Offline Copy when the source and target are not
-  network-reachable: dump to files on one host, transfer them, and load on another.
-hidden: true
-noIndex: true
-noRobotsIndex: true
+  network-reachable: dump to files on one host, transfer them, and load on
+  another.
 ---
 
-# Migrate a Database with Offline Copy
+# Migrate with Offline Copy
 
 This guide walks through a complete MySQL to MariaDB migration in **Offline Copy** (`staged`) mode. You dump the source database to compressed files with a manifest, move that directory to where the target lives, and load it there.
 
@@ -39,9 +37,9 @@ See [Installation and First Run](installation-and-first-run.md) for details on d
 
 Offline Copy is driven by the `STAGED_PHASE` setting, which selects which part of the migration runs:
 
-- `dump_and_load` (default) runs the whole migration on a single host that can reach both the source and the target.
-- `dump_only` dumps from the source to a directory of files and then exits. The target is untouched, and only source connectivity is needed.
-- `load_only` loads existing dump files into the target. Only target connectivity is needed, and the database list comes from the manifest in the dump directory.
+* `dump_and_load` (default) runs the whole migration on a single host that can reach both the source and the target.
+* `dump_only` dumps from the source to a directory of files and then exits. The target is untouched, and only source connectivity is needed.
+* `load_only` loads existing dump files into the target. Only target connectivity is needed, and the database list comes from the manifest in the dump directory.
 
 The two-host workflow below uses `dump_only` and `load_only`. If one host can reach both servers, you can run `dump_and_load` instead and skip the transfer step.
 
@@ -56,7 +54,7 @@ STAGED_PHASE=dump_only STAGED_DUMP_DIR=/mnt/transfer/dumps \
 
 The dump phase reports each database as it finishes and prints a summary:
 
-```text
+```
 ==> Staged dump (mariadb-dump | pv | gzip > file, per database)
 Source MySQL : 8.0.46
 Dump tool    : mariadb-dump
@@ -75,7 +73,7 @@ Databases    : sakila
 
 The directory now holds one compressed file per database (`sakila.sql.gz`) and a `manifest.txt` that records each database's SHA-256, byte size, and approximate row count:
 
-```text
+```
 # staged-migration-manifest v1
 # source_host: mysql.example.com
 # source_version: 8.0.46
@@ -103,7 +101,7 @@ STAGED_PHASE=load_only STAGED_DUMP_DIR=/mnt/load/dumps \
 
 The load phase reads the manifest, verifies each file's SHA-256 before loading it, loads each database, refreshes optimizer statistics with `ANALYZE TABLE`, and finalizes:
 
-```text
+```
 ==> Preflight checks (staged)
 Phase: load_only
 Manifest: 1 database(s) — sakila
@@ -119,7 +117,7 @@ Manifest: 1 database(s) — sakila
 
 After the load, a finalize step compares the manifest against the target's `information_schema.tables`. It hard-fails on a missing or empty database and warns on row-count variance above the threshold:
 
-```text
+```
 ==> Staged finalize (post-load sanity counts and manifest verification)
 Per-DB verification:
   Database                 Exists    Tables  Source rows     Target rows     Variance
@@ -154,4 +152,4 @@ The dump phase accepts tuning variables including `STAGED_PARALLEL` (concurrent 
 
 ## Other Modes
 
-If Offline Copy does not fit your situation, see the [migrator overview](README.md) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) for a single-pipe transfer when both servers are reachable, [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for large databases, or [Replication](migrate-with-replication.md) for a low-downtime cutover.
+If Offline Copy does not fit your situation, see the [migrator overview](./) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) for a single-pipe transfer when both servers are reachable, [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for large databases, or [Replication](migrate-with-replication.md) for a low-downtime cutover.

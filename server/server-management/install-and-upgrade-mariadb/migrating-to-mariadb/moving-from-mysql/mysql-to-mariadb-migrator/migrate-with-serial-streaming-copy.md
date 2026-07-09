@@ -2,12 +2,9 @@
 description: >-
   Migrate a MySQL database to MariaDB with Serial Streaming Copy: preview with
   Assess & Plan, run the migration, and verify the result on the target.
-hidden: true
-noIndex: true
-noRobotsIndex: true
 ---
 
-# Migrate a Database with Serial Streaming Copy
+# Migrate with Serial Streaming Copy
 
 This guide walks through a complete MySQL to MariaDB migration in **Serial Streaming Copy** (`one_step`) mode. You preview the migration with Assess & Plan, run it, and verify the result on the target.
 
@@ -44,7 +41,7 @@ See [Installation and First Run](installation-and-first-run.md) for details on d
 
 On the first run, the launcher creates a project-local Python environment (`.venv`), installs its dependencies into it, and checks for the `mariadb` client. Your system Python is never modified, and later runs reuse `.venv` and go straight to the menu.
 
-```text
+```
 ---------------------------------------------------------------------
  Welcome to the MySQL to MariaDB Migration Tool
  Tool Version: 1.3.1-beta (Build 20260622)
@@ -73,17 +70,17 @@ What would you like to do?
 
 Choose **1) Assess & Plan** for the preview. This phase never writes to the target. The migrator prompts for the connection details it needs:
 
-| Prompt | Example value |
-| --- | --- |
-| Source host / port | `mysql.example.com` / `3306` |
+| Prompt                       | Example value                        |
+| ---------------------------- | ------------------------------------ |
+| Source host / port           | `mysql.example.com` / `3306`         |
 | Source admin user / password | `migadmin` / (entered at the prompt) |
-| Source database | `sakila` |
-| Target host / port | `mariadb.example.com` / `3306` |
+| Source database              | `sakila`                             |
+| Target host / port           | `mariadb.example.com` / `3306`       |
 | Target admin user / password | `migadmin` / (entered at the prompt) |
 
-Then select mode **1) Serial Streaming Copy (mariadb-dump) [OFFLINE]**. The assess phase checks connectivity and source-to-target compatibility, inventories the schema, and writes its reports under `artifacts/assess_<timestamp>/`.
+Then select mode **1) Serial Streaming Copy (mariadb-dump) \[OFFLINE]**. The assess phase checks connectivity and source-to-target compatibility, inventories the schema, and writes its reports under `artifacts/assess_<timestamp>/`.
 
-```text
+```
 == Precheck runner ==
 Host: mysql.example.com  Port: 3306  User: migadmin
 ---- mysql_version ----
@@ -113,7 +110,7 @@ The migrator then streams the data. Because Serial Streaming Copy is a logical d
 
 Output is captured to a run log rather than streamed to your terminal, and each phase prints a `tail -f` hint. To watch live progress, open a second shell and run `tail -f artifacts/run_one_step_<timestamp>/run.log`.
 
-```text
+```
 ==> One-step migration (mariadb-dump | mariadb)
 Source MySQL: 8.0.46  Dump tool: mariadb-dump
 Source: mysql.example.com:3306  DB: sakila
@@ -135,7 +132,7 @@ By default the migration stops if the target database already exists, so an acci
 
 When the run finishes, confirm the migration on the target. The run artifacts under `artifacts/run_one_step_<timestamp>/` include **`user_migration_report.txt`** (what happened to each user) and **`analyze_target_report.txt`** (the tables analyzed and any per-table errors).
 
-```text
+```
 # user_migration_report.txt
 Roles created on target              : 0
 Users migrated with original password: 0
@@ -156,7 +153,7 @@ mariadb -h mariadb.example.com -u migadmin -p \
   -e "SELECT COUNT(*) FROM sakila.film; SHOW TABLES FROM sakila;"
 ```
 
-```text
+```
 +----------+
 | COUNT(*) |
 +----------+
@@ -197,4 +194,4 @@ See [Environment Variables](environment-variables.md) for the full list.
 
 ## Other Modes
 
-If Serial Streaming Copy does not fit your situation, see the [migrator overview](README.md) to choose another mode: [Offline Copy](migrate-with-offline-copy.md) for hosts that cannot reach each other, [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for large databases, or [Replication](migrate-with-replication.md) for a low-downtime cutover.
+If Serial Streaming Copy does not fit your situation, see the [migrator overview](./) to choose another mode: [Offline Copy](migrate-with-offline-copy.md) for hosts that cannot reach each other, [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for large databases, or [Replication](migrate-with-replication.md) for a low-downtime cutover.

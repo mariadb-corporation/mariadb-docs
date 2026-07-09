@@ -1,13 +1,11 @@
 ---
 description: >-
   Migrate MySQL to MariaDB with minimal downtime using Replication: seed the
-  target from a snapshot, replicate ongoing changes from the binlog, then cut over.
-hidden: true
-noIndex: true
-noRobotsIndex: true
+  target from a snapshot, replicate ongoing changes from the binlog, then cut
+  over.
 ---
 
-# Migrate a Database with Minimal Downtime Using Replication
+# Migrate with Replication
 
 This guide walks through a complete MySQL to MariaDB migration in **Replication** (`binlog`) mode. The migrator seeds the target from a consistent snapshot with embedded binlog coordinates, starts MariaDB replication from the MySQL binary log, and verifies it. The target then stays current with the source until you perform a short cutover.
 
@@ -45,9 +43,9 @@ On the first run, the launcher creates a project-local Python environment (`.ven
 
 ## Step 2: Preview with Assess & Plan
 
-Choose **1) Assess & Plan**, supply the source and target connection details and the replication user when prompted, and select mode **4) Replication (binlog) [ONLINE]**. The assessment inventories the source and checks compatibility before anything is written. For Replication the decisive check is JSON columns: `sakila` has none, so the source clears the gate (the `binlog_format=ROW` requirement is confirmed when the migration runs).
+Choose **1) Assess & Plan**, supply the source and target connection details and the replication user when prompted, and select mode **4) Replication (binlog) \[ONLINE]**. The assessment inventories the source and checks compatibility before anything is written. For Replication the decisive check is JSON columns: `sakila` has none, so the source clears the gate (the `binlog_format=ROW` requirement is confirmed when the migration runs).
 
-```text
+```
 == Precheck runner ==
 Host: mysql.example.com  Port: 3306  User: migadmin
 ---- mysql_version ----
@@ -66,7 +64,7 @@ If the source has a JSON column, the assessment stops and lists the offending co
 
 Start the launcher again, choose **2) Assess + Run**, and select Replication. The migrator first re-checks source compatibility with a Replication-specific preflight, then runs three steps: seed, start replication, and verify. Watch progress with `tail -f artifacts/run_binlog_<timestamp>/run.log`.
 
-```text
+```
 ==> Preflight checks (binlog)
 Source MySQL: 8.0.46 (using: SHOW MASTER STATUS;)
 Checking source schemas for JSON columns...
@@ -80,7 +78,7 @@ Preflight complete.
 
 A consistent snapshot is taken with `mariadb-dump --single-transaction --master-data=2`, which embeds the binlog coordinates, and is restored to the target. The coordinates are saved for the next step.
 
-```text
+```
 ==> Binlog migration: seed target from source snapshot
 Source MySQL: 8.0.46  Dump tool: mariadb-dump
 Creating source snapshot with binlog coordinates (--master-data=2)...
@@ -88,7 +86,7 @@ Restoring snapshot to target...
 Seed completed.
 ```
 
-```text
+```
 # binlog_coords.env
 SRC_BINLOG_FILE=mysql-bin.000004
 SRC_BINLOG_POS=66378596
@@ -98,7 +96,7 @@ SRC_BINLOG_POS=66378596
 
 The migrator ensures the replication user exists on the source (created `WITH mysql_native_password`, which cross-vendor replication requires), assigns the target a distinct `server_id` if it collides with the source, and points MariaDB at the captured coordinates.
 
-```text
+```
 ==> Binlog migration: configure and start replication
 Ensuring replication user exists on source...
 Applying replication coordinates: mysql-bin.000004:66378596
@@ -109,7 +107,7 @@ Replication started.
 
 The tool polls replication status until both threads are running and lag is within `BINLOG_MAX_LAG_SECS` (default 30).
 
-```text
+```
 ==> Binlog migration: verify replication
 IO running: Yes
 SQL running: Yes
@@ -123,7 +121,7 @@ There is no `ANALYZE TABLE` step in this mode, because replication keeps changin
 
 The target is now live-following the source, so a write on the source appears on the target within seconds. Inserting one row on the source and reading it back on the target confirms the pipeline end to end:
 
-```text
+```
 # on the source:
 INSERT INTO sakila.film (title, language_id) VALUES ('LIVE REPLICATION TEST', 1);
 
@@ -157,4 +155,4 @@ Beyond the common source and target variables, Replication requires `REPL_USER` 
 
 ## Other Modes
 
-If Replication does not fit your situation, see the [migrator overview](README.md) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) or [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for an offline transfer when both servers are reachable, or [Offline Copy](migrate-with-offline-copy.md) when they are not.
+If Replication does not fit your situation, see the [migrator overview](./) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) or [Parallel Restartable Streaming Copy](migrate-with-parallel-restartable-streaming-copy.md) for an offline transfer when both servers are reachable, or [Offline Copy](migrate-with-offline-copy.md) when they are not.

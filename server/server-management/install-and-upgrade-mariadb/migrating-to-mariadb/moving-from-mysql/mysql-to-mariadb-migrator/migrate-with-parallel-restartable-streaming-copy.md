@@ -2,12 +2,9 @@
 description: >-
   Migrate a large MySQL database to MariaDB with Parallel Restartable Streaming
   Copy, using the mariadb-mtk engine to load data through concurrent sessions.
-hidden: true
-noIndex: true
-noRobotsIndex: true
 ---
 
-# Migrate a Large Database with Parallel Restartable Streaming Copy
+# Migrate with Parallel Restartable Streaming Copy
 
 This guide walks through a complete MySQL to MariaDB migration in **Parallel Restartable Streaming Copy** (`two_step`) mode. The migrator dumps the schema first, loads the data in parallel through the `mariadb-mtk` engine, validates row counts, and finalizes the remaining objects.
 
@@ -20,7 +17,7 @@ The migrator is in **beta**. Run this procedure against a non-production target 
 This guide uses the `employees` sample database, which is large enough (about 3.9 million rows across six tables) to show the parallel load and the row-count validation doing real work. Substitute your own database name wherever `employees` appears.
 
 {% hint style="info" %}
-**Following along with the sample?** `employees` is MySQL's sample database for larger datasets, from the [datacharmer/test_db](https://github.com/datacharmer/test_db) project. Clone it and load it into your source with `mysql -u root -p < employees.sql` from inside the repository directory.
+**Following along with the sample?** `employees` is MySQL's sample database for larger datasets, from the [datacharmer/test\_db](https://github.com/datacharmer/test_db) project. Clone it and load it into your source with `mysql -u root -p < employees.sql` from inside the repository directory.
 {% endhint %}
 
 ## Before You Begin
@@ -41,7 +38,7 @@ See [Installation and First Run](installation-and-first-run.md) for details on d
 
 ## Step 2: Preview with Assess & Plan
 
-Choose **1) Assess & Plan**, supply the source and target connection details when prompted, and select mode **2) Parallel Restartable Streaming Copy (sqldata) [OFFLINE]**. This phase checks connectivity and compatibility and writes its reports under `artifacts/assess_<timestamp>/` without touching the target. Review the assessment before running.
+Choose **1) Assess & Plan**, supply the source and target connection details when prompted, and select mode **2) Parallel Restartable Streaming Copy (sqldata) \[OFFLINE]**. This phase checks connectivity and compatibility and writes its reports under `artifacts/assess_<timestamp>/` without touching the target. Review the assessment before running.
 
 ## Step 3: Run the Migration
 
@@ -55,7 +52,7 @@ Watch live progress with `tail -f artifacts/run_two_step_<timestamp>/run.log` fr
 
 The engine transfers the database with several concurrent sessions (the `-ss` value, default 4), working on different tables at once. In this run of `employees`, four sessions moved all six tables and 3.9 million rows transferred in about three seconds:
 
-```text
+```
 Transferring database (4 concurrent sessions):
 employees.departments  - Started (1 of 6, 1 chunk, session 1)
 employees.dept_emp     - Started (2 of 6, 1 chunk, session 2)
@@ -72,7 +69,7 @@ That parallelism is across tables. The engine can also split a single large tabl
 
 After the load, the tool validates source and target row counts per database using the engine's own validate command. This is a report, not a gate: the data transfer is the gate, so reaching validation means every database loaded successfully. A mismatch is recorded and surfaced but does not fail the migration.
 
-```text
+```
 ===== row-count validation: employees =====
   Total number of tables:         6
     With the different row count: 0
@@ -121,4 +118,4 @@ Review the run reports under `artifacts/run_two_step_<timestamp>/`, rotate any d
 
 ## Other Modes
 
-If Parallel Restartable Streaming Copy does not fit your situation, see the [migrator overview](README.md) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) for a smaller database, [Offline Copy](migrate-with-offline-copy.md) for hosts that cannot reach each other, or [Replication](migrate-with-replication.md) for a low-downtime cutover.
+If Parallel Restartable Streaming Copy does not fit your situation, see the [migrator overview](./) to choose another mode: [Serial Streaming Copy](migrate-with-serial-streaming-copy.md) for a smaller database, [Offline Copy](migrate-with-offline-copy.md) for hosts that cannot reach each other, or [Replication](migrate-with-replication.md) for a low-downtime cutover.
