@@ -201,7 +201,42 @@ mariadb-backup --backup \
       --password=mbu_passwd
 ```
 
-In this example, MariaDB Backup reads the `/data/backups/full directory`, and MariaDB Enterprise Server then creates an incremental backup in the `/data/backups/inc1` directory.
+In this example, MariaDB Backup reads the `/data/backups/full` directory, and MariaDB Enterprise Server then creates an incremental backup in the `/data/backups/inc1` directory.
+
+To take further incremental backups, use the target directory of the *previous* incremental backup as the `--incremental-basedir` for the next one, not the original full backup. Each backup, full or incremental, records the position it ended at in a `mariadb_backup_checkpoints` file inside its own target directory, so pointing `--incremental-basedir` at the most recent backup copies only the pages that have changed since that backup.
+
+For example, to base a second incremental backup (`inc2`) on the first (`inc1`):
+
+```bash
+mariadb-backup --backup \
+      --incremental-basedir=/data/backups/inc1 \
+      --target-dir=/data/backups/inc2 \
+      --user=mariadb-backup \
+      --password=mbu_passwd
+```
+
+This forms a chain, `full` → `inc1` → `inc2` → …, where each incremental backup is based on the one before it. When you later restore, the incremental backups must be prepared (applied to the full backup) in the same order.
+
+### Incremental Backups With Streamed Output
+
+When you stream a backup (for example, to pipe it through an external compression or encryption tool), the `mariadb_backup_checkpoints` file that records where the next incremental backup should continue from becomes part of the streamed output, so it is not directly available on disk to use as the next `--incremental-basedir`.
+
+Use the `--extra-lsndir` option to write an extra copy of that file to a local directory, then pass that directory to the next incremental backup's `--incremental-basedir`:
+
+```bash
+# full backup
+mariadb-backup --backup --stream=mbstream \
+      --extra-lsndir=/data/backups/base_lsn \
+      --user=mariadb-backup \
+      --password=mbu_passwd | gzip > base.gz
+
+# first incremental backup
+mariadb-backup --backup --stream=mbstream \
+      --incremental-basedir=/data/backups/base_lsn \
+      --extra-lsndir=/data/backups/inc1_lsn \
+      --user=mariadb-backup \
+      --password=mbu_passwd | gzip > inc1.gz
+```
 
 ### Preparing an Incremental Backup
 
@@ -222,6 +257,16 @@ mariadb-backup --prepare \
 ```
 
 Once the incremental backup has been applied to the full backup, the full backup directory contains the changes from the incremental backup (that is, the inc1/ directory). Feel free to remove inc1/ to save disk space.
+
+If you took a chain of incremental backups, apply the remaining ones to the same full backup directory, one at a time and in the order they were taken. For example, to apply the second incremental backup (`inc2`) after `inc1`:
+
+```bash
+mariadb-backup --prepare \
+      --target-dir=/data/backups/full \
+      --incremental-dir=/data/backups/inc2
+```
+
+The incremental backups must be applied in order. MariaDB Backup checks that each incremental backup's starting position matches the current state of the full backup, and refuses to apply one that is out of sequence.
 
 ### Restoring from Incremental Backups
 
