@@ -5,7 +5,7 @@
 ```bnf
 #include <mysql.h>
 
-ulong mysql_net_read_packet(MYSQL *mysql)
+unsigned long mysql_net_read_packet(MYSQL *mysql)
 ```
 
 ## Parameter

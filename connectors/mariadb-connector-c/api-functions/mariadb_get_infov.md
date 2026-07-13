@@ -10,7 +10,7 @@ description: >-
 ## Syntax
 
 ```c
-int mariadb_get_infov(MYSQL * mysql,
+my_bool mariadb_get_infov(MYSQL * mysql,
                       enum mariadb_value value,
                       void * arg,
                       ...);

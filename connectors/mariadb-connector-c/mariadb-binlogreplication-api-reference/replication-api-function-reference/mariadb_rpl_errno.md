@@ -7,7 +7,7 @@ Returns the error number for the most recent Binlog API function call that can s
 ```sql
 #include <mariadb_rpl.h>
 
-unsigned int mariadb_rpl_errno(MARIADB_RPL *rpl);
+uint32_t mariadb_rpl_errno(MARIADB_RPL *rpl);
 ```
 
 ### Parameters

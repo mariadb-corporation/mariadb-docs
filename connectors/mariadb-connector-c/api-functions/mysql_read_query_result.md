@@ -10,7 +10,7 @@ description: >-
 ## Syntax
 
 ```c
-int mysql_read_query_result(MYSQL * mysql);
+my_bool mysql_read_query_result(MYSQL * mysql);
 ```
 
 ## Parameter
