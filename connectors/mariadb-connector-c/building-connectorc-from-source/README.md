@@ -27,13 +27,13 @@ layout:
 
 {% columns %}
 {% column %}
-{% content-ref url="compiling-connectorc.md" %}
-[compiling-connectorc.md](compiling-connectorc.md)
+{% content-ref url="prerequisites-for-building-connectorc-from-source.md" %}
+[prerequisites-for-building-connectorc-from-source.md](prerequisites-for-building-connectorc-from-source.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Compile MariaDB Connector/C after configuration using CMake on Windows or Unix. Supports Visual Studio builds and GNU make, with both IDE and command-line build options.
+Building MariaDB Connector/C from source requires CMake, a C compiler, and TLS/SSL libraries. Windows needs Visual Studio; Linux and macOS need gcc, with optional Curl or Kerberos.
 {% endcolumn %}
 {% endcolumns %}
 
@@ -51,12 +51,12 @@ Configure the MariaDB Connector/C build via CMake options including build type, 
 
 {% columns %}
 {% column %}
-{% content-ref url="prerequisites-for-building-connectorc-from-source.md" %}
-[prerequisites-for-building-connectorc-from-source.md](prerequisites-for-building-connectorc-from-source.md)
+{% content-ref url="compiling-connectorc.md" %}
+[compiling-connectorc.md](compiling-connectorc.md)
 {% endcontent-ref %}
 {% endcolumn %}
 
 {% column %}
-Building MariaDB Connector/C from source requires CMake, a C compiler, and TLS/SSL libraries. Windows needs Visual Studio; Linux and macOS need gcc, with optional Curl or Kerberos.
+Compile MariaDB Connector/C after configuration using CMake on Windows or Unix. Supports Visual Studio builds and GNU make, with both IDE and command-line build options.
 {% endcolumn %}
 {% endcolumns %}
