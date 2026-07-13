@@ -48,6 +48,128 @@ Spring Data R2DBC supports many features from the Spring Data framework:
 | Object Mapping         | Yes       |
 | Transaction Management | Yes       |
 
+## In This Section
+
+{% columns %}
+{% column %}
+{% content-ref url="application-development-with-mariadb-connector-r2dbc-spring-data.md" %}
+[application-development-with-mariadb-connector-r2dbc-spring-data.md](application-development-with-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Spring Data R2DBC applications with MariaDB Connector/R2DBC require Maven, Entity classes for object mapping, and the `spring-boot-starter-data-r2dbc` dependency.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="batch-operations-with-mariadb-connector-r2dbc-spring-data.md" %}
+[batch-operations-with-mariadb-connector-r2dbc-spring-data.md](batch-operations-with-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Spring Data R2DBC batch with MariaDB Connector/R2DBC loops over statements via `DatabaseClient.execute`, replacing the native `io.r2dbc.spi.Batch` class unavailable in this framework.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="connect-with-mariadb-connector-r2dbc-spring-data.md" %}
+[connect-with-mariadb-connector-r2dbc-spring-data.md](connect-with-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+MariaDB Connector/R2DBC Spring Data wraps `MariadbConnectionFactory` in `DatabaseClient`, providing a higher-level reactive interface for executing queries against MariaDB.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="ddl-with-mariadb-connector-r2dbc-spring-data.md" %}
+[ddl-with-mariadb-connector-r2dbc-spring-data.md](ddl-with-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Spring Data R2DBC DDL with MariaDB Connector/R2DBC uses `DatabaseClient.execute` to run schema statements including `CREATE TABLE` and `ALTER TABLE` within the Spring reactive framework.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="dml-with-mariadb-connector-r2dbc-spring-data.md" %}
+[dml-with-mariadb-connector-r2dbc-spring-data.md](dml-with-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Spring Data R2DBC DML with MariaDB Connector/R2DBC uses `DatabaseClient` methods execute, select, insert, update, and delete for reactive `INSERT`, `SELECT`, `UPDATE`, and `DELETE`.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="install-mariadb-connector-r2dbc-spring-data.md" %}
+[install-mariadb-connector-r2dbc-spring-data.md](install-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Install MariaDB Connector/R2DBC with Spring Data via Maven using `spring-boot-starter-data-r2dbc`; Spring Boot 3.0 and later manage the `r2dbc-mariadb` connector version automatically.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="r2dbc-code-example-spring-data.md" %}
+[r2dbc-code-example-spring-data.md](r2dbc-code-example-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Complete Java code example using MariaDB Connector/R2DBC with Spring Data R2DBC to query a MariaDB table via `DatabaseClient` and reactive `StepVerifier` result assertions.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="repositories-with-mariadb-connector-r2dbc-spring-data.md" %}
+[repositories-with-mariadb-connector-r2dbc-spring-data.md](repositories-with-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Spring Data repositories with MariaDB Connector/R2DBC use `R2dbcRepository` and JavaConfig to implement reactive CRUD, with ApplicationConfig, Entity, Repository, and Service classes.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="setup-for-connector-r2dbc-examples-spring-data.md" %}
+[setup-for-connector-r2dbc-examples-spring-data.md](setup-for-connector-r2dbc-examples-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Set up the test database, contact table, and user account required by the MariaDB Connector/R2DBC Spring Data code examples in this documentation section.
+{% endcolumn %}
+{% endcolumns %}
+
+{% columns %}
+{% column %}
+{% content-ref url="transactions-with-mariadb-connector-r2dbc-spring-data.md" %}
+[transactions-with-mariadb-connector-r2dbc-spring-data.md](transactions-with-mariadb-connector-r2dbc-spring-data.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+Spring Data R2DBC transactions with MariaDB Connector/R2DBC use `R2dbcTransactionManager` and `TransactionalOperator` for framework-managed reactive commit and rollback.
+{% endcolumn %}
+{% endcolumns %}
+
 ## Resources
 
 {% @marketo/form formId="4316" %}
