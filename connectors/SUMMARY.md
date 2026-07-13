@@ -181,7 +181,7 @@
     * [C++ Client Library](mariadb-connector-c/other-c-c-connectors/c-client-library.md)
     * [MySQL Client Library 3.23.58](mariadb-connector-c/other-c-c-connectors/mysql-client-library-32358.md)
 * [Connector/C++](mariadb-connector-cpp/README.md)
-  * [MariaDB Connector/C++ OverviewO](mariadb-connector-cpp/mariadb-connector-c++-guide.md)
+  * [MariaDB Connector/C++ Overview](mariadb-connector-cpp/mariadb-connector-c++-guide.md)
   * [Application Development with MariaDB Connector/C++](mariadb-connector-cpp/application-development-with-mariadb-connector-cpp.md)
   * [Connect with MariaDB Connector/C++](mariadb-connector-cpp/connect-with-mariadb-connectorcpp.md)
   * [DDL with MariaDB Connector/C++](mariadb-connector-cpp/ddl-with-mariadb-connector-cpp.md)
