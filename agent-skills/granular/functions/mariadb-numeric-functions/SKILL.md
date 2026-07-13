@@ -44,7 +44,7 @@ Auto-generated from the canonical `server/reference/sql-functions/numeric-functi
 
 <!-- BEGIN GENERATED -->
 <!-- Extracted from server/reference/sql-functions/numeric-functions -->
-<!-- 34 functions, 0 pages skipped on extraction failure -->
+<!-- 36 functions, 0 pages skipped on extraction failure -->
 
 ### ABS
 `ABS(X)`  
@@ -181,6 +181,14 @@ The function returns the `DOUBLE` data type for all signatures and input data ty
 ### TRUNCATE
 `TRUNCATE(X,D)`  
 Returns the number X, truncated to D decimal places.
+
+### XXH3
+`XXH3(expr)`  
+`XXH3` returns a fast, non-cryptographic xxHash of a text value as a 64-bit number (`BIGINT UNSIGNED`). *(since 13.1)*
+
+### XXH32
+`XXH32(expr)`  
+`XXH32` returns a fast, non-cryptographic xxHash of a text value as a 32-bit number (`INT UNSIGNED`). *(since 13.1)*
 <!-- END GENERATED -->
 
 ## See Also
