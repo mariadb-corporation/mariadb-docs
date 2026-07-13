@@ -103,11 +103,16 @@ with pool.acquire() as conn:
 # Connection automatically returned to pool
 ```
 
-**Example - URI Connection:**
+**Example - Connection Parameters:**
+
+The pool factories do not accept a connection URI string; pass connection settings as keyword arguments.
 
 ```python
 pool = mariadb.create_pool(
-    "mariadb://example_user:GHbe_Su3B8@localhost/test",
+    host="localhost",
+    user="example_user",
+    password="GHbe_Su3B8",
+    database="test",
     min_size=10,
     max_size=50
 )
@@ -164,7 +169,10 @@ async def lifespan(app: FastAPI):
     global pool
     # Startup: Create pool
     pool = await mariadb.create_async_pool(
-        "mariadb://user:password@localhost/mydb",
+        host="localhost",
+        user="user",
+        password="password",
+        database="mydb",
         min_size=10,
         max_size=50
     )

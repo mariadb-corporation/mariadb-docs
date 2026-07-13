@@ -40,7 +40,7 @@ async def main():
     conn = await mariadb.asyncConnect("mariadb://user:password@localhost/mydb")
     
     try:
-        cursor = await conn.cursor()
+        cursor = conn.cursor()
         try:
             # Execute query
             await cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
@@ -610,7 +610,7 @@ import mariadb
 
 async def main():
     conn = await mariadb.asyncConnect("mariadb://localhost/mydb")
-    cursor = await conn.cursor()
+    cursor = conn.cursor()
     await cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
     row = await cursor.fetchone()
     await cursor.close()

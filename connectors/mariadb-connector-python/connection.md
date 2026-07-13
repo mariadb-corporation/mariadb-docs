@@ -38,14 +38,14 @@ The `mariadb.connect()` function accepts the following parameters:
 ### Timeout Parameters
 
 - **`connect_timeout`** (`float`) - Timeout in seconds for establishing the initial connection to the server. Default: `10.0`
-- **`socket_timeout`** (`float`) - I/O timeout in seconds for socket operations (read and write). Primary timeout parameter for the pure-Python connector. Default: `30.0`
+- **`socket_timeout`** (`float`) - I/O timeout in seconds for socket operations (read and write). Primary timeout parameter for the pure-Python connector. Default: `None` (no timeout; blocking)
 - **`query_timeout`** (`int`) - Maximum query execution time in seconds (0 means no timeout). Default: `0`
 - **`read_timeout`** *(C extension only)* (`float`) - Read (receive) timeout in seconds, passed directly to `libmariadb`. On the pure-Python connector this value is accepted but mapped to `socket_timeout`. Default: same as `socket_timeout`
 - **`write_timeout`** *(C extension only)* (`float`) - Write (send) timeout in seconds, passed directly to `libmariadb`. On the pure-Python connector this value is accepted but mapped to `socket_timeout`. Default: same as `socket_timeout`
 
 ### SSL/TLS Parameters
 
-- **`ssl`**, **`use_ssl`** (`bool`) - Enable SSL/TLS encryption. Default: `False`
+- **`ssl`**, **`use_ssl`** (`bool`) - Enable SSL/TLS encryption. Default: `True` in version 2.0 (secure by default); `False` in the version 1.1 C extension
 - **`ssl_ca`** (`str`) - Path to Certificate Authority (CA) certificate file in PEM format. Default: `None`
 - **`ssl_cert`** (`str`) - Path to client certificate file in PEM format. Default: `None`
 - **`ssl_key`** (`str`) - Path to client private key file in PEM format. Default: `None`
@@ -53,7 +53,7 @@ The `mariadb.connect()` function accepts the following parameters:
 - **`ssl_cipher`** (`str`) - List of permitted cipher suites for SSL/TLS. Default: `None`
 - **`ssl_crl`** (`str`) - Path to certificate revocation list file. Default: `None`
 - **`ssl_crlpath`** (`str`) - Path to directory containing CRL files. Default: `None`
-- **`ssl_verify_cert`** (`bool`) - Enable server certificate verification. Default: `False`
+- **`ssl_verify_cert`** (`bool`) - Enable server certificate verification. Default: `True` in version 2.0; `False` in version 1.1
 - **`tls_version`** (`str`) - TLS version(s) to use (e.g., `'TLSv1.2'`, `'TLSv1.3'`, `'TLSv1.2,TLSv1.3'`). Automatically enables SSL. Default: `None`
 - **`tls_fp`** *(C extension only)* (`str`) - SHA-256 fingerprint of the expected server certificate, used for certificate pinning. Default: `None`
 - **`tls_fp_list`** *(C extension only)* (`str`) - Path to a file containing a list of accepted server certificate SHA-256 fingerprints. Default: `None`
@@ -81,14 +81,14 @@ For a description of configuration file handling and accepted settings, see the 
 
 - **`binary`** (`bool`) - Use binary protocol (prepared statements) by default. Default: `False`
 - **`max_allowed_packet`** (`int`) - Maximum packet size in bytes. Default: `16777216` (16MB)
-- **`cache_prep_stmts`** (`bool`) - Enable prepared statement caching. Default: `True`
+- **`cache_prep_stmts`** (`bool`) - Enable the shared prepared-statement cache. Default: `False`
 - **`prep_stmt_cache_size`** (`int`) - Maximum number of cached prepared statements. Default: `100`
 - **`pipeline`** (`bool`) - Enable pipelining for prepared statements. Default: `True`
 - **`client_flag`** (`int`) - Additional client capability flags. Default: `0`
 
-### Character Encoding Parameters
+### Character Encoding
 
-- **`character_encoding`**, **`charset`** (`str`) - Character set to use for the connection. Default: `'utf8mb4'`
+The connection character set is fixed at `utf8mb4` and is not configurable through a connection parameter.
 
 ### Result Format Parameters
 
@@ -937,12 +937,10 @@ Id of current connection
 
 #### Connection.database: Optional[str]
 
-(read-only)
+(read/write)
 
-Returns or sets the default database for the current connection.
-
-The default database can also be obtained or changed by database
-attribute.
+Returns or sets the default database for the current connection. Assigning to
+this attribute switches the default database (issuing a `USE` statement).
 
 *Since version 1.1.0.*
 

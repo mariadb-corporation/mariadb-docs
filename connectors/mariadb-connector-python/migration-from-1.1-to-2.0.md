@@ -91,7 +91,7 @@ conn = mariadb.connect(
 
 **Version 2.0:**
 ```python
-# reconnect and auto_reconnect parameters removed
+# reconnect parameter removed
 conn = mariadb.connect(
     host="localhost",
     user="root",
@@ -124,15 +124,19 @@ cursor = conn.cursor(buffered=False)
 
 **Migration**: Replace `cursor_type=CURSOR.READ_ONLY` with `buffered=False`.
 
-### 3. Renamed: prepared → binary
+> **Note**: `cursor_type` is removed only in the pure-Python implementation. The C extension still accepts it.
 
-**Version 1.1:**
+### 3. Deprecated: prepared (use binary)
+
+The `binary` cursor option already existed in version 1.1 alongside `prepared`. In version 2.0, `prepared` is deprecated in favor of `binary`; it still works but emits a `DeprecationWarning`.
+
+**Version 1.1 (either option):**
 ```python
-cursor = conn.cursor(prepared=True)
+cursor = conn.cursor(binary=True)
 cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
 ```
 
-**Version 2.0:**
+**Version 2.0 (use `binary`):**
 ```python
 cursor = conn.cursor(binary=True)
 cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
@@ -331,20 +335,15 @@ cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
 
 ### 4. Prepared Statement Caching
 
-**New in 2.0 - Automatic statement caching:**
+**New in 2.0 - Shared statement cache (opt-in):**
 
 ```python
-# Enabled by default
-conn = mariadb.connect("mariadb://localhost/mydb")
+# The shared prepared-statement cache is disabled by default; enable it explicitly
+conn = mariadb.connect("mariadb://localhost/mydb?cache_prep_stmts=true")
 
-# Configure cache size
+# Configure the cache size (applies when the cache is enabled)
 conn = mariadb.connect(
-    "mariadb://localhost/mydb?prep_stmt_cache_size=500"
-)
-
-# Disable caching (1.1-like behavior)
-conn = mariadb.connect(
-    "mariadb://localhost/mydb?cache_prep_stmts=false"
+    "mariadb://localhost/mydb?cache_prep_stmts=true&prep_stmt_cache_size=500"
 )
 ```
 
@@ -385,7 +384,7 @@ cursor = conn.cursor(buffered=False)
 ```python
 conn = mariadb.connect(
     host="localhost",
-    auto_reconnect=True
+    reconnect=True
 )
 ```
 
@@ -448,8 +447,8 @@ pool = await mariadb.create_async_pool(
 
 ### Python Version Support
 
-- **Version 1.1**: Python 3.7 - 3.11
-- **Version 2.0**: Python 3.8+ (check release notes for exact range)
+- **Version 1.1**: Python 3.8 and later
+- **Version 2.0**: Python 3.10 and later
 
 ### Server Compatibility
 

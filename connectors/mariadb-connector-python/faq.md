@@ -246,7 +246,7 @@ import mariadb
 
 async def main():
     conn = await mariadb.asyncConnect("mariadb://user:pass@host/db")
-    cursor = await conn.cursor()
+    cursor = conn.cursor()
     await cursor.execute("SELECT * FROM users WHERE id = ?", (1,))
     row = await cursor.fetchone()
     await cursor.close()
@@ -268,19 +268,19 @@ See [Async/Await Support](async-usage.md) for detailed documentation.
 
 ### What's the difference between prepared and binary?
 
-In version 1.1, the parameter was called `prepared`. In version 2.0, it's renamed to `binary` for clarity:
+Both `prepared` and `binary` already existed as separate cursor options in version 1.1. In version 2.0, `prepared` is deprecated in favor of `binary`; passing `prepared` still works but emits a `DeprecationWarning`:
 
-**Version 1.1:**
-```python
-cursor = conn.cursor(prepared=True)
-```
-
-**Version 2.0:**
+**Version 1.1 (either option):**
 ```python
 cursor = conn.cursor(binary=True)
 ```
 
-The functionality is the same - both use the MariaDB binary protocol (prepared statements).
+**Version 2.0 (use `binary`):**
+```python
+cursor = conn.cursor(binary=True)
+```
+
+Both use the MariaDB binary protocol (prepared statements).
 
 ### Should I use text or binary protocol?
 
@@ -307,7 +307,7 @@ MariaDB Connector/Python uses MariaDB Connector/C for client-server communicatio
 
 ### Q: How do I execute multiple statements with cursor.execute()?
 
-Since MariaDB Connector/Python uses binary protocol for client-server communication, this feature is not supported yet.
+Executing multiple statements in a single `cursor.execute()` call is not supported.
 
 ### Q: Does MariaDB Connector/Python work with Python 2.x?
 
@@ -316,10 +316,9 @@ with older Python 3.x versions, it doesn’t work with Python version 2.x.
 
 ### Q: How can I see a transformed statement? Is there a mogrify() method available?
 
-No, MariaDB Connector/Python uses binary protocol for client/server communication. Before a statement will be executed
-it will be parsed and parameter markers which are different than question marks will be replaced by question
-marks. Afterwards the statement will be sent together with data to the server. The transformed statement can
-be obtained by cursor.statement attribute.
+No, there is no `mogrify()` method. Before a statement is executed, parameter markers other than question
+marks are rewritten to question marks; the statement and its data are then sent separately to the server,
+so the parameter values are not substituted into the SQL string on the client side.
 
 Example:
 
