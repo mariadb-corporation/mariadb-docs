@@ -19,7 +19,7 @@ description: >-
 
 MariaDB Connector/Python 2.0 supports
 
-* Python versions from 3.8 to 3.12
+* Python 3.10 and later
 * MariaDB server versions from version 10.3 or MySQL server versions from version 5.7.
 * MariaDB client library (MariaDB Connector/C) from version 3.3.1 (optional - only required for C extension).
 
@@ -169,7 +169,7 @@ No compiler or system dependencies required.
 To build the C extension from source, you will need:
 
 - C compiler (gcc, clang, or MSVC)
-- Python development files (Usually installed with package **python3-dev**). Minimum supported version is Python 3.8.
+- Python development files (Usually installed with package **python3-dev**). Minimum supported version is Python 3.10 (version 1.1 requires Python 3.8).
 - MariaDB Connector/C libraries and header files (version 3.3.1 or later)
   - Either from MariaDB server package or from MariaDB Connector/C package
   - If your distribution doesn't provide a recent version, download from [MariaDB Connector Download page](https://mariadb.com/downloads/connectors/) or build from source

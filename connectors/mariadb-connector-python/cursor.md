@@ -23,7 +23,7 @@ Cursors are created using the `connection.cursor()` method and accept the follow
 
 - **`dictionary`** (`bool`) - Return rows as dictionaries instead of tuples. Allows accessing columns by name (e.g., `row['column_name']`). Default: `False`
 
-- **`native_object`** (`bool`) - Return native Python objects for certain database types. Default: `False`
+- **`native_object`** (`bool`) - Return native Python objects for certain database types. Default: `False`. *Available since version 2.0*; passing it to `cursor()` in version 1.1 raises a `TypeError`.
 
 ### Protocol Parameters
 
@@ -302,8 +302,9 @@ conn.close()
 
 #### Cursor.next() -> Optional[Any]
 
-Return the next row from the currently executed SQL statement
-using the same semantics as .fetchone().
+*Version 1.1 only.* Return the next row from the currently executed SQL
+statement using the same semantics as .fetchone(). In version 2.0 this method
+was removed; iterate the cursor directly instead (`for row in cursor:`).
 
 #### Cursor.nextset() -> Optional[bool]
 
@@ -367,7 +368,7 @@ conn.close()
 
 Controls whether result sets are buffered in memory or streamed from the server.
 
-**Buffered (True):**
+**Buffered (True, default):**
 - All result rows are immediately fetched and stored in client memory
 - The entire result set is transferred at once
 - Connection is freed immediately after execute()
@@ -375,7 +376,7 @@ Controls whether result sets are buffered in memory or streamed from the server.
 - Higher memory usage for large result sets
 - Better for small to medium result sets
 
-**Unbuffered (False, default in 2.0):**
+**Unbuffered (False):**
 - Results are streamed row-by-row from the server
 - Only the current row is kept in memory
 - Connection remains blocked until all rows are fetched
@@ -601,9 +602,9 @@ Each dictionary key contains a list of values, one for each column in the result
 - **table** - Table alias name, or original table name if no alias
 - **org_table** - Original table name
 - **type** - Column type (values from `mariadb.constants.FIELD_TYPE`)
-- **charset** - Character set (e.g., 'utf8mb4' or 'binary')
+- **charset** - Numeric character set (collation) ID of the column
 - **length** - Maximum length of the column
-- **max_length** - Maximum length of data in the result set
+- **max_length** - Maximum length of the column (in version 2.0 this mirrors **length**)
 - **decimals** - Number of decimals for numeric types
 - **flags** - Field flags (values from `mariadb.constants.FIELD_FLAG`)
 - **ext_type_or_format** - Extended data type (values from `mariadb.constants.EXT_FIELD_TYPE`)
@@ -659,9 +660,9 @@ if metadata:
 #   Original table: users
 #   Schema: mydb
 #   Type: 3
-#   Charset: binary
+#   Charset: 63
 #   Length: 11
-#   Max length: 1
+#   Max length: 11
 #   Decimals: 0
 #   Flags: 16899
 
@@ -837,19 +838,19 @@ Returns the number of rows that the last `execute*()` method produced (for DQL s
 - **0** - Statement executed but no rows were affected/returned
 
 **Important Notes:**
-- For **unbuffered cursors** (default in 2.0), the exact row count is only available **after all rows have been fetched**
+- For **unbuffered cursors**, the exact row count is only available **after all rows have been fetched**
 - For **buffered cursors**, the row count is immediately available after `execute()`
 - For **INSERT/UPDATE/DELETE**, the row count is always immediately available
 
 **Examples:**
 
-**Unbuffered Cursor (Default):**
+**Unbuffered Cursor:**
 
 ```python
 import mariadb
 
 conn = mariadb.connect("mariadb://user:password@localhost/mydb")
-cursor = conn.cursor(buffered=False)  # Default
+cursor = conn.cursor(buffered=False)  # Stream rows from the server
 
 # Execute SELECT
 cursor.execute("SELECT * FROM users")
@@ -972,7 +973,8 @@ conn.close()
 
 (read-only)
 
-Returns the last SQL statement that was executed by the cursor.
+*Version 1.1 only.* Returns the last SQL statement that was executed by the
+cursor. This attribute is not available in version 2.0.
 
 **Example:**
 

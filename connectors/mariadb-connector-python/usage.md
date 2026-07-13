@@ -116,8 +116,9 @@ As shown in previous example, passing parameters to SQL statements happens by us
 MariaDB Connector/Python uses a question mark as a placeholder, for compatibility reason also %s placeholders are supported.
 Passing parameters is supported in methods `execute()` and `executemany()` of the cursor class.
 
-*Since version 2.0:* By default, the text protocol is used for parameter binding. For binary protocol (prepared statements),
-set `binary=True` at connection or cursor level. Parameter escaping is handled automatically by the connector.
+By default, the text protocol is used for parameter binding. For binary protocol (prepared statements),
+set `binary=True` at the cursor level; *since version 2.0* `binary=True` can also be set at the connection
+level (in `connect()` or via a URI). Parameter escaping is handled automatically by the connector.
 
 ```python
 import mariadb

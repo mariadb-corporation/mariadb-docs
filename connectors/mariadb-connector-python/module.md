@@ -19,15 +19,15 @@ MySQL databases, using an API which is compliant with the Python DB API 2.0
 
 ### Connection
 
-### connect(dsn=None, connectionclass=mariadb.connections.Connection, \*\*kwargs)
+### connect(\*args, connectionclass=None, \*\*kwargs)
 
 Creates a MariaDB Connection object.
 
-By default, the standard connectionclass mariadb.connections.Connection
-will be created.
+The first positional argument, when given, is a connection URI string (see
+*Since version 2.0* below). By default, the standard Connection class is used.
 
-Parameter connectionclass specifies a subclass of
-mariadb.Connection object. If not specified, default will be used.
+Parameter connectionclass specifies a subclass of the standard Connection
+class. If not specified, the default is used.
 This optional parameter was added in version 1.1.0.
 
 *Since version 2.0:* Connection can be established using a URI string or keyword arguments. Keyword arguments override URI values when both are provided.
@@ -62,13 +62,11 @@ Connection parameters can also be provided as keyword arguments. The most common
 
 For the full list of accepted parameters — including SSL/TLS options, timeouts, prepared-statement caching, configuration file loading, the result format options (`dictionary`, `named_tuple`, `native_object`), and the parameters that only apply to the C extension — see [The connection class](connection.md).
 
-#### Removed Parameters in Version 2.0
+#### Changed Parameters in Version 2.0
 
-The following parameters have been removed:
-
-- **`reconnect`** / **`auto_reconnect`** - Automatic reconnection is no longer supported. Use connection pools or call `conn.reconnect()` manually.
-- **`cursor_type`** - Replaced by `buffered=False` parameter in cursor creation.
-- **`prepared`** - Replaced by `binary=True` parameter.
+- **`reconnect`** (connection parameter) - Removed. Automatic reconnection is no longer supported; use connection pools or call `conn.reconnect()` manually.
+- **`cursor_type`** (cursor option) - Removed in the pure-Python implementation; use `buffered=False` instead. The C extension still accepts it.
+- **`prepared`** (cursor option) - Deprecated in favor of `binary=True`. It still works but emits a `DeprecationWarning`.
 
 For migration guidance, see the [Migration Guide](migration-from-1.1-to-2.0.md).
 
@@ -99,11 +97,13 @@ utf8mb4
 
 ### Async Connection
 
-### asyncConnect(dsn=None, \*\*kwargs)
+### asyncConnect(\*args, connectionclass=None, \*\*kwargs)
 
 *Since version 2.0*
 
 Creates an asynchronous MariaDB Connection object for use with async/await.
+As with `connect()`, the first positional argument, when given, is a
+connection URI string.
 
 **Usage:**
 
@@ -170,7 +170,7 @@ with pool.acquire() as conn:
 
 Keyword Arguments:
 
-- **\`min_size\`** (`int`) - Minimum number of connections in pool. Default: 5
+- **\`min_size\`** (`int`) - Minimum number of connections in pool. Default: same as `max_size`
 - **\`max_size\`** (`int`) - Maximum number of connections in pool. Default: 10
 - **\`ping_threshold\`** (`float`) - Ping connections idle for more than this many seconds. Default: 0.25
 - **\*\*kwargs** - Connection arguments as described in mariadb.connect() method
@@ -260,8 +260,10 @@ String constant stating the supported DB API level. The value for mariadb is
 
 ### threadsafety
 
-Integer constant stating the level of thread safety. For mariadb the value is 1,
-which means threads can share the module but not the connection.
+Integer constant stating the level of thread safety. In version 2.0 the value
+is `3`, meaning threads may share the module, connections, and cursors. In
+version 1.1 the value is `1`, meaning threads may share the module but not
+connections.
 
 ### paramstyle
 
@@ -277,15 +279,20 @@ String constant stating the version of the used MariaDB Connector/C library.
 
 *Since version 1.1.0*
 
-Returns the version of MariaDB Connector/C library in use as an integer.
-The number has the following format:
-MAJOR_VERSION \* 10000 + MINOR_VERSION \* 1000 + PATCH_VERSION
+Returns a version as an integer. In version 2.0 this is the version of MariaDB
+Connector/Python itself, in the format:
+MAJOR_VERSION \* 10000 + MINOR_VERSION \* 100 + PATCH_VERSION.
+In version 1.1 it is the version of the MariaDB Connector/C library in use, in
+the format:
+MAJOR_VERSION \* 10000 + MINOR_VERSION \* 1000 + PATCH_VERSION.
 
 ### client_version_info
 
 *Since version 1.1.0*
-Returns the version of MariaDB Connector/C library as a tuple in the
-following format:
+Returns a version as a tuple. In version 2.0 this is the version of MariaDB
+Connector/Python itself and may include a release-stage suffix
+(for example `(2, 0, 0, 'rc2')`). In version 1.1 it is the version of the
+MariaDB Connector/C library, in the format:
 (MAJOR_VERSION, MINOR_VERSION, PATCH_VERSION)
 
 ## Exceptions

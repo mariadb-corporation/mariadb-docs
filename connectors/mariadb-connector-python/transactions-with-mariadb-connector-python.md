@@ -161,7 +161,7 @@ async def async_transaction_example():
     )
     
     try:
-        cursor = await conn.cursor()
+        cursor = conn.cursor()
         
         # Start transaction (autocommit is False by default)
         await cursor.execute(

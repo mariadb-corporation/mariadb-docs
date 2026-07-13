@@ -419,8 +419,6 @@ Extended field types provide additional type information beyond standard SQL typ
 
 Extended field types are defined in module *mariadb.constants.EXT_FIELD_TYPE*
 
-*Since version 2.0*
-
 #### EXT_FIELD_TYPE.NONE
 
 No extended type information (value: 0)
