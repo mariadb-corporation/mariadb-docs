@@ -135,6 +135,10 @@ Other mirrors (list not necessarily complete) are listed below and can be select
 
 - CICKU (Global - CloudFlare)
 
+### Algeria
+
+- Hostarts (Algiers)
+
 ### Australia
 
 - AARNet (Brisbane)
