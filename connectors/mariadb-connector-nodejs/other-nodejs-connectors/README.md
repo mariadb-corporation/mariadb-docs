@@ -25,3 +25,14 @@ layout:
 
 # Other Node.js Connectors
 
+{% columns %}
+{% column %}
+{% content-ref url="javascript-mariasql-for-nodejs.md" %}
+[javascript-mariasql-for-nodejs.md](javascript-mariasql-for-nodejs.md)
+{% endcontent-ref %}
+{% endcolumn %}
+
+{% column %}
+`mariasql` is a Node.js binding to MariaDB's non-blocking client library, providing higher benchmark performance than standard `libmysqlclient` bindings for MariaDB and MySQL connections.
+{% endcolumn %}
+{% endcolumns %}
